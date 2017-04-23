@@ -69,12 +69,12 @@ class Calendar extends Component {
               <Image source={require('../../../images/NewsIcons/1.jpg')} style={styles.newsImage} />
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                                    Flat App is focussed on a minimal use of simple elements.
+                                    Tuesday Training for Under 12 Soccer
                                 </Text>
                 <Grid style={{ marginTop: 25 }}>
                   <Col>
                     <TouchableOpacity>
-                      <Text style={styles.newsLink}>CDC</Text>
+                      <Text style={styles.newsLink}>Sport</Text>
                     </TouchableOpacity>
                   </Col>
                   <Col>
@@ -169,7 +169,7 @@ class Calendar extends Component {
               <Image source={require('../../../images/NewsIcons/12.jpg')} style={styles.newsImage} />
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                                    Theme your app with one single file.
+                                    Thursday Art Class
                                 </Text>
                 <Grid style={{ marginTop: 25 }}>
                   <Col>

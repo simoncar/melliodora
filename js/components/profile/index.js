@@ -167,7 +167,7 @@ class Profile extends Component {
               <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.home()}>
                 <Image source={require('../../../images/NewsIcons/12.jpg')} style={styles.newsImage} />
                 <View style={styles.newsContent}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>Theme your app with one single file.</Text>
+                  <Text numberOfLines={2} style={styles.newsHeader}>Wednesday School Band Practice.</Text>
                   <Grid style={{ marginTop: 25 }}>
                     <Col>
                       <TouchableOpacity>

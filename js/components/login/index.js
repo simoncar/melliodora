@@ -44,7 +44,7 @@ class Login extends Component {
               <Item rounded style={styles.inputGrp}>
                 <Icon name="person" />
                 <Input
-                  placeholder="Username"
+                  placeholder="MyS Email"
                   onChangeText={username => this.setState({ username })}
                   placeholderTextColor="#FFF"
                   style={styles.input}

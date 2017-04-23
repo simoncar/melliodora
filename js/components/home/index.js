@@ -62,22 +62,22 @@ class Home extends Component {
                 />}
               >
                 <TouchableOpacity activeOpacity={1} onPress={() => Actions.story()} style={styles.slide}>
-                  <Image style={styles.newsPoster} source={require('../../../images/NewsIcons/1.jpg')} >
+                  <Image style={styles.newsPoster} source={require('../../../images/NewsIcons/Stamford Title pic.png')} >
                     <View style={styles.swiperTextContent} >
                       <Text numberOfLines={2} style={styles.newsPosterHeader}>
-                          Flat App is a style of interface design emphasizing minimal use of stylistic elements.
+                          Stamford Calendar of Upcoming Events
                         </Text>
                       <Grid style={styles.swiperContentBox}>
                         <Col style={{ flexDirection: 'row' }}>
                           <TouchableOpacity>
-                            <Text style={styles.newsPosterLink}>SPACE.com</Text>
+                            <Text style={styles.newsPosterLink}>A</Text>
                           </TouchableOpacity>
                           <Icon name="ios-time-outline" style={styles.headertimeIcon} />
-                          <Text style={styles.newsPosterLink}>20m ago</Text>
+                          <Text style={styles.newsPosterLink}>B</Text>
                         </Col>
                         <Col>
                           <TouchableOpacity style={styles.newsPosterTypeView}>
-                            <Text style={styles.newsPosterTypeText}>SCIENCE</Text>
+                            <Text style={styles.newsPosterTypeText}>C</Text>
                           </TouchableOpacity>
                         </Col>
                       </Grid>
@@ -140,19 +140,19 @@ class Home extends Component {
             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                      Flat App is focused on a minimal use of simple elements, typography and flat colors.
+                      U12 Rugby Game
                   </Text>
                 <Grid style={styles.swiperContentBox}>
                   <Col style={{ flexDirection: 'row' }}>
                     <TouchableOpacity>
-                      <Text style={styles.newsLink}>CDC</Text>
+                      <Text style={styles.newsLink}>April 28, 2017</Text>
                     </TouchableOpacity>
                     <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>1h ago</Text>
+                    <Text style={styles.newsLink}>5:30 pm</Text>
                   </Col>
                   <Col>
                     <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}>ENVIRONMENT</Text>
+                      <Text style={styles.newsTypeText}>Stamford Field</Text>
                     </TouchableOpacity>
                   </Col>
                 </Grid>
@@ -162,19 +162,19 @@ class Home extends Component {
             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                      Highly customizable widgets are part of our never ending mission.
+                      Charlie and the Chocolate Factory
                   </Text>
                 <Grid style={styles.swiperContentBox}>
                   <Col style={{ flexDirection: 'row' }}>
                     <TouchableOpacity>
-                      <Text style={styles.newsLink}>SPACE.com</Text>
+                      <Text style={styles.newsLink}>May 5, 2017</Text>
                     </TouchableOpacity>
                     <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>5h ago</Text>
+                    <Text style={styles.newsLink}>7:00 pm</Text>
                   </Col>
                   <Col>
                     <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}>SCIENCE</Text>
+                      <Text style={styles.newsTypeText}>Reagan Theater</Text>
                     </TouchableOpacity>
                   </Col>
                 </Grid>
@@ -184,19 +184,19 @@ class Home extends Component {
             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                      Ready to use components built using NativeBase.
+                      Senior Graduation
                   </Text>
                 <Grid style={styles.swiperContentBox}>
                   <Col style={{ flexDirection: 'row' }}>
                     <TouchableOpacity>
-                      <Text style={styles.newsLink}>SKY.com</Text>
+                      <Text style={styles.newsLink}>June 3, 2017</Text>
                     </TouchableOpacity>
                     <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>2days ago</Text>
+                    <Text style={styles.newsLink}>7:00 pm</Text>
                   </Col>
                   <Col>
                     <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}>WORLD</Text>
+                      <Text style={styles.newsTypeText}>Reagan Theater</Text>
                     </TouchableOpacity>
                   </Col>
                 </Grid>
@@ -206,19 +206,19 @@ class Home extends Component {
             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                      Theme your app with one single file.
+                      Friday Drama Class
                   </Text>
                 <Grid style={styles.swiperContentBox}>
                   <Col style={{ flexDirection: 'row' }}>
                     <TouchableOpacity>
-                      <Text style={styles.newsLink}>ESPN</Text>
+                      <Text style={styles.newsLink}>May 5, 2017</Text>
                     </TouchableOpacity>
                     <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>12days ago</Text>
+                    <Text style={styles.newsLink}>Fri 18 July</Text>
                   </Col>
                   <Col>
                     <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}>SPORTS</Text>
+                      <Text style={styles.newsTypeText}>Drama</Text>
                     </TouchableOpacity>
                   </Col>
                 </Grid>
@@ -229,19 +229,19 @@ class Home extends Component {
             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                      It is easier with Flat App design to quickly convey information while still looking visually appealing and approachable.
+                      8th Grade Graduation
                   </Text>
                 <Grid style={styles.swiperContentBox}>
                   <Col style={{ flexDirection: 'row' }}>
                     <TouchableOpacity>
-                      <Text style={styles.newsLink}>ART.com</Text>
+                      <Text style={styles.newsLink}>June 14, 2017</Text>
                     </TouchableOpacity>
                     <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>23days ago</Text>
+                    <Text style={styles.newsLink}>10:00 am</Text>
                   </Col>
                   <Col>
                     <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}>ART</Text>
+                      <Text style={styles.newsTypeText}>Stamford Gym</Text>
                     </TouchableOpacity>
                   </Col>
                 </Grid>
@@ -251,19 +251,19 @@ class Home extends Component {
             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                      NativeBase builds a layer on top of React Native that provides, basic set of components for mobile application development.
+                      Senior Field Studies Trip - Nepal
                   </Text>
                 <Grid style={styles.swiperContentBox}>
                   <Col style={{ flexDirection: 'row' }}>
                     <TouchableOpacity>
-                      <Text style={styles.newsLink}>Money.com</Text>
+                      <Text style={styles.newsLink}>May 20, 2017</Text>
                     </TouchableOpacity>
                     <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>2months ago</Text>
+                    <Text style={styles.newsLink}>6:00 am</Text>
                   </Col>
                   <Col>
                     <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}>FINANCE</Text>
+                      <Text style={styles.newsTypeText}>Changi Airport</Text>
                     </TouchableOpacity>
                   </Col>
                 </Grid>
