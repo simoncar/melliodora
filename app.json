@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "sdkVersion": "15.0.0",
+    "icon": "./images/icon.png",
+     "slug": "strapflatapp",
+    "loading": {
+      "hideExponentText": true,
+      "icon": "./images/loading.png",
+      "backgroundImage": "./images/launchImages/splashscreen.png"
+    },
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "packagerOpts": {
+      "assetExts": [
+        "ttf"
+      ]
+    },
+   "ios": {
+    "bundleIdentifier": "io.market.nativebase.geekyants.flatappui",
+  },
+  "android": {
+     "package": "io.market.nativebase.geekyants.flatappui",
+   },
+   "androidStatusBarColor": "#01cca1",
+     "androidStatusBar": {
+     "barStyle": "dark-content",
+     "backgroundColor": "#01cca1",
+    },
+  }
+}
