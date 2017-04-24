@@ -44,7 +44,7 @@ class Login extends Component {
               <Item rounded style={styles.inputGrp}>
                 <Icon name="person" />
                 <Input
-                  placeholder="MyS Email"
+                  placeholder="MyStamford Login or Guest"
                   onChangeText={username => this.setState({ username })}
                   placeholderTextColor="#FFF"
                   style={styles.input}
@@ -54,7 +54,7 @@ class Login extends Component {
               <Item rounded style={styles.inputGrp}>
                 <Icon name="unlock" />
                 <Input
-                  placeholder="Password"
+                  placeholder="My Stamford Password or Guest"
                   secureTextEntry
                   placeholderTextColor="#FFF"
                   onChangeText={password => this.setState({ password })}
@@ -74,7 +74,7 @@ class Login extends Component {
                 <Left>
                   <Button transparent style={{ alignSelf: 'flex-start' }} onPress={() => Actions.signUp()}>
                     <Text style={styles.helpBtns}>
-                          Create Account
+                          
                       </Text>
                   </Button>
                 </Left>
