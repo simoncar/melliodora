@@ -27,11 +27,11 @@ class SideBar extends Component {
           <Content style={styles.drawerContent}>
             <ListItem button onPress={() => { Actions.home(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-grid-outline" />
-              <Text style={styles.linkText} >NEWS</Text>
+              <Text style={styles.linkText} >EVENTS</Text>
             </ListItem>
             <ListItem button onPress={() => { Actions.channels(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-keypad-outline" />
-              <Text style={styles.linkText}>CHANNELS</Text>
+              <Text style={styles.linkText}>MARKETING</Text>
             </ListItem>
             <ListItem button onPress={() => { Actions.overview(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-stats" />
@@ -59,7 +59,7 @@ class SideBar extends Component {
             </ListItem>
             <ListItem button onPress={() => { Actions.feedback(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-paper-outline" />
-              <Text style={styles.linkText}>FEEDBACK</Text>
+              <Text style={styles.linkText}>MARKETING INQUIRY</Text>
             </ListItem>
 
             <View style={styles.logoutContainer}>

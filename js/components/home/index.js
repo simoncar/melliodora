@@ -214,7 +214,7 @@ class Home extends Component {
                       <Text style={styles.newsLink}>May 5, 2017</Text>
                     </TouchableOpacity>
                     <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>Fri 18 July</Text>
+                    <Text style={styles.newsLink}>3:45</Text>
                   </Col>
                   <Col>
                     <TouchableOpacity style={styles.newsTypeView}>
