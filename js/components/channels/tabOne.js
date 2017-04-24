@@ -29,14 +29,14 @@ class TabOne extends Component {
                 <Col>
                   <TouchableOpacity onPress={() => Actions.channel()}>
                     <Image source={require('../../../images/NewsIcons/9.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>FASHION</Text>
+                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>VISIT CAMPUS</Text>
                     </Image>
                   </TouchableOpacity>
                 </Col>
                 <Col>
                   <TouchableOpacity onPress={() => Actions.channel()}>
                     <Image source={require('../../../images/NewsIcons/2.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>SCIENCE</Text>
+                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>APPLICATION PROCESS</Text>
                     </Image>
                   </TouchableOpacity>
                 </Col>
@@ -45,14 +45,14 @@ class TabOne extends Component {
                 <Col>
                   <TouchableOpacity onPress={() => Actions.channel()}>
                     <Image source={require('../../../images/NewsIcons/8.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>AUTO</Text>
+                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>FEES</Text>
                     </Image>
                   </TouchableOpacity>
                 </Col>
                 <Col>
                   <TouchableOpacity onPress={() => Actions.channel()}>
                     <Image source={require('../../../images/NewsIcons/7.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>TECHNOLOGY</Text>
+                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>GRADE LISTINGS</Text>
                     </Image>
                   </TouchableOpacity>
                 </Col>
@@ -61,14 +61,14 @@ class TabOne extends Component {
                 <Col>
                   <TouchableOpacity onPress={() => Actions.channel()}>
                     <Image source={require('../../../images/NewsIcons/6.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>FINANCES</Text>
+                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>ADMISSIONS INQUIRY</Text>
                     </Image>
                   </TouchableOpacity>
                 </Col>
                 <Col>
                   <TouchableOpacity onPress={() => Actions.channel()}>
                     <Image source={require('../../../images/NewsIcons/1.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>ENVIRONMENT</Text>
+                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>FAQ</Text>
                     </Image>
                   </TouchableOpacity>
                 </Col>
@@ -77,14 +77,14 @@ class TabOne extends Component {
                 <Col>
                   <TouchableOpacity onPress={() => Actions.channel()}>
                     <Image source={require('../../../images/NewsIcons/11.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>SPORTS</Text>
+                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>APPLY ONLINE</Text>
                     </Image>
                   </TouchableOpacity>
                 </Col>
                 <Col>
                   <TouchableOpacity onPress={() => Actions.channel()}>
                     <Image source={require('../../../images/NewsIcons/12.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>ART</Text>
+                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>UNIFORMS</Text>
                     </Image>
                   </TouchableOpacity>
                 </Col>
@@ -93,14 +93,14 @@ class TabOne extends Component {
                 <Col>
                   <TouchableOpacity onPress={() => Actions.channel()}>
                     <Image source={require('../../../images/NewsIcons/10.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>ANIMATION</Text>
+                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>BUS TRANSPORTATION</Text>
                     </Image>
                   </TouchableOpacity>
                 </Col>
                 <Col>
                   <TouchableOpacity onPress={() => Actions.channel()}>
                     <Image source={require('../../../images/NewsIcons/13.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>EDUCATION</Text>
+                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>EXTRA</Text>
                     </Image>
                   </TouchableOpacity>
                 </Col>
