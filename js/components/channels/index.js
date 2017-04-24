@@ -13,6 +13,7 @@ import styles from './styles';
 import TabOne from './tabOne';
 import TabTwo from './tabTwo';
 import TabThree from './tabThree';
+import TabFour from './tabFour';
 
 import CustomTabBar from './CustomTabBar';
 
@@ -48,9 +49,10 @@ class Channels extends Component {
         <View style={styles.bgHead}>
 
           <ScrollableTabView renderTabBar={() => <CustomTabBar someProp={'here'} />}>
-            <TabOne tabLabel="Following" />
-            <TabTwo tabLabel="Popular" />
-            <TabThree tabLabel="Explore" />
+            <TabOne tabLabel="ADMISSIONS" />
+            <TabTwo tabLabel="CURRICULUM" />
+            <TabThree tabLabel="SCHOOL LIFE" />
+            <TabFour tabLabel="CONTACT US" />
           </ScrollableTabView>
         </View>
       </Container>
