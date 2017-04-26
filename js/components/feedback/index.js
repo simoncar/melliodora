@@ -40,7 +40,7 @@ class Feedback extends Component {
   render() {
     return (
       <Container contentOffset={this.state.offset} scrollEnabled={false} >
-        <Image source={require('../../../images/BG-signUp.png')} style={styles.container} >
+        <Image source={require('../../../images/BG.png')} style={styles.container} >
           <Header>
             <Left>
               <Button transparent onPress={this.props.openDrawer} >
@@ -78,13 +78,13 @@ class Feedback extends Component {
               </Grid>
             </View>
             <View style={styles.feedbackHeaderContainer}>
-              <Text style={styles.feedbackHeader}>SEND FEEDBACK</Text>
-              <Text note style={styles.feedbackHead}>Your feedback is very important to us.</Text>
+              <Text style={styles.feedbackHeader}>ADMISSION INQUIRY</Text>
+              <Text note style={styles.feedbackHead}>We will respond quickly to answer your questions.</Text>
             </View>
             <View style={styles.feedbackContainer}>
               <Item rounded style={styles.inputGrp}>
                 <Icon name="ios-person-outline" />
-                <Input placeholder="Username" placeholderTextColor="rgba(255,255,255,0.5)" style={styles.input} />
+                <Input placeholder="Name" placeholderTextColor="rgba(255,255,255,0.5)" style={styles.input} />
               </Item>
               <Item rounded style={styles.inputGrp}>
                 <Icon name="ios-mail-outline" />
