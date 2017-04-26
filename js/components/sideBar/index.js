@@ -43,7 +43,7 @@ class SideBar extends Component {
             </ListItem>
             <ListItem button onPress={() => { Actions.settings(); this.props.closeDrawer(); }} iconLeft style={styles.links}>
               <Icon name="ios-settings-outline" />
-              <Text style={styles.linkText}>SETTINGS</Text>
+              <Text style={styles.linkText}>EVENT SELECTION</Text>
             </ListItem>
             <ListItem button onPress={() => { Actions.feedback(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-paper-outline" />
