@@ -72,7 +72,7 @@ class Settings extends Component {
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.bg}>
-            <Text style={styles.signupHeader}>SETTINGS</Text>
+            <Text style={styles.signupHeader}>EVENT SELECTION</Text>
             <View style={{ marginTop: 20 }}>
               <Grid>
                 <Col>
@@ -108,11 +108,11 @@ class Settings extends Component {
             </View>
           </View>
           <View style={styles.notificationSwitchContainer}>
-            <Text style={styles.notificationHeader}>EMAIL NOTIFICATIONS</Text>
+            <Text style={styles.notificationHeader}>EVENTS I WANT TO FOLLOW</Text>
             <View>
               <Grid style={{ marginBottom: 10 }}>
                 <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>Monday</Text>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>LOWER ELEMENTARY</Text>
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
@@ -127,7 +127,7 @@ class Settings extends Component {
               </Grid>
               <Grid style={{ marginBottom: 10 }}>
                 <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>Tuesday</Text>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>UPPER ELEMENTARY</Text>
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
@@ -142,7 +142,7 @@ class Settings extends Component {
               </Grid>
               <Grid style={{ marginBottom: 10 }}>
                 <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>Wednesday</Text>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>MIDDLE SCHOOL</Text>
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
@@ -157,7 +157,7 @@ class Settings extends Component {
               </Grid>
               <Grid style={{ marginBottom: 10 }}>
                 <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>Thursday</Text>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>HIGH SCHOOL</Text>
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
@@ -172,7 +172,7 @@ class Settings extends Component {
               </Grid>
               <Grid style={{ marginBottom: 10 }}>
                 <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>Friday</Text>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>DRAMA</Text>
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
@@ -187,7 +187,7 @@ class Settings extends Component {
               </Grid>
               <Grid style={{ marginBottom: 10 }}>
                 <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>Saturday</Text>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>SWIMMING</Text>
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
@@ -202,7 +202,7 @@ class Settings extends Component {
               </Grid>
               <Grid style={{ marginBottom: 10 }}>
                 <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>Sunday</Text>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>MUSIC</Text>
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
