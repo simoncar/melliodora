@@ -31,7 +31,7 @@ class SideBar extends Component {
             </ListItem>
             <ListItem button onPress={() => { Actions.channels(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-keypad-outline" />
-              <Text style={styles.linkText}>MARKETING</Text>
+              <Text style={styles.linkText}>STAMFORD LIFE</Text>
             </ListItem>
             <ListItem button onPress={() => { Actions.calendar(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-calendar-outline" />
@@ -47,7 +47,7 @@ class SideBar extends Component {
             </ListItem>
             <ListItem button onPress={() => { Actions.feedback(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-paper-outline" />
-              <Text style={styles.linkText}>MARKETING INQUIRY</Text>
+              <Text style={styles.linkText}>ADMISSION INQUIRY</Text>
             </ListItem>
 
             <View style={styles.logoutContainer}>
