@@ -33,21 +33,9 @@ class SideBar extends Component {
               <Icon name="ios-keypad-outline" />
               <Text style={styles.linkText}>MARKETING</Text>
             </ListItem>
-            <ListItem button onPress={() => { Actions.overview(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-stats" />
-              <Text style={styles.linkText}> OVERVIEW</Text>
-            </ListItem>
             <ListItem button onPress={() => { Actions.calendar(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-calendar-outline" />
               <Text style={styles.linkText}>CALENDAR</Text>
-            </ListItem>
-            <ListItem button onPress={() => { Actions.timeline(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-timer-outline" />
-              <Text style={styles.linkText}>TIMELINE</Text>
-            </ListItem>
-            <ListItem button onPress={() => { Actions.profile(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-person-outline" />
-              <Text style={styles.linkText}> PROFILE</Text>
             </ListItem>
             <ListItem button onPress={() => { Actions.widgets(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-grid" />
@@ -68,7 +56,7 @@ class SideBar extends Component {
                   <Col>
                     <TouchableOpacity onPress={() => { Actions.login({ type: ActionConst.RESET  }); this.props.closeDrawer(); }} style={{ alignSelf: 'flex-start' }}>
                       <Text style={{ fontWeight: 'bold', color: '#fff' }}>LOG OUT</Text>
-                      <Text note style={{ color: '#fff' }} >Kumar Sanket</Text>
+                      <Text note style={{ color: '#fff' }} >Matt Crosby</Text>
                     </TouchableOpacity>
                   </Col>
                   <Col>
