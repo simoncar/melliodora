@@ -35,7 +35,7 @@ class Home extends Component {
             </Button>
           </Left>
           <Body>
-            <Image source={headerLogo} style={styles.imageHeader} />
+          <Image source={headerLogo} style={styles.imageHeader} />
           </Body>
           <Right>
             <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
@@ -48,7 +48,7 @@ class Home extends Component {
           <View>
             <View>
               <Swiper
-                height={330}
+                height={50}
                 width={deviceWidth + 3}
                 loop
                 dot={<View style={styles.swiperDot} />}
@@ -60,9 +60,7 @@ class Home extends Component {
                 <TouchableOpacity activeOpacity={1} onPress={() => Actions.story()} style={styles.slide}>
                   <Image style={styles.newsPoster} source={require('../../../images/NewsIcons/Stamford Title pic.png')} >
                     <View style={styles.swiperTextContent} >
-                      <Text numberOfLines={2} style={styles.newsPosterHeader}>
-                          Stamford Calendar of Upcoming Events
-                        </Text>
+                      
                       <Grid style={styles.swiperContentBox}>
                         <Col style={{ flexDirection: 'row' }}>
                           <TouchableOpacity>
