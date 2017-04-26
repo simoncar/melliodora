@@ -37,6 +37,11 @@ class Home extends Component {
           <Body>
             <Image source={headerLogo} style={styles.imageHeader} />
           </Body>
+          <Right>
+            <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
+              <Icon active name="power" />
+            </Button>
+          </Right>
         </Header>
 
         <Content showsVerticalScrollIndicator={false}>
