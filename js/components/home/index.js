@@ -30,22 +30,13 @@ class Home extends Component {
       <Container style={{ backgroundColor: '#fff' }}>
         <Header>
           <Left>
-            <Button
-              transparent
-              style={styles.btnHeader}
-              onPress={() => Actions.login({ type: ActionConst.RESET  })}
-            >
-              <Icon active name="power" />
+            <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
+              <Icon active name="menu" />
             </Button>
           </Left>
           <Body>
             <Image source={headerLogo} style={styles.imageHeader} />
           </Body>
-          <Right>
-            <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
-              <Icon active name="menu" />
-            </Button>
-          </Right>
         </Header>
 
         <Content showsVerticalScrollIndicator={false}>
