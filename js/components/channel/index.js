@@ -27,19 +27,19 @@ class Channel extends Component {
       <Container>
         <Image source={require('../../../images/glow2.png')} style={styles.container} >
           <Header>
-            <Left>
+          <Left>
+            <Button transparent onPress={this.props.openDrawer} >
+              <Icon active name="menu" />
+            </Button>
+          </Left>
+            <Right>
               <Button transparent onPress={() => Actions.pop()}>
                 <Icon active name="arrow-back" />
               </Button>
-            </Left>
+            </Right>
             <Body>
               <Image source={headerLogo} style={styles.imageHeader} />
             </Body>
-            <Right>
-              <Button transparent onPress={this.props.openDrawer} >
-                <Icon active name="menu" />
-              </Button>
-            </Right>
           </Header>
 
           <Content showsVerticalScrollIndicator={false}>

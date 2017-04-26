@@ -61,11 +61,8 @@ class Settings extends Component {
             <Image source={require('../../../images/Header-Logo.png')} style={styles.imageHeader} />
           </Body>
           <Right>
-            <Button
-              transparent
-              onPress={() => Actions.login({ type: ActionConst.RESET  })}
-            >
-              <Icon active name="power" />
+            <Button transparent style={styles.btnHeader} onPress={() => Actions.popTo('home')}>
+              <Icon active name="arrow-back" />
             </Button>
           </Right>
         </Header>
