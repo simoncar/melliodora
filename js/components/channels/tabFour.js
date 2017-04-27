@@ -1,121 +1,104 @@
+
+
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Platform } from 'react-native';
+import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
+
+import { Container, Header, Content, Text, Button, Icon, Item, Input, Left, Right, Body } from 'native-base';
+import { Grid, Col } from 'react-native-easy-grid';
 import { openDrawer } from '../../actions/drawer';
 
-import { Container, Content, Text } from 'native-base';
-import { Grid, Col, Row } from 'react-native-easy-grid';
-
+import theme from '../../themes/base-theme';
 import styles from './styles';
 
-class TabTwo extends Component {
+const primary = require('../../themes/variable').brandPrimary;
+
+class Feedback extends Component {
 
   static propTypes = {
     navigation: React.PropTypes.shape({
       key: React.PropTypes.string,
     }),
   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      offset: {
+        x: 0,
+        y: 0,
+      },
+    };
+
+    this.constructor.childContextTypes = {
+      theme: React.PropTypes.object,
+    };
+  }
+
 
   render() {
     return (
-      <Container>
-        <Content showsVerticalScrollIndicator={false}>
-          <View>
-            <Grid>
+      <Container contentOffset={this.state.offset} scrollEnabled={false} >
+        <Image source={require('../../../images/BG.png')} style={styles.container} >
 
-              <Row>
+          <Content showsVerticalScrollIndicator={false}>
+            <View style={styles.contentIconsContainer}>
+              <Grid>
                 <Col>
-                  <TouchableOpacity onPress={() => Actions.channel()}>
-                    <Image source={require('../../../images/NewsIcons/10.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>ANIMATION</Text>
-                    </Image>
-                  </TouchableOpacity>
+                  <Button transparent style={styles.roundedButton}>
+                    <Icon name="ios-call-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                  </Button>
                 </Col>
                 <Col>
-                  <TouchableOpacity onPress={() => Actions.channel()}>
-                    <Image source={require('../../../images/NewsIcons/13.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>EDUCATION</Text>
-                    </Image>
-                  </TouchableOpacity>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <TouchableOpacity onPress={() => Actions.channel()}>
-                    <Image source={require('../../../images/NewsIcons/6.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>FINANCES</Text>
-                    </Image>
-                  </TouchableOpacity>
+                  <Button transparent style={styles.roundedCustomButton}>
+                    <Icon name="ios-mail-outline" style={{ fontSize: 28, color: primary, width: 22, marginLeft: 5 }} />
+                  </Button>
                 </Col>
                 <Col>
-                  <TouchableOpacity onPress={() => Actions.channel()}>
-                    <Image source={require('../../../images/NewsIcons/1.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>ENVIRONMENT</Text>
-                    </Image>
-                  </TouchableOpacity>
+                  <Button transparent style={styles.roundedButton}>
+                    <Icon name="ios-pin-outline" style={{ fontSize: 28, width: 30, color: '#FFF' }} />
+                  </Button>
                 </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <TouchableOpacity onPress={() => Actions.channel()}>
-                    <Image source={require('../../../images/NewsIcons/8.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>AUTO</Text>
-                    </Image>
-                  </TouchableOpacity>
-                </Col>
-                <Col>
-                  <TouchableOpacity onPress={() => Actions.channel()}>
-                    <Image source={require('../../../images/NewsIcons/7.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>TECHNOLOGY</Text>
-                    </Image>
-                  </TouchableOpacity>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <TouchableOpacity onPress={() => Actions.channel()}>
-                    <Image source={require('../../../images/NewsIcons/11.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>SPORTS</Text>
-                    </Image>
-                  </TouchableOpacity>
-                </Col>
-                <Col>
-                  <TouchableOpacity onPress={() => Actions.channel()}>
-                    <Image source={require('../../../images/NewsIcons/12.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>ART</Text>
-                    </Image>
-                  </TouchableOpacity>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <TouchableOpacity onPress={() => Actions.channel()}>
-                    <Image source={require('../../../images/NewsIcons/9.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>FASHION</Text>
-                    </Image>
-                  </TouchableOpacity>
-                </Col>
-                <Col>
-                  <TouchableOpacity onPress={() => Actions.channel()}>
-                    <Image source={require('../../../images/NewsIcons/2.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>SCIENCE</Text>
-                    </Image>
-                  </TouchableOpacity>
-                </Col>
-              </Row>
-            </Grid>
-          </View>
-        </Content>
+              </Grid>
+            </View>
+            <View style={styles.feedbackHeaderContainer}>
+              <Text style={styles.feedbackHeader}>             ADMISSION INQUIRY</Text>
+              <Text note style={styles.feedbackHead}>       We will respond quickly to answer your questions.</Text>
+            </View>
+            <View style={styles.feedbackContainer}>
+              <Item rounded style={styles.inputGrp}>
+                <Icon name="ios-person-outline" />
+                <Input placeholder="Name" placeholderTextColor="rgba(255,255,255,0.5)" style={styles.input} />
+              </Item>
+              <Item rounded style={styles.inputGrp}>
+                <Icon name="ios-mail-outline" />
+                <Input placeholder="Email" placeholderTextColor="rgba(255,255,255,0.5)" style={styles.input} />
+              </Item>
+
+
+              <View style={styles.feedbackInputBox}>
+                  <Item iconRight>
+                    <Input placeholder="      Write something..." placeholderTextColor="rgba(255,255,255,0.5)" style={styles.input} />
+                    <Icon active name="arrow-forward" style={styles.forwardIcon} />
+                  </Item>
+              </View>
+            </View>
+          </Content>
+        </Image>
       </Container>
     );
   }
 }
 
+function bindAction(dispatch) {
+  return {
+    openDrawer: () => dispatch(openDrawer()),
+  };
+}
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
 });
 
-export default connect(mapStateToProps)(TabTwo);
+export default connect(mapStateToProps, bindAction)(Feedback);
