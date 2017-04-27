@@ -16,8 +16,9 @@ export default {
     flex: 1,
   },
   imageHeader: {
-    height: 25,
-    width: 95,
+    height: 145,
+    width: 225,
+    marginLeft: 50,
     resizeMode: 'contain',
   },
   channelBtn1: {
