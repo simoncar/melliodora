@@ -22,8 +22,8 @@ export default {
     alignSelf: 'center',
   },
   imageHeader: {
-    height: 25,
-    width: 95,
+    height: 145,
+    width: 225,
     resizeMode: 'contain',
   },
   container: {
