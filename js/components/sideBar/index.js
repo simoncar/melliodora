@@ -29,10 +29,6 @@ class SideBar extends Component {
               <Icon name="ios-grid-outline" />
               <Text style={styles.linkText} >EVENTS</Text>
             </ListItem>
-            <ListItem button onPress={() => { Actions.channels(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-keypad-outline" />
-              <Text style={styles.linkText}>STAMFORD LIFE</Text>
-            </ListItem>
             <ListItem button onPress={() => { Actions.calendar(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-calendar-outline" />
               <Text style={styles.linkText}>CALENDAR</Text>
