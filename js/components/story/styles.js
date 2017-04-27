@@ -56,8 +56,10 @@ export default {
     paddingBottom: 5,
   },
   newsPoster: {
+    height: 215,
     width: null,
-    flex: 1,
+    resizeMode: 'contain',
+
   },
   newsPosterHeader: {
     fontWeight: '900',

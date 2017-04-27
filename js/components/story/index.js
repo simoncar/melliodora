@@ -79,7 +79,7 @@ class Story extends Component {
           <Content showsVerticalScrollIndicator={false}>
             <View style={{ flex: 1 }}>
               <View >
-                <Image source={require('../../../images/NewsIcons/5.jpg')} style={styles.newsPoster}>
+                <Image source={require('../../../images/Events/charlie.jpg')} style={styles.newsPoster}>
                   <TouchableOpacity>
                     <View style={styles.newsPosterContent}>
                       <Text numberOfLines={2} style={styles.newsPosterHeader}>
@@ -94,44 +94,43 @@ class Story extends Component {
                   <Grid style={{ paddingBottom: 20 }}>
                     <Col style={{ flexDirection: 'row' }}>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>CDC</Text>
+                        <Text style={styles.newsLink}>Reagan Theater</Text>
                       </TouchableOpacity>
                       <Icon name="ios-time-outline" style={styles.timeIcon} />
-                      <Text style={styles.newsLink}>1h ago</Text>
+                      <Text style={styles.newsLink}>May 18,19</Text>
                     </Col>
                     <Col>
                       <TouchableOpacity style={styles.newsTypeView}>
-                        <Text style={styles.newsTypeText}>ENVIRONMENT</Text>
+                        <Text style={styles.newsTypeText}>Upper Elementary</Text>
                       </TouchableOpacity>
                     </Col>
                   </Grid>
                   <Text style={styles.newsHeader}>
-                      React Native Flat App Theme, a fascinating React Native starter kit with flat UI design, Redux and NativeBase components for your application.
+                      Rehearsals will take place twice a week on Tuesdays and Thursdays, {"\n"}from 3:05 pm to 4:30 pm in room F6-23.
                   </Text>
                 </View>
 
                 <View style={{ padding: 20 }}>
                   <View style={styles.newsCommentContainer}>
                     <Text style={styles.newsComment}>
-                        It’s a responsive theme with clean and modern look highly focussed on efficiency. The flat design enables resizing the contents easily to fit various screen devices. Eye soothing color makes the React Native Flat app theme simple yet eye catchy and smooth running.
+                      Saturday rehearsals will take place on {"\n"}22nd April, 29th April, 6th May, and the 13th of May. {"\n"}{"\n"}Rehearsals will be from 9am-3pm in the Theater.
                     </Text>
-                    <Text style={styles.newsComment}>- StrapMobile</Text>
+            
                   </View>
                   <Text style={styles.newsHeader}>
-                      The flat UI design adds an aesthetic touch to the native look and feel of React Native apps.
+                      If you have any further questions please do not hesitate to contact Ms. Zoe Finn at {"\n"}zoe.finn@sais.edu.sg.
                   </Text>
+
                   <View style={{ paddingBottom: 20 }}>
                     <Text style={styles.newsHeader}>
-                      NativeBase is a free and open source framework that enables developers to build high-quality mobile apps using React Native iOS and Android apps with a fusion of ES6.
+                    {"\n"}
+                    Reagan Theater {"\n"}
+                    Thursday, May 18 at 6:00 pm {"\n"}
+                    Friday, May 19 at 6:00 pm
                   </Text>
                   </View>
-                  <View style={{ paddingBottom: 20, paddingTop: 10 }}>
-                    <Text style={styles.newsHeader}>
-                        NativeBase builds a layer on top of React Native that provides you with basic set of components for mobile application development. This helps you to build world-class application experiences on native platforms.
-                    </Text>
-                  </View>
                 </View>
-
+{/*
                 <View style={styles.wrapper}>
                   <Swiper
                     height={230}
@@ -157,7 +156,7 @@ class Story extends Component {
                     </View>
                   </Swiper>
                 </View>
-
+*/}
                 <View style={{ alignSelf: 'center' }}>
                   <Button transparent iconRight onPress={() => Actions.popTo('home')} textStyle={{ color: '#222', fontWeight: '700' }}>
                     <Text>NEXT STORY</Text>
