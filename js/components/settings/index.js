@@ -89,20 +89,6 @@ class Settings extends Component {
                 </Col>
               </Grid>
             </View>
-            <View style={styles.signupContainer}>
-              <Item rounded style={styles.inputGrp}>
-                <Icon name="ios-person-outline" />
-                <Input placeholder="Username" placeholderTextColor="rgba(255,255,255,0.5)" style={styles.input} />
-              </Item>
-              <Item rounded style={styles.inputGrp}>
-                <Icon name="ios-mail-open-outline" />
-                <Input placeholder="Email" placeholderTextColor="rgba(255,255,255,0.5)" style={styles.input} />
-              </Item>
-              <Item rounded style={styles.inputGrp}>
-                <Icon name="ios-unlock-outline" />
-                <Input placeholder="Password" placeholderTextColor="rgba(255,255,255,0.5)"secureTextEntry style={styles.input} />
-              </Item>
-            </View>
           </View>
           <View style={styles.notificationSwitchContainer}>
             <Text style={styles.notificationHeader}>EVENTS I WANT TO FOLLOW</Text>
