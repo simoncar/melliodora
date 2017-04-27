@@ -41,10 +41,6 @@ class SideBar extends Component {
               <Icon name="ios-settings-outline" />
               <Text style={styles.linkText}>EVENT SELECTION</Text>
             </ListItem>
-            <ListItem button onPress={() => { Actions.feedback(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-paper-outline" />
-              <Text style={styles.linkText}>ADMISSION INQUIRY</Text>
-            </ListItem>
 
             <View style={styles.logoutContainer}>
               <View style={styles.logoutbtn} foregroundColor={'white'}>
