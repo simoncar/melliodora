@@ -60,18 +60,18 @@ class Home extends Component {
                 <TouchableOpacity activeOpacity={1} onPress={() => Actions.story()} style={styles.slide}>
                   <Image style={styles.newsPoster} source={require('../../../images/NewsIcons/Stamford Title pic.png')} >
                     <View style={styles.swiperTextContent} >
-                      
+
                       <Grid style={styles.swiperContentBox}>
                         <Col style={{ flexDirection: 'row' }}>
                           <TouchableOpacity>
-                            <Text style={styles.newsPosterLink}>A</Text>
+                            <Text style={styles.newsPosterLink}></Text>
                           </TouchableOpacity>
                           <Icon name="ios-time-outline" style={styles.headertimeIcon} />
-                          <Text style={styles.newsPosterLink}>B</Text>
+                          <Text style={styles.newsPosterLink}></Text>
                         </Col>
                         <Col>
                           <TouchableOpacity style={styles.newsPosterTypeView}>
-                            <Text style={styles.newsPosterTypeText}>C</Text>
+                            <Text style={styles.newsPosterTypeText}></Text>
                           </TouchableOpacity>
                         </Col>
                       </Grid>
