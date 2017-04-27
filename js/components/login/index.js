@@ -38,7 +38,7 @@ class Login extends Component {
         />
         <Content scrollEnabled={true} bounces={false}>
           <Image source={bg} style={styles.background} >
-            <Image source={logo} style={Platform.OS === 'android' ? styles.aShadow : styles.iosShadow} />
+            <Image style={Platform.OS === 'android' ? styles.aShadow : styles.iosShadow} />
 
             <View style={styles.bg}>
               <Item rounded style={styles.inputGrp}>
