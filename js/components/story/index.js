@@ -115,7 +115,7 @@ class Story extends Component {
                     <Text style={styles.newsComment}>
                       Saturday rehearsals will take place on {"\n"}22nd April, 29th April, 6th May, and the 13th of May. {"\n"}{"\n"}Rehearsals will be from 9am-3pm in the Theater.
                     </Text>
-            
+
                   </View>
                   <Text style={styles.newsHeader}>
                       If you have any further questions please do not hesitate to contact Ms. Zoe Finn at {"\n"}zoe.finn@sais.edu.sg.
@@ -159,7 +159,7 @@ class Story extends Component {
 */}
                 <View style={{ alignSelf: 'center' }}>
                   <Button transparent iconRight onPress={() => Actions.popTo('home')} textStyle={{ color: '#222', fontWeight: '700' }}>
-                    <Text>NEXT STORY</Text>
+                    <Text>NEXT</Text>
                     <Icon name="ios-arrow-forward" style={styles.forwardBtn} />
                   </Button>
                 </View>
