@@ -32,11 +32,6 @@ class Channels extends Component {
     return (
       <Container>
         <Header>
-        <Left>
-          <Button transparent onPress={this.props.openDrawer} >
-            <Icon active name="menu" />
-          </Button>
-        </Left>
         <Body>
           <Image source={headerLogo} style={styles.imageHeader} />
         </Body>
