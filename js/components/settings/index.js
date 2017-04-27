@@ -70,7 +70,7 @@ class Settings extends Component {
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.bg}>
             <Text style={styles.signupHeader}>EVENT SELECTION</Text>
-            <View style={{ marginTop: 20 }}>
+            <View style={{ marginTop: 10 }}>
               <Grid>
                 <Col>
                   <Button transparent style={styles.roundedButton}>
