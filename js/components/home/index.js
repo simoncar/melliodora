@@ -13,7 +13,7 @@ import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
 
 const deviceWidth = Dimensions.get('window').width;
-const headerLogo = require('../../../images/Header-Logo.png');
+const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
 
 class Home extends Component {
