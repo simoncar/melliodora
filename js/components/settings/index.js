@@ -25,10 +25,10 @@ class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      monSwitch: true,
+      monSwitch: false,
       tueSwitch: false,
-      wedSwitch: false,
-      thuSwitch: false,
+      wedSwitch: true,
+      thuSwitch: true,
       friSwitch: false,
       satSwitch: false,
       sunSwitch: false,
