@@ -4,7 +4,7 @@ const color = require('color');
 // theme background
 const primary = color('#b63642'); //  color('#01cca1');
 // header
-const secondary = color('#00c497');
+const secondary = color('#b63642');     //color('#00c497');   
 const info = color('#5bc0de');
 const success = color('#5cb85c');
 const danger = color('#d9534f');

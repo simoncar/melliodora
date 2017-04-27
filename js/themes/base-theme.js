@@ -13,13 +13,13 @@ const sidebar = require('./variable').brandSidebar;
 export default {
 
     // Badge
-  badgeBg: '#ED1727',
+  badgeBg: '#ED1727',    //bright red
   badgeColor: '#fff',
 
   // Button
   btnFontFamily: (Platform.OS === 'ios') ? 'HelveticaNeue' : 'Roboto_medium',
-  btnDisabledBg: '#b5b5b5',
-  btnDisabledClr: '#f1f1f1',
+  btnDisabledBg: '#b5b5b5',     //gray - dark
+  btnDisabledClr: '#f1f1f1',    //gray - light
 
   get btnPrimaryBg() {
     return this.brandPrimary;
@@ -80,7 +80,7 @@ export default {
 
 
   // Check Box
-  checkboxBgColor: '#039BE5',
+  checkboxBgColor: '#039BE5',     //blue
   checkboxSize: 23,
   checkboxTickColor: '#fff',
 
@@ -116,13 +116,13 @@ export default {
 
 
   // FooterTab
-  tabBarTextColor: (Platform.OS === 'ios') ? '#6b6b6b' : '#b3c7f9',
-  tabBarActiveTextColor: (Platform.OS === 'ios') ? '#007aff' : '#fff',
-  tabActiveBgColor: (Platform.OS === 'ios') ? '#cde1f9' : undefined,
+  tabBarTextColor: (Platform.OS === 'ios') ? '#6b6b6b' : '#6b6b6b',     //gray
+  tabBarActiveTextColor: (Platform.OS === 'ios') ? '#007aff' : '#fff',    //blue
+  tabActiveBgColor: (Platform.OS === 'ios') ? '#cde1f9' : undefined,    //light blue
 
 
   // Header
-  iosToolbarBtnColor: '#007aff',
+  iosToolbarBtnColor: '#007aff',     //blue
   toolbarDefaultBg: secondary,
   toolbarHeight: (Platform.OS === 'ios') ? 70 : 55,
   toolbarIconSize: (Platform.OS === 'ios') ? 20 : 22,
