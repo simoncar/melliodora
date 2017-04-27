@@ -48,7 +48,7 @@ class Home extends Component {
           <View>
             <View>
               <Swiper
-                height={1}
+                height={10}
                 width={deviceWidth + 3}
                 loop
                 dot={<View style={styles.swiperDot} />}

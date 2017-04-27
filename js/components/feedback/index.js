@@ -48,7 +48,7 @@ class Feedback extends Component {
               </Button>
             </Left>
             <Body>
-              <Image source={require('../../../images/Header-Logo.png')} style={styles.imageHeader} />
+              <Image source={require('../../../images/Header-Logo-White-0001.png')} style={styles.imageHeader} />
             </Body>
             <Right>
               <Button transparent style={styles.btnHeader} onPress={() => Actions.popTo('home')}>

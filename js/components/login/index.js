@@ -44,7 +44,7 @@ class Login extends Component {
               <Item rounded style={styles.inputGrp}>
                 <Icon name="person" />
                 <Input
-                  placeholder="MyStamford Login or Guest"
+                  placeholder="MyStamford Login"
                   onChangeText={username => this.setState({ username })}
                   placeholderTextColor="#FFF"
                   style={styles.input}
@@ -54,7 +54,7 @@ class Login extends Component {
               <Item rounded style={styles.inputGrp}>
                 <Icon name="unlock" />
                 <Input
-                  placeholder="My Stamford Password or Guest"
+                  placeholder="My Stamford Password"
                   secureTextEntry
                   placeholderTextColor="#FFF"
                   onChangeText={password => this.setState({ password })}
