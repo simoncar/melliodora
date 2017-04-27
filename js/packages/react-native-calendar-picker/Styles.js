@@ -28,7 +28,7 @@ var styles = StyleSheet.create({
         width: 30,
         height: 30,
         borderRadius: 15,
-        backgroundColor: '#01cca1',
+        backgroundColor: '#1E2850',
         alignSelf: 'center'
     },
 
@@ -44,7 +44,7 @@ var styles = StyleSheet.create({
         color: '#fff',
         marginTop: 6,
         fontWeight: '900',
-        alignSelf: 'center' 
+        alignSelf: 'center'
     },
 
     dayLabelsWrapper: {
@@ -91,10 +91,10 @@ var styles = StyleSheet.create({
         textAlign: 'center'
     },
     headerWrapperYear: {
-        
+
     },
     headerWrapper: {
-        alignItems: 'center',  
+        alignItems: 'center',
         flexDirection: 'row',
         alignSelf: 'center',
         marginBottom: 10,
