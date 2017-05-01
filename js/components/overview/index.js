@@ -48,121 +48,121 @@ class Overview extends Component {
               <View style={styles.overviewTopicsBox}>
                 <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
                   <Col>
-                    <Text style={styles.overviewInfoHeader}>FASHION</Text>
+                    <Text style={styles.overviewInfoHeader}>SUPERINTENDENT</Text>
                   </Col>
                   <Col>
-                    <Text style={styles.overviewInfoPerc}>26%</Text>
+                    <Text style={styles.overviewInfoPerc}></Text>
                   </Col>
                 </Grid>
-                <ProgressBar color="#fff" progress={34} />
+
               </View>
 
               <View style={styles.overviewTopicsBox}>
                 <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
                   <Col>
-                    <Text style={styles.overviewInfoHeader}>ENVIRONMENT</Text>
+                    <Text style={styles.overviewInfoHeader}>HIGH SCHOOL</Text>
                   </Col>
                   <Col>
-                    <Text style={styles.overviewInfoPerc}>20%</Text>
+                    <Text style={styles.overviewInfoPerc}></Text>
                   </Col>
                 </Grid>
-                <ProgressBar color="#fff" progress={28} />
+
               </View>
 
               <View style={styles.overviewTopicsBox}>
                 <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
                   <Col>
-                    <Text style={styles.overviewInfoHeader}>TECHNOLOGY</Text>
+                    <Text style={styles.overviewInfoHeader}>UPPER ELEMENTARY</Text>
                   </Col>
                   <Col>
-                    <Text style={styles.overviewInfoPerc}>15%</Text>
+                    <Text style={styles.overviewInfoPerc}></Text>
                   </Col>
                 </Grid>
-                <ProgressBar color="#fff" progress={12} />
+
               </View>
 
               <View style={styles.overviewTopicsBox}>
                 <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
                   <Col>
-                    <Text style={styles.overviewInfoHeader}>AUTO</Text>
+                    <Text style={styles.overviewInfoHeader}>LOWER ELEMENTARY</Text>
                   </Col>
                   <Col>
-                    <Text style={styles.overviewInfoPerc}>12%</Text>
+                    <Text style={styles.overviewInfoPerc}></Text>
                   </Col>
                 </Grid>
-                <ProgressBar color="#fff" progress={10} />
+
               </View>
 
               <View style={styles.overviewTopicsBox}>
                 <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
                   <Col>
-                    <Text style={styles.overviewInfoHeader}>EDUCATION</Text>
+                    <Text style={styles.overviewInfoHeader}>EARLY YEARS</Text>
                   </Col>
                   <Col>
-                    <Text style={styles.overviewInfoPerc}>9%</Text>
+                    <Text style={styles.overviewInfoPerc}></Text>
                   </Col>
                 </Grid>
-                <ProgressBar color="#fff" progress={8} />
+
               </View>
 
               <View style={styles.overviewTopicsBox}>
                 <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
                   <Col>
-                    <Text style={styles.overviewInfoHeader}>SCIENCE</Text>
+                    <Text style={styles.overviewInfoHeader}></Text>
                   </Col>
                   <Col>
-                    <Text style={styles.overviewInfoPerc}>7%</Text>
+                    <Text style={styles.overviewInfoPerc}></Text>
                   </Col>
                 </Grid>
-                <ProgressBar color="#fff" progress={5} />
+
               </View>
 
               <View style={styles.overviewTopicsBox}>
                 <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
                   <Col>
-                    <Text style={styles.overviewInfoHeader}>SPORTS</Text>
+                    <Text style={styles.overviewInfoHeader}></Text>
                   </Col>
                   <Col>
-                    <Text style={styles.overviewInfoPerc}>5%</Text>
+                    <Text style={styles.overviewInfoPerc}></Text>
                   </Col>
                 </Grid>
-                <ProgressBar color="#fff" progress={3} />
+
               </View>
 
               <View style={styles.overviewTopicsBox}>
                 <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
                   <Col>
-                    <Text style={styles.overviewInfoHeader}>FINANCE</Text>
+                    <Text style={styles.overviewInfoHeader}></Text>
                   </Col>
                   <Col>
-                    <Text style={styles.overviewInfoPerc}>3%</Text>
+                    <Text style={styles.overviewInfoPerc}></Text>
                   </Col>
                 </Grid>
-                <ProgressBar color="#fff" progress={5} />
+
               </View>
 
               <View style={styles.overviewTopicsBox}>
                 <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
                   <Col>
-                    <Text style={styles.overviewInfoHeader}>ART</Text>
+                    <Text style={styles.overviewInfoHeader}></Text>
                   </Col>
                   <Col>
-                    <Text style={styles.overviewInfoPerc}>2%</Text>
+                    <Text style={styles.overviewInfoPerc}></Text>
                   </Col>
                 </Grid>
-                <ProgressBar color="#fff" progress={3} />
+
               </View>
 
               <View style={styles.overviewTopicsBox}>
                 <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
                   <Col>
-                    <Text style={styles.overviewInfoHeader}>ANIMATION</Text>
+                    <Text style={styles.overviewInfoHeader}></Text>
                   </Col>
                   <Col>
-                    <Text style={styles.overviewInfoPerc}>1%</Text>
+                    <Text style={styles.overviewInfoPerc}></Text>
                   </Col>
                 </Grid>
-                <ProgressBar color="#fff" progress={3} />
+                
               </View>
             </View>
           </Content>
