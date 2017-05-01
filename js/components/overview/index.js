@@ -24,23 +24,23 @@ class Overview extends Component {
       <Container>
         <Image source={require('../../../images/glow2.png')} style={styles.container} >
           <Header>
-            <Left>
+          <Left>
+            <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
+              <Icon active name="menu" />
+            </Button>
+          </Left>
+          <Body>
+            <Image source={headerLogo} style={styles.imageHeader} />
+          </Body>
+            <Right>
               <Button transparent style={styles.btnHeader} onPress={() => Actions.pop()}>
                 <Icon active name="arrow-back" />
-              </Button>
-            </Left>
-            <Body>
-              <Image source={headerLogo} style={styles.imageHeader} />
-            </Body>
-            <Right>
-              <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
-                <Icon active name="menu" />
               </Button>
             </Right>
           </Header>
           <View style={styles.overviewHeaderContainer}>
-            <Text style={styles.overviewHeader}>OVERVIEW</Text>
-            <Text note style={styles.overviewHead}>What you are reading the most</Text>
+            <Text style={styles.overviewHeader}>NEWSLETTERS</Text>
+            <Text note style={styles.overviewHead}></Text>
           </View>
 
           <Content showsVerticalScrollIndicator={false}>
