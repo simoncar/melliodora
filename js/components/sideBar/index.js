@@ -42,7 +42,7 @@ class SideBar extends Component {
               <Text style={styles.linkText}>EVENT SELECTION</Text>
             </ListItem>
             <ListItem button onPress={() => { Actions.overview(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-grid-outline" />
+              <Icon name="ios-paper-outline" />
               <Text style={styles.linkText} >NEWSLETTERS</Text>
             </ListItem>
 
