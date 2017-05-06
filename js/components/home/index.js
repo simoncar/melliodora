@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Image, View, TouchableOpacity, Platform, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { Container, Header, Content, Text, Button, Icon, Card, Left, Body, Right } from 'native-base';
+import { Container, Header, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';
 
 import { Grid, Col } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
@@ -16,6 +16,27 @@ const deviceWidth = Dimensions.get('window').width;
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
 
+
+import * as firebase from 'firebase';
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyBLz76NsS1fjNXcaGBUhcp9qA-MFg1Hrg8",
+  authDomain: "calendarapp-b7967.firebaseapp.com",
+  databaseURL: "https://calendarapp-b7967.firebaseio.com",
+  storageBucket: "calendarapp-b7967.appspot.com"
+};
+
+//firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+function storeHighScore(userId, score) {
+  firebase.database().ref('users/' + userId).set({
+    highscore: score
+  });
+};
+
+
 class Home extends Component {
 
   static propTypes = {
@@ -25,7 +46,50 @@ class Home extends Component {
     }),
   }
 
+
+  constructor(props) {
+    super(props);
+    this.tasksRef = firebaseApp.database().ref();
+    this.state = {
+      user:null,
+      loading: true,
+      newTask: ""
+    };
+  };
+
+  componentDidMount(){
+      // start listening for firebase updates
+      this.listenForTasks(this.tasksRef);
+    }
+
+    //listener to get data from firebase and update listview accordingly
+      listenForTasks(tasksRef) {
+      tasksRef.on('value', (dataSnapshot) => {
+        var tasks = [];
+        dataSnapshot.forEach((child) => {
+          tasks.push({
+            name: child.val().name,
+            _key: child.key
+          });
+        });
+
+        this.setState({
+          tasks:tasks
+        });
+      });
+      }
+
+
+
   render() {
+
+
+    // console.log("tasks value",this.state.tasks);
+      // If we are loading then we display the indicator, if the account is null and we are not loading
+      // Then we display nothing. If the account is not null then we display the account info.
+
+
+
     return (
       <Container style={{ backgroundColor: '#fff' }}>
         <Header>
@@ -130,7 +194,16 @@ class Home extends Component {
             </View>
           </View>
 
+        <Card dataArray={this.state.tasks} style={{ backgroundColor: '#fff', marginTop: 0, marginRight: 0 }}
+                                 renderRow={(abc) =>
+                 <CardItem>
+                     <Text style={styles.newsHeader}>{abc._key}</Text>
+                 </CardItem>
+             }>
+         </Card>
+
           <Card style={{ backgroundColor: '#fff', marginTop: 0, marginRight: 0 }}>
+
             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
@@ -156,119 +229,53 @@ class Home extends Component {
             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                      Charlie and the Chocolate Factory
+                      U12 Rugby Game
                   </Text>
-                <Grid style={styles.swiperContentBox}>
-                  <Col style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity>
-                      <Text style={styles.newsLink}>May 5, 2017</Text>
-                    </TouchableOpacity>
-                    <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>7:00 pm</Text>
-                  </Col>
-                  <Col>
-                    <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}>Reagan Theater</Text>
-                    </TouchableOpacity>
-                  </Col>
-                </Grid>
               </View>
             </TouchableOpacity>
 
             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                      Senior Graduation
+                      U12 Rugby Game
                   </Text>
-                <Grid style={styles.swiperContentBox}>
-                  <Col style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity>
-                      <Text style={styles.newsLink}>June 3, 2017</Text>
-                    </TouchableOpacity>
-                    <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>7:00 pm</Text>
-                  </Col>
-                  <Col>
-                    <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}>Reagan Theater</Text>
-                    </TouchableOpacity>
-                  </Col>
-                </Grid>
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
-              <View style={styles.newsContent}>
-                <Text numberOfLines={2} style={styles.newsHeader}>
-                      Friday Drama Class
-                  </Text>
-                <Grid style={styles.swiperContentBox}>
-                  <Col style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity>
-                      <Text style={styles.newsLink}>May 5, 2017</Text>
-                    </TouchableOpacity>
-                    <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>3:45</Text>
-                  </Col>
-                  <Col>
-                    <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}>Drama</Text>
-                    </TouchableOpacity>
-                  </Col>
-                </Grid>
-              </View>
-            </TouchableOpacity>
-
-
-            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
-              <View style={styles.newsContent}>
-                <Text numberOfLines={2} style={styles.newsHeader}>
-                      8th Grade Graduation
-                  </Text>
-                <Grid style={styles.swiperContentBox}>
-                  <Col style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity>
-                      <Text style={styles.newsLink}>June 14, 2017</Text>
-                    </TouchableOpacity>
-                    <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>10:00 am</Text>
-                  </Col>
-                  <Col>
-                    <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}>Stamford Gym</Text>
-                    </TouchableOpacity>
-                  </Col>
-                </Grid>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
-              <View style={styles.newsContent}>
-                <Text numberOfLines={2} style={styles.newsHeader}>
-                      Senior Field Studies Trip - Nepal
-                  </Text>
-                <Grid style={styles.swiperContentBox}>
-                  <Col style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity>
-                      <Text style={styles.newsLink}>May 20, 2017</Text>
-                    </TouchableOpacity>
-                    <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>6:00 am</Text>
-                  </Col>
-                  <Col>
-                    <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}>Changi Airport</Text>
-                    </TouchableOpacity>
-                  </Col>
-                </Grid>
-              </View>
-            </TouchableOpacity>
           </Card>
         </Content>
       </Container>
     );
   }
 }
+
+
+function renderRow() {
+  return (
+    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
+      <View style={styles.newsContent}>
+        <Text numberOfLines={2} style={styles.newsHeader}>
+              AAAAAAAA
+          </Text>
+        <Grid style={styles.swiperContentBox}>
+          <Col style={{ flexDirection: 'row' }}>
+            <TouchableOpacity>
+              <Text style={styles.newsLink}>May 20, 2017</Text>
+            </TouchableOpacity>
+            <Icon name="ios-time-outline" style={styles.timeIcon} />
+            <Text style={styles.newsLink}>6:00 am</Text>
+          </Col>
+          <Col>
+            <TouchableOpacity style={styles.newsTypeView}>
+              <Text style={styles.newsTypeText}>Changi Airport</Text>
+            </TouchableOpacity>
+          </Col>
+        </Grid>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
 
 function bindAction(dispatch) {
   return {

@@ -21,7 +21,7 @@ const firebaseConfig = {
   storageBucket: "calendarapp-b7967.appspot.com"
 };
 
-firebase.initializeApp(firebaseConfig);
+//firebase.initializeApp(firebaseConfig);
 
 function storeHighScore(userId, score) {
   firebase.database().ref('users/' + userId).set({
