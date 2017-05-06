@@ -11,3 +11,18 @@ Follow the documentation to install and get started with the development:
 Please do check `FAQs` section in docs for queries.
 
 Happy coding!
+
+
+Some notes about firebase
+https://console.firebase.google.com/project/calendarapp-b7967/database/rules
+Default rules
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
+
+
+Notes about setup
+https://docs.expo.io/versions/v13.0.0/guides/using-firebase.html#content
