@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { Image, View, TouchableOpacity, Platform, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
@@ -8,14 +7,10 @@ import { Container, Header, Content, Text, Button, Icon, Card, CardItem, Left, B
 import { Grid, Col } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
-
-
 import styles from './styles';
 
 const deviceWidth = Dimensions.get('window').width;
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
-
-
 
 import * as firebase from 'firebase';
 
@@ -27,15 +22,7 @@ const firebaseConfig = {
   storageBucket: "calendarapp-b7967.appspot.com"
 };
 
-//firebase.initializeApp(firebaseConfig);
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-function storeHighScore(userId, score) {
-  firebase.database().ref('users/' + userId).set({
-    highscore: score
-  });
-};
-
 
 class Home extends Component {
 
@@ -46,10 +33,9 @@ class Home extends Component {
     }),
   }
 
-
   constructor(props) {
     super(props);
-    this.tasksRef = firebaseApp.database().ref();
+    this.calendarEvents = firebaseApp.database().ref();
     this.state = {
       user:null,
       loading: true,
@@ -58,13 +44,11 @@ class Home extends Component {
   };
 
   componentDidMount(){
-      // start listening for firebase updates
-      this.listenForTasks(this.tasksRef);
+      this.listenForTasks(this.calendarEvents);
     }
 
-    //listener to get data from firebase and update listview accordingly
-      listenForTasks(tasksRef) {
-      tasksRef.on('value', (dataSnapshot) => {
+      listenForTasks(calendarEvents) {
+      calendarEvents.on('value', (dataSnapshot) => {
         var tasks = [];
         dataSnapshot.forEach((child) => {
           tasks.push({
@@ -79,14 +63,7 @@ class Home extends Component {
       });
       }
 
-
-
   render() {
-
-
-    // console.log("tasks value",this.state.tasks);
-      // If we are loading then we display the indicator, if the account is null and we are not loading
-      // Then we display nothing. If the account is not null then we display the account info.
 
      console.log('View1 props: ', this.props);
 
@@ -109,103 +86,19 @@ class Home extends Component {
         </Header>
 
         <Content showsVerticalScrollIndicator={false}>
-          <View>
-            <View>
-              <Swiper
-                height={10}
-                width={deviceWidth + 3}
-                loop
-                dot={<View style={styles.swiperDot} />}
-                activeDot={<View
-                  style={styles.swiperActiveDot}
-                  showsButtons
-                />}
-              >
-                <TouchableOpacity activeOpacity={1} onPress={() => Actions.story()} style={styles.slide}>
-                  <Image style={styles.newsPoster} source={require('../../../images/NewsIcons/Stamford Title pic.png')} >
-                    <View style={styles.swiperTextContent} >
-
-                      <Grid style={styles.swiperContentBox}>
-                        <Col style={{ flexDirection: 'row' }}>
-                          <TouchableOpacity>
-                            <Text style={styles.newsPosterLink}></Text>
-                          </TouchableOpacity>
-                          <Icon name="ios-time-outline" style={styles.headertimeIcon} />
-                          <Text style={styles.newsPosterLink}></Text>
-                        </Col>
-                        <Col>
-                          <TouchableOpacity style={styles.newsPosterTypeView}>
-                            <Text style={styles.newsPosterTypeText}></Text>
-                          </TouchableOpacity>
-                        </Col>
-                      </Grid>
-                    </View>
-                  </Image>
-                </TouchableOpacity>
-
-                <TouchableOpacity  activeOpacity={1} onPress={() => Actions.story()} style={styles.slide}>
-                  <Image style={styles.newsPoster} source={require('../../../images/NewsIcons/3.jpg')}>
-                    <View style={styles.swiperTextContent}>
-                      <Text numberOfLines={2} style={styles.newsPosterHeader}>
-                            So that the applications are able to load faster and resize easily.
-                        </Text>
-                      <Grid style={styles.swiperContentBox}>
-                        <Col style={{ flexDirection: 'row' }}>
-                          <TouchableOpacity>
-                            <Text style={styles.newsPosterLink}>CDC</Text>
-                          </TouchableOpacity>
-                          <Icon name="ios-time-outline" style={styles.headertimeIcon} />
-                          <Text style={styles.newsPosterLink}>2hr ago</Text>
-                        </Col>
-                        <Col>
-                          <TouchableOpacity style={styles.newsPosterTypeView}>
-                            <Text style={styles.newsPosterTypeText}>ENVIRONMENT</Text>
-                          </TouchableOpacity>
-                        </Col>
-                      </Grid>
-                    </View>
-                  </Image>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => Actions.story()} style={styles.slide}>
-                  <Image style={styles.newsPoster} source={require('../../../images/NewsIcons/4.jpg')}>
-                    <View style={styles.swiperTextContent}>
-                      <Text numberOfLines={2} style={styles.newsPosterHeader}>
-                            But still look sharp on high-definition screens.
-                        </Text>
-                      <Grid style={styles.swiperContentBox}>
-                        <Col style={{ flexDirection: 'row' }}>
-                          <TouchableOpacity>
-                            <Text style={styles.newsPosterLink}>SKY.com</Text>
-                          </TouchableOpacity>
-                          <Icon name="ios-time-outline" style={styles.headertimeIcon} />
-                          <Text style={styles.newsPosterLink}>1day ago</Text>
-                        </Col>
-                        <Col>
-                          <TouchableOpacity style={styles.newsPosterTypeView}>
-                            <Text style={styles.newsPosterTypeText}>WORLD</Text>
-                          </TouchableOpacity>
-                        </Col>
-                      </Grid>
-                    </View>
-                  </Image>
-                </TouchableOpacity>
-              </Swiper>
-            </View>
-          </View>
 
           <Card dataArray={this.state.tasks} style={{ backgroundColor: '#fff', marginTop: 0, marginRight: 0 }}
-                                   renderRow={(abc) =>
+                                   renderRow={(rowData) =>
 
             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
-                mytitle: abc._key,
+                mytitle: rowData._key,
                 mydate: '1 jan 2017'
               })
             }>
 
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                      {abc._key}
+                      {rowData._key}
                   </Text>
                 <Grid style={styles.swiperContentBox}>
                   <Col style={{ flexDirection: 'row' }}>
