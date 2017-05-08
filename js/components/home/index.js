@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Platform, Dimensions, Share } from 'react-native';
+import { Image, View, TouchableOpacity, Platform, Dimensions} from 'react-native';
 import { connect } from 'react-redux';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Container, Header, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';
@@ -49,14 +49,6 @@ class Home extends Component {
   listenForCalendarEvents(calendarEvents) {
     calendarEvents.on('value', (dataSnapshot) => {
       var calendarEvents = [];
-      /*
-      dataSnapshot.forEach((child) => {
-        calendarEvents.push({
-          name: child.val().name,
-          _key: child.key
-        });
-      });
-      */
 
       dataSnapshot.forEach((snapshot) => {
 
@@ -105,8 +97,9 @@ class Home extends Component {
                                    renderRow={(rowData) =>
 
             <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
-                mytitle: rowData.title,
-                mydate: '1 jan 2017'
+                eventTitle: rowData.title,
+                eventDate: rowData.startDatePretty,
+                location: rowData.location,
               })
             }>
 

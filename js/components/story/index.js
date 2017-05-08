@@ -48,7 +48,7 @@ class Story extends Component {
  _shareMessage() {
 
     Share.share({
-      message: "" + this.props.mytitle + "\nWhen: Soon\n\n\n[get this app or get lost]" 
+      message: "" + this.props.eventTitle + "\nWhen: Soon\n\n\n[get this app or get lost]"
     })
     .then(this._showResult)
     .catch((error) => this.setState({result: 'error: ' + error.message}));
@@ -104,7 +104,7 @@ class Story extends Component {
                   <Grid style={{ paddingBottom: 20 }}>
                     <Col style={{ flexDirection: 'row' }}>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>{this.props.mytitle}</Text>
+                        <Text style={styles.newsLink}>{this.props.eventTitle}</Text>
                       </TouchableOpacity>
                       <Icon name="ios-time-outline" style={styles.timeIcon} />
                       <Text style={styles.newsLink}>{this.props.mydate}</Text>
@@ -134,8 +134,8 @@ class Story extends Component {
                   <View style={{ paddingBottom: 20 }}>
                     <Text style={styles.newsHeader}>
                     {"\n"}
-                    Reagan Theater {"\n"}
-                    Thursday, May 18 at 6:00 pm {"\n"}
+                    {this.props.location} {"\n"}
+                    {this.props.eventDate} {"\n"}
                     Friday, May 19 at 6:00 pm
                   </Text>
                   </View>
