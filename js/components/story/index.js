@@ -53,6 +53,9 @@ class Story extends Component {
   }
 
   render() {
+
+     console.log('View2 props: ', this.props);
+
     return (
       <Container style={{ backgroundColor: '#fff' }}>
         <Image source={require('../../../images/glow2.png')} style={styles.container} >
@@ -94,10 +97,10 @@ class Story extends Component {
                   <Grid style={{ paddingBottom: 20 }}>
                     <Col style={{ flexDirection: 'row' }}>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>Reagan Theater</Text>
+                        <Text style={styles.newsLink}>{this.props.mytitle}</Text>
                       </TouchableOpacity>
                       <Icon name="ios-time-outline" style={styles.timeIcon} />
-                      <Text style={styles.newsLink}>May 18,19</Text>
+                      <Text style={styles.newsLink}>{this.props.mydate}</Text>
                     </Col>
                     <Col>
                       <TouchableOpacity style={styles.newsTypeView}>

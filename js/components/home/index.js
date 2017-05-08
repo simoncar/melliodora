@@ -88,7 +88,7 @@ class Home extends Component {
       // If we are loading then we display the indicator, if the account is null and we are not loading
       // Then we display nothing. If the account is not null then we display the account info.
 
-
+     console.log('View1 props: ', this.props);
 
     return (
       <Container style={{ backgroundColor: '#fff' }}>
@@ -194,20 +194,18 @@ class Home extends Component {
             </View>
           </View>
 
-        <Card dataArray={this.state.tasks} style={{ backgroundColor: '#fff', marginTop: 0, marginRight: 0 }}
-                                 renderRow={(abc) =>
-                 <CardItem>
-                     <Text style={styles.newsHeader}>{abc._key}</Text>
-                 </CardItem>
-             }>
-         </Card>
+          <Card dataArray={this.state.tasks} style={{ backgroundColor: '#fff', marginTop: 0, marginRight: 0 }}
+                                   renderRow={(abc) =>
 
-          <Card style={{ backgroundColor: '#fff', marginTop: 0, marginRight: 0 }}>
+            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
+                mytitle: abc._key,
+                mydate: '1 jan 2017'
+              })
+            }>
 
-            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                      U12 Rugby Game
+                      {abc._key}
                   </Text>
                 <Grid style={styles.swiperContentBox}>
                   <Col style={{ flexDirection: 'row' }}>
@@ -226,23 +224,10 @@ class Home extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
-              <View style={styles.newsContent}>
-                <Text numberOfLines={2} style={styles.newsHeader}>
-                      U12 Rugby Game
-                  </Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
-              <View style={styles.newsContent}>
-                <Text numberOfLines={2} style={styles.newsHeader}>
-                      U12 Rugby Game
-                  </Text>
-              </View>
-            </TouchableOpacity>
+             }>
 
           </Card>
+
         </Content>
       </Container>
     );
