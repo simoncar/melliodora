@@ -81,7 +81,7 @@ class Story extends Component {
 
               <Button transparent onPress={() => this._shareMessage()} >
 
-                <Icon name="share" style={styles.headerIcons} />
+                <Icon name="md-share" style={styles.headerIcons} />
               </Button>
               </Right>
 
