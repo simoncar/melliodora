@@ -48,7 +48,8 @@ class Story extends Component {
  _shareMessage() {
 
     Share.share({
-      message: "" + this.props.eventTitle + "\nWhen: Soon\n\n\n[get this app or get lost]"
+      message: "" + this.props.eventTitle + "\nWhen: Soon\n\n\n[get this app or get lost]",
+      title: 'Cool Calendar App'
     })
     .then(this._showResult)
     .catch((error) => this.setState({result: 'error: ' + error.message}));
