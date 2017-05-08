@@ -3,7 +3,7 @@ import { Image, View, TouchableOpacity, Platform, Slider, Dimensions, Share  } f
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
-import { Container, Header, Content, Text, Button, Icon, Body } from 'native-base';
+import { Container, Header, Content, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 
 import Lightbox from 'react-native-lightbox';
@@ -46,9 +46,9 @@ class Story extends Component {
 
 
  _shareMessage() {
-      console.log('share message');
+
     Share.share({
-      message: 'React Native | A framework for building native apps using React'
+      message: "" + this.props.mytitle + "\nWhen: Soon\n\n\n[get this app or get lost]" 
     })
     .then(this._showResult)
     .catch((error) => this.setState({result: 'error: ' + error.message}));
@@ -64,29 +64,26 @@ class Story extends Component {
 
   render() {
 
-     console.log('View2 props: ', this.props);
 
     return (
       <Container style={{ backgroundColor: '#fff' }}>
         <Image source={require('../../../images/glow2.png')} style={styles.container} >
           <Header>
-            <Body style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+
+          <Left>
               <Button transparent onPress={() => Actions.pop()}>
                 <Icon active name="arrow-back" style={styles.headerIcons} />
               </Button>
-              <Button transparent onPress={() => Actions.comments()}>
-                <Icon name="chatboxes" style={styles.headerIcons} />
-              </Button>
-              <Button transparent onPress={() => this.modalO()}>
-                <Text style={styles.headerTextIcon}>Aa</Text>
-              </Button>
-              <Button transparent>
-                <Icon name="bookmarks" style={styles.headerIcons} />
-              </Button>
+          </Left>
+
+              <Right>
+
               <Button transparent onPress={() => this._shareMessage()} >
-                <Icon name="download" style={styles.headerIcons} />
+
+                <Icon name="share" style={styles.headerIcons} />
               </Button>
-            </Body>
+              </Right>
+
           </Header>
 
           <Content showsVerticalScrollIndicator={false}>
