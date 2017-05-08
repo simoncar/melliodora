@@ -44,6 +44,16 @@ class Story extends Component {
     };
   }
 
+
+ _shareMessage() {
+      console.log('share message');
+    Share.share({
+      message: 'React Native | A framework for building native apps using React'
+    })
+    .then(this._showResult)
+    .catch((error) => this.setState({result: 'error: ' + error.message}));
+  };
+
   modalO() {
     this.setState({ open: true });
   }
@@ -73,8 +83,8 @@ class Story extends Component {
               <Button transparent>
                 <Icon name="bookmarks" style={styles.headerIcons} />
               </Button>
-              <Button transparent>
-                <Icon name="download" style={styles.headerIcons} onPress={this._shareMessage} />
+              <Button transparent onPress={() => this._shareMessage()} >
+                <Icon name="download" style={styles.headerIcons} />
               </Button>
             </Body>
           </Header>
@@ -216,14 +226,7 @@ class Story extends Component {
 }
 
 
-function _shareMessage() {
-    console.log('share message');
-  Share.share({
-    message: 'React Native | A framework for building native apps using React'
-  })
-  .then(this._showResult)
-  .catch((error) => this.setState({result: 'error: ' + error.message}));
-};
+
 
 function bindAction(dispatch) {
   return {
