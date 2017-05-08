@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Platform, Dimensions } from 'react-native';
+import { Image, View, TouchableOpacity, Platform, Dimensions, Share } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Container, Header, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Platform, Slider, Dimensions } from 'react-native';
+import { Image, View, TouchableOpacity, Platform, Slider, Dimensions, Share  } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
@@ -74,7 +74,7 @@ class Story extends Component {
                 <Icon name="bookmarks" style={styles.headerIcons} />
               </Button>
               <Button transparent>
-                <Icon name="download" style={styles.headerIcons} />
+                <Icon name="download" style={styles.headerIcons} onPress={this._shareMessage} />
               </Button>
             </Body>
           </Header>
@@ -133,33 +133,7 @@ class Story extends Component {
                   </Text>
                   </View>
                 </View>
-{/*
-                <View style={styles.wrapper}>
-                  <Swiper
-                    height={230}
-                    width={deviceWidth + 5}
-                    loop
-                    dot={<View style={styles.swiperDot} />}
-                    activeDot={<View
-                      style={styles.swiperActiveDot}
-                      showsButtons
-                    />}
-                  >
-                    <View style={styles.slide}>
-                      <Image style={styles.newsPoster} source={require('../../../images/NewsIcons/1.jpg')} />
-                    </View>
-                    <View style={styles.slide}>
-                      <Image style={styles.newsPoster} source={require('../../../images/NewsIcons/3.jpg')} />
-                    </View>
-                    <View style={styles.slide}>
-                      <Image style={styles.newsPoster} source={require('../../../images/NewsIcons/4.jpg')} />
-                    </View>
-                    <View style={styles.slide}>
-                      <Image style={styles.newsPoster} source={require('../../../images/NewsIcons/5.jpg')} />
-                    </View>
-                  </Swiper>
-                </View>
-*/}
+
                 <View style={{ alignSelf: 'center' }}>
                   <Button transparent iconRight onPress={() => Actions.popTo('home')} textStyle={{ color: '#222', fontWeight: '700' }}>
                     <Text>NEXT</Text>
@@ -240,6 +214,16 @@ class Story extends Component {
     );
   }
 }
+
+
+function _shareMessage() {
+    console.log('share message');
+  Share.share({
+    message: 'React Native | A framework for building native apps using React'
+  })
+  .then(this._showResult)
+  .catch((error) => this.setState({result: 'error: ' + error.message}));
+};
 
 function bindAction(dispatch) {
   return {
