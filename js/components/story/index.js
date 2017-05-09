@@ -42,6 +42,9 @@ class Story extends Component {
       open: false,
       value: 0,
     };
+
+console.log(this.props.eventImage);
+
   }
 
 
@@ -49,7 +52,7 @@ class Story extends Component {
 
     Share.share({
       message: "" + this.props.eventTitle + "\nWhen: Soon\n\n\n[get this app or get lost]",
-      title: 'Cool Calendar App'
+      title: 'Cool Calendar App' + this.props.eventImage
     })
     .then(this._showResult)
     .catch((error) => this.setState({result: 'error: ' + error.message}));
@@ -90,7 +93,8 @@ class Story extends Component {
           <Content showsVerticalScrollIndicator={false}>
             <View style={{ flex: 1 }}>
               <View >
-                <Image source={require('../../../images/Events/charlie.jpg')} style={styles.newsPoster}>
+                <Image  source={{uri: this.props.eventImage}}  style={styles.newsPoster}>
+
                   <TouchableOpacity>
                     <View style={styles.newsPosterContent}>
                       <Text numberOfLines={2} style={styles.newsPosterHeader}>

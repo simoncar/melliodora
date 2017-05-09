@@ -58,7 +58,8 @@ class Home extends Component {
           title: snapshot.child("summary").val(),
           location: snapshot.child("location").val(),
           startDatePretty: snapshot.child("start__date_pretty").val(),
-          startTimePretty: snapshot.child("start__time_pretty").val()
+          startTimePretty: snapshot.child("start__time_pretty").val(),
+          eventImage: snapshot.child("image").val()
         });
 
       });
@@ -100,6 +101,7 @@ class Home extends Component {
                 eventTitle: rowData.title,
                 eventDate: rowData.startDatePretty,
                 location: rowData.location,
+                eventImage: rowData.eventImage,
               })
             }>
 
@@ -134,32 +136,6 @@ class Home extends Component {
   }
 }
 
-
-function renderRow() {
-  return (
-    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
-      <View style={styles.newsContent}>
-        <Text numberOfLines={2} style={styles.newsHeader}>
-              AAAAAAAA
-          </Text>
-        <Grid style={styles.swiperContentBox}>
-          <Col style={{ flexDirection: 'row' }}>
-            <TouchableOpacity>
-              <Text style={styles.newsLink}>May 20, 2017</Text>
-            </TouchableOpacity>
-            <Icon name="ios-time-outline" style={styles.timeIcon} />
-            <Text style={styles.newsLink}>6:00 am</Text>
-          </Col>
-          <Col>
-            <TouchableOpacity style={styles.newsTypeView}>
-              <Text style={styles.newsTypeText}>Changi Airport</Text>
-            </TouchableOpacity>
-          </Col>
-        </Grid>
-      </View>
-    </TouchableOpacity>
-  );
-};
 
 
 function bindAction(dispatch) {
