@@ -49,8 +49,8 @@ export default {
     fontWeight: '900',
   },
   imageHeader: {
-    height: 25,
-    width: 95,
+    height: 145,
+    width: 225,
     resizeMode: 'contain',
   },
 };

@@ -15,7 +15,7 @@ import theme from '../../themes/base-theme';
 import styles from './styles';
 
 
-const headerLogo = require('../../../images/Header-Logo.png');
+const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
 class Overview extends Component {
 
@@ -162,7 +162,7 @@ class Overview extends Component {
                     <Text style={styles.overviewInfoPerc}></Text>
                   </Col>
                 </Grid>
-                
+
               </View>
             </View>
           </Content>
