@@ -26,13 +26,25 @@ class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      monSwitch: false,
-      tueSwitch: false,
-      wedSwitch: true,
-      thuSwitch: true,
-      friSwitch: false,
-      satSwitch: false,
-      sunSwitch: false,
+      earlyyearsSwitch: false,
+      lowerelemSwitch: false,
+      upperelemSwitch: false,
+      middleSwitch: true,
+      highSwitch: true,
+      badmintonSwitch: false,
+      basketballSwitch: false,
+      crosscountrySwitch: false,
+      golfSwitch: false,
+      rugbySwitch: false,
+      soccerSwitch: false,
+      softballSwitch: false,
+      swimmingSwitch: false,
+      tennisSwitch: false,
+      trackSwitch: false,
+      volleyballSwitch: false,
+      musicSwitch: false,
+      theaterSwitch: false,
+      visualartSwitch: false,
       Username: '',
       email: '',
       password: '',
@@ -96,16 +108,31 @@ class Settings extends Component {
             <View>
               <Grid style={{ marginBottom: 10 }}>
                 <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>LOWER ELEMENTARY</Text>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>EARLY YEARS</Text>
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
-                    onValueChange={value => this.setState({ monSwitch: value })}
+                    onValueChange={value => this.setState({ earlyyearsSwitch: value })}
                     onTintColor={primary}
                     style={styles.switch}
                     thumbTintColor="#ccc"
                     tintColor="#aaa"
-                    value={this.state.monSwitch}
+                    value={this.state.earlyyearsSwitch}
+                  />
+                </Col>
+              </Grid>
+              <Grid style={{ marginBottom: 10 }}>
+                <Col>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>LOWER ELEMENTARY</Text>
+                </Col>
+                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                  <Switch
+                    onValueChange={value => this.setState({ lowerelemSwitch: value })}
+                    onTintColor={primary}
+                    style={styles.switch}
+                    thumbTintColor="#ccc"
+                    tintColor="#aaa"
+                    value={this.state.lowerelemSwitch}
                   />
                 </Col>
               </Grid>
@@ -115,12 +142,12 @@ class Settings extends Component {
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
-                    onValueChange={value => this.setState({ tueSwitch: value })}
+                    onValueChange={value => this.setState({ upperelemSwitch: value })}
                     onTintColor={primary}
                     style={styles.switch}
                     thumbTintColor="#ccc"
                     tintColor="#aaa"
-                    value={this.state.tueSwitch}
+                    value={this.state.upperelemSwitch}
                   />
                 </Col>
               </Grid>
@@ -130,12 +157,12 @@ class Settings extends Component {
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
-                    onValueChange={value => this.setState({ wedSwitch: value })}
+                    onValueChange={value => this.setState({ middleSwitch: value })}
                     onTintColor={primary}
                     style={styles.switch}
                     thumbTintColor="#ccc"
                     tintColor="#aaa"
-                    value={this.state.wedSwitch}
+                    value={this.state.middleSwitch}
                   />
                 </Col>
               </Grid>
@@ -145,132 +172,12 @@ class Settings extends Component {
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
-                    onValueChange={value => this.setState({ thuSwitch: value })}
+                    onValueChange={value => this.setState({ highSwitch: value })}
                     onTintColor={primary}
                     style={styles.switch}
                     thumbTintColor="#ccc"
                     tintColor="#aaa"
-                    value={this.state.thuSwitch}
-                  />
-                </Col>
-              </Grid>
-              <Grid style={{ marginBottom: 10 }}>
-                <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>DRAMA</Text>
-                </Col>
-                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
-                  <Switch
-                    onValueChange={value => this.setState({ friSwitch: value })}
-                    onTintColor={primary}
-                    style={styles.switch}
-                    thumbTintColor="#ccc"
-                    tintColor="#aaa"
-                    value={this.state.friSwitch}
-                  />
-                </Col>
-              </Grid>
-              <Grid style={{ marginBottom: 10 }}>
-                <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>SWIMMING</Text>
-                </Col>
-                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
-                  <Switch
-                    onValueChange={value => this.setState({ satSwitch: value })}
-                    onTintColor={primary}
-                    style={styles.switch}
-                    thumbTintColor="#ccc"
-                    tintColor="#aaa"
-                    value={this.state.satSwitch}
-                  />
-                </Col>
-              </Grid>
-              <Grid style={{ marginBottom: 10 }}>
-                <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>MUSIC</Text>
-                </Col>
-                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
-                  <Switch
-                    onValueChange={value => this.setState({ sunSwitch: value })}
-                    onTintColor={primary}
-                    style={styles.switch}
-                    thumbTintColor="#ccc"
-                    tintColor="#aaa"
-                    value={this.state.sunSwitch}
-                  />
-                </Col>
-              </Grid>
-              <Grid style={{ marginBottom: 10 }}>
-                <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>RUGBY</Text>
-                </Col>
-                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
-                  <Switch
-                    onValueChange={value => this.setState({ satSwitch: value })}
-                    onTintColor={primary}
-                    style={styles.switch}
-                    thumbTintColor="#ccc"
-                    tintColor="#aaa"
-                    value={this.state.satSwitch}
-                  />
-                </Col>
-              </Grid>
-              <Grid style={{ marginBottom: 10 }}>
-                <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>FOOTBALL</Text>
-                </Col>
-                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
-                  <Switch
-                    onValueChange={value => this.setState({ satSwitch: value })}
-                    onTintColor={primary}
-                    style={styles.switch}
-                    thumbTintColor="#ccc"
-                    tintColor="#aaa"
-                    value={this.state.satSwitch}
-                  />
-                </Col>
-              </Grid>
-              <Grid style={{ marginBottom: 10 }}>
-                <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>TENNIS</Text>
-                </Col>
-                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
-                  <Switch
-                    onValueChange={value => this.setState({ satSwitch: value })}
-                    onTintColor={primary}
-                    style={styles.switch}
-                    thumbTintColor="#ccc"
-                    tintColor="#aaa"
-                    value={this.state.satSwitch}
-                  />
-                </Col>
-              </Grid>
-              <Grid style={{ marginBottom: 10 }}>
-                <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>VOLLEYBALL</Text>
-                </Col>
-                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
-                  <Switch
-                    onValueChange={value => this.setState({ satSwitch: value })}
-                    onTintColor={primary}
-                    style={styles.switch}
-                    thumbTintColor="#ccc"
-                    tintColor="#aaa"
-                    value={this.state.satSwitch}
-                  />
-                </Col>
-              </Grid>
-              <Grid style={{ marginBottom: 10 }}>
-                <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>CROSS COUNTRY</Text>
-                </Col>
-                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
-                  <Switch
-                    onValueChange={value => this.setState({ satSwitch: value })}
-                    onTintColor={primary}
-                    style={styles.switch}
-                    thumbTintColor="#ccc"
-                    tintColor="#aaa"
-                    value={this.state.satSwitch}
+                    value={this.state.highSwitch}
                   />
                 </Col>
               </Grid>
@@ -280,12 +187,42 @@ class Settings extends Component {
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
-                    onValueChange={value => this.setState({ satSwitch: value })}
+                    onValueChange={value => this.setState({ badmintonSwitch: value })}
                     onTintColor={primary}
                     style={styles.switch}
                     thumbTintColor="#ccc"
                     tintColor="#aaa"
-                    value={this.state.satSwitch}
+                    value={this.state.badmintonSwitch}
+                  />
+                </Col>
+              </Grid>
+              <Grid style={{ marginBottom: 10 }}>
+                <Col>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>BASKETBALL</Text>
+                </Col>
+                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                  <Switch
+                    onValueChange={value => this.setState({ basketballSwitch: value })}
+                    onTintColor={primary}
+                    style={styles.switch}
+                    thumbTintColor="#ccc"
+                    tintColor="#aaa"
+                    value={this.state.basketballSwitch}
+                  />
+                </Col>
+              </Grid>
+              <Grid style={{ marginBottom: 10 }}>
+                <Col>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>CROSS COUNTRY</Text>
+                </Col>
+                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                  <Switch
+                    onValueChange={value => this.setState({ crosscountrySwitch: value })}
+                    onTintColor={primary}
+                    style={styles.switch}
+                    thumbTintColor="#ccc"
+                    tintColor="#aaa"
+                    value={this.state.crosscountrySwitch}
                   />
                 </Col>
               </Grid>
@@ -295,27 +232,42 @@ class Settings extends Component {
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
-                    onValueChange={value => this.setState({ satSwitch: value })}
+                    onValueChange={value => this.setState({ golfSwitch: value })}
                     onTintColor={primary}
                     style={styles.switch}
                     thumbTintColor="#ccc"
                     tintColor="#aaa"
-                    value={this.state.satSwitch}
+                    value={this.state.golfSwitch}
                   />
                 </Col>
               </Grid>
               <Grid style={{ marginBottom: 10 }}>
                 <Col>
-                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>GYMNASTICS</Text>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>RUGBY</Text>
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
-                    onValueChange={value => this.setState({ satSwitch: value })}
+                    onValueChange={value => this.setState({ rugbySwitch: value })}
                     onTintColor={primary}
                     style={styles.switch}
                     thumbTintColor="#ccc"
                     tintColor="#aaa"
-                    value={this.state.satSwitch}
+                    value={this.state.rugbySwitch}
+                  />
+                </Col>
+              </Grid>
+              <Grid style={{ marginBottom: 10 }}>
+                <Col>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>SOCCER</Text>
+                </Col>
+                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                  <Switch
+                    onValueChange={value => this.setState({ soccerSwitch: value })}
+                    onTintColor={primary}
+                    style={styles.switch}
+                    thumbTintColor="#ccc"
+                    tintColor="#aaa"
+                    value={this.state.soccerSwitch}
                   />
                 </Col>
               </Grid>
@@ -325,13 +277,118 @@ class Settings extends Component {
                 </Col>
                 <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                   <Switch
-                    onValueChange={value => this.setState({ satSwitch: value })}
+                    onValueChange={value => this.setState({ softballSwitch: value })}
                     onTintColor={primary}
                     style={styles.switch}
                     thumbTintColor="#ccc"
                     tintColor="#aaa"
-                    value={this.state.satSwitch}
+                    value={this.state.softballSwitch}
                   />
+                </Col>
+              </Grid>
+              <Grid style={{ marginBottom: 10 }}>
+                <Col>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>SWIMMING</Text>
+                </Col>
+                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                  <Switch
+                    onValueChange={value => this.setState({ swimmingSwitch: value })}
+                    onTintColor={primary}
+                    style={styles.switch}
+                    thumbTintColor="#ccc"
+                    tintColor="#aaa"
+                    value={this.state.swimmingSwitch}
+                  />
+                </Col>
+              </Grid>
+              <Grid style={{ marginBottom: 10 }}>
+                <Col>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>TENNIS</Text>
+                </Col>
+                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                  <Switch
+                    onValueChange={value => this.setState({ tennisSwitch: value })}
+                    onTintColor={primary}
+                    style={styles.switch}
+                    thumbTintColor="#ccc"
+                    tintColor="#aaa"
+                    value={this.state.tennisSwitch}
+                  />
+                </Col>
+              </Grid>
+              <Grid style={{ marginBottom: 10 }}>
+                <Col>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>TRACK & FIELD</Text>
+                </Col>
+                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                  <Switch
+                    onValueChange={value => this.setState({ trackSwitch: value })}
+                    onTintColor={primary}
+                    style={styles.switch}
+                    thumbTintColor="#ccc"
+                    tintColor="#aaa"
+                    value={this.state.trackSwitch}
+                  />
+                </Col>
+              </Grid>
+              <Grid style={{ marginBottom: 10 }}>
+                <Col>
+                  <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>VOLLEYBALL</Text>
+                </Col>
+                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                  <Switch
+                    onValueChange={value => this.setState({ volleyballSwitch: value })}
+                    onTintColor={primary}
+                    style={styles.switch}
+                    thumbTintColor="#ccc"
+                    tintColor="#aaa"
+                    value={this.state.volleyballSwitch}
+                    />
+                  </Col>
+                </Grid>
+                <Grid style={{ marginBottom: 10 }}>
+                  <Col>
+                    <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>MUSIC</Text>
+                  </Col>
+                  <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                    <Switch
+                      onValueChange={value => this.setState({ musicSwitch: value })}
+                      onTintColor={primary}
+                      style={styles.switch}
+                      thumbTintColor="#ccc"
+                      tintColor="#aaa"
+                      value={this.state.musicSwitch}
+                      />
+                    </Col>
+                  </Grid>
+                  <Grid style={{ marginBottom: 10 }}>
+                    <Col>
+                      <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>THEATRE</Text>
+                    </Col>
+                    <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                      <Switch
+                        onValueChange={value => this.setState({ theaterSwitch: value })}
+                        onTintColor={primary}
+                        style={styles.switch}
+                        thumbTintColor="#ccc"
+                        tintColor="#aaa"
+                        value={this.state.theaterSwitch}
+                      />
+                      </Col>
+                      </Grid>
+                      <Grid style={{ marginBottom: 10 }}>
+                      <Col>
+                      <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>VISUAL ARTS</Text>
+                      </Col>
+                      <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                      <Switch
+                        onValueChange={value => this.setState({ visualartSwitch: value })}
+                        onTintColor={primary}
+                        style={styles.switch}
+                        thumbTintColor="#ccc"
+                        tintColor="#aaa"
+                        value={this.state.visualartSwitch}
+                      />
                 </Col>
               </Grid>
             </View>
