@@ -83,7 +83,8 @@ class Settings extends Component {
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.bg}>
             <Text style={styles.signupHeader}>EVENT SELECTION</Text>
-            <View style={{ marginTop: 10 }}>
+            <View style={{ marginTop: 2, marginBottom: 10 }}>
+
               <Grid>
                 <Col>
                   <Button transparent style={styles.roundedButton}>
@@ -102,6 +103,7 @@ class Settings extends Component {
                 </Col>
               </Grid>
             </View>
+
           </View>
           <View style={styles.notificationSwitchContainer}>
             <Text style={styles.notificationHeader}>EVENTS I WANT TO FOLLOW</Text>
