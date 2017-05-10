@@ -53,6 +53,8 @@ class Home extends Component {
     calendarEvents.on('value', (dataSnapshot) => {
       var calendarEvents = [];
 
+      const strtime = '2012-07-09'
+
       dataSnapshot.forEach((snapshot) => {
 
         calendarEvents.push({
@@ -65,7 +67,19 @@ class Home extends Component {
           eventImage: snapshot.child("image").val()
         });
 
-      });
+        this.state.items[strtime].push({
+          name: 'Item for ' + strtime,
+          height: Math.max(50, Math.floor(Math.random() * 150)),
+          title: snapshot.child("summary").val(),
+          location: snapshot.child("location").val(),
+          startDatePretty: snapshot.child("start__date_pretty").val(),
+          startTimePretty: snapshot.child("start__time_pretty").val(),
+          eventImage: snapshot.child("image").val()
+        });
+
+        console.log('loop XXXXXXXXXXXXXXXXX > ', 'Item for ' + strtime,snapshot.child("summary").val())
+
+      });  //forEach
 
 
       this.setState({
@@ -150,21 +164,30 @@ class Home extends Component {
 
 
   loadItems(day) {
+
+
     setTimeout(() => {
       for (let i = -15; i < 85; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
+        console.log('strtime = ', strtime);
         if (!this.state.items[strtime]) {
+
           this.state.items[strtime] = [];
+
           const numItems = Math.floor(Math.random() * 5);
           for (let j = 0; j < numItems; j++) {
+
             this.state.items[strtime].push({
+
               name: 'Item for ' + strtime,
               height: Math.max(50, Math.floor(Math.random() * 150))
             });
           }
         }
       }
+
+
       //console.log(this.state.items);
       const newItems = {};
       Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
