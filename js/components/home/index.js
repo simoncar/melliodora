@@ -8,7 +8,11 @@ import { Grid, Col } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
+<<<<<<< HEAD
 import {Agenda} from 'react-native-calendars';
+=======
+import { setUsername, setPassword} from '../global.js';
+>>>>>>> origin/master
 
 const deviceWidth = Dimensions.get('window').width;
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
@@ -35,6 +39,10 @@ class Home extends Component {
 
   constructor(props) {
     super(props);
+
+setUsername(this.props.username);
+setPassword(this.props.password);
+
     this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/calendar/all');
     this.state = {
       user:null,
@@ -89,7 +97,7 @@ class Home extends Component {
   }
 
   render() {
-    console.log('View1 props: ', this.props);
+
 
     return (
       <Container style={{ backgroundColor: '#fff' }}>

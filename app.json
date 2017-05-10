@@ -2,7 +2,7 @@
   "expo": {
     "sdkVersion": "15.0.0",
     "icon": "./images/icon.png",
-     "slug": "strapflatapp",
+     "slug": "whatson",
     "loading": {
       "hideExponentText": true,
       "icon": "./images/loading.png",

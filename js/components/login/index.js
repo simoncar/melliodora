@@ -21,8 +21,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      username: 'simoncar@gmail.com',
+      password: 's9monh9ll,s',
     };
     this.constructor.childContextTypes = {
       theme: React.PropTypes.object,

@@ -1,6 +1,6 @@
 {
-  "name": "StrapFlatApp",
-  "version": "7.0.0",
+  "name": "whatsOn",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "react-native-scripts": "0.0.26",
