@@ -10,13 +10,15 @@ import { openDrawer } from '../../actions/drawer';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
-
-
+import {getUsername, getPassword} from '../global.js'
 
 const primary = require('../../themes/variable').brandPrimary;
 
-
 var WEBVIEW_REF = 'webview';
+
+  var injectScript = 'document.getElementById(\"username\").value=\"' + getUsername() + '\"';
+  injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"' + getPassword() + '"';
+  injectScript = injectScript + ';' +  'document.forms[0].submit()';
 
 class Widgets extends Component {
 
@@ -42,21 +44,19 @@ class Widgets extends Component {
 
             </Right>
           </Header>
+
             <WebView
                     source={{uri: 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP'}}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
                     startInLoadingState={true}
+                     injectedJavaScript={injectScript}
                     ref={WEBVIEW_REF}
                   />
         </Image>
       </Container>
     );
   }
-
-
-
-
 }
 
 
