@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { Image, Platform, StatusBar } from 'react-native';
+
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+
 import { Actions } from 'react-native-router-flux';
 import { Container, Content, Text, Item, Input, Button, Icon, View, Left, Right } from 'native-base';
 
 import styles from './styles';
 import commonColor from '../../../native-base-theme/variables/commonColor';
+
+import { ActionCreators } from '../../actions'
 
 const bg = require('../../../images/BG.png');
 const logo = require('../../../images/logo.png');
@@ -29,6 +34,15 @@ class Login extends Component {
     };
   }
 
+
+  incrementRecipeCount() {
+      this.setState({recipeCount: this.state.recipeCount+1});
+  }
+  addRecipe(username) {
+    this.props.setLoginDetails(username);
+  }
+
+
   render() {
     return (
       <Container>
@@ -45,7 +59,7 @@ class Login extends Component {
                 <Icon name="person" />
                 <Input
                   placeholder="MyStamford Login"
-                  onChangeText={username => this.setState({ username })}
+                  onChangeText={username => {this.addRecipe(username) }}
                   placeholderTextColor="#FFF"
                   style={styles.input}
                 />
@@ -95,13 +109,12 @@ class Login extends Component {
 }
 
 
-function bindActions(dispatch) {
-  return {
-  };
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(ActionCreators, dispatch);
 }
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
 });
 
-export default connect(mapStateToProps, bindActions)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
