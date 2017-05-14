@@ -48,7 +48,7 @@ class Widgets extends Component {
           <View>
 
         <Text  style={styles.weatherTime}> Fetch Recipes </Text>
-
+{console.log ('hello')}
     </View>
 
 

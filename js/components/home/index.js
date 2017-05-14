@@ -8,11 +8,9 @@ import { Grid, Col } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
-<<<<<<< HEAD
+
 import {Agenda} from 'react-native-calendars';
-=======
 import { setUsername, setPassword} from '../global.js';
->>>>>>> origin/master
 
 const deviceWidth = Dimensions.get('window').width;
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
