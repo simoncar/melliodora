@@ -79,7 +79,7 @@ class Login extends Component {
               <Button
                 rounded primary block large
                 style={styles.loginBtn}
-                onPress={() => Actions.calendar2({ username: this.state.username, password: this.state.password })}
+                onPress={() => Actions.home({ username: this.state.username, password: this.state.password })}
               >
                 <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>Get Started</Text>
               </Button>

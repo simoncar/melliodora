@@ -25,7 +25,7 @@ class SideBar extends Component {
       <Container>
         <Image source={require('../../../images/sid.png')} style={styles.background} >
           <Content style={styles.drawerContent}>
-            <ListItem button onPress={() => { Actions.calendar2(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+            <ListItem button onPress={() => { Actions.home(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-grid-outline" />
               <Text style={styles.linkText} >EVENTS</Text>
             </ListItem>

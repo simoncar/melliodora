@@ -50,7 +50,7 @@ class Calendar extends Component {
           <Image source={headerLogo} style={styles.imageHeader} />
         </Body>
           <Right>
-            <Button transparent style={styles.btnHeader} onPress={() => Actions.popTo('calendar2')}>
+            <Button transparent style={styles.btnHeader} onPress={() => Actions.popTo('home')}>
               <Icon active name="arrow-back" />
             </Button>
           </Right>

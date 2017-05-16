@@ -147,7 +147,7 @@ console.log(this.props.eventImage);
                 </View>
 
                 <View style={{ alignSelf: 'center' }}>
-                  <Button transparent iconRight onPress={() => Actions.popTo('calendar2')} textStyle={{ color: '#222', fontWeight: '700' }}>
+                  <Button transparent iconRight onPress={() => Actions.popTo('home')} textStyle={{ color: '#222', fontWeight: '700' }}>
                     <Text>NEXT</Text>
                     <Icon name="ios-arrow-forward" style={styles.forwardBtn} />
                   </Button>

@@ -51,7 +51,7 @@ class Feedback extends Component {
               <Image source={require('../../../images/Header-Logo-White-0001.png')} style={styles.imageHeader} />
             </Body>
             <Right>
-              <Button transparent style={styles.btnHeader} onPress={() => Actions.popTo('calendar2')}>
+              <Button transparent style={styles.btnHeader} onPress={() => Actions.popTo('home')}>
                 <Icon active name="arrow-back" />
               </Button>
             </Right>
