@@ -41,7 +41,7 @@ class Walkthrough extends Component {
                             </Text>
               <Button
                 transparent rounded
-                onPress={() => Actions.home()}
+                onPress={() => Actions.calendar2()}
                 style={styles.Button}
               >
                 <Text style={{ color: '#FFF', fontWeight: '600' }}>Skip To App</Text>
@@ -58,7 +58,7 @@ class Walkthrough extends Component {
                             </Text>
               <Button
                 transparent rounded
-                onPress={() => Actions.home()}
+                onPress={() => Actions.calendar2()}
                 style={styles.Button}
               >
                 <Text style={{ color: '#FFF', fontWeight: '600' }}>Skip To App</Text>
@@ -75,7 +75,7 @@ class Walkthrough extends Component {
                             </Text>
               <Button
                 transparent rounded
-                onPress={() => Actions.home()}
+                onPress={() => Actions.calendar2()}
                 style={styles.Button}
               >
                 <Text style={{ color: '#FFF', fontWeight: '600' }}>Continue To App</Text>

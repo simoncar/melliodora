@@ -24,7 +24,7 @@ class HeaderContent extends Component {
     return (
       <Header>
         <Left>
-          <Button transparent onPress={() => Actions.popTo('home')}>
+          <Button transparent onPress={() => Actions.popTo('calendar2')}>
             <Icon active name="arrow-back" />
           </Button>
         </Left>

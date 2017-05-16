@@ -8,7 +8,7 @@ import { Router, Scene } from 'react-native-router-flux';
 import { closeDrawer } from './actions/drawer';
 
 import Login from './components/login/';
-import Home from './components/home/';
+import calendar2 from './components/calendar2/';
 import SignUp from './components/sign-up/';
 import Feedback from './components/feedback/';
 import Comments from './components/comments/';
@@ -95,7 +95,7 @@ class AppNavigator extends Component {
             <Scene key="login" component={Login} hideNavBar initial={true} />
             <Scene key="signUp" component={SignUp} />
             <Scene key="needhelp" component={NeedHelp} />
-            <Scene key="home" component={Home} />
+            <Scene key="calendar2" component={calendar2} />
             <Scene key="feedback" component={Feedback} />
             <Scene key="comments" component={Comments} />
             <Scene key="profile" component={Profile} />

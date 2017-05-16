@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/stephy/CalendarPicker/issues"
   },
-  "homepage": "https://github.com/stephy/CalendarPicker",
+  "calendar2page": "https://github.com/stephy/CalendarPicker",
   "_id": "react-native-calendar-picker@1.0.1",
   "_shasum": "af3196fdbb105fbcec26887dbf56a783a5eb1130",
   "_from": "react-native-calendar-picker@*",

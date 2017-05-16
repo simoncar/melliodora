@@ -1242,7 +1242,7 @@ babel-register@^6.18.0, babel-register@^6.24.0:
     babel-core "^6.24.0"
     babel-runtime "^6.22.0"
     core-js "^2.4.0"
-    home-or-tmp "^2.0.0"
+    calendar2-or-tmp "^2.0.0"
     lodash "^4.2.0"
     mkdirp "^0.5.1"
     source-map-support "^0.4.2"
@@ -2428,7 +2428,7 @@ eslint@^3.5.0:
     strip-json-comments "~2.0.1"
     table "^3.7.8"
     text-table "~0.2.0"
-    user-home "^2.0.0"
+    user-calendar2 "^2.0.0"
 
 espree@^3.4.0:
   version "3.4.1"
@@ -3154,15 +3154,15 @@ hoist-non-react-statics@^1.0.3, hoist-non-react-statics@^1.0.5, hoist-non-react-
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
-home-dir@^1.0.0:
+calendar2-dir@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/home-dir/-/home-dir-1.0.0.tgz#2917eb44bdc9072ceda942579543847e3017fe4e"
+  resolved "https://registry.yarnpkg.com/calendar2-dir/-/calendar2-dir-1.0.0.tgz#2917eb44bdc9072ceda942579543847e3017fe4e"
 
-home-or-tmp@^2.0.0:
+calendar2-or-tmp@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/home-or-tmp/-/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
+  resolved "https://registry.yarnpkg.com/calendar2-or-tmp/-/calendar2-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
   dependencies:
-    os-homedir "^1.0.0"
+    os-calendar2dir "^1.0.0"
     os-tmpdir "^1.0.1"
 
 hosted-git-info@^2.1.4:
@@ -4982,9 +4982,9 @@ options@>=0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/options/-/options-0.0.6.tgz#ec22d312806bb53e731773e7cdaefcf1c643128f"
 
-os-homedir@^1.0.0:
+os-calendar2dir@^1.0.0:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
+  resolved "https://registry.yarnpkg.com/os-calendar2dir/-/os-calendar2dir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
 
 os-locale@^1.4.0:
   version "1.4.0"
@@ -6878,11 +6878,11 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-user-home@^2.0.0:
+user-calendar2@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/user-home/-/user-home-2.0.0.tgz#9c70bfd8169bc1dcbf48604e0f04b8b49cde9e9f"
+  resolved "https://registry.yarnpkg.com/user-calendar2/-/user-calendar2-2.0.0.tgz#9c70bfd8169bc1dcbf48604e0f04b8b49cde9e9f"
   dependencies:
-    os-homedir "^1.0.0"
+    os-calendar2dir "^1.0.0"
 
 util-deprecate@1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
@@ -7093,7 +7093,7 @@ xdl@^37.0.0:
     fs-extra "^0.30.0"
     glob "^7.0.3"
     hasbin "^1.2.3"
-    home-dir "^1.0.0"
+    calendar2-dir "^1.0.0"
     indent-string "^3.1.0"
     instapromise "2.0.7-rc.1"
     ip "^1.1.3"
