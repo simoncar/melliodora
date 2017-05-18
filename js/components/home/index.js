@@ -26,7 +26,7 @@ const firebaseConfig = {
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-class Home extends Component {
+class calendar1 extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func,
@@ -59,7 +59,7 @@ setPassword(this.props.password);
     calendarEvents.on('value', (dataSnapshot) => {
       var calendarEvents = [];
 
-      const strtime = '2017-05-18'
+      const strtime = '2017-05-16'
 
       dataSnapshot.forEach((snapshot) => {
 
@@ -72,7 +72,7 @@ setPassword(this.props.password);
           startTimePretty: snapshot.child("start__time_pretty").val(),
           eventImage: snapshot.child("image").val()
         });
-/*
+
         this.state.items[strtime].push({
           name: 'Item for ' + strtime,
           height: Math.max(50, Math.floor(Math.random() * 150)),
@@ -82,7 +82,7 @@ setPassword(this.props.password);
           startTimePretty: snapshot.child("start__time_pretty").val(),
           eventImage: snapshot.child("image").val()
         });
-*/
+
         console.log('loop XXXXXXXXXXXXXXXXX > ', 'Item for ' + strtime,snapshot.child("summary").val())
 
       });  //forEach
@@ -100,26 +100,18 @@ setPassword(this.props.password);
     return (
       <Container style={{ backgroundColor: '#fff' }}>
         <Header>
-          <Left>
-            <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
-              <Icon active name="menu" />
-            </Button>
-          </Left>
+
           <Body>
           <Image source={headerLogo} style={styles.imageHeader} />
           </Body>
-          <Right>
-            <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
-              <Icon active name="power" />
-            </Button>
-          </Right>
+
         </Header>
 
 
         <Agenda
           items={this.state.items}
           loadItemsForMonth={this.loadItems.bind(this)}
-          selected={'2017-05-18'}
+          selected={'2017-05-16'}
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
@@ -137,8 +129,6 @@ setPassword(this.props.password);
                 eventImage: rowData.eventImage,
               })
             }>
-
-
 
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
@@ -251,4 +241,4 @@ const mapStateToProps = state => ({
   navigation: state.cardNavigation,
 });
 
-export default connect(mapStateToProps, bindAction)(Home);
+export default connect(mapStateToProps, bindAction)(calendar1);
