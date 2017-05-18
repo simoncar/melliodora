@@ -59,7 +59,7 @@ setPassword(this.props.password);
     calendarEvents.on('value', (dataSnapshot) => {
       var calendarEvents = [];
 
-      const strtime = '2012-07-09'
+      const strtime = '2017-05-18'
 
       dataSnapshot.forEach((snapshot) => {
 
@@ -72,7 +72,7 @@ setPassword(this.props.password);
           startTimePretty: snapshot.child("start__time_pretty").val(),
           eventImage: snapshot.child("image").val()
         });
-
+/*
         this.state.items[strtime].push({
           name: 'Item for ' + strtime,
           height: Math.max(50, Math.floor(Math.random() * 150)),
@@ -82,7 +82,7 @@ setPassword(this.props.password);
           startTimePretty: snapshot.child("start__time_pretty").val(),
           eventImage: snapshot.child("image").val()
         });
-
+*/
         console.log('loop XXXXXXXXXXXXXXXXX > ', 'Item for ' + strtime,snapshot.child("summary").val())
 
       });  //forEach
@@ -119,7 +119,7 @@ setPassword(this.props.password);
         <Agenda
           items={this.state.items}
           loadItemsForMonth={this.loadItems.bind(this)}
-          selected={'2012-05-16'}
+          selected={'2017-05-18'}
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
@@ -137,6 +137,8 @@ setPassword(this.props.password);
                 eventImage: rowData.eventImage,
               })
             }>
+
+
 
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
