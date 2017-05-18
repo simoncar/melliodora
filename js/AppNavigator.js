@@ -91,11 +91,13 @@ class AppNavigator extends Component {
           barStyle="light-content"
         />
         <RouterWithRedux>
+          <Scene key="home" component={Home} />
           <Scene key="root">
+
             <Scene key="login" component={Login} hideNavBar initial={true} />
             <Scene key="signUp" component={SignUp} />
             <Scene key="needhelp" component={NeedHelp} />
-            <Scene key="home" component={Home} />
+
             <Scene key="feedback" component={Feedback} />
             <Scene key="comments" component={Comments} />
             <Scene key="profile" component={Profile} />
