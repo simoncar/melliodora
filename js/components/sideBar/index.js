@@ -26,26 +26,10 @@ class SideBar extends Component {
         <Image source={require('../../../images/sid.png')} style={styles.background} >
           <Content style={styles.drawerContent}>
             <ListItem button onPress={() => { Actions.home(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-grid-outline" />
-              <Text style={styles.linkText} >EVENTS</Text>
-            </ListItem>
-            <ListItem button onPress={() => { Actions.calendar(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-calendar-outline" />
-              <Text style={styles.linkText}>CALENDAR</Text>
+              <Text style={styles.linkText} >CALENDAR</Text>
             </ListItem>
-
-            <ListItem button onPress={() => { Actions.settings(); this.props.closeDrawer(); }} iconLeft style={styles.links}>
-              <Icon name="ios-settings-outline" />
-              <Text style={styles.linkText}>EVENT SELECTION</Text>
-            </ListItem>
-            <ListItem button onPress={() => { Actions.overview(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-paper-outline" />
-              <Text style={styles.linkText} >NEWSLETTERS</Text>
-            </ListItem>
-            <ListItem button onPress={() => { Actions.widgets(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-grid" />
-              <Text style={styles.linkText}>myStamford</Text>
-            </ListItem>
+            
 
             <View style={styles.logoutContainer}>
               <View style={styles.logoutbtn} foregroundColor={'white'}>
