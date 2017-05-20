@@ -18,6 +18,13 @@ const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 import * as firebase from 'firebase';
 
 const firebaseConfig = {
+  apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
+  authDomain: "calendar-app-57e88.firebaseapp.com",
+  databaseURL: "https://calendar-app-57e88.firebaseio.com",
+  storageBucket: "calendar-app-57e88.appspot.com"
+};
+
+const firebaseConfig_ = {
   apiKey: "AIzaSyBLz76NsS1fjNXcaGBUhcp9qA-MFg1Hrg8",
   authDomain: "calendarapp-b7967.firebaseapp.com",
   databaseURL: "https://calendarapp-b7967.firebaseio.com",
@@ -64,15 +71,16 @@ class calendar1 extends Component {
 
         strtime = snapshot.child("start__dateTime").val();
         strtime = strtime.substring(0,10);
+console.log  ("dfgadfgsdgdshbadbdfbheadfhdabfdsbfdbfdsfbdfb",strtime ,snapshot.child("summary").val());
+
 
         this.state.items[strtime].push({
           name: snapshot.child("summary").val(),
-        //  height: Math.max(50, Math.floor(Math.random() * 150)),
           title: snapshot.child("summary").val(),
           location: snapshot.child("location").val(),
           startDatePretty: snapshot.child("start__date_pretty").val(),
-          startTimePretty: snapshot.child("start__time_pretty").val(),
-          eventImage: snapshot.child("image").val()
+          startTimePretty: snapshot.child("start__date_pretty").val()
+
         });
 
       });
@@ -116,7 +124,7 @@ class calendar1 extends Component {
   loadItems(day) {
 
     setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
+      for (let i = -15; i < 985; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
 
