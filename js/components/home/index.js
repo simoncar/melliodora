@@ -38,9 +38,6 @@ class calendar1 extends Component {
   constructor(props) {
     super(props);
 
-setUsername(this.props.username);
-setPassword(this.props.password);
-
     this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/calendar/all');
     this.state = {
       user:null,
@@ -59,7 +56,9 @@ setPassword(this.props.password);
     calendarEvents.on('value', (dataSnapshot) => {
       var calendarEvents = [];
 
-      const strtime = '2017-05-16'
+  const strtime = '2017-05-16'
+
+     this.state.items[strtime] = [];
 
       dataSnapshot.forEach((snapshot) => {
 
@@ -73,9 +72,11 @@ setPassword(this.props.password);
           eventImage: snapshot.child("image").val()
         });
 
+
+
         this.state.items[strtime].push({
-          name: 'Item for ' + strtime,
-          height: Math.max(50, Math.floor(Math.random() * 150)),
+          name: snapshot.child("summary").val(),
+        //  height: Math.max(50, Math.floor(Math.random() * 150)),
           title: snapshot.child("summary").val(),
           location: snapshot.child("location").val(),
           startDatePretty: snapshot.child("start__date_pretty").val(),
@@ -163,6 +164,7 @@ setPassword(this.props.password);
           </Card>
 
         </Content>
+
       </Container>
     );
   }
@@ -170,7 +172,7 @@ setPassword(this.props.password);
 
   loadItems(day) {
 
-
+    console.log('Load Items for ${day.year}-${day.month}');
     setTimeout(() => {
       for (let i = -15; i < 85; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
@@ -185,8 +187,8 @@ setPassword(this.props.password);
 
             this.state.items[strtime].push({
 
-              name: 'Item for ' + strtime,
-              height: Math.max(50, Math.floor(Math.random() * 150))
+              name: 'AAAItem for ' + strtime,
+              //height: Math.max(50, Math.floor(Math.random() * 150))
             });
           }
         }
@@ -201,6 +203,7 @@ setPassword(this.props.password);
       });
     }, 1000);
     // console.log(`Load Items for ${day.year}-${day.month}`);
+
   }
 
   renderItem(item) {
@@ -229,12 +232,6 @@ setPassword(this.props.password);
 
 
 };
-
-
-
-
-
-
 
 
 
