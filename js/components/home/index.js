@@ -119,7 +119,7 @@ class calendar1 extends Component {
         <Agenda
           items={this.state.items}
           loadItemsForMonth={this.loadItems.bind(this)}
-          selected={'2017-05-16'}
+          selected={Date()}
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
