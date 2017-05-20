@@ -56,21 +56,11 @@ class calendar1 extends Component {
     calendarEvents.on('value', (dataSnapshot) => {
       var calendarEvents = [];
 
-   strtime = '2017-05-16'
+     strtime = '2017-05-16'
 
      this.state.items[strtime] = [];
 
       dataSnapshot.forEach((snapshot) => {
-
-        calendarEvents.push({
-          name: snapshot.val().name,
-          _key: snapshot.key,
-          title: snapshot.child("summary").val(),
-          location: snapshot.child("location").val(),
-          startDatePretty: snapshot.child("start__date_pretty").val(),
-          startTimePretty: snapshot.child("start__time_pretty").val(),
-          eventImage: snapshot.child("image").val()
-        });
 
         strtime = snapshot.child("start__dateTime").val();
         strtime = strtime.substring(0,10);
@@ -84,7 +74,6 @@ class calendar1 extends Component {
           startTimePretty: snapshot.child("start__time_pretty").val(),
           eventImage: snapshot.child("image").val()
         });
-
 
       });  //forEach
 
@@ -144,9 +133,6 @@ class calendar1 extends Component {
                   </Text>
                 <Grid style={styles.swiperContentBox}>
                   <Col style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity>
-                      <Text style={styles.newsLink}>{rowData.startDatePretty}</Text>
-                    </TouchableOpacity>
                     <Icon name="ios-time-outline" style={styles.timeIcon} />
                     <Text style={styles.newsLink}>{rowData.startTimePretty}</Text>
                   </Col>
@@ -172,37 +158,25 @@ class calendar1 extends Component {
 
   loadItems(day) {
 
-    console.log('Load Items for ${day.year}-${day.month}');
     setTimeout(() => {
       for (let i = -15; i < 85; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
-        console.log('strtime = ', strtime);
+
         if (!this.state.items[strtime]) {
 
           this.state.items[strtime] = [];
 
-          const numItems = Math.floor(Math.random() * 5);
-          for (let j = 0; j < numItems; j++) {
-
-            this.state.items[strtime].push({
-
-              name: 'AAAItem for ' + strtime,
-              //height: Math.max(50, Math.floor(Math.random() * 150))
-            });
-          }
         }
       }
 
 
-      //console.log(this.state.items);
       const newItems = {};
       Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
       this.setState({
         items: newItems
       });
     }, 1000);
-    // console.log(`Load Items for ${day.year}-${day.month}`);
 
   }
 
