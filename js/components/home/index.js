@@ -56,7 +56,7 @@ class calendar1 extends Component {
     calendarEvents.on('value', (dataSnapshot) => {
       var calendarEvents = [];
 
-  const strtime = '2017-05-16'
+   strtime = '2017-05-16'
 
      this.state.items[strtime] = [];
 
@@ -72,7 +72,8 @@ class calendar1 extends Component {
           eventImage: snapshot.child("image").val()
         });
 
-
+        strtime = snapshot.child("start__dateTime").val();
+        strtime = strtime.substring(0,10);
 
         this.state.items[strtime].push({
           name: snapshot.child("summary").val(),
@@ -84,7 +85,6 @@ class calendar1 extends Component {
           eventImage: snapshot.child("image").val()
         });
 
-        console.log('loop XXXXXXXXXXXXXXXXX > ', 'Item for ' + strtime,snapshot.child("summary").val())
 
       });  //forEach
 
