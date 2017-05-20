@@ -56,7 +56,7 @@ class calendar1 extends Component {
     calendarEvents.on('value', (dataSnapshot) => {
       var calendarEvents = [];
 
-     strtime = '2017-05-16'
+     strtime = Date();
 
      this.state.items[strtime] = [];
 
@@ -75,8 +75,7 @@ class calendar1 extends Component {
           eventImage: snapshot.child("image").val()
         });
 
-      });  //forEach
-
+      });
 
       this.setState({
         calendarEvents:calendarEvents
@@ -85,13 +84,10 @@ class calendar1 extends Component {
   }
 
   render() {
-
-
     return (
       <Container style={{ backgroundColor: '#fff' }}>
         <Header>
         <Left>
-
           </Left>
           <Body>
           <Image source={headerLogo} style={styles.imageHeader} />
@@ -101,9 +97,7 @@ class calendar1 extends Component {
             <Icon active name="power" />
            </Button>
         </Right>
-
         </Header>
-
 
         <Agenda
           items={this.state.items}
@@ -113,43 +107,6 @@ class calendar1 extends Component {
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
         />
-
-        <Content showsVerticalScrollIndicator={false}>
-
-          <Card dataArray={this.state.calendarEvents} style={{ backgroundColor: '#fff', marginTop: 0, marginRight: 0 }}
-                                   renderRow={(rowData) =>
-
-            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
-                eventTitle: rowData.title,
-                eventDate: rowData.startDatePretty,
-                location: rowData.location,
-                eventImage: rowData.eventImage,
-              })
-            }>
-
-              <View style={styles.newsContent}>
-                <Text numberOfLines={2} style={styles.newsHeader}>
-                      {rowData.title}
-                  </Text>
-                <Grid style={styles.swiperContentBox}>
-                  <Col style={{ flexDirection: 'row' }}>
-                    <Icon name="ios-time-outline" style={styles.timeIcon} />
-                    <Text style={styles.newsLink}>{rowData.startTimePretty}</Text>
-                  </Col>
-                  <Col>
-                    <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}>  {rowData.location}</Text>
-                    </TouchableOpacity>
-                  </Col>
-                </Grid>
-              </View>
-            </TouchableOpacity>
-
-             }>
-
-          </Card>
-
-        </Content>
 
       </Container>
     );
@@ -164,12 +121,9 @@ class calendar1 extends Component {
         const strtime = this.timeToString(time);
 
         if (!this.state.items[strtime]) {
-
           this.state.items[strtime] = [];
-
         }
       }
-
 
       const newItems = {};
       Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
