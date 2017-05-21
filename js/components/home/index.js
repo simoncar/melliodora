@@ -140,11 +140,31 @@ class calendar1 extends Component {
 
   renderItem(item) {
     return (
-      <View style={[styles.agendaItem, {height: item.height}]}>
-      <Text style={styles.agendaDate}>{item.startTimePretty}</Text>
-      <Text style={{color: 'black'}}>{item.name}</Text>
-      <Text style={styles.agendaLocation}>{item.location}</Text>
-      </View>
+
+
+
+      <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
+                   eventTitle: item.title,
+                   eventDate: item.startDatePretty,
+                   location: item.location,
+                   eventImage: item.eventImage,
+                 })
+               }>
+
+               <View style={[styles.agendaItem, {height: item.height}]}>
+               <Text style={styles.agendaDate}>{item.startTimePretty}</Text>
+               <Text style={{color: 'black'}}>{item.name}</Text>
+               <Text style={styles.agendaLocation}>{item.location}</Text>
+               </View>
+               </TouchableOpacity>
+
+
+
+
+
+
+
+
     );
   }
 
