@@ -92,66 +92,34 @@ console.log(this.props.eventImage);
 
           <Content showsVerticalScrollIndicator={false}>
             <View style={{ flex: 1 }}>
-              <View >
-                <Image  source={{uri: this.props.eventImage}}  style={styles.newsPoster}>
-
-                  <TouchableOpacity>
-                    <View style={styles.newsPosterContent}>
-                      <Text numberOfLines={2} style={styles.newsPosterHeader}>
-                          Flat App Theme
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                </Image>
-              </View>
               <View style={{ backgroundColor: '#fff' }}>
                 <View style={styles.newsContent}>
-                  <Grid style={{ paddingBottom: 20 }}>
-                    <Col style={{ flexDirection: 'row' }}>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>{this.props.eventTitle}</Text>
+                        <Text style={styles.eventTitle}>{this.props.eventTitle}</Text>
                       </TouchableOpacity>
-                      <Icon name="ios-time-outline" style={styles.timeIcon} />
+
+
+
                       <Text style={styles.newsLink}>{this.props.mydate}</Text>
-                    </Col>
-                    <Col>
+
                       <TouchableOpacity style={styles.newsTypeView}>
-                        <Text style={styles.newsTypeText}>Upper Elementary</Text>
+                        <Text style={styles.newsTypeText}>{this.props.location}</Text>
                       </TouchableOpacity>
-                    </Col>
-                  </Grid>
+
                   <Text style={styles.newsHeader}>
-                      Rehearsals will take place twice a week on Tuesdays and Thursdays, {"\n"}from 3:05 pm to 4:30 pm in room F6-23.
+
                   </Text>
                 </View>
 
                 <View style={{ padding: 20 }}>
-                  <View style={styles.newsCommentContainer}>
-                    <Text style={styles.newsComment}>
-                      Saturday rehearsals will take place on {"\n"}22nd April, 29th April, 6th May, and the 13th of May. {"\n"}{"\n"}Rehearsals will be from 9am-3pm in the Theater.
-                    </Text>
-
-                  </View>
-                  <Text style={styles.newsHeader}>
-                      If you have any further questions please do not hesitate to contact Ms. Zoe Finn at {"\n"}zoe.finn@sais.edu.sg.
-                  </Text>
-
                   <View style={{ paddingBottom: 20 }}>
-                    <Text style={styles.newsHeader}>
-                    {"\n"}
-                    {this.props.location} {"\n"}
+                    <Text style={styles.eventTitle}>
                     {this.props.eventDate} {"\n"}
-                    Friday, May 19 at 6:00 pm
+
                   </Text>
                   </View>
                 </View>
 
-                <View style={{ alignSelf: 'center' }}>
-                  <Button transparent iconRight onPress={() => Actions.popTo('home')} textStyle={{ color: '#222', fontWeight: '700' }}>
-                    <Text>NEXT</Text>
-                    <Icon name="ios-arrow-forward" style={styles.forwardBtn} />
-                  </Button>
-                </View>
               </View>
             </View>
           </Content>

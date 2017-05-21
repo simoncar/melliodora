@@ -21,7 +21,7 @@ export default {
     borderTopWidth: 1,
     borderTopColor: '#ddd',
   },
-  newsHeader: {
+  eventTitle: {
     color: '#222',
     fontWeight: '500',
     fontSize: 14,
