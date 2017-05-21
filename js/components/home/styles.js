@@ -1,5 +1,4 @@
 
-
 const React = require('react-native');
 
 const { Dimensions, Platform } = React;

@@ -71,8 +71,6 @@ class calendar1 extends Component {
 
         strtime = snapshot.child("start__dateTime").val();
         strtime = strtime.substring(0,10);
-console.log  ("dfgadfgsdgdshbadbdfbheadfhdabfdsbfdbfdsfbdfb",strtime ,snapshot.child("summary").val());
-
 
         this.state.items[strtime].push({
           name: snapshot.child("summary").val(),
@@ -96,14 +94,13 @@ console.log  ("dfgadfgsdgdshbadbdfbheadfhdabfdsbfdbfdsfbdfb",strtime ,snapshot.c
       <Container style={{ backgroundColor: '#fff' }}>
         <Header>
         <Left>
-          </Left>
+
+            </Left>
           <Body>
           <Image source={headerLogo} style={styles.imageHeader} />
           </Body>
         <Right>
-          <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
-            <Icon active name="power" />
-           </Button>
+          
         </Right>
         </Header>
 
