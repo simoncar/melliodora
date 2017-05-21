@@ -150,4 +150,30 @@ export default {
     width: 225,
     resizeMode: 'contain',
   },
+  agendaItem:{
+    backgroundColor: 'white',
+      flex: 1,
+      borderRadius: 5,
+      padding: 10,
+      marginRight: 10,
+      marginTop: 5,
+      fontSize: 14,
+  },
+  emptyDate: {
+      height: 15,
+      flex:1,
+      paddingTop: 30
+    },
+  agendaDate: {
+    color: 'gray',
+    fontSize: 12,
+  },
+  agendaLocation: {
+    color: 'gray',
+    fontSize: 12,
+    marginTop: 5,
+  },
+
+
+
 };

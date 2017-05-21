@@ -77,7 +77,7 @@ class calendar1 extends Component {
           title: snapshot.child("summary").val(),
           location: snapshot.child("location").val(),
           startDatePretty: snapshot.child("start__date_pretty").val(),
-          startTimePretty: snapshot.child("start__date_pretty").val()
+          startTimePretty: snapshot.child("start__time_pretty").val()
 
         });
 
@@ -100,7 +100,7 @@ class calendar1 extends Component {
           <Image source={headerLogo} style={styles.imageHeader} />
           </Body>
         <Right>
-          
+
         </Right>
         </Header>
 
@@ -112,7 +112,6 @@ class calendar1 extends Component {
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
         />
-
       </Container>
     );
   }
@@ -141,8 +140,10 @@ class calendar1 extends Component {
 
   renderItem(item) {
     return (
-      <View style={{backgroundColor: 'white',  height: item.height, flex:1, borderRadius: 5, padding: 10, marginRight: 10, marginTop: 5}}>
+      <View style={[styles.agendaItem, {height: item.height}]}>
+      <Text style={styles.agendaDate}>{item.startTimePretty}</Text>
       <Text style={{color: 'black'}}>{item.name}</Text>
+      <Text style={styles.agendaLocation}>{item.location}</Text>
       </View>
     );
   }
