@@ -146,6 +146,7 @@ class calendar1 extends Component {
       <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
                    eventTitle: item.title,
                    eventDate: item.startDatePretty,
+                   eventTime: item.startTimePretty,
                    location: item.location,
                    eventImage: item.eventImage,
                  })
@@ -182,8 +183,6 @@ class calendar1 extends Component {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
   }
-
-
 
 };
 

@@ -47,11 +47,10 @@ console.log(this.props.eventImage);
 
   }
 
-
  _shareMessage() {
 
     Share.share({
-      message: "" + this.props.eventTitle + "\nWhen: Soon\n\n\n[get this app or get lost]",
+      message: "" + this.props.eventTitle + "\nWhen: " +  this.props.eventTime + " - " + this.props.eventDate,
       title: 'Cool Calendar App' + this.props.eventImage
     })
     .then(this._showResult)
@@ -98,11 +97,9 @@ console.log(this.props.eventImage);
                         <Text style={styles.eventTitle}>{this.props.eventTitle}</Text>
                       </TouchableOpacity>
 
-
-
-                      <Text style={styles.newsLink}>{this.props.mydate}</Text>
-
                       <TouchableOpacity style={styles.newsTypeView}>
+                      <Text style={styles.newsTypeText}></Text>
+
                         <Text style={styles.newsTypeText}>{this.props.location}</Text>
                       </TouchableOpacity>
 
@@ -113,9 +110,12 @@ console.log(this.props.eventImage);
 
                 <View style={{ padding: 20 }}>
                   <View style={{ paddingBottom: 20 }}>
-                    <Text style={styles.eventTitle}>
-                    {this.props.eventDate} {"\n"}
+                  <Text style={styles.eventTitle}>
+                   {"\n"}
+                </Text>
 
+                    <Text style={styles.eventTitle}>
+                    {this.props.eventTime}{"\n"}{this.props.eventDate}
                   </Text>
                   </View>
                 </View>
