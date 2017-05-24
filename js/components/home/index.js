@@ -45,7 +45,7 @@ class calendar1 extends Component {
   constructor(props) {
     super(props);
 
-    this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/calendar/all');
+    this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/calendar/all_v2');
     this.state = {
       user:null,
       loading: true,
@@ -70,7 +70,7 @@ class calendar1 extends Component {
       dataSnapshot.forEach((snapshot) => {
 
         strtime = snapshot.child("start__dateTime").val();
-        strtime = strtime.substring(0,10);
+    //    strtime = strtime.substring(0,10);
 
         this.state.items[strtime].push({
           name: snapshot.child("summary").val(),
@@ -141,28 +141,20 @@ class calendar1 extends Component {
   renderItem(item) {
     return (
 
+    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
+         eventTitle: item.title,
+         eventDate: item.startDatePretty,
+         location: item.location,
+         eventImage: item.eventImage,
+       })
+     }>
 
-
-      <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
-                   eventTitle: item.title,
-                   eventDate: item.startDatePretty,
-                   location: item.location,
-                   eventImage: item.eventImage,
-                 })
-               }>
-
-               <View style={[styles.agendaItem, {height: item.height}]}>
-               <Text style={styles.agendaDate}>{item.startTimePretty}</Text>
-               <Text style={{color: 'black'}}>{item.name}</Text>
-               <Text style={styles.agendaLocation}>{item.location}</Text>
-               </View>
-               </TouchableOpacity>
-
-
-
-
-
-
+     <View style={[styles.agendaItem, {height: item.height}]}>
+     <Text style={styles.agendaDate}>{item.startTimePretty}</Text>
+     <Text style={{color: 'black'}}>{item.name}</Text>
+     <Text style={styles.agendaLocation}>{item.location}</Text>
+     </View>
+     </TouchableOpacity>
 
 
     );
