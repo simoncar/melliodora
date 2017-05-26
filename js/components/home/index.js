@@ -94,8 +94,10 @@ class calendar1 extends Component {
       <Container style={{ backgroundColor: '#fff' }}>
         <Header>
         <Left>
-
-            </Left>
+          <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
+                     <Icon active name="menu" />
+          </Button>
+        </Left>
           <Body>
           <Image source={headerLogo} style={styles.imageHeader} />
           </Body>
