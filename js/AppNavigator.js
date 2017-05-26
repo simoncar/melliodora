@@ -100,6 +100,7 @@ class AppNavigator extends Component {
             <Scene key="login" component={Login}/>
             <Scene key="signUp" component={SignUp} />
             <Scene key="needhelp" component={NeedHelp} />
+            <Scene key="home" component={Home}  hideNavBar initial={true} />
             <Scene key="feedback" component={Feedback} />
             <Scene key="comments" component={Comments} />
             <Scene key="profile" component={Profile} />
