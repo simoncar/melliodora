@@ -102,7 +102,9 @@ class calendar1 extends Component {
           <Image source={headerLogo} style={styles.imageHeader} />
           </Body>
         <Right>
-
+           <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
+                      <Icon active name="power" />
+           </Button>
         </Right>
         </Header>
 
