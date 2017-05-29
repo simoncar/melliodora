@@ -44,7 +44,7 @@ class calendar1 extends Component {
 
   constructor(props) {
     super(props);
-
+    console.log('1. constructor');
     this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/calendar/all_v2');
     this.state = {
       user:null,
@@ -56,6 +56,7 @@ class calendar1 extends Component {
   };
 
   componentDidMount(){
+    console.log('2. component did mount ');
       this.listenForCalendarEvents(this.calendarEvents);
     }
 
@@ -63,25 +64,23 @@ class calendar1 extends Component {
     calendarEvents.on('value', (dataSnapshot) => {
       var calendarEvents = [];
 
-     strtime = Date();
+     //strtime = Date();
 
-     this.state.items[strtime] = [];
+    // this.state.items[strtime] = [];
 
       dataSnapshot.forEach((snapshot) => {
-
 
         strtime = snapshot.child("date_start").val();
         strtime = strtime.substring(0,10);
 
-
-        this.state.items[strtime].push({
-          name: snapshot.child("summary").val(),
-          title: snapshot.child("summary").val(),
-          location: snapshot.child("location").val(),
-          startDatePretty: snapshot.child("date_start").val(),
-          startTimePretty: snapshot.child("time_start_pretty").val(),
-          endTimePretty: snapshot.child("time_end_pretty").val()
-        });
+                this.state.items[strtime].push({
+                  name: snapshot.child("summary").val(),
+                  title: snapshot.child("summary").val(),
+                  location: snapshot.child("location").val(),
+                  startDatePretty: snapshot.child("date_start").val(),
+                  startTimePretty: snapshot.child("time_start_pretty").val(),
+                  endTimePretty: snapshot.child("time_end_pretty").val()
+                });
 
       });
 
@@ -124,13 +123,14 @@ class calendar1 extends Component {
 
 
   loadItems(day) {
-
+console.log('3. loadItems loadItems loadItems loadItems loadItems' )
     setTimeout(() => {
       for (let i = -15; i < 985; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
 
         if (!this.state.items[strtime]) {
+console.log('3. loadItems init strtime loadItems loadItems loadItems=' , strtime )
           this.state.items[strtime] = [];
         }
       }

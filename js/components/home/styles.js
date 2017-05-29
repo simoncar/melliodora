@@ -157,7 +157,6 @@ export default {
       padding: 10,
       marginRight: 10,
       marginTop: 5,
-      fontSize: 14,
   },
   emptyDate: {
       height: 15,
