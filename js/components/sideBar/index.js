@@ -30,12 +30,21 @@ class SideBar extends Component {
               <Text style={styles.linkText} >CALENDAR</Text>
             </ListItem>
 
+            <ListItem button onPress={() => { Actions.overview(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <Icon name="ios-paper-outline" />
+                <Text style={styles.linkText} >NEWSLETTERS</Text>
+            </ListItem>
+            <ListItem button onPress={() => { Actions.widgets(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <Icon name="ios-grid" />
+                <Text style={styles.linkText}>myStamford</Text>
+            </ListItem>
+                
 
             <View style={styles.logoutContainer}>
               <View style={styles.logoutbtn} foregroundColor={'white'}>
                 <Grid>
 
-                  
+
                 </Grid>
               </View>
             </View>
