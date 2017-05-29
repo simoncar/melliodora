@@ -72,7 +72,7 @@ class calendar1 extends Component {
 
         strtime = snapshot.child("date_start").val();
         strtime = strtime.substring(0,10);
-
+         if (undefined != this.state.items[strtime]){
                 this.state.items[strtime].push({
                   name: snapshot.child("summary").val(),
                   title: snapshot.child("summary").val(),
@@ -81,6 +81,7 @@ class calendar1 extends Component {
                   startTimePretty: snapshot.child("time_start_pretty").val(),
                   endTimePretty: snapshot.child("time_end_pretty").val()
                 });
+            }
 
       });
 
