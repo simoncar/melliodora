@@ -166,11 +166,6 @@ class calendar1 extends Component {
                </TouchableOpacity>
 
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/master
     );
   }
 
