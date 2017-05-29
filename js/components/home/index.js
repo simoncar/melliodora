@@ -64,7 +64,30 @@ class calendar1 extends Component {
     calendarEvents.on('value', (dataSnapshot) => {
       var calendarEvents = [];
 
-     //strtime = Date();
+     strtime = Date();
+
+
+
+     for (let i = -15; i < 985; i++) {
+       const time = 1496016000000 + i * 24 * 60 * 60 * 1000;
+       const strtime = this.timeToString(time);
+
+       if (!this.state.items[strtime]) {
+
+         this.state.items[strtime] = [];
+       }
+     }
+
+     const newItems = {};
+     Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+     this.setState({
+       items: newItems
+     });
+
+
+
+
+
 
     // this.state.items[strtime] = [];
 
@@ -72,6 +95,7 @@ class calendar1 extends Component {
 
         strtime = snapshot.child("date_start").val();
         strtime = strtime.substring(0,10);
+
          if (undefined != this.state.items[strtime]){
                 this.state.items[strtime].push({
                   name: snapshot.child("summary").val(),
@@ -124,14 +148,15 @@ class calendar1 extends Component {
 
 
   loadItems(day) {
-console.log('3. loadItems loadItems loadItems loadItems loadItems' )
+
     setTimeout(() => {
       for (let i = -15; i < 985; i++) {
+        console.log ('day.timestamp=' , day.timestamp);
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
 
         if (!this.state.items[strtime]) {
-console.log('3. loadItems init strtime loadItems loadItems loadItems=' , strtime )
+
           this.state.items[strtime] = [];
         }
       }
