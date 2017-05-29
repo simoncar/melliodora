@@ -45,7 +45,7 @@ class calendar1 extends Component {
   constructor(props) {
     super(props);
 
-    this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/calendar/all');
+    this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/calendar/all_v2');
     this.state = {
       user:null,
       loading: true,
@@ -69,16 +69,16 @@ class calendar1 extends Component {
 
       dataSnapshot.forEach((snapshot) => {
 
-        strtime = snapshot.child("start__dateTime").val();
+        strtime = snapshot.child("date_start").val();
         strtime = strtime.substring(0,10);
 
         this.state.items[strtime].push({
           name: snapshot.child("summary").val(),
           title: snapshot.child("summary").val(),
           location: snapshot.child("location").val(),
-          startDatePretty: snapshot.child("start__date_pretty").val(),
-          startTimePretty: snapshot.child("start__time_pretty").val()
-
+          startDatePretty: snapshot.child("date_start").val(),
+          startTimePretty: snapshot.child("time_start_pretty").val(),
+          endTimePretty: snapshot.child("time_end_pretty").val()
         });
 
       });
@@ -157,17 +157,11 @@ class calendar1 extends Component {
                }>
 
                <View style={[styles.agendaItem, {height: item.height}]}>
-               <Text style={styles.agendaDate}>{item.startTimePretty}</Text>
+               <Text style={styles.agendaDate}>{item.startTimePretty} - {item.endTimePretty}</Text>
                <Text style={{color: 'black'}}>{item.name}</Text>
                <Text style={styles.agendaLocation}>{item.location}</Text>
                </View>
                </TouchableOpacity>
-
-
-
-
-
-
 
 
     );
