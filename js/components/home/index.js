@@ -94,13 +94,17 @@ class calendar1 extends Component {
       <Container style={{ backgroundColor: '#fff' }}>
         <Header>
         <Left>
-
-            </Left>
+          <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
+                     <Icon active name="menu" />
+          </Button>
+        </Left>
           <Body>
           <Image source={headerLogo} style={styles.imageHeader} />
           </Body>
         <Right>
-
+           <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
+                      <Icon active name="power" />
+           </Button>
         </Right>
         </Header>
 
@@ -141,20 +145,25 @@ class calendar1 extends Component {
   renderItem(item) {
     return (
 
-    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
-         eventTitle: item.title,
-         eventDate: item.startDatePretty,
-         location: item.location,
-         eventImage: item.eventImage,
-       })
-     }>
 
-     <View style={[styles.agendaItem, {height: item.height}]}>
-     <Text style={styles.agendaDate}>{item.startTimePretty}</Text>
-     <Text style={{color: 'black'}}>{item.name}</Text>
-     <Text style={styles.agendaLocation}>{item.location}</Text>
-     </View>
-     </TouchableOpacity>
+
+      <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
+                   eventTitle: item.title,
+                   eventDate: item.startDatePretty,
+                   eventTime: item.startTimePretty,
+                   location: item.location,
+                   eventImage: item.eventImage,
+                 })
+               }>
+
+               <View style={[styles.agendaItem, {height: item.height}]}>
+               <Text style={styles.agendaDate}>{item.startTimePretty}</Text>
+               <Text style={{color: 'black'}}>{item.name}</Text>
+               <Text style={styles.agendaLocation}>{item.location}</Text>
+               </View>
+               </TouchableOpacity>
+
+
 
 
     );
@@ -174,8 +183,6 @@ class calendar1 extends Component {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
   }
-
-
 
 };
 
