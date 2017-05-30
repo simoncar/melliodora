@@ -29,7 +29,7 @@ class TabOne extends Component {
                 <Col>
                   <TouchableOpacity onPress={() => Actions.channel()}>
                     <Image source={require('../../../images/NewsIcons/1.jpg')} style={styles.channelImg}>
-                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>VISIT CAMPUS</Text>
+                      <Text style={Platform.OS === 'android' ? styles.achannelImgText : styles.ioschannelImgText}>WELCOME TO STAMFORD</Text>
                     </Image>
                   </TouchableOpacity>
                 </Col>
