@@ -44,9 +44,8 @@ class Channels extends Component {
         <View style={styles.bgHead}>
 
           <ScrollableTabView renderTabBar={() => <CustomTabBar someProp={'here'} />}>
-            <TabOne tabLabel="ADMISSIONS" />
-            <TabTwo tabLabel="CURRICULUM" />
-            <TabThree tabLabel="SCHOOL LIFE" />
+            <TabOne tabLabel="ABOUT STAMFORD" />
+
             <TabFour tabLabel="CONTACT US" />
           </ScrollableTabView>
         </View>
