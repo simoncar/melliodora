@@ -47,7 +47,7 @@ class Channel extends Component {
               <Image source={require('../../../images/NewsIcons/2.jpg')} style={styles.newsPoster}>
                 <View>
                   <Text style={Platform.OS === 'android' ? styles.achannelHeader : styles.ioschannelHeader}>WELCOME TO STAMFORD</Text>
-                  
+
                   <TouchableOpacity style={{ padding: 0 }}>
                     <Text style={styles.noOfFollowers}>FROM Dr ERIC SANDS</Text>
                   </TouchableOpacity>
@@ -58,60 +58,59 @@ class Channel extends Component {
             <View foregroundColor={'white'} style={{ backgroundColor: '#fff' }}>
               <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
                 <View style={styles.newsContentWrap}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>
-                                        Earth formed around 4.54 billion years ago by accretion from the solar nebula.
+                  <Text numberOfLines={10} style={styles.newsHeader}>
+                                        Our school environment provides daily opportunities for students to increase their knowledge and skill base in order to acquire the attributes necessary for meaningful lives.
                                     </Text>
                   <Grid style={styles.newsContent}>
                     <Col style={{ flexDirection: 'row' }}>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>CNN</Text>
+                        <Text style={styles.newsLink}></Text>
                       </TouchableOpacity>
-                      <Icon name="ios-time-outline" style={styles.timeIcon} />
-                      <Text style={styles.newsLink}>May 24, 2016</Text>
+
+                      <Text style={styles.newsLink}></Text>
                     </Col>
                   </Grid>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
                 <View style={styles.newsContentWrap}>
-                  <Text numberOfLines={2} style={styles.newsHeader}> A "giant impact" collision is thought to have been responsible for forming the Moon.</Text>
+                  <Text numberOfLines={10} style={styles.newsHeader}> Stamford American International School (SAIS) is the only school in Singapore to offer the full International Baccalaureate (IB) Programme integrated with US Standards...</Text>
                   <Grid style={styles.newsContent}>
                     <Col style={{ flexDirection: 'row' }}>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>SPACE.com</Text>
-                      </TouchableOpacity>
-                      <Icon name="ios-time-outline" style={styles.timeIcon} />
-                      <Text style={styles.newsLink}>Apr 17, 2016</Text>
+                        <Text style={styles.newsLink}></Text>
+                      </TouchableOpacity><Icon name="ios-time-outline" style={styles.timeIcon} />
+                      <Text style={styles.newsLink}></Text>
                     </Col>
                   </Grid>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
                 <View style={styles.newsContentWrap}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>
-                                        Living forms derived from photosynthesis appeared between 3.2 and 2.4 billion years ago.
+                  <Text numberOfLines={10} style={styles.newsHeader}>
+                                        With more than 65 nationalities represented on campus, each of us has an exceptional opportunity to develop an understanding of, and appreciation for, the philosophies of people from many different cultures.
                                     </Text>
                   <Grid style={styles.newsContent}>
                     <Col style={{ flexDirection: 'row' }}>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>CNN</Text>
+                        <Text style={styles.newsLink}></Text>
                       </TouchableOpacity>
-                      <Icon name="ios-time-outline" style={styles.timeIcon} />
-                      <Text style={styles.newsLink}>Feb 03, 2016</Text>
+
+                      <Text style={styles.newsLink}></Text>
                     </Col>
                   </Grid>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
                 <View style={styles.newsContentWrap}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>Life remained mostly small and microscopic until about 580 million years ago.</Text>
+                  <Text numberOfLines={10} style={styles.newsHeader}>Stamford American International School is committed to recruiting faculty who are dedicated, passionate about their subject area and excited by the prospect of working within a diverse community. </Text>
                   <Grid style={styles.newsContent}>
                     <Col style={{ flexDirection: 'row' }}>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>SKY.com</Text>
+                        <Text style={styles.newsLink}></Text>
                       </TouchableOpacity>
-                      <Icon name="ios-time-outline" style={styles.timeIcon} />
-                      <Text style={styles.newsLink}>Dec 17, 2015</Text>
+
+                      <Text style={styles.newsLink}></Text>
                     </Col>
                   </Grid>
                 </View>
@@ -119,44 +118,44 @@ class Channel extends Component {
 
               <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
                 <View style={styles.newsContentWrap}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>The history of Earth is divided into four great eons.</Text>
+                  <Text numberOfLines={10} style={styles.newsHeader}>Our $300 million campus facility features state-of-the-art technology and facilities that established it as the new benchmark for international schools in Singapore and around the world. </Text>
                   <Grid style={styles.newsContent}>
                     <Col style={{ flexDirection: 'row' }}>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>SPACE.com</Text>
+                        <Text style={styles.newsLink}></Text>
                       </TouchableOpacity>
-                      <Icon name="ios-time-outline" style={styles.timeIcon} />
-                      <Text style={styles.newsLink}>Apr 17, 2016</Text>
+
+                      <Text style={styles.newsLink}></Text>
                     </Col>
                   </Grid>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
                 <View style={styles.newsContentWrap}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>
-                                        The Earth and Moon have the same oxygen isotopic signature.
+                  <Text numberOfLines={10} style={styles.newsHeader}>
+                                        In Stamford American’s Global Mentor Program, we invite some of the world’s most inspirational minds, industry leaders, artists and athletes to engage with our students across our Stamford American campus, invigorating and motivating beyond the classroom.
                                     </Text>
                   <Grid style={styles.newsContent}>
                     <Col style={{ flexDirection: 'row' }}>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>CNN</Text>
+                        <Text style={styles.newsLink}></Text>
                       </TouchableOpacity>
-                      <Icon name="ios-time-outline" style={styles.timeIcon} />
-                      <Text style={styles.newsLink}>Feb 03, 2016</Text>
+
+                      <Text style={styles.newsLink}></Text>
                     </Col>
                   </Grid>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story()}>
                 <View style={styles.newsContentWrap}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>Ice might have covered the oceans 3 billion years ago.</Text>
+                  <Text numberOfLines={10} style={styles.newsHeader}></Text>
                   <Grid style={styles.newsContent}>
                     <Col style={{ flexDirection: 'row' }}>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>SKY.com</Text>
+                        <Text style={styles.newsLink}></Text>
                       </TouchableOpacity>
-                      <Icon name="ios-time-outline" style={styles.timeIcon} />
-                      <Text style={styles.newsLink}>Dec 17, 2015</Text>
+
+                      <Text style={styles.newsLink}></Text>
                     </Col>
                   </Grid>
                 </View>
