@@ -11,11 +11,11 @@ export function setPassword(v) {
 }
 
 export function getUsername() {
-  return '';
+  return 'simoncar@gmail.com';
 }
 
 export function getPassword() {
-  return '';
+  return 's9monh9ll,s';
 }
 
 
