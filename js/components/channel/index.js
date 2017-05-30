@@ -46,19 +46,10 @@ class Channel extends Component {
             <View>
               <Image source={require('../../../images/NewsIcons/2.jpg')} style={styles.newsPoster}>
                 <View>
-                  <Text style={Platform.OS === 'android' ? styles.achannelHeader : styles.ioschannelHeader}>SCIENCE CHANNEL</Text>
-                  <Button
-                    rounded
-                    style={styles.followBtn}
-                  >
-                    <Text
-                      style={Platform.OS === 'android' ?
-                      { color: primary, fontSize: 13, fontWeight: '900', textAlign: 'center' } :
-                      { color: primary, fontSize: 13, fontWeight: '900' }}
-                    >Following</Text>
-                  </Button>
+                  <Text style={Platform.OS === 'android' ? styles.achannelHeader : styles.ioschannelHeader}>WELCOME TO STAMFORD</Text>
+                  
                   <TouchableOpacity style={{ padding: 0 }}>
-                    <Text style={styles.noOfFollowers}>234K Followers</Text>
+                    <Text style={styles.noOfFollowers}>FROM Dr ERIC SANDS</Text>
                   </TouchableOpacity>
                 </View>
               </Image>
