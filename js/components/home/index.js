@@ -84,11 +84,6 @@ class calendar1 extends Component {
        items: newItems
      });
 
-
-
-
-
-
     // this.state.items[strtime] = [];
 
       dataSnapshot.forEach((snapshot) => {
@@ -106,7 +101,6 @@ class calendar1 extends Component {
                   endTimePretty: snapshot.child("time_end_pretty").val()
                 });
             }
-
       });
 
       this.setState({
