@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {  WebView, Image, View, Platform } from 'react-native';
@@ -44,14 +45,13 @@ class Widgets extends Component {
             </Right>
           </Header>
 
-            <WebView
-                    source={{uri: 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP'}}
-                    javaScriptEnabled={true}
-                    domStorageEnabled={true}
-                    startInLoadingState={true}
-                     injectedJavaScript={injectScript}
-                    ref={WEBVIEW_REF}
-                  />
+          <View>
+
+        <Text  style={styles.weatherTime}> Fetch Recipes </Text>
+{console.log ('hello')}
+    </View>
+
+
         </Image>
       </Container>
     );
