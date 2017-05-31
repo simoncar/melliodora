@@ -12,6 +12,8 @@ import commonColor from '../../../native-base-theme/variables/commonColor';
 
 import { ActionCreators } from '../../actions'
 
+var { skipLogin } = require('../../actions');
+
 const bg = require('../../../images/BG.png');
 const logo = require('../../../images/logo.png');
 
@@ -25,10 +27,7 @@ class Login extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      username: 'simoncar@gmail.com',
-      password: 's9monh9ll,s',
-    };
+
     this.constructor.childContextTypes = {
       theme: React.PropTypes.object,
     };
@@ -39,9 +38,9 @@ class Login extends Component {
       this.setState({recipeCount: this.state.recipeCount+1});
   }
   addRecipe(username) {
-    this.props.setLoginDetails(username);
-  }
+    this.props.logIn();
 
+  }
 
   render() {
     return (
@@ -55,15 +54,6 @@ class Login extends Component {
             <Image style={Platform.OS === 'android' ? styles.aShadow : styles.iosShadow} />
 
             <View style={styles.bg}>
-
-
-                   <Button
-                     rounded primary block large
-                     style={styles.loginBtn}
-                     onPress={() => this.props.dispatch(skipLogin())}
-                   >
-                     <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>Get Started</Text>
-                   </Button>
 
               <Item rounded style={styles.inputGrp}>
                 <Icon name="person" />
@@ -97,9 +87,16 @@ class Login extends Component {
               <View style={styles.otherLinksContainer}>
                 <Left>
                   <Button transparent style={{ alignSelf: 'flex-start' }} onPress={() => Actions.channels()}>
-                    <Text style={styles.helpBtns}>GUEST</Text>
+                    <Text style={styles.helpBtns}>Guest</Text>
                   </Button>
                 </Left>
+
+                <Left>
+                  <Button transparent style={{ alignSelf: 'flex-start' }} onPress={() => this.props.skipLogin() }>
+                    <Text style={styles.helpBtns}>Skip Login</Text>
+                  </Button>
+                </Left>
+
                 <Right>
                   <Button transparent style={{ alignSelf: 'flex-end' }} onPress={() => Actions.needhelp()}>
                     <Text style={styles.helpBtns}>
@@ -124,7 +121,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  navigation: state.cardNavigation
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

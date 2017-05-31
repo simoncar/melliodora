@@ -1,7 +1,7 @@
 import * as types from './types'
 import Api from '../lib/api'
 
-export function fetchReceipes(ingredients) {
+function fetchReceipes(ingredients) {
   return (dispatch, getState) => {
 
     const params = [
@@ -16,21 +16,22 @@ export function fetchReceipes(ingredients) {
 
   }
 }
-export function setSearchedRecipes({ recipes }) {
+
+function setSearchedRecipes({ recipes }) {
   return {
     type: types.SET_SEARCHED_RECIPES,
     recipes,
   }
 }
 
-export function addRecipe() {
+function addRecipe() {
   return {
     type: types.ADD_RECIPE,
   }
 }
 
-export function setLoginDetails(username) {
-console.log(username);
+function setLoginDetails(username) {
+
   return {
     type: types.SET_LOGIN_DETAILS
 
@@ -42,7 +43,7 @@ function logIn(source: ?string): ThunkAction {
   return (dispatch) => {
 
   // do some stuff
-  
+
     return login;
   };
 }
@@ -68,3 +69,5 @@ function logOut(): ThunkAction {
     });
   };
 }
+
+module.exports = {setLoginDetails, skipLogin, logOut,addRecipe,setSearchedRecipes,fetchReceipes};

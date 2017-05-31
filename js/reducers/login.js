@@ -12,4 +12,8 @@ export const recipeCount = createReducer(0, {
     return state+1;
   },
 
+  [types.SET_LOGIN_DETAILS](state,action){
+    return state+1;
+  },
+
 })
