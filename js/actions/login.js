@@ -36,3 +36,35 @@ console.log(username);
 
   }
 }
+
+
+function logIn(source: ?string): ThunkAction {
+  return (dispatch) => {
+
+  // do some stuff
+  
+    return login;
+  };
+}
+
+
+
+function skipLogin(): Action {
+  return {
+    type: 'SKIPPED_LOGIN',
+  };
+}
+
+
+function logOut(): ThunkAction {
+  return (dispatch) => {
+    Parse.User.logOut();
+    FacebookSDK.logout();
+    updateInstallation({user: null, channels: []});
+
+    // TODO: Make sure reducers clear their state
+    return dispatch({
+      type: 'LOGGED_OUT',
+    });
+  };
+}

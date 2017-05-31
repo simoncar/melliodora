@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Platform, StatusBar } from 'react-native';
+import { Image, Platform, StatusBar,TouchableOpacity } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
@@ -55,6 +55,16 @@ class Login extends Component {
             <Image style={Platform.OS === 'android' ? styles.aShadow : styles.iosShadow} />
 
             <View style={styles.bg}>
+
+
+                   <Button
+                     rounded primary block large
+                     style={styles.loginBtn}
+                     onPress={() => this.props.dispatch(skipLogin())}
+                   >
+                     <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>Get Started</Text>
+                   </Button>
+
               <Item rounded style={styles.inputGrp}>
                 <Icon name="person" />
                 <Input

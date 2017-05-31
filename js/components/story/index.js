@@ -31,10 +31,10 @@ const renderPagination = (index, total, context) => (
 class Story extends Component {
 
   static propTypes = {
-    navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
-    }),
+    navigation: React.PropTypes.shape({key: React.PropTypes.string}),
+      username: React.PropTypes.string
   }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -43,15 +43,16 @@ class Story extends Component {
       value: 0,
     };
 
-console.log(this.props.eventImage);
+    this.props.username = 'simon';
 
   }
 
  _shareMessage() {
 
+
     Share.share({
       message: "" + this.props.eventTitle + "\nWhen: " +  this.props.eventTime + " - " + this.props.eventDate,
-      title: 'Cool Calendar App' + this.props.eventImage
+      title: '' + this.props.eventImage
     })
     .then(this._showResult)
     .catch((error) => this.setState({result: 'error: ' + error.message}));
@@ -66,6 +67,9 @@ console.log(this.props.eventImage);
   }
 
   render() {
+
+
+    console.log('here');
 
 
     return (
@@ -206,6 +210,7 @@ function bindAction(dispatch) {
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
+  username: state.username
 });
 
 export default connect(mapStateToProps, bindAction)(Story);

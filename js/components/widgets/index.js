@@ -15,12 +15,24 @@ import {getUsername, getPassword} from '../global.js'
 const primary = require('../../themes/variable').brandPrimary;
 
 var WEBVIEW_REF = 'webview';
+var DEFAULT_URL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
 
   var injectScript = 'document.getElementById(\"username\").value=\"' + getUsername() + '\"';
   injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"' + getPassword() + '"';
   injectScript = injectScript + ';' +  'document.forms[0].submit()';
-
+  //injectedJavaScript={injectScript}
 class Widgets extends Component {
+
+
+  state = {
+    url: DEFAULT_URL,
+    status: 'No Page Loaded',
+    backButtonEnabled: false,
+    forwardButtonEnabled: false,
+    loading: true,
+    scalesPageToFit: true,
+  };
+
 
   render() {
     return (
@@ -39,27 +51,61 @@ class Widgets extends Component {
 
             <Right>
               <Button transparent>
-                <Icon active name="ios-restaurant" />
+                <Icon active name="ios-restaurant" onPress={this.pressGoButton}/>
               </Button>
 
             </Right>
           </Header>
 
-          <View>
 
-        <Text  style={styles.weatherTime}> Fetch Recipes </Text>
-{console.log ('hello')}
-    </View>
+          <WebView
+
+              source={{uri: this.state.url}}
+               javaScriptEnabled={true}
+               domStorageEnabled={true}
+               startInLoadingState={true}
+
+               ref={WEBVIEW_REF}
+             />
+
 
 
         </Image>
       </Container>
     );
-  }
+  };
+
+  reload = () => {
+     this.refs[WEBVIEW_REF].reload();
+   };
+
+  pressGoButton = () => {
+      var url = 'http://mystamford.edu.sg/cafe/cafe-online-ordering#anchor';
+      if (url === this.state.url) {
+        this.reload();
+      } else {
+        this.setState({
+          url: url,
+        });
+      }
+
+
+    };
+
+
+
+
+
 }
 
 
 function bindAction(dispatch) {
+  return {
+    openDrawer: () => dispatch(openDrawer()),
+  };
+}
+
+function navigateCafe() {
   return {
     openDrawer: () => dispatch(openDrawer()),
   };

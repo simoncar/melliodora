@@ -1,6 +1,11 @@
 
 export type Action =
-  ( { type: 'OPEN_DRAWER'}  | { type: 'CLOSE_DRAWER'} );
+      { type: 'OPEN_DRAWER'}  | { type: 'CLOSE_DRAWER'}
+    | { type: 'LOGGED_IN', source: ?string; data: { id: string; name: string; sharedSchedule: ?boolean; } }
+    | { type: 'RESTORED_SCHEDULE', list: Array<ParseObject> }
+    | { type: 'SKIPPED_LOGIN' }
+    | { type: 'LOGGED_OUT' };
+
 
 export type Dispatch = (action:Action | Array<Action>) => any;
 export type GetState = () => Object;

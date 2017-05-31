@@ -11,12 +11,14 @@ export default function configureStore(onCompletion:()=>void):any {
   const enhancer = compose(
     applyMiddleware(thunk, promise),
     devTools({
-      name: 'flatappseed', realtime: true,
+      name: 'loggerWhatsOn', realtime: true,
     }),
   );
 
   const store = createStore(reducer, enhancer);
   persistStore(store, { storage: AsyncStorage }, onCompletion);
+
+console.log('configurestore store = ', store.getState())
 
   return store;
 }
