@@ -6,5 +6,5 @@ import * as userReducer from './user';
 import drawer from './drawer';
 
 export default combineReducers({
-  drawer
+  drawer, userReducer
 });
