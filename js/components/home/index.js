@@ -52,7 +52,6 @@ class calendar1 extends Component {
       newTask: "",
       items: {}
     };
-
   };
 
   componentDidMount(){
@@ -62,18 +61,14 @@ class calendar1 extends Component {
 
   listenForCalendarEvents(calendarEvents) {
     calendarEvents.on('value', (dataSnapshot) => {
-      var calendarEvents = [];
-
+    var calendarEvents = [];
      strtime = Date();
-
-
 
      for (let i = -15; i < 985; i++) {
        const time = 1496016000000 + i * 24 * 60 * 60 * 1000;
        const strtime = this.timeToString(time);
 
        if (!this.state.items[strtime]) {
-
          this.state.items[strtime] = [];
        }
      }
@@ -145,13 +140,11 @@ class calendar1 extends Component {
 
     setTimeout(() => {
       for (let i = -15; i < 985; i++) {
-        console.log ('day.timestamp=' , day.timestamp);
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
 
         if (!this.state.items[strtime]) {
-
-          this.state.items[strtime] = [];
+           this.state.items[strtime] = [];
         }
       }
 
