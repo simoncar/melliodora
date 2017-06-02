@@ -57,7 +57,6 @@ class Widgets extends Component {
             </Right>
           </Header>
 
-
           <WebView
 
               source={{uri: this.state.url}}
@@ -67,8 +66,6 @@ class Widgets extends Component {
 
                ref={WEBVIEW_REF}
              />
-
-
 
         </Image>
       </Container>

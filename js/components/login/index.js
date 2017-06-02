@@ -55,6 +55,7 @@ class Login extends Component {
 
             <View style={styles.bg}>
 
+
               <Item rounded style={styles.inputGrp}>
                 <Icon name="person" />
                 <Input
@@ -91,8 +92,10 @@ class Login extends Component {
                   </Button>
                 </Left>
 
+  
+
                 <Left>
-                  <Button transparent style={{ alignSelf: 'flex-start' }} onPress={() => this.props.skipLogin() }>
+                  <Button transparent style={{ alignSelf: 'flex-start' }} onPress={() => this.props.skipLogin()}>
                     <Text style={styles.helpBtns}>Skip Login</Text>
                   </Button>
                 </Left>
