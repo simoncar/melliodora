@@ -23,6 +23,9 @@ class Login extends Component {
     navigation: React.PropTypes.shape({
       key: React.PropTypes.string,
     }),
+    user: React.PropTypes.object({
+      name: React.PropTypes.string,
+    }),
   }
 
   constructor(props) {
@@ -119,24 +122,13 @@ class Login extends Component {
 }
 
 
-const mapDispatchToProps = (dispatch) => {
-  return
-  {
-    setName: (name) => {
-      dispatch({
-        type: "SET_NAME",
-        payload: name
-      })
-    }
-
-    bindActionCreators(ActionCreators, dispatch);
-
+const mapStateToProps = (state) => {
+  return {
+       navigation: state.cardNavigation,
+       user: state.userReducer
   };
-};
+}
 
-const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
-  user: state.userReducer
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+export default connect(mapStateToProps)(Login);
