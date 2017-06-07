@@ -72,7 +72,7 @@ class Login extends Component {
               <Item rounded style={styles.inputGrp}>
                 <Icon name="unlock" />
                 <Input
-                  placeholder="My Stamford Password"
+                  placeholder={this.props.user.password}    //"My Stamford Password"
                   secureTextEntry
                   placeholderTextColor="#FFF"
                   onChangeText={password => this.setState({ password })}
@@ -129,7 +129,7 @@ const mapDispatchToProps = (dispatch) => {
       })
     }
 
-    bindActionCreators(ActionCreators, dispatch);
+    //bindActionCreators(ActionCreators, dispatch);
 
   };
 };

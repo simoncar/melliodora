@@ -9,6 +9,7 @@ const initialState = {
   sharedSchedule: null,
   id: null,
   name: "Max",
+  password: "pass",
 };
 
 // some ES6 initialisation technique if state is not passed to reducer
@@ -23,6 +24,7 @@ function userReducer(state: State = initialState, action: Action): State {
       sharedSchedule,
       id,
       name,
+      password
     };
   }
   if (action.type === 'SKIPPED_LOGIN') {
@@ -33,6 +35,7 @@ function userReducer(state: State = initialState, action: Action): State {
       sharedSchedule: null,
       id: null,
       name: null,
+      password: null,
     };
   }
   if (action.type === 'LOGGED_OUT') {
