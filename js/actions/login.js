@@ -31,11 +31,13 @@ function addRecipe() {
 }
 
 function setLoginDetails(username) {
+console.log('Actions > setLoginDetails', username);
 
   return {
     type: types.SET_LOGIN_DETAILS
 
   }
+
 }
 
 

@@ -37,8 +37,11 @@ class Login extends Component {
   incrementRecipeCount() {
       this.setState({recipeCount: this.state.recipeCount+1});
   }
-  addRecipe(username) {
-    this.props.logIn();
+
+  doLogin(username) {
+    //this.props.logIn();
+    this.props.setLoginDetails( {username: 'simon'} );
+    Actions.home();
 
   }
 
@@ -59,7 +62,7 @@ class Login extends Component {
               <Item rounded style={styles.inputGrp}>
                 <Icon name="person" />
                 <Input
-                  placeholder="MyStamford Login"
+                  placeholder={this.props.user.name}
                   onChangeText={username => {this.addRecipe(username) }}
                   placeholderTextColor="#FFF"
                   style={styles.input}
@@ -80,7 +83,7 @@ class Login extends Component {
               <Button
                 rounded primary block large
                 style={styles.loginBtn}
-                onPress={() => Actions.home({ username: this.state.username, password: this.state.password })}
+                onPress={() => this.doLogin('simon')}
               >
                 <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>Get Started</Text>
               </Button>
@@ -91,9 +94,6 @@ class Login extends Component {
                     <Text style={styles.helpBtns}>Guest</Text>
                   </Button>
                 </Left>
-
-  
-
                 <Left>
                   <Button transparent style={{ alignSelf: 'flex-start' }} onPress={() => this.props.skipLogin()}>
                     <Text style={styles.helpBtns}>Skip Login</Text>
@@ -119,12 +119,24 @@ class Login extends Component {
 }
 
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(ActionCreators, dispatch);
-}
+const mapDispatchToProps = (dispatch) => {
+  return
+  {
+    setName: (name) => {
+      dispatch({
+        type: "SET_NAME",
+        payload: name
+      })
+    }
+
+    bindActionCreators(ActionCreators, dispatch);
+
+  };
+};
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation
+  navigation: state.cardNavigation,
+  user: state.user
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps)(Login);

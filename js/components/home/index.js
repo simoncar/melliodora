@@ -118,7 +118,7 @@ class calendar1 extends Component {
           </Body>
         <Right>
            <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
-                      <Icon active name="power" />
+                      <Icon active name="power" /> 
            </Button>
         </Right>
         </Header>
