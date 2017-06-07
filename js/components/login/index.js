@@ -33,9 +33,11 @@ class Login extends Component {
     };
   }
 
+  setUsername(username) {
+    //this.props.logIn();
+    //this.props.setLoginDetails( {username: 'simon'} );
+    //Actions.home();
 
-  incrementRecipeCount() {
-      this.setState({recipeCount: this.state.recipeCount+1});
   }
 
   doLogin(username) {
@@ -63,7 +65,7 @@ class Login extends Component {
                 <Icon name="person" />
                 <Input
                   placeholder={this.props.user.name}
-                  onChangeText={username => {this.addRecipe(username) }}
+                  onChangeText={username => {this.setUsername(username) }}
                   placeholderTextColor="#FFF"
                   style={styles.input}
                 />
@@ -120,18 +122,18 @@ class Login extends Component {
 
 
 const mapDispatchToProps = (dispatch) => {
-  return
-  {
-    setName: (name) => {
-      dispatch({
-        type: "SET_NAME",
-        payload: name
-      })
-    }
 
+return bindActionCreators (ActionCreators, dispatch);
     //bindActionCreators(ActionCreators, dispatch);
 
-  };
+  /*  return
+    {
+      setName: (name) => {
+        dispatch({
+          type: "SET_NAME",
+          payload: name
+        })
+      }*/
 };
 
 const mapStateToProps = state => ({
@@ -139,4 +141,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
