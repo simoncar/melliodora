@@ -136,7 +136,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
-  user: state.userReducer
+  user: state.user
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps)(Login);
