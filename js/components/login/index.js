@@ -33,16 +33,17 @@ class Login extends Component {
     };
   }
 
-  setUsername(username) {
+  setUsername(user) {
     //this.props.logIn();
     //this.props.setLoginDetails( {username: 'simon'} );
     //Actions.home();
 
   }
 
-  doLogin(username) {
+  doLogin(user,password) {
     //this.props.logIn();
-    this.props.setLoginDetails( {username: 'simon'} );
+    this.props.setLoginDetails( {user: user} );
+    this.props.setLoginDetails( {password: password} );
     Actions.home();
 
   }
@@ -65,7 +66,7 @@ class Login extends Component {
                 <Icon name="person" />
                 <Input
                   placeholder={this.props.user.name}
-                  onChangeText={username => {this.setUsername(username) }}
+                  onChangeText={(user) => this.setState({ user })}
                   placeholderTextColor="#FFF"
                   style={styles.input}
                 />
@@ -77,7 +78,7 @@ class Login extends Component {
                   placeholder={this.props.user.password}    //"My Stamford Password"
                   secureTextEntry
                   placeholderTextColor="#FFF"
-                  onChangeText={password => this.setState({ password })}
+                  onChangeText={(password) => this.setState({ password })}
                   style={styles.input}
                 />
               </Item>
@@ -85,7 +86,7 @@ class Login extends Component {
               <Button
                 rounded primary block large
                 style={styles.loginBtn}
-                onPress={() => this.doLogin('simon')}
+                onPress={() => this.doLogin(this.username,this.password)}
               >
                 <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>Get Started</Text>
               </Button>

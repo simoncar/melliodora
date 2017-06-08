@@ -52,7 +52,7 @@ function logIn(source: ?string): ThunkAction {
 
 
 
-export function skipLogin(): Action {
+function skipLogin(): Action {
   console.log('skip login - action');
   return {
     type: 'SKIPPED_LOGIN',
