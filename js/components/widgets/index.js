@@ -1,12 +1,17 @@
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+
 import {  WebView, Image, View, Platform } from 'react-native';
 
 import { Container, Header, Content, Text, Button, Icon, Left, Right, Body } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+
 import { openDrawer } from '../../actions/drawer';
+
+import { ActionCreators } from '../../actions'
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
@@ -17,12 +22,31 @@ const primary = require('../../themes/variable').brandPrimary;
 var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
 
-  var injectScript = 'document.getElementById(\"username\").value=\"' + getUsername() + '\"';
-  injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"' + getPassword() + '"';
-  injectScript = injectScript + ';' +  'document.forms[0].submit()';
-  //injectedJavaScript={injectScript}
-class Widgets extends Component {
+var injectScript  = '';
 
+
+class Widgets extends Component {
+  static propTypes = {
+    openDrawer: React.PropTypes.func,
+    navigation: React.PropTypes.shape({
+      key: React.PropTypes.string,
+    }),
+  }
+
+
+
+  constructor(props) {
+    super(props);
+
+    injectScript = 'document.getElementById(\"username\").value=\"' + this.props.userX.name.trim() + '\"';
+    injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"' + this.props.userX.password.trim()+ '"';
+    injectScript = injectScript + ';' +  'document.forms[0].submit()';
+
+
+
+console.log('webviewUser=' + this.props.userX.name.trim() + 'dddd');
+console.log('webviewPass=' + this.props.userX.password.trim() + 'eee');
+  }
 
   state = {
     url: DEFAULT_URL,
@@ -32,6 +56,8 @@ class Widgets extends Component {
     loading: true,
     scalesPageToFit: true,
   };
+
+
 
 
   render() {
@@ -63,7 +89,7 @@ class Widgets extends Component {
                javaScriptEnabled={true}
                domStorageEnabled={true}
                startInLoadingState={true}
-
+   injectedJavaScript={injectScript}
                ref={WEBVIEW_REF}
              />
 
@@ -71,6 +97,20 @@ class Widgets extends Component {
       </Container>
     );
   };
+
+
+ getInjectScript() {
+
+  var injectScript = 'document.getElementById(\"username\").value=\"' + this.props.userX.name + '\"';
+  injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"aaa"';
+  injectScript = injectScript + ';' +  'document.forms[0].submit()';
+  //injectedJavaScript={}
+
+console.log(injectScript);
+return{
+  injectScript
+}
+};
 
   reload = () => {
      this.refs[WEBVIEW_REF].reload();
@@ -90,9 +130,6 @@ class Widgets extends Component {
     };
 
 
-
-
-
 }
 
 
@@ -108,4 +145,14 @@ function navigateCafe() {
   };
 }
 
-export default connect(null, bindAction)(Widgets);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators (ActionCreators, dispatch);
+};
+
+const mapStateToProps = state => ({
+  navigation: state.cardNavigation,
+  userX: state.user,
+  passwordX: state.password
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Widgets);

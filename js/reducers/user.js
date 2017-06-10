@@ -53,7 +53,13 @@ function userReducer(state: State = initialState, action: Action): State {
       name: action.payload,
     };
   }
-
+  if (action.type === 'SET_PASSWORD') {
+      console.log('reducer - SET_PASSWORD');
+    return {
+      ...state,
+      password: action.payload,
+    };
+  }
 
   if (action.type === 'SET_SHARING') {
     return {

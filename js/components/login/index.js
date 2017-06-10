@@ -23,7 +23,7 @@ class Login extends Component {
     navigation: React.PropTypes.shape({
       key: React.PropTypes.string,
     }),
-  }
+  } 
 
   constructor(props) {
     super(props);
@@ -66,7 +66,7 @@ class Login extends Component {
                 <Icon name="person" />
                 <Input
                   placeholder={this.props.userX.name}
-                  onChangeText={(user) => this.props.setLoginDetails(user)}
+                  onChangeText={(user) => this.props.setUsername(user)}
                   placeholderTextColor="#FFF"
                   style={styles.input}
                 />
@@ -78,7 +78,7 @@ class Login extends Component {
                   placeholder={this.props.userX.password}    //"My Stamford Password"
                   secureTextEntry
                   placeholderTextColor="#FFF"
-                  onChangeText={(password) => this.setState({ password })}
+                  onChangeText={(password) => this.props.setPassword(password)}
                   style={styles.input}
                 />
               </Item>
@@ -139,7 +139,8 @@ return bindActionCreators (ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
-  userX: state.user
+  userX: state.user,
+  passwordX: state.password
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);
