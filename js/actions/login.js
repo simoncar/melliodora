@@ -34,16 +34,15 @@ function setLoginDetails(username) {
 console.log('Actions > setLoginDetails', username);
 
   return {
-    type: types.SET_LOGIN_DETAILS
-
-  }
-
+    type: "SET_LOGIN_DETAILS",
+    payload: username
+  };
 }
 
 
 function logIn(source: ?string): ThunkAction {
   return (dispatch) => {
-
+console.log('Actions > login');
   // do some stuff
 
     return login;

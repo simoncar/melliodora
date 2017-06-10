@@ -46,6 +46,15 @@ function userReducer(state: State = initialState, action: Action): State {
     return initialState;
   }
 
+  if (action.type === 'SET_LOGIN_DETAILS') {
+      console.log('reducer - SET_LOGIN_DETAILS');
+    return {
+      ...state,
+      name: action.payload,
+    };
+  }
+
+
   if (action.type === 'SET_SHARING') {
     return {
       ...state,

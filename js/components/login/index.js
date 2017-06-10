@@ -42,8 +42,8 @@ class Login extends Component {
 
   doLogin(user,password) {
     //this.props.logIn();
-    this.props.setLoginDetails( {user: user} );
-    this.props.setLoginDetails( {password: password} );
+    //this.props.setLoginDetails( {user: user} );
+    //this.props.setLoginDetails( {password: password} );
     Actions.home();
 
   }
@@ -65,8 +65,8 @@ class Login extends Component {
               <Item rounded style={styles.inputGrp}>
                 <Icon name="person" />
                 <Input
-                  placeholder={this.props.user.name}
-                  onChangeText={(user) => this.setState({ user })}
+                  placeholder={this.props.userX.name}
+                  onChangeText={(user) => this.props.setLoginDetails(user)}
                   placeholderTextColor="#FFF"
                   style={styles.input}
                 />
@@ -75,7 +75,7 @@ class Login extends Component {
               <Item rounded style={styles.inputGrp}>
                 <Icon name="unlock" />
                 <Input
-                  placeholder={this.props.user.password}    //"My Stamford Password"
+                  placeholder={this.props.userX.password}    //"My Stamford Password"
                   secureTextEntry
                   placeholderTextColor="#FFF"
                   onChangeText={(password) => this.setState({ password })}
@@ -139,7 +139,7 @@ return bindActionCreators (ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
-  user: state.user
+  userX: state.user
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);
