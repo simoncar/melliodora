@@ -23,7 +23,7 @@ class Login extends Component {
     navigation: React.PropTypes.shape({
       key: React.PropTypes.string,
     }),
-  } 
+  }
 
   constructor(props) {
     super(props);
@@ -45,7 +45,6 @@ class Login extends Component {
     //this.props.setLoginDetails( {user: user} );
     //this.props.setLoginDetails( {password: password} );
     Actions.home();
-
   }
 
   render() {
@@ -125,16 +124,7 @@ class Login extends Component {
 const mapDispatchToProps = (dispatch) => {
 
 return bindActionCreators (ActionCreators, dispatch);
-    //bindActionCreators(ActionCreators, dispatch);
 
-  /*  return
-    {
-      setName: (name) => {
-        dispatch({
-          type: "SET_NAME",
-          payload: name
-        })
-      }*/
 };
 
 const mapStateToProps = state => ({
