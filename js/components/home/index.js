@@ -165,7 +165,8 @@ class calendar1 extends Component {
       <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
                    eventTitle: item.title,
                    eventDate: item.startDatePretty,
-                   eventTime: item.startTimePretty,
+                   eventStartTime: item.startTimePretty,  
+                   eventEndTime: item.endTimePretty,
                    location: item.location,
                    eventImage: item.eventImage,
                  })

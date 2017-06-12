@@ -47,7 +47,7 @@ export default {
   newsTypeView: {
     borderBottomWidth: 1,
     borderBottomColor: '#666',
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-left',
   },
   newsTypeText: {
     color: '#666',

@@ -113,14 +113,18 @@ class Story extends Component {
                 </View>
 
                 <View style={{ padding: 20 }}>
-                  <View style={{ paddingBottom: 20 }}>
+                  <View>
                   <Text style={styles.eventTitle}>
                    {"\n"}
                 </Text>
 
                     <Text style={styles.eventTitle}>
-                    {this.props.eventTime}{"\n"}{this.props.eventDate}
+                    {this.props.eventStartTime} - {this.props.eventEndTime}
                   </Text>
+                  <Text style={styles.eventTitle}>
+
+                  {this.props.eventDate}
+                </Text>
                   </View>
                 </View>
 
