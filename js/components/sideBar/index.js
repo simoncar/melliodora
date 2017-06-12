@@ -34,11 +34,17 @@ class SideBar extends Component {
                 <Icon name="ios-paper-outline" />
                 <Text style={styles.linkText} >NEWSLETTERS</Text>
             </ListItem>
-            <ListItem button onPress={() => { Actions.widgets(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+            <ListItem button onPress={() => { Actions.webportal(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                 <Icon name="ios-grid" />
                 <Text style={styles.linkText}>myStamford</Text>
             </ListItem>
-                
+            <ListItem button onPress={() => { Actions.webportal(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <Text style={styles.linkText}>  > Cafe TopUp</Text>
+            </ListItem>
+
+            <ListItem button onPress={() => { Actions.webportal(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <Text style={styles.linkText}>  > Events</Text>
+            </ListItem>
 
             <View style={styles.logoutContainer}>
               <View style={styles.logoutbtn} foregroundColor={'white'}>

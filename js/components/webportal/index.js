@@ -25,7 +25,7 @@ var DEFAULT_URL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2
 var injectScript  = '';
 
 
-class Widgets extends Component {
+class Webportal extends Component {
   static propTypes = {
     openDrawer: React.PropTypes.func,
     navigation: React.PropTypes.shape({
@@ -41,6 +41,12 @@ class Widgets extends Component {
     injectScript = 'document.getElementById(\"username\").value=\"' + this.props.userX.name.trim() + '\"';
     injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"' + this.props.userX.password.trim()+ '"';
     injectScript = injectScript + ';' +  'document.forms[0].submit()';
+    injectScript = injectScript + ';' +  'document.getElementsByClassName(\"ff-login-personalised-logo\")[0].style.visibility = \"hidden\";';
+    injectScript = injectScript + ';' +  'document.getElementsByClassName(\"global-logo\")[0].style.visibility = \"hidden\";';
+
+
+
+
 
 
 
@@ -56,8 +62,6 @@ console.log('webviewPass=' + this.props.userX.password.trim() + 'eee');
     loading: true,
     scalesPageToFit: true,
   };
-
-
 
 
   render() {
@@ -151,4 +155,4 @@ const mapStateToProps = state => ({
   passwordX: state.password
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Widgets);
+export default connect(mapStateToProps, mapDispatchToProps)(Webportal);

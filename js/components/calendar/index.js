@@ -130,7 +130,7 @@ class Calendar extends Component {
               <Image source={require('../../../images/NewsIcons/11.jpg')} style={styles.newsImage} />
               <View style={styles.newsContent}>
                 <Text numberOfLines={2} style={styles.newsHeader}>
-                                    Highly customizable widgets are part of our never ending mission.
+                                    Highly customizable webportal are part of our never ending mission.
                                 </Text>
                 <Grid style={{ marginTop: 25 }}>
                   <Col>

@@ -22,7 +22,7 @@ import Channels from './components/channels';
 import Overview from './components/overview';
 import Story from './components/story';
 import Timeline from './components/timeline';
-import Widgets from './components/widgets';
+import Webportal from './components/webportal';
 import NeedHelp from './components/needhelp';
 import { statusBarColor } from './themes/base-theme';
 
@@ -113,7 +113,7 @@ class AppNavigator extends Component {
             <Scene key="overview" component={Overview} />
             <Scene key="story" component={Story} />
             <Scene key="timeline" component={Timeline} />
-            <Scene key="widgets" component={Widgets} />
+            <Scene key="webportal" component={Webportal} />
           </Scene>
         </RouterWithRedux>
       </Drawer>
