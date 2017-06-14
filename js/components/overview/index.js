@@ -9,7 +9,7 @@ import { Container, Header, Content, Text, Left, Right, Body, Button, Icon, View
 import { Grid, Col } from 'react-native-easy-grid';
 
 import { openDrawer } from '../../actions/drawer';
-import ProgressBar from './../loaders/ProgressBar';
+import ProgressBar from './../x_loaders/ProgressBar';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';

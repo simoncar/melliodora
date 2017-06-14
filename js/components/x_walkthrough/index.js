@@ -9,7 +9,7 @@ import styles from './styles';
 import commonColor from '../../../native-base-theme/variables/commonColor';
 
 const deviceWidth = Dimensions.get('window').width;
-class Walkthrough extends Component {
+class x_walkthrough extends Component {
 
   static propTypes = {
     navigation: React.PropTypes.shape({
@@ -93,4 +93,4 @@ const mapStateToProps = state => ({
   navigation: state.cardNavigation,
 });
 
-export default connect(mapStateToProps)(Walkthrough);
+export default connect(mapStateToProps)(x_walkthrough);

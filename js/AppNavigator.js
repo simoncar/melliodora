@@ -9,21 +9,21 @@ import { closeDrawer } from './actions/drawer';
 
 import Login from './components/login/';
 import Home from './components/home/';
-import SignUp from './components/sign-up/';
-import Feedback from './components/feedback/';
+import SignUp from './components/x_sign-up/';
+import Feedback from './components/x_feedback/';
 import Comments from './components/comments/';
-import Profile from './components/profile/';
+import Profile from './components/x_profile/';
 import Calendar from './components/calendar/';
-import Walkthrough from './components/walkthrough/';
+import x_walkthrough from './components/x_walkthrough/';
 import SideBar from './components/sideBar';
 import Settings from './components/settings';
 import Channel from './components/channel';
 import Channels from './components/channels';
 import Overview from './components/overview';
 import Story from './components/story';
-import Timeline from './components/timeline';
+import Timeline from './components/x_timeline';
 import Webportal from './components/webportal';
-import NeedHelp from './components/needhelp';
+import NeedHelp from './components/x_needhelp';
 import { statusBarColor } from './themes/base-theme';
 
 
@@ -104,7 +104,7 @@ class AppNavigator extends Component {
             <Scene key="feedback" component={Feedback} />
             <Scene key="comments" component={Comments} />
             <Scene key="profile" component={Profile} />
-            <Scene key="walkthrough" component={Walkthrough} />
+            <Scene key="x_walkthrough" component={x_walkthrough} />
             <Scene key="sideBar" component={SideBar} />
             <Scene key="settings" component={Settings} />
             <Scene key="channel" component={Channel} />
