@@ -8,8 +8,8 @@ const initialState = {
   hasSkippedLogin: false,
   sharedSchedule: null,
   id: null,
-  name: "Max",
-  password: "pass",
+  name: "",
+  password: "",
 };
 
 // some ES6 initialisation technique if state is not passed to reducer
