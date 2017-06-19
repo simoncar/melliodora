@@ -2,7 +2,7 @@
   "expo": {
     "sdkVersion": "15.0.0",
     "icon": "./images/icon.png",
-     "slug": "whatson",
+     "slug": "myStamford",
     "loading": {
       "hideExponentText": true,
       "icon": "./images/loading.png",
@@ -16,10 +16,10 @@
       ]
     },
    "ios": {
-    "bundleIdentifier": "io.market.nativebase.geekyants.flatappui",
+    "bundleIdentifier": "com.softmowertrain.parent.mystamford",
   },
   "android": {
-     "package": "io.market.nativebase.geekyants.flatappui",
+     "package": "com.softmowertrain.parent.mystamford",
    },
    "androidStatusBarColor": "#01cca1",
      "androidStatusBar": {
