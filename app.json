@@ -1,7 +1,8 @@
 {
   "expo": {
+    "version": "1.0.0",
     "sdkVersion": "15.0.0",
-    "icon": "./images/icon.png",
+    "icon": "./resources/0001_sais.edu.sg/icons/ios/AppIcon.appiconset/Icon-App.png",
      "slug": "myStamford",
     "loading": {
       "hideExponentText": true,
