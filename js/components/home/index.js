@@ -165,7 +165,7 @@ class calendar1 extends Component {
       <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
                    eventTitle: item.title,
                    eventDate: item.startDatePretty,
-                   eventStartTime: item.startTimePretty,  
+                   eventStartTime: item.startTimePretty,
                    eventEndTime: item.endTimePretty,
                    location: item.location,
                    eventImage: item.eventImage,
@@ -185,7 +185,7 @@ class calendar1 extends Component {
 
   renderEmptyDate() {
     return (
-      <View style={{height: 15, flex:1, paddingTop: 30}}><Text>This is empty date!</Text></View>
+      <View style={{ height: 15, flex:1, paddingTop: 30}}><Text style={{color: 'black'}}>No Events Today</Text></View>
     );
   }
 

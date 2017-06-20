@@ -1,10 +1,6 @@
-
-
 const React = require('react-native');
 
-const { StyleSheet, Dimensions, Platform } = React;
-
-// const primary = require('../../themes/variable').brandPrimary;
+const {Dimensions, Platform } = React;
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -17,6 +13,10 @@ export default {
     height: (deviceHeight < 500) ? 50 : (deviceHeight / 15),
     alignSelf: 'center',
     marginTop: (deviceWidth < 330) ? (deviceHeight / 15) : (deviceHeight / 6),
+  },
+  newsHeader: {
+    color: '#444',
+    fontWeight: 'bold',
   },
   aShadow: {
     flex: 1,
@@ -65,4 +65,35 @@ export default {
   otherLinksContainer: {
     flexDirection: 'row',
   },
+  logoHeader: {
+    width: 20,
+    height: 28,
+    alignSelf: 'center',
+  },
+  text: {
+    fontSize: 15,
+    color: '#000',
+    marginBottom: 10,
+  },
+  header: {
+    width: Dimensions.get('window').width,
+    flexDirection: 'row',
+    paddingLeft: 15,
+    paddingRight: 15,
+    marginLeft: (Platform.OS === 'ios') ? undefined : -30,
+  },
+  rowHeader: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    paddingTop: Platform.OS === 'android' ? 0 : 0,
+  },
+  btnHeader: {
+  },
+  imageHeader: {
+    height: 145,
+    width: 225,
+    resizeMode: 'contain',
+  }
 }

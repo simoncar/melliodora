@@ -3,7 +3,7 @@
     "version": "1.0.2",
     "sdkVersion": "15.0.0",
     "icon": "./resources/0001_sais.edu.sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
-     "slug": "SAIS Parent",
+     "slug": "myStamford",
     "loading": {
       "hideExponentText": true,
       "icon": "./images/loading.png",

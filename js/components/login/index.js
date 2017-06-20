@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
-import { Image, Platform, StatusBar,TouchableOpacity } from 'react-native';
+import { Image, View, Platform,TouchableOpacity,Dimensions } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
-import { Actions } from 'react-native-router-flux';
-import { Container, Content, Text, Item, Input, Button, Icon, View, Left, Right } from 'native-base';
+import { Actions, ActionConst } from 'react-native-router-flux';
+import { Container,Content, Text, Item, Input, Button, Icon, Left, Right, Body, Header } from 'native-base';
 
+import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
-import commonColor from '../../../native-base-theme/variables/commonColor';
 
 import { ActionCreators } from '../../actions'
 
 var { skipLogin } = require('../../actions');
 
+const deviceWidth = Dimensions.get('window').width;
 const bg = require('../../../images/BG.png');
-const logo = require('../../../images/logo.png');
+const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
 class Login extends Component {
 
   static propTypes = {
+
+    openDrawer: React.PropTypes.func,
     navigation: React.PropTypes.shape({
       key: React.PropTypes.string,
     }),
@@ -49,13 +52,27 @@ class Login extends Component {
 
   render() {
     return (
-      <Container>
-        <StatusBar
-          backgroundColor={commonColor.statusBarColor}
-          barStyle="light-content"
-        />
+      <Container style={{ backgroundColor: '#fff' }}>
+
+      <Header>
+      <Left>
+        <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
+                   <Icon active name="menu" />
+        </Button>
+      </Left>
+        <Body>
+        <Image source={headerLogo} style={styles.imageHeader} />
+        </Body>
+      <Right>
+         <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
+                    <Icon active name="power" />
+         </Button>
+      </Right>
+      </Header>
+
+
         <Content scrollEnabled={true} bounces={false}>
-          <Image source={bg} style={styles.background} >
+            <Image source={bg} style={styles.background} >
             <Image style={Platform.OS === 'android' ? styles.aShadow : styles.iosShadow} />
 
             <View style={styles.bg}>
@@ -122,10 +139,10 @@ class Login extends Component {
 
 
 const mapDispatchToProps = (dispatch) => {
-
-return bindActionCreators (ActionCreators, dispatch);
-
-};
+    return {
+      openDrawer: () => dispatch(openDrawer()),
+    };
+  }
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
