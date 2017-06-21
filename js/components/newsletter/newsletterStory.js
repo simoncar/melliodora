@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Platform, Slider, Dimensions, Share  } from 'react-native';
+import { WebView, Image, View, TouchableOpacity, Platform, Slider, Dimensions, Share  } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
@@ -38,7 +38,12 @@ class newsletterStory extends Component {
 
   render() {
     return (
+
+
+
       <Container style={{ backgroundColor: '#fff' }}>
+
+
         <Image source={require('../../../images/glow2.png')} style={styles.container} >
           <Header>
             <Left>
@@ -54,15 +59,8 @@ class newsletterStory extends Component {
             </Right>
           </Header>
 
-          <Content showsVerticalScrollIndicator={false}>
-            <View style={{ flex: 1 }}>
-              <View style={{ backgroundColor: '#fff' }}>
-                <View style={styles.newsContent}>
-                      <Text style={styles.newsTypeText}></Text>
-                </View>
-              </View>
-            </View>
-          </Content>
+
+          <WebView source={{html: this.props.newsletterContent}}/>
 
         </Image>
       </Container>

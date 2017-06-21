@@ -67,9 +67,6 @@ class Story extends Component {
   render() {
 
 
-    console.log('here');
-
-
     return (
       <Container style={{ backgroundColor: '#fff' }}>
         <Image source={require('../../../images/glow2.png')} style={styles.container} >

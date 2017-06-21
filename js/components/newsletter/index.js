@@ -1,8 +1,6 @@
-
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, Platform, TouchableOpacity } from 'react-native';
+import { Image, Platform, TouchableOpacity,ListView,TouchableHighlight } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import { Container, Header, Content, Text, Left, Right, Body, Button, Icon, View } from 'native-base';
@@ -14,10 +12,100 @@ import ProgressBar from './../x_loaders/ProgressBar';
 import theme from '../../themes/base-theme';
 import styles from './styles';
 
+import * as firebase from 'firebase';
 
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
+const firebaseConfig = {
+  apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
+  authDomain: "calendar-app-57e88.firebaseapp.com",
+  databaseURL: "https://calendar-app-57e88.firebaseio.com",
+  storageBucket: "calendar-app-57e88.appspot.com"
+};
+
+const newsletterFirebaseApp = firebase.initializeApp(firebaseConfig, "newsletter");
+
+
 class Newsletter extends Component {
+
+
+  constructor(props) {
+    super(props);
+    console.log('1. newsletter constructor');
+    this.newsletterEvents = newsletterFirebaseApp.database().ref('instance/0001-sais_edu_sg/news');
+    this.state = {
+      user:null,
+      loading: true,
+      items: {},
+      dataSource: new ListView.DataSource({
+           rowHasChanged: (row1, row2) => row1 !== row2,
+    })
+    };
+
+
+  };
+
+
+
+
+    listenForNewslettersEvents(newsletterEvents) {
+      newsletterEvents.on('value', (snap) => {
+
+        // get children as an array
+        var items = [];
+        snap.forEach((child) => {
+          items.push({
+            title: child.val().title,
+            content: child.val().content,
+            _key: child.key
+          });
+          console.log('content = ', child.val().title);
+        });
+
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(items)
+        });
+
+      });
+    }
+
+
+  componentDidMount() {
+    this.listenForNewslettersEvents(this.newsletterEvents);
+  }
+
+
+  listenForNewslettersEventsX(newsletterEvents) {
+    newsletterEvents.on('value', (dataSnapshot) => {
+    var newsletterEvents = [];
+
+     const newItems = {};
+     Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+     this.setState({
+       items: newItems
+     });
+
+yyy = "no news";
+
+ this.state.items[0] = [];
+
+      dataSnapshot.forEach((snapshot) => {
+            console.log('3. ... loading item ');
+            this.state.items[0].push({
+                content: snapshot.child("content").val()
+              });
+              yyy = yyy +  snapshot.child("content").val()
+console.log('content = ', yyy);
+
+      });
+
+      this.setState({
+        newsletterEvents:newsletterEvents
+      });
+
+
+    });
+  }
 
   render() {
     return (
@@ -43,141 +131,55 @@ class Newsletter extends Component {
             <Text note style={styles.overviewHead}></Text>
           </View>
 
-          <Content showsVerticalScrollIndicator={false}>
 
-            <View style={styles.overviewContent}>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this._renderItem.bind(this)}
+            enableEmptySections={true}
+            style={styles.overviewContent}/>
 
-            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.newsletterStory({
-                       })
-                     }>
-
-              <View style={styles.overviewTopicsBox}>
-                    <Text style={styles.overviewInfoHeader}>SUPERINTENDENT</Text>
-              </View>
-
-          </TouchableOpacity>
-
-
-
-              <View style={styles.overviewTopicsBox}>
-                <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
-                  <Col>
-                    <Text style={styles.overviewInfoHeader}>HIGH SCHOOL</Text>
-                  </Col>
-                  <Col>
-                    <Text style={styles.overviewInfoPerc}></Text>
-                  </Col>
-                </Grid>
-
-              </View>
-
-              <View style={styles.overviewTopicsBox}>
-                <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
-                  <Col>
-                    <Text style={styles.overviewInfoHeader}>UPPER ELEMENTARY</Text>
-                  </Col>
-                  <Col>
-                    <Text style={styles.overviewInfoPerc}></Text>
-                  </Col>
-                </Grid>
-
-              </View>
-
-              <View style={styles.overviewTopicsBox}>
-                <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
-                  <Col>
-                    <Text style={styles.overviewInfoHeader}>LOWER ELEMENTARY</Text>
-                  </Col>
-                  <Col>
-                    <Text style={styles.overviewInfoPerc}></Text>
-                  </Col>
-                </Grid>
-
-              </View>
-
-              <View style={styles.overviewTopicsBox}>
-                <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
-                  <Col>
-                    <Text style={styles.overviewInfoHeader}>EARLY YEARS</Text>
-                  </Col>
-                  <Col>
-                    <Text style={styles.overviewInfoPerc}></Text>
-                  </Col>
-                </Grid>
-
-              </View>
-
-              <View style={styles.overviewTopicsBox}>
-                <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
-                  <Col>
-                    <Text style={styles.overviewInfoHeader}></Text>
-                  </Col>
-                  <Col>
-                    <Text style={styles.overviewInfoPerc}></Text>
-                  </Col>
-                </Grid>
-
-              </View>
-
-              <View style={styles.overviewTopicsBox}>
-                <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
-                  <Col>
-                    <Text style={styles.overviewInfoHeader}></Text>
-                  </Col>
-                  <Col>
-                    <Text style={styles.overviewInfoPerc}></Text>
-                  </Col>
-                </Grid>
-
-              </View>
-
-              <View style={styles.overviewTopicsBox}>
-                <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
-                  <Col>
-                    <Text style={styles.overviewInfoHeader}></Text>
-                  </Col>
-                  <Col>
-                    <Text style={styles.overviewInfoPerc}></Text>
-                  </Col>
-                </Grid>
-
-              </View>
-
-              <View style={styles.overviewTopicsBox}>
-                <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
-                  <Col>
-                    <Text style={styles.overviewInfoHeader}></Text>
-                  </Col>
-                  <Col>
-                    <Text style={styles.overviewInfoPerc}></Text>
-                  </Col>
-                </Grid>
-
-              </View>
-
-              <View style={styles.overviewTopicsBox}>
-                <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
-                  <Col>
-                    <Text style={styles.overviewInfoHeader}></Text>
-                  </Col>
-                  <Col>
-                    <Text style={styles.overviewInfoPerc}></Text>
-                  </Col>
-                </Grid>
-
-              </View>
-            </View>
-          </Content>
         </Image>
       </Container>
     );
   }
+
+
+
+    _renderItem(item) {
+
+      const onPress = () => {
+        AlertIOS.alert(
+          'Complete',
+          null,
+          [
+            {text: 'Complete', onPress: (text) => this.itemsRef.child(item._key).remove()},
+            {text: 'Cancel', onPress: (text) => console.log('Cancelled')}
+          ]
+        );
+      };
+
+      return (
+
+        <TouchableOpacity   onPress={() =>  Actions.newsletterStory({newsletterContent: "Content:" + item.content})}>
+          <View style={styles.overviewTopicsBox}>
+            <Text >{item.title}</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    }
+
+
 }
+
+
 
 function bindAction(dispatch) {
   return {
     openDrawer: () => dispatch(openDrawer()),
   };
 }
+
+
+
 
 export default connect(null, bindAction)(Newsletter);
