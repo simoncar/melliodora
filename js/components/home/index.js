@@ -24,13 +24,6 @@ const firebaseConfig = {
   storageBucket: "calendar-app-57e88.appspot.com"
 };
 
-const firebaseConfig_ = {
-  apiKey: "AIzaSyBLz76NsS1fjNXcaGBUhcp9qA-MFg1Hrg8",
-  authDomain: "calendarapp-b7967.firebaseapp.com",
-  databaseURL: "https://calendarapp-b7967.firebaseio.com",
-  storageBucket: "calendarapp-b7967.appspot.com"
-};
-
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 class calendar1 extends Component {
@@ -78,8 +71,6 @@ class calendar1 extends Component {
      this.setState({
        items: newItems
      });
-
-    // this.state.items[strtime] = [];
 
       dataSnapshot.forEach((snapshot) => {
 

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, Platform } from 'react-native';
+import { Image, Platform, TouchableOpacity } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import { Container, Header, Content, Text, Left, Right, Body, Button, Icon, View } from 'native-base';
@@ -34,7 +34,7 @@ class Newsletter extends Component {
           </Body>
             <Right>
               <Button transparent style={styles.btnHeader} onPress={() => Actions.pop()}>
-                
+
               </Button>
             </Right>
           </Header>
@@ -44,18 +44,20 @@ class Newsletter extends Component {
           </View>
 
           <Content showsVerticalScrollIndicator={false}>
-            <View style={styles.overviewContent}>
-              <View style={styles.overviewTopicsBox}>
-                <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>
-                  <Col>
-                    <Text style={styles.overviewInfoHeader}>SUPERINTENDENT</Text>
-                  </Col>
-                  <Col>
-                    <Text style={styles.overviewInfoPerc}></Text>
-                  </Col>
-                </Grid>
 
+            <View style={styles.overviewContent}>
+
+            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.newsletterStory({
+                       })
+                     }>
+
+              <View style={styles.overviewTopicsBox}>
+                    <Text style={styles.overviewInfoHeader}>SUPERINTENDENT</Text>
               </View>
+
+          </TouchableOpacity>
+
+
 
               <View style={styles.overviewTopicsBox}>
                 <Grid style={Platform.OS === 'android' ? { paddingBottom: 0 } : { paddingBottom: 15 }}>

@@ -43,8 +43,6 @@ class Story extends Component {
       value: 0,
     };
 
-    this.props.username = 'simon';
-
   }
 
  _shareMessage() {
