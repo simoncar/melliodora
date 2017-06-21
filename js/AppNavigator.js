@@ -99,10 +99,10 @@ class AppNavigator extends Component {
         <RouterWithRedux>
         <Scene key="root">
           <Scene key="home" component={Home}  hideNavBar initial={true} />
-            <Scene key="login" component={Login} hideNavBar initial={true} />
+            <Scene key="login" component={Login} hideNavBar  />
             <Scene key="signUp" component={SignUp} />
             <Scene key="needhelp" component={NeedHelp} />
-            <Scene key="home" component={Home}  hideNavBar initial={true} />
+            <Scene key="home" component={Home}  hideNavBar  />
             <Scene key="feedback" component={Feedback} />
             <Scene key="comments" component={Comments} />
             <Scene key="profile" component={Profile} />
@@ -112,8 +112,8 @@ class AppNavigator extends Component {
             <Scene key="channel" component={Channel} />
             <Scene key="channels" component={Channels} />
             <Scene key="calendar" component={Calendar} />
-            <Scene key="newsletter" component={Newsletter} hideNavBar initial={true}  />
-            <Scene key="newsletterStory" component={newsletterStory} hideNavBar initial={true}  />
+            <Scene key="newsletter" component={Newsletter} hideNavBar  />
+            <Scene key="newsletterStory" component={newsletterStory} hideNavBar  />
             <Scene key="story" component={Story} />
             <Scene key="timeline" component={Timeline} />
             <Scene key="webportal" component={Webportal} />
