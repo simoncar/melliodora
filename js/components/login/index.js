@@ -47,7 +47,7 @@ class Login extends Component {
     //this.props.logIn();
     //this.props.setLoginDetails( {user: user} );
     //this.props.setLoginDetails( {password: password} );
-    Actions.home();
+    Actions.webportal();
   }
 
   render() {
@@ -65,7 +65,7 @@ class Login extends Component {
         </Body>
       <Right>
          <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
-                    <Icon active name="power" />
+
          </Button>
       </Right>
       </Header>
@@ -104,7 +104,7 @@ class Login extends Component {
                 style={styles.loginBtn}
                 onPress={() => this.doLogin(this.username,this.password)}
               >
-                <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>Get Started</Text>
+                <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>SAVE LOGIN</Text>
               </Button>
 
               <View style={styles.otherLinksContainer}>
@@ -137,12 +137,13 @@ class Login extends Component {
   }
 }
 
-
 const mapDispatchToProps = (dispatch) => {
-    return {
-      openDrawer: () => dispatch(openDrawer()),
-    };
-  }
+
+  return bindActionCreators (ActionCreators, dispatch);
+
+  };
+
+
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,

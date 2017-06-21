@@ -39,6 +39,11 @@ class SideBar extends Component {
                 <Text style={styles.linkText}>myStamford</Text>
             </ListItem>
 
+            <ListItem button onPress={() => { Actions.login(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <Icon name="settings" />
+                <Text style={styles.linkText}>SETTINGS</Text>
+            </ListItem>
+
             <View style={styles.logoutContainer}>
               <View style={styles.logoutbtn} foregroundColor={'white'}>
                 <Grid>
