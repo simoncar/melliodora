@@ -19,7 +19,7 @@ import SideBar from './components/sideBar';
 import Settings from './components/settings';
 import Channel from './components/channel';
 import Channels from './components/channels';
-import Overview from './components/overview';
+import Newsletter from './components/newsletter';
 import Story from './components/story';
 import Timeline from './components/x_timeline';
 import Webportal from './components/webportal';
@@ -110,7 +110,7 @@ class AppNavigator extends Component {
             <Scene key="channel" component={Channel} />
             <Scene key="channels" component={Channels} />
             <Scene key="calendar" component={Calendar} />
-            <Scene key="overview" component={Overview} />
+            <Scene key="newsletter" component={Newsletter} hideNavBar initial={true}  />
             <Scene key="story" component={Story} />
             <Scene key="timeline" component={Timeline} />
             <Scene key="webportal" component={Webportal} />

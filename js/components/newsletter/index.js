@@ -17,7 +17,7 @@ import styles from './styles';
 
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
-class Overview extends Component {
+class Newsletter extends Component {
 
   render() {
     return (
@@ -34,7 +34,7 @@ class Overview extends Component {
           </Body>
             <Right>
               <Button transparent style={styles.btnHeader} onPress={() => Actions.pop()}>
-                <Icon active name="arrow-back" />
+                
               </Button>
             </Right>
           </Header>
@@ -178,4 +178,4 @@ function bindAction(dispatch) {
   };
 }
 
-export default connect(null, bindAction)(Overview);
+export default connect(null, bindAction)(Newsletter);
