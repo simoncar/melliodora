@@ -18,7 +18,7 @@ export default {
   eventIcon: {
     color: '#666',
     fontSize: 20,
-    iconFamily: 'Zocial',
+
   },
 
   newsHeader: {
@@ -162,6 +162,7 @@ export default {
       padding: 10,
       marginRight: 10,
       marginTop: 5,
+          alignSelf: 'stretch',
   },
   emptyDate: {
       height: 15,

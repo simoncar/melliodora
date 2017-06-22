@@ -165,18 +165,13 @@ class calendar1 extends Component {
 
 
 
-         <Left>
-            <View>
-             <Text style={styles.agendaDate}>{item.startTimePretty} - {this.aaa()} - {item.endTimePretty}</Text>
-             <Text style={{color: 'black'}}>{item.name}</Text>
+
+              <View style={[styles.agendaItem, {height: item.height}]}>
+             <Text style={styles.agendaDate}>{item.startTimePretty}  {this.aaa()}   {item.endTimePretty}</Text>
+             <Text style={{color: 'black'}}><Icon style={styles.eventIcon} name={item.icon} />  {item.name}</Text>
              <Text style={styles.agendaLocation}>{item.location}</Text>
                </View>
-         </Left>
-         <Right>
-         <View>
-              <Text style={{color: 'black'}}> <Icon style={styles.eventIcon} name={item.icon} /></Text>
-               </View>
-         </Right>
+
 
      </TouchableOpacity>
 

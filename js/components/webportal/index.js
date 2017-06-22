@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux'
 
 import { openDrawer } from '../../actions/drawer';
 
-import { ActionCreators } from '../../actions'
+import * as  ActionCreators  from '../../actions'
 
 import theme from '../../themes/base-theme';
 import styles from './styles';

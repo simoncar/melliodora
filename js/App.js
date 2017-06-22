@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { ActionCreators } from './actions'
+import * as actionCreators  from './actions'
 import AppNavigator from './AppNavigator';
 
 class App extends Component {
@@ -16,6 +16,7 @@ class App extends Component {
 
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators (ActionCreators, dispatch);
+  return bindActionCreators (actionCreators, dispatch);
 }
+
 export default connect((state) => { return {} }, mapDispatchToProps)(App);

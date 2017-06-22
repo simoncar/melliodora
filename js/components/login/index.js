@@ -10,7 +10,7 @@ import { Container,Content, Text, Item, Input, Button, Icon, Left, Right, Body, 
 import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
 
-import { ActionCreators } from '../../actions'
+import * as ActionCreators  from '../../actions'
 
 var { skipLogin } = require('../../actions');
 
