@@ -84,7 +84,10 @@ class calendar1 extends Component {
                   location: snapshot.child("location").val(),
                   startDatePretty: snapshot.child("date_start").val(),
                   startTimePretty: snapshot.child("time_start_pretty").val(),
-                  endTimePretty: snapshot.child("time_end_pretty").val()
+                  endTimePretty: snapshot.child("time_end_pretty").val(),
+                  iconLib: snapshot.child("iconLib").val(),
+                  icon:snapshot.child("icon").val(),
+                  color: snapshot.child("colorId").val()
                 });
             }
       });
@@ -150,26 +153,32 @@ class calendar1 extends Component {
 
   renderItem(item) {
     return (
-
-
-
       <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
-                   eventTitle: item.title,
-                   eventDate: item.startDatePretty,
-                   eventStartTime: item.startTimePretty,
-                   eventEndTime: item.endTimePretty,
-                   location: item.location,
-                   eventImage: item.eventImage,
-                 })
-               }>
+             eventTitle: item.title,
+             eventDate: item.startDatePretty,
+             eventStartTime: item.startTimePretty,
+             eventEndTime: item.endTimePretty,
+             location: item.location,
+             eventImage: item.eventImage,
+           })
+         }>
 
-               <View style={[styles.agendaItem, {height: item.height}]}>
-               <Text style={styles.agendaDate}>{item.startTimePretty} - {this.aaa()} - {item.endTimePretty}</Text>
-               <Text style={{color: 'black'}}>{item.name}</Text>
-               <Text style={styles.agendaLocation}>{item.location}</Text>
+
+
+         <Left>
+            <View>
+             <Text style={styles.agendaDate}>{item.startTimePretty} - {this.aaa()} - {item.endTimePretty}</Text>
+             <Text style={{color: 'black'}}>{item.name}</Text>
+             <Text style={styles.agendaLocation}>{item.location}</Text>
                </View>
-               </TouchableOpacity>
+         </Left>
+         <Right>
+         <View>
+              <Text style={{color: 'black'}}> <Icon style={styles.eventIcon} name={item.icon} /></Text>
+               </View>
+         </Right>
 
+     </TouchableOpacity>
 
     );
   }

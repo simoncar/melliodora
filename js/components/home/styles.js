@@ -15,6 +15,12 @@ export default {
     borderTopWidth: 1,
     borderTopColor: '#ddd',
   },
+  eventIcon: {
+    color: '#666',
+    fontSize: 20,
+    iconFamily: 'Zocial',
+  },
+
   newsHeader: {
     color: '#444',
     fontWeight: 'bold',
