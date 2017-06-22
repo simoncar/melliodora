@@ -164,10 +164,8 @@ class calendar1 extends Component {
          }>
 
 
-
-
               <View style={[styles.agendaItem, {height: item.height}]}>
-             <Text style={styles.agendaDate}>{item.startTimePretty}  {this.aaa()}   {item.endTimePretty}</Text>
+             <Text style={styles.agendaDate}>{this.aaa(item.startTimePretty, item.endTimePretty)} </Text>
              <Text style={{color: 'black'}}><Icon style={styles.eventIcon} name={item.icon} />  {item.name}</Text>
              <Text style={styles.agendaLocation}>{item.location}</Text>
                </View>
@@ -178,11 +176,17 @@ class calendar1 extends Component {
     );
   }
 
-aaa() {
-  return (
-    ""
-  );
-}
+aaa(starttime, endtime) {
+  var ret = '';
+
+  if(starttime === null && typeof starttime === "object") {
+    ret = ''
+  } else {
+    var ret = starttime + ' - ' + endtime;
+  }
+  return ( ret);
+};
+
 
   renderEmptyDate() {
     return (
