@@ -30,7 +30,7 @@ export default {
   inputGrp: {
     flexDirection: 'row',
     backgroundColor: 'rgba(255,255,255,0.3)',
-    marginBottom: 20,
+    marginBottom: 25,
     borderWidth: 0,
     borderColor: 'transparent',
   },
@@ -43,13 +43,16 @@ export default {
     width: null,
     height: deviceHeight,
     backgroundColor: 'rgba(0,0,0,0.1)',
+
   },
   bg: {
     flex: 1,
     paddingLeft: 20,
     paddingRight: 20,
-    paddingBottom: 70,
-    marginTop: (deviceHeight < 500) ? (Platform.OS === 'android' ? 20 : 0) : (Platform.OS === 'android' ? ((deviceHeight / 6) - 45) : ((deviceHeight / 6) - 10)),
+    marginTop: 300,
+    //paddingBottom: 60,
+    //marginTop: (deviceHeight < 500) ? (Platform.OS === 'android' ? 20 : 0) : (Platform.OS === 'android' ? ((deviceHeight / 6) - 45) : ((deviceHeight / 6) - 30)),
+
   },
   loginBtn: {
     marginTop: 10,
