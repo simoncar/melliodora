@@ -148,12 +148,14 @@ export default {
     alignSelf: 'stretch',
     paddingTop: Platform.OS === 'android' ? 0 : 0,
   },
-  btnHeader: {
-  },
+
   imageHeader: {
     height: 145,
     width: 225,
     resizeMode: 'contain',
+
+    justifyContent: 'center',
+      alignItems: 'center',
   },
   agendaItem:{
     backgroundColor: 'white',

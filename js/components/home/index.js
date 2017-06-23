@@ -94,20 +94,33 @@ class calendar1 extends Component {
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
+
+
         <Header>
-        <Left>
-          <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
-                     <Icon active name="menu" />
-          </Button>
-        </Left>
-          <Body>
-          <Image source={headerLogo} style={styles.imageHeader} />
-          </Body>
-        <Right>
-           <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
-                      <Icon active name="settings" />
-           </Button>
-        </Right>
+
+        <View style={{
+               flex: 1,
+               flexDirection: 'row',
+               justifyContent: 'space-between',
+             }}>
+
+              <View>
+                     <Button transparent onPress={this.props.openDrawer} >
+                                <Icon active name="menu" />
+                     </Button>
+              </View>
+
+                <Body>
+                  <Image source={headerLogo} style={styles.imageHeader} />
+                </Body>
+              <View>
+
+                   <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
+                              <Icon active name="settings" />
+                   </Button>
+              </View>
+          </View>
+
         </Header>
 
         <Agenda
