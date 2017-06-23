@@ -10,7 +10,7 @@ import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
 
 import {Agenda} from 'react-native-calendars';
-import { setUsername, setPassword} from '../global.js';
+import { formatTime } from '../global.js';
 
 const deviceWidth = Dimensions.get('window').width;
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
@@ -158,7 +158,7 @@ class calendar1 extends Component {
 
 
               <View style={[styles.agendaItem, {height: item.height}]}>
-             <Text style={styles.agendaDate}>{this.formatTime(item.startTimePretty, item.endTimePretty)} </Text>
+             <Text style={styles.agendaDate}>{formatTime(item.startTimePretty, item.endTimePretty)} </Text>
              <Text style={{color: 'black'}}><Icon style={styles.eventIcon} name={item.icon} />  {item.name}</Text>
              <Text style={styles.agendaLocation}>{item.location}</Text>
                </View>
@@ -169,16 +169,7 @@ class calendar1 extends Component {
     );
   }
 
-formatTime(starttime, endtime) {
-  var ret = '';
 
-  if(starttime === null && typeof starttime === "object") {
-    ret = ''
-  } else {
-    var ret = starttime + ' - ' + endtime;
-  }
-  return (ret);
-};
 
 
 getIcon(eventDetails) {

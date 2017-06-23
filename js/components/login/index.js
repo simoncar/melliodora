@@ -60,7 +60,6 @@ class Login extends Component {
       </Right>
       </Header>
 
-
         <Content scrollEnabled={true} bounces={false}>
             <Image source={bg} style={styles.background} >
             <Image style={Platform.OS === 'android' ? styles.aShadow : styles.iosShadow} />

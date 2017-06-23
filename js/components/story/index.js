@@ -14,6 +14,8 @@ import { openDrawer } from '../../actions/drawer';
 import theme from '../../themes/base-theme';
 import styles from './styles';
 
+import { formatTime } from '../global.js';
+
 const deviceWidth = Dimensions.get('window').width;
 const primary = require('../../themes/variable').brandPrimary;
 
@@ -49,7 +51,7 @@ class Story extends Component {
 
 
     Share.share({
-      message: "" + this.props.eventTitle + "\nWhen: " +  this.props.eventTime + " - " + this.props.eventDate,
+      message: "" + this.props.eventTitle + "\nWhen: " +  formatTime(this.props.eventStartTime, this.props.eventEndTime) + ' ' + this.props.eventDate,
       title: '' + this.props.eventImage
     })
     .then(this._showResult)
@@ -114,7 +116,7 @@ class Story extends Component {
                 </Text>
 
                     <Text style={styles.eventTitle}>
-                    {this.props.eventStartTime} - {this.props.eventEndTime}
+                  {formatTime(this.props.eventStartTime, this.props.eventEndTime)}
                   </Text>
                   <Text style={styles.eventTitle}>
 
