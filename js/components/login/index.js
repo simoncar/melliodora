@@ -7,10 +7,10 @@ import { bindActionCreators } from 'redux'
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Container,Content, Text, Item, Input, Button, Icon, Left, Right, Body, Header } from 'native-base';
 
-import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
 
 import * as ActionCreators  from '../../actions'
+//import * as openDrawer  from '../../actions/drawer';
 
 var { skipLogin } = require('../../actions');
 
@@ -36,20 +36,10 @@ class Login extends Component {
     };
   }
 
-  setUsername(user) {
-    //this.props.logIn();
-    //this.props.setLoginDetails( {username: 'simon'} );
-    //Actions.home();
-
-  }
-
   doLogin(user,password) {
-    //this.props.logIn();
-    //this.props.setLoginDetails( {user: user} );
-    //this.props.setLoginDetails( {password: password} );
+
     Actions.webportal();
   }
-
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
@@ -118,7 +108,6 @@ class Login extends Component {
                     <Text style={styles.helpBtns}>Skip Login</Text>
                   </Button>
                 </Left>
-
                 <Right>
                   <Button transparent style={{ alignSelf: 'flex-end' }} onPress={() => Actions.needhelp()}>
                     <Text style={styles.helpBtns}>
@@ -128,9 +117,7 @@ class Login extends Component {
                 </Right>
               </View>
             </View>
-
           </Image>
-
         </Content>
       </Container>
     );
@@ -138,12 +125,9 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-
-  return bindActionCreators (ActionCreators, dispatch);
-
-  };
-
-
+  console.log ('bind action creators');
+  return bindActionCreators (ActionCreators, dispatch)
+};
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,

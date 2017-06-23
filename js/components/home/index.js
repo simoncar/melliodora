@@ -28,13 +28,6 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 class calendar1 extends Component {
 
-  static propTypes = {
-    openDrawer: React.PropTypes.func,
-    navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
-    }),
-  }
-
   constructor(props) {
     super(props);
     console.log('1. constructor');
@@ -165,7 +158,7 @@ class calendar1 extends Component {
 
 
               <View style={[styles.agendaItem, {height: item.height}]}>
-             <Text style={styles.agendaDate}>{this.aaa(item.startTimePretty, item.endTimePretty)} </Text>
+             <Text style={styles.agendaDate}>{this.formatTime(item.startTimePretty, item.endTimePretty)} </Text>
              <Text style={{color: 'black'}}><Icon style={styles.eventIcon} name={item.icon} />  {item.name}</Text>
              <Text style={styles.agendaLocation}>{item.location}</Text>
                </View>
@@ -176,7 +169,7 @@ class calendar1 extends Component {
     );
   }
 
-aaa(starttime, endtime) {
+formatTime(starttime, endtime) {
   var ret = '';
 
   if(starttime === null && typeof starttime === "object") {
@@ -184,8 +177,24 @@ aaa(starttime, endtime) {
   } else {
     var ret = starttime + ' - ' + endtime;
   }
-  return ( ret);
+  return (ret);
 };
+
+
+getIcon(eventDetails) {
+  var ret = '';
+
+  if (ret.contains("sport")) {
+      ret = 'ios-american-football'
+  } else if (ret.contains("art")) {
+    ret = 'ios-brush'
+  } else {
+    ret = ''
+  }
+
+  return (ret);
+};
+
 
 
   renderEmptyDate() {
