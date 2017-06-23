@@ -22,10 +22,10 @@
   "android": {
      "package": "com.softmowertrain.parent.mystamford",
    },
-   "androidStatusBarColor": "#01cca1",
+   "androidStatusBarColor": "#AF3643",
      "androidStatusBar": {
      "barStyle": "dark-content",
-     "backgroundColor": "#01cca1",
+     "backgroundColor": "#AF3643",
     },
   }
 }

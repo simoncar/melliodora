@@ -181,7 +181,7 @@ class Story extends Component {
                   <Col>
                     <Text style={styles.modalSmallText}>A</Text>
                   </Col>
-                  <Col style={{ alignSelf: 'flex-end' }}>
+                  <Col>
                     <Text style={styles.modalLargeText}>A</Text>
                   </Col>
                 </Grid>
