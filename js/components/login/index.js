@@ -45,19 +45,28 @@ class Login extends Component {
       <Container style={{ backgroundColor: '#fff' }}>
 
       <Header>
-      <Left>
-        <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
-                   <Icon active name="menu" />
-        </Button>
-      </Left>
-        <Body>
-        <Image source={headerLogo} style={styles.imageHeader} />
-        </Body>
-      <Right>
-         <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
 
-         </Button>
-      </Right>
+      <View style={{
+             flex: 1,
+             flexDirection: 'row',
+             justifyContent: 'space-between',
+           }}>
+
+            <View>
+                   <Button transparent onPress={this.props.openDrawer} >
+                              <Icon active name="menu" />
+                   </Button>
+            </View>
+
+              <Body>
+                <Image source={headerLogo} style={styles.imageHeader} />
+              </Body>
+            <View>
+
+            
+            </View>
+        </View>
+
       </Header>
 
         <Content scrollEnabled={true} bounces={false}>

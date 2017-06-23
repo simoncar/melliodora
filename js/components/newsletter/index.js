@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, Platform, TouchableOpacity,ListView,TouchableHighlight } from 'react-native';
+import { Image, Platform, TouchableOpacity,ListView,TouchableHighlight,View } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import { Container, Header, Content, Text, Left, Right, Body, Button, Icon, View } from 'native-base';
+import { Container, Header, Content, Text, Left, Right, Body, Button, Icon } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 
 import { openDrawer } from '../../actions/drawer';
@@ -111,21 +111,34 @@ console.log('content = ', yyy);
     return (
       <Container>
         <Image source={require('../../../images/glow2.png')} style={styles.container} >
-          <Header>
-          <Left>
-            <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
-              <Icon active name="menu" />
-            </Button>
-          </Left>
-          <Body>
-            <Image source={headerLogo} style={styles.imageHeader} />
-          </Body>
-            <Right>
-              <Button transparent style={styles.btnHeader} onPress={() => Actions.pop()}>
 
-              </Button>
-            </Right>
-          </Header>
+
+        <Header>
+
+        <View style={{
+               flex: 1,
+               flexDirection: 'row',
+               justifyContent: 'space-between',
+             }}>
+
+              <View>
+                     <Button transparent onPress={this.props.openDrawer} >
+                                <Icon active name="menu" />
+                     </Button>
+              </View>
+
+                <Body>
+                  <Image source={headerLogo} style={styles.imageHeader} />
+                </Body>
+              <View>
+
+              </View>
+          </View>
+
+        </Header>
+
+
+
           <View style={styles.overviewHeaderContainer}>
             <Text style={styles.overviewHeader}>NEWSLETTERS</Text>
             <Text note style={styles.overviewHead}></Text>

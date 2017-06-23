@@ -19,6 +19,9 @@ import {getUsername, getPassword} from '../global.js'
 
 const primary = require('../../themes/variable').brandPrimary;
 
+const headerLogo = require('../../../images/Header-Logo-White-0001.png');
+
+
 var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
 
@@ -68,24 +71,37 @@ console.log('webviewPass=' + this.props.userX.password.trim() + 'eee');
     return (
       <Container>
         <Image source={require('../../../images/glow2.png')} style={styles.container} >
+
+
           <Header>
-            <Left>
-              <Button transparent onPress={this.props.openDrawer} >
-                <Icon active name="menu" />
-              </Button>
-            </Left>
 
-            <Body>
-              <Image source={require('../../../images/Header-Logo-White-0001.png')} style={styles.imageHeader} />
-            </Body>
+          <View style={{
+                 flex: 1,
+                 flexDirection: 'row',
+                 justifyContent: 'space-between',
+               }}>
 
-            <Right>
-              <Button transparent>
-                <Icon active name="ios-restaurant" onPress={this.pressGoButton}/>
-              </Button>
+                <View>
+                       <Button transparent onPress={this.props.openDrawer} >
+                                  <Icon active name="menu" />
+                       </Button>
+                </View>
 
-            </Right>
+                  <Body>
+                    <Image source={headerLogo} style={styles.imageHeader} />
+                  </Body>
+                <View>
+                <Button transparent>
+                  <Icon active name="ios-restaurant" onPress={this.pressGoButton}/>
+                </Button>
+                </View>
+            </View>
+
           </Header>
+
+
+
+
 
           <WebView
 
