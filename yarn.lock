@@ -183,7 +183,7 @@ ansi-regex@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-0.1.0.tgz#55ca60db6900857c423ae9297980026f941ed903"
 
-ansi-regex@^2.0.0:
+ansi-regex@^2.0.0, ansi-regex@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-2.1.1.tgz#c3b33ab5ee360d86e0e628f0468ae7ef27d654df"
 
@@ -2595,9 +2595,9 @@ expirymanager@0.9.x:
   version "0.9.3"
   resolved "https://registry.yarnpkg.com/expirymanager/-/expirymanager-0.9.3.tgz#e5f6b3ba00d8d76cf63311c2b71d7dfc9bde3e4f"
 
-expo@18.0.0:
-  version "18.0.0"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-18.0.0.tgz#0a3b177de0b66b6666e0f3750736974fa3108b7d"
+expo@^18.0.0:
+  version "18.0.4"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-18.0.4.tgz#9f7d70a5ec1ff7965ed402c4932c18d6c8565eb4"
   dependencies:
     "@expo/vector-icons" "^5.0.0"
     babel-preset-airbnb "^2.2.3"
@@ -2607,11 +2607,11 @@ expo@18.0.0:
     lodash.zipobject "^4.1.3"
     lottie-react-native "1.1.1"
     md5-file "^3.1.1"
+    pretty-format "^20.0.3"
     react-native-branch "2.0.0-beta.3"
     react-native-fbads "https://github.com/callstack-io/react-native-fbads/tarball/v4.1.0"
     react-native-maps "https://github.com/expo/react-native-maps/archive/v0.15.2.tar.gz"
-    react-native-svg "5.2.0"
-    stringify-object "^3.2.0"
+    react-native-svg "https://github.com/expo/react-native-svg/archive/5.2.0-exp.0.tar.gz"
     uuid-js "^0.7.5"
     websql expo/node-websql#18.0.0
 
@@ -2990,10 +2990,6 @@ generate-object-property@^1.1.0:
 get-caller-file@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
-
-get-own-enumerable-property-symbols@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/get-own-enumerable-property-symbols/-/get-own-enumerable-property-symbols-1.0.1.tgz#f1d4e3ad1402e039898e56d1e9b9aa924c26e484"
 
 get-uri@1:
   version "1.1.0"
@@ -3492,10 +3488,6 @@ is-number@^2.0.2, is-number@^2.1.0:
   dependencies:
     kind-of "^3.0.2"
 
-is-obj@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/is-obj/-/is-obj-1.0.1.tgz#3e4729ac1f5fde025cd7d83a896dab9f4f67db0f"
-
 is-path-cwd@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-path-cwd/-/is-path-cwd-1.0.0.tgz#d225ec23132e89edd38fda767472e62e65f1106d"
@@ -3533,10 +3525,6 @@ is-regex@^1.0.3:
   resolved "https://registry.yarnpkg.com/is-regex/-/is-regex-1.0.4.tgz#5517489b547091b0930e095654ced25ee97e9491"
   dependencies:
     has "^1.0.1"
-
-is-regexp@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/is-regexp/-/is-regexp-1.0.0.tgz#fd2d883545c46bac5a633e7b9a09e87fa2cb5069"
 
 is-resolvable@^1.0.0:
   version "1.0.0"
@@ -3853,13 +3841,15 @@ jest-environment-node@^19.0.2:
     jest-mock "^19.0.0"
     jest-util "^19.0.2"
 
-jest-expo@^0.3.0:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/jest-expo/-/jest-expo-0.3.1.tgz#b04ba289b54cf03bb7442cdc7500532f7fd9360b"
+jest-expo@~18.0.0:
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/jest-expo/-/jest-expo-18.0.0.tgz#681ba2e47319ff74e6caa2441f2fdc4b1a34492f"
   dependencies:
     babel-jest "^19.0.0"
     jest "^19.0.2"
-    react-test-renderer "~15.4.2"
+    jest-repl "^19.0.2"
+    jest-runtime "^19.0.3"
+    react-test-renderer "16.0.0-alpha.12"
 
 jest-file-exists@^15.0.0:
   version "15.0.0"
@@ -3973,6 +3963,15 @@ jest-regex-util@^19.0.0:
   version "19.0.0"
   resolved "https://registry.yarnpkg.com/jest-regex-util/-/jest-regex-util-19.0.0.tgz#b7754587112aede1456510bb1f6afe74ef598691"
 
+jest-repl@^19.0.2:
+  version "19.0.2"
+  resolved "https://registry.yarnpkg.com/jest-repl/-/jest-repl-19.0.2.tgz#3d3491aabae063edccd2ce24101236dfe8bca933"
+  dependencies:
+    jest-runtime "^19.0.2"
+    jest-util "^19.0.2"
+    repl "^0.1.3"
+    yargs "^6.3.0"
+
 jest-resolve-dependencies@^16.0.2:
   version "16.0.2"
   resolved "https://registry.yarnpkg.com/jest-resolve-dependencies/-/jest-resolve-dependencies-16.0.2.tgz#b204166d50141469d10667dc216239c0be865729"
@@ -4023,9 +4022,9 @@ jest-runtime@^16.0.2:
     multimatch "^2.1.0"
     yargs "^5.0.0"
 
-jest-runtime@^19.0.2:
-  version "19.0.2"
-  resolved "https://registry.yarnpkg.com/jest-runtime/-/jest-runtime-19.0.2.tgz#d9a43e72de416d27d196fd9c7940d98fe6685407"
+jest-runtime@^19.0.2, jest-runtime@^19.0.3:
+  version "19.0.4"
+  resolved "https://registry.yarnpkg.com/jest-runtime/-/jest-runtime-19.0.4.tgz#f167d9f1347752f2027361067926485349fcc245"
   dependencies:
     babel-core "^6.0.0"
     babel-jest "^19.0.0"
@@ -5297,6 +5296,13 @@ pretty-format@^19.0.0:
   dependencies:
     ansi-styles "^3.0.0"
 
+pretty-format@^20.0.3:
+  version "20.0.3"
+  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-20.0.3.tgz#020e350a560a1fe1a98dc3beb6ccffb386de8b14"
+  dependencies:
+    ansi-regex "^2.1.1"
+    ansi-styles "^3.0.0"
+
 pretty-format@^4.2.1, pretty-format@~4.2.1:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-4.2.3.tgz#8894c2ac81419cf801629d8f66320a25380d8b05"
@@ -5585,13 +5591,12 @@ react-native-simple-modal@^3.0.4:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/react-native-simple-modal/-/react-native-simple-modal-3.1.0.tgz#3a377b904bb3edb1b4cc2c2fa4a6e5003f2fc000"
 
-react-native-svg@5.2.0:
+"react-native-svg@https://github.com/expo/react-native-svg/archive/5.2.0-exp.0.tar.gz":
   version "5.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-5.2.0.tgz#0ed24e04ee9f755b5a6fc840ff69792207e08aca"
+  resolved "https://github.com/expo/react-native-svg/archive/5.2.0-exp.0.tar.gz#8bcf93483cda9a1c96d42c48fcdfbd2b999f4996"
   dependencies:
     color "^0.11.1"
     lodash "^4.16.6"
-    react-native "^0.45.0"
 
 react-native-swiper@1.5.4:
   version "1.5.4"
@@ -5609,7 +5614,7 @@ react-native-vector-icons@4.1.1, react-native-vector-icons@~4.1.1:
     prop-types "^15.5.8"
     yargs "^6.3.0"
 
-react-native@^0.45.0, react-native@^0.45.1:
+react-native@0.45.1:
   version "0.45.1"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.45.1.tgz#b3283c4a88233421f9c662a2ff1a4ccc8a9f07c0"
   dependencies:
@@ -5720,7 +5725,14 @@ react-static-container@1.0.1, react-static-container@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-static-container/-/react-static-container-1.0.1.tgz#694c0dd68a896b879519afb548399cc1989c9ab0"
 
-react-test-renderer@~15.4.1, react-test-renderer@~15.4.2:
+react-test-renderer@16.0.0-alpha.12:
+  version "16.0.0-alpha.12"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.0.0-alpha.12.tgz#9e4cc5d8ce8bfca72778340de3e1454b9d6c0cc5"
+  dependencies:
+    fbjs "^0.8.9"
+    object-assign "^4.1.0"
+
+react-test-renderer@~15.4.1:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-15.4.2.tgz#27e1dff5d26d0e830f99614c487622bc831416f3"
   dependencies:
@@ -5745,6 +5757,16 @@ react-tween-state@^0.1.5:
     raf "^3.1.0"
     tween-functions "^1.0.1"
 
+react@16.0.0-alpha.12:
+  version "16.0.0-alpha.12"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.0.0-alpha.12.tgz#8c59485281485df319b6f77682d8dd0621c08194"
+  dependencies:
+    create-react-class "^15.5.2"
+    fbjs "^0.8.9"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.0"
+    prop-types "^15.5.6"
+
 react@^15.4.2:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
@@ -5754,15 +5776,6 @@ react@^15.4.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
-
-react@^16.0.0-alpha.12:
-  version "16.0.0-alpha.13"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.0.0-alpha.13.tgz#de37e035b06283a15cfb916c6943b9b066b25de0"
-  dependencies:
-    fbjs "^0.8.9"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.0"
-    prop-types "^15.5.6"
 
 read-chunk@^2.0.0:
   version "2.0.0"
@@ -5999,6 +6012,10 @@ repeating@^2.0.0:
   resolved "https://registry.yarnpkg.com/repeating/-/repeating-2.0.1.tgz#5214c53a926d3552707527fbab415dbc08d06dda"
   dependencies:
     is-finite "^1.0.0"
+
+repl@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/repl/-/repl-0.1.3.tgz#2f05d42b0c88b43d05ccbda10ed14aeff5699b60"
 
 replace-ext@0.0.1:
   version "0.0.1"
@@ -6666,14 +6683,6 @@ string.prototype.codepointat@^0.2.0:
 string_decoder@~0.10.x:
   version "0.10.31"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-0.10.31.tgz#62e203bc41766c6c28c9fc84301dab1c5310fa94"
-
-stringify-object@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/stringify-object/-/stringify-object-3.2.0.tgz#94370a135e41bc048358813bf99481f1315c6aa6"
-  dependencies:
-    get-own-enumerable-property-symbols "^1.0.1"
-    is-obj "^1.0.1"
-    is-regexp "^1.0.0"
 
 stringmap@~0.2.2:
   version "0.2.2"
