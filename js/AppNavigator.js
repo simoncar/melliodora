@@ -13,19 +13,16 @@ import SignUp from './components/x_sign-up/';
 import Feedback from './components/x_feedback/';
 import Comments from './components/comments/';
 import Profile from './components/x_profile/';
-import Calendar from './components/calendar/';
 import x_walkthrough from './components/x_walkthrough/';
 import SideBar from './components/sideBar';
 import Settings from './components/settings';
 import Channel from './components/channel';
 import Channels from './components/channels';
 import Newsletter from './components/newsletter';
-import newsletterStory from './components/newsletter/newsletterStory';
 import Story from './components/story';
 import Timeline from './components/x_timeline';
 import Webportal from './components/webportal';
 import NeedHelp from './components/x_needhelp';
-
 import { statusBarColor } from './themes/base-theme';
 
 
@@ -99,10 +96,10 @@ class AppNavigator extends Component {
         <RouterWithRedux>
         <Scene key="root">
           <Scene key="home" component={Home}  hideNavBar initial={true} />
-            <Scene key="login" component={Login} hideNavBar  />
+            <Scene key="login" component={Login}/>
             <Scene key="signUp" component={SignUp} />
             <Scene key="needhelp" component={NeedHelp} />
-            <Scene key="home" component={Home}  hideNavBar  />
+            <Scene key="home" component={Home}  hideNavBar initial={true} />
             <Scene key="feedback" component={Feedback} />
             <Scene key="comments" component={Comments} />
             <Scene key="profile" component={Profile} />
@@ -111,9 +108,7 @@ class AppNavigator extends Component {
             <Scene key="settings" component={Settings} />
             <Scene key="channel" component={Channel} />
             <Scene key="channels" component={Channels} />
-            <Scene key="calendar" component={Calendar} />
-            <Scene key="newsletter" component={Newsletter} hideNavBar  />
-            <Scene key="newsletterStory" component={newsletterStory} hideNavBar  />
+            <Scene key="newsletter" component={Newsletter} />
             <Scene key="story" component={Story} />
             <Scene key="timeline" component={Timeline} />
             <Scene key="webportal" component={Webportal} />

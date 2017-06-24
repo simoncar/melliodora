@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux'
 import * as actionCreators  from './actions'
 import AppNavigator from './AppNavigator';
 
+console.log("AC=", actionCreators)
+
 class App extends Component {
   render() {
     return <AppNavigator {...this.props}/>;

@@ -49,7 +49,7 @@ class calendar1 extends Component {
     calendarEvents.on('value', (dataSnapshot) => {
     var calendarEvents = [];
      strtime = Date();
-
+console.log('listen for calendar evetns ');
      for (let i = -15; i < 985; i++) {
        const time = 1496016000000 + i * 24 * 60 * 60 * 1000;
        const strtime = this.timeToString(time);

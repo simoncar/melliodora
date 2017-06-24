@@ -11,6 +11,7 @@ import styles from './styles';
 
 import * as ActionCreators  from '../../actions'
 //import * as openDrawer  from '../../actions/drawer';
+console.log("ACfromLogin=", ActionCreators);
 
 var { skipLogin } = require('../../actions');
 
@@ -63,7 +64,7 @@ class Login extends Component {
               </Body>
             <View>
 
-            
+
             </View>
         </View>
 
