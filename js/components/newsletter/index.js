@@ -25,49 +25,42 @@ const firebaseConfig = {
 
 const newsletterFirebaseApp = firebase.initializeApp(firebaseConfig, "newsletter");
 
-
 class Newsletter extends Component {
 
-
   constructor(props) {
-    super(props);
-    console.log('1. newsletter constructor');
-    this.newsletterEvents = newsletterFirebaseApp.database().ref('instance/0001-sais_edu_sg/news');
-    this.state = {
-      user:null,
-      loading: true,
-      items: {},
-      dataSource: new ListView.DataSource({
-           rowHasChanged: (row1, row2) => row1 !== row2,
-    })
+      super(props);
+      console.log('1. newsletter constructor');
+      this.newsletterEvents = newsletterFirebaseApp.database().ref('instance/0001-sais_edu_sg/news');
+      this.state = {
+        user:null,
+        loading: true,
+        items: {},
+        dataSource: new ListView.DataSource({
+             rowHasChanged: (row1, row2) => row1 !== row2,
+      })
     };
-
-
   };
 
+  listenForNewslettersEvents(newsletterEvents) {
+    newsletterEvents.on('value', (snap) => {
 
-
-
-    listenForNewslettersEvents(newsletterEvents) {
-      newsletterEvents.on('value', (snap) => {
-
-        // get children as an array
-        var items = [];
-        snap.forEach((child) => {
-          items.push({
-            title: child.val().title,
-            content: child.val().content,
-            _key: child.key
-          });
-          console.log('content = ', child.val().title);
+      // get children as an array
+      var items = [];
+      snap.forEach((child) => {
+        items.push({
+          title: child.val().title,
+          content: child.val().content,
+          _key: child.key
         });
-
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(items)
-        });
-
+        console.log('content = ', child.val().title);
       });
-    }
+
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(items)
+      });
+
+    });
+  }
 
 
   componentDidMount() {
@@ -85,9 +78,9 @@ class Newsletter extends Component {
        items: newItems
      });
 
-yyy = "no news";
 
- this.state.items[0] = [];
+
+     this.state.items[0] = [];
 
       dataSnapshot.forEach((snapshot) => {
             console.log('3. ... loading item ');
@@ -95,15 +88,12 @@ yyy = "no news";
                 content: snapshot.child("content").val()
               });
               yyy = yyy +  snapshot.child("content").val()
-console.log('content = ', yyy);
-
+              console.log('content = ', yyy);
       });
 
       this.setState({
         newsletterEvents:newsletterEvents
       });
-
-
     });
   }
 
@@ -111,10 +101,7 @@ console.log('content = ', yyy);
     return (
       <Container>
         <Image source={require('../../../images/glow2.png')} style={styles.container} >
-
-
         <Header>
-
         <View style={{
                flex: 1,
                flexDirection: 'row',
@@ -137,8 +124,6 @@ console.log('content = ', yyy);
 
         </Header>
 
-
-
           <View style={styles.overviewHeaderContainer}>
             <Text style={styles.overviewHeader}>NEWSLETTERS</Text>
             <Text note style={styles.overviewHead}></Text>
@@ -156,8 +141,6 @@ console.log('content = ', yyy);
     );
   }
 
-
-
     _renderItem(item) {
 
       const onPress = () => {
@@ -173,18 +156,14 @@ console.log('content = ', yyy);
 
       return (
 
-        <TouchableOpacity   onPress={() =>  Actions.newsletterStory({newsletterContent: "Content:" + item.content})}>
+        <TouchableOpacity   onPress={() => Actions.newsletterStory({newsletterContent: "Content:" + item.content})}>
           <View style={styles.overviewTopicsBox}>
             <Text >{item.title}</Text>
           </View>
         </TouchableOpacity>
       );
     }
-
-
 }
-
-
 
 function bindAction(dispatch) {
   return {
@@ -192,7 +171,8 @@ function bindAction(dispatch) {
   };
 }
 
+const mapStateToProps = state => ({
+  navigation: state.cardNavigation,
+});
 
-
-
-export default connect(null, bindAction)(Newsletter);
+export default connect(mapStateToProps, bindAction)(Newsletter);

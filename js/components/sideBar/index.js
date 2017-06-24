@@ -48,7 +48,7 @@ class SideBar extends Component {
               <View style={styles.logoutbtn} foregroundColor={'white'}>
                 <Grid>
 
-
+                    <Text style={styles.linkText}>v 1.0.5</Text>
                 </Grid>
               </View>
             </View>
