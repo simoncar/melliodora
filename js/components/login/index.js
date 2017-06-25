@@ -112,11 +112,6 @@ class Login extends Component {
                     <Text style={styles.helpBtns}>Guest</Text>
                   </Button>
                 </Left>
-                <Left>
-                  <Button transparent style={{ alignSelf: 'flex-start' }} onPress={() => this.props.skipLogin()}>
-                    <Text style={styles.helpBtns}>Skip Login</Text>
-                  </Button>
-                </Left>
                 <Right>
                   <Button transparent style={{ alignSelf: 'flex-end' }} onPress={() => Actions.needhelp()}>
                     <Text style={styles.helpBtns}>

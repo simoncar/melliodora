@@ -34,8 +34,8 @@ function userReducer(state: State = initialState, action: Action): State {
       hasSkippedLogin: true,
       sharedSchedule: null,
       id: null,
-      name: null,
-      password: null,
+      name: '',
+      password: '',
     };
   }
   if (action.type === 'LOGGED_OUT') {
