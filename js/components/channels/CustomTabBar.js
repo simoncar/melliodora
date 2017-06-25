@@ -14,9 +14,9 @@ const deviceWidth = require('Dimensions').get('window').width;
 const TAB_UNDERLINE_REF = 'TAB_UNDERLINE';
 class CustomTabBar extends Component {
   propTypes: {
-   goToPage: React.PropTypes.func,
-   activeTab: React.PropTypes.number,
-   tabs: React.PropTypes.array
+   goToPage: PropTypes.func,
+   activeTab: PropTypes.number,
+   tabs: PropTypes.array
  }
   static propTypes = {
     navigation: PropTypes.shape({
