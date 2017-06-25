@@ -1,14 +1,8 @@
-
-
 import PropTypes from 'prop-types';
-
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-
-
 import { Text, View } from 'native-base';
-
 
 const deviceWidth = require('Dimensions').get('window').width;
 const TAB_UNDERLINE_REF = 'TAB_UNDERLINE';
