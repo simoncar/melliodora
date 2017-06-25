@@ -169,41 +169,33 @@ console.log('listen for calendar evetns ');
            })
          }>
 
-
-              <View style={[styles.agendaItem, {height: item.height}]}>
-             <Text style={styles.agendaDate}>{formatTime(item.startTimePretty, item.endTimePretty)} </Text>
-             <Text style={{color: 'black'}}><Icon style={styles.eventIcon} name={item.icon} />  {item.name}</Text>
-             <Text style={styles.agendaLocation}>{item.location}</Text>
-               </View>
-
-
+        <View style={[styles.agendaItem, {height: item.height}]}>
+           <Text style={styles.agendaDate}>{formatTime(item.startTimePretty, item.endTimePretty)} </Text>
+           <Text style={{color: 'black'}}><Icon style={styles.eventIcon} name={item.icon} />  {item.name}</Text>
+           <Text style={styles.agendaLocation}>{item.location}</Text>
+         </View>
      </TouchableOpacity>
 
     );
   }
 
+  getIcon(eventDetails) {
+    var ret = '';
 
+    if (ret.contains("sport")) {
+        ret = 'ios-american-football'
+    } else if (ret.contains("art")) {
+      ret = 'ios-brush'
+    } else {
+      ret = ''
+    }
 
-
-getIcon(eventDetails) {
-  var ret = '';
-
-  if (ret.contains("sport")) {
-      ret = 'ios-american-football'
-  } else if (ret.contains("art")) {
-    ret = 'ios-brush'
-  } else {
-    ret = ''
-  }
-
-  return (ret);
-};
-
-
+    return (ret);
+  };
 
   renderEmptyDate() {
     return (
-      <View style={{ height: 15, flex:1, paddingTop: 30}}><Text style={{color: 'black'}}>No Events Today</Text></View>
+      <View style={{ height: 15, flex:1, paddingTop: 30}}><Text style={{color: 'black'}}></Text></View>
     );
   }
 
@@ -217,7 +209,6 @@ getIcon(eventDetails) {
   }
 
 };
-
 
 
 function bindAction(dispatch) {
