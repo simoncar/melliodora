@@ -1,4 +1,6 @@
 {
+  "name": "myStamford",
+  "displayName": "myStamford",
   "expo": {
     "version": "1.0.5",
     "sdkVersion": "18.0.0",
