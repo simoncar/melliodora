@@ -42,20 +42,11 @@ class Webportal extends Component {
   constructor(props) {
     super(props);
 
-    injectScript = 'document.getElementById(\"username\").value=\"' + this.props.userX.name.trim() + '\"';
-    injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"' + this.props.userX.password.trim()+ '"';
+    injectScript = 'document.getElementById(\"username\").value=\"' + this.props.userX.name+ '\"';
+    injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"' + this.props.userX.password + '"';
     injectScript = injectScript + ';' +  'document.forms[0].submit()';
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"ff-login-personalised-logo\")[0].style.visibility = \"hidden\";';
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"global-logo\")[0].style.visibility = \"hidden\";';
-
-
-
-
-
-
-
-console.log('webviewUser=' + this.props.userX.name.trim() + 'dddd');
-console.log('webviewPass=' + this.props.userX.password.trim() + 'eee');
   }
 
   state = {
@@ -66,7 +57,6 @@ console.log('webviewPass=' + this.props.userX.password.trim() + 'eee');
     loading: true,
     scalesPageToFit: true,
   };
-
 
   render() {
     return (
