@@ -1,5 +1,7 @@
 
 
+import PropTypes from 'prop-types';
+
 import React, { Component } from 'react';
 import { Image, View, Switch, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
@@ -18,8 +20,8 @@ const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 class Settings extends Component {
 
   static propTypes = {
-    navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
+    navigation: PropTypes.shape({
+      key: PropTypes.string,
     }),
   }
 
@@ -55,7 +57,7 @@ class Settings extends Component {
     };
 
     this.constructor.childContextTypes = {
-      theme: React.PropTypes.object,
+      theme: PropTypes.object,
     };
   }
 

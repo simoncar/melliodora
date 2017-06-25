@@ -4,6 +4,8 @@
  */
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var {
   StyleSheet,
@@ -24,11 +26,11 @@ var styles = require('./Styles');
 
 var Day = React.createClass({
   propTypes: {
-    onDayChange: React.PropTypes.func,
-    selected: React.PropTypes.bool,
-    day: React.PropTypes.oneOfType([
-        React.PropTypes.number,
-        React.PropTypes.string
+    onDayChange: PropTypes.func,
+    selected: PropTypes.bool,
+    day: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
     ]).isRequired
   },
   getDefaultProps () {
@@ -69,10 +71,10 @@ var Day = React.createClass({
 
 var Days = React.createClass({
   propTypes: {
-    date: React.PropTypes.instanceOf(Date).isRequired,
-    month: React.PropTypes.number.isRequired,
-    year: React.PropTypes.number.isRequired,
-    onDayChange: React.PropTypes.func.isRequired
+    date: PropTypes.instanceOf(Date).isRequired,
+    month: PropTypes.number.isRequired,
+    year: PropTypes.number.isRequired,
+    onDayChange: PropTypes.func.isRequired
   },
   getInitialState() {
     return {
@@ -168,10 +170,10 @@ var WeekDaysLabels = React.createClass({
 
 var HeaderControls = React.createClass({
   propTypes: {
-    month: React.PropTypes.number.isRequired,
-    getNextYear: React.PropTypes.func.isRequired,
-    getPrevYear: React.PropTypes.func.isRequired,
-    onMonthChange: React.PropTypes.func.isRequired
+    month: PropTypes.number.isRequired,
+    getNextYear: PropTypes.func.isRequired,
+    getPrevYear: PropTypes.func.isRequired,
+    onMonthChange: PropTypes.func.isRequired
   },
   getInitialState() {
     return {
@@ -237,8 +239,8 @@ var HeaderControls = React.createClass({
 
 var CalendarPicker = React.createClass({
   propTypes: {
-    selectedDate: React.PropTypes.instanceOf(Date).isRequired,
-    onDateChange: React.PropTypes.func
+    selectedDate: PropTypes.instanceOf(Date).isRequired,
+    onDateChange: PropTypes.func
   },
   getDefaultProps() {
     return {

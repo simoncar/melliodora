@@ -1,5 +1,7 @@
 
 
+import PropTypes from 'prop-types';
+
 import React, { Component } from 'react';
 import { Image, View, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
@@ -17,8 +19,8 @@ const primary = require('../../themes/variable').brandPrimary;
 class Channel extends Component {
 
   static propTypes = {
-    navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
+    navigation: PropTypes.shape({
+      key: PropTypes.string,
     }),
   }
 

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Image, TouchableOpacity, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
@@ -18,7 +19,7 @@ class NeedHelp extends Component {
       },
     };
     this.constructor.childContextTypes = {
-      theme: React.PropTypes.object,
+      theme: PropTypes.object,
     };
   }
 

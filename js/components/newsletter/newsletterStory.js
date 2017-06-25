@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { WebView, Image, View, TouchableOpacity, Platform, Slider, Dimensions, Share  } from 'react-native';
 import { connect } from 'react-redux';
@@ -23,8 +24,8 @@ const primary = require('../../themes/variable').brandPrimary;
 class newsletterStory extends Component {
 
   static propTypes = {
-    navigation: React.PropTypes.shape({key: React.PropTypes.string}),
-      username: React.PropTypes.string
+    navigation: PropTypes.shape({key: PropTypes.string}),
+      username: PropTypes.string
   }
 
   constructor(props) {

@@ -1,4 +1,5 @@
 
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import {  WebView, Image, View, Platform } from 'react-native';
@@ -30,9 +31,9 @@ var injectScript  = '';
 
 class Webportal extends Component {
   static propTypes = {
-    openDrawer: React.PropTypes.func,
-    navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
+    openDrawer: PropTypes.func,
+    navigation: PropTypes.shape({
+      key: PropTypes.string,
     }),
   }
 

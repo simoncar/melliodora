@@ -1,4 +1,5 @@
 
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -14,9 +15,9 @@ const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 class HeaderContent extends Component {
 
   static propTypes = {
-    openDrawer: React.PropTypes.func,
-    navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
+    openDrawer: PropTypes.func,
+    navigation: PropTypes.shape({
+      key: PropTypes.string,
     }),
   }
 

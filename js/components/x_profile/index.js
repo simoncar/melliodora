@@ -1,5 +1,7 @@
 
 
+import PropTypes from 'prop-types';
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image, View, TouchableOpacity } from 'react-native';
@@ -16,8 +18,8 @@ import styles from './styles';
 class Profile extends Component {
 
   static propTypes = {
-    navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
+    navigation: PropTypes.shape({
+      key: PropTypes.string,
     }),
   }
 

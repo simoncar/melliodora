@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Platform, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
@@ -12,8 +13,8 @@ const deviceWidth = Dimensions.get('window').width;
 class x_walkthrough extends Component {
 
   static propTypes = {
-    navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
+    navigation: PropTypes.shape({
+      key: PropTypes.string,
     }),
   }
 

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Image, View, Platform,TouchableOpacity,Dimensions } from 'react-native';
 
@@ -23,9 +24,9 @@ class Login extends Component {
 
   static propTypes = {
 
-    openDrawer: React.PropTypes.func,
-    navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
+    openDrawer: PropTypes.func,
+    navigation: PropTypes.shape({
+      key: PropTypes.string,
     }),
   }
 
@@ -33,7 +34,7 @@ class Login extends Component {
     super(props);
 
     this.constructor.childContextTypes = {
-      theme: React.PropTypes.object,
+      theme: PropTypes.object,
     };
   }
 

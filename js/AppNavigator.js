@@ -1,4 +1,5 @@
 
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
 import { connect } from 'react-redux';
@@ -32,8 +33,8 @@ const RouterWithRedux = connect()(Router);
 class AppNavigator extends Component {
 
   static propTypes = {
-    drawerState: React.PropTypes.string,
-    closeDrawer: React.PropTypes.func,
+    drawerState: PropTypes.string,
+    closeDrawer: PropTypes.func,
   }
 
   componentDidUpdate() {

@@ -1,5 +1,7 @@
 
 
+import PropTypes from 'prop-types';
+
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
@@ -17,8 +19,8 @@ class CustomTabBar extends Component {
    tabs: React.PropTypes.array
  }
   static propTypes = {
-    navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
+    navigation: PropTypes.shape({
+      key: PropTypes.string,
     }),
   }
   renderTabOption(name, page) {

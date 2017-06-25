@@ -1,5 +1,7 @@
 
 
+import PropTypes from 'prop-types';
+
 import React, { Component } from 'react';
 import { View, Platform, Text } from 'react-native';
 import { connect } from 'react-redux';
@@ -12,8 +14,8 @@ import styles from './style';
 class TabOne extends Component {
 
   static propTypes = {
-    navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
+    navigation: PropTypes.shape({
+      key: PropTypes.string,
     }),
   }
 
