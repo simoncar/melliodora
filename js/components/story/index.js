@@ -23,16 +23,7 @@ import { formatTime } from '../global.js';
 const deviceWidth = Dimensions.get('window').width;
 const primary = require('../../themes/variable').brandPrimary;
 
-const renderPagination = (index, total, context) => (
-  <View style={{ position: 'absolute', bottom: -25, right: 10 }}>
-    <Text>
-      <Text style={{ color: '#007aff', fontSize: 20 }}>
-        {index + 1}
-      </Text>
-                /{total}
-    </Text>
-  </View>
-    );
+
 
 class Story extends Component {
 
@@ -117,9 +108,7 @@ _email() {
                         <Text style={styles.newsTypeText}>{this.props.location}</Text>
                       </TouchableOpacity>
 
-                  <Text style={styles.newsHeader}>
 
-                  </Text>
                 </View>
 
                 <View style={{ padding: 20 }}>
@@ -128,7 +117,7 @@ _email() {
                    {"\n"}
                 </Text>
 
-                    <Text style={styles.eventTitle}>
+
 
 
                     <Button transparent onPress={() => this._callPhone()} >
@@ -145,16 +134,12 @@ _email() {
 
 
 
-                  {formatTime(this.props.eventStartTime, this.props.eventEndTime)}
-                  </Text>
-                  <Text style={styles.eventTitle}>
 
+
+                  <Text style={styles.eventTitle}>
+  {formatTime(this.props.eventStartTime, this.props.eventEndTime)}
                   {this.props.eventDate}
                 </Text>
-
-
-
-
 
                   </View>
                 </View>
