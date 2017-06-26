@@ -80,7 +80,9 @@ console.log('listen for calendar evetns ');
                   endTimePretty: snapshot.child("time_end_pretty").val(),
                   iconLib: snapshot.child("iconLib").val(),
                   icon:snapshot.child("icon").val(),
-                  color: snapshot.child("colorId").val()
+                  color: snapshot.child("colorId").val(),
+                  phone: snapshot.child("phone").val(),
+                  email: snapshot.child("email").val()
                 });
             }
       });
@@ -166,6 +168,9 @@ console.log('listen for calendar evetns ');
              eventEndTime: item.endTimePretty,
              location: item.location,
              eventImage: item.eventImage,
+             phone: item.phone,
+             email: item.email,
+
            })
          }>
 

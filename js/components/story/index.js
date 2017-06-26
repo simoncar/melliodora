@@ -123,6 +123,14 @@ class Story extends Component {
 
                   {this.props.eventDate}
                 </Text>
+
+
+                <Text style={styles.eventTitle}>
+                {this.props.phone}
+              </Text>
+              <Text style={styles.eventTitle}>
+              {this.props.email}
+            </Text>
                   </View>
                 </View>
 
@@ -130,71 +138,6 @@ class Story extends Component {
             </View>
           </Content>
 
-          <Modal
-            offset={this.state.offset}
-            open={this.state.open}
-            modalDidOpen={() => console.log('modal did open')}
-            modalDidClose={() => this.setState({ open: false })}
-            onRequestClose={() => this.setState({ open: false })}
-            style={styles.modal}
-          >
-
-            <View>
-              <View style={styles.modalContentBox}>
-                <Grid style={{ flex: 10, padding: 20 }}>
-                  <Col style={{ paddingLeft: 30 }}>
-                    <Button transparent style={styles.dayButton}>
-                      <Icon
-                        name="ios-sunny-outline"
-                        style={{ color: primary, fontSize: 26 }}
-                      />
-                    </Button>
-                  </Col>
-                  <Col style={{ paddingLeft: 80 }}>
-                    <Button transparent style={styles.nightButton}>
-                      <Icon
-                        name="ios-moon-outline"
-                        style={{ fontSize: 26, color: '#fff' }}
-                      />
-                    </Button>
-                  </Col>
-                </Grid>
-              </View>
-              <View style={styles.modalContentBox}>
-                <Grid style={{ padding: 20, paddingBottom: 15, justifyContent: 'center' }}>
-                  <Col>
-                    <Text
-                      style={Platform.OS === 'android' ?
-                                                { fontSize: 12, marginTop: 8 } :
-                                                { fontSize: 12, marginTop: 8 }}
-                    >
-                                            CHOOSE TYPESPACE
-                                        </Text>
-                  </Col>
-                  <Col>
-                    <Button transparent iconRight style={{ marginTop: -5 }}>
-                      <Text style={{ color: '#FFF' }}>SANS SERIF</Text>
-                      <Icon name="ios-arrow-forward" style={{ fontSize: 28 }} />
-                    </Button>
-                  </Col>
-                </Grid>
-              </View>
-              <View>
-                <Grid style={{ flexDirection: 'row', paddingTop: 20 }}>
-                  <Col>
-                    <Text style={styles.modalSmallText}>A</Text>
-                  </Col>
-                  <Col>
-                    <Text style={styles.modalLargeText}>A</Text>
-                  </Col>
-                </Grid>
-                <Slider
-                  {...this.props} minimumTrackTintColor="#fff"
-                  onValueChange={value => this.setState({ value })}
-                />
-              </View>
-            </View>
-          </Modal>
         </Image>
       </Container>
     );
