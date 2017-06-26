@@ -140,12 +140,8 @@ _email() {
                       </Text>
                 </Button>
 
-
-
-
-
                   <Text style={styles.eventTitle}>
-  {formatTime(this.props.eventStartTime, this.props.eventEndTime)}
+                      {formatTime(this.props.eventStartTime, this.props.eventEndTime)}
                   {this.props.eventDate}
 
                 </Text>
