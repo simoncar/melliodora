@@ -14,7 +14,9 @@ import { openDrawer } from '../../actions/drawer';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
-import call from 'react-native-phone-call'
+import call from 'react-native-phone-call'  //TODO migration to communications
+
+import Communications from 'react-native-communications';
 
 import { formatTime } from '../global.js';
 
@@ -60,13 +62,7 @@ class Story extends Component {
     .catch((error) => this.setState({result: 'error: ' + error.message}));
   };
 
-  modalO() {
-    this.setState({ open: true });
-  }
 
-  modalX() {
-    this.setState({ open: false });
-  }
 
 _callPhone() {
   const args = {
@@ -76,6 +72,10 @@ _callPhone() {
 
   call(args).catch(console.error)
 
+}
+
+_email() {
+    Communications.email([this.props.email], null, null, null, null)
 }
 
 
@@ -129,6 +129,22 @@ _callPhone() {
                 </Text>
 
                     <Text style={styles.eventTitle}>
+
+
+                    <Button transparent onPress={() => this._callPhone()} >
+                          <Text style={styles.eventTitle}>
+                          <Icon active name="ios-call" style={styles.eventTitle} /> {this.props.phone}
+                        </Text>
+                  </Button>
+
+                  <Button transparent onPress={() => this._email()} >
+                        <Text style={styles.eventTitle}>
+                        <Icon active name="md-mail" style={styles.eventTitle} /> {this.props.email}
+                      </Text>
+                </Button>
+
+
+
                   {formatTime(this.props.eventStartTime, this.props.eventEndTime)}
                   </Text>
                   <Text style={styles.eventTitle}>
@@ -137,15 +153,9 @@ _callPhone() {
                 </Text>
 
 
-                <Button transparent onPress={() => this._callPhone()} >
-                      <Text style={styles.eventTitle}>
-                      <Icon active name="ios-call" style={styles.eventTitle} /> {this.props.phone}
-                    </Text>
-              </Button>
 
-              <Text style={styles.eventTitle}>
-              {this.props.email}
-            </Text>
+
+
                   </View>
                 </View>
 
