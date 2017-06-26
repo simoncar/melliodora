@@ -82,7 +82,8 @@ console.log('listen for calendar evetns ');
                   icon:snapshot.child("icon").val(),
                   color: snapshot.child("colorId").val(),
                   phone: snapshot.child("phone").val(),
-                  email: snapshot.child("email").val()
+                  email: snapshot.child("email").val(),
+                  url: snapshot.child("htmlLink").val()
                 });
             }
       });
@@ -170,7 +171,8 @@ console.log('listen for calendar evetns ');
              eventImage: item.eventImage,
              phone: item.phone,
              email: item.email,
-             color: item.color
+             color: item.color,
+             url: item.url
 
            })
          }>

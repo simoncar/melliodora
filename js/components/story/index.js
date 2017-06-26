@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Platform, Slider, Dimensions, Share  } from 'react-native';
+import { WebView, Image, View, TouchableOpacity, Platform, Slider, Dimensions, Share  } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
@@ -23,6 +23,8 @@ import { formatTime } from '../global.js';
 const deviceWidth = Dimensions.get('window').width;
 const primary = require('../../themes/variable').brandPrimary;
 
+var WEBVIEW_REF = 'storWebview';
+var DEFAULT_URL = '';
 
 
 class Story extends Component {
@@ -38,6 +40,12 @@ class Story extends Component {
       animationType: 'slideInDown',
       open: false,
       value: 0,
+      url: DEFAULT_URL,
+      status: 'No Page Loaded',
+      backButtonEnabled: false,
+      forwardButtonEnabled: false,
+      loading: true,
+      scalesPageToFit: true,
     };
 
   }
@@ -62,7 +70,6 @@ _callPhone() {
   }
 
   call(args).catch(console.error)
-
 }
 
 _email() {
@@ -140,7 +147,12 @@ _email() {
                   <Text style={styles.eventTitle}>
   {formatTime(this.props.eventStartTime, this.props.eventEndTime)}
                   {this.props.eventDate}
+
                 </Text>
+                <Text style={styles.eventTitle}>
+
+                  {this.props.url}
+              </Text>
 
                   </View>
                 </View>
@@ -148,6 +160,15 @@ _email() {
               </View>
             </View>
           </Content>
+
+          <WebView
+
+              source={{uri: this.props.url}}
+               javaScriptEnabled={true}
+               domStorageEnabled={true}
+               startInLoadingState={true}
+               ref={WEBVIEW_REF}
+             />
 
         </Image>
       </Container>
