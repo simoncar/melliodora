@@ -60,10 +60,10 @@ console.log('listen for calendar evetns ');
      }
 
      const newItems = {};
-     Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-     this.setState({
-       items: newItems
-     });
+      Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+       this.setState({
+         items: newItems
+       });
 
       dataSnapshot.forEach((snapshot) => {
 
@@ -97,8 +97,6 @@ console.log('listen for calendar evetns ');
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
-
-
         <Header>
 
         <View style={{
@@ -108,19 +106,17 @@ console.log('listen for calendar evetns ');
              }}>
 
               <View>
-                     <Button transparent onPress={this.props.openDrawer} >
-                                <Icon active name="menu" />
-                     </Button>
+                 <Button transparent onPress={this.props.openDrawer} >
+                            <Icon active name="menu" />
+                 </Button>
               </View>
-
                 <Body>
                   <Image source={headerLogo} style={styles.imageHeader} />
                 </Body>
               <View>
-
-                   <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
-                              <Icon active name="settings" />
-                   </Button>
+                 <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
+                  <Icon active name="settings" />
+                 </Button>
               </View>
           </View>
 
@@ -137,7 +133,6 @@ console.log('listen for calendar evetns ');
       </Container>
     );
   }
-
 
   loadItems(day) {
 
@@ -250,7 +245,6 @@ console.log('listen for calendar evetns ');
 
 
 };
-
 
 function bindAction(dispatch) {
   return {
