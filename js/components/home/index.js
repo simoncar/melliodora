@@ -219,11 +219,29 @@ console.log('listen for calendar evetns ');
   formatBackground(color) {
     var ret = 'white';
 
-    if(color === null && typeof color === "object") {
-      ret = 'white'
-    } else {
-      var ret = color;
-    }
+    switch (color) {
+    case "grey":
+        ret = '#F1FAEE';
+        break;
+    case "yellow":
+        ret = "#A8DADC";
+        break;
+    case "red":
+        ret = "#E63946";
+        break;
+    case "green":
+        day = "#457B9D";
+        break;
+    case "light blue":
+        day = "white";
+        break;
+    case 5:
+        day = "Friday";
+        break;
+    case 6:
+        day = "Saturday";
+      }
+
     return (ret);
   };
 
