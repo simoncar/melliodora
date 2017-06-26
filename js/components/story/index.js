@@ -14,6 +14,7 @@ import { openDrawer } from '../../actions/drawer';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
+import call from 'react-native-phone-call'
 
 import { formatTime } from '../global.js';
 
@@ -66,6 +67,17 @@ class Story extends Component {
   modalX() {
     this.setState({ open: false });
   }
+
+_callPhone() {
+  const args = {
+    number:  this.props.phone, // String value with the number to call
+    prompt: true // Optional boolean property. Determines if the user should be prompt prior to the call
+  }
+
+  call(args).catch(console.error)
+
+}
+
 
   render() {
 
@@ -125,9 +137,12 @@ class Story extends Component {
                 </Text>
 
 
-                <Text style={styles.eventTitle}>
-                {this.props.phone}
-              </Text>
+                <Button transparent onPress={() => this._callPhone()} >
+                      <Text style={styles.eventTitle}>
+                      <Icon active name="ios-call" style={styles.eventTitle} /> {this.props.phone}
+                    </Text>
+              </Button>
+
               <Text style={styles.eventTitle}>
               {this.props.email}
             </Text>
