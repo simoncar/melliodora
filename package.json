@@ -44,7 +44,7 @@
     "react-native": "0.45.1",
     "react-native-animatable": "^0.6.1",
     "react-native-button": "^1.6.0",
-    "react-native-calendars": "^1.2.18",
+    "react-native-calendars": "^1.4.0",
     "react-native-easy-grid": "^0.1.7",
     "react-native-gifted-spinner": "^0.0.4",
     "react-native-lightbox": "^0.6.0",
