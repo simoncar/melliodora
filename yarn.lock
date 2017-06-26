@@ -1493,7 +1493,7 @@ browser-resolve@^1.11.2:
   dependencies:
     resolve "1.1.7"
 
-bser@1.0.2, bser@^1.0.2:
+bser@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/bser/-/bser-1.0.2.tgz#381116970b2a6deea5646dd15dd7278444b56169"
   dependencies:
@@ -2632,7 +2632,7 @@ expirymanager@0.9.x:
   version "0.9.3"
   resolved "https://registry.yarnpkg.com/expirymanager/-/expirymanager-0.9.3.tgz#e5f6b3ba00d8d76cf63311c2b71d7dfc9bde3e4f"
 
-expo@^18.0.0:
+expo@^18.0.1:
   version "18.0.4"
   resolved "https://registry.yarnpkg.com/expo/-/expo-18.0.4.tgz#9f7d70a5ec1ff7965ed402c4932c18d6c8565eb4"
   dependencies:
@@ -5543,7 +5543,7 @@ react-native-button@^1.6.0:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/react-native-button/-/react-native-button-1.8.2.tgz#49e5cadd22ee443adea52a85539d288aa2117ade"
 
-react-native-calendars@^1.2.18:
+react-native-calendars@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.4.0.tgz#3ae9b0cd2914085d10068bb2ac751653374014ba"
   dependencies:
@@ -5687,9 +5687,9 @@ react-native-vector-icons@4.1.1, react-native-vector-icons@~4.1.1:
     prop-types "^15.5.8"
     yargs "^6.3.0"
 
-react-native@0.45.1:
+"react-native@https://github.com/expo/react-native/archive/sdk-18.0.1.tar.gz":
   version "0.45.1"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.45.1.tgz#b3283c4a88233421f9c662a2ff1a4ccc8a9f07c0"
+  resolved "https://github.com/expo/react-native/archive/sdk-18.0.1.tar.gz#fdceab7a499b3bea9ef805467824d6e956a6899d"
   dependencies:
     absolute-path "^0.0.0"
     art "^0.10.0"
@@ -5711,7 +5711,6 @@ react-native@0.45.1:
     babel-types "^6.24.1"
     babylon "^6.17.0"
     base64-js "^1.1.2"
-    bser "^1.0.2"
     chalk "^1.1.1"
     commander "^2.9.0"
     concat-stream "^1.6.0"
@@ -5757,7 +5756,6 @@ react-native@0.45.1:
     regenerator-runtime "^0.9.5"
     request "^2.79.0"
     rimraf "^2.5.4"
-    sane "~1.4.1"
     semver "^5.0.3"
     shell-quote "1.6.1"
     source-map "^0.5.6"
@@ -7240,7 +7238,7 @@ websocket-extensions@>=0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.1.tgz#76899499c184b6ef754377c2dbb0cd6cb55d29e7"
 
-websql@expo/node-websql#18.0.0:
+"websql@github:expo/node-websql#18.0.0":
   version "0.4.4"
   resolved "https://codeload.github.com/expo/node-websql/tar.gz/e364fa65146a9e2157a19e5c719e7702c2b6b87a"
   dependencies:
