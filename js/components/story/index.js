@@ -77,6 +77,18 @@ _email() {
     Communications.email([this.props.email], null, null, null, null)
 }
 
+_formatWeb(sURL) {
+
+  if (sURL.length > 0) {
+    return(
+      <WebView
+             source={{uri: 'https://github.com/facebook/react-native'}}
+              javaScriptEnabled={true}
+            />
+    )
+  }
+
+}
 
   render() {
 
@@ -150,6 +162,9 @@ _email() {
                   {this.props.url}
               </Text>
 
+                   {this._formatWeb(this.props.url)}
+
+
                   </View>
                 </View>
 
@@ -157,14 +172,7 @@ _email() {
             </View>
           </Content>
 
-          <WebView
 
-              source={{uri: this.props.url}}
-               javaScriptEnabled={true}
-               domStorageEnabled={true}
-               startInLoadingState={true}
-               ref={WEBVIEW_REF}
-             />
 
         </Image>
       </Container>

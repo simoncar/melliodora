@@ -87,15 +87,9 @@ class Webportal extends Component {
                 </Button>
                 </View>
             </View>
-
           </Header>
 
-
-
-
-
           <WebView
-
               source={{uri: this.state.url}}
                javaScriptEnabled={true}
                domStorageEnabled={true}
