@@ -66,6 +66,7 @@ _callPhone() {
 }
 
 _email() {
+  //TODO: only show email/phone links when there are values
     Communications.email([this.props.email], null, null, null, null)
 }
 

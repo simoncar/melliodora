@@ -170,11 +170,12 @@ console.log('listen for calendar evetns ');
              eventImage: item.eventImage,
              phone: item.phone,
              email: item.email,
+             color: item.color
 
            })
          }>
 
-        <View style={[styles.agendaItem, {height: item.height}]}>
+        <View style={[styles.agendaItem, {height: item.height}, {backgroundColor: this.formatBackground(item.color)} ]}>
            <Text style={styles.agendaDate}>{formatTime(item.startTimePretty, item.endTimePretty)} </Text>
            <Text style={{color: 'black'}}><Icon style={styles.eventIcon} name={item.icon} />  {item.name}</Text>
            <Text style={styles.agendaLocation}>{item.location}</Text>
@@ -212,6 +213,21 @@ console.log('listen for calendar evetns ');
     const date = new Date(time);
     return date.toISOString().split('T')[0];
   }
+
+
+
+  formatBackground(color) {
+    var ret = 'white';
+
+    if(color === null && typeof color === "object") {
+      ret = 'white'
+    } else {
+      var ret = color;
+    }
+    return (ret);
+  };
+
+
 
 };
 
