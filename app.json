@@ -2,14 +2,14 @@
   "name": "myStamford",
   "displayName": "myStamford",
   "expo": {
-    "version": "1.0.5",
+    "version": "1.0.6",
     "sdkVersion": "18.0.0",
     "icon": "./resources/0001_sais.edu.sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
      "slug": "myStamford",
     "loading": {
       "hideExponentText": true,
-      "icon": "./images/loading.png",
-      "backgroundImage": "./images/launchImages/splashscreen.png"
+      "icon": "./images/launchImages/loading.png",
+      "backgroundImage": "images/BG-loading.png"
     },
     "orientation": "portrait",
     "primaryColor": "#cccccc",
