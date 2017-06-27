@@ -9,15 +9,16 @@ import { connect } from 'react-redux';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
 import { Container, Header, Content, Text, Button, Icon, Item, Input, Left, Right, Body } from 'native-base';
-import { Grid, Col } from 'react-native-easy-grid';
+import { Grid, Col, Row } from 'react-native-easy-grid';
 import { openDrawer } from '../../actions/drawer';
+import HeaderContent from './../headerContent/';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
 
 const primary = require('../../themes/variable').brandPrimary;
 
-class Feedback extends Component {
+class Contact extends Component {
 
   static propTypes = {
     navigation: PropTypes.shape({
@@ -38,49 +39,59 @@ class Feedback extends Component {
     };
   }
 
-
   render() {
     return (
       <Container contentOffset={this.state.offset} scrollEnabled={false} >
-        <Image source={require('../../../images/BG.png')} style={styles.container} >
-          <Header>
-            <Left>
-              <Button transparent onPress={this.props.openDrawer} >
-                <Icon active name="menu" />
-              </Button>
-            </Left>
-            <Body>
-              <Image source={require('../../../images/Header-Logo-White-0001.png')} style={styles.imageHeader} />
-            </Body>
-            <Right>
-              <Button transparent style={styles.btnHeader} onPress={() => Actions.popTo('home')}>
-                <Icon active name="arrow-back" />
-              </Button>
-            </Right>
-          </Header>
+  <Image source={require('../../../images/BG-signUp.png')} style={styles.container} >
+          <HeaderContent />
+
+
 
           <Content showsVerticalScrollIndicator={false}>
             <View style={styles.contentIconsContainer}>
               <Grid>
-                <Col>
+              <Row>
+                <Col style={{ width: 40 }}>
                   <Button transparent style={styles.roundedButton}>
                     <Icon name="ios-call-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                   </Button>
                 </Col>
                 <Col>
-                  <Button transparent style={styles.roundedCustomButton}>
-                    <Icon name="ios-mail-outline" style={{ fontSize: 28, color: primary, width: 22, marginLeft: 5 }} />
-                  </Button>
+                    <Text style={styles.feedbackHeader}>Call Parent Helpdesk</Text>
+                    <Text style={styles.feedbackHead}>We will respond quickly to answer your questions.</Text>
                 </Col>
-                <Col>
-                  <Button transparent style={styles.roundedButton}>
-                    <Icon name="ios-pin-outline" style={{ fontSize: 28, width: 30, color: '#FFF' }} />
-                  </Button>
-                </Col>
-              </Grid>
+             </Row>
+             <Row>
+               <Col style={{ width: 40 }}>
+                 <Button transparent style={styles.roundedButton}>
+                   <Icon name="ios-mail-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                 </Button>
+               </Col>
+               <Col>
+                   <Text style={styles.feedbackHeader}>Email Helpdesk</Text>
+                   <Text style={styles.feedbackHead}>We will respond quickly to answer your questions.</Text>
+               </Col>
+            </Row>
+            <Row>
+              <Col style={{ width: 40 }}>
+                <Button transparent style={styles.roundedButton}>
+                  <Icon name="ios-pin-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                </Button>
+              </Col>
+              <Col>
+                  <Text style={styles.feedbackHeader}>School Address</Text>
+                  <Text style={styles.feedbackHead}>We will respond quickly to answer your questions.</Text>
+              </Col>
+           </Row>
+
+            </Grid>
+
+
+
+
             </View>
             <View style={styles.feedbackHeaderContainer}>
-              <Text style={styles.feedbackHeader}>ADMISSION INQUIRY</Text>
+              <Text style={styles.feedbackHeader}>INQUIRY</Text>
               <Text note style={styles.feedbackHead}>We will respond quickly to answer your questions.</Text>
             </View>
             <View style={styles.feedbackContainer}>
@@ -118,4 +129,4 @@ const mapStateToProps = state => ({
   navigation: state.cardNavigation,
 });
 
-export default connect(mapStateToProps, bindAction)(Feedback);
+export default connect(mapStateToProps, bindAction)(Contact);

@@ -40,7 +40,7 @@ class HomeNav extends Component {
 
               <Row>
                 <Col>
-                  <TouchableOpacity style={styles.linkTabs_header}>
+                  <TouchableOpacity onPress={() => { Actions.contact(); }}  style={styles.linkTabs_header}>
                     <Icon style={styles.linkTabs_tabCounts} name="ios-call-outline" />
                     <Text note style={styles.linkTabs_tabName}>Contact</Text>
                   </TouchableOpacity>

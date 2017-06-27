@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
-  "packagerPort": 19003,
-  "packagerPid": 26208,
-  "expoServerNgrokUrl": "https://fd-pnx.simoncar.whatson.exp.direct",
-  "packagerNgrokUrl": "https://packager.fd-pnx.simoncar.whatson.exp.direct",
-  "ngrokPid": 26226
+  "packagerPort": 19002,
+  "packagerPid": 27431,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

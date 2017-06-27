@@ -12,7 +12,7 @@ import Login from './components/login/';
 import Home from './components/home/';
 import HomeNav from './components/homeNav/';
 import SignUp from './components/x_sign-up/';
-import Feedback from './components/x_feedback/';
+import Contact from './components/contact/';
 import Comments from './components/comments/';
 import x_walkthrough from './components/x_walkthrough/';
 import SideBar from './components/sideBar';
@@ -99,7 +99,7 @@ class AppNavigator extends Component {
             <Scene key="login" component={Login} hideNavBar/>
             <Scene key="signUp" component={SignUp} />
             <Scene key="needhelp" component={NeedHelp} />
-            <Scene key="feedback" component={Feedback} />
+            <Scene key="contact" component={Contact} />
             <Scene key="comments" component={Comments} />
             <Scene key="sideBar" component={SideBar} />
             <Scene key="settings" component={Settings} />
