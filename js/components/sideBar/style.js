@@ -23,8 +23,7 @@ export default {
   logoutbtn: {
     paddingTop: 30,
     flexDirection: 'row',
-    borderTopWidth: 1,
-    borderTopColor: '#797979',
+
   },
   background: {
     flex: 1,
