@@ -26,6 +26,12 @@ class SideBar extends Component {
       <Container>
         <Image source={require('../../../images/sid.png')} style={styles.background} >
           <Content style={styles.drawerContent}>
+
+            <ListItem button onPress={() => { Actions.homeNav(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+              <Icon name="ios-home" />
+              <Text style={styles.linkText} >HOME</Text>
+            </ListItem>
+
             <ListItem button onPress={() => { Actions.home(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon name="ios-calendar-outline" />
               <Text style={styles.linkText} >CALENDAR</Text>
@@ -52,7 +58,7 @@ class SideBar extends Component {
                       style={{width: 96, height: 128}}
                       source={require('../../../images/sais.edu.sg/pta_logo.png')}
                   />
-                    
+
 
               </View>
               <View style={styles.logoutbtn} foregroundColor={'white'}>

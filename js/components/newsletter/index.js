@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image, Platform, TouchableOpacity,ListView,TouchableHighlight,View } from 'react-native';
 
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
+
+
 import { Container, Header, Content, Text, Left, Right, Body, Button, Icon } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 
@@ -117,9 +119,13 @@ class Newsletter extends Component {
                 <Body>
                   <Image source={headerLogo} style={styles.imageHeader} />
                 </Body>
-              <View>
+                <View>
+                   <Button transparent onPress={() => Actions.homeNav({ type: ActionConst.RESET  })}>
+                    <Icon active name="ios-home" />
+                   </Button>
+                </View>
 
-              </View>
+
           </View>
 
         </Header>

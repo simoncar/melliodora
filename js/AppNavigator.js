@@ -10,10 +10,10 @@ import { closeDrawer } from './actions/drawer';
 
 import Login from './components/login/';
 import Home from './components/home/';
+import HomeNav from './components/homeNav/';
 import SignUp from './components/x_sign-up/';
 import Feedback from './components/x_feedback/';
 import Comments from './components/comments/';
-import Profile from './components/x_profile/';
 import x_walkthrough from './components/x_walkthrough/';
 import SideBar from './components/sideBar';
 import Settings from './components/settings';
@@ -94,13 +94,13 @@ class AppNavigator extends Component {
 
         <RouterWithRedux>
         <Scene key="root">
-            <Scene key="home" component={Home}  hideNavBar initial={true} />
+            <Scene key="homeNav" component={HomeNav}  hideNavBar initial={true} />
+            <Scene key="home" component={Home}  hideNavBar />
             <Scene key="login" component={Login} hideNavBar/>
             <Scene key="signUp" component={SignUp} />
             <Scene key="needhelp" component={NeedHelp} />
             <Scene key="feedback" component={Feedback} />
             <Scene key="comments" component={Comments} />
-            <Scene key="profile" component={Profile} />
             <Scene key="sideBar" component={SideBar} />
             <Scene key="settings" component={Settings} />
             <Scene key="channel" component={Channel} />

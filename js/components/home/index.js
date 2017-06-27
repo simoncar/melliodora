@@ -114,8 +114,8 @@ console.log('listen for calendar evetns ');
                   <Image source={headerLogo} style={styles.imageHeader} />
                 </Body>
               <View>
-                 <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET  })}>
-                  <Icon active name="settings" />
+                 <Button transparent onPress={() => Actions.homeNav({ type: ActionConst.RESET  })}>
+                  <Icon active name="ios-home" />
                  </Button>
               </View>
           </View>
