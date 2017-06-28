@@ -24,16 +24,10 @@ class HomeNav extends Component {
   render() {
     return (
       <Container>
-        <Image source={require('../../../images/glow2.png')} style={styles.container} >
           <HeaderContent />
 
           <Content showsVerticalScrollIndicator={false}>
-            <View style={styles.profileInfoContainer}>
-              <TouchableOpacity style={{ alignSelf: 'center' }}>
-                <Image source={require('../../../images/sais.edu.sg/header_photo_1.jpg')} style={styles.profilePic} />
-              </TouchableOpacity>
 
-            </View>
 
             <View style={styles.linkTabs}>
               <Grid>
@@ -170,7 +164,7 @@ class HomeNav extends Component {
 
             </View>
           </Content>
-        </Image>
+
       </Container>
     );
   }
