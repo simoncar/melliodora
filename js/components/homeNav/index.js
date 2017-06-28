@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Image, View, TouchableOpacity } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import { Container, Content, Text, Thumbnail, Icon } from 'native-base';
+import { Container, Content, Text, Thumbnail, Icon, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import HeaderContent from './../headerContent/';
 import { openDrawer } from '../../actions/drawer';
@@ -38,65 +38,70 @@ class HomeNav extends Component {
             <View style={styles.linkTabs}>
               <Grid>
 
-              <Row>
+              <Row style={{paddingTop: 20}}>
                 <Col>
-                  <TouchableOpacity onPress={() => { Actions.contact(); }}  style={styles.linkTabs_header}>
-                    <Icon style={styles.linkTabs_tabCounts} name="ios-call-outline" />
-                    <Text note style={styles.linkTabs_tabName}>Contact</Text>
-                  </TouchableOpacity>
+                <Button transparent style={styles.roundedButton}  onPress={() => { Actions.contact(); }} >
+                    <Icon style={styles.icon} name="ios-call-outline" />
+                    </Button>
+                    <Text note style={styles.buttonLabel}>Contact</Text>
                 </Col>
                 <Col>
-                  <TouchableOpacity onPress={() => { Actions.home(); }} style={styles.linkTabs_header}>
-                      <Icon style={styles.linkTabs_tabCounts}  name="ios-calendar-outline" />
-                    <Text note style={styles.linkTabs_tabName}>Calendar</Text>
-                  </TouchableOpacity>
+                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.home(); }} >
+                    <Icon style={styles.icon} name="ios-calendar-outline" />
+                    </Button>
+                    <Text note style={styles.buttonLabel}>Calendar</Text>
                 </Col>
                 <Col>
-                  <TouchableOpacity onPress={() => { Actions.webportal(); }} style={styles.linkTabs_header}>
-                    <Icon style={styles.linkTabs_tabCounts}  name="ios-grid" />
-                    <Text note style={styles.linkTabs_tabName}>myStamford</Text>
-                  </TouchableOpacity>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                  <TouchableOpacity style={styles.linkTabs_header}>
-                    <Icon style={styles.linkTabs_tabCounts} name="ios-book-outline" />
-                    <Text note style={styles.linkTabs_tabName}>Directory</Text>
-                  </TouchableOpacity>
-                </Col>
-                <Col>
-                  <TouchableOpacity  onPress={() => { Actions.newsletter(); }}  style={styles.linkTabs_header}>
-                      <Icon style={styles.linkTabs_tabCounts}  name="ios-paper-outline" />
-                    <Text note style={styles.linkTabs_tabName}>Newsletters</Text>
-                  </TouchableOpacity>
-                </Col>
-                <Col>
-                  <TouchableOpacity style={styles.linkTabs_header}>
-                    <Icon style={styles.linkTabs_tabCounts}  name="ios-map-outline" />
-                    <Text note style={styles.linkTabs_tabName}>School Map</Text>
-                  </TouchableOpacity>
+                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.webportal(); }} >
+                    <Icon style={styles.icon} name="ios-grid" />
+                    </Button>
+                    <Text note style={styles.buttonLabel}>myStamford</Text>
                 </Col>
             </Row>
-            <Row>
+            <Row style={{paddingTop: 20}}>
+              <Col>
+                <Button transparent style={styles.roundedButton}  onPress={() => { Actions.webportal(); }} >
+                  <Icon style={styles.icon} name="ios-book-outline" />
+                  </Button>
+                  <Text note style={styles.buttonLabel}>Directory</Text>
+              </Col>
+
+              <Col>
+                <Button transparent style={styles.roundedButton}  onPress={() => { Actions.newsletter(); }} >
+                  <Icon style={styles.icon} name="ios-paper-outline" />
+                  </Button>
+                  <Text note style={styles.buttonLabel}>Newsletters</Text>
+              </Col>
+
+              <Col>
+                <Button transparent style={styles.roundedButton}  onPress={() => { Actions.newsletter(); }} >
+                  <Icon style={styles.icon} name="ios-map-outline" />
+                  </Button>
+                  <Text note style={styles.buttonLabel}>School Map</Text>
+              </Col>
+
+            </Row>
+            <Row style={{paddingTop: 20, paddingBottom: 20}}>
+
                 <Col>
-                  <TouchableOpacity style={styles.linkTabs_header}>
-                    <Icon style={styles.linkTabs_tabCounts} name="ios-people-outline" />
-                    <Text note style={styles.linkTabs_tabName}>PTA Home</Text>
-                  </TouchableOpacity>
+                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.newsletter(); }} >
+                    <Icon style={styles.icon} name="ios-people-outline" />
+                    </Button>
+                    <Text note style={styles.buttonLabel}>PTA Home</Text>
                 </Col>
                 <Col>
-                  <TouchableOpacity style={styles.linkTabs_header}>
-                      <Icon style={styles.linkTabs_tabCounts}  name="ios-basket-outline" />
-                    <Text note style={styles.linkTabs_tabName}>Lions Den</Text>
-                  </TouchableOpacity>
+                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.newsletter(); }} >
+                    <Icon style={styles.icon} name="ios-basket-outline" />
+                    </Button>
+                    <Text note style={styles.buttonLabel}>Lions Den</Text>
                 </Col>
                 <Col>
-                  <TouchableOpacity style={styles.linkTabs_header}>
-                    <Icon style={styles.linkTabs_tabCounts}  name="ios-bonfire-outline" />
-                    <Text note style={styles.linkTabs_tabName}>PTA Events</Text>
-                  </TouchableOpacity>
+                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.newsletter(); }} >
+                    <Icon style={styles.icon} name="ios-bonfire-outline" />
+                    </Button>
+                    <Text note style={styles.buttonLabel}>PTA Events</Text>
                 </Col>
+
             </Row>
 
 

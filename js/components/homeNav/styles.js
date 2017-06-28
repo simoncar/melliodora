@@ -30,9 +30,18 @@ export default {
     color: '#FFF',
   },
   profilePic: {
-    height: 180,
+    height: 0,
 
   },
+  roundedButton: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    borderRadius: 30,
+    width: 60,
+    height: 60,
+  },
+
   profileInfo: {
     alignSelf: 'center',
     paddingTop: 5,
@@ -52,11 +61,15 @@ export default {
     alignSelf: 'center',
     paddingBottom: Platform.OS === 'android' ? 3 : 0,
   },
-  linkTabs_tabName: {
-    color: '#444',
-    fontWeight: 'bold',
-    fontSize: (deviceWidth < 330) ? 13 : 15,
+  buttonLabel: {
+    color: 'black',
+    alignSelf: 'center',
+    paddingTop: 10
   },
+  icon: {
+    fontWeight: 'bold',
+  },
+
   newsImage: {
     width: 120,
     height: 120,
