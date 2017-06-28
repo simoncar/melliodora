@@ -13,6 +13,9 @@ import { Grid, Col, Row } from 'react-native-easy-grid';
 import { openDrawer } from '../../actions/drawer';
 import HeaderContent from './../headerContent/';
 
+import Communications from 'react-native-communications';
+
+
 import theme from '../../themes/base-theme';
 import styles from './styles';
 
@@ -39,79 +42,64 @@ class Contact extends Component {
     };
   }
 
+  _call() {
+    //TODO: only show email/phone links when there are values
+      Communications.phonecall('+65 6709 4800', true);
+  }
+
+  _email() {
+    //TODO: only show email/phone links when there are values
+      Communications.email('help@sais.edu.sg', null, null, null, null)
+  }
+
   render() {
     return (
       <Container contentOffset={this.state.offset} scrollEnabled={false} >
   <Image source={require('../../../images/BG-signUp.png')} style={styles.container} >
           <HeaderContent />
-
-
-
           <Content showsVerticalScrollIndicator={false}>
             <View style={styles.contentIconsContainer}>
               <Grid>
               <Row>
-                <Col style={{ width: 40 }}>
-                  <Button transparent style={styles.roundedButton}>
+                <Col style={{ width: 80 }}>
+                  <Button transparent style={styles.roundedButton}  onPress={() => this._call()} >
                     <Icon name="ios-call-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                   </Button>
                 </Col>
                 <Col>
-                    <Text style={styles.feedbackHeader}>Parent Helpdesk</Text>
-                    <Text style={styles.feedbackHead}>We will respond quickly to answer your questions.</Text>
+                    <Text style={styles.feedbackHeader}>Call Parent Helpdesk</Text>
+                    <Text style={styles.feedbackHead}>+65 6709 4800</Text>
                 </Col>
              </Row>
-             <Row>
-               <Col style={{ width: 40 }}>
-                 <Button transparent style={styles.roundedButton}>
+             <Row style={{paddingTop: 20}}>
+               <Col style={{ width: 80 }}>
+                 <Button transparent style={styles.roundedButton}  onPress={() => this._email()} >
                    <Icon name="ios-mail-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                  </Button>
                </Col>
                <Col>
                    <Text style={styles.feedbackHeader}>Email Helpdesk</Text>
-                   <Text style={styles.feedbackHead}>We will respond quickly to answer your questions.</Text>
+                   <Text style={styles.feedbackHead}>help@sais.edu.sg</Text>
                </Col>
             </Row>
-            <Row>
-              <Col style={{ width: 40 }}>
+             <Row style={{paddingTop: 20}}>
+              <Col style={{ width: 80 }}>
                 <Button transparent style={styles.roundedButton}>
                   <Icon name="ios-pin-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
               <Col>
-                  <Text style={styles.feedbackHeader}>School Address</Text>
-                  <Text style={styles.feedbackHead}>We will respond quickly to answer your questions.</Text>
+                  <Text style={styles.feedbackHeader}>Visit Helpdesk</Text>
+                  <Text style={styles.feedbackHead}>Locations: </Text>
+                  <Text style={styles.feedbackHead}>Franklin Ground Floor, by Stamford Yard </Text>
+                  <Text style={styles.feedbackHead}>Lincoln, Level 1, next to Jefferson Pool</Text>
+                    <Text style={styles.feedbackHead}>Hours: 8 am to 5 pm</Text>
               </Col>
            </Row>
 
             </Grid>
-
-
-
-
             </View>
-            <View style={styles.feedbackHeaderContainer}>
-              <Text style={styles.feedbackHeader}>INQUIRY</Text>
-              <Text note style={styles.feedbackHead}>We will respond quickly to answer your questions.</Text>
-            </View>
-            <View style={styles.feedbackContainer}>
-              <Item rounded style={styles.inputGrp}>
-                <Icon name="ios-person-outline" />
-                <Input placeholder="Name" placeholderTextColor="rgba(255,255,255,0.5)" style={styles.input} />
-              </Item>
-              <Item rounded style={styles.inputGrp}>
-                <Icon name="ios-mail-outline" />
-                <Input placeholder="Email" placeholderTextColor="rgba(255,255,255,0.5)" style={styles.input} />
-              </Item>
 
-
-              <View style={styles.feedbackInputBox}>
-                  <Item iconRight>
-                    <Input placeholder="Write something..." placeholderTextColor="rgba(255,255,255,0.5)" style={styles.input} />
-                    <Icon active name="arrow-forward" style={styles.forwardIcon} />
-                  </Item>
-              </View>
-            </View>
           </Content>
         </Image>
       </Container>

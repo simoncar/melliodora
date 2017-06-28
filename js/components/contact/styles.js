@@ -37,8 +37,8 @@ export default {
   },
   contentIconsContainer: {
     paddingTop: 30,
-    paddingLeft: 50,
-    paddingRight: 50,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   roundedButton: {
     alignSelf: 'center',
@@ -60,14 +60,12 @@ export default {
   feedbackHeaderContainer: {
     padding: 20,
     paddingTop: 30,
-    alignSelf: 'center',
     backgroundColor: 'transparent',
   },
   feedbackHeader: {
     fontSize: 22,
     paddingBottom: 10,
     fontWeight: '600',
-    alignSelf: 'center',
   },
   feedbackHead: {
     opacity: 0.8,
