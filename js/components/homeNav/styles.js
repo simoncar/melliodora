@@ -31,7 +31,6 @@ export default {
   },
   profilePic: {
     height: 0,
-
   },
   roundedButton: {
     alignSelf: 'center',

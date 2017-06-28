@@ -84,19 +84,19 @@ class HomeNav extends Component {
             <Row style={{paddingTop: 20, paddingBottom: 20}}>
 
                 <Col>
-                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.newsletter(); }} >
+                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.ptaHome(); }} >
                     <Icon style={styles.icon} name="ios-people-outline" />
                     </Button>
                     <Text note style={styles.buttonLabel}>PTA Home</Text>
                 </Col>
                 <Col>
-                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.newsletter(); }} >
+                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.ptaLionsDen(); }} >
                     <Icon style={styles.icon} name="ios-basket-outline" />
                     </Button>
                     <Text note style={styles.buttonLabel}>Lions Den</Text>
                 </Col>
                 <Col>
-                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.newsletter(); }} >
+                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.ptaEvents(); }} >
                     <Icon style={styles.icon} name="ios-bonfire-outline" />
                     </Button>
                     <Text note style={styles.buttonLabel}>PTA Events</Text>
