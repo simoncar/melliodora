@@ -55,7 +55,7 @@ class Contact extends Component {
   render() {
     return (
       <Container contentOffset={this.state.offset} scrollEnabled={false} >
-  <Image source={require('../../../images/BG-signUp.png')} style={styles.container} >
+  <View  style={styles.container} >
           <HeaderContent />
           <Content showsVerticalScrollIndicator={false}>
             <View style={styles.contentIconsContainer}>
@@ -101,7 +101,7 @@ class Contact extends Component {
             </View>
 
           </Content>
-        </Image>
+        </View>
       </Container>
     );
   }

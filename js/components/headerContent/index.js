@@ -35,6 +35,11 @@ class HeaderContent extends Component {
           <Image source={headerLogo} style={styles.imageHeader} />
         </Body>
         <Right>
+        <View>
+           <Button transparent onPress={() => Actions.homeNav()}>
+            <Icon active name="ios-home" />
+           </Button>
+        </View>
 
         </Right>
       </Header>
