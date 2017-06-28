@@ -1,6 +1,6 @@
 {
   "name": "myStamford",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "private": true,
   "devDependencies": {
     "babel-eslint": "^6.1.2",
