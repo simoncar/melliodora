@@ -24,24 +24,34 @@ class HeaderContent extends Component {
   render() {
     return (
       <Header>
-        <Left>
 
-        <Button transparent onPress={this.props.openDrawer} >
-          <Icon active name="menu" />
-        </Button>
+      <View style={{
+             flex: 1,
+             flexDirection: 'row',
+             justifyContent: 'space-between',
+           }}>
 
-        </Left>
-        <Body>
-          <Image source={headerLogo} style={styles.imageHeader} />
-        </Body>
-        <Right>
+
+          <View>
+                  <Button transparent onPress={this.props.openDrawer} >
+                    <Icon active name="menu" />
+                  </Button>
+          </View>
+
+          <Body>
+            <Image source={headerLogo} style={styles.imageHeader} />
+          </Body>
+
+
         <View>
            <Button transparent onPress={() => Actions.homeNav()}>
             <Icon active name="ios-home" />
            </Button>
         </View>
 
-        </Right>
+        </View>
+
+
       </Header>
     );
   }

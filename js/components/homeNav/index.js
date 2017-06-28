@@ -74,7 +74,7 @@ class HomeNav extends Component {
               </Col>
 
               <Col>
-                <Button transparent style={styles.roundedButton}  onPress={() => { Actions.newsletter(); }} >
+                <Button transparent style={styles.roundedButton}  onPress={() => { Actions.campusMap(); }} >
                   <Icon style={styles.icon} name="ios-map-outline" />
                   </Button>
                   <Text note style={styles.buttonLabel}>School Map</Text>
