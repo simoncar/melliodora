@@ -55,9 +55,15 @@ export default {
     fontWeight: 'bold',
     paddingBottom: 5,
   },
-  newsPoster: {
+  ptaLogo: {
     width: null,
     height: 300,
+    flex: 1,
+        resizeMode: 'contain'
+  },
+  newsPoster: {
+    width: null,
+    height: 200,
     flex: 1,
   },
   newsPosterHeader: {
