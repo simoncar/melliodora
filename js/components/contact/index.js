@@ -57,7 +57,7 @@ class Contact extends Component {
                   </Button>
                 </Col>
                 <Col>
-                    <Text style={styles.feedbackHeader}>Call Parent Helpdesk</Text>
+                    <Text style={styles.feedbackHeader}>Parent Helpdesk</Text>
                     <Text style={styles.feedbackHead}>We will respond quickly to answer your questions.</Text>
                 </Col>
              </Row>

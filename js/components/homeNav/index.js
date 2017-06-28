@@ -101,125 +101,68 @@ class HomeNav extends Component {
 
 
               </Grid>
+
             </View>
             <View style={{ backgroundColor: '#fff' }}>
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.home()}>
-                <Image source={require('../../../images/NewsIcons/1.jpg')} style={styles.newsImage} />
+              <TouchableOpacity style={{ flexDirection: 'row' }} >
+                <Image source={require('../../../images/sais.edu.sg/village.jpg')} style={styles.newsImage} />
                 <View style={styles.newsContent}>
                   <Text numberOfLines={2} style={styles.newsHeader}>
-                                      An event that is on today
+                                    Early Learning Village - Open Day
                                     </Text>
                   <Grid style={{ marginTop: 25 }}>
                     <Col>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>CDC</Text>
+                        <Text style={styles.newsLink}>July 29</Text>
                       </TouchableOpacity>
                     </Col>
                     <Col>
                       <TouchableOpacity style={styles.newsTypeView}>
-                        <Text style={styles.newsTypeText}>ENVIRONMENT</Text>
+                        <Text style={styles.newsTypeText}>VILLAGE</Text>
                       </TouchableOpacity>
                     </Col>
                   </Grid>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.home()}>
-                <Image source={require('../../../images/NewsIcons/3.jpg')} style={styles.newsImage} />
+              <TouchableOpacity style={{ flexDirection: 'row' }}>
+                <Image source={require('../../../images/sais.edu.sg/orientation.jpg')} style={styles.newsImage} />
                 <View style={styles.newsContent}>
                   <Text numberOfLines={2} style={styles.newsHeader}>
-                                        Something else happeng that is big this week
+                                      Welcome Orientation
                                     </Text>
                   <Grid style={{ marginTop: 25 }}>
                     <Col>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>SPACE.com</Text>
+                        <Text style={styles.newsLink}>Aug 10-11</Text>
                       </TouchableOpacity>
                     </Col>
                     <Col>
                       <TouchableOpacity style={styles.newsTypeView}>
-                        <Text style={styles.newsTypeText}>SCIENCE</Text>
+                        <Text style={styles.newsTypeText}>WOODLEIGH CAMPUS</Text>
                       </TouchableOpacity>
                     </Col>
                   </Grid>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.home()}>
-                <Image source={require('../../../images/NewsIcons/4.jpg')} style={styles.newsImage} />
+              <TouchableOpacity style={{ flexDirection: 'row' }} >
+                <Image source={require('../../../images/sais.edu.sg/village_window.jpg')} style={styles.newsImage} />
                 <View style={styles.newsContent}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>But still look sharp on high-definition screens.</Text>
+                  <Text numberOfLines={2} style={styles.newsHeader}>Welcome Orientation - Elarly Learning Village</Text>
                   <Grid style={{ marginTop: 25 }}>
                     <Col>
                       <TouchableOpacity>
-                        <Text style={styles.newsLink}>SKY.com</Text>
+                        <Text style={styles.newsLink}>Aug 12</Text>
                       </TouchableOpacity>
                     </Col>
                     <Col>
                       <TouchableOpacity style={styles.newsTypeView}>
-                        <Text style={styles.newsTypeText}>WORLD</Text>
+                        <Text style={styles.newsTypeText}>VILLAGE</Text>
                       </TouchableOpacity>
                     </Col>
                   </Grid>
                 </View>
               </TouchableOpacity>
 
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.home()}>
-                <Image source={require('../../../images/NewsIcons/10.jpg')} style={styles.newsImage} />
-                <View style={styles.newsContent}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>
-                                        Highly customizable widgets are part of our never ending mission.
-                                    </Text>
-                  <Grid style={{ marginTop: 25 }}>
-                    <Col>
-                      <TouchableOpacity>
-                        <Text style={styles.newsLink}>ANI.com</Text>
-                      </TouchableOpacity>
-                    </Col>
-                    <Col>
-                      <TouchableOpacity style={styles.newsTypeView}>
-                        <Text style={styles.newsTypeText}>ANIMATION</Text>
-                      </TouchableOpacity>
-                    </Col>
-                  </Grid>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.home()}>
-                <Image source={require('../../../images/NewsIcons/9.jpg')} style={styles.newsImage} />
-                <View style={styles.newsContent}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>
-                                        Ready to use components built using NativeBase.
-                                    </Text>
-                  <Grid style={{ marginTop: 25 }}>
-                    <Col>
-                      <TouchableOpacity>
-                        <Text style={styles.newsLink}>STYLE.com</Text>
-                      </TouchableOpacity>
-                    </Col>
-                    <Col>
-                      <TouchableOpacity style={styles.newsTypeView}>
-                        <Text style={styles.newsTypeText}>FASHION</Text>
-                      </TouchableOpacity>
-                    </Col>
-                  </Grid>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.home()}>
-                <Image source={require('../../../images/NewsIcons/12.jpg')} style={styles.newsImage} />
-                <View style={styles.newsContent}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>Theme your app with one single file.</Text>
-                  <Grid style={{ marginTop: 25 }}>
-                    <Col>
-                      <TouchableOpacity>
-                        <Text style={styles.newsLink}>ART.com</Text>
-                      </TouchableOpacity>
-                    </Col>
-                    <Col>
-                      <TouchableOpacity style={styles.newsTypeView}>
-                        <Text style={styles.newsTypeText}>ART</Text>
-                      </TouchableOpacity>
-                    </Col>
-                  </Grid>
-                </View>
-              </TouchableOpacity>
             </View>
           </Content>
         </Image>

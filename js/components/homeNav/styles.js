@@ -46,7 +46,7 @@ export default {
     alignSelf: 'center',
   },
   linkTabs_tabCounts: {
-    fontSize: 22,
+    fontSize: 30,
     fontWeight: 'bold',
     color: primary,
     alignSelf: 'center',
@@ -58,7 +58,7 @@ export default {
     fontSize: (deviceWidth < 330) ? 13 : 15,
   },
   newsImage: {
-    width: 100,
+    width: 120,
     height: 120,
   },
   newsContent: {
