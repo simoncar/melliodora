@@ -11,7 +11,11 @@ import AppNavigator from './AppNavigator';
 console.log("AC=", actionCreators);
 
 class App extends Component {
+
   render() {
+
+      console.log("_app.js in js folder");
+
     return <AppNavigator {...this.props}/>;
   }
 }

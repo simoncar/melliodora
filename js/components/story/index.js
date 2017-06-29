@@ -51,8 +51,6 @@ class Story extends Component {
   }
 
  _shareMessage() {
-
-
     Share.share({
       message: "" + this.props.eventTitle + "\nWhen: " +  formatTime(this.props.eventStartTime, this.props.eventEndTime) + ' ' + this.props.eventDate,
       title: '' + this.props.eventImage
@@ -60,7 +58,6 @@ class Story extends Component {
     .then(this._showResult)
     .catch((error) => this.setState({result: 'error: ' + error.message}));
   };
-
 
 
 _callPhone() {
@@ -77,18 +74,6 @@ _email() {
     Communications.email([this.props.email], null, null, null, null)
 }
 
-_formatWeb(sURL) {
-
-  if (sURL.length > 0) {
-    return(
-      <WebView
-             source={{uri: 'https://github.com/facebook/react-native'}}
-              javaScriptEnabled={true}
-            />
-    )
-  }
-
-}
 
   render() {
 
@@ -110,6 +95,7 @@ _formatWeb(sURL) {
 
                 <Icon name="md-share" style={styles.headerIcons} />
               </Button>
+
               </Right>
 
           </Header>
@@ -127,8 +113,6 @@ _formatWeb(sURL) {
 
                         <Text style={styles.newsTypeText}>{this.props.location}</Text>
                       </TouchableOpacity>
-
-
                 </View>
 
                 <View style={{ padding: 20 }}>
@@ -136,33 +120,19 @@ _formatWeb(sURL) {
                   <Text style={styles.eventTitle}>
                    {"\n"}
                 </Text>
-
-
-
-
                     <Button transparent onPress={() => this._callPhone()} >
-                          <Text style={styles.eventTitle}>
-                          <Icon active name="ios-call" style={styles.eventTitle} /> {this.props.phone}
-                        </Text>
+
                   </Button>
 
                   <Button transparent onPress={() => this._email()} >
-                        <Text style={styles.eventTitle}>
-                        <Icon active name="md-mail" style={styles.eventTitle} /> {this.props.email}
-                      </Text>
+
                 </Button>
 
-                  <Text style={styles.eventTitle}>
-                      {formatTime(this.props.eventStartTime, this.props.eventEndTime)}
-                  {this.props.eventDate}
 
-                </Text>
                 <Text style={styles.eventTitle}>
 
-                  {this.props.url}
-              </Text>
 
-                   {this._formatWeb(this.props.url)}
+              </Text>
 
 
                   </View>

@@ -9,9 +9,7 @@ import { Container, Content, Text, Icon, List, ListItem, Thumbnail } from 'nativ
 import { Grid, Col } from 'react-native-easy-grid';
 import { closeDrawer } from '../../actions/drawer';
 
-
 import styles from './style';
-
 
 class SideBar extends Component {
 
@@ -82,6 +80,12 @@ class SideBar extends Component {
             </ListItem>
 
             <View style={styles.logoutContainer}>
+            <View style={styles.logoutbtn} foregroundColor={'white'}>
+
+
+                  <Text style={styles.linkText}>v 2.0.3</Text>
+
+            </View>
               <View style={styles.logoutbtn} foregroundColor={'white'}>
 
                   <Image
@@ -91,12 +95,7 @@ class SideBar extends Component {
 
 
               </View>
-              <View style={styles.logoutbtn} foregroundColor={'white'}>
 
-
-                    <Text style={styles.linkText}>v 2.0.1</Text>
-
-              </View>
 
             </View>
           </Content>
