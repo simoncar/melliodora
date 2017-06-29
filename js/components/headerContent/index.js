@@ -9,7 +9,6 @@ import { Icon, Button, Left, Right, Body, Header } from 'native-base';
 import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
 
-
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
 class HeaderContent extends Component {

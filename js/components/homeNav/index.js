@@ -22,6 +22,9 @@ class HomeNav extends Component {
   }
 
   render() {
+
+Raven.captureMessage('Broken!')
+
     return (
       <Container>
           <HeaderContent />
@@ -54,7 +57,7 @@ class HomeNav extends Component {
             </Row>
             <Row style={{paddingTop: 20}}>
               <Col>
-                <Button transparent style={styles.roundedButton}  onPress={() => { Actions.webportal(); }} >
+                <Button transparent style={styles.roundedButton}  onPress={() => {  }} >
                   <Icon style={styles.icon} name="ios-book-outline" />
                   </Button>
                   <Text note style={styles.buttonLabel}>Directory</Text>
@@ -81,7 +84,7 @@ class HomeNav extends Component {
                   <Button transparent style={styles.roundedButton}  onPress={() => { Actions.ptaHome(); }} >
                     <Icon style={styles.icon} name="ios-people-outline" />
                     </Button>
-                    <Text note style={styles.buttonLabel}>PTA Home</Text>
+                    <Text note style={styles.buttonLabel}>PTA</Text>
                 </Col>
                 <Col>
                   <Button transparent style={styles.roundedButton}  onPress={() => { Actions.ptaLionsDen(); }} >
@@ -90,10 +93,7 @@ class HomeNav extends Component {
                     <Text note style={styles.buttonLabel}>Lions Den</Text>
                 </Col>
                 <Col>
-                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.ptaEvents(); }} >
-                    <Icon style={styles.icon} name="ios-bonfire-outline" />
-                    </Button>
-                    <Text note style={styles.buttonLabel}>PTA Events</Text>
+
                 </Col>
 
             </Row>

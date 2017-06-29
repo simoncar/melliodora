@@ -193,7 +193,8 @@ return{
    };
 
   pressGoButton = () => {
-      var url = 'http://mystamford.edu.sg/cafe/cafe-online-ordering#anchor';
+      var url = 'https://mystamford.edu.sg/cafe/cafe-online-ordering#anchor';
+            
       if (url === this.state.url) {
         this.reload();
       } else {

@@ -40,6 +40,15 @@ export default {
     width: 60,
     height: 60,
   },
+  roundedButtonCalendar: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    backgroundColor: '#C6F1F0',
+    borderRadius: 1,
+    width: 60,
+    height: 60,
+  },
+
 
   profileInfo: {
     alignSelf: 'center',
@@ -66,6 +75,9 @@ export default {
     paddingTop: 10
   },
   icon: {
+    fontWeight: 'bold',
+  },
+  icon2: {
     fontWeight: 'bold',
   },
 
