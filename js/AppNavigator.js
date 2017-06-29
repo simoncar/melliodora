@@ -51,6 +51,7 @@ class AppNavigator extends Component {
   }
 
   openDrawer() {
+    console.log('openDrawer() {');
     this._drawer._root.open();
   }
 
