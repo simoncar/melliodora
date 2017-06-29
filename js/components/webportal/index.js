@@ -10,6 +10,8 @@ import { Grid, Col } from 'react-native-easy-grid';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
+import HeaderContent from './../headerContent/';
+
 
 import { openDrawer } from '../../actions/drawer';
 
@@ -130,33 +132,7 @@ console.log ('     cookie = ', c);
   render() {
     return (
       <Container>
-        <Image source={require('../../../images/glow2.png')} style={styles.container} >
-
-
-          <Header>
-
-          <View style={{
-                 flex: 1,
-                 flexDirection: 'row',
-                 justifyContent: 'space-between',
-               }}>
-
-                <View>
-                       <Button transparent onPress={this.props.openDrawer} >
-                                  <Icon active name="menu" />
-                       </Button>
-                </View>
-
-                  <Body>
-                    <Image source={headerLogo} style={styles.imageHeader} />
-                  </Body>
-                <View>
-                <Button transparent>
-                  <Icon active name="ios-restaurant" onPress={this.pressGoButton}/>
-                </Button>
-                </View>
-            </View>
-          </Header>
+        <HeaderContent />
 
           <WebView
               source={{uri: this.state.url}}
@@ -169,7 +145,7 @@ console.log ('     cookie = ', c);
                ref={WEBVIEW_REF}
              />
 
-        </Image>
+
       </Container>
     );
   };
@@ -194,7 +170,7 @@ return{
 
   pressGoButton = () => {
       var url = 'https://mystamford.edu.sg/cafe/cafe-online-ordering#anchor';
-            
+
       if (url === this.state.url) {
         this.reload();
       } else {
@@ -207,12 +183,6 @@ return{
 
 
 function bindAction(dispatch) {
-  return {
-    openDrawer: () => dispatch(openDrawer()),
-  };
-}
-
-function navigateCafe() {
   return {
     openDrawer: () => dispatch(openDrawer()),
   };
