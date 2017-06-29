@@ -9,6 +9,10 @@ import Setup from './js/setup';
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
 
+
+import Sentry from 'sentry-expo';
+Sentry.config('https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405').install();
+
 function configureStore(initialState) {
   const enhancer = compose(
     applyMiddleware(
