@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 2804,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "packagerPid": 13212,
+  "expoServerNgrokUrl": "https://b5-zsj.simoncar.flatapp-master.exp.direct",
+  "packagerNgrokUrl": "https://packager.b5-zsj.simoncar.flatapp-master.exp.direct",
+  "ngrokPid": 9285
 }

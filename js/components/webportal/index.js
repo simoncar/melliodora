@@ -45,6 +45,9 @@ class Webportal extends Component {
     injectScript = injectScript + ';' +  'document.forms[0].submit()';
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"ff-login-personalised-logo\")[0].style.visibility = \"hidden\";';
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"global-logo\")[0].style.visibility = \"hidden\";';
+
+   injectScript = "window.postMessage(document.cookie)"
+
   }
 
   state = {
@@ -54,7 +57,54 @@ class Webportal extends Component {
     forwardButtonEnabled: false,
     loading: true,
     scalesPageToFit: true,
+    cookies    : {},
+    webViewUrl : ''
+
   };
+
+  onNavigationStateChange = (webViewState: { url: string }) => {
+console.log ('webview = onNavigationStateChange');
+    const { url } = webViewState;
+
+    // when WebView.onMessage called, there is not-http(s) url
+    if(url.includes('http')) {
+      this.setState({ webViewUrl: url })
+    }
+  }
+
+  _checkNeededCookies = () => {
+    console.log ('webview = _checkNeededCookies');
+    const { cookies, webViewUrl } = this.state;
+
+    if (webViewUrl === 'SUCCESS_URL') {
+      console.log ('webview = _checkNeededCookies', cookies('ASP.NET_SessionId'));
+      if (cookies['ASP.NET_SessionId']) {
+        alert(cookies['ASP.NET_SessionId']);
+        // do your magic...
+      }
+    }
+  }
+
+  _onMessage = (event) => {
+        console.log ('webview = _onMessage');
+     const { data } = event.nativeEvent;
+     const cookies  = data.split(';'); // `csrftoken=...; rur=...; mid=...; somethingelse=...`
+    console.log ('webview = _onMessage cookies', cookies);
+     cookies.forEach((cookie) => {
+       const c = cookie.trim().split('=');
+
+       const new_cookies = this.state.cookies;
+       new_cookies[c[0]] = c[1];
+
+       this.setState({ cookies: new_cookies });
+
+
+console.log ('     cookie = ', c);
+
+     });
+
+     this._checkNeededCookies();
+   }
 
   render() {
     return (
@@ -90,9 +140,11 @@ class Webportal extends Component {
           <WebView
               source={{uri: this.state.url}}
                javaScriptEnabled={true}
+               onNavigationStateChange={this.onNavigationStateChange}
+               onMessage={this._onMessage}
                domStorageEnabled={true}
                startInLoadingState={true}
-   injectedJavaScript={injectScript}
+               injectedJavaScript={injectScript}
                ref={WEBVIEW_REF}
              />
 
