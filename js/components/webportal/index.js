@@ -45,8 +45,7 @@ class Webportal extends Component {
     injectScript = injectScript + ';' +  'document.forms[0].submit()';
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"ff-login-personalised-logo\")[0].style.visibility = \"hidden\";';
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"global-logo\")[0].style.visibility = \"hidden\";';
-
-   injectScript = "window.postMessage(document.cookie)"
+    injectScript = injectScript + ';' +  'window.postMessage(document.cookie)'
 
   }
 

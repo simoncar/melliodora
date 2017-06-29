@@ -37,14 +37,44 @@ class SideBar extends Component {
               <Text style={styles.linkText} >CALENDAR</Text>
             </ListItem>
 
-            <ListItem button onPress={() => { Actions.newsletter(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                <Icon name="ios-paper-outline" />
-                <Text style={styles.linkText} >NEWSLETTERS</Text>
+            <ListItem button onPress={() => { Actions.contact(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+              <Icon name="ios-call-outline" />
+              <Text style={styles.linkText} >CONTACT</Text>
             </ListItem>
+
             <ListItem button onPress={() => { Actions.webportal(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                 <Icon name="ios-grid" />
                 <Text style={styles.linkText}>myStamford</Text>
             </ListItem>
+
+
+                <ListItem button onPress={() => {  this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                    <Icon name="ios-book-outline" />
+                    <Text style={styles.linkText} >DIRECTORY</Text>
+                </ListItem>
+
+            <ListItem button onPress={() => { Actions.newsletter(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <Icon name="ios-paper-outline" />
+                <Text style={styles.linkText} >NEWSLETTERS</Text>
+            </ListItem>
+
+
+              <ListItem button onPress={() => { Actions.ptaHome(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                  <Icon name="ios-people-outline" />
+                  <Text style={styles.linkText} >PTA Home</Text>
+              </ListItem>
+
+
+              <ListItem button onPress={() => { Actions.ptaLionsDen(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                  <Icon name="ios-basket-outline" />
+                  <Text style={styles.linkText} >Lions Den</Text>
+              </ListItem>
+
+
+              <ListItem button onPress={() => { Actions.ptaEvents(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                  <Icon name="ios-bonfire-outline" />
+                  <Text style={styles.linkText} >PTA Events</Text>
+              </ListItem>
 
             <ListItem button onPress={() => { Actions.login(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                 <Icon name="settings" />

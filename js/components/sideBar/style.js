@@ -18,10 +18,11 @@ export default {
     paddingLeft: 15,
   },
   logoutContainer: {
-    padding: 30,
+    padding: 10,
   },
   logoutbtn: {
-    paddingTop: 30,
+    paddingTop: 5,
+    paddingLeft: 20,
     flexDirection: 'row',
 
   },
