@@ -34,6 +34,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "asap": "^2.0.5",
     "color": "^0.11.3",
     "expo": "^18.0.1",
     "firebase": "^3.9.0",
