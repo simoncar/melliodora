@@ -103,7 +103,7 @@ class Login extends Component {
                 style={styles.loginBtn}
                 onPress={() => this.doLogin(this.username,this.password)}
               >
-                <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>SAVE LOGIN</Text>
+                <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>LOGIN</Text>
               </Button>
 
               <View style={styles.otherLinksContainer}>

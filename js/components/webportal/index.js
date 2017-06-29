@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import {  WebView, Image, View, Platform } from 'react-native';
+import { Actions, ActionConst } from 'react-native-router-flux';
 
 import { Container, Header, Content, Text, Button, Icon, Left, Right, Body } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
@@ -40,14 +41,35 @@ class Webportal extends Component {
   constructor(props) {
     super(props);
 
-    injectScript = 'document.getElementById(\"username\").value=\"' + this.props.userX.name+ '\"';
+    injectScript = 'document.getElementById(\"username\").value=\"' + this.props.userX.name + '\"';
     injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"' + this.props.userX.password + '"';
     injectScript = injectScript + ';' +  'document.forms[0].submit()';
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"ff-login-personalised-logo\")[0].style.visibility = \"hidden\";';
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"global-logo\")[0].style.visibility = \"hidden\";';
     injectScript = injectScript + ';' +  'window.postMessage(document.cookie)'
 
+
+    if (this.props.userX.name ) {
+      //we have a value, good
+
+    } else {
+      //nothing :-(
+        Actions.login();
+    };
+
+    if (this.props.userX.password ) {
+      //we have a value, good
+
+    } else {
+      //nothing :-(
+        Actions.login();
+    };
+
+
+
   }
+
+
 
   state = {
     url: DEFAULT_URL,
