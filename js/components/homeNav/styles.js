@@ -75,7 +75,9 @@ export default {
     paddingTop: 10
   },
   icon: {
+    fontSize: 25,
     fontWeight: 'bold',
+    width: 100,
   },
   icon2: {
     fontWeight: 'bold',
