@@ -10,7 +10,13 @@ import Sentry from 'sentry-expo';
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
 
 
-Sentry.config('https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405').install();
+Sentry.config('https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405', {
+  release: '2.0.3',
+  autoBreadcrumbs: {
+    'console': true,  // console logging
+    'http': true,     // http and https requests
+  }
+}).install();
 
 Sentry.captureMessage('App started!')
 
