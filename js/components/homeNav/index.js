@@ -9,6 +9,7 @@ import { Container, Content, Text, Thumbnail, Icon, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import HeaderContent from './../headerContent/';
 import { openDrawer } from '../../actions/drawer';
+import Sentry from 'sentry-expo';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
@@ -23,7 +24,7 @@ class HomeNav extends Component {
 
   render() {
 
-Raven.captureMessage('Broken!')
+Sentry.captureMessage('Broken!')
 
     return (
       <Container>

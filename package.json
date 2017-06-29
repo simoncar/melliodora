@@ -64,7 +64,6 @@
     "redux-thunk": "^2.1.0",
     "remote-redux-devtools": "^0.3.3",
     "remote-redux-devtools-on-debugger": "^0.4.6",
-    "sentry-cli-binary": "^1.16.0",
     "sentry-expo": "^1.0.2"
   }
 }
