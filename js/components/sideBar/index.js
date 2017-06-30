@@ -59,7 +59,7 @@ class SideBar extends Component {
 
               <ListItem button onPress={() => { Actions.ptaHome(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                   <Icon name="ios-people-outline" />
-                  <Text style={styles.linkText} >PTA HOME</Text>
+                  <Text style={styles.linkText} >PTA</Text>
               </ListItem>
 
 
@@ -69,18 +69,13 @@ class SideBar extends Component {
               </ListItem>
 
 
-              <ListItem button onPress={() => { Actions.ptaEvents(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                  <Icon name="ios-bonfire-outline" />
-                  <Text style={styles.linkText} >PTA EVENTS</Text>
-              </ListItem>
-
             <ListItem button onPress={() => { Actions.login(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                 <Icon name="settings" />
                 <Text style={styles.linkText}>SETTINGS</Text>
             </ListItem>
 
             <View style={styles.logoutContainer}>
-  
+
               <View style={styles.logoutbtn} foregroundColor={'white'}>
 
                   <Image

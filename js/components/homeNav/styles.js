@@ -22,7 +22,14 @@ export default {
     textAlign: 'center',
     borderRadius: 20,
   },
-
+  betaView: {
+    backgroundColor: '#2D80D9',
+    alignSelf: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    textAlign: 'center',
+    borderRadius: 20,
+  },
   betaButton: {
     backgroundColor: '#2D80D9',
     alignSelf: 'center',

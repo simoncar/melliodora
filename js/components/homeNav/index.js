@@ -17,14 +17,31 @@ import styles from './styles';
 
 class HomeNav extends Component {
 
+
+  constructor() {
+       super()
+       this.state = {
+          versionText: 'BETA VERSION Fri 30.a Check for an Update'
+       }
+    }
+
+
+
   static propTypes = {
     navigation: React.PropTypes.shape({
       key: React.PropTypes.string,
     }),
   }
 
-  render() {
 
+  _checkForUpdate() {
+    this.setState({versionText: 'Up to date - Check again soon'})
+
+    Expo.Util.reload();
+
+  }
+
+  render() {
 
 
     return (
@@ -107,11 +124,11 @@ class HomeNav extends Component {
 
 
 
-          <Button style={styles.betaButton} transparent onPress={() => { Expo.Util.reload(); }}>
+          <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>
 
-                      <View style={styles.beta}>
+                      <View style={styles.betaView}>
                           <Text numberOfLines={2} style={styles.beta}>
-                          BETA TEST VERSION 2.0.3 Check for an Update
+ {this.state.versionText}
                           </Text>
                       </View>
           </Button>
