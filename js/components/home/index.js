@@ -26,6 +26,8 @@ const firebaseConfig = {
   storageBucket: "calendar-app-57e88.appspot.com"
 };
 
+var i = 0;
+
 var calendarEvents = [];
 const newItems = {};
 
@@ -57,6 +59,7 @@ class calendar1 extends Component {
        //this.setState({
       //   items: newItems
        //});
+       this.state.items = [];
 
       dataSnapshot.forEach((snapshot) => {
 
@@ -84,7 +87,9 @@ class calendar1 extends Component {
                   url: snapshot.child("htmlLink").val()
                 });
 
-                  console.log('push-',strtime,snapshot.child("summary").val() )
+                  console.log('push-',i,strtime,snapshot.child("summary").val() )
+                  i = i + 1;
+
             }
       });
 
@@ -93,6 +98,31 @@ class calendar1 extends Component {
       });
     });
   }
+
+
+    loadItems(day) {
+
+      setTimeout(() => {
+        for (let i = -15; i < 365; i++) {
+          const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+          const strtime = this.timeToString(time);
+
+          if (!this.state.items[strtime]) {
+             this.state.items[strtime] = [];
+          }
+        }
+
+        const newItems = {};
+
+        Object.keys(this.state.items).forEach(
+            key => {newItems[key] = this.state.items[key];});
+        this.setState({
+          items: newItems
+        });
+
+      }, 1000);
+    }
+
 
   render() {
     return (
@@ -111,26 +141,6 @@ class calendar1 extends Component {
     );
   }
 
-  loadItems(day) {
-
-    setTimeout(() => {
-      for (let i = -15; i < 365; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strtime = this.timeToString(time);
-
-        if (!this.state.items[strtime]) {
-           this.state.items[strtime] = [];
-        }
-      }
-
-      const newItems = {};
-      Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-      this.setState({
-        items: newItems
-      });
-    }, 1000);
-
-  }
 
   renderItem(item) {
     return (

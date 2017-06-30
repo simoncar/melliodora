@@ -22,7 +22,6 @@
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "postinstall": "remotedev-debugger",
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
@@ -41,6 +40,7 @@
     "moment": "^2.13.0",
     "native-base": "2.1.4",
     "react": "16.0.0-alpha.12",
+    "react-devtools": "^2.4.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-18.0.1.tar.gz",
     "react-native-animatable": "^0.6.1",
     "react-native-button": "^1.6.0",
