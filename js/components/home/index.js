@@ -49,20 +49,10 @@ class calendar1 extends Component {
 
   listenForCalendarEvents(calendarEvents) {
     calendarEvents.on('value', (dataSnapshot) => {
-    var calendarEvents = [];
-     strtime = Date();
-console.log('listen for calendar evetns ');
-     for (let i = -15; i < 985; i++) {
-       const time = 1496016000000 + i * 24 * 60 * 60 * 1000;
-       const strtime = this.timeToString(time);
+       var calendarEvents = [];
 
-       if (!this.state.items[strtime]) {
-         this.state.items[strtime] = [];
-       }
-     }
-
-     const newItems = {};
-      Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+       const newItems = {};
+       Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
        this.setState({
          items: newItems
        });
@@ -71,6 +61,11 @@ console.log('listen for calendar evetns ');
 
         strtime = snapshot.child("date_start").val();
         strtime = strtime.substring(0,10);
+
+        if (!this.state.items[strtime]) {
+          this.state.items[strtime] = [];
+          console.log('new day element',strtime)
+        }
 
          if (undefined != this.state.items[strtime]){
                 this.state.items[strtime].push({
@@ -116,7 +111,7 @@ console.log('listen for calendar evetns ');
   loadItems(day) {
 
     setTimeout(() => {
-      for (let i = -15; i < 985; i++) {
+      for (let i = -15; i < 365; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
 
@@ -189,8 +184,6 @@ console.log('listen for calendar evetns ');
     const date = new Date(time);
     return date.toISOString().split('T')[0];
   }
-
-
 
   formatBackground(color) {
     var ret = 'white';
