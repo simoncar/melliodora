@@ -38,7 +38,7 @@ class ptaLionsDen extends Component {
     return (
 
       <Container style={{ backgroundColor: '#fff' }}>
-          <HeaderContent />
+          <HeaderContent/>
 
               <Content showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1 }}>

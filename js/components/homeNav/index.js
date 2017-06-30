@@ -17,7 +17,6 @@ import styles from './styles';
 
 class HomeNav extends Component {
 
-
   constructor() {
        super()
        this.state = {
@@ -25,28 +24,23 @@ class HomeNav extends Component {
        }
     }
 
-
-
   static propTypes = {
     navigation: React.PropTypes.shape({
       key: React.PropTypes.string,
     }),
   }
 
-
   _checkForUpdate() {
     this.setState({versionText: 'Up to date - Check again soon'})
-
     Expo.Util.reload();
-
   }
 
   render() {
-
-
     return (
       <Container>
-          <HeaderContent />
+          <HeaderContent
+            showHome='false'
+           />
 
           <Content showsVerticalScrollIndicator={false}>
 

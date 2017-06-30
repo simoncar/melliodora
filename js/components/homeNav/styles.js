@@ -27,7 +27,6 @@ export default {
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',
-    textAlign: 'center',
     borderRadius: 20,
   },
   betaButton: {

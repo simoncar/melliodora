@@ -15,12 +15,30 @@ class HeaderContent extends Component {
 
   static propTypes = {
     openDrawer: PropTypes.func,
+    showHome: PropTypes.string,
     navigation: PropTypes.shape({
       key: PropTypes.string,
     }),
   }
 
+
+  _HomeNav() {
+    console.log (this.props.showHome)
+    if( this.props.showHome == 'false'){
+        //dont show home button
+        console.log ("DO not show")
+    } else {
+        console.log ("SHOW")
+      return(
+        <Button transparent onPress={() => Actions.homeNav()}>
+         <Icon active name="ios-home" />
+        </Button>
+      )
+    }
+  }
+
   render() {
+
     return (
       <Header>
 
@@ -43,9 +61,7 @@ class HeaderContent extends Component {
 
 
         <View>
-           <Button transparent onPress={() => Actions.homeNav()}>
-            <Icon active name="ios-home" />
-           </Button>
+            {this._HomeNav()}
         </View>
 
         </View>

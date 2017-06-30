@@ -45,31 +45,7 @@ class Login extends Component {
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
-
-      <Header>
-
-      <View style={{
-             flex: 1,
-             flexDirection: 'row',
-             justifyContent: 'space-between',
-           }}>
-
-            <View>
-                   <Button transparent onPress={this.props.openDrawer} >
-                              <Icon active name="menu" />
-                   </Button>
-            </View>
-
-              <Body>
-                <Image source={headerLogo} style={styles.imageHeader} />
-              </Body>
-            <View>
-
-
-            </View>
-        </View>
-
-      </Header>
+          <HeaderContent/>
 
         <Content scrollEnabled={true} bounces={false}>
             <Image source={bg} style={styles.background} >
