@@ -8,6 +8,8 @@ import { Grid, Col } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
+import HeaderContent from './../headerContent/';
+
 
 import {Agenda} from 'react-native-calendars';
 import { formatTime } from '../global.js';
@@ -97,30 +99,7 @@ console.log('listen for calendar evetns ');
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
-        <Header>
-
-        <View style={{
-               flex: 1,
-               flexDirection: 'row',
-               justifyContent: 'space-between',
-             }}>
-
-              <View>
-                 <Button transparent onPress={this.props.openDrawer} >
-                            <Icon active name="menu" />
-                 </Button>
-              </View>
-                <Body>
-                  <Image source={headerLogo} style={styles.imageHeader} />
-                </Body>
-              <View>
-                 <Button transparent onPress={() => Actions.homeNav({ type: ActionConst.RESET  })}>
-                  <Icon active name="ios-home" />
-                 </Button>
-              </View>
-          </View>
-
-        </Header>
+      <HeaderContent />
 
         <Agenda
           items={this.state.items}
