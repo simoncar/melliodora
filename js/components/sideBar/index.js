@@ -80,12 +80,7 @@ class SideBar extends Component {
             </ListItem>
 
             <View style={styles.logoutContainer}>
-            <View style={styles.logoutbtn} foregroundColor={'white'}>
-
-
-                  <Text style={styles.linkText}>v 2.0.3</Text>
-
-            </View>
+  
               <View style={styles.logoutbtn} foregroundColor={'white'}>
 
                   <Image

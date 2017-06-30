@@ -13,6 +13,24 @@ export default {
     width: null,
     height: null,
   },
+  beta: {
+    backgroundColor: '#2D80D9',
+    color: 'white',
+    alignSelf: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    textAlign: 'center',
+    borderRadius: 20,
+  },
+
+  betaButton: {
+    backgroundColor: '#2D80D9',
+    alignSelf: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    borderRadius: 0,
+  },
+
   profileInfoContainer: {
     backgroundColor: primary,
     paddingTop: 10,

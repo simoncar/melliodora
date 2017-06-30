@@ -10,6 +10,7 @@ import { Grid, Col, Row } from 'react-native-easy-grid';
 import HeaderContent from './../headerContent/';
 import { openDrawer } from '../../actions/drawer';
 import Sentry from 'sentry-expo';
+import Expo from 'expo';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
@@ -24,7 +25,7 @@ class HomeNav extends Component {
 
   render() {
 
-Sentry.captureMessage('Broken!')
+
 
     return (
       <Container>
@@ -103,6 +104,18 @@ Sentry.captureMessage('Broken!')
               </Grid>
 
             </View>
+
+
+
+          <Button style={styles.betaButton} transparent onPress={() => { Expo.Util.reload(); }}>
+
+                      <View style={styles.beta}>
+                          <Text numberOfLines={2} style={styles.beta}>
+                          BETA TEST VERSION 2.0.3 Check for an Update
+                          </Text>
+                      </View>
+          </Button>
+
             <View style={{ backgroundColor: '#fff' }}>
               <TouchableOpacity style={{ flexDirection: 'row' }} >
                 <Image source={require('../../../images/sais.edu.sg/village.jpg')} style={styles.newsImage} />
@@ -162,6 +175,8 @@ Sentry.captureMessage('Broken!')
                   </Grid>
                 </View>
               </TouchableOpacity>
+
+
 
             </View>
           </Content>

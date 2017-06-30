@@ -14,6 +14,9 @@ export default {
     borderBottomWidth: Platform.OS === 'android' ? 0 : 0,
     borderBottomColor: 'transparent',
   },
+  beta: {
+  backgroundColor: 'green',
+  },
   linkText: {
     paddingLeft: 15,
   },
@@ -24,7 +27,6 @@ export default {
     paddingTop: 5,
     paddingLeft: 20,
     flexDirection: 'row',
-
   },
   background: {
     flex: 1,
