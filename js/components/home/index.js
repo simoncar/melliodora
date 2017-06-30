@@ -26,6 +26,9 @@ const firebaseConfig = {
   storageBucket: "calendar-app-57e88.appspot.com"
 };
 
+var calendarEvents = [];
+const newItems = {};
+
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 class calendar1 extends Component {
@@ -37,7 +40,7 @@ class calendar1 extends Component {
     this.state = {
       user:null,
       loading: true,
-      newTask: "",
+      //newTask: "",
       items: {}
     };
   };
@@ -49,13 +52,11 @@ class calendar1 extends Component {
 
   listenForCalendarEvents(calendarEvents) {
     calendarEvents.on('value', (dataSnapshot) => {
-       var calendarEvents = [];
 
-       const newItems = {};
-       Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-       this.setState({
-         items: newItems
-       });
+       //Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+       //this.setState({
+      //   items: newItems
+       //});
 
       dataSnapshot.forEach((snapshot) => {
 
@@ -64,7 +65,7 @@ class calendar1 extends Component {
 
         if (!this.state.items[strtime]) {
           this.state.items[strtime] = [];
-          console.log('new day element',strtime)
+          //console.log('new day element',strtime)
         }
 
          if (undefined != this.state.items[strtime]){
@@ -82,6 +83,8 @@ class calendar1 extends Component {
                   email: snapshot.child("email").val(),
                   url: snapshot.child("htmlLink").val()
                 });
+
+                  console.log('push-',strtime,snapshot.child("summary").val() )
             }
       });
 
