@@ -10,7 +10,6 @@ import { Container,Content, Text, Item, Input, Button, Icon, Left, Right, Body, 
 
 import HeaderContent from './../headerContent/';
 
-
 import styles from './styles';
 
 import * as ActionCreators  from '../../actions'
@@ -42,9 +41,9 @@ class Login extends Component {
   }
 
   doLogin(user,password) {
-
     Actions.webportal();
   }
+
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>

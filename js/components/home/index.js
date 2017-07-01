@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Image, View, TouchableOpacity, Platform, Dimensions} from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Container, Header, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';
 
@@ -8,6 +10,9 @@ import { Container, Header, Content, Text, Button, Icon, Card, CardItem, Left, B
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
+
+import * as ActionCreators  from '../../actions'
+
 import styles from './styles';
 import HeaderContent from './../headerContent/';
 
@@ -17,6 +22,8 @@ import { formatTime } from '../global.js';
 
 const deviceWidth = Dimensions.get('window').width;
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
+
+console.log("ACfromHome=", ActionCreators);
 
 import * as firebase from 'firebase';
 
@@ -54,6 +61,12 @@ class calendar1 extends Component {
     }
 
   listenForCalendarEvents(calendarEvents) {
+
+
+  // save data to redux
+  this.props.setCalendarItems('calendarEvents')
+
+
     calendarEvents.on('value', (dataSnapshot) => {
 
        //Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
@@ -97,9 +110,10 @@ class calendar1 extends Component {
       this.setState({
         calendarEvents:calendarEvents
       });
+
+
     });
   }
-
 
     loadItems(day) {
 
@@ -123,7 +137,6 @@ class calendar1 extends Component {
 
       }, 1000);
     }
-
 
   render() {
     return (
@@ -261,14 +274,16 @@ class calendar1 extends Component {
 
 };
 
-function bindAction(dispatch) {
-  return {
-    openDrawer: () => dispatch(openDrawer()),
-  };
-}
+
+const mapDispatchToProps = (dispatch) => {
+  console.log ('bind action creators');
+  return bindActionCreators (ActionCreators, dispatch)
+};
+
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
+  calendarEvents: state.items
 });
 
-export default connect(mapStateToProps, bindAction)(calendar1);
+export default connect(mapStateToProps, mapDispatchToProps)(calendar1);

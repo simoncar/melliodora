@@ -60,7 +60,13 @@ function userReducer(state: State = initialState, action: Action): State {
       password: action.payload,
     };
   }
-
+  if (action.type === 'SET_CALENDAR_ITEMS') {
+      console.log('reducer - SET_CALENDAR_ITEMS');
+    return {
+      ...state,
+      items: action.payload,
+    };
+  }
   if (action.type === 'SET_SHARING') {
     return {
       ...state,

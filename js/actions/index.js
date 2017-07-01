@@ -31,7 +31,12 @@ export function setPassword(password) {
   };
 }
 
-
+export function setCalendarItems(items) {
+  return {
+    type: "SET_CALENDAR_ITEMS",
+    payload: items
+  };
+}
 
 export function logIn(source: ?string): ThunkAction {
   return (dispatch) => {
@@ -39,15 +44,11 @@ export function logIn(source: ?string): ThunkAction {
   };
 }
 
-
-
 export function skipLogin(): Action {
   return {
     type: 'SKIPPED_LOGIN',
   };
 }
-
-
 
 export function logOut(): ThunkAction {
   return (dispatch) => {
