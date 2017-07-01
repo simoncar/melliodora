@@ -15,10 +15,13 @@ export default {
     borderTopWidth: 1,
     borderTopColor: '#ddd',
   },
-  eventIcon: {
-    color: '#666',
-    fontSize: 20,
 
+  roundedButton: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    borderRadius: 1,
+
+    height: 30,
   },
 
   newsHeader: {
@@ -141,6 +144,7 @@ export default {
     paddingRight: 15,
     marginLeft: (Platform.OS === 'ios') ? undefined : -30,
   },
+
   rowHeader: {
     flex: 1,
     flexDirection: 'row',
@@ -158,13 +162,13 @@ export default {
       alignItems: 'center',
   },
   agendaItem:{
-    backgroundColor: 'white',
+      backgroundColor: 'white',
       flex: 1,
       borderRadius: 5,
       padding: 10,
       marginRight: 10,
       marginTop: 5,
-          alignSelf: 'stretch',
+      alignSelf: 'stretch',
   },
   emptyDate: {
       height: 15,
@@ -174,6 +178,7 @@ export default {
   agendaDate: {
     color: 'gray',
     fontSize: 12,
+      marginBottom: 5,
   },
   agendaLocation: {
     color: 'gray',

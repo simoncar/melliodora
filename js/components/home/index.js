@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Container, Header, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';
 
-import { Grid, Col } from 'react-native-easy-grid';
+
+import { Grid, Col, Row } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
@@ -158,16 +159,45 @@ class calendar1 extends Component {
 
            })
          }>
+        <View style={[styles.agendaItem, {height: item.height} ]}>
 
-        <View style={[styles.agendaItem, {height: item.height}, {backgroundColor: this.formatBackground(item.color)} ]}>
+        <Grid>
+
+         <Row>
+           <Col>
            <Text style={styles.agendaDate}>{formatTime(item.startTimePretty, item.endTimePretty)} </Text>
-           <Text style={{color: 'black'}}><Icon style={styles.eventIcon} name={item.icon} />  {item.name}</Text>
+
+           <Text style={styles.text}>{item.name}</Text>
            <Text style={styles.agendaLocation}>{item.location}</Text>
+
+           </Col>
+           <Col style={{width:50}}>
+
+             <Button style={{
+                  borderRadius: 30,
+                  backgroundColor: this.formatBackground(item.color),
+                  width: 45,
+                  height: 45,
+                  alignItems: 'center',
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                  justifyContent: "center",
+                }} >
+               <Icon style={{
+                   color: '#fff',
+                   fontSize: 20,
+               }} name={item.icon} />
+             </Button>
+           </Col>
+        </Row>
+      </Grid>
          </View>
      </TouchableOpacity>
 
     );
   }
+
+
 
   getIcon(eventDetails) {
     var ret = '';
@@ -199,11 +229,11 @@ class calendar1 extends Component {
   }
 
   formatBackground(color) {
-    var ret = 'white';
+    var ret = '#1DAEF2';
 
     switch (color) {
     case "grey":
-        ret = '#F1FAEE';
+        ret = '#64D4D2';
         break;
     case "yellow":
         ret = "#A8DADC";
@@ -212,7 +242,7 @@ class calendar1 extends Component {
         ret = "#E63946";
         break;
     case "green":
-        day = "#457B9D";
+        day = "#64D4D2";
         break;
     case "light blue":
         day = "white";
