@@ -66,11 +66,18 @@ class calendar1 extends Component {
   // save data to redux
 
 
+    //dataSnapshot
 
-    calendarEvents.on('value', (dataSnapshot) => {
+    calendarEvents.on('value', (dataSnapshot2) => {
 
 
-    this.props.setCalendarItems(dataSnapshot)
+       this.props.setCalendarItems(dataSnapshot2)
+
+       //dataSnapshot = this.state.calendarEventsX.items;
+dataSnapshot = this.props.calendarEventsX.items
+
+console.log ('write datasnapshot to redux');
+console.log('aaa=',this.props.calendarEventsX.items);
        //Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
        //this.setState({
       //   items: newItems
@@ -289,7 +296,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
-  calendarEvents: state.items
+  calendarEventsX: state.user
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(calendar1);

@@ -67,11 +67,7 @@ class Webportal extends Component {
         Actions.login();
     };
 
-
-
   }
-
-
 
   state = {
     url: DEFAULT_URL,
@@ -195,7 +191,6 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
   userX: state.user,
-  passwordX: state.password
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Webportal);
