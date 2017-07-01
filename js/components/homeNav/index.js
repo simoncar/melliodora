@@ -71,9 +71,9 @@ class HomeNav extends Component {
             <Row style={{paddingTop: 20}}>
               <Col>
                 <Button transparent style={styles.roundedButton}  onPress={() => {  }} >
-                  <Icon style={styles.icon} name="ios-book-outline" />
+                  <Icon style={styles.icon} name="ios-football-outline" />
                   </Button>
-                  <Text note style={styles.buttonLabel}>Directory</Text>
+                  <Text note style={styles.buttonLabel}>Athletics</Text>
               </Col>
 
               <Col>
