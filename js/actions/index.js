@@ -32,6 +32,7 @@ export function setPassword(password) {
 }
 
 export function setCalendarItems(items) {
+console.log('saved setCalendarItems')
   return {
     type: "SET_CALENDAR_ITEMS",
     payload: items

@@ -64,16 +64,18 @@ class calendar1 extends Component {
 
 
   // save data to redux
-  this.props.setCalendarItems('calendarEvents')
+
 
 
     calendarEvents.on('value', (dataSnapshot) => {
 
+
+    this.props.setCalendarItems(dataSnapshot)
        //Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
        //this.setState({
       //   items: newItems
        //});
-       this.state.items = [];
+      this.state.items = [];
 
       dataSnapshot.forEach((snapshot) => {
 
@@ -150,6 +152,12 @@ class calendar1 extends Component {
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
+          markedDates={
+               {'2017-07-01': [{textColor: 'green'}],
+                '2017-07-22': [{startingDay: true, color: 'green'}],
+                '2017-07-23': [{endingDay: true, color: 'green', textColor: 'gray'}],
+                '2017-07-04': [{startingDay: true, color: 'green'}, {endingDay: true, color: 'green'}]
+               }}
         />
       </Container>
     );
@@ -209,8 +217,6 @@ class calendar1 extends Component {
 
     );
   }
-
-
 
   getIcon(eventDetails) {
     var ret = '';
