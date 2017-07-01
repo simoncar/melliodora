@@ -53,12 +53,84 @@ class calendar1 extends Component {
       //newTask: "",
       items: {}
     };
+
+    //this.quickLoad();
   };
 
   componentDidMount(){
     console.log('2. component did mount ');
-      this.listenForCalendarEvents(this.calendarEvents);
+//      this.listenForCalendarEvents(this.calendarEvents);
+this.quickLoad();
     }
+
+
+quickLoad(){
+
+
+    // save data to redux
+
+
+      //dataSnapshot
+
+      console.log('ccc=',this.state.calendarEventsX.items)
+calendarEvents = this.state.calendarEventsX.items;
+      calendarEvents.on('value', (dataSnapshot) => {
+
+      //   this.props.setCalendarItems(dataSnapshot2)
+
+        // dataSnapshot = this.state.calendarEventsX.items;
+        //  dataSnapshot = dataSnapshot2
+
+          console.log('bbb=',dataSnapshot)
+         //Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+         //this.setState({
+        //   items: newItems
+         //});
+        this.state.items = [];
+
+        dataSnapshot.forEach((snapshot) => {
+
+          strtime = snapshot.child("date_start").val();
+          strtime = strtime.substring(0,10);
+
+          if (!this.state.items[strtime]) {
+            this.state.items[strtime] = [];
+            //console.log('new day element',strtime)
+          }
+
+           if (undefined != this.state.items[strtime]){
+                  this.state.items[strtime].push({
+                    name: snapshot.child("summary").val(),
+                    title: snapshot.child("summary").val(),
+                    location: snapshot.child("location").val(),
+                    startDatePretty: snapshot.child("date_start").val(),
+                    startTimePretty: snapshot.child("time_start_pretty").val(),
+                    endTimePretty: snapshot.child("time_end_pretty").val(),
+                    iconLib: snapshot.child("iconLib").val(),
+                    icon:snapshot.child("icon").val(),
+                    color: snapshot.child("colorId").val(),
+                    phone: snapshot.child("phone").val(),
+                    email: snapshot.child("email").val(),
+                    url: snapshot.child("htmlLink").val()
+                  });
+
+                    console.log('push-',i,strtime,snapshot.child("summary").val() )
+                    i = i + 1;
+
+              }
+        });
+
+        this.setState({
+          calendarEvents:calendarEvents
+        });
+
+
+      });
+
+
+
+}
+
 
   listenForCalendarEvents(calendarEvents) {
 
@@ -70,19 +142,20 @@ class calendar1 extends Component {
 
     calendarEvents.on('value', (dataSnapshot2) => {
 
-
        this.props.setCalendarItems(dataSnapshot2)
 
        //dataSnapshot = this.state.calendarEventsX.items;
-dataSnapshot = this.props.calendarEventsX.items
+        dataSnapshot = dataSnapshot2
 
-console.log ('write datasnapshot to redux');
-console.log('aaa=',this.props.calendarEventsX.items);
+        console.log ('write datasnapshot to redux');
+        console.log('aaa=',this.props.calendarEventsX.items);
+
        //Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
        //this.setState({
       //   items: newItems
        //});
       this.state.items = [];
+
 
       dataSnapshot.forEach((snapshot) => {
 
@@ -124,28 +197,28 @@ console.log('aaa=',this.props.calendarEventsX.items);
     });
   }
 
-    loadItems(day) {
+  loadItems(day) {
 
-      setTimeout(() => {
-        for (let i = -15; i < 365; i++) {
-          const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-          const strtime = this.timeToString(time);
+    setTimeout(() => {
+      for (let i = -15; i < 365; i++) {
+        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+        const strtime = this.timeToString(time);
 
-          if (!this.state.items[strtime]) {
-             this.state.items[strtime] = [];
-          }
+        if (!this.state.items[strtime]) {
+           this.state.items[strtime] = [];
         }
+      }
 
-        const newItems = {};
+      const newItems = {};
 
-        Object.keys(this.state.items).forEach(
-            key => {newItems[key] = this.state.items[key];});
-        this.setState({
-          items: newItems
-        });
+      Object.keys(this.state.items).forEach(
+          key => {newItems[key] = this.state.items[key];});
+      this.setState({
+        items: newItems
+      });
 
-      }, 1000);
-    }
+    }, 1000);
+  }
 
   render() {
     return (
