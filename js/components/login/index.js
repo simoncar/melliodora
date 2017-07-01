@@ -8,6 +8,9 @@ import { bindActionCreators } from 'redux'
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Container,Content, Text, Item, Input, Button, Icon, Left, Right, Body, Header } from 'native-base';
 
+import HeaderContent from './../headerContent/';
+
+
 import styles from './styles';
 
 import * as ActionCreators  from '../../actions'
