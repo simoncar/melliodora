@@ -14,7 +14,7 @@ export default {
     height: null,
   },
   beta: {
-    backgroundColor: '#2D80D9',
+    backgroundColor: '#707372',
     color: 'white',
     alignSelf: 'center',
     flex: 1,
@@ -23,18 +23,20 @@ export default {
     borderRadius: 20,
   },
   betaView: {
-    backgroundColor: '#2D80D9',
+    backgroundColor: '#707372',
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',
     borderRadius: 20,
+    color: '#2D80D9'
   },
   betaButton: {
-    backgroundColor: '#2D80D9',
+    backgroundColor: '#707372',
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',
     borderRadius: 0,
+    //color: '#141b4d'
   },
 
   profileInfoContainer: {
@@ -59,10 +61,12 @@ export default {
   roundedButton: {
     alignSelf: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.1)',
+    //backgroundColor: 'rgba(0,0,0,0.1)'
+    backgroundColor: '#141b4d',
     borderRadius: 30,
     width: 60,
     height: 60,
+    justifyContent: 'center',
   },
   roundedButtonCalendar: {
     alignSelf: 'center',
@@ -94,14 +98,17 @@ export default {
     paddingBottom: Platform.OS === 'android' ? 3 : 0,
   },
   buttonLabel: {
-    color: 'black',
+    color: '#707372',
     alignSelf: 'center',
     paddingTop: 10
   },
   icon: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    width: 100,
+    alignSelf: 'center',
+    marginRight: 0,
+    marginLeft: 0,
+fontWeight: 'bold',
+  fontSize: 30,
+  color:'white',
   },
   icon2: {
     fontWeight: 'bold',
