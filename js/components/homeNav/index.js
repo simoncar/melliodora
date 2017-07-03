@@ -52,7 +52,7 @@ class HomeNav extends Component {
                 <Col>
                 <Button transparent style={styles.roundedButton}  onPress={() => { Actions.contact(); }} >
                     <Icon style={styles.icon} name="ios-call-outline" />
-                    </Button>
+                  </Button>
                     <Text note style={styles.buttonLabel}>Contact</Text>
                 </Col>
                 <Col>
@@ -135,7 +135,7 @@ class HomeNav extends Component {
                                     Early Learning Village - Open Day
                                     </Text>
                   <Grid style={{ marginTop: 25 }}>
-                    <Col>
+                    <Col style={{ width: 60 }}>
                       <TouchableOpacity>
                         <Text style={styles.newsLink}>July 29</Text>
                       </TouchableOpacity>
@@ -155,7 +155,7 @@ class HomeNav extends Component {
                                       Welcome Orientation
                                     </Text>
                   <Grid style={{ marginTop: 25 }}>
-                    <Col>
+                    <Col style={{ width: 60 }}>
                       <TouchableOpacity>
                         <Text style={styles.newsLink}>Aug 10-11</Text>
                       </TouchableOpacity>
