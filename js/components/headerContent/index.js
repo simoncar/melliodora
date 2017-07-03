@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { Icon, Button, Left, Right, Body, Header } from 'native-base';
+import { Icon, Button, Left, Right, Body, Header, Text } from 'native-base';
 
 import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
@@ -21,12 +21,18 @@ class HeaderContent extends Component {
     }),
   }
 
-
   _HomeNav() {
     console.log (this.props.showHome)
     if( this.props.showHome == 'false'){
         //dont show home button
         console.log ("DO not show")
+
+        return(
+          <Button transparent style={{
+               width: 35}}>
+          </Button>
+        )
+
     } else {
         console.log ("SHOW")
       return(
