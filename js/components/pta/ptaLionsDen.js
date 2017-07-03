@@ -42,10 +42,43 @@ class ptaLionsDen extends Component {
 
               <Content showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1 }}>
-                  <View >
-                    <Image source={require('../../../images/sais.edu.sg/lionsDen.jpg')} style={styles.newsPoster}>
-                    </Image>
+                <View style={styles.wrapper}>
+                  <Swiper
+                    height={230}
+                    width={deviceWidth + 5}
+                    loop
+                    dot={<View style={styles.swiperDot} />}
+                    activeDot={<View
+                      style={styles.swiperActiveDot}
+                      showsButtons
+                    />}
+                  >
+                    <View style={styles.slide}>
+                      <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product1.jpg')} />
+                    </View>
+                    <View style={styles.slide}>
+                      <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product2.jpg')} />
+                    </View>
+                    <View style={styles.slide}>
+                      <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product3.jpg')} />
+                    </View>
+                    <View style={styles.slide}>
+                      <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product4.jpg')} />
+                    </View>
+                  </Swiper>
+                </View>
+
+
+                <View style={{ padding: 20 }}>
+                  <View style={styles.newsCommentContainer}>
+                    <Text style={styles.newsComment}>
+                        The Lion's Den Store is open Monday, Wednesday and Friday:  3:00 pm - 4:30 pm.
+
+                      </Text>
+
                   </View>
+                </View>
+
                   <View style={{ backgroundColor: '#fff' }}>
                     <View style={styles.newsContent}>
                       <Grid style={{ paddingBottom: 20 }}>
@@ -68,41 +101,8 @@ The Stamford PTA Lion's Den Store affirms the importance of promoting school spi
                       </Text>
                     </View>
 
-                    <View style={{ padding: 20 }}>
-                      <View style={styles.newsCommentContainer}>
-                        <Text style={styles.newsComment}>
-                            The Lion's Den Store is open Monday, Wednesday and Friday:  3:00 pm - 4:30 pm.
 
-                          </Text>
 
-                      </View>
-                    </View>
-
-                    <View style={styles.wrapper}>
-                      <Swiper
-                        height={230}
-                        width={deviceWidth + 5}
-                        loop
-                        dot={<View style={styles.swiperDot} />}
-                        activeDot={<View
-                          style={styles.swiperActiveDot}
-                          showsButtons
-                        />}
-                      >
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product1.jpg')} />
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product2.jpg')} />
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product3.jpg')} />
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product4.jpg')} />
-                        </View>
-                      </Swiper>
-                    </View>
 
                   </View>
                 </View>
