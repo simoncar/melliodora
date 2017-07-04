@@ -59,104 +59,90 @@ class calendar1 extends Component {
 
   componentDidMount(){
     console.log('2. component did mount ');
-//      this.listenForCalendarEvents(this.calendarEvents);
-this.quickLoad();
+      this.listenForCalendarEvents(this.calendarEvents);
+      this.quickLoad(this.calendarEvents);
     }
 
 
-quickLoad(){
+quickLoad(calendarEvents){
 
+  var obj = {
+      clothing: {
+          style: "simple",
+          hipster: false
+      }
+  }
+var i = 1;
 
-    // save data to redux
+  obj = (this.props.calendarEventsX.items)
+  this.state.items = [];
 
+  for (var key in obj) {
+    // skip loop if the property is from prototype
+    if (!obj.hasOwnProperty(key)) continue;
+    i = i + 1
+    var obj2 = obj[key];
 
-      //dataSnapshot
+        console.log('xxx',obj2["date_start"])
 
-      console.log('ccc=',this.state.calendarEventsX.items)
-calendarEvents = this.state.calendarEventsX.items;
-      calendarEvents.on('value', (dataSnapshot) => {
+        strtime = obj2["date_start"];
+        strtime = strtime.substring(0,10);
 
-      //   this.props.setCalendarItems(dataSnapshot2)
+        if (!this.state.items[strtime]) {
+          this.state.items[strtime] = [];
+          //console.log('new day element',strtime)
+        }
 
-        // dataSnapshot = this.state.calendarEventsX.items;
-        //  dataSnapshot = dataSnapshot2
+         if (undefined != this.state.items[strtime]){
+                this.state.items[strtime].push({
+                  name: obj2["summary"],
+                  title: obj2["summary"],
+                  location: obj2["location"],
+                  startDatePretty: obj2["date_start"],
+                  startTimePretty: obj2["time_start_pretty"],
+                  endTimePretty: obj2["time_end_pretty"],
+                  iconLib: obj2["iconLib"],
+                  icon:obj2["icon"],
+                  color: obj2["colorId"],
+                  phone: obj2["phone"],
+                  email: obj2["email"],
+                  url: obj2["htmlLink"]
+                });
 
-          console.log('bbb=',dataSnapshot)
-         //Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-         //this.setState({
-        //   items: newItems
-         //});
-        this.state.items = [];
+                //  console.log('push-',i,strtime,snapshot.child("summary").val() )
+                  i = i + 1;
 
-        dataSnapshot.forEach((snapshot) => {
+            }
+            this.setState({
+              calendarEvents:calendarEvents
+            });
 
-          strtime = snapshot.child("date_start").val();
-          strtime = strtime.substring(0,10);
-
-          if (!this.state.items[strtime]) {
-            this.state.items[strtime] = [];
-            //console.log('new day element',strtime)
           }
 
-           if (undefined != this.state.items[strtime]){
-                  this.state.items[strtime].push({
-                    name: snapshot.child("summary").val(),
-                    title: snapshot.child("summary").val(),
-                    location: snapshot.child("location").val(),
-                    startDatePretty: snapshot.child("date_start").val(),
-                    startTimePretty: snapshot.child("time_start_pretty").val(),
-                    endTimePretty: snapshot.child("time_end_pretty").val(),
-                    iconLib: snapshot.child("iconLib").val(),
-                    icon:snapshot.child("icon").val(),
-                    color: snapshot.child("colorId").val(),
-                    phone: snapshot.child("phone").val(),
-                    email: snapshot.child("email").val(),
-                    url: snapshot.child("htmlLink").val()
-                  });
+        dataSnapshot = [];
+        snapshot = [];
 
-                    console.log('push-',i,strtime,snapshot.child("summary").val() )
-                    i = i + 1;
+        dataSnapshot = (this.props.calendarEventsX.items);
+        var key = dataSnapshot.key;
 
-              }
-        });
+        this.state.items = [];
 
-        this.setState({
-          calendarEvents:calendarEvents
-        });
+        Object.keys(dataSnapshot).forEach((snapshot) => {
 
-
-      });
-
-
+        })
 
 }
 
 
   listenForCalendarEvents(calendarEvents) {
 
-
-  // save data to redux
-
-
-    //dataSnapshot
-
     calendarEvents.on('value', (dataSnapshot2) => {
 
        this.props.setCalendarItems(dataSnapshot2)
 
-       //dataSnapshot = this.state.calendarEventsX.items;
         dataSnapshot = dataSnapshot2
-
         console.log ('write datasnapshot to redux');
-        console.log('aaa=',this.props.calendarEventsX.items);
-
-       //Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-       //this.setState({
-      //   items: newItems
-       //});
       this.state.items = [];
-
-
       dataSnapshot.forEach((snapshot) => {
 
         strtime = snapshot.child("date_start").val();
@@ -182,9 +168,7 @@ calendarEvents = this.state.calendarEventsX.items;
                   email: snapshot.child("email").val(),
                   url: snapshot.child("htmlLink").val()
                 });
-
-                  console.log('push-',i,strtime,snapshot.child("summary").val() )
-                  i = i + 1;
+                i = i + 1;
 
             }
       });
