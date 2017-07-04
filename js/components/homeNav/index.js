@@ -41,10 +41,7 @@ class HomeNav extends Component {
           <HeaderContent
             showHome='false'
            />
-
           <Content showsVerticalScrollIndicator={false}>
-
-
             <View style={styles.linkTabs}>
               <Grid>
 

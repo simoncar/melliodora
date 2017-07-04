@@ -28,7 +28,6 @@ export default {
     flex: 1,
     flexDirection: 'row',
     borderRadius: 20,
-    color: '#2D80D9'
   },
   betaButton: {
     backgroundColor: '#707372',
