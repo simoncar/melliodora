@@ -2,10 +2,15 @@
 export function formatTime(starttime, endtime) {
   var ret = '';
 
-  if(starttime === null && typeof starttime === "object") {
+  if(starttime === null && typeof starttime === "object" ) {
     ret = ''
   } else {
-    var ret = starttime + ' - ' + endtime;
+    if (undefined != starttime){
+      var ret = starttime + ' - ' + endtime;
+  } else {
+    ret = ''
+    }
+
   }
   return (ret);
 };

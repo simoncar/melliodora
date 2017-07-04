@@ -282,7 +282,7 @@ quickLoad(calendarEvents){
         ret = '#64D4D2';
         break;
     case "yellow":
-        ret = "#A8DADC";
+        ret = "#8F63B8";
         break;
     case "red":
         ret = "#E63946";
