@@ -20,7 +20,7 @@ class HomeNav extends Component {
   constructor() {
        super()
        this.state = {
-          versionText: 'BETA VERSION [Sat 1st Jul/1] Check for an Update'
+          versionText: 'BETA VERSION [Tue 4th Jul] Check for an Update'
        }
     }
 
