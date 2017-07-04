@@ -45,7 +45,6 @@ class calendar1 extends Component {
 
   constructor(props) {
     super(props);
-    console.log('1. constructor');
 
     this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/calendar/all_v2');
 
@@ -63,46 +62,48 @@ class calendar1 extends Component {
     }
 
 quickLoad(calendarEvents){
+  //console.log('running quickload ',calendarEvents)
 
   obj = (this.props.calendarEventsX.items)
   this.state.items = [];
+  key = '';
 
   for (var key in obj) {
 
     if (!obj.hasOwnProperty(key)) continue;
 
-    var obj2 = obj[key];
+        var obj2 = obj[key];
 
-        console.log('xxx',obj2["date_start"])
+        if (undefined != obj2["date_start"]){
+            strtime = obj2["date_start"];
+            strtime = strtime.substring(0,10);
 
-        strtime = obj2["date_start"];
-        strtime = strtime.substring(0,10);
+            if (!this.state.items[strtime]) {
+              this.state.items[strtime] = [];
+            }
 
-        if (!this.state.items[strtime]) {
-          this.state.items[strtime] = [];
-        }
+             if (undefined != this.state.items[strtime]){
+                    this.state.items[strtime].push({
+                      name: obj2["summary"],
+                      title: obj2["summary"],
+                      location: obj2["location"],
+                      startDatePretty: obj2["date_start"],
+                      startTimePretty: obj2["time_start_pretty"],
+                      endTimePretty: obj2["time_end_pretty"],
+                      iconLib: obj2["iconLib"],
+                      icon:obj2["icon"],
+                      color: obj2["colorId"],
+                      phone: obj2["phone"],
+                      email: obj2["email"],
+                      url: obj2["htmlLink"]
+                    });
 
-         if (undefined != this.state.items[strtime]){
-                this.state.items[strtime].push({
-                  name: obj2["summary"],
-                  title: obj2["summary"],
-                  location: obj2["location"],
-                  startDatePretty: obj2["date_start"],
-                  startTimePretty: obj2["time_start_pretty"],
-                  endTimePretty: obj2["time_end_pretty"],
-                  iconLib: obj2["iconLib"],
-                  icon:obj2["icon"],
-                  color: obj2["colorId"],
-                  phone: obj2["phone"],
-                  email: obj2["email"],
-                  url: obj2["htmlLink"]
+                }
+                this.setState({
+                  calendarEvents:calendarEvents
                 });
 
-            }
-            this.setState({
-              calendarEvents:calendarEvents
-            });
-
+              }
           }
 }
 
@@ -139,7 +140,6 @@ quickLoad(calendarEvents){
               email: snapshot.child("email").val(),
               url: snapshot.child("htmlLink").val()
           });
-
         }
       });
 
