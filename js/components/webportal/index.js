@@ -2,11 +2,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import {  WebView, Image, View, Platform } from 'react-native';
+import {Dimensions, TouchableOpacity, WebView,ScrollView, Image, View, Platform } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
 import { Container, Header, Content, Text, Button, Icon, Left, Right, Body } from 'native-base';
-import { Grid, Col } from 'react-native-easy-grid';
+import { Grid, Col, Row } from 'react-native-easy-grid';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
@@ -19,7 +19,6 @@ import * as  ActionCreators  from '../../actions'
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
-import {getUsername, getPassword} from '../global.js'
 
 const primary = require('../../themes/variable').brandPrimary;
 
@@ -48,7 +47,7 @@ class Webportal extends Component {
     injectScript = injectScript + ';' +  'document.forms[0].submit()';
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"ff-login-personalised-logo\")[0].style.visibility = \"hidden\";';
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"global-logo\")[0].style.visibility = \"hidden\";';
-    injectScript = injectScript + ';' +  'window.postMessage(document.cookie)'
+  //  injectScript = injectScript + ';' +  'window.postMessage(document.cookie)'
 
 
     if (this.props.userX.name ) {
@@ -83,12 +82,12 @@ class Webportal extends Component {
 
   onNavigationStateChange = (webViewState: { url: string }) => {
 console.log ('webview = onNavigationStateChange');
-    const { url } = webViewState;
+    //const { url } = webViewState;
 
     // when WebView.onMessage called, there is not-http(s) url
-    if(url.includes('http')) {
-      this.setState({ webViewUrl: url })
-    }
+  //  if(url.includes('http')) {
+//      this.setState({ webViewUrl: url })
+  //  }
   }
 
   _checkNeededCookies = () => {
@@ -103,6 +102,14 @@ console.log ('webview = onNavigationStateChange');
       }
     }
   }
+
+
+   getInitialState =  () => {
+       return {
+           webViewHeight: 100 // default height, can be anything
+       }
+   }
+
 
   _onMessage = (event) => {
         console.log ('webview = _onMessage');
@@ -125,40 +132,58 @@ console.log ('     cookie = ', c);
      this._checkNeededCookies();
    }
 
+
+
+
   render() {
     return (
-      <Container>
+      <ScrollView>
         <HeaderContent />
 
-          <WebView
-              source={{uri: this.state.url}}
-               javaScriptEnabled={true}
-               onNavigationStateChange={this.onNavigationStateChange}
-               onMessage={this._onMessage}
-               domStorageEnabled={true}
-               startInLoadingState={true}
-               injectedJavaScript={injectScript}
-               ref={WEBVIEW_REF}
-             />
+ <TouchableOpacity onPress={() => Actions.login()}>
+        <View style={styles.settingsMessage} >
+          <Grid>
+          <Row>
+            <Col style={{ width: 80 }}>
+              <Button transparent style={styles.roundedButton}  onPress={() => Actions.login()} >
+                <Icon name="settings" style={styles.settingsMessageIcon} />
+              </Button>
+            </Col>
+            <Col>
+                <Text style={styles.settingsMessageText}>Setup Username and Password</Text>
+                <Text style={styles.settingsMessageText}>on settings page</Text>
+            </Col>
+         </Row>
+         </Grid>
+
+</View>
+</TouchableOpacity>
 
 
-      </Container>
+
+
+         <View  style={{height: 800}}>
+        <Text>This is above the WebView.</Text>
+        <WebView
+            source={{uri: this.state.url}}
+             javaScriptEnabled={true}
+             automaticallyAdjustContentInsets={false}
+             //onNavigationStateChange={this.onNavigationStateChange}
+             //onMessage={this._onMessage}
+             domStorageEnabled={true}
+             startInLoadingState={true}
+             injectedJavaScript={injectScript}
+             ref={WEBVIEW_REF}
+           />
+           <Text>This is below the WebView.</Text>
+        </View>
+
+  </ScrollView>
     );
   };
 
 
- getInjectScript() {
 
-  var injectScript = 'document.getElementById(\"username\").value=\"' + this.props.userX.name + '\"';
-  injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"aaa"';
-  injectScript = injectScript + ';' +  'document.forms[0].submit()';
-  //injectedJavaScript={}
-
-console.log(injectScript);
-return{
-  injectScript
-}
-};
 
   reload = () => {
      this.refs[WEBVIEW_REF].reload();

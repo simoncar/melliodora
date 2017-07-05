@@ -55,7 +55,7 @@ class Contact extends Component {
   render() {
     return (
       <Container contentOffset={this.state.offset} scrollEnabled={false} >
-  <View  style={styles.container} >
+      <View  style={styles.container} >
           <HeaderContent />
           <Content showsVerticalScrollIndicator={false}>
             <View style={styles.contentIconsContainer}>
