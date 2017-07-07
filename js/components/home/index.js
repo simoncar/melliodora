@@ -219,13 +219,15 @@ quickLoad(calendarEvents){
            <Text style={styles.agendaLocation}>{item.location}</Text>
 
            </Col>
-           <Col style={{width:50}}>
+           <Col style={{width:60}}>
 
              <Button style={{
                   borderRadius: 30,
                   backgroundColor: this.formatBackground(item.color),
                   width: 45,
                   height: 45,
+                  marginLeft: 10,
+                  marginTop: 5,
                   alignItems: 'center',
                   paddingLeft: 0,
                   paddingRight: 0,
