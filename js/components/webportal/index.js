@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import HeaderContent from './../headerContent/';
 
-
 import { openDrawer } from '../../actions/drawer';
 
 import * as  ActionCreators  from '../../actions'
@@ -159,9 +158,6 @@ console.log ('     cookie = ', c);
 </View>
 </TouchableOpacity>
 
-
-
-
          <View  style={{height: 800}}>
         <Text>This is above the WebView.</Text>
         <WebView
@@ -183,8 +179,6 @@ console.log ('     cookie = ', c);
   };
 
 
-
-
   reload = () => {
      this.refs[WEBVIEW_REF].reload();
    };
@@ -201,7 +195,6 @@ console.log ('     cookie = ', c);
       }
     };
 }
-
 
 function bindAction(dispatch) {
   return {

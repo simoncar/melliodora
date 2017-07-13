@@ -6,9 +6,12 @@ import { Permissions, Notifications } from 'expo';
 
 const PUSH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwhrlEfQhiSgcsF6AM_AlaMWxU7SsEtJ-yQpvthyQTT1jui588E/exec';
 
-export default (async function registerForPushNotificationsAsync() {
+export default (async function registerForPushNotificationsAsync(user) {
   // Android remote notification permissions are granted during the app
   // install, so this will only ask on iOS
+
+console.log('this.props.userX.name=',user);
+
   let { status } = await Permissions.askAsync(Permissions.REMOTE_NOTIFICATIONS);
 
   // Stop here if the user did not grant permissions
@@ -20,7 +23,7 @@ export default (async function registerForPushNotificationsAsync() {
   let token = await Notifications.getExponentPushTokenAsync();
 
   // POST the token to our backend so we can use it to send pushes from there
-  return fetch(PUSH_ENDPOINT + '?token=' + token, {
+  return fetch(PUSH_ENDPOINT + '?token=' + token + '&user=' + user, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
