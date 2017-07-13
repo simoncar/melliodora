@@ -21,6 +21,10 @@
     },
 
 
+    "notification": {
+      "icon": "./resources/0001_sais.edu.sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
+      "color": "#000000"
+    },
 
     "loading": {
         "hideExponentText": true,
