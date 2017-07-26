@@ -93,7 +93,7 @@ class Contact extends Component {
                   <Text style={styles.feedbackHead}>Locations: </Text>
                   <Text style={styles.feedbackHead}>Franklin Ground Floor, by Stamford Yard </Text>
                   <Text style={styles.feedbackHead}>Lincoln, Level 1, next to Jefferson Pool</Text>
-                    <Text style={styles.feedbackHead}>Hours: 8 am to 5 pm</Text>
+                  <Text style={styles.feedbackHead}>Hours: 8 am to 5 pm</Text>
               </Col>
            </Row>
 
