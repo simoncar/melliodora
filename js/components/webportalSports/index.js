@@ -63,24 +63,34 @@ class WebportalSports extends Component {
 
 
   render() {
-
+    var source =  {uri: 'http://google.com'};
     return (
-      <ScrollView>
-        <HeaderContent />
-         <View  style={{height: 800}}>
-        <WebView
-            source={{uri: this.state.url}}
-             javaScriptEnabled={true}
-             automaticallyAdjustContentInsets={false}
-             //onNavigationStateChange={this.onNavigationStateChange}
-             //onMessage={this._onMessage}
-             domStorageEnabled={true}
-             startInLoadingState={true}
-             injectedJavaScript={injectScript}
-             ref={WEBVIEW_REF}
-           />
-</View>
-  </ScrollView>
+      <View style={{ flex:1}}>
+      <HeaderContent />
+
+
+
+               <View style={{flex:1}}>
+
+               <WebView
+                   source={{uri: this.state.url}}
+                    javaScriptEnabled={true}
+                    automaticallyAdjustContentInsets={false}
+                    //onNavigationStateChange={this.onNavigationStateChange}
+                    //onMessage={this._onMessage}
+                    domStorageEnabled={true}
+                    startInLoadingState={true}
+                    injectedJavaScript={injectScript}
+                    ref={WEBVIEW_REF}
+                    style={{}}
+                  />
+
+
+               </View>
+
+
+
+  </View>
     );
   };
 
