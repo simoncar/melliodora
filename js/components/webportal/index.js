@@ -27,6 +27,8 @@ const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
 var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
+var DEFAULT_URL = 'http://www.stamfordlionsathletics.com/';
+
 
 var injectScript  = '';
 

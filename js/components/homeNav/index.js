@@ -21,7 +21,7 @@ class HomeNav extends Component {
   constructor() {
        super()
        this.state = {
-          versionText: 'BETA VERSION [Sun 23th Jul] Check for an Update'
+          versionText: 'BETA VERSION [Wed 26th Jul] Check for an Update'
        }
     }
 
@@ -68,7 +68,7 @@ class HomeNav extends Component {
             </Row>
             <Row style={{paddingTop: 20}}>
               <Col>
-                <Button transparent style={styles.roundedButton}  onPress={() => {  }} >
+              <Button transparent style={styles.roundedButton}  onPress={() => { Actions.webportalSports(); }} >
                   <Icon style={styles.icon} name="ios-football-outline" />
                   </Button>
                   <Text note style={styles.buttonLabel}>Athletics</Text>
@@ -120,7 +120,7 @@ class HomeNav extends Component {
 
                       <View style={styles.betaView}>
                           <Text numberOfLines={2} style={styles.beta}>
- {this.state.versionText}
+                              {this.state.versionText}
                           </Text>
                       </View>
           </Button>
