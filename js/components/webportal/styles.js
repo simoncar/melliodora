@@ -12,7 +12,6 @@ export default {
     paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    color: 'red',
     backgroundColor: 'blue',
   },
   settingsMessageText: {

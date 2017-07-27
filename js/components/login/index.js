@@ -12,8 +12,8 @@ import HeaderContent from './../headerContent/';
 
 import styles from './styles';
 
-import * as ActionCreators  from '../../actions'
-//import * as openDrawer  from '../../actions/drawer';
+import * as ActionCreators  from '../../actions';
+
 console.log("ACfromLogin=", ActionCreators);
 
 var { skipLogin } = require('../../actions');
@@ -35,9 +35,6 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
-    this.constructor.childContextTypes = {
-      theme: PropTypes.object,
-    };
   }
 
   doLogin(user,password) {
@@ -107,7 +104,6 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  console.log ('bind action creators');
   return bindActionCreators (ActionCreators, dispatch)
 };
 
