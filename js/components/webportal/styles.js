@@ -13,6 +13,7 @@ export default {
     paddingLeft: 10,
     paddingRight: 10,
     backgroundColor: 'blue',
+    height: 100
   },
   settingsMessageText: {
     fontSize: 22,

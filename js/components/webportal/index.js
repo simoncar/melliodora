@@ -251,13 +251,13 @@ console.log ('webview = onNavigationStateChange');
     const combinedStyle = [containerStyle, style];
 
     return (
-      <ScrollView>
+      <View style={{ flex:1}}>
         <HeaderContent />
 
    {this._renderCancel()}
 
-            <View style={{ flex:1}}>
-        <Text>This is above the WebView.</Text>
+            <View style={{ flex:2}}>
+
         <WebView
             source={{uri: this.state.url}}
              javaScriptEnabled={true}
@@ -269,10 +269,10 @@ console.log ('webview = onNavigationStateChange');
              injectedJavaScript={injectScript}
              ref={WEBVIEW_REF}
            />
-           <Text>This is below the WebView.</Text>
+
         </View>
 
-  </ScrollView>
+  </View>
     );
   };
 
