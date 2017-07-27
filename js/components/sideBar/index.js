@@ -51,12 +51,7 @@ class SideBar extends Component {
                     <Text style={styles.linkText} >DIRECTORY</Text>
                 </ListItem>
 
-            <ListItem button onPress={() => { Actions.newsletter(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                <Icon name="ios-paper-outline" />
-                <Text style={styles.linkText} >NEWSLETTERS</Text>
-            </ListItem>
-
-
+        
               <ListItem button onPress={() => { Actions.ptaHome(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                   <Icon name="ios-people-outline" />
                   <Text style={styles.linkText} >PTA</Text>

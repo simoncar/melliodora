@@ -27,7 +27,6 @@ const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
 var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
-var DEFAULT_URL = 'http://www.stamfordlionsathletics.com/';
 
 
 var injectScript  = '';
@@ -94,7 +93,7 @@ class Webportal extends Component {
 
   showMsg() {
     this.setState({showMsg: true}, () => timer.setTimeout(
-      this, 'hideMsg', () => this.setState({showMsg: false}), 2000
+      this, 'hideMsg', () => this.setState({showMsg: false}), 5000
     ));
   }
 
@@ -247,7 +246,7 @@ console.log ('webview = onNavigationStateChange');
 
    {this._renderCancel()}
 
-         <View  style={{height: 800}}>
+            <View style={{ flex:1}}>
         <Text>This is above the WebView.</Text>
         <WebView
             source={{uri: this.state.url}}

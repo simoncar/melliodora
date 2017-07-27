@@ -75,10 +75,10 @@ class HomeNav extends Component {
               </Col>
 
               <Col>
-                <Button transparent style={styles.roundedButton}  onPress={() => { Actions.newsletter(); }} >
-                  <Icon style={styles.icon} name="ios-paper-outline" />
+                <Button transparent style={styles.roundedButton}  onPress={() => { Actions.ptaHome(); }} >
+                  <Icon style={styles.icon} name="ios-people-outline" />
                   </Button>
-                  <Text note style={styles.buttonLabel}>Newsletters</Text>
+                  <Text note style={styles.buttonLabel}>PTA</Text>
               </Col>
 
               <Col>
@@ -91,17 +91,15 @@ class HomeNav extends Component {
             </Row>
             <Row style={{paddingTop: 20, paddingBottom: 20}}>
 
-                <Col>
-                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.ptaHome(); }} >
-                    <Icon style={styles.icon} name="ios-people-outline" />
-                    </Button>
-                    <Text note style={styles.buttonLabel}>PTA</Text>
-                </Col>
+
                 <Col>
                   <Button transparent style={styles.roundedButton}  onPress={() => { Actions.ptaLionsDen(); }} >
                     <Icon style={styles.icon} name="ios-basket-outline" />
                     </Button>
                     <Text note style={styles.buttonLabel}>Lions Den</Text>
+                </Col>
+                <Col>
+
                 </Col>
                 <Col>
 
