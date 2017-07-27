@@ -41,6 +41,10 @@ class Webportal extends Component {
     }),
   }
 
+
+
+
+
   constructor(props) {
     super(props);
 
@@ -52,23 +56,8 @@ class Webportal extends Component {
   //  injectScript = injectScript + ';' +  'window.postMessage(document.cookie)'
 
 
-    if (this.props.userX.name ) {
-      //we have a value, good
-
-    } else {
-      //nothing :-(
-        Actions.login();
-    };
-
-    if (this.props.userX.password ) {
-      //we have a value, good
-
-    } else {
-      //nothing :-(
-        Actions.login();
-    };
-
   }
+
 
 
 
@@ -109,6 +98,27 @@ console.log ('webview = onNavigationStateChange');
 
 
   componentWillMount() {
+
+
+
+
+        if (this.props.userX.name ) {
+          //we have a value, good
+
+        } else {
+          //nothing :-(
+            Actions.login();
+        };
+
+        if (this.props.userX.password ) {
+          //we have a value, good
+
+        } else {
+          //nothing :-(
+            Actions.login();
+        };
+
+
     this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
 
     this.setState({showMsg: true}, () => timer.setTimeout(
