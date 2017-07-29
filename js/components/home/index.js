@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux'
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Container, Header, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';
 
-
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
@@ -175,7 +174,7 @@ quickLoad(calendarEvents){
 
   render() {
     return (
-      <Container style={{ backgroundColor: '#fff' }}>
+      <Container>
       <HeaderContent />
 
         <Agenda
@@ -185,6 +184,23 @@ quickLoad(calendarEvents){
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
+
+
+
+          hideKnob={false}
+
+            // agenda theme
+            theme = {{
+            //  calendarBackground: 'red'
+          //    agendaDayTextColor : 'blue',
+          //    agendaDayNumColor : 'blue',
+          //    agendaTodayColor : 'red'
+            }}
+            // agenda container style
+            style = {{}}
+
+
+
         />
       </Container>
     );

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity,  Dimensions,  Platform, Slider  } from 'react-native';
+import { Linking, Image, View, TouchableOpacity,  Dimensions,  Platform, Slider  } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
@@ -34,7 +34,16 @@ class ptaHome extends Component {
 
   }
 
+  _handleOpenWithLinking = (sURL) => {
+    Linking.openURL(sURL);
+  }
+
+
+
   render() {
+
+
+
     return (
 
       <Container style={{ backgroundColor: '#fff' }}>
@@ -48,24 +57,24 @@ class ptaHome extends Component {
                   </View>
                   <View style={{ backgroundColor: '#fff' }}>
                     <View style={styles.newsContent}>
-                      <Grid style={{ paddingBottom: 20 }}>
-                        <Col style={{ flexDirection: 'row' }}>
-                          <TouchableOpacity>
-                            <Text style={styles.newsLink}>PTA</Text>
-                          </TouchableOpacity>
-                          <Icon name="ios-time-outline" style={styles.timeIcon} />
-                          <Text style={styles.newsLink}></Text>
-                        </Col>
-                        <Col>
-                          <TouchableOpacity style={styles.newsTypeView}>
-                            <Text style={styles.newsTypeText}></Text>
-                          </TouchableOpacity>
-                        </Col>
-                      </Grid>
+                          <Grid style={{ paddingBottom: 20 }}>
+                            <Col style={{ flexDirection: 'row' }}>
+                              <TouchableOpacity>
+                                <Text style={styles.newsLink}>PTA</Text>
+                              </TouchableOpacity>
+                              <Icon name="ios-time-outline" style={styles.timeIcon} />
+                              <Text style={styles.newsLink}></Text>
+                            </Col>
+                            <Col>
+                              <TouchableOpacity style={styles.newsTypeView}>
+                                <Text style={styles.newsTypeText}></Text>
+                              </TouchableOpacity>
+                            </Col>
+                          </Grid>
                       <Text style={styles.newsHeader}>
-STAMFORD PTA organises many exciting free events and activities throughout the year such as our famous International Fiesta, Halloween and Christmas celebrations. We support and co-ordinate charity events including student led charities and we manage the Lions Den store, PTA Parent Connection social groups and PTA Country Ambassadors.
+                          STAMFORD PTA organises many exciting free events and activities throughout the year such as our famous International Fiesta, Halloween and Christmas celebrations. We support and co-ordinate charity events including student led charities and we manage the Lions Den store, PTA Parent Connection social groups and PTA Country Ambassadors.
                       </Text>
-                    </View>
+
 
                     <View style={{ padding: 20 }}>
                       <View style={styles.newsCommentContainer}>
@@ -75,6 +84,51 @@ STAMFORD PTA organises many exciting free events and activities throughout the y
 
                       </View>
                     </View>
+
+
+                    <Text style={styles.newsHeader}>
+                    Here are some connection groups to get you started
+                    </Text>
+
+
+
+                  <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                     <View style={{ padding: 20 }}>
+                       <View style={styles.connectionCommentContainer}>
+                         <Text style={styles.connectionComment}>
+                           IDEAS @Stamford
+                           </Text>
+                       </View>
+                     </View>
+                  </TouchableOpacity>
+
+                   <View style={{ padding: 20 }}>
+                     <View style={styles.connectionCommentContainer}>
+                       <Text style={styles.connectionComment}>
+                         Get Fit - SAIS
+                         </Text>
+                     </View>
+                   </View>
+
+
+
+                   <View style={{ padding: 20 }}>
+                     <View style={styles.connectionCommentContainer}>
+                       <Text style={styles.connectionComment}>
+                         SAIS Book Club
+                         </Text>
+
+                     </View>
+                   </View>
+
+  </View>
+
+                    <Button
+                            title="Open URL with ReactNative.Linking"
+                            onPress={this._handleOpenWithLinking}
+                            style={styles.button}
+                          />
+
 
                     <View style={styles.wrapper}>
                       <Swiper

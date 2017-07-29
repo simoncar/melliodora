@@ -38,6 +38,19 @@ export default {
     fontWeight: '500',
     fontSize: 14,
   },
+  connectionCommentContainer: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginBottom: 10,
+    borderLeftWidth: 2,
+    borderLeftColor: '#27305E',
+  },
+  connectionComment: {
+    color: '#27305E',
+    fontWeight: '500',
+    fontSize: 14,
+  },
+
   newsLink: {
     color: '#666',
     fontSize: 12,
