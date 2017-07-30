@@ -1,6 +1,8 @@
 const React = require('react-native');
 
-const { Dimensions, Platform } = React;
+const {
+  Dimensions, Platform
+} = React;
 
 const primary = require('../../themes/variable').brandPrimary;
 
@@ -12,14 +14,25 @@ export default {
     paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    backgroundColor: 'blue',
-    height: 100
+    backgroundColor: '#172245',
+    height: 800,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   settingsMessageText: {
     fontSize: 22,
     paddingBottom: 10,
+    paddingTop: 60,
     color: 'white'
   },
+  settingsMessageTextLogin: {
+    fontSize: 22,
+    paddingBottom: 10,
+    paddingTop: 100,
+    color: 'white',
+    textAlign: 'center'
+  },
+
   settingsMessageIcon: {
     fontSize: 30,
     width: 30,

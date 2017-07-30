@@ -1,6 +1,8 @@
 const React = require('react-native');
 
-const { Dimensions, Platform } = React;
+const {
+  Dimensions, Platform
+} = React;
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -133,7 +135,7 @@ export default {
     alignSelf: 'center',
   },
   text: {
-    fontSize: 15,
+    fontSize: 18,
     color: '#000',
     marginBottom: 10,
   },
@@ -159,26 +161,26 @@ export default {
     resizeMode: 'contain',
 
     justifyContent: 'center',
-      alignItems: 'center',
+    alignItems: 'center',
   },
-  agendaItem:{
-      backgroundColor: 'white',
-      flex: 1,
-      borderRadius: 5,
-      padding: 10,
-      marginRight: 10,
-      marginTop: 5,
-      alignSelf: 'stretch',
+  agendaItem: {
+    backgroundColor: 'white',
+    flex: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 10,
+    marginTop: 5,
+    alignSelf: 'stretch',
   },
   emptyDate: {
-      height: 15,
-      flex:1,
-      paddingTop: 30
-    },
+    height: 15,
+    flex: 1,
+    paddingTop: 30
+  },
   agendaDate: {
     color: 'gray',
     fontSize: 12,
-      marginBottom: 5,
+    marginBottom: 5,
   },
   agendaLocation: {
     color: 'gray',
