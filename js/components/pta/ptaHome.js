@@ -121,6 +121,118 @@ class ptaHome extends Component {
                      </View>
                    </View>
 
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                      <View style={{ padding: 20 }}>
+                        <View style={styles.connectionCommentContainer}>
+                          <Text style={styles.connectionComment}>
+                            Happy Hour
+                            </Text>
+                        </View>
+                      </View>
+                   </TouchableOpacity>
+
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                      <View style={{ padding: 20 }}>
+                        <View style={styles.connectionCommentContainer}>
+                          <Text style={styles.connectionComment}>
+                            Foodies Dinner Group
+                            </Text>
+                        </View>
+                      </View>
+                   </TouchableOpacity>
+
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                      <View style={{ padding: 20 }}>
+                        <View style={styles.connectionCommentContainer}>
+                          <Text style={styles.connectionComment}>
+                            Eco @Stamford
+                            </Text>
+                        </View>
+                      </View>
+                   </TouchableOpacity>
+
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                      <View style={{ padding: 20 }}>
+                        <View style={styles.connectionCommentContainer}>
+                          <Text style={styles.connectionComment}>
+                            Lunch Bunch
+                            </Text>
+                        </View>
+                      </View>
+                   </TouchableOpacity>
+
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                      <View style={{ padding: 20 }}>
+                        <View style={styles.connectionCommentContainer}>
+                          <Text style={styles.connectionComment}>
+                            Christian Parents
+                            </Text>
+                        </View>
+                      </View>
+                   </TouchableOpacity>
+
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                      <View style={{ padding: 20 }}>
+                        <View style={styles.connectionCommentContainer}>
+                          <Text style={styles.connectionComment}>
+                            Running Group
+                            </Text>
+                        </View>
+                      </View>
+                   </TouchableOpacity>
+
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                      <View style={{ padding: 20 }}>
+                        <View style={styles.connectionCommentContainer}>
+                          <Text style={styles.connectionComment}>
+                          Guys Group
+                            </Text>
+                        </View>
+                      </View>
+                   </TouchableOpacity>
+
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                      <View style={{ padding: 20 }}>
+                        <View style={styles.connectionCommentContainer}>
+                          <Text style={styles.connectionComment}>
+                            Allergy Support Group
+                            </Text>
+                        </View>
+                      </View>
+                   </TouchableOpacity>
+
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                      <View style={{ padding: 20 }}>
+                        <View style={styles.connectionCommentContainer}>
+                          <Text style={styles.connectionComment}>
+                            Friends of the Arts
+                            </Text>
+                        </View>
+                      </View>
+                   </TouchableOpacity>
+
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                      <View style={{ padding: 20 }}>
+                        <View style={styles.connectionCommentContainer}>
+                          <Text style={styles.connectionComment}>
+                            Singapore Celiacs & Gluten Intolerance Support Group
+                            </Text>
+                        </View>
+                      </View>
+                   </TouchableOpacity>
+
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                      <View style={{ padding: 20 }}>
+                        <View style={styles.connectionCommentContainer}>
+                          <Text style={styles.connectionComment}>
+                            Boy SCouts
+                            </Text>
+                        </View>
+                      </View>
+                   </TouchableOpacity>
+
+                   
+
   </View>
 
                     <Button
