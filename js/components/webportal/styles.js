@@ -14,7 +14,7 @@ export default {
     paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    backgroundColor: '#172245',
+    backgroundColor: 'white',
     height: 800,
     justifyContent: 'center',
     alignItems: 'center'

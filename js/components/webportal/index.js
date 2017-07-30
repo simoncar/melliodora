@@ -196,7 +196,7 @@ console.log ('webview = onNavigationStateChange');
                <View style={styles.settingsMessage} >
                  <View style={{flex: 1}} />
                  <View style={{flex: 2}}>
-                        <Spinner color='white' />
+                        <Spinner color='#172245' />
                  </View>
 
                 <View style={{flex: 3}} />
