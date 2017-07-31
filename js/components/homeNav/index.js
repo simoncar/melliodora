@@ -88,23 +88,6 @@ class HomeNav extends Component {
               </Col>
 
             </Row>
-            <Row style={{paddingTop: 20, paddingBottom: 20}}>
-
-
-                <Col>
-                  <Button transparent style={styles.roundedButton}  onPress={() => { Actions.ptaLionsDen(); }} >
-                    <Icon style={styles.icon} name="ios-basket-outline" />
-                    </Button>
-                    <Text note style={styles.buttonLabel}>Lions Den</Text>
-                </Col>
-                <Col>
-
-                </Col>
-                <Col>
-
-                </Col>
-
-            </Row>
 
 
               </Grid>
