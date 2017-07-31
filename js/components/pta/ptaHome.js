@@ -100,9 +100,9 @@ class ptaHome extends Component {
                            </Text>
                        </View>
                      </View>
-                  </TouchableOpacity>
 
-                   <View style={{ padding: 20 }}>
+                  </TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/groups/401844986678923/'); }}>
+                    <View style={{ padding: 20 }}>
                      <View style={styles.connectionCommentContainer}>
                        <Text style={styles.connectionComment}>
                          Get Fit - SAIS
@@ -111,7 +111,7 @@ class ptaHome extends Component {
                    </View>
 
 
-
+                 </TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/groups/1489742554597109/'); }}>
                    <View style={{ padding: 20 }}>
                      <View style={styles.connectionCommentContainer}>
                        <Text style={styles.connectionComment}>
@@ -121,7 +121,7 @@ class ptaHome extends Component {
                      </View>
                    </View>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/groups/731082750353857/'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -131,7 +131,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/SAIS-Foodie-dinner-1101465009977057/'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -141,7 +141,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/groups/941124889269509/'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -151,7 +151,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/groups/643445295733621/'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -161,7 +161,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/groups/1812985142287583/?fref=mentions'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -171,7 +171,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/groups/401844986678923/?ref=br_rs'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -181,7 +181,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/groups/stamford.guys.group/'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -191,7 +191,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/groups/195961620502019/'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -201,7 +201,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/groups/StamfordPTAParentGroup/?fref=nf'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -211,7 +211,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/groups/SingaporeCeliacs/'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -221,17 +221,17 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://www.facebook.com/BSATroopX/'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
-                            Boy SCouts
+                            Boy Scouts
                             </Text>
                         </View>
                       </View>
                    </TouchableOpacity>
 
-                   
+
 
   </View>
 
