@@ -100,6 +100,7 @@ class ptaHome extends Component {
                            </Text>
                        </View>
                      </View>
+                  </TouchableOpacity>
 
                   </TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/401844986678923'); }}>
                     <View style={{ padding: 20 }}>
@@ -109,7 +110,7 @@ class ptaHome extends Component {
                          </Text>
                      </View>
                    </View>
-
+                  </TouchableOpacity>
 
                  </TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1489742554597109'); }}>
                    <View style={{ padding: 20 }}>
@@ -120,6 +121,7 @@ class ptaHome extends Component {
 
                      </View>
                    </View>
+                      </TouchableOpacity>
 
                    <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/731082750353857'); }}>
                       <View style={{ padding: 20 }}>
