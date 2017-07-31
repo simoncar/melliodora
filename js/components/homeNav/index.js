@@ -65,7 +65,7 @@ class HomeNav extends Component {
                     <Text note style={styles.buttonLabel}>myStamford</Text>
                 </Col>
             </Row>
-            <Row style={{paddingTop: 20}}>
+            <Row style={{paddingTop: 20, paddingBottom: 20}}>
               <Col>
               <Button transparent style={styles.roundedButton}  onPress={() => { Actions.webportalSports(); }} >
                   <Icon style={styles.icon} name="ios-football-outline" />
