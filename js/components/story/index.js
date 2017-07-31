@@ -75,6 +75,21 @@ _email() {
 }
 
 
+
+_formatWeb(sURL) {
+
+  if (sURL.length > 0) {
+    return(
+      <WebView
+             source={{uri: 'https://github.com/facebook/react-native'}}
+              javaScriptEnabled={true}
+            />
+    )
+  }
+
+}
+
+
   render() {
 
 
@@ -100,47 +115,92 @@ _email() {
 
           </Header>
 
-          <Content showsVerticalScrollIndicator={false}>
-            <View style={{ flex: 1 }}>
-              <View style={{ backgroundColor: '#fff' }}>
-                <View style={styles.newsContent}>
-                      <TouchableOpacity>
-                        <Text style={styles.eventTitle}>{this.props.eventTitle}</Text>
-                      </TouchableOpacity>
-
-                      <TouchableOpacity style={styles.newsTypeView}>
-                      <Text style={styles.newsTypeText}></Text>
-
-                        <Text style={styles.newsTypeText}>{this.props.location}</Text>
-                      </TouchableOpacity>
-                </View>
-
-                <View style={{ padding: 20 }}>
-                  <View>
-                  <Text style={styles.eventTitle}>
-                   {"\n"}
-                </Text>
-                    <Button transparent onPress={() => this._callPhone()} >
-
-                  </Button>
-
-                  <Button transparent onPress={() => this._email()} >
-
-                </Button>
+                    <Content showsVerticalScrollIndicator={false}>
+                      <View style={{ flex: 1 }}>
+                        <View style={{ backgroundColor: '#fff' }}>
+                          <View style={styles.newsContent}>
+                                <TouchableOpacity>
+                                  <Text style={styles.eventTitle}></Text>
+                                </TouchableOpacity>
 
 
-                <Text style={styles.eventTitle}>
+                                <TouchableOpacity>
+                       <Text style={styles.eventTitle}>{this.props.eventTitle}</Text>
+                     </TouchableOpacity>
 
 
-              </Text>
+                                <TouchableOpacity style={styles.newsTypeView}>
+                                <Text style={styles.newsTypeText}></Text>
+
+                                  <Text style={styles.newsTypeText}></Text>
+                                </TouchableOpacity>
 
 
-                  </View>
-                </View>
+                          </View>
 
-              </View>
-            </View>
-          </Content>
+                          <View style={{ padding: 20 }}>
+                            <View>
+                            <Text style={styles.eventTitle}>
+                             {"\n"}
+                          </Text>
+
+
+                                    <Text style={styles.eventTitle}>
+                                    <Icon active name="ios-call" style={styles.eventTitle} />
+                                  </Text>
+
+
+
+                                  <Text style={styles.eventTitle}>
+                                  <Icon active name="md-mail" style={styles.eventTitle} />
+                                </Text>
+
+
+                            <Text style={styles.eventTitle}>
+
+                          </Text>
+                          <Text style={styles.eventTitle}>
+
+                        </Text>
+
+
+                                                    <Text style={styles.eventTitle}>
+                                                        {this.props.eventDate}
+                                                  </Text>
+                                                  <Text style={styles.eventTitle}>
+                                                          {this.props.eventStartTime}
+                                                </Text>
+                                                <Text style={styles.eventTitle}>
+                                                        {this.props.eventEndTime}
+                                              </Text>
+                                              <Text style={styles.eventTitle}>
+                                                      {this.props.location}
+                                            </Text>
+                                            <Text style={styles.eventTitle}>
+                                                    {this.props.eventImage}
+                                          </Text>
+                                          <Text style={styles.eventTitle}>
+                                                  {this.props.phone}
+                                        </Text>
+                                        <Text style={styles.eventTitle}>
+                                                {this.props.email}
+                                      </Text>
+                                      <Text style={styles.eventTitle}>
+                                              {this.props.color}
+                                    </Text>
+                                    <Text style={styles.eventTitle}>
+                                            {this.props.url}
+                                  </Text>
+
+
+                            </View>
+                          </View>
+
+                        </View>
+                      </View>
+                    </Content>
+
+
 
 
 
@@ -149,9 +209,6 @@ _email() {
     );
   }
 }
-
-
-
 
 function bindAction(dispatch) {
   return {

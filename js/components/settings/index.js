@@ -56,9 +56,7 @@ class Settings extends Component {
       },
     };
 
-    this.constructor.childContextTypes = {
-      theme: PropTypes.object,
-    };
+  
   }
 
 

@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import {TouchableHighlight,Animated, Dimensions, TouchableOpacity, WebView,ScrollView, Image, View, Platform } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
-import { Container, Header, Content, Text, Button, Icon, Left, Right, Body } from 'native-base';
+import { Container, Header, Content, Text, Button, Icon, Left, Right, Body, Spinner } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 
 import { connect } from 'react-redux';
@@ -122,7 +122,7 @@ console.log ('webview = onNavigationStateChange');
     this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
 
     this.setState({showMsg: true}, () => timer.setTimeout(
-      this, 'hideMsg', () => this.setState({showMsg: false}), 5000
+      this, 'hideMsg', () => this.setState({showMsg: false}), 10000
     ));
 
   }
@@ -133,7 +133,7 @@ console.log ('webview = onNavigationStateChange');
     }
     Animated.timing(this._visibility, {
       toValue: nextProps.visible ? 1 : 0,
-      duration: 300,
+      duration: 1200,
     }).start(() => {
       this.setState({ visible: nextProps.visible });
     });
@@ -194,20 +194,13 @@ console.log ('webview = onNavigationStateChange');
            return (
               <TouchableOpacity onPress={() => Actions.login()}>
                <View style={styles.settingsMessage} >
+                 <View style={{flex: 1}} />
+                 <View style={{flex: 2}}>
+                        <Spinner color='#172245' />
+                 </View>
 
-                      <Grid>
-                      <Row>
-                        <Col style={{ width: 80 }}>
-                          <Button transparent style={styles.roundedButton}  onPress={() => Actions.login()} >
-                            <Icon name="settings" style={styles.settingsMessageIcon} />
-                          </Button>
-                        </Col>
-                        <Col>
-                            <Text style={styles.settingsMessageText}>Setup Username and Password</Text>
-                            <Text style={styles.settingsMessageText}>Logging in....</Text>
-                            </Col>
-                     </Row>
-                     </Grid>
+                <View style={{flex: 3}} />
+
               </View>
                </TouchableOpacity>
            );

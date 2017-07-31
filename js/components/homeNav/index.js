@@ -17,11 +17,10 @@ import styles from './styles';
 
 class HomeNav extends Component {
 
-
   constructor() {
        super()
        this.state = {
-          versionText: 'BETA VERSION [Thu 27th Jul] Check for an Update'
+          versionText: 'BETA VERSION [Sun 30th Jul] Check for an Update'
        }
     }
 
