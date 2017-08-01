@@ -42,25 +42,17 @@ class SideBar extends Component {
 
             <ListItem button onPress={() => { Actions.webportal(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                 <Icon name="ios-grid" />
-                <Text style={styles.linkText}>myStamford</Text>
+                <Text style={styles.linkText}>MYSTAMFORD</Text>
             </ListItem>
 
+            <ListItem button onPress={() => { Actions.webportal(); this.props.webportalSports(); }} iconLeft style={styles.links} >
+                <Icon name="ios-football-outline" />
+                <Text style={styles.linkText}>ATHLETICS</Text>
+            </ListItem>
 
-                <ListItem button onPress={() => {  this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                    <Icon name="ios-book-outline" />
-                    <Text style={styles.linkText} >DIRECTORY</Text>
-                </ListItem>
-
-        
               <ListItem button onPress={() => { Actions.ptaHome(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                   <Icon name="ios-people-outline" />
                   <Text style={styles.linkText} >PTA</Text>
-              </ListItem>
-
-
-              <ListItem button onPress={() => { Actions.ptaLionsDen(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                  <Icon name="ios-basket-outline" />
-                  <Text style={styles.linkText} >LIONS DEN</Text>
               </ListItem>
 
 
