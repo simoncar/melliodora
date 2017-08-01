@@ -97,11 +97,12 @@ class HomeNav extends Component {
 
 
 
-            <View style={{ backgroundColor: '#fff' }}>
+            <View style={styles.newsContentLine}>
+
 
               <TouchableOpacity style={{ flexDirection: 'row' }}>
                 <Image source={require('../../../images/sais.edu.sg/orientation.jpg')} style={styles.newsImage} />
-                <View style={styles.newsContent}>
+                <View style={styles.newsContentNoLine}>
                   <Text numberOfLines={2} style={styles.newsHeader}>
                                       Welcome Orientation
                                     </Text>

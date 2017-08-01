@@ -117,6 +117,13 @@ fontWeight: 'bold',
   newsImage: {
     width: 120,
     height: 120,
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+
+  },
+  newsContentLine: {
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
   },
   newsContent: {
     flexDirection: 'column',
@@ -126,6 +133,14 @@ fontWeight: 'bold',
     flex: 1,
     borderTopWidth: 1,
     borderTopColor: '#ddd',
+  },
+  newsContentNoLine: {
+    flexDirection: 'column',
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    flex: 1,
+
   },
   newsHeader: {
     color: '#444',
