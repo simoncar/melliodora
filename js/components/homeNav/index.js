@@ -20,7 +20,7 @@ class HomeNav extends Component {
   constructor() {
        super()
        this.state = {
-          versionText: 'BETA VERSION [Sun 30th Jul] Check for an Update'
+          versionText: 'Version Aug.1.2017 - Check for an Update'
        }
     }
 
@@ -45,7 +45,7 @@ class HomeNav extends Component {
             <View style={styles.linkTabs}>
               <Grid>
 
-              <Row style={{paddingTop: 20}}>
+              <Row style={{paddingTop: 40}}>
                 <Col>
                 <Button transparent style={styles.roundedButton}  onPress={() => { Actions.contact(); }} >
                     <Icon style={styles.icon} name="ios-call-outline" />
@@ -65,7 +65,7 @@ class HomeNav extends Component {
                     <Text note style={styles.buttonLabel}>myStamford</Text>
                 </Col>
             </Row>
-            <Row style={{paddingTop: 20, paddingBottom: 20}}>
+            <Row style={{paddingTop: 20, paddingBottom: 40}}>
               <Col>
               <Button transparent style={styles.roundedButton}  onPress={() => { Actions.webportalSports(); }} >
                   <Icon style={styles.icon} name="ios-football-outline" />
@@ -96,36 +96,9 @@ class HomeNav extends Component {
 
 
 
-          <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>
-
-                      <View style={styles.betaView}>
-                          <Text numberOfLines={2} style={styles.beta}>
-                              {this.state.versionText}
-                          </Text>
-                      </View>
-          </Button>
 
             <View style={{ backgroundColor: '#fff' }}>
-              <TouchableOpacity style={{ flexDirection: 'row' }} >
-                <Image source={require('../../../images/sais.edu.sg/village.jpg')} style={styles.newsImage} />
-                <View style={styles.newsContent}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>
-                                    Early Learning Village - Open Day
-                                    </Text>
-                  <Grid style={{ marginTop: 25 }}>
-                    <Col style={{ width: 60 }}>
-                      <TouchableOpacity>
-                        <Text style={styles.newsLink}>July 29</Text>
-                      </TouchableOpacity>
-                    </Col>
-                    <Col>
-                      <TouchableOpacity style={styles.newsTypeView}>
-                        <Text style={styles.newsTypeText}>VILLAGE</Text>
-                      </TouchableOpacity>
-                    </Col>
-                  </Grid>
-                </View>
-              </TouchableOpacity>
+
               <TouchableOpacity style={{ flexDirection: 'row' }}>
                 <Image source={require('../../../images/sais.edu.sg/orientation.jpg')} style={styles.newsImage} />
                 <View style={styles.newsContent}>
@@ -168,6 +141,17 @@ class HomeNav extends Component {
 
 
             </View>
+
+
+            <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>
+
+                        <View style={styles.betaView}>
+                            <Text numberOfLines={2} style={styles.beta}>
+                                {this.state.versionText}
+                            </Text>
+                        </View>
+            </Button>
+
           </Content>
 
       </Container>

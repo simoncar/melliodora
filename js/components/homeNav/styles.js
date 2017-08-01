@@ -14,8 +14,8 @@ export default {
     height: null,
   },
   beta: {
-    backgroundColor: '#707372',
-    color: 'white',
+    backgroundColor: 'white',
+    color: '#707372',
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',
@@ -30,7 +30,8 @@ export default {
     borderRadius: 20,
   },
   betaButton: {
-    backgroundColor: '#707372',
+    paddingTop: 50,
+    backgroundColor: '#white',
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',
