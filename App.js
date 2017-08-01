@@ -11,6 +11,19 @@ const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__
 
 
 Sentry.config('https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405').install();
+export const setExtraContext = () => {
+  Sentry.setExtraContext({
+    store: store.getState(),
+  });
+};
+export const setTagsContext = (ctx: 'env-simulator') => {
+  Sentry.setTagsContext({
+    environment: ctx.environment,
+  });
+};
+export const setUserContext = (ctx: 'user-simon') => {
+  Sentry.setUserContext(ctx);
+};
 
 Sentry.captureMessage('App started!')
 
