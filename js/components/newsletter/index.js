@@ -4,7 +4,6 @@ import { Image, Platform, TouchableOpacity,ListView,TouchableHighlight,View } fr
 
 import { Actions, ActionConst } from 'react-native-router-flux';
 
-
 import { Container, Header, Content, Text, Left, Right, Body, Button, Icon } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 
@@ -102,37 +101,46 @@ class Newsletter extends Component {
   render() {
     return (
       <Container>
-        <Image source={require('../../../images/glow2.png')} style={styles.container} >
-        <Header>
-        <View style={{
-               flex: 1,
-               flexDirection: 'row',
-               justifyContent: 'space-between',
-             }}>
+        <Image
+          source={require('../../../images/glow2.png')}
+          style={styles.container} >
+          <Header>
+            <View style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
 
               <View>
-                     <Button transparent onPress={this.props.openDrawer} >
-                                <Icon active name="menu" />
-                     </Button>
+                <Button
+                  transparent
+                  onPress={this.props.openDrawer} >
+                  <Icon active name="menu" />
+                </Button>
               </View>
 
-                <Body>
-                  <Image source={headerLogo} style={styles.imageHeader} />
-                </Body>
-                <View>
-                   <Button transparent onPress={() => Actions.homeNav({ type: ActionConst.RESET  })}>
-                    <Icon active name="ios-home" />
-                   </Button>
-                </View>
+              <Body>
+                <Image
+                  source={headerLogo}
+                  style={styles.imageHeader} />
+              </Body>
+              <View>
+                <Button
+                  transparent
+                  onPress={() => Actions.homeNav({ type: ActionConst.RESET  })}>
+                  <Icon active name="ios-home" />
+                </Button>
+              </View>
 
 
-          </View>
+            </View>
 
-        </Header>
+          </Header>
 
           <View style={styles.overviewHeaderContainer}>
             <Text style={styles.overviewHeader}>NEWSLETTERS</Text>
-            <Text note style={styles.overviewHead}></Text>
+            <Text note style={styles.overviewHead}>
+            </Text>
           </View>
 
 

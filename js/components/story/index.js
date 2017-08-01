@@ -93,117 +93,93 @@ _formatWeb(sURL) {
   render() {
 
 
+
     return (
       <Container style={{ backgroundColor: '#fff' }}>
         <Image source={require('../../../images/glow2.png')} style={styles.container} >
           <Header>
 
-          <Left>
+            <Left>
               <Button transparent onPress={() => Actions.pop()}>
-                <Icon active name="arrow-back" style={styles.headerIcons} />
+                <Icon
+                  active
+                  name="arrow-back"
+                  style={styles.headerIcons} />
               </Button>
-          </Left>
+            </Left>
 
-              <Right>
+            <Right>
 
-              <Button transparent onPress={() => this._shareMessage()} >
+              <Button
+                transparent
+                onPress={() => this._shareMessage()} >
 
-                <Icon name="md-share" style={styles.headerIcons} />
+                <Icon
+                  name="md-share"
+                  style={styles.headerIcons} />
               </Button>
 
-              </Right>
+            </Right>
 
           </Header>
 
-                    <Content showsVerticalScrollIndicator={false}>
-                      <View style={{ flex: 1 }}>
-                        <View style={{ backgroundColor: '#fff' }}>
-                          <View style={styles.newsContent}>
-                                <TouchableOpacity>
-                                  <Text style={styles.eventTitle}></Text>
-                                </TouchableOpacity>
+          <Content showsVerticalScrollIndicator={false}>
+            <View style={{ flex: 1 }}>
+              <View style={styles.newsContent}>
+                  <Text style={styles.eventTitle}>
+                    {this.props.eventTitle}
+                  </Text>
 
 
-                                <TouchableOpacity>
-                       <Text style={styles.eventTitle}>{this.props.eventTitle}</Text>
-                     </TouchableOpacity>
+                  {undefined !== this.props.phone && null !== this.props.phone &&  this.props.phone.length > 0 &&
+                    <View>
+                    <Text style={styles.eventIcon}>
+                      <Icon
+                        active
+                        name="ios-call"
+                        style={styles.eventIcon}  />
+                    </Text>
+                    <Text style={styles.eventTitle}>
+                        {this.props.phone}
+                    </Text>
+                  </View>
 
+                  }
 
-                                <TouchableOpacity style={styles.newsTypeView}>
-                                <Text style={styles.newsTypeText}></Text>
-
-                                  <Text style={styles.newsTypeText}></Text>
-                                </TouchableOpacity>
-
-
-                          </View>
-
-                          <View style={{ padding: 20 }}>
-                            <View>
-                            <Text style={styles.eventTitle}>
-                             {"\n"}
-                          </Text>
-
-
-                                    <Text style={styles.eventTitle}>
-                                    <Icon active name="ios-call" style={styles.eventTitle} />
-                                  </Text>
-
-
-
-                                  <Text style={styles.eventTitle}>
-                                  <Icon active name="md-mail" style={styles.eventTitle} />
-                                </Text>
-
-
-                            <Text style={styles.eventTitle}>
-
-                          </Text>
-                          <Text style={styles.eventTitle}>
-
-                        </Text>
-
-
-                                                    <Text style={styles.eventTitle}>
-                                                        {this.props.eventDate}
-                                                  </Text>
-                                                  <Text style={styles.eventTitle}>
-                                                          {this.props.eventStartTime}
-                                                </Text>
-                                                <Text style={styles.eventTitle}>
-                                                        {this.props.eventEndTime}
-                                              </Text>
-                                              <Text style={styles.eventTitle}>
-                                                      {this.props.location}
-                                            </Text>
-                                            <Text style={styles.eventTitle}>
-                                                    {this.props.eventImage}
-                                          </Text>
-                                          <Text style={styles.eventTitle}>
-                                                  {this.props.phone}
-                                        </Text>
-                                        <Text style={styles.eventTitle}>
-                                                {this.props.email}
-                                      </Text>
-                                      <Text style={styles.eventTitle}>
-                                              {this.props.color}
-                                    </Text>
-                                    <Text style={styles.eventTitle}>
-                                            {this.props.url}
-                                  </Text>
-
-
-                            </View>
-                          </View>
-
-                        </View>
-                      </View>
-                    </Content>
+                  {undefined !== this.props.email && null !== this.props.email &&  this.props.email.length > 0 &&
+                    <Text style={styles.eventTitle}>
+                      <Icon
+                        active
+                        name="md-mail"
+                        style={styles.eventIcon} />
+                      {this.props.email}
+                    </Text>
+                  }
 
 
 
+                    <Text style={styles.eventTitle}>
+                      {this.props.eventDate}
+                    </Text>
+                    <Text style={styles.eventTitle}>
+                      {this.props.eventStartTime}
+                    </Text>
+                    <Text style={styles.eventTitle}>
+                      {this.props.eventEndTime}
+                    </Text>
+                    <Text style={styles.eventTitle}>
+                      {this.props.location}
+                    </Text>
+                    <Text style={styles.eventTitle}>
+                      {this.props.eventImage}
+                    </Text>
+                    <Text style={styles.eventTitle}>
+                      {this.props.color}
+                    </Text>
 
-
+              </View>
+            </View>
+          </Content>
         </Image>
       </Container>
     );

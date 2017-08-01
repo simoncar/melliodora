@@ -10,8 +10,8 @@ export default {
   container: {
     flex: 1,
     width: null,
-    height: null,
-  },
+    height: null
+    },
   newsContent: {
     flexDirection: 'column',
     paddingTop: 20,
@@ -23,8 +23,19 @@ export default {
   },
   eventTitle: {
     color: '#222',
-    fontWeight: '500',
-    fontSize: 14,
+    fontSize: 22,
+  },
+  eventIcon: {
+    color: '#222',
+    fontSize: 18,
+    marginRight: 200,
+    paddingRight: 200,
+  },
+  eventPhone: {
+    color: '#222',
+    fontSize: 18,
+    marginLeft: 200,
+    paddingLeft: 200,
   },
   newsCommentContainer: {
     paddingLeft: 20,

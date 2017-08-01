@@ -90,7 +90,7 @@ quickLoad(calendarEvents){
                       startTimePretty: obj2["time_start_pretty"],
                       endTimePretty: obj2["time_end_pretty"],
                       iconLib: obj2["iconLib"],
-                      icon:obj2["icon"],
+                      icon: obj2["icon"],
                       color: obj2["colorId"],
                       phone: obj2["phone"],
                       email: obj2["email"],
@@ -208,6 +208,9 @@ quickLoad(calendarEvents){
 
 
   renderItem(item) {
+
+
+
     return (
       <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
              eventTitle: item.title,
