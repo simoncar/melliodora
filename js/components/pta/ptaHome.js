@@ -35,6 +35,15 @@ class ptaHome extends Component {
   }
 
   _handleOpenWithLinking = (sURL) => {
+
+if (Platform.OS === 'android') {
+  sURL = 'fb://group/' + sURL
+} else {
+  sURL = 'fb://profile/' + sURL
+}
+
+console.log (sURL);
+
     Linking.openURL(sURL);
   }
 
@@ -92,7 +101,7 @@ class ptaHome extends Component {
 
 
 
-                  <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1502279483424893'); }}>
+                  <TouchableOpacity onPress={() => { this._handleOpenWithLinking('1502279483424893'); }}>
                      <View style={{ padding: 20 }}>
                        <View style={styles.connectionCommentContainer}>
                          <Text style={styles.connectionComment}>
@@ -102,7 +111,7 @@ class ptaHome extends Component {
                      </View>
                   </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/401844986678923/'); }}>
+                  <TouchableOpacity onPress={() => { this._handleOpenWithLinking('401844986678923/'); }}>
                     <View style={{ padding: 20 }}>
                      <View style={styles.connectionCommentContainer}>
                        <Text style={styles.connectionComment}>
@@ -112,7 +121,7 @@ class ptaHome extends Component {
                    </View>
                   </TouchableOpacity>
 
-                 <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1489742554597109/'); }}>
+                 <TouchableOpacity onPress={() => { this._handleOpenWithLinking('1489742554597109/'); }}>
                    <View style={{ padding: 20 }}>
                      <View style={styles.connectionCommentContainer}>
                        <Text style={styles.connectionComment}>
@@ -123,7 +132,7 @@ class ptaHome extends Component {
                    </View>
                       </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/731082750353857/'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('731082750353857/'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -133,7 +142,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/SAIS-Foodie-dinner-1101465009977057/'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('SAIS-Foodie-dinner-1101465009977057'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -143,7 +152,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/941124889269509/'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('941124889269509'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -153,7 +162,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/643445295733621/'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('643445295733621'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -163,7 +172,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/1812985142287583/'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('1812985142287583'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -173,7 +182,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/401844986678923/'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('401844986678923'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -183,7 +192,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/stamford.guys.group/'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fstamford.guys.group'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -193,7 +202,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/195961620502019/'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('195961620502019'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -203,7 +212,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/StamfordPTAParentGroup/'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('1628248367388782'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -213,7 +222,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/SingaporeCeliacs/'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('SingaporeCeliacs'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -223,7 +232,7 @@ class ptaHome extends Component {
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fb://profile/BSATroopX/'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('BSATroopX'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -237,11 +246,6 @@ class ptaHome extends Component {
 
   </View>
 
-                    <Button
-                            title="Open URL with ReactNative.Linking"
-                            onPress={this._handleOpenWithLinking}
-                            style={styles.button}
-                          />
 
 
                     <View style={styles.wrapper}>
