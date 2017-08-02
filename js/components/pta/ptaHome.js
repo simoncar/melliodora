@@ -142,16 +142,6 @@ console.log (sURL);
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('SAIS-Foodie-dinner-1101465009977057'); }}>
-                      <View style={{ padding: 20 }}>
-                        <View style={styles.connectionCommentContainer}>
-                          <Text style={styles.connectionComment}>
-                            Foodies Dinner Group
-                            </Text>
-                        </View>
-                      </View>
-                   </TouchableOpacity>
-
                    <TouchableOpacity onPress={() => { this._handleOpenWithLinking('941124889269509'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
@@ -192,7 +182,7 @@ console.log (sURL);
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('fstamford.guys.group'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('stamford.guys.group'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
@@ -232,15 +222,6 @@ console.log (sURL);
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('BSATroopX'); }}>
-                      <View style={{ padding: 20 }}>
-                        <View style={styles.connectionCommentContainer}>
-                          <Text style={styles.connectionComment}>
-                            Boy Scouts
-                            </Text>
-                        </View>
-                      </View>
-                   </TouchableOpacity>
 
 
 
