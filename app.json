@@ -2,7 +2,7 @@
   "name": "myStamford",
   "displayName": "myStamford",
   "expo": {
-    "version": "3.0.0",
+    "version": "3.0.1",
     "sdkVersion": "19.0.0",
     "icon": "./resources/0001_sais.edu.sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
     "slug": "myStamford",
@@ -40,6 +40,7 @@
      },
      "ios": {
         "bundleIdentifier": "com.softmowertrain.parent.mystamford",
+        "supportsTablet": true,
     },
     "android": {
        "package": "com.softmowertrain.parent.mystamford",
