@@ -45,7 +45,7 @@ class SideBar extends Component {
                 <Text style={styles.linkText}>MYSTAMFORD</Text>
             </ListItem>
 
-            <ListItem button onPress={() => { Actions.webportal(); this.props.webportalSports(); }} iconLeft style={styles.links} >
+            <ListItem button onPress={() => { Actions.webportalSports(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                 <Icon name="ios-football-outline" />
                 <Text style={styles.linkText}>ATHLETICS</Text>
             </ListItem>
