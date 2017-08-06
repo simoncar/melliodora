@@ -102,13 +102,20 @@ export default {
     alignSelf: 'center',
     paddingTop: 10
   },
+  iconLabel: {
+    color: '#707372',
+    alignSelf: 'center',
+    paddingTop: 10,
+    fontSize: 15,
+  },
+
   icon: {
     alignSelf: 'center',
     marginRight: 0,
     marginLeft: 0,
-fontWeight: 'bold',
-  fontSize: 30,
-  color:'white',
+    fontWeight: 'bold',
+    fontSize: 30,
+    color:'white',
   },
   icon2: {
     fontWeight: 'bold',
