@@ -97,6 +97,19 @@ class Contact extends Component {
               </Col>
            </Row>
 
+             <Row style={{paddingTop: 40}}>
+              <Col style={{ width: 80 }}>
+                <Button transparent style={styles.roundedButton}>
+                  <Icon name="ios-thumbs-up-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                </Button>
+              </Col>
+              <Col>
+
+                  <Text style={styles.feedbackHeader}>'Written by Parents for Parents'</Text>
+                  <Text style={styles.feedbackHead}>The code has been written by SAIS Parents Simon Cariss and Matt Crosby, with support from parents primarily Niall Foley who has helped us along the way</Text>
+                  <Text style={styles.feedbackHead}>Matt and Simon are on the PTA board this year, if you have app feedback or suggestions or would like to help out, let us know.</Text>
+              </Col>
+            </Row>
             </Grid>
             </View>
 

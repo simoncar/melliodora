@@ -25,6 +25,10 @@ export default {
     color: '#222',
     fontSize: 22,
   },
+  eventTitle: {
+    color: '#222',
+    fontSize: 18,
+  },
   eventIcon: {
     color: '#222',
     fontSize: 18,

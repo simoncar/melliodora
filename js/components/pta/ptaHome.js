@@ -17,7 +17,6 @@ import styles from './styles';
 const primary = require('../../themes/variable').brandPrimary;
 const deviceWidth = Dimensions.get('window').width;
 
-
 class ptaHome extends Component {
 
   static propTypes = {

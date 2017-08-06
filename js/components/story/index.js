@@ -4,8 +4,8 @@ import { WebView, Image, View, TouchableOpacity, Platform, Slider, Dimensions, S
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
-import { Container, Header, Content, Text, Button, Icon, Left, Body, Right } from 'native-base';
-import { Grid, Col } from 'react-native-easy-grid';
+import { Container, Header, Content, ListItem, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Grid, Col, Row } from 'react-native-easy-grid';
 
 import Lightbox from 'react-native-lightbox';
 import Modal from 'react-native-simple-modal';
@@ -60,7 +60,7 @@ class Story extends Component {
   };
 
 
-_callPhone() {
+_call() {
   const args = {
     number:  this.props.phone, // String value with the number to call
     prompt: true // Optional boolean property. Determines if the user should be prompt prior to the call
@@ -91,8 +91,6 @@ _formatWeb(sURL) {
 
 
   render() {
-
-
 
     return (
       <Container style={{ backgroundColor: '#fff' }}>
@@ -133,40 +131,63 @@ _formatWeb(sURL) {
 
                   {undefined !== this.props.phone && null !== this.props.phone &&  this.props.phone.length > 0 &&
                     <View>
-                    <Text style={styles.eventIcon}>
-                      <Icon
-                        active
-                        name="ios-call"
-                        style={styles.eventIcon}  />
-                    </Text>
-                    <Text style={styles.eventTitle}>
-                        {this.props.phone}
-                    </Text>
-                  </View>
-
+                      <Grid>
+                      <Row>
+                        <Col style={{ width: 80 }}>
+                          <Button transparent style={styles.roundedButton}  onPress={() => this._call()} >
+                            <Icon name="ios-call-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                          </Button>
+                        </Col>
+                        <Col>
+                            <Text style={styles.feedbackHeader}>{this.props.phone}</Text>
+                        </Col>
+                     </Row>
+                   </Grid>
+                 </View>
                   }
 
                   {undefined !== this.props.email && null !== this.props.email &&  this.props.email.length > 0 &&
-                    <Text style={styles.eventTitle}>
-                      <Icon
-                        active
-                        name="md-mail"
-                        style={styles.eventIcon} />
-                      {this.props.email}
-                    </Text>
+                    <View>
+                    <Grid>
+                    <Row>
+                      <Col style={{ width: 80 }}>
+                        <Button transparent style={styles.roundedButton}  onPress={() => this._call()} >
+                          <Icon name="ios-call-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                        </Button>
+                      </Col>
+                      <Col>
+                          <Text style={styles.feedbackHeader}>  {this.props.email}</Text>
+                      </Col>
+                   </Row>
+                  </Grid>
+                </View>
                   }
 
 
 
-                    <Text style={styles.eventTitle}>
+
+                    {undefined !== this.props.eventStartTime && null !== this.props.eventStartTime &&  this.props.eventStartTime.length > 0 &&
+                      <View>
+                      <Grid>
+                      <Row>
+                        <Col style={{ width: 80 }}>
+                          <Button transparent style={styles.roundedButton} >
+                            <Icon name="ios-time-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                          </Button>
+                        </Col>
+                        <Col>
+                            <Text style={styles.feedbackHeader}> {formatTime(this.props.eventStartTime, this.props.eventEndTime)}</Text>
+                        </Col>
+                     </Row>
+                    </Grid>
+                  </View>
+                    }
+
+
+                    <Text style={styles.eventDetails}>
                       {this.props.eventDate}
                     </Text>
-                    <Text style={styles.eventTitle}>
-                      {this.props.eventStartTime}
-                    </Text>
-                    <Text style={styles.eventTitle}>
-                      {this.props.eventEndTime}
-                    </Text>
+
                     <Text style={styles.eventTitle}>
                       {this.props.location}
                     </Text>

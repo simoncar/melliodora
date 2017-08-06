@@ -7,13 +7,13 @@ const primary = require('../../themes/variable').brandPrimary;
 
 export default {
 
-
     mapImage: {
         flex: 1,
         width: null,
         height: 600,
         resizeMode: 'contain',
     },
+
     mapImageLegend: {
         flex: 1,
         width: null,
