@@ -62,11 +62,11 @@ class HomeNav extends Component {
                   <Button transparent style={styles.roundedButton}  onPress={() => { Actions.webportal(); }} >
                     <Icon style={styles.icon} name="ios-grid" />
                     </Button>
- <View style={{flex: 1, flexDirection: 'row',     alignSelf: 'center'}}>
+                      <View style={{flex: 1, flexDirection: 'row',     alignSelf: 'center'}}>
 
-                  <Icon style={styles.iconLabel} name="ios-lock-outline" />
-                  <Text note style={styles.buttonLabel}> myStamford</Text>
-</View>
+                        <Icon style={styles.iconLabel} name="ios-lock-outline" />
+                        <Text note style={styles.buttonLabel}> myStamford</Text>
+                  </View>
                 </Col>
             </Row>
             <Row style={{paddingTop: 20, paddingBottom: 40}}>
