@@ -143,7 +143,9 @@ export default {
   },
   newsContentNoLine: {
     flexDirection: 'column',
-    paddingTop: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+
     paddingLeft: 20,
     paddingRight: 20,
     flex: 1,
@@ -154,10 +156,12 @@ export default {
     fontWeight: 'bold',
   },
   newsLink: {
+    flex: 1,
+    textAlign: 'left',
     color: '#666',
     fontSize: 12,
-    alignSelf: 'flex-start',
     fontWeight: 'bold',
+    paddingTop: 3,
   },
   newsTypeView: {
     borderBottomWidth: 1,
@@ -165,9 +169,11 @@ export default {
     alignSelf: 'flex-end',
   },
   newsTypeText: {
+    textAlign: 'left',
     color: '#666',
     fontSize: 12,
     fontWeight: 'bold',
+    paddingTop: 5,
     paddingBottom: 5,
   },
 };

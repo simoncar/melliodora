@@ -105,41 +105,25 @@ class HomeNav extends Component {
 
 
               <TouchableOpacity style={{ flexDirection: 'row' }}>
-                <Image source={require('../../../images/sais.edu.sg/orientation.jpg')} style={styles.newsImage} />
+                <Image source={require('../../../images/sais.edu.sg/coffee2.jpg')} style={styles.newsImage} />
                 <View style={styles.newsContentNoLine}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>
+                  <Text numberOfLines={1} style={styles.newsHeader}>
                                       Welcome Orientation
                                     </Text>
-                  <Grid style={{ marginTop: 25 }}>
-                    <Col style={{ width: 60 }}>
-                      <TouchableOpacity>
-                        <Text style={styles.newsLink}>Aug 10-11</Text>
-                      </TouchableOpacity>
-                    </Col>
-                    <Col>
-                      <TouchableOpacity style={styles.newsTypeView}>
-                        <Text style={styles.newsTypeText}>WOODLEIGH CAMPUS</Text>
-                      </TouchableOpacity>
-                    </Col>
-                  </Grid>
+
+                                    <Text style={styles.newsTypeText}>
+                                      Meet new and returning parents,
+                                      explore the Stamford events,
+                                      Parent Connections, volunteering opportunitie and more!
+                                    </Text>
+
+                <View style={{flexDirection: 'column'}}>
+                  <Text numberOfLines={1} style={ styles.newsLink}>Aug 22nd, 9am - 11am</Text>
+                  <Text style={styles.newsLink}>REAGAN THEATRE</Text>
                 </View>
-              </TouchableOpacity>
-              <TouchableOpacity style={{ flexDirection: 'row' }} >
-                <Image source={require('../../../images/sais.edu.sg/village_window.jpg')} style={styles.newsImage} />
-                <View style={styles.newsContent}>
-                  <Text numberOfLines={2} style={styles.newsHeader}>Welcome Orientation - Elarly Learning Village</Text>
-                  <Grid style={{ marginTop: 25 }}>
-                    <Col>
-                      <TouchableOpacity>
-                        <Text style={styles.newsLink}>Aug 12</Text>
-                      </TouchableOpacity>
-                    </Col>
-                    <Col>
-                      <TouchableOpacity style={styles.newsTypeView}>
-                        <Text style={styles.newsTypeText}>VILLAGE</Text>
-                      </TouchableOpacity>
-                    </Col>
-                  </Grid>
+
+
+
                 </View>
               </TouchableOpacity>
 
