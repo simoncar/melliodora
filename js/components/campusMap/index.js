@@ -38,13 +38,16 @@ class campusMap extends Component {
       <Container>
           <HeaderContent />
 
-                <Content showsVerticalScrollIndicator={true}>
-                  <View>
-                      <Image source={require('../../../images/sais.edu.sg/map1.png')} style={styles.mapImage} />
-                  </View>
-                  <View>
+                <Content showsVerticalScrollIndicator={true} showsHorizontalScrollIndicator={true}>
 
-                  <Image source={require('../../../images/sais.edu.sg/map2.png')} style={styles.mapImage}/>
+                <View style={{
+                       flex: 1,
+                       flexDirection: 'column',
+                       alignItems: 'center',
+                     }}>
+                       <Text style={styles.text}>Woodleigh Campus</Text>
+                       <Image source={require('../../../images/sais.edu.sg/map1.png')} style={styles.mapImage} />
+                       <Image source={require('../../../images/sais.edu.sg/map2.png')} style={styles.mapImageLegend}/>
                   </View>
 
                 </Content>

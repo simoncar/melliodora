@@ -8,16 +8,20 @@ const primary = require('../../themes/variable').brandPrimary;
 export default {
 
     mapImage: {
-        flex: 1,
-        width: null,
-        height: 600,
+        height: 200,
         resizeMode: 'contain',
     },
 
     mapImageLegend: {
-        flex: 1,
-        width: null,
-        height: 300,
+
+        height: 900,
         resizeMode: 'contain',
-    }
+    },
+    text: {
+      color: '#707372',
+      alignSelf: 'center',
+      paddingTop: 10,
+      paddingBottom: 10,
+      fontSize: 25,
+    },
 };
