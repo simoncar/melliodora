@@ -41,10 +41,6 @@ class Webportal extends Component {
     }),
   }
 
-
-
-
-
   constructor(props) {
     super(props);
 
@@ -57,9 +53,6 @@ class Webportal extends Component {
 
 
   }
-
-
-
 
   state = {
     url: DEFAULT_URL,
@@ -86,21 +79,23 @@ class Webportal extends Component {
     ));
   }
 
-  onNavigationStateChange = (webViewState: { url: string }) => {
-console.log ('webview = onNavigationStateChange');
-    //const { url } = webViewState;
+  onNavigationStateChange = (navState) => {
+      console.log ('webview = onNavigationStateChange=' & navState);
+        console.log ( navState);
 
-    // when WebView.onMessage called, there is not-http(s) url
-  //  if(url.includes('http')) {
-//      this.setState({ webViewUrl: url })
-  //  }
+        if (navState.url != "https://mystamford.edu.sg/parent-dashboard") {
+              this.setState({canGoBack: navState.canGoBack});
+        } else {
+              this.setState({canGoBack: false});
+        }
+
   }
 
+  onBack() {
+    this.refs[WEBVIEW_REF].goBack();
+  }
 
   componentWillMount() {
-
-
-
 
         if (this.props.userX.name ) {
           //we have a value, good
@@ -189,7 +184,7 @@ console.log ('webview = onNavigationStateChange');
     }
 
 
-   _renderCancel () {
+   _renderSpinner () {
         if (this.state.showMsg) {
            return (
               <TouchableOpacity onPress={() => Actions.login()}>
@@ -247,15 +242,33 @@ console.log ('webview = onNavigationStateChange');
       <View style={{ flex:1}}>
         <HeaderContent />
 
-   {this._renderCancel()}
+   {this._renderSpinner()}
 
-            <View style={{ flex:2}}>
+        <View style={{ flex:2}}>
+
+
+
+        <View style={styles.topbar}>
+          <TouchableOpacity
+            disabled={!this.state.canGoBack}
+            onPress={this.onBack.bind(this)}
+            >
+              <Icon style={styles.navIconLeft} active name="ios-arrow-back" />
+          </TouchableOpacity>
+
+              <Icon style={styles.navIconBookmark}  active name="ios-bookmarks-outline" />
+              <Icon  style={styles.navIconRight} active name="ios-arrow-forward" />
+
+
+         </View>
+
+
 
         <WebView
             source={{uri: this.state.url}}
              javaScriptEnabled={true}
              automaticallyAdjustContentInsets={false}
-             //onNavigationStateChange={this.onNavigationStateChange}
+             onNavigationStateChange={this.onNavigationStateChange.bind(this)}
              //onMessage={this._onMessage}
              domStorageEnabled={true}
              startInLoadingState={true}

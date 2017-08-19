@@ -1,8 +1,10 @@
 # Calendar app by SoftMowerTrain
 
-beta version for testing only
+Released to App stores
 
 ## Development Progress
+
+- Sat 19 Aug 2017 - Update campus map
 
 - Mon 26 June 2017 - Call/Email links
 - Mon 26 June 2017 - Loading screen

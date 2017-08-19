@@ -47,5 +47,39 @@ export default {
     height: 60,
   },
 
+  navIconLeft: {
+    paddingLeft: 20,
+  },
+  navIconRight: {
+    paddingRight: 20,
+    color: '#A9A9A9',
+  },
+  navIconBookmark: {
+    paddingRight: 20,
+    color: '#A9A9A9',
+  },
+
+  container: {
+      flex: 1,
+      paddingTop: 15, /* Padding to push below the navigation bar */
+      backgroundColor: '#F5FCFF',
+    },
+    topbar: {
+
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: 40,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      color: 'blue',
+      backgroundColor: 'grey',
+    },
+    topbarTextDisabled: {
+      color: 'green'
+    },
+    topbarTextDisabled: {
+      color: 'gray'
+    }
 
 };
