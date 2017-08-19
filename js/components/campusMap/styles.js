@@ -14,14 +14,27 @@ export default {
 
     mapImageLegend: {
 
-        height: 900,
+        height: 1100,
         resizeMode: 'contain',
     },
-    text: {
+    heading: {
       color: '#707372',
       alignSelf: 'center',
       paddingTop: 10,
       paddingBottom: 10,
       fontSize: 25,
+    },
+    text: {
+      color: '#707372',
+      alignSelf: 'center',
+      paddingTop: 10,
+      paddingBottom: 5,
+      fontSize: 15,
+    },
+    text2: {
+      color: '#707372',
+      alignSelf: 'center',
+      paddingBottom: 10,
+      fontSize: 15,
     },
 };
