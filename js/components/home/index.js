@@ -1,3 +1,5 @@
+
+
 import React, { Component } from 'react';
 import { Image, View, TouchableOpacity, Platform, Dimensions} from 'react-native';
 import { connect } from 'react-redux';
@@ -104,6 +106,8 @@ quickLoad(calendarEvents){
 
               }
           }
+
+          console.log(' quickload complete');
 }
 
 
@@ -115,6 +119,7 @@ quickLoad(calendarEvents){
         dataSnapshot = dataSnapshot2
         console.log ('write datasnapshot to redux');
         this.state.items = [];
+            console.log ('aaa');
         dataSnapshot.forEach((snapshot) => {
 
         strtime = snapshot.child("date_start").val();
@@ -141,16 +146,16 @@ quickLoad(calendarEvents){
           });
         }
       });
-
+    console.log ('ccc');
       this.setState({
         calendarEvents:calendarEvents
       });
-
+    console.log ('ddd');
     });
   }
 
   loadItems(day) {
-
+    console.log ('eee - loadItems');
     setTimeout(() => {
       for (let i = -15; i < 365; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
@@ -170,9 +175,13 @@ quickLoad(calendarEvents){
       });
 
     }, 1000);
+
+    console.log ('FFF');
   }
 
   render() {
+
+      console.log ('ggg');
     return (
       <Container>
       <HeaderContent />
@@ -184,17 +193,14 @@ quickLoad(calendarEvents){
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
-
-
-
           hideKnob={false}
-
             // agenda theme
             theme = {{
             //  calendarBackground: 'red'
           //    agendaDayTextColor : 'blue',
           //    agendaDayNumColor : 'blue',
           //    agendaTodayColor : 'red'
+                agendaKnobColor: '#1DAEF2'
             }}
             // agenda container style
             style = {{}}
@@ -204,12 +210,13 @@ quickLoad(calendarEvents){
         />
       </Container>
     );
+    console.log ('hhh');
   }
 
 
   renderItem(item) {
 
-
+  console.log ('render item ');
 
     return (
       <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
@@ -281,12 +288,14 @@ quickLoad(calendarEvents){
   };
 
   renderEmptyDate() {
+      console.log ('renderEmptyDate ');
     return (
       <View style={{ height: 15, flex:1, paddingTop: 30}}><Text style={{color: 'black'}}></Text></View>
     );
   }
 
   rowHasChanged(r1, r2) {
+          console.log ('rowHasChanged ');
     return r1.name !== r2.name;
   }
 
