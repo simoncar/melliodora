@@ -28,6 +28,7 @@ import Story from './components/story';
 import campusMap from './components/campusMap';
 import Webportal from './components/webportal';
 import WebportalSports from './components/webportalSports';
+import WebportalVote from './components/webportalVote';
 import NeedHelp from './components/x_needhelp';
 
 import { statusBarColor } from './themes/base-theme';
@@ -120,7 +121,8 @@ class AppNavigator extends Component {
             <Scene key="campusMap" component={campusMap} hideNavBar/>
             <Scene key="webportal" component={Webportal} hideNavBar/>
             <Scene key="webportalSports" component={WebportalSports} hideNavBar/>
-          </Scene>
+            <Scene key="webportalVote" component={WebportalVote} hideNavBar/>
+        </Scene>
         </RouterWithRedux>
       </Drawer>
     );

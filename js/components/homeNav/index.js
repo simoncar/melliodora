@@ -104,7 +104,7 @@ class HomeNav extends Component {
             <View style={styles.newsContentLine}>
 
 
-              <TouchableOpacity style={{ flexDirection: 'row' }}>
+              <TouchableOpacity style={{ flexDirection: 'row' }}   onPress={() => { Actions.webportalVote()}}>
                 <Image source={require('../../../images/sais.edu.sg/coffee2.jpg')} style={styles.newsImage} />
                 <View style={styles.newsContentNoLine}>
                   <Text numberOfLines={1} style={styles.newsHeader}>
@@ -121,14 +121,8 @@ class HomeNav extends Component {
                   <Text numberOfLines={1} style={ styles.newsLink}>Aug 22nd, 9am - 11am</Text>
                   <Text style={styles.newsLink}>REAGAN THEATRE</Text>
                 </View>
-
-
-
                 </View>
               </TouchableOpacity>
-
-
-
             </View>
 
 
