@@ -17,6 +17,16 @@ export default {
         height: 1100,
         resizeMode: 'contain',
     },
+    mapImageELV: {
+        height: 200,
+        resizeMode: 'contain',
+    },
+
+    mapImageLegendELV: {
+
+        height: 1100,
+        resizeMode: 'contain',
+    },
     heading: {
       color: '#707372',
       alignSelf: 'center',
