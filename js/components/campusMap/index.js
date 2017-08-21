@@ -59,10 +59,10 @@ class campusMap extends Component {
                        }}>
                          <Text style={styles.heading}>Early Learning Village</Text>
                          <Text style={styles.text}>3 Chuan Lane (off Lorong Chuan)</Text>
-                         <Text style={styles.text2}>  Singapore 554350</Text>
+                         <Text style={styles.text2}>Singapore 554350</Text>
 
-                           <Image source={require('../../../images/sais.edu.sg/map3.png')} style={styles.mapImage} />
-                           <Image source={require('../../../images/sais.edu.sg/map4.png')} style={styles.mapImageLegend}/>
+                           <Image source={require('../../../images/sais.edu.sg/map3.png')} style={styles.mapImageELV} />
+                           <Image source={require('../../../images/sais.edu.sg/map4.png')} style={styles.mapImageLegendELV}/>
 
                 </View>
 

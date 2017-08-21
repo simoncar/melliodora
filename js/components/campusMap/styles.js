@@ -18,13 +18,13 @@ export default {
         resizeMode: 'contain',
     },
     mapImageELV: {
-        height: 200,
+        height: 380,
         resizeMode: 'contain',
     },
 
     mapImageLegendELV: {
 
-        height: 1100,
+        height: 250,
         resizeMode: 'contain',
     },
     heading: {
