@@ -91,8 +91,8 @@ class Contact extends Component {
               <Col>
                   <Text style={styles.feedbackHeader}>Visit Helpdesk</Text>
                   <Text style={styles.feedbackHead}>Locations: </Text>
-                  <Text style={styles.feedbackHead}>Franklin Ground Floor, by Stamford Yard </Text>
-                  <Text style={styles.feedbackHead}>Lincoln, Level 1, next to Jefferson Pool</Text>
+                  <Text style={styles.feedbackHead}>Franklin Ground Floor (level 2), by Stamford Yard </Text>
+                  <Text style={styles.feedbackHead}>Early Learning Village, Level 1</Text>
                   <Text style={styles.feedbackHead}>Hours: 8 am to 5 pm</Text>
               </Col>
            </Row>
