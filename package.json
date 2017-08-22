@@ -6,7 +6,7 @@
     "babel-eslint": "^6.1.2",
     "babel-jest": "16.0.0",
     "chai": "^3.5.0",
-    "detox": "^5.5.1",
+    "detox": "^5.6.0",
     "eslint": "^3.5.0",
     "eslint-config-airbnb": "^11.1.0",
     "eslint-plugin-import": "^1.14.0",
