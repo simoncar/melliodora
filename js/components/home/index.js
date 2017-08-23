@@ -146,11 +146,9 @@ quickLoad(calendarEvents){
           });
         }
       });
-    console.log ('ccc');
       this.setState({
         calendarEvents:calendarEvents
       });
-    console.log ('ddd');
     });
   }
 
@@ -176,12 +174,10 @@ quickLoad(calendarEvents){
 
     }, 1000);
 
-    console.log ('FFF');
   }
 
   render() {
 
-      console.log ('ggg');
     return (
       <Container>
       <HeaderContent />
