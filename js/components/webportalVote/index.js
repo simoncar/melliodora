@@ -26,7 +26,7 @@ const timer = require('react-native-timer');
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
 var WEBVIEW_REF = 'webview';
-var DEFAULT_URL = 'https://www.surveymonkey.com/r/ptacoffee17';
+var DEFAULT_URL = 'http://saisunifair.peatix.com';
 
 
 var injectScript  = '';
@@ -80,7 +80,7 @@ class Webportal extends Component {
       console.log ('webview = onNavigationStateChange=' & navState);
         console.log ( navState);
 
-        if (navState.url != "https://mystamford.edu.sg/parent-dashboard") {
+        if (navState.url != "http://saisunifair.peatix.com") {
               this.setState({canGoBack: navState.canGoBack});
         } else {
               this.setState({canGoBack: false});

@@ -107,7 +107,6 @@ quickLoad(calendarEvents){
               }
           }
 
-          console.log(' quickload complete');
 }
 
 
@@ -117,9 +116,7 @@ quickLoad(calendarEvents){
         this.props.setCalendarItems(dataSnapshot2)
 
         dataSnapshot = dataSnapshot2
-        console.log ('write datasnapshot to redux');
         this.state.items = [];
-            console.log ('aaa');
         dataSnapshot.forEach((snapshot) => {
 
         strtime = snapshot.child("date_start").val();

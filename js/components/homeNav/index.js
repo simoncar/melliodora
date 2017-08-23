@@ -104,22 +104,21 @@ class HomeNav extends Component {
             <View style={styles.newsContentLine}>
 
 
-              <TouchableOpacity style={{ flexDirection: 'row' }} >
-                <Image source={require('../../../images/sais.edu.sg/coffee2.jpg')} style={styles.newsImage} />
+              <TouchableOpacity style={{ flexDirection: 'row' }}  onPress={() => { Actions.webportalVote(); }} >
+                <Image source={require('../../../images/sais.edu.sg/uni.jpg')} style={styles.newsImage} />
                 <View style={styles.newsContentNoLine}>
                   <Text numberOfLines={1} style={styles.newsHeader}>
-                                      Welcome Orientation
+                                      SAIS Global University Fair
                                     </Text>
 
                                     <Text style={styles.newsTypeText}>
-                                      Meet new and returning parents,
-                                      explore the Stamford events,
-                                      Parent Connections, volunteering opportunitie and more!
+                                      Universities from:
+                                      USA, United Kingdom, Canada, Singapore, United Arab Emirates, Germany, Spain, Switzerland, Japan & China
                                     </Text>
 
                 <View style={{flexDirection: 'column'}}>
-                  <Text numberOfLines={1} style={ styles.newsLink}>Aug 22nd, 9am - 11am</Text>
-                  <Text style={styles.newsLink}>REAGAN THEATRE</Text>
+                  <Text numberOfLines={1} style={ styles.newsLink}>Aug 26th, 12pm - 4pm</Text>
+                  <Text style={styles.newsLink}>Stamford Arena</Text>
                 </View>
                 </View>
               </TouchableOpacity>
