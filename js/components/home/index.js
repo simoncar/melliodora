@@ -54,12 +54,15 @@ class calendar1 extends Component {
       loading: true,
       items: {}
     };
+
+
+
     this.quickLoad(this.calendarEvents);
 
 };
 
   componentDidMount(){
-     this.listenForCalendarEvents(this.calendarEvents);
+     //this.listenForCalendarEvents(this.calendarEvents);
     }
 
 quickLoad(calendarEvents){
@@ -68,6 +71,8 @@ quickLoad(calendarEvents){
   obj = (this.props.calendarEventsX.items)
   this.state.items = [];
   key = '';
+
+  this.loadMonthLabels();
 
   for (var key in obj) {
 
@@ -126,6 +131,7 @@ quickLoad(calendarEvents){
           this.state.items[strtime] = [];
         }
 
+
        if (undefined != this.state.items[strtime]){
             this.state.items[strtime].push({
               name: snapshot.child("summary").val(),
@@ -149,8 +155,70 @@ quickLoad(calendarEvents){
     });
   }
 
+  loadMonthLabels() {
+
+
+    for (let i = 1; i < 12; i++) {
+
+
+      switch (i) {
+      case 1:
+          month = 'January';
+          break;
+      case 2:
+          month = "February";
+          break;
+      case 3:
+          month = "March";
+          break;
+      case 4:
+          month = "April";
+          break;
+      case 5:
+          month = "May";
+          break;
+      case 6:
+          month = "June";
+          break;
+      case 7:
+          month = "July";
+          break;
+      case 8:
+          month = "August";
+          break;
+      case 9:
+          month = "September";
+          break;
+      case 10:
+          month = "October";
+          break;
+      case 11:
+          month = "November";
+          break;
+      case 12:
+          month = "December";
+          break;
+        }
+
+        strtime = "2017-"
+        strtime = strtime.concat(this.pad(i,2), "-01");
+
+        if (!this.state.items[strtime]) {
+          this.state.items[strtime] = [];
+        }
+
+
+      this.state.items[strtime].push({
+        name: month,
+        title: month,
+        icon: "system:month"
+      });
+    }
+  }
+
   loadItems(day) {
-    console.log ('eee - loadItems');
+
+
     setTimeout(() => {
       for (let i = -15; i < 365; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
@@ -165,9 +233,10 @@ quickLoad(calendarEvents){
 
       Object.keys(this.state.items).forEach(
           key => {newItems[key] = this.state.items[key];});
-      this.setState({
-        items: newItems
-      });
+
+          this.setState({
+            items: newItems
+          });
 
     }, 1000);
 
@@ -203,13 +272,19 @@ quickLoad(calendarEvents){
         />
       </Container>
     );
-    console.log ('hhh');
   }
 
 
   renderItem(item) {
 
-  console.log ('render item ');
+   if (item.icon == "system:month") {
+     return (
+       <View style={[styles.agendaItemSystemMonth ]}>
+          <Text style={styles.agendaDateSystemMonth}> {item.title}</Text>
+      </View>
+    );
+   } else {
+
 
     return (
       <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
@@ -264,6 +339,8 @@ quickLoad(calendarEvents){
      </TouchableOpacity>
 
     );
+
+  }
   }
 
   getIcon(eventDetails) {
@@ -326,6 +403,12 @@ quickLoad(calendarEvents){
     return (ret);
   };
 
+
+  pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  };
 
 
 };

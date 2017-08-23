@@ -172,6 +172,21 @@ export default {
     marginTop: 5,
     alignSelf: 'stretch',
   },
+  agendaItemSystemMonth: {
+    backgroundColor: 'gray',
+    flex: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 10,
+    marginTop: 10,
+    alignSelf: 'stretch',
+  },
+  agendaDateSystemMonth: {
+    color: 'white',
+    fontSize: 20,
+    marginBottom: 0,
+    marginTop: 10,
+  },
   emptyDate: {
     height: 15,
     flex: 1,
@@ -182,6 +197,7 @@ export default {
     fontSize: 12,
     marginBottom: 5,
   },
+
   agendaLocation: {
     color: 'gray',
     fontSize: 12,
