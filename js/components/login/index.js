@@ -83,16 +83,8 @@ class Login extends Component {
 
               <View style={styles.otherLinksContainer}>
                 <Left>
-                  <Button transparent style={{ alignSelf: 'flex-start' }} onPress={() => Actions.channels()}>
-                    <Text style={styles.helpBtns}>Guest</Text>
-                  </Button>
                 </Left>
                 <Right>
-                  <Button transparent style={{ alignSelf: 'flex-end' }} onPress={() => Actions.needhelp()}>
-                    <Text style={styles.helpBtns}>
-                          Need Help?
-                      </Text>
-                  </Button>
                 </Right>
               </View>
             </View>
