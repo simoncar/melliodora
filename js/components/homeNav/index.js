@@ -15,6 +15,8 @@ import Expo from 'expo';
 import theme from '../../themes/base-theme';
 import styles from './styles';
 
+import Communications from 'react-native-communications';
+
 class HomeNav extends Component {
 
   constructor() {
@@ -33,6 +35,11 @@ class HomeNav extends Component {
   _checkForUpdate() {
     this.setState({versionText: 'Up to date - Check again soon'})
     Expo.Util.reload();
+  }
+
+  _email() {
+    //TODO: only show email/phone links when there are values
+      Communications.email('pta.comms@sais.edu.sg', null, null, "App Support", null)
   }
 
   render() {
@@ -131,6 +138,16 @@ class HomeNav extends Component {
                             <Text numberOfLines={2} style={styles.beta}>
                                 {this.state.versionText}
                             </Text>
+
+                            <Text numberOfLines={2} style={styles.beta}>
+                              For help and suppport with this app:
+                              <Button transparent style={styles.roundedButton}  onPress={() => this._email()} >
+                              pta.comms@sais.edu.sg
+                              </Button>
+
+
+                            </Text>
+
                         </View>
             </Button>
 
