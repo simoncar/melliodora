@@ -73,6 +73,8 @@ class Login extends Component {
                 />
               </Item>
 
+              <Text style={{textAlign: 'center'}}>(Parent Login Only)</Text>
+    <Text style={{textAlign: 'center'}}></Text>
               <Button
                 rounded primary block large
                 style={styles.loginBtn}

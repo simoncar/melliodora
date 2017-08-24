@@ -62,7 +62,7 @@ class calendar1 extends Component {
 };
 
   componentDidMount(){
-     //this.listenForCalendarEvents(this.calendarEvents);
+     this.listenForCalendarEvents(this.calendarEvents);
     }
 
 quickLoad(calendarEvents){
