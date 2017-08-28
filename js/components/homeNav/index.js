@@ -33,7 +33,7 @@ class HomeNav extends Component {
   }
 
   _checkForUpdate() {
-    this.setState({versionText: 'Up to date - Check again soon'})
+    this.setState({versionText: 'Updating....'})
     Expo.Util.reload();
   }
 
@@ -111,21 +111,20 @@ class HomeNav extends Component {
             <View style={styles.newsContentLine}>
 
 
-              <TouchableOpacity style={{ flexDirection: 'row' }}  onPress={() => { Actions.webportalVote(); }} >
-                <Image source={require('../../../images/sais.edu.sg/uni.jpg')} style={styles.newsImage} />
+              <TouchableOpacity style={{ flexDirection: 'row' }}  onPress={() => { Actions.ptaHome(); }} >
+                <Image source={require('../../../images/sais.edu.sg/pta_page_logo_small.png')} style={styles.newsImage} />
                 <View style={styles.newsContentNoLine}>
                   <Text numberOfLines={1} style={styles.newsHeader}>
-                                      SAIS Global University Fair
+                                    PTA Parent Connection Groups
                                     </Text>
 
                                     <Text style={styles.newsTypeText}>
-                                      Universities from:
-                                      USA, United Kingdom, Canada, Singapore, United Arab Emirates, Germany, Spain, Switzerland, Japan & China
+Are you interested in meeting people with similar interests within the Stamford community?
                                     </Text>
 
                 <View style={{flexDirection: 'column'}}>
-                  <Text numberOfLines={1} style={ styles.newsLink}>Aug 26th, 12pm - 4pm</Text>
-                  <Text style={styles.newsLink}>Stamford Arena</Text>
+                  <Text numberOfLines={1} style={ styles.newsLink}></Text>
+                  <Text style={styles.newsLink}></Text>
                 </View>
                 </View>
               </TouchableOpacity>

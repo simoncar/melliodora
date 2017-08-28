@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Image, View, Platform,TouchableOpacity,Dimensions } from 'react-native';
+import { Image, View, Platform,TouchableOpacity,Dimensions , TextInput} from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
@@ -55,26 +55,42 @@ class Login extends Component {
               <Item rounded style={styles.inputGrp}>
                 <Icon name="person" />
                 <Input
+                  ref='EmailInput'
+                  selectTextOnFocus
                   placeholder={this.props.userX.name}
                   onChangeText={(user) => this.props.setUsername(user)}
                   placeholderTextColor="#FFF"
                   style={styles.input}
+                  autoCapitalize={false}
+                  keyboardType="email-address"
+                  selectionColor="#FFF"
+                  enablesReturnKeyAutomatically
+                  returnKeyType="next"
+                  onSubmitEditing={(event) => {
+                    this.refs.PasswordInput.focus();
+                  }}
                 />
               </Item>
 
               <Item rounded style={styles.inputGrp}>
                 <Icon name="unlock" />
-                <Input
-                  placeholder={this.props.userX.password}    //"My Stamford Password"
-                  secureTextEntry
-                  placeholderTextColor="#FFF"
-                  onChangeText={(password) => this.props.setPassword(password)}
-                  style={styles.input}
-                />
+
+                  <Input
+                    ref='PasswordInput'
+                    style={styles.input}
+                    onChangeText={(password) => this.props.setPassword(password)}
+                    secureTextEntry={true}
+                    placeholder={"●●●●●●●●●●"}
+                    placeholderTextColor="#FFF"
+                    autoCapitalize={false}
+                    enablesReturnKeyAutomatically
+                    returnKeyType="done"
+                    onSubmitEditing={() => this.doLogin(this.username,this.password)}
+                  />
+
+
               </Item>
 
-              <Text style={{textAlign: 'center'}}>(Parent Login Only)</Text>
-    <Text style={{textAlign: 'center'}}></Text>
               <Button
                 rounded primary block large
                 style={styles.loginBtn}

@@ -52,6 +52,11 @@ class Contact extends Component {
       Communications.email('help@sais.edu.sg', null, null, null, null)
   }
 
+  _emailComms() {
+    //TODO: only show email/phone links when there are values
+      Communications.email('pta.comms@sais.edu.sg', null, null, null, null)
+  }
+
   render() {
     return (
       <Container contentOffset={this.state.offset} scrollEnabled={false} >
@@ -60,7 +65,19 @@ class Contact extends Component {
           <Content showsVerticalScrollIndicator={false}>
             <View style={styles.contentIconsContainer}>
               <Grid>
-              <Row>
+                <Row>
+                  <Col style={{ width: 80 }}>
+                    <Button transparent style={styles.roundedButton}  onPress={() => this._emailComms()} >
+                      <Icon name="ios-alert-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                    </Button>
+                  </Col>
+                  <Col>
+                      <Text style={styles.feedbackHeader}>Help with this App</Text>
+                      <Text style={styles.feedbackHead}>Email the PTA pta.comms@sais.edu.sg</Text>
+                  </Col>
+               </Row>
+
+             <Row style={{paddingTop: 20}}>
                 <Col style={{ width: 80 }}>
                   <Button transparent style={styles.roundedButton}  onPress={() => this._call()} >
                     <Icon name="ios-call-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />

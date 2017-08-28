@@ -181,7 +181,7 @@ console.log (sURL);
                       </View>
                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('stamford.guys.group'); }}>
+                   <TouchableOpacity onPress={() => { this._handleOpenWithLinking('1726208260945359'); }}>
                       <View style={{ padding: 20 }}>
                         <View style={styles.connectionCommentContainer}>
                           <Text style={styles.connectionComment}>
