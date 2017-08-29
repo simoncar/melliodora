@@ -37,10 +37,6 @@ class HomeNav extends Component {
     Expo.Util.reload();
   }
 
-  _email() {
-    //TODO: only show email/phone links when there are values
-      Communications.email('pta.comms@sais.edu.sg', null, null, "App Support", null)
-  }
 
   render() {
     return (
@@ -138,15 +134,7 @@ Are you interested in meeting people with similar interests within the Stamford 
                                 {this.state.versionText}
                             </Text>
 
-                            <Text numberOfLines={2} style={styles.beta}>
-                              For help and suppport with this app:
-                              <Button transparent style={styles.roundedButton}  onPress={() => this._email()} >
-                              pta.comms@sais.edu.sg
-                              </Button>
-
-
-                            </Text>
-
+                        
                         </View>
             </Button>
 
