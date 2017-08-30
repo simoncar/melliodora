@@ -272,6 +272,7 @@ class Webportal extends Component {
              //onMessage={this._onMessage}
              domStorageEnabled={true}
              startInLoadingState={true}
+             scalesPageToFit={true}
              injectedJavaScript={injectScript}
              ref={WEBVIEW_REF}
            />
