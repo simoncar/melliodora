@@ -65,10 +65,8 @@ class Login extends Component {
                   keyboardType="email-address"
                   selectionColor="#FFF"
                   enablesReturnKeyAutomatically
-                  returnKeyType="next"
-                  onSubmitEditing={(event) => {
-                    this.refs.PasswordInput.focus();
-                  }}
+                  returnKeyType="none"
+
                 />
               </Item>
 
