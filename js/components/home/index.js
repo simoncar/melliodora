@@ -19,7 +19,7 @@ import HeaderContent from './../headerContent/';
 
 
 import {Agenda} from 'react-native-calendars';
-import { formatTime } from '../global.js';
+import { formatTime, formatMonth } from '../global.js';
 
 const deviceWidth = Dimensions.get('window').width;
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
@@ -117,6 +117,7 @@ quickLoad(calendarEvents){
 
   listenForCalendarEvents(calendarEvents) {
 
+
     calendarEvents.on('value', (dataSnapshot2) => {
         this.props.setCalendarItems(dataSnapshot2)
 
@@ -130,6 +131,7 @@ quickLoad(calendarEvents){
         if (!this.state.items[strtime]) {
           this.state.items[strtime] = [];
         }
+
 
 
        if (undefined != this.state.items[strtime]){
@@ -307,10 +309,10 @@ quickLoad(calendarEvents){
 
          <Row>
            <Col>
-           <Text style={styles.agendaDate}>{formatTime(item.startTimePretty, item.endTimePretty)} </Text>
+           <Text style={styles.agendaDate}>{formatTime(item.startTimePretty, item.endTimePretty)}   </Text>
 
            <Text style={styles.text}>{item.name}</Text>
-           <Text style={styles.agendaLocation}>{item.location}</Text>
+           <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}  {item.location}    </Text>
 
            </Col>
            <Col style={{width:60}}>
