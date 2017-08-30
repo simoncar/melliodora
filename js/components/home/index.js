@@ -111,12 +111,9 @@ quickLoad(calendarEvents){
 
               }
           }
-
 }
 
-
   listenForCalendarEvents(calendarEvents) {
-
 
     calendarEvents.on('value', (dataSnapshot2) => {
         this.props.setCalendarItems(dataSnapshot2)
@@ -131,8 +128,6 @@ quickLoad(calendarEvents){
         if (!this.state.items[strtime]) {
           this.state.items[strtime] = [];
         }
-
-
 
        if (undefined != this.state.items[strtime]){
             this.state.items[strtime].push({
@@ -151,6 +146,7 @@ quickLoad(calendarEvents){
           });
         }
       });
+
       this.setState({
         calendarEvents:calendarEvents
       });
@@ -359,6 +355,7 @@ quickLoad(calendarEvents){
     return (ret);
   };
 
+
   renderEmptyDate() {
       console.log ('renderEmptyDate ');
     return (
@@ -405,14 +402,11 @@ quickLoad(calendarEvents){
     return (ret);
   };
 
-
   pad(n, width, z) {
     z = z || '0';
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   };
-
-
 };
 
 

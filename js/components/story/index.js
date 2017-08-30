@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { WebView, Image, View, TouchableOpacity, Platform, Slider, Dimensions, Share  } from 'react-native';
+import { WebView, Linking, Image, View, TouchableOpacity, Platform, Slider, Dimensions, Share  } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
@@ -18,14 +18,13 @@ import call from 'react-native-phone-call'  //TODO migration to communications
 
 import Communications from 'react-native-communications';
 
-import { formatTime } from '../global.js';
+import { formatTime, formatMonth } from '../global.js';
 
 const deviceWidth = Dimensions.get('window').width;
 const primary = require('../../themes/variable').brandPrimary;
 
 var WEBVIEW_REF = 'storWebview';
 var DEFAULT_URL = '';
-
 
 class Story extends Component {
 
@@ -47,7 +46,6 @@ class Story extends Component {
       loading: true,
       scalesPageToFit: true,
     };
-
   }
 
  _shareMessage() {
@@ -74,12 +72,34 @@ _email() {
     Communications.email([this.props.email], null, null, null, null)
 }
 
+  _handleOpenWithLinking = (sURL) => {
+    var ret
 
+      if (sURL.indexOf('https://www.facebook.com/groups/') !== -1) {
+
+        ret = sURL.substring(32);
+
+      } else {
+        ret = ''
+      }
+
+            console.log ("ret=", ret);
+
+      if (Platform.OS === 'android') {
+        sURL = 'fb://group/' + ret
+      } else {
+        sURL = 'fb://profile/' + ret
+      }
+
+      console.log (sURL);
+
+     Linking.openURL(sURL);
+  }
 
 _formatWeb(sURL) {
 
   if (sURL.length > 0) {
-    return(
+return(
       <WebView
              source={{uri: 'https://github.com/facebook/react-native'}}
               javaScriptEnabled={true}
@@ -128,6 +148,8 @@ _formatWeb(sURL) {
                     {this.props.eventTitle}
                   </Text>
 
+                  <Text style={styles.eventTitle}>
+                  </Text>
 
                   {undefined !== this.props.phone && null !== this.props.phone &&  this.props.phone.length > 0 &&
                     <View>
@@ -139,7 +161,7 @@ _formatWeb(sURL) {
                           </Button>
                         </Col>
                         <Col>
-                            <Text style={styles.feedbackHeader}>{this.props.phone}</Text>
+                            <Text style={styles.eventTitle}>{this.props.phone}</Text>
                         </Col>
                      </Row>
                    </Grid>
@@ -156,7 +178,7 @@ _formatWeb(sURL) {
                         </Button>
                       </Col>
                       <Col>
-                          <Text style={styles.feedbackHeader}>  {this.props.email}</Text>
+                          <Text style={styles.eventTitle}>  {this.props.email}</Text>
                       </Col>
                    </Row>
                   </Grid>
@@ -165,40 +187,43 @@ _formatWeb(sURL) {
 
 
 
-
-                    {undefined !== this.props.eventStartTime && null !== this.props.eventStartTime &&  this.props.eventStartTime.length > 0 &&
-                      <View>
-                      <Grid>
-                      <Row>
-                        <Col style={{ width: 80 }}>
-                          <Button transparent style={styles.roundedButton} >
-                            <Icon name="ios-time-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
-                          </Button>
-                        </Col>
-                        <Col>
-                            <Text style={styles.feedbackHeader}> {formatTime(this.props.eventStartTime, this.props.eventEndTime)}</Text>
-                        </Col>
-                     </Row>
-                    </Grid>
-                  </View>
-                    }
-
-
-                    <Text style={styles.eventDetails}>
-                      {this.props.eventDate}
-                    </Text>
-
                     <Text style={styles.eventTitle}>
-                      {this.props.location}
+                      {formatMonth(this.props.eventDate)}
                     </Text>
+
+                      {undefined !== this.props.eventStartTime && null !== this.props.eventStartTime &&  this.props.eventStartTime.length > 0 &&
+                      <Text style={styles.eventTitle}>{formatTime(this.props.eventStartTime, this.props.eventEndTime)}</Text>
+                      }
+
+                      {undefined !== this.props.location && null !== this.props.location &&  this.props.location.length > 0 &&
+
+                          <Text style={styles.eventTitle}>
+                            Location: {this.props.location}
+                          </Text>
+                      }
+
                     <Text style={styles.eventTitle}>
                       {this.props.eventImage}
                     </Text>
-                    <Text style={styles.eventTitle}>
-                      {this.props.color}
-                    </Text>
+
 
               </View>
+
+              {undefined !== this.props.url && null !== this.props.url &&  this.props.url.length > 0 &&
+
+              <TouchableOpacity onPress={() => { this._handleOpenWithLinking(this.props.url); }}>
+                 <View style={{ padding: 20 }}>
+                   <View style={styles.eventTitle}>
+                     <Text style={styles.eventTitle}>
+                       <Icon name="logo-facebook" style={styles.eventIcon} />   More Details
+                          <Text style={styles.eventTitle}></Text>
+                       </Text>
+                   </View>
+                 </View>
+              </TouchableOpacity>
+
+                }
+
             </View>
           </Content>
         </Image>
