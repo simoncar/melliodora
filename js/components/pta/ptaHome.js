@@ -35,15 +35,15 @@ class ptaHome extends Component {
 
   _handleOpenWithLinking = (sURL) => {
 
-if (Platform.OS === 'android') {
-  sURL = 'fb://group/' + sURL
-} else {
-  sURL = 'fb://profile/' + sURL
-}
+      if (Platform.OS === 'android') {
+        sURL = 'fb://group/' + sURL
+      } else {
+        sURL = 'fb://profile/' + sURL
+      }
 
-console.log (sURL);
+      console.log (sURL);
 
-    Linking.openURL(sURL);
+     Linking.openURL(sURL);
   }
 
 
@@ -93,9 +93,17 @@ console.log (sURL);
                       </View>
                     </View>
 
+                    <View style={{ padding: 20 }}>
+                      <View style={styles.newsCommentContainer}>
+                        <Text style={styles.newsComment}>
+                          The Lion's Den Store is open Monday, Wednesday and Friday:  3:00 pm - 4:30 pm. It is located in Adams, Level B1.
+                          </Text>
+
+                      </View>
+                    </View>
 
                     <Text style={styles.newsHeader}>
-                    Here are some connection groups to get you started
+                        Here are some connection groups to get you started
                     </Text>
 
 
