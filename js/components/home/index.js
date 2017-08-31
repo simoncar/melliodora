@@ -299,7 +299,7 @@ quickLoad(calendarEvents){
 
            })
          }>
-        <View style={[styles.agendaItem, {height: item.height} ]}>
+        <View style={[styles.agendaItem, {height: item.height,   borderRightColor: this.formatBackground(item.color)} ]}>
 
         <Grid>
 

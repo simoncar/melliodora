@@ -171,6 +171,9 @@ export default {
     marginRight: 10,
     marginTop: 5,
     alignSelf: 'stretch',
+    borderRightWidth: 5,
+
+
   },
   agendaItemSystemMonth: {
     backgroundColor: 'gray',
