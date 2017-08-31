@@ -78,7 +78,7 @@ class Login extends Component {
                     style={styles.input}
                     onChangeText={(password) => this.props.setPassword(password)}
                     secureTextEntry={true}
-                    placeholder={"●●●●●●●●●●"}
+                    placeholder={"myStamford Password"}
                     placeholderTextColor="#FFF"
                     autoCapitalize={false}
                     enablesReturnKeyAutomatically
