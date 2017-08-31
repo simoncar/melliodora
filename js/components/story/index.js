@@ -11,6 +11,7 @@ import Lightbox from 'react-native-lightbox';
 import Modal from 'react-native-simple-modal';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
+import Abbreviations from './abbreviations';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
@@ -223,6 +224,12 @@ return(
               </TouchableOpacity>
 
                 }
+
+
+                <Abbreviations
+                  content={this.props.eventTitle}
+                 />
+
 
             </View>
           </Content>
