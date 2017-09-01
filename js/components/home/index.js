@@ -72,8 +72,6 @@ quickLoad(calendarEvents){
   this.state.items = [];
   key = '';
 
-  this.loadMonthLabels();
-
   for (var key in obj) {
 
     if (!obj.hasOwnProperty(key)) continue;
@@ -153,66 +151,7 @@ quickLoad(calendarEvents){
     });
   }
 
-  loadMonthLabels() {
 
-
-    for (let i = 1; i < 12; i++) {
-
-
-      switch (i) {
-      case 1:
-          month = 'January';
-          break;
-      case 2:
-          month = "February";
-          break;
-      case 3:
-          month = "March";
-          break;
-      case 4:
-          month = "April";
-          break;
-      case 5:
-          month = "May";
-          break;
-      case 6:
-          month = "June";
-          break;
-      case 7:
-          month = "July";
-          break;
-      case 8:
-          month = "August";
-          break;
-      case 9:
-          month = "September";
-          break;
-      case 10:
-          month = "October";
-          break;
-      case 11:
-          month = "November";
-          break;
-      case 12:
-          month = "December";
-          break;
-        }
-
-        strtime = "2017-"
-        strtime = strtime.concat(this.pad(i,2), "-01");
-
-        if (!this.state.items[strtime]) {
-          this.state.items[strtime] = [];
-        }
-
-
-      this.state.items[strtime].push({
-        name: month,
-        title: month,
-        icon: "system:month"
-      });
-    }
-  }
 
   loadItems(day) {
 
