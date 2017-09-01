@@ -25,10 +25,12 @@ export default {
     color: '#222',
     fontSize: 22,
     paddingBottom: 20,
+    fontWeight: 'bold',
   },
   eventText: {
     color: '#222',
     fontSize: 18,
+    paddingBottom: 10,
   },
   eventIcon: {
     color: '#222',
