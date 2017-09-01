@@ -51,7 +51,7 @@ class Story extends Component {
 
  _shareMessage() {
     Share.share({
-      message: "" + this.props.eventTitle + "\nWhen: " +  formatTime(this.props.eventStartTime, this.props.eventEndTime) + ' ' + this.props.eventDate,
+      message: "" + this.props.eventTitle +  "\n " + formatMonth(this.props.eventDate) + "\n " +  formatTime(this.props.eventStartTime, this.props.eventEndTime)  + ' \n' + this.props.location,
       title: '' + this.props.eventImage
     })
     .then(this._showResult)
@@ -134,7 +134,7 @@ return(
                 onPress={() => this._shareMessage()} >
 
                 <Icon
-                  name="md-share"
+                  name="ios-share-outline"
                   style={styles.headerIcons} />
               </Button>
 
