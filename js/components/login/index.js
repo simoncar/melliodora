@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { Container,Content, Text, Item, Input, Button, Icon, Left, Right, Body, Header } from 'native-base';
+import { Container,Content, Text, Item, Button, Icon, Left, Right, Body, Header } from 'native-base';
 
 import HeaderContent from './../headerContent/';
 
@@ -41,6 +41,29 @@ class Login extends Component {
     Actions.webportal();
   }
 
+
+  _placeHolderEmail() {
+
+console.log("yy",this.props.userX.name)
+
+  if (undefined !== this.props.userX.name && null !== this.props.userX.name &&  this.props.userX.name.length > 0) {
+      return this.props.userX.name
+    } else {
+
+      console.log("bbb",this.props.userX.name)
+      return "myStamford parent email"
+    }
+  }
+
+  _placeHolderPassword() {
+    if (undefined !== this.props.userX.password && null !== this.props.userX.password &&  this.props.userX.password.length > 0) {
+      return "●●●●●●●●●●"
+    } else {
+      return "myStamford password"
+    }
+  }
+
+
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
@@ -54,33 +77,34 @@ class Login extends Component {
 
               <Item rounded style={styles.inputGrp}>
                 <Icon name="person" />
-                <Input
+                <TextInput
                   ref='EmailInput'
                   selectTextOnFocus
-                  placeholder={this.props.userX.name}
+                  placeholder= {this._placeHolderEmail()}
                   onChangeText={(user) => this.props.setUsername(user)}
                   placeholderTextColor="#FFF"
                   style={styles.input}
-                  autoCapitalize={false}
+                  autoCapitalize="none"
+                  autoFocus = {true}
                   keyboardType="email-address"
                   selectionColor="#FFF"
                   enablesReturnKeyAutomatically
-                  returnKeyType="none"
-
+                  returnKeyType="return"
+                  onSubmitEditing={() => this.refs.PasswordInput.focus() }
                 />
               </Item>
 
               <Item rounded style={styles.inputGrp}>
                 <Icon name="unlock" />
 
-                  <Input
+                  <TextInput
                     ref='PasswordInput'
                     style={styles.input}
                     onChangeText={(password) => this.props.setPassword(password)}
                     secureTextEntry={true}
-                    placeholder={"myStamford Password"}
+                    placeholder={this._placeHolderPassword()}
                     placeholderTextColor="#FFF"
-                    autoCapitalize={false}
+                    autoCapitalize="none"
                     enablesReturnKeyAutomatically
                     returnKeyType="done"
                     onSubmitEditing={() => this.doLogin(this.username,this.password)}

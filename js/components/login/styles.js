@@ -32,11 +32,14 @@ export default {
     backgroundColor: 'rgba(255,255,255,0.3)',
     marginBottom: 25,
     borderWidth: 0,
+    width: 320,
+    height: 40,
     borderColor: 'transparent',
   },
   input: {
     paddingLeft: 10,
-    color: '#FFF'
+    color: '#FFF',
+    width: 320,
   },
   background: {
     flex: 1,
@@ -49,7 +52,7 @@ export default {
     flex: 1,
     paddingLeft: 20,
     paddingRight: 20,
-    marginTop: 300,
+    marginTop: 200,
     //paddingBottom: 60,
     //marginTop: (deviceHeight < 500) ? (Platform.OS === 'android' ? 20 : 0) : (Platform.OS === 'android' ? ((deviceHeight / 6) - 45) : ((deviceHeight / 6) - 30)),
 
