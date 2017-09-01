@@ -296,14 +296,14 @@ quickLoad(calendarEvents){
 
 
   renderEmptyDate() {
-      console.log ('renderEmptyDate ');
+
     return (
       <View style={{ height: 15, flex:1, paddingTop: 30}}><Text style={{color: 'black'}}></Text></View>
     );
   }
 
   rowHasChanged(r1, r2) {
-          console.log ('rowHasChanged ');
+
     return r1.name !== r2.name;
   }
 

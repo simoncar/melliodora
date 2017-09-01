@@ -24,8 +24,9 @@ export default {
   eventTitle: {
     color: '#222',
     fontSize: 22,
+    paddingBottom: 20,
   },
-  eventTitle: {
+  eventText: {
     color: '#222',
     fontSize: 18,
   },

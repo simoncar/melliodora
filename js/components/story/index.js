@@ -149,9 +149,6 @@ return(
                     {this.props.eventTitle}
                   </Text>
 
-                  <Text style={styles.eventTitle}>
-                  </Text>
-
                   {undefined !== this.props.phone && null !== this.props.phone &&  this.props.phone.length > 0 &&
                     <View>
                       <Grid>
@@ -162,7 +159,7 @@ return(
                           </Button>
                         </Col>
                         <Col>
-                            <Text style={styles.eventTitle}>{this.props.phone}</Text>
+                            <Text style={styles.eventText}>{this.props.phone}</Text>
                         </Col>
                      </Row>
                    </Grid>
@@ -179,7 +176,7 @@ return(
                         </Button>
                       </Col>
                       <Col>
-                          <Text style={styles.eventTitle}>  {this.props.email}</Text>
+                          <Text style={styles.eventText}>  {this.props.email}</Text>
                       </Col>
                    </Row>
                   </Grid>
@@ -188,22 +185,22 @@ return(
 
 
 
-                    <Text style={styles.eventTitle}>
+                    <Text style={styles.eventText}>
                       {formatMonth(this.props.eventDate)}
                     </Text>
 
                       {undefined !== this.props.eventStartTime && null !== this.props.eventStartTime &&  this.props.eventStartTime.length > 0 &&
-                      <Text style={styles.eventTitle}>{formatTime(this.props.eventStartTime, this.props.eventEndTime)}</Text>
+                      <Text style={styles.eventText}>{formatTime(this.props.eventStartTime, this.props.eventEndTime)}</Text>
                       }
 
                       {undefined !== this.props.location && null !== this.props.location &&  this.props.location.length > 0 &&
 
-                          <Text style={styles.eventTitle}>
+                          <Text style={styles.eventText}>
                             Location: {this.props.location}
                           </Text>
                       }
 
-                    <Text style={styles.eventTitle}>
+                    <Text style={styles.eventText}>
                       {this.props.eventImage}
                     </Text>
 
@@ -214,10 +211,10 @@ return(
 
               <TouchableOpacity onPress={() => { this._handleOpenWithLinking(this.props.url); }}>
                  <View style={{ padding: 20 }}>
-                   <View style={styles.eventTitle}>
-                     <Text style={styles.eventTitle}>
+                   <View style={styles.eventText}>
+                     <Text style={styles.eventText}>
                        <Icon name="logo-facebook" style={styles.eventIcon} />   More Details
-                          <Text style={styles.eventTitle}></Text>
+                          <Text style={styles.eventText}></Text>
                        </Text>
                    </View>
                  </View>
@@ -227,7 +224,7 @@ return(
 
 
                 <Abbreviations
-                  content={this.props.eventTitle}
+                  content={this.props.eventText}
                  />
 
 
