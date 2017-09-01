@@ -244,10 +244,10 @@ quickLoad(calendarEvents){
 
          <Row>
            <Col>
+           <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}  {item.location}    </Text>
            <Text style={styles.agendaDate}>{formatTime(item.startTimePretty, item.endTimePretty)}   </Text>
 
            <Text style={styles.text}>{item.name}</Text>
-           <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}  {item.location}    </Text>
 
            </Col>
            <Col style={{width:60}}>
