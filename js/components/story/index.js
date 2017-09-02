@@ -144,6 +144,13 @@ return(
 
           <Content showsVerticalScrollIndicator={false}>
             <View style={{ flex: 1 }}>
+
+              <View >
+                  <Image source={require('https://saispta.com/wp-content/uploads/2017/03/cropped-resource.aspx-3.png')} style={styles.ptaLogo}>
+                </Image>
+              </View>
+
+
               <View style={styles.newsContent}>
                   <Text style={styles.eventTitle}>
                     {this.props.eventTitle}
