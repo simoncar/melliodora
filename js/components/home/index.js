@@ -57,7 +57,7 @@ class calendar1 extends Component {
 
 
 
-  //  this.quickLoad(this.calendarEvents);
+    this.quickLoad(this.calendarEvents);
 
 };
 
@@ -303,7 +303,7 @@ quickLoad(calendarEvents){
   renderEmptyDate() {
 
     return (
-      <View style={{ height: 15, flex:1, paddingTop: 30}}><Text style={{color: 'black'}}>No events today</Text></View>
+      <View style={{ height: 15, flex:1, paddingTop: 30}}><Text style={{color: 'black'}}></Text></View>
     );
   }
 
