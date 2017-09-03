@@ -57,7 +57,7 @@ class calendar1 extends Component {
 
 
 
-    this.quickLoad(this.calendarEvents);
+  //  this.quickLoad(this.calendarEvents);
 
 };
 
@@ -66,7 +66,7 @@ class calendar1 extends Component {
     }
 
 quickLoad(calendarEvents){
-  //console.log('running quickload ',calendarEvents)
+  console.log('running quickload ',calendarEvents)
 
   obj = (this.props.calendarEventsX.items)
   this.state.items = [];
@@ -181,6 +181,11 @@ quickLoad(calendarEvents){
 
   render() {
 
+    var date = new Date();
+
+    // add a day
+    date.setDate(date.getDate());
+
     return (
       <Container>
       <HeaderContent />
@@ -188,7 +193,7 @@ quickLoad(calendarEvents){
         <Agenda
           items={this.state.items}
           loadItemsForMonth={this.loadItems.bind(this)}
-          selected={Date()}
+          selected={date}
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
@@ -298,7 +303,7 @@ quickLoad(calendarEvents){
   renderEmptyDate() {
 
     return (
-      <View style={{ height: 15, flex:1, paddingTop: 30}}><Text style={{color: 'black'}}></Text></View>
+      <View style={{ height: 15, flex:1, paddingTop: 30}}><Text style={{color: 'black'}}>No events today</Text></View>
     );
   }
 
