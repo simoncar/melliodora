@@ -46,12 +46,7 @@ class ptaHome extends Component {
      Linking.openURL(sURL);
   }
 
-
-
   render() {
-
-
-
     return (
 
       <Container style={{ backgroundColor: '#fff' }}>

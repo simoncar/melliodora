@@ -74,6 +74,12 @@ export default {
     flex: 1,
         resizeMode: 'contain'
   },
+  ptaMovieNight: {
+    width: null,
+    height: 221,
+    flex: 1,
+        resizeMode: 'contain'
+  },
   newsPoster: {
     width: null,
     height: 200,

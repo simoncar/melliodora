@@ -21,6 +21,7 @@ import Channel from './components/channel';
 import Channels from './components/channels';
 import Newsletter from './components/newsletter';
 import ptaHome from './components/pta/ptaHome';
+import ptaMovieNight from './components/pta/ptaMovieNight';
 import ptaEvents from './components/pta/ptaEvents';
 import ptaLionsDen from './components/pta/ptaLionsDen';
 import newsletterStory from './components/newsletter/newsletterStory';
@@ -113,6 +114,7 @@ class AppNavigator extends Component {
             <Scene key="channel" component={Channel} />
             <Scene key="channels" component={Channels} />
             <Scene key="ptaHome" component={ptaHome} hideNavBar/>
+            <Scene key="ptaMovieNight" component={ptaMovieNight} hideNavBar/>
             <Scene key="ptaLionsDen" component={ptaLionsDen} hideNavBar/>
             <Scene key="ptaEvents" component={ptaEvents} hideNavBar/>
             <Scene key="newsletter" component={Newsletter} hideNavBar/>

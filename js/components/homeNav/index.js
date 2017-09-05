@@ -103,6 +103,28 @@ class HomeNav extends Component {
 
 
 
+            <View style={styles.newsContentLine}>
+
+
+              <TouchableOpacity style={{ flexDirection: 'row' }}  onPress={() => { Actions.ptaMovieNight(); }} >
+                <Image source={require('../../../images/sais.edu.sg/movieNight2.jpeg')} style={styles.newsImage} />
+                <View style={styles.newsContentNoLine}>
+                  <Text numberOfLines={1} style={styles.newsHeader}>
+                                    PTA Family Movie Night
+                                    </Text>
+
+                                    <Text style={styles.newsTypeText}>
+                                      Family Movie Night will be from 6pm to 10pm, on September 30, 2017 on Stamford Field. The  movie screening will start at 7:30 pm.
+                                    </Text>
+
+                <View style={{flexDirection: 'column'}}>
+                  <Text numberOfLines={1} style={ styles.newsLink}></Text>
+                  <Text style={styles.newsLink}></Text>
+                </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+
 
             <View style={styles.newsContentLine}>
 
@@ -134,7 +156,7 @@ Are you interested in meeting people with similar interests within the Stamford 
                                 {this.state.versionText}
                             </Text>
 
-                        
+
                         </View>
             </Button>
 
