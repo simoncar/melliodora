@@ -95,16 +95,9 @@ class HomeNav extends Component {
               </Col>
 
             </Row>
-
-
               </Grid>
-
             </View>
-
-
-
             <View style={styles.newsContentLine}>
-
 
               <TouchableOpacity style={{ flexDirection: 'row' }}  onPress={() => { Actions.ptaMovieNight(); }} >
                 <Image source={require('../../../images/sais.edu.sg/movieNight2.jpeg')} style={styles.newsImage} />
@@ -114,7 +107,7 @@ class HomeNav extends Component {
                                     </Text>
 
                                     <Text style={styles.newsTypeText}>
-                                      Family Movie Night will be from 6pm to 10pm, on September 30, 2017 on Stamford Field. The  movie screening will start at 7:30 pm.
+                                      6pm to 10pm, on September 30 on Stamford Field. The  movie screening will start at 7:30 pm.
                                     </Text>
 
                 <View style={{flexDirection: 'column'}}>

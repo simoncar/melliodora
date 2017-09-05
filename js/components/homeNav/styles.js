@@ -143,8 +143,8 @@ export default {
   },
   newsContentNoLine: {
     flexDirection: 'column',
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 0,
+    paddingBottom: 0,
 
     paddingLeft: 20,
     paddingRight: 20,
@@ -152,6 +152,8 @@ export default {
 
   },
   newsHeader: {
+      paddingTop: 10,
+      paddingBottom: 5,
     color: '#444',
     fontWeight: 'bold',
   },
@@ -173,7 +175,7 @@ export default {
     color: '#666',
     fontSize: 12,
     fontWeight: 'bold',
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingTop: 0,
+
   },
 };

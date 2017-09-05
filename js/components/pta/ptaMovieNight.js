@@ -34,15 +34,6 @@ class ptaMovieNight extends Component {
   }
 
   _handleOpenWithLinking = (sURL) => {
-
-      if (Platform.OS === 'android') {
-        sURL = 'fb://group/' + sURL
-      } else {
-        sURL = 'fb://profile/' + sURL
-      }
-
-      console.log (sURL);
-
      Linking.openURL(sURL);
   }
 
@@ -89,7 +80,26 @@ class ptaMovieNight extends Component {
 
 <Text style={styles.newsHeader}>
 
-Please bring a picnic dinner including drinks (no nuts/nut products- see nut policy here & no alcohol please) as there will be no catering on the night. Bring a picnic blanket. Popcorn and cotton candy will be available for purchase (all proceeds to be donated to PTA Charities).
+Please bring:
+</Text>
+<Text style={styles.newsHeader}>
+- Picnic dinner (no nuts/nut products)
+</Text>
+<Text style={styles.newsHeader}>
+- Drinks (no alcohol please)
+</Text>
+<Text style={styles.newsHeader}>
+- Picnic blanket
+</Text>
+<Text style={styles.newsHeader}>
+
+</Text>
+<Text style={styles.newsHeader}>
+There will be no catering on the night.
+</Text>
+
+<Text style={styles.newsHeader}>
+Popcorn and cotton candy will be available for purchase.
 </Text>
 
                     <View style={{ padding: 20 }}>
@@ -108,35 +118,20 @@ Please bring a picnic dinner including drinks (no nuts/nut products- see nut pol
                     </Text>
 
 
+                    <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://mystamford.edu.sg/pta/pta-events/rsvp-september-movie-night'); }}>
+                       <View style={{ padding: 20 }}>
+                         <View style={styles.connectionCommentContainer}>
+                           <Text style={styles.connectionComment}>
+                              RSVP Here
+                             </Text>
+                         </View>
+                       </View>
+                    </TouchableOpacity>
+
+
   </View>
 
 
-
-                    <View style={styles.wrapper}>
-                      <Swiper
-                        height={230}
-                        width={deviceWidth + 5}
-                        loop
-                        dot={<View style={styles.swiperDot} />}
-                        activeDot={<View
-                          style={styles.swiperActiveDot}
-                          showsButtons
-                        />}
-                      >
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product1.jpg')} />
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product2.jpg')} />
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product3.jpg')} />
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product4.jpg')} />
-                        </View>
-                      </Swiper>
-                    </View>
 
                   </View>
                 </View>
