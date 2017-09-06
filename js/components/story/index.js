@@ -80,17 +80,17 @@ _email() {
 
         ret = sURL.substring(32);
 
+          if (Platform.OS === 'android') {
+            sURL = 'fb://group/' + ret
+          } else {
+            sURL = 'fb://profile/' + ret
+          }
+
+
       } else {
         ret = ''
       }
 
-            console.log ("ret=", ret);
-
-      if (Platform.OS === 'android') {
-        sURL = 'fb://group/' + ret
-      } else {
-        sURL = 'fb://profile/' + ret
-      }
 
       console.log (sURL);
 
@@ -203,6 +203,14 @@ return(
                           </Text>
                       }
 
+
+                      <Text style={styles.eventText}>
+                        {this.props.eventDescription}
+                      </Text>
+
+
+
+
                     <Text style={styles.eventText}>
                       {this.props.eventImage}
                     </Text>
@@ -216,7 +224,7 @@ return(
                  <View style={{ padding: 20 }}>
                    <View style={styles.eventText}>
                      <Text style={styles.eventText}>
-                       <Icon name="logo-facebook" style={styles.eventIcon} />   More Details
+                       <Icon name="md-link" style={styles.eventIcon} />   More details...
                           <Text style={styles.eventText}></Text>
                        </Text>
                    </View>

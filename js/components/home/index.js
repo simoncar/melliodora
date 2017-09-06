@@ -17,7 +17,6 @@ import * as ActionCreators  from '../../actions'
 import styles from './styles';
 import HeaderContent from './../headerContent/';
 
-
 import {Agenda} from 'react-native-calendars';
 import { formatTime, formatMonth } from '../global.js';
 
@@ -90,6 +89,7 @@ quickLoad(calendarEvents){
                     this.state.items[strtime].push({
                       name: obj2["summary"],
                       title: obj2["summary"],
+                      description: obj2["description"],
                       location: obj2["location"],
                       startDatePretty: obj2["date_start"],
                       startTimePretty: obj2["time_start_pretty"],
@@ -131,6 +131,7 @@ quickLoad(calendarEvents){
             this.state.items[strtime].push({
               name: snapshot.child("summary").val(),
               title: snapshot.child("summary").val(),
+              description: snapshot.child("description").val(),
               location: snapshot.child("location").val(),
               startDatePretty: snapshot.child("date_start").val(),
               startTimePretty: snapshot.child("time_start_pretty").val(),
@@ -231,6 +232,7 @@ quickLoad(calendarEvents){
     return (
       <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
              eventTitle: item.title,
+             eventDescription: item.description,
              eventDate: item.startDatePretty,
              eventStartTime: item.startTimePretty,
              eventEndTime: item.endTimePretty,
@@ -269,10 +271,16 @@ quickLoad(calendarEvents){
                   paddingRight: 0,
                   justifyContent: "center",
                 }} >
-               <Icon style={{
-                   color: '#fff',
-                   fontSize: 20,
-               }} name={item.icon} />
+
+                <View>
+
+
+                <Icon style={{
+                    color: '#fff',
+                    fontSize: 20,
+                }} name={item.icon} />
+            </View>
+
              </Button>
            </Col>
         </Row>
@@ -300,12 +308,14 @@ quickLoad(calendarEvents){
   };
 
 
-  renderEmptyDate() {
+  renderEmptyDate(item) {
 
     return (
       <View style={{ height: 15, flex:1, paddingTop: 30}}><Text style={{color: 'black'}}></Text></View>
     );
   }
+
+
 
   rowHasChanged(r1, r2) {
 
