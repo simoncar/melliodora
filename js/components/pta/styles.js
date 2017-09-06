@@ -148,7 +148,9 @@ export default {
   headerTextIcon: {
     fontSize: 28,
     paddingTop: 10,
+    paddingBottom: 5,
     marginTop: Platform.OS === 'android' ? -10 : 0,
+    color: '#222',
   },
   swiperDot: {
     backgroundColor: 'rgba(0,0,0,.8)',

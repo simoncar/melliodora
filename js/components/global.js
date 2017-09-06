@@ -93,6 +93,17 @@ if (eventDetails.includes("PTC")) {
 ret = ret + '\nPTC - Parent Teacher Conferences '
 }
 
+if (eventDetails.includes("CIS")) {
+ret = ret + '\nCIS - Community Information Session '
+}
+
+if (eventDetails.includes("MAP")) {
+ret = ret + '\nMAP - Measure of Academic Progress '
+}
+
+
+
+
 
 return (ret)
 };

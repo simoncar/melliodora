@@ -103,7 +103,7 @@ class HomeNav extends Component {
                 <Image source={require('../../../images/sais.edu.sg/movieNight2.jpeg')} style={styles.newsImage} />
                 <View style={styles.newsContentNoLine}>
                   <Text numberOfLines={1} style={styles.newsHeader}>
-                                    PTA Family Movie Night
+                                    ZOOTOPIA! PTA Family Movie Night
                                     </Text>
 
                                     <Text style={styles.newsTypeText}>

@@ -68,6 +68,13 @@ class ptaMovieNight extends Component {
                               </TouchableOpacity>
                             </Col>
                           </Grid>
+
+              <Text style={styles.headerTextIcon}>
+                ZOOTOPIA!
+            </Text>
+
+
+
                       <Text style={styles.newsHeader}>
                       Movie screening will start at 7:30 pm.
                     </Text>
