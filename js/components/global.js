@@ -5,7 +5,7 @@ export function formatTime(starttime, endtime) {
   if(starttime === null && typeof starttime === "object" ) {
     ret = ''
   } else {
-    if (undefined != starttime){
+    if (undefined != starttime && starttime.length > 0 ){
       var ret = starttime + ' - ' + endtime;
   } else {
     ret = ''
