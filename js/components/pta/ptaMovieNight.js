@@ -28,7 +28,6 @@ class ptaMovieNight extends Component {
   constructor(props) {
     super(props);
 
-    Sentry.captureMessage('App started!')
 
     this.state = {
       animationType: 'slideInDown',
@@ -41,12 +40,7 @@ class ptaMovieNight extends Component {
      Linking.openURL(sURL);
   }
 
-
-
   render() {
-
-
-
     return (
 
       <Container style={{ backgroundColor: '#fff' }}>
@@ -76,31 +70,31 @@ class ptaMovieNight extends Component {
                           </Grid>
                       <Text style={styles.newsHeader}>
                       Movie screening will start at 7:30 pm.
-</Text>
+                    </Text>
 
-<Text style={styles.newsHeader}>
+                    <Text style={styles.newsHeader}>
 
-</Text>
+                    </Text>
 
-<Text style={styles.newsHeader}>
+                    <Text style={styles.newsHeader}>
 
-Please bring:
-</Text>
-<Text style={styles.newsHeader}>
-- Picnic dinner (no nuts/nut products)
-</Text>
-<Text style={styles.newsHeader}>
-- Drinks (no alcohol please)
-</Text>
-<Text style={styles.newsHeader}>
-- Picnic blanket
-</Text>
-<Text style={styles.newsHeader}>
+                    Please bring:
+                    </Text>
+                    <Text style={styles.newsHeader}>
+                    - Picnic dinner (no nuts/nut products)
+                    </Text>
+                    <Text style={styles.newsHeader}>
+                    - Drinks (no alcohol please)
+                    </Text>
+                    <Text style={styles.newsHeader}>
+                    - Picnic blanket
+                    </Text>
+                    <Text style={styles.newsHeader}>
 
-</Text>
-<Text style={styles.newsHeader}>
-There will be no catering on the night.
-</Text>
+                    </Text>
+                    <Text style={styles.newsHeader}>
+                    There will be no catering on the night.
+                    </Text>
 
                     <View style={{ padding: 20 }}>
                       <View style={styles.newsCommentContainer}>
