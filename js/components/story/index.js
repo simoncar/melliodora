@@ -19,7 +19,7 @@ import call from 'react-native-phone-call'  //TODO migration to communications
 
 import Communications from 'react-native-communications';
 
-import { formatTime, formatMonth } from '../global.js';
+import { formatTime, formatMonth,getAbbreviations } from '../global.js';
 
 const deviceWidth = Dimensions.get('window').width;
 const primary = require('../../themes/variable').brandPrimary;
@@ -210,6 +210,12 @@ return(
 
 
 
+                      <Text style={styles.abbreviations}>
+                        {getAbbreviations(this.props.eventTitle)}
+                      </Text>
+
+
+
 
                     <Text style={styles.eventText}>
                       {this.props.eventImage}
@@ -233,10 +239,6 @@ return(
 
                 }
 
-
-                <Abbreviations
-                  content={this.props.eventText}
-                 />
 
 
             </View>

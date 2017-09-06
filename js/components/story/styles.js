@@ -38,6 +38,12 @@ export default {
     marginRight: 200,
     paddingRight: 200,
   },
+
+  abbreviations: {
+    color: 'grey',
+    fontSize: 12,
+    paddingTop: 20,
+  },
   eventPhone: {
     color: '#222',
     fontSize: 18,
