@@ -15,7 +15,7 @@ export default {
   },
   beta: {
     backgroundColor: 'white',
-    color: '#707372',
+    color: 'white',
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',
