@@ -12,6 +12,7 @@ import { openDrawer } from '../../actions/drawer';
 
 import HeaderContent from './../headerContent/';
 
+
 import styles from './styles';
 
 const primary = require('../../themes/variable').brandPrimary;
@@ -26,6 +27,9 @@ class ptaMovieNight extends Component {
 
   constructor(props) {
     super(props);
+
+    Sentry.captureMessage('App started!')
+
     this.state = {
       animationType: 'slideInDown',
       open: false,
@@ -96,10 +100,6 @@ Please bring:
 </Text>
 <Text style={styles.newsHeader}>
 There will be no catering on the night.
-</Text>
-
-<Text style={styles.newsHeader}>
-Popcorn and cotton candy will be available for purchase.
 </Text>
 
                     <View style={{ padding: 20 }}>
