@@ -15,6 +15,8 @@ console.log('update firebase service triggered');
   })
 
 
+
+
   .then((response) => response.text())
   .then((responseText) => {
     alert(responseText);

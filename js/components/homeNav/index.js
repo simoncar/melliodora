@@ -146,6 +146,8 @@ Are you interested in meeting people with similar interests within the Stamford 
             </View>
 
 
+
+
             <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>
 
                         <View style={styles.betaView}>
