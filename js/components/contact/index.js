@@ -14,6 +14,8 @@ import { openDrawer } from '../../actions/drawer';
 import HeaderContent from './../headerContent/';
 
 import Communications from 'react-native-communications';
+import updateFirebase from './../../lib/updateFirebase';
+
 
 
 import theme from '../../themes/base-theme';
@@ -35,6 +37,7 @@ class Contact extends Component {
         x: 0,
         y: 0,
       },
+      updateFirebaseText: ''
     };
 
     this.constructor.childContextTypes = {
@@ -55,6 +58,12 @@ class Contact extends Component {
   _emailComms() {
     //TODO: only show email/phone links when there are values
       Communications.email('pta.comms@sais.edu.sg', null, null, null, null)
+  }
+
+  _updateFirebase() {
+    console.log('update firebase')
+    updateFirebase();
+      this.setState({updateFirebaseText: 'Another golf day booked!'})
   }
 
   render() {
@@ -116,8 +125,8 @@ class Contact extends Component {
 
              <Row style={{paddingTop: 40}}>
               <Col style={{ width: 80 }}>
-                <Button transparent style={styles.roundedButton}>
-                  <Icon name="ios-thumbs-up-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                <Button transparent style={styles.roundedButton}  onPress={() => this._updateFirebase()} >
+                    <Icon name="ios-thumbs-up-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
               <Col>
@@ -125,7 +134,11 @@ class Contact extends Component {
                   <Text style={styles.feedbackHeader}>'Written by Parents for Parents'</Text>
                   <Text style={styles.feedbackHead}>This App has been written by SAIS Parents Simon Cariss and Matt Crosby, with support from parents primarily Niall Foley who has helped us along the way</Text>
                   <Text style={styles.feedbackHead}>Matt and Simon are on the PTA board this year, if you have app feedback or suggestions or would like to help out, let us know.</Text>
-              </Col>
+
+                  <Text style={styles.updateNotes}>{this.state.updateFirebaseText}</Text>
+
+
+          </Col>
             </Row>
             </Grid>
             </View>

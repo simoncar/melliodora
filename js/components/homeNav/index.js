@@ -120,6 +120,9 @@ class HomeNav extends Component {
             </View>
 
 
+
+
+
             <View style={styles.newsContentLine}>
 
 

@@ -73,6 +73,13 @@ export default {
     fontWeight: 'bold',
     color: '#FFF',
   },
+  updateNotes: {
+    opacity: 1,
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: 'white',
+    paddingTop: 30,
+  },
   feedbackContainer: {
     marginTop: 30,
     paddingLeft: 20,
