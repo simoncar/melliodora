@@ -100,8 +100,9 @@ class HomeNav extends Component {
             <View style={styles.newsContentLine}>
 
               <TouchableOpacity style={{ flexDirection: 'row' }}  onPress={() => { Actions.ptaMovieNight(); }} >
-                <Image source={require('../../../images/sais.edu.sg/movieNight2.jpeg')} style={styles.newsImage} />
-                <View style={styles.newsContentNoLine}>
+                <Image source={require('../../../images/sais.edu.sg/movie_night_poster.jpg')} style={styles.newsImage} />
+
+              <View style={styles.newsContentNoLine}>
                   <Text numberOfLines={1} style={styles.newsHeader}>
                                     ZOOTOPIA! PTA Family Movie Night
                                     </Text>

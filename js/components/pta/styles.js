@@ -76,7 +76,7 @@ export default {
   },
   ptaMovieNight: {
     width: null,
-    height: 221,
+    height: 171,
     flex: 1,
         resizeMode: 'contain'
   },

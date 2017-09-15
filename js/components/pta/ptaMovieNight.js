@@ -49,7 +49,7 @@ class ptaMovieNight extends Component {
               <Content showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1 }}>
                   <View >
-                      <Image source={require('../../../images/sais.edu.sg/movieNight.jpeg')} style={styles.ptaMovieNight}>
+                      <Image source={require('../../../images/sais.edu.sg/movie_night_poster.jpg')} style={styles.ptaMovieNight}>
                     </Image>
                   </View>
                   <View style={{ backgroundColor: '#fff' }}>
