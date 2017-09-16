@@ -96,7 +96,7 @@ class ptaMovieNight extends Component {
                     <Text style={styles.newsHeader}>
                     - Picnic blanket
                     </Text>
-                    <Text style={styles.newsHeader}>
+                    <Text  style={styles.newsHeader} >
 
                     </Text>
                     <Text style={styles.newsHeader}>

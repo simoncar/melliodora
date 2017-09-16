@@ -148,7 +148,7 @@ return(
 
 
               <View style={styles.newsContent}>
-                  <Text style={styles.eventTitle}>
+                  <Text selectable={true} style={styles.eventTitle}>
                     {this.props.eventTitle}
                   </Text>
 
@@ -162,7 +162,7 @@ return(
                           </Button>
                         </Col>
                         <Col>
-                            <Text style={styles.eventText}>{this.props.phone}</Text>
+                            <Text selectable={true} style={styles.eventText}>{this.props.phone}</Text>
                         </Col>
                      </Row>
                    </Grid>
@@ -179,7 +179,7 @@ return(
                         </Button>
                       </Col>
                       <Col>
-                          <Text style={styles.eventText}>  {this.props.email}</Text>
+                          <Text selectable={true} style={styles.eventText}>  {this.props.email}</Text>
                       </Col>
                    </Row>
                   </Grid>
@@ -188,29 +188,29 @@ return(
 
 
 
-                    <Text style={styles.eventText}>
+                    <Text selectable={true} style={styles.eventText}>
                       {formatMonth(this.props.eventDate)}
                     </Text>
 
                       {undefined !== this.props.eventStartTime && null !== this.props.eventStartTime &&  this.props.eventStartTime.length > 0 &&
-                      <Text style={styles.eventText}>{formatTime(this.props.eventStartTime, this.props.eventEndTime)}</Text>
+                      <Text selectable={true} style={styles.eventText}>{formatTime(this.props.eventStartTime, this.props.eventEndTime)}</Text>
                       }
 
                       {undefined !== this.props.location && null !== this.props.location &&  this.props.location.length > 0 &&
 
-                          <Text style={styles.eventText}>
+                          <Text selectable={true}  style={styles.eventText}>
                             Location: {this.props.location}
                           </Text>
                       }
 
 
-                      <Text style={styles.eventText}>
+                      <Text selectable={true} style={styles.eventText}>
                         {this.props.eventDescription}
                       </Text>
 
 
 
-                      <Text style={styles.abbreviations}>
+                      <Text selectable={true}  style={styles.abbreviations}>
                         {getAbbreviations(this.props.eventTitle)}
                       </Text>
 
