@@ -65,7 +65,7 @@ class calendar1 extends Component {
     }
 
 quickLoad(calendarEvents){
-  console.log('running quickload ',calendarEvents)
+
 
   obj = (this.props.calendarEventsX.items)
   this.state.items = [];
@@ -78,6 +78,7 @@ quickLoad(calendarEvents){
         var obj2 = obj[key];
 
         if (undefined != obj2["date_start"]){
+      //console.log("here - " , obj2["date_start"]);
             strtime = obj2["date_start"];
             strtime = strtime.substring(0,10);
 
@@ -85,7 +86,7 @@ quickLoad(calendarEvents){
               this.state.items[strtime] = [];
             }
 
-             if (undefined != this.state.items[strtime]){
+      //       if (undefined != this.state.items[strtime]){
                     this.state.items[strtime].push({
                       name: obj2["summary"],
                       title: obj2["summary"],
@@ -102,7 +103,7 @@ quickLoad(calendarEvents){
                       url: obj2["htmlLink"]
                     });
 
-                }
+        //        }
                 this.setState({
                   calendarEvents:calendarEvents
                 });
@@ -113,13 +114,16 @@ quickLoad(calendarEvents){
 
   listenForCalendarEvents(calendarEvents) {
 
+  this.state.items = [];
+
     calendarEvents.on('value', (dataSnapshot2) => {
         this.props.setCalendarItems(dataSnapshot2)
 
         dataSnapshot = dataSnapshot2
-        this.state.items = [];
+        //this.state.items = [];
         dataSnapshot.forEach((snapshot) => {
 
+  //if (undefined != snapshot.child("date_start").val()){
         strtime = snapshot.child("date_start").val();
         strtime = strtime.substring(0,10);
 
@@ -127,7 +131,7 @@ quickLoad(calendarEvents){
           this.state.items[strtime] = [];
         }
 
-       if (undefined != this.state.items[strtime]){
+       //if (undefined != this.state.items[strtime]){
             this.state.items[strtime].push({
               name: snapshot.child("summary").val(),
               title: snapshot.child("summary").val(),
@@ -143,14 +147,17 @@ quickLoad(calendarEvents){
               email: snapshot.child("email").val(),
               url: snapshot.child("htmlLink").val()
           });
-        }
+        //}
+    //  }
+
+          this.setState({
+            calendarEvents:calendarEvents
+          });
       });
 
-      this.setState({
-        calendarEvents:calendarEvents
-      });
     });
-  }
+
+}
 
 
 
