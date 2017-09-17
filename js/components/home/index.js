@@ -21,7 +21,7 @@ import {Agenda} from 'react-native-calendars';
 import { formatTime, formatMonth } from '../global.js';
 
 const deviceWidth = Dimensions.get('window').width;
-const headerLogo = require('../../../images/Header-Logo-White-0001.png');
+const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
 console.log("ACfromHome=", ActionCreators);
 
