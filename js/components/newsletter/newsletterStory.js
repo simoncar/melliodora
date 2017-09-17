@@ -16,7 +16,7 @@ import theme from '../../themes/base-theme';
 import styles from './styles';
 
 const deviceWidth = Dimensions.get('window').width;
-const headerLogo = require('../../../images/Header-Logo-White-0001.png');
+const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
 const primary = require('../../themes/variable').brandPrimary;
 

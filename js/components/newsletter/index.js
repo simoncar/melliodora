@@ -15,7 +15,7 @@ import styles from './styles';
 
 import * as firebase from 'firebase';
 
-const headerLogo = require('../../../images/Header-Logo-White-0001.png');
+const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
 const firebaseConfig = {
   apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",

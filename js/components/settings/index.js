@@ -15,7 +15,7 @@ import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
 
 const primary = require('../../themes/variable').brandPrimary;
-const headerLogo = require('../../../images/Header-Logo-White-0001.png');
+const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
 class Settings extends Component {
 

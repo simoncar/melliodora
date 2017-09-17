@@ -19,7 +19,7 @@ import TabFour from './tabFour';
 
 import CustomTabBar from './CustomTabBar';
 
-const headerLogo = require('../../../images/Header-Logo-White-0001.png');
+const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
 class Channels extends Component {
 

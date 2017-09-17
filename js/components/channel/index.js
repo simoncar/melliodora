@@ -13,7 +13,7 @@ import { openDrawer } from '../../actions/drawer';
 
 import styles from './styles';
 
-const headerLogo = require('../../../images/Header-Logo-White-0001.png');
+const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 const primary = require('../../themes/variable').brandPrimary;
 
 class Channel extends Component {
