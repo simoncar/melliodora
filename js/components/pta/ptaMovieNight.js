@@ -10,7 +10,7 @@ import Modal from 'react-native-simple-modal';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
 
-import HeaderContent from './../headerContent/';
+import HeaderContent from './../headerContent/header/';
 
 
 import styles from './styles';

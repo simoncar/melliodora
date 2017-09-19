@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { Container, Header, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';
+import { Container, Header, Footer, FooterTab, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';
 
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
@@ -15,7 +15,9 @@ import { openDrawer } from '../../actions/drawer';
 import * as ActionCreators  from '../../actions'
 
 import styles from './styles';
-import HeaderContent from './../headerContent/';
+import FooterContent from './../headerContent/footer';
+import HeaderContent from './../headerContent/header';
+
 
 import {Agenda} from 'react-native-calendars';
 import { formatTime, formatMonth } from '../global.js';
@@ -71,6 +73,8 @@ quickLoad(calendarEvents){
   this.state.items = [];
   key = '';
 
+
+
   for (var key in obj) {
 
     if (!obj.hasOwnProperty(key)) continue;
@@ -82,10 +86,28 @@ quickLoad(calendarEvents){
             strtime = obj2["date_start"];
             strtime = strtime.substring(0,10);
 
+console.log ('strtime=',strtime)
+
             if (!this.state.items[strtime]) {
               this.state.items[strtime] = [];
             }
 
+
+            this.state.items[strtime].push({
+              name: obj2["summary"],
+              title: obj2["summary"],
+              description: obj2["description"],
+              location: obj2["location"],
+              startDatePretty: obj2["date_start"],
+              startTimePretty: obj2["time_start_pretty"],
+              endTimePretty: obj2["time_end_pretty"],
+              iconLib: obj2["iconLib"],
+              icon: obj2["icon"],
+              color: obj2["colorId"],
+              phone: obj2["phone"],
+              email: obj2["email"],
+              url: obj2["htmlLink"]
+            });
       //       if (undefined != this.state.items[strtime]){
                     this.state.items[strtime].push({
                       name: obj2["summary"],
@@ -196,7 +218,7 @@ quickLoad(calendarEvents){
 
     return (
       <Container>
-      <HeaderContent />
+
 
         <Agenda
           items={this.state.items}
@@ -216,10 +238,11 @@ quickLoad(calendarEvents){
             }}
             // agenda container style
             style = {{}}
-
-
-
         />
+
+
+
+    <FooterContent/>
       </Container>
     );
   }

@@ -10,7 +10,7 @@ import { Grid, Col, Row } from 'react-native-easy-grid';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import HeaderContent from './../headerContent/';
+import HeaderContent from './../headerContent/header/';
 
 import { openDrawer } from '../../actions/drawer';
 

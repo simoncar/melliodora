@@ -11,7 +11,9 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import { Container, Header, Content, Text, Button, Icon, Item, Input, Left, Right, Body } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import { openDrawer } from '../../actions/drawer';
-import HeaderContent from './../headerContent/';
+import HeaderContent from './../headerContent/header/';
+
+import FooterContent from './../headerContent/footer/';
 
 import Communications from 'react-native-communications';
 import updateFirebase from './../../lib/updateFirebase';
@@ -70,7 +72,7 @@ class Contact extends Component {
     return (
       <Container contentOffset={this.state.offset} scrollEnabled={false} >
       <View  style={styles.container} >
-          <HeaderContent />
+        
           <Content showsVerticalScrollIndicator={false}>
             <View style={styles.contentIconsContainer}>
               <Grid>
@@ -145,6 +147,7 @@ class Contact extends Component {
 
           </Content>
         </View>
+        <FooterContent/>
       </Container>
     );
   }
