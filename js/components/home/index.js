@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { Container, Header, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';
+import { Container, Header, Footer, FooterTab, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';
 
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
@@ -15,7 +15,9 @@ import { openDrawer } from '../../actions/drawer';
 import * as ActionCreators  from '../../actions'
 
 import styles from './styles';
-import HeaderContent from './../headerContent/';
+import FooterContent from './../headerContent/footer';
+import HeaderContent from './../headerContent/header';
+
 
 import {Agenda} from 'react-native-calendars';
 import { formatTime, formatMonth } from '../global.js';
@@ -65,11 +67,13 @@ class calendar1 extends Component {
     }
 
 quickLoad(calendarEvents){
-  console.log('running quickload ',calendarEvents)
+
 
   obj = (this.props.calendarEventsX.items)
   this.state.items = [];
   key = '';
+
+
 
   for (var key in obj) {
 
@@ -78,14 +82,33 @@ quickLoad(calendarEvents){
         var obj2 = obj[key];
 
         if (undefined != obj2["date_start"]){
+      //console.log("here - " , obj2["date_start"]);
             strtime = obj2["date_start"];
             strtime = strtime.substring(0,10);
+
+console.log ('strtime=',strtime)
 
             if (!this.state.items[strtime]) {
               this.state.items[strtime] = [];
             }
 
-             if (undefined != this.state.items[strtime]){
+
+            this.state.items[strtime].push({
+              name: obj2["summary"],
+              title: obj2["summary"],
+              description: obj2["description"],
+              location: obj2["location"],
+              startDatePretty: obj2["date_start"],
+              startTimePretty: obj2["time_start_pretty"],
+              endTimePretty: obj2["time_end_pretty"],
+              iconLib: obj2["iconLib"],
+              icon: obj2["icon"],
+              color: obj2["colorId"],
+              phone: obj2["phone"],
+              email: obj2["email"],
+              url: obj2["htmlLink"]
+            });
+      //       if (undefined != this.state.items[strtime]){
                     this.state.items[strtime].push({
                       name: obj2["summary"],
                       title: obj2["summary"],
@@ -102,7 +125,7 @@ quickLoad(calendarEvents){
                       url: obj2["htmlLink"]
                     });
 
-                }
+        //        }
                 this.setState({
                   calendarEvents:calendarEvents
                 });
@@ -113,13 +136,16 @@ quickLoad(calendarEvents){
 
   listenForCalendarEvents(calendarEvents) {
 
+  this.state.items = [];
+
     calendarEvents.on('value', (dataSnapshot2) => {
         this.props.setCalendarItems(dataSnapshot2)
 
         dataSnapshot = dataSnapshot2
-        this.state.items = [];
+        //this.state.items = [];
         dataSnapshot.forEach((snapshot) => {
 
+  //if (undefined != snapshot.child("date_start").val()){
         strtime = snapshot.child("date_start").val();
         strtime = strtime.substring(0,10);
 
@@ -127,7 +153,7 @@ quickLoad(calendarEvents){
           this.state.items[strtime] = [];
         }
 
-       if (undefined != this.state.items[strtime]){
+       //if (undefined != this.state.items[strtime]){
             this.state.items[strtime].push({
               name: snapshot.child("summary").val(),
               title: snapshot.child("summary").val(),
@@ -143,14 +169,17 @@ quickLoad(calendarEvents){
               email: snapshot.child("email").val(),
               url: snapshot.child("htmlLink").val()
           });
-        }
+        //}
+    //  }
+
+          this.setState({
+            calendarEvents:calendarEvents
+          });
       });
 
-      this.setState({
-        calendarEvents:calendarEvents
-      });
     });
-  }
+
+}
 
 
 
@@ -189,7 +218,7 @@ quickLoad(calendarEvents){
 
     return (
       <Container>
-      <HeaderContent />
+
 
         <Agenda
           items={this.state.items}
@@ -209,10 +238,11 @@ quickLoad(calendarEvents){
             }}
             // agenda container style
             style = {{}}
-
-
-
         />
+
+
+
+    <FooterContent/>
       </Container>
     );
   }

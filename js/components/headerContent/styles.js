@@ -3,7 +3,7 @@ const React = require('react-native');
 
 const { StyleSheet, Dimensions, Platform } = React;
 
-module.exports = StyleSheet.create({
+export default {
   header: {
     width: Dimensions.get('window').width,
     paddingLeft: 15,
@@ -29,4 +29,44 @@ module.exports = StyleSheet.create({
     justifyContent: 'center',
       alignItems: 'center',
   },
-});
+
+
+    footer: {
+      backgroundColor: 'white',
+  },
+
+
+    footerTab: {
+      backgroundColor: 'white',
+      paddingTop:3
+    },
+
+    roundedButtonFooter: {
+      alignSelf: 'center',
+      alignItems: 'center',
+      //backgroundColor: 'rgba(0,0,0,0.1)'
+      backgroundColor: '#141b4d',
+      borderRadius: 20,
+      width: 35,
+      height: 35,
+      justifyContent: 'center',
+      paddingTop: 5,
+      marginRight: 0,
+      marginLeft: 0,
+
+    },
+      iconFooter: {
+        alignSelf: 'center',
+        fontWeight: 'bold',
+        fontSize: 20,
+        color:'white',
+      },
+
+      buttonLabelFooter: {
+        color: '#707372',
+        alignSelf: 'center',
+        paddingTop: 2,
+        paddingBottom: 4,
+        fontSize: 10,
+      },
+};

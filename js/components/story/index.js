@@ -21,6 +21,10 @@ import Communications from 'react-native-communications';
 
 import { formatTime, formatMonth,getAbbreviations } from '../global.js';
 
+import HeaderContent from './../headerContent/header/';
+import FooterContent from './../headerContent/footer/';
+
+
 const deviceWidth = Dimensions.get('window').width;
 const primary = require('../../themes/variable').brandPrimary;
 
@@ -244,6 +248,7 @@ return(
             </View>
           </Content>
         </Image>
+          <FooterContent/>
       </Container>
     );
   }

@@ -22,6 +22,8 @@ export default {
     textAlign: 'center',
     borderRadius: 20,
   },
+
+
   betaView: {
     backgroundColor: '#707372',
     alignSelf: 'center',
@@ -31,12 +33,30 @@ export default {
   },
   betaButton: {
     paddingTop: 50,
-    backgroundColor: '#white',
+    backgroundColor: 'white',
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',
     borderRadius: 0,
     //color: '#141b4d'
+  },
+
+  footer: {
+    backgroundColor: 'white',
+},
+
+
+  footerTab: {
+    backgroundColor: 'white',
+    paddingTop:3
+  },
+
+  buttonLabelFooter: {
+    color: '#707372',
+    alignSelf: 'center',
+    paddingTop: 2,
+    paddingBottom: 4,
+    fontSize: 10,
   },
 
   profileInfoContainer: {

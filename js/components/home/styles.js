@@ -22,8 +22,7 @@ export default {
     alignSelf: 'center',
     alignItems: 'center',
     borderRadius: 1,
-
-    height: 30,
+    height: 10,
   },
 
   newsHeader: {
@@ -74,6 +73,33 @@ export default {
     fontWeight: 'bold',
     paddingBottom: 5,
   },
+
+  buttonLabel: {
+    color: '#707372',
+    alignSelf: 'center',
+    paddingTop: 10
+  },
+
+
+
+
+
+  icon: {
+    alignSelf: 'center',
+    marginRight: 0,
+    marginLeft: 0,
+    fontWeight: 'bold',
+    fontSize: 30,
+    color:'green',
+  },
+
+  buttonLabel: {
+    color: '#707372',
+    alignSelf: 'center',
+    paddingTop: 10,
+    fontSize: 10,
+  },
+
   timeIcon: {
     fontSize: 20,
     marginLeft: Platform.OS === 'android' ? 15 : 0,

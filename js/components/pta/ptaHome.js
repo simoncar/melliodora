@@ -10,7 +10,9 @@ import Modal from 'react-native-simple-modal';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
 
-import HeaderContent from './../headerContent/';
+import HeaderContent from './../headerContent/header/';
+import FooterContent from './../headerContent/footer/';
+
 
 import styles from './styles';
 
@@ -50,7 +52,7 @@ class ptaHome extends Component {
     return (
 
       <Container style={{ backgroundColor: '#fff' }}>
-          <HeaderContent />
+    
 
               <Content showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1 }}>
@@ -261,7 +263,7 @@ class ptaHome extends Component {
                 </View>
               </Content>
 
-
+  <FooterContent/>
           </Container>
 
       );

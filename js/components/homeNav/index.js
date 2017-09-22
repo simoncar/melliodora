@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import { Image, View, TouchableOpacity } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import { Container, Content, Text, Thumbnail, Icon, Button } from 'native-base';
+import { Container, Content, Footer, FooterTab, Text, Thumbnail, Icon, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
-import HeaderContent from './../headerContent/';
+import FooterContent from './../headerContent/footer';
+import HeaderContent from './../headerContent/header';
+
 import { openDrawer } from '../../actions/drawer';
 import Sentry from 'sentry-expo';
 import Expo from 'expo';
@@ -159,9 +161,8 @@ Are you interested in meeting people with similar interests within the Stamford 
 
                         </View>
             </Button>
-
           </Content>
-
+        <FooterContent/>
       </Container>
     );
   }

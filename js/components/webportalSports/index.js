@@ -10,7 +10,9 @@ import { Grid, Col, Row } from 'react-native-easy-grid';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import HeaderContent from './../headerContent/';
+
+import FooterContent from './../headerContent/footer';
+import HeaderContent from './../headerContent/header';
 
 import { openDrawer } from '../../actions/drawer';
 
@@ -65,8 +67,9 @@ class WebportalSports extends Component {
   render() {
     var source =  {uri: 'http://google.com'};
     return (
+  <Container>
       <View style={{ flex:1}}>
-      <HeaderContent />
+
 
 
 
@@ -92,6 +95,9 @@ class WebportalSports extends Component {
 
 
   </View>
+
+    <FooterContent/>
+      </Container>
     );
   };
 
