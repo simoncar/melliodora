@@ -111,7 +111,7 @@ class HomeNav extends Component {
 
                                     <Text style={styles.newsTypeText}>
                                       6pm to 10pm Saturday September 30 on Stamford Field.
-                                      The  movie screening will start at 7:30pm
+                                      The  movie screening will start at 7:30 PM.
                                     </Text>
 
                 <View style={{flexDirection: 'column'}}>
