@@ -11,7 +11,7 @@ import { Grid, Col, Row } from 'react-native-easy-grid';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import HeaderContent from './../headerContent/header/';
-import FooterContent from './../headerContent/footer/';
+
 
 
 import { openDrawer } from '../../actions/drawer';
@@ -242,6 +242,7 @@ class Webportal extends Component {
 
     return (
   <Container>
+       <HeaderContent />
       <View style={{ flex:1}}>
 
 
@@ -285,7 +286,7 @@ class Webportal extends Component {
   </View>
 
 
-      <FooterContent/>
+
         </Container>
     );
   };

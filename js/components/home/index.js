@@ -15,7 +15,7 @@ import { openDrawer } from '../../actions/drawer';
 import * as ActionCreators  from '../../actions'
 
 import styles from './styles';
-import FooterContent from './../headerContent/footer';
+
 import HeaderContent from './../headerContent/header';
 
 
@@ -218,7 +218,7 @@ console.log ('strtime=',strtime)
 
     return (
       <Container>
-
+     <HeaderContent />
 
         <Agenda
           items={this.state.items}
@@ -242,7 +242,7 @@ console.log ('strtime=',strtime)
 
 
 
-    <FooterContent/>
+
       </Container>
     );
   }

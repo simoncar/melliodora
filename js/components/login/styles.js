@@ -14,6 +14,7 @@ export default {
     alignSelf: 'center',
     marginTop: (deviceWidth < 330) ? (deviceHeight / 15) : (deviceHeight / 6),
   },
+
   newsHeader: {
     color: '#444',
     fontWeight: 'bold',

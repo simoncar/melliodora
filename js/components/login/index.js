@@ -9,7 +9,7 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import { Container,Content, Text, Item, Button, Icon, Left, Right, Body, Header } from 'native-base';
 
 import HeaderContent from './../headerContent/header/';
-import FooterContent from './../headerContent/footer/';
+
 
 import styles from './styles';
 
@@ -68,7 +68,7 @@ console.log("yy",this.props.userX.name)
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
-      
+         <HeaderContent />
 
         <Content scrollEnabled={true} bounces={false}>
             <Image source={bg} style={styles.background} >
@@ -131,7 +131,7 @@ console.log("yy",this.props.userX.name)
             </View>
           </Image>
         </Content>
-          <FooterContent/>
+
       </Container>
     );
   }

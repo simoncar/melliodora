@@ -17,7 +17,7 @@ import styles from './styles';
 const primary = require('../../themes/variable').brandPrimary;
 const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
-import FooterContent from './../headerContent/footer';
+
 import HeaderContent from './../headerContent/header';
 
 
@@ -400,7 +400,7 @@ class Settings extends Component {
             </View>
           </View>
         </Content>
-        <FooterContent/>
+
       </Container>
     );
   }

@@ -11,7 +11,7 @@ import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
 
 import HeaderContent from './../headerContent/header/';
-import FooterContent from './../headerContent/footer/';
+
 
 import styles from './styles';
 
@@ -38,7 +38,7 @@ class campusMap extends Component {
     return (
       <Container>
 
-
+ <HeaderContent />
                 <Content showsVerticalScrollIndicator={true} showsHorizontalScrollIndicator={true}>
 
                 <View style={{
@@ -68,7 +68,7 @@ class campusMap extends Component {
                 </View>
 
                 </Content>
-  <FooterContent/>
+
     </Container>
       );
   }
