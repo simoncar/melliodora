@@ -73,8 +73,6 @@ quickLoad(calendarEvents){
   this.state.items = [];
   key = '';
 
-
-
   for (var key in obj) {
 
     if (!obj.hasOwnProperty(key)) continue;
@@ -85,8 +83,6 @@ quickLoad(calendarEvents){
       //console.log("here - " , obj2["date_start"]);
             strtime = obj2["date_start"];
             strtime = strtime.substring(0,10);
-
-console.log ('strtime=',strtime)
 
             if (!this.state.items[strtime]) {
               this.state.items[strtime] = [];
@@ -108,22 +104,7 @@ console.log ('strtime=',strtime)
               email: obj2["email"],
               url: obj2["htmlLink"]
             });
-      //       if (undefined != this.state.items[strtime]){
-                    this.state.items[strtime].push({
-                      name: obj2["summary"],
-                      title: obj2["summary"],
-                      description: obj2["description"],
-                      location: obj2["location"],
-                      startDatePretty: obj2["date_start"],
-                      startTimePretty: obj2["time_start_pretty"],
-                      endTimePretty: obj2["time_end_pretty"],
-                      iconLib: obj2["iconLib"],
-                      icon: obj2["icon"],
-                      color: obj2["colorId"],
-                      phone: obj2["phone"],
-                      email: obj2["email"],
-                      url: obj2["htmlLink"]
-                    });
+  
 
         //        }
                 this.setState({
@@ -201,9 +182,6 @@ console.log ('strtime=',strtime)
       Object.keys(this.state.items).forEach(
           key => {newItems[key] = this.state.items[key];});
 
-          this.setState({
-            items: newItems
-          });
 
     }, 1000);
 
