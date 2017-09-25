@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { Container, Header, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';
+import { Container, Header, Footer, FooterTab, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';
 
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
@@ -15,7 +15,9 @@ import { openDrawer } from '../../actions/drawer';
 import * as ActionCreators  from '../../actions'
 
 import styles from './styles';
-import HeaderContent from './../headerContent/';
+
+import HeaderContent from './../headerContent/header';
+
 
 import {Agenda} from 'react-native-calendars';
 import { formatTime, formatMonth } from '../global.js';
@@ -56,60 +58,61 @@ class calendar1 extends Component {
 
 
 
-    this.quickLoad(this.calendarEvents);
+    this.loadFromRedux();
 
 };
 
   componentDidMount(){
-     this.listenForCalendarEvents(this.calendarEvents);
+     this.listenLoadFromFirebase(this.calendarEvents);
     }
 
-quickLoad(calendarEvents){
-  console.log('running quickload ',calendarEvents)
+loadFromRedux(){
 
-  obj = (this.props.calendarEventsX.items)
   this.state.items = [];
+
+  dataSnapshot = (this.props.calendarEventsX.items)
   key = '';
 
-  for (var key in obj) {
+  for (var key in dataSnapshot) {
 
-    if (!obj.hasOwnProperty(key)) continue;
+    if (!dataSnapshot.hasOwnProperty(key)) continue;
 
-        var obj2 = obj[key];
+        var snapshot = dataSnapshot[key];
 
-        if (undefined != obj2["date_start"]){
-            strtime = obj2["date_start"];
+        if (undefined != snapshot["date_start"]){
+
+            strtime = snapshot["date_start"];
             strtime = strtime.substring(0,10);
 
             if (!this.state.items[strtime]) {
               this.state.items[strtime] = [];
             }
 
-             if (undefined != this.state.items[strtime]){
-                    this.state.items[strtime].push({
-                      name: obj2["summary"],
-                      title: obj2["summary"],
-                      description: obj2["description"],
-                      location: obj2["location"],
-                      startDatePretty: obj2["date_start"],
-                      startTimePretty: obj2["time_start_pretty"],
-                      endTimePretty: obj2["time_end_pretty"],
-                      iconLib: obj2["iconLib"],
-                      icon: obj2["icon"],
-                      color: obj2["colorId"],
-                      phone: obj2["phone"],
-                      email: obj2["email"],
-                      url: obj2["htmlLink"]
-                    });
-
-                }
+            this.state.items[strtime].push({
+              name: snapshot["summary"],
+              title: snapshot["summary"],
+              description: snapshot["description"],
+              location: snapshot["location"],
+              startDatePretty: snapshot["date_start"],
+              startTimePretty: snapshot["time_start_pretty"],
+              endTimePretty: snapshot["time_end_pretty"],
+              iconLib: snapshot["iconLib"],
+              icon: snapshot["icon"],
+              color: snapshot["colorId"],
+              phone: snapshot["phone"],
+              email: snapshot["email"],
+              url: snapshot["htmlLink"]
+            });
 
 
-              }
-          }
+
+
+        }
+    }
 }
 
-  listenForCalendarEvents(calendarEvents) {
+
+listenLoadFromFirebase(calendarEvents) {
 
     calendarEvents.on('value', (dataSnapshot2) => {
         this.props.setCalendarItems(dataSnapshot2)
@@ -152,6 +155,9 @@ quickLoad(calendarEvents){
 
 
 
+
+
+
   loadItems(day) {
 
 
@@ -187,7 +193,7 @@ quickLoad(calendarEvents){
 
     return (
       <Container>
-      <HeaderContent />
+     <HeaderContent />
 
         <Agenda
           items={this.state.items}
@@ -207,10 +213,11 @@ quickLoad(calendarEvents){
             }}
             // agenda container style
             style = {{}}
-
-
-
         />
+
+
+
+
       </Container>
     );
   }

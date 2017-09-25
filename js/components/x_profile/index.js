@@ -9,7 +9,7 @@ import { Image, View, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Container, Content, Text, Thumbnail } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
-import HeaderContent from './../headerContent/';
+import HeaderContent from './../headerContent/header/';
 import { openDrawer } from '../../actions/drawer';
 
 import theme from '../../themes/base-theme';

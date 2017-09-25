@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import { Image, View, TouchableOpacity } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import { Container, Content, Text, Thumbnail, Icon, Button } from 'native-base';
+import { Container, Content, Footer, FooterTab, Text, Thumbnail, Icon, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
-import HeaderContent from './../headerContent/';
+
+import HeaderContent from './../headerContent/header';
+
 import { openDrawer } from '../../actions/drawer';
 import Sentry from 'sentry-expo';
 import Expo from 'expo';
@@ -109,7 +111,7 @@ class HomeNav extends Component {
 
                                     <Text style={styles.newsTypeText}>
                                       6pm to 10pm Saturday September 30 on Stamford Field.
-                                      The  movie screening will start at 7:30 pm.
+                                      The  movie screening will start at 7:30 PM
                                     </Text>
 
                 <View style={{flexDirection: 'column'}}>
@@ -159,7 +161,6 @@ Are you interested in meeting people with similar interests within the Stamford 
 
                         </View>
             </Button>
-
           </Content>
 
       </Container>
