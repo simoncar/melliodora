@@ -164,6 +164,7 @@ export default {
     fontSize: 18,
     color: '#000',
     marginBottom: 10,
+        paddingTop: 5,
   },
   header: {
     width: Dimensions.get('window').width,
@@ -224,13 +225,15 @@ export default {
   agendaDate: {
     color: 'gray',
     fontSize: 12,
-    marginBottom: 5,
+    marginBottom: 0,
   },
 
   agendaLocation: {
     color: 'gray',
     fontSize: 12,
     marginTop: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: '#666',
   },
 
 

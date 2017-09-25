@@ -204,18 +204,11 @@ listenLoadFromFirebase(calendarEvents) {
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
           hideKnob={false}
-            // agenda theme
-            theme = {{
-            //  calendarBackground: 'red'
-          //    agendaDayTextColor : 'blue',
-          //    agendaDayNumColor : 'blue',
-          //    agendaTodayColor : 'red'
+          theme = {{
                 agendaKnobColor: '#1DAEF2',
-                  selectedDayBackgroundColor: '#00adf5',
+                selectedDayBackgroundColor: '#00adf5',
             }}
-            // agenda container style
-            style = {{}}
-
+          style = {{}}
         />
 
       </Container>
@@ -249,8 +242,8 @@ listenLoadFromFirebase(calendarEvents) {
 
          <Row>
            <Col>
-           <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}  {item.location}    </Text>
-           <Text style={styles.agendaDate}>{formatTime(item.startTimePretty, item.endTimePretty)}   </Text>
+           <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}    {item.location}    </Text>
+           {this.renderTime(item.startTimePretty, item.endTimePretty)}
 
            <Text style={styles.text}>{item.name}</Text>
 
@@ -305,6 +298,14 @@ listenLoadFromFirebase(calendarEvents) {
     return (ret);
   };
 
+
+renderTime(start, end) {
+  if ((undefined != start) && (start.length > 0)) {
+    return (
+      <Text style={styles.agendaDate}>{formatTime(start, end)}   </Text>
+    );
+  }
+}
 
   renderEmptyDate(item) {
 
