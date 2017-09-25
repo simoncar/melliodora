@@ -69,9 +69,11 @@ class calendar1 extends Component {
 loadFromRedux(){
 
   this.state.items = [];
+  this.loadItems()
 
   dataSnapshot = (this.props.calendarEventsX.items)
   key = '';
+
 
   for (var key in dataSnapshot) {
 
@@ -114,56 +116,55 @@ loadFromRedux(){
 
 listenLoadFromFirebase(calendarEvents) {
 
+
     calendarEvents.on('value', (dataSnapshot2) => {
         this.props.setCalendarItems(dataSnapshot2)
 
         dataSnapshot = dataSnapshot2
         this.state.items = [];
+        this.loadItems()
+
         dataSnapshot.forEach((snapshot) => {
 
-        strtime = snapshot.child("date_start").val();
-        strtime = strtime.substring(0,10);
+            strtime = snapshot.child("date_start").val();
+            strtime = strtime.substring(0,10);
 
-        if (!this.state.items[strtime]) {
-          this.state.items[strtime] = [];
-        }
+            if (!this.state.items[strtime]) {
+              this.state.items[strtime] = [];
+            }
 
-       if (undefined != this.state.items[strtime]){
-            this.state.items[strtime].push({
-              name: snapshot.child("summary").val(),
-              title: snapshot.child("summary").val(),
-              description: snapshot.child("description").val(),
-              location: snapshot.child("location").val(),
-              startDatePretty: snapshot.child("date_start").val(),
-              startTimePretty: snapshot.child("time_start_pretty").val(),
-              endTimePretty: snapshot.child("time_end_pretty").val(),
-              iconLib: snapshot.child("iconLib").val(),
-              icon:snapshot.child("icon").val(),
-              color: snapshot.child("colorId").val(),
-              phone: snapshot.child("phone").val(),
-              email: snapshot.child("email").val(),
-              url: snapshot.child("htmlLink").val()
+           if (undefined != this.state.items[strtime]){
+                this.state.items[strtime].push({
+                  name: snapshot.child("summary").val(),
+                  title: snapshot.child("summary").val(),
+                  description: snapshot.child("description").val(),
+                  location: snapshot.child("location").val(),
+                  startDatePretty: snapshot.child("date_start").val(),
+                  startTimePretty: snapshot.child("time_start_pretty").val(),
+                  endTimePretty: snapshot.child("time_end_pretty").val(),
+                  iconLib: snapshot.child("iconLib").val(),
+                  icon:snapshot.child("icon").val(),
+                  color: snapshot.child("colorId").val(),
+                  phone: snapshot.child("phone").val(),
+                  email: snapshot.child("email").val(),
+                  url: snapshot.child("htmlLink").val()
+              });
+            }
           });
-        }
-      });
 
-      this.setState({
-        calendarEvents:calendarEvents
-      });
+          this.setState({
+            calendarEvents:calendarEvents
+          });
+
+          //this.state.items = [];
     });
   }
 
-
-
-
-
-
   loadItems(day) {
-
 
     setTimeout(() => {
       for (let i = -15; i < 365; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+        const time = Date.now() + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
 
         if (!this.state.items[strtime]) {
@@ -209,14 +210,13 @@ listenLoadFromFirebase(calendarEvents) {
           //    agendaDayTextColor : 'blue',
           //    agendaDayNumColor : 'blue',
           //    agendaTodayColor : 'red'
-                agendaKnobColor: '#1DAEF2'
+                agendaKnobColor: '#1DAEF2',
+                  selectedDayBackgroundColor: '#00adf5',
             }}
             // agenda container style
             style = {{}}
+
         />
-
-
-
 
       </Container>
     );
@@ -224,14 +224,6 @@ listenLoadFromFirebase(calendarEvents) {
 
 
   renderItem(item) {
-
-   if (item.icon == "system:month") {
-     return (
-       <View style={[styles.agendaItemSystemMonth ]}>
-          <Text style={styles.agendaDateSystemMonth}> {item.title}</Text>
-      </View>
-    );
-   } else {
 
 
     return (
@@ -250,6 +242,7 @@ listenLoadFromFirebase(calendarEvents) {
 
            })
          }>
+
         <View style={[styles.agendaItem, {height: item.height,   borderRightColor: this.formatBackground(item.color)} ]}>
 
         <Grid>
@@ -295,7 +288,7 @@ listenLoadFromFirebase(calendarEvents) {
 
     );
 
-  }
+
   }
 
   getIcon(eventDetails) {
