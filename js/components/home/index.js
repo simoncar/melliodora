@@ -103,9 +103,7 @@ quickLoad(calendarEvents){
                     });
 
                 }
-                this.setState({
-                  calendarEvents:calendarEvents
-                });
+
 
               }
           }
