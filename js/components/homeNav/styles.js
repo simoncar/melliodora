@@ -15,29 +15,25 @@ export default {
   },
   beta: {
     backgroundColor: 'white',
-    color: 'white',
+    color: '#e9e9e9',
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',
     textAlign: 'center',
-    borderRadius: 20,
+        fontSize: 20,
   },
-
-
   betaView: {
     backgroundColor: '#707372',
     alignSelf: 'center',
-    flex: 1,
     flexDirection: 'row',
-    borderRadius: 20,
   },
   betaButton: {
     paddingTop: 50,
+        paddingBottom: 20,
     backgroundColor: 'white',
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',
-    borderRadius: 0,
     //color: '#141b4d'
   },
 

@@ -152,15 +152,13 @@ Are you interested in meeting people with similar interests within the Stamford 
 
 
             <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>
-
-                        <View style={styles.betaView}>
-                            <Text numberOfLines={2} style={styles.beta}>
-                                {this.state.versionText}
-                            </Text>
-
-
-                        </View>
+              <View style={styles.betaView}>
+                  <Text style={styles.beta}>
+                    <Icon style={styles.beta} name="md-pulse" />
+                  </Text>
+              </View>
             </Button>
+            
           </Content>
 
       </Container>
