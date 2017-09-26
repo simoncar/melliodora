@@ -26,7 +26,7 @@ class HomeNav extends Component {
   constructor() {
        super()
        this.state = {
-          versionText: 'Check you are on the latest version' //'Version Aug.1.2017 - Check for an Update'
+          versionText: '' //'Version Aug.1.2017 - Check for an Update'
        }
     }
 
@@ -37,7 +37,7 @@ class HomeNav extends Component {
   }
 
   _checkForUpdate() {
-    this.setState({versionText: 'Updating....'})
+    this.setState({versionText: ''})
     Expo.Util.reload();
   }
 
@@ -152,7 +152,7 @@ Are you interested in meeting people with similar interests within the Stamford 
 
             <View>
             <MapView
-                   
+
                    initialRegion={{
                      latitude: 37.78825,
                      longitude: -122.4324,
@@ -163,14 +163,11 @@ Are you interested in meeting people with similar interests within the Stamford 
             </View>
 
             <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>
-
-                        <View style={styles.betaView}>
-                            <Text numberOfLines={2} style={styles.beta}>
-                                {this.state.versionText}
-                            </Text>
-
-
-                        </View>
+              <View style={styles.betaView}>
+                  <Text style={styles.beta}>
+                    <Icon style={styles.beta} name="md-pulse" />
+                  </Text>
+              </View>
             </Button>
           </Content>
 
