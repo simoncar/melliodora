@@ -14,6 +14,8 @@ import { openDrawer } from '../../actions/drawer';
 import Sentry from 'sentry-expo';
 import Expo from 'expo';
 
+import { MapView } from 'expo';
+
 import theme from '../../themes/base-theme';
 import styles from './styles';
 
@@ -148,8 +150,17 @@ Are you interested in meeting people with similar interests within the Stamford 
               </TouchableOpacity>
             </View>
 
-
-
+            <View>
+            <MapView
+                   
+                   initialRegion={{
+                     latitude: 37.78825,
+                     longitude: -122.4324,
+                     latitudeDelta: 0.0922,
+                     longitudeDelta: 0.0421,
+                   }}
+                 />
+            </View>
 
             <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>
 

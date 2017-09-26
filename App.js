@@ -27,7 +27,7 @@ export const setUserContext = (ctx: 'user-simon') => {
 };
 
 
-Sentry.captureMessage('App started V19!')
+Sentry.captureMessage('App started V21!')
 
 
 function configureStore(initialState) {

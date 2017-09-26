@@ -151,6 +151,8 @@ return(
 
 
 
+
+
               <View style={styles.newsContent}>
                   <Text selectable={true} style={styles.eventTitle}>
                     {this.props.eventTitle}
