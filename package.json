@@ -6,7 +6,7 @@
     "babel-eslint": "^6.1.2",
     "babel-jest": "16.0.0",
     "chai": "^3.5.0",
-    "detox": "^5.6.0",
+    "detox": "^5.8.1",
     "eslint": "^3.5.0",
     "eslint-config-airbnb": "^11.1.0",
     "eslint-plugin-import": "^1.14.0",
@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "asap": "^2.0.5",
+    "babel-runtime": "^6.26.0",
     "color": "^0.11.3",
     "expo": "^21.0.0",
     "firebase": "^3.9.0",
@@ -67,16 +68,14 @@
     "remote-redux-devtools-on-debugger": "^0.4.6",
     "sentry-expo": "~1.6.0"
   },
-
   "detox": {
     "configurations": {
       "ios.sim.debug": {
-        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/myStamford.app",
-        "build": "xcodebuild -project ios/myStamford.xcodeproj -scheme myStamford -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/Stamford.app",
+        "build": "xcodebuild -project ios/Stamford.xcodeproj -scheme Stamford -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
         "type": "ios.simulator",
         "name": "iPhone 7"
       }
     }
   }
-
 }
