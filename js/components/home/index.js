@@ -104,7 +104,7 @@ quickLoad(calendarEvents){
               email: obj2["email"],
               url: obj2["htmlLink"]
             });
-  
+
 
         //        }
                 this.setState({
@@ -260,7 +260,7 @@ quickLoad(calendarEvents){
          <Row>
            <Col>
            <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}  {item.location}    </Text>
-           <Text style={styles.agendaDate}>{formatTime(item.startTimePretty, item.endTimePretty)}   </Text>
+            {this.renderTime(item.startTimePretty, item.endTimePretty)}
 
            <Text style={styles.text}>{item.name}</Text>
 
@@ -323,7 +323,13 @@ quickLoad(calendarEvents){
     );
   }
 
-
+  renderTime(start, end) {
+    if ((undefined != start) && (start.length > 0)) {
+      return (
+        <Text style={styles.agendaDate}>{formatTime(start, end)}   </Text>
+      );
+    }
+  }
 
   rowHasChanged(r1, r2) {
 

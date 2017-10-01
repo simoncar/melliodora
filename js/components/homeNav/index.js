@@ -99,32 +99,7 @@ class HomeNav extends Component {
             </Row>
               </Grid>
             </View>
-            <View style={styles.newsContentLine}>
-
-              <TouchableOpacity style={{ flexDirection: 'row' }}  onPress={() => { Actions.ptaMovieNight(); }} >
-                <Image source={require('../../../images/sais.edu.sg/movie_night_poster.jpg')} style={styles.newsImage} />
-
-              <View style={styles.newsContentNoLine}>
-                  <Text numberOfLines={1} style={styles.newsHeader}>
-                                    ZOOTOPIA! PTA Family Movie Night
-                                    </Text>
-
-                                    <Text style={styles.newsTypeText}>
-                                      6pm to 10pm Saturday September 30 on Stamford Field.
-                                      The  movie screening will start at 7:30 PM.
-                                    </Text>
-
-                <View style={{flexDirection: 'column'}}>
-                  <Text numberOfLines={1} style={ styles.newsLink}></Text>
-                  <Text style={styles.newsLink}></Text>
-                </View>
-                </View>
-              </TouchableOpacity>
-            </View>
-
-
-
-
+          
 
             <View style={styles.newsContentLine}>
 
@@ -158,7 +133,7 @@ Are you interested in meeting people with similar interests within the Stamford 
                   </Text>
               </View>
             </Button>
-            
+
           </Content>
 
       </Container>

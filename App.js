@@ -26,7 +26,7 @@ export const setUserContext = (ctx: 'user-simon') => {
   Sentry.setUserContext(ctx);
 };
 
-Sentry.captureMessage('App started V21!')
+Sentry.captureMessage('App started V21.1!')
 //rm -rf node_modules && npm install
 
 function configureStore(initialState) {
