@@ -14,6 +14,8 @@ import { openDrawer } from '../../actions/drawer';
 import Sentry from 'sentry-expo';
 import Expo from 'expo';
 
+import { MapView } from 'expo';
+
 import theme from '../../themes/base-theme';
 import styles from './styles';
 
@@ -24,7 +26,7 @@ class HomeNav extends Component {
   constructor() {
        super()
        this.state = {
-          versionText: 'Check you are on the latest version' //'Version Aug.1.2017 - Check for an Update'
+          versionText: '' //'Version Aug.1.2017 - Check for an Update'
        }
     }
 
@@ -35,7 +37,7 @@ class HomeNav extends Component {
   }
 
   _checkForUpdate() {
-    this.setState({versionText: 'Updating....'})
+    this.setState({versionText: ''})
     Expo.Util.reload();
   }
 
@@ -99,7 +101,7 @@ class HomeNav extends Component {
             </Row>
               </Grid>
             </View>
-          
+
 
             <View style={styles.newsContentLine}>
 
@@ -123,8 +125,17 @@ Are you interested in meeting people with similar interests within the Stamford 
               </TouchableOpacity>
             </View>
 
+            <View>
+            <MapView
 
-
+                   initialRegion={{
+                     latitude: 37.78825,
+                     longitude: -122.4324,
+                     latitudeDelta: 0.0922,
+                     longitudeDelta: 0.0421,
+                   }}
+                 />
+            </View>
 
             <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>
               <View style={styles.betaView}>

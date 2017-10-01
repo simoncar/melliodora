@@ -151,6 +151,8 @@ return(
 
 
 
+
+
               <View style={styles.newsContent}>
                   <Text selectable={true} style={styles.eventTitle}>
                     {this.props.eventTitle}
@@ -190,8 +192,6 @@ return(
                 </View>
                   }
 
-
-
                     <Text selectable={true} style={styles.eventText}>
                       {formatMonth(this.props.eventDate)}
                     </Text>
@@ -207,18 +207,13 @@ return(
                           </Text>
                       }
 
-
                       <Text selectable={true} style={styles.eventText}>
                         {this.props.eventDescription}
                       </Text>
 
-
-
                       <Text selectable={true}  style={styles.abbreviations}>
                         {getAbbreviations(this.props.eventTitle)}
                       </Text>
-
-
 
 
                     <Text style={styles.eventText}>

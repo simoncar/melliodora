@@ -58,118 +58,114 @@ class calendar1 extends Component {
 
 
 
-    this.quickLoad(this.calendarEvents);
+    this.loadFromRedux();
 
 };
 
   componentDidMount(){
-     this.listenForCalendarEvents(this.calendarEvents);
+     this.listenLoadFromFirebase(this.calendarEvents);
     }
 
-quickLoad(calendarEvents){
+loadFromRedux(){
 
-
-  obj = (this.props.calendarEventsX.items)
   this.state.items = [];
+  this.loadItems()
+
+  dataSnapshot = (this.props.calendarEventsX.items)
   key = '';
 
-  for (var key in obj) {
 
-    if (!obj.hasOwnProperty(key)) continue;
+  for (var key in dataSnapshot) {
 
-        var obj2 = obj[key];
+    if (!dataSnapshot.hasOwnProperty(key)) continue;
 
-        if (undefined != obj2["date_start"]){
-      //console.log("here - " , obj2["date_start"]);
-            strtime = obj2["date_start"];
+
+        var snapshot = dataSnapshot[key];
+
+        if (undefined != snapshot["date_start"]){
+
+            strtime = snapshot["date_start"];
             strtime = strtime.substring(0,10);
 
             if (!this.state.items[strtime]) {
               this.state.items[strtime] = [];
             }
 
-
             this.state.items[strtime].push({
-              name: obj2["summary"],
-              title: obj2["summary"],
-              description: obj2["description"],
-              location: obj2["location"],
-              startDatePretty: obj2["date_start"],
-              startTimePretty: obj2["time_start_pretty"],
-              endTimePretty: obj2["time_end_pretty"],
-              iconLib: obj2["iconLib"],
-              icon: obj2["icon"],
-              color: obj2["colorId"],
-              phone: obj2["phone"],
-              email: obj2["email"],
-              url: obj2["htmlLink"]
+              name: snapshot["summary"],
+              title: snapshot["summary"],
+              description: snapshot["description"],
+              location: snapshot["location"],
+              startDatePretty: snapshot["date_start"],
+              startTimePretty: snapshot["time_start_pretty"],
+              endTimePretty: snapshot["time_end_pretty"],
+              iconLib: snapshot["iconLib"],
+              icon: snapshot["icon"],
+              color: snapshot["colorId"],
+              phone: snapshot["phone"],
+              email: snapshot["email"],
+              url: snapshot["htmlLink"]
             });
 
 
-        //        }
-                this.setState({
-                  calendarEvents:calendarEvents
-                });
 
-              }
-          }
+        }
+    }
+
 }
 
-  listenForCalendarEvents(calendarEvents) {
 
-  this.state.items = [];
+listenLoadFromFirebase(calendarEvents) {
+
 
     calendarEvents.on('value', (dataSnapshot2) => {
         this.props.setCalendarItems(dataSnapshot2)
 
         dataSnapshot = dataSnapshot2
-        //this.state.items = [];
+        this.state.items = [];
+        this.loadItems()
+
         dataSnapshot.forEach((snapshot) => {
 
-  //if (undefined != snapshot.child("date_start").val()){
-        strtime = snapshot.child("date_start").val();
-        strtime = strtime.substring(0,10);
+            strtime = snapshot.child("date_start").val();
+            strtime = strtime.substring(0,10);
 
-        if (!this.state.items[strtime]) {
-          this.state.items[strtime] = [];
-        }
+            if (!this.state.items[strtime]) {
+              this.state.items[strtime] = [];
+            }
 
-       //if (undefined != this.state.items[strtime]){
-            this.state.items[strtime].push({
-              name: snapshot.child("summary").val(),
-              title: snapshot.child("summary").val(),
-              description: snapshot.child("description").val(),
-              location: snapshot.child("location").val(),
-              startDatePretty: snapshot.child("date_start").val(),
-              startTimePretty: snapshot.child("time_start_pretty").val(),
-              endTimePretty: snapshot.child("time_end_pretty").val(),
-              iconLib: snapshot.child("iconLib").val(),
-              icon:snapshot.child("icon").val(),
-              color: snapshot.child("colorId").val(),
-              phone: snapshot.child("phone").val(),
-              email: snapshot.child("email").val(),
-              url: snapshot.child("htmlLink").val()
+           if (undefined != this.state.items[strtime]){
+                this.state.items[strtime].push({
+                  name: snapshot.child("summary").val(),
+                  title: snapshot.child("summary").val(),
+                  description: snapshot.child("description").val(),
+                  location: snapshot.child("location").val(),
+                  startDatePretty: snapshot.child("date_start").val(),
+                  startTimePretty: snapshot.child("time_start_pretty").val(),
+                  endTimePretty: snapshot.child("time_end_pretty").val(),
+                  iconLib: snapshot.child("iconLib").val(),
+                  icon:snapshot.child("icon").val(),
+                  color: snapshot.child("colorId").val(),
+                  phone: snapshot.child("phone").val(),
+                  email: snapshot.child("email").val(),
+                  url: snapshot.child("htmlLink").val()
+              });
+            }
           });
-        //}
-    //  }
 
           this.setState({
             calendarEvents:calendarEvents
           });
-      });
 
+          //this.state.items = [];
     });
-
-}
-
-
+  }
 
   loadItems(day) {
 
-
     setTimeout(() => {
       for (let i = -15; i < 365; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+        const time = Date.now() + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
 
         if (!this.state.items[strtime]) {
@@ -206,20 +202,12 @@ quickLoad(calendarEvents){
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
           hideKnob={false}
-            // agenda theme
-            theme = {{
-            //  calendarBackground: 'red'
-          //    agendaDayTextColor : 'blue',
-          //    agendaDayNumColor : 'blue',
-          //    agendaTodayColor : 'red'
-                agendaKnobColor: '#1DAEF2'
+          theme = {{
+                agendaKnobColor: '#1DAEF2',
+                selectedDayBackgroundColor: '#00adf5',
             }}
-            // agenda container style
-            style = {{}}
+          style = {{}}
         />
-
-
-
 
       </Container>
     );
@@ -227,14 +215,6 @@ quickLoad(calendarEvents){
 
 
   renderItem(item) {
-
-   if (item.icon == "system:month") {
-     return (
-       <View style={[styles.agendaItemSystemMonth ]}>
-          <Text style={styles.agendaDateSystemMonth}> {item.title}</Text>
-      </View>
-    );
-   } else {
 
 
     return (
@@ -253,14 +233,17 @@ quickLoad(calendarEvents){
 
            })
          }>
+
         <View style={[styles.agendaItem, {height: item.height,   borderRightColor: this.formatBackground(item.color)} ]}>
 
         <Grid>
 
          <Row>
            <Col>
-           <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}  {item.location}    </Text>
-            {this.renderTime(item.startTimePretty, item.endTimePretty)}
+
+           <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}    {item.location}    </Text>
+           {this.renderTime(item.startTimePretty, item.endTimePretty)}
+
 
            <Text style={styles.text}>{item.name}</Text>
 
@@ -298,7 +281,7 @@ quickLoad(calendarEvents){
 
     );
 
-  }
+
   }
 
   getIcon(eventDetails) {
@@ -315,6 +298,14 @@ quickLoad(calendarEvents){
     return (ret);
   };
 
+
+renderTime(start, end) {
+  if ((undefined != start) && (start.length > 0)) {
+    return (
+      <Text style={styles.agendaDate}>{formatTime(start, end)}   </Text>
+    );
+  }
+}
 
   renderEmptyDate(item) {
 
