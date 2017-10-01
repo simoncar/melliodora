@@ -106,9 +106,6 @@ loadFromRedux(){
               url: snapshot["htmlLink"]
             });
 
-
-
-
         }
     }
 }
