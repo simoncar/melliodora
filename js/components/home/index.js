@@ -74,11 +74,9 @@ loadFromRedux(){
   dataSnapshot = (this.props.calendarEventsX.items)
   key = '';
 
-
   for (var key in dataSnapshot) {
 
     if (!dataSnapshot.hasOwnProperty(key)) continue;
-
 
         var snapshot = dataSnapshot[key];
 
@@ -106,8 +104,6 @@ loadFromRedux(){
               email: snapshot["email"],
               url: snapshot["htmlLink"]
             });
-
-
 
         }
     }
