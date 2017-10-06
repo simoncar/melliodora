@@ -103,6 +103,29 @@ class HomeNav extends Component {
             </View>
 
 
+
+            <View style={styles.newsContentLine}>
+
+
+              <TouchableOpacity style={{ flexDirection: 'column' }}  onPress={() => { Actions.ptaEvents(); }} >
+                <Image source={require('../../../images/sais.edu.sg/ParentsTalkAbout_resource.png')} style={styles.newsImage2} />
+                <View style={styles.newsContentNoLine}>
+                  <Text numberOfLines={1} style={styles.newsHeader}>
+                                Singapore Special (Food & Health)
+                                    </Text>
+
+                                    <Text style={styles.newsTypeText}>
+PTA Presents a 3 part talk for parents from Expat Kitchen, International Medical Clinic and T32 Dental Centre covering hawker foods, wet markets and grocery shopping, followed by vaccinations including some new US College admissions vaccinations and preventive dental care for your children.
+                                    </Text>
+
+                <View style={{flexDirection: 'column'}}>
+                  <Text numberOfLines={1} style={ styles.newsLink}></Text>
+                  <Text style={styles.newsLink}></Text>
+                </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+
             <View style={styles.newsContentLine}>
 
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity,  Dimensions,  Platform, Slider  } from 'react-native';
+import { Linking, Image, View, TouchableOpacity,  Dimensions,  Platform, Slider  } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
@@ -34,6 +34,11 @@ class ptaEvents extends Component {
 
   }
 
+
+  _handleOpenWithLinking = (sURL) => {
+     Linking.openURL(sURL);
+  }
+
   render() {
     return (
 
@@ -43,7 +48,7 @@ class ptaEvents extends Component {
               <Content showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1 }}>
                   <View >
-                      <Image source={require('../../../images/sais.edu.sg/pta_page_logo.jpg')} style={styles.ptaLogo}>
+                      <Image source={require('../../../images/sais.edu.sg/ParentsTalkAbout_resource.png')} style={styles.ptaLogo}>
                     </Image>
                   </View>
                   <View style={{ backgroundColor: '#fff' }}>
@@ -54,53 +59,41 @@ class ptaEvents extends Component {
                             <Text style={styles.newsLink}>PTA</Text>
                           </TouchableOpacity>
                           <Icon name="ios-time-outline" style={styles.timeIcon} />
-                          <Text style={styles.newsLink}></Text>
+                          <Text style={styles.newsLink}>Tue 10th October 9am-10:30am</Text>
                         </Col>
                         <Col>
                           <TouchableOpacity style={styles.newsTypeView}>
-                            <Text style={styles.newsTypeText}></Text>
+                            <Text style={styles.newsTypeText}>Lincoln iLearn</Text>
                           </TouchableOpacity>
                         </Col>
                       </Grid>
                       <Text style={styles.newsHeader}>
-here we will list information about PTA Events
+PTA Presents a 3 part talk for parents from Expat Kitchen, International Medical Clinic and T32 Dental Centre covering hawker foods, wet markets and grocery shopping, followed by vaccinations including some new US College admissions vaccinations and preventive dental care for your children.
                       </Text>
                     </View>
 
                     <View style={{ padding: 20 }}>
                       <View style={styles.newsCommentContainer}>
                         <Text style={styles.newsComment}>
-                          This is your STAMFORD PTA so make the most of it and have fun!!!
+                          Light refreshments will be served
                           </Text>
 
                       </View>
                     </View>
 
-                    <View style={styles.wrapper}>
-                      <Swiper
-                        height={230}
-                        width={deviceWidth + 5}
-                        loop
-                        dot={<View style={styles.swiperDot} />}
-                        activeDot={<View
-                          style={styles.swiperActiveDot}
-                          showsButtons
-                        />}
-                      >
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product1.jpg')} />
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product2.jpg')} />
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product3.jpg')} />
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product4.jpg')} />
-                        </View>
-                      </Swiper>
-                    </View>
+
+
+                                        <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://mystamford.edu.sg/pta/pta-events/parents-talk-about-/rsvp-parents-talk-about'); }}>
+                                           <View style={{ padding: 20 }}>
+                                             <View style={styles.connectionCommentContainer}>
+                                               <Text style={styles.connectionComment}>
+                                                  RSVP Here
+                                                 </Text>
+                                             </View>
+                                           </View>
+                                        </TouchableOpacity>
+
+
 
                   </View>
                 </View>

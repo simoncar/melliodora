@@ -144,6 +144,14 @@ export default {
     borderTopColor: '#ddd',
 
   },
+  newsImage2: {
+    width: 340,
+    height: 200,
+    alignSelf: 'center',
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+
+  },
   newsContentLine: {
     borderTopWidth: 1,
     borderTopColor: '#ddd',
