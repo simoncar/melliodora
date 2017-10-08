@@ -56,8 +56,6 @@ class calendar1 extends Component {
       items: {}
     };
 
-
-
     this.loadFromRedux();
 
 };
@@ -102,7 +100,10 @@ loadFromRedux(){
               color: snapshot["colorId"],
               phone: snapshot["phone"],
               email: snapshot["email"],
-              url: snapshot["htmlLink"]
+              url: snapshot["htmlLink"],
+              photo1: snapshot["photo1"],
+              photo2: snapshot["photo2"],
+              photo3: snapshot["photo3"]
             });
 
         }
@@ -144,7 +145,11 @@ listenLoadFromFirebase(calendarEvents) {
                   color: snapshot.child("colorId").val(),
                   phone: snapshot.child("phone").val(),
                   email: snapshot.child("email").val(),
-                  url: snapshot.child("htmlLink").val()
+                  url: snapshot.child("htmlLink").val(),
+                  photo1: snapshot.child("photo1").val(),
+                  photo2: snapshot.child("photo2").val(),
+                  photo3: snapshot.child("photo3").val()
+
               });
             }
           });
@@ -225,6 +230,9 @@ listenLoadFromFirebase(calendarEvents) {
              phone: item.phone,
              email: item.email,
              color: item.color,
+             photo1: item.photo1,
+             photo2: item.photo2,
+             photo3: item.photo3,
              url: item.url
 
            })

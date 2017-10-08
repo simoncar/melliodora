@@ -12,6 +12,14 @@ export default {
     width: null,
     height: null
     },
+
+
+    storyPhoto: {
+      width: null,
+      height: 200,
+      flex: 1,
+    },
+
   newsContent: {
     flexDirection: 'column',
     paddingTop: 20,

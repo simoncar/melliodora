@@ -111,9 +111,7 @@ return(
             />
     )
   }
-
 }
-
 
   render() {
 
@@ -147,12 +145,17 @@ return(
           </Header>
 
           <Content showsVerticalScrollIndicator={false}>
+
+
+
+          {undefined !== this.props.photo1 && null !== this.props.photo1 &&  this.props.photo1.length > 0 &&
+            <View >
+                <Image source={{uri: this.props.photo1}} style={styles.storyPhoto} />
+            </View>
+          }
+
+
             <View style={{ flex: 1 }}>
-
-
-
-
-
               <View style={styles.newsContent}>
                   <Text selectable={true} style={styles.eventTitle}>
                     {this.props.eventTitle}
@@ -219,7 +222,6 @@ return(
                     <Text style={styles.eventText}>
                       {this.props.eventImage}
                     </Text>
-
 
               </View>
 
