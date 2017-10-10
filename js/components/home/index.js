@@ -254,7 +254,7 @@ listenLoadFromFirebase(calendarEvents) {
            </Col>
            <Col style={{width:60}}>
 
-             <Button style={{
+             <View style={{
                   borderRadius: 30,
                   backgroundColor: this.formatBackground(item.color),
                   width: 45,
@@ -268,15 +268,13 @@ listenLoadFromFirebase(calendarEvents) {
                 }} >
 
                 <View>
+                      <Icon style={{
+                          color: '#fff',
+                          fontSize: 20,
+                      }} name={item.icon} />
+                  </View>
 
-
-                <Icon style={{
-                    color: '#fff',
-                    fontSize: 20,
-                }} name={item.icon} />
-            </View>
-
-             </Button>
+             </View>
            </Col>
         </Row>
       </Grid>
