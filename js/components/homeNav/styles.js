@@ -36,6 +36,12 @@ export default {
     flexDirection: 'row',
     //color: '#141b4d'
   },
+  storyPhoto: {
+    width: null,
+    height: 200,
+    flex: 1,
+  },
+
 
   footer: {
     backgroundColor: 'white',

@@ -80,6 +80,14 @@ export default {
     flex: 1,
         resizeMode: 'contain'
   },
+
+  storyPhoto: {
+    width: null,
+    height: 200,
+    flex: 1,
+  },
+
+
   newsPoster: {
     width: null,
     height: 200,

@@ -48,46 +48,17 @@ class ptaEvents extends Component {
               <Content showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1 }}>
                   <View >
-                      <Image source={require('../../../images/sais.edu.sg/ParentsTalkAbout_resource.png')} style={styles.ptaLogo}>
+                      <Image source={require('../../../images/sais.edu.sg/diwali.jpg')} style={styles.storyPhoto}>
                     </Image>
-                  </View>
-                  <View style={{ backgroundColor: '#fff' }}>
-                    <View style={styles.newsContent}>
-                      <Grid style={{ paddingBottom: 20 }}>
-                        <Col style={{ flexDirection: 'row' }}>
-                          <TouchableOpacity>
-                            <Text style={styles.newsLink}>PTA</Text>
-                          </TouchableOpacity>
-                          <Icon name="ios-time-outline" style={styles.timeIcon} />
-                          <Text style={styles.newsLink}>Tue 10th October 9am-10:30am</Text>
-                        </Col>
-                        <Col>
-                          <TouchableOpacity style={styles.newsTypeView}>
-                            <Text style={styles.newsTypeText}>Lincoln iLearn</Text>
-                          </TouchableOpacity>
-                        </Col>
-                      </Grid>
-                      <Text style={styles.newsHeader}>
-PTA Presents a 3 part talk for parents from Expat Kitchen, International Medical Clinic and T32 Dental Centre covering hawker foods, wet markets and grocery shopping, followed by vaccinations including some new US College admissions vaccinations and preventive dental care for your children.
-                      </Text>
-                    </View>
-
-                    <View style={{ padding: 20 }}>
-                      <View style={styles.newsCommentContainer}>
-                        <Text style={styles.newsComment}>
-                          Light refreshments will be served
-                          </Text>
-
-                      </View>
-                    </View>
 
 
 
-                                        <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://mystamford.edu.sg/pta/pta-events/parents-talk-about-/rsvp-parents-talk-about'); }}>
+
+                                        <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://mystamford.edu.sg/events-1/deepavali-celebrations'); }}>
                                            <View style={{ padding: 20 }}>
                                              <View style={styles.connectionCommentContainer}>
                                                <Text style={styles.connectionComment}>
-                                                  RSVP Here
+                                                  More Details on myStamford
                                                  </Text>
                                              </View>
                                            </View>
