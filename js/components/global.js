@@ -101,8 +101,14 @@ if (eventDetails.includes("MAP")) {
 ret = ret + '\nMAP - Measure of Academic Progress '
 }
 
+if (eventDetails.includes("ELV")) {
+ret = ret + '\nELV - Early Learning Village '
+}
 
 
+if (eventDetails.includes("S.E.A")) {
+ret = ret + '\nSEA - South East Asia'
+}
 
 
 return (ret)
