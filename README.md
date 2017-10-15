@@ -34,7 +34,7 @@ Farrier Master
 Farrier Apprentice
 Grooms x 35
 
-Life long history of hourse
+Life long history of horse
 Stats (basic, age etc)
 
 Exercise
@@ -43,4 +43,4 @@ Afternoon polo
 Walk
 Paddock
 
-1 Member rides anohter members horse
+1 Member rides another  members horse
