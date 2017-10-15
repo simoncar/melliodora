@@ -36,6 +36,12 @@ export default {
     flexDirection: 'row',
     //color: '#141b4d'
   },
+  storyPhoto: {
+    width: null,
+    height: 200,
+    flex: 1,
+  },
+
 
   footer: {
     backgroundColor: 'white',
@@ -140,6 +146,14 @@ export default {
   newsImage: {
     width: 120,
     height: 120,
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+
+  },
+  newsImage2: {
+    width: 340,
+    height: 200,
+    alignSelf: 'center',
     borderTopWidth: 1,
     borderTopColor: '#ddd',
 

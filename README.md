@@ -21,3 +21,26 @@ Released to App stores
 
 - 10 June 2017 - Save Login Details
 - 7 June 2017 - Redux Integration
+
+
+TODO:
+Characters
+Stable Manager x3
+Trainer
+Professional
+Member
+Vet
+Farrier Master
+Farrier Apprentice
+Grooms x 35
+
+Life long history of hourse
+Stats (basic, age etc)
+
+Exercise
+Morning Ride
+Afternoon polo
+Walk
+Paddock
+
+1 Member rides anohter members horse

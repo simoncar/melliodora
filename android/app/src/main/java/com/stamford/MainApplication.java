@@ -1,4 +1,4 @@
-package com.mystamford;
+package com.stamford;
 
 import android.app.Application;
 

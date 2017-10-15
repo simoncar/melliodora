@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity,  Dimensions,  Platform, Slider  } from 'react-native';
+import { Linking, Image, View, TouchableOpacity,  Dimensions,  Platform, Slider  } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
@@ -34,6 +34,11 @@ class ptaEvents extends Component {
 
   }
 
+
+  _handleOpenWithLinking = (sURL) => {
+     Linking.openURL(sURL);
+  }
+
   render() {
     return (
 
@@ -43,64 +48,23 @@ class ptaEvents extends Component {
               <Content showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1 }}>
                   <View >
-                      <Image source={require('../../../images/sais.edu.sg/pta_page_logo.jpg')} style={styles.ptaLogo}>
+                      <Image source={require('../../../images/sais.edu.sg/diwali.jpg')} style={styles.storyPhoto}>
                     </Image>
-                  </View>
-                  <View style={{ backgroundColor: '#fff' }}>
-                    <View style={styles.newsContent}>
-                      <Grid style={{ paddingBottom: 20 }}>
-                        <Col style={{ flexDirection: 'row' }}>
-                          <TouchableOpacity>
-                            <Text style={styles.newsLink}>PTA</Text>
-                          </TouchableOpacity>
-                          <Icon name="ios-time-outline" style={styles.timeIcon} />
-                          <Text style={styles.newsLink}></Text>
-                        </Col>
-                        <Col>
-                          <TouchableOpacity style={styles.newsTypeView}>
-                            <Text style={styles.newsTypeText}></Text>
-                          </TouchableOpacity>
-                        </Col>
-                      </Grid>
-                      <Text style={styles.newsHeader}>
-here we will list information about PTA Events
-                      </Text>
-                    </View>
 
-                    <View style={{ padding: 20 }}>
-                      <View style={styles.newsCommentContainer}>
-                        <Text style={styles.newsComment}>
-                          This is your STAMFORD PTA so make the most of it and have fun!!!
-                          </Text>
 
-                      </View>
-                    </View>
 
-                    <View style={styles.wrapper}>
-                      <Swiper
-                        height={230}
-                        width={deviceWidth + 5}
-                        loop
-                        dot={<View style={styles.swiperDot} />}
-                        activeDot={<View
-                          style={styles.swiperActiveDot}
-                          showsButtons
-                        />}
-                      >
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product1.jpg')} />
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product2.jpg')} />
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product3.jpg')} />
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.newsPoster} source={require('../../../images/sais.edu.sg/lionsDen_product4.jpg')} />
-                        </View>
-                      </Swiper>
-                    </View>
+
+                                        <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://mystamford.edu.sg/events-1/deepavali-celebrations'); }}>
+                                           <View style={{ padding: 20 }}>
+                                             <View style={styles.connectionCommentContainer}>
+                                               <Text style={styles.connectionComment}>
+                                                  More Details on myStamford
+                                                 </Text>
+                                             </View>
+                                           </View>
+                                        </TouchableOpacity>
+
+
 
                   </View>
                 </View>

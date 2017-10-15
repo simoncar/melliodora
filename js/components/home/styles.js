@@ -225,16 +225,17 @@ export default {
   agendaDate: {
     color: 'gray',
     fontSize: 12,
-    marginBottom: 0,
+
+    marginBottom: 3,
   },
 
   agendaLocation: {
-    color: 'gray',
-    fontSize: 12,
-    marginTop: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: '#666',
-  },
+     color: 'gray',
+     fontSize: 12,
+     marginTop: 5,
+     borderBottomWidth: 1,
+     borderBottomColor: '#666',
+   },
 
 
 
