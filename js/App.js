@@ -20,9 +20,6 @@ class App extends Component {
     this._notificationSubscription && this._notificationSubscription.remove();
   }
   render() {
-
-      console.log("_app.js in js folder");
-
     return <AppNavigator {...this.props}/>;
   }
 
@@ -32,7 +29,7 @@ class App extends Component {
     // a notification every time you open the app. Check out the source
     // for this function in api/registerForPushNotificationsAsync.js
     registerForPushNotificationsAsync(this.props.userX.name);
-    console.log("registered for push notifiation");
+
 
     // Watch for incoming notifications
     this._notificationSubscription = Notifications.addListener(
