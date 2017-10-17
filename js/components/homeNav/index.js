@@ -102,10 +102,7 @@ class HomeNav extends Component {
               </Grid>
             </View>
 
-
-
             <View style={styles.newsContentLine}>
-
 
               <TouchableOpacity style={{ flexDirection: 'column' }}  onPress={() => { Actions.ptaEvents(); }} >
                 <Image source={require('../../../images/sais.edu.sg/diwali.jpg')} style={styles.storyPhoto} />
