@@ -21,14 +21,33 @@ import styles from './styles';
 
 import Communications from 'react-native-communications';
 
+//import * as firebase from 'firebase';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
+  authDomain: "calendar-app-57e88.firebaseapp.com",
+  databaseURL: "https://calendar-app-57e88.firebaseio.com",
+  storageBucket: "calendar-app-57e88.appspot.com"
+};
+
+var calendarEvents = [];
+
+//const firebaseApp = firebase.initializeApp(firebaseConfig);
+
 class HomeNav extends Component {
 
   constructor() {
        super()
+
+       this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/feature');
        this.state = {
           versionText: '' //'Version Aug.1.2017 - Check for an Update'
        }
     }
+
+    componentDidMount(){
+      // this.listenLoadFromFirebase(this.calendarEvents);
+      }
 
   static propTypes = {
     navigation: React.PropTypes.shape({
@@ -41,6 +60,28 @@ class HomeNav extends Component {
     Expo.Util.reload();
   }
 
+
+  listenLoadFromFirebase(calendarEvents) {
+
+
+      calendarEvents.on('value', (dataSnapshot2) => {
+      //    this.props.setCalendarItems(dataSnapshot2)
+
+          dataSnapshot = dataSnapshot2
+          this.state.items = [];
+
+          dataSnapshot.forEach((snapshot) => {
+                  this.state.items[strtime].push({
+                    title: snapshot.child("summary").val(),
+                    description: snapshot.child("description").val()
+                  });
+                });
+
+            this.setState({
+              calendarEvents:calendarEvents
+            });
+      });
+    }
 
   render() {
     return (
@@ -130,18 +171,6 @@ Are you interested in meeting people with similar interests within the Stamford 
                 </View>
                 </View>
               </TouchableOpacity>
-            </View>
-
-            <View>
-            <MapView
-
-                   initialRegion={{
-                     latitude: 37.78825,
-                     longitude: -122.4324,
-                     latitudeDelta: 0.0922,
-                     longitudeDelta: 0.0421,
-                   }}
-                 />
             </View>
 
             <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>

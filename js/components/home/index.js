@@ -25,7 +25,6 @@ import { formatTime, formatMonth } from '../global.js';
 const deviceWidth = Dimensions.get('window').width;
 const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
-console.log("ACfromHome=", ActionCreators);
 
 import * as firebase from 'firebase';
 
