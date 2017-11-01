@@ -40,14 +40,14 @@ var i = 0;
 var calendarEvents = [];
 const newItems = {};
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+//const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 class calendar1 extends Component {
 
   constructor(props) {
     super(props);
 
-    this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/calendar/all_v2');
+    this.calendarEvents = firebase.database().ref('instance/0001-sais_edu_sg/calendar/all_v2');
 
     this.state = {
       user:null,

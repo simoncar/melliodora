@@ -6,6 +6,10 @@ import { createLogger } from 'redux-logger'
 import reducer from './js/reducers'
 import Setup from './js/setup';
 
+import * as firebase from "firebase";
+
+import Firebase from "./js/lib/firebase";
+
 import Sentry from 'sentry-expo';
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
@@ -22,6 +26,7 @@ export const setTagsContext = (ctx: 'env-simulator') => {
     environment: ctx.environment,
   });
 };
+
 export const setUserContext = (ctx: 'user-simon') => {
   Sentry.setUserContext(ctx);
 };
@@ -41,6 +46,12 @@ function configureStore(initialState) {
 const store = configureStore({});
 
 export default class App extends React.Component {
+
+
+  constructor(props) {
+     super(props);
+     Firebase.initialise();
+  }
 
 
   render() {

@@ -14,7 +14,6 @@ class Firebase {
             storageBucket: "calendar-app-57e88.appspot.com"
         });
     }
-
 }
 
 module.exports = Firebase;

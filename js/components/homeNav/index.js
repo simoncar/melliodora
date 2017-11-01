@@ -21,25 +21,16 @@ import styles from './styles';
 
 import Communications from 'react-native-communications';
 
-//import * as firebase from 'firebase';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
-  authDomain: "calendar-app-57e88.firebaseapp.com",
-  databaseURL: "https://calendar-app-57e88.firebaseio.com",
-  storageBucket: "calendar-app-57e88.appspot.com"
-};
+import * as firebase from 'firebase';
 
 var calendarEvents = [];
-
-//const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 class HomeNav extends Component {
 
   constructor() {
        super()
 
-       this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/feature');
+  //     this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/feature');
        this.state = {
           versionText: '' //'Version Aug.1.2017 - Check for an Update'
        }
