@@ -48,6 +48,7 @@ export default {
 },
 
 
+
   footerTab: {
     backgroundColor: 'white',
     paddingTop:3

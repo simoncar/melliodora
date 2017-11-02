@@ -11,13 +11,9 @@ import { Container, Header, Footer, FooterTab, Content, Text, Button, Icon, Card
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
-
 import * as ActionCreators  from '../../actions'
-
 import styles from './styles';
-
 import HeaderContent from './../headerContent/header';
-
 
 import {Agenda} from 'react-native-calendars';
 import { formatTime, formatMonth } from '../global.js';
@@ -25,22 +21,12 @@ import { formatTime, formatMonth } from '../global.js';
 const deviceWidth = Dimensions.get('window').width;
 const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
-
 import * as firebase from 'firebase';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
-  authDomain: "calendar-app-57e88.firebaseapp.com",
-  databaseURL: "https://calendar-app-57e88.firebaseio.com",
-  storageBucket: "calendar-app-57e88.appspot.com"
-};
 
 var i = 0;
 
 var calendarEvents = [];
 const newItems = {};
-
-//const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 class calendar1 extends Component {
 

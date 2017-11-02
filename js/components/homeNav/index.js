@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, View, TouchableOpacity } from 'react-native';
+import { Image, ListView, View, TouchableOpacity } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import { Container, Content, Footer, FooterTab, Text, Thumbnail, Icon, Button } from 'native-base';
@@ -25,19 +25,25 @@ import * as firebase from 'firebase';
 
 var calendarEvents = [];
 
+const ListItem = require('./ListItem');
+
+
 class HomeNav extends Component {
 
   constructor() {
        super()
 
-  //     this.calendarEvents = firebaseApp.database().ref('instance/0001-sais_edu_sg/feature');
+       this.calendarEvents = firebase.database().ref('instance/0001-sais_edu_sg/feature');
        this.state = {
-          versionText: '' //'Version Aug.1.2017 - Check for an Update'
+          versionText: '', //'Version Aug.1.2017 - Check for an Update'
+          calendarEvents: new ListView.DataSource({
+               rowHasChanged: (row1, row2) => row1 !== row2,
+             })
        }
     }
 
     componentDidMount(){
-      // this.listenLoadFromFirebase(this.calendarEvents);
+      this.listenLoadFromFirebase(this.calendarEvents);
       }
 
   static propTypes = {
@@ -55,24 +61,26 @@ class HomeNav extends Component {
   listenLoadFromFirebase(calendarEvents) {
 
 
-      calendarEvents.on('value', (dataSnapshot2) => {
-      //    this.props.setCalendarItems(dataSnapshot2)
+    calendarEvents.on('value', (snap) => {
 
-          dataSnapshot = dataSnapshot2
-          this.state.items = [];
+         // get children as an array
+         var items = [];
+         snap.forEach((child) => {
+           items.push({
+          //   title: child.val().summary,
+             _key: child.key
+           });
+         });
 
-          dataSnapshot.forEach((snapshot) => {
-                  this.state.items[strtime].push({
-                    title: snapshot.child("summary").val(),
-                    description: snapshot.child("description").val()
-                  });
-                });
+         this.setState({
+           calendarEvents: this.state.calendarEvents.cloneWithRows(items)
+         });
 
-            this.setState({
-              calendarEvents:calendarEvents
-            });
-      });
+       });
+
     }
+
+
 
   render() {
     return (
@@ -134,6 +142,24 @@ class HomeNav extends Component {
               </Grid>
             </View>
 
+  <View style={styles.newsContentLine}>
+            <ListView
+                    dataSource={this.state.calendarEvents}
+                    renderRow={this._renderItem.bind(this)}
+                    enableEmptySections={true}
+                    style={styles.listview}/>
+
+      </View>
+
+
+            <View style={styles.newsContentLine}>
+              <TouchableOpacity style={{ flexDirection: 'column' }}  onPress={() => { Actions.ptaEvents(); }} >
+                <Image source={require('../../../images/sais.edu.sg/diwali.jpg')} style={styles.storyPhoto} />
+
+              </TouchableOpacity>
+            </View>
+
+
             <View style={styles.newsContentLine}>
 
               <TouchableOpacity style={{ flexDirection: 'column' }}  onPress={() => { Actions.ptaEvents(); }} >
@@ -141,6 +167,7 @@ class HomeNav extends Component {
 
               </TouchableOpacity>
             </View>
+
 
             <View style={styles.newsContentLine}>
 
@@ -177,6 +204,18 @@ Are you interested in meeting people with similar interests within the Stamford 
       </Container>
     );
   }
+
+
+  _renderItem(item) {
+
+
+     return (
+       <ListItem item={item} onPress={() => { Actions.ptaHome(); }} />
+     );
+   }
+
+
+
 }
 
 function bindAction(dispatch) {
