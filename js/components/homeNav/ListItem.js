@@ -1,16 +1,39 @@
 import React, {Component} from 'react';
 import ReactNative from 'react-native';
-const styles = require('./styles.js')
-const { View, TouchableHighlight, Text } = ReactNative;
+import { Image, Text, ListView, View, TouchableOpacity, TouchableHighlight } from 'react-native';
+import styles from './styles';
 
 class ListItem extends Component {
   render() {
     return (
-      <TouchableHighlight onPress={this.props.onPress}>
-        <View style={styles.li}>
-          <Text style={styles.liText}>{this.props.item.title}</Text>
-        </View>
-      </TouchableHighlight>
+
+
+
+
+      <View style={styles.newsContentLine}>
+
+
+
+          <View style={styles.newsContentNoLine}>
+            <Text numberOfLines={1} style={styles.newsHeader}>
+                            {this.props.item.title}
+                              </Text>
+
+                              <Text style={styles.newsTypeText}>
+{this.props.item.description}
+                              </Text>
+
+          <View style={{flexDirection: 'column'}}>
+            <Text numberOfLines={1} style={ styles.newsLink}></Text>
+            <Text style={styles.newsLink}></Text>
+          </View>
+          </View>
+
+      </View>
+
+
+
+
     );
   }
 }

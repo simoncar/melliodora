@@ -43,11 +43,9 @@ export default {
   },
 
 
-  footer: {
+footer: {
     backgroundColor: 'white',
 },
-
-
 
   footerTab: {
     backgroundColor: 'white',
@@ -188,6 +186,27 @@ export default {
     color: '#444',
     fontWeight: 'bold',
   },
+
+  featureTitle: {
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+      paddingTop: 10,
+      paddingLeft: 5,
+      paddingRight: 5,
+    fontSize: 16,
+    color: '#444',
+    fontWeight: 'bold',
+  },
+
+  featureDescription: {
+      paddingTop: 10,
+      paddingBottom: 5,
+    color: '#444',
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+
+
   newsLink: {
     flex: 1,
     textAlign: 'left',

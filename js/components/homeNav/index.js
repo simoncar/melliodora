@@ -67,7 +67,9 @@ class HomeNav extends Component {
          var items = [];
          snap.forEach((child) => {
            items.push({
-          //   title: child.val().summary,
+             title: child.val().summary,
+             description: child.val().description,
+             photo1: child.val().photo1,
              _key: child.key
            });
          });
@@ -152,22 +154,6 @@ class HomeNav extends Component {
       </View>
 
 
-            <View style={styles.newsContentLine}>
-              <TouchableOpacity style={{ flexDirection: 'column' }}  onPress={() => { Actions.ptaEvents(); }} >
-                <Image source={require('../../../images/sais.edu.sg/diwali.jpg')} style={styles.storyPhoto} />
-
-              </TouchableOpacity>
-            </View>
-
-
-            <View style={styles.newsContentLine}>
-
-              <TouchableOpacity style={{ flexDirection: 'column' }}  onPress={() => { Actions.ptaEvents(); }} >
-                <Image source={require('../../../images/sais.edu.sg/diwali.jpg')} style={styles.storyPhoto} />
-
-              </TouchableOpacity>
-            </View>
-
 
             <View style={styles.newsContentLine}>
 
@@ -210,7 +196,13 @@ Are you interested in meeting people with similar interests within the Stamford 
 
 
      return (
-       <ListItem item={item} onPress={() => { Actions.ptaHome(); }} />
+
+
+                <ListItem item={item} onPress={() => { Actions.ptaHome(); }} />
+
+
+
+
      );
    }
 
