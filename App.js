@@ -31,7 +31,7 @@ export const setUserContext = (ctx: 'user-simon') => {
   Sentry.setUserContext(ctx);
 };
 
-Sentry.captureMessage('App started V21.2!')
+Sentry.captureMessage('App started V21.6!')
 
 function configureStore(initialState) {
   const enhancer = compose(
