@@ -4,19 +4,26 @@ import { Image, Text, ListView, View, TouchableOpacity, TouchableHighlight } fro
 import styles from './styles';
 
 class ListItem extends Component {
-  render() {
-    return (
 
+
+
+
+  render() {
+
+  var photoSquare = this.props.item.photoSquare;
+
+    return (
 
 
 
       <View style={styles.newsContentLine}>
 
 
-
+        <TouchableOpacity style={{ flexDirection: 'row' }}  onPress={() => { Actions.ptaHome(); }} >
+          <Image  source={{uri: `${photoSquare}`}} style={styles.newsImage} />
           <View style={styles.newsContentNoLine}>
             <Text numberOfLines={1} style={styles.newsHeader}>
-                            {this.props.item.title}
+                              {this.props.item.title}
                               </Text>
 
                               <Text style={styles.newsTypeText}>
@@ -28,8 +35,12 @@ class ListItem extends Component {
             <Text style={styles.newsLink}></Text>
           </View>
           </View>
-
+        </TouchableOpacity>
       </View>
+
+
+
+
 
 
 
