@@ -54,8 +54,10 @@ class Story extends Component {
   }
 
  _shareMessage() {
+   console.log (formatMonth(this.props.eventDate));
+   
     Share.share({
-      message: "" + this.props.eventTitle +  "\n " + formatMonth(this.props.eventDate) + "\n " +  formatTime(this.props.eventStartTime, this.props.eventEndTime)  + ' \n' + this.props.location,
+      message: "" + this.props.eventTitle +  "\n X" + formatMonth(this.props.eventDate) + "\n D" +  formatTime(this.props.eventStartTime, this.props.eventEndTime)  + ' \n E' + this.props.location,
       title: '' + this.props.eventImage
     })
     .then(this._showResult)

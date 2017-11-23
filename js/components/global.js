@@ -23,12 +23,12 @@ export function formatMonth(eventDate) {
   "July", "August", "September", "October", "November", "December"
 ];
 
-var d = new Date(eventDate);
 
   if(eventDate === null && typeof eventDate === "object" ) {
     ret = ''
   } else {
-    if (undefined != eventDate){
+    if (undefined != eventDate && eventDate.length > 1){
+      var d = new Date(eventDate);
       var ret = monthNames[d.getMonth()] + " " + d.getDate();
   } else {
     ret = ''
