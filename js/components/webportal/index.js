@@ -30,7 +30,6 @@ const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
 
-
 var injectScript  = '';
 
 class Webportal extends Component {
@@ -52,7 +51,6 @@ class Webportal extends Component {
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"ff-login-personalised-logo\")[0].style.visibility = \"hidden\";';
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"global-logo\")[0].style.visibility = \"hidden\";';
   //  injectScript = injectScript + ';' +  'window.postMessage(document.cookie)'
-
 
   }
 
@@ -149,7 +147,6 @@ class Webportal extends Component {
       }
     }
   }
-
 
    getInitialState =  () => {
        return {
