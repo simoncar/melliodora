@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import HeaderContent from './../headerContent/header/';
 
-
+import { getParameterByName } from '../global.js';
 
 import { openDrawer } from '../../actions/drawer';
 
@@ -28,7 +28,13 @@ const timer = require('react-native-timer');
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
 var WEBVIEW_REF = 'webview';
-var DEFAULT_URL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
+var DEFAULT_URL = 'https://saispta.com/app/Authentication.php';
+//var DEFAULT_URL = 'https://mystamford.edu.sg/logout';
+
+//var DEFAULT_URL = 'https://mystamford.edu.sg/login/api/getsession?ffauth_device_id=SOME_RANDOM&ffauth_secret=6fbfcef8d9d0524cbb90cb75285df9a1&prelogin=https://mystamford.edu.sg/pta/pta-events/christmas-2017';
+
+
+
 
 var injectScript  = '';
 
@@ -51,7 +57,7 @@ class Webportal extends Component {
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"ff-login-personalised-logo\")[0].style.visibility = \"hidden\";';
     injectScript = injectScript + ';' +  'document.getElementsByClassName(\"global-logo\")[0].style.visibility = \"hidden\";';
   //  injectScript = injectScript + ';' +  'window.postMessage(document.cookie)'
-
+injectScript = '';
   }
 
   state = {
@@ -79,15 +85,29 @@ class Webportal extends Component {
     ));
   }
 
-  onNavigationStateChange = (navState) => {
-      console.log ('webview = onNavigationStateChange=' & navState);
-        console.log ( navState);
 
+  onNavigationStateChange = (navState) => {
+      console.log ('webview = onNavigationStateChange=' + navState);
+        console.log ( navState);
+      console.log ( navState.url);
         if (navState.url != "https://mystamford.edu.sg/parent-dashboard") {
               this.setState({canGoBack: navState.canGoBack});
         } else {
               this.setState({canGoBack: false});
         }
+
+ var string = navState.url;
+
+  if ((string.indexOf("ffauth_secret") ) > 1) {
+    console.log ('we have ffatah secret - need to grab it')
+    var authSecret = getParameterByName('ffauth_secret', string);
+    console.log ('foo=' + authSecret)
+    this.props.setauthSecret(authSecret)
+    console.log ('redux auth =' + this.props.userX.authSecret)
+  }  else {
+    console.log ('no auth secret')
+  }
+
 
   }
 
@@ -102,7 +122,7 @@ class Webportal extends Component {
 
         } else {
           //nothing :-(
-            Actions.login();
+          //  Actions.login();
         };
 
         if (this.props.userX.password ) {
@@ -110,15 +130,9 @@ class Webportal extends Component {
 
         } else {
           //nothing :-(
-            Actions.login();
+          //  Actions.login();
         };
 
-
-    this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
-
-    this.setState({showMsg: true}, () => timer.setTimeout(
-      this, 'hideMsg', () => this.setState({showMsg: false}), 10000
-    ));
 
   }
 
@@ -183,25 +197,6 @@ class Webportal extends Component {
     }
 
 
-   _renderSpinner () {
-        if (this.state.showMsg) {
-           return (
-              <TouchableOpacity onPress={() => Actions.login()}>
-               <View style={styles.settingsMessage} >
-                 <View style={{flex: 1}} />
-                 <View style={{flex: 2}}>
-                        <Spinner color='#172245' />
-                 </View>
-
-                <View style={{flex: 3}} />
-
-              </View>
-               </TouchableOpacity>
-           );
-       } else {
-          null;
-       }
-   }
 
    updateText = () => {
     this.setState({myText: 'My Changed Text'})
@@ -220,34 +215,13 @@ class Webportal extends Component {
 
     const { visible, style, children, ...rest } = this.props;
 
-    const containerStyle = {
-      opacity: this._visibility.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 1],
-      }),
-      transform: [
-        {
-          scale: this._visibility.interpolate({
-            inputRange: [0, 1],
-            outputRange: [1.1, 1],
-          }),
-        },
-      ],
-    };
 
-    const combinedStyle = [containerStyle, style];
+
 
     return (
   <Container>
        <HeaderContent />
       <View style={{ flex:1}}>
-
-
-   {this._renderSpinner()}
-
-        <View style={{ flex:2}}>
-
-
 
         <View style={styles.topbar}>
           <TouchableOpacity
@@ -278,7 +252,6 @@ class Webportal extends Component {
              ref={WEBVIEW_REF}
            />
 
-        </View>
 
   </View>
 

@@ -122,6 +122,10 @@ console.log("yy",this.props.userX.name)
                 <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>LOGIN</Text>
               </Button>
 
+              <Text>
+                AS= {this.props.userX.authSecret}
+              </Text>
+
               <View style={styles.otherLinksContainer}>
                 <Left>
                 </Left>
@@ -144,7 +148,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
   userX: state.user,
-  passwordX: state.password
+
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);
