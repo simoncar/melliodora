@@ -25,14 +25,13 @@ class ListItem extends Component {
                phone: '',
                email: '',
                color: '',
-               photo1: '',
+               photo1: this.props.item.photo1,
                photo2: '',
                photo3: '',
                url: ''
 
              })
            }>
-
 
 
           <Image  source={{uri: `${photoSquare}`}} style={styles.newsImage} />

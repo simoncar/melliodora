@@ -146,8 +146,6 @@ return(
 
           <Content showsVerticalScrollIndicator={false}>
 
-
-
           {undefined !== this.props.photo1 && null !== this.props.photo1 &&  this.props.photo1.length > 0 &&
             <View >
                 <Image source={{uri: this.props.photo1}} style={styles.storyPhoto} />
