@@ -146,7 +146,7 @@ footer: {
     width: 120,
     height: 120,
     borderTopWidth: 1,
-    borderTopColor: '#ddd',
+
 
   },
   newsImage2: {

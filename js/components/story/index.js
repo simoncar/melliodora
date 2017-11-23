@@ -195,9 +195,11 @@ return(
                 </View>
                   }
 
-                    <Text selectable={true} style={styles.eventText}>
-                      {formatMonth(this.props.eventDate)}
-                    </Text>
+                    {undefined !== this.props.eventDate && null !== this.props.eventDate &&  this.props.eventDate.length > 1 &&
+                      <Text selectable={true} style={styles.eventText}>
+                       {formatMonth(this.props.eventDate)}
+                      </Text>
+                    }
 
                       {undefined !== this.props.eventStartTime && null !== this.props.eventStartTime &&  this.props.eventStartTime.length > 0 &&
                       <Text selectable={true} style={styles.eventText}>{formatTime(this.props.eventStartTime, this.props.eventEndTime)}</Text>
