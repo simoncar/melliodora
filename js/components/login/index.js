@@ -35,7 +35,7 @@ class Login extends Component {
 
   constructor(props) {
     super(props);
-
+    //  this.props.setauthSecret('');
   }
 
   doLogin(user,password) {
@@ -46,6 +46,8 @@ class Login extends Component {
   _placeHolderEmail() {
 
 console.log("yy",this.props.userX.name)
+
+
 
   if (undefined !== this.props.userX.name && null !== this.props.userX.name &&  this.props.userX.name.length > 0) {
       return this.props.userX.name
@@ -123,6 +125,7 @@ console.log("yy",this.props.userX.name)
               </Button>
 
               <Text>
+
                 AS= {this.props.userX.authSecret}
               </Text>
 

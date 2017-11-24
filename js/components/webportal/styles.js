@@ -72,7 +72,6 @@ export default {
       height: 40,
       justifyContent: 'space-between',
       alignItems: 'center',
-      color: 'blue',
       backgroundColor: 'grey',
     },
     topbarTextDisabled: {
