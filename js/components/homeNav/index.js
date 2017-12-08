@@ -186,6 +186,9 @@ Are you interested in meeting people with similar interests within the Stamford 
               </View>
             </Button>
 
+
+            <Text style={styles.beta}>Dev {this.props.userX.ffauth_device_id}</Text>
+            <Text style={styles.beta}>Sec {this.props.userX.ffauth_secret}</Text>
           </Content>
 
       </Container>
@@ -219,6 +222,9 @@ function bindAction(dispatch) {
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
+  userX: state.user,
+  ffauth_device_idX: state.ffauth_device_id,
+  ffauth_secretX: state.ffauth_secret
 });
 
 export default connect(mapStateToProps, bindAction)(HomeNav);
