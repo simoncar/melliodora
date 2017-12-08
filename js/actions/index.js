@@ -17,6 +17,20 @@ export function closeDrawer():Action {
   };
 }
 
+export function setffauth_device_id(ffauth_device_id) {
+  return {
+    type: "SET_AUTH_DEVICE_ID",
+    payload: ffauth_device_id
+  };
+}
+
+export function setffauth_secret(ffauth_secret) {
+  return {
+    type: "SET_AUTH_SECRET",
+    payload: ffauth_secret
+  };
+}
+
 export function setUsername(username) {
   return {
     type: "SET_LOGIN_DETAILS",

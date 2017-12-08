@@ -29,7 +29,7 @@ var DEFAULT_URL = '';
 
 var injectScript  = '';
 
-class Webportal extends Component {
+class WebportalAuth extends Component {
 
   static propTypes = {
 
@@ -39,19 +39,11 @@ class Webportal extends Component {
     }),
   }
 
+
+
   constructor(props) {
+    DEFAULT_URL = "https://saispta.com/app/Authentication.php"
     super(props);
-
-    DEFAULT_URL = 'https://mystamford.edu.sg/login/api/getsession?'
-
-    DEFAULT_URL = DEFAULT_URL + "ffauth_device_id="
-    DEFAULT_URL = DEFAULT_URL +  this.props.userX.ffauth_device_id // "AB305CAC-1373-4C13-AA04-79ADB8C17854"
-
-    DEFAULT_URL = DEFAULT_URL + "&ffauth_secret="
-    DEFAULT_URL = DEFAULT_URL + this.props.userX.ffauth_secret //"6fbfcef8d9d0524cbb90cb75285df9a1"
-
-    DEFAULT_URL = DEFAULT_URL + "&prelogin="
-    DEFAULT_URL = DEFAULT_URL + "https://mystamford.edu.sg/cafe/cafe-online-ordering"
 
   }
 
@@ -97,15 +89,13 @@ class Webportal extends Component {
   }
 
   componentWillMount() {
-  //Actions.WebportalAuth();
-
 
         if (this.props.userX.ffauth_device_id ) {
           //we have a value, good
 
         } else {
           //nothing :-(
-            Actions.WebportalAuth();
+            //Actions.login();
         };
 
         if (this.props.userX.ffauth_secret ) {
@@ -113,7 +103,7 @@ class Webportal extends Component {
 
         } else {
           //nothing :-(
-            Actions.WebportalAuth();
+            //Actions.login();
         };
 
     this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
@@ -255,9 +245,7 @@ class Webportal extends Component {
             >
               <Icon style={styles.navIconLeft} active name="ios-arrow-back" />
           </TouchableOpacity>
-
-              <Icon style={styles.navIconBookmark}  active name="ios-bookmarks-outline" />
-              <Icon  style={styles.navIconRight} active name="ios-arrow-forward" />
+        <Icon  style={styles.navIconRight} active name="ios-arrow-forward" />
 
 
          </View>
@@ -322,4 +310,4 @@ const mapStateToProps = state => ({
   ffauth_secretX: state.ffauth_secret
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Webportal);
+export default connect(mapStateToProps, mapDispatchToProps)(WebportalAuth);

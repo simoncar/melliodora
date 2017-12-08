@@ -30,25 +30,6 @@ function addRecipe() {
   }
 }
 
-function setUsername(username) {
-console.log('Actions > setUsername', username);
-
-  return {
-    type: "SET_LOGIN_DETAILS",
-    payload: username
-  };
-}
-
-function setPassword(password) {
-console.log('Actions > setPassword', password);
-
-  return {
-    type: "SET_PASSWORD",
-    payload: password
-  };
-}
-
-
 
 function logIn(source: ?string): ThunkAction {
   return (dispatch) => {
@@ -83,4 +64,4 @@ function logOut(): ThunkAction {
   };
 }
 
-module.exports = {setUsername,setPassword, skipLogin, logOut,addRecipe,setSearchedRecipes,fetchReceipes};
+module.exports = {skipLogin, logOut,addRecipe,setSearchedRecipes,fetchReceipes};
