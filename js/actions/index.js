@@ -4,7 +4,6 @@
 import Api from '../lib/api'
 import type { Action } from './types';
 
-
 export function openDrawer():Action {
   return {
     type: 'OPEN_DRAWER',
@@ -35,6 +34,13 @@ export function setUsername(username) {
   return {
     type: "SET_LOGIN_DETAILS",
     payload: username
+  };
+}
+
+export function setauthSecret(authSecret) {
+  return {
+    type: "SET_AUTH_SECRET",
+    payload: authSecret
   };
 }
 
