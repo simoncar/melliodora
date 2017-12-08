@@ -12,6 +12,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import HeaderContent from './../headerContent/header/';
 
+import { getParameterByName } from '../global.js';
+
 import { openDrawer } from '../../actions/drawer';
 
 import * as  ActionCreators  from '../../actions'
@@ -25,7 +27,10 @@ const timer = require('react-native-timer');
 const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
 var WEBVIEW_REF = 'webview';
-var DEFAULT_URL = '';
+//var DEFAULT_URL = 'https://saispta.com/app/Authentication.php';
+var DEFAULT_URL = 'https://www.google.com';
+
+//var DEFAULT_URL = 'https://mystamford.edu.sg/login/api/getsession?ffauth_device_id=SOME_RANDOM&ffauth_secret=MERGE_AUTH_SECRET&prelogin=https://mystamford.edu.sg/pta/pta-events/christmas-2017';
 
 var injectScript  = '';
 
@@ -37,21 +42,45 @@ class Webportal extends Component {
     navigation: PropTypes.shape({
       key: PropTypes.string,
     }),
+
   }
 
   constructor(props) {
     super(props);
 
-    DEFAULT_URL = 'https://mystamford.edu.sg/login/api/getsession?'
+    injectScript = 'document.getElementById(\"username\").value=\"' + this.props.userX.name + '\"';
+    injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"' + this.props.userX.password + '"';
+    injectScript = injectScript + ';' +  'document.forms[0].submit()';
+    injectScript = injectScript + ';' +  'document.getElementsByClassName(\"ff-login-personalised-logo\")[0].style.visibility = \"hidden\";';
+    injectScript = injectScript + ';' +  'document.getElementsByClassName(\"global-logo\")[0].style.visibility = \"hidden\";';
+  //  injectScript = injectScript + ';' +  'window.postMessage(document.cookie)'
+    injectScript = '';
 
-    DEFAULT_URL = DEFAULT_URL + "ffauth_device_id="
-    DEFAULT_URL = DEFAULT_URL +  this.props.userX.ffauth_device_id // "AB305CAC-1373-4C13-AA04-79ADB8C17854"
+      console.log ('going to this URL (constructor)=' + DEFAULT_URL)
 
-    DEFAULT_URL = DEFAULT_URL + "&ffauth_secret="
-    DEFAULT_URL = DEFAULT_URL + this.props.userX.ffauth_secret //"6fbfcef8d9d0524cbb90cb75285df9a1"
+      var authSecret2 = this.props.userX.authSecret
 
-    DEFAULT_URL = DEFAULT_URL + "&prelogin="
-    DEFAULT_URL = DEFAULT_URL + "https://mystamford.edu.sg/cafe/cafe-online-ordering"
+      console.log ('AA=' + authSecret2)
+
+
+        console.log ('going to this URL (constructor)=' + DEFAULT_URL)
+
+        var authSecret2 = this.props.userX.authSecret
+
+        console.log ('AA=' + authSecret2)
+      =======
+      DEFAULT_URL = 'https://mystamford.edu.sg/login/api/getsession?'
+
+      DEFAULT_URL = DEFAULT_URL + "ffauth_device_id="
+      DEFAULT_URL = DEFAULT_URL +  this.props.userX.ffauth_device_id // "AB305CAC-1373-4C13-AA04-79ADB8C17854"
+
+      DEFAULT_URL = DEFAULT_URL + "&ffauth_secret="
+      DEFAULT_URL = DEFAULT_URL + this.props.userX.ffauth_secret //"6fbfcef8d9d0524cbb90cb75285df9a1"
+
+      DEFAULT_URL = DEFAULT_URL + "&prelogin="
+      DEFAULT_URL = DEFAULT_URL + "https://mystamford.edu.sg/cafe/cafe-online-ordering"
+
+
 
   }
 
@@ -67,7 +96,6 @@ class Webportal extends Component {
     visible: this.props.visible,
       myText: 'My Original Text',
       showMsg: false
-
   };
 
   componentWillUnmount() {
@@ -80,16 +108,37 @@ class Webportal extends Component {
     //));
   }
 
-  onNavigationStateChange = (navState) => {
-      console.log ('webview = onNavigationStateChange=' & navState);
-        console.log ( navState);
 
-        if (navState.url != "https://mystamford.edu.sg/parent-dashboard") {
-              this.setState({canGoBack: navState.canGoBack});
+  onNavigationStateChange = (navState) => {
+        console.log ('webview = onNavigationStateChange=' + navState);
+        console.log ( navState);
+        console.log ( navState.url);
+
+        if (navState.url != "https://mystamford.edu.sg/parent-dashboard")
+        {
+              this.setState({canGoBack: navState.canGoBack})
         } else {
-              this.setState({canGoBack: false});
+            this.setState({canGoBack: false});
         }
 
+        if (navState.url == "https://mystamford.edu.sg/logout.aspx")
+        {
+            this.props.setauthSecret('')
+            console.log("PROCESS LOGOUT - CLEAR SECRET")
+        }
+
+
+        var string = navState.url;
+
+        if ((string.indexOf("ffauth_secret") ) > 1) {
+          console.log ('we have ffatah secret - need to grab it')
+          var authSecret = getParameterByName('ffauth_secret', string);
+          console.log ('foo=' + authSecret)
+          this.props.setauthSecret(authSecret)
+          console.log ('redux auth =' + this.props.userX.authSecret)
+        }  else {
+          console.log ('no auth secret in URL')
+        }
   }
 
   onBack() {
@@ -100,12 +149,17 @@ class Webportal extends Component {
   //Actions.WebportalAuth();
 
 
-        if (this.props.userX.ffauth_device_id ) {
+
+    console.log ('componentWillMount')
+
+
+
+        if (this.props.userX.name ) {
           //we have a value, good
 
         } else {
           //nothing :-(
-            Actions.WebportalAuth();
+          //  Actions.login();
         };
 
         if (this.props.userX.ffauth_secret ) {
@@ -113,10 +167,9 @@ class Webportal extends Component {
 
         } else {
           //nothing :-(
-            Actions.WebportalAuth();
+          //  Actions.login();
         };
 
-    this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
 
   }
 
@@ -124,12 +177,7 @@ class Webportal extends Component {
     if (nextProps.visible) {
       this.setState({ visible: true });
     }
-    Animated.timing(this._visibility, {
-      toValue: nextProps.visible ? 1 : 0,
-      duration: 1200,
-    }).start(() => {
-      this.setState({ visible: nextProps.visible });
-    });
+
   }
 
 
@@ -145,7 +193,6 @@ class Webportal extends Component {
       }
     }
   }
-
 
    getInitialState =  () => {
        return {
@@ -182,25 +229,6 @@ class Webportal extends Component {
     }
 
 
-   _renderSpinner () {
-        if (this.state.showMsg) {
-           return (
-              <TouchableOpacity onPress={() => Actions.login()}>
-               <View style={styles.settingsMessage} >
-                 <View style={{flex: 1}} />
-                 <View style={{flex: 2}}>
-                        <Spinner color='#172245' />
-                 </View>
-
-                <View style={{flex: 3}} />
-
-              </View>
-               </TouchableOpacity>
-           );
-       } else {
-          null;
-       }
-   }
 
    updateText = () => {
     this.setState({myText: 'My Changed Text'})
@@ -219,34 +247,35 @@ class Webportal extends Component {
 
     const { visible, style, children, ...rest } = this.props;
 
-    const containerStyle = {
-      opacity: this._visibility.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 1],
-      }),
-      transform: [
-        {
-          scale: this._visibility.interpolate({
-            inputRange: [0, 1],
-            outputRange: [1.1, 1],
-          }),
-        },
-      ],
-    };
+          var authSecret = this.props.userX.authSecret
 
-    const combinedStyle = [containerStyle, style];
+          console.log ('A=' + authSecret)
+            if (undefined !== authSecret && null !== authSecret &&  authSecret.length > 5) {
+
+            //we have an auth secret
+                console.log ('B')
+
+            this.state.url = 'https://mystamford.edu.sg/login/api/getsession?ffauth_device_id=SAISPTA&ffauth_secret=MERGE_AUTH_SECRET&prelogin=https://mystamford.edu.sg/parent-dashboard';
+            this.state.url = this.state.url.replace("MERGE_AUTH_SECRET", authSecret );
+//  this.state.url = 'https://mystamford.edu.sg';
+          } else {
+                console.log ('C')
+            this.state.url = 'https://mystamford.edu.sg/login/api/webgettoken?app=SAISPTA&successURL=https://saispta.com/app/success&failURL=https://saispta.com/app/fail';
+          }
+
+        //  this.state.url = 'https://mystamford.edu.sg/login/api/webgettoken?app=SAISPTA&successURL=https://saispta.com/app/success&failURL=https://saispta.com/app/fail';
+
+
+//this.state.url = 'https://saispta.com/app/Authentication.php';
+
+//this.state.url = 'https://mystamford.edu.sg/login/api/getsession?ffauth_device_id=AB305CAC-1373-4C13-AA04-79ADB8C17854&ffauth_secret=89b4f72988148141a6ba2248896610c4&prelogin=https://mystamford.edu.sg/'
+       console.log('going here > ' + this.state.url );
+
 
     return (
   <Container>
        <HeaderContent />
       <View style={{ flex:1}}>
-
-
-   {this._renderSpinner()}
-
-        <View style={{ flex:2}}>
-
-
 
         <View style={styles.topbar}>
           <TouchableOpacity
@@ -277,7 +306,6 @@ class Webportal extends Component {
              ref={WEBVIEW_REF}
            />
 
-        </View>
 
   </View>
 

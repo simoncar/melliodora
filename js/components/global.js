@@ -23,12 +23,12 @@ export function formatMonth(eventDate) {
   "July", "August", "September", "October", "November", "December"
 ];
 
-var d = new Date(eventDate);
 
   if(eventDate === null && typeof eventDate === "object" ) {
     ret = ''
   } else {
-    if (undefined != eventDate){
+    if (undefined != eventDate && eventDate.length > 1){
+      var d = new Date(eventDate);
       var ret = monthNames[d.getMonth()] + " " + d.getDate();
   } else {
     ret = ''
@@ -113,3 +113,15 @@ ret = ret + '\nSEA - South East Asia'
 
 return (ret)
 };
+
+
+
+export function getParameterByName(name, url) {
+  
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}

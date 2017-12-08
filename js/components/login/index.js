@@ -35,10 +35,7 @@ class Login extends Component {
 
   constructor(props) {
     super(props);
-
-     this.props.setffauth_device_id("");
-     this.props.setffauth_secret("");
-
+    //  this.props.setauthSecret('');
   }
 
   doLogin(user,password) {
@@ -51,6 +48,8 @@ class Login extends Component {
 console.log("yy ",this.props.userX.name)
 console.log("yy ",this.props.userX.ffauth_device_id)
 console.log("yy ",this.props.userX.ffauth_secret)
+
+
 
 
 
@@ -130,6 +129,11 @@ console.log("yy ",this.props.userX.ffauth_secret)
                 <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>LOGIN</Text>
               </Button>
 
+              <Text>
+
+                AS= {this.props.userX.authSecret}
+              </Text>
+
               <View style={styles.otherLinksContainer}>
                 <Left>
                 </Left>
@@ -152,9 +156,6 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
   userX: state.user,
-  passwordX: state.password,
-  ffauth_device_idX: state.ffauth_device_id,
-  ffauth_secretX: state.ffauth_secret
 
 });
 
