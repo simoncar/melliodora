@@ -35,7 +35,7 @@ class Login extends Component {
 
   constructor(props) {
     super(props);
-
+    //  this.props.setauthSecret('');
   }
 
   doLogin(user,password) {
@@ -45,10 +45,16 @@ class Login extends Component {
 
   _placeHolderEmail() {
 
-console.log("yy",this.props.userX.name)
+console.log("yy ",this.props.userX.name)
+console.log("yy ",this.props.userX.ffauth_device_id)
+console.log("yy ",this.props.userX.ffauth_secret)
+
+
+
+
 
   if (undefined !== this.props.userX.name && null !== this.props.userX.name &&  this.props.userX.name.length > 0) {
-      return this.props.userX.name
+      return this.props.userX.ffauth_device_id
     } else {
 
       console.log("bbb",this.props.userX.name)
@@ -66,6 +72,7 @@ console.log("yy",this.props.userX.name)
 
 
   render() {
+
     return (
       <Container style={{ backgroundColor: '#fff' }}>
          <HeaderContent />
@@ -122,6 +129,11 @@ console.log("yy",this.props.userX.name)
                 <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>LOGIN</Text>
               </Button>
 
+              <Text>
+
+                AS= {this.props.userX.authSecret}
+              </Text>
+
               <View style={styles.otherLinksContainer}>
                 <Left>
                 </Left>
@@ -144,7 +156,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
   userX: state.user,
-  passwordX: state.password
+
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);

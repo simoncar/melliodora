@@ -4,7 +4,6 @@
 import Api from '../lib/api'
 import type { Action } from './types';
 
-
 export function openDrawer():Action {
   return {
     type: 'OPEN_DRAWER',
@@ -17,10 +16,31 @@ export function closeDrawer():Action {
   };
 }
 
+export function setffauth_device_id(ffauth_device_id) {
+  return {
+    type: "SET_AUTH_DEVICE_ID",
+    payload: ffauth_device_id
+  };
+}
+
+export function setffauth_secret(ffauth_secret) {
+  return {
+    type: "SET_AUTH_SECRET",
+    payload: ffauth_secret
+  };
+}
+
 export function setUsername(username) {
   return {
     type: "SET_LOGIN_DETAILS",
     payload: username
+  };
+}
+
+export function setauthSecret(authSecret) {
+  return {
+    type: "SET_AUTH_SECRET",
+    payload: authSecret
   };
 }
 

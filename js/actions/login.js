@@ -39,6 +39,16 @@ console.log('Actions > setUsername', username);
   };
 }
 
+function setauthSecret(authSecret) {
+console.log('Actions > setauthSecret', authSecret);
+
+  return {
+    type: "SET_AUTH_SECRET",
+    payload: authSecret
+  };
+}
+
+
 function setPassword(password) {
 console.log('Actions > setPassword', password);
 
@@ -83,4 +93,4 @@ function logOut(): ThunkAction {
   };
 }
 
-module.exports = {setUsername,setPassword, skipLogin, logOut,addRecipe,setSearchedRecipes,fetchReceipes};
+module.exports = {setUsername,setPassword, setauthSecret, skipLogin, logOut,addRecipe,setSearchedRecipes,fetchReceipes};
