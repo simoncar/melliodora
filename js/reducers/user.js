@@ -71,6 +71,26 @@ function userReducer(state: State = initialState, action: Action): State {
       password: action.payload,
     };
   }
+  if (action.type === 'SET_AUTH_DEVICE_ID') {
+      console.log('reducer - SET_AUTH_DEVICE_ID');
+    return {
+      ...state,
+      ffauth_device_id: action.payload,
+    };
+  }
+  if (action.type === 'SET_AUTH_SECRET') {
+      console.log('reducer - SET_AUTH_SECRET');
+    return {
+      ...state,
+      ffauth_secret: action.payload,
+    };
+  }
+
+
+
+
+
+
   if (action.type === 'SET_CALENDAR_ITEMS') {
       console.log('user reducer - SET_CALENDAR_ITEMS');
     return {

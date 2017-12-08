@@ -45,12 +45,16 @@ class Login extends Component {
 
   _placeHolderEmail() {
 
-console.log("yy",this.props.userX.name)
+console.log("yy ",this.props.userX.name)
+console.log("yy ",this.props.userX.ffauth_device_id)
+console.log("yy ",this.props.userX.ffauth_secret)
+
+
 
 
 
   if (undefined !== this.props.userX.name && null !== this.props.userX.name &&  this.props.userX.name.length > 0) {
-      return this.props.userX.name
+      return this.props.userX.ffauth_device_id
     } else {
 
       console.log("bbb",this.props.userX.name)
@@ -68,6 +72,7 @@ console.log("yy",this.props.userX.name)
 
 
   render() {
+
     return (
       <Container style={{ backgroundColor: '#fff' }}>
          <HeaderContent />
