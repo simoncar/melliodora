@@ -58,7 +58,14 @@ export default {
     paddingRight: 20,
     color: '#A9A9A9',
   },
-
+  input: {
+    paddingLeft: 0,
+    color: 'white',
+    width: 250,
+    fontSize: 22,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    borderRadius: 30,
+  },
   container: {
       flex: 1,
       paddingTop: 15, /* Padding to push below the navigation bar */
