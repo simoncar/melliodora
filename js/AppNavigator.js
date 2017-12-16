@@ -22,12 +22,14 @@ import Channels from './components/channels';
 import Newsletter from './components/newsletter';
 import ptaHome from './components/pta/ptaHome';
 import ptaMovieNight from './components/pta/ptaMovieNight';
+
 import ptaEvents from './components/pta/ptaEvents';
 import ptaLionsDen from './components/pta/ptaLionsDen';
 import newsletterStory from './components/newsletter/newsletterStory';
 import Story from './components/story';
 import campusMap from './components/campusMap';
 import Webportal from './components/webportal';
+import WebportalAuth from './components/webportal/auth';
 import WebportalSports from './components/webportalSports';
 import WebportalVote from './components/webportalVote';
 import NeedHelp from './components/x_needhelp';
@@ -122,6 +124,7 @@ class AppNavigator extends Component {
             <Scene key="story" component={Story} hideNavBar/>
             <Scene key="campusMap" component={campusMap} hideNavBar/>
             <Scene key="webportal" component={Webportal} hideNavBar/>
+            <Scene key="WebportalAuth" component={WebportalAuth} hideNavBar/>
             <Scene key="webportalSports" component={WebportalSports} hideNavBar/>
             <Scene key="webportalVote" component={WebportalVote} hideNavBar/>
         </Scene>
