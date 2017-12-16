@@ -54,9 +54,11 @@ class Story extends Component {
   }
 
  _shareMessage() {
+   console.log (formatMonth(this.props.eventDate));
+
     Share.share({
-      message: "" + this.props.eventTitle +  "\n " + formatMonth(this.props.eventDate) + "\n " +  formatTime(this.props.eventStartTime, this.props.eventEndTime)  + ' \n' + this.props.location,
-      title: '' + this.props.eventImage
+      message: "" + this.props.eventTitle +  "\n" + formatMonth(this.props.eventDate) + "\n" +  formatTime(this.props.eventStartTime, this.props.eventEndTime)  + ' \n' + this.props.location + ' \n' + this.props.eventDescription,
+      title: '' + this.props.eventTitle
     })
     .then(this._showResult)
     .catch((error) => this.setState({result: 'error: ' + error.message}));
@@ -146,8 +148,6 @@ return(
 
           <Content showsVerticalScrollIndicator={false}>
 
-
-
           {undefined !== this.props.photo1 && null !== this.props.photo1 &&  this.props.photo1.length > 0 &&
             <View >
                 <Image source={{uri: this.props.photo1}} style={styles.storyPhoto} />
@@ -195,9 +195,11 @@ return(
                 </View>
                   }
 
-                    <Text selectable={true} style={styles.eventText}>
-                      {formatMonth(this.props.eventDate)}
-                    </Text>
+                    {undefined !== this.props.eventDate && null !== this.props.eventDate &&  this.props.eventDate.length > 1 &&
+                      <Text selectable={true} style={styles.eventText}>
+                       {formatMonth(this.props.eventDate)}
+                      </Text>
+                    }
 
                       {undefined !== this.props.eventStartTime && null !== this.props.eventStartTime &&  this.props.eventStartTime.length > 0 &&
                       <Text selectable={true} style={styles.eventText}>{formatTime(this.props.eventStartTime, this.props.eventEndTime)}</Text>

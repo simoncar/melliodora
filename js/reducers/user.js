@@ -49,22 +49,50 @@ function userReducer(state: State = initialState, action: Action): State {
     return initialState;
   }
 
+  if (action.type === 'SET_AUTH_SECRET') {
+      console.log('user reducer - SET_AUTH_SECRET ' + action.payload);
+    return {
+      ...state,
+      authSecret: action.payload,
+    };
+  }
+
   if (action.type === 'SET_LOGIN_DETAILS') {
-      console.log('reducer - SET_LOGIN_DETAILS');
+      console.log('user reducer - SET_LOGIN_DETAILS');
     return {
       ...state,
       name: action.payload,
     };
   }
   if (action.type === 'SET_PASSWORD') {
-      console.log('reducer - SET_PASSWORD');
+      console.log('user reducer - SET_PASSWORD');
     return {
       ...state,
       password: action.payload,
     };
   }
+  if (action.type === 'SET_AUTH_DEVICE_ID') {
+      console.log('reducer - SET_AUTH_DEVICE_ID');
+    return {
+      ...state,
+      ffauth_device_id: action.payload,
+    };
+  }
+  if (action.type === 'SET_AUTH_SECRET') {
+      console.log('reducer - SET_AUTH_SECRET');
+    return {
+      ...state,
+      ffauth_secret: action.payload,
+    };
+  }
+
+
+
+
+
+
   if (action.type === 'SET_CALENDAR_ITEMS') {
-      console.log('reducer - SET_CALENDAR_ITEMS');
+      console.log('user reducer - SET_CALENDAR_ITEMS');
     return {
       ...state,
       items: action.payload,
