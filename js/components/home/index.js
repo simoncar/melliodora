@@ -100,12 +100,24 @@ loadFromRedux(){
 listenLoadFromFirebase(calendarEvents) {
 
 
+
+
     calendarEvents.on('value', (dataSnapshot2) => {
         this.props.setCalendarItems(dataSnapshot2)
 
         dataSnapshot = dataSnapshot2
         this.state.items = [];
         this.loadItems()
+
+
+        const time = Date.now()
+         strtime = this.timeToString(time);
+        
+        this.state.items[strtime].push({
+          name: "snapshot.child().val(),",
+          title:" snapshot.child().val(),"
+        
+      });
 
         dataSnapshot.forEach((snapshot) => {
 
@@ -150,6 +162,10 @@ listenLoadFromFirebase(calendarEvents) {
   loadItems(day) {
 
     setTimeout(() => {
+      
+      console.log ('load items day');
+        console.log ("day (from loaditems)",day);
+      
       for (let i = -15; i < 365; i++) {
         const time = Date.now() + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
@@ -158,6 +174,9 @@ listenLoadFromFirebase(calendarEvents) {
            this.state.items[strtime] = [];
         }
       }
+      
+  
+      
 
       const newItems = {};
 
@@ -171,7 +190,11 @@ listenLoadFromFirebase(calendarEvents) {
 
   render() {
 
-    var date = new Date();
+    var date = new Date("Sat Jan 13 2018 13:13:02 GMT+0800 (+08)");
+    
+      console.log("Date = ", Date());
+
+
 
     // add a day
     date.setDate(date.getDate());
