@@ -179,7 +179,7 @@ listenLoadFromFirebase(calendarEvents) {
    var date = new Date();
     
       console.log("Date = ", Date());
-aaa
+
 
 
     // add a day
