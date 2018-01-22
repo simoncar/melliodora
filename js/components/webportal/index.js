@@ -33,7 +33,6 @@ var WEBVIEW_REF = 'webview';
 //var DEFAULT_URL = 'https://mystamford.edu.sg/login/api/getsession?ffauth_device_id=SOME_RANDOM&ffauth_secret=MERGE_AUTH_SECRET&prelogin=https://mystamford.edu.sg/pta/pta-events/christmas-2017';
 var DEFAULT_URL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
 
-
 var injectScript  = '';
 
 class Webportal extends Component {
@@ -110,15 +109,11 @@ class Webportal extends Component {
       this, 'hideMsg', () => this.setState({showMsg: false}), 5000
     ));
   }
-
-
   onNavigationStateChange = (navState) => {
         console.log ('webview = onNavigationStateChange=' + navState);
         console.log ( navState);
         console.log ( navState.url);
         this.setState({url: navState.url})
-
-
 
         if (navState.url != "https://mystamford.edu.sg/parent-dashboard")
         {
@@ -146,8 +141,6 @@ class Webportal extends Component {
         }  else {
           console.log ('no auth secret in URL')
         }
-
-
 
   }
 

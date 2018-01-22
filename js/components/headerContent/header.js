@@ -25,7 +25,7 @@ class HeaderContent extends Component {
     console.log (this.props.showHome)
     if( this.props.showHome == 'false'){
         //dont show home button
-        console.log ("DO not show")
+
 
         return(
           <Button transparent style={{
