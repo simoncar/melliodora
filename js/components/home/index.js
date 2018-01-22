@@ -99,25 +99,13 @@ loadFromRedux(){
 
 listenLoadFromFirebase(calendarEvents) {
 
-
-
-
     calendarEvents.on('value', (dataSnapshot2) => {
         this.props.setCalendarItems(dataSnapshot2)
 
         dataSnapshot = dataSnapshot2
         this.state.items = [];
         this.loadItems()
-
-
-        const time = Date.now()
-         strtime = this.timeToString(time);
         
-        this.state.items[strtime].push({
-          name: "snapshot.child().val(),",
-          title:" snapshot.child().val(),"
-        
-      });
 
         dataSnapshot.forEach((snapshot) => {
 
@@ -187,10 +175,11 @@ listenLoadFromFirebase(calendarEvents) {
 
   render() {
 
-    var date = new Date("Sat Jan 13 2018 13:13:02 GMT+0800 (+08)");
+   // var date = new Date("Sat Jan 13 2018 13:13:02 GMT+0800 (+08)");
+   var date = new Date();
     
       console.log("Date = ", Date());
-
+aaa
 
 
     // add a day
@@ -219,10 +208,7 @@ listenLoadFromFirebase(calendarEvents) {
     );
   }
 
-
   renderItem(item) {
-
-
     return (
       <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
              eventTitle: item.title,
@@ -375,12 +361,10 @@ renderTime(start, end) {
   };
 };
 
-
 const mapDispatchToProps = (dispatch) => {
   console.log ('bind action creators');
   return bindActionCreators (ActionCreators, dispatch)
 };
-
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
