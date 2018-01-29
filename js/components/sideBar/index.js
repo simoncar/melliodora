@@ -1,7 +1,7 @@
 
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, Image, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions, ActionConst } from 'react-native-router-flux';
@@ -22,7 +22,8 @@ class SideBar extends Component {
   render() {
     return (
       <Container>
-        <Image source={require('../../../images/sid.png')} style={styles.background} >
+        <ImageBackground source={require('../../../images/sid.png')} style={styles.background} >
+   
           <Content style={styles.drawerContent}>
 
             <ListItem button onPress={() => { Actions.homeNav(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
@@ -76,7 +77,7 @@ class SideBar extends Component {
 
             </View>
           </Content>
-        </Image>
+          </ImageBackground>
       </Container>
     );
   }

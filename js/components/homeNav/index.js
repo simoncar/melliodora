@@ -1,5 +1,5 @@
 
-
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image, ListView, View, TouchableOpacity } from 'react-native';
@@ -47,8 +47,8 @@ class HomeNav extends Component {
       }
 
   static propTypes = {
-    navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
+    navigation: PropTypes.shape({
+      key: PropTypes.string,
     }),
   }
 

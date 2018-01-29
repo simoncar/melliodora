@@ -7,7 +7,7 @@ import { Actions } from 'react-native-router-flux';
 import { Container, Header, Content, ListItem, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 
-import Lightbox from 'react-native-lightbox';
+
 import Modal from 'react-native-simple-modal';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
@@ -22,8 +22,6 @@ import Communications from 'react-native-communications';
 import { formatTime, formatMonth,getAbbreviations } from '../global.js';
 
 import HeaderContent from './../headerContent/header/';
-
-
 
 const deviceWidth = Dimensions.get('window').width;
 const primary = require('../../themes/variable').brandPrimary;
@@ -119,7 +117,7 @@ return(
 
     return (
       <Container style={{ backgroundColor: '#fff' }}>
-        <Image source={require('../../../images/glow2.png')} style={styles.container} >
+
           <Header>
 
             <Left>
@@ -246,7 +244,7 @@ return(
 
             </View>
           </Content>
-        </Image>
+
 
       </Container>
     );
