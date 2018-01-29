@@ -13,19 +13,16 @@ import Home from './components/home/';
 import HomeNav from './components/homeNav/';
 import SignUp from './components/x_sign-up/';
 import Contact from './components/contact/';
-import Comments from './components/comments/';
+
 import x_walkthrough from './components/x_walkthrough/';
 import SideBar from './components/sideBar';
 import Settings from './components/settings';
-import Channel from './components/channel';
-import Channels from './components/channels';
-import Newsletter from './components/newsletter';
+
 import ptaHome from './components/pta/ptaHome';
 import ptaMovieNight from './components/pta/ptaMovieNight';
 
 import ptaEvents from './components/pta/ptaEvents';
 import ptaLionsDen from './components/pta/ptaLionsDen';
-import newsletterStory from './components/newsletter/newsletterStory';
 import Story from './components/story';
 import campusMap from './components/campusMap';
 import Webportal from './components/webportal';
@@ -110,17 +107,12 @@ class AppNavigator extends Component {
             <Scene key="signUp" component={SignUp} />
             <Scene key="needhelp" component={NeedHelp} />
             <Scene key="contact" component={Contact} />
-            <Scene key="comments" component={Comments} />
             <Scene key="sideBar" component={SideBar} />
             <Scene key="settings" component={Settings} />
-            <Scene key="channel" component={Channel} />
-            <Scene key="channels" component={Channels} />
             <Scene key="ptaHome" component={ptaHome} hideNavBar/>
             <Scene key="ptaMovieNight" component={ptaMovieNight} hideNavBar/>
             <Scene key="ptaLionsDen" component={ptaLionsDen} hideNavBar/>
             <Scene key="ptaEvents" component={ptaEvents} hideNavBar/>
-            <Scene key="newsletter" component={Newsletter} hideNavBar/>
-            <Scene key="newsletterStory" component={newsletterStory} hideNavBar/>
             <Scene key="story" component={Story} hideNavBar/>
             <Scene key="campusMap" component={campusMap} hideNavBar/>
             <Scene key="webportal" component={Webportal} hideNavBar/>
