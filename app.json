@@ -39,7 +39,7 @@
      },
      "ios": {
         "bundleIdentifier": "com.softmowertrain.parent.mystamford",
-        "supportsTablet": true,
+        "supportsTablet": true
     },
     "android": {
        "package": "com.softmowertrain.parent.mystamford",
@@ -49,6 +49,6 @@
        "androidStatusBar": {
        "barStyle": "dark-content",
        "backgroundColor": "#AF3643",
-      },
+      }
   }
 }
