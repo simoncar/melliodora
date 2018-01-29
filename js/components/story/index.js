@@ -118,7 +118,8 @@ return(
     return (
       <Container style={{ backgroundColor: '#fff' }}>
 
-          <Header>
+
+      <Header style={styles.header}>
 
             <Left>
               <Button transparent onPress={() => Actions.pop()}>
