@@ -67,6 +67,8 @@ class Settings extends Component {
   render() {
     return (
       <Container>
+   
+
         <Header>
           <Left>
             <Button transparent onPress={this.props.openDrawer} >
@@ -75,7 +77,7 @@ class Settings extends Component {
           </Left>
 
           <Body>
-            <Image source={headerLogo} style={styles.imageHeader} />
+            <ImageBackground source={headerLogo} style={styles.imageHeader} />
           </Body>
           <Right>
             <Button transparent style={styles.btnHeader} onPress={() => Actions.popTo('home')}>

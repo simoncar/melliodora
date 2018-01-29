@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Image, View, Platform,TouchableOpacity,Dimensions , TextInput} from 'react-native';
+import { ImageBackground, Image, View, Platform,TouchableOpacity,Dimensions , TextInput} from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
@@ -71,7 +71,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
          <HeaderContent />
 
         <Content scrollEnabled={true} bounces={false}>
-            <Image source={bg} style={styles.background} >
+            <ImageBackground source={bg} style={styles.background} >
 
             <View style={styles.bg}>
 
@@ -130,7 +130,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
                 </Right>
               </View>
             </View>
-          </Image>
+          </ImageBackground>
         </Content>
 
       </Container>

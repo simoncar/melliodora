@@ -2,14 +2,20 @@
 const React = require('react-native');
 
 const { StyleSheet, Dimensions, Platform } = React;
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 export default {
   header: {
+    height: 100,
     width: Dimensions.get('window').width,
     paddingLeft: 15,
     paddingRight: 15,
-    marginTop: 5,
-    marginLeft: (Platform.OS === 'ios') ? undefined : -30
+    marginLeft: (Platform.OS === 'ios') ? undefined : -30,
+    ...ifIphoneX({
+      paddingTop: 30
+  }, {
+      paddingTop: 0
+  })
   },
   rowHeader: {
     flex: 1,
