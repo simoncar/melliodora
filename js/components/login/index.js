@@ -9,8 +9,6 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import { Container,Content, Text, Item, Button, Icon, Left, Right, Body, Header } from 'native-base';
 
 import HeaderContent from './../headerContent/header/';
-
-
 import styles from './styles';
 
 import * as ActionCreators  from '../../actions';
@@ -49,10 +47,6 @@ console.log("yy ",this.props.userX.name)
 console.log("yy ",this.props.userX.ffauth_device_id)
 console.log("yy ",this.props.userX.ffauth_secret)
 
-
-
-
-
   if (undefined !== this.props.userX.name && null !== this.props.userX.name &&  this.props.userX.name.length > 0) {
       return this.props.userX.ffauth_device_id
     } else {
@@ -69,7 +63,6 @@ console.log("yy ",this.props.userX.ffauth_secret)
       return "myStamford password"
     }
   }
-
 
   render() {
 
@@ -129,11 +122,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
                 <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>LOGIN</Text>
               </Button>
 
-              <Text>
-
-                AS= {this.props.userX.authSecret}
-              </Text>
-
+             
               <View style={styles.otherLinksContainer}>
                 <Left>
                 </Left>
