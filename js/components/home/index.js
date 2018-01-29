@@ -158,7 +158,7 @@ listenLoadFromFirebase(calendarEvents) {
            this.state.items[strtime] = [];
         }
       }
-
+    
       const newItems = {};
 
       Object.keys(this.state.items).forEach(
