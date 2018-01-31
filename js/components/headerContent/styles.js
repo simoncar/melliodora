@@ -6,16 +6,30 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 export default {
   header: {
-    height: 100,
+   
     width: Dimensions.get('window').width,
     paddingLeft: 15,
     paddingRight: 15,
-    marginLeft: (Platform.OS === 'ios') ? undefined : -30,
     ...ifIphoneX({
-      paddingTop: 30
-  }, {
-      paddingTop: 0
-  })
+      paddingTop: 0,
+      height: 80
+    }, {
+      paddingTop: 0,
+      height: 60
+    })
+
+  },
+  viewHeader: {
+
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    ...ifIphoneX({
+     paddingTop: 30
+      }, {
+     paddingTop: 20
+      })
+
   },
   rowHeader: {
     flex: 1,
@@ -28,7 +42,7 @@ export default {
     alignSelf: 'center'
   },
   imageHeader: {
-    height: 145,
+    height: 135,
     width: 225,
     resizeMode: 'contain',
 

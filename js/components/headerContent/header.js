@@ -53,33 +53,19 @@ class HeaderContent extends Component {
 
     return (
       <Header style={styles.header}>
-
-      <View style={{
-             flex: 1,
-             flexDirection: 'row',
-             justifyContent: 'space-between',
-             
-           }}>
-
-
+        <View style={styles.viewHeader}>       
           <View>
-                  <Button transparent onPress={this.props.openDrawer} >
-                    <Icon active name="menu" />
-                  </Button>
+            <Button transparent onPress={this.props.openDrawer} >
+              <Icon active name="menu" />
+            </Button>
           </View>
-
           <Body>
             <Image source={headerLogo} style={styles.imageHeader} />
           </Body>
-
-
-        <View>
-            {this._HomeNav()}
+          <View>
+              {this._HomeNav()}
+          </View>
         </View>
-
-        </View>
-
-
       </Header>
     );
   }

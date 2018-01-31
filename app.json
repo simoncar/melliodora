@@ -28,7 +28,7 @@
     "loading": {
         "hideExponentText": true,
         "icon": "./images/launchImages/loading.png",
-        "backgroundImage": "images/BG-loading.png",
+        "backgroundImage": "images/BG-loading.png"
     },
     "orientation": "portrait",
     "primaryColor": "#cccccc",
@@ -48,7 +48,7 @@
      "androidStatusBarColor": "#AF3643",
        "androidStatusBar": {
        "barStyle": "dark-content",
-       "backgroundColor": "#AF3643",
+       "backgroundColor": "#AF3643"
       }
   }
 }
