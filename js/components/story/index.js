@@ -22,6 +22,7 @@ import Communications from 'react-native-communications';
 import { formatTime, formatMonth,getAbbreviations } from '../global.js';
 
 import HeaderContent from './../headerContent/header/';
+const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
 const deviceWidth = Dimensions.get('window').width;
 const primary = require('../../themes/variable').brandPrimary;
@@ -118,21 +119,22 @@ return(
     return (
       <Container style={{ backgroundColor: '#fff' }}>
 
-
       <Header style={styles.header}>
-
-            <Left>
-              <Button transparent onPress={() => Actions.pop()}>
-                <Icon
-                  active
-                  name="arrow-back"
-                  style={styles.headerIcons} />
-              </Button>
-            </Left>
-
-            <Right>
-
-              <Button
+        <View style={styles.viewHeader}>       
+          <View>
+          <Button transparent onPress={() => Actions.pop()}>
+          <Icon
+            active
+            name="arrow-back"
+            style={styles.headerIcons} />
+        </Button>
+          </View>
+          <Body>
+            <Image source={headerLogo} style={styles.imageHeader} />
+          </Body>
+          <View>
+             
+          <Button
                 transparent
                 onPress={() => this._shareMessage()} >
 
@@ -140,10 +142,11 @@ return(
                   name="ios-share-outline"
                   style={styles.headerIcons} />
               </Button>
+          </View>
+        </View>
+      </Header>
 
-            </Right>
 
-          </Header>
 
           <Content showsVerticalScrollIndicator={false}>
 
