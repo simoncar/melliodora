@@ -10,21 +10,30 @@ const deviceWidth = Dimensions.get('window').width;
 export default {
 
   header: {
-    height: 70,
     width: Dimensions.get('window').width,
     paddingLeft: 15,
     paddingRight: 15,
-    marginTop: 5,
-    marginLeft: (Platform.OS === 'ios') ? undefined : -30,
     ...ifIphoneX({
-      paddingTop: 30
-  }, {
-      paddingTop: 0
-  })
+      paddingTop: 0,
+      height: 80
+    }, {
+      paddingTop: 0,
+      height: 60
+    })
+
   },
+  viewHeader: {
 
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    ...ifIphoneX({
+     paddingTop: 30
+      }, {
+     paddingTop: 20
+      })
 
-
+  },
   container: {
     flex: 1,
     width: null,
@@ -154,6 +163,15 @@ export default {
   },
   wrapper: {
     flex: 1,
+  },
+
+  imageHeader: {
+    height: 135,
+    width: 225,
+    resizeMode: 'contain',
+
+    justifyContent: 'center',
+      alignItems: 'center',
   },
   headerIcons: {
     fontSize: 30,
