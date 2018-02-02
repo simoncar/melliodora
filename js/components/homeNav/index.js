@@ -181,14 +181,13 @@ Are you interested in meeting people with similar interests within the Stamford 
             <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>
               <View style={styles.betaView}>
                   <Text style={styles.beta}>
-                    <Icon style={styles.beta} name="md-pulse" />
+                    <Icon style={styles.beta} name="md-pulse" /> Check for Updates <Icon style={styles.beta} name="md-pulse" /> 
                   </Text>
               </View>
             </Button>
 
 
-            <Text style={styles.beta}>Dev {this.props.userX.ffauth_device_id}</Text>
-            <Text style={styles.beta}>Sec {this.props.userX.ffauth_secret}</Text>
+  
           </Content>
 
       </Container>
