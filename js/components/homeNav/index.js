@@ -14,7 +14,7 @@ import { openDrawer } from '../../actions/drawer';
 import Sentry from 'sentry-expo';
 import Expo from 'expo';
 
-import { MapView } from 'expo';
+import { MapView, Constants } from 'expo';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
@@ -183,10 +183,16 @@ Are you interested in meeting people with similar interests within the Stamford 
                   <Text style={styles.beta}>
                     <Icon style={styles.beta} name="md-pulse" /> Check for Updates <Icon style={styles.beta} name="md-pulse" /> 
                   </Text>
+                  
+                 
               </View>
             </Button>
-
-
+                
+                <View>
+                  <Text style={styles.version}>Release Channel {Constants.manifest.releaseChannel}</Text>
+                  <Text style={styles.version}>Version {Constants.manifest.version}</Text>
+                   <Text style={styles.version}>SDK {Constants.manifest.sdkVersion}</Text>
+              </View>
   
           </Content>
 

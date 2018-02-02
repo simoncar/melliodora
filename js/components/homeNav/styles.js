@@ -22,6 +22,18 @@ export default {
     textAlign: 'center',
         fontSize: 20,
   },
+  version: {
+    backgroundColor: 'white',
+    color: '#e9e9e9',
+    alignSelf: 'center',
+    flex: 1,
+    flexDirection: 'column',
+    textAlign: 'center',
+        fontSize: 10,
+  },
+
+
+  
   betaView: {
     backgroundColor: '#707372',
     alignSelf: 'center',
