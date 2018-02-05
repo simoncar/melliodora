@@ -72,7 +72,7 @@ export default {
 
   },
   calendarButton:{
-    marginTop: 500,
+    marginTop: 800,
     marginBottom: 100,
   },
   eventIcon: {

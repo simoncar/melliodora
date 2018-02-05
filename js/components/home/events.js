@@ -8,18 +8,9 @@ class EventRow extends React.Component {
     const { event } = this.props;
     return (
       <View style={styles.eventRow}>
-        <Text>some text here</Text>
-        <Text>AAA{JSON.stringify(event, null, 2)}</Text>
-        <Button onPress={() => this.props.getEvent(event)} title="Get Event Using ID" />
-        <Button onPress={() => this.props.getAttendees(event)} title="Get Attendees for Event" />
-        <Button onPress={() => this.props.updateEvent(event)} title="Update Event" />
-        <Button onPress={() => this.props.deleteEvent(event)} title="Delete Event" />
-        {Platform.OS === 'android' && (
-          <Button
-            onPress={() => this.props.openEventInCalendar(event)}
-            title="Open in Calendar App"
-          />
-        )}
+
+        <Text>{JSON.stringify(event, null, 2)}</Text>
+
       </View>
     );
   }
@@ -164,9 +155,8 @@ console.log (this.props.navigationState)
   _renderActionButtons = () => {
     return (
       <View>
-         <Button onPress={() => this._addEvent(false)} title="Add New Event" />
+         <Button title="" />
         <Button onPress={() => this._addEvent(false)} title="Add New Event" />
-        <Button onPress={() => this._addEvent(true)} title="Add aa New Recurring Event" />
       </View>
     );
   };

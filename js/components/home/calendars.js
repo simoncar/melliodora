@@ -11,19 +11,18 @@ class CalendarRow extends React.Component {
     const { calendar } = this.props;
     const calendarTypeName =
       calendar.entityType === Calendar.EntityTypes.REMINDER ? 'Reminders' : 'Events';
+    
+
     return (
       <View style={styles.calendarRow}>
 
         <Text>{JSON.stringify(calendar, null, 2)}</Text>
         <Text>{calendar.name}</Text>
-        <Button
-          onPress={() => this.props.navigation.navigate(calendarTypeName, { calendar })}
-          title={`View ${calendarTypeName}`}
-        />
+        
 
 <Button
           onPress={() => { Actions.events( calendar);}}
-          title={`View2 ${calendarTypeName}`}
+          title={`Select ${calendarTypeName}`}
         />
 
       </View>
@@ -66,7 +65,7 @@ export default class CalendarsScreen extends React.Component {
   };
 
   _findCalendars = async () => {
-    console.log("find calendars")
+    
     const calendarGranted = await this._askForCalendarPermissions();
     const reminderGranted = await this._askForReminderPermissions();
     if (calendarGranted && reminderGranted) {
@@ -147,22 +146,14 @@ export default class CalendarsScreen extends React.Component {
   };
 
   render() {
-    console.log("aaafind calendars")
+
+    
+ 
     if (this.state.calendars.length) {
       return (
         
         <ScrollView style={styles.container}>
-       
-          
      
-          <Button
-  onPress={() => {this._addCalendar();}}
-  title="Add New Calendar"
-  color="#841584"
-  accessibilityLabel="Learn more about this purple button"
-/>
-
-
           {this.state.calendars.map(calendar => (
             <CalendarRow
               calendar={calendar}
@@ -176,6 +167,8 @@ export default class CalendarsScreen extends React.Component {
       );
     }
 
+    this._findCalendars();
+    
     return (
       <View style={styles.container}>
         <Button transparent onPress={() => {this._findCalendars();}}   title="Find Calendars">
