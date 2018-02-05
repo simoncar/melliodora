@@ -10,6 +10,8 @@ import { closeDrawer } from './actions/drawer';
 
 import Login from './components/login/';
 import Home from './components/home/';
+import Calendar from './components/home/calendars';
+import Events from './components/home/events';
 import HomeNav from './components/homeNav/';
 import SignUp from './components/x_sign-up/';
 import Contact from './components/contact/';
@@ -25,6 +27,7 @@ import ptaEvents from './components/pta/ptaEvents';
 import ptaLionsDen from './components/pta/ptaLionsDen';
 import Story from './components/story';
 import campusMap from './components/campusMap';
+
 import Webportal from './components/webportal';
 import WebportalAuth from './components/webportal/auth';
 import WebportalSports from './components/webportalSports';
@@ -101,8 +104,10 @@ class AppNavigator extends Component {
 
         <RouterWithRedux>
         <Scene key="root">
-            <Scene key="homeNav" component={HomeNav}  hideNavBar initial={true} />
+            <Scene key="homeNav" component={HomeNav}  hideNavBar  initial={true}/>
             <Scene key="home" component={Home}  hideNavBar />
+            <Scene key="calendar" component={Calendar}  />
+            <Scene key="events" component={Events}  />
             <Scene key="login" component={Login} hideNavBar/>
             <Scene key="signUp" component={SignUp} />
             <Scene key="needhelp" component={NeedHelp} />
