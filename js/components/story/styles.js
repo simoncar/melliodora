@@ -67,6 +67,14 @@ export default {
     fontSize: 18,
     paddingBottom: 10,
   },
+
+  calendarText: {
+
+  },
+  calendarButton:{
+    marginTop: 500,
+    marginBottom: 100,
+  },
   eventIcon: {
     color: '#222',
     fontSize: 18,

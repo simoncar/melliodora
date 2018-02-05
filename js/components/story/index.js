@@ -245,17 +245,17 @@ return(
                 }
 
 
-
-     <Button
+<View style={styles.calendarButton}>
+     <Button 
                 transparent
                 onPress={() => { Actions.calendar();}} >
             <Icon
                   name="ios-calendar-outline"
                   style={styles.headerIcons} />
              
-            <Text>Add to My Calendar (in development)</Text>
+            <Text style={styles.calendarText} >Add to My Calendar (in development)</Text>
        </Button>
-
+</View>
             </View>
           </Content>
 
