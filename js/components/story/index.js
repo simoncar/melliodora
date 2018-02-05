@@ -246,6 +246,16 @@ return(
 
 
 
+     <Button
+                transparent
+                onPress={() => { Actions.calendar();}} >
+            <Icon
+                  name="ios-calendar-outline"
+                  style={styles.headerIcons} />
+             
+            <Text>Add to My Calendar (in development)</Text>
+       </Button>
+
             </View>
           </Content>
 

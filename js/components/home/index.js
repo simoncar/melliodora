@@ -233,7 +233,6 @@ listenLoadFromFirebase(calendarEvents) {
            <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}    {item.location}    </Text>
            {this.renderTime(item.startTimePretty, item.endTimePretty)}
 
-
            <Text style={styles.text}>{item.name}</Text>
 
            </Col>
