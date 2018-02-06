@@ -7,6 +7,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import * as ActionCreators  from '../../actions'
 
+//
+// *****  THIS FILE IS NOT USED
+//
+//
 
 class EventRow extends Component {
 

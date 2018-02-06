@@ -1,5 +1,7 @@
 const React = require('react-native');
 
+import { ifIphoneX } from 'react-native-iphone-x-helper'
+
 const {
   Dimensions, Platform
 } = React;
@@ -16,6 +18,37 @@ export default {
     flex: 1,
     borderTopWidth: 1,
     borderTopColor: '#ddd',
+  },
+
+  header: {
+    width: Dimensions.get('window').width,
+    paddingLeft: 15,
+    paddingRight: 15,
+    ...ifIphoneX({
+      paddingTop: 0,
+      height: 80
+    }, {
+      paddingTop: 0,
+      height: 60
+    })
+
+  },
+  viewHeader: {
+
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    ...ifIphoneX({
+     paddingTop: 30
+      }, {
+     paddingTop: 20
+      })
+
+  },
+
+  headerIcons: {
+    fontSize: 30,
+    backgroundColor: 'transparent',
   },
 
   roundedButton: {
@@ -155,6 +188,14 @@ export default {
     width: null,
     height: null,
   },
+  imageHeader: {
+    height: 135,
+    width: 225,
+    resizeMode: 'contain',
+
+    justifyContent: 'center',
+      alignItems: 'center',
+  },
   logoHeader: {
     width: 20,
     height: 28,
@@ -166,13 +207,7 @@ export default {
     marginBottom: 10,
         paddingTop: 5,
   },
-  header: {
-    width: Dimensions.get('window').width,
-    flexDirection: 'row',
-    paddingLeft: 15,
-    paddingRight: 15,
-    marginLeft: (Platform.OS === 'ios') ? undefined : -30,
-  },
+
 
   rowHeader: {
     flex: 1,
@@ -182,14 +217,6 @@ export default {
     paddingTop: Platform.OS === 'android' ? 0 : 0,
   },
 
-  imageHeader: {
-    height: 145,
-    width: 225,
-    resizeMode: 'contain',
-
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   agendaItem: {
     backgroundColor: 'white',
     flex: 1,

@@ -1,10 +1,15 @@
 import React , { Component } from 'react';
-import { Alert, Platform, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
+import { Alert, Platform, ScrollView, StyleSheet, Text, View, Image} from 'react-native';
+import { Container, Header, Icon, Left, Body, Right, Button} from 'native-base';
+
 import { Calendar, Permissions } from 'expo';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import * as ActionCreators  from '../../actions'
+
+import styles from './styles';
+const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
 class CalendarRow extends Component {
   static navigationOptions = {
@@ -212,8 +217,31 @@ class phoneCalendar extends Component {
 
     if (this.state.calendars.length) {
       return (
+        <Container style={{ backgroundColor: '#fff' }}>
         
-        <ScrollView style={styles.container}>
+        <Header style={styles.header}>
+          <View style={styles.viewHeader}>       
+            <View>
+            <Button transparent onPress={() => Actions.pop()}>
+            <Icon
+              active
+              name="arrow-back"
+              style={styles.headerIcons} />
+          </Button>
+            </View>
+            <Body>
+              <Image source={headerLogo} style={styles.imageHeader} />
+            </Body>
+            <View>
+              
+           
+            </View>
+          </View>
+        </Header>
+
+
+
+        <ScrollView >
      
           {this.state.calendars.map(calendar => (
             <CalendarRow
@@ -226,13 +254,14 @@ class phoneCalendar extends Component {
           ))}
 
         </ScrollView>
+        </Container>
       );
     }
 
     this._findCalendars();
     
     return (
-      <View style={styles.container}>
+      <View>
         <Button transparent onPress={() => {this._findCalendars();}}   title="Find Calendars">
             <View>
               <Text>Find Calendars</Text>
@@ -244,17 +273,7 @@ class phoneCalendar extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 10,
-    paddingVertical: 16,
-    flex: 1,
-    borderTopWidth: 60
-  },
-  calendarRow: {
-    marginBottom: 12,
-  },
-});
+
 
 const mapDispatchToProps = (dispatch) => {
   console.log ('bind action creators');
