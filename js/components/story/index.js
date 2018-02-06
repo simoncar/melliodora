@@ -244,17 +244,18 @@ return(
 
                 }
 
+                {undefined !== this.props.eventDate &&  this.props.eventDate.length > 0 &&
 
                 <View style={styles.calendarButton}>
                     <Button 
                                 transparent
                                 onPress={() => { Actions.phoneCalendar(
                                   {
-                                    eventTitle: this.props.title,
-                                    eventDescription: this.props.description,
-                                    eventDate: this.props.startDatePretty,
-                                    eventStartTime: this.props.startTimePretty,
-                                    eventEndTime: this.props.endTimePretty,
+                                    eventTitle: this.props.eventTitle,
+                                    eventDescription: this.props.eventDescription,
+                                    eventDate: this.props.eventDate,
+                                    eventStartTime: this.props.eventStartTime,
+                                    eventEndTime: this.props.eventEndTime,
                                     location: this.props.location,
                                     eventImage: this.props.eventImage,
                                     phone: this.props.phone,
@@ -271,9 +272,13 @@ return(
                                   name="ios-calendar-outline"
                                   style={styles.headerIcons} />
                             
-                            <Text style={styles.calendarText} >Add to My Calendar (in development)</Text>
+                            <Text style={styles.calendarText} > Add to My Calendar</Text>
                       </Button>
                 </View>
+
+                }
+
+
             </View>
           </Content>
 
