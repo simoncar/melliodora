@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Alert, Platform, ScrollView, StyleSheet, Text, View , Button} from 'react-native';
 import { Calendar } from 'expo';
+import { Actions } from 'react-native-router-flux';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import * as ActionCreators  from '../../actions'
 
 
-class EventRow extends React.Component {
+class EventRow extends Component {
+
   render() {
     const { event } = this.props;
+    console.log ("aadfgasuhgiuashbgasbg");
     return (
       <View style={styles.eventRow}>
 
@@ -16,14 +23,18 @@ class EventRow extends React.Component {
   }
 }
 
-export default class EventsScreen extends React.Component {
+class phoneCalendarItem extends Component {
   static navigationOptions = {
-    title: 'Events',
+    title: 'Phone Calendar',
   };
 
-  state = {
-    events: [],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      events: [],
+    };
+  }
+
 
   componentDidMount() {
 
@@ -31,15 +42,14 @@ export default class EventsScreen extends React.Component {
     console.log(this.props)
 
     const { params } = this.props.navigationState;
-    const  id  = this.props.source.id
-    console.log("ID = " + this.props.source.id)
+    const  id  = this.props.phoneCalendarID
+    console.log(" - im on the Phone calendar item page - ID = " + this.props.phoneCalendarID)
     console.log("params = " + params)
 
 
     console.log (id)
     if (id) {
    
-      
       this._findEvents(id);
     }
   }
@@ -57,13 +67,7 @@ export default class EventsScreen extends React.Component {
 
   _addEvent = async recurring => {
 
-console.log (this.props.navigationState)
-
-    const calendar  = this.props.navigationState;
-    if (!calendar.allowsModifications) {
-      Alert.alert('This calendar does not allow modifications');
-      return;
-    }
+   
     const timeInOneHour = new Date();
     timeInOneHour.setHours(timeInOneHour.getHours() + 1);
     const newEvent = {
@@ -81,9 +85,9 @@ console.log (this.props.navigationState)
       };
     }
     try {
-      await Calendar.createEventAsync(calendar.id, newEvent);
+      await Calendar.createEventAsync(this.props.phoneCalendarID, newEvent);
       Alert.alert('Event saved successfully');
-      this._findEvents(calendar.id);
+      this._findEvents(this.props.phoneCalendarID);
     } catch (e) {
       Alert.alert('Event not saved successfully', e.message);
     }
@@ -155,13 +159,14 @@ console.log (this.props.navigationState)
   _renderActionButtons = () => {
     return (
       <View>
-         <Button title="" />
+        <Text>Some texty</Text>
         <Button onPress={() => this._addEvent(false)} title="Add New Event" />
       </View>
     );
   };
 
   render() {
+    console.log ("here");
     if (this.state.events.length) {
       return (
         <ScrollView style={styles.container}>
@@ -179,6 +184,8 @@ console.log (this.props.navigationState)
           ))}
         </ScrollView>
       );
+
+      console.log ("there");
     }
 
     return (
@@ -200,3 +207,17 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 });
+
+
+
+const mapDispatchToProps = (dispatch) => {
+  console.log ('bind action creators');
+  return bindActionCreators (ActionCreators, dispatch)
+};
+
+
+const mapStateToProps = state => ({
+  navigation: state.cardNavigation,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(phoneCalendarItem);

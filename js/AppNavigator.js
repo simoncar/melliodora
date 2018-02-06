@@ -10,8 +10,8 @@ import { closeDrawer } from './actions/drawer';
 
 import Login from './components/login/';
 import Home from './components/home/';
-import Calendar from './components/home/calendars';
-import Events from './components/home/events';
+import phoneCalendar from './components/home/calendars';
+import phoneCalendarItem from './components/home/calendarItem';
 import HomeNav from './components/homeNav/';
 import SignUp from './components/x_sign-up/';
 import Contact from './components/contact/';
@@ -106,8 +106,8 @@ class AppNavigator extends Component {
         <Scene key="root">
             <Scene key="homeNav" component={HomeNav}  hideNavBar  initial={true}/>
             <Scene key="home" component={Home}  hideNavBar />
-            <Scene key="calendar" component={Calendar}  />
-            <Scene key="events" component={Events}  />
+            <Scene key="phoneCalendar" component={phoneCalendar}  />
+            <Scene key="phoneCalendarItem" component={phoneCalendarItem}  />
             <Scene key="login" component={Login} hideNavBar/>
             <Scene key="signUp" component={SignUp} />
             <Scene key="needhelp" component={NeedHelp} />
