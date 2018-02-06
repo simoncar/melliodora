@@ -232,14 +232,9 @@ class phoneCalendar extends Component {
             <Body>
               <Image source={headerLogo} style={styles.imageHeader} />
             </Body>
-            <View>
-              
-           
-            </View>
+
           </View>
         </Header>
-
-
 
         <ScrollView >
      
