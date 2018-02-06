@@ -1,12 +1,67 @@
-import React from 'react';
+import React , { Component } from 'react';
 import { Alert, Platform, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
 import { Calendar, Permissions } from 'expo';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import * as ActionCreators  from '../../actions'
 
-class CalendarRow extends React.Component {
+class CalendarRow extends Component {
   static navigationOptions = {
     title: 'Calendars',
   };
+
+  _selectCalendar (calendar) {
+    console.log ("aa calendar selected")
+    console.log ("aa calendar Id = " + calendar.id)
+    
+    //Actions.phoneCalendarItem ({
+    //  phoneCalendarID: calendar.id
+    //})
+
+
+    this._addEvent(calendar.id)
+    console.log ("bb calendar selected")
+    //Actions.webportal();
+
+    Actions.pop();
+   };
+
+
+   _addEvent = async phoneCalendarID => {
+
+    const timeInOneHour = new Date();
+    timeInOneHour.setHours(timeInOneHour.getHours() + 1);
+    const newEvent = {
+      title: 'Celebrate Expo',
+      location: '420 Florence St',
+      startDate: new Date(),
+      endDate: timeInOneHour,
+      notes: "It's cool",
+      timeZone: 'America/Los_Angeles',
+    };
+  
+    try {
+      await Calendar.createEventAsync(phoneCalendarID, newEvent);
+      Alert.alert('Event saved successfully');
+      this._findEvents(phoneCalendarID);
+    } catch (e) {
+      Alert.alert('Event not saved successfully', e.message);
+    }
+  };
+
+  _findEvents = async id => {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 3);
+    const nextYear = new Date();
+    nextYear.setFullYear(yesterday.getDate() + 10);
+    const events = await Calendar.getEventsAsync([id], yesterday,tomorrow);
+    this.setState({ events });
+  };
+
+  
   render() {
     const { calendar } = this.props;
     const calendarTypeName =
@@ -14,23 +69,29 @@ class CalendarRow extends React.Component {
     
 
     return (
+   
       <View style={styles.calendarRow}>
+  
+   {calendar.allowsModifications == true  && calendar.entityType == "event" &&
 
-        <Text>{JSON.stringify(calendar, null, 2)}</Text>
+    <View style={styles.calendarRow}>
+     <Text>{JSON.stringify(calendar, null, 2)}</Text>
         <Text>{calendar.name}</Text>
         
-
-<Button
-          onPress={() => { Actions.events( calendar);}}
+        <Button
+          onPress={() =>  this._selectCalendar(calendar)}
           title={`Select ${calendarTypeName}`}
         />
+        </View>
+      } 
 
-      </View>
+</View>
+   
     );
   }
 }
 
-export default class CalendarsScreen extends React.Component {
+class phoneCalendar extends Component {
   static navigationOptions = {
     title: 'Calendars',
   };
@@ -44,6 +105,8 @@ export default class CalendarsScreen extends React.Component {
     showAddNewEventForm: false,
     editingEvent: null,
   };
+
+
 
   _askForCalendarPermissions = async () => {
     const response = await Permissions.askAsync('calendar');
@@ -147,8 +210,6 @@ export default class CalendarsScreen extends React.Component {
 
   render() {
 
-    
- 
     if (this.state.calendars.length) {
       return (
         
@@ -163,6 +224,7 @@ export default class CalendarsScreen extends React.Component {
               deleteCalendar={this._deleteCalendar}
             />
           ))}
+
         </ScrollView>
       );
     }
@@ -193,3 +255,15 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 });
+
+const mapDispatchToProps = (dispatch) => {
+  console.log ('bind action creators');
+  return bindActionCreators (ActionCreators, dispatch)
+};
+
+
+const mapStateToProps = state => ({
+  navigation: state.cardNavigation,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(phoneCalendar);

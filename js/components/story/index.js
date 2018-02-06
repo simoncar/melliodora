@@ -245,17 +245,35 @@ return(
                 }
 
 
-<View style={styles.calendarButton}>
-     <Button 
-                transparent
-                onPress={() => { Actions.calendar();}} >
-            <Icon
-                  name="ios-calendar-outline"
-                  style={styles.headerIcons} />
-             
-            <Text style={styles.calendarText} >Add to My Calendar (in development)</Text>
-       </Button>
-</View>
+                <View style={styles.calendarButton}>
+                    <Button 
+                                transparent
+                                onPress={() => { Actions.phoneCalendar(
+                                  {
+                                    eventTitle: this.props.title,
+                                    eventDescription: this.props.description,
+                                    eventDate: this.props.startDatePretty,
+                                    eventStartTime: this.props.startTimePretty,
+                                    eventEndTime: this.props.endTimePretty,
+                                    location: this.props.location,
+                                    eventImage: this.props.eventImage,
+                                    phone: this.props.phone,
+                                    email: this.props.email,
+                                    color: this.props.color,
+                                    photo1: this.props.photo1,
+                                    photo2: this.props.photo2,
+                                    photo3: this.props.photo3,
+                                    url: this.props.url
+                                  }
+
+                                );}} >
+                            <Icon
+                                  name="ios-calendar-outline"
+                                  style={styles.headerIcons} />
+                            
+                            <Text style={styles.calendarText} >Add to My Calendar (in development)</Text>
+                      </Button>
+                </View>
             </View>
           </Content>
 
