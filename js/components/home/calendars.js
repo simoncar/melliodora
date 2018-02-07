@@ -37,14 +37,17 @@ class CalendarRow extends Component {
 
    _addEvent = async phoneCalendarID => {
 
+    console.log (this.props);
+    console.log (this.props.eventTitle)
+
     const timeInOneHour = new Date();
     timeInOneHour.setHours(timeInOneHour.getHours() + 1);
     const newEvent = {
-      title: 'Celebrate Expo',
+      title: this.props.eventTitle,
       location: '420 Florence St',
       startDate: new Date(),
       endDate: timeInOneHour,
-      notes: "It's cool",
+      notes: this.props.eventDescription,
       timeZone: 'America/Los_Angeles',
     };
   
@@ -73,26 +76,17 @@ class CalendarRow extends Component {
     const { calendar } = this.props;
     const calendarTypeName =
       calendar.entityType === Calendar.EntityTypes.REMINDER ? 'Reminders' : 'Events';
-    
-
-    return (
-   
-      <View >
   
-        {calendar.allowsModifications == true  && calendar.entityType == "event" &&
-          
+    return (
+      <View>
+        {calendar.allowsModifications == true  && calendar.entityType == "event" && 
               <Button transparent style={styles.calendarButton}  onPress={() =>  this._selectCalendar(calendar)} >
-                  <Icon
-                        name="ios-calendar-outline"
-                        />
-                  
+                  <Icon name="ios-calendar-outline"/>   
                   <Text style={styles.calendarText} > {calendar.title}</Text>
               </Button>
-    
             } 
-
       </View>
-   
+
     );
   }
 }
@@ -112,8 +106,6 @@ class phoneCalendar extends Component {
     editingEvent: null,
   };
 
-
-
   _askForCalendarPermissions = async () => {
     const response = await Permissions.askAsync('calendar');
     const granted = response.status === 'granted';
@@ -123,98 +115,23 @@ class phoneCalendar extends Component {
     return granted;
   };
 
-  _askForReminderPermissions = async () => {
-    if (Platform.OS === 'android') return true;
-    const response = await Permissions.askAsync('reminders');
-    const granted = response.status === 'granted';
-    this.setState({
-      haveReminderPermissions: granted,
-    });
-    return granted;
-  };
-
   _findCalendars = async () => {
     
     const calendarGranted = await this._askForCalendarPermissions();
-    const reminderGranted = await this._askForReminderPermissions();
-    if (calendarGranted && reminderGranted) {
+    //const reminderGranted = await this._askForReminderPermissions();
+    if (calendarGranted) {
       const eventCalendars = await Calendar.getCalendarsAsync('event');
-      const reminderCalendars =
-        Platform.OS === 'ios' ? await Calendar.getCalendarsAsync('reminder') : [];
-      this.setState({ calendars: [...eventCalendars, ...reminderCalendars] });
+      
+      this.setState({ calendars: [...eventCalendars] });
     }
   };
 
-  _addCalendar = async recurring => {
-    const newCalendar = {
-      title: 'cool new calendar',
-      entityType: Calendar.EntityTypes.EVENT,
-      color: '#c0ff33',
-      sourceId:
-        Platform.OS === 'ios'
-          ? this.state.calendars.find(cal => cal.source && cal.source.name === 'Default').source.id
-          : undefined,
-      source:
-        Platform.OS === 'android'
-          ? {
-            name: this.state.calendars.find(
-              cal => cal.accessLevel == Calendar.CalendarAccessLevel.OWNER
-            ).source.name,
-            isLocalAccount: true,
-          }
-          : undefined,
-      name: 'coolNewCalendar',
-      accessLevel: Calendar.CalendarAccessLevel.OWNER,
-      ownerAccount:
-        Platform.OS === 'android'
-          ? this.state.calendars.find(cal => cal.accessLevel == Calendar.CalendarAccessLevel.OWNER)
-            .ownerAccount
-          : undefined,
-    };
-    try {
-      await Calendar.createCalendarAsync(newCalendar);
-      Alert.alert('Calendar saved successfully');
-      this._findCalendars();
-    } catch (e) {
-      Alert.alert('Calendar not saved successfully', e.message);
-    }
-  };
-
-  _updateCalendar = async calendarId => {
-    const newCalendar = {
-      title: 'cool updated calendar',
-    };
-    try {
-      await Calendar.updateCalendarAsync(calendarId, newCalendar);
-      Alert.alert('Calendar saved successfully');
-      this._findCalendars();
-    } catch (e) {
-      Alert.alert('Calendar not saved successfully', e.message);
-    }
-  };
-
-  _deleteCalendar = async calendar => {
-    Alert.alert(`Are you sure you want to delete ${calendar.title}?`, 'This cannot be undone.', [
-      {
-        text: 'Cancel',
-        onPress: () => { },
-      },
-      {
-        text: 'OK',
-        onPress: async () => {
-          try {
-            await Calendar.deleteCalendarAsync(calendar.id);
-            Alert.alert('Calendar deleted successfully');
-            this._findCalendars();
-          } catch (e) {
-            Alert.alert('Calendar not deleted successfully', e.message);
-          }
-        },
-      },
-    ]);
-  };
 
   render() {
+
+    console.log ('gggg' + this.props);
+    console.log ('gggg' + this.props.eventTitle)
+
 
     if (this.state.calendars.length) {
       return (
@@ -278,8 +195,6 @@ class phoneCalendar extends Component {
     );
   }
 }
-
-
 
 const mapDispatchToProps = (dispatch) => {
   console.log ('bind action creators');
