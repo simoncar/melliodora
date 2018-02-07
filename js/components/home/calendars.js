@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import * as ActionCreators  from '../../actions'
 
-import theme from '../../themes/base-theme';
+
 import styles from './styles';
 
 const headerLogo = require('../../../images/Header-Logo-White-0002.png');
@@ -18,32 +18,34 @@ class CalendarRow extends Component {
     title: 'Calendars',
   };
 
-  _selectCalendar (calendar) {
+  _selectCalendar (calendar, eventTitle) {
     console.log ("aa calendar selected")
     console.log ("aa calendar Id = " + calendar.id)
     
     //Actions.phoneCalendarItem ({
     //  phoneCalendarID: calendar.id
     //})
+    console.log ('hhh11' + this.props);
+    console.log ('hhh11' + eventTitle)
 
-
-    this._addEvent(calendar.id)
+    this._addEvent(calendar.id, eventTitle)
     console.log ("bb calendar selected")
     //Actions.webportal();
 
+    console.log ('hhh22' + this.props);
+    console.log ('hhh22' + eventTitle)
     Actions.pop();
    };
 
+   _addEvent = async (phoneCalendarID,eventTitle) => {
 
-   _addEvent = async phoneCalendarID => {
-
-    console.log (this.props);
-    console.log (this.props.eventTitle)
+    console.log ('hhh33' + this.props);
+    console.log ('hhh33' + eventTitle)
 
     const timeInOneHour = new Date();
     timeInOneHour.setHours(timeInOneHour.getHours() + 1);
     const newEvent = {
-      title: this.props.eventTitle,
+      title: eventTitle,
       location: '420 Florence St',
       startDate: new Date(),
       endDate: timeInOneHour,
@@ -71,22 +73,20 @@ class CalendarRow extends Component {
     this.setState({ events });
   };
 
-  
   render() {
-    const { calendar } = this.props;
+    const { calendar, eventTitle } = this.props;
     const calendarTypeName =
       calendar.entityType === Calendar.EntityTypes.REMINDER ? 'Reminders' : 'Events';
   
     return (
-      <View>
+      <View style={styles.selectCalendar}>
         {calendar.allowsModifications == true  && calendar.entityType == "event" && 
-              <Button transparent style={styles.calendarButton}  onPress={() =>  this._selectCalendar(calendar)} >
+              <Button transparent style={styles.calendarButton}  onPress={() =>  this._selectCalendar(calendar, eventTitle)} >
                   <Icon name="ios-calendar-outline"/>   
                   <Text style={styles.calendarText} > {calendar.title}</Text>
               </Button>
             } 
       </View>
-
     );
   }
 }
@@ -95,6 +95,11 @@ class phoneCalendar extends Component {
   static navigationOptions = {
     title: 'Calendars',
   };
+
+  constructor(props) {
+    super(props);
+    this._findCalendars();
+  }
 
   state = {
     haveCalendarPermissions: false,
@@ -129,6 +134,8 @@ class phoneCalendar extends Component {
 
   render() {
 
+
+
     console.log ('gggg' + this.props);
     console.log ('gggg' + this.props.eventTitle)
 
@@ -158,17 +165,16 @@ class phoneCalendar extends Component {
               <View style={styles.newsContent}>
 
                   <Text selectable={true} style={styles.eventTitle}>
-                    Select Calendar
+                    Select Calendar for {this.props.eventTitle}
                   </Text>
               </View>
 
               <ScrollView >
-     
                   {this.state.calendars.map(calendar => (
                     <CalendarRow
                       calendar={calendar}
+                      eventTitle = {this.props.eventTitle}
                       key={calendar.id}
-                      navigation={this.props.navigation}
                       updateCalendar={this._updateCalendar}
                       deleteCalendar={this._deleteCalendar}
                     />
@@ -181,15 +187,11 @@ class phoneCalendar extends Component {
       );
     }
 
-    this._findCalendars();
+
     
     return (
       <View>
-        <Button transparent onPress={() => {this._findCalendars();}}   title="Find Calendars">
-            <View>
-              <Text>Find Calendars</Text>
-            </View>
-        </Button>
+        
   
       </View>
     );
@@ -204,6 +206,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(phoneCalendar);

@@ -48,14 +48,18 @@ export default {
   calendarText: {
     fontSize: 22,
   },
+
+selectCalendar: {
+  paddingTop: 0,
+},
+
+
   calendarButton:{
     marginTop: 0,
     marginBottom: 20,
-    color: '#222',
     fontSize: 22,
   },
   eventTitle: {
-    color: '#222',
     fontSize: 22,
     paddingBottom: 20,
     fontWeight: 'bold',
@@ -121,31 +125,6 @@ export default {
     paddingBottom: 5,
   },
 
-  buttonLabel: {
-    color: '#707372',
-    alignSelf: 'center',
-    paddingTop: 10
-  },
-
-
-
-
-
-  icon: {
-    alignSelf: 'center',
-    marginRight: 0,
-    marginLeft: 0,
-    fontWeight: 'bold',
-    fontSize: 30,
-    color:'green',
-  },
-
-  buttonLabel: {
-    color: '#707372',
-    alignSelf: 'center',
-    paddingTop: 10,
-    fontSize: 10,
-  },
 
   timeIcon: {
     fontSize: 20,
@@ -153,16 +132,9 @@ export default {
     paddingLeft: Platform.OS === 'android' ? 0 : 20,
     paddingRight: 10,
     marginTop: Platform.OS === 'android' ? -1 : -3,
-    color: '#666',
+
   },
-  headertimeIcon: {
-    fontSize: 20,
-    marginLeft: Platform.OS === 'android' ? 15 : 0,
-    paddingLeft: Platform.OS === 'android' ? 0 : 20,
-    paddingRight: 10,
-    marginTop: Platform.OS === 'android' ? -1 : 0,
-    color: '#fff',
-  },
+
   slide: {
     flex: 1,
     width: null,
