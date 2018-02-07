@@ -11,11 +11,11 @@ const deviceWidth = Dimensions.get('window').width;
 
 export default {
   newsContent: {
-    flexDirection: 'column',
+
     paddingTop: 20,
     paddingLeft: 20,
     paddingRight: 20,
-    flex: 1,
+
     borderTopWidth: 1,
     borderTopColor: '#ddd',
   },
@@ -45,7 +45,21 @@ export default {
       })
 
   },
-
+  calendarText: {
+    fontSize: 22,
+  },
+  calendarButton:{
+    marginTop: 0,
+    marginBottom: 20,
+    color: '#222',
+    fontSize: 22,
+  },
+  eventTitle: {
+    color: '#222',
+    fontSize: 22,
+    paddingBottom: 20,
+    fontWeight: 'bold',
+  },
   headerIcons: {
     fontSize: 30,
     backgroundColor: 'transparent',

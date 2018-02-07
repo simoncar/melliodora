@@ -1,6 +1,6 @@
 import React , { Component } from 'react';
 import { Alert, Platform, ScrollView, StyleSheet, Text, View, Image} from 'react-native';
-import { Container, Header, Icon, Left, Body, Right, Button} from 'native-base';
+import { Container, Content, Header, Icon, Left, Body, Right, Button} from 'native-base';
 
 import { Calendar, Permissions } from 'expo';
 import { Actions } from 'react-native-router-flux';
@@ -8,7 +8,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import * as ActionCreators  from '../../actions'
 
+import theme from '../../themes/base-theme';
 import styles from './styles';
+
 const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
 class CalendarRow extends Component {
@@ -75,22 +77,21 @@ class CalendarRow extends Component {
 
     return (
    
-      <View style={styles.calendarRow}>
+      <View >
   
-   {calendar.allowsModifications == true  && calendar.entityType == "event" &&
+        {calendar.allowsModifications == true  && calendar.entityType == "event" &&
+          
+              <Button transparent style={styles.calendarButton}  onPress={() =>  this._selectCalendar(calendar)} >
+                  <Icon
+                        name="ios-calendar-outline"
+                        />
+                  
+                  <Text style={styles.calendarText} > {calendar.title}</Text>
+              </Button>
+    
+            } 
 
-    <View style={styles.calendarRow}>
-     <Text>{JSON.stringify(calendar, null, 2)}</Text>
-        <Text>{calendar.name}</Text>
-        
-        <Button
-          onPress={() =>  this._selectCalendar(calendar)}
-          title={`Select ${calendarTypeName}`}
-        />
-        </View>
-      } 
-
-</View>
+      </View>
    
     );
   }
@@ -235,20 +236,30 @@ class phoneCalendar extends Component {
 
           </View>
         </Header>
+        <Content showsVerticalScrollIndicator={false}>
+        <View>
+              <View style={styles.newsContent}>
 
-        <ScrollView >
+                  <Text selectable={true} style={styles.eventTitle}>
+                    Select Calendar
+                  </Text>
+              </View>
+
+              <ScrollView >
      
-          {this.state.calendars.map(calendar => (
-            <CalendarRow
-              calendar={calendar}
-              key={calendar.id}
-              navigation={this.props.navigation}
-              updateCalendar={this._updateCalendar}
-              deleteCalendar={this._deleteCalendar}
-            />
-          ))}
-
-        </ScrollView>
+                  {this.state.calendars.map(calendar => (
+                    <CalendarRow
+                      calendar={calendar}
+                      key={calendar.id}
+                      navigation={this.props.navigation}
+                      updateCalendar={this._updateCalendar}
+                      deleteCalendar={this._deleteCalendar}
+                    />
+                  ))}
+              </ScrollView>
+        </View>      
+        </Content>
+   
         </Container>
       );
     }
