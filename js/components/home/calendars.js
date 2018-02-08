@@ -18,7 +18,7 @@ class CalendarRow extends Component {
     title: 'Calendars',
   };
 
-  _selectCalendar (calendar, eventTitle) {
+  _selectCalendar (calendar, eventTitle,eventDescription, eventDate,eventStartTime,eventEndTime,location,eventImage,phone,email,url) {
     console.log ("aa calendar selected")
     console.log ("aa calendar Id = " + calendar.id)
     
@@ -28,7 +28,7 @@ class CalendarRow extends Component {
     console.log ('hhh11' + this.props);
     console.log ('hhh11' + eventTitle)
 
-    this._addEvent(calendar.id, eventTitle)
+    this._addEvent(calendar.id, eventTitle,eventDescription, eventDate,eventStartTime,eventEndTime,location,eventImage,phone,email,url)
     console.log ("bb calendar selected")
     //Actions.webportal();
 
@@ -37,20 +37,22 @@ class CalendarRow extends Component {
     Actions.pop();
    };
 
-   _addEvent = async (phoneCalendarID,eventTitle) => {
+   _addEvent = async (phoneCalendarID,eventTitle,eventDescription, eventDate,eventStartTime,eventEndTime,location,eventImage,phone,email,url) => {
 
     console.log ('hhh33' + this.props);
     console.log ('hhh33' + eventTitle)
+    console.log ('eventDate' + eventDate);
+    console.log ('eventStartTime' + eventStartTime)
+    console.log ('eventEndTime' + eventEndTime)
 
-    const timeInOneHour = new Date();
-    timeInOneHour.setHours(timeInOneHour.getHours() + 1);
+    const timeInOneHour = new Date(timeInOneHour.setHours(timeInOneHour.getHours() + 1));
     const newEvent = {
       title: eventTitle,
-      location: '420 Florence St',
+      location: location,
       startDate: new Date(),
       endDate: timeInOneHour,
-      notes: this.props.eventDescription,
-      timeZone: 'America/Los_Angeles',
+      notes: eventDescription,
+      timeZone: 'Asia/Singapore',
     };
   
     try {
@@ -74,14 +76,26 @@ class CalendarRow extends Component {
   };
 
   render() {
-    const { calendar, eventTitle } = this.props;
+    const { 
+      calendar, 
+      eventTitle,
+      eventDescription,
+      eventDate,
+      eventStartTime,
+      eventEndTime,
+      location,
+      eventImage,
+      phone,
+      email,
+      url
+    } = this.props;
     const calendarTypeName =
       calendar.entityType === Calendar.EntityTypes.REMINDER ? 'Reminders' : 'Events';
   
     return (
       <View style={styles.selectCalendar}>
         {calendar.allowsModifications == true  && calendar.entityType == "event" && 
-              <Button transparent style={styles.calendarButton}  onPress={() =>  this._selectCalendar(calendar, eventTitle)} >
+              <Button transparent style={styles.calendarButton}  onPress={() =>  this._selectCalendar(calendar, eventTitle,eventDescription, eventDate,eventStartTime,eventEndTime,location,eventImage,phone,email,url)} >
                   <Icon name="ios-calendar-outline"/>   
                   <Text style={styles.calendarText} > {calendar.title}</Text>
               </Button>
