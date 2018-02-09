@@ -28,6 +28,10 @@ class CalendarRow extends Component {
     console.log ('hhh11' + this.props);
     console.log ('hhh11' + eventTitle)
 
+    console.log ('XeventDate' + eventDate);
+    console.log ('XeventStartTime' + eventStartTime)
+    console.log ('XeventEndTime' + eventEndTime)
+
     this._addEvent(calendar.id, eventTitle,eventDescription, eventDate,eventStartTime,eventEndTime,location,eventImage,phone,email,url)
     console.log ("bb calendar selected")
     //Actions.webportal();
@@ -44,14 +48,16 @@ class CalendarRow extends Component {
     console.log ('eventDate' + eventDate);
     console.log ('eventStartTime' + eventStartTime)
     console.log ('eventEndTime' + eventEndTime)
-
-    const timeInOneHour = new Date(timeInOneHour.setHours(timeInOneHour.getHours() + 1));
+    
+    const timeInOneHour = new Date(eventDate);
+    timeInOneHour.setHours(timeInOneHour.getHours() + 1);
+console.log("datestring = " + eventDate + 'T' + eventStartTime +'+08:00')
     const newEvent = {
-      title: eventTitle,
+      title: 'S' + eventTitle,
       location: location,
-      startDate: new Date(),
-      endDate: timeInOneHour,
-      notes: eventDescription,
+      startDate: new Date(eventDate + 'T' + eventStartTime +'+08:00' ),
+      endDate:new Date(eventDate + 'T' + eventEndTime +'+08:00' ),
+      notes: new Date(eventDate + 'T' + eventStartTime +'+08:00' ),
       timeZone: 'Asia/Singapore',
     };
   
@@ -76,6 +82,9 @@ class CalendarRow extends Component {
   };
 
   render() {
+
+
+
     const { 
       calendar, 
       eventTitle,
@@ -89,8 +98,13 @@ class CalendarRow extends Component {
       email,
       url
     } = this.props;
+
+    console.log ("props on calendar = " + this.props);
+
     const calendarTypeName =
       calendar.entityType === Calendar.EntityTypes.REMINDER ? 'Reminders' : 'Events';
+
+      console.log ("ttttt" + eventTitle + '  ------   ' + eventDescription)
   
     return (
       <View style={styles.selectCalendar}>
@@ -188,6 +202,19 @@ class phoneCalendar extends Component {
                     <CalendarRow
                       calendar={calendar}
                       eventTitle = {this.props.eventTitle}
+                      eventDescription= {this.props.eventDescription}
+                      eventDate= {this.props.eventDate}
+                      eventStartTime= {this.props.eventStartTime}
+                      eventEndTime= {this.props.eventEndTime}
+                      location= {this.props.location}
+                      eventImage= {this.props.eventImage}
+                      phone= {this.props.phone}
+                      email= {this.props.email}
+                      color= {this.props.color}
+                      photo1= {this.props.photo1}
+                      photo2= {this.props.photo2}
+                      photo3= {this.props.photo3}
+                      url= {this.props.url}
                       key={calendar.id}
                       updateCalendar={this._updateCalendar}
                       deleteCalendar={this._deleteCalendar}
