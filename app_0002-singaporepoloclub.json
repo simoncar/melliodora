@@ -7,6 +7,9 @@
     "icon": "./resources/0002_singaporepoloclub/icon.png",
     "slug": "poloConnect",
     "name": "Polo Connect",
+    "extra": {
+      "instance": "0002-singaporepoloclub"
+    },
     "hooks": {
       "postPublish": [
         {

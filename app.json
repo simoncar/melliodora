@@ -1,12 +1,16 @@
 {
   "name": "Polo Connect",
   "displayName": "Polo Connect",
+
   "expo": {
     "version": "7.3.25",
     "sdkVersion": "25.0.0",
     "icon": "./resources/0002_singaporepoloclub/icon.png",
     "slug": "poloConnect",
     "name": "Polo Connect",
+    "extra": {
+      "instance": "0002-singaporepoloclub"
+    },
     "hooks": {
       "postPublish": [
         {

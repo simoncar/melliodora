@@ -33,7 +33,7 @@ class HomeNav extends Component {
   constructor() {
        super()
 
-       this.calendarEvents = firebase.database().ref('instance/0001-sais_edu_sg/feature');
+       this.calendarEvents = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/feature');
        this.state = {
           versionText: '', //'Version Aug.1.2017 - Check for an Update'
           calendarEvents: new ListView.DataSource({
@@ -187,6 +187,7 @@ class HomeNav extends Component {
                   <Text style={styles.version}>Version {Constants.manifest.version}</Text>
                    <Text style={styles.version}>SDK {Constants.manifest.sdkVersion}</Text>
                    <Text style={styles.version}>Name {Constants.manifest.name}</Text>
+                   <Text style={styles.version}>Instance {Constants.manifest.extra.instance}</Text>
                    <Text style={styles.version}> </Text>
                    <Text style={styles.version}> </Text>
               </View>
