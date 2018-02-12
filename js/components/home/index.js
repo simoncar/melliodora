@@ -15,6 +15,8 @@ import * as ActionCreators  from '../../actions'
 import styles from './styles';
 import HeaderContent from './../headerContent/header';
 
+import { Constants } from 'expo';
+
 import {Agenda} from 'react-native-calendars';
 import { formatTime, formatMonth } from '../global.js';
 
@@ -33,7 +35,7 @@ class calendar1 extends Component {
   constructor(props) {
     super(props);
 
-    this.calendarEvents = firebase.database().ref('instance/0001-sais_edu_sg/calendar/all_v2');
+    this.calendarEvents = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/calendar/all_v2');
 
     this.state = {
       user:null,
