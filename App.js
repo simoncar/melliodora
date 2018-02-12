@@ -53,7 +53,6 @@ export default class App extends React.Component {
      Firebase.initialise();
   }
 
-
   render() {
 
   	console.disableYellowBox = true;
