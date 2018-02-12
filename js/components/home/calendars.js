@@ -51,19 +51,37 @@ class CalendarRow extends Component {
     
     const timeInOneHour = new Date(eventDate);
     timeInOneHour.setHours(timeInOneHour.getHours() + 1);
-console.log("datestring = " + eventDate + 'T' + eventStartTime +'+08:00')
-    const newEvent = {
-      title: 'S' + eventTitle,
-      location: location,
-      startDate: new Date(eventDate + 'T' + eventStartTime +'+08:00' ),
-      endDate:new Date(eventDate + 'T' + eventEndTime +'+08:00' ),
-      notes: new Date(eventDate + 'T' + eventStartTime +'+08:00' ),
-      timeZone: 'Asia/Singapore',
-    };
+    //console.log("datestring = " + eventDate + 'T' + eventStartTime +'+08:00')
+    var newEvent = {};
+
+    if (eventStartTime == null) {
+      
+     newEvent = {
+        title: eventTitle,
+        location: location,
+        allDay: true,
+        startDate: new Date(eventDate  ),
+        endDate:new Date(eventDate ),
+        notes: eventDescription,
+        timeZone: 'Asia/Singapore',
+      };
+
+    } else {
+      
+      newEvent = {
+        allDay: false,
+        title: eventTitle,
+        location: location,
+        startDate: new Date(eventDate + 'T' + eventStartTime +'+08:00' ),
+        endDate:new Date(eventDate + 'T' + eventEndTime +'+08:00' ),
+        notes: eventDescription,
+        timeZone: 'Asia/Singapore',
+      };
+    }
   
     try {
       await Calendar.createEventAsync(phoneCalendarID, newEvent);
-      Alert.alert('Event saved successfully');
+      //Alert.alert('Event saved successfully');
       this._findEvents(phoneCalendarID);
     } catch (e) {
       Alert.alert('Event not saved successfully', e.message);
