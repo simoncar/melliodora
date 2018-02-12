@@ -192,6 +192,8 @@ Are you interested in meeting people with similar interests within the Stamford 
                   <Text style={styles.version}>Release Channel {Constants.manifest.releaseChannel}</Text>
                   <Text style={styles.version}>Version {Constants.manifest.version}</Text>
                    <Text style={styles.version}>SDK {Constants.manifest.sdkVersion}</Text>
+                   <Text style={styles.version}> </Text>
+                   <Text style={styles.version}> </Text>
               </View>
   
           </Content>

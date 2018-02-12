@@ -81,7 +81,7 @@ class CalendarRow extends Component {
   
     try {
       await Calendar.createEventAsync(phoneCalendarID, newEvent);
-      //Alert.alert('Event saved successfully');
+      Alert.alert('Event saved successfully');
       this._findEvents(phoneCalendarID);
     } catch (e) {
       Alert.alert('Event not saved successfully', e.message);
