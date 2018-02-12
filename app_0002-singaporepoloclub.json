@@ -1,0 +1,52 @@
+{
+  "name": "Polo Connect",
+  "displayName": "Polo Connect",
+  "expo": {
+    "version": "7.3.25",
+    "sdkVersion": "25.0.0",
+    "icon": "./resources/0002_singaporepoloclub/icon.png",
+    "slug": "poloConnect",
+    "name": "Polo Connect",
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "mower-train-software",
+            "project": "mystamford",
+            "authToken": "92c8da52431846ca8f6fe52b9de0db28b039efc6463b4e56996c4a583a75dda1"
+          }
+        }
+      ]
+    },
+    "notification": {
+      "icon": "./resources/0002_singaporepoloclub/icon.png",
+      "color": "#000000"
+    },
+    "loading": {
+      "hideExponentText": true,
+      "icon": "./images/launchImages/loading.png",
+      "backgroundImage": "images/BG-loading.png"
+    },
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "packagerOpts": {
+      "assetExts": [
+        "ttf"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "com.softmowertrain.parent.poloconnect",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.softmowertrain.parent.poloconnect",
+      "versionCode": 7
+    },
+    "androidStatusBarColor": "#AF3643",
+    "androidStatusBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#AF3643"
+    }
+  }
+}

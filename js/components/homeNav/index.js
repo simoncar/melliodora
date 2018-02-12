@@ -153,23 +153,17 @@ class HomeNav extends Component {
                     style={styles.listview}/>
 
       </View>
-
-
-
-            <View style={styles.newsContentLine}>
-
+      <View style={styles.newsContentLine}>
 
               <TouchableOpacity style={{ flexDirection: 'row' }}  onPress={() => { Actions.ptaHome(); }} >
                 <Image source={require('../../../images/sais.edu.sg/pta_page_logo_small.png')} style={styles.newsImage} />
                 <View style={styles.newsContentNoLine}>
                   <Text numberOfLines={1} style={styles.newsHeader}>
-                                    PTA Parent Connection Groups
-                                    </Text>
-
-                                    <Text style={styles.newsTypeText}>
-Are you interested in meeting people with similar interests within the Stamford community?
-                                    </Text>
-
+                    PTA Parent Connection Groups
+                    </Text>
+                    <Text style={styles.newsTypeText}>
+                      Are you interested in meeting people with similar interests within the Stamford community?
+                    </Text>
                 <View style={{flexDirection: 'column'}}>
                   <Text numberOfLines={1} style={ styles.newsLink}></Text>
                   <Text style={styles.newsLink}></Text>
@@ -192,7 +186,7 @@ Are you interested in meeting people with similar interests within the Stamford 
                   <Text style={styles.version}>Release Channel {Constants.manifest.releaseChannel}</Text>
                   <Text style={styles.version}>Version {Constants.manifest.version}</Text>
                    <Text style={styles.version}>SDK {Constants.manifest.sdkVersion}</Text>
-                   <Text style={styles.version}> </Text>
+                   <Text style={styles.version}>Name {Constants.manifest.name}</Text>
                    <Text style={styles.version}> </Text>
                    <Text style={styles.version}> </Text>
               </View>
