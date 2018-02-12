@@ -101,8 +101,6 @@ class CalendarRow extends Component {
 
   render() {
 
-
-
     const { 
       calendar, 
       eventTitle,
