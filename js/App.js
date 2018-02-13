@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import * as ActionCreators  from './actions'
+import * as ActionCreators from './actions'
 import { Permissions, Notifications, Constants } from 'expo';
 
 import AppNavigator from './AppNavigator';
@@ -21,24 +21,28 @@ class App extends Component {
   render() {
 
 
-    switch(Constants.manifest.extra.instance) {
+    switch (Constants.manifest.extra.instance) {
       case '0001-sais_edu_sg':
-          global.switch_address =''
-          global.switch_helpEmail ='pta.comms@sais.edu.sg'
-          global.switch_portalName ='myStamford'
-          global.switch_portalURL ='https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP'
-          break;
+        global.switch_address = 'Locations: \nFranklin Ground Floor (level 2), by Stamford Yard \nEarly Learning Village, Level 1\nHours: 8 am to 5 pm'
+        global.switch_helpEmail = 'pta.comms@sais.edu.sg'
+        global.switch_contactEmail = 'help@sais.edu.sg'
+        global.switch_portalName = 'myStamford'
+        global.switch_portalURL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP'
+        global.switch_call = '+65 6709 4800'
+        break;
       case '0002-singaporepoloclub':
-          global.switch_address =''
-          global.switch_helpEmail ='simoncar+spc@gmail.com'
-          global.switch_portalName ='SPC Website'
-          global.switch_portalURL ='https://www.singaporepoloclub.org/'
-          break;
+        global.switch_address = '80 Mount Pleasant Rd, \nSingapore  298334'
+        global.switch_helpEmail = 'simoncar+spc@gmail.com'
+        global.switch_contactEmail = 'enquiry@singaporepoloclub.org'
+        global.switch_portalName = 'SPC Website'
+        global.switch_portalURL = 'https://www.singaporepoloclub.org/'
+        global.switch_call = '+65 6854 3985'
+        break;
       default:
-          global.switch_address ='not specified -'
-  }
+        global.switch_address = 'not specified -'
+    }
 
-    return <AppNavigator {...this.props}/>;
+    return <AppNavigator {...this.props} />;
   }
 
   _registerForPushNotifications() {
@@ -60,15 +64,12 @@ class App extends Component {
       `Push notification ${origin} with data: ${JSON.stringify(data)}`
     );
   };
-
-
-
 }
 
 //export default App;
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators (ActionCreators, dispatch);
+  return bindActionCreators(ActionCreators, dispatch);
 };
 
 const mapStateToProps = state => ({
