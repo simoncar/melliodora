@@ -5,7 +5,7 @@
   "expo": {
     "version": "7.3.25",
     "sdkVersion": "25.0.0",
-    "icon": "./resources/0002_singaporepoloclub/icon.png",
+    "icon": "./resources/0002-singaporepoloclub/icon.png",
     "slug": "poloConnect",
     "name": "Polo Connect",
     "extra": {
@@ -25,7 +25,7 @@
       ]
     },
     "notification": {
-      "icon": "./resources/0002_singaporepoloclub/icon.png",
+      "icon": "./resources/0002-singaporepoloclub/icon.png",
       "color": "#000000"
     },
     "loading": {

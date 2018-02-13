@@ -21,7 +21,7 @@ import {Agenda} from 'react-native-calendars';
 import { formatTime, formatMonth } from '../global.js';
 
 const deviceWidth = Dimensions.get('window').width;
-const headerLogo = require('../../../images/Header-Logo-White-0002.png');
+const headerLogo = require('../../../resources/0001-sais_edu_sg/headerLogo.png');
 
 import * as firebase from 'firebase';
 
@@ -36,8 +36,7 @@ class calendar1 extends Component {
     super(props);
 
     this.calendarEvents = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/calendar/all_v2');
-    //this.switches = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/switch');
-
+    
 
     this.state = {
       user:null,
@@ -47,11 +46,11 @@ class calendar1 extends Component {
 
     this.loadFromRedux();
 
-};
+  };
 
-  componentDidMount(){
-     this.listenLoadFromFirebase(this.calendarEvents);
-    }
+componentDidMount(){
+    this.listenLoadFromFirebase(this.calendarEvents);
+  }
 
 loadFromRedux(){
 

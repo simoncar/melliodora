@@ -15,7 +15,7 @@ import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
 
 const primary = require('../../themes/variable').brandPrimary;
-const headerLogo = require('../../../images/Header-Logo-White-0002.png');
+
 
 
 import HeaderContent from './../headerContent/header';
@@ -77,7 +77,7 @@ class Settings extends Component {
           </Left>
 
           <Body>
-            <ImageBackground source={headerLogo} style={styles.imageHeader} />
+            <ImageBackground source={global.header_logo} style={styles.imageHeader} />
           </Body>
           <Right>
             <Button transparent style={styles.btnHeader} onPress={() => Actions.popTo('home')}>
