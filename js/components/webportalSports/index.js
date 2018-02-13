@@ -25,7 +25,6 @@ const primary = require('../../themes/variable').brandPrimary;
 const timer = require('react-native-timer');
 
 
-const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
 var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = 'http://www.stamfordlionsathletics.com/';

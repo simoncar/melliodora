@@ -22,7 +22,6 @@ import styles from './styles';
 const primary = require('../../themes/variable').brandPrimary;
 const timer = require('react-native-timer');
 
-const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
 var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = '';

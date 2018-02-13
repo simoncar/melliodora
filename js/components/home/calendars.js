@@ -11,7 +11,7 @@ import * as ActionCreators  from '../../actions'
 
 import styles from './styles';
 
-const headerLogo = require('../../../images/Header-Logo-White-0002.png');
+
 
 class CalendarRow extends Component {
   static navigationOptions = {
@@ -199,7 +199,7 @@ class phoneCalendar extends Component {
           </Button>
             </View>
             <Body>
-              <Image source={headerLogo} style={styles.imageHeader} />
+              <Image source={global.header_logoID} style={styles.imageHeader} />
             </Body>
 
           </View>

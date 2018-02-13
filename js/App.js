@@ -29,6 +29,8 @@ class App extends Component {
         global.switch_portalName = 'myStamford'
         global.switch_portalURL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP'
         global.switch_call = '+65 6709 4800'
+        global.header_logo = '../../../resources/' + Constants.manifest.extra.instance + '/headerLogo.png'
+        global.header_logoID = require('../resources/0001-sais_edu_sg/headerLogo.png');
         break;
       case '0002-singaporepoloclub':
         global.switch_address = '80 Mount Pleasant Rd, \nSingapore  298334'
@@ -37,6 +39,8 @@ class App extends Component {
         global.switch_portalName = 'SPC Website'
         global.switch_portalURL = 'https://www.singaporepoloclub.org/'
         global.switch_call = '+65 6854 3985'
+        global.header_logo = '../../../resources/' + Constants.manifest.extra.instance + '/headerLogo.png'
+        global.header_logoID = require('../resources/0002-singaporepoloclub/headerLogo.png');
         break;
       default:
         global.switch_address = 'not specified -'

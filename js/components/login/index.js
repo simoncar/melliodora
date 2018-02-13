@@ -19,7 +19,7 @@ var { skipLogin } = require('../../actions');
 
 const deviceWidth = Dimensions.get('window').width;
 const bg = require('../../../images/BG.png');
-const headerLogo = require('../../../images/Header-Logo-White-0002.png');
+
 
 class Login extends Component {
 

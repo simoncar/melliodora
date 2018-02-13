@@ -9,7 +9,6 @@ import { Icon, Button, Left, Right, Body, Header, Text } from 'native-base';
 import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
 
-const headerLogo = require('../../../images/Header-Logo-White-0002.png');
 
 class HeaderContent extends Component {
 
@@ -60,7 +59,7 @@ class HeaderContent extends Component {
             </Button>
           </View>
           <Body>
-            <Image source={headerLogo} style={styles.imageHeader} />
+            <Image source={global.header_logoID} style={styles.imageHeader} />
           </Body>
           <View>
               {this._HomeNav()}
