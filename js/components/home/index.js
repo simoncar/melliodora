@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Platform, Dimensions} from 'react-native';
+import { Image, View, TouchableOpacity, Platform, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
@@ -11,17 +11,17 @@ import { Container, Header, Footer, FooterTab, Content, Text, Button, Icon, Card
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
-import * as ActionCreators  from '../../actions'
+import * as ActionCreators from '../../actions'
 import styles from './styles';
 import HeaderContent from './../headerContent/header';
 
 import { Constants } from 'expo';
 
-import {Agenda} from 'react-native-calendars';
+import { Agenda } from 'react-native-calendars';
 import { formatTime, formatMonth } from '../global.js';
 
 const deviceWidth = Dimensions.get('window').width;
-const headerLogo = require('../../../resources/0001-sais_edu_sg/headerLogo.png');
+
 
 import * as firebase from 'firebase';
 
@@ -36,10 +36,10 @@ class calendar1 extends Component {
     super(props);
 
     this.calendarEvents = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/calendar/all_v2');
-    
+
 
     this.state = {
-      user:null,
+      user: null,
       loading: true,
       items: {}
     };
@@ -48,104 +48,106 @@ class calendar1 extends Component {
 
   };
 
-componentDidMount(){
+  componentDidMount() {
     this.listenLoadFromFirebase(this.calendarEvents);
   }
 
-loadFromRedux(){
+  loadFromRedux() {
 
-  this.state.items = [];
-  this.loadItems()
+    this.state.items = [];
+    this.loadItems()
 
-  dataSnapshot = (this.props.calendarEventsX.items)
-  key = '';
+    dataSnapshot = (this.props.calendarEventsX.items)
+    key = '';
 
-  for (var key in dataSnapshot) {
+    for (var key in dataSnapshot) {
 
-    if (!dataSnapshot.hasOwnProperty(key)) continue;
+      if (!dataSnapshot.hasOwnProperty(key)) continue;
 
-        var snapshot = dataSnapshot[key];
+      var snapshot = dataSnapshot[key];
 
-        if (undefined != snapshot["date_start"]){
+      if (undefined != snapshot["date_start"]) {
 
-            strtime = snapshot["date_start"];
-            strtime = strtime.substring(0,10);
+        strtime = snapshot["date_start"];
+        strtime = strtime.substring(0, 10);
 
-            if (!this.state.items[strtime]) {
-              this.state.items[strtime] = [];
-            }
-
-            this.state.items[strtime].push({
-              name: snapshot["summary"],
-              title: snapshot["summary"],
-              description: snapshot["description"],
-              location: snapshot["location"],
-              startDatePretty: snapshot["date_start"],
-              startTimePretty: snapshot["time_start_pretty"],
-              endTimePretty: snapshot["time_end_pretty"],
-              iconLib: snapshot["iconLib"],
-              icon: snapshot["icon"],
-              color: snapshot["colorId"],
-              phone: snapshot["phone"],
-              email: snapshot["email"],
-              url: snapshot["htmlLink"],
-              photo1: snapshot["photo1"],
-              photo2: snapshot["photo2"],
-              photo3: snapshot["photo3"]
-            });
-
+        if (!this.state.items[strtime]) {
+          this.state.items[strtime] = [];
         }
+
+        this.state.items[strtime].push({
+          name: snapshot["summary"],
+          title: snapshot["summary"],
+          description: snapshot["description"],
+          location: snapshot["location"],
+          startDatePretty: snapshot["date_start"],
+          startTimePretty: snapshot["time_start_pretty"],
+          endTimePretty: snapshot["time_end_pretty"],
+          group: snapshot["group"],
+          iconLib: snapshot["iconLib"],
+          icon: snapshot["icon"],
+          color: snapshot["colorId"],
+          phone: snapshot["phone"],
+          email: snapshot["email"],
+          url: snapshot["htmlLink"],
+          photo1: snapshot["photo1"],
+          photo2: snapshot["photo2"],
+          photo3: snapshot["photo3"]
+        });
+
+      }
     }
 
-}
+  }
 
 
-listenLoadFromFirebase(calendarEvents) {
+  listenLoadFromFirebase(calendarEvents) {
 
     calendarEvents.on('value', (dataSnapshot2) => {
-        this.props.setCalendarItems(dataSnapshot2)
+      this.props.setCalendarItems(dataSnapshot2)
 
-        dataSnapshot = dataSnapshot2
-        this.state.items = [];
-        this.loadItems()
+      dataSnapshot = dataSnapshot2
+      this.state.items = [];
+      this.loadItems()
 
-        dataSnapshot.forEach((snapshot) => {
+      dataSnapshot.forEach((snapshot) => {
 
-            strtime = snapshot.child("date_start").val();
-            strtime = strtime.substring(0,10);
+        strtime = snapshot.child("date_start").val();
+        strtime = strtime.substring(0, 10);
 
-            if (!this.state.items[strtime]) {
-              this.state.items[strtime] = [];
-            }
+        if (!this.state.items[strtime]) {
+          this.state.items[strtime] = [];
+        }
 
-           if (undefined != this.state.items[strtime]){
-                this.state.items[strtime].push({
-                  name: snapshot.child("summary").val(),
-                  title: snapshot.child("summary").val(),
-                  description: snapshot.child("description").val(),
-                  location: snapshot.child("location").val(),
-                  startDatePretty: snapshot.child("date_start").val(),
-                  startTimePretty: snapshot.child("time_start_pretty").val(),
-                  endTimePretty: snapshot.child("time_end_pretty").val(),
-                  iconLib: snapshot.child("iconLib").val(),
-                  icon:snapshot.child("icon").val(),
-                  color: snapshot.child("colorId").val(),
-                  phone: snapshot.child("phone").val(),
-                  email: snapshot.child("email").val(),
-                  url: snapshot.child("htmlLink").val(),
-                  photo1: snapshot.child("photo1").val(),
-                  photo2: snapshot.child("photo2").val(),
-                  photo3: snapshot.child("photo3").val()
+        if (undefined != this.state.items[strtime]) {
+          this.state.items[strtime].push({
+            name: snapshot.child("summary").val(),
+            title: snapshot.child("summary").val(),
+            description: snapshot.child("description").val(),
+            location: snapshot.child("location").val(),
+            startDatePretty: snapshot.child("date_start").val(),
+            startTimePretty: snapshot.child("time_start_pretty").val(),
+            endTimePretty: snapshot.child("time_end_pretty").val(),
+            group: snapshot.child("group").val(),
+            iconLib: snapshot.child("iconLib").val(),
+            icon: snapshot.child("icon").val(),
+            color: snapshot.child("colorId").val(),
+            phone: snapshot.child("phone").val(),
+            email: snapshot.child("email").val(),
+            url: snapshot.child("htmlLink").val(),
+            photo1: snapshot.child("photo1").val(),
+            photo2: snapshot.child("photo2").val(),
+            photo3: snapshot.child("photo3").val()
 
-              });
-            }
           });
+        }
+      });
 
-          this.setState({
-            calendarEvents:calendarEvents
-          });
+      this.setState({
+        calendarEvents: calendarEvents
+      });
 
-          //this.state.items = [];
+      //this.state.items = [];
     });
   }
 
@@ -157,14 +159,14 @@ listenLoadFromFirebase(calendarEvents) {
         const strtime = this.timeToString(time);
 
         if (!this.state.items[strtime]) {
-           this.state.items[strtime] = [];
+          this.state.items[strtime] = [];
         }
       }
-    
+
       const newItems = {};
 
       Object.keys(this.state.items).forEach(
-          key => {newItems[key] = this.state.items[key];});
+        key => { newItems[key] = this.state.items[key]; });
 
 
     }, 1000);
@@ -180,7 +182,7 @@ listenLoadFromFirebase(calendarEvents) {
 
     return (
       <Container>
-     <HeaderContent />
+        <HeaderContent />
 
         <Agenda
           items={this.state.items}
@@ -190,11 +192,11 @@ listenLoadFromFirebase(calendarEvents) {
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
           hideKnob={false}
-          theme = {{
-                agendaKnobColor: '#1DAEF2',
-                selectedDayBackgroundColor: '#00adf5',
-            }}
-          style = {{}}
+          theme={{
+            agendaKnobColor: '#1DAEF2',
+            selectedDayBackgroundColor: '#00adf5',
+          }}
+          style={{}}
         />
 
       </Container>
@@ -206,41 +208,44 @@ listenLoadFromFirebase(calendarEvents) {
 
 
     return (
-      <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
-             eventTitle: item.title,
-             eventDescription: item.description,
-             eventDate: item.startDatePretty,
-             eventStartTime: item.startTimePretty,
-             eventEndTime: item.endTimePretty,
-             location: item.location,
-             eventImage: item.eventImage,
-             phone: item.phone,
-             email: item.email,
-             color: item.color,
-             photo1: item.photo1,
-             photo2: item.photo2,
-             photo3: item.photo3,
-             url: item.url
+      <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story({
+        eventTitle: item.title,
+        eventDescription: item.description,
+        eventDate: item.startDatePretty,
+        eventStartTime: item.startTimePretty,
+        eventEndTime: item.endTimePretty,
+        group: item.group,
+        location: item.location,
+        eventImage: item.eventImage,
+        phone: item.phone,
+        email: item.email,
+        color: item.color,
+        photo1: item.photo1,
+        photo2: item.photo2,
+        photo3: item.photo3,
+        url: item.url
 
-           })
-         }>
+      })
+      }>
 
-        <View style={[styles.agendaItem, {height: item.height,   borderRightColor: this.formatBackground(item.color)} ]}>
+        <View style={[styles.agendaItem, { height: item.height, borderRightColor: this.formatBackground(item.color) }]}>
 
-        <Grid>
+          <Grid>
 
-         <Row>
-           <Col>
+            <Row>
+              <Col>
 
-           <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}    {item.location}    </Text>
-           {this.renderTime(item.startTimePretty, item.endTimePretty)}
-
-           <Text style={styles.text}>{item.name}</Text>
-
-           </Col>
-           <Col style={{width:60}}>
-
-             <View style={{
+                <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}    {item.location}    </Text>
+                {this.renderTime(item.startTimePretty, item.endTimePretty)}
+                <Text style={styles.text}>{item.name}</Text>
+                <View style={styles.groupView}>
+                        <Text style={styles.groupText}>{item.group}</Text>
+                  </View>
+              </Col>
+              <Col style={{ width: 60 }}>
+             
+          
+                <View style={{
                   borderRadius: 30,
                   backgroundColor: this.formatBackground(item.color),
                   width: 45,
@@ -253,19 +258,19 @@ listenLoadFromFirebase(calendarEvents) {
                   justifyContent: "center",
                 }} >
 
-                <View>
-                      <Icon style={{
-                          color: '#fff',
-                          fontSize: 20,
-                      }} name={item.icon} />
+                  <View>
+                    <Icon style={{
+                      color: '#fff',
+                      fontSize: 20,
+                    }} name={item.icon} />
                   </View>
 
-             </View>
-           </Col>
-        </Row>
-      </Grid>
-         </View>
-     </TouchableOpacity>
+                </View>
+              </Col>
+            </Row>
+          </Grid>
+        </View>
+      </TouchableOpacity>
 
     );
 
@@ -276,7 +281,7 @@ listenLoadFromFirebase(calendarEvents) {
     var ret = '';
 
     if (ret.contains("sport")) {
-        ret = 'ios-american-football'
+      ret = 'ios-american-football'
     } else if (ret.contains("art")) {
       ret = 'ios-brush'
     } else {
@@ -287,18 +292,18 @@ listenLoadFromFirebase(calendarEvents) {
   };
 
 
-renderTime(start, end) {
-  if ((undefined != start) && (start.length > 0)) {
-    return (
-      <Text style={styles.agendaDate}>{formatTime(start, end)}   </Text>
-    );
+  renderTime(start, end) {
+    if ((undefined != start) && (start.length > 0)) {
+      return (
+        <Text style={styles.agendaDate}>{formatTime(start, end)}   </Text>
+      );
+    }
   }
-}
 
   renderEmptyDate(item) {
 
     return (
-      <View style={{ height: 15, flex:1, paddingTop: 30}}><Text style={{color: 'black'}}></Text></View>
+      <View style={{ height: 15, flex: 1, paddingTop: 30 }}><Text style={{ color: 'black' }}></Text></View>
     );
   }
 
@@ -324,27 +329,27 @@ renderTime(start, end) {
     var ret = '#1DAEF2';
 
     switch (color) {
-    case "grey":
+      case "grey":
         ret = '#64D4D2';
         break;
-    case "yellow":
+      case "yellow":
         ret = "#8F63B8";
         break;
-    case "red":
+      case "red":
         ret = "#E63946";
         break;
-    case "green":
+      case "green":
         day = "#64D4D2";
         break;
-    case "light blue":
+      case "light blue":
         day = "white";
         break;
-    case 5:
+      case 5:
         day = "Friday";
         break;
-    case 6:
+      case 6:
         day = "Saturday";
-      }
+    }
 
     return (ret);
   };
@@ -358,8 +363,8 @@ renderTime(start, end) {
 
 
 const mapDispatchToProps = (dispatch) => {
-  console.log ('bind action creators');
-  return bindActionCreators (ActionCreators, dispatch)
+  console.log('bind action creators');
+  return bindActionCreators(ActionCreators, dispatch)
 };
 
 

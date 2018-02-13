@@ -193,7 +193,20 @@ selectCalendar: {
     marginBottom: 10,
         paddingTop: 5,
   },
-
+  groupView: {
+    borderRadius: 3,
+    backgroundColor: '#D3D3D3',
+    width: 95,
+    height: 15,
+    alignItems: 'center',
+    paddingLeft: 0,
+    paddingRight: 0,
+    justifyContent: "center",
+  },
+  groupText: {
+    fontSize: 16,
+    color: 'white',
+  },
 
   rowHeader: {
     flex: 1,
