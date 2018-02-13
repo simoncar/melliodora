@@ -14,7 +14,7 @@ import { openDrawer } from '../../actions/drawer';
 import Sentry from 'sentry-expo';
 import Expo from 'expo';
 
-import { MapView, Constants } from 'expo';
+import { Constants } from 'expo';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
@@ -26,25 +26,33 @@ import * as firebase from 'firebase';
 var calendarEvents = [];
 
 const ListItem = require('./ListItem');
+var instID = Constants.manifest.extra.instance;
 
+//instID = "0001-sais_edu_sg"
+instID = "0002-singaporepoloclub"
+
+//      "instance": "0001-sais",
+//"instanceX": "0002-singaporepoloclub"
 
 class HomeNav extends Component {
 
   constructor() {
        super()
 
-       this.calendarEvents = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/feature');
+       this.calendarEvents = firebase.database().ref('instance/' + instID + '/feature');
        this.state = {
           versionText: '', //'Version Aug.1.2017 - Check for an Update'
           calendarEvents: new ListView.DataSource({
                rowHasChanged: (row1, row2) => row1 !== row2,
              })
        }
+
+       console.log("InstID = " + instID);
     }
 
-    componentDidMount(){
-      this.listenLoadFromFirebase(this.calendarEvents);
-      }
+  componentDidMount(){
+    this.listenLoadFromFirebase(this.calendarEvents);
+    }
 
   static propTypes = {
     navigation: PropTypes.shape({
@@ -57,13 +65,10 @@ class HomeNav extends Component {
     Expo.Util.reload();
   }
 
-
   listenLoadFromFirebase(calendarEvents) {
-
 
     calendarEvents.on('value', (snap) => {
 
-         // get children as an array
          var items = [];
          snap.forEach((child) => {
            items.push({
@@ -83,8 +88,6 @@ class HomeNav extends Component {
 
     }
 
-
-
   render() {
     return (
       <Container>
@@ -95,7 +98,7 @@ class HomeNav extends Component {
             <View style={styles.linkTabs}>
               <Grid>
 
-              <Row style={{paddingTop: 40}}>
+              <Row style={{paddingTop: 20, paddingBottom: 20}}>
                 <Col>
                 <Button transparent style={styles.roundedButton}  onPress={() => { Actions.contact(); }} >
                     <Icon style={styles.icon} name="ios-call-outline" />
@@ -119,7 +122,11 @@ class HomeNav extends Component {
                   </View>
                 </Col>
             </Row>
-            <Row style={{paddingTop: 20, paddingBottom: 40}}>
+
+       {instID == '0001-sais_edu_sg' &&
+
+
+            <Row style={{ paddingBottom: 20}}>
               <Col>
               <Button transparent style={styles.roundedButton}  onPress={() => { Actions.webportalSports(); }} >
                   <Icon style={styles.icon} name="ios-football-outline" />
@@ -142,17 +149,24 @@ class HomeNav extends Component {
               </Col>
 
             </Row>
+
+      }
+
+
               </Grid>
             </View>
 
-  <View style={styles.newsContentLine}>
-            <ListView
-                    dataSource={this.state.calendarEvents}
-                    renderRow={this._renderItem.bind(this)}
-                    enableEmptySections={true}
-                    style={styles.listview}/>
+      <View style={styles.newsContentLine}>
+        <ListView
+                dataSource={this.state.calendarEvents}
+                renderRow={this._renderItem.bind(this)}
+                enableEmptySections={true}
+                style={styles.listview}/>
 
       </View>
+
+
+      {instID == '0001-sais_edu_sg' &&
       <View style={styles.newsContentLine}>
 
               <TouchableOpacity style={{ flexDirection: 'row' }}  onPress={() => { Actions.ptaHome(); }} >
@@ -170,7 +184,8 @@ class HomeNav extends Component {
                 </View>
                 </View>
               </TouchableOpacity>
-            </View>
+        </View>
+      }
 
             <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>
               <View style={styles.betaView}>
@@ -200,21 +215,10 @@ class HomeNav extends Component {
 
 
   _renderItem(item) {
-
-
      return (
-
-
                 <ListItem item={item} onPress={() => { Actions.ptaHome(); }} />
-
-
-
-
      );
    }
-
-
-
 }
 
 function bindAction(dispatch) {

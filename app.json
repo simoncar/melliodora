@@ -9,6 +9,7 @@
     "slug": "poloConnect",
     "name": "Polo Connect",
     "extra": {
+      "instanceX": "0001-sais_edu_sg",
       "instance": "0002-singaporepoloclub"
     },
     "hooks": {
