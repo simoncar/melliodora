@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
-
+import {Constants } from 'expo';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
 import { Container, Header, Content, Text, Button, Icon, Item, Input, Left, Right, Body } from 'native-base';
@@ -49,12 +49,12 @@ class Contact extends Component {
 
   _call() {
     //TODO: only show email/phone links when there are values
-      Communications.phonecall('+65 6709 4800', true);
+      Communications.phonecall(lobal.switch_call, true);
   }
 
   _email() {
     //TODO: only show email/phone links when there are values
-      Communications.email('help@sais.edu.sg', null, null, null, null)
+      Communications.email(global.switch_contactEmail , null, null, null, null)
   }
 
   _emailComms() {
@@ -97,7 +97,7 @@ class Contact extends Component {
                 </Col>
                 <Col>
                     <Text style={styles.feedbackHeader}>Call</Text>
-                    <Text style={styles.feedbackHead}>+65 6709 4800</Text>
+                    <Text style={styles.feedbackHead}>{global.switch_call}</Text>
                 </Col>
              </Row>
              <Row style={{paddingTop: 20}}>
@@ -108,7 +108,7 @@ class Contact extends Component {
                </Col>
                <Col>
                    <Text style={styles.feedbackHeader}>Email</Text>
-                   <Text style={styles.feedbackHead}>help@sais.edu.sg</Text>
+                   <Text style={styles.feedbackHead}>{global.switch_contactEmail}</Text>
                </Col>
             </Row>
              <Row style={{paddingTop: 20}}>
@@ -119,10 +119,7 @@ class Contact extends Component {
               </Col>
               <Col>
                   <Text style={styles.feedbackHeader}>Visit</Text>
-                  <Text style={styles.feedbackHead}>Locations: </Text>
-                  <Text style={styles.feedbackHead}>Franklin Ground Floor (level 2), by Stamford Yard </Text>
-                  <Text style={styles.feedbackHead}>Early Learning Village, Level 1</Text>
-                  <Text style={styles.feedbackHead}>Hours: 8 am to 5 pm</Text>
+                  <Text style={styles.feedbackHead}>{global.switch_address}</Text>
               </Col>
            </Row>
 
@@ -132,16 +129,18 @@ class Contact extends Component {
                     <Icon name="ios-thumbs-up-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
+              
+              {Constants.manifest.extra.instance == '0001-sais_edu_sg' &&
               <Col>
-
                   <Text style={styles.feedbackHeader}>'Written by Parents for Parents'</Text>
                   <Text style={styles.feedbackHead}>This App has been written by SAIS Parents Simon Cariss and Matt Crosby, with support from parents primarily Niall Foley who has helped us along the way</Text>
                   <Text style={styles.feedbackHead}>Matt and Simon are on the PTA board this year, if you have app feedback or suggestions or would like to help out, let us know.</Text>
 
                   <Text style={styles.updateNotes}>{this.state.updateFirebaseText}</Text>
+                  </Col>
+              }
 
-
-          </Col>
+        
             </Row>
             </Grid>
             </View>

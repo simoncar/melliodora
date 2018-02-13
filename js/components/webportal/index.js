@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Constants } from 'expo';
@@ -325,8 +324,6 @@ console.log ('im here -= ' + global.switch_portalURL);
   <Container>
        <HeaderContent />
 
-
-
       <View style={{ flex:1}}>
 
 
@@ -360,10 +357,7 @@ console.log ('im here -= ' + global.switch_portalURL);
               //  onSubmitEditing={() => this.refs.PasswordInput.focus() }
               />
 
-
-
               <Icon  style={styles.navIconRight} active name="ios-arrow-forward" />
-
 
          </View>
 
