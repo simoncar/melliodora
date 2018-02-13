@@ -13,7 +13,6 @@ import Home from './components/home/';
 import phoneCalendar from './components/home/calendars';
 import phoneCalendarItem from './components/home/calendarItem';
 import HomeNav from './components/homeNav/';
-import SignUp from './components/x_sign-up/';
 import Contact from './components/contact/';
 import SideBar from './components/sideBar';
 import Settings from './components/settings';
@@ -102,8 +101,6 @@ class AppNavigator extends Component {
             <Scene key="phoneCalendar" component={phoneCalendar}  />
             <Scene key="phoneCalendarItem" component={phoneCalendarItem}  />
             <Scene key="login" component={Login} hideNavBar/>
-            <Scene key="signUp" component={SignUp} />
-            <Scene key="needhelp" component={NeedHelp} />
             <Scene key="contact" component={Contact} />
             <Scene key="sideBar" component={SideBar} />
             <Scene key="settings" component={Settings} />
