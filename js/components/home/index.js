@@ -36,6 +36,8 @@ class calendar1 extends Component {
     super(props);
 
     this.calendarEvents = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/calendar/all_v2');
+    //this.switches = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/switch');
+
 
     this.state = {
       user:null,
@@ -100,7 +102,6 @@ loadFromRedux(){
 
 
 listenLoadFromFirebase(calendarEvents) {
-
 
     calendarEvents.on('value', (dataSnapshot2) => {
         this.props.setCalendarItems(dataSnapshot2)

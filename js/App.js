@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import * as ActionCreators  from './actions'
-import { Permissions, Notifications } from 'expo';
+import { Permissions, Notifications, Constants } from 'expo';
 
 import AppNavigator from './AppNavigator';
 import registerForPushNotificationsAsync from './lib/registerForPushNotificationsAsync';
@@ -19,6 +19,25 @@ class App extends Component {
     this._notificationSubscription && this._notificationSubscription.remove();
   }
   render() {
+
+
+    switch(Constants.manifest.extra.instance) {
+      case '0001-sais_edu_sg':
+          global.switch_address =''
+          global.switch_helpEmail ='pta.comms@sais.edu.sg'
+          global.switch_portalName ='myStamford'
+          global.switch_portalURL ='https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP'
+          break;
+      case '0002-singaporepoloclub':
+          global.switch_address =''
+          global.switch_helpEmail ='simoncar+spc@gmail.com'
+          global.switch_portalName ='SPC Website'
+          global.switch_portalURL ='https://www.singaporepoloclub.org/'
+          break;
+      default:
+          global.switch_address ='not specified -'
+  }
+
     return <AppNavigator {...this.props}/>;
   }
 

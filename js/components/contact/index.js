@@ -59,7 +59,7 @@ class Contact extends Component {
 
   _emailComms() {
     //TODO: only show email/phone links when there are values
-      Communications.email('pta.comms@sais.edu.sg', null, null, null, null)
+      Communications.email(global.switch_helpEmail, null, null, null, null)
   }
 
   _updateFirebase() {
@@ -85,7 +85,7 @@ class Contact extends Component {
                   </Col>
                   <Col>
                       <Text style={styles.feedbackHeader}>Help with this App</Text>
-                      <Text style={styles.feedbackHead}>Email the PTA pta.comms@sais.edu.sg</Text>
+                      <Text style={styles.feedbackHead}>{global.switch_helpEmail }</Text>
                   </Col>
                </Row>
 
@@ -96,7 +96,7 @@ class Contact extends Component {
                   </Button>
                 </Col>
                 <Col>
-                    <Text style={styles.feedbackHeader}>Call Parent Helpdesk</Text>
+                    <Text style={styles.feedbackHeader}>Call</Text>
                     <Text style={styles.feedbackHead}>+65 6709 4800</Text>
                 </Col>
              </Row>
@@ -107,7 +107,7 @@ class Contact extends Component {
                  </Button>
                </Col>
                <Col>
-                   <Text style={styles.feedbackHeader}>Email Helpdesk</Text>
+                   <Text style={styles.feedbackHeader}>Email</Text>
                    <Text style={styles.feedbackHead}>help@sais.edu.sg</Text>
                </Col>
             </Row>
@@ -118,7 +118,7 @@ class Contact extends Component {
                 </Button>
               </Col>
               <Col>
-                  <Text style={styles.feedbackHeader}>Visit Helpdesk</Text>
+                  <Text style={styles.feedbackHeader}>Visit</Text>
                   <Text style={styles.feedbackHead}>Locations: </Text>
                   <Text style={styles.feedbackHead}>Franklin Ground Floor (level 2), by Stamford Yard </Text>
                   <Text style={styles.feedbackHead}>Early Learning Village, Level 1</Text>

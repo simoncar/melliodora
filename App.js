@@ -15,6 +15,7 @@ import Sentry from 'sentry-expo';
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
 
 Sentry.config('https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405').install();
+var switches = [];
 
 export const setExtraContext = () => {
   Sentry.setExtraContext({
@@ -51,6 +52,9 @@ export default class App extends React.Component {
   constructor(props) {
      super(props);
      Firebase.initialise();
+
+     //this.switches = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/switch');
+
   }
 
   render() {

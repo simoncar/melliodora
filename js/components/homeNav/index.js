@@ -29,7 +29,7 @@ const ListItem = require('./ListItem');
 var instID = Constants.manifest.extra.instance;
 
 //instID = "0001-sais_edu_sg"
-instID = "0002-singaporepoloclub"
+//instID = "0002-singaporepoloclub"
 
 //      "instance": "0001-sais",
 //"instanceX": "0002-singaporepoloclub"
@@ -89,6 +89,9 @@ class HomeNav extends Component {
     }
 
   render() {
+
+    console.log("globalXX = "  + global.switch_address)
+
     return (
       <Container>
           <HeaderContent
@@ -118,7 +121,7 @@ class HomeNav extends Component {
                       <View style={{flex: 1, flexDirection: 'row',     alignSelf: 'center'}}>
 
                         <Icon style={styles.iconLabel} name="ios-lock-outline" />
-                        <Text note style={styles.buttonLabel}> myStamford</Text>
+                        <Text note style={styles.buttonLabel}> {global.switch_portalName}</Text>
                   </View>
                 </Col>
             </Row>
