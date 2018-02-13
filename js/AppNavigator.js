@@ -15,24 +15,17 @@ import phoneCalendarItem from './components/home/calendarItem';
 import HomeNav from './components/homeNav/';
 import SignUp from './components/x_sign-up/';
 import Contact from './components/contact/';
-
-import x_walkthrough from './components/x_walkthrough/';
 import SideBar from './components/sideBar';
 import Settings from './components/settings';
-
 import ptaHome from './components/pta/ptaHome';
 import ptaMovieNight from './components/pta/ptaMovieNight';
-
 import ptaEvents from './components/pta/ptaEvents';
 import ptaLionsDen from './components/pta/ptaLionsDen';
 import Story from './components/story';
 import campusMap from './components/campusMap';
-
 import Webportal from './components/webportal';
 import WebportalAuth from './components/webportal/auth';
 import WebportalSports from './components/webportalSports';
-import WebportalVote from './components/webportalVote';
-import NeedHelp from './components/x_needhelp';
 
 import { statusBarColor } from './themes/base-theme';
 
@@ -123,7 +116,6 @@ class AppNavigator extends Component {
             <Scene key="webportal" component={Webportal} hideNavBar/>
             <Scene key="WebportalAuth" component={WebportalAuth} hideNavBar/>
             <Scene key="webportalSports" component={WebportalSports} hideNavBar/>
-            <Scene key="webportalVote" component={WebportalVote} hideNavBar/>
         </Scene>
         </RouterWithRedux>
       </Drawer>
