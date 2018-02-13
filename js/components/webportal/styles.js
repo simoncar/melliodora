@@ -62,7 +62,7 @@ export default {
     paddingLeft: 0,
     color: 'white',
     width: 250,
-    fontSize: 22,
+    fontSize: 14,
     backgroundColor: 'rgba(0,0,0,0.2)',
     borderRadius: 30,
   },
