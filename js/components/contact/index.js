@@ -49,7 +49,7 @@ class Contact extends Component {
 
   _call() {
     //TODO: only show email/phone links when there are values
-      Communications.phonecall(lobal.switch_call, true);
+      Communications.phonecall(global.switch_call, true);
   }
 
   _email() {
