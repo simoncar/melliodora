@@ -76,6 +76,10 @@ class HomeNav extends Component {
              description: child.val().description,
              photo1: child.val().photo1,
              photoSquare: child.val().photoSquare,
+             url: child.val().htmlLink,
+             eventDate: child.val().date_start,
+             eventStartTime: child.val().time_start_pretty,
+             eventEndTime: child.val().time_end_pretty,
              _key: child.key
            });
          });

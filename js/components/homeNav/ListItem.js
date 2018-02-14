@@ -17,9 +17,9 @@ class ListItem extends Component {
         <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
                eventTitle: this.props.item.title,
                eventDescription: this.props.item.description,
-               eventDate: '',
-               eventStartTime: '',
-               eventEndTime: '',
+               eventDate: this.props.item.eventDate,
+               eventStartTime: this.props.item.eventStartTime,
+               eventEndTime: this.props.item.eventEndTime,
                location: '',
                eventImage: '',
                phone: '',
@@ -28,7 +28,7 @@ class ListItem extends Component {
                photo1: this.props.item.photo1,
                photo2: '',
                photo3: '',
-               url: ''
+               url: this.props.item.url
 
              })
            }>

@@ -236,6 +236,7 @@ footer: {
     textAlign: 'left',
     color: '#666',
     fontSize: 12,
+    fontWeight: 'bold',
     paddingTop: 0,
 
   },
