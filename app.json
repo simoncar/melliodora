@@ -2,12 +2,14 @@
   "name": "Polo Connect",
   "displayName": "Polo Connect",
 
+
   "expo": {
     "version": "7.3.25",
     "sdkVersion": "25.0.0",
     "icon": "./resources/0002-singaporepoloclub/icon.png",
     "slug": "poloConnect",
     "name": "Polo Connect",
+    "description": "App to manage communication between a club and horse owners",
     "extra": {
       "instanceX": "0001-sais_edu_sg",
       "instance": "0002-singaporepoloclub"
@@ -55,3 +57,4 @@
     }
   }
 }
+
