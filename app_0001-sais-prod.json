@@ -2,11 +2,12 @@
   "name": "Stamford",
   "displayName": "Stamford",
   "expo": {
-    "version": "7.3.25",
+    "version": "7.4.25",
     "sdkVersion": "25.0.0",
     "icon": "./resources/0001-sais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
     "slug": "myStamford",
     "name": "Stamford",
+    "description": "For SAIS parents, Singapore",
     "extra": {
       "instance": "0001-sais_edu_sg"
     },
@@ -23,7 +24,7 @@
       ]
     },
     "notification": {
-      "icon": "./resources/0001-sais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
+      "icon": "./resources/0001-sais_edu_sg/icon.png",
       "color": "#000000"
     },
     "loading": {

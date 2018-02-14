@@ -1,18 +1,15 @@
 {
-  "name": "Polo Connect",
-  "displayName": "Polo Connect",
-
-
+  "name": "Stamford",
+  "displayName": "Stamford",
   "expo": {
-    "version": "7.3.25",
+    "version": "7.4.25",
     "sdkVersion": "25.0.0",
-    "icon": "./resources/0002-singaporepoloclub/icon.png",
-    "slug": "poloConnect",
-    "name": "Polo Connect",
-    "description": "App to manage communication between a club and horse owners",
+    "icon": "./resources/0001-sais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
+    "slug": "myStamford",
+    "name": "Stamford",
+    "description": "For SAIS parents, Singapore",
     "extra": {
-      "instanceX": "0001-sais_edu_sg",
-      "instance": "0002-singaporepoloclub"
+      "instance": "0001-sais_edu_sg"
     },
     "hooks": {
       "postPublish": [
@@ -27,13 +24,13 @@
       ]
     },
     "notification": {
-      "icon": "./resources/0002-singaporepoloclub/icon.png",
+      "icon": "./resources/0001-sais_edu_sg/icon.png",
       "color": "#000000"
     },
     "loading": {
       "hideExponentText": true,
       "icon": "./images/launchImages/loading.png",
-      "backgroundImage": "./resources/0002-singaporepoloclub/BG-loading.png"
+      "backgroundImage": "images/BG-loading.png"
     },
     "orientation": "portrait",
     "primaryColor": "#cccccc",
@@ -43,11 +40,11 @@
       ]
     },
     "ios": {
-      "bundleIdentifier": "com.softmowertrain.parent.poloconnect",
+      "bundleIdentifier": "com.softmowertrain.parent.mystamford",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.softmowertrain.parent.poloconnect",
+      "package": "com.softmowertrain.parent.mystamford",
       "versionCode": 7
     },
     "androidStatusBarColor": "#AF3643",
@@ -57,4 +54,3 @@
     }
   }
 }
-
