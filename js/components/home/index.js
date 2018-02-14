@@ -238,9 +238,12 @@ class calendar1 extends Component {
                 <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}    {item.location}    </Text>
                 {this.renderTime(item.startTimePretty, item.endTimePretty)}
                 <Text style={styles.text}>{item.name}</Text>
+                
+                {undefined !== item.group && null !== item.group &&  item.group.length > 0 &&
                 <View style={styles.groupView}>
                         <Text style={styles.groupText}>{item.group}</Text>
-                  </View>
+                 </View>
+                }
               </Col>
               <Col style={{ width: 60 }}>
              

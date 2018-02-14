@@ -130,6 +130,13 @@ class CalendarRow extends Component {
                   <Text style={styles.calendarText} > {calendar.title}</Text>
               </Button>
             } 
+           {calendar.allowsModifications == false && 
+              <Button transparent style={styles.calendarButton} >
+                  <Icon style={styles.calendarTextDisabled} name="ios-alert-outline"/>   
+                  <Text style={styles.calendarTextDisabled} > {calendar.title} (read only)</Text>
+              </Button>
+            } 
+   
       </View>
     );
   }

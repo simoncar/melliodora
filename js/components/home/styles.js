@@ -48,6 +48,10 @@ export default {
   calendarText: {
     fontSize: 22,
   },
+  calendarTextDisabled: {
+    fontSize: 22,
+    color: 'grey'
+  },
 
 selectCalendar: {
   paddingTop: 0,
