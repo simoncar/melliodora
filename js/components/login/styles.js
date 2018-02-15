@@ -39,7 +39,8 @@ export default {
   },
   input: {
     paddingLeft: 10,
-    color: '#ffffff'
+    color: '#ffffff',
+    width: 290,
   },
   background: {
     flex: 1,

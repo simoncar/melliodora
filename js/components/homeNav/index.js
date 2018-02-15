@@ -2,7 +2,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 import { Image, ListView, View, TouchableOpacity } from 'react-native';
+import * as  ActionCreators  from '../../actions'
 
 import { Actions } from 'react-native-router-flux';
 import { Container, Content, Footer, FooterTab, Text, Thumbnail, Icon, Button } from 'native-base';
@@ -37,8 +39,19 @@ var instID = Constants.manifest.extra.instance;
 
 class HomeNav extends Component {
 
-  constructor() {
-       super()
+  static propTypes = {
+
+    openDrawer: PropTypes.func,
+    navigation: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+
+  }
+
+  constructor(props) {
+       super(props)
+
+       console.log("Analytics user id = " + this.props.userX.name);
 
        this.calendarEvents = firebase.database().ref('instance/' + instID + '/feature');
        this.state = {
@@ -50,12 +63,13 @@ class HomeNav extends Component {
 
 
        let trackingOpts = {
-        id: "some id",
+        instId: instID,
         emailOrUsername: "something else",
       };
 
        Analytics.identify("result.id", trackingOpts);
        Analytics.track(Analytics.events.USER_LOGGED_IN, trackingOpts);
+
 
        console.log("InstID = " + instID);
     }
@@ -246,6 +260,10 @@ function bindAction(dispatch) {
   };
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators (ActionCreators, dispatch);
+};
+
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
   userX: state.user,
@@ -253,4 +271,4 @@ const mapStateToProps = state => ({
   ffauth_secretX: state.ffauth_secret
 });
 
-export default connect(mapStateToProps, bindAction)(HomeNav);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeNav);

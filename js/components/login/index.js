@@ -48,7 +48,7 @@ console.log("yy ",this.props.userX.ffauth_device_id)
 console.log("yy ",this.props.userX.ffauth_secret)
 
   if (undefined !== this.props.userX.name && null !== this.props.userX.name &&  this.props.userX.name.length > 0) {
-      return this.props.userX.ffauth_device_id
+      return this.props.userX.name
     } else {
 
       console.log("bbb",this.props.userX.name)
