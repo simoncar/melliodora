@@ -9,6 +9,7 @@ import { Container, Content, Footer, FooterTab, Text, Thumbnail, Icon, Button } 
 import { Grid, Col, Row } from 'react-native-easy-grid';
 
 import HeaderContent from './../headerContent/header';
+import Analytics from '../../lib/analytics';
 
 import { openDrawer } from '../../actions/drawer';
 import Sentry from 'sentry-expo';
@@ -47,6 +48,15 @@ class HomeNav extends Component {
              })
        }
 
+
+       let trackingOpts = {
+        id: "some id",
+        emailOrUsername: "something else",
+      };
+
+       Analytics.identify("result.id", trackingOpts);
+       Analytics.track(Analytics.events.USER_LOGGED_IN, trackingOpts);
+
        console.log("InstID = " + instID);
     }
 
@@ -74,12 +84,14 @@ class HomeNav extends Component {
            items.push({
              title: child.val().summary,
              description: child.val().description,
-             photo1: child.val().photo1,
              photoSquare: child.val().photoSquare,
              url: child.val().htmlLink,
              eventDate: child.val().date_start,
              eventStartTime: child.val().time_start_pretty,
              eventEndTime: child.val().time_end_pretty,
+             photo1: child.val().photo1,
+             photo2: child.val().photo2,
+             photo3: child.val().photo3,
              _key: child.key
            });
          });

@@ -26,8 +26,8 @@ class ListItem extends Component {
                email: '',
                color: '',
                photo1: this.props.item.photo1,
-               photo2: '',
-               photo3: '',
+               photo2: this.props.item.photo2,
+               photo3: this.props.item.photo3,
                url: this.props.item.url
 
              })
