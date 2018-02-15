@@ -121,10 +121,10 @@ class CalendarRow extends Component {
       calendar.entityType === Calendar.EntityTypes.REMINDER ? 'Reminders' : 'Events';
 
       console.log ("ttttt" + eventTitle + '  ------   ' + eventDescription)
-  
+  //&& calendar.entityType == "event" 
     return (
       <View style={styles.selectCalendar}>
-        {calendar.allowsModifications == true  && calendar.entityType == "event" && 
+        {calendar.allowsModifications == true  && 
               <Button transparent style={styles.calendarButton}  onPress={() =>  this._selectCalendar(calendar, eventTitle,eventDescription, eventDate,eventStartTime,eventEndTime,location,eventImage,phone,email,url)} >
                   <Icon name="ios-calendar-outline"/>   
                   <Text style={styles.calendarText} > {calendar.title}</Text>
@@ -136,7 +136,6 @@ class CalendarRow extends Component {
                   <Text style={styles.calendarTextDisabled} > {calendar.title} (read only)</Text>
               </Button>
             } 
-   
       </View>
     );
   }
@@ -176,7 +175,7 @@ class phoneCalendar extends Component {
     const calendarGranted = await this._askForCalendarPermissions();
     //const reminderGranted = await this._askForReminderPermissions();
     if (calendarGranted) {
-      const eventCalendars = await Calendar.getCalendarsAsync('event');
+      const eventCalendars = await Calendar.getCalendarsAsync();
       
       this.setState({ calendars: [...eventCalendars] });
     }

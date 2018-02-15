@@ -97,9 +97,7 @@ class calendar1 extends Component {
 
       }
     }
-
   }
-
 
   listenLoadFromFirebase(calendarEvents) {
 
