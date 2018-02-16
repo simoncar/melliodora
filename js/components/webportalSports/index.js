@@ -10,7 +10,8 @@ import { Grid, Col, Row } from 'react-native-easy-grid';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-
+import Analytics from '../../lib/analytics';
+import { Constants } from 'expo';
 
 import HeaderContent from './../headerContent/header';
 
@@ -46,6 +47,16 @@ class WebportalSports extends Component {
     super(props);
 
     injectScript = '';
+
+            //analytics  -----
+            let trackingOpts = {
+              instId: Constants.manifest.extra.instance,
+              emailOrUsername: global.username,
+            };
+        
+              Analytics.identify(global.username, trackingOpts);
+              Analytics.track(Analytics.events.PAGE_ATHLETICS, trackingOpts);
+            //analytics --------
 
   }
 

@@ -14,7 +14,7 @@ import { openDrawer } from '../../actions/drawer';
 import * as ActionCreators from '../../actions'
 import styles from './styles';
 import HeaderContent from './../headerContent/header';
-
+import Analytics from '../../lib/analytics';
 import { Constants } from 'expo';
 
 import { Agenda } from 'react-native-calendars';
@@ -46,6 +46,15 @@ class calendar1 extends Component {
 
     this.loadFromRedux();
 
+        //analytics  -----
+        let trackingOpts = {
+          instId: Constants.manifest.extra.instance,
+          emailOrUsername: global.username,
+        };
+    
+          Analytics.identify(global.username, trackingOpts);
+          Analytics.track(Analytics.events.PAGE_CALENDAR, trackingOpts);
+        //analytics --------
   };
 
   componentDidMount() {
