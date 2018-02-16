@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import * as ActionCreators  from '../../actions'
 
+import Analytics from '../../lib/analytics';
+import { Constants } from 'expo';
 
 import styles from './styles';
 
@@ -82,9 +84,34 @@ class CalendarRow extends Component {
     try {
       await Calendar.createEventAsync(phoneCalendarID, newEvent);
       Alert.alert('Event saved successfully');
+
+
+                  //analytics  -----
+                  let trackingOpts = {
+                    instId: Constants.manifest.extra.instance,
+                    emailOrUsername: global.username,
+                    story: newEvent.eventDate + ' - ' + newEvent.startDate +  ' - ' + newEvent.endDate  + ' - ' + newEvent.eventTitle
+                  };
+              
+                    Analytics.identify(global.username, trackingOpts);
+                    Analytics.track(Analytics.events.ADD_TO_CALENDAR_SUCCESS, trackingOpts);
+                  //analytics --------
+      
       this._findEvents(phoneCalendarID);
     } catch (e) {
       Alert.alert('Event not saved successfully', e.message);
+
+                  //analytics  -----
+                  let trackingOpts = {
+                    instId: Constants.manifest.extra.instance,
+                    emailOrUsername: global.username,
+                    story: newEvent.eventDate + ' - ' + newEvent.startDate +  ' - ' + newEvent.endDate  + ' - ' + newEvent.eventTitle
+                  };
+              
+                    Analytics.identify(global.username, trackingOpts);
+                    Analytics.track(Analytics.events.ADD_TO_CALENDAR_FAILED, trackingOpts);
+                  //analytics --------
+      
     }
   };
 

@@ -12,7 +12,8 @@ import { openDrawer } from '../../actions/drawer';
 
 import HeaderContent from './../headerContent/header/';
 
-
+import Analytics from '../../lib/analytics';
+import { Constants } from 'expo';
 
 import styles from './styles';
 
@@ -32,6 +33,16 @@ class ptaHome extends Component {
       animationType: 'slideInDown',
       open: false,
     };
+
+            //analytics  -----
+        let trackingOpts = {
+          instId: Constants.manifest.extra.instance,
+          emailOrUsername: global.username,
+        };
+    
+          Analytics.identify(global.username, trackingOpts);
+          Analytics.track(Analytics.events.PAGE_PTA, trackingOpts);
+        //analytics --------
 
   }
 

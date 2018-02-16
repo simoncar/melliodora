@@ -18,6 +18,8 @@ import styles from './styles';
 import call from 'react-native-phone-call'  //TODO migration to communications
 
 import Communications from 'react-native-communications';
+import Analytics from '../../lib/analytics';
+import { Constants } from 'expo';
 
 import { formatTime, formatMonth,getAbbreviations } from '../global.js';
 
@@ -50,6 +52,19 @@ class Story extends Component {
       loading: true,
       scalesPageToFit: true,
     };
+
+            //analytics  -----
+            let trackingOpts = {
+              instId: Constants.manifest.extra.instance,
+              emailOrUsername: global.username,
+              story: this.props.eventDate + ' - ' + this.props.eventTitle
+            };
+        
+              Analytics.identify(global.username, trackingOpts);
+              Analytics.track(Analytics.events.EVENT_STORY, trackingOpts);
+            //analytics --------
+
+    
   }
 
  _shareMessage() {

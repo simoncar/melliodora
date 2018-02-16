@@ -27,7 +27,7 @@ class App extends Component {
 
       if (global.loggedLoginAnalytics == 1) {
      
-        console.log("Analytics user id YYYYYY = " + this.props.userX.name);
+
         if (this.props.userX.name.length > 0) {
             var username = this.props.userX.name;
         } else {
@@ -38,11 +38,11 @@ class App extends Component {
         instId: instID,
         emailOrUsername: username,
       };
-      console.log("Analytics user id XXXXXXX = " + username);
+   
         Analytics.identify(username, trackingOpts);
         Analytics.track(Analytics.events.APP_STARTED, trackingOpts);
+        global.username = username;
 
-      console.log("InstID = " + instID);
       global.loggedLoginAnalytics  = 2
     } 
   }
