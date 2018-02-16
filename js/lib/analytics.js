@@ -8,9 +8,7 @@ import { normalizeTrackingOptions } from './analyticsUtil';
 
 const events = {
   
-
-
-  USER_LOGGED_IN: 'USER_LOGGED_IN',
+  APP_STARTED: 'APP_STARTED',
   PORTAL_LOGIN: 'PORTAL_LOGIN',
 
   PAGE_CONTACT: 'PAGE_CONTACT',

@@ -4,15 +4,18 @@ import { bindActionCreators } from 'redux'
 
 import * as ActionCreators from './actions'
 import { Permissions, Notifications, Constants } from 'expo';
+import Analytics from './lib/analytics';
 
 import AppNavigator from './AppNavigator';
 import registerForPushNotificationsAsync from './lib/registerForPushNotificationsAsync';
+
+var instID = Constants.manifest.extra.instance;
 
 console.log("AC=", ActionCreators);
 
 class App extends Component {
   componentDidMount() {
-    this._notificationSubscription = this._registerForPushNotifications();
+    this._notificationSubscription = this._registerForPushNotifications(); 
   }
 
   componentWillUnmount() {
@@ -20,6 +23,35 @@ class App extends Component {
   }
   render() {
 
+    if (undefined != global.loggedLoginAnalytics) {
+
+      if (global.loggedLoginAnalytics == 1) {
+     
+        console.log("Analytics user id YYYYYY = " + this.props.userX.name);
+        if (this.props.userX.name.length > 0) {
+            var username = this.props.userX.name;
+        } else {
+          var username = "no username";
+        }
+
+        let trackingOpts = {
+        instId: instID,
+        emailOrUsername: username,
+      };
+      console.log("Analytics user id XXXXXXX = " + username);
+        Analytics.identify(username, trackingOpts);
+        Analytics.track(Analytics.events.APP_STARTED, trackingOpts);
+
+      console.log("InstID = " + instID);
+      global.loggedLoginAnalytics  = 2
+    } 
+  }
+
+    if (!global.loggedLoginAnalytics) {
+        global.loggedLoginAnalytics  = 1
+    }
+
+   
 
     switch (Constants.manifest.extra.instance) {
       case '0001-sais_edu_sg':
@@ -46,10 +78,17 @@ class App extends Component {
         global.switch_address = 'not specified -'
     }
 
+
+
+
+
     return <AppNavigator {...this.props} />;
   }
 
   _registerForPushNotifications() {
+
+
+    
     // Send our push token over to our backend so we can receive notifications
     // You can comment the following line out if you want to stop receiving
     // a notification every time you open the app. Check out the source

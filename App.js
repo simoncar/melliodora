@@ -53,13 +53,14 @@ export default class App extends React.Component {
      super(props);
      Firebase.initialise();
 
-     //this.switches = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/switch');
+
 
   }
 
   render() {
 
-  	console.disableYellowBox = true;
+    console.disableYellowBox = true;
+    
     return (
       <Setup />
     );
