@@ -51,7 +51,7 @@ class HomeNav extends Component {
   constructor(props) {
        super(props)
 
-       console.log("Analytics user id = " + this.props.userX.name);
+      
 
        this.calendarEvents = firebase.database().ref('instance/' + instID + '/feature');
        this.state = {
@@ -60,18 +60,7 @@ class HomeNav extends Component {
                rowHasChanged: (row1, row2) => row1 !== row2,
              })
        }
-
-
-       let trackingOpts = {
-        instId: instID,
-        emailOrUsername: "something else",
-      };
-
-       Analytics.identify("result.id", trackingOpts);
-       Analytics.track(Analytics.events.USER_LOGGED_IN, trackingOpts);
-
-
-       console.log("InstID = " + instID);
+       
     }
 
   componentDidMount(){
@@ -83,6 +72,7 @@ class HomeNav extends Component {
       key: PropTypes.string,
     }),
   }
+
 
   _checkForUpdate() {
     this.setState({versionText: ''})
@@ -122,6 +112,7 @@ class HomeNav extends Component {
 
     console.log("globalXX = "  + global.switch_address)
 
+  
     return (
       <Container>
           <HeaderContent
