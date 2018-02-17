@@ -23,13 +23,10 @@ import theme from '../../themes/base-theme';
 import styles from './styles';
 
 const primary = require('../../themes/variable').brandPrimary;
-const timer = require('react-native-timer');
-
 
 
 var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = 'http://www.stamfordlionsathletics.com/';
-
 
 var injectScript  = '';
 
@@ -57,10 +54,7 @@ class WebportalSports extends Component {
               Analytics.identify(global.username, trackingOpts);
               Analytics.track(Analytics.events.PAGE_ATHLETICS, trackingOpts);
             //analytics --------
-
   }
-
-
 
   state = {
     url: DEFAULT_URL,
@@ -72,7 +66,6 @@ class WebportalSports extends Component {
     cookies    : {},
     webViewUrl : '',
   };
-
 
   render() {
     var source =  {uri: 'http://google.com'};

@@ -6,6 +6,9 @@ import { Amplitude, Constants } from 'expo';
 import Environment from './environment';
 import { normalizeTrackingOptions } from './analyticsUtil';
 
+
+var release = Constants.manifest.revisionId || 'UNVERSIONED';
+
 const events = {
   
   APP_STARTED: 'APP_STARTED',
@@ -19,7 +22,7 @@ const events = {
 
   EVENT_STORY: 'EVENT_STORY',
   CALENDAR_EVENT_STORY: 'CALENDAR_EVENT_STORY',
-  ADD_TO_CALENDAR: 'ADD_TO_CALENDAR',
+  ADD_TO_CALENDAR_SUCCESS: 'ADD_TO_CALENDAR_SUCCESS',
   ADD_TO_CALENDAR_FAILED: 'ADD_TO_CALENDAR_FAILED',
   SHARE_STORY:  'SHARE_STORY',
 };
@@ -60,13 +63,20 @@ const identify = (id: ?string, options?: ?Object = null) => {
 const track = (event: string, options: any = null) => {
   maybeInitialize();
   options = normalizeTrackingOptions(options);
-  console.log('amplitude track')
+  console.log ("production: " + Environment.isProduction)
+  console.log ('aaaaaaaa' +  release )
+  
+if (Environment.isProduction) {
+
+
   if (options) {
     Amplitude.logEventWithProperties(event, options);
   } else {
     Amplitude.logEvent(event);
   }
-  console.log('amplitude logEvent')
+
+}
+
 };
 
 export default {
