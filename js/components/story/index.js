@@ -12,6 +12,7 @@ import Modal from 'react-native-simple-modal';
 import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
 import Abbreviations from './abbreviations';
+import ParsedText from 'react-native-parsed-text';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
@@ -129,6 +130,31 @@ return(
   }
 }
 
+
+ 
+handleUrlPress(url) {
+  LinkingIOS.openURL(url);
+}
+
+handlePhonePress(phone) {
+  AlertIOS.alert(`${phone} has been pressed!`);
+}
+
+handleNamePress(name) {
+  AlertIOS.alert(`Hello ${name}`);
+}
+
+handleEmailPress(email) {
+  AlertIOS.alert(`send email to ${email}`);
+}
+
+renderText(matchingString, matches) {
+  // matches => ["[@michel:5455345]", "@michel", "5455345"]
+  let pattern = /\[(@[^:]+):([^\]]+)\]/i;
+  let match = matchingString.match(pattern);
+  return `^^${match[1]}^^`;
+}
+
   render() {
 
     return (
@@ -229,10 +255,26 @@ return(
                           </Text>
                       }
 
-                      <Text selectable={true} style={styles.eventText}>
-                        {this.props.eventDescription}
-                      </Text>
 
+    
+                  <ParsedText
+                  style={styles.eventText}
+                  parse={
+                    [
+                      {type: 'url',                       style: styles.url, onPress: this._handleOpenWithLinking},
+                      {type: 'phone',                     style: styles.phone, onPress: this.handlePhonePress},
+                      {type: 'email',                     style: styles.email, onPress: this.handleEmailPress},
+                      {pattern: /Bobbbbb|Davidfffff/,              style: styles.name, onPress: this.handleNamePress},
+                      {pattern: /\[(@[^:]+):([^\]]+)\]/i, style: styles.username, onPress: this.handleNamePress, renderText: this.renderText},
+                      {pattern: /433333332/,                     style: styles.magicNumber},
+                      {pattern: /#(\w+)/,                 style: styles.hashTag},
+                    ]
+                  }
+                  childrenProps={{allowFontScaling: false}}
+                  >
+                  {this.props.eventDescription}
+                  </ParsedText>
+  
                       <Text selectable={true}  style={styles.abbreviations}>
                         {getAbbreviations(this.props.eventTitle)}
                       </Text>
@@ -259,6 +301,7 @@ return(
 
                 }
 
+            
                 {undefined !== this.props.eventDate &&  this.props.eventDate.length > 0 &&
 
                 <View style={styles.calendarButton}>

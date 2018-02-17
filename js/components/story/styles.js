@@ -67,7 +67,15 @@ export default {
     fontSize: 18,
     paddingBottom: 10,
   },
+  url: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
 
+  email: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
   calendarText: {
 
   },
