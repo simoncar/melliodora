@@ -223,7 +223,7 @@ class HomeNav extends Component {
                 
                 <View>
                   <Text style={styles.version}>Release Channel {Constants.manifest.releaseChannel}</Text>
-                  <Text style={styles.version}>Version {Constants.manifest.version}</Text>
+                  <Text style={styles.version}>Version {Constants.manifest.revisionId}</Text>
                    <Text style={styles.version}>SDK {Constants.manifest.sdkVersion}</Text>
                    <Text style={styles.version}>Name {Constants.manifest.name}</Text>
                    <Text style={styles.version}>Instance {Constants.manifest.extra.instance}</Text>
