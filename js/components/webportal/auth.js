@@ -44,6 +44,16 @@ class WebportalAuth extends Component {
     DEFAULT_URL = "https://saispta.com/app/Authentication.php"
     super(props);
 
+    //analytics  -----
+    let trackingOpts = {
+      instId: Constants.manifest.extra.instance,
+      emailOrUsername: global.username,
+    };
+
+      Analytics.identify(global.username, trackingOpts);
+      Analytics.track(Analytics.events.PORTAL_LOGIN, trackingOpts);
+    //analytics --------
+
   }
 
   state = {

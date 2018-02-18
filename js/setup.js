@@ -8,6 +8,7 @@ import configureStore from './configureStore';
 import getTheme from '../native-base-theme/components';
 import variables from '../native-base-theme/variables/commonColor';
 
+
 export default class Setup extends Component {
 
   constructor() {
@@ -18,11 +19,16 @@ export default class Setup extends Component {
       isReady: false,
     };
   }
+
+
+
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
       'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'),
+      'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
+    
     });
 
     this.setState({ isReady: true });
