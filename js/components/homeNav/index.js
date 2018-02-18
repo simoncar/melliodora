@@ -109,10 +109,6 @@ class HomeNav extends Component {
     }
 
   render() {
-
-    console.log("globalXX = "  + global.switch_address)
-
-  
     return (
       <Container>
           <HeaderContent

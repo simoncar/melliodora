@@ -11,6 +11,7 @@ import { closeDrawer } from './actions/drawer';
 import Login from './components/login/';
 import Home from './components/home/';
 import phoneCalendar from './components/home/calendars';
+import Search from './components/home/search';
 import HomeNav from './components/homeNav/';
 import Contact from './components/contact/';
 import SideBar from './components/sideBar';
@@ -95,7 +96,8 @@ class AppNavigator extends Component {
 
         <RouterWithRedux>
         <Scene key="root">
-            <Scene key="homeNav" component={HomeNav}  hideNavBar  initial={true}/>
+            <Scene key="homeNav" component={HomeNav}  hideNavBar/>
+            <Scene key="search" component={Search}  hideNavBar  initial={true}/>
             <Scene key="home" component={Home}  hideNavBar />
             <Scene key="phoneCalendar" component={phoneCalendar}  />
             <Scene key="login" component={Login} hideNavBar/>
