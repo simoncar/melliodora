@@ -1,17 +1,13 @@
-const React = require('react-native');
-
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 
-const {
-  Dimensions, Platform
-} = React;
+const React = require('react-native');
 
-const deviceHeight = Dimensions.get('window').height;
-const deviceWidth = Dimensions.get('window').width;
+const {
+  Dimensions, Platform,
+} = React;
 
 export default {
   newsContent: {
-
     paddingTop: 20,
     paddingLeft: 20,
     paddingRight: 20,
@@ -26,11 +22,11 @@ export default {
     paddingRight: 15,
     ...ifIphoneX({
       paddingTop: 0,
-      height: 80
+      height: 80,
     }, {
-      paddingTop: 0,
-      height: 60
-    })
+        paddingTop: 0,
+        height: 60,
+      })
 
   },
   viewHeader: {
@@ -39,9 +35,9 @@ export default {
     flexDirection: 'row',
     justifyContent: 'space-between',
     ...ifIphoneX({
-     paddingTop: 30
-      }, {
-     paddingTop: 20
+      paddingTop: 30,
+    }, {
+        paddingTop: 20,
       })
 
   },
@@ -50,15 +46,14 @@ export default {
   },
   calendarTextDisabled: {
     fontSize: 22,
-    color: 'grey'
+    color: 'grey',
   },
 
-selectCalendar: {
-  paddingTop: 0,
-},
+  selectCalendar: {
+    paddingTop: 0,
+  },
 
-
-  calendarButton:{
+  calendarButton: {
     marginTop: 0,
     marginBottom: 20,
     fontSize: 22,
@@ -128,17 +123,13 @@ selectCalendar: {
     fontWeight: 'bold',
     paddingBottom: 5,
   },
-
-
   timeIcon: {
     fontSize: 20,
     marginLeft: Platform.OS === 'android' ? 15 : 0,
     paddingLeft: Platform.OS === 'android' ? 0 : 20,
     paddingRight: 10,
     marginTop: Platform.OS === 'android' ? -1 : -3,
-
   },
-
   slide: {
     flex: 1,
     width: null,
@@ -182,9 +173,8 @@ selectCalendar: {
     height: 135,
     width: 225,
     resizeMode: 'contain',
-
     justifyContent: 'center',
-      alignItems: 'center',
+    alignItems: 'center',
   },
   logoHeader: {
     width: 20,
@@ -195,7 +185,7 @@ selectCalendar: {
     fontSize: 18,
     color: '#000',
     marginBottom: 10,
-        paddingTop: 5,
+    paddingTop: 5,
   },
   groupView: {
     borderRadius: 3,
@@ -211,7 +201,6 @@ selectCalendar: {
     fontSize: 16,
     color: 'white',
   },
-
   rowHeader: {
     flex: 1,
     flexDirection: 'row',
@@ -219,7 +208,6 @@ selectCalendar: {
     alignSelf: 'stretch',
     paddingTop: Platform.OS === 'android' ? 0 : 0,
   },
-
   agendaItem: {
     backgroundColor: 'white',
     flex: 1,
@@ -229,8 +217,6 @@ selectCalendar: {
     marginTop: 5,
     alignSelf: 'stretch',
     borderRightWidth: 5,
-
-
   },
   agendaItemSystemMonth: {
     backgroundColor: 'gray',
@@ -255,18 +241,13 @@ selectCalendar: {
   agendaDate: {
     color: 'gray',
     fontSize: 12,
-
     marginBottom: 3,
   },
-
   agendaLocation: {
-     color: 'gray',
-     fontSize: 12,
-     marginTop: 5,
-     borderBottomWidth: 1,
-     borderBottomColor: '#666',
-   },
-
-
-
+    color: 'gray',
+    fontSize: 12,
+    marginTop: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: '#666',
+  },
 };
