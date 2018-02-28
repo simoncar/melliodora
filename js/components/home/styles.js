@@ -1,4 +1,4 @@
-import { ifIphoneX } from 'react-native-iphone-x-helper'
+import { ifIphoneX } from 'react-native-iphone-x-helper';
 
 const React = require('react-native');
 
@@ -24,9 +24,9 @@ export default {
       paddingTop: 0,
       height: 80,
     }, {
-        paddingTop: 0,
-        height: 60,
-      })
+      paddingTop: 0,
+      height: 60,
+    }),
 
   },
   viewHeader: {
@@ -37,8 +37,8 @@ export default {
     ...ifIphoneX({
       paddingTop: 30,
     }, {
-        paddingTop: 20,
-      })
+      paddingTop: 20,
+    }),
 
   },
   calendarText: {
@@ -195,7 +195,7 @@ export default {
     alignItems: 'center',
     paddingLeft: 0,
     paddingRight: 0,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   groupText: {
     fontSize: 16,
@@ -236,7 +236,7 @@ export default {
   emptyDate: {
     height: 15,
     flex: 1,
-    paddingTop: 30
+    paddingTop: 30,
   },
   agendaDate: {
     color: 'gray',
