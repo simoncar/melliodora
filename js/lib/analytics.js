@@ -10,7 +10,7 @@ import { normalizeTrackingOptions } from './analyticsUtil';
 var release = Constants.manifest.revisionId || 'UNVERSIONED';
 
 const events = {
-  
+
   APP_STARTED: 'APP_STARTED',
   PORTAL_LOGIN: 'PORTAL_LOGIN',
 
@@ -24,7 +24,7 @@ const events = {
   CALENDAR_EVENT_STORY: 'CALENDAR_EVENT_STORY',
   ADD_TO_CALENDAR_SUCCESS: 'ADD_TO_CALENDAR_SUCCESS',
   ADD_TO_CALENDAR_FAILED: 'ADD_TO_CALENDAR_FAILED',
-  SHARE_STORY:  'SHARE_STORY',
+  SHARE_STORY: 'SHARE_STORY',
 };
 
 let isInitialized = false;
@@ -63,19 +63,19 @@ const identify = (id: ?string, options?: ?Object = null) => {
 const track = (event: string, options: any = null) => {
   maybeInitialize();
   options = normalizeTrackingOptions(options);
-  console.log ("production: " + Environment.isProduction)
-  console.log ('aaaaaaaa' +  release )
-  
-if (Environment.isProduction) {
+  console.log("production: " + Environment.isProduction)
+  console.log('aaaaaaaa' + release)
+
+  //if (Environment.isProduction) {
 
 
-  if (options) {
-    Amplitude.logEventWithProperties(event, options);
-  } else {
-    Amplitude.logEvent(event);
-  }
+    if (options) {
+      Amplitude.logEventWithProperties(event, options);
+    } else {
+      Amplitude.logEvent(event);
+    }
 
-}
+  //}
 
 };
 

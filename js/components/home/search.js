@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Platform, Dimensions, ScrollView, SafeAreaView, ActivityIndicator, ListView, Text} from 'react-native';
+import { View, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SearchBar from 'react-native-searchbar';
@@ -23,6 +23,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import { Agenda } from 'react-native-calendars';
 import { formatTime, formatMonth } from '../global.js';
+import { Scheduler } from 'rx';
 const deviceWidth = Dimensions.get('window').width;
 var i = 0;
 
