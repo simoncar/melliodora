@@ -60,12 +60,12 @@ class App extends Component {
         global.header_logoID = require('../resources/0001-sais_edu_sg/headerLogo.png');
         break;
       case '0002-singaporepoloclub':
-        global.switch_address = '80 Mount Pleasant Rd, \nSingapore  298334';
+        global.switch_address = 'Polo Club \nSingapore  00000';
         global.switch_helpEmail = 'simoncar+spc@gmail.com';
-        global.switch_contactEmail = 'enquiry@singaporepoloclub.org';
-        global.switch_portalName = 'SPC Website';
-        global.switch_portalURL = 'https://www.singaporepoloclub.org/';
-        global.switch_call = '+65 6854 3985';
+        global.switch_contactEmail = 'test@test.com';
+        global.switch_portalName = 'Polo Contacts';
+        global.switch_portalURL = 'https://polocontacts.com/';
+        global.switch_call = '+65 0000 0000';
         global.header_logo = `../../../resources/${  Constants.manifest.extra.instance  }/headerLogo.png`;
         global.header_logoID = require('../resources/0002-singaporepoloclub/headerLogo.png');
         break;
