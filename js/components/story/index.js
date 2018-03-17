@@ -13,12 +13,13 @@ import Swiper from 'react-native-swiper';
 import { openDrawer } from '../../actions/drawer';
 import Abbreviations from './abbreviations';
 import ParsedText from 'react-native-parsed-text';
+import Communications from 'react-native-communications';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
 import call from 'react-native-phone-call'  //TODO migration to communications
 
-import Communications from 'react-native-communications';
+
 import Analytics from '../../lib/analytics';
 import { Constants } from 'expo';
 
@@ -137,15 +138,15 @@ handleUrlPress(url) {
 }
 
 handlePhonePress(phone) {
-  AlertIOS.alert(`${phone} has been pressed!`);
+  // AlertIOS.alert(`${phone} has been pressed!`);
 }
 
 handleNamePress(name) {
-  AlertIOS.alert(`Hello ${name}`);
+  // AlertIOS.alert(`Hello ${name}`);
 }
 
 handleEmailPress(email) {
-  AlertIOS.alert(`send email to ${email}`);
+  Communications.email(email, null, null, null, null)
 }
 
 renderText(matchingString, matches) {
