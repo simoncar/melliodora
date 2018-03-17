@@ -83,7 +83,7 @@ class App extends Component {
     // a notification every time you open the app. Check out the source
     // for this function in api/registerForPushNotificationsAsync.js
     registerForPushNotificationsAsync(this.props.userX.name);
-
+console.log("registerForPushNotificationsAsync" + this.props.userX.name);
 
     // Watch for incoming notifications
     this._notificationSubscription = Notifications.addListener(

@@ -10,8 +10,6 @@ export default (async function registerForPushNotificationsAsync(user) {
   // Android remote notification permissions are granted during the app
   // install, so this will only ask on iOS
 
-console.log('this.props.userX.name=',user);
-
   let { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
 
   // Stop here if the user did not grant permissions
@@ -21,6 +19,7 @@ console.log('this.props.userX.name=',user);
 
   // Get the token that uniquely identifies this device
   let token = await Notifications.getExpoPushTokenAsync();
+  console.log('REGISTER PUSH TOKEN=',token);
 
   // POST the token to our backend so we can use it to send pushes from there
   return fetch(PUSH_ENDPOINT + '?token=' + token + '&user=' + user, {
@@ -34,7 +33,7 @@ console.log('this.props.userX.name=',user);
         value: token,
       },
       user: {
-        username: 'Test',
+        username: user,
       },
     }),
   });
