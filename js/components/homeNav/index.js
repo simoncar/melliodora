@@ -2,22 +2,17 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import { Image, ListView, View, TouchableOpacity } from 'react-native';
-import * as  ActionCreators from '../../actions'
-
 import { Actions } from 'react-native-router-flux';
-import { Container, Content, Footer, FooterTab, Text, Thumbnail, Icon, Button } from 'native-base';
+import { Container, Content, Text, Icon, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
+import { Expo, Constants } from 'expo';
 
+import * as ActionCreators from '../../actions';
 import HeaderContent from './../headerContent/header';
-import Analytics from '../../lib/analytics';
 
 import { openDrawer } from '../../actions/drawer';
-import Sentry from 'sentry-expo';
-import Expo from 'expo';
-
-import { Constants } from 'expo';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
