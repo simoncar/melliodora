@@ -1,21 +1,20 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Constants } from 'expo';
-import {TouchableHighlight,Animated,TextInput, Dimensions, TouchableOpacity, WebView,ScrollView, Image, View, Platform } from 'react-native';
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Animated, TextInput, TouchableOpacity, WebView, View } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
-import { Container, Header, Content, Text, Button, Icon, Left, Right, Body, Spinner } from 'native-base';
-import { Grid, Col, Row } from 'react-native-easy-grid';
+import { Container, Icon, Spinner } from 'native-base';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import HeaderContent from './../headerContent/header/';
 
 import { getParameterByName } from '../global.js';
 
 import { openDrawer } from '../../actions/drawer';
 
-import * as  ActionCreators  from '../../actions'
+import * as  ActionCreators  from '../../actions';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
@@ -118,6 +117,7 @@ console.log ('im here -= ' + global.switch_portalURL);
     };
 
   }
+  
   onNavigationStateChange = (navState) => {
         console.log ('webview = onNavigationStateChange=' + navState);
         console.log ( navState);
