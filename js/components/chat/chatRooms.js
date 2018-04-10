@@ -64,7 +64,6 @@ class campusMap extends Component {
             </Button>
 
         </Content>
-
       </Container>
     );
   }

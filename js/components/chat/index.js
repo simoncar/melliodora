@@ -9,7 +9,7 @@ import {
 
 import { Actions as NavigationActions} from 'react-native-router-flux';
 import { GiftedChat, Actions, Bubble, SystemMessage } from 'react-native-gifted-chat';
-import { Container, Content, Header, Button, Icon, Body } from 'native-base';
+import { Container, Content, Header, Footer, Button, Icon, Body } from 'native-base';
 import CustomActions from './customActions';
 import CustomView from './customView';
 import styles from './styles';
@@ -235,7 +235,8 @@ export default class Chat extends React.Component {
               </Button>
             </View>
             <Body>
-              <Image source={global.header_logoID} style={styles.imageHeader} />
+            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
+         
             </Body>
             <View>
 
@@ -261,6 +262,9 @@ export default class Chat extends React.Component {
             renderFooter={this.renderFooter}
         />
        
+
+           <Footer style={styles.footer}>
+           </Footer>
             </Container>
         );
     }
