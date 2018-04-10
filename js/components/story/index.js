@@ -65,8 +65,6 @@ class Story extends Component {
     Analytics.identify(global.username, trackingOpts);
     Analytics.track(Analytics.events.EVENT_STORY, trackingOpts);
     //analytics --------
-
-
   }
 
   _shareMessage() {
