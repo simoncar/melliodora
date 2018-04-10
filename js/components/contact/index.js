@@ -14,11 +14,8 @@ import { openDrawer } from '../../actions/drawer';
 import HeaderContent from './../headerContent/header/';
 import Analytics from '../../lib/analytics';
 
-
 import Communications from 'react-native-communications';
 import updateFirebase from './../../lib/updateFirebase';
-
-
 
 import theme from '../../themes/base-theme';
 import styles from './styles';

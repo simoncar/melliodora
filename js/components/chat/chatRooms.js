@@ -32,16 +32,6 @@ class campusMap extends Component {
       animationType: 'slideInDown',
       open: false,
     };
-
-    // analytics  -----
-    const trackingOpts = {
-      instId: Constants.manifest.extra.instance,
-      emailOrUsername: global.username,
-    };
-
-    Analytics.identify(global.username, trackingOpts);
-    Analytics.track(Analytics.events.PAGE_MAP, trackingOpts);
-    // analytics --------
   }
 
   render() {
@@ -51,35 +41,27 @@ class campusMap extends Component {
         <HeaderContent />
         <Content showsVerticalScrollIndicator showsHorizontalScrollIndicator>
 
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Text style={styles.heading}>Woodleigh Campus</Text>
-            <Text style={styles.text}>1 Woodleigh Lane, 357684</Text>
+            <Text style={styles.heading}>PTA Chatrooms</Text>
 
-            <Image source={require('../../../images/sais.edu.sg/map1.png')} style={styles.mapImage} />
-            <Image source={require('../../../images/sais.edu.sg/map2.png')} style={styles.mapImageLegend} />
-          </View>
+            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Lost and Found' }); }} >
+                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Text>PTA Lost and Found</Text>
+            </Button>
 
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Text style={styles.heading}>Early Learning Village</Text>
-            <Text style={styles.text}>3 Chuan Lane (off Lorong Chuan)</Text>
-            <Text style={styles.text2}>Singapore 554350</Text>
+            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: '3SHMU' }); }} >
+                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Text>3SHMU</Text>
+            </Button>
 
-            <Image source={require('../../../images/sais.edu.sg/map3.png')} style={styles.mapImageELV} />
-            <Image source={require('../../../images/sais.edu.sg/map4.png')} style={styles.mapImageLegendELV} />
+            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: '5DAYE' }); }} >
+                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Text>5DAYE</Text>
+            </Button>
 
-          </View>
+            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'PTA General' }); }} >
+                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Text>PTA General Chat and Questions</Text>
+            </Button>
 
         </Content>
 
