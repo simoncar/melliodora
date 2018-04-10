@@ -1,4 +1,7 @@
-import firebase from 'firebase';
+import * as firebase from 'firebase';
+import { Expo, Constants } from 'expo';
+
+var instID = Constants.manifest.extra.instance;
 
 class Backend {
   uid = '';
@@ -16,6 +19,7 @@ class Backend {
       messagingSenderId: "22222"
     });
     */
+   /*
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setUid(user.uid);
@@ -25,6 +29,7 @@ class Backend {
         });
       }
     });
+    */
   }
 
   setUid(value) {
@@ -37,7 +42,7 @@ class Backend {
 
   //retrive msg from backend
   loadMessages(callback) {
-    this.messageRef = firebase.database().ref('chat/class/3SHMU');
+    this.messageRef = firebase.database().ref('instance/' + instID + '/chat/class/3SHMU');
     this.messageRef.off();
     const onReceive = (data) => {
       const message = data.val();

@@ -146,9 +146,33 @@ class Contact extends Component {
                   <Text style={styles.feedbackHead}>Matt and Simon are on the PTA board this year, if you have app feedback or suggestions or would like to help out, let us know.</Text>
 
                   <Text style={styles.updateNotes}>{this.state.updateFirebaseText}</Text>
+                  <Text style={styles.spacer}>
+
+                  </Text>
+
+                  </Col>
+              }
+ </Row>
+
+          <Row style={{paddingTop: 40}}>
+              <Col style={{ width: 80 }}>
+              <Button transparent style={styles.roundedButton}  onPress={() => Actions.chatRooms()} >
+              <Icon name="ios-chatbubbles-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                     </Button>
+              </Col>
+              
+              {Constants.manifest.extra.instance == '0001-sais_edu_sg' &&
+              <Col>
+                  <Text style={styles.feedbackHeader}>Chat Rooms</Text>
+                  <Text style={styles.feedbackHead}>NOTE, Experimental</Text>
+                  <Text style={styles.feedbackHead}>These are not acitve</Text>      
+                  <Text style={styles.feedbackHead}></Text>    
+                  <Text style={styles.feedbackHead}></Text>    
                   </Col>
               }
 
+ 
+                    
         
             </Row>
             </Grid>
