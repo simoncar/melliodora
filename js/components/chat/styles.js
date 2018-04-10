@@ -47,6 +47,13 @@ export default {
         paddingBottom: 10,
         fontSize: 25,
     },
+    chatHeading: {
+        color: '#fff',
+        alignSelf: 'center',
+        paddingTop: 10,
+        paddingBottom: 10,
+        fontSize: 25,
+    },
     text: {
         color: '#707372',
         alignSelf: 'center',
@@ -62,7 +69,11 @@ export default {
     },
     footerText: {
         fontSize: 14,
-        color: '#aaa',
+        color: '#000',
     },
+
+    footer: {
+          height: 10
+      },
 
 };
