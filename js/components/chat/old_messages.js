@@ -2,7 +2,7 @@ module.exports = [
     {
       _id: Math.round(Math.random() * 1000000),
       text:
-        "It uses the same design as React, letting you compose a rich mobile UI from declarative components https://facebook.github.io/react-native/",
+        "Here is the link to more info about lost and found if you missed it http://",
       createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
       user: {
         _id: 1,
@@ -11,7 +11,7 @@ module.exports = [
     },
     {
       _id: Math.round(Math.random() * 1000000),
-      text: "React Native lets you build mobile apps using only JavaScript",
+      text: "Some old Message",
       createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
       user: {
         _id: 1,

@@ -23,7 +23,7 @@ import ptaLionsDen from './components/pta/ptaLionsDen';
 import Story from './components/story';
 import campusMap from './components/campusMap';
 import chatRooms from './components/chat/chatRooms';
-// import chat from './components/chat';
+import chat from './components/chat';
 import Webportal from './components/webportal';
 import WebportalAuth from './components/webportal/auth';
 import WebportalSports from './components/webportalSports';
@@ -99,7 +99,8 @@ class AppNavigator extends Component {
         <RouterWithRedux>
           <Scene key="root">
             <Scene key="homeNav" component={HomeNav} hideNavBar initial={true}/>
-  
+            <Scene key="chatRooms" component={chatRooms} hideNavBar />
+            <Scene key="chat" component={chat} hideNavBar />
             <Scene key="search" component={Search} hideNavBar />
             <Scene key="home" component={Home} hideNavBar />
             <Scene key="phoneCalendar" component={phoneCalendar} />

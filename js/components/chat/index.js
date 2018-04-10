@@ -100,7 +100,7 @@ export default class Chat extends React.Component {
             if ((messages[0].image || messages[0].location) || !this._isAlright) {
                 this.setState((previousState) => {
                     return {
-                        typingText: 'React Native is typing' + this.props.chatroom
+                        typingText: 'PTA is typing' + this.props.chatroom
                     };
                 });
             }

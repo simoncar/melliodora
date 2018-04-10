@@ -30,8 +30,6 @@ class Firebase {
 
        // loadFromRedux();
        // listenLoadFromFirebase(this.switches);
- 
-
 
     }
 };

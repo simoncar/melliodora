@@ -42,7 +42,7 @@ class campusMap extends Component {
         <Content showsVerticalScrollIndicator showsHorizontalScrollIndicator>
 
             <Text style={styles.heading}>PTA Chatrooms</Text>
-
+            <Text style={styles.heading}>** Experimental **</Text>
             <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Lost and Found' }); }} >
                 <Icon style={styles.icon} name="ios-chatbubbles-outline" />
                 <Text>PTA Lost and Found</Text>

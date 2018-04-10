@@ -73,6 +73,14 @@ export default {
     fontWeight: 'bold',
     color: '#FFF',
   },
+  spacer: {
+    opacity: 0.8,
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: '#FFF',
+    paddingBottom: 400,
+  },
+
   updateNotes: {
     opacity: 1,
     fontSize: 13,

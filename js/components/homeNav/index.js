@@ -26,12 +26,6 @@ var calendarEvents = [];
 const ListItem = require('./ListItem');
 var instID = Constants.manifest.extra.instance;
 
-//instID = "0001-sais_edu_sg"
-//instID = "0002-singaporepoloclub"
-
-//      "instance": "0001-sais",
-//"instanceX": "0002-singaporepoloclub"
-
 class HomeNav extends Component {
 
   static propTypes = {
