@@ -63,7 +63,7 @@ export class Backend extends React.Component{
         _id: data.key,
         text: message.text,
         createdAt: new Date(message.createdAt),
-        chatroom: 'AAA',
+        chatroom: this.state.chatroom,
         user: {
           id: message.user._id,
           name: message.user.name
