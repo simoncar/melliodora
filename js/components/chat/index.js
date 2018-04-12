@@ -48,6 +48,8 @@ export default class Chat extends React.Component {
     }
 
     componentDidMount() {
+        Backend.setChatroom(this.props.chatroom);
+
         Backend.loadMessages((message) => {
             this.setState((previousState) => {
                 return {
@@ -100,7 +102,7 @@ export default class Chat extends React.Component {
             if ((messages[0].image || messages[0].location) || !this._isAlright) {
                 this.setState((previousState) => {
                     return {
-                        typingText: 'PTA is typing' + this.props.chatroom
+                        typingText: 'PTA is typing ' + this.props.chatroom,
                     };
                 });
             }

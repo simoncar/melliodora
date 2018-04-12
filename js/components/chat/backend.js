@@ -1,14 +1,19 @@
+import React from 'react';
 import * as firebase from 'firebase';
 import { Expo, Constants } from 'expo';
 
 var instID = Constants.manifest.extra.instance;
 
-class Backend {
+export class Backend extends React.Component{
   uid = '';
   messagesRef = null;
 
   //initialize firebase backend
-  constructor() {
+  constructor(props) {
+      super();
+      this.state = {
+          chatroom: '',
+      }
     /*
     firebase.initializeApp({
       apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
@@ -40,9 +45,17 @@ class Backend {
     return this.uid;
   }
 
+  setChatroom(chatroom) {
+    console.log ('chatroom=' + chatroom);
+    this.state.chatroom = chatroom;
+  }
+
   //retrive msg from backend
-  loadMessages(callback) {
-    this.messageRef = firebase.database().ref('instance/' + instID + '/chat/class/3SHMU');
+  loadMessages(callback) 
+  {
+      
+
+    this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom);
     this.messageRef.off();
     const onReceive = (data) => {
       const message = data.val();
@@ -64,7 +77,7 @@ class Backend {
   SendMessage(message) {
     for (let i = 0; i < message.length; i++) {
       
-        this.messageRef.push({text: message[i].text, chatroom:'5DAYE', user:message[i].user, createdAt: firebase.database.ServerValue.TIMESTAMP});
+        this.messageRef.push({text: message[i].text, chatroom:this.state.chatroom, user:message[i].user, createdAt: firebase.database.ServerValue.TIMESTAMP});
     }
   }
 
