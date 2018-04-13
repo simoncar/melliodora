@@ -63,6 +63,19 @@ class calendar1 extends Component {
     dataSnapshot = (this.props.calendarEventsX.items);
     key = '';
 
+    const time = Date.now() + i * 24 * 60 * 60 * 1000;
+    const todayDate = this.timeToString(time);
+
+    if (!this.state.items[todayDate]) {
+      this.state.items[todayDate] = [];
+    }
+
+    this.state.items[todayDate].push({
+      name: 'Today',
+      icon: 'md-radio-button-off',
+      color: 'yellow',
+    });
+
     for (var key in dataSnapshot) {
       if (!dataSnapshot.hasOwnProperty(key)) continue;
 
@@ -97,6 +110,9 @@ class calendar1 extends Component {
         });
       }
     }
+
+
+    
   }
 
   listenLoadFromFirebase(calendarEvents) {
@@ -107,6 +123,21 @@ class calendar1 extends Component {
       this.state.items = [];
       this.loadItems();
 
+      const time = Date.now() + i * 24 * 60 * 60 * 1000;
+      const todayDate = this.timeToString(time);
+
+      if (!this.state.items[todayDate]) {
+        this.state.items[todayDate] = [];
+      }
+
+
+      this.state.items[todayDate].push({
+        name: 'Today',
+        icon: 'md-radio-button-off',
+        color: 'yellow',
+      });
+
+
       dataSnapshot.forEach((snapshot) => {
         strtime = snapshot.child('date_start').val();
         strtime = strtime.substring(0, 10);
@@ -114,6 +145,7 @@ class calendar1 extends Component {
         if (!this.state.items[strtime]) {
           this.state.items[strtime] = [];
         }
+
 
         if (undefined != this.state.items[strtime]) {
           this.state.items[strtime].push({
@@ -136,6 +168,7 @@ class calendar1 extends Component {
             photo3: snapshot.child('photo3').val(),
 
           });
+
         }
       });
 
@@ -152,10 +185,12 @@ class calendar1 extends Component {
       for (let i = -15; i < 365; i++) {
         const time = Date.now() + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
+        const date = new Date();
 
         if (!this.state.items[strtime]) {
           this.state.items[strtime] = [];
         }
+        
       }
 
       const newItems = {};
@@ -170,6 +205,7 @@ class calendar1 extends Component {
 
     // add a day
     date.setDate(date.getDate());
+   // date.setDate(Date());
 
     return (
       <Container>
@@ -216,7 +252,7 @@ class calendar1 extends Component {
           url: item.url,
 
         })
-      }
+        }
       >
 
         <View style={[styles.agendaItem, { height: item.height, borderRightColor: this.formatBackground(item.color) }]}>
@@ -241,25 +277,25 @@ class calendar1 extends Component {
 
                 <View
                   style={{
-  borderRadius: 30,
-  backgroundColor: this.formatBackground(item.color),
-  width: 45,
-  height: 45,
-  marginLeft: 10,
-  marginTop: 5,
-  alignItems: 'center',
-  paddingLeft: 0,
-  paddingRight: 0,
-  justifyContent: 'center',
-}}
+                    borderRadius: 30,
+                    backgroundColor: this.formatBackground(item.color),
+                    width: 45,
+                    height: 45,
+                    marginLeft: 10,
+                    marginTop: 5,
+                    alignItems: 'center',
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                    justifyContent: 'center',
+                  }}
                 >
 
                   <View>
                     <Icon
                       style={{
-  color: '#fff',
-  fontSize: 20,
-}} name={item.icon}
+                        color: '#fff',
+                        fontSize: 20,
+                      }} name={item.icon}
                     />
                   </View>
 
