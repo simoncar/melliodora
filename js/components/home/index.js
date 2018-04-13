@@ -71,6 +71,7 @@ class calendar1 extends Component {
       name: 'Today',
       icon: 'md-radio-button-off',
       color: 'yellow',
+      title: 'Today',
     });
 
     for (var key in dataSnapshot) {
@@ -132,6 +133,7 @@ class calendar1 extends Component {
         name: 'Today',
         icon: 'md-radio-button-off',
         color: 'yellow',
+        title: 'Today',
       });
 
 
