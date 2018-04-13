@@ -23,9 +23,6 @@ import { formatTime, formatMonth } from '../global.js';
 
 const i = 0;
 
-const calendarEvents = [];
-const newItems = {};
-
 class calendar1 extends Component {
 
   constructor(props) {

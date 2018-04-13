@@ -58,6 +58,10 @@ class SideBar extends Component {
                     <Icon name="ios-people-outline" />
                     <Text style={styles.linkText} >PTA</Text>
                 </ListItem>
+                <ListItem button onPress={() => { Actions.campusMap(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                    <Icon name="ios-map-outline" />
+                    <Text style={styles.linkText} >SCHOOL MAP</Text>
+                </ListItem>
                 <ListItem button onPress={() => { Actions.login(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                     <Icon name="settings" />
                     <Text style={styles.linkText}>SETTINGS</Text>
