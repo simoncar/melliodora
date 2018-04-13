@@ -67,25 +67,25 @@ export default {
     borderRadius: 30,
   },
   container: {
-      flex: 1,
-      paddingTop: 15, /* Padding to push below the navigation bar */
-      backgroundColor: '#F5FCFF',
-    },
-    topbar: {
+    flex: 1,
+    paddingTop: 15, /* Padding to push below the navigation bar */
+    backgroundColor: '#F5FCFF',
+  },
+  topbar: {
 
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: 40,
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      backgroundColor: 'grey',
-    },
-    topbarTextDisabled: {
-      color: 'green'
-    },
-    topbarTextDisabled: {
-      color: 'gray'
-    }
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'grey',
+  },
+  topbarTextDisabled: {
+    color: 'green'
+  },
+  topbarTextDisabled: {
+    color: 'gray',
+  }
 
 };
