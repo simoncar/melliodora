@@ -113,7 +113,7 @@ class AppNavigator extends Component {
             <Scene key="ptaLionsDen" component={ptaLionsDen} hideNavBar />
             <Scene key="ptaEvents" component={ptaEvents} hideNavBar />
             <Scene key="story" component={Story} hideNavBar />
-            <Scene key="campusMap" component={campusMap} hideNavBar />
+            <Scene key="campusMap" component={campusMap} />
             <Scene key="webportal" component={Webportal} hideNavBar />
             <Scene key="WebportalAuth" component={WebportalAuth} hideNavBar />
             <Scene key="webportalSports" component={WebportalSports} hideNavBar />
