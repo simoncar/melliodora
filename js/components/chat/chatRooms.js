@@ -62,15 +62,24 @@ class campusMap extends Component {
                 <Text>5DAYE</Text>
             </Button>
 
+            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 6' }); }} >
+                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Text>Grade 6</Text>
+            </Button>
+            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 7' }); }} >
+                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Text>Grade 7</Text>
+            </Button>
+            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 8' }); }} >
+                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Text>Grade 8</Text>
+            </Button>   
+
             <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'PTA General' }); }} >
                 <Icon style={styles.icon} name="ios-chatbubbles-outline" />
                 <Text>PTA General Chat and Questions</Text>
             </Button>
 
-         <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'PTA General' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
-                <Text> Username: {global.username} / {Constants.deviceId}</Text>
-            </Button>
 
 
         </Content>

@@ -214,6 +214,7 @@ export default class Chat extends React.Component {
                     user={{
                         _id: Constants.deviceId, // sent messages should have same user._id
                         name: 'simon test',
+                        avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
                     }}
 
                     //renderActions={this.renderCustomActions}
@@ -223,6 +224,7 @@ export default class Chat extends React.Component {
                     //renderFooter={this.renderFooter}
                     parsePatterns={this.parsePatterns}
                     showAvatarForEveryMessage={true}
+                   
                 />
 
                 <Footer style={styles.footer}>
