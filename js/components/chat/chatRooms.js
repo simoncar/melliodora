@@ -12,11 +12,12 @@ import { openDrawer } from '../../actions/drawer';
 
 import HeaderContent from './../headerContent/header/';
 import Analytics from '../../lib/analytics';
-import { Constants } from 'expo';
+import { Constants, Notifications } from 'expo';
 
 import styles from './styles';
 
 const primary = require('../../themes/variable').brandPrimary;
+
 
 
 class campusMap extends Component {
@@ -32,9 +33,12 @@ class campusMap extends Component {
       animationType: 'slideInDown',
       open: false,
     };
+
+
   }
 
   render() {
+
     return (
       <Container>
 
@@ -62,6 +66,12 @@ class campusMap extends Component {
                 <Icon style={styles.icon} name="ios-chatbubbles-outline" />
                 <Text>PTA General Chat and Questions</Text>
             </Button>
+
+         <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'PTA General' }); }} >
+                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Text> Username: {global.username} / {Constants.deviceId}</Text>
+            </Button>
+
 
         </Content>
       </Container>
