@@ -6,8 +6,9 @@ import {
     View,
     Image,
 } from 'react-native';
+import { Expo, Constants } from 'expo';
 
-import { Actions as NavigationActions} from 'react-native-router-flux';
+import { Actions as NavigationActions } from 'react-native-router-flux';
 import { GiftedChat, Actions, Bubble, SystemMessage } from 'react-native-gifted-chat';
 import { Container, Content, Header, Footer, Button, Icon, Body } from 'native-base';
 import CustomActions from './customActions';
@@ -24,10 +25,13 @@ export default class Chat extends React.Component {
             loadEarlier: true,
             typingText: null,
             isLoadingEarlier: false,
+            step: 0,
         };
 
         this._isMounted = false;
         this.onSend = this.onSend.bind(this);
+        this.parsePatterns = this.parsePatterns.bind(this);
+
         this.onReceive = this.onReceive.bind(this);
         this.renderCustomActions = this.renderCustomActions.bind(this);
         this.renderBubble = this.renderBubble.bind(this);
@@ -40,11 +44,8 @@ export default class Chat extends React.Component {
 
     componentWillMount() {
         this._isMounted = true;
-        this.setState(() => {
-            return {
-                messages: require('./messages.js'),
-            };
-        });
+
+
     }
 
     componentDidMount() {
@@ -85,69 +86,21 @@ export default class Chat extends React.Component {
     }
 
     onSend(messages = []) {
-        this.setState((previousState) => {
-            return {
-                messages: GiftedChat.append(previousState.messages, messages),
-            };
-        });
 
+        const step = this.state.step + 1;
+        this.setState((previousState) => ({
+            messages: GiftedChat.append(previousState.messages, messages),
+           
+
+        }));
 
         Backend.SendMessage(messages);
-        // for demo purpose
-        this.answerDemo(messages);
-    }
+        
 
-    answerDemo(messages) {
-        if (messages.length > 0) {
-            if ((messages[0].image || messages[0].location) || !this._isAlright) {
-                this.setState((previousState) => {
-                    return {
-                        typingText: 'PTA is typing ' + this.props.chatroom,
-                    };
-                });
-            }
-        }
-
-        setTimeout(() => {
-            if (this._isMounted === true) {
-                if (messages.length > 0) {
-                    if (messages[0].image) {
-                        this.onReceive('Nice picture!');
-                    } else if (messages[0].location) {
-                        this.onReceive('My favorite place');
-                    } else {
-                        if (!this._isAlright) {
-                            this._isAlright = true;
-                            this.onReceive('Alright');
-                        }
-                    }
-                }
-            }
-
-            this.setState((previousState) => {
-                return {
-                    typingText: null,
-                };
-            });
-        }, 1000);
     }
 
     onReceive(text) {
-        this.setState((previousState) => {
-            return {
-                messages: GiftedChat.append(previousState.messages, {
-                    _id: Math.round(Math.random() * 1000000),
-                    text: text,
-                    createdAt: new Date(),
-                    chatroom: this.props.chatroom,
-                    user: {
-                        _id: 2,
-                        name: 'React Native',
-                        // avatar: 'https://facebook.github.io/react/img/logo_og.png',
-                    },
-                }),
-            };
-        });
+
     }
 
     renderCustomActions(props) {
@@ -223,50 +176,62 @@ export default class Chat extends React.Component {
         return null;
     }
 
+    parsePatterns(linkStyle) {
+        return [
+            {
+                pattern: /#(\w+)/,
+                style: { ...linkStyle, color: 'orange' },
+                onPress: () => Linking.openURL('http://gifted.chat'),
+            },
+        ];
+    }
+
     render() {
         return (
             <Container>
-        <Header style={styles.header}>
-          <View style={styles.viewHeader}>
-            <View>
-              <Button transparent onPress={() => NavigationActions.pop()}>
-                <Icon
-                  active
-                  name="arrow-back"
-                  style={styles.headerIcons} />
-              </Button>
-            </View>
-            <Body>
-            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
-         
-            </Body>
-            <View>
+                <Header style={styles.header}>
+                    <View style={styles.viewHeader}>
+                        <View>
+                            <Button transparent onPress={() => NavigationActions.pop()}>
+                                <Icon
+                                    active
+                                    name="arrow-back"
+                                    style={styles.headerIcons} />
+                            </Button>
+                        </View>
+                        <Body>
+                            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
 
-            </View>
-          </View>
-        </Header>
+                        </Body>
+                        <View>
 
-        <GiftedChat
-            messages={this.state.messages}
-            onSend={this.onSend}
-            loadEarlier={this.state.loadEarlier}
-            onLoadEarlier={this.onLoadEarlier}
-            isLoadingEarlier={this.state.isLoadingEarlier}
+                        </View>
+                    </View>
+                </Header>
 
-            user={{
-                _id: 1, // sent messages should have same user._id
-            }}
+                <GiftedChat
+                    messages={this.state.messages}
+                    onSend={this.onSend}
+                    //loadEarlier={this.state.loadEarlier}
+                    //onLoadEarlier={this.onLoadEarlier}
+                    //isLoadingEarlier={this.state.isLoadingEarlier}
 
-            renderActions={this.renderCustomActions}
-            renderBubble={this.renderBubble}
-            renderSystemMessage={this.renderSystemMessage}
-            renderCustomView={this.renderCustomView}
-            renderFooter={this.renderFooter}
-        />
-       
+                    user={{
+                        _id: Constants.deviceId, // sent messages should have same user._id
+                        name: 'simon test',
+                    }}
 
-           <Footer style={styles.footer}>
-           </Footer>
+                    //renderActions={this.renderCustomActions}
+                    //renderBubble={this.renderBubble}
+                    //renderSystemMessage={this.renderSystemMessage}
+                    renderCustomView={this.renderCustomView}
+                    //renderFooter={this.renderFooter}
+                    parsePatterns={this.parsePatterns}
+                    showAvatarForEveryMessage={true}
+                />
+
+                <Footer style={styles.footer}>
+                </Footer>
             </Container>
         );
     }

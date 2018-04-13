@@ -51,8 +51,7 @@ export class Backend extends React.Component{
   }
 
   //retrive msg from backend
-  loadMessages(callback) 
-  {
+  loadMessages(callback) {
       
 
     this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom);
@@ -65,8 +64,8 @@ export class Backend extends React.Component{
         createdAt: new Date(message.createdAt),
         chatroom: this.state.chatroom,
         user: {
-          id: message.user._id,
-          name: message.user.name
+          _id: message.user._id,
+          name: message.user.name,
         }
       });
     };
@@ -77,7 +76,14 @@ export class Backend extends React.Component{
   SendMessage(message) {
     for (let i = 0; i < message.length; i++) {
       
-        this.messageRef.push({text: message[i].text, chatroom:this.state.chatroom, user:message[i].user, createdAt: firebase.database.ServerValue.TIMESTAMP});
+        this.messageRef.push({
+          text: message[i].text,
+          chatroom: this.state.chatroom,
+          user: message[i].user,
+          createdAt: firebase.database.ServerValue.TIMESTAMP,
+          avatarUrl: 'http://images.all-free-download.com/images/graphiclarge/harry_potter_icon_6825007.jpg',
+          date: new Date().getTime(),
+          });
     }
   }
 
