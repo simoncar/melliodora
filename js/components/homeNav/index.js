@@ -8,6 +8,7 @@ import { Actions } from 'react-native-router-flux';
 import { Container, Content, Text, Icon, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import { Expo, Constants } from 'expo';
+import moment from 'moment';
 
 import * as ActionCreators from '../../actions';
 import HeaderContent from './../headerContent/header';
@@ -69,19 +70,22 @@ class HomeNav extends Component {
 
     calendarEvents.on('value', (snap) => {
 
+
       var items = [];
+      var today = new moment().format(); ;
 
       snap.forEach((child) => {
 
 
-        var displayStart = Date.parse(child.val().displayStart);
-        var displayEnd = Date.parse(child.val().displayEnd);
+        var displayStart = moment().format(child.val().displayStart);
+        var displayEnd = moment().format(child.val().displayEnd);
   
+console.log('dddddd,' + moment().format() + "    -     " + displayEnd)
 
-        if (displayStart < new Date().getTime()) {
+        if (displayStart <= today) {
           //start is less than End 
         
-          if (displayEnd > new Date().getTime()) {
+          if (displayEnd >= today) {
             //start is less than End 
             
               items.push({
@@ -95,7 +99,7 @@ class HomeNav extends Component {
                 photo1: child.val().photo1,
                 photo2: child.val().photo2,
                 photo3: child.val().photo3,
-                _key: child.key
+                _key: child.key,
               });
          }  
         

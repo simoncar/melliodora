@@ -38,7 +38,7 @@
     "expo": "^25.0.0",
     "firebase": "^3.9.0",
     "lodash": "^4.17.5",
-    "moment": "^2.22.0",
+    "moment": "^2.22.1",
     "native-base": "2.3.7",
     "react": "16.2.0",
     "react-devtools": "^2.4.0",
@@ -71,7 +71,8 @@
     "redux-thunk": "^2.1.0",
     "remote-redux-devtools": "^0.3.3",
     "remote-redux-devtools-on-debugger": "^0.4.6",
-    "sentry-expo": "~1.7.0"
+    "sentry-expo": "~1.7.0",
+    "tcomb-form-native": "^0.6.11"
   },
   "detox": {
     "configurations": {
