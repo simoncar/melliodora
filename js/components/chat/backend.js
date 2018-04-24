@@ -66,6 +66,7 @@ export class Backend extends React.Component{
         user: {
           _id: message.user._id,
           name: message.user.name,
+          avatar: message.user.avatar,
         }
       });
     };
@@ -81,7 +82,6 @@ export class Backend extends React.Component{
           chatroom: this.state.chatroom,
           user: message[i].user,
           createdAt: firebase.database.ServerValue.TIMESTAMP,
-          avatarUrl: 'http://images.all-free-download.com/images/graphiclarge/harry_potter_icon_6825007.jpg',
           date: new Date().getTime(),
           });
     }

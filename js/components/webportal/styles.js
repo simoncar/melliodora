@@ -1,3 +1,5 @@
+import { Constants } from 'expo';
+
 const React = require('react-native');
 
 const {
@@ -10,6 +12,18 @@ const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 export default {
+  
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 40,
+  },
+  header: {
+    fontSize: 25,
+    marginBottom: 25,
+  },
   settingsMessage: {
     paddingTop: 10,
     paddingLeft: 10,
@@ -62,30 +76,30 @@ export default {
     paddingLeft: 0,
     color: 'white',
     width: 250,
-    fontSize: 14,
+    fontSize: 12,
     backgroundColor: 'rgba(0,0,0,0.2)',
     borderRadius: 30,
   },
   container: {
-    flex: 1,
-    paddingTop: 15, /* Padding to push below the navigation bar */
-    backgroundColor: '#F5FCFF',
-  },
-  topbar: {
+      flex: 1,
+      paddingTop: 15, /* Padding to push below the navigation bar */
+      backgroundColor: '#F5FCFF',
+    },
+    topbar: {
 
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 40,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'grey',
-  },
-  topbarTextDisabled: {
-    color: 'green'
-  },
-  topbarTextDisabled: {
-    color: 'gray',
-  }
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: 40,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: 'grey',
+    },
+    topbarTextDisabled: {
+      color: 'green'
+    },
+    topbarTextDisabled: {
+      color: 'gray'
+    }
 
 };

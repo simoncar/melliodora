@@ -39,7 +39,7 @@ class HomeNav extends Component {
 
   constructor(props) {
     super(props)
-
+   
 
 
     this.calendarEvents = firebase.database().ref('instance/' + instID + '/feature');
@@ -49,19 +49,16 @@ class HomeNav extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       })
     }
-
   }
 
   componentDidMount() {
     this.listenLoadFromFirebase(this.calendarEvents);
   }
-
   static propTypes = {
     navigation: PropTypes.shape({
       key: PropTypes.string,
     }),
   }
-
 
   _checkForUpdate() {
     this.setState({ versionText: '' })
@@ -73,20 +70,37 @@ class HomeNav extends Component {
     calendarEvents.on('value', (snap) => {
 
       var items = [];
+
       snap.forEach((child) => {
-        items.push({
-          title: child.val().summary,
-          description: child.val().description,
-          photoSquare: child.val().photoSquare,
-          url: child.val().htmlLink,
-          eventDate: child.val().date_start,
-          eventStartTime: child.val().time_start_pretty,
-          eventEndTime: child.val().time_end_pretty,
-          photo1: child.val().photo1,
-          photo2: child.val().photo2,
-          photo3: child.val().photo3,
-          _key: child.key
-        });
+
+
+        var displayStart = Date.parse(child.val().displayStart);
+        var displayEnd = Date.parse(child.val().displayEnd);
+  
+
+        if (displayStart < new Date().getTime()) {
+          //start is less than End 
+        
+          if (displayEnd > new Date().getTime()) {
+            //start is less than End 
+            
+              items.push({
+                title: child.val().summary,
+                description: child.val().description,
+                photoSquare: child.val().photoSquare,
+                url: child.val().htmlLink,
+                eventDate: child.val().date_start,
+                eventStartTime: child.val().time_start_pretty,
+                eventEndTime: child.val().time_end_pretty,
+                photo1: child.val().photo1,
+                photo2: child.val().photo2,
+                photo3: child.val().photo3,
+                _key: child.key
+              });
+         }  
+        
+        }
+  
       });
 
       this.setState({
