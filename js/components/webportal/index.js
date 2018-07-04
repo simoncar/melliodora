@@ -1,22 +1,20 @@
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { Constants } from 'expo';
+import { Animated, TextInput, TouchableOpacity, WebView, View } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
-import {TouchableHighlight,Animated,TextInput, Dimensions, TouchableOpacity, WebView,ScrollView, Image, View, Platform } from 'react-native';
-import { Actions, ActionConst } from 'react-native-router-flux';
-
-import { Container, Header, Content, Text, Button, Icon, Left, Right, Body, Spinner } from 'native-base';
-import { Grid, Col, Row } from 'react-native-easy-grid';
+import { Container, Icon, Spinner } from 'native-base';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import HeaderContent from './../headerContent/header/';
 
 import { getParameterByName } from '../global.js';
 
 import { openDrawer } from '../../actions/drawer';
 
-import * as  ActionCreators  from '../../actions'
+import * as  ActionCreators  from '../../actions';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
@@ -24,14 +22,15 @@ import styles from './styles';
 const primary = require('../../themes/variable').brandPrimary;
 const timer = require('react-native-timer');
 
-const headerLogo = require('../../../images/Header-Logo-White-0001.png');
+
 
 var WEBVIEW_REF = 'webview';
 //var DEFAULT_URL = 'https://saispta.com/app/Authentication.php';
 //var DEFAULT_URL = 'https://www.google.com';
 
 //var DEFAULT_URL = 'https://mystamford.edu.sg/login/api/getsession?ffauth_device_id=SOME_RANDOM&ffauth_secret=MERGE_AUTH_SECRET&prelogin=https://mystamford.edu.sg/pta/pta-events/christmas-2017';
-var DEFAULT_URL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
+var DEFAULT_URL = global.switch_portalURL;   //'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
+
 
 var injectScript  = '';
 
@@ -48,6 +47,9 @@ class Webportal extends Component {
 
   constructor(props) {
     super(props);
+    DEFAULT_URL = global.switch_portalURL
+
+console.log ('im here -= ' + global.switch_portalURL);
 
     injectScript = 'document.getElementById(\"username\").value=\"' + this.props.userX.name + '\"';
     injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"' + this.props.userX.password + '"';
@@ -82,12 +84,13 @@ class Webportal extends Component {
       DEFAULT_URL = DEFAULT_URL + "https://mystamford.edu.sg/cafe/cafe-online-ordering"
 
      DEFAULT_URL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
-
+     DEFAULT_URL = global.switch_portalURL
+     console.log ('im hereyyy -= ' + global.switch_portalURL);
 
   }
 
   state = {
-    url: DEFAULT_URL,
+    url: global.switch_portalURL,
     status: 'No Page Loaded',
     backButtonEnabled: false,
     forwardButtonEnabled: false,
@@ -105,10 +108,16 @@ class Webportal extends Component {
   }
 
   showMsg() {
-    this.setState({showMsg: true}, () => timer.setTimeout(
-      this, 'hideMsg', () => this.setState({showMsg: false}), 5000
-    ));
+
+
+    if (Constants.manifest.extra.instance == '0001-sais_edu_sg') {
+      this.setState({ showMsg: true }, () => timer.setTimeout(
+        this, 'hideMsg', () => this.setState({ showMsg: false }), 5000
+      ));
+    };
+
   }
+  
   onNavigationStateChange = (navState) => {
         console.log ('webview = onNavigationStateChange=' + navState);
         console.log ( navState);
@@ -156,7 +165,7 @@ class Webportal extends Component {
     console.log ('componentWillMount')
 
 
-
+  if (Constants.manifest.extra.instance == '0001-sais_edu_sg') {
         if (this.props.userX.name ) {
           //we have a value, good
 
@@ -188,8 +197,9 @@ class Webportal extends Component {
             this.setState({showMsg: true}, () => timer.setTimeout(
               this, 'hideMsg', () => this.setState({showMsg: false}), 10000
             ));
-
-  }
+          };
+         
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.visible) {
@@ -314,12 +324,11 @@ class Webportal extends Component {
   <Container>
        <HeaderContent />
 
-
-
       <View style={{ flex:1}}>
 
 
  {this._renderSpinner()}
+
      <View style={{ flex:2}}>
 
         <View style={styles.topbar}>
@@ -348,10 +357,7 @@ class Webportal extends Component {
               //  onSubmitEditing={() => this.refs.PasswordInput.focus() }
               />
 
-
-
               <Icon  style={styles.navIconRight} active name="ios-arrow-forward" />
-
 
          </View>
 

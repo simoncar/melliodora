@@ -59,6 +59,15 @@ console.log('saved setCalendarItems')
   };
 }
 
+
+export function setSwitches(items) {
+  console.log('saved setSwitches')
+    return {
+      type: "SET_SWITCHES",
+      payload: items
+    };
+  }
+
 export function logIn(source: ?string): ThunkAction {
   return (dispatch) => {
     return login;

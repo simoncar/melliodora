@@ -1,12 +1,39 @@
 const React = require('react-native');
 
 const { Dimensions, Platform } = React;
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 const primary = require('../../themes/variable').brandPrimary;
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 export default {
+
+  header: {
+    width: Dimensions.get('window').width,
+    paddingLeft: 15,
+    paddingRight: 15,
+    ...ifIphoneX({
+      paddingTop: 0,
+      height: 80
+    }, {
+      paddingTop: 0,
+      height: 60
+    })
+
+  },
+  viewHeader: {
+
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    ...ifIphoneX({
+     paddingTop: 30
+      }, {
+     paddingTop: 20
+      })
+
+  },
   container: {
     flex: 1,
     width: null,
@@ -39,6 +66,22 @@ export default {
     color: '#222',
     fontSize: 18,
     paddingBottom: 10,
+  },
+  url: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
+
+  email: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
+  calendarText: {
+
+  },
+  calendarButton:{
+    marginTop: 0,
+    marginBottom: 100,
   },
   eventIcon: {
     color: '#222',
@@ -136,6 +179,15 @@ export default {
   },
   wrapper: {
     flex: 1,
+  },
+
+  imageHeader: {
+    height: 135,
+    width: 225,
+    resizeMode: 'contain',
+
+    justifyContent: 'center',
+      alignItems: 'center',
   },
   headerIcons: {
     fontSize: 30,

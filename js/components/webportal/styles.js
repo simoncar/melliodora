@@ -1,3 +1,5 @@
+import { Constants } from 'expo';
+
 const React = require('react-native');
 
 const {
@@ -10,6 +12,18 @@ const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 export default {
+  
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 40,
+  },
+  header: {
+    fontSize: 25,
+    marginBottom: 25,
+  },
   settingsMessage: {
     paddingTop: 10,
     paddingLeft: 10,
@@ -62,7 +76,7 @@ export default {
     paddingLeft: 0,
     color: 'white',
     width: 250,
-    fontSize: 22,
+    fontSize: 12,
     backgroundColor: 'rgba(0,0,0,0.2)',
     borderRadius: 30,
   },

@@ -2,32 +2,35 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import {TouchableHighlight,Animated, Dimensions, TouchableOpacity, WebView,ScrollView, Image, View, Platform } from 'react-native';
+import { TouchableHighlight, Button, Linking, Text, Animated, Dimensions, TouchableOpacity, WebView, ScrollView, Image, View, Platform } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
-import { Container, Header, Content, Text, Button, Icon, Left, Right, Body, Spinner } from 'native-base';
+import { Container, Header, Content, Icon, Left, Right, Body, Spinner } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import HeaderContent from './../headerContent/header/';
+import { Constants, WebBrowser } from 'expo';
 
+import HeaderContent from './../headerContent/header/';
+import Analytics from '../../lib/analytics';
 import { openDrawer } from '../../actions/drawer';
 
-import * as  ActionCreators  from '../../actions'
+import * as  ActionCreators from '../../actions'
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
+import qs from 'qs';
+
 
 const primary = require('../../themes/variable').brandPrimary;
 const timer = require('react-native-timer');
 
-const headerLogo = require('../../../images/Header-Logo-White-0001.png');
 
 var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = '';
 
-var injectScript  = '';
+var injectScript = '';
 
 class WebportalAuth extends Component {
 
@@ -38,9 +41,6 @@ class WebportalAuth extends Component {
       key: PropTypes.string,
     }),
   }
-
-
-
   constructor(props) {
     DEFAULT_URL = "https://saispta.com/app/Authentication.php"
     super(props);
@@ -54,17 +54,15 @@ class WebportalAuth extends Component {
     forwardButtonEnabled: false,
     loading: true,
     scalesPageToFit: true,
-    cookies    : {},
-    webViewUrl : '',
+    cookies: {},
+    webViewUrl: '',
     visible: this.props.visible,
-      myText: 'My Original Text',
-      showMsg: false
-
+    myText: 'My Original Text',
+    showMsg: false,
+    result: null,
   };
 
-  componentWillUnmount() {
-    timer.clearTimeout(this);
-  }
+
 
   showMsg() {
     //this.setState({showMsg: true}, () => timer.setTimeout(
@@ -73,14 +71,14 @@ class WebportalAuth extends Component {
   }
 
   onNavigationStateChange = (navState) => {
-      console.log ('webview = onNavigationStateChange=' & navState);
-        console.log ( navState);
+    console.log('webview = onNavigationStateChange=' & navState);
+    console.log(navState);
 
-        if (navState.url != "https://mystamford.edu.sg/parent-dashboard") {
-              this.setState({canGoBack: navState.canGoBack});
-        } else {
-              this.setState({canGoBack: false});
-        }
+    if (navState.url != "https://mystamford.edu.sg/parent-dashboard") {
+      this.setState({ canGoBack: navState.canGoBack });
+    } else {
+      this.setState({ canGoBack: false });
+    }
 
   }
 
@@ -90,21 +88,21 @@ class WebportalAuth extends Component {
 
   componentWillMount() {
 
-        if (this.props.userX.ffauth_device_id ) {
-          //we have a value, good
+    if (this.props.userX.ffauth_device_id) {
+      //we have a value, good
 
-        } else {
-          //nothing :-(
-            //Actions.login();
-        };
+    } else {
+      //nothing :-(
+      //Actions.login();
+    };
 
-        if (this.props.userX.ffauth_secret ) {
-          //we have a value, good
+    if (this.props.userX.ffauth_secret) {
+      //we have a value, good
 
-        } else {
-          //nothing :-(
-            //Actions.login();
-        };
+    } else {
+      //nothing :-(
+      //Actions.login();
+    };
 
     this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
 
@@ -122,13 +120,16 @@ class WebportalAuth extends Component {
     });
   }
 
+  componentWillUnmount() {
+    timer.clearTimeout(this);
+  }
 
   _checkNeededCookies = () => {
-    console.log ('webview = _checkNeededCookies');
+    console.log('webview = _checkNeededCookies');
     const { cookies, webViewUrl } = this.state;
 
     if (webViewUrl === 'SUCCESS_URL') {
-      console.log ('webview = _checkNeededCookies', cookies('ASP.NET_SessionId'));
+      console.log('webview = _checkNeededCookies', cookies('ASP.NET_SessionId'));
       if (cookies['ASP.NET_SessionId']) {
         alert(cookies['ASP.NET_SessionId']);
         // do your magic...
@@ -137,160 +138,216 @@ class WebportalAuth extends Component {
   }
 
 
-   getInitialState =  () => {
-       return {
-           webViewHeight: 100 // default height, can be anything
-       }
-   }
+  getInitialState = () => {
+    return {
+      webViewHeight: 100 // default height, can be anything
+    }
+  }
 
 
   _onMessage = (event) => {
-        console.log ('webview = _onMessage');
-     const { data } = event.nativeEvent;
-     const cookies  = data.split(';'); // `csrftoken=...; rur=...; mid=...; somethingelse=...`
-    console.log ('webview = _onMessage cookies', cookies);
-     cookies.forEach((cookie) => {
-       const c = cookie.trim().split('=');
+    console.log('webview = _onMessage');
+    const { data } = event.nativeEvent;
+    const cookies = data.split(';'); // `csrftoken=...; rur=...; mid=...; somethingelse=...`
+    console.log('webview = _onMessage cookies', cookies);
+    cookies.forEach((cookie) => {
+      const c = cookie.trim().split('=');
 
-       const new_cookies = this.state.cookies;
-       new_cookies[c[0]] = c[1];
+      const new_cookies = this.state.cookies;
+      new_cookies[c[0]] = c[1];
 
-       this.setState({ cookies: new_cookies });
-       console.log ('     cookie = ', c);
+      this.setState({ cookies: new_cookies });
+      console.log('     cookie = ', c);
 
-     });
+    });
 
-     this._checkNeededCookies();
-   }
+    this._checkNeededCookies();
+  }
 
-    toggleCancel () {
-
-
-        this.setState({
-            showCancel: !this.state.showCancel
-        });
-    }
+  toggleCancel() {
 
 
-   _renderSpinner () {
-        if (this.state.showMsg) {
-           return (
-              <TouchableOpacity onPress={() => Actions.login()}>
-               <View style={styles.settingsMessage} >
-                 <View style={{flex: 1}} />
-                 <View style={{flex: 2}}>
-                        <Spinner color='#172245' />
-                 </View>
+    this.setState({
+      showCancel: !this.state.showCancel
+    });
+  }
 
-                <View style={{flex: 3}} />
 
-              </View>
-               </TouchableOpacity>
-           );
-       } else {
-          null;
-       }
-   }
 
-   updateText = () => {
-    this.setState({myText: 'My Changed Text'})
- }
+
+  updateText = () => {
+    this.setState({ myText: 'My Changed Text' })
+  }
+
 
   render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.header}>Redirect Example</Text>
 
-    _login =  () => {
-       console.log('here');
-       Animated.visible=false;
-       Animated.height = 0;
-       //this.toggleCancel();
-       this.state.showCancel = true;
-       this.setState({myText: 'My Changed Text'})
+        <Button
+          onPress={this._openWebBrowserAsync}
+          title="Tap here to try it out"
+        />
+        <Text>{Constants.linkingUri}</Text>
+
+<Text>
+
+   https://mystamford.edu.sg/login/api/webgettoken?app=SAISPTA&successURL=https://saispta.com/app/Authentication.php?linkingUri={Constants.linkingUri}&failURL=https://saispta.com/app/fail
+</Text>
+
+
+               <Button
+          onPress={this._openWebBrowserAsync2}
+          title="Tap here to try it out"
+        />
+        {this._maybeRenderRedirectData()}
+      </View>
+    );
+  }
+
+
+  _handleRedirect = event => {
+    WebBrowser.dismissBrowser();
+
+    let query = event.url.replace(Constants.linkingUri, '');
+    let data;
+    if (query) {
+      data = qs.parse(query);
+    } else {
+      data = null;
     }
 
-    const { visible, style, children, ...rest } = this.props;
+    this.setState({ redirectData: data });
+  };
 
-    const containerStyle = {
-      opacity: this._visibility.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 1],
-      }),
-      transform: [
-        {
-          scale: this._visibility.interpolate({
-            inputRange: [0, 1],
-            outputRange: [1.1, 1],
-          }),
-        },
-      ],
-    };
+  _openWebBrowserAsync = async () => {
+    this._addLinkingListener();
+/*
+    let result2 = await WebBrowser.openBrowserAsync(
+      `https://backend-xxswjknyfi.now.sh/?linkingUri=${Constants.linkingUri}`
+    );
+    'https://mystamford.edu.sg/logout'
+`https://saispta.com/app/Authentication.php`
+'exp://localhost:19002/+authToken=ffff23xbdbb21b3'
+    */
+ 
+ 
 
-    const combinedStyle = [containerStyle, style];
+
+   
+
+console.log ( 'https://mystamford.edu.sg/login/api/webgettoken?app=SAISPTA&successURL=https://saispta.com/app/Authentication.php?linkingUri=' + Constants.linkingUri + '&failURL=https://saispta.com/app/fail')
+
+    let result = await WebBrowser.openBrowserAsync(
+      'https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2flogin%2fapi%2fwebgettoken%3fapp%3dSAISPTA%26successURL%3dhttps%3a%2f%2fsaispta.com%2fapp%2fAuthentication.php%3flinkingUri%3d' + Constants.linkingUri +  '%26failURL%3dhttps%3a%2f%2fsaispta.com%2fapp%2ffail'
+    );
+
+    this._removeLinkingListener();
+    this.setState({ result });
+  };
+
+
+
+  _openWebBrowserAsync2 = async () => {
+    this._addLinkingListener();
+/*
+    let result2 = await WebBrowser.openBrowserAsync(
+      `https://backend-xxswjknyfi.now.sh/?linkingUri=${Constants.linkingUri}`
+    );
+    'https://mystamford.edu.sg/logout'
+`https://saispta.com/app/Authentication.php`
+'exp://localhost:19002/+authToken=ffff23xbdbb21b3'
+    */
+    let result = await WebBrowser.openBrowserAsync(
+      'https://mystamford.edu.sg/'
+    );
+    this._removeLinkingListener();
+    this.setState({ result });
+  };
+
+
+  _addLinkingListener = () => {
+    Linking.addEventListener('url', this._handleRedirect);
+  };
+
+  _removeLinkingListener = () => {
+    Linking.removeEventListener('url', this._handleRedirect);
+  };
+
+  _maybeRenderRedirectData = () => {
+    if (!this.state.redirectData) {
+      return;
+    }
+
+    return <Text>{JSON.stringify(this.state.redirectData)}</Text>;
+  };
+
+  render2() {
 
     return (
-  <Container>
-       <HeaderContent />
-      <View style={{ flex:1}}>
+      <Container>
+        <HeaderContent />
+        <View style={{ flex: 1 }}>
 
+          <View style={{ flex: 2 }}>
 
-   {this._renderSpinner()}
+            <View style={styles.topbar}>
+              <TouchableOpacity
+                disabled={!this.state.canGoBack}
+                onPress={this.onBack.bind(this)}
+              >
+                <Icon style={styles.navIconLeft} active name="ios-arrow-back" />
+              </TouchableOpacity>
+              <Icon style={styles.navIconRight} active name="ios-arrow-forward" />
+            </View>
+            <WebView
+              source={{ uri: this.state.url }}
+              javaScriptEnabled={true}
+              automaticallyAdjustContentInsets={false}
+              onNavigationStateChange={this.onNavigationStateChange.bind(this)}
+              //onMessage={this._onMessage}
+              domStorageEnabled={true}
+              startInLoadingState={true}
+              scalesPageToFit={true}
+              //injectedJavaScript={injectScript}
+              ref={WEBVIEW_REF}
+            />
 
-        <View style={{ flex:2}}>
-
-
-
-        <View style={styles.topbar}>
-          <TouchableOpacity
-            disabled={!this.state.canGoBack}
-            onPress={this.onBack.bind(this)}
-            >
-              <Icon style={styles.navIconLeft} active name="ios-arrow-back" />
-          </TouchableOpacity>
-        <Icon  style={styles.navIconRight} active name="ios-arrow-forward" />
-
-
-         </View>
-
-
-
-        <WebView
-            source={{uri: this.state.url}}
-             javaScriptEnabled={true}
-             automaticallyAdjustContentInsets={false}
-             onNavigationStateChange={this.onNavigationStateChange.bind(this)}
-             //onMessage={this._onMessage}
-             domStorageEnabled={true}
-             startInLoadingState={true}
-             scalesPageToFit={true}
-             //injectedJavaScript={injectScript}
-             ref={WEBVIEW_REF}
-           />
+          </View>
 
         </View>
 
-  </View>
 
 
-
-        </Container>
+      </Container>
     );
   };
 
 
+
+  _handlePressButtonAsync = async () => {
+    let result = await WebBrowser.openAuthSessionAsync('https://mystamford.edu.sg/login/api/webgettoken?app=SAISPTA&successURL=https://saispta.com/app/Authentication.php','https://saispta.com/app/Authentication.php');
+    this.setState({ result });
+  };
+
+
+
   reload = () => {
-     this.refs[WEBVIEW_REF].reload();
-   };
+    this.refs[WEBVIEW_REF].reload();
+  };
 
   pressGoButton = () => {
-      var url = 'https://mystamford.edu.sg/cafe/cafe-online-ordering#anchor';
+    var url = 'https://mystamford.edu.sg/cafe/cafe-online-ordering#anchor';
 
-      if (url === this.state.url) {
-        this.reload();
-      } else {
-        this.setState({
-          url: url,
-        });
-      }
-    };
+    if (url === this.state.url) {
+      this.reload();
+    } else {
+      this.setState({
+        url: url,
+      });
+    }
+  };
 }
 
 function bindAction(dispatch) {
@@ -300,7 +357,7 @@ function bindAction(dispatch) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators (ActionCreators, dispatch);
+  return bindActionCreators(ActionCreators, dispatch);
 };
 
 const mapStateToProps = state => ({
