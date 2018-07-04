@@ -1,21 +1,71 @@
+import { ifIphoneX } from 'react-native-iphone-x-helper';
+
 const React = require('react-native');
 
 const {
-  Dimensions, Platform
+  Dimensions, Platform,
 } = React;
-
-const deviceHeight = Dimensions.get('window').height;
-const deviceWidth = Dimensions.get('window').width;
 
 export default {
   newsContent: {
-    flexDirection: 'column',
     paddingTop: 20,
     paddingLeft: 20,
     paddingRight: 20,
-    flex: 1,
+
     borderTopWidth: 1,
     borderTopColor: '#ddd',
+  },
+
+  header: {
+    width: Dimensions.get('window').width,
+    paddingLeft: 15,
+    paddingRight: 15,
+    ...ifIphoneX({
+      paddingTop: 0,
+      height: 80,
+    }, {
+      paddingTop: 0,
+      height: 60,
+    }),
+
+  },
+  viewHeader: {
+
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    ...ifIphoneX({
+      paddingTop: 30,
+    }, {
+      paddingTop: 20,
+    }),
+
+  },
+  calendarText: {
+    fontSize: 22,
+  },
+  calendarTextDisabled: {
+    fontSize: 22,
+    color: 'grey',
+  },
+
+  selectCalendar: {
+    paddingTop: 0,
+  },
+
+  calendarButton: {
+    marginTop: 0,
+    marginBottom: 20,
+    fontSize: 22,
+  },
+  eventTitle: {
+    fontSize: 22,
+    paddingBottom: 20,
+    fontWeight: 'bold',
+  },
+  headerIcons: {
+    fontSize: 30,
+    backgroundColor: 'transparent',
   },
 
   roundedButton: {
@@ -73,48 +123,12 @@ export default {
     fontWeight: 'bold',
     paddingBottom: 5,
   },
-
-  buttonLabel: {
-    color: '#707372',
-    alignSelf: 'center',
-    paddingTop: 10
-  },
-
-
-
-
-
-  icon: {
-    alignSelf: 'center',
-    marginRight: 0,
-    marginLeft: 0,
-    fontWeight: 'bold',
-    fontSize: 30,
-    color:'green',
-  },
-
-  buttonLabel: {
-    color: '#707372',
-    alignSelf: 'center',
-    paddingTop: 10,
-    fontSize: 10,
-  },
-
   timeIcon: {
     fontSize: 20,
     marginLeft: Platform.OS === 'android' ? 15 : 0,
     paddingLeft: Platform.OS === 'android' ? 0 : 20,
     paddingRight: 10,
     marginTop: Platform.OS === 'android' ? -1 : -3,
-    color: '#666',
-  },
-  headertimeIcon: {
-    fontSize: 20,
-    marginLeft: Platform.OS === 'android' ? 15 : 0,
-    paddingLeft: Platform.OS === 'android' ? 0 : 20,
-    paddingRight: 10,
-    marginTop: Platform.OS === 'android' ? -1 : 0,
-    color: '#fff',
   },
   slide: {
     flex: 1,
@@ -155,6 +169,13 @@ export default {
     width: null,
     height: null,
   },
+  imageHeader: {
+    height: 135,
+    width: 225,
+    resizeMode: 'contain',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   logoHeader: {
     width: 20,
     height: 28,
@@ -164,31 +185,28 @@ export default {
     fontSize: 18,
     color: '#000',
     marginBottom: 10,
-        paddingTop: 5,
+    paddingTop: 5,
   },
-  header: {
-    width: Dimensions.get('window').width,
-    flexDirection: 'row',
-    paddingLeft: 15,
-    paddingRight: 15,
-    marginLeft: (Platform.OS === 'ios') ? undefined : -30,
+  groupView: {
+    borderRadius: 3,
+    backgroundColor: '#D3D3D3',
+    width: 95,
+    height: 15,
+    alignItems: 'center',
+    paddingLeft: 0,
+    paddingRight: 0,
+    justifyContent: 'center',
   },
-
+  groupText: {
+    fontSize: 16,
+    color: 'white',
+  },
   rowHeader: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignSelf: 'stretch',
     paddingTop: Platform.OS === 'android' ? 0 : 0,
-  },
-
-  imageHeader: {
-    height: 145,
-    width: 225,
-    resizeMode: 'contain',
-
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   agendaItem: {
     backgroundColor: 'white',
@@ -199,8 +217,6 @@ export default {
     marginTop: 5,
     alignSelf: 'stretch',
     borderRightWidth: 5,
-
-
   },
   agendaItemSystemMonth: {
     backgroundColor: 'gray',
@@ -220,23 +236,18 @@ export default {
   emptyDate: {
     height: 15,
     flex: 1,
-    paddingTop: 30
+    paddingTop: 30,
   },
   agendaDate: {
     color: 'gray',
     fontSize: 12,
-
     marginBottom: 3,
   },
-
   agendaLocation: {
-     color: 'gray',
-     fontSize: 12,
-     marginTop: 5,
-     borderBottomWidth: 1,
-     borderBottomColor: '#666',
-   },
-
-
-
+    color: 'gray',
+    fontSize: 12,
+    marginTop: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: '#666',
+  },
 };

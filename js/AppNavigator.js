@@ -10,29 +10,23 @@ import { closeDrawer } from './actions/drawer';
 
 import Login from './components/login/';
 import Home from './components/home/';
+import phoneCalendar from './components/home/calendars';
+import Search from './components/home/search';
 import HomeNav from './components/homeNav/';
-import SignUp from './components/x_sign-up/';
 import Contact from './components/contact/';
-import Comments from './components/comments/';
-import x_walkthrough from './components/x_walkthrough/';
 import SideBar from './components/sideBar';
 import Settings from './components/settings';
-import Channel from './components/channel';
-import Channels from './components/channels';
-import Newsletter from './components/newsletter';
 import ptaHome from './components/pta/ptaHome';
 import ptaMovieNight from './components/pta/ptaMovieNight';
-
 import ptaEvents from './components/pta/ptaEvents';
 import ptaLionsDen from './components/pta/ptaLionsDen';
-import newsletterStory from './components/newsletter/newsletterStory';
 import Story from './components/story';
 import campusMap from './components/campusMap';
+import chatRooms from './components/chat/chatRooms';
+import chat from './components/chat';
 import Webportal from './components/webportal';
 import WebportalAuth from './components/webportal/auth';
 import WebportalSports from './components/webportalSports';
-import WebportalVote from './components/webportalVote';
-import NeedHelp from './components/x_needhelp';
 
 import { statusBarColor } from './themes/base-theme';
 
@@ -103,31 +97,27 @@ class AppNavigator extends Component {
         />
 
         <RouterWithRedux>
-        <Scene key="root">
-            <Scene key="homeNav" component={HomeNav}  hideNavBar initial={true} />
-            <Scene key="home" component={Home}  hideNavBar />
-            <Scene key="login" component={Login} hideNavBar/>
-            <Scene key="signUp" component={SignUp} />
-            <Scene key="needhelp" component={NeedHelp} />
+          <Scene key="root">
+            <Scene key="homeNav" component={HomeNav} hideNavBar initial={true}/>
+            <Scene key="chatRooms" component={chatRooms} hideNavBar />
+            <Scene key="chat" component={chat} hideNavBar />
+            <Scene key="search" component={Search} hideNavBar />
+            <Scene key="home" component={Home} hideNavBar />
+            <Scene key="phoneCalendar" component={phoneCalendar} />
+            <Scene key="login" component={Login} hideNavBar />
             <Scene key="contact" component={Contact} />
-            <Scene key="comments" component={Comments} />
             <Scene key="sideBar" component={SideBar} />
             <Scene key="settings" component={Settings} />
-            <Scene key="channel" component={Channel} />
-            <Scene key="channels" component={Channels} />
-            <Scene key="ptaHome" component={ptaHome} hideNavBar/>
-            <Scene key="ptaMovieNight" component={ptaMovieNight} hideNavBar/>
-            <Scene key="ptaLionsDen" component={ptaLionsDen} hideNavBar/>
-            <Scene key="ptaEvents" component={ptaEvents} hideNavBar/>
-            <Scene key="newsletter" component={Newsletter} hideNavBar/>
-            <Scene key="newsletterStory" component={newsletterStory} hideNavBar/>
-            <Scene key="story" component={Story} hideNavBar/>
-            <Scene key="campusMap" component={campusMap} hideNavBar/>
-            <Scene key="webportal" component={Webportal} hideNavBar/>
-            <Scene key="WebportalAuth" component={WebportalAuth} hideNavBar/>
-            <Scene key="webportalSports" component={WebportalSports} hideNavBar/>
-            <Scene key="webportalVote" component={WebportalVote} hideNavBar/>
-        </Scene>
+            <Scene key="ptaHome" component={ptaHome} hideNavBar />
+            <Scene key="ptaMovieNight" component={ptaMovieNight} hideNavBar />
+            <Scene key="ptaLionsDen" component={ptaLionsDen} hideNavBar />
+            <Scene key="ptaEvents" component={ptaEvents} hideNavBar />
+            <Scene key="story" component={Story} hideNavBar />
+            <Scene key="campusMap" component={campusMap} hideNavBar />
+            <Scene key="webportal" component={Webportal} hideNavBar />
+            <Scene key="WebportalAuth" component={WebportalAuth} hideNavBar />
+            <Scene key="webportalSports" component={WebportalSports} hideNavBar />
+          </Scene>
         </RouterWithRedux>
       </Drawer>
     );

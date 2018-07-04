@@ -12,6 +12,7 @@
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     },
     "settings": {
+        "autoFixOnSave": "on",
         "import/resolver": {
             "node": {
                 "extensions": [".js", ".android.js", ".ios.js"]
@@ -19,3 +20,5 @@
         }
     }
 }
+
+

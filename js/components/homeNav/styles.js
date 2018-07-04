@@ -15,13 +15,25 @@ export default {
   },
   beta: {
     backgroundColor: 'white',
-    color: '#e9e9e9',
+    color: '#c6c6c6',
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',
     textAlign: 'center',
         fontSize: 20,
   },
+  version: {
+    backgroundColor: 'white',
+    color: '#c6c6c6',
+    alignSelf: 'center',
+    flex: 1,
+    flexDirection: 'column',
+    textAlign: 'center',
+        fontSize: 10,
+  },
+
+
+  
   betaView: {
     backgroundColor: '#707372',
     alignSelf: 'center',

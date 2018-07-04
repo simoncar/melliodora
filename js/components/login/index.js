@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Image, View, Platform,TouchableOpacity,Dimensions , TextInput} from 'react-native';
+import { ImageBackground, Image, View, Platform,TouchableOpacity,Dimensions , TextInput} from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
@@ -19,7 +19,7 @@ var { skipLogin } = require('../../actions');
 
 const deviceWidth = Dimensions.get('window').width;
 const bg = require('../../../images/BG.png');
-const headerLogo = require('../../../images/Header-Logo-White-0002.png');
+
 
 class Login extends Component {
 
@@ -48,7 +48,7 @@ console.log("yy ",this.props.userX.ffauth_device_id)
 console.log("yy ",this.props.userX.ffauth_secret)
 
   if (undefined !== this.props.userX.name && null !== this.props.userX.name &&  this.props.userX.name.length > 0) {
-      return this.props.userX.ffauth_device_id
+      return this.props.userX.name
     } else {
 
       console.log("bbb",this.props.userX.name)
@@ -71,7 +71,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
          <HeaderContent />
 
         <Content scrollEnabled={true} bounces={false}>
-            <Image source={bg} style={styles.background} >
+            <ImageBackground source={bg} style={styles.background} >
 
             <View style={styles.bg}>
 
@@ -130,7 +130,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
                 </Right>
               </View>
             </View>
-          </Image>
+          </ImageBackground>
         </Content>
 
       </Container>

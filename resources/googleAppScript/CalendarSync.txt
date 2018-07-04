@@ -1,0 +1,297 @@
+https://script.google.com/d/1fHtmEsrscPPql_nkxmkBhJw1pTbfHVPEc44QpY-P8WVcrVjlLDC4EWyS/edit?usp=drive_web
+
+var colDate = 0	
+var colStartTime=1
+var colEndTime	=2
+var colEvent	=3
+var colDescription=4	
+var colIconSet	=5
+var colIcon	=6
+var colColor	=7
+var colURL	=8
+var colAddress=9	
+var colPhone	=10
+var colEmail	=11
+var colPhoto1	=12
+var colPhoto2	=13
+var colPhoto3	=14
+var colIndex	=15
+var colType=16
+
+function updateFirebase_SPC() {
+  
+  var dataToImport = {};
+  var dataToImportHomePage = {};
+  var calendarId = 'XXXXX@import.calendar.google.com';
+  var countCal = 0;
+  var countSheet = 0;
+  var eventDate;
+  
+  var ss = SpreadsheetApp.openById("1Ru3uu6Ei7kMBjyBDFGw7heeXx-MdP0JgHw2SAjMIX1A"); 
+  var sheet = ss.getSheetByName('0001 SPC'); 
+  var columnValues = sheet.getRange(2, 16, sheet.getLastRow()).getValues();
+  
+  var sDate
+  var eDate
+  for (var currentRow = 2; currentRow < 1000; currentRow++) {
+   
+      var Rdate = sheet.getRange(currentRow,1); 
+      var match = sheet.getRange(currentRow,17); 
+    
+   
+    countSheet++;
+    
+    if (Rdate.getValue().toString().length > 0) {
+      
+      if (match.getValue().toString() != 'Matches existing calendar item' ) {
+        var Rstart = sheet.getRange(currentRow,2); 
+        var Rend = sheet.getRange(currentRow,3); 
+        var Revent = sheet.getRange(currentRow,4); 
+        var Rdescription = sheet.getRange(currentRow,5); 
+        var Rgroup = sheet.getRange(currentRow,6);  
+        var RiconLib = sheet.getRange(currentRow,7); 
+        var Ricon = sheet.getRange(currentRow,8); 
+        var Rcolor = sheet.getRange(currentRow,9); 
+        var Rurl = sheet.getRange(currentRow,10); 
+        var Raddress = sheet.getRange(currentRow,11);
+        var Rphone = sheet.getRange(currentRow,12);
+        var Remail = sheet.getRange(currentRow,13);
+        var Rphoto1 = sheet.getRange(currentRow,14);
+        var Rphoto2 = sheet.getRange(currentRow,15);
+        var Rphoto3 = sheet.getRange(currentRow,16);
+        
+        var vdate = Rdate.getValue()
+        
+        // Logger.log(Revent.getValue().toString());
+        
+        var vstart = Rstart.getValue().toString();
+        var vend = Rend.getValue().toString();
+        var vcolor = Rcolor.getValue().toString();
+        var vevent = Revent.getValue().toString();
+        var vgroup = Rgroup.getValue().toString();
+        var vdescription = Rdescription.getValue();
+        var viconLib = RiconLib.getValue();
+        var vicon = Ricon.getValue();
+        var vurl = Rurl.getValue();
+        var vaddress = Raddress.getValue();
+        var vphone = Rphone.getValue();
+        var vemail = Remail.getValue();
+        var vphoto1 = Rphoto1.getValue();
+        var vphoto2 = Rphoto2.getValue();
+        var vphoto3 = Rphoto3.getValue();
+        
+        var rDate = Date(vdate);
+        //sDate =  (vdate.getMonth() + 1) + '/' + vdate.getDate() + '/' + vdate.getYear() 
+        
+        sDate =  vdate.getYear() + '-' + pad(vdate.getMonth() + 1) + '-' + pad(vdate.getDate())
+        
+        var prettyKey =  sDate
+        
+        
+        dataToImport[prettyKey + '_ZZGoogleDOCRow-' + currentRow + '_____' +  '_' + 'SS_' + vevent.replace(/[^0-9a-z]/gi, '') ] = {
+          date_start:sDate,
+          time_start_pretty: vstart,
+          time_end_pretty: vend,
+          
+          //etag: event.etag,
+          //id: event.id,
+          //status: event.status,
+          group: vgroup,
+          htmlLink: vurl,
+          summary: vevent,
+          description: vdescription,
+          colorId: vcolor,
+          iconLib: viconLib,
+          icon: vicon,
+          location: vaddress,
+          phone: vphone,
+          email:vemail,
+          photo1: vphoto1,
+          photo2: vphoto2,
+          photo3: vphoto3,   
+        };
+      
+      };
+      
+    }  else {
+    currentRow = 1000
+  };
+  }
+
+  var firebaseUrl = "https://calendar-app-57e88.firebaseio.com/instance/0002-singaporepoloclub/calendar/all_v2/";
+  var base = FirebaseApp.getDatabaseByUrl(firebaseUrl);
+  base.setData("", dataToImport);
+  
+  var firebaseUrl = "https://calendar-app-57e88.firebaseio.com/instance/0002-singaporepoloclub/calendar/homepage/";
+  var base = FirebaseApp.getDatabaseByUrl(firebaseUrl);
+  //base.setData("", dataToImportHomePage);
+    
+
+  
+  return '#Calendar = ' + countCal + ' / # Sheet = ' + countSheet;
+}
+/**
+ * Parses an RFC 3339 date or datetime string and returns a corresponding Date
+ * object. This function is provided as a workaround until Apps Script properly
+ * supports RFC 3339 dates. For more information, see
+ * https://code.google.com/p/google-apps-script-issues/issues/detail?id=3860
+ * @param {string} string The RFC 3339 string to parse.
+ * @return {Date} The parsed date.
+ */
+function parseDate(string) {
+
+  var parts = string.split('T');
+  parts[0] = parts[0].replace(/-/g, '/');
+   
+  return new Date(parts.join(' '));
+}
+
+
+function parseHTMLLink(link) {
+  var ret
+  
+  if (link.indexOf('https://www.google') !== -1) {
+    
+    ret = ''
+    
+  } else {
+    ret = link
+  }
+  return  ret
+}
+
+
+function deAcronym(eventDetails) {
+  
+  var ret
+  
+  if (eventDetails.indexOf('btsn') !== -1) {
+    
+    ret = ' (Back to School Night)'
+    
+  } else if (eventDetails.indexOf("swim")  !== -1) {
+    
+  } else {
+    ret = ''
+  }
+  return  ret
+}
+
+
+function getIcon(eventDetails) {
+
+  
+var icon
+if (eventDetails.indexOf('music') !== -1) {
+
+  icon = 'ios-musical-notes'
+  //Logger.log('icon = ' + icon);
+} else if (eventDetails.indexOf("swim")  !== -1) {
+  icon = 'ios-play'
+} else if (eventDetails.indexOf("auditions")  !== -1) {
+  icon = 'ios-bowtie-outline'
+} else if (eventDetails.indexOf("gym")  !== -1) {
+  icon = 'ios-body-outline'
+} else if (eventDetails.indexOf("CCA")  !== -1) {
+  icon = 'ios-play'
+} else if (eventDetails.indexOf("tennis")  !== -1) {
+  icon = 'ios-play'
+} else if (eventDetails.indexOf("assembly")  !== -1) {
+  icon = 'ios-megaphone'
+} else if (eventDetails.indexOf("swim")  !== -1) {
+  icon = 'MaterialCommunityIcons/swim'
+} else if (eventDetails.indexOf("testing")  !== -1) {
+  icon = 'ios-bookmarks-outline'
+} else if (eventDetails.indexOf("football")  !== -1) {
+  icon = 'ios-football'
+} else if (eventDetails.indexOf("tennis")  !== -1) {
+  icon = 'ios-tennisball'
+} else if (eventDetails.indexOf("basketball")  !== -1) {
+  icon = 'ios-basketball'
+} else if (eventDetails.indexOf("coffee")  !== -1) {
+  icon = 'ios-cafe-outline'
+} else if (eventDetails.indexOf("photos")  !== -1) {
+  icon = 'ios-camera'
+} else if (eventDetails.indexOf("global")  !== -1) {
+  icon = 'ios-globe'
+} else if (eventDetails.indexOf("art")  !== -1) {
+  icon = 'ios-color-palette'
+} else if (eventDetails.indexOf("speech")  !== -1) {
+  icon = 'ios-megaphone'
+} else if (eventDetails.indexOf("test")  !== -1) {
+  icon = 'ios-bookmarks'
+} else if (eventDetails.indexOf("cross")  !== -1) {
+  icon = 'Materialicons/directions-run'
+} else if (eventDetails.indexOf("test")  !== -1) {
+  icon = 'ios-bookmarks'
+  
+} else {
+  icon = 'ios-play'
+}
+  return  icon
+}
+
+function pad(n, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= 2 ? n : new Array(2 - n.length + 1).join(z) + n;
+}
+
+
+function lookupDecoration(sheet, columnValues, searchString) {  
+
+ // var searchString = "42976 - The Big Night - 5:15pm - G6-G12 - Field Studies Grade Level Presentations";
+
+  var searchResult = columnValues.findIndex(searchString); //Row Index - 2
+  
+    if(searchResult != -1)
+    {
+
+      var myRange = sheet.getRange(searchResult+2, 1, 1, 18);
+      var myValues = myRange.getValues();
+      
+      //getRange(row, column, numRows, numColumns)
+      var myRange = sheet.getRange(searchResult+2, 17, 1, 1);          
+      myRange.setValue('Matches existing calendar item');
+
+      return (myValues);
+    } else {
+      return ("none");
+    }
+}
+
+function prettyLocalTime(dateTime) {
+  
+  var d = new Date();
+  var n = d.getTimezoneOffset();   
+  var start = parseDate(dateTime);
+  
+  var myYear = dateTime.substring(0, 4);
+  var myMonth = dateTime.substring(5, 7)+1;
+  var myDay = dateTime.substring(8, 10);
+  var myHour = dateTime.substring(11, 13);
+  var myMinute = dateTime.substring(14, 16); 
+  var eventDateUTC = new Date(Date.UTC(myYear,myMonth,myDay,myHour,myMinute ))   //UTC
+  var eventDateLocal = new Date(eventDateUTC.getTime() + n*-1*60000);   // SG
+  
+  var numberKey = eventDateUTC.getTime();
+  var eventTime = eventDateLocal.toISOString();
+  var eventTimeA = eventTime.substring(11, 16);    
+  var eventDate = dateTime.substring(0, 10)
+ 
+  return {
+        eventTime: eventTimeA,
+        numberKey: numberKey,
+        eventDateLocal: eventDateLocal,
+        eventDate: eventDate
+    };
+  
+}
+
+Array.prototype.findIndex = function(search){
+  if(search == "") return false;
+  for (var i=0; i<this.length; i++)
+    if (this[i] == search) return i;
+
+  return -1;
+} 
