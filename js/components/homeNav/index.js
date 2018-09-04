@@ -214,6 +214,8 @@ console.log('dddddd,' + moment().format() + "    -     " + displayEnd)
             </View>
           }
 
+       <Image source={require('../../../images/sais.edu.sg/10yearLogo.png')} style={styles.tenYearLogo} />
+      
           <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>
             <View style={styles.betaView}>
               <Text style={styles.beta}>
@@ -224,12 +226,8 @@ console.log('dddddd,' + moment().format() + "    -     " + displayEnd)
           </Button>
 
           <View>
-            <Text style={styles.version}>Release Channel {Constants.manifest.releaseChannel}</Text>
             <Text style={styles.version}>Version {Constants.manifest.revisionId}</Text>
             <Text style={styles.version}>SDK {Constants.manifest.sdkVersion}</Text>
-            <Text style={styles.version}>Name {Constants.manifest.name}</Text>
-            <Text style={styles.version}>Instance {Constants.manifest.extra.instance}</Text>
-            <Text style={styles.version}>hugo c is awesome</Text>
             <Text style={styles.version}> </Text>
             <Text style={styles.version}> </Text>
             <Text style={styles.version}> </Text>
