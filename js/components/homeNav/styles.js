@@ -158,8 +158,13 @@ footer: {
     width: 120,
     height: 120,
     borderTopWidth: 1,
+  },
 
-
+  tenYearLogo: {
+    width: 120,
+    height: 120,
+    borderTopWidth: 1,
+    alignSelf: 'center',
   },
   newsImage2: {
     width: 340,

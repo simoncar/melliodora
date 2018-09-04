@@ -31,7 +31,7 @@
     "loading": {
       "hideExponentText": true,
       "icon": "./images/launchImages/loading.png",
-      "backgroundImage": "images/BG-loading.png"
+      "backgroundImage": "images/BG-loading10.png"
     },
     "orientation": "portrait",
     "primaryColor": "#cccccc",
