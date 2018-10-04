@@ -21,25 +21,25 @@ exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg
         
     messages.push({
         "to": "ExponentPushToken[0_rniBFtyWshjEYnkzcQXF]",
-        "title": "3SHMU > Simon",
+        "title": "3SHMU > " + createdData.user.name,
         "sound": "default",
-        "body": 'some user: ' + createdData.text
+        "body": createdData.text
     });
 
     // Android
     messages.push({
         "to": "ExponentPushToken[rXb2wQB9LjaLe3JlSarOsk]",
-        "title": "3SHMU > Simon",
+        "title": "3SHMU > " + createdData.user.name,
         "sound": "default",
-        "body": 'some user: ' + createdData.text
+        "body": createdData.text
     });
 
     //simon
     messages.push({
         "to": "ExponentPushToken[_fADI_E3xWnqNKWxZurGun]",
-        "title": "3SHMU > Simon",
+        "title": "3SHMU > " + createdData.user.name,
         "sound": "default",
-        "body": 'some user: ' + createdData.text
+        "body": createdData.text
     });
 
     //return the main promise 
