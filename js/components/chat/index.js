@@ -174,6 +174,47 @@ class chat extends Component {
         return null;
     }
 
+
+    
+    renderBubble = props => {
+        let username = props.currentMessage.user.name
+        let color = this.getColor(username)
+    
+        return (
+          <Bubble
+            {...props}
+            textStyle={{
+              right: {
+                color: 'white'
+              }
+            }}
+            wrapperStyle={{
+              left: {
+                backgroundColor: color
+              }
+            }}
+          />
+        )
+      }
+
+      getColor(username){
+        let sumChars = 0;
+        for(let i = 0;i < username.length;i++){
+          sumChars += username.charCodeAt(i);
+        }
+    
+        const colors = [
+          '#e67e22', // carrot
+          '#2ecc71', // emerald
+          '#3498db', // peter river
+          '#8e44ad', // wisteria
+          '#e74c3c', // alizarin
+          '#1abc9c', // turquoise
+          '#2c3e50', // midnight blue
+        ];
+        return colors[sumChars % colors.length];
+      }
+
     parsePatterns(linkStyle) {
         return [
             {
@@ -220,11 +261,12 @@ class chat extends Component {
                         avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
                     }}
 
-                    //renderActions={this.renderCustomActions}
+                    renderActions={this.renderCustomActions}
                     //renderBubble={this.renderBubble}
                     //renderSystemMessage={this.renderSystemMessage}
-                    renderCustomView={this.renderCustomView}
+                    //renderCustomView={this.renderCustomView}
                     //renderFooter={this.renderFooter}
+                    renderBubble={this.renderBubble}
                     parsePatterns={this.parsePatterns}
                     showAvatarForEveryMessage={true}
                    
