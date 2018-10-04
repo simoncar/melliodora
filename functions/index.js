@@ -17,8 +17,18 @@ exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg
 
     //simon android
     
+
+        
     messages.push({
         "to": "ExponentPushToken[0_rniBFtyWshjEYnkzcQXF]",
+        "title": "3SHMU > Simon",
+        "sound": "default",
+        "body": 'some user: ' + createdData.text
+    });
+
+    // Android
+    messages.push({
+        "to": "ExponentPushToken[rXb2wQB9LjaLe3JlSarOsk]",
         "title": "3SHMU > Simon",
         "sound": "default",
         "body": 'some user: ' + createdData.text
