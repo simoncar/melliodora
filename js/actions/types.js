@@ -12,5 +12,6 @@ export type GetState = () => Object;
 export type PromiseAction = Promise<Action>;
 
 export const SET_LOGIN_DETAILS = 'SET_LOGIN_DETAILS'
+export const SET_NICKNAME_DETAILS = 'SET_LOGIN_DETAILS'
 export const SET_CALENDAR_ITEMS = 'SET_CALENDAR_ITEMS'
 export const SET_SWITCHES = 'SET_SWITCHES'
