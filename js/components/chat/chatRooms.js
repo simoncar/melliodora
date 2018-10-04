@@ -46,7 +46,13 @@ class campusMap extends Component {
         <Content showsVerticalScrollIndicator showsHorizontalScrollIndicator>
 
             <Text style={styles.heading}>PTA Chatrooms</Text>
-            <Text style={styles.heading}>** Experimental **</Text>
+            <Text style={styles.text}>** Experimental **</Text>
+
+            <Button transparent style={styles.roundedButton} onPress={() => { Actions.login();}} >
+                <Icon style={styles.icon} name="ios-person" />
+                <Text>{this.props.userX.nickname}</Text>
+            </Button>
+            
             <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Lost and Found' }); }} >
                 <Icon style={styles.icon} name="ios-chatbubbles-outline" />
                 <Text>PTA Lost and Found</Text>
@@ -97,6 +103,7 @@ function bindAction(dispatch) {
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
   username: state.username,
+  userX: state.user,
 });
 
 export default connect(mapStateToProps, bindAction)(campusMap);
