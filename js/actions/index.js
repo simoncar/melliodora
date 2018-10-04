@@ -36,6 +36,12 @@ export function setUsername(username) {
     payload: username
   };
 }
+export function setNickname(nickname) {
+  return {
+    type: "SET_NICKNAME_DETAILS",
+    payload: nickname
+  };
+}
 
 export function setauthSecret(authSecret) {
   return {

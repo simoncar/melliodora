@@ -38,6 +38,14 @@ console.log('Actions > setUsername', username);
     payload: username
   };
 }
+function setNickname(nickname) {
+  console.log('Actions > setNickname', nickname);
+  
+    return {
+      type: "SET_NICKNAME_DETAILS",
+      payload: nickname
+    };
+  }
 
 function setauthSecret(authSecret) {
 console.log('Actions > setauthSecret', authSecret);

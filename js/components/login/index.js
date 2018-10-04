@@ -40,6 +40,21 @@ class Login extends Component {
     Actions.webportal();
   }
 
+  _placeHolderNickname() {
+
+    console.log("yy ",this.props.userX.name)
+    console.log("yy ",this.props.userX.ffauth_device_id)
+    console.log("yy ",this.props.userX.ffauth_secret)
+    
+      if (undefined !== this.props.userX.nickname && null !== this.props.userX.nickname &&  this.props.userX.nickname.length > 0) {
+          return this.props.userX.nickname
+        } else {
+    
+          console.log("bbb",this.props.userX.nickname)
+          return "Your nickname"
+        }
+      }
+    
 
   _placeHolderEmail() {
 
@@ -79,6 +94,24 @@ console.log("yy ",this.props.userX.ffauth_secret)
               <Item rounded style={styles.inputGrp}>
                 <Icon name="person" />
                 <TextInput
+                  ref='NicknameInput'
+                  selectTextOnFocus
+                  placeholder= {this._placeHolderNickname()}
+                  onChangeText={(user) => this.props.setNickname(user)}
+                  placeholderTextColor="#FFF"
+                  style={styles.input}
+                  autoCapitalize="none"
+                  autoFocus = {true}
+                  selectionColor="#FFF"
+                  enablesReturnKeyAutomatically
+                  returnKeyType="return"
+                  onSubmitEditing={() => this.refs.EmailInput.focus() }
+                />
+              </Item>
+
+              <Item rounded style={styles.inputGrp}>
+                <Icon name="person" />
+                <TextInput
                   ref='EmailInput'
                   selectTextOnFocus
                   placeholder= {this._placeHolderEmail()}
@@ -86,7 +119,6 @@ console.log("yy ",this.props.userX.ffauth_secret)
                   placeholderTextColor="#FFF"
                   style={styles.input}
                   autoCapitalize="none"
-                  autoFocus = {true}
                   keyboardType="email-address"
                   selectionColor="#FFF"
                   enablesReturnKeyAutomatically
