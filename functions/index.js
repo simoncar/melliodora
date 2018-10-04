@@ -6,24 +6,35 @@ var fetch = require('node-fetch')
 admin.initializeApp(functions.config().firebase);
 
 //send the push notification 
-exports.sendPushNotification = functions.database.ref('contacts/').onCreate((snap, context) => {
+exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg/chat/chatroom/3SHMU/{createdID}').onCreate((snap, context) => {
 
     const createdData = snap.val(); 
-
+    console.log(createdData)
+    console.log(createdData.user.name + ': ' + createdData.text)
 
 
     var messages = []
 
+    //simon android
+    
+    messages.push({
+        "to": "ExponentPushToken[0_rniBFtyWshjEYnkzcQXF]",
+        "title": "3SHMU > Simon",
+        "sound": "default",
+        "body": 'some user: ' + createdData.text
+    });
+
+    //simon
     messages.push({
         "to": "ExponentPushToken[_fADI_E3xWnqNKWxZurGun]",
+        "title": "3SHMU > Simon",
         "sound": "default",
-        "body": "Simon says: Put your hands on your head"
+        "body": 'some user: ' + createdData.text
     });
 
     //return the main promise 
   
-        
-    
+
         return Promise.all(messages)
 
         .then(messages => {
