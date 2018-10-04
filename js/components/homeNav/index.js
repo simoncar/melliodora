@@ -41,8 +41,6 @@ class HomeNav extends Component {
   constructor(props) {
     super(props)
    
-
-
     this.calendarEvents = firebase.database().ref('instance/' + instID + '/feature');
     this.state = {
       versionText: '', //'Version Aug.1.2017 - Check for an Update'
@@ -61,11 +59,6 @@ class HomeNav extends Component {
     }),
   }
 
-  _checkForUpdate() {
-    this.setState({ versionText: '' })
-    Expo.Util.reload();
-  }
-
   listenLoadFromFirebase(calendarEvents) {
 
     calendarEvents.on('value', (snap) => {
@@ -76,12 +69,9 @@ class HomeNav extends Component {
 
       snap.forEach((child) => {
 
-
         var displayStart = moment().format(child.val().displayStart);
         var displayEnd = moment().format(child.val().displayEnd);
   
-console.log('dddddd,' + moment().format() + "    -     " + displayEnd)
-
         if (displayStart <= today) {
           //start is less than End 
         
@@ -216,15 +206,6 @@ console.log('dddddd,' + moment().format() + "    -     " + displayEnd)
 
        <Image source={require('../../../images/sais.edu.sg/10yearLogo.png')} style={styles.tenYearLogo} />
       
-          <Button style={styles.betaButton} transparent onPress={() => { this._checkForUpdate(); }}>
-            <View style={styles.betaView}>
-              <Text style={styles.beta}>
-                <Icon style={styles.beta} name="md-pulse" /> Check for Updates <Icon style={styles.beta} name="md-pulse" />
-              </Text>
-
-            </View>
-          </Button>
-
           <View>
             <Text style={styles.version}>Version {Constants.manifest.revisionId}</Text>
             <Text style={styles.version}>SDK {Constants.manifest.sdkVersion}</Text>
