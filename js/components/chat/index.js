@@ -13,11 +13,13 @@ import { Expo, Constants } from 'expo';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import { GiftedChat, Actions, Bubble, SystemMessage } from 'react-native-gifted-chat';
 import { Container, Content, Header, Footer, Button, Icon, Body } from 'native-base';
+import emojiUtils from 'emoji-utils';
 import CustomActions from './customActions';
 import CustomView from './customView';
 import styles from './styles';
 
 import Backend from './backend';
+import SlackMessage from './slackMessage';
 
 class chat extends Component {
 
@@ -175,12 +177,33 @@ class chat extends Component {
     }
 
 
+    renderMessage(props) {
+        const { currentMessage: { text: currText } } = props;
+    
+        let messageTextStyle;
+    
+        // Make "pure emoji" messages much bigger than plain text.
+        if (currText && emojiUtils.isPureEmojiString(currText)) {
+          messageTextStyle = {
+            fontSize: 28,
+            // Emoji get clipped if lineHeight isn't increased; make it consistent across platforms.
+            lineHeight: Platform.OS === 'android' ? 34 : 30,
+          };
+        }
+    
+        return (
+          <SlackMessage {...props} messageTextStyle={messageTextStyle} />
+        );
+      }
+    
+
     
     renderBubble = props => {
         let username = props.currentMessage.user.name
         let color = this.getColor(username)
     
         return (
+           
           <Bubble
             {...props}
             textStyle={{
@@ -206,7 +229,7 @@ class chat extends Component {
         const colors = [
             '#d6cfc7', // carrot
             '#c7c6c1', // emerald
-            '#bebdb8', // peter river
+            '#bebdb8', // peter  river
             '#bdb7ab', // wisteria
             '#d9dddc', // alizarin
             '#b9bbb6', // turquoise
@@ -266,10 +289,10 @@ class chat extends Component {
                     //renderSystemMessage={this.renderSystemMessage}
                     renderCustomView={this.renderCustomView}
                     //renderFooter={this.renderFooter}
-                    //renderBubble={this.renderBubble}
+                 
                     parsePatterns={this.parsePatterns}
                     showAvatarForEveryMessage={true}
-                   
+                    renderMessage={this.renderMessage}
                 />
 
                 <Footer style={styles.footer}>
