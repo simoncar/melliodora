@@ -1,10 +1,11 @@
-import { Permissions, Notifications } from 'expo';
+import { Permissions, Notifications, Constants } from 'expo';
 
 // Example server, implemented in Rails: https://git.io/vKHKv
 //const PUSH_ENDPOINT = 'https://exponent-push-server.herokuapp.com/tokens';
 //const PUSH_ENDPOINT = 'https://mystamford.herokuapp.com/tokens';
 
 const PUSH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwhrlEfQhiSgcsF6AM_AlaMWxU7SsEtJ-yQpvthyQTT1jui588E/exec';
+const installationID = Constants.installationId;
 
 export default (async function registerForPushNotificationsAsync(user) {
   // Android remote notification permissions are granted during the app
@@ -16,6 +17,8 @@ export default (async function registerForPushNotificationsAsync(user) {
   if (status !== 'granted') {
     return;
   }
+
+
 
   // Get the token that uniquely identifies this device
   let token = await Notifications.getExpoPushTokenAsync();
@@ -34,6 +37,9 @@ export default (async function registerForPushNotificationsAsync(user) {
       },
       user: {
         username: user,
+      },
+      installationID: {
+        installationID: installationID,
       },
     }),
   });
