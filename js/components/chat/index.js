@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     Platform,
     StyleSheet,
@@ -6,6 +6,8 @@ import {
     View,
     Image,
 } from 'react-native';
+import { connect } from 'react-redux';
+
 import { Expo, Constants } from 'expo';
 
 import { Actions as NavigationActions } from 'react-native-router-flux';
@@ -17,7 +19,8 @@ import styles from './styles';
 
 import Backend from './backend';
 
-export default class Chat extends React.Component {
+class chat extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -171,6 +174,47 @@ export default class Chat extends React.Component {
         return null;
     }
 
+
+    
+    renderBubble = props => {
+        let username = props.currentMessage.user.name
+        let color = this.getColor(username)
+    
+        return (
+          <Bubble
+            {...props}
+            textStyle={{
+              right: {
+                color: 'white'
+              }
+            }}
+            wrapperStyle={{
+              left: {
+                backgroundColor: color
+              }
+            }}
+          />
+        )
+      }
+
+      getColor(username){
+        let sumChars = 0;
+        for(let i = 0;i < username.length;i++){
+          sumChars += username.charCodeAt(i);
+        }
+    
+        const colors = [
+            '#d6cfc7', // carrot
+            '#c7c6c1', // emerald
+            '#bebdb8', // peter river
+            '#bdb7ab', // wisteria
+            '#d9dddc', // alizarin
+            '#b9bbb6', // turquoise
+            '#808588', // midnight blue
+        ];
+        return colors[sumChars % colors.length];
+      }
+
     parsePatterns(linkStyle) {
         return [
             {
@@ -212,8 +256,8 @@ export default class Chat extends React.Component {
                     //isLoadingEarlier={this.state.isLoadingEarlier}
 
                     user={{
-                        _id: Constants.deviceId, // sent messages should have same user._id
-                        name: 'simon test',
+                        _id: Constants.installationId, // sent messages should have same user._id
+                        name: this.props.userX.nickname,
                         avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
                     }}
 
@@ -222,6 +266,7 @@ export default class Chat extends React.Component {
                     //renderSystemMessage={this.renderSystemMessage}
                     renderCustomView={this.renderCustomView}
                     //renderFooter={this.renderFooter}
+                    //renderBubble={this.renderBubble}
                     parsePatterns={this.parsePatterns}
                     showAvatarForEveryMessage={true}
                    
@@ -233,4 +278,19 @@ export default class Chat extends React.Component {
         );
     }
 }
+
+function bindAction(dispatch) {
+    return {
+      openDrawer: () => dispatch(openDrawer()),
+    };
+  }
+
+const mapStateToProps = state => ({
+    navigation: state.cardNavigation,
+    username: state.username,
+    userX: state.user,
+  });
+  
+  export default connect(mapStateToProps, bindAction)(chat);
+  
 

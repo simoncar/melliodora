@@ -64,6 +64,13 @@ function userReducer(state: State = initialState, action: Action): State {
       name: action.payload,
     };
   }
+  if (action.type === 'SET_NICKNAME_DETAILS') {
+    console.log('user reducer - SET_NICKNAME_DETAILS');
+  return {
+    ...state,
+    nickname: action.payload,
+  };
+}
   if (action.type === 'SET_PASSWORD') {
       console.log('user reducer - SET_PASSWORD');
     return {
