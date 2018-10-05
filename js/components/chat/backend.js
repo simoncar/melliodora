@@ -53,21 +53,39 @@ export class Backend extends React.Component{
   //retrive msg from backend
   loadMessages(callback) {
       
+  
+
     this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom);
     this.messageRef.off();
     const onReceive = (data) => {
       const message = data.val();
-      callback({
-        _id: data.key,
-        text: message.text,
-        createdAt: new Date(message.createdAt),
-        chatroom: this.state.chatroom,
-        user: {
-          _id: message.user._id,
-          name: message.user.name,
-          avatar: message.user.avatar,
-        }
-      });
+      if (undefined !== message.user.avatar && null !== message.user.avatar &&  message.user.avatar.length > 0) {
+        callback({
+          _id: data.key,
+          text: message.text,
+          createdAt: new Date(message.createdAt),
+          chatroom: this.state.chatroom,
+          user: {
+            _id: message.user._id,
+            name: message.user.name,
+            avatar: message.user.avatar,
+          },
+        });
+
+      } else {
+        callback({
+          _id: data.key,
+          text: message.text,
+          createdAt: new Date(message.createdAt),
+          chatroom: this.state.chatroom,
+          user: {
+            _id: message.user._id,
+            name: message.user.name,
+          },
+        });
+      }
+     
+
     };
     this.messageRef.limitToLast(50).on('child_added', onReceive);
   }
