@@ -204,13 +204,13 @@ class chat extends Component {
         }
     
         const colors = [
-          '#e67e22', // carrot
-          '#2ecc71', // emerald
-          '#3498db', // peter river
-          '#8e44ad', // wisteria
-          '#e74c3c', // alizarin
-          '#1abc9c', // turquoise
-          '#2c3e50', // midnight blue
+            '#d6cfc7', // carrot
+            '#c7c6c1', // emerald
+            '#bebdb8', // peter river
+            '#bdb7ab', // wisteria
+            '#d9dddc', // alizarin
+            '#b9bbb6', // turquoise
+            '#808588', // midnight blue
         ];
         return colors[sumChars % colors.length];
       }
@@ -256,17 +256,17 @@ class chat extends Component {
                     //isLoadingEarlier={this.state.isLoadingEarlier}
 
                     user={{
-                        _id: Constants.deviceId, // sent messages should have same user._id
+                        _id: Constants.installationId, // sent messages should have same user._id
                         name: this.props.userX.nickname,
                         avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
                     }}
 
-                    renderActions={this.renderCustomActions}
+                    //renderActions={this.renderCustomActions}
                     //renderBubble={this.renderBubble}
                     //renderSystemMessage={this.renderSystemMessage}
-                    //renderCustomView={this.renderCustomView}
+                    renderCustomView={this.renderCustomView}
                     //renderFooter={this.renderFooter}
-                    renderBubble={this.renderBubble}
+                    //renderBubble={this.renderBubble}
                     parsePatterns={this.parsePatterns}
                     showAvatarForEveryMessage={true}
                    
