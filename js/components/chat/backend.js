@@ -82,6 +82,7 @@ export class Backend extends React.Component{
           user: message[i].user,
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           date: new Date().getTime(),
+          system: true,
           });
     }
   }

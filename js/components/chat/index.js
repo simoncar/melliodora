@@ -239,7 +239,7 @@ class chat extends Component {
                             </Button>
                         </View>
                         <Body>
-                            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
+                            <Text style={styles.chatHeading}>{this.props.chatroom}{Constants.installationId}{Constants.deviceId}</Text>
 
                         </Body>
                         <View>
@@ -256,7 +256,7 @@ class chat extends Component {
                     //isLoadingEarlier={this.state.isLoadingEarlier}
 
                     user={{
-                        _id: Constants.installationId, // sent messages should have same user._id
+                        _id: Constants.installationId + '' + Constants.deviceId, // sent messages should have same user._id
                         name: this.props.userX.nickname,
                         avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
                     }}

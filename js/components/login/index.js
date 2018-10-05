@@ -110,7 +110,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
               </Item>
 
               <Item rounded style={styles.inputGrp}>
-                <Icon name="person" />
+                <Icon name="mail" />
                 <TextInput
                   ref='EmailInput'
                   selectTextOnFocus
