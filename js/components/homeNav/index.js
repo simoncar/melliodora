@@ -207,11 +207,11 @@ class HomeNav extends Component {
        <Image source={require('../../../images/sais.edu.sg/10yearLogo.png')} style={styles.tenYearLogo} />
       
           <View>
+          <Text style={styles.version}> </Text>
+            <Text style={styles.version}> </Text>
             <Text style={styles.version}>Version {Constants.manifest.revisionId}</Text>
-            <Text style={styles.version}>SDK {Constants.manifest.sdkVersion}</Text>
             <Text style={styles.version}> </Text>
-            <Text style={styles.version}> </Text>
-            <Text style={styles.version}> </Text>
+
           </View>
 
         </Content>

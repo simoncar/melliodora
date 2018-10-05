@@ -39,7 +39,7 @@ export default {
   },
   input: {
     paddingLeft: 10,
-    color: '#ffffff',
+    color: 'blue',
     width: 290,
   },
   background: {
