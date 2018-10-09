@@ -47,6 +47,8 @@ class campusMap extends Component {
 
             <Text style={styles.heading}>PTA Chatrooms</Text>
             <Text style={styles.text}>** Experimental **</Text>
+            <Text style={styles.text}>D={Constants.deviceId}</Text>
+            <Text style={styles.text}>I={Constants.installationId}</Text>
 
             <Button transparent style={styles.roundedButton} onPress={() => { Actions.login();}} >
                 <Icon style={styles.icon} name="ios-person" />

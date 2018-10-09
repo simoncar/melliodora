@@ -7,7 +7,7 @@ import { Image, ListView, View, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Container, Content, Text, Icon, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
-import { Expo, Constants } from 'expo';
+import { Expo, Constants, Notifications } from 'expo';
 import moment from 'moment';
 
 import * as ActionCreators from '../../actions';
@@ -26,6 +26,9 @@ var calendarEvents = [];
 
 const ListItem = require('./ListItem');
 var instID = Constants.manifest.extra.instance;
+
+const token =  Notifications.getExpoPushTokenAsync();
+console.log (token);
 
 class HomeNav extends Component {
 
@@ -48,6 +51,9 @@ class HomeNav extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       })
     }
+
+
+    console.log("D= ",Constants.installationId)
   }
 
   componentDidMount() {
@@ -139,10 +145,7 @@ class HomeNav extends Component {
                   </View>
                 </Col>
               </Row>
-
               {instID == '0001-sais_edu_sg' &&
-
-
                 <Row style={{ paddingBottom: 20 }}>
                   <Col>
                     <Button transparent style={styles.roundedButton} onPress={() => { Actions.webportalSports(); }} >
@@ -150,7 +153,6 @@ class HomeNav extends Component {
                     </Button>
                     <Text note style={styles.buttonLabel}>Athletics</Text>
                   </Col>
-
                   <Col>
                     <Button transparent style={styles.roundedButton} onPress={() => { Actions.ptaHome(); }} >
                       <Icon style={styles.icon} name="ios-people-outline" />
@@ -158,20 +160,55 @@ class HomeNav extends Component {
                     <Text note style={styles.buttonLabel}>PTA</Text>
                   </Col>
 
-                  <Col>
+                    <Col>
                     <Button transparent style={styles.roundedButton} onPress={() => { Actions.campusMap(); }} >
                       <Icon style={styles.icon} name="ios-map-outline" />
                     </Button>
                     <Text note style={styles.buttonLabel}>School Map</Text>
                   </Col>
-
                 </Row>
-
               }
+
+
 
 
             </Grid>
           </View>
+
+    {( 
+        Constants.installationId == '3C57D89E-B681-48D0-B5A9-B2C2E5530F3B' || 
+        Constants.installationId == '7C62DC60-A3B6-41F1-BC09-0A2C9147C1BD' || 
+        Constants.installationId == '439F507C-8227-4594-92B3-1779E6ED69D0' || 
+        Constants.installationId == '5DDB6D11-46F0-4B6D-8530-8AA29F1C9B2C' || 
+        Constants.installationId == '4a7cc323-62af-403c-82cb-a82c4a56325a' || 
+        Constants.deviceId == '3C57D89E-B681-48D0-B5A9-B2C2E5530F3B' || 
+        Constants.deviceId == '7C62DC60-A3B6-41F1-BC09-0A2C9147C1BD' || 
+        Constants.deviceId == '439F507C-8227-4594-92B3-1779E6ED69D0' || 
+        Constants.deviceId == '5DDB6D11-46F0-4B6D-8530-8AA29F1C9B2C' || 
+        Constants.deviceId == '4a7cc323-62af-403c-82cb-a82c4a56325a'  
+        ) &&
+            <View style={styles.newsContentLine}>
+
+              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chatRooms(); }} >
+                <Image source={require('../../../images/sais.edu.sg/chatBubble.png')} style={styles.newsImage} />
+                <View style={styles.newsContentNoLine}>
+                  <Text numberOfLines={1} style={styles.newsHeader}>
+                    Chat Test
+                    </Text>
+                  <Text style={styles.newsTypeText}>
+                    This panel only shows for a few select people
+                    </Text>
+                  <View style={{ flexDirection: 'column' }}>
+                    <Text numberOfLines={1} style={styles.newsLink}></Text>
+                    <Text style={styles.newsLink}></Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+          }
+
+
+
 
           <View style={styles.newsContentLine}>
             <ListView
@@ -181,7 +218,6 @@ class HomeNav extends Component {
               style={styles.listview} />
 
           </View>
-
 
           {instID == '0001-sais_edu_sg' &&
             <View style={styles.newsContentLine}>
@@ -211,11 +247,8 @@ class HomeNav extends Component {
             <Text style={styles.version}> </Text>
             <Text style={styles.version}>Version {Constants.manifest.revisionId}</Text>
             <Text style={styles.version}> </Text>
-
           </View>
-
         </Content>
-
       </Container>
     );
   }
