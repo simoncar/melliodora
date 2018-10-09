@@ -189,7 +189,7 @@ class HomeNav extends Component {
         ) &&
             <View style={styles.newsContentLine}>
 
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chatRooms(); }} >
+              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chat({ chatroom: 'CXS' }); }} >
                 <Image source={require('../../../images/sais.edu.sg/chatBubble.png')} style={styles.newsImage} />
                 <View style={styles.newsContentNoLine}>
                   <Text numberOfLines={1} style={styles.newsHeader}>

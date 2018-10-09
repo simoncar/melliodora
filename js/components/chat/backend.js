@@ -70,6 +70,10 @@ export class Backend extends React.Component{
             name: message.user.name,
             avatar: message.user.avatar,
           },
+          location: {
+            latitude: 48.864601,
+            longitude: 2.398704
+          },
         });
 
       } else {
@@ -81,6 +85,10 @@ export class Backend extends React.Component{
           user: {
             _id: message.user._id,
             name: message.user.name,
+          },
+          location: {
+            latitude: 48.864601,
+            longitude: 2.398704
           },
         });
       }
@@ -95,12 +103,16 @@ export class Backend extends React.Component{
     for (let i = 0; i < message.length; i++) {
       
         this.messageRef.push({
-          text: message[i].text,
+          text: '' + message[i].text,
           chatroom: this.state.chatroom,
           user: message[i].user,
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           date: new Date().getTime(),
-          system: true,
+          system: false,
+          location: {
+            latitude: 48.864601,
+            longitude: 2.398704
+          },
           });
     }
   }
