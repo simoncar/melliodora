@@ -18,8 +18,6 @@ export default (async function registerForPushNotificationsAsync(user) {
     return;
   }
 
-
-
   // Get the token that uniquely identifies this device
   let token = await Notifications.getExpoPushTokenAsync();
   console.log('REGISTER PUSH TOKEN=',token);
