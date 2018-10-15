@@ -88,7 +88,7 @@ class ptaHome extends Component {
                             </Col>
                           </Grid>
                       <Text style={styles.newsHeader}>
-                          STAMFORD PTA organises many exciting free events and activities throughout the year such as our famous International Fiesta, Halloween and Christmas celebrations. We support and co-ordinate charity events including student led charities and we manage the Lions Den store, PTA Parent Connection social groups and PTA Country Ambassadors.
+                          Stamford PTA organises many exciting free events and activities throughout the year such as our famous International Fiesta, Halloween and Christmas celebrations. We support and co-ordinate charity events including student led charities and we manage the Lions Den store, PTA Parent Connection social groups and PTA Country Ambassadors.
                       </Text>
 
 
