@@ -1,6 +1,10 @@
 import React from 'react';
 import * as firebase from 'firebase';
-import { Expo, Constants } from 'expo';
+import { Expo, Constants, AppLoading, Asset, Font } from 'expo';
+
+import ApiKeys from './constants/ApiKeys';
+
+
 
 var instID = Constants.manifest.extra.instance;
 
@@ -70,10 +74,10 @@ export class Backend extends React.Component{
             name: message.user.name,
             avatar: message.user.avatar,
           },
-          location: {
-            latitude: 48.864601,
-            longitude: 2.398704
-          },
+          //location: {
+          //  latitude: 48.864601,
+          //  longitude: 2.398704
+          //},
         });
 
       } else {
@@ -86,10 +90,10 @@ export class Backend extends React.Component{
             _id: message.user._id,
             name: message.user.name,
           },
-          location: {
-            latitude: 48.864601,
-            longitude: 2.398704
-          },
+          //location: {
+          //  latitude: 48.864601,
+          //  longitude: 2.398704
+         // },
         });
       }
      
@@ -109,10 +113,10 @@ export class Backend extends React.Component{
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           date: new Date().getTime(),
           system: false,
-          location: {
-            latitude: 48.864601,
-            longitude: 2.398704
-          },
+          //location: {
+          //  latitude: 48.864601,
+          //  longitude: 2.398704
+          //},
           });
     }
   }
