@@ -2,9 +2,7 @@ import React from 'react';
 import * as firebase from 'firebase';
 import { Expo, Constants, AppLoading, Asset, Font } from 'expo';
 
-import ApiKeys from './constants/ApiKeys';
-
-
+import ApiKeys from './../../ApiKeys';
 
 var instID = Constants.manifest.extra.instance;
 
