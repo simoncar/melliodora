@@ -180,14 +180,14 @@ class HomeNav extends Component {
         Constants.installationId == '7C62DC60-A3B6-41F1-BC09-0A2C9147C1BD' || 
         Constants.installationId == '439F507C-8227-4594-92B3-1779E6ED69D0' || 
         Constants.installationId == '5DDB6D11-46F0-4B6D-8530-8AA29F1C9B2C' || 
-        Constants.installationId == '4a7cc323-62af-403c-82cb-a82c4a56325a' || 
+        Constants.installationId == 'CA652277-05BA-45AB-9142-78F924613A29' || 
         Constants.installationId == '68855F63-EB66-4D78-A2C9-BCC042712EE7' || 
         Constants.deviceId == '3C57D89E-B681-48D0-B5A9-B2C2E5530F3B' || 
         Constants.deviceId == '7C62DC60-A3B6-41F1-BC09-0A2C9147C1BD' || 
         Constants.deviceId == '439F507C-8227-4594-92B3-1779E6ED69D0' || 
         Constants.deviceId == '5DDB6D11-46F0-4B6D-8530-8AA29F1C9B2C' || 
         Constants.deviceId == '68855F63-EB66-4D78-A2C9-BCC042712EE7' || 
-        Constants.deviceId == '4a7cc323-62af-403c-82cb-a82c4a56325a'  
+        Constants.deviceId == 'CA652277-05BA-45AB-9142-78F924613A29'  
         ) &&
             <View style={styles.newsContentLine}>
 

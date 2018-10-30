@@ -18,6 +18,9 @@ import CustomActions from './customActions';
 import CustomView from './customView';
 import styles from './styles';
 
+import { bindActionCreators } from 'redux'
+import * as ActionCreators from '../../actions';
+
 import Backend from './backend';
 import SlackMessage from './slackMessage';
 
@@ -278,7 +281,12 @@ class chat extends Component {
 
                         </Body>
                         <View>
-
+                            <Button transparent onPress={() => { NavigationActions.imageUploadTest(); }}>
+                                <Icon
+                                    active
+                                    name="arrow-back"
+                                    style={styles.headerIcons} />
+                            </Button>
                         </View>
                     </View>
                 </Header>
@@ -321,12 +329,16 @@ function bindAction(dispatch) {
     };
   }
 
+  const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators(ActionCreators, dispatch);
+  };
+
 const mapStateToProps = state => ({
     navigation: state.cardNavigation,
     username: state.username,
     userX: state.user,
   });
   
-  export default connect(mapStateToProps, bindAction)(chat);
+  export default connect(mapStateToProps, mapDispatchToProps)(chat);
   
 
