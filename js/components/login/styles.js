@@ -16,7 +16,7 @@ export default {
   },
 
   newsHeader: {
-    color: '#444',
+    color: 'green',
     fontWeight: 'bold',
   },
   aShadow: {

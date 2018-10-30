@@ -10,9 +10,7 @@ var switches = [];
 
 class Firebase {
 
-
     static initialise() {
-
 
         if (!firebase.apps.length) {
             firebase.initializeApp({

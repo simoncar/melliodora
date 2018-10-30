@@ -23,6 +23,7 @@ import ptaLionsDen from './components/pta/ptaLionsDen';
 import Story from './components/story';
 import campusMap from './components/campusMap';
 import chatRooms from './components/chat/chatRooms';
+import imageUploadTest from './components/chat/imageUploadTest';
 import chat from './components/chat';
 import Webportal from './components/webportal';
 import WebportalAuth from './components/webportal/auth';
@@ -98,6 +99,7 @@ class AppNavigator extends Component {
 
         <RouterWithRedux>
           <Scene key="root">
+          <Scene key="imageUploadTest" component={imageUploadTest} />
             <Scene key="homeNav" component={HomeNav} hideNavBar/>
             <Scene key="chatRooms" component={chatRooms} hideNavBar />
             <Scene key="chat" component={chat} hideNavBar />
@@ -108,6 +110,7 @@ class AppNavigator extends Component {
             <Scene key="contact" component={Contact} />
             <Scene key="sideBar" component={SideBar} />
             <Scene key="settings" component={Settings} />
+
             <Scene key="ptaHome" component={ptaHome} hideNavBar />
             <Scene key="ptaMovieNight" component={ptaMovieNight} hideNavBar />
             <Scene key="ptaLionsDen" component={ptaLionsDen} hideNavBar />

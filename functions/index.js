@@ -16,9 +16,7 @@ exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg
     var messages = []
 
     //simon android
-    
-
-        
+   
     messages.push({
         "to": "ExponentPushToken[0_rniBFtyWshjEYnkzcQXF]",
         "title": "3SHMU > " + createdData.user.name,
