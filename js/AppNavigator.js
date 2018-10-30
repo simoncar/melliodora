@@ -99,7 +99,6 @@ class AppNavigator extends Component {
 
         <RouterWithRedux>
           <Scene key="root">
-          <Scene key="imageUploadTest" component={imageUploadTest} />
             <Scene key="homeNav" component={HomeNav} hideNavBar/>
             <Scene key="chatRooms" component={chatRooms} hideNavBar />
             <Scene key="chat" component={chat} hideNavBar />
@@ -110,7 +109,7 @@ class AppNavigator extends Component {
             <Scene key="contact" component={Contact} />
             <Scene key="sideBar" component={SideBar} />
             <Scene key="settings" component={Settings} />
-
+            <Scene key="imageUploadTest" component={imageUploadTest} />
             <Scene key="ptaHome" component={ptaHome} hideNavBar />
             <Scene key="ptaMovieNight" component={ptaMovieNight} hideNavBar />
             <Scene key="ptaLionsDen" component={ptaLionsDen} hideNavBar />
