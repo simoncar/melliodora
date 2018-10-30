@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   ViewPropTypes,
 } from 'react-native';
-import MapView from 'react-native-maps';
+import { MapView } from 'expo';
+
 
 export default class CustomView extends React.Component {
   render() {
