@@ -14,13 +14,38 @@ class Firebase {
 
         if (!firebase.apps.length) {
             firebase.initializeApp({
-                apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi",
+                apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
                 authDomain: "calendar-app-57e88.firebaseapp.com",
                 databaseURL: "https://calendar-app-57e88.firebaseio.com",
                 storageBucket: "calendar-app-57e88.appspot.com"
             });
         }
 
+        firebase.auth().signInAnonymously().catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+
+            console.log("EEEEEEEEEEEEEEEEE  --  UserID : " + errorMessage);
+          });
+
+
+          firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+              // User is signed in.
+              var isAnonymous = user.isAnonymous;
+              var uid = user.uid;
+              // ...
+
+
+              console.log("SSSSSSSSSSSSS  --  UserID : " + user.uid);
+            } else {
+              // User is signed out.
+              // ...
+            }
+            // ...
+          });
 
        // this.switches = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/switch');
 
