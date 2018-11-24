@@ -11,7 +11,6 @@ import { closeDrawer } from './actions/drawer';
 import Login from './components/login/';
 import Home from './components/home/';
 import phoneCalendar from './components/home/calendars';
-import Search from './components/home/search';
 import HomeNav from './components/homeNav/';
 import Contact from './components/contact/';
 import SideBar from './components/sideBar';
@@ -102,7 +101,6 @@ class AppNavigator extends Component {
             <Scene key="homeNav" component={HomeNav} hideNavBar/>
             <Scene key="chatRooms" component={chatRooms} hideNavBar />
             <Scene key="chat" component={chat} hideNavBar />
-            <Scene key="search" component={Search} hideNavBar />
             <Scene key="home" component={Home} hideNavBar />
             <Scene key="phoneCalendar" component={phoneCalendar} />
             <Scene key="login" component={Login} hideNavBar />
