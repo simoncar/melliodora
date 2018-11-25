@@ -2,6 +2,7 @@ const React = require('react-native');
 
 const { Dimensions, Platform } = React;
 import { ifIphoneX } from 'react-native-iphone-x-helper'
+import { withLatestFrom } from 'rxjs/operators';
 
 const primary = require('../../themes/variable').brandPrimary;
 const deviceHeight = Dimensions.get('window').height;
@@ -65,7 +66,7 @@ export default {
   eventText: {
     color: '#222',
     fontSize: 18,
-    paddingBottom: 10,
+    paddingBottom: 0,
   },
   url: {
     color: 'blue',
@@ -192,6 +193,7 @@ export default {
   headerIcons: {
     fontSize: 30,
     backgroundColor: 'transparent',
+    color: 'white',
   },
   headerContainer: {
     flex: 1,

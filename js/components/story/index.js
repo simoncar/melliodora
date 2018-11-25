@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Container, Header, Content, ListItem, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
+import { Ionicons, EvilIcons } from '@expo/vector-icons';
 
 
 import Modal from 'react-native-simple-modal';
@@ -178,8 +179,8 @@ class Story extends Component {
                 transparent
                 onPress={() => this._shareMessage()} >
 
-                <Icon
-                  name="ios-share-outline"
+                <EvilIcons
+                  name="share-apple"
                   style={styles.headerIcons} />
               </Button>
             </View>
@@ -301,37 +302,37 @@ class Story extends Component {
 
             {undefined !== this.props.eventDate && this.props.eventDate.length > 0 &&
 
-              <View style={styles.calendarButton}>
-                <Button
-                  transparent
-                  onPress={() => {
-                    Actions.phoneCalendar(
-                      {
-                        eventTitle: this.props.eventTitle,
-                        eventDescription: this.props.eventDescription,
-                        eventDate: this.props.eventDate,
-                        eventStartTime: this.props.eventStartTime,
-                        eventEndTime: this.props.eventEndTime,
-                        location: this.props.location,
-                        eventImage: this.props.eventImage,
-                        phone: this.props.phone,
-                        email: this.props.email,
-                        color: this.props.color,
-                        photo1: this.props.photo1,
-                        photo2: this.props.photo2,
-                        photo3: this.props.photo3,
-                        url: this.props.url
-                      }
 
-                    );
-                  }} >
-                  <Icon
-                    name="ios-calendar-outline"
-                    style={styles.headerIcons} />
+              <TouchableOpacity onPress={() => {  Actions.phoneCalendar(
+                {
+                  eventTitle: this.props.eventTitle,
+                  eventDescription: this.props.eventDescription,
+                  eventDate: this.props.eventDate,
+                  eventStartTime: this.props.eventStartTime,
+                  eventEndTime: this.props.eventEndTime,
+                  location: this.props.location,
+                  eventImage: this.props.eventImage,
+                  phone: this.props.phone,
+                  email: this.props.email,
+                  color: this.props.color,
+                  photo1: this.props.photo1,
+                  photo2: this.props.photo2,
+                  photo3: this.props.photo3,
+                  url: this.props.url
+                }
 
-                  <Text style={styles.calendarText} > Add to My Calendar</Text>
-                </Button>
+              ); }}>
+              <View style={{ padding: 20 }}>
+                <View style={styles.eventText}>
+                  <Text style={styles.eventText}>
+                    <Ionicons name="ios-calendar" style={styles.eventIcon} />   Add to Calendar
+                  </Text>
+                </View>
               </View>
+              </TouchableOpacity>
+
+
+
 
             }
 

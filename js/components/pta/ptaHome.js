@@ -78,7 +78,7 @@ class ptaHome extends Component {
                               <TouchableOpacity>
                                 <Text style={styles.newsLink}>PTA</Text>
                               </TouchableOpacity>
-                              <Icon name="ios-time-outline" style={styles.timeIcon} />
+                             
                               <Text style={styles.newsLink}></Text>
                             </Col>
                             <Col>

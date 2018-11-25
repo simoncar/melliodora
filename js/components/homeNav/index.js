@@ -9,6 +9,7 @@ import { Container, Content, Text, Icon, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import { Expo, Constants, Notifications } from 'expo';
 import moment from 'moment';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import * as ActionCreators from '../../actions';
 import HeaderContent from './../headerContent/header';
@@ -124,13 +125,13 @@ class HomeNav extends Component {
               <Row style={{ paddingTop: 20, paddingBottom: 20 }}>
                 <Col>
                   <Button transparent style={styles.roundedButton} onPress={() => { Actions.contact(); }} >
-                    <Icon style={styles.icon} name="ios-call-outline" />
+                    <Ionicons name="ios-call" style={styles.icon}/>
                   </Button>
                   <Text note style={styles.buttonLabel}>Contact</Text>
                 </Col>
                 <Col>
                   <Button transparent style={styles.roundedButton} onPress={() => { Actions.home(); }} >
-                    <Icon style={styles.icon} name="ios-calendar-outline" />
+                    <Icon style={styles.icon} name="ios-calendar" />
                   </Button>
                   <Text note style={styles.buttonLabel}>Calendar</Text>
                 </Col>
@@ -140,7 +141,7 @@ class HomeNav extends Component {
                   </Button>
                   <View style={{ flex: 1, flexDirection: 'row', alignSelf: 'center' }}>
 
-                    <Icon style={styles.iconLabel} name="ios-lock-outline" />
+                    <Icon style={styles.iconLabel} name="ios-lock" />
                     <Text note style={styles.buttonLabel}> {global.switch_portalName}</Text>
                   </View>
                 </Col>
@@ -149,20 +150,20 @@ class HomeNav extends Component {
                 <Row style={{ paddingBottom: 20 }}>
                   <Col>
                     <Button transparent style={styles.roundedButton} onPress={() => { Actions.webportalSports(); }} >
-                      <Icon style={styles.icon} name="ios-football-outline" />
+                    <MaterialCommunityIcons style={styles.icon} name="soccer" />
                     </Button>
                     <Text note style={styles.buttonLabel}>Athletics</Text>
                   </Col>
                   <Col>
                     <Button transparent style={styles.roundedButton} onPress={() => { Actions.ptaHome(); }} >
-                      <Icon style={styles.icon} name="ios-people-outline" />
+                      <Icon style={styles.icon} name="ios-people" />
                     </Button>
                     <Text note style={styles.buttonLabel}>PTA</Text>
                   </Col>
 
                     <Col>
                     <Button transparent style={styles.roundedButton} onPress={() => { Actions.campusMap(); }} >
-                      <Icon style={styles.icon} name="ios-map-outline" />
+                      <Icon style={styles.icon} name="ios-map" />
                     </Button>
                     <Text note style={styles.buttonLabel}>School Map</Text>
                   </Col>
