@@ -43,4 +43,12 @@ export default {
     width: 40,
     borderRadius: Platform.OS === 'android' ? 40 : 20,
   },
+  icon: {
+    alignSelf: 'center',
+    marginRight: 0,
+    marginLeft: 0,
+    fontWeight: 'bold',
+    fontSize: 30,
+    color:'white',
+  },
 };

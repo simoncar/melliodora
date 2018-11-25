@@ -10,6 +10,8 @@ import { Grid, Col } from 'react-native-easy-grid';
 import { closeDrawer } from '../../actions/drawer';
 import { Constants } from 'expo';
 import styles from './style';
+import {MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 var instID = Constants.manifest.extra.instance;
 
@@ -34,12 +36,12 @@ class SideBar extends Component {
             </ListItem>
 
             <ListItem button onPress={() => { Actions.home(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-calendar-outline" />
+              <Icon name="ios-calendar" />
               <Text style={styles.linkText} >CALENDAR</Text>
             </ListItem>
 
             <ListItem button onPress={() => { Actions.contact(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-call-outline" />
+              <Icon name="ios-call" />
               <Text style={styles.linkText} >CONTACT</Text>
             </ListItem>
 
@@ -51,19 +53,19 @@ class SideBar extends Component {
        {instID == '0001-sais_edu_sg' &&
           <View>
                 <ListItem button onPress={() => { Actions.webportalSports(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                    <Icon name="ios-football-outline" />
+                    <MaterialCommunityIcons style={styles.icon} name="soccer" />
                     <Text style={styles.linkText}>ATHLETICS</Text>
                 </ListItem>
                 <ListItem button onPress={() => { Actions.ptaHome(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                    <Icon name="ios-people-outline" />
+                    <Icon name="ios-people" />
                     <Text style={styles.linkText} >PTA</Text>
                 </ListItem>
                 <ListItem button onPress={() => { Actions.campusMap(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                    <Icon name="ios-map-outline" />
+                    <Icon name="ios-map" />
                     <Text style={styles.linkText} >SCHOOL MAP</Text>
                 </ListItem>
                 <ListItem button onPress={() => { Actions.login(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                    <Icon name="settings" />
+                    <Icon name="ios-settings" />
                     <Text style={styles.linkText}>SETTINGS</Text>
                 </ListItem>
                             
