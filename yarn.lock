@@ -6067,7 +6067,7 @@ lodash@^4.0.0, lodash@^4.10.1, lodash@^4.11.1, lodash@^4.13.1, lodash@^4.14.0, l
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
-lodash@^4.16.4, lodash@^4.17.10, lodash@^4.17.5:
+lodash@^4.16.4, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.5:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
@@ -6332,7 +6332,7 @@ metro-react-native-babel-preset@0.45.6:
     metro-babel7-plugin-react-transform "0.45.6"
     react-transform-hmr "^1.0.4"
 
-metro-react-native-babel-preset@^0.49.0:
+metro-react-native-babel-preset@^0.49.0, metro-react-native-babel-preset@^0.49.2:
   version "0.49.2"
   resolved "https://registry.yarnpkg.com/metro-react-native-babel-preset/-/metro-react-native-babel-preset-0.49.2.tgz#8d53610e044e0c9a53a03d307e1c51f9e8577abc"
   dependencies:
@@ -6590,7 +6590,7 @@ moment@2.x.x, moment@^2.10.6:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
-moment@^2.19.0, moment@^2.22.1:
+moment@^2.19.0, moment@^2.22.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
@@ -7568,21 +7568,15 @@ react-native-drawer@2.5.0:
     prop-types "^15.5.8"
     tween-functions "^1.0.1"
 
-react-native-easy-grid@0.2.0:
+react-native-easy-grid@0.2.0, react-native-easy-grid@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/react-native-easy-grid/-/react-native-easy-grid-0.2.0.tgz#4718031aa1baaa2613b829fc807da288eb0d2797"
   dependencies:
     lodash "^4.11.1"
 
-react-native-easy-grid@^0.1.17:
-  version "0.1.17"
-  resolved "https://registry.yarnpkg.com/react-native-easy-grid/-/react-native-easy-grid-0.1.17.tgz#fad8cb371d465828c1c71daa4d8b513d33253452"
-  dependencies:
-    lodash "^4.11.1"
-
-react-native-experimental-navigation@^0.29.1:
-  version "0.29.1"
-  resolved "https://registry.yarnpkg.com/react-native-experimental-navigation/-/react-native-experimental-navigation-0.29.1.tgz#fa14ec95ee5471cfb37f917316073b300f884e48"
+react-native-experimental-navigation@^0.29.2:
+  version "0.29.2"
+  resolved "https://registry.yarnpkg.com/react-native-experimental-navigation/-/react-native-experimental-navigation-0.29.2.tgz#14727e2df0c7fd4693ab96821b59474410968e85"
   dependencies:
     babel-plugin-syntax-flow "^6.8.0"
     babel-plugin-transform-flow-strip-types "^6.8.0"
@@ -7631,7 +7625,7 @@ react-native-iphone-x-helper@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.0.2.tgz#7dbca530930f7c1ce8633cc8fd13ba94102992e1"
 
-react-native-iphone-x-helper@^1.0.2:
+react-native-iphone-x-helper@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.0.tgz#9f8a376eb00bc712115abff4420318a0063fa796"
 
@@ -7662,7 +7656,7 @@ react-native-maps@expo/react-native-maps#v0.22.1-exp.0:
   version "0.22.1"
   resolved "https://codeload.github.com/expo/react-native-maps/tar.gz/e6f98ff7272e5d0a7fe974a41f28593af2d77bb2"
 
-react-native-modalbox@^1.4.2:
+react-native-modalbox@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-native-modalbox/-/react-native-modalbox-1.6.0.tgz#ee353a2d568715a2b10db8eeb91132fb1f45952b"
   dependencies:
@@ -7680,22 +7674,22 @@ react-native-parsed-text@0.0.20, react-native-parsed-text@^0.0.20:
     babel-plugin-check-es2015-constants "6.22.0"
     prop-types "^15.5.10"
 
-react-native-phone-call@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-phone-call/-/react-native-phone-call-1.0.2.tgz#6a196547eada44669f99ebfdfed6d98661c838b5"
+react-native-phone-call@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-phone-call/-/react-native-phone-call-1.0.9.tgz#4468ec6f95856557fbff9bd69a0db04b54c35e1d"
 
 react-native-reanimated@1.0.0-alpha.10:
   version "1.0.0-alpha.10"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.0.0-alpha.10.tgz#e9e6fb35a2cf52fdc912b9fbc76f34f80698e530"
 
-react-native-router-flux@^3.39.1:
-  version "3.43.0"
-  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-3.43.0.tgz#a784f467e457fc247458081365904d01b61ae76d"
+react-native-router-flux@^3.45.0:
+  version "3.45.0"
+  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-3.45.0.tgz#dcc33bb440b4ae4b8d021db0796f3aef235efa57"
   dependencies:
     babel-plugin-transform-remove-console "^6.8.5"
     lodash.isequal "^4.5.0"
     prop-types "^15.6.0"
-    react-native-experimental-navigation "^0.29.1"
+    react-native-experimental-navigation "^0.29.2"
     react-native-tabs "^1.0.9"
     react-static-container "^1.0.2"
 
@@ -7735,7 +7729,7 @@ react-native-scrollable-tab-view@0.6.7:
   dependencies:
     react-timer-mixin "^0.13.3"
 
-react-native-searchbar@^1.14.0:
+react-native-searchbar@^1.15.0:
   version "1.15.0"
   resolved "https://registry.yarnpkg.com/react-native-searchbar/-/react-native-searchbar-1.15.0.tgz#73c3e62c900abac7bd89f5d6598b0f2f526ca680"
   dependencies:
@@ -7771,9 +7765,9 @@ react-native-tabs@^1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/react-native-tabs/-/react-native-tabs-1.0.9.tgz#75d3c35e8b5b6970869eab282372cb32e2a782cd"
 
-react-native-timer@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/react-native-timer/-/react-native-timer-1.3.1.tgz#c1d03cdad596136cd81b9d3684f2161089ea1ab7"
+react-native-timer@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/react-native-timer/-/react-native-timer-1.3.4.tgz#3aedc59fed43a74314416a36cb28b093b685f393"
 
 react-native-vector-icons@4.6.0, react-native-vector-icons@^4.4.2:
   version "4.6.0"
@@ -7870,7 +7864,7 @@ react-redux@^5.0.2:
     loose-envify "^1.1.0"
     prop-types "^15.5.10"
 
-react-redux@^5.0.7:
+react-redux@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.1.1.tgz#88e368682c7fa80e34e055cd7ac56f5936b0f52f"
   dependencies:
@@ -8079,9 +8073,9 @@ redux-persist@^3.2.2:
     json-stringify-safe "^5.0.1"
     lodash "^4.11.1"
 
-redux-thunk@^2.1.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
+redux-thunk@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
 
 redux@^3.6.0:
   version "3.7.0"
@@ -9237,7 +9231,7 @@ tar@^2.1.1, tar@^2.2.1:
     fstream "^1.0.2"
     inherits "2"
 
-tcomb-form-native@^0.6.11:
+tcomb-form-native@^0.6.20:
   version "0.6.20"
   resolved "https://registry.yarnpkg.com/tcomb-form-native/-/tcomb-form-native-0.6.20.tgz#81771faf86536a5d4c0f492885eb229324d47ea5"
   dependencies:
