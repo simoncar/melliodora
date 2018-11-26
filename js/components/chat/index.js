@@ -288,6 +288,14 @@ class chat extends Component {
                                     style={styles.headerIcons} />
                             </Button>
                         </View>
+                        <View>
+                            <Button transparent onPress={() => { NavigationActions.form(); }}>
+                                <Icon
+                                    active
+                                    name="arrow-back"
+                                    style={styles.headerIcons} />
+                            </Button>
+                        </View>
                     </View>
                 </Header>
 
