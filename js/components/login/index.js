@@ -90,7 +90,6 @@ console.log("yy ",this.props.userX.ffauth_secret)
 
             <View style={styles.bg}>
 
-
               <Item rounded style={styles.inputGrp}>
                 <Icon name="md-person" />
                 <TextInput
