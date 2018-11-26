@@ -92,7 +92,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
 
 
               <Item rounded style={styles.inputGrp}>
-                <Icon name="person" />
+                <Icon name="md-person" />
                 <TextInput
                   ref='NicknameInput'
                   selectTextOnFocus
@@ -110,7 +110,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
               </Item>
 
               <Item rounded style={styles.inputGrp}>
-                <Icon name="mail" />
+                <Icon name="ios-mail" />
                 <TextInput
                   ref='EmailInput'
                   selectTextOnFocus
@@ -128,7 +128,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
               </Item>
 
               <Item rounded style={styles.inputGrp}>
-                <Icon name="unlock" />
+                <Icon name="md-lock" />
 
                   <TextInput
                     ref='PasswordInput'
