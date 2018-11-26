@@ -1,26 +1,18 @@
 import React from 'react';
-import { Image, StyleSheet, Button, Text, View, Alert, } from 'react-native';
-import { ImagePicker } from 'expo';
-import * as firebase from 'firebase';
+import { Button, Image, View } from 'react-native';
+import { Permissions, ImagePicker } from 'expo';
 
-export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
+import * as firebase from "firebase";
+
+export default class ImagePickerExample extends React.Component {
+  state = {
+    image: null,
   };
+
 
   onChooseImagePress = async () => {
     //let result = await ImagePicker.launchCameraAsync();
     let result = await ImagePicker.launchImageLibraryAsync();
-
-    if (!result.cancelled) {
-      this.uploadImage(result.uri, "test-image")
-        .then(() => {
-          Alert.alert("Success");
-        })
-        .catch((error) => {
-          Alert.alert(error);
-        });
-    }
   }
 
   uploadImage = async (uri, imageName) => {
@@ -32,14 +24,52 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+    let { image } = this.state;
+
     return (
-      <View style={styles.container}>
-        <Button title="Choose image..." onPress={this.onChooseImagePress} />
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Button
+          title="Pick an image from camera roll"
+          onPress={this._pickImage}
+        />
+        {image &&
+          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
       </View>
     );
   }
-}
 
-const styles = StyleSheet.create({
-  container: { flex: 1, paddingTop: 50, alignItems: "center", },
-});
+  _pickImage = async () => {
+
+    let { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    console.log('status of Camera permission: ', status);
+    if (status !== 'granted') {
+      console.log('Camera permission not granted!');
+      console.log('Asking for permission');
+      status = await Permissions.askAsync(Permissions.CAMERA_ROLL).status;
+      if (status !== 'granted') {
+        console.log('Asked for permission, but not granted!');
+        return;
+      }
+    }
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    if (!result.cancelled) {
+      this.uploadImage(result.uri, "test-image2")
+        .then(() => {
+          console.log("GGGGGGGGGG - - - - - Success");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
+  };
+}
