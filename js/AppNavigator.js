@@ -23,6 +23,7 @@ import Story from './components/story';
 import campusMap from './components/campusMap';
 import chatRooms from './components/chat/chatRooms';
 import imageUploadTest from './components/chat/imageUploadTest';
+import form from './components/chat/form';
 import chat from './components/chat';
 import Webportal from './components/webportal';
 import WebportalAuth from './components/webportal/auth';
@@ -108,6 +109,7 @@ class AppNavigator extends Component {
             <Scene key="sideBar" component={SideBar} />
             <Scene key="settings" component={Settings} />
             <Scene key="imageUploadTest" component={imageUploadTest} />
+            <Scene key="form" component={form} />
             <Scene key="ptaHome" component={ptaHome} hideNavBar />
             <Scene key="ptaMovieNight" component={ptaMovieNight} hideNavBar />
             <Scene key="ptaLionsDen" component={ptaLionsDen} hideNavBar />
