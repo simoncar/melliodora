@@ -16,11 +16,15 @@ export default class ImagePickerExample extends React.Component {
   }
 
   uploadImage = async (uri, imageName) => {
+    const metadata = {
+      contentType: 'image/jpeg',
+    };
+
     const response = await fetch(uri);
     const blob = await response.blob();
 
     var ref = firebase.storage().ref().child("images/" + imageName);
-    return ref.put(blob);
+    return ref.put(blob, metadata);
   }
 
   render() {
@@ -57,7 +61,9 @@ export default class ImagePickerExample extends React.Component {
     });
 
     if (!result.cancelled) {
-      this.uploadImage(result.uri, "test-image2")
+
+      const imageName = new Date().getTime() + "-media.jpg"
+      this.uploadImage(result.uri, imageName)
         .then(() => {
           console.log("GGGGGGGGGG - - - - - Success");
         })
