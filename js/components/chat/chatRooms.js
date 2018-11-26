@@ -56,35 +56,35 @@ class campusMap extends Component {
             </Button>
             
             <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Lost and Found' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Icon style={styles.icon} name="ios-chatbubbles" />
                 <Text>PTA Lost and Found</Text>
             </Button>
 
             <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: '3SHMU' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Icon style={styles.icon} name="ios-chatbubbles" />
                 <Text>3SHMU</Text>
             </Button>
 
             <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: '5DAYE' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Icon style={styles.icon} name="ios-chatbubbles" />
                 <Text>5DAYE</Text>
             </Button>
 
             <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 6' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Icon style={styles.icon} name="ios-chatbubbles" />
                 <Text>Grade 6</Text>
             </Button>
             <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 7' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Icon style={styles.icon} name="ios-chatbubbles" />
                 <Text>Grade 7</Text>
             </Button>
             <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 8' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Icon style={styles.icon} name="ios-chatbubbles" />
                 <Text>Grade 8</Text>
             </Button>   
 
             <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'PTA General' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles-outline" />
+                <Icon style={styles.icon} name="ios-chatbubbles" />
                 <Text>PTA General Chat and Questions</Text>
             </Button>
 

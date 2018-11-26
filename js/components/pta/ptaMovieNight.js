@@ -59,7 +59,7 @@ class ptaMovieNight extends Component {
                               <TouchableOpacity>
                                 <Text style={styles.newsLink}>PTA</Text>
                               </TouchableOpacity>
-                              <Icon name="ios-time-outline" style={styles.timeIcon} />
+                              <Icon name="ios-time" style={styles.timeIcon} />
                               <Text style={styles.newsLink}>Saturday September 30th from 6pm - 10pm</Text>
                             </Col>
                             <Col>

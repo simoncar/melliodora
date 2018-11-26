@@ -179,7 +179,7 @@ class StoryForm extends Component {
                 onPress={() => this._shareMessage()} >
 
                 <Icon
-                  name="ios-share-outline"
+                  name="ios-share"
                   style={styles.headerIcons} />
               </Button>
             </View>
@@ -209,7 +209,7 @@ class StoryForm extends Component {
                     <Row>
                       <Col style={{ width: 80 }}>
                         <Button transparent style={styles.roundedButton} onPress={() => this._call()} >
-                          <Icon name="ios-call-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                          <Icon name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                         </Button>
                       </Col>
                       <Col>
@@ -226,7 +226,7 @@ class StoryForm extends Component {
                     <Row>
                       <Col style={{ width: 80 }}>
                         <Button transparent style={styles.roundedButton} onPress={() => this._call()} >
-                          <Icon name="ios-call-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                          <Icon name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                         </Button>
                       </Col>
                       <Col>
@@ -326,7 +326,7 @@ class StoryForm extends Component {
                     );
                   }} >
                   <Icon
-                    name="ios-calendar-outline"
+                    name="ios-calendar"
                     style={styles.headerIcons} />
 
                   <Text style={styles.calendarText} > Add to My Calendar</Text>
