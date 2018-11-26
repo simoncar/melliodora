@@ -291,10 +291,8 @@ class calendar1 extends Component {
 
                   <View>
                     <Icon
-                      style={{
-                        color: '#fff',
-                        fontSize: 20,
-                      }} name={item.icon}
+                      style={{ color: 'white', fontSize: 20, }} 
+                          name={item.icon}
                     />
                   </View>
 
