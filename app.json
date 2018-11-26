@@ -2,7 +2,7 @@
   "name": "Stamford",
   "displayName": "Stamford",
   "expo": {
-    "version": "7.5.25",
+    "version": "8.0.31",
     "sdkVersion": "31.0.0",
     "icon": "./resources/0001-sais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
     "slug": "myStamford",
@@ -46,7 +46,7 @@
     },
     "android": {
       "package": "com.softmowertrain.parent.mystamford",
-      "versionCode": 7
+      "versionCode": 8
     },
     "androidStatusBarColor": "#AF3643",
     "androidStatusBar": {

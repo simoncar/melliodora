@@ -63,7 +63,7 @@ class SideBar extends Component {
                     <Text style={styles.linkText} >SCHOOL MAP</Text>
                 </ListItem>
                 <ListItem button onPress={() => { Actions.login(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                    <Icon name="settings" />
+                    <Icon name="md-settings" />
                     <Text style={styles.linkText}>SETTINGS</Text>
                 </ListItem>
                             
