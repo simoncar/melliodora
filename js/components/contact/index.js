@@ -13,6 +13,7 @@ import { Grid, Col, Row } from 'react-native-easy-grid';
 import { openDrawer } from '../../actions/drawer';
 import HeaderContent from './../headerContent/header/';
 import Analytics from '../../lib/analytics';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Communications from 'react-native-communications';
 import updateFirebase from './../../lib/updateFirebase';
@@ -39,9 +40,7 @@ class Contact extends Component {
       updateFirebaseText: ''
     };
 
-    this.constructor.childContextTypes = {
-      theme: PropTypes.object,
-    };
+  
 
 //analytics  -----
     let trackingOpts = {
@@ -89,7 +88,7 @@ class Contact extends Component {
                 <Row>
                   <Col style={{ width: 80 }}>
                     <Button transparent style={styles.roundedButton}  onPress={() => this._emailComms()} >
-                      <Icon name="ios-alert-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                      <MaterialCommunityIcons name="help" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                     </Button>
                   </Col>
                   <Col>
@@ -101,7 +100,7 @@ class Contact extends Component {
              <Row style={{paddingTop: 20}}>
                 <Col style={{ width: 80 }}>
                   <Button transparent style={styles.roundedButton}  onPress={() => this._call()} >
-                    <Icon name="ios-call-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                    <Icon name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                   </Button>
                 </Col>
                 <Col>
@@ -112,7 +111,7 @@ class Contact extends Component {
              <Row style={{paddingTop: 20}}>
                <Col style={{ width: 80 }}>
                  <Button transparent style={styles.roundedButton}  onPress={() => this._email()} >
-                   <Icon name="ios-mail-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                   <Icon name="ios-mail" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                  </Button>
                </Col>
                <Col>
@@ -123,7 +122,7 @@ class Contact extends Component {
              <Row style={{paddingTop: 20}}>
               <Col style={{ width: 80 }}>
                 <Button transparent style={styles.roundedButton}>
-                  <Icon name="ios-pin-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                  <Icon name="ios-pin" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
               <Col>
@@ -135,7 +134,7 @@ class Contact extends Component {
              <Row style={{paddingTop: 40}}>
               <Col style={{ width: 80 }}>
                 <Button transparent style={styles.roundedButton}  onPress={() => this._updateFirebase()} >
-                    <Icon name="ios-thumbs-up-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                    <Icon name="ios-thumbs-up" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
               
@@ -157,7 +156,7 @@ class Contact extends Component {
           <Row style={{paddingTop: 40}}>
               <Col style={{ width: 80 }}>
               <Button transparent style={styles.roundedButton}  onPress={() => Actions.chatRooms()} >
-              <Icon name="ios-chatbubbles-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+              <Icon name="ios-chatbubbles" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                      </Button>
               </Col>
               
