@@ -86,7 +86,7 @@ class ptaLionsDen extends Component {
                           <TouchableOpacity>
                             <Text style={styles.newsLink}>SHOP</Text>
                           </TouchableOpacity>
-                          <Icon name="ios-time-outline" style={styles.timeIcon} />
+                          <Icon name="ios-time" style={styles.timeIcon} />
                           <Text style={styles.newsLink}>3:00pm - 4:30pm</Text>
                         </Col>
                         <Col>

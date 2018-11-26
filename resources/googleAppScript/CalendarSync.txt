@@ -189,9 +189,9 @@ if (eventDetails.indexOf('music') !== -1) {
 } else if (eventDetails.indexOf("swim")  !== -1) {
   icon = 'ios-play'
 } else if (eventDetails.indexOf("auditions")  !== -1) {
-  icon = 'ios-bowtie-outline'
+  icon = 'ios-bowtie'
 } else if (eventDetails.indexOf("gym")  !== -1) {
-  icon = 'ios-body-outline'
+  icon = 'ios-body'
 } else if (eventDetails.indexOf("CCA")  !== -1) {
   icon = 'ios-play'
 } else if (eventDetails.indexOf("tennis")  !== -1) {
@@ -201,7 +201,7 @@ if (eventDetails.indexOf('music') !== -1) {
 } else if (eventDetails.indexOf("swim")  !== -1) {
   icon = 'MaterialCommunityIcons/swim'
 } else if (eventDetails.indexOf("testing")  !== -1) {
-  icon = 'ios-bookmarks-outline'
+  icon = 'ios-bookmarks'
 } else if (eventDetails.indexOf("football")  !== -1) {
   icon = 'ios-football'
 } else if (eventDetails.indexOf("tennis")  !== -1) {
@@ -209,7 +209,7 @@ if (eventDetails.indexOf('music') !== -1) {
 } else if (eventDetails.indexOf("basketball")  !== -1) {
   icon = 'ios-basketball'
 } else if (eventDetails.indexOf("coffee")  !== -1) {
-  icon = 'ios-cafe-outline'
+  icon = 'ios-cafe'
 } else if (eventDetails.indexOf("photos")  !== -1) {
   icon = 'ios-camera'
 } else if (eventDetails.indexOf("global")  !== -1) {

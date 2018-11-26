@@ -210,7 +210,7 @@ class Story extends Component {
                     <Row>
                       <Col style={{ width: 80 }}>
                         <Button transparent style={styles.roundedButton} onPress={() => this._call()} >
-                          <Icon name="ios-call-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                          <Icon name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                         </Button>
                       </Col>
                       <Col>
@@ -227,7 +227,7 @@ class Story extends Component {
                     <Row>
                       <Col style={{ width: 80 }}>
                         <Button transparent style={styles.roundedButton} onPress={() => this._call()} >
-                          <Icon name="ios-call-outline" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                          <Icon name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                         </Button>
                       </Col>
                       <Col>
