@@ -4,7 +4,7 @@ import { Image, View, Platform, Slider } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
-import { Container, Header, Content, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Container, Content, Text, Button, Icon } from 'native-base';
 
 import Modal from 'react-native-simple-modal';
 import Swiper from 'react-native-swiper';
@@ -17,8 +17,6 @@ import { Constants, Notifications } from 'expo';
 import styles from './styles';
 
 const primary = require('../../themes/variable').brandPrimary;
-
-
 
 class campusMap extends Component {
 
@@ -33,61 +31,57 @@ class campusMap extends Component {
       animationType: 'slideInDown',
       open: false,
     };
-
-
   }
 
   render() {
-
     return (
       <Container>
 
         <HeaderContent />
         <Content showsVerticalScrollIndicator showsHorizontalScrollIndicator>
 
-            <Text style={styles.heading}>PTA Chatrooms</Text>
-            <Text style={styles.text}>** Experimental **</Text>
-            <Text style={styles.text}>D={Constants.deviceId}</Text>
-            <Text style={styles.text}>I={Constants.installationId}</Text>
+          <Text style={styles.heading}>PTA Chatrooms</Text>
+          <Text style={styles.text}>** Experimental **</Text>
+          <Text style={styles.text}>D={Constants.deviceId}</Text>
+          <Text style={styles.text}>I={Constants.installationId}</Text>
 
-            <Button transparent style={styles.roundedButton} onPress={() => { Actions.login();}} >
-                <Icon style={styles.icon} name="ios-person" />
-                <Text>{this.props.userX.nickname}</Text>
-            </Button>
-            
-            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Lost and Found' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles" />
-                <Text>PTA Lost and Found</Text>
-            </Button>
+          <Button transparent style={styles.roundedButton} onPress={() => { Actions.login(); }} >
+            <Icon style={styles.icon} name="ios-person" />
+            <Text>{this.props.userX.nickname}</Text>
+          </Button>
 
-            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: '3SHMU' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles" />
-                <Text>3SHMU</Text>
-            </Button>
+          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Lost and Found' }); }} >
+            <Icon style={styles.icon} name="ios-chatbubbles" />
+            <Text>PTA Lost and Found</Text>
+          </Button>
 
-            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: '5DAYE' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles" />
-                <Text>5DAYE</Text>
-            </Button>
+          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: '3SHMU' }); }} >
+            <Icon style={styles.icon} name="ios-chatbubbles" />
+            <Text>3SHMU</Text>
+          </Button>
 
-            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 6' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles" />
-                <Text>Grade 6</Text>
-            </Button>
-            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 7' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles" />
-                <Text>Grade 7</Text>
-            </Button>
-            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 8' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles" />
-                <Text>Grade 8</Text>
-            </Button>   
+          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: '5DAYE' }); }} >
+            <Icon style={styles.icon} name="ios-chatbubbles" />
+            <Text>5DAYE</Text>
+          </Button>
 
-            <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'PTA General' }); }} >
-                <Icon style={styles.icon} name="ios-chatbubbles" />
-                <Text>PTA General Chat and Questions</Text>
-            </Button>
+          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 6' }); }} >
+            <Icon style={styles.icon} name="ios-chatbubbles" />
+            <Text>Grade 6</Text>
+          </Button>
+          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 7' }); }} >
+            <Icon style={styles.icon} name="ios-chatbubbles" />
+            <Text>Grade 7</Text>
+          </Button>
+          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 8' }); }} >
+            <Icon style={styles.icon} name="ios-chatbubbles" />
+            <Text>Grade 8</Text>
+          </Button>
 
+          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'PTA General' }); }} >
+            <Icon style={styles.icon} name="ios-chatbubbles" />
+            <Text>PTA General Chat and Questions</Text>
+          </Button>
 
 
         </Content>
