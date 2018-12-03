@@ -1,30 +1,33 @@
 import React from 'react';
-import { Button, Image, View } from 'react-native';
-import { Permissions, ImagePicker } from 'expo';
-
+import {
+  ActivityIndicator,
+  Button,
+  Clipboard,
+  Image,
+  Share,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { Constants, ImagePicker, Permissions } from 'expo';
+import uuid from 'uuid';
 import * as firebase from "firebase";
 
-export default class ImagePickerExample extends React.Component {
+console.disableYellowBox = true;
+
+
+
+export default class App extends React.Component {
   state = {
     image: null,
+    uploading: false,
   };
-
-
-  onChooseImagePress = async () => {
-    //let result = await ImagePicker.launchCameraAsync();
-    let result = await ImagePicker.launchImageLibraryAsync();
-  }
-
-  uploadImage = async (uri, imageName) => {
-    const metadata = {
-      contentType: 'image/jpeg',
-    };
-
-    const response = await fetch(uri);
-    const blob = await response.blob();
-
-    var ref = firebase.storage().ref().child("images/" + imageName);
-    return ref.put(blob, metadata);
+  
+  async componentDidMount() {
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    await Permissions.askAsync(Permissions.CAMERA);
   }
 
   render() {
@@ -32,50 +35,148 @@ export default class ImagePickerExample extends React.Component {
 
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        {image ? null : (
+          <Text
+            style={{
+              fontSize: 20,
+              marginBottom: 20,
+              textAlign: 'center',
+              marginHorizontal: 15,
+            }}>
+            Example: Upload ImagePicker result
+          </Text>
+        )}
+
         <Button
-          title="Pick an image from camera roll"
           onPress={this._pickImage}
+          title="Pick an image from camera roll"
         />
-        {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+
+        <Button onPress={this._takePhoto} title="Take a photo" />
+
+        {this._maybeRenderImage()}
+        {this._maybeRenderUploadingOverlay()}
+
+        <StatusBar barStyle="default" />
       </View>
     );
   }
 
-  _pickImage = async () => {
-
-    let { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
-    console.log('status of Camera permission: ', status);
-    if (status !== 'granted') {
-      console.log('Camera permission not granted!');
-      console.log('Asking for permission');
-      status = await Permissions.askAsync(Permissions.CAMERA_ROLL).status;
-      if (status !== 'granted') {
-        console.log('Asked for permission, but not granted!');
-        return;
-      }
+  _maybeRenderUploadingOverlay = () => {
+    if (this.state.uploading) {
+      return (
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              backgroundColor: 'rgba(0,0,0,0.4)',
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+          ]}>
+          <ActivityIndicator color="#fff" animating size="large" />
+        </View>
+      );
     }
-    let result = await ImagePicker.launchImageLibraryAsync({
+  };
+
+  _maybeRenderImage = () => {
+    let { image } = this.state;
+    if (!image) {
+      return;
+    }
+
+    return (
+      <View
+        style={{
+          marginTop: 30,
+          width: 250,
+          borderRadius: 3,
+          elevation: 2,
+        }}>
+        <View
+          style={{
+            borderTopRightRadius: 3,
+            borderTopLeftRadius: 3,
+            shadowColor: 'rgba(0,0,0,1)',
+            shadowOpacity: 0.2,
+            shadowOffset: { width: 4, height: 4 },
+            shadowRadius: 5,
+            overflow: 'hidden',
+          }}>
+          <Image source={{ uri: image }} style={{ width: 250, height: 250 }} />
+        </View>
+
+        <Text
+          onPress={this._copyToClipboard}
+          onLongPress={this._share}
+          style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+          {image}
+        </Text>
+      </View>
+    );
+  };
+
+  _share = () => {
+    Share.share({
+      message: this.state.image,
+      title: 'Check out this photo',
+      url: this.state.image,
+    });
+  };
+
+  _copyToClipboard = () => {
+    Clipboard.setString(this.state.image);
+    alert('Copied image URL to clipboard');
+  };
+
+  _takePhoto = async () => {
+    let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [4, 3],
     });
 
-    if (!result.cancelled) {
+    this._handleImagePicked(pickerResult);
+  };
 
-      const imageName = new Date().getTime() + "-media.jpg"
-      this.uploadImage(result.uri, imageName)
-        .then(() => {
-          console.log("GGGGGGGGGG - - - - - Success");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+  _pickImage = async () => {
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
 
-    console.log(result);
+    this._handleImagePicked(pickerResult);
+  };
 
-    if (!result.cancelled) {
-      this.setState({ image: result.uri });
+  _handleImagePicked = async pickerResult => {
+    try {
+      this.setState({ uploading: true });
+
+      if (!pickerResult.cancelled) {
+        uploadUrl = await uploadImageAsync(pickerResult.uri);
+        this.setState({ image: uploadUrl });
+      }
+    } catch (e) {
+      console.log(e);
+      alert('Upload failed, sorry :(');
+    } finally {
+      this.setState({ uploading: false });
     }
   };
+}
+
+async function uploadImageAsync(uri) {
+
+  const metadata = {
+    contentType: 'image/jpeg',
+  };
+  const response = await fetch(uri);
+  const blob = await response.blob();
+  const ref = firebase
+    .storage()
+    .ref('chatimage')
+    .child(uuid.v4());
+
+  const snapshot = await ref.put(blob, metadata);
+  return snapshot.downloadURL;
 }
