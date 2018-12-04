@@ -191,14 +191,13 @@ class chat extends Component {
       <Bubble
         {...props}
         wrapperStyle={{
-          right: {
-                // backgroundColor: "blue"
-              },
+          left: {
+            backgroundColor: '#f0f0f0',
+          }
         }}
       />
     );
   }
-
 
   renderBubble2 = (props) => {
     const username = props.currentMessage.user.name;
@@ -303,14 +302,14 @@ class chat extends Component {
             }}
 
           //renderActions={this.renderCustomActions}
-          renderBubble={this.renderBubble}
+          //renderBubble={this.renderBubble}
                     // renderSystemMessage={this.renderSystemMessage}
           renderCustomView={this.renderCustomView}
                     // renderFooter={this.renderFooter}
           showAvatarForEveryMessage
           showUserAvatar
           parsePatterns={this.parsePatterns}
-          renderMessage={this.renderBubble}
+          //renderMessage={this.renderBubble}
         />
 
         <Footer style={styles.footer} />
