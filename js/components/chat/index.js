@@ -248,12 +248,12 @@ class chat extends Component {
                         backgroundColor: 'pink',
                     },
                     right: {
-                        backgroundColor: 'orange',
+                        backgroundColor: 'blue',
                     }
                 }}
                 textStyle={{
                     right: {
-                        color: 'red',
+                        color: 'white',
                         //fontFamily: 'Montserrat-Light',
                         fontSize: 14
                     },
