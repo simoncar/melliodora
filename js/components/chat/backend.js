@@ -56,6 +56,7 @@ export class Backend extends React.Component{
   loadMessages(callback) {
       
   
+ 
 
     this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom);
     this.messageRef.off();
