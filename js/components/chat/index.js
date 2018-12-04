@@ -258,7 +258,7 @@ class chat extends Component {
                         fontSize: 14
                     },
                     left: {
-                        color: 'purle',
+                        color: 'black',
                         //fontFamily: 'Montserrat-Light',
                         fontSize: 14
                     }
