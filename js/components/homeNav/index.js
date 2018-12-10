@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Image, ListView, View, TouchableOpacity } from 'react-native';
+import { Image, ListView, View, TouchableOpacity,StyleSheet, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Container, Content, Text, Icon, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import { Expo, Constants, Notifications } from 'expo';
 import moment from 'moment';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 import * as ActionCreators from '../../actions';
 import HeaderContent from './../headerContent/header';
@@ -22,6 +23,9 @@ import styles from './styles';
 import Communications from 'react-native-communications';
 
 import * as firebase from 'firebase';
+
+
+const { width } = Dimensions.get('window');
 
 var calendarEvents = [];
 
@@ -192,29 +196,38 @@ class HomeNav extends Component {
         
 
         ) &&
-            <View style={styles.newsContentLine}>
-
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chat({ chatroom: 'CXS' }); }} >
-                <Image source={require('../../../images/sais.edu.sg/chatBubble.png')} style={styles.newsImage} />
-                <View style={styles.newsContentNoLine}>
-                  <Text numberOfLines={1} style={styles.newsHeader}>
-                    Chat Test
-                    </Text>
-                  <Text style={styles.newsTypeText}>
-                    This panel only shows for a few select people
-                    </Text>
-                  <View style={{ flexDirection: 'column' }}>
-                    <Text numberOfLines={1} style={styles.newsLink}></Text>
-                    <Text style={styles.newsLink}></Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
-          }
 
 
+        <View style={styles.newsContentLine}>
 
 
+     <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chat({ chatroom: 'CXS' }); }} >
+
+        <View>
+          <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
+            <Image
+              style={{ width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' }}
+             source={require('../../../images/sais.edu.sg/chatBubble.png')} 
+            />
+            <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60, flex: 1 }}>Chat Test</Text>
+            <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+          </View>
+          
+          <View>
+      
+        </View>
+
+        </View>
+   
+  
+
+  </TouchableOpacity>
+
+  </View >
+
+
+
+     }
           <View style={styles.newsContentLine}>
             <ListView
               dataSource={this.state.calendarEvents}
@@ -225,26 +238,40 @@ class HomeNav extends Component {
           </View>
 
           {instID == '0001-sais_edu_sg' &&
-            <View style={styles.newsContentLine}>
 
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.ptaHome(); }} >
-                <Image source={require('../../../images/sais.edu.sg/pta_page_logo_small.png')} style={styles.newsImage} />
-                <View style={styles.newsContentNoLine}>
-                  <Text numberOfLines={1} style={styles.newsHeader}>
-                    PTA Parent Connection Groups
-                    </Text>
-                  <Text style={styles.newsTypeText}>
-                    Are you interested in meeting people with similar interests within the Stamford community?
-                    </Text>
-                  <View style={{ flexDirection: 'column' }}>
-                    <Text numberOfLines={1} style={styles.newsLink}></Text>
-                    <Text style={styles.newsLink}></Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
+
+<TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.ptaHome(); }} >
+
+<View>
+  <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
+    <Image
+      style={{ width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' }}
+      source={{uri: `https://saispta.com/wp-content/uploads/2018/12/Screenshot-2018-12-10-15.49.39.png`}} 
+    />
+    <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60,  color: "black"  }}>Parent Connections </Text>
+ 
+  </View>
+
+
+          <View>
+            <Image
+              source={{uri: `https://saispta.com/wp-content/uploads/2018/12/ISASAIS-2017-2018-0032-e1544427990824.jpg`}} 
+              style={{ width, height: 200 }}
+              resizeMode={'contain'}
+            />
+        </View>
+</View>
+</TouchableOpacity>  
+
+          
           }
 
+  <View>
+          <Text style={styles.version}> </Text>
+            <Text style={styles.version}> </Text>
+      
+            <Text style={styles.version}> </Text>
+          </View>
        <Image source={require('../../../images/sais.edu.sg/10yearLogo.png')} style={styles.tenYearLogo} />
       
           <View>
