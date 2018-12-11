@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Platform, Dimensions } from 'react-native';
+import { Image, View, TouchableOpacity, Platform, Dimensions, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -22,6 +22,7 @@ import { Agenda } from 'react-native-calendars';
 import { formatTime, formatMonth } from '../global.js';
 
 const i = 0;
+const { width } = Dimensions.get('window');
 
 class calendar1 extends Component {
 
@@ -262,7 +263,7 @@ class calendar1 extends Component {
               <Col>
 
                 <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}      {item.location}      </Text>
-                {this.renderTime(item.startTimePretty, item.endTimePretty)}
+                
                 <Text style={styles.text}>{item.name}</Text>
 
                 {undefined !== item.group && item.group !== null && item.group.length > 0 &&
@@ -299,6 +300,12 @@ class calendar1 extends Component {
                 </View>
               </Col>
             </Row>
+            <Row>
+            <View>
+                {this.renderImage(item.photo1)}
+               
+              </View>
+            </Row>
           </Grid>
         </View>
       </TouchableOpacity>
@@ -328,6 +335,21 @@ class calendar1 extends Component {
       );
     }
   }
+
+  renderImage(calImage) {
+    if ((undefined != calImage)) {
+      return (
+        <Image
+            source={{uri: calImage}} 
+            style={{ width: 300, height: 150 }}
+            resizeMode={'contain'}
+        />
+      );
+    }
+  }
+
+
+  
 
   renderEmptyDate(item) {
     return (
