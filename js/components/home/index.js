@@ -337,7 +337,7 @@ class calendar1 extends Component {
   }
 
   renderImage(calImage) {
-    if ((undefined != calImage)) {
+    if ((undefined != calImage) && calImage.length > 0) {
       return (
         <Image
             source={{uri: calImage}} 
