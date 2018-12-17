@@ -339,7 +339,7 @@ class chat extends Component {
                         avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
                     }}
 
-                    //renderActions={this.renderCustomActions}
+                    renderActions={this.renderCustomActions}
                     //renderBubble={this.renderBubble}
                     // renderSystemMessage={this.renderSystemMessage}
                     renderCustomView={this.renderCustomView}

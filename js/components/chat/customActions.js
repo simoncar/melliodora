@@ -36,7 +36,7 @@ export default class CustomActions extends React.Component {
   }
 
   onActionsPress() {
-    const options = ['Choose From Library', 'Send Location', 'Cancel'];
+    const options = ['Notify Office', 'Notify Security' , 'Notify Catering', 'Notify Transport', 'Choose From Library', 'Send Location', 'Cancel'];
     const cancelButtonIndex = options.length - 1;
     this.context.actionSheet().showActionSheetWithOptions({
       options,
@@ -58,7 +58,7 @@ export default class CustomActions extends React.Component {
               });
             },
             (error) => alert(error.message),
-            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
           );
           break;
         default:
