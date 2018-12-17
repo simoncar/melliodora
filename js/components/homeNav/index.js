@@ -32,7 +32,7 @@ var calendarEvents = [];
 const ListItem = require('./ListItem');
 var instID = Constants.manifest.extra.instance;
 
-const token =  Notifications.getExpoPushTokenAsync();
+const token = Notifications.getExpoPushTokenAsync();
 console.log (token);
 
 class HomeNav extends Component {
