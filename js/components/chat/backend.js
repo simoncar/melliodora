@@ -55,8 +55,6 @@ export class Backend extends React.Component{
   //retrive msg from backend
   loadMessages(callback) {
       
-  
-
     this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom);
     this.messageRef.off();
     const onReceive = (data) => {
@@ -100,22 +98,30 @@ export class Backend extends React.Component{
     this.messageRef.limitToLast(50).on('child_added', onReceive);
   }
 
-  //send msg to db
   SendMessage(message) {
+
     for (let i = 0; i < message.length; i++) {
-      
-        this.messageRef.push({
-          text: '' + message[i].text,
-          chatroom: this.state.chatroom,
-          user: message[i].user,
-          createdAt: firebase.database.ServerValue.TIMESTAMP,
-          date: new Date().getTime(),
-          system: false,
-          //location: {
-          //  latitude: 48.864601,
-          //  longitude: 2.398704
-          //},
-          });
+
+      console.log ('sendmessage:' + message[i].text);
+      console.log ('sendmessage:' + this.state.chatroom);
+      console.log ('sendmessage:' + message[i].user);
+      console.log ('sendmessage:' + message[i].user);
+      console.log ('sendmessage:' + firebase.database.ServerValue.TIMESTAMP);
+      console.log ('sendmessage:' + new Date().getTime());
+      console.log ('sendmessage:' + false);
+
+      this.messageRef.push({
+        text: '' + message[i].text,
+        chatroom: this.state.chatroom,
+        user: message[i].user,
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+       // date: new Date().getTime(),
+        system: false,
+        //location: {
+        //  latitude: 48.864601,
+        //  longitude: 2.398704
+        //},
+      });
     }
   }
 

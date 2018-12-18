@@ -5,8 +5,12 @@ var fetch = require('node-fetch')
 
 admin.initializeApp(functions.config().firebase);
 
+//https://firebase.google.com/docs/functions/get-started
+//firebease deploy
+
+
 //send the push notification 
-exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg/chat/chatroom/3SHMU/{createdID}').onCreate((snap, context) => {
+exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg/chat/chatroom/CXS/{createdID}').onCreate((snap, context) => {
 
     const createdData = snap.val(); 
     console.log(createdData)
@@ -15,7 +19,7 @@ exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg
 
     var messages = []
 
-    //simon android
+   //cx iPhone
    
     messages.push({
         "to": "ExponentPushToken[0_rniBFtyWshjEYnkzcQXF]",
@@ -32,7 +36,7 @@ exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg
         "body": createdData.text
     });
 
-    //simon
+    //simon iPhone
     messages.push({
         "to": "ExponentPushToken[_fADI_E3xWnqNKWxZurGun]",
         "title": "3SHMU > " + createdData.user.name,

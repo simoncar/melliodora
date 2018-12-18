@@ -11,14 +11,14 @@ import { connect } from 'react-redux';
 import { Expo, Constants } from 'expo';
 
 import { Actions as NavigationActions } from 'react-native-router-flux';
-import { GiftedChat, Actions, Bubble, SystemMessage } from 'react-native-gifted-chat';
+import { GiftedChat, Actions, Bubble, SystemMessage, Time } from 'react-native-gifted-chat';
 import { Container, Content, Header, Footer, Button, Icon, Body } from 'native-base';
 import emojiUtils from 'emoji-utils';
 import CustomActions from './customActions';
 import CustomView from './customView';
 import styles from './styles';
 
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import * as ActionCreators from '../../actions';
 
 import Backend from './backend';
@@ -52,19 +52,15 @@ class chat extends Component {
 
     componentWillMount() {
         this._isMounted = true;
-
-
     }
 
     componentDidMount() {
         Backend.setChatroom(this.props.chatroom);
 
         Backend.loadMessages((message) => {
-            this.setState((previousState) => {
-                return {
-                    messages: GiftedChat.append(previousState.messages, message)
-                };
-            });
+            this.setState(previousState => ({
+                messages: GiftedChat.append(previousState.messages, message),
+            }));
         });
     }
 
@@ -74,32 +70,23 @@ class chat extends Component {
     }
 
     onLoadEarlier() {
-        this.setState((previousState) => {
-            return {
-                isLoadingEarlier: true,
-            };
-        });
+        this.setState(previousState => ({
+            isLoadingEarlier: true,
+        }));
 
         setTimeout(() => {
             if (this._isMounted === true) {
-                this.setState((previousState) => {
-                    return {
-                        messages: GiftedChat.prepend(previousState.messages, require('./old_messages.js')),
-                        loadEarlier: false,
-                        isLoadingEarlier: false,
-                    };
-                });
+                this.setState(previousState => ({
+                    messages: GiftedChat.prepend(previousState.messages, require('./old_messages.js')),
+                    loadEarlier: false,
+                    isLoadingEarlier: false,
+                }));
             }
         }, 2000); // simulating network
     }
 
     onSend(messages = []) {
-
-
-
         Backend.SendMessage(messages);
-        
-
     }
 
     onReceive(text) {
@@ -121,7 +108,7 @@ class chat extends Component {
             'Action 2': (props) => {
                 alert('option 2');
             },
-            'Cancel': () => { },
+            Cancel: () => { },
         };
         return (
             <Actions
@@ -131,18 +118,6 @@ class chat extends Component {
         );
     }
 
-    renderBubble(props) {
-        return (
-            <Bubble
-                {...props}
-                wrapperStyle={{
-                    left: {
-                        backgroundColor: '#f0f0f0',
-                    }
-                }}
-            />
-        );
-    }
 
     renderSystemMessage(props) {
         return (
@@ -182,65 +157,64 @@ class chat extends Component {
 
     renderMessage(props) {
         const { currentMessage: { text: currText } } = props;
-    
+
         let messageTextStyle;
-    
+
         // Make "pure emoji" messages much bigger than plain text.
         if (currText && emojiUtils.isPureEmojiString(currText)) {
-          messageTextStyle = {
-            fontSize: 28,
-            // Emoji get clipped if lineHeight isn't increased; make it consistent across platforms.
-            lineHeight: Platform.OS === 'android' ? 34 : 30,
-          };
+            messageTextStyle = {
+                fontSize: 28,
+                // Emoji get clipped if lineHeight isn't increased; make it consistent across platforms.
+                lineHeight: Platform.OS === 'android' ? 34 : 30,
+            };
         }
-    
-        return (
-          <SlackMessage {...props} messageTextStyle={messageTextStyle} />
-        );
-      }
-    
-      renderBubble (props) {
-        return (
-          <Bubble
-            {...props}
-            wrapperStyle={{
-              right: {
-                //backgroundColor: "blue"
-              }
-            }}
-          />
-        )
-      }
-    
-    
-    renderBubble2 = props => {
-        let username = props.currentMessage.user.name
-        let color = this.getColor(username)
-    
-        return (
-           
-          <Bubble
-            {...props}
-            textStyle={{
-              right: {
-                color: 'white'
-              }
-            }}
-            wrapperStyle={{
-              left: {
-                backgroundColor: color
-              }
-            }}
-          />
-        )
-      }
 
-      getColor(username){
+        return (
+            <SlackMessage {...props} messageTextStyle={messageTextStyle} />
+        );
+    }
+
+    renderBubble3(props) {
+        return (
+            <Bubble
+                {...props}
+                wrapperStyle={{
+                    left: {
+                        backgroundColor: '#f0f0f0',
+                    }
+                }}
+            />
+        );
+    }
+
+    renderBubble2 = (props) => {
+        const username = props.currentMessage.user.name;
+        const color = this.getColor(username);
+
+        return (
+
+            <Bubble
+                {...props}
+                textStyle={{
+                    right: {
+                        color: 'white',
+                    },
+                }}
+                wrapperStyle={{
+                    left: {
+                        backgroundColor: color,
+                    },
+                }}
+            />
+        );
+    }
+
+    getColor(username) {
         let sumChars = 0;
-        for(let i = 0;i < username.length;i++){
-          sumChars += username.charCodeAt(i);
+        for (let i = 0; i < username.length; i++) {
+            sumChars += username.charCodeAt(i);
         }
-    
+
         const colors = [
             '#d6cfc7', // carrot
             '#c7c6c1', // emerald
@@ -251,7 +225,7 @@ class chat extends Component {
             '#808588', // midnight blue
         ];
         return colors[sumChars % colors.length];
-      }
+    }
 
     parsePatterns(linkStyle) {
         return [
@@ -261,6 +235,56 @@ class chat extends Component {
                 onPress: () => Linking.openURL('http://gifted.chat'),
             },
         ];
+    }
+
+
+    /** render the chat bubble */
+    renderBubble(props) {
+        return (
+            <Bubble
+                {...props}
+                wrapperStyle={{
+                    left: {
+                        backgroundColor: 'pink',
+                    },
+                    right: {
+                        backgroundColor: 'blue',
+                    }
+                }}
+                textStyle={{
+                    right: {
+                        color: 'white',
+                        //fontFamily: 'Montserrat-Light',
+                        fontSize: 14
+                    },
+                    left: {
+                        color: 'black',
+                        //fontFamily: 'Montserrat-Light',
+                        fontSize: 14
+                    }
+                }}
+            />
+        );
+    }
+
+    /** render the time labels in the bubble */
+    renderTime() {
+        return (
+            <Time
+                textStyle={{
+                    right: {
+                        color: 'blue',
+                        //fontFamily: 'Montserrat-Light',
+                        fontSize: 14
+                    },
+                    left: {
+                        color: 'green',
+                        //fontFamily: 'Montserrat-Light',
+                        fontSize: 14
+                    }
+                }}
+            />
+        );
     }
 
     render() {
@@ -273,7 +297,8 @@ class chat extends Component {
                                 <Icon
                                     active
                                     name="arrow-back"
-                                    style={styles.headerIcons} />
+                                    style={styles.headerIcons}
+                                />
                             </Button>
                         </View>
                         <Body>
@@ -285,7 +310,17 @@ class chat extends Component {
                                 <Icon
                                     active
                                     name="arrow-back"
-                                    style={styles.headerIcons} />
+                                    style={styles.headerIcons}
+                                />
+                            </Button>
+                        </View>
+                        <View>
+                            <Button transparent onPress={() => { NavigationActions.form(); }}>
+                                <Icon
+                                    active
+                                    name="arrow-back"
+                                    style={styles.headerIcons}
+                                />
                             </Button>
                         </View>
                     </View>
@@ -294,30 +329,38 @@ class chat extends Component {
                 <GiftedChat
                     messages={this.state.messages}
                     onSend={this.onSend}
-                    //loadEarlier={this.state.loadEarlier}
-                    //onLoadEarlier={this.onLoadEarlier}
-                    //isLoadingEarlier={this.state.isLoadingEarlier}
+                    // loadEarlier={this.state.loadEarlier}
+                    // onLoadEarlier={this.onLoadEarlier}
+                    // isLoadingEarlier={this.state.isLoadingEarlier}
 
                     user={{
-                        _id: Constants.installationId + '' + Constants.deviceId, // sent messages should have same user._id
+                        _id: `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
                         name: this.props.userX.nickname,
                         avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
                     }}
 
                     renderActions={this.renderCustomActions}
-                    renderBubble={this.renderBubble}
-                    //renderSystemMessage={this.renderSystemMessage}
+                    //renderBubble={this.renderBubble}
+                    // renderSystemMessage={this.renderSystemMessage}
                     renderCustomView={this.renderCustomView}
-                    //renderFooter={this.renderFooter}
-                    showAvatarForEveryMessage = {true}
-                    showUserAvatar={true}
+                    // renderFooter={this.renderFooter}
+                    showAvatarForEveryMessage
+                    showUserAvatar
                     parsePatterns={this.parsePatterns}
+                    //renderMessage={this.renderBubble}\\\        
+
+
+                    renderBubble={this.renderBubble.bind(this)}
+                    //renderAvatar={this.renderAvatar.bind(this)}
+                    //renderTime={this.renderTime.bind(this)}
+                    showUserAvatar={true}
                     showAvatarForEveryMessage={true}
-                    renderMessage={this.renderBubble}
+                    chatId={this.chatId}
+                    minInputToolbarHeight={50}
+                    bottomOffset={50}
                 />
 
-                <Footer style={styles.footer}>
-                </Footer>
+                <Footer style={styles.footer} />
             </Container>
         );
     }
@@ -325,20 +368,17 @@ class chat extends Component {
 
 function bindAction(dispatch) {
     return {
-      openDrawer: () => dispatch(openDrawer()),
+        openDrawer: () => dispatch(openDrawer()),
     };
-  }
+}
 
-  const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(ActionCreators, dispatch);
-  };
+const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
     navigation: state.cardNavigation,
     username: state.username,
     userX: state.user,
-  });
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(chat);
-  
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(chat);
 

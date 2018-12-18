@@ -11,6 +11,7 @@ import { Grid, Col, Row } from 'react-native-easy-grid';
 import { openDrawer } from '../../actions/drawer';
 import HeaderContent from './../headerContent/header/';
 import Analytics from '../../lib/analytics';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Communications from 'react-native-communications';
 import updateFirebase from './../../lib/updateFirebase';
@@ -38,6 +39,8 @@ class Contact extends Component {
       },
       updateFirebaseText: ''
     };
+
+  
 
 //analytics  -----
     let trackingOpts = {
@@ -131,7 +134,7 @@ class Contact extends Component {
              <Row style={{paddingTop: 40}}>
               <Col style={{ width: 80 }}>
                 <Button transparent style={styles.roundedButton}  onPress={() => this._updateFirebase()} >
-                    <FontAwesome name="thumbs-o-up" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                    <Icon name="ios-thumbs-up" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
               

@@ -1,56 +1,70 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ReactNative from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { Image, Text, ListView, View, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Image, Text, ListView, View, TouchableOpacity, TouchableHighlight, Dimensions, FlatList , StyleSheet} from 'react-native';
 import styles from './styles';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+
+const { width } = Dimensions.get('window');
 
 class ListItem extends Component {
+//https://github.com/saitoxu/InstaClone/blob/master/src/AvView.js
+
 
   render() {
 
-  var photoSquare = this.props.item.photoSquare;
+    var photoSquare = this.props.item.photoSquare;
+    var photo1 = this.props.item.photo1;
 
     return (
 
       <View style={styles.newsContentLine}>
 
-        <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() =>  Actions.story({
-               eventTitle: this.props.item.title,
-               eventDescription: this.props.item.description,
-               eventDate: this.props.item.eventDate,
-               eventStartTime: this.props.item.eventStartTime,
-               eventEndTime: this.props.item.eventEndTime,
-               location: '',
-               eventImage: '',
-               phone: '',
-               email: '',
-               color: '',
-               photo1: this.props.item.photo1,
-               photo2: this.props.item.photo2,
-               photo3: this.props.item.photo3,
-               url: this.props.item.url
 
-             })
-           }>
+        <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story({
+          eventTitle: this.props.item.title,
+          eventDescription: this.props.item.description,
+          eventDate: this.props.item.eventDate,
+          eventStartTime: this.props.item.eventStartTime,
+          eventEndTime: this.props.item.eventEndTime,
+          location: '',
+          eventImage: '',
+          phone: '',
+          email: '',
+          color: '',
+          photo1: this.props.item.photo1,
+          photo2: this.props.item.photo2,
+          photo3: this.props.item.photo3,
+          url: this.props.item.url
+          })
+        }>
 
-
-          <Image  source={{uri: `${photoSquare}`}} style={styles.newsImage} />
-          <View style={styles.newsContentNoLine}>
-            <Text numberOfLines={1} style={styles.newsHeader}>
-            {this.props.item.title}
-            </Text>
-
-            <Text style={styles.newsTypeText}>
-                {this.props.item.description}
-            </Text>
-
-          <View style={{flexDirection: 'column'}}>
-            <Text numberOfLines={1} style={ styles.newsLink}></Text>
-            <Text style={styles.newsLink}></Text>
+        <View>
+          <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
+            <Image
+              style={{ width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' }}
+              source={{uri: `${photoSquare}`}} 
+            />
+            <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60, flex: 1 }}>{this.props.item.title}</Text>
+            <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
           </View>
-          </View>
-        </TouchableOpacity>
-      </View>
+          
+          <View>
+          <Image
+            source={{uri: `${photo1}`}} 
+            style={{ width, height: 200 }}
+            resizeMode={'contain'}
+          />
+        </View>
+
+        </View>
+   
+  
+
+  </TouchableOpacity>
+
+  </View >
+
 
     );
   }

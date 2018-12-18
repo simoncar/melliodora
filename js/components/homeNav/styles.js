@@ -155,8 +155,7 @@ footer: {
   },
 
   newsImage: {
-    width: 120,
-    height: 120,
+    
     borderTopWidth: 1,
   },
 
