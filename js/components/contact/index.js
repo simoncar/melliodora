@@ -18,7 +18,6 @@ import updateFirebase from './../../lib/updateFirebase';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 const primary = require('../../themes/variable').brandPrimary;
