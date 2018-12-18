@@ -53,7 +53,7 @@ class SideBar extends Component {
        {instID == '0001-sais_edu_sg' &&
           <View>
                 <ListItem button onPress={() => { Actions.webportalSports(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                    <MaterialCommunityIcons style={styles.icon} name="soccer" />
+                    <Icon name="ios-football" />
                     <Text style={styles.linkText}>ATHLETICS</Text>
                 </ListItem>
                 <ListItem button onPress={() => { Actions.ptaHome(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
@@ -65,7 +65,7 @@ class SideBar extends Component {
                     <Text style={styles.linkText} >SCHOOL MAP</Text>
                 </ListItem>
                 <ListItem button onPress={() => { Actions.login(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                    <Icon name="ios-settings" />
+                    <Icon name="md-settings" />
                     <Text style={styles.linkText}>SETTINGS</Text>
                 </ListItem>
                             
