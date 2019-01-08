@@ -120,66 +120,12 @@ get timestamp() {
       console.log ('sendmessage:' + firebase.database.ServerValue.TIMESTAMP);
       console.log ('sendmessage:' + new Date().getTime());
       console.log ('sendmessage:' + false);
-
-    let currentUser = firebase.auth().currentUser
-    let createdAt = new Date().getTime()
-    let chatMessage = {
-      text: "message",
-      createdAt: "1 Jan 2019",
-      user: {
-        id: "currentUser.uid",
-        email: "currentUser.email"
-      }
-    }
  
-
-
-// 3.
-send = messages => {
-  for (let i = 0; i < messages.length; i++) {
-    const { text, user } = messages[i];
-    // 4.
-    const message = {
-      text,
-      user,
-      timestamp: this.timestamp,
-    };
-    this.append(message);
-  }
-};
-// 5.
-append = message => this.messageRef.push(message);
-
-
-
-
-
-
-
-
-
-
-    this.messageRef.push(chatMessage, (error) => {
-      if (error) {
-        //dispatch(chatMessageError(error.message))
-      } else {
-        //dispatch(chatMessageSuccess())
-      }
-    })
-  
-      this.messageRef.push({
-        "text": "ExponentPushToken[0_rniBFtyWshjEYnkzcQXF]",
-        "chatroom": "3SHMU > ",
-        "user": "some user",
-        "date": "1 jan 2019",
-        "system": "false",
-    });
-    
       this.messageRef.push({
         text: '' + message[i].text,
         chatroom: this.state.chatroom,
         user: message[i].user,
-        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        createdAt: this.timestamp,
         date: new Date().getTime(),
         system: false,
         //location: {
