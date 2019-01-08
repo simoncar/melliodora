@@ -99,7 +99,8 @@ export class Backend extends React.Component{
   }
 
   SendMessage(message) {
-
+    this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom);
+  
     for (let i = 0; i < message.length; i++) {
 
       console.log ('sendmessage:' + message[i].text);
@@ -110,12 +111,39 @@ export class Backend extends React.Component{
       console.log ('sendmessage:' + new Date().getTime());
       console.log ('sendmessage:' + false);
 
+    let currentUser = firebase.auth().currentUser
+    let createdAt = new Date().getTime()
+    let chatMessage = {
+      text: "message",
+      createdAt: "1 Jan 2019",
+      user: {
+        id: "currentUser.uid",
+        email: "currentUser.email"
+      }
+    }
+ 
+    this.messageRef.push(chatMessage, (error) => {
+      if (error) {
+        //dispatch(chatMessageError(error.message))
+      } else {
+        //dispatch(chatMessageSuccess())
+      }
+    })
+  
+      this.messageRef.push({
+        "text": "ExponentPushToken[0_rniBFtyWshjEYnkzcQXF]",
+        "chatroom": "3SHMU > ",
+        "user": "some user",
+        "date": "1 jan 2019",
+        "system": "false",
+    });
+    
       this.messageRef.push({
         text: '' + message[i].text,
         chatroom: this.state.chatroom,
         user: message[i].user,
         createdAt: firebase.database.ServerValue.TIMESTAMP,
-       // date: new Date().getTime(),
+        date: new Date().getTime(),
         system: false,
         //location: {
         //  latitude: 48.864601,
