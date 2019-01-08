@@ -43,7 +43,7 @@ export class Backend extends React.Component{
     this.uid = value;
   }
 
-  getUid() {
+  aagetUid() {
     return this.uid;
   }
 
@@ -98,6 +98,16 @@ export class Backend extends React.Component{
     this.messageRef.limitToLast(50).on('child_added', onReceive);
   }
 
+// 1.
+get uid() {
+  return (firebase.auth().currentUser || {}).uid;
+}
+// 2.
+get timestamp() {
+  return firebase.database.ServerValue.TIMESTAMP;
+}
+
+
   SendMessage(message) {
     this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom);
   
@@ -122,6 +132,33 @@ export class Backend extends React.Component{
       }
     }
  
+
+
+// 3.
+send = messages => {
+  for (let i = 0; i < messages.length; i++) {
+    const { text, user } = messages[i];
+    // 4.
+    const message = {
+      text,
+      user,
+      timestamp: this.timestamp,
+    };
+    this.append(message);
+  }
+};
+// 5.
+append = message => this.messageRef.push(message);
+
+
+
+
+
+
+
+
+
+
     this.messageRef.push(chatMessage, (error) => {
       if (error) {
         //dispatch(chatMessageError(error.message))

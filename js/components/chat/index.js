@@ -334,9 +334,9 @@ class chat extends Component {
                     // isLoadingEarlier={this.state.isLoadingEarlier}
 
                     user={{
-                        _id: `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-                        name: this.props.userX.nickname,
-                        avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
+                        _id: 'aaaa',//`${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+                        name: 'bbbb'  //this.props.userX.nickname,
+                        //avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
                     }}
 
                     renderActions={this.renderCustomActions}
@@ -344,19 +344,19 @@ class chat extends Component {
                     // renderSystemMessage={this.renderSystemMessage}
                     renderCustomView={this.renderCustomView}
                     // renderFooter={this.renderFooter}
-                    showAvatarForEveryMessage
-                    showUserAvatar
-                    parsePatterns={this.parsePatterns}
+                   // showAvatarForEveryMessage
+                   // showUserAvatar
+                   // parsePatterns={this.parsePatterns}
                     //renderMessage={this.renderBubble}\\\        
 
 
-                    renderBubble={this.renderBubble.bind(this)}
+                    //renderBubble={this.renderBubble.bind(this)}
                     //renderAvatar={this.renderAvatar.bind(this)}
                     //renderTime={this.renderTime.bind(this)}
-                    showUserAvatar={true}
-                    showAvatarForEveryMessage={true}
+                    //showUserAvatar={true}
+                    //showAvatarForEveryMessage={true}
                     chatId={this.chatId}
-                    minInputToolbarHeight={50}
+                    //minInputToolbarHeight={50}
                     bottomOffset={50}
                 />
 
