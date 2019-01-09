@@ -38,7 +38,7 @@ exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg
 
     //simon iPhone
     messages.push({
-        "to": "ExponentPushToken[_fADI_E3xWnqNKWxZurGun]",
+        "to": "ExponentPushToken[lBKUcgCJqZDVFJALPCsq07]",
         "title": "3SHMU > " + createdData.user.name,
         "sound": "default",
         "body": createdData.text
