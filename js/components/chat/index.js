@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
-import {
-    Platform,
-    StyleSheet,
-    Text,
-    View,
-    Image,
-} from 'react-native';
+import { Platform, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-
-import { Expo, Constants } from 'expo';
-
+import { Constants } from 'expo';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import { GiftedChat, Actions, Bubble, SystemMessage, Time } from 'react-native-gifted-chat';
-import { Container, Content, Header, Footer, Button, Icon, Body } from 'native-base';
+import { Container, Header, Footer, Button, Icon, Body } from 'native-base';
 import emojiUtils from 'emoji-utils';
 import CustomActions from './customActions';
 import CustomView from './customView';
@@ -302,7 +294,7 @@ class chat extends Component {
                             </Button>
                         </View>
                         <Body>
-                            <Text style={styles.chatHeading}>{this.props.chatroom}{Constants.installationId}{Constants.deviceId}</Text>
+                            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
 
                         </Body>
                         <View>
@@ -334,8 +326,8 @@ class chat extends Component {
                     // isLoadingEarlier={this.state.isLoadingEarlier}
 
                     user={{
-                        _id: 'aaaa',//`${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-                        name: 'bbbb'  //this.props.userX.nickname,
+                        _id: `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+                        name: this.props.userX.nickname,
                         //avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
                     }}
 
@@ -344,9 +336,9 @@ class chat extends Component {
                     // renderSystemMessage={this.renderSystemMessage}
                     renderCustomView={this.renderCustomView}
                     // renderFooter={this.renderFooter}
-                   // showAvatarForEveryMessage
-                   // showUserAvatar
-                   // parsePatterns={this.parsePatterns}
+                    // showAvatarForEveryMessage
+                    // showUserAvatar
+                    // parsePatterns={this.parsePatterns}
                     //renderMessage={this.renderBubble}\\\        
 
 
