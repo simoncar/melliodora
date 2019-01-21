@@ -25,9 +25,11 @@ import chatRooms from './components/chat/chatRooms';
 import imageUploadTest from './components/chat/imageUploadTest';
 import form from './components/chat/form';
 import chat from './components/chat';
+import chatmain from './components/chat/main';
 import Webportal from './components/webportal';
 import WebportalAuth from './components/webportal/auth';
 import WebportalSports from './components/webportalSports';
+
 
 import { statusBarColor } from './themes/base-theme';
 
@@ -99,9 +101,12 @@ class AppNavigator extends Component {
 
         <RouterWithRedux>
           <Scene key="root">
+       
             <Scene key="homeNav" component={HomeNav} hideNavBar/>
+            <Scene key="chatmain" component={chatmain} hideNavBar />
             <Scene key="chatRooms" component={chatRooms} hideNavBar />
             <Scene key="chat" component={chat} hideNavBar />
+
             <Scene key="home" component={Home} hideNavBar />
             <Scene key="phoneCalendar" component={phoneCalendar} />
             <Scene key="login" component={Login} hideNavBar />
