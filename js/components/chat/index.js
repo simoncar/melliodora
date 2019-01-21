@@ -201,6 +201,15 @@ class chat extends Component {
         );
     }
 
+
+    get user() {
+        // Return our name and our UID for GiftedChat to parse
+        return {
+          name: this.props.name,
+          _id: Fire.shared.uid,
+        };
+      }
+
     getColor(username) {
         let sumChars = 0;
         for (let i = 0; i < username.length; i++) {
@@ -294,7 +303,7 @@ class chat extends Component {
                             </Button>
                         </View>
                         <Body>
-                            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
+                            <Text style={styles.chatHeading}>{this.props.chatroom} - {this.props.name}</Text>
 
                         </Body>
                         <View>
@@ -326,8 +335,8 @@ class chat extends Component {
                     // isLoadingEarlier={this.state.isLoadingEarlier}
 
                     user={{
-                        _id: `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-                        name: this.props.userX.nickname,
+                        _id: this.props.name,  //`${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+                        name: this.props.name,
                         //avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
                     }}
 
@@ -349,7 +358,7 @@ class chat extends Component {
                     //showAvatarForEveryMessage={true}
                     chatId={this.chatId}
                     //minInputToolbarHeight={50}
-                    bottomOffset={50}
+                    bottomOffset={0}
                 />
 
                 <Footer style={styles.footer} />

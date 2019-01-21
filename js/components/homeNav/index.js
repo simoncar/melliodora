@@ -204,7 +204,7 @@ class HomeNav extends Component {
         <View style={styles.newsContentLine}>
 
 
-     <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chat({ chatroom: 'CXS' }); }} >
+     <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chatmain({ chatroom: 'CXS' }); }} >
 
         <View>
           <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
