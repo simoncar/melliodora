@@ -1,3 +1,5 @@
+import { Constants } from 'expo';
+
 
 export function formatTime(starttime, endtime) {
   var ret = '';
@@ -124,4 +126,31 @@ export function getParameterByName(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+export function isAdmin() {
+  const adminDevices =
+    [
+      '3C57D89E-B681-48D0-B5A9-B2C2E5530F3B', 
+      '7C62DC60-A3B6-41F1-BC09-0A2C9147C1BD',
+      '439F507C-8227-4594-92B3-1779E6ED69D0',
+      '5DDB6D11-46F0-4B6D-8530-8AA29F1C9B2C',
+      'CA652277-05BA-45AB-9142-78F924613A29',
+      '68855F63-EB66-4D78-A2C9-BCC042712EE7',
+      '934476B1-9DEA-4D9A-A951-412FC3FBA849',
+      'CF7A325D-7B79-42B6-AE91-A6D54BC5AC27',   // simulator
+      '1FD9DD3C-03A5-4596-8405-F943BB6A40D4',
+    ];
+
+  const installationId = (adminDevices.indexOf(Constants.installationId) > -1);
+  const deviceId = (adminDevices.indexOf(Constants.deviceId) > -1);
+
+  console.log ("installationId=",installationId);
+  console.log ("deviceId=",deviceId);
+  console.log (Constants.deviceId);
+  console.log ("return", installationId || deviceId);
+
+  const isAdminDevice = installationId || deviceId;
+
+  return isAdminDevice;
 }
