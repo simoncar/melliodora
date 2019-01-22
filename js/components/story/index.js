@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { WebView, Linking, Image, View, TouchableOpacity, Platform, Dimensions, Share } from 'react-native';
+import { WebView, Linking, Image, View, TouchableOpacity, TouchableHighlight, Platform, Dimensions, Share } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
 import { Container, Header, Content, ListItem, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
-import { Ionicons, EvilIcons } from '@expo/vector-icons';
+import { Ionicons, EvilIcons, MaterialIcons } from '@expo/vector-icons';
 
 
 import Modal from 'react-native-simple-modal';
@@ -24,7 +24,7 @@ import call from 'react-native-phone-call'  //TODO migration to communications
 import Analytics from '../../lib/analytics';
 import { Constants } from 'expo';
 
-import { formatTime, formatMonth, getAbbreviations } from '../global.js';
+import { formatTime, formatMonth, getAbbreviations, isAdmin } from '../global.js';
 
 import HeaderContent from './../headerContent/header/';
 
@@ -330,13 +330,14 @@ class Story extends Component {
                 </View>
               </View>
               </TouchableOpacity>
+              }
 
-
-
-
-            }
-
-
+      {isAdmin() &&
+           <TouchableHighlight style={styles.addButton} underlayColor='#ff7043' onPress={() => Actions.new_quote()}>
+                 <MaterialIcons name="edit" style={{fontSize: 25, color: 'white'}} />
+              </TouchableHighlight>
+      }
+          
           </View>
         </Content>
 
