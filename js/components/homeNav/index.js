@@ -2,13 +2,14 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Image, ListView, View, TouchableOpacity,StyleSheet, Dimensions } from 'react-native';
+import { Image, ListView, View, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Container, Content, Text, Icon, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import { Expo, Constants, Notifications } from 'expo';
 import moment from 'moment';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { isAdmin } from '../global.js';
 
 
 import * as ActionCreators from '../../actions';
@@ -266,8 +267,14 @@ class HomeNav extends Component {
 </View>
 </TouchableOpacity>  
 
-          
+
           }
+
+{isAdmin() &&
+           <TouchableHighlight style={styles.addButton} underlayColor='#ff7043' onPress={() => Actions.new_quote()}>
+                 <Text style={{fontSize: 25, color: 'white'}}>+</Text>
+              </TouchableHighlight>
+      }
 
   <View>
           <Text style={styles.version}> </Text>
