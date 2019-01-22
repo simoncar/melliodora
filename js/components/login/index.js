@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { ImageBackground, Image, View, Platform,TouchableOpacity,Dimensions , TextInput} from 'react-native';
+import { ImageBackground, View, Platform, Dimensions , TextInput} from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
-import { Actions, ActionConst } from 'react-native-router-flux';
-import { Container,Content, Text, Item, Button, Icon, Left, Right, Body, Header } from 'native-base';
+import { Actions } from 'react-native-router-flux';
+import { Container,Content, Text, Item, Button, Icon, Left, Right } from 'native-base';
 
 import HeaderContent from './../headerContent/header/';
 import styles from './styles';
@@ -85,7 +85,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
       <Container style={{ backgroundColor: '#fff' }}>
          <HeaderContent />
 
-        <Content scrollEnabled={true} bounces={false}>
+        <Content scrollEnabled bounces={false}>
             <ImageBackground source={bg} style={styles.background} >
 
             <View style={styles.bg}>
@@ -133,7 +133,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
                     ref='PasswordInput'
                     style={styles.input}
                     onChangeText={(password) => this.props.setPassword(password)}
-                    secureTextEntry={true}
+                    secureTextEntry
                     placeholder={this._placeHolderPassword()}
                     placeholderTextColor="#FFF"
                     autoCapitalize="none"
@@ -148,9 +148,9 @@ console.log("yy ",this.props.userX.ffauth_secret)
               <Button
                 rounded primary block large
                 style={styles.loginBtn}
-                onPress={() => this.doLogin(this.username,this.password)}
+                onPress={() => Actions.homeNav()}
               >
-                <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>LOGIN</Text>
+                <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>Done</Text>
               </Button>
 
              
