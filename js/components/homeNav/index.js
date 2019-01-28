@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Image, ListView, View, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions } from 'react-native';
+import { Image, ListView, FlatList, View, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Container, Content, Text, Icon, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
@@ -17,10 +17,7 @@ import HeaderContent from './../headerContent/header';
 
 import { openDrawer } from '../../actions/drawer';
 
-import theme from '../../themes/base-theme';
 import styles from './styles';
-
-import Communications from 'react-native-communications';
 
 import * as firebase from 'firebase';
 
@@ -61,6 +58,8 @@ class HomeNav extends Component {
     console.log("D= ", Constants.installationId)
   }
 
+  keyExtractor = (item) => item._key;
+
   componentDidMount() {
     this.listenLoadFromFirebase(this.calendarEvents);
   }
@@ -73,7 +72,6 @@ class HomeNav extends Component {
   listenLoadFromFirebase(calendarEvents) {
 
     calendarEvents.on('value', (snap) => {
-
 
       var items = [];
       var today = new moment().format();;
@@ -109,12 +107,25 @@ class HomeNav extends Component {
       });
 
       this.setState({
-        calendarEvents: this.state.calendarEvents.cloneWithRows(items)
+        calendarEvents: items,
       });
 
     });
 
   }
+
+  _renderItem(item) {
+    return (
+      <ListItem item={item} />
+    );
+  }
+
+
+  _renderItem23 = ({item}) =>
+  <View >
+    <Text style={{color: 'blue'}}>{item.title}</Text>   
+  </View>;
+
 
   render() {
     return (
@@ -226,12 +237,15 @@ class HomeNav extends Component {
 
           }
           <View style={styles.newsContentLine}>
-            <ListView
-              dataSource={this.state.calendarEvents}
-              renderRow={this._renderItem.bind(this)}
-              enableEmptySections={true}
-              style={styles.listview} />
 
+
+          <FlatList
+              data={this.state.calendarEvents}
+              keyExtractor={this.keyExtractor}
+              renderItem={this._renderItem}
+            />
+
+           
           </View>
 
           {instID == '0001-sais_edu_sg' &&
@@ -289,11 +303,7 @@ class HomeNav extends Component {
   }
 
 
-  _renderItem(item) {
-    return (
-      <ListItem item={item} onPress={() => { Actions.ptaHome(); }} />
-    );
-  }
+
 }
 
 function bindAction(dispatch) {
