@@ -20,6 +20,7 @@ import ptaMovieNight from './components/pta/ptaMovieNight';
 import ptaEvents from './components/pta/ptaEvents';
 import ptaLionsDen from './components/pta/ptaLionsDen';
 import Story from './components/story';
+import StoryForm from './components/story/form';
 import campusMap from './components/campusMap';
 import chatRooms from './components/chat/chatRooms';
 import imageUploadTest from './components/chat/imageUploadTest';
@@ -124,6 +125,8 @@ class AppNavigator extends Component {
             <Scene key="webportal" component={Webportal} hideNavBar />
             <Scene key="WebportalAuth" component={WebportalAuth} hideNavBar />
             <Scene key="webportalSports" component={WebportalSports} hideNavBar />
+            <Scene key="storyForm" component={StoryForm} hideNavBar />
+     
           </Scene>
         </RouterWithRedux>
       </Drawer>

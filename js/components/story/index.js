@@ -28,7 +28,6 @@ import { formatTime, formatMonth, getAbbreviations, isAdmin } from '../global.js
 
 import HeaderContent from './../headerContent/header/';
 
-
 const deviceWidth = Dimensions.get('window').width;
 const primary = require('../../themes/variable').brandPrimary;
 
@@ -303,7 +302,39 @@ class Story extends Component {
             {undefined !== this.props.eventDate && this.props.eventDate.length > 0 &&
 
 
-              <TouchableOpacity onPress={() => {  Actions.phoneCalendar(
+              <TouchableOpacity onPress={() => {
+                Actions.phoneCalendar(
+                  {
+                    eventTitle: this.props.eventTitle,
+                    eventDescription: this.props.eventDescription,
+                    eventDate: this.props.eventDate,
+                    eventStartTime: this.props.eventStartTime,
+                    eventEndTime: this.props.eventEndTime,
+                    location: this.props.location,
+                    eventImage: this.props.eventImage,
+                    phone: this.props.phone,
+                    email: this.props.email,
+                    color: this.props.color,
+                    photo1: this.props.photo1,
+                    photo2: this.props.photo2,
+                    photo3: this.props.photo3,
+                    url: this.props.url
+                  }
+
+                );
+              }}>
+                <View style={{ padding: 20 }}>
+                  <View style={styles.eventText}>
+                    <Text style={styles.eventText}>
+                      <Ionicons name="ios-calendar" style={styles.eventIcon} />   Add to Calendar
+                  </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            }
+
+            {isAdmin() &&
+              <TouchableHighlight style={styles.addButton} underlayColor='#ff7043' onPress={() => Actions.storyForm(
                 {
                   eventTitle: this.props.eventTitle,
                   eventDescription: this.props.eventDescription,
@@ -318,26 +349,14 @@ class Story extends Component {
                   photo1: this.props.photo1,
                   photo2: this.props.photo2,
                   photo3: this.props.photo3,
-                  url: this.props.url
+                  url: this.props.url,
+                  edit: true,
                 }
-
-              ); }}>
-              <View style={{ padding: 20 }}>
-                <View style={styles.eventText}>
-                  <Text style={styles.eventText}>
-                    <Ionicons name="ios-calendar" style={styles.eventIcon} />   Add to Calendar
-                  </Text>
-                </View>
-              </View>
-              </TouchableOpacity>
-              }
-
-      {isAdmin() &&
-           <TouchableHighlight style={styles.addButton} underlayColor='#ff7043' onPress={() => Actions.new_quote()}>
-                 <MaterialIcons name="edit" style={{fontSize: 25, color: 'white'}} />
+              )}>
+                <MaterialIcons name="edit" style={{ fontSize: 25, color: 'white' }} />
               </TouchableHighlight>
-      }
-          
+            }
+
           </View>
         </Content>
 
