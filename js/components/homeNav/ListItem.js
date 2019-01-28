@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import ReactNative from 'react-native';
-import { Actions, ActionConst } from 'react-native-router-flux';
-import { Image, Text, ListView, View, TouchableOpacity, TouchableHighlight, Dimensions, FlatList , StyleSheet} from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { Image, Text, View, TouchableOpacity, Dimensions, StyleSheet} from 'react-native';
 import styles from './styles';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
@@ -35,7 +34,8 @@ class ListItem extends Component {
           photo1: this.props.item.photo1,
           photo2: this.props.item.photo2,
           photo3: this.props.item.photo3,
-          url: this.props.item.url
+          url: this.props.item.url,
+          calendarEvents: this.props.calendarEvents,
           })
         }>
 

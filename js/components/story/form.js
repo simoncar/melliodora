@@ -35,13 +35,13 @@ class NewQuote extends Component {
 
     addQuote() {
         if (this.props.edit){
-            let quote = this.props.quote;
-            quote['eventTitle'] = this.state.author;
-            quote['phone'] = this.state.quote;
+            let calendarEvents = this.props.calendarEvents;
+            calendarEvents['eventTitle'] = this.state.eventTitle;
+            calendarEvents['phone'] = this.state.phone;
             this.props.updateQuote(quote);
         }else{
             let id = this.generateID();
-            let quote = {"id": id, "author": this.state.author, "quote": this.state.quote};
+            let calendarEvents = {"id": id, "eventTitle": this.state.eventTitle, "phohe": this.state.phone};
             //this.props.addQuote(quote);
         }
 

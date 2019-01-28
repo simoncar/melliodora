@@ -33,7 +33,7 @@ const ListItem = require('./ListItem');
 var instID = Constants.manifest.extra.instance;
 
 const token = Notifications.getExpoPushTokenAsync();
-console.log (token);
+console.log(token);
 
 class HomeNav extends Component {
 
@@ -48,7 +48,7 @@ class HomeNav extends Component {
 
   constructor(props) {
     super(props)
-   
+
     this.calendarEvents = firebase.database().ref('instance/' + instID + '/feature');
     this.state = {
       versionText: '', //'Version Aug.1.2017 - Check for an Update'
@@ -58,7 +58,7 @@ class HomeNav extends Component {
     }
 
 
-    console.log("D= ",Constants.installationId)
+    console.log("D= ", Constants.installationId)
   }
 
   componentDidMount() {
@@ -76,36 +76,36 @@ class HomeNav extends Component {
 
 
       var items = [];
-      var today = new moment().format(); ;
+      var today = new moment().format();;
 
       snap.forEach((child) => {
 
         var displayStart = moment().format(child.val().displayStart);
         var displayEnd = moment().format(child.val().displayEnd);
-  
+
         if (displayStart <= today) {
           //start is less than End 
-        
+
           if (displayEnd >= today) {
             //start is less than End 
-            
-              items.push({
-                title: child.val().summary,
-                description: child.val().description,
-                photoSquare: child.val().photoSquare,
-                url: child.val().htmlLink,
-                eventDate: child.val().date_start,
-                eventStartTime: child.val().time_start_pretty,
-                eventEndTime: child.val().time_end_pretty,
-                photo1: child.val().photo1,
-                photo2: child.val().photo2,
-                photo3: child.val().photo3,
-                _key: child.key,
-              });
-         }  
-        
+
+            items.push({
+              title: child.val().summary,
+              description: child.val().description,
+              photoSquare: child.val().photoSquare,
+              url: child.val().htmlLink,
+              eventDate: child.val().date_start,
+              eventStartTime: child.val().time_start_pretty,
+              eventEndTime: child.val().time_end_pretty,
+              photo1: child.val().photo1,
+              photo2: child.val().photo2,
+              photo3: child.val().photo3,
+              _key: child.key,
+            });
+          }
+
         }
-  
+
       });
 
       this.setState({
@@ -129,7 +129,7 @@ class HomeNav extends Component {
               <Row style={{ paddingTop: 20, paddingBottom: 20 }}>
                 <Col>
                   <Button transparent style={styles.roundedButton} onPress={() => { Actions.contact(); }} >
-                    <Ionicons name="ios-call" style={styles.icon}/>
+                    <Ionicons name="ios-call" style={styles.icon} />
                   </Button>
                   <Text note style={styles.buttonLabel}>Contact</Text>
                 </Col>
@@ -154,7 +154,7 @@ class HomeNav extends Component {
                 <Row style={{ paddingBottom: 20 }}>
                   <Col>
                     <Button transparent style={styles.roundedButton} onPress={() => { Actions.webportalSports(); }} >
-                    <MaterialCommunityIcons style={styles.icon} name="soccer" />
+                      <MaterialCommunityIcons style={styles.icon} name="soccer" />
                     </Button>
                     <Text note style={styles.buttonLabel}>Athletics</Text>
                   </Col>
@@ -165,7 +165,7 @@ class HomeNav extends Component {
                     <Text note style={styles.buttonLabel}>PTA</Text>
                   </Col>
 
-                    <Col>
+                  <Col>
                     <Button transparent style={styles.roundedButton} onPress={() => { Actions.campusMap(); }} >
                       <Icon style={styles.icon} name="ios-map" />
                     </Button>
@@ -177,61 +177,54 @@ class HomeNav extends Component {
             </Grid>
           </View>
 
-    {( 
-        Constants.installationId == '3C57D89E-B681-48D0-B5A9-B2C2E5530F3B' || 
-        Constants.installationId == '7C62DC60-A3B6-41F1-BC09-0A2C9147C1BD' || 
-        Constants.installationId == '439F507C-8227-4594-92B3-1779E6ED69D0' || 
-        Constants.installationId == '5DDB6D11-46F0-4B6D-8530-8AA29F1C9B2C' || 
-        Constants.installationId == 'CA652277-05BA-45AB-9142-78F924613A29' || 
-        Constants.installationId == '68855F63-EB66-4D78-A2C9-BCC042712EE7' || 
-        Constants.installationId == '934476B1-9DEA-4D9A-A951-412FC3FBA849' || 
-        Constants.installationId == 'CF7A325D-7B79-42B6-AE91-A6D54BC5AC27' ||
-        Constants.installationId == '1FD9DD3C-03A5-4596-8405-F943BB6A40D4' ||
-        Constants.deviceId == '3C57D89E-B681-48D0-B5A9-B2C2E5530F3B' || 
-        Constants.deviceId == '7C62DC60-A3B6-41F1-BC09-0A2C9147C1BD' || 
-        Constants.deviceId == '439F507C-8227-4594-92B3-1779E6ED69D0' || 
-        Constants.deviceId == '5DDB6D11-46F0-4B6D-8530-8AA29F1C9B2C' || 
-        Constants.deviceId == '68855F63-EB66-4D78-A2C9-BCC042712EE7' || 
-        Constants.deviceId == 'CA652277-05BA-45AB-9142-78F924613A29' ||
-        Constants.deviceId == '934476B1-9DEA-4D9A-A951-412FC3FBA849' ||
-        Constants.deviceId == 'CF7A325D-7B79-42B6-AE91-A6D54BC5AC27' ||
-        Constants.deviceId == '1FD9DD3C-03A5-4596-8405-F943BB6A40D4'
-        
-        
-
-        ) &&
+          {(
+            Constants.installationId == '3C57D89E-B681-48D0-B5A9-B2C2E5530F3B' ||
+            Constants.installationId == '7C62DC60-A3B6-41F1-BC09-0A2C9147C1BD' ||
+            Constants.installationId == '439F507C-8227-4594-92B3-1779E6ED69D0' ||
+            Constants.installationId == '5DDB6D11-46F0-4B6D-8530-8AA29F1C9B2C' ||
+            Constants.installationId == 'CA652277-05BA-45AB-9142-78F924613A29' ||
+            Constants.installationId == '68855F63-EB66-4D78-A2C9-BCC042712EE7' ||
+            Constants.installationId == '934476B1-9DEA-4D9A-A951-412FC3FBA849' ||
+            Constants.installationId == 'CF7A325D-7B79-42B6-AE91-A6D54BC5AC27' ||
+            Constants.installationId == '1FD9DD3C-03A5-4596-8405-F943BB6A40D4' ||
+            Constants.deviceId == '3C57D89E-B681-48D0-B5A9-B2C2E5530F3B' ||
+            Constants.deviceId == '7C62DC60-A3B6-41F1-BC09-0A2C9147C1BD' ||
+            Constants.deviceId == '439F507C-8227-4594-92B3-1779E6ED69D0' ||
+            Constants.deviceId == '5DDB6D11-46F0-4B6D-8530-8AA29F1C9B2C' ||
+            Constants.deviceId == '68855F63-EB66-4D78-A2C9-BCC042712EE7' ||
+            Constants.deviceId == 'CA652277-05BA-45AB-9142-78F924613A29' ||
+            Constants.deviceId == '934476B1-9DEA-4D9A-A951-412FC3FBA849' ||
+            Constants.deviceId == 'CF7A325D-7B79-42B6-AE91-A6D54BC5AC27' ||
+            Constants.deviceId == '1FD9DD3C-03A5-4596-8405-F943BB6A40D4'
+          ) &&
 
 
-        <View style={styles.newsContentLine}>
+            <View style={styles.newsContentLine}>
 
 
-     <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chatmain({ chatroom: 'CXS' }); }} >
+              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chatmain({ chatroom: 'CXS' }); }} >
 
-        <View>
-          <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
-            <Image
-              style={{ width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' }}
-             source={require('../../../images/sais.edu.sg/chatBubble.png')} 
-            />
-            <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60, flex: 1 }}>Chat Test</Text>
-            <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
-          </View>
-          
-          <View>
-      
-        </View>
+                <View>
+                  <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
+                    <Image
+                      style={{ width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' }}
+                      source={require('../../../images/sais.edu.sg/chatBubble.png')}
+                    />
+                    <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60, flex: 1 }}>Chat Test</Text>
+                    <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+                  </View>
 
-        </View>
-   
-  
+                  <View>
 
-  </TouchableOpacity>
+                  </View>
 
-  </View >
+                </View>
 
+              </TouchableOpacity>
 
+            </View >
 
-     }
+          }
           <View style={styles.newsContentLine}>
             <ListView
               dataSource={this.state.calendarEvents}
@@ -244,48 +237,48 @@ class HomeNav extends Component {
           {instID == '0001-sais_edu_sg' &&
 
 
-<TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.ptaHome(); }} >
+            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.ptaHome(); }} >
 
-<View>
-  <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
-    <Image
-      style={{ width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' }}
-      source={{uri: `https://saispta.com/wp-content/uploads/2018/12/Screenshot-2018-12-10-15.49.39.png`}} 
-    />
-    <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60,  color: "black"  }}>Parent Connections </Text>
- 
-  </View>
+              <View>
+                <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
+                  <Image
+                    style={{ width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' }}
+                    source={{ uri: `https://saispta.com/wp-content/uploads/2018/12/Screenshot-2018-12-10-15.49.39.png` }}
+                  />
+                  <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60, color: "black" }}>Parent Connections </Text>
+
+                </View>
 
 
-          <View>
-            <Image
-              source={{uri: `https://saispta.com/wp-content/uploads/2018/12/ISASAIS-2017-2018-0032-e1544427990824.jpg`}} 
-              style={{ width, height: 200 }}
-              resizeMode={'contain'}
-            />
-        </View>
-</View>
-</TouchableOpacity>  
+                <View>
+                  <Image
+                    source={{ uri: `https://saispta.com/wp-content/uploads/2018/12/ISASAIS-2017-2018-0032-e1544427990824.jpg` }}
+                    style={{ width, height: 200 }}
+                    resizeMode={'contain'}
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
 
 
           }
 
-{isAdmin() &&
-           <TouchableHighlight style={styles.addButton} underlayColor='#ff7043' onPress={() => Actions.new_quote()}>
-                 <Text style={{fontSize: 25, color: 'white'}}>+</Text>
-              </TouchableHighlight>
-      }
+          {isAdmin() &&
+            <TouchableHighlight style={styles.addButton} underlayColor='#ff7043' onPress={() => Actions.new_quote()}>
+              <Text style={{ fontSize: 25, color: 'white' }}>+</Text>
+            </TouchableHighlight>
+          }
 
-  <View>
-          <Text style={styles.version}> </Text>
+          <View>
             <Text style={styles.version}> </Text>
-      
+            <Text style={styles.version}> </Text>
+
             <Text style={styles.version}> </Text>
           </View>
-       <Image source={require('../../../images/sais.edu.sg/10yearLogo.png')} style={styles.tenYearLogo} />
-      
+          <Image source={require('../../../images/sais.edu.sg/10yearLogo.png')} style={styles.tenYearLogo} />
+
           <View>
-          <Text style={styles.version}> </Text>
+            <Text style={styles.version}> </Text>
             <Text style={styles.version}> </Text>
             <Text style={styles.version}>Version {Constants.manifest.revisionId}</Text>
             <Text style={styles.version}> </Text>
