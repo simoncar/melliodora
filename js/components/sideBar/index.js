@@ -70,14 +70,6 @@ class SideBar extends Component {
                 </ListItem>
                             
 
-                <View style={styles.logoutContainer}>
-                  <View style={styles.logoutbtn} foregroundColor={'white'}>
-                      <Image
-                          style={{width: 96, height: 128}}
-                          source={require('../../../images/sais.edu.sg/pta_logo.png')}
-                      />
-                  </View>
-                </View>
           </View>
        }
 
