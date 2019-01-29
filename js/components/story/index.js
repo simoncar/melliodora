@@ -350,6 +350,7 @@ class Story extends Component {
                   photo2: this.props.photo2,
                   photo3: this.props.photo3,
                   url: this.props.url,
+                  _key: this.props._key,
                   edit: true,
                 }
               )}>

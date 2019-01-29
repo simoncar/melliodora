@@ -21,7 +21,8 @@ class NewQuote extends Component {
 
     this.state = {
       eventTitle: (props.edit) ? props.eventTitle : "",
-      phone: (props.edit) ? props.phone : ""
+      phone: (props.edit) ? props.phone : "",
+      _key: (props.edit) ? props._key : ""
     };
 
     this.generateID = this.generateID.bind(this);
@@ -55,7 +56,7 @@ class NewQuote extends Component {
 
   addStory() {
 
-    this.storyRef = firebase.database().ref('instance/' + instID + '/feature/7');
+    this.storyRef = firebase.database().ref('instance/' + instID + '/feature/' + this.state._key);
 
     if (this.props.edit) {
 
@@ -70,7 +71,7 @@ class NewQuote extends Component {
       });
 
 
-      console.log ("PUSH")
+      console.log ("PUSH", this.state._key)
     } else {
       this.storyRef.push({
         date_start: '2018-01-01',

@@ -36,6 +36,7 @@ class ListItem extends Component {
           photo2: this.props.item.item.photo2,
           photo3: this.props.item.item.photo3,
           url: this.props.item.item.url,
+          _key: this.props.item.item._key,
           calendarEvents: this.props.calendarEvents,
           })
         }>
