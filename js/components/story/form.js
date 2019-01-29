@@ -5,11 +5,16 @@ import { connect } from 'react-redux';
 import { Container, Header, Content, Button, Icon, Body } from 'native-base';
 
 import { Actions } from 'react-native-router-flux';
+import { Constants } from 'expo';
 
+import * as firebase from 'firebase';
+var instID = Constants.manifest.extra.instance;
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
 class NewQuote extends Component {
+  uid = '';
+  storyRef = null;
 
   constructor(props) {
     super(props);
@@ -34,12 +39,36 @@ class NewQuote extends Component {
     return id;
   }
 
+  setUid(value) {
+    this.uid = value;
+  }
+  
+  get uid() {
+  return (firebase.auth().currentUser || {}).uid;
+}
+
+
+  get timestamp() {
+  return firebase.database.ServerValue.TIMESTAMP;
+}
+
+
   addStory() {
+
+    this.storyRef = firebase.database().ref('instance/' + instID + '/feature/');
+
     if (this.props.edit) {
-      let calendarEvents = this.props.calendarEvents;
-      calendarEvents['eventTitle'] = this.state.eventTitle;
-      calendarEvents['phone'] = this.state.phone;
-      this.props.updateStory(quote);
+
+      this.storyRef.push({
+        date_start: '2018-01-01',
+        description: this.state.eventTitle,
+        displayEnd: '2018-01-01',
+        displayStart: '2018-01-01',
+        photoSquare: '',
+        summary: this.state.phone,
+      });
+
+      console.log ("PUSH")
     } else {
       let id = this.generateID();
       let calendarEvents = { "id": id, "eventTitle": this.state.eventTitle, "phohe": this.state.phone };
@@ -97,9 +126,9 @@ class NewQuote extends Component {
             disabled={(this.state.eventTitle.length > 0 && this.state.phone.length > 0) ? false : true}
             onPress={this.addStory}>
             <Text style={[styles.buttonText,
-            {
-              color: (this.state.eventTitle.length > 0 && this.state.phone.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
-            }]}>
+              {
+                color: (this.state.eventTitle.length > 0 && this.state.phone.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
+              }]}>
               Save
                     </Text>
           </TouchableOpacity>
@@ -108,7 +137,7 @@ class NewQuote extends Component {
 
       </Content>
               </Container >
-        );
+    );
   }
 
 }
