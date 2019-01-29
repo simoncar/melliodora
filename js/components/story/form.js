@@ -42,7 +42,7 @@ class NewQuote extends Component {
   setUid(value) {
     this.uid = value;
   }
-  
+
   get uid() {
   return (firebase.auth().currentUser || {}).uid;
 }
@@ -55,11 +55,12 @@ class NewQuote extends Component {
 
   addStory() {
 
-    this.storyRef = firebase.database().ref('instance/' + instID + '/feature/');
+    this.storyRef = firebase.database().ref('instance/' + instID + '/feature/7');
 
     if (this.props.edit) {
 
-      this.storyRef.push({
+      
+      this.storyRef.update({
         date_start: '2018-01-01',
         description: this.state.eventTitle,
         displayEnd: '2018-01-01',
@@ -68,15 +69,28 @@ class NewQuote extends Component {
         summary: this.state.phone,
       });
 
+
       console.log ("PUSH")
     } else {
-      let id = this.generateID();
-      let calendarEvents = { "id": id, "eventTitle": this.state.eventTitle, "phohe": this.state.phone };
-      //this.props.addStory(quote);
+      this.storyRef.push({
+        date_start: '2018-01-01',
+        description: this.state.eventTitle,
+        displayEnd: '2018-01-01',
+        displayStart: '2018-01-01',
+        photoSquare: '',
+        summary: this.state.phone,
+      });
     }
 
     Actions.pop();
   }
+
+
+updateStory() {
+
+    this.storyRef = firebase.database().ref('instance/' + instID + '/feature/7');
+
+}
 
   render() {
     return (
