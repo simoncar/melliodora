@@ -21,7 +21,11 @@ class NewQuote extends Component {
 
     this.state = {
       eventTitle: (props.edit) ? props.eventTitle : "",
+      eventDescription: (props.edit) ? props.eventDescription : "",
+      location: (props.edit) ? props.location : "",
       phone: (props.edit) ? props.phone : "",
+      email: (props.edit) ? props.email : "",
+      url: (props.edit) ? props.url : "",
       _key: (props.edit) ? props._key : ""
     };
 
@@ -62,12 +66,12 @@ class NewQuote extends Component {
 
       
       this.storyRef.update({
-        date_start: '2018-01-01',
-        description: this.state.eventTitle,
-        displayEnd: '2018-01-01',
-        displayStart: '2018-01-01',
-        photoSquare: '',
-        summary: this.state.phone,
+        summary: this.state.eventTitle,
+        description: this.state.eventDescription,
+        location: this.state.location,
+        phone: this.state.phone,
+        email: this.state.email,
+        url: this.state.url,
       });
 
 
@@ -129,13 +133,51 @@ updateStory() {
               style={[styles.title]}
               value={this.state.eventTitle}
             />
-            <TextInput
-              multiline={true}
+
+<TextInput
+              onChangeText={(text) => this.setState({ eventDescription: text })}
+              placeholder={"Description"}
+              autoFocus={true}
+              style={[styles.title]}
+              value={this.state.eventDescription}
+            />
+
+
+<TextInput
+              onChangeText={(text) => this.setState({ location: text })}
+              placeholder={"Location"}
+              autoFocus={true}
+              style={[styles.title]}
+              value={this.state.location}
+            />
+
+
+<TextInput
               onChangeText={(text) => this.setState({ phone: text })}
               placeholder={"Phone"}
-              style={[styles.quote]}
+              autoFocus={true}
+              style={[styles.title]}
               value={this.state.phone}
             />
+
+
+<TextInput
+              onChangeText={(text) => this.setState({ email: text })}
+              placeholder={"Email"}
+              autoFocus={true}
+              style={[styles.title]}
+              value={this.state.email}
+            />
+
+
+<TextInput
+              onChangeText={(text) => this.setState({ url: text })}
+              placeholder={"More info website URL"}
+              autoFocus={true}
+              style={[styles.title]}
+              value={this.state.url}
+            />
+           
           </View>
           <TouchableOpacity style={[styles.saveBtn]}
             disabled={(this.state.eventTitle.length > 0 && this.state.phone.length > 0) ? false : true}
