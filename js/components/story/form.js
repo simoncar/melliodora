@@ -27,9 +27,9 @@ class newStory extends Component {
       phone: (props.edit && props.phone !== undefined) ? props.phone : null,
       email: (props.edit && props.email !== undefined) ? props.email : null,
       url: (props.edit) ? props.url : "",
-      photo1: (props.edit) ? props.photo1 : "",
-      photo2: (props.edit) ? props.photo2 : "",
-      photo3: (props.edit) ? props.photo3 : "",
+      photo1: (props.edit && props.photo1 !== undefined) ? props.photo1 : null,
+      photo2: (props.edit && props.photo2 !== undefined) ? props.photo2 : null,
+      photo3: (props.edit && props.photo3 !== undefined) ? props.photo3 : null,
       _key: (props.edit) ? props._key : ""
     };
 
