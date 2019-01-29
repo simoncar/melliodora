@@ -203,39 +203,7 @@ class Story extends Component {
                 {this.props.eventTitle}
               </Text>
 
-              {undefined !== this.props.phone && null !== this.props.phone && this.props.phone.length > 0 &&
-                <View>
-                  <Grid>
-                    <Row>
-                      <Col style={{ width: 80 }}>
-                        <Button transparent style={styles.roundedButton} onPress={() => this._call()} >
-                          <Icon name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
-                        </Button>
-                      </Col>
-                      <Col>
-                        <Text selectable={true} style={styles.eventText}>{this.props.phone}</Text>
-                      </Col>
-                    </Row>
-                  </Grid>
-                </View>
-              }
 
-              {undefined !== this.props.email && null !== this.props.email && this.props.email.length > 0 &&
-                <View>
-                  <Grid>
-                    <Row>
-                      <Col style={{ width: 80 }}>
-                        <Button transparent style={styles.roundedButton} onPress={() => this._call()} >
-                          <Icon name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
-                        </Button>
-                      </Col>
-                      <Col>
-                        <Text selectable={true} style={styles.eventText}>  {this.props.email}</Text>
-                      </Col>
-                    </Row>
-                  </Grid>
-                </View>
-              }
 
               {undefined !== this.props.eventDate && null !== this.props.eventDate && this.props.eventDate.length > 1 &&
                 <Text selectable={true} style={styles.eventText}>
@@ -247,15 +215,7 @@ class Story extends Component {
                 <Text selectable={true} style={styles.eventText}>{formatTime(this.props.eventStartTime, this.props.eventEndTime)}</Text>
               }
 
-              {undefined !== this.props.location && null !== this.props.location && this.props.location.length > 0 &&
-
-                <Text selectable={true} style={styles.eventText}>
-                  Location: {this.props.location}
-                </Text>
-              }
-
-
-
+             
               <ParsedText
                 style={styles.eventText}
                 parse={
@@ -274,6 +234,11 @@ class Story extends Component {
                 {this.props.eventDescription}
               </ParsedText>
 
+
+
+
+
+
               <Text selectable={true} style={styles.abbreviations}>
                 {getAbbreviations(this.props.eventTitle)}
               </Text>
@@ -284,6 +249,46 @@ class Story extends Component {
               </Text>
 
             </View>
+
+
+            {undefined !== this.props.location && null !== this.props.location && this.props.location.length > 0 &&
+
+                <View style={{ padding: 20 }}>
+                <View style={styles.eventText}>
+                <Text selectable={true} style={styles.eventText}>
+                  {this.props.location}
+                </Text>
+                </View>
+                </View>
+
+
+                }
+
+
+            {undefined !== this.props.phone && null !== this.props.phone && this.props.phone.length > 0 &&
+              <TouchableOpacity>
+              <View style={{ padding: 20 }}>
+                <View style={styles.eventText}>
+                  <Text style={styles.eventText}>
+                    <MaterialIcons name="phone" style={styles.eventIcon} />   {this.props.phone}
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+              }
+
+
+            {undefined !== this.props.email && null !== this.props.email && this.props.email.length > 0 &&
+               <TouchableOpacity>
+               <View style={{ padding: 20 }}>
+                 <View style={styles.eventText}>
+                   <Text style={styles.eventText}>
+                     <MaterialIcons name="email" style={styles.eventIcon} />   {this.props.email}
+                   </Text>
+                 </View>
+               </View>
+             </TouchableOpacity>
+              }
 
             {undefined !== this.props.url && null !== this.props.url && this.props.url.length > 0 &&
 
