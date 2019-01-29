@@ -7,6 +7,7 @@ import { withLatestFrom } from 'rxjs/operators';
 const primary = require('../../themes/variable').brandPrimary;
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
+const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
 export default {
 
@@ -22,6 +23,39 @@ export default {
       height: 60
     })
 
+  },
+  saveBtn: {
+    width: windowWidth,
+    height: 44,
+    justifyContent: "center",
+    alignItems: 'center',
+    backgroundColor: "#6B9EFA"
+  },
+  buttonText: {
+    fontWeight: "500",
+  },
+
+  title: {
+    fontWeight: "400",
+    lineHeight: 22,
+    fontSize: 16,
+    fontFamily: 'Helvetica Neue',
+    height: 25 + 32,
+    padding: 16,
+    paddingLeft: 0
+  },
+  quote: {
+    fontSize: 17,
+    lineHeight: 38,
+    fontFamily: 'Helvetica Neue',
+    color: "#333333",
+    padding: 16,
+    paddingLeft: 0,
+    flex: 1,
+    height: 200,
+    marginBottom: 50,
+    borderTopWidth: 1,
+    borderColor: "rgba(212,211,211, 0.3)",
   },
 
   addButton: {
@@ -87,7 +121,7 @@ export default {
   eventText: {
     color: '#222',
     fontSize: 18,
-    paddingBottom: 0,
+    paddingBottom: 10,
   },
   url: {
     color: 'blue',

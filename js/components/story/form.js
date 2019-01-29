@@ -6,6 +6,7 @@ import { Container, Header, Content, Button, Icon, Body } from 'native-base';
 
 import { Actions } from 'react-native-router-flux';
 import { Constants } from 'expo';
+import styles from './styles';
 
 import * as firebase from 'firebase';
 var instID = Constants.manifest.extra.instance;
@@ -124,7 +125,7 @@ class newStory extends Component {
             <View>
 
             <Button>
-
+                 <Text></Text>
                 
               </Button>
 
@@ -140,15 +141,16 @@ class newStory extends Component {
                 onChangeText={(text) => this.setState({ eventTitle: text })}
                 placeholder={"Title"}
                 autoFocus={true}
-                style={[styles.title]}
+                style={[styles.eventTitle]}
                 value={this.state.eventTitle}
               />
 
               <TextInput
                 onChangeText={(text) => this.setState({ eventDescription: text })}
                 placeholder={"Description"}
-                autoFocus={true}
-                style={[styles.title]}
+                autoFocus
+                multiline
+                style={[styles.eventText]}
                 value={this.state.eventDescription}
               />
 
@@ -157,7 +159,7 @@ class newStory extends Component {
                 onChangeText={(text) => this.setState({ location: text })}
                 placeholder={"Location"}
                 autoFocus={true}
-                style={[styles.title]}
+                style={[styles.eventText]}
                 value={this.state.location}
               />
 
@@ -166,7 +168,7 @@ class newStory extends Component {
                 onChangeText={(text) => this.setState({ phone: text })}
                 placeholder={"Phone"}
                 autoFocus={true}
-                style={[styles.title]}
+                style={[styles.eventText]}
                 value={this.state.phone}
               />
 
@@ -175,7 +177,7 @@ class newStory extends Component {
                 onChangeText={(text) => this.setState({ email: text })}
                 placeholder={"Email"}
                 autoFocus={true}
-                style={[styles.title]}
+                style={[styles.eventText]}
                 value={this.state.email}
               />
 
@@ -184,28 +186,28 @@ class newStory extends Component {
                 onChangeText={(text) => this.setState({ url: text })}
                 placeholder={"More info website URL"}
                 autoFocus={true}
-                style={[styles.title]}
+                style={[styles.eventText]}
                 value={this.state.url}
               />
               <TextInput
                 onChangeText={(text) => this.setState({ photo1: text })}
                 placeholder={"Photo 1 URL"}
                 autoFocus={true}
-                style={[styles.title]}
+                style={[styles.eventText]}
                 value={this.state.photo1}
               />
               <TextInput
                 onChangeText={(text) => this.setState({ photo2: text })}
                 placeholder={"Photo 2 URL"}
                 autoFocus={true}
-                style={[styles.title]}
+                style={[styles.eventText]}
                 value={this.state.photo2}
               />
               <TextInput
                 onChangeText={(text) => this.setState({ photo3: text })}
                 placeholder={"Photo 3 URL"}
                 autoFocus={true}
-                style={[styles.title]}
+                style={[styles.eventText]}
                 value={this.state.photo3}
               />
             </View>
@@ -231,41 +233,3 @@ class newStory extends Component {
 
 //Connect everything
 export default connect(null)(newStory);
-
-var styles = StyleSheet.create({
-  saveBtn: {
-    width: windowWidth,
-    height: 44,
-    justifyContent: "center",
-    alignItems: 'center',
-    backgroundColor: "#6B9EFA"
-  },
-
-  buttonText: {
-    fontWeight: "500",
-  },
-
-  quote: {
-    fontSize: 17,
-    lineHeight: 38,
-    fontFamily: 'Helvetica Neue',
-    color: "#333333",
-    padding: 16,
-    paddingLeft: 0,
-    flex: 1,
-    height: 200,
-    marginBottom: 50,
-    borderTopWidth: 1,
-    borderColor: "rgba(212,211,211, 0.3)",
-  },
-
-  title: {
-    fontWeight: "400",
-    lineHeight: 22,
-    fontSize: 16,
-    fontFamily: 'Helvetica Neue',
-    height: 25 + 32,
-    padding: 16,
-    paddingLeft: 0
-  },
-});
