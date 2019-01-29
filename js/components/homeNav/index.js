@@ -76,7 +76,9 @@ class HomeNav extends Component {
       var items = [];
       var today = new moment().format();;
 
+
       snap.forEach((child) => {
+        console.log (child.key);
 
         var displayStart = moment().format(child.val().displayStart);
         var displayEnd = moment().format(child.val().displayEnd);
