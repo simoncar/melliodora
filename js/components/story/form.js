@@ -26,6 +26,9 @@ class NewQuote extends Component {
       phone: (props.edit) ? props.phone : "",
       email: (props.edit) ? props.email : "",
       url: (props.edit) ? props.url : "",
+      photo1: (props.edit) ? props.photo1 : "",
+      photo2: (props.edit) ? props.photo2 : "",
+      photo3: (props.edit) ? props.photo3 : "",
       _key: (props.edit) ? props._key : ""
     };
 
@@ -49,13 +52,13 @@ class NewQuote extends Component {
   }
 
   get uid() {
-  return (firebase.auth().currentUser || {}).uid;
-}
+    return (firebase.auth().currentUser || {}).uid;
+  }
 
 
   get timestamp() {
-  return firebase.database.ServerValue.TIMESTAMP;
-}
+    return firebase.database.ServerValue.TIMESTAMP;
+  }
 
 
   addStory() {
@@ -64,18 +67,21 @@ class NewQuote extends Component {
 
     if (this.props.edit) {
 
-      
+
       this.storyRef.update({
         summary: this.state.eventTitle,
         description: this.state.eventDescription,
         location: this.state.location,
         phone: this.state.phone,
         email: this.state.email,
-        url: this.state.url,
+        htmlLink: this.state.url,
+        photo1: this.state.photo1,
+        photo2: this.state.photo2,
+        photo3: this.state.photo3,
       });
 
 
-      console.log ("PUSH", this.state._key)
+      console.log("PUSH", this.state._key)
     } else {
       this.storyRef.push({
         date_start: '2018-01-01',
@@ -91,109 +97,129 @@ class NewQuote extends Component {
   }
 
 
-updateStory() {
+  updateStory() {
 
     this.storyRef = firebase.database().ref('instance/' + instID + '/feature/7');
 
-}
+  }
 
   render() {
     return (
 
       <Container style={{ backgroundColor: '#fff' }}>
 
-      <Header style={styles.header}>
-        <View style={styles.viewHeader}>
-          <View>
-            <Button transparent onPress={() => Actions.pop()}>
-              <Icon
-                active
-                name="arrow-back"
-                style={styles.headerIcons} />
-            </Button>
+        <Header style={styles.header}>
+          <View style={styles.viewHeader}>
+            <View>
+              <Button transparent onPress={() => Actions.pop()}>
+                <Icon
+                  active
+                  name="arrow-back"
+                  style={styles.headerIcons} />
+              </Button>
+            </View>
+            <Body>
+              <Image source={global.header_logoID} style={styles.imageHeader} />
+            </Body>
+            <View>
+
+
+            </View>
           </View>
-          <Body>
-            <Image source={global.header_logoID} style={styles.imageHeader} />
-          </Body>
-          <View>
+        </Header>
 
-     
-          </View>
-        </View>
-      </Header>
+        <Content showsVerticalScrollIndicator={false}>
 
-      <Content showsVerticalScrollIndicator={false}>
+          <View style={{ flex: 1, backgroundColor: '#fff' }}>
+            <View style={{ flex: 1, paddingTop: 50, paddingLeft: 10, paddingRight: 10 }}>
+              <TextInput
+                onChangeText={(text) => this.setState({ eventTitle: text })}
+                placeholder={"Title"}
+                autoFocus={true}
+                style={[styles.title]}
+                value={this.state.eventTitle}
+              />
 
-        <View style={{ flex: 1, backgroundColor: '#fff' }}>
-          <View style={{ flex: 1, paddingTop: 50, paddingLeft: 10, paddingRight: 10 }}>
-            <TextInput
-              onChangeText={(text) => this.setState({ eventTitle: text })}
-              placeholder={"Title"}
-              autoFocus={true}
-              style={[styles.title]}
-              value={this.state.eventTitle}
-            />
-
-<TextInput
-              onChangeText={(text) => this.setState({ eventDescription: text })}
-              placeholder={"Description"}
-              autoFocus={true}
-              style={[styles.title]}
-              value={this.state.eventDescription}
-            />
+              <TextInput
+                onChangeText={(text) => this.setState({ eventDescription: text })}
+                placeholder={"Description"}
+                autoFocus={true}
+                style={[styles.title]}
+                value={this.state.eventDescription}
+              />
 
 
-<TextInput
-              onChangeText={(text) => this.setState({ location: text })}
-              placeholder={"Location"}
-              autoFocus={true}
-              style={[styles.title]}
-              value={this.state.location}
-            />
+              <TextInput
+                onChangeText={(text) => this.setState({ location: text })}
+                placeholder={"Location"}
+                autoFocus={true}
+                style={[styles.title]}
+                value={this.state.location}
+              />
 
 
-<TextInput
-              onChangeText={(text) => this.setState({ phone: text })}
-              placeholder={"Phone"}
-              autoFocus={true}
-              style={[styles.title]}
-              value={this.state.phone}
-            />
+              <TextInput
+                onChangeText={(text) => this.setState({ phone: text })}
+                placeholder={"Phone"}
+                autoFocus={true}
+                style={[styles.title]}
+                value={this.state.phone}
+              />
 
 
-<TextInput
-              onChangeText={(text) => this.setState({ email: text })}
-              placeholder={"Email"}
-              autoFocus={true}
-              style={[styles.title]}
-              value={this.state.email}
-            />
+              <TextInput
+                onChangeText={(text) => this.setState({ email: text })}
+                placeholder={"Email"}
+                autoFocus={true}
+                style={[styles.title]}
+                value={this.state.email}
+              />
 
 
-<TextInput
-              onChangeText={(text) => this.setState({ url: text })}
-              placeholder={"More info website URL"}
-              autoFocus={true}
-              style={[styles.title]}
-              value={this.state.url}
-            />
-           
-          </View>
-          <TouchableOpacity style={[styles.saveBtn]}
-            disabled={(this.state.eventTitle.length > 0 && this.state.phone.length > 0) ? false : true}
-            onPress={this.addStory}>
-            <Text style={[styles.buttonText,
+              <TextInput
+                onChangeText={(text) => this.setState({ url: text })}
+                placeholder={"More info website URL"}
+                autoFocus={true}
+                style={[styles.title]}
+                value={this.state.url}
+              />
+              <TextInput
+                onChangeText={(text) => this.setState({ photo1: text })}
+                placeholder={"Photo 1 URL"}
+                autoFocus={true}
+                style={[styles.title]}
+                value={this.state.photo1}
+              />
+              <TextInput
+                onChangeText={(text) => this.setState({ photo2: text })}
+                placeholder={"Photo 2 URL"}
+                autoFocus={true}
+                style={[styles.title]}
+                value={this.state.photo2}
+              />
+              <TextInput
+                onChangeText={(text) => this.setState({ photo3: text })}
+                placeholder={"Photo 3 URL"}
+                autoFocus={true}
+                style={[styles.title]}
+                value={this.state.photo3}
+              />
+            </View>
+            <TouchableOpacity style={[styles.saveBtn]}
+              disabled={(this.state.eventTitle.length > 0 && this.state.phone.length > 0) ? false : true}
+              onPress={this.addStory}>
+              <Text style={[styles.buttonText,
               {
                 color: (this.state.eventTitle.length > 0 && this.state.phone.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
               }]}>
-              Save
+                Save
                     </Text>
-          </TouchableOpacity>
+            </TouchableOpacity>
 
-        </View>
+          </View>
 
-      </Content>
-              </Container >
+        </Content>
+      </Container >
     );
   }
 
