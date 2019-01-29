@@ -16,27 +16,6 @@ export class Backend extends React.Component{
       this.state = {
           chatroom: '',
       }
-    /*
-    firebase.initializeApp({
-      apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
-      authDomain: "calendar-app-57e88-41179.firebaseio.com",
-      databaseURL: "https://calendar-app-57e88-41179.firebaseio.com",
-      projectId: "12345",
-      storageBucket: "",
-      messagingSenderId: "22222"
-    });
-    */
-   /*
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setUid(user.uid);
-      } else {
-        firebase.auth().signInAnonymously().catch((error) => {
-          alert(error.message);
-        });
-      }
-    });
-    */
   }
 
   setUid(value) {
