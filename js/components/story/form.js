@@ -20,7 +20,7 @@ class NewQuote extends Component {
     };
 
     this.generateID = this.generateID.bind(this);
-    this.addQuote = this.addQuote.bind(this);
+    this.addStory = this.addStory.bind(this);
   }
 
   generateID() {
@@ -34,16 +34,16 @@ class NewQuote extends Component {
     return id;
   }
 
-  addQuote() {
+  addStory() {
     if (this.props.edit) {
       let calendarEvents = this.props.calendarEvents;
       calendarEvents['eventTitle'] = this.state.eventTitle;
       calendarEvents['phone'] = this.state.phone;
-      this.props.updateQuote(quote);
+      this.props.updateStory(quote);
     } else {
       let id = this.generateID();
       let calendarEvents = { "id": id, "eventTitle": this.state.eventTitle, "phohe": this.state.phone };
-      //this.props.addQuote(quote);
+      //this.props.addStory(quote);
     }
 
     Actions.pop();
@@ -95,7 +95,7 @@ class NewQuote extends Component {
           </View>
           <TouchableOpacity style={[styles.saveBtn]}
             disabled={(this.state.eventTitle.length > 0 && this.state.phone.length > 0) ? false : true}
-            onPress={this.addQuote}>
+            onPress={this.addStory}>
             <Text style={[styles.buttonText,
             {
               color: (this.state.eventTitle.length > 0 && this.state.phone.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
