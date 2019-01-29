@@ -81,35 +81,37 @@ class HomeNav extends Component {
         console.log (child.key);
 
         var displayStart = moment().format(child.val().displayStart);
-        var displayEnd = moment().format(child.val().displayEnd);
+        var displayEnd = moment().format(child.val().displayEnd); 
+        var hidden = true;
 
         if (displayStart <= today) {
           //start is less than End 
 
           if (displayEnd >= today) {
             //start is less than End 
-
-            items.push({
-              title: child.val().summary,
-              description: child.val().description,
-              location: child.val().location,
-              phone: child.val().phone,
-              email: child.val().email,
-              photoSquare: child.val().photoSquare,
-              url: child.val().htmlLink,
-              eventDate: child.val().date_start,
-              eventStartTime: child.val().time_start_pretty,
-              eventEndTime: child.val().time_end_pretty,
-              photo1: child.val().photo1,
-              photo2: child.val().photo2,
-              photo3: child.val().photo3,
-              displayStart: child.val().displayStart,
-              displayEnd: child.val().displayEnd,
-              _key: child.key,
-            });
+            hidden = false;
           }
-
         }
+
+        items.push({
+          title: child.val().summary,
+          description: child.val().description,
+          location: child.val().location,
+          phone: child.val().phone,
+          email: child.val().email,
+          photoSquare: child.val().photoSquare,
+          url: child.val().htmlLink,
+          eventDate: child.val().date_start,
+          eventStartTime: child.val().time_start_pretty,
+          eventEndTime: child.val().time_end_pretty,
+          photo1: child.val().photo1,
+          photo2: child.val().photo2,
+          photo3: child.val().photo3,
+          displayStart: child.val().displayStart,
+          displayEnd: child.val().displayEnd,
+          hidden,
+          _key: child.key,
+        });
 
       });
 

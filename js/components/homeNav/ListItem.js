@@ -40,6 +40,7 @@ class ListItem extends Component {
           displayEnd: this.props.item.item.displayEnd,
           _key: this.props.item.item._key,
           calendarEvents: this.props.calendarEvents,
+          hidden: this.props.hidden,
           })
         }>
 
