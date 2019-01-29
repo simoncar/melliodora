@@ -30,6 +30,14 @@ class newStory extends Component {
       photo1: (props.edit && props.photo1 !== undefined) ? props.photo1 : null,
       photo2: (props.edit && props.photo2 !== undefined) ? props.photo2 : null,
       photo3: (props.edit && props.photo3 !== undefined) ? props.photo3 : null,
+
+      eventDate: props.eventDate,
+      eventStartTime: props.eventStartTime,
+      eventEndTime: props.eventEndTime,
+   
+      displayStart: props.displayStart,
+      displayEnd: props.displayEnd,
+
       _key: (props.edit) ? props._key : ""
     };
 
@@ -79,6 +87,9 @@ class newStory extends Component {
         photo1: this.state.photo1,
         photo2: this.state.photo2,
         photo3: this.state.photo3,
+        date_start: this.state.eventDate,
+        displayStart: this.state.displayStart,
+        displayEnd: this.state.displayEnd,
       });
 
 
@@ -205,6 +216,7 @@ class newStory extends Component {
                 style={[styles.eventText]}
                 value={this.state.photo2}
               />
+
               <TextInput
                 onChangeText={(text) => this.setState({ photo3: text })}
                 placeholder={"Photo 3 URL"}
@@ -212,6 +224,58 @@ class newStory extends Component {
                 style={[styles.eventText]}
                 value={this.state.photo3}
               />
+
+            <Text>
+              Event Date (needs some re-programming but good enough for now - please use exact format or it will break)
+            </Text>
+            <Text>
+            </Text>
+            <Text>
+              Event Date (if user presses 'add to calendar')
+            </Text>
+
+            <Text>
+              format: 2019-01-01  yyyy-mm-dd
+            </Text>
+
+
+
+              <TextInput
+                onChangeText={(text) => this.setState({ eventDate: text })}
+                placeholder={"Event Date  format: 2019-01-01"}
+                style={[styles.eventText]}
+                value={this.state.eventDate}
+              />
+
+            <Text>
+              Display to users - Start
+            </Text>
+            <Text>
+              format: 2019-01-01 09:00 yyyy-mm-dd hh:mm
+            </Text>
+            <TextInput
+                onChangeText={(text) => this.setState({ displayStart: text })}
+                placeholder={"Display Start"}
+                autoFocus={true}
+                style={[styles.eventText]}
+                value={this.state.displayStart}
+              />
+
+            <Text>
+              Display to users - End
+            </Text>
+            <Text>
+              format: 2019-02-01 13:00 yyyy-mm-dd hh:mm
+            </Text>
+            <TextInput
+                onChangeText={(text) => this.setState({ displayEnd: text })}
+                placeholder={"Display End"}
+                autoFocus={true}
+                style={[styles.eventText]}
+                value={this.state.displayEnd}
+              />
+
+
             </View>
             <TouchableOpacity style={[styles.saveBtn]}
               disabled={(this.state.eventTitle.length > 0) ? false : true}

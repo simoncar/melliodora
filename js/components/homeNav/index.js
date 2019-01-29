@@ -103,6 +103,8 @@ class HomeNav extends Component {
               photo1: child.val().photo1,
               photo2: child.val().photo2,
               photo3: child.val().photo3,
+              displayStart: child.val().displayStart,
+              displayEnd: child.val().displayEnd,
               _key: child.key,
             });
           }
