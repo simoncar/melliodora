@@ -233,6 +233,14 @@ class HomeNav extends Component {
               data={this.state.calendarEvents}
               keyExtractor={this.keyExtractor}
               renderItem={this._renderItem}
+              hidden={false}
+            />
+
+            <FlatList
+              data={this.state.calendarEvents}
+              keyExtractor={this.keyExtractor}
+              renderItem={this._renderItem}
+              hidden={true}
             />
 
            
