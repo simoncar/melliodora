@@ -4,8 +4,7 @@ import { WebView, Linking, Image, View, TouchableOpacity, TouchableHighlight, Pl
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
-import { Container, Header, Content, ListItem, Text, Button, Icon, Left, Body, Right } from 'native-base';
-import { Grid, Col, Row } from 'react-native-easy-grid';
+import { Container, Header, Content, Text, Button, Icon, Body } from 'native-base';
 import { Ionicons, EvilIcons, MaterialIcons } from '@expo/vector-icons';
 
 
