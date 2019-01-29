@@ -92,6 +92,9 @@ class HomeNav extends Component {
             items.push({
               title: child.val().summary,
               description: child.val().description,
+              location: child.val().location,
+              phone: child.val().phone,
+              email: child.val().email,
               photoSquare: child.val().photoSquare,
               url: child.val().htmlLink,
               eventDate: child.val().date_start,
