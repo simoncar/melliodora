@@ -12,7 +12,7 @@ var instID = Constants.manifest.extra.instance;
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
-class NewQuote extends Component {
+class newStory extends Component {
   uid = '';
   storyRef = null;
 
@@ -123,6 +123,10 @@ class NewQuote extends Component {
             </Body>
             <View>
 
+            <Button>
+
+                
+              </Button>
 
             </View>
           </View>
@@ -206,11 +210,11 @@ class NewQuote extends Component {
               />
             </View>
             <TouchableOpacity style={[styles.saveBtn]}
-              disabled={(this.state.eventTitle.length > 0 && this.state.phone.length > 0) ? false : true}
+              disabled={(this.state.eventTitle.length > 0) ? false : true}
               onPress={this.addStory}>
               <Text style={[styles.buttonText,
               {
-                color: (this.state.eventTitle.length > 0 && this.state.phone.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
+                color: (this.state.eventTitle.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
               }]}>
                 Save
                     </Text>
@@ -226,7 +230,7 @@ class NewQuote extends Component {
 }
 
 //Connect everything
-export default connect(null)(NewQuote);
+export default connect(null)(newStory);
 
 var styles = StyleSheet.create({
   saveBtn: {
