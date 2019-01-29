@@ -23,9 +23,9 @@ class newStory extends Component {
     this.state = {
       eventTitle: (props.edit) ? props.eventTitle : "",
       eventDescription: (props.edit) ? props.eventDescription : "",
-      location: (props.edit) ? props.location : "",
-      phone: (props.edit) ? props.phone : "",
-      email: (props.edit) ? props.email : "",
+      location: (props.edit && props.location !== undefined) ? props.location : null,
+      phone: (props.edit && props.phone !== undefined) ? props.phone : null,
+      email: (props.edit && props.email !== undefined) ? props.email : null,
       url: (props.edit) ? props.url : "",
       photo1: (props.edit) ? props.photo1 : "",
       photo2: (props.edit) ? props.photo2 : "",
@@ -82,7 +82,7 @@ class newStory extends Component {
       });
 
 
-      console.log("PUSH", this.state._key)
+  
     } else {
       this.storyRef.push({
         date_start: '2018-01-01',
@@ -95,6 +95,8 @@ class newStory extends Component {
     }
 
     Actions.pop();
+    setTimeout(() => {Actions.pop()}, 100)
+ 
   }
 
 
