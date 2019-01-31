@@ -27,9 +27,7 @@ import { formatTime, formatMonth, getAbbreviations, isAdmin } from '../global.js
 
 import * as firebase from 'firebase';
 
-
 var instID = Constants.manifest.extra.instance;
-
 
 import HeaderContent from './../headerContent/header/';
 
@@ -40,8 +38,6 @@ var WEBVIEW_REF = 'storWebview';
 var DEFAULT_URL = '';
 
 class Story extends Component {
-
-
 
   static propTypes = {
     navigation: PropTypes.shape({ key: PropTypes.string }),
@@ -85,7 +81,6 @@ class Story extends Component {
       .then(this._showResult)
       .catch((error) => this.setState({ result: 'error: ' + error.message }));
   };
-
 
   _call() {
     const args = {
