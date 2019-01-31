@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { Image, Text, View, TouchableOpacity, Dimensions, StyleSheet} from 'react-native';
 import styles from './styles';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
+import { isAdmin } from '../global.js';
 
 const { width } = Dimensions.get('window');
 
@@ -58,9 +59,16 @@ class ListItem extends Component {
                   <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60, flex: 1}}>{this.props.item.item.title}</Text>
   
             } 
-                 <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }}></Ionicons>
+ {isAdmin() &&
+              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chat({ chatroom: this.props.item.item.title }); }} >
+                 <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }}></SimpleLineIcons>
+             </TouchableOpacity> 
+ }
 
-               
+
+                 <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }}></Ionicons>
+                 
+              
           </View>
           
           <View>
