@@ -87,22 +87,29 @@ class newStory extends Component {
         photo1: this.state.photo1,
         photo2: this.state.photo2,
         photo3: this.state.photo3,
-        date_start: this.state.eventDate,
-        displayStart: this.state.displayStart,
-        displayEnd: this.state.displayEnd,
+        date_start: (this.state.eventDate !== undefined) ? this.state.eventDate : null,
+        displayStart: (this.state.displayStart !== undefined) ? this.state.displayStart : null,
+        displayEnd: (this.state.displayEnd !== undefined) ? this.state.displayEnd : null,
       });
 
 
   
     } else {
       this.storyRef.push({
-        date_start: '2018-01-01',
-        description: this.state.eventTitle,
-        displayEnd: '2018-01-01',
-        displayStart: '2018-01-01',
-        photoSquare: '',
-        summary: this.state.phone,
+        summary: this.state.eventTitle,
+        description: this.state.eventDescription,
+        location: this.state.location,
+        phone: this.state.phone,
+        email: this.state.email,
+        htmlLink: this.state.url,
+        photo1: this.state.photo1,
+        photo2: this.state.photo2,
+        photo3: this.state.photo3,
+        date_start: (this.state.eventDate !== undefined) ? this.state.eventDate : null,
+        displayStart: (this.state.displayStart !== undefined) ? this.state.displayStart : null,
+        displayEnd: (this.state.displayEnd !== undefined) ? this.state.displayEnd : null,
       });
+
     }
 
     Actions.pop();
@@ -153,7 +160,7 @@ class newStory extends Component {
               <TextInput
                 onChangeText={(text) => this.setState({ eventTitle: text })}
                 placeholder={"Title"}
-                autoFocus={true}
+                autoFocus
                 style={[styles.eventTitle]}
                 value={this.state.eventTitle}
               />
@@ -161,7 +168,6 @@ class newStory extends Component {
               <TextInput
                 onChangeText={(text) => this.setState({ eventDescription: text })}
                 placeholder={"Description"}
-                autoFocus
                 multiline
                 style={[styles.eventText]}
                 value={this.state.eventDescription}
@@ -171,7 +177,6 @@ class newStory extends Component {
               <TextInput
                 onChangeText={(text) => this.setState({ location: text })}
                 placeholder={"Location"}
-                autoFocus={true}
                 style={[styles.eventText]}
                 value={this.state.location}
               />
@@ -180,7 +185,6 @@ class newStory extends Component {
               <TextInput
                 onChangeText={(text) => this.setState({ phone: text })}
                 placeholder={"Phone"}
-                autoFocus={true}
                 style={[styles.eventText]}
                 value={this.state.phone}
               />
@@ -189,7 +193,6 @@ class newStory extends Component {
               <TextInput
                 onChangeText={(text) => this.setState({ email: text })}
                 placeholder={"Email"}
-                autoFocus={true}
                 style={[styles.eventText]}
                 value={this.state.email}
               />
@@ -198,21 +201,18 @@ class newStory extends Component {
               <TextInput
                 onChangeText={(text) => this.setState({ url: text })}
                 placeholder={"More info website URL"}
-                autoFocus={true}
                 style={[styles.eventText]}
                 value={this.state.url}
               />
               <TextInput
                 onChangeText={(text) => this.setState({ photo1: text })}
                 placeholder={"Photo 1 URL"}
-                autoFocus={true}
                 style={[styles.eventText]}
                 value={this.state.photo1}
               />
               <TextInput
                 onChangeText={(text) => this.setState({ photo2: text })}
                 placeholder={"Photo 2 URL"}
-                autoFocus={true}
                 style={[styles.eventText]}
                 value={this.state.photo2}
               />
@@ -220,7 +220,6 @@ class newStory extends Component {
               <TextInput
                 onChangeText={(text) => this.setState({ photo3: text })}
                 placeholder={"Photo 3 URL"}
-                autoFocus={true}
                 style={[styles.eventText]}
                 value={this.state.photo3}
               />
@@ -256,7 +255,6 @@ class newStory extends Component {
             <TextInput
                 onChangeText={(text) => this.setState({ displayStart: text })}
                 placeholder={"Display Start"}
-                autoFocus={true}
                 style={[styles.eventText]}
                 value={this.state.displayStart}
               />
@@ -270,7 +268,6 @@ class newStory extends Component {
             <TextInput
                 onChangeText={(text) => this.setState({ displayEnd: text })}
                 placeholder={"Display End"}
-                autoFocus={true}
                 style={[styles.eventText]}
                 value={this.state.displayEnd}
               />
