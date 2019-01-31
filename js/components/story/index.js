@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { WebView, Linking, Image, View, TouchableOpacity, TouchableHighlight, Platform, Dimensions, Share } from 'react-native';
+import { WebView, Linking, Image, View, TouchableOpacity, TouchableHighlight, Switch, Platform, Dimensions, Share } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
@@ -18,7 +18,7 @@ import Communications from 'react-native-communications';
 import theme from '../../themes/base-theme';
 import styles from './styles';
 import call from 'react-native-phone-call'  //TODO migration to communications
-
+import { Grid, Col } from 'react-native-easy-grid';
 
 import Analytics from '../../lib/analytics';
 import { Constants } from 'expo';
@@ -235,18 +235,6 @@ class Story extends Component {
 
 
 
-
-
-
-              <Text selectable={true} style={styles.abbreviations}>
-                {getAbbreviations(this.props.eventTitle)}
-              </Text>
-
-
-              <Text style={styles.eventText}>
-                {this.props.eventImage}
-              </Text>
-
             </View>
 
 
@@ -259,8 +247,6 @@ class Story extends Component {
                 </Text>
                 </View>
                 </View>
-
-
                 }
 
 
@@ -289,6 +275,23 @@ class Story extends Component {
              </TouchableOpacity>
               }
 
+              <Grid style={{ padding: 20 }}>
+                <Col>
+                  <Text style={styles.eventText}>Notify Me of Updates</Text>
+                </Col>
+                <Col style={styles.switchContainer}>
+                  <Switch
+                    onValueChange={value => this.setState({ lowerelemSwitch: value })}
+                    onTintColor={primary}
+                    style={styles.switch}
+                    thumbTintColor="#ccc"
+                    tintColor="#aaa"
+                    value={this.state.lowerelemSwitch}
+                  />
+                </Col>
+              </Grid>
+
+
             {undefined !== this.props.url && null !== this.props.url && this.props.url.length > 0 &&
 
               <TouchableOpacity onPress={() => { this._handleOpenWithLinking(this.props.url); }}>
@@ -302,6 +305,14 @@ class Story extends Component {
               </TouchableOpacity>
 
             }
+
+              <Text selectable={true} style={styles.abbreviations}>
+                {getAbbreviations(this.props.eventTitle)}
+              </Text>
+
+              <Text style={styles.eventText}>
+                {this.props.eventImage}
+              </Text>
 
             {undefined !== this.props.eventDate && this.props.eventDate.length > 0 &&
 

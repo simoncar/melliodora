@@ -50,6 +50,16 @@ class SideBar extends Component {
                 <Text style={styles.linkText}>{global.switch_portalName}</Text>
             </ListItem>
 
+
+
+            <ListItem button onPress={() => { Actions.settings(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <Icon name="ios-grid" />
+                <Text style={styles.linkText}>Settings</Text>
+            </ListItem>
+
+
+
+            
        {instID == '0001-sais_edu_sg' &&
           <View>
                 <ListItem button onPress={() => { Actions.webportalSports(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
