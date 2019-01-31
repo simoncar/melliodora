@@ -8,13 +8,12 @@ import { Ionicons } from '@expo/vector-icons';
 const { width } = Dimensions.get('window');
 
 class ListItem extends Component {
-//https://github.com/saitoxu/InstaClone/blob/master/src/AvView.js
-
 
   render() {
 
     var photoSquare = this.props.item.item.photoSquare;
     var photo1 = this.props.item.item.photo1;
+
 
     return (
 
@@ -40,7 +39,7 @@ class ListItem extends Component {
           displayEnd: this.props.item.item.displayEnd,
           _key: this.props.item.item._key,
           calendarEvents: this.props.calendarEvents,
-          hidden: this.props.hidden,
+          hidden: this.props.item.item.hidden,
           })
         }>
 
@@ -49,17 +48,29 @@ class ListItem extends Component {
             <Image
               style={{ width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' }}
               source={{uri: `${photoSquare}`}} 
+             
             />
-            <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60, flex: 1 }}>{this.props.item.item.title}</Text>
-            <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+   
+            {this.props.item.item.hidden == true &&
+                  <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60 }}>HIDDEN {this.props.item.item.title}</Text>
+            } 
+            {this.props.item.item.hidden == false &&
+                  <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60, flex: 1}}>{this.props.item.item.title}</Text>
+  
+            } 
+                 <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }}></Ionicons>
+
+               
           </View>
           
           <View>
+          {this.props.item.item.hidden == false &&
           <Image
             source={{uri: `${photo1}`}} 
             style={{ width, height: 200 }}
             resizeMode={'contain'}
           />
+          }
         </View>
 
         </View>

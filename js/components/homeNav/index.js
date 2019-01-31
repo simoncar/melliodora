@@ -74,49 +74,78 @@ class HomeNav extends Component {
     calendarEvents.on('value', (snap) => {
 
       var items = [];
+      var itemsHidden = [];
       var today = new moment().format();;
 
-
       snap.forEach((child) => {
-        console.log (child.key);
-
-        var displayStart = moment().format(child.val().displayStart);
-        var displayEnd = moment().format(child.val().displayEnd); 
+        
+        console.log ("eeeeee", child.val().displayStart );
+       
+        var displayStart = (child.val().displayStart !== undefined) ? moment().format(child.val().displayStart) : null;
+        var displayEnd =(child.val().displayEnd !== undefined) ? moment().format(child.val().displayEnd) : null;
         var hidden = true;
 
-        if (displayStart <= today) {
+
+        console.log ("yyyyy", displayStart);
+
+        if (displayStart != null && displayStart <= today) {
           //start is less than End 
 
-          if (displayEnd >= today) {
+          if (displayStart != null && displayEnd >= today) {
             //start is less than End 
             hidden = false;
           }
         }
 
-        items.push({
-          title: child.val().summary,
-          description: child.val().description,
-          location: child.val().location,
-          phone: child.val().phone,
-          email: child.val().email,
-          photoSquare: child.val().photoSquare,
-          url: child.val().htmlLink,
-          eventDate: child.val().date_start,
-          eventStartTime: child.val().time_start_pretty,
-          eventEndTime: child.val().time_end_pretty,
-          photo1: child.val().photo1,
-          photo2: child.val().photo2,
-          photo3: child.val().photo3,
-          displayStart: child.val().displayStart,
-          displayEnd: child.val().displayEnd,
-          hidden,
-          _key: child.key,
-        });
+        console.log ("kkkkkk", displayStart)
+
+        if (!hidden) {
+          items.push({
+            title: child.val().summary,
+            description: child.val().description,
+            location: child.val().location,
+            phone: child.val().phone,
+            email: child.val().email,
+            photoSquare: child.val().photoSquare,
+            url: child.val().htmlLink,
+            eventDate: child.val().date_start,
+            eventStartTime: child.val().time_start_pretty,
+            eventEndTime: child.val().time_end_pretty,
+            photo1: child.val().photo1,
+            photo2: child.val().photo2,
+            photo3: child.val().photo3,
+            displayStart: child.val().displayStart,
+            displayEnd: child.val().displayEnd,
+            hidden: false,
+            _key: child.key,
+          });
+        } else {
+          itemsHidden.push({
+            title: child.val().summary,
+            description: child.val().description,
+            location: child.val().location,
+            phone: child.val().phone,
+            email: child.val().email,
+            photoSquare: child.val().photoSquare,
+            url: child.val().htmlLink,
+            eventDate: child.val().date_start,
+            eventStartTime: child.val().time_start_pretty,
+            eventEndTime: child.val().time_end_pretty,
+            photo1: child.val().photo1,
+            photo2: child.val().photo2,
+            photo3: child.val().photo3,
+            displayStart: child.val().displayStart,
+            displayEnd: child.val().displayEnd,
+            hidden: true,
+            _key: child.key,
+          });
+        }
 
       });
 
       this.setState({
         calendarEvents: items,
+        calendarEventsHidden: itemsHidden,
       });
 
     });
@@ -130,10 +159,10 @@ class HomeNav extends Component {
   }
 
 
-  _renderItem23 = ({item}) =>
-  <View >
-    <Text style={{color: 'blue'}}>{item.title}</Text>   
-  </View>;
+  _renderItem23 = ({ item }) =>
+    <View >
+      <Text style={{ color: 'blue' }}>{item.title}</Text>
+    </View>;
 
 
   render() {
@@ -229,21 +258,19 @@ class HomeNav extends Component {
           <View style={styles.newsContentLine}>
 
 
-          <FlatList
-              data={this.state.calendarEvents}
-              keyExtractor={this.keyExtractor}
-              renderItem={this._renderItem}
-              hidden={false}
-            />
-
             <FlatList
               data={this.state.calendarEvents}
               keyExtractor={this.keyExtractor}
               renderItem={this._renderItem}
-              hidden={true}
             />
 
-           
+            <FlatList
+              data={this.state.calendarEventsHidden}
+              keyExtractor={this.keyExtractor}
+              renderItem={this._renderItem}
+            />
+
+
           </View>
 
           {instID == '0001-sais_edu_sg' &&
@@ -276,7 +303,9 @@ class HomeNav extends Component {
           }
 
           {isAdmin() &&
-            <TouchableHighlight style={styles.addButton} underlayColor='#ff7043' onPress={() => Actions.new_quote()}>
+            <TouchableHighlight style={styles.addButton} underlayColor='#ff7043' onPress={() => Actions.storyForm(
+
+            )}>
               <Text style={{ fontSize: 25, color: 'white' }}>+</Text>
             </TouchableHighlight>
           }
@@ -299,9 +328,6 @@ class HomeNav extends Component {
       </Container>
     );
   }
-
-
-
 }
 
 function bindAction(dispatch) {

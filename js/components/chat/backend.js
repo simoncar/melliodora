@@ -1,8 +1,6 @@
 import React from 'react';
 import * as firebase from 'firebase';
-import { Expo, Constants, AppLoading, Asset, Font } from 'expo';
-
-import ApiKeys from './../../ApiKeys';
+import { Constants } from 'expo';
 
 var instID = Constants.manifest.extra.instance;
 
@@ -10,7 +8,6 @@ export class Backend extends React.Component{
   uid = '';
   messagesRef = null;
 
-  //initialize firebase backend
   constructor(props) {
       super();
       this.state = {
@@ -71,8 +68,6 @@ export class Backend extends React.Component{
          // },
         });
       }
-     
-
     };
     this.messageRef.limitToLast(50).on('child_added', onReceive);
   }
