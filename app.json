@@ -12,6 +12,10 @@
       "instance": "0001-sais_edu_sg",
       "amplitudeApiKey": "12cdb352da26116280b7c358a62ea788"
     },
+    "splash": {
+      "image": "./resources/0001-sais_edu_sg/splash.png",
+      "backgroundColor": "#FFF"
+    },
     "hooks": {
       "postPublish": [
         {
@@ -27,11 +31,6 @@
     "notification": {
       "icon": "./resources/0001-sais_edu_sg/icon.png",
       "color": "#000000"
-    },
-    "loading": {
-      "hideExponentText": true,
-      "icon": "./images/launchImages/loading.png",
-      "backgroundImage": "images/BG-loading10.png"
     },
     "orientation": "portrait",
     "primaryColor": "#cccccc",
