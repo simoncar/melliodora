@@ -21,6 +21,8 @@ class newStory extends Component {
     super(props);
 
     this.state = {
+      notifyMeSwitch: false,
+      
       eventTitle: (props.edit) ? props.eventTitle : "",
       eventDescription: (props.edit) ? props.eventDescription : "",
       location: (props.edit && props.location !== undefined) ? props.location : null,

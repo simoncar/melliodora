@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Image, ListView, FlatList, View, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions } from 'react-native';
+import { Image, ListView, FlatList, View, Linking, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Container, Content, Text, Icon, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
@@ -67,6 +67,10 @@ class HomeNav extends Component {
       key: PropTypes.string,
     }),
   }
+
+  _handleOpenWithLinking = (sURL) => {
+    Linking.openURL(sURL);
+ }
 
   listenLoadFromFirebase(calendarEvents) {
 
@@ -315,8 +319,9 @@ class HomeNav extends Component {
           </View>
           <Image source={require('../../../images/sais.edu.sg/10yearLogo.png')} style={styles.tenYearLogo} />
 
-          <Image source={require('../../../images/sais.edu.sg/SCLogo.png')} style={styles.sclogo} />
-
+          <TouchableOpacity onPress={() => { this._handleOpenWithLinking('https://smartcookies.io'); }}>
+            <Image source={require('../../../images/sais.edu.sg/SCLogo.png')} style={styles.sclogo} />
+          </TouchableOpacity>
 
           <View>
             <Text style={styles.version}> </Text>
