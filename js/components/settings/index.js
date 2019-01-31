@@ -3,7 +3,7 @@
 import PropTypes from 'prop-types';
 
 import React, { Component } from 'react';
-import { Image, View, Switch, TouchableOpacity, Platform } from 'react-native';
+import { ImageBackground, View, Switch, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions, ActionConst } from 'react-native-router-flux';
@@ -15,11 +15,6 @@ import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
 
 const primary = require('../../themes/variable').brandPrimary;
-
-
-
-import HeaderContent from './../headerContent/header';
-
 
 class Settings extends Component {
 
@@ -59,16 +54,11 @@ class Settings extends Component {
         y: 0,
       },
     };
-
-
   }
-
 
   render() {
     return (
       <Container>
-   
-
         <Header>
           <Left>
             <Button transparent onPress={this.props.openDrawer} >

@@ -97,8 +97,6 @@ class HomeNav extends Component {
           }
         }
 
-        console.log ("kkkkkk", displayStart)
-
         if (!hidden) {
           items.push({
             title: child.val().summary,

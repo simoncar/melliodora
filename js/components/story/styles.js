@@ -58,6 +58,19 @@ export default {
     borderColor: "rgba(212,211,211, 0.3)",
   },
 
+  switchContainer: {
+    alignSelf: 'flex-end',
+    alignItems: 'right',
+  },
+
+  switch: {
+    transform: [{ scaleX: 1 }, { scaleY: 1  }],
+    alignSelf: 'flex-end',
+    marginTop: Platform.OS === 'android' ? -2 : -5,
+    paddingTop: Platform.OS === 'android' ? 25 : 10,
+    paddingBottom: Platform.OS === 'android' ? 0 : 10,
+  },
+
   addButton: {
     backgroundColor: '#ff5722',
     borderColor: '#ff5722',
