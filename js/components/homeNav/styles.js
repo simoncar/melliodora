@@ -184,6 +184,13 @@ footer: {
     borderTopWidth: 1,
     alignSelf: 'center',
   },
+  sclogo: {
+    marginTop: 100,
+    width: 40,
+    height: 40,
+    borderTopWidth: 1,
+    alignSelf: 'center',
+  },
   newsImage2: {
     width: 340,
     height: 200,
