@@ -21,7 +21,6 @@ import styles from './styles';
 
 import * as firebase from 'firebase';
 
-
 const { width } = Dimensions.get('window');
 
 var calendarEvents = [];
@@ -315,6 +314,9 @@ class HomeNav extends Component {
             <Text style={styles.version}> </Text>
           </View>
           <Image source={require('../../../images/sais.edu.sg/10yearLogo.png')} style={styles.tenYearLogo} />
+
+          <Image source={require('../../../images/sais.edu.sg/SCLogo.png')} style={styles.sclogo} />
+
 
           <View>
             <Text style={styles.version}> </Text>
