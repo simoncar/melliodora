@@ -21,9 +21,15 @@ import call from 'react-native-phone-call'  //TODO migration to communications
 import { Grid, Col } from 'react-native-easy-grid';
 
 import Analytics from '../../lib/analytics';
-import { Constants } from 'expo';
+import { Constants, Notifications } from 'expo';
 
 import { formatTime, formatMonth, getAbbreviations, isAdmin } from '../global.js';
+
+import * as firebase from 'firebase';
+
+
+var instID = Constants.manifest.extra.instance;
+
 
 import HeaderContent from './../headerContent/header/';
 
@@ -34,6 +40,8 @@ var WEBVIEW_REF = 'storWebview';
 var DEFAULT_URL = '';
 
 class Story extends Component {
+
+
 
   static propTypes = {
     navigation: PropTypes.shape({ key: PropTypes.string }),
@@ -52,6 +60,7 @@ class Story extends Component {
       forwardButtonEnabled: false,
       loading: true,
       scalesPageToFit: true,
+      notifyUpdates: true,
     };
 
     //analytics  -----
@@ -152,6 +161,22 @@ class Story extends Component {
     let match = matchingString.match(pattern);
     return `^^${match[1]}^^`;
   }
+
+
+  setNotifyPreference() {
+
+  // Get the token that uniquely identifies this device
+  let token = Notifications.getExpoPushTokenAsync();
+
+    this.notifyRef = firebase.database().ref('instance/' + instID + '/feature/' + this.props._key + '/notify/');
+
+      this.notifyRef.update({
+        token: 'sdvaiushviuasjbnviuasviasviivh',
+      });
+    };
+  
+
+
 
   render() {
 
@@ -274,14 +299,14 @@ class Story extends Component {
                </View>
              </TouchableOpacity>
               }
-
+ {isAdmin() &&
               <Grid style={{ padding: 20 }}>
                 <Col>
                   <Text style={styles.eventText}>Notify Me of Updates</Text>
                 </Col>
                 <Col style={styles.switchContainer}>
                   <Switch
-                    onValueChange={value => this.setState({ lowerelemSwitch: value })}
+                    onValueChange={value => this.setNotifyPreference({ notifyUpdates: value })}
                     onTintColor={primary}
                     style={styles.switch}
                     thumbTintColor="#ccc"
@@ -290,7 +315,7 @@ class Story extends Component {
                   />
                 </Col>
               </Grid>
-
+ }
 
             {undefined !== this.props.url && null !== this.props.url && this.props.url.length > 0 &&
 
