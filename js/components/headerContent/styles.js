@@ -12,7 +12,7 @@ export default {
     paddingRight: 15,
     ...ifIphoneX({
       paddingTop: 0,
-      height: 80
+      height: 60
     }, {
       paddingTop: 0,
       height: 60
@@ -39,16 +39,19 @@ export default {
     paddingTop: Platform.OS === 'android' ? 5 : 0,
   },
   btnHeader: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    justifyContent: 'center', 
+    alignItems: 'center' 
   },
   imageHeader: {
     height: 135,
     width: 225,
     resizeMode: 'contain',
-
     justifyContent: 'center',
-      alignItems: 'center',
+    alignItems: 'center',
   },
+
+
 
 
     footer: {

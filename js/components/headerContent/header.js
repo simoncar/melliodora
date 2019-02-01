@@ -53,15 +53,15 @@ class HeaderContent extends Component {
     return (
       <Header style={styles.header}>
         <View style={styles.viewHeader}>       
-          <View>
-            <Button transparent onPress={this.props.openDrawer} >
+          <View style={styles.btnHeader}>
+            <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
               <Icon active name="menu" />
             </Button>
           </View>
           <Body>
             <Image source={global.header_logoID} style={styles.imageHeader} />
           </Body>
-          <View>
+          <View style={styles.btnHeader}>
               {this._HomeNav()}
           </View>
         </View>

@@ -177,12 +177,12 @@ class HomeNav extends Component {
             <Grid>
 
               <Row style={{ paddingTop: 20, paddingBottom: 20 }}>
-                <Col>
-                  <Button transparent style={styles.roundedButton} onPress={() => { Actions.contact(); }} >
-                    <Ionicons name="ios-call" style={styles.icon} />
-                  </Button>
-                  <Text note style={styles.buttonLabel}>Contact</Text>
-                </Col>
+              <Col>
+                    <Button transparent style={styles.roundedButton} onPress={() => { Actions.webportalSports(); }} >
+                      <MaterialCommunityIcons style={styles.icon} name="soccer" />
+                    </Button>
+                    <Text note style={styles.buttonLabel}>Athletics</Text>
+                  </Col>
                 <Col>
                   <Button transparent style={styles.roundedButton} onPress={() => { Actions.home(); }} >
                     <Icon style={styles.icon} name="ios-calendar" />
@@ -200,62 +200,12 @@ class HomeNav extends Component {
                   </View>
                 </Col>
               </Row>
-              {instID == '0001-sais_edu_sg' &&
-                <Row style={{ paddingBottom: 20 }}>
-                  <Col>
-                    <Button transparent style={styles.roundedButton} onPress={() => { Actions.webportalSports(); }} >
-                      <MaterialCommunityIcons style={styles.icon} name="soccer" />
-                    </Button>
-                    <Text note style={styles.buttonLabel}>Athletics</Text>
-                  </Col>
-                  <Col>
-                    <Button transparent style={styles.roundedButton} onPress={() => { Actions.ptaHome(); }} >
-                      <Icon style={styles.icon} name="ios-people" />
-                    </Button>
-                    <Text note style={styles.buttonLabel}>PTA</Text>
-                  </Col>
-
-                  <Col>
-                    <Button transparent style={styles.roundedButton} onPress={() => { Actions.campusMap(); }} >
-                      <Icon style={styles.icon} name="ios-map" />
-                    </Button>
-                    <Text note style={styles.buttonLabel}>School Map</Text>
-                  </Col>
-                </Row>
-              }
+           
 
             </Grid>
           </View>
 
-          {isAdmin() &&
-
-
-            <View style={styles.newsContentLine}>
-
-
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chatmain({ chatroom: 'CXS' }); }} >
-
-                <View>
-                  <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
-                    <Image
-                      style={{ width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' }}
-                      source={require('../../../images/sais.edu.sg/chatBubble.png')}
-                    />
-                    <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60, flex: 1 }}>Chat Test</Text>
-                    <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
-                  </View>
-
-                  <View>
-
-                  </View>
-
-                </View>
-
-              </TouchableOpacity>
-
-            </View >
-
-          }
+ 
           <View style={styles.newsContentLine}>
 
 
@@ -303,6 +253,37 @@ class HomeNav extends Component {
 
           }
 
+<View>
+                <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
+                </View>
+                </View>
+
+
+          {instID == '0001-sais_edu_sg' &&
+                <Row style={{ paddingBottom: 20 }}>
+                             <Col>
+                  <Button transparent style={styles.roundedButton} onPress={() => { Actions.contact(); }} >
+                    <Ionicons name="ios-call" style={styles.icon} />
+                  </Button>
+                  <Text note style={styles.buttonLabel}>Contact</Text>
+                </Col>
+                 
+                  <Col>
+                    <Button transparent style={styles.roundedButton} onPress={() => { Actions.ptaHome(); }} >
+                      <Icon style={styles.icon} name="ios-people" />
+                    </Button>
+                    <Text note style={styles.buttonLabel}>PTA</Text>
+                  </Col>
+
+                  <Col>
+                    <Button transparent style={styles.roundedButton} onPress={() => { Actions.campusMap(); }} >
+                      <Icon style={styles.icon} name="ios-map" />
+                    </Button>
+                    <Text note style={styles.buttonLabel}>School Map</Text>
+                  </Col>
+                </Row>
+              }
+
           {isAdmin() &&
             <TouchableHighlight style={styles.addButton} underlayColor='#ff7043' onPress={() => Actions.storyForm(
 
@@ -329,6 +310,8 @@ class HomeNav extends Component {
             <Text style={styles.version}>Version {Constants.manifest.revisionId}</Text>
             <Text style={styles.version}> </Text>
           </View>
+
+
         </Content>
       </Container>
     );
