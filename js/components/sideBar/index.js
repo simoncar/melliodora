@@ -52,10 +52,6 @@ class SideBar extends Component {
 
 
 
-            <ListItem button onPress={() => { Actions.settings(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                <Icon name="ios-grid" />
-                <Text style={styles.linkText}>Settings</Text>
-            </ListItem>
 
 
 
