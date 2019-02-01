@@ -38,6 +38,17 @@ console.log('Actions > setUsername', username);
     payload: username
   };
 }
+
+
+function setAdminPassword(adminPassword) {
+  console.log('Actions > setAdminPassword', adminPassword);
+  
+    return {
+      type: "SET_ADMINPASSWORD_DETAILS",
+      payload: adminPassword
+    };
+  }
+
 function setNickname(nickname) {
   console.log('Actions > setNickname', nickname);
   
@@ -101,4 +112,4 @@ function logOut(): ThunkAction {
   };
 }
 
-module.exports = {setUsername,setPassword, setauthSecret, skipLogin, logOut,addRecipe,setSearchedRecipes,fetchReceipes};
+module.exports = {setUsername,setPassword,setAdminPassword, setauthSecret, skipLogin, logOut,addRecipe,setSearchedRecipes,fetchReceipes};

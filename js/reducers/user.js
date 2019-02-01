@@ -70,7 +70,16 @@ function userReducer(state: State = initialState, action: Action): State {
     ...state,
     nickname: action.payload,
   };
-}
+  }
+
+  if (action.type === 'SET_ADMINPASSWORD_DETAILS') {
+    console.log('user reducer - SET_ADMINPASSWORD_DETAILS');
+  return {
+    ...state,
+    adminPassword: action.payload,
+  };
+  }
+
   if (action.type === 'SET_PASSWORD') {
       console.log('user reducer - SET_PASSWORD');
     return {
