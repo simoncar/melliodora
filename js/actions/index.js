@@ -19,41 +19,49 @@ export function closeDrawer():Action {
 export function setffauth_device_id(ffauth_device_id) {
   return {
     type: "SET_AUTH_DEVICE_ID",
-    payload: ffauth_device_id
+    payload: ffauth_device_id,
   };
 }
 
 export function setffauth_secret(ffauth_secret) {
   return {
     type: "SET_AUTH_SECRET",
-    payload: ffauth_secret
+    payload: ffauth_secret,
   };
 }
 
 export function setUsername(username) {
   return {
     type: "SET_LOGIN_DETAILS",
-    payload: username
+    payload: username,
   };
 }
 export function setNickname(nickname) {
   return {
     type: "SET_NICKNAME_DETAILS",
-    payload: nickname
+    payload: nickname,
+  };
+}
+
+export function setAdminPassword(adminPassword) {
+  console.log ("44444actions index setAdminPassword", adminPassword)
+  return {
+    type: "SET_ADMINPASSWORD_DETAILS",
+    payload: adminPassword,
   };
 }
 
 export function setauthSecret(authSecret) {
   return {
     type: "SET_AUTH_SECRET",
-    payload: authSecret
+    payload: authSecret,
   };
 }
 
 export function setPassword(password) {
   return {
     type: "SET_PASSWORD",
-    payload: password
+    payload: password,
   };
 }
 
@@ -61,7 +69,7 @@ export function setCalendarItems(items) {
 console.log('saved setCalendarItems')
   return {
     type: "SET_CALENDAR_ITEMS",
-    payload: items
+    payload: items,
   };
 }
 
@@ -70,7 +78,7 @@ export function setSwitches(items) {
   console.log('saved setSwitches')
     return {
       type: "SET_SWITCHES",
-      payload: items
+      payload: items,
     };
   }
 

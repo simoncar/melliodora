@@ -3,16 +3,23 @@
 import PropTypes from 'prop-types';
 
 import React, { Component } from 'react';
-import { ImageBackground, View, Switch, TouchableOpacity, Platform } from 'react-native';
+import { TextInput, View, Switch, Platform } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Container, Header, Content, Text, Button, Icon, Thumbnail, Item, Input, Left, Right, Body } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 
 import { openDrawer } from '../../actions/drawer';
+import HeaderContent from './../headerContent/header/';
+
+import * as ActionCreators from '../../actions';
 
 import styles from './styles';
+
+
+console.log("ACfromSettings=", ActionCreators);
 
 const primary = require('../../themes/variable').brandPrimary;
 
@@ -56,51 +63,50 @@ class Settings extends Component {
     };
   }
 
+  _placeHolderAdminPassword() {
+
+    console.log("yy ",this.props.adminPassword)
+    
+      if (undefined !== this.props.adminPassword && null !== this.props.adminPassword &&  this.props.adminPassword.length > 0) {
+          return this.props.adminPassword
+        } else {
+    
+          console.log("bbb",this.props.adminPassword)
+          return "Enter Admin Password"
+        }
+      }
+    
+
   render() {
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button transparent onPress={this.props.openDrawer} >
-              <Icon active name="menu" />
-            </Button>
-          </Left>
-
-          <Body>
-            <ImageBackground source={global.header_logo} style={styles.imageHeader} />
-          </Body>
-          <Right>
-            <Button transparent style={styles.btnHeader} onPress={() => Actions.popTo('home')}>
-              <Icon active name="arrow-back" />
-            </Button>
-          </Right>
-        </Header>
+              <HeaderContent />
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.bg}>
-            <Text style={styles.signupHeader}>EVENT SELECTION</Text>
-            <View style={{ marginTop: 2, marginBottom: 10 }}>
-
-              <Grid>
-                <Col>
-                  <Button transparent style={styles.roundedButton}>
-                    <Icon name="cloud-upload" style={Platform.OS === 'android' ? { color: '#FFF', width: 23 } : { color: '#FFF', width: 22 }} />
-                  </Button>
-                </Col>
-                <Col>
-                  <TouchableOpacity style={{ alignSelf: 'center' }}>
-                    <Thumbnail source={require('../../../images/contacts/sanket.png')} style={styles.profilePic} />
-                  </TouchableOpacity>
-                </Col>
-                <Col>
-                  <Button transparent style={styles.roundedButton}>
-                    <Icon name="cloud-download" style={Platform.OS === 'android' ? { color: '#FFF', width: 23 } : { lineHeight: 0, color: '#FFF', width: 22 }} />
-                  </Button>
-                </Col>
-              </Grid>
-            </View>
+            <Text style={styles.signupHeader}>SETTINGS</Text>
+          </View>
+          <View style={styles.notificationSwitchContainer}>
+            <Text style={styles.notificationHeader}>ADMIN PASSWORD</Text>
+            <Item rounded style={styles.inputGrp}>
+                <Icon name="ios-lock" />
+                <TextInput
+                  ref='AdminPassword'
+                  selectTextOnFocus
+                  placeholder= {this._placeHolderAdminPassword()}
+                  onChangeText={(adminPassword) => this.props.setAdminPassword(adminPassword)}
+                  placeholderTextColor="#FFF"
+                  style={styles.input}
+                  autoCapitalize="none"
+                  autoFocus = {true}
+                  selectionColor="#FFF"
+                  enablesReturnKeyAutomatically
+                  returnKeyType="return"
+                />
+              </Item>
 
           </View>
+
           <View style={styles.notificationSwitchContainer}>
             <Text style={styles.notificationHeader}>EVENTS I WANT TO FOLLOW</Text>
             <View>
@@ -398,14 +404,14 @@ class Settings extends Component {
   }
 }
 
-function bindAction(dispatch) {
-  return {
-    openDrawer: () => dispatch(openDrawer()),
-  };
-}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators (ActionCreators, dispatch)
+};
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
+  adminPassword: state.adminPassword,
 });
 
-export default connect(mapStateToProps, bindAction)(Settings);
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
