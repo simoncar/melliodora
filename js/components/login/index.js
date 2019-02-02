@@ -11,7 +11,7 @@ import { Container,Content, Text, Item, Button, Icon, Left, Right } from 'native
 import HeaderContent from './../headerContent/header/';
 import styles from './styles';
 
-import * as ActionCreators  from '../../actions';
+import * as ActionCreators from '../../actions';
 
 console.log("ACfromLogin=", ActionCreators);
 

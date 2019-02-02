@@ -411,7 +411,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
-  adminPassword: state.adminPassword,
+  adminPassword: state.user.adminPassword,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
