@@ -52,8 +52,6 @@ export default {
   },
 
 
-
-
     footer: {
       backgroundColor: 'white',
   },
