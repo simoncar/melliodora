@@ -31,9 +31,7 @@ import Webportal from './components/webportal';
 import WebportalAuth from './components/webportal/auth';
 import WebportalSports from './components/webportalSports';
 
-
 import { statusBarColor } from './themes/base-theme';
-
 
 const RouterWithRedux = connect()(Router);
 
@@ -97,7 +95,7 @@ class AppNavigator extends Component {
       >
         <StatusBar
           backgroundColor={statusBarColor}
-          barStyle="light-content"
+          barStyle="dark-content"
         />
 
         <RouterWithRedux>

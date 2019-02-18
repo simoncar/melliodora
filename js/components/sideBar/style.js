@@ -1,3 +1,4 @@
+import { bindCallback } from 'rxjs/observable/bindCallback';
 
 const React = require('react-native');
 
@@ -15,9 +16,10 @@ export default {
     borderBottomColor: 'transparent',
   },
   beta: {
-  backgroundColor: 'green',
+  backgroundColor: 'red',
   },
   linkText: {
+    color: bindCallback,
     paddingLeft: 15,
   },
   logoutContainer: {
