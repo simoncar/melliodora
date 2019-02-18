@@ -31,22 +31,22 @@ class SideBar extends Component {
           <Content style={styles.drawerContent}>
 
             <ListItem button onPress={() => { Actions.homeNav(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-home" />
+              <Icon style={styles.linkText}  name="ios-home" />
               <Text style={styles.linkText} >HOME</Text>
             </ListItem>
 
             <ListItem button onPress={() => { Actions.home(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-calendar" />
+              <Icon style={styles.linkText} name="ios-calendar" />
               <Text style={styles.linkText} >CALENDAR</Text>
             </ListItem>
 
             <ListItem button onPress={() => { Actions.contact(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-              <Icon name="ios-call" />
+              <Icon style={styles.linkText} name="ios-call" />
               <Text style={styles.linkText} >CONTACT</Text>
             </ListItem>
 
             <ListItem button onPress={() => { Actions.webportal(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                <Icon name="ios-grid" />
+                <Icon style={styles.linkText} name="ios-grid" />
                 <Text style={styles.linkText}>{global.switch_portalName}</Text>
             </ListItem>
 
@@ -59,19 +59,19 @@ class SideBar extends Component {
        {instID == '0001-sais_edu_sg' &&
           <View>
                 <ListItem button onPress={() => { Actions.webportalSports(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                    <Icon name="ios-football" />
+                    <Icon style={styles.linkText} name="ios-football" />
                     <Text style={styles.linkText}>ATHLETICS</Text>
                 </ListItem>
                 <ListItem button onPress={() => { Actions.ptaHome(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                    <Icon name="ios-people" />
+                    <Icon style={styles.linkText} name="ios-people" />
                     <Text style={styles.linkText} >PTA</Text>
                 </ListItem>
                 <ListItem button onPress={() => { Actions.campusMap(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                    <Icon name="ios-map" />
+                    <Icon style={styles.linkText} name="ios-map" />
                     <Text style={styles.linkText} >SCHOOL MAP</Text>
                 </ListItem>
                 <ListItem button onPress={() => { Actions.login(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
-                    <Icon name="md-settings" />
+                    <Icon style={styles.linkText} name="md-settings" />
                     <Text style={styles.linkText}>SETTINGS</Text>
                 </ListItem>
                             
