@@ -294,7 +294,7 @@ class Story extends Component {
                </View>
              </TouchableOpacity>
               }
- {isAdmin() &&
+ {isAdmin(this.props.adminPassword) &&
               <Grid style={{ padding: 20 }}>
                 <Col>
                   <Text style={styles.eventText}>Notify Me of Updates</Text>
@@ -368,7 +368,7 @@ class Story extends Component {
               </TouchableOpacity>
             }
 
-            {isAdmin() &&
+            {isAdmin(this.props.adminPassword) &&
               <TouchableHighlight style={styles.addButton} underlayColor='#ff7043' onPress={() => Actions.storyForm(
                 {
                   eventTitle: this.props.eventTitle,
@@ -412,7 +412,8 @@ function bindAction(dispatch) {
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
-  username: state.username
+  username: state.username,
+  adminPassword: state.user.adminPassword,
 });
 
 export default connect(mapStateToProps, bindAction)(Story);
