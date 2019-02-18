@@ -34,13 +34,13 @@ class HeaderContent extends Component {
     } else if ( this.props.showBack == 'true') {
 
      <Button transparent style={styles.btnHeader} onPress={() => Actions.pop()}>
-       <Icon active name="ios-home" />
+       <Icon active  style={styles.btnHeader} name="ios-home" />
      </Button>
 
    } else { 
       return(
         <Button transparent onPress={() => Actions.homeNav()}>
-         <Icon active name="ios-home" />
+         <Icon active  style={styles.btnHeader} name="ios-home" />
         </Button>
       )
     }
@@ -53,11 +53,11 @@ class HeaderContent extends Component {
         <View style={styles.viewHeader}>       
           <View style={styles.btnHeader}>
             <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
-              <Icon active name="menu" />
+              <Icon active  style={styles.btnHeader} name="menu" />
             </Button>
           </View>
           <Body>
-            <Text style={styles.textHeader}>Header</Text>
+            <Text style={styles.textHeader}>Stamford</Text>
           </Body>
           <View style={styles.btnHeader}>
               {this._HomeNav()}

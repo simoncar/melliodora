@@ -41,7 +41,9 @@ export default {
   btnHeader: {
     alignSelf: 'center',
     justifyContent: 'center', 
-    alignItems: 'center' 
+    alignItems: 'center' ,
+    color: 'black',
+    fontSize: 34,
   },
   imageHeader: {
     height: 135,
@@ -54,7 +56,8 @@ export default {
   textHeader: {
     fontSize: 34,
     lineHeight: 41,
-    fontFamily: SFProTextBold,
+    fontFamily: 'SFProTextBold',
+    color:'black',
   },
 
  footer: {

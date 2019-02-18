@@ -9,7 +9,7 @@ import Setup from './js/setup';
 import * as firebase from "firebase";
 
 import Firebase from "./js/lib/firebase";
-import { Font } from 'expo';
+import Constants from 'expo';
 import Sentry from 'sentry-expo';
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
@@ -48,30 +48,16 @@ const store = configureStore({});
 
 export default class App extends React.Component {
 
+
   constructor(props) {
-    super(props);
-    Firebase.initialise();
-  }
-
-  state = {
-    isReady: false,
-  };
-
-  ready() { this.setState({ isReady: true }); }
-
-  async componentDidMount(): Promise<void> {
-    await Font.loadAsync({
-      'SFProTextBold': require('./fonts/SF-Pro-Text-Bold.otf'),
-      'SFProTextSemibold': require('./fonts/SF-Pro-Text-Semibold.otf'),
-      'SFProTextRegular': require('./fonts/SF-Pro-Text-Regular.otf'),
-    });
-
-    this.ready();
+     super(props);
+     Firebase.initialise();
   }
 
   render() {
 
     console.disableYellowBox = true;
+    
     return (
       <Setup />
     );
