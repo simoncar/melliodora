@@ -46,8 +46,6 @@ class HeaderContent extends Component {
     }
   }
 
-
-
   render() {
 
     return (
@@ -59,7 +57,7 @@ class HeaderContent extends Component {
             </Button>
           </View>
           <Body>
-            <Image source={global.header_logoID} style={styles.imageHeader} />
+            <Text style={styles.textHeader}>Header</Text>
           </Body>
           <View style={styles.btnHeader}>
               {this._HomeNav()}

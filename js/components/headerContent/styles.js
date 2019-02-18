@@ -51,8 +51,13 @@ export default {
     alignItems: 'center',
   },
 
+  textHeader: {
+    fontSize: 34,
+    lineHeight: 41,
+    fontFamily: SFProTextBold,
+  },
 
-    footer: {
+ footer: {
       backgroundColor: 'white',
   },
 
