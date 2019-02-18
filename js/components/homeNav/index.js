@@ -307,7 +307,7 @@ class HomeNav extends Component {
           <View>
             <Text style={styles.version}> </Text>
             <Text style={styles.version}> </Text>
-            <Text style={styles.version}>Version {Constants.manifest.revisionId}</Text>
+            <Text style={styles.version}>Version: {Constants.manifest.revisionId}</Text>
             <Text style={styles.version}> </Text>
           </View>
 
@@ -331,6 +331,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
   userX: state.user,
+  adminPassword: state.user.adminPassword,
   ffauth_device_idX: state.ffauth_device_id,
   ffauth_secretX: state.ffauth_secret
 });
