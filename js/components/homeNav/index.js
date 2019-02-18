@@ -118,6 +118,7 @@ class HomeNav extends Component {
             displayStart: child.val().displayStart,
             displayEnd: child.val().displayEnd,
             hidden: false,
+            adminPassword: this.props.adminPassword,
             _key: child.key,
           });
         } else {
@@ -138,6 +139,7 @@ class HomeNav extends Component {
             displayStart: child.val().displayStart,
             displayEnd: child.val().displayEnd,
             hidden: true,
+            adminPassword: this.props.adminPassword,
             _key: child.key,
           });
         }
@@ -214,13 +216,13 @@ class HomeNav extends Component {
               keyExtractor={this.keyExtractor}
               renderItem={this._renderItem}
             />
-
+   {isAdmin(this.props.adminPassword) &&
             <FlatList
               data={this.state.calendarEventsHidden}
               keyExtractor={this.keyExtractor}
               renderItem={this._renderItem}
             />
-
+   }
 
           </View>
 
@@ -284,7 +286,7 @@ class HomeNav extends Component {
                 </Row>
               }
 
-          {isAdmin() &&
+          {isAdmin(this.props.adminPassword) &&
             <TouchableHighlight style={styles.addButton} underlayColor='#ff7043' onPress={() => Actions.storyForm(
 
             )}>

@@ -59,7 +59,7 @@ class ListItem extends Component {
                   <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60, flex: 1}}>{this.props.item.item.title}</Text>
   
             } 
- {isAdmin() &&
+  {isAdmin(this.props.item.item.adminPassword) &&
               <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chat({ chatroom: this.props.item.item.title }); }} >
                  <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }}></SimpleLineIcons>
              </TouchableOpacity> 
