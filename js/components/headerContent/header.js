@@ -53,7 +53,7 @@ class HeaderContent extends Component {
         <View style={styles.viewHeader}>       
           <View style={styles.btnHeader}>
             <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
-              <Icon active  style={styles.btnHeader} name="menu" />
+              <Icon active style={styles.btnHeader} name="menu" />
             </Button>
           </View>
           <Body>

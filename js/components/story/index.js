@@ -180,18 +180,15 @@ class Story extends Component {
 
         <Header style={styles.header}>
           <View style={styles.viewHeader}>
-            <View>
-              <Button transparent onPress={() => Actions.pop()}>
-                <Icon
-                  active
-                  name="arrow-back"
-                  style={styles.headerIcons} />
+            <View style={styles.btnHeader}>
+              <Button transparent style={styles.btnHeader}  onPress={() => Actions.pop()}>
+                <Icon active name="arrow-back" style={styles.btnHeader} />
               </Button>
             </View>
             <Body>
-              <Image source={global.header_logoID} style={styles.imageHeader} />
+              <Text style={styles.textHeader}>Stamford</Text>
             </Body>
-            <View>
+            <View style={styles.btnHeader}>
 
               <Button
                 transparent
@@ -325,10 +322,11 @@ class Story extends Component {
               </TouchableOpacity>
 
             }
-
-              <Text selectable={true} style={styles.abbreviations}>
-                {getAbbreviations(this.props.eventTitle)}
-              </Text>
+              <View style={{ padding: 20 }}>
+                <Text selectable={true} style={styles.eventTextAbbreviation}>
+                  {getAbbreviations(this.props.eventTitle)}
+                </Text>
+              </View>
 
               <Text style={styles.eventText}>
                 {this.props.eventImage}

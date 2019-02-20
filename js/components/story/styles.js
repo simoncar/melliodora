@@ -17,12 +17,28 @@ export default {
     paddingRight: 15,
     ...ifIphoneX({
       paddingTop: 0,
-      height: 80
+      height: 80,
     }, {
       paddingTop: 0,
-      height: 60
+      height: 60,
     })
-
+  },
+  viewHeader: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    ...ifIphoneX({
+     paddingTop: 30
+      }, {
+     paddingTop: 20
+      })
+  },
+  btnHeader: {
+    alignSelf: 'center',
+    justifyContent: 'center', 
+    alignItems: 'center' ,
+    color: 'black',
+    fontSize: 34,
   },
   saveBtn: {
     width: windowWidth,
@@ -35,6 +51,12 @@ export default {
     fontWeight: "500",
   },
 
+  textHeader: {
+    fontSize: 34,
+    lineHeight: 41,
+    fontFamily: 'SFProTextBold',
+    color:'black',
+  },
   title: {
     fontWeight: "400",
     lineHeight: 22,
@@ -133,6 +155,11 @@ export default {
   },
   eventText: {
     color: '#222',
+    fontSize: 18,
+    paddingBottom: 10,
+  },
+  eventTextAbbreviation: {
+    color: 'grey',
     fontSize: 18,
     paddingBottom: 10,
   },
