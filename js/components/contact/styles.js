@@ -43,10 +43,10 @@ export default {
   roundedButton: {
     alignSelf: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.2)',
     borderRadius: 30,
     width: 60,
     height: 60,
+    backgroundColor: '#141b4d',
   },
   roundedCustomButton: {
     alignSelf: 'center',
@@ -66,12 +66,13 @@ export default {
     fontSize: 22,
     paddingBottom: 10,
     fontWeight: '600',
+    color: 'black',
   },
   feedbackHead: {
     opacity: 0.8,
     fontSize: 13,
     fontWeight: 'bold',
-    color: '#FFF',
+    color: 'black',
   },
   spacer: {
     opacity: 0.8,
