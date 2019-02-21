@@ -16,10 +16,10 @@ export default {
     borderBottomColor: 'transparent',
   },
   beta: {
-  backgroundColor: 'red',
+    backgroundColor: 'red',
   },
   linkText: {
-    color: bindCallback,
+    color: 'black',
     paddingLeft: 15,
   },
   logoutContainer: {

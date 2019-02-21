@@ -18,7 +18,7 @@ console.log("ACfromLogin=", ActionCreators);
 var { skipLogin } = require('../../actions');
 
 const deviceWidth = Dimensions.get('window').width;
-const bg = require('../../../images/BG.png');
+
 
 
 class Login extends Component {
@@ -86,12 +86,11 @@ console.log("yy ",this.props.userX.ffauth_secret)
          <HeaderContent />
 
         <Content scrollEnabled bounces={false}>
-            <ImageBackground source={bg} style={styles.background} >
-
+           
             <View style={styles.bg}>
 
               <Item rounded style={styles.inputGrp}>
-                <Icon name="md-person" />
+                <Icon style={styles.inputIcon} name="md-person" />
                 <TextInput
                   ref='NicknameInput'
                   selectTextOnFocus
@@ -109,7 +108,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
               </Item>
 
               <Item rounded style={styles.inputGrp}>
-                <Icon name="ios-mail" />
+                <Icon style={styles.inputIcon} name="ios-mail" />
                 <TextInput
                   ref='EmailInput'
                   selectTextOnFocus
@@ -127,7 +126,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
               </Item>
 
               <Item rounded style={styles.inputGrp}>
-                <Icon name="md-lock" />
+                <Icon style={styles.inputIcon} name="md-lock" />
 
                   <TextInput
                     ref='PasswordInput'
@@ -141,7 +140,6 @@ console.log("yy ",this.props.userX.ffauth_secret)
                     returnKeyType="done"
                     onSubmitEditing={() => this.doLogin(this.username,this.password)}
                   />
-
 
               </Item>
 
@@ -161,7 +159,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
                 </Right>
               </View>
             </View>
-          </ImageBackground>
+
         </Content>
 
       </Container>
