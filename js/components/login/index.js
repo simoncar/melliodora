@@ -88,7 +88,7 @@ console.log("yy ",this.props.userX.ffauth_secret)
         <Content scrollEnabled bounces={false}>
            
             <View style={styles.bg}>
-
+            <Text style={styles.textHeader}>myStamford</Text>
               <Item rounded style={styles.inputGrp}>
                 <Icon style={styles.inputIcon} name="md-person" />
                 <TextInput
@@ -96,11 +96,11 @@ console.log("yy ",this.props.userX.ffauth_secret)
                   selectTextOnFocus
                   placeholder= {this._placeHolderNickname()}
                   onChangeText={(user) => this.props.setNickname(user)}
-                  placeholderTextColor="#FFF"
+                  placeholderTextColor="grey"
                   style={styles.input}
                   autoCapitalize="none"
                   autoFocus = {true}
-                  selectionColor="#FFF"
+                  selectionColor="grey"
                   enablesReturnKeyAutomatically
                   returnKeyType="return"
                   onSubmitEditing={() => this.refs.EmailInput.focus() }
@@ -114,11 +114,11 @@ console.log("yy ",this.props.userX.ffauth_secret)
                   selectTextOnFocus
                   placeholder= {this._placeHolderEmail()}
                   onChangeText={(user) => this.props.setUsername(user)}
-                  placeholderTextColor="#FFF"
+                  placeholderTextColor="grey"
                   style={styles.input}
                   autoCapitalize="none"
                   keyboardType="email-address"
-                  selectionColor="#FFF"
+                  selectionColor="grey"
                   enablesReturnKeyAutomatically
                   returnKeyType="return"
                   onSubmitEditing={() => this.refs.PasswordInput.focus() }
@@ -134,8 +134,9 @@ console.log("yy ",this.props.userX.ffauth_secret)
                     onChangeText={(password) => this.props.setPassword(password)}
                     secureTextEntry
                     placeholder={this._placeHolderPassword()}
-                    placeholderTextColor="#FFF"
+                    placeholderTextColor="grey"
                     autoCapitalize="none"
+                    selectionColor="grey"
                     enablesReturnKeyAutomatically
                     returnKeyType="done"
                     onSubmitEditing={() => this.doLogin(this.username,this.password)}
@@ -148,16 +149,11 @@ console.log("yy ",this.props.userX.ffauth_secret)
                 style={styles.loginBtn}
                 onPress={() => Actions.homeNav()}
               >
-                <Text style={Platform.OS === 'android' ? { fontSize: 16, textAlign: 'center', top: -5 } : { fontSize: 16, fontWeight: '900' }}>Done</Text>
+                <Text style={styles.button}>Save</Text>
               </Button>
 
              
-              <View style={styles.otherLinksContainer}>
-                <Left>
-                </Left>
-                <Right>
-                </Right>
-              </View>
+             
             </View>
 
         </Content>

@@ -39,12 +39,30 @@ export default {
   },
   input: {
     paddingLeft: 10,
-    color: 'blue',
+    color: 'black',
     width: 290,
   },
   inputIcon: {
-
     color: 'blue',
+
+  },
+
+  textHeader: {
+    fontSize: 34,
+    lineHeight: 41,
+    fontFamily: 'SFProTextBold',
+    color:'black',
+    alignSelf: 'center',
+    paddingBottom: 40,
+  },
+
+  button: {
+    fontSize: 24,
+    lineHeight: 41,
+    fontFamily: 'SFProTextBold',
+    color:'black',
+    alignSelf: 'center',
+    paddingBottom: 40,
 
   },
   background: {
@@ -52,13 +70,12 @@ export default {
     width: null,
     height: deviceHeight,
     backgroundColor: 'rgba(0,0,0,0.1)',
-
   },
   bg: {
     flex: 1,
     paddingLeft: 20,
     paddingRight: 20,
-    marginTop: 200,
+    marginTop: 150,
     //paddingBottom: 60,
     //marginTop: (deviceHeight < 500) ? (Platform.OS === 'android' ? 20 : 0) : (Platform.OS === 'android' ? ((deviceHeight / 6) - 45) : ((deviceHeight / 6) - 30)),
 
@@ -67,6 +84,7 @@ export default {
     marginTop: 10,
     height: 50,
     alignItems: 'center',
+
   },
   helpBtns: {
     opacity: 0.9,
