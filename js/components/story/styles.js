@@ -288,7 +288,7 @@ export default {
   headerIcons: {
     fontSize: 30,
     backgroundColor: 'transparent',
-    color: 'white',
+    color: 'black',
   },
   headerContainer: {
     flex: 1,
