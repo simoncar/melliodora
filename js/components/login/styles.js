@@ -33,14 +33,19 @@ export default {
     backgroundColor: 'rgba(255,255,255,0.3)',
     marginBottom: 25,
     borderWidth: 0,
-    width: 320,
+    //width: 320,
     height: 40,
-    borderColor: 'transparent',
+    borderColor: 'black',
   },
   input: {
     paddingLeft: 10,
     color: 'blue',
     width: 290,
+  },
+  inputIcon: {
+
+    color: 'blue',
+
   },
   background: {
     flex: 1,
