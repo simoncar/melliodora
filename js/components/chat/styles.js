@@ -8,16 +8,8 @@ const primary = require('../../themes/variable').brandPrimary;
 
 export default {
   header: {
-      width: Dimensions.get('window').width,
-      paddingLeft: 15,
-      paddingRight: 15,
-      ...ifIphoneX({
-          paddingTop: 0,
-          height: 80,
-        }, {
-          paddingTop: 0,
-          height: 60,
-        }),
+      paddingTop: 10,
+      paddingBottom: 10,
     },
 
     nameText: { 
@@ -45,18 +37,10 @@ export default {
         fontSize: 24,
       },
 
-
   viewHeader: {
-
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        ...ifIphoneX({
-          paddingTop: 30,
-        }, {
-            paddingTop: 20,
-          }),
-
       },
   imageHeader: {
         height: 135,
@@ -71,12 +55,14 @@ export default {
       paddingTop: 10,
       paddingBottom: 10,
       fontSize: 25,
+      
     },
   chatHeading: {
       color: 'black',
       alignSelf: 'center',
-      paddingBottom: 10,
       fontSize: 25,
+      paddingTop: 10,
+      paddingBottom: 10,
     },
   text: {
       color: '#707372',

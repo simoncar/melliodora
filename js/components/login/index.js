@@ -42,10 +42,7 @@ class Login extends Component {
 
   _placeHolderNickname() {
 
-    console.log("yy ",this.props.userX.name)
-    console.log("yy ",this.props.userX.ffauth_device_id)
-    console.log("yy ",this.props.userX.ffauth_secret)
-    
+
       if (undefined !== this.props.userX.nickname && null !== this.props.userX.nickname &&  this.props.userX.nickname.length > 0) {
           return this.props.userX.nickname
         } else {
