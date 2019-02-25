@@ -85,6 +85,20 @@ class chat extends Component {
       );
     }
 
+
+    avatarPress = props => {
+
+       console.log (props._id)
+       console.log (props.name)
+
+       this.props.userX.nickname = props.name;
+       
+    };
+   
+
+
+
+
     onLoadEarlier() {
         this.setState(previousState => ({
             isLoadingEarlier: true,
@@ -224,10 +238,8 @@ class chat extends Component {
         );
     }
 
-
     get user() {
         // Return our name and our UID for GiftedChat to parse
-
 
         return {
           name: this.props.userX.nickname,
@@ -262,7 +274,6 @@ class chat extends Component {
             },
         ];
     }
-
 
     /** render the chat bubble */
     renderBubble(props) {
@@ -344,7 +355,7 @@ class chat extends Component {
                     // showAvatarForEveryMessage
                     // showUserAvatar
                     // parsePatterns={this.parsePatterns}
-                    renderMessage={this.renderBubble}   
+                    //renderMessage={this.renderBubble}   
 
                     //renderBubble={this.renderBubble.bind(this)}
                     //renderAvatar={this.renderAvatar.bind(this)}
@@ -354,6 +365,7 @@ class chat extends Component {
                     chatId={this.chatId}
                     //minInputToolbarHeight={50}
                     bottomOffset={0}
+                    onPressAvatar={this.avatarPress}
                 />
 
                 <Footer style={styles.footer} />
