@@ -9,6 +9,7 @@ import CustomActions from './customActions';
 import CustomView from './customView';
 import styles from './styles';
 import HeaderContent from './../headerContent/header/';
+import Constants from 'expo';
 
 import { bindActionCreators } from 'redux';
 import * as ActionCreators from '../../actions';
@@ -202,7 +203,7 @@ class chat extends Component {
     }
 
     renderBubble2 = (props) => {
-        const username = props.currentMessage.user.name;
+        const username = this.props.userX.nickname;
         const color = this.getColor(username);
 
         return (
@@ -226,9 +227,11 @@ class chat extends Component {
 
     get user() {
         // Return our name and our UID for GiftedChat to parse
+
+
         return {
-          name: this.props.name,
-          _id: Fire.shared.uid,
+          name: this.props.userX.nickname,
+          _id: Expo.Constants.installationId,
         };
       }
 
@@ -328,8 +331,8 @@ class chat extends Component {
                     // isLoadingEarlier={this.state.isLoadingEarlier}
 
                     user={{
-                        _id: this.props.name,  //`${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-                        name: this.props.name,
+                        _id: Expo.Constants.installationId,  //`${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+                        name: this.props.userX.nickname,
                         //avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
                     }}
 
@@ -341,13 +344,12 @@ class chat extends Component {
                     // showAvatarForEveryMessage
                     // showUserAvatar
                     // parsePatterns={this.parsePatterns}
-                    //renderMessage={this.renderBubble}\\\        
-
+                    renderMessage={this.renderBubble}   
 
                     //renderBubble={this.renderBubble.bind(this)}
                     //renderAvatar={this.renderAvatar.bind(this)}
                     //renderTime={this.renderTime.bind(this)}
-                    //showUserAvatar={true}
+                    showUserAvatar={true}
                     //showAvatarForEveryMessage={true}
                     chatId={this.chatId}
                     //minInputToolbarHeight={50}
