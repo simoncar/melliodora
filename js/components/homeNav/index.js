@@ -81,15 +81,10 @@ class HomeNav extends Component {
       var today = new moment().format();;
 
       snap.forEach((child) => {
-        
-        console.log ("eeeeee", child.val().displayStart );
-       
+           
         var displayStart = (child.val().displayStart !== undefined) ? moment().format(child.val().displayStart) : null;
         var displayEnd =(child.val().displayEnd !== undefined) ? moment().format(child.val().displayEnd) : null;
         var hidden = true;
-
-
-        console.log ("yyyyy", displayStart);
 
         if (displayStart != null && displayStart <= today) {
           //start is less than End 

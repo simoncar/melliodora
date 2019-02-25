@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Platform, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Constants } from 'expo';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import { GiftedChat, Actions, Bubble, SystemMessage, Time } from 'react-native-gifted-chat';
 import { Container, Header, Footer, Button, Icon, Body } from 'native-base';
@@ -9,6 +8,7 @@ import emojiUtils from 'emoji-utils';
 import CustomActions from './customActions';
 import CustomView from './customView';
 import styles from './styles';
+import HeaderContent from './../headerContent/header/';
 
 import { bindActionCreators } from 'redux';
 import * as ActionCreators from '../../actions';
@@ -291,39 +291,16 @@ class chat extends Component {
     render() {
         return (
             <Container>
+
+                <HeaderContent />
                 <Header style={styles.header}>
                     <View style={styles.viewHeader}>
-                        <View>
-                            <Button transparent onPress={() => NavigationActions.pop()}>
-                                <Icon
-                                    active
-                                    name="arrow-back"
-                                    style={styles.headerIcons}
-                                />
-                            </Button>
-                        </View>
+                     
                         <Body>
                             <Text style={styles.chatHeading}>{this.props.chatroom} - {this.props.name}</Text>
 
                         </Body>
-                        <View>
-                            <Button transparent onPress={() => { NavigationActions.imageUploadTest(); }}>
-                                <Icon
-                                    active
-                                    name="arrow-back"
-                                    style={styles.headerIcons}
-                                />
-                            </Button>
-                        </View>
-                        <View>
-                            <Button transparent onPress={() => { NavigationActions.form(); }}>
-                                <Icon
-                                    active
-                                    name="arrow-back"
-                                    style={styles.headerIcons}
-                                />
-                            </Button>
-                        </View>
+                      
                     </View>
                 </Header>
 

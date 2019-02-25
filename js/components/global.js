@@ -140,11 +140,6 @@ export function isAdmin(sPass) {
     const deviceId = (adminDevices.indexOf(Constants.deviceId) > -1);
     const adminPass = (sPass === 'cookies');
 
-    console.log ("installationId=",installationId);
-    console.log ("deviceId=",deviceId);
-    console.log (Constants.deviceId);
-    console.log ("return", installationId || deviceId);
-    console.log ("adminPass", sPass);
 
     isAdminDevice = installationId || deviceId || adminPass;
 
