@@ -81,20 +81,11 @@ get timestamp() {
   return firebase.database.ServerValue.TIMESTAMP;
 }
 
-
   SendMessage(message) {
     this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom);
   
     for (let i = 0; i < message.length; i++) {
 
-      console.log ('sendmessage:' + message[i].text);
-      console.log ('sendmessage:' + this.state.chatroom);
-      console.log ('sendmessage:' + message[i].user);
-      console.log ('sendmessage:' + message[i].user);
-      console.log ('sendmessage:' + firebase.database.ServerValue.TIMESTAMP);
-      console.log ('sendmessage:' + new Date().getTime());
-      console.log ('sendmessage:' + false);
- 
       this.messageRef.push({
         text: '' + message[i].text,
         chatroom: this.state.chatroom,
