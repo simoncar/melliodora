@@ -48,7 +48,7 @@ class Login extends Component {
         } else {
     
           console.log("bbb",this.props.userX.nickname)
-          return "Your nickname"
+          return "Your Name  (First and Last)"
         }
       }
     
