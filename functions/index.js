@@ -7,7 +7,7 @@ admin.initializeApp(functions.config().firebase);
 // https://firebase.google.com/docs/functions/get-started
 // firebease deploy
 // send the push notification
-exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg/chat/chatroom/CXS/{createdID}').onCreate((snap, context) => {
+exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg/chat/chatroom/International Fiesta/{createdID}').onCreate((snap, context) => {
 
   const createdData = snap.val();
   console.log(createdData)
@@ -18,7 +18,7 @@ exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg
   //cx iPhone
     messages.push({
         "to": "ExponentPushToken[0_rniBFtyWshjEYnkzcQXF]",
-        "title": "3SHMU > " + createdData.user.name,
+        "title": "International Fiesta > " + createdData.user.name,
         "sound": "default",
         "body": createdData.text
     });
@@ -26,7 +26,7 @@ exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg
     // Android
     messages.push({
         "to": "ExponentPushToken[rXb2wQB9LjaLe3JlSarOsk]",
-        "title": "3SHMU > " + createdData.user.name,
+        "title": "International Fiesta > " + createdData.user.name,
         "sound": "default",
         "body": createdData.text
     });
@@ -34,7 +34,7 @@ exports.sendPushNotification = functions.database.ref('instance/0001-sais_edu_sg
     //simon iPhone
     messages.push({
         "to": "ExponentPushToken[lBKUcgCJqZDVFJALPCsq07]",
-        "title": "3SHMU > " + createdData.user.name,
+        "title": "International Fiesta > " + createdData.user.name,
         "sound": "default",
         "body": createdData.text
     });
