@@ -327,7 +327,7 @@ class chat extends Component {
                 <HeaderContent />   
                     <View>
 
-                            <Text style={styles.chatHeading}>{this.props.chatroom} - {this.props.userX.nickname}</Text>
+                            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
                       
                     </View>
                 <GiftedChat

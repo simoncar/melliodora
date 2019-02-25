@@ -55,9 +55,7 @@ class Login extends Component {
 
   _placeHolderEmail() {
 
-console.log("yy ",this.props.userX.name)
-console.log("yy ",this.props.userX.ffauth_device_id)
-console.log("yy ",this.props.userX.ffauth_secret)
+
 
   if (undefined !== this.props.userX.name && null !== this.props.userX.name &&  this.props.userX.name.length > 0) {
       return this.props.userX.name
@@ -149,8 +147,6 @@ console.log("yy ",this.props.userX.ffauth_secret)
                 <Text style={styles.button}>Save</Text>
               </Button>
 
-             
-             
             </View>
 
         </Content>
