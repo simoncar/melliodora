@@ -29,7 +29,7 @@ export default {
     flex: 1,
     flexDirection: 'column',
     textAlign: 'center',
-        fontSize: 12,
+    fontSize: 12,
   },
   addButton: {
     backgroundColor: '#ff5722',
@@ -90,7 +90,6 @@ footer: {
     paddingBottom: 4,
     fontSize: 10,
   },
-
   profileInfoContainer: {
     backgroundColor: primary,
     paddingTop: 10,

@@ -73,9 +73,8 @@ export default {
       fontSize: 25,
     },
   chatHeading: {
-      color: '#fff',
+      color: 'black',
       alignSelf: 'center',
-      paddingTop: 10,
       paddingBottom: 10,
       fontSize: 25,
     },
