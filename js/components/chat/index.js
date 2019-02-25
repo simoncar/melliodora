@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, Text, View } from 'react-native';
+import { Platform, Text, View, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import { GiftedChat, Actions, Bubble, SystemMessage, Time } from 'react-native-gifted-chat';
@@ -43,6 +43,16 @@ class chat extends Component {
     }
 
     componentWillMount() {
+
+        if (this.props.userX.nickname ) {
+            //we have a value, good
+  
+        } else {
+          this.noNickname();
+          NavigationActions.login();
+        };
+  
+
         this._isMounted = true;
     }
 
@@ -59,6 +69,19 @@ class chat extends Component {
     componentWillUnmount() {
         this._isMounted = false;
         Backend.closeChat();
+    }
+
+
+    noNickname() {
+        Alert.alert(
+        'Chat Name',
+        'Please enter a Name to Chat',
+        [
+      
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        {cancelable: false},
+      );
     }
 
     onLoadEarlier() {
@@ -145,7 +168,6 @@ class chat extends Component {
         }
         return null;
     }
-
 
     renderMessage(props) {
         const { currentMessage: { text: currText } } = props;
@@ -292,18 +314,12 @@ class chat extends Component {
         return (
             <Container>
 
-                <HeaderContent />
-                <Header style={styles.header}>
-                    <View style={styles.viewHeader}>
-                     
-                        <Body>
-                            <Text style={styles.chatHeading}>{this.props.chatroom} - {this.props.name}</Text>
+                <HeaderContent />   
+                    <View>
 
-                        </Body>
+                            <Text style={styles.chatHeading}>{this.props.chatroom} - {this.props.userX.nickname}</Text>
                       
                     </View>
-                </Header>
-
                 <GiftedChat
                     messages={this.state.messages}
                     onSend={this.onSend}
@@ -317,7 +333,7 @@ class chat extends Component {
                         //avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
                     }}
 
-                    renderActions={this.renderCustomActions}
+                    //renderActions={this.renderCustomActions}
                     //renderBubble={this.renderBubble}
                     // renderSystemMessage={this.renderSystemMessage}
                     renderCustomView={this.renderCustomView}
