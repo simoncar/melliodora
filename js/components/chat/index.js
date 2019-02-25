@@ -95,10 +95,6 @@ class chat extends Component {
        );
     };
    
-
-
-
-
     onLoadEarlier() {
         this.setState(previousState => ({
             isLoadingEarlier: true,
