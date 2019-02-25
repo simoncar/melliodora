@@ -45,7 +45,8 @@
     },
     "android": {
       "package": "com.softmowertrain.parent.mystamford",
-      "versionCode": 8
+      "versionCode": 11,
+      "permissions": []
     },
     "androidStatusBarColor": "#AF3643",
     "androidStatusBar": {

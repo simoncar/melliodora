@@ -96,17 +96,20 @@ ret = ret + '\nPTC - Parent Teacher Conferences '
 }
 
 if (eventDetails.includes("CIS")) {
-ret = ret + '\nCIS - Community Information Session '
+ret = ret + '\nCIS - Community Information Session ';
 }
 
 if (eventDetails.includes("MAP")) {
-ret = ret + '\nMAP - Measure of Academic Progress '
+ret = ret + '\nMAP - Measure of Academic Progress ';
 }
 
 if (eventDetails.includes("ELV")) {
-ret = ret + '\nELV - Early Learning Village '
+ret = ret + '\nELV - Early Learning Village ';
 }
-
+if (eventDetails.includes("SEASAC")) {
+  ret = ret + '\nSEASAC - South East Asia Student Activities Conference ';
+  }
+  
 
 if (eventDetails.includes("S.E.A")) {
 ret = ret + '\nSEA - South East Asia'
