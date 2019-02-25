@@ -301,8 +301,6 @@ class Story extends Component {
                     onValueChange={value => this.setNotifyPreference({ notifyUpdates: value })}
                     onTintColor={primary}
                     style={styles.switch}
-                    thumbTintColor="#ccc"
-                    tintColor="#aaa"
                     value={this.state.lowerelemSwitch}
                   />
                 </Col>
