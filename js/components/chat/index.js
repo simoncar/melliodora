@@ -85,14 +85,14 @@ class chat extends Component {
       );
     }
 
-
     avatarPress = props => {
 
        console.log (props._id)
        console.log (props.name)
 
-       this.props.userX.nickname = props.name;
-       
+       Alert.alert(
+        props.name,
+       );
     };
    
 
