@@ -9,6 +9,8 @@ import { Constants } from 'expo';
 import styles from './styles';
 
 import * as firebase from 'firebase';
+import { Ionicons, EvilIcons, MaterialIcons } from '@expo/vector-icons';
+
 var instID = Constants.manifest.extra.instance;
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
@@ -133,24 +135,22 @@ class newStory extends Component {
 
         <Header style={styles.header}>
           <View style={styles.viewHeader}>
-            <View>
-              <Button transparent onPress={() => Actions.pop()}>
-                <Icon
-                  active
-                  name="arrow-back"
-                  style={styles.headerIcons} />
+            <View style={styles.btnHeader}>
+              <Button transparent style={styles.btnHeader}  onPress={() => Actions.pop()}>
+                <Icon active name="arrow-back" style={styles.btnHeader} />
               </Button>
             </View>
             <Body>
-              <Image source={global.header_logoID} style={styles.imageHeader} />
+              <Text style={styles.textHeader}>Stamford</Text>
             </Body>
-            <View>
+            <View style={styles.btnHeader}>
 
-            <Button>
-                 <Text></Text>
+              <Button
+                transparent
+                onPress={() => this._shareMessage()} >
+
                 
               </Button>
-
             </View>
           </View>
         </Header>

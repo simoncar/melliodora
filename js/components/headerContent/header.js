@@ -14,56 +14,70 @@ class HeaderContent extends Component {
 
   static propTypes = {
     openDrawer: PropTypes.func,
-    showHome: PropTypes.string,
-    showBack: PropTypes.string,
     navigation: PropTypes.shape({
       key: PropTypes.string,
     }),
   }
 
   _HomeNav() {
-    console.log (this.props.showHome)
-    if( this.props.showHome == 'false'){
-        //dont show home button
-        return(
-          <Button transparent style={{
-               width: 35}}>
-          </Button>
-        )
+    console.log("Showback=", this.props.showBack)
+    console.log("Showhome=", this.props.showHome)
+    if (this.props.showHome == 'false') {
+      //dont show home button
+      return (
+        <Button transparent style={{
+          width: 35
+        }}>
+        </Button>
+      )
 
-    } else if ( this.props.showBack == 'true') {
-
-     <Button transparent style={styles.btnHeader} onPress={() => Actions.pop()}>
-       <Icon active  style={styles.btnHeader} name="ios-home" />
-     </Button>
-
-   } else { 
-      return(
+    } else if (this.props.showBack) {
+      return (
+      <Button transparent onPress={() => Actions.pop()}>
+        <Icon active style={styles.btnHeader} name="arrow-back" />
+      </Button>
+      )
+    } else {
+      return (
         <Button transparent onPress={() => Actions.homeNav()}>
-         <Icon active  style={styles.btnHeader} name="ios-home" />
+          <Icon active style={styles.btnHeader} name="ios-home" />
         </Button>
       )
     }
   }
 
-  render() {
+  _PageTitle() {
+    if (undefined !== this.props.pageTitle && null !== this.props.pageTitle &&  this.props.pageTitle.length > 0) {
+      return (
+        this.props.pageTitle
+      );
+    } else {
+      return (
+        "Stamford"
+      );
+    }
+  }
 
+  render() {
     return (
       <Header style={styles.header}>
-        <View style={styles.viewHeader}>       
+        <View style={styles.viewHeader}>
           <View style={styles.btnHeader}>
             <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
               <Icon active style={styles.btnHeader} name="menu" />
             </Button>
           </View>
           <Body>
-            <Text style={styles.textHeader}>Stamford</Text>
+            <Text style={styles.textHeader}>{this._PageTitle()}</Text>
           </Body>
           <View style={styles.btnHeader}>
-              {this._HomeNav()}
+            {this._HomeNav()}
           </View>
         </View>
+    
       </Header>
+         
+
     );
   }
 }
