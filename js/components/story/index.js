@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
 import { Container, Header, Content, Text, Button, Icon, Body } from 'native-base';
-import { Ionicons, EvilIcons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, EvilIcons, MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
 
 
 import Modal from 'react-native-simple-modal';
@@ -170,9 +170,6 @@ class Story extends Component {
       });
     };
   
-
-
-
   render() {
 
     return (
@@ -294,7 +291,7 @@ class Story extends Component {
  {isAdmin(this.props.adminPassword) &&
               <Grid style={{ padding: 20 }}>
                 <Col>
-                  <Text style={styles.eventText}>Notify Me of Updates</Text>
+                  <Text style={styles.eventText}>Show Notifications</Text>
                 </Col>
                 <Col style={styles.switchContainer}>
                   <Switch
@@ -305,7 +302,16 @@ class Story extends Component {
                   />
                 </Col>
               </Grid>
- }
+ }              
+            <TouchableOpacity onPress={() => { Actions.chat({ chatroom: this.props.eventTitle }); }}>
+                <View style={{ padding: 20 }}>
+                  <View style={styles.eventText}>
+                    <Text style={styles.eventText}>
+                    <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }}></SimpleLineIcons>   Chat
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
 
             {undefined !== this.props.url && null !== this.props.url && this.props.url.length > 0 &&
 

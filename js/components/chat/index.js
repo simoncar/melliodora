@@ -45,14 +45,14 @@ class chat extends Component {
 
     componentWillMount() {
 
-        if (this.props.userX.nickname ) {
+        if (this.props.userX.nickname) {
             //we have a value, good
-  
+
         } else {
-          this.noNickname();
-          NavigationActions.login();
+            this.noNickname();
+            NavigationActions.login();
         };
-  
+
 
         this._isMounted = true;
     }
@@ -75,26 +75,26 @@ class chat extends Component {
 
     noNickname() {
         Alert.alert(
-        'Chat Name',
-        'Please enter a Name to Chat',
-        [
-      
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ],
-        {cancelable: false},
-      );
+            'Chat Name',
+            'Please enter a Name to Chat',
+            [
+
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false },
+        );
     }
 
     avatarPress = props => {
 
-       console.log (props._id)
-       console.log (props.name)
+        console.log(props._id)
+        console.log(props.name)
 
-       Alert.alert(
-        props.name,
-       );
+        Alert.alert(
+            props.name,
+        );
     };
-   
+
     onLoadEarlier() {
         this.setState(previousState => ({
             isLoadingEarlier: true,
@@ -238,10 +238,10 @@ class chat extends Component {
         // Return our name and our UID for GiftedChat to parse
 
         return {
-          name: this.props.userX.nickname,
-          _id: Expo.Constants.installationId,
+            name: this.props.userX.nickname,
+            _id: Expo.Constants.installationId,
         };
-      }
+    }
 
     getColor(username) {
         let sumChars = 0;
@@ -324,12 +324,13 @@ class chat extends Component {
         return (
             <Container>
 
-                <HeaderContent />   
-                    <View>
+                <HeaderContent
+                    showBack
+             
+                />
 
-                            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
-                      
-                    </View>
+<Text style={styles.chatHeading}>{this.props.chatroom}</Text>
+
                 <GiftedChat
                     messages={this.state.messages}
                     onSend={this.onSend}

@@ -3,7 +3,7 @@
   "displayName": "Stamford",
   "expo": {
     "version": "8.0.31",
-    "sdkVersion": "32.0.0",
+    "sdkVersion": "31.0.0",
     "icon": "./resources/0001-sais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
     "slug": "myStamford",
     "name": "Stamford",

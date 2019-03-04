@@ -13,8 +13,6 @@ import { Constants } from 'expo';
 
 import styles from './styles';
 
-
-
 class CalendarRow extends Component {
   static navigationOptions = {
     title: 'Calendars',
@@ -22,9 +20,7 @@ class CalendarRow extends Component {
 
   _selectCalendar(calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url) {
 
-
     this._addEvent(calendar.id, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url)
-
     Actions.pop();
   };
 
