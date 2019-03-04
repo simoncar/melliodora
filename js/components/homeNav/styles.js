@@ -50,6 +50,7 @@ export default {
       height: 1,
       width: 0,
     },
+    zIndex: 1,
   },
 
   

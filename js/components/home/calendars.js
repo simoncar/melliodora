@@ -183,16 +183,8 @@ class phoneCalendar extends Component {
       this.setState({ calendars: [...eventCalendars] });
     }
   };
-
-
+  
   render() {
-
-
-
-    console.log('gggg' + this.props);
-    console.log('gggg' + this.props.eventTitle)
-
-
     if (this.state.calendars.length) {
       return (
         <Container style={{ backgroundColor: '#fff' }}>
