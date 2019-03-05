@@ -48,6 +48,7 @@ class newStory extends Component {
     this.generateID = this.generateID.bind(this);
     this.addStory = this.addStory.bind(this);
   }
+  
 
   generateID() {
     let d = new Date().getTime();
@@ -80,7 +81,6 @@ class newStory extends Component {
 
     if (this.props.edit) {
 
-
       this.storyRef.update({
         summary: this.state.eventTitle,
         description: this.state.eventDescription,
@@ -96,8 +96,6 @@ class newStory extends Component {
         displayEnd: (this.state.displayEnd !== undefined) ? this.state.displayEnd : null,
       });
 
-
-  
     } else {
       this.storyRef.push({
         summary: this.state.eventTitle,
@@ -113,7 +111,6 @@ class newStory extends Component {
         displayStart: (this.state.displayStart !== undefined) ? this.state.displayStart : null,
         displayEnd: (this.state.displayEnd !== undefined) ? this.state.displayEnd : null,
       });
-
     }
 
     Actions.pop();

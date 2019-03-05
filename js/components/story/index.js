@@ -415,6 +415,7 @@ function bindAction(dispatch) {
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
   username: state.username,
+  userX: state.user,
   adminPassword: state.user.adminPassword,
 });
 

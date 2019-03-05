@@ -166,9 +166,11 @@ class HomeNav extends Component {
   render() {
     return (
       <Container>
+
         <HeaderContent
           showHome='false'
         />
+
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.linkTabs}>
             <Grid>
@@ -303,7 +305,7 @@ class HomeNav extends Component {
 
           <View>
             <Text style={styles.version}> </Text>
-            <Text style={styles.version}> </Text>
+            <Text style={styles.version}>{this.state.token} </Text>
             <Text style={styles.version}>Version: {Constants.manifest.revisionId}</Text>
             <Text style={styles.version}> </Text>
             <Text style={styles.version}> </Text>

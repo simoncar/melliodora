@@ -71,7 +71,13 @@ function userReducer(state: State = initialState, action: Action): State {
     nickname: action.payload,
   };
   }
-
+  if (action.type === 'SET_PUSH_TOKEN') {
+    console.log('user reducer - SET_PUSH_TOKEN');
+  return {
+    ...state,
+    pushToken: action.payload,
+  };
+  }
   if (action.type === 'SET_ADMINPASSWORD_DETAILS') {
     console.log('user reducer - SET_ADMINPASSWORD_DETAILS');
   return {

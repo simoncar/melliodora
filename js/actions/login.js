@@ -58,6 +58,15 @@ function setNickname(nickname) {
     };
   }
 
+function setPushToken(pushToken) {
+  console.log('Actions > setPushToken', pushToken);
+  
+    return {
+      type: "SET_PUSH_TOKEN",
+      payload: pushToken
+    };
+  }
+
 function setauthSecret(authSecret) {
 console.log('Actions > setauthSecret', authSecret);
 
