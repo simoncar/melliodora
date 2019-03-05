@@ -7,7 +7,7 @@ import { Permissions, Notifications, Constants } from 'expo';
 import Analytics from './lib/analytics';
 
 import AppNavigator from './AppNavigator';
-import registerForPushNotificationsAsync from './lib/registerForPushNotificationsAsync';
+import registerForPush from './lib/registerForPushNotificationsAsync';
 
 let instID = Constants.manifest.extra.instance;
 
@@ -82,7 +82,9 @@ class App extends Component {
     // You can comment the following line out if you want to stop receiving
     // a notification every time you open the app. Check out the source
     // for this function in api/registerForPushNotificationsAsync.js
-    registerForPushNotificationsAsync(this.props.userX.name);
+    
+
+    registerForPush.reg(this.props.userX.name);
 
       console.log("registerForPushNotificationsAsync" + this.props.userX.name);
 

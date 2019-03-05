@@ -1,15 +1,31 @@
+import React, { Component } from 'react';
 import { Permissions, Notifications, Constants } from 'expo';
 import * as firebase from 'firebase';
-var instID = Constants.manifest.extra.instance;
 
-// Example server, implemented in Rails: https://git.io/vKHKv
-//const PUSH_ENDPOINT = 'https://exponent-push-server.herokuapp.com/tokens';
-//const PUSH_ENDPOINT = 'https://mystamford.herokuapp.com/tokens';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import * as ActionCreators from '../actions';
+
+var instID = Constants.manifest.extra.instance;
 
 const PUSH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwhrlEfQhiSgcsF6AM_AlaMWxU7SsEtJ-yQpvthyQTT1jui588E/exec';
 const installationID = Constants.installationId;
 
-export default (async function registerForPushNotificationsAsync(user) {
+class registerForPush {
+
+ static reg(user) {
+    console.log ("Here")
+    this._here;
+    registerForPushNotificationsAsync(user);
+
+  };
+
+  _here() {
+    console.log("there")
+  }
+}
+
+async function registerForPushNotificationsAsync (user) {
   // Android remote notification permissions are granted during the app
   // install, so this will only ask on iOS
 
@@ -22,22 +38,18 @@ export default (async function registerForPushNotificationsAsync(user) {
 
   // Get the token that uniquely identifies this device
   let token = await Notifications.getExpoPushTokenAsync();
-  console.log('REGISTER PUSH TOKEN=',token);
+  console.log('REGISTER PUSH TOKEN=', token);
 
-
-  safeToken = token.replace("[","{");
-  safeToken = safeToken.replace("]","}");
+  let safeToken = token.replace("[", "{");
+  safeToken = safeToken.replace("]", "}");
 
   this.storyRef = firebase.database().ref('instance/' + instID + '/user/' + safeToken);
   this.storyRef.update({
     token: token,
     user: user,
   });
-  
-  this.setState({
-    token,
-  });
 
+  this.props.setNickname('test')
 
   // POST the token to our backend so we can use it to send pushes from there
   return fetch(PUSH_ENDPOINT + '?token=' + token + '&user=' + user, {
@@ -58,4 +70,15 @@ export default (async function registerForPushNotificationsAsync(user) {
       },
     }),
   });
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(ActionCreators, dispatch)
+};
+
+const mapStateToProps = state => ({
+  navigation: state.cardNavigation,
+  userX: state.user,
 });
+
+export default connect(mapStateToProps, mapDispatchToProps)(registerForPush);
