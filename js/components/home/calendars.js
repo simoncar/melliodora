@@ -10,6 +10,7 @@ import * as ActionCreators from '../../actions'
 
 import Analytics from '../../lib/analytics';
 import { Constants } from 'expo';
+import HeaderContent from './../headerContent/header/';
 
 import styles from './styles';
 
@@ -183,28 +184,16 @@ class phoneCalendar extends Component {
       this.setState({ calendars: [...eventCalendars] });
     }
   };
-  
+
   render() {
     if (this.state.calendars.length) {
       return (
         <Container style={{ backgroundColor: '#fff' }}>
 
-          <Header style={styles.header}>
-            <View style={styles.viewHeader}>
-              <View>
-                <Button transparent onPress={() => Actions.pop()}>
-                  <Icon
-                    active
-                    name="arrow-back"
-                    style={styles.headerIcons} />
-                </Button>
-              </View>
-              <Body>
-                <Image source={global.header_logoID} style={styles.imageHeader} />
-              </Body>
+                <HeaderContent
+                    showBack
+                />
 
-            </View>
-          </Header>
           <Content showsVerticalScrollIndicator={false}>
             <View>
               <View style={styles.newsContent}>
