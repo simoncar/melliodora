@@ -28,8 +28,6 @@ class Firebase {
             var errorCode = error.code;
             var errorMessage = error.message;
             // ...
-
-            console.log("EEEEEEEEEEEEEEEEE  --  UserID : " + errorMessage);
           });
 
 
@@ -39,9 +37,6 @@ class Firebase {
               var isAnonymous = user.isAnonymous;
               var uid = user.uid;
               // ...
-
-
-              console.log("SSSSSSSSSSSSS  --  UserID : " + user.uid);
             } else {
               // User is signed out.
               // ...
@@ -105,7 +100,6 @@ const mapDispatchToProps = (dispatch) => {
     console.log('bind action creators');
     return bindActionCreators(ActionCreators, dispatch)
 };
-
 
 const mapStateToProps = state => ({
     switchesX: state.user

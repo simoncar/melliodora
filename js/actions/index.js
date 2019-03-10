@@ -43,8 +43,15 @@ export function setNickname(nickname) {
   };
 }
 
+export function setPushToken(pushToken) {
+  return {
+    type: "SET_PUSH_TOKEN",
+    payload: pushToken,
+  };
+}
+
 export function setAdminPassword(adminPassword) {
-  console.log ("44444actions index setAdminPassword", adminPassword)
+
   return {
     type: "SET_ADMINPASSWORD_DETAILS",
     payload: adminPassword,
@@ -66,7 +73,7 @@ export function setPassword(password) {
 }
 
 export function setCalendarItems(items) {
-console.log('saved setCalendarItems')
+
   return {
     type: "SET_CALENDAR_ITEMS",
     payload: items,
@@ -75,7 +82,7 @@ console.log('saved setCalendarItems')
 
 
 export function setSwitches(items) {
-  console.log('saved setSwitches')
+
     return {
       type: "SET_SWITCHES",
       payload: items,

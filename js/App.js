@@ -21,6 +21,7 @@ class App extends Component {
   componentWillUnmount() {
     this._notificationSubscription && this._notificationSubscription.remove();
   }
+  
   render() {
     if (undefined != global.loggedLoginAnalytics) {
       if (global.loggedLoginAnalytics == 1) {

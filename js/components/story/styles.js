@@ -2,7 +2,6 @@ const React = require('react-native');
 
 const { Dimensions, Platform } = React;
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import { withLatestFrom } from 'rxjs/operators';
 
 const primary = require('../../themes/variable').brandPrimary;
 const deviceHeight = Dimensions.get('window').height;
