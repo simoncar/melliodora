@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { StatusBar, StyleSheet, TouchableOpacity, View, Alert } from 'react-native'
-import { Container, Header, Title, Content, Text, Icon, Card, CardItem, Item, Body, Right, Button, Input, Form, Textarea, Left } from 'native-base'
+import React, { Component } from 'react';
+import { StyleSheet, TouchableOpacity, View, Alert } from 'react-native';
+import { Container, Header, Title, Content, Text, Icon, Card, CardItem, Item, Body, Right, Button, Input, Form, Textarea, Left } from 'native-base';
 
 
 export default class form extends Component {

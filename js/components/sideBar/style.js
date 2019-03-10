@@ -1,5 +1,3 @@
-import { bindCallback } from 'rxjs/observable/bindCallback';
-
 const React = require('react-native');
 
 const { Platform } = React;

@@ -44,7 +44,6 @@ export default {
   },
   inputIcon: {
     color: 'blue',
-
   },
 
   textHeader: {
@@ -84,7 +83,6 @@ export default {
     marginTop: 10,
     height: 50,
     alignItems: 'center',
-
   },
   helpBtns: {
     opacity: 0.9,

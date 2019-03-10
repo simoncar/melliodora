@@ -13,16 +13,13 @@ import HeaderContent from './../headerContent/header/';
 import { getParameterByName } from '../global.js';
 
 import { openDrawer } from '../../actions/drawer';
-
-import * as  ActionCreators  from '../../actions';
+import * as ActionCreators from '../../actions';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
 
 const primary = require('../../themes/variable').brandPrimary;
 const timer = require('react-native-timer');
-
-
 
 var WEBVIEW_REF = 'webview';
 //var DEFAULT_URL = 'https://saispta.com/app/Authentication.php';
@@ -42,14 +39,11 @@ class Webportal extends Component {
     navigation: PropTypes.shape({
       key: PropTypes.string,
     }),
-
   }
 
   constructor(props) {
     super(props);
     DEFAULT_URL = global.switch_portalURL
-
-console.log ('im here -= ' + global.switch_portalURL);
 
     injectScript = 'document.getElementById(\"username\").value=\"' + this.props.userX.name + '\"';
     injectScript = injectScript + ';' +  'document.getElementById(\"password\").value=\"' + this.props.userX.password + '"';
@@ -62,15 +56,6 @@ console.log ('im here -= ' + global.switch_portalURL);
       console.log ('going to this URL (constructor)=' + DEFAULT_URL)
 
       var authSecret2 = this.props.userX.authSecret
-
-      console.log ('AA=' + authSecret2)
-
-
-        console.log ('going to this URL (constructor)=' + DEFAULT_URL)
-
-        var authSecret2 = this.props.userX.authSecret
-
-        console.log ('AA=' + authSecret2)
 
       DEFAULT_URL = 'https://mystamford.edu.sg/login/api/getsession?'
 

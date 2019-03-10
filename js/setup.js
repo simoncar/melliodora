@@ -46,4 +46,4 @@ export default class Setup extends Component {
       </StyleProvider>
     );
   }
-  }
+}

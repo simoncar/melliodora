@@ -326,7 +326,6 @@ class chat extends Component {
 
                 <HeaderContent
                     showBack
-             
                 />
 
 <Text style={styles.chatHeading}>{this.props.chatroom}</Text>

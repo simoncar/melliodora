@@ -19,8 +19,6 @@ var { skipLogin } = require('../../actions');
 
 const deviceWidth = Dimensions.get('window').width;
 
-
-
 class Login extends Component {
 
   static propTypes = {
@@ -163,7 +161,6 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
   userX: state.user,
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

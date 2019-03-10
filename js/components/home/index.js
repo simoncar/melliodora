@@ -1,31 +1,32 @@
 
 
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Platform, Dimensions, StyleSheet } from 'react-native';
+import {
+  Image, View, TouchableOpacity, Platform, Dimensions, StyleSheet,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Actions, ActionConst } from 'react-native-router-flux';
-import { Container, Header, Footer, FooterTab, Content, Text, Button, Icon, Card, CardItem, Left, Body, Right } from 'native-base';
+import { Actions } from 'react-native-router-flux';
+import { Container, Text, Icon } from 'native-base';
 import * as firebase from 'firebase';
 
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import Swiper from 'react-native-swiper';
+import { Constants } from 'expo';
+import { Agenda } from 'react-native-calendars';
 import { openDrawer } from '../../actions/drawer';
 import * as ActionCreators from '../../actions';
 import styles from './styles';
-import HeaderContent from './../headerContent/header';
+import HeaderContent from "../headerContent/header";
 import Analytics from '../../lib/analytics';
-import { Constants } from 'expo';
 
-import { Agenda } from 'react-native-calendars';
 import { formatTime, formatMonth } from '../global.js';
 
 const i = 0;
 const { width } = Dimensions.get('window');
 
 class calendar1 extends Component {
-
   constructor(props) {
     super(props);
 
@@ -109,14 +110,11 @@ class calendar1 extends Component {
         });
       }
     }
-
-
-    
   }
 
   listenLoadFromFirebase(calendarEvents) {
     calendarEvents.on('value', (dataSnapshot2) => {
-      this.props.setCalendarItems(dataSnapshot2);
+      //this.props.setCalendarItems(dataSnapshot2);
 
       dataSnapshot = dataSnapshot2;
       this.state.items = [];
@@ -168,7 +166,6 @@ class calendar1 extends Component {
             photo3: snapshot.child('photo3').val(),
 
           });
-
         }
       });
 
@@ -190,13 +187,13 @@ class calendar1 extends Component {
         if (!this.state.items[strtime]) {
           this.state.items[strtime] = [];
         }
-        
       }
 
       const newItems = {};
 
       Object.keys(this.state.items).forEach(
-        (key) => { newItems[key] = this.state.items[key]; });
+        (key) => { newItems[key] = this.state.items[key]; },
+      );
     }, 1000);
   }
 
@@ -205,7 +202,7 @@ class calendar1 extends Component {
 
     // add a day
     date.setDate(date.getDate());
-   // date.setDate(Date());
+    // date.setDate(Date());
 
     return (
       <Container>
@@ -234,7 +231,8 @@ class calendar1 extends Component {
   renderItem(item) {
     return (
       <TouchableOpacity
-        style={{ flexDirection: 'row' }} onPress={() => Actions.story({
+        style={{ flexDirection: 'row' }}
+        onPress={() => Actions.story({
           eventTitle: item.title,
           eventDescription: item.description,
           eventDate: item.startDatePretty,
@@ -262,14 +260,21 @@ class calendar1 extends Component {
             <Row>
               <Col>
 
-                <Text style={styles.agendaLocation}>{formatMonth(item.startDatePretty)}      {item.location}      </Text>
-                
+                <Text style={styles.agendaLocation}>
+                  {formatMonth(item.startDatePretty)}
+                  {' '}
+                  {item.location}
+                  {' '}
+                </Text>
+
                 <Text style={styles.text}>{item.name}</Text>
 
-                {undefined !== item.group && item.group !== null && item.group.length > 0 &&
+                {undefined !== item.group && item.group !== null && item.group.length > 0
+                  && (
                   <View style={styles.groupView}>
-                    <Text style={styles.groupText}>{item.group}</Text>
-                  </View>
+  <Text style={styles.groupText}>{item.group}</Text>
+</View>
+                  )
                 }
               </Col>
               <Col style={{ width: 60 }}>
@@ -292,8 +297,8 @@ class calendar1 extends Component {
 
                   <View>
                     <Icon
-                      style={{ color: 'white', fontSize: 20, }} 
-                          name={item.icon}
+                      style={{ color: 'white', fontSize: 20 }}
+                      name={item.icon}
                     />
                   </View>
 
@@ -301,9 +306,9 @@ class calendar1 extends Component {
               </Col>
             </Row>
             <Row>
-            <View>
+              <View>
                 {this.renderImage(item.photo1)}
-               
+
               </View>
             </Row>
           </Grid>
@@ -331,7 +336,10 @@ class calendar1 extends Component {
   renderTime(start, end) {
     if ((undefined != start) && (start.length > 0)) {
       return (
-        <Text style={styles.agendaDate}>{formatTime(start, end)}     </Text>
+        <Text style={styles.agendaDate}>
+          {formatTime(start, end)}
+          {' '}
+        </Text>
       );
     }
   }
@@ -340,16 +348,14 @@ class calendar1 extends Component {
     if ((undefined != calImage) && calImage.length > 0) {
       return (
         <Image
-            source={{uri: calImage}} 
-            style={{ width: 300, height: 150 }}
-            resizeMode={'contain'}
+          source={{ uri: calImage }}
+          style={{ width: 300, height: 150 }}
+          resizeMode="contain"
         />
       );
     }
   }
 
-
-  
 
   renderEmptyDate(item) {
     return (
@@ -360,7 +366,10 @@ class calendar1 extends Component {
   renderTime(start, end) {
     if ((undefined != start) && (start.length > 0)) {
       return (
-        <Text style={styles.agendaDate}>{formatTime(start, end)}     </Text>
+        <Text style={styles.agendaDate}>
+          {formatTime(start, end)}
+          {' '}
+        </Text>
       );
     }
   }

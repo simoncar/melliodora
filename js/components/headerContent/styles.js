@@ -12,10 +12,10 @@ export default {
     paddingRight: 15,
     ...ifIphoneX({
       paddingTop: 0,
-      height: 60
+      height: 80,
     }, {
       paddingTop: 0,
-      height: 60
+      height: 60,
     })
 
   },

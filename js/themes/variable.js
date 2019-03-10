@@ -29,14 +29,14 @@ const header1 = '#00c497';	// header
 // var header5 = "#34495E";
 
 module.exports = {
-  brandPrimary: primary.hexString().toString(),
-  brandSecondary: secondary.hexString().toString(),
-  brandInfo: info.hexString().toString(),
-  brandSuccess: success.hexString().toString(),
-  brandDanger: danger.hexString().toString(),
-  brandWarning: warning.hexString().toString(),
-  brandSidebar: sidebar.hexString().toString(),
+  brandPrimary: primary.hex().toString(),
+  brandSecondary: secondary.hex().toString(),
+  brandInfo: info.hex().toString(),
+  brandSuccess: success.hex().toString(),
+  brandDanger: danger.hex().toString(),
+  brandWarning: warning.hex().toString(),
+  brandSidebar: sidebar.hex().toString(),
   // darker: darken,
-  dark: dark.hexString().toString(),
-  light: light.hexString().toString(),
+  dark: dark.hex().toString(),
+  light: light.hex().toString(),
 };
