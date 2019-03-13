@@ -3,12 +3,14 @@
 import PropTypes from 'prop-types';
 
 import React, { Component } from 'react';
-import { TextInput, View, Switch, Platform } from 'react-native';
+import {TextInput, View, Switch, Platform,} from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { Container, Header, Content, Text, Button, Icon, Thumbnail, Item, Input, Left, Right, Body } from 'native-base';
+import {
+  Container, Header, Content, Text, Button, Icon, Thumbnail, Item, Input, Left, Right, Body,
+} from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 
 import { openDrawer } from '../../actions/drawer';
@@ -19,12 +21,11 @@ import * as ActionCreators from '../../actions';
 import styles from './styles';
 
 
-console.log("ACfromSettings=", ActionCreators);
+console.log('ACfromSettings=', ActionCreators);
 
 const primary = require('../../themes/variable').brandPrimary;
 
 class Settings extends Component {
-
   static propTypes = {
     navigation: PropTypes.shape({
       key: PropTypes.string,
@@ -65,22 +66,17 @@ class Settings extends Component {
 
   _placeHolderAdminPassword() {
 
-    console.log("yy ",this.props.adminPassword)
-    
-      if (undefined !== this.props.adminPassword && null !== this.props.adminPassword &&  this.props.adminPassword.length > 0) {
-          return this.props.adminPassword
-        } else {
-    
-          console.log("bbb",this.props.adminPassword)
-          return "Enter Admin Password"
-        }
-      }
-    
+    if (undefined !== this.props.adminPassword && this.props.adminPassword !== null && this.props.adminPassword.length > 0) {
+      //return this.props.adminPassword;
+    }
+    return 'Enter Admin Password';
+  }
+
 
   render() {
     return (
       <Container>
-              <HeaderContent />
+        <HeaderContent />
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.bg}>
@@ -89,21 +85,19 @@ class Settings extends Component {
           <View style={styles.notificationSwitchContainer}>
             <Text style={styles.notificationHeader}>ADMIN PASSWORD</Text>
             <Item rounded style={styles.inputGrp}>
-                <Icon name="ios-lock" />
-                <TextInput
-                  ref='AdminPassword'
-                  selectTextOnFocus
-                  placeholder= {this._placeHolderAdminPassword()}
-                  onChangeText={(adminPassword) => this.props.setAdminPassword(adminPassword)}
-                  placeholderTextColor="#FFF"
-                  style={styles.input}
-                  autoCapitalize="none"
-                  autoFocus = {true}
-                  selectionColor="#FFF"
-                  enablesReturnKeyAutomatically
-                  returnKeyType="return"
-                />
-              </Item>
+              <Icon name="ios-lock" />
+              <TextInput
+                ref="AdminPassword"
+               // onChangeText={adminPassword => this.props.setAdminPassword(adminPassword)}
+                placeholderTextColor="#FFF"
+                style={styles.input}
+                autoCapitalize="none"
+                autoFocus
+                selectionColor="#FFF"
+                enablesReturnKeyAutomatically
+                returnKeyType="return"
+              />
+            </Item>
 
           </View>
 
@@ -347,14 +341,14 @@ class Settings extends Component {
                     thumbTintColor="#ccc"
                     tintColor="#aaa"
                     value={this.state.volleyballSwitch}
-                    />
-                  </Col>
-                </Grid>
-                <Grid style={{ marginBottom: 10 }}>
-                  <Col>
+                  />
+                </Col>
+              </Grid>
+              <Grid style={{ marginBottom: 10 }}>
+                <Col>
                     <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>MUSIC</Text>
                   </Col>
-                  <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                     <Switch
                       onValueChange={value => this.setState({ musicSwitch: value })}
                       onTintColor={primary}
@@ -362,14 +356,14 @@ class Settings extends Component {
                       thumbTintColor="#ccc"
                       tintColor="#aaa"
                       value={this.state.musicSwitch}
-                      />
-                    </Col>
-                  </Grid>
-                  <Grid style={{ marginBottom: 10 }}>
-                    <Col>
+                    />
+                  </Col>
+              </Grid>
+              <Grid style={{ marginBottom: 10 }}>
+                <Col>
                       <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>THEATRE</Text>
                     </Col>
-                    <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
                       <Switch
                         onValueChange={value => this.setState({ theaterSwitch: value })}
                         onTintColor={primary}
@@ -378,22 +372,22 @@ class Settings extends Component {
                         tintColor="#aaa"
                         value={this.state.theaterSwitch}
                       />
-                      </Col>
-                      </Grid>
-                      <Grid style={{ marginBottom: 10 }}>
-                      <Col>
-                      <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>VISUAL ARTS</Text>
-                      </Col>
-                      <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
-                      <Switch
-                        onValueChange={value => this.setState({ visualartSwitch: value })}
-                        onTintColor={primary}
-                        style={styles.switch}
-                        thumbTintColor="#ccc"
-                        tintColor="#aaa"
-                        value={this.state.visualartSwitch}
-                      />
-                </Col>
+                    </Col>
+              </Grid>
+              <Grid style={{ marginBottom: 10 }}>
+                <Col>
+                          <Text style={Platform.OS === 'android' ? styles.aswitchText : styles.switchText}>VISUAL ARTS</Text>
+                        </Col>
+                <Col style={Platform.OS === 'android' ? styles.aswitchContainer : styles.switchContainer}>
+                          <Switch
+                          onValueChange={value => this.setState({ visualartSwitch: value })}
+                          onTintColor={primary}
+                          style={styles.switch}
+                          thumbTintColor="#ccc"
+                          tintColor="#aaa"
+                          value={this.state.visualartSwitch}
+                        />
+                        </Col>
               </Grid>
             </View>
           </View>
@@ -405,9 +399,7 @@ class Settings extends Component {
 }
 
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators (ActionCreators, dispatch)
-};
+const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,

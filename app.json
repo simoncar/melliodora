@@ -2,7 +2,7 @@
   "name": "Stamford",
   "displayName": "Stamford",
   "expo": {
-    "version": "8.0.31",
+    "version": "12.0.32",
     "sdkVersion": "32.0.0",
     "icon": "./resources/0001-sais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
     "slug": "myStamford",
@@ -45,13 +45,17 @@
     },
     "android": {
       "package": "com.softmowertrain.parent.mystamford",
-      "versionCode": 11,
+      "versionCode": 12,
       "permissions": []
     },
     "androidStatusBarColor": "#AF3643",
     "androidStatusBar": {
       "barStyle": "dark-content",
       "backgroundColor": "#AF3643"
-    }
+    },
+    "platforms": [
+      "android",
+      "ios"
+    ]
   }
 }
