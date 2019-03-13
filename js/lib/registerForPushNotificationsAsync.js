@@ -49,8 +49,6 @@ async function registerForPushNotificationsAsync (user) {
     user: user,
   });
 
-  this.props.setNickname('test')
-
   // POST the token to our backend so we can use it to send pushes from there
   return fetch(PUSH_ENDPOINT + '?token=' + token + '&user=' + user, {
     method: 'POST',

@@ -57,11 +57,14 @@ class HomeNav extends Component {
     console.log("D= ", Constants.installationId)
   }
 
-  keyExtractor = (item) => item._key;
+
 
   componentDidMount() {
     this.listenLoadFromFirebase(this.calendarEvents);
   }
+
+  keyExtractor = (item) => item._key;
+  
   static propTypes = {
     navigation: PropTypes.shape({
       key: PropTypes.string,

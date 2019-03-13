@@ -18,7 +18,6 @@ import styles from './styles';
 
 const primary = require('../../themes/variable').brandPrimary;
 
-
 class campusMap extends Component {
 
   static propTypes = {
