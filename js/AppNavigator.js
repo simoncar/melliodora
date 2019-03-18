@@ -12,7 +12,7 @@ import Login from './components/login/';
 import Home from './components/home/';
 import phoneCalendar from './components/home/calendars';
 import HomeNav from './components/homeNav/';
-import Contact from './components/contact/';
+import Contact from "./components/contact";
 import SideBar from './components/sideBar';
 import Settings from './components/settings';
 import ptaHome from './components/pta/ptaHome';

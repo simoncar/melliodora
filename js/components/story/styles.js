@@ -81,7 +81,7 @@ export default {
 
   switchContainer: {
     alignSelf: 'flex-end',
-    alignItems: 'right',
+    alignItems: 'center',
   },
 
   switch: {
