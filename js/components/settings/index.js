@@ -88,14 +88,13 @@ class Settings extends Component {
               <Icon name="ios-lock" />
               <TextInput
                 ref="AdminPassword"
-               // onChangeText={adminPassword => this.props.setAdminPassword(adminPassword)}
+                onChangeText={adminPassword => this.props.setAdminPassword(adminPassword)}
+                
                 placeholderTextColor="#FFF"
                 style={styles.input}
                 autoCapitalize="none"
                 autoFocus
                 selectionColor="#FFF"
-                enablesReturnKeyAutomatically
-                returnKeyType="return"
               />
             </Item>
 
