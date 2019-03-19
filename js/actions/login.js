@@ -121,4 +121,4 @@ function logOut(): ThunkAction {
   };
 }
 
-module.exports = {setUsername,setPassword,setAdminPassword, setauthSecret, skipLogin, logOut,addRecipe,setSearchedRecipes,fetchReceipes};
+module.exports = {setUsername,setPushToken,setPassword,setAdminPassword, setauthSecret, skipLogin, logOut,addRecipe,setSearchedRecipes,fetchReceipes};

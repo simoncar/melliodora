@@ -44,6 +44,8 @@ export function setNickname(nickname) {
 }
 
 export function setPushToken(pushToken) {
+  console.log('aaaaaaaaa');
+
   return {
     type: "SET_PUSH_TOKEN",
     payload: pushToken,
