@@ -246,14 +246,9 @@ class Story extends Component {
               >
                 {this.props.eventDescription}
               </ParsedText>
-
-
-
             </View>
 
-
             {undefined !== this.props.location && null !== this.props.location && this.props.location.length > 0 &&
-
                 <View style={{ padding: 20 }}>
                 <View style={styles.eventText}>
                 <Text selectable={true} style={styles.eventText}>
