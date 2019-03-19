@@ -8,7 +8,7 @@ import * as ActionCreators from './actions';
 import AppNavigator from './AppNavigator';
 import registerForPush from './lib/registerForPushNotificationsAsync';
 
-let instID = Constants.manifest.extra.instance;
+const instID = Constants.manifest.extra.instance;
 
 console.log('AC=', ActionCreators);
 
@@ -20,7 +20,21 @@ class App extends Component {
   componentWillUnmount() {
     this._notificationSubscription && this._notificationSubscription.remove();
   }
+
+  _handleNotification = ({ origin, data }) => {
+    console.log(
+      `Push notification ${origin} with data: ${JSON.stringify(data)}`,
+    );
+  };
   
+  _registerForPushNotifications() {
+    registerForPush.reg(this.props.userX.name);
+
+    this._notificationSubscription = Notifications.addListener(
+      this._handleNotification,
+    );
+  }
+
   render() {
     if (undefined != global.loggedLoginAnalytics) {
       if (global.loggedLoginAnalytics == 1) {
@@ -56,7 +70,7 @@ class App extends Component {
         global.switch_portalName = 'myStamford';
         global.switch_portalURL = 'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
         global.switch_call = '+65 6709 4800';
-        global.header_logo = `../../../resources/${  Constants.manifest.extra.instance  }/headerLogo.png`;
+        global.header_logo = `../../../resources/${Constants.manifest.extra.instance}/headerLogo.png`;
         global.header_logoID = require('../resources/0001-sais_edu_sg/headerLogo.png');
         break;
       case '0002-singaporepoloclub':
@@ -66,49 +80,24 @@ class App extends Component {
         global.switch_portalName = 'Polo Contacts';
         global.switch_portalURL = 'https://polocontacts.com/';
         global.switch_call = '+65 0000 0000';
-        global.header_logo = `../../../resources/${  Constants.manifest.extra.instance  }/headerLogo.png`;
+        global.header_logo = `../../../resources/${Constants.manifest.extra.instance}/headerLogo.png`;
         global.header_logoID = require('../resources/0002-singaporepoloclub/headerLogo.png');
         break;
       default:
         global.switch_address = 'not specified -';
     }
 
-
     return <AppNavigator {...this.props} />;
   }
-
-  _registerForPushNotifications() {
-    // Send our push token over to our backend so we can receive notifications
-    // You can comment the following line out if you want to stop receiving
-    // a notification every time you open the app. Check out the source
-    // for this function in api/registerForPushNotificationsAsync.js
-    
-
-    registerForPush.reg(this.props.userX.name);
-
-      console.log("registerForPushNotificationsAsync" + this.props.userX.name);
-
-      // Watch for incoming notifications
-      this._notificationSubscription = Notifications.addListener(
-        this._handleNotification
-      );
-  }
-
-  _handleNotification = ({ origin, data }) => {
-    console.log(
-      `Push notification ${origin} with data: ${JSON.stringify(data)}`
-    );
-  };
 }
 
 // export default App;
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(ActionCreators, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
   userX: state.user,
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
