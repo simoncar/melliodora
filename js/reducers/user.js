@@ -8,8 +8,9 @@ const initialState = {
   hasSkippedLogin: false,
   sharedSchedule: null,
   id: null,
-  name: "",
-  password: "",
+  name: '',
+  password: '',
+  pushToken: '',
   items: []
 };
 
@@ -26,6 +27,7 @@ function userReducer(state: State = initialState, action: Action): State {
       id,
       name,
       password,
+      pushToken,
       items
     };
   }
@@ -38,6 +40,7 @@ function userReducer(state: State = initialState, action: Action): State {
       id: null,
       name: '',
       password: '',
+      pushToken: '',
       items
     };
   }

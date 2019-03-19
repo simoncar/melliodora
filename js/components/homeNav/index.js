@@ -310,7 +310,7 @@ class HomeNav extends Component {
             <Text style={styles.version}> </Text>
             <Text style={styles.version}>{this.state.token} </Text>
             <Text style={styles.version}>Version: {Constants.manifest.revisionId}</Text>
-            <Text style={styles.version}> </Text>
+            <Text style={styles.version}>{global.pushToken} </Text>
             <Text style={styles.version}> </Text>
           </View>
 

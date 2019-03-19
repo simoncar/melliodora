@@ -4,15 +4,15 @@ import { Constants } from 'expo';
 
 var instID = Constants.manifest.extra.instance;
 
-export class Backend extends React.Component{
+export class Backend extends React.Component {
   uid = '';
   messagesRef = null;
 
   constructor(props) {
-      super();
-      this.state = {
-          chatroom: '',
-      }
+    super();
+    this.state = {
+      chatroom: '',
+    }
   }
 
   setUid(value) {
@@ -24,18 +24,18 @@ export class Backend extends React.Component{
   }
 
   setChatroom(chatroom) {
-    console.log ('chatroom=' + chatroom);
+    console.log('chatroom=' + chatroom);
     this.state.chatroom = chatroom;
   }
 
   //retrive msg from backend
   loadMessages(callback) {
-      
-    this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom);
+
+    this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom + '/messages');
     this.messageRef.off();
     const onReceive = (data) => {
       const message = data.val();
-      if (undefined !== message.user.avatar && null !== message.user.avatar &&  message.user.avatar.length > 0) {
+      if (undefined !== message.user.avatar && null !== message.user.avatar && message.user.avatar.length > 0) {
         callback({
           _id: data.key,
           text: message.text,
@@ -65,25 +65,25 @@ export class Backend extends React.Component{
           //location: {
           //  latitude: 48.864601,
           //  longitude: 2.398704
-         // },
+          // },
         });
       }
     };
     this.messageRef.limitToLast(50).on('child_added', onReceive);
   }
 
-// 1.
-get uid() {
-  return (firebase.auth().currentUser || {}).uid;
-}
-// 2.
-get timestamp() {
-  return firebase.database.ServerValue.TIMESTAMP;
-}
+  // 1.
+  get uid() {
+    return (firebase.auth().currentUser || {}).uid;
+  }
+  // 2.
+  get timestamp() {
+    return firebase.database.ServerValue.TIMESTAMP;
+  }
 
   SendMessage(message) {
-    this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom);
-  
+    this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom + '/messages');
+
     for (let i = 0; i < message.length; i++) {
 
       this.messageRef.push({
@@ -93,15 +93,25 @@ get timestamp() {
         createdAt: this.timestamp,
         date: new Date().getTime(),
         system: false,
+        pushToken: global.pushToken,
         //location: {
         //  latitude: 48.864601,
         //  longitude: 2.398704
         //},
       });
     }
-  }
+    
+    this.messageRef = firebase.database().ref(`instance/${  instID  }/chat/chatroom/${this.state.chatroom}/notifications/${global.safeToken}`);
+    this.messageRef.update({
+      push:true,
+      pushToken:global.pushToken,
+    });
 
- closeChat() {
+    }
+
+  
+
+  closeChat() {
     if (this.messageRef) {
       this.messageRef.off();
     }

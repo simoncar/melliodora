@@ -40,6 +40,7 @@ class Webportal extends Component {
       key: PropTypes.string,
     }),
   }
+  
 
   constructor(props) {
     super(props);

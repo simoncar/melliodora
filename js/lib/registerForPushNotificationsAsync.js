@@ -3,33 +3,37 @@ import { Permissions, Notifications, Constants } from 'expo';
 import * as firebase from 'firebase';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import * as ActionCreators from '../actions';
 
-var instID = Constants.manifest.extra.instance;
+let instID = Constants.manifest.extra.instance;
 
 const PUSH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwhrlEfQhiSgcsF6AM_AlaMWxU7SsEtJ-yQpvthyQTT1jui588E/exec';
 const installationID = Constants.installationId;
 
 class registerForPush {
 
- static reg(user) {
-    console.log ("Here")
+  static reg(user) {
+    console.log('Here');
     this._here;
     registerForPushNotificationsAsync(user);
 
-  };
+    ActionCreators.setPushToken('token');
+    console.log('HereHere');
+  }
+
+
 
   _here() {
-    console.log("there")
+    console.log('there');
   }
 }
 
-async function registerForPushNotificationsAsync (user) {
+async function registerForPushNotificationsAsync(user) {
   // Android remote notification permissions are granted during the app
   // install, so this will only ask on iOS
 
-  let { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
 
   // Stop here if the user did not grant permissions
   if (status !== 'granted') {
@@ -37,20 +41,25 @@ async function registerForPushNotificationsAsync (user) {
   }
 
   // Get the token that uniquely identifies this device
-  let token = await Notifications.getExpoPushTokenAsync();
+  const token = await Notifications.getExpoPushTokenAsync();
   console.log('REGISTER PUSH TOKEN=', token);
 
-  let safeToken = token.replace("[", "{");
-  safeToken = safeToken.replace("]", "}");
+  global.pushToken = token;
+  let safeToken = token.replace('[', '{');
+  safeToken = safeToken.replace(']', '}');
+  global.safeToken = safeToken;
+  
 
-  this.storyRef = firebase.database().ref('instance/' + instID + '/user/' + safeToken);
+  console.log ('YYYYY', global.pushToken);
+
+  this.storyRef = firebase.database().ref(`instance/${  instID  }/user/${  safeToken}`);
   this.storyRef.update({
-    token: token,
-    user: user,
+    token,
+    user,
   });
 
   // POST the token to our backend so we can use it to send pushes from there
-  return fetch(PUSH_ENDPOINT + '?token=' + token + '&user=' + user, {
+  return fetch(`${PUSH_ENDPOINT  }?token=${  token  }&user=${  user}`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -64,15 +73,13 @@ async function registerForPushNotificationsAsync (user) {
         username: user,
       },
       installationID: {
-        installationID: installationID,
+        installationID,
       },
     }),
   });
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(ActionCreators, dispatch)
-};
+const mapDispatchToProps = (dispatch) => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
