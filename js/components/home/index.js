@@ -18,7 +18,7 @@ import { Agenda } from 'react-native-calendars';
 import { openDrawer } from '../../actions/drawer';
 import * as ActionCreators from '../../actions';
 import styles from './styles';
-import HeaderContent from "../headerContent/header";
+import HeaderContent from '../headerContent/header';
 import Analytics from '../../lib/analytics';
 
 import { formatTime, formatMonth } from '../global.js';
@@ -114,7 +114,7 @@ class calendar1 extends Component {
 
   listenLoadFromFirebase(calendarEvents) {
     calendarEvents.on('value', (dataSnapshot2) => {
-      //this.props.setCalendarItems(dataSnapshot2);
+      // this.props.setCalendarItems(dataSnapshot2);
 
       dataSnapshot = dataSnapshot2;
       this.state.items = [];
@@ -269,8 +269,8 @@ class calendar1 extends Component {
                 {undefined !== item.group && item.group !== null && item.group.length > 0
                   && (
                   <View style={styles.groupView}>
-  <Text style={styles.groupText}>{item.group}</Text>
-</View>
+                    <Text style={styles.groupText}>{item.group}</Text>
+                  </View>
                   )
                 }
               </Col>
