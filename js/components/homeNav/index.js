@@ -41,7 +41,6 @@ class HomeNav extends Component {
     navigation: PropTypes.shape({
       key: PropTypes.string,
     }),
-
   }
 
   constructor(props) {
@@ -49,7 +48,6 @@ class HomeNav extends Component {
 
     this.calendarEvents = firebase.database().ref(`instance/${instID}/feature`);
     this.state = {
-      versionText: '', // 'Version Aug.1.2017 - Check for an Update'
       calendarEvents: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
@@ -150,11 +148,6 @@ class HomeNav extends Component {
     );
   }
 
-  _renderItem23 = ({ item }) => (
-    <View>
-      <Text style={{ color: 'blue' }}>{item.title}</Text>
-    </View>
-  );
 
   render() {
     return (
@@ -227,36 +220,26 @@ class HomeNav extends Component {
 
               <View>
                 <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
-      <Image
-                    style={{
-                      width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray',
-                    }}
-                    source={{ uri: 'https://saispta.com/wp-content/uploads/2018/12/Screenshot-2018-12-10-15.49.39.png' }}
-                  />
-      <Text style={{
-                    fontWeight: 'bold', height: 60, lineHeight: 60, color: 'black',
-                  }}
-                  >
-Parent Connections
-                    {' '}
-
-                  </Text>
-
-    </View>
-
-
+                  <Image
+style={{
+ width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' 
+}}
+        source={{ uri: 'https://saispta.com/wp-content/uploads/2018/12/Screenshot-2018-12-10-15.49.39.png' }}
+      />
+                  <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60, color: 'black' }}>
+                    Parent Connections
+                  {' '} </Text>
+                </View>
                 <View>
-      <Image
-                    source={{ uri: 'https://saispta.com/wp-content/uploads/2018/12/ISASAIS-2017-2018-0032-e1544427990824.jpg' }}
-                    style={{ width, height: 200 }}
-                    resizeMode="contain"
-                  />
-    </View>
+                  <Image
+        source={{ uri: 'https://saispta.com/wp-content/uploads/2018/12/ISASAIS-2017-2018-0032-e1544427990824.jpg' }}
+        style={{ width, height: 200 }}
+        resizeMode="contain"
+      />
+                </View>
               </View>
             </TouchableOpacity>
             )
-
-
           }
 
           <View>
@@ -268,25 +251,25 @@ Parent Connections
                 && (
                 <Row style={{ paddingBottom: 20 }}>
                   <Col>
-                <Button transparent style={styles.roundedButton} onPress={() => { Actions.contact(); }}>
+                    <Button transparent style={styles.roundedButton} onPress={() => { Actions.contact(); }}>
                   <Ionicons name="ios-call" style={styles.icon} />
                 </Button>
-                <Text note style={styles.buttonLabel}>Contact</Text>
-              </Col>
+                    <Text note style={styles.buttonLabel}>Contact</Text>
+                  </Col>
 
                   <Col>
-                <Button transparent style={styles.roundedButton} onPress={() => { Actions.ptaHome(); }}>
+                    <Button transparent style={styles.roundedButton} onPress={() => { Actions.ptaHome(); }}>
                   <Icon style={styles.icon} name="ios-people" />
                 </Button>
-                <Text note style={styles.buttonLabel}>PTA</Text>
-              </Col>
+                    <Text note style={styles.buttonLabel}>PTA</Text>
+                  </Col>
 
                   <Col>
-                <Button transparent style={styles.roundedButton} onPress={() => { Actions.campusMap(); }}>
+                    <Button transparent style={styles.roundedButton} onPress={() => { Actions.campusMap(); }}>
                   <Icon style={styles.icon} name="ios-map" />
                 </Button>
-                <Text note style={styles.buttonLabel}>School Map</Text>
-              </Col>
+                    <Text note style={styles.buttonLabel}>School Map</Text>
+                  </Col>
                 </Row>
                 )
               }
@@ -320,7 +303,6 @@ Parent Connections
           <View>
             <Text style={styles.version} />
             <Text style={styles.version}>
-              {this.state.token}
               {' '}
             </Text>
             <Text style={styles.version}>
@@ -329,13 +311,10 @@ Parent Connections
               {Constants.manifest.revisionId}
             </Text>
             <Text style={styles.version}>
-              {global.pushToken}
               {' '}
             </Text>
             <Text style={styles.version} />
           </View>
-
-
         </Content>
       </Container>
     );
