@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Platform, Text, View, Alert,
+  Platform, Text, View, Alert, TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions as NavigationActions } from 'react-native-router-flux';
@@ -331,7 +331,9 @@ class chat extends Component {
             showBack
           />
 
-          <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
+          <TouchableOpacity onPress={() => { Actions.chat({ chatroom: this.props.eventTitle }); }}>
+            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
+          </TouchableOpacity>
 
           <GiftedChat
             messages={this.state.messages}
@@ -341,10 +343,10 @@ class chat extends Component {
                     // isLoadingEarlier={this.state.isLoadingEarlier}
 
             user={{
-                _id: Expo.Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-                name: this.props.userX.nickname,
-                // avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
-              }}
+              _id: Expo.Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+              name: this.props.userX.nickname,
+              // avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
+            }}
 
                     // renderActions={this.renderCustomActions}
                     // renderBubble={this.renderBubble}
