@@ -127,14 +127,12 @@ class calendar1 extends Component {
         this.state.items[todayDate] = [];
       }
 
-
       this.state.items[todayDate].push({
         name: 'Today',
         icon: 'md-radio-button-off',
         color: 'yellow',
         title: 'Today',
       });
-
 
       dataSnapshot.forEach((snapshot) => {
         strtime = snapshot.child('date_start').val();
@@ -143,7 +141,6 @@ class calendar1 extends Component {
         if (!this.state.items[strtime]) {
           this.state.items[strtime] = [];
         }
-
 
         if (undefined != this.state.items[strtime]) {
           this.state.items[strtime].push({
@@ -331,7 +328,6 @@ class calendar1 extends Component {
 
     return (ret);
   }
-
 
   renderTime(start, end) {
     if ((undefined != start) && (start.length > 0)) {

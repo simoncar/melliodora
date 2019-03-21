@@ -82,6 +82,10 @@ export class Backend extends React.Component {
   }
 
   SendMessage(message) {
+    if (undefined === global.pushToken) {
+      global.pushToken = '';
+    }
+
     this.messageRef = firebase.database().ref('instance/' + instID + '/chat/chatroom/' + this.state.chatroom + '/messages');
 
     for (let i = 0; i < message.length; i++) {
