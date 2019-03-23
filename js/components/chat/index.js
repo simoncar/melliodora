@@ -354,22 +354,20 @@ class chat extends Component {
       return (
 
         <Container>
+          <HeaderContent
+            showBack
+          />
+          <TouchableOpacity onPress={this._showActionSheet}>
+            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
+          </TouchableOpacity>
 
-            <HeaderContent
-              showBack
-            />
-
-            <TouchableOpacity onPress={this._showActionSheet}>
-              <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
-            </TouchableOpacity>
-
-            <GiftedChat
-              messages={this.state.messages}
-              onSend={this.onSend}
+          <GiftedChat
+            messages={this.state.messages}
+            onSend={this.onSend}
                     // loadEarlier={this.state.loadEarlier}
                     // onLoadEarlier={this.onLoadEarlier}
                     // isLoadingEarlier={this.state.isLoadingEarlier}
-              user={{
+            user={{
                 _id: Expo.Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
                 name: this.props.userX.nickname,
               // avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
@@ -378,7 +376,7 @@ class chat extends Component {
                     // renderActions={this.renderCustomActions}
                     // renderBubble={this.renderBubble}
                     // renderSystemMessage={this.renderSystemMessage}
-              renderCustomView={this.renderCustomView}
+            renderCustomView={this.renderCustomView}
                     // renderFooter={this.renderFooter}
                     // showAvatarForEveryMessage
                     // showUserAvatar
@@ -388,16 +386,16 @@ class chat extends Component {
                     // renderBubble={this.renderBubble.bind(this)}
                     // renderAvatar={this.renderAvatar.bind(this)}
                     // renderTime={this.renderTime.bind(this)}
-              showUserAvatar
+            showUserAvatar
                     // showAvatarForEveryMessage={true}
-              chatId={this.chatId}
+            chatId={this.chatId}
                     // minInputToolbarHeight={50}
-              bottomOffset={0}
-              onPressAvatar={this.avatarPress}
-            />
+            bottomOffset={0}
+            onPressAvatar={this.avatarPress}
+          />
 
-            <Footer style={styles.footer} />
-          </Container>
+          <Footer style={styles.footer} />
+        </Container>
 
       );
     }
