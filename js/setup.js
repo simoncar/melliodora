@@ -1,7 +1,7 @@
 import * as Expo from 'expo';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { StyleProvider } from 'native-base';
+import { StyleProvider, Root } from 'native-base';
 
 import App from './App';
 import configureStore from './configureStore';
@@ -10,7 +10,6 @@ import variables from '../native-base-theme/variables/commonColor';
 
 
 export default class Setup extends Component {
-
   constructor() {
     super();
     this.state = {
@@ -24,11 +23,11 @@ export default class Setup extends Component {
     await Expo.Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'),
+      Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf'),
       'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
-      'SFProTextBold': require('../fonts/SF-Pro-Text-Bold.otf'),
-      'SFProTextSemiBold': require('../fonts/SF-Pro-Text-Semibold.otf'),
-      'SFProTextRegular': require('../fonts/SF-Pro-Text-Regular.otf'),  
+      SFProTextBold: require('../fonts/SF-Pro-Text-Bold.otf'),
+      SFProTextSemiBold: require('../fonts/SF-Pro-Text-Semibold.otf'),
+      SFProTextRegular: require('../fonts/SF-Pro-Text-Regular.otf'),
     });
 
     this.setState({ isReady: true });
@@ -40,9 +39,11 @@ export default class Setup extends Component {
     }
     return (
       <StyleProvider style={getTheme(variables)}>
-        <Provider store={this.state.store}>
-          <App />
-        </Provider>
+        <Root>
+            <Provider store={this.state.store}>
+              <App />
+            </Provider>
+         </Root>
       </StyleProvider>
     );
   }

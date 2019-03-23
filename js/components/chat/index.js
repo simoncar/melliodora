@@ -3,10 +3,12 @@ import {
   Platform, Text, View, Alert, TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { ActionSheet } from 'native-base';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import {
   GiftedChat, Actions, Bubble, SystemMessage, Time,
 } from 'react-native-gifted-chat';
+
 import {
   Container, Header, Footer, Button, Icon, Body,
 } from 'native-base';
@@ -23,6 +25,9 @@ import * as ActionCreators from '../../actions';
 import Backend from './backend';
 import SlackMessage from './slackMessage';
 
+const BUTTONS = ['Mute conversation', 'Unmute conversation', 'Cancel'];
+const CANCEL_INDEX = 2;
+
 class chat extends Component {
   constructor(props) {
     super(props);
@@ -32,6 +37,7 @@ class chat extends Component {
       typingText: null,
       isLoadingEarlier: false,
       step: 0,
+      muteState: false,
     };
 
     this._isMounted = false;
@@ -303,7 +309,7 @@ class chat extends Component {
       );
     }
 
-    /** render the time labels in the bubble */
+
     renderTime() {
       return (
         <Time
@@ -323,35 +329,56 @@ class chat extends Component {
       );
     }
 
+    _showActionSheet() {
+      ActionSheet.show(
+        {
+          options: BUTTONS,
+          cancelButtonIndex: CANCEL_INDEX,
+          // destructiveButtonIndex: DESTRUCTIVE_INDEX,
+          title: 'Mute options',
+        },
+        (buttonIndex) => {
+          switch (buttonIndex) {
+            case 0:
+              Backend.setMute(true);
+              break;
+            case 1:
+              Backend.setMute(false);
+              break;
+          }
+        },
+      );
+    }
+
     render() {
       return (
+
         <Container>
 
-          <HeaderContent
-            showBack
-          />
+            <HeaderContent
+              showBack
+            />
 
-          <TouchableOpacity onPress={() => { Actions.chat({ chatroom: this.props.eventTitle }); }}>
-            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={this._showActionSheet}>
+              <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
+            </TouchableOpacity>
 
-          <GiftedChat
-            messages={this.state.messages}
-            onSend={this.onSend}
+            <GiftedChat
+              messages={this.state.messages}
+              onSend={this.onSend}
                     // loadEarlier={this.state.loadEarlier}
                     // onLoadEarlier={this.onLoadEarlier}
                     // isLoadingEarlier={this.state.isLoadingEarlier}
-
-            user={{
-              _id: Expo.Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-              name: this.props.userX.nickname,
+              user={{
+                _id: Expo.Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+                name: this.props.userX.nickname,
               // avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
-            }}
+              }}
 
                     // renderActions={this.renderCustomActions}
                     // renderBubble={this.renderBubble}
                     // renderSystemMessage={this.renderSystemMessage}
-            renderCustomView={this.renderCustomView}
+              renderCustomView={this.renderCustomView}
                     // renderFooter={this.renderFooter}
                     // showAvatarForEveryMessage
                     // showUserAvatar
@@ -361,16 +388,17 @@ class chat extends Component {
                     // renderBubble={this.renderBubble.bind(this)}
                     // renderAvatar={this.renderAvatar.bind(this)}
                     // renderTime={this.renderTime.bind(this)}
-            showUserAvatar
+              showUserAvatar
                     // showAvatarForEveryMessage={true}
-            chatId={this.chatId}
+              chatId={this.chatId}
                     // minInputToolbarHeight={50}
-            bottomOffset={0}
-            onPressAvatar={this.avatarPress}
-          />
+              bottomOffset={0}
+              onPressAvatar={this.avatarPress}
+            />
 
-          <Footer style={styles.footer} />
-        </Container>
+            <Footer style={styles.footer} />
+          </Container>
+
       );
     }
 }
