@@ -112,7 +112,7 @@ export class Backend extends React.Component {
     if (global.pushToken.length > 0) {
       this.messageRef = firebase.database().ref(`instance/${ instID }/chat/chatroom/${ this.state.chatroom }/notifications/${ global.safeToken }`);
       this.messageRef.update({
-        mute: false,
+        //mute: false,
         pushToken: global.pushToken,
       });
     }
