@@ -52,6 +52,26 @@ class HomeNav extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
     };
+
+    console.log ("1************")
+    var query = firebase.database().ref("instance/0001-sais_edu_sg/chat/chatroom/Stamford 10 Year Gala/notifications");
+    console.log ("2************")
+    query.on('value', (snap) => {
+      console.log ("3************")
+      snap.forEach((child) => {
+        console.log ("4************   TTTTTTTT")
+          var key = child.key; // "ada"
+          var childData = child.val();
+          if (childData.push) {
+            console.log (childData.push);
+            console.log (childData.pushToken);
+          }
+      });
+    });
+  
+
+
+
   }
 
   componentDidMount() {
