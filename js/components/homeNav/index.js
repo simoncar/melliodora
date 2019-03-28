@@ -52,21 +52,6 @@ class HomeNav extends Component {
       }),
     };
 
-    console.log('1************');
-    let query = firebase.database().ref('instance/0001-sais_edu_sg/chat/chatroom/Stamford 10 Year Gala/notifications');
-    console.log('2************');
-    query.on('value', (snap) => {
-      console.log('3************');
-      snap.forEach((child) => {
-        console.log('4************   TTTTTTTT');
-        let {key} = child; // "ada"
-        let childData = child.val();
-        if (childData.push) {
-          console.log(childData.push);
-          console.log(childData.pushToken);
-        }
-      });
-    });
   }
 
   componentDidMount() {
