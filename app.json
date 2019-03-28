@@ -46,7 +46,10 @@
     "android": {
       "package": "com.softmowertrain.parent.mystamford",
       "versionCode": 13,
-      "permissions": ["READ_CALENDAR", "WRITE_CALENDAR"]
+      "permissions": [
+        "READ_CALENDAR",
+        "WRITE_CALENDAR"
+      ]
     },
     "androidStatusBarColor": "#AF3643",
     "androidStatusBar": {
