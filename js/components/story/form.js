@@ -92,6 +92,8 @@ class newStory extends Component {
         photo2: this.state.photo2,
         photo3: this.state.photo3,
         date_start: (this.state.eventDate !== undefined) ? this.state.eventDate : null,
+        time_start_pretty: (this.state.eventStartTime !== undefined) ? this.state.eventStartTime : null,
+        time_end_pretty: (this.state.eventEndTime !== undefined) ? this.state.eventEndTime : null,
         displayStart: (this.state.displayStart !== undefined) ? this.state.displayStart : null,
         displayEnd: (this.state.displayEnd !== undefined) ? this.state.displayEnd : null,
         photoSquare:  this.state.photoSquare,
@@ -109,6 +111,8 @@ class newStory extends Component {
         photo2: this.state.photo2,
         photo3: this.state.photo3,
         date_start: (this.state.eventDate !== undefined) ? this.state.eventDate : null,
+        time_start_pretty: (this.state.eventStartTime !== undefined) ? this.state.eventStartTime : null,
+        time_end_pretty: (this.state.eventEndTime !== undefined) ? this.state.eventEndTime : null,
         displayStart: (this.state.displayStart !== undefined) ? this.state.displayStart : null,
         displayEnd: (this.state.displayEnd !== undefined) ? this.state.displayEnd : null,
         photoSquare:  this.state.photoSquare,
@@ -239,18 +243,33 @@ class newStory extends Component {
             <Text>
               Event Date (if user presses 'add to calendar')
             </Text>
-
             <Text>
               format: 2019-01-01  yyyy-mm-dd
             </Text>
-
-
-
               <TextInput
                 onChangeText={(text) => this.setState({ eventDate: text })}
                 placeholder={"Event Date  format: 2019-01-01"}
                 style={[styles.eventText]}
                 value={this.state.eventDate}
+              />
+
+<Text>
+              Event Time (if user presses 'add to calendar')
+            </Text>
+            <Text>
+              format: 18:00  hh:mm  (optional)
+            </Text>
+              <TextInput
+                onChangeText={(text) => this.setState({ eventStartTime: text })}
+                placeholder={"Start Time  format: hh:mm (optional)"}
+                style={[styles.eventText]}
+                value={this.state.eventStartTime}
+              />
+              <TextInput
+                onChangeText={(text) => this.setState({ eventEndTime: text })}
+                placeholder={"End Time  format: hh:mm (otional)"}
+                style={[styles.eventText]}
+                value={this.state.eventEndTime}
               />
 
             <Text>
