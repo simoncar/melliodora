@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-
 import { Actions } from 'react-native-router-flux';
-import { Image, Text, View, TouchableOpacity, Dimensions, StyleSheet} from 'react-native';
+import { Image, Text, View, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import styles from './styles';
 import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
 import { isAdmin } from '../global.js';
@@ -19,7 +18,6 @@ class ListItem extends Component {
     return (
 
       <View style={styles.newsContentLine}>
-
 
         <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => Actions.story({
           eventTitle: this.props.item.item.title,
