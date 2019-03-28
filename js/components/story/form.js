@@ -34,7 +34,7 @@ class newStory extends Component {
       photo1: (props.edit && props.photo1 !== undefined) ? props.photo1 : null,
       photo2: (props.edit && props.photo2 !== undefined) ? props.photo2 : null,
       photo3: (props.edit && props.photo3 !== undefined) ? props.photo3 : null,
-
+      photoSquare: (props.edit) ? props.photoSquare : "",
       eventDate: props.eventDate,
       eventStartTime: props.eventStartTime,
       eventEndTime: props.eventEndTime,
@@ -94,6 +94,7 @@ class newStory extends Component {
         date_start: (this.state.eventDate !== undefined) ? this.state.eventDate : null,
         displayStart: (this.state.displayStart !== undefined) ? this.state.displayStart : null,
         displayEnd: (this.state.displayEnd !== undefined) ? this.state.displayEnd : null,
+        photoSquare:  this.state.photoSquare,
       });
 
     } else {
@@ -110,6 +111,7 @@ class newStory extends Component {
         date_start: (this.state.eventDate !== undefined) ? this.state.eventDate : null,
         displayStart: (this.state.displayStart !== undefined) ? this.state.displayStart : null,
         displayEnd: (this.state.displayEnd !== undefined) ? this.state.displayEnd : null,
+        photoSquare:  this.state.photoSquare,
       });
     }
 
@@ -221,6 +223,12 @@ class newStory extends Component {
                 placeholder={"Photo 3 URL"}
                 style={[styles.eventText]}
                 value={this.state.photo3}
+              />
+              <TextInput
+                onChangeText={(text) => this.setState({ photoSquare: text })}
+                placeholder={"Photo Square"}
+                style={[styles.eventText]}
+                value={this.state.photoSquare}
               />
 
             <Text>

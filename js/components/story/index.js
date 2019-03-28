@@ -373,6 +373,7 @@ onPress={() => Actions.storyForm(
                   url: this.props.url,
                   displayStart: this.props.displayStart,
                   displayEnd: this.props.displayEnd,
+                  photoSquare: this.props.photoSquare,
                   _key: this.props._key,
                   edit: true,
                 }
