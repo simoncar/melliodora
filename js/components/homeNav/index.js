@@ -36,7 +36,6 @@ console.log(token);
 
 class HomeNav extends Component {
   static propTypes = {
-
     openDrawer: PropTypes.func,
     navigation: PropTypes.shape({
       key: PropTypes.string,
@@ -53,25 +52,21 @@ class HomeNav extends Component {
       }),
     };
 
-    console.log ("1************")
-    var query = firebase.database().ref("instance/0001-sais_edu_sg/chat/chatroom/Stamford 10 Year Gala/notifications");
-    console.log ("2************")
+    console.log('1************');
+    let query = firebase.database().ref('instance/0001-sais_edu_sg/chat/chatroom/Stamford 10 Year Gala/notifications');
+    console.log('2************');
     query.on('value', (snap) => {
-      console.log ("3************")
+      console.log('3************');
       snap.forEach((child) => {
-        console.log ("4************   TTTTTTTT")
-          var key = child.key; // "ada"
-          var childData = child.val();
-          if (childData.push) {
-            console.log (childData.push);
-            console.log (childData.pushToken);
-          }
+        console.log('4************   TTTTTTTT');
+        let {key} = child; // "ada"
+        let childData = child.val();
+        if (childData.push) {
+          console.log(childData.push);
+          console.log(childData.pushToken);
+        }
       });
     });
-  
-
-
-
   }
 
   componentDidMount() {
@@ -80,11 +75,7 @@ class HomeNav extends Component {
 
   keyExtractor = item => item._key;
 
-  static propTypes = {
-    navigation: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-  }
+
 
   _handleOpenWithLinking = (sURL) => {
     Linking.openURL(sURL);
@@ -241,21 +232,26 @@ class HomeNav extends Component {
               <View>
                 <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
                   <Image
-style={{
- width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' 
+                    style={{
+  width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray',
 }}
-        source={{ uri: 'https://saispta.com/wp-content/uploads/2018/12/Screenshot-2018-12-10-15.49.39.png' }}
-      />
-                  <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60, color: 'black' }}>
+                    source={{ uri: 'https://saispta.com/wp-content/uploads/2018/12/Screenshot-2018-12-10-15.49.39.png' }}
+                  />
+                  <Text style={{
+ fontWeight: 'bold', height: 60, lineHeight: 60, color: 'black' 
+}}>
                     Parent Connections
-                  {' '} </Text>
+                    {' '}
+{' '}
+ 
+                  </Text>
                 </View>
                 <View>
                   <Image
-        source={{ uri: 'https://saispta.com/wp-content/uploads/2018/12/ISASAIS-2017-2018-0032-e1544427990824.jpg' }}
-        style={{ width, height: 200 }}
-        resizeMode="contain"
-      />
+                    source={{ uri: 'https://saispta.com/wp-content/uploads/2018/12/ISASAIS-2017-2018-0032-e1544427990824.jpg' }}
+                    style={{ width, height: 200 }}
+                    resizeMode="contain"
+                  />
                 </View>
               </View>
             </TouchableOpacity>
@@ -272,22 +268,22 @@ style={{
                 <Row style={{ paddingBottom: 20 }}>
                   <Col>
                     <Button transparent style={styles.roundedButton} onPress={() => { Actions.contact(); }}>
-                  <Ionicons name="ios-call" style={styles.icon} />
-                </Button>
+                      <Ionicons name="ios-call" style={styles.icon} />
+                    </Button>
                     <Text note style={styles.buttonLabel}>Contact</Text>
                   </Col>
 
                   <Col>
                     <Button transparent style={styles.roundedButton} onPress={() => { Actions.ptaHome(); }}>
-                  <Icon style={styles.icon} name="ios-people" />
-                </Button>
+                      <Icon style={styles.icon} name="ios-people" />
+                    </Button>
                     <Text note style={styles.buttonLabel}>PTA</Text>
                   </Col>
 
                   <Col>
                     <Button transparent style={styles.roundedButton} onPress={() => { Actions.campusMap(); }}>
-                  <Icon style={styles.icon} name="ios-map" />
-                </Button>
+                      <Icon style={styles.icon} name="ios-map" />
+                    </Button>
                     <Text note style={styles.buttonLabel}>School Map</Text>
                   </Col>
                 </Row>
