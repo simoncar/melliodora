@@ -7,5 +7,6 @@ export default {
 		projectId: "calendar-app-57e88",
 		storageBucket: "calendar-app-57e88.appspot.com",
 		messagingSenderId: "991350571487",
+		
 	}
 }
