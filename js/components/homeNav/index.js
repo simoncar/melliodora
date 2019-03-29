@@ -51,7 +51,6 @@ class HomeNav extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
     };
-
   }
 
   componentDidMount() {
@@ -59,8 +58,6 @@ class HomeNav extends Component {
   }
 
   keyExtractor = item => item._key;
-
-
 
   _handleOpenWithLinking = (sURL) => {
     Linking.openURL(sURL);
