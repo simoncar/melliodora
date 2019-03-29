@@ -1,3 +1,4 @@
+js/ApiKeys.js
 # OSX
 #
 .DS_Store
@@ -66,6 +67,4 @@ fastlane/screenshots
 .vscode/.react/debuggerWorker.js
 .vscode/launch.json
 functions/firebase-debug.log
-js/ApiKeys.js
 
-js/ApiKeys.js
