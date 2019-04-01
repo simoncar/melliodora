@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  Image, FlatList, View, Linking, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions,
+  Image, ListView, FlatList, View, Linking, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import {
@@ -32,7 +32,6 @@ const ListItem = require('./ListItem');
 const instID = Constants.manifest.extra.instance;
 
 const token = Notifications.getExpoPushTokenAsync();
-console.log(token);
 
 class HomeNav extends Component {
   constructor(props) {
@@ -40,6 +39,9 @@ class HomeNav extends Component {
 
     this.calendarEvents = firebase.database().ref(`instance/${instID}/feature`);
     this.state = {
+      calendarEvents: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }),
       user: null,
       loading: true,
       items: {},
@@ -69,10 +71,9 @@ class HomeNav extends Component {
       console.log ("LOADED: ", snapshot.summary)
         strtime = snapshot.date_start;
       
-          this.state.items[strtime] = [];
+          //this.state.items[strtime] = [];
 
-
-          this.state.items[strtime].push({
+          this.state.items.push({
             title: snapshot.summary,
             description: snapshot.description,
             location: snapshot.location,

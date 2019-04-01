@@ -14,18 +14,15 @@ const installationID = Constants.installationId;
 class registerForPush {
 
   static reg(user) {
-    console.log('Here');
     this._here;
     registerForPushNotificationsAsync(user);
 
     ActionCreators.setPushToken('token');
-    console.log('HereHere');
+ 
   }
 
 
-
-  _here() {
-    console.log('there');
+ _here() {
   }
 }
 
