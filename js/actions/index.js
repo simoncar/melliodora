@@ -82,6 +82,13 @@ export function setCalendarItems(items) {
   };
 }
 
+export function setFeatureItems(items) {
+
+  return {
+    type: "SET_FEATURE_ITEMS",
+    payload: items,
+  };
+}
 
 export function setSwitches(items) {
 

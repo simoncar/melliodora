@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  Image, ListView, FlatList, View, Linking, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions,
+  Image, FlatList, View, Linking, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import {
   Container, Content, Text, Icon, Button,
 } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
-import { Expo, Constants, Notifications } from 'expo';
+import { Constants, Notifications } from 'expo';
 import moment from 'moment';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as firebase from 'firebase';
@@ -35,27 +35,78 @@ const token = Notifications.getExpoPushTokenAsync();
 console.log(token);
 
 class HomeNav extends Component {
-  static propTypes = {
-    openDrawer: PropTypes.func,
-    navigation: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-  }
-
   constructor(props) {
     super(props);
 
     this.calendarEvents = firebase.database().ref(`instance/${instID}/feature`);
     this.state = {
-      calendarEvents: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
+      user: null,
+      loading: true,
+      items: {},
     };
+
+
+    this.loadFromRedux();
   }
 
   componentDidMount() {
     this.listenLoadFromFirebase(this.calendarEvents);
   }
+
+  loadFromRedux() {
+
+
+    this.state.items = [];
+   
+
+    dataSnapshot = (this.props.calendarEventsX.items);
+    key = '';
+
+    for (var key in dataSnapshot) {
+      //if (!dataSnapshot.hasOwnProperty(key)) continue;
+
+      const snapshot = dataSnapshot[key];
+
+ 
+        strtime = snapshot.date_start;
+     
+       
+          this.state.items[strtime] = [];
+
+console.log ("LOADED: ", snapshot.summary)
+          this.state.items[strtime].push({
+            title: snapshot.summary,
+            description: snapshot.description,
+            location: snapshot.location,
+            phone: snapshot.phone,
+            email: snapshot.email,
+            photoSquare: snapshot.photoSquare,
+            url: snapshot.htmlLink,
+            eventDate: snapshot.date_start,
+            eventStartTime: snapshot.time_start_pretty,
+            eventEndTime: snapshot.time_end_pretty,
+            photo1: snapshot.photo1,
+            photo2: snapshot.photo2,
+            photo3: snapshot.photo3,
+            displayStart: snapshot.displayStart,
+            displayEnd: snapshot.displayEnd,
+            hidden: false,
+            
+        });
+      
+    }
+
+
+
+
+
+
+    this.setState({
+      calendarEvents: this.state.items,
+      calendarEventsHidden: this.state.items,
+    });
+  }
+
 
   keyExtractor = item => item._key;
 
@@ -64,12 +115,15 @@ class HomeNav extends Component {
   }
 
   listenLoadFromFirebase(calendarEvents) {
-    calendarEvents.on('value', (snap) => {
+    calendarEvents.on('value', (dataSnapshot2) => {
+      this.props.setFeatureItems(dataSnapshot2);
+      dataSnapshot = dataSnapshot2;
+
       const items = [];
       const itemsHidden = [];
       const today = new moment().format();
 
-      snap.forEach((child) => {
+      dataSnapshot.forEach((child) => {
         const displayStart = (child.val().displayStart !== undefined) ? moment().format(child.val().displayStart) : null;
         const displayEnd = (child.val().displayEnd !== undefined) ? moment().format(child.val().displayEnd) : null;
         let hidden = true;
@@ -130,7 +184,7 @@ class HomeNav extends Component {
 
       this.setState({
         calendarEvents: items,
-        calendarEventsHidden: itemsHidden,
+        calendarEventsHidden: items,
       });
     });
   }
@@ -140,6 +194,8 @@ class HomeNav extends Component {
       <ListItem item={item} />
     );
   }
+
+
 
 
   render() {
@@ -189,7 +245,7 @@ class HomeNav extends Component {
 
           <View style={styles.newsContentLine}>
             <FlatList
-              data={this.state.calendarEvents}
+              data={this.state.items}
               keyExtractor={this.keyExtractor}
               renderItem={this._renderItem}
             />
@@ -333,6 +389,7 @@ const mapStateToProps = state => ({
   adminPassword: state.user.adminPassword,
   ffauth_device_idX: state.ffauth_device_id,
   ffauth_secretX: state.ffauth_secret,
+  calendarEventsX: state.user,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeNav);

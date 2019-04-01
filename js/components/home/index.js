@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 import {
   Image, View, TouchableOpacity, Platform, Dimensions, StyleSheet,
@@ -12,10 +10,8 @@ import { Container, Text, Icon } from 'native-base';
 import * as firebase from 'firebase';
 
 import { Grid, Col, Row } from 'react-native-easy-grid';
-import Swiper from 'react-native-swiper';
 import { Constants } from 'expo';
 import { Agenda } from 'react-native-calendars';
-import { openDrawer } from '../../actions/drawer';
 import * as ActionCreators from '../../actions';
 import styles from './styles';
 import HeaderContent from '../headerContent/header';
@@ -114,7 +110,8 @@ class calendar1 extends Component {
 
   listenLoadFromFirebase(calendarEvents) {
     calendarEvents.on('value', (dataSnapshot2) => {
-      // this.props.setCalendarItems(dataSnapshot2);
+      //save to redux
+      this.props.setCalendarItems(dataSnapshot2);
 
       dataSnapshot = dataSnapshot2;
       this.state.items = [];
