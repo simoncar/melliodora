@@ -20,8 +20,7 @@ class HeaderContent extends Component {
   }
 
   _HomeNav() {
-    console.log("Showback=", this.props.showBack)
-    console.log("Showhome=", this.props.showHome)
+
     if (this.props.showHome == 'false') {
       //dont show home button
       return (

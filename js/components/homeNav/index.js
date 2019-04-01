@@ -47,7 +47,7 @@ class HomeNav extends Component {
       items: {},
     };
 
-    this.loadFromRedux();
+    //this.loadFromRedux();
   }
 
   componentDidMount() {
