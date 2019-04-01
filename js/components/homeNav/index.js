@@ -45,7 +45,6 @@ class HomeNav extends Component {
       items: {},
     };
 
-
     this.loadFromRedux();
   }
 
@@ -55,25 +54,24 @@ class HomeNav extends Component {
 
   loadFromRedux() {
 
-
     this.state.items = [];
-   
 
     dataSnapshot = (this.props.calendarEventsX.items);
     key = '';
+
+    console.log ("TTTTTTTTT");
+    console.log (dataSnapshot);
 
     for (var key in dataSnapshot) {
       //if (!dataSnapshot.hasOwnProperty(key)) continue;
 
       const snapshot = dataSnapshot[key];
-
- 
+      console.log ("LOADED: ", snapshot.summary)
         strtime = snapshot.date_start;
-     
-       
+      
           this.state.items[strtime] = [];
 
-console.log ("LOADED: ", snapshot.summary)
+
           this.state.items[strtime].push({
             title: snapshot.summary,
             description: snapshot.description,
@@ -91,22 +89,14 @@ console.log ("LOADED: ", snapshot.summary)
             displayStart: snapshot.displayStart,
             displayEnd: snapshot.displayEnd,
             hidden: false,
-            
         });
-      
     }
-
-
-
-
-
 
     this.setState({
       calendarEvents: this.state.items,
       calendarEventsHidden: this.state.items,
     });
   }
-
 
   keyExtractor = item => item._key;
 
@@ -194,9 +184,6 @@ console.log ("LOADED: ", snapshot.summary)
       <ListItem item={item} />
     );
   }
-
-
-
 
   render() {
     return (
