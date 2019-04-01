@@ -111,7 +111,6 @@ function userReducer(state: State = initialState, action: Action): State {
     };
   }
 
-
   if (action.type === 'SET_CALENDAR_ITEMS') {
       console.log('user reducer - SET_CALENDAR_ITEMS');
     return {
@@ -119,6 +118,14 @@ function userReducer(state: State = initialState, action: Action): State {
       items: action.payload,
     };
   }
+
+  if (action.type === 'SET_FEATURE_ITEMS') {
+    console.log('user reducer - SET_FEATURE_ITEMS');
+  return {
+    ...state,
+    items: action.payload,
+  };
+}
 
   if (action.type === 'SET_SWITCHES') {
     console.log('user reducer - SET_SWITCHES');
