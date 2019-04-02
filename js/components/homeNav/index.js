@@ -25,34 +25,37 @@ import styles from './styles';
 
 const { width } = Dimensions.get('window');
 
-const calendarEvents = [];
-
 const ListItem = require('./ListItem');
 
 const instID = Constants.manifest.extra.instance;
 
 const token = Notifications.getExpoPushTokenAsync();
+const today = new moment().format();
 
 class HomeNav extends Component {
   constructor(props) {
     super(props);
 
     this.calendarEvents = firebase.database().ref(`instance/${instID}/feature`);
+    
     this.state = {
-      calendarEvents: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
       user: null,
       loading: true,
       items: {},
     };
 
-    //this.loadFromRedux();
+    this.loadFromRedux();
   }
 
   componentDidMount() {
     this.listenLoadFromFirebase(this.calendarEvents);
   }
+
+  _handleOpenWithLinking = (sURL) => {
+    Linking.openURL(sURL);
+  }
+
+  keyExtractor = item => item._key;
 
   loadFromRedux() {
 
@@ -65,14 +68,26 @@ class HomeNav extends Component {
     console.log (dataSnapshot);
 
     for (var key in dataSnapshot) {
-      //if (!dataSnapshot.hasOwnProperty(key)) continue;
+      
 
       const snapshot = dataSnapshot[key];
       console.log ("LOADED: ", snapshot.summary)
         strtime = snapshot.date_start;
       
-          //this.state.items[strtime] = [];
+        const displayStart = (snapshot.displayStart !== undefined) ? moment().format(snapshot.displayStart) : null;
+        const displayEnd = (snapshot.displayEnd !== undefined) ? moment().format(snapshot.displayEnd) : null;
+        let hidden = true;
 
+        if (displayStart != null && displayStart <= today) {
+          // start is less than End
+
+          if (displayStart != null && displayEnd >= today) {
+            // start is less than End
+            hidden = false;
+          }
+        }
+
+        if (!hidden) {
           this.state.items.push({
             title: snapshot.summary,
             description: snapshot.description,
@@ -91,28 +106,24 @@ class HomeNav extends Component {
             displayEnd: snapshot.displayEnd,
             hidden: false,
         });
+      }
     }
 
-    this.setState({
-      calendarEvents: this.state.items,
-      calendarEventsHidden: this.state.items,
-    });
   }
 
-  keyExtractor = item => item._key;
 
-  _handleOpenWithLinking = (sURL) => {
-    Linking.openURL(sURL);
-  }
+
+
 
   listenLoadFromFirebase(calendarEvents) {
     calendarEvents.on('value', (dataSnapshot2) => {
       this.props.setFeatureItems(dataSnapshot2);
+     
       dataSnapshot = dataSnapshot2;
+      this.state.items = [];
+      this.state.itemsHidden = [];
 
-      const items = [];
-      const itemsHidden = [];
-      const today = new moment().format();
+     
 
       dataSnapshot.forEach((child) => {
         const displayStart = (child.val().displayStart !== undefined) ? moment().format(child.val().displayStart) : null;
@@ -129,8 +140,9 @@ class HomeNav extends Component {
         }
 
         if (!hidden) {
-          items.push({
-            title: child.val().summary,
+  
+          this.state.items.push({
+            title:  child.val().summary + ".",
             description: child.val().description,
             location: child.val().location,
             phone: child.val().phone,
@@ -150,7 +162,7 @@ class HomeNav extends Component {
             _key: child.key,
           });
         } else {
-          itemsHidden.push({
+          this.state.itemsHidden.push({
             title: child.val().summary,
             description: child.val().description,
             location: child.val().location,
@@ -174,9 +186,10 @@ class HomeNav extends Component {
       });
 
       this.setState({
-        calendarEvents: items,
-        calendarEventsHidden: items,
+        calendarEvents,
       });
+
+
     });
   }
 
@@ -235,7 +248,7 @@ class HomeNav extends Component {
             <FlatList
               data={this.state.items}
               keyExtractor={this.keyExtractor}
-              renderItem={this._renderItem}
+              renderItem={this._renderItem.bind(this)}
             />
             {isAdmin(this.props.adminPassword)
             && (
