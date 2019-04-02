@@ -1,9 +1,9 @@
 {
-  "hostType": "tunnel",
+  "hostType": "localhost",
   "lanType": "ip",
   "dev": true,
   "strict": false,
   "minify": false,
   "urlType": "exp",
-  "urlRandomness": "vs-in6"
+  "urlRandomness": "j8-8jb"
 }

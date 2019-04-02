@@ -41,7 +41,7 @@ class HomeNav extends Component {
     this.state = {
       user: null,
       loading: true,
-      items: {},
+      featureItems: {},
     };
 
     this.loadFromRedux();
@@ -59,13 +59,11 @@ class HomeNav extends Component {
 
   loadFromRedux() {
 
-    this.state.items = [];
+    this.state.featureItems = [];
 
-    dataSnapshot = (this.props.calendarEventsX.items);
+    dataSnapshot = (this.props.calendarEventsX.featureItems);
     key = '';
 
-    console.log ("TTTTTTTTT");
-    console.log (dataSnapshot);
 
     for (var key in dataSnapshot) {
       
@@ -120,8 +118,8 @@ class HomeNav extends Component {
       this.props.setFeatureItems(dataSnapshot2);
      
       dataSnapshot = dataSnapshot2;
-      this.state.items = [];
-      this.state.itemsHidden = [];
+      this.state.featureItems = [];
+      this.state.featureItemsHidden = [];
 
      
 
@@ -141,7 +139,7 @@ class HomeNav extends Component {
 
         if (!hidden) {
   
-          this.state.items.push({
+          this.state.featureItems.push({
             title:  child.val().summary + ".",
             description: child.val().description,
             location: child.val().location,
@@ -162,7 +160,7 @@ class HomeNav extends Component {
             _key: child.key,
           });
         } else {
-          this.state.itemsHidden.push({
+          this.state.featureItemsHidden.push({
             title: child.val().summary,
             description: child.val().description,
             location: child.val().location,
@@ -246,7 +244,7 @@ class HomeNav extends Component {
 
           <View style={styles.newsContentLine}>
             <FlatList
-              data={this.state.items}
+              data={this.state.featureItems}
               keyExtractor={this.keyExtractor}
               renderItem={this._renderItem.bind(this)}
             />
