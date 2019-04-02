@@ -44,7 +44,6 @@ export function setNickname(nickname) {
 }
 
 export function setPushToken(pushToken) {
-  console.log('aaaaaaaaa');
 
   return {
     type: "SET_PUSH_TOKEN",
@@ -82,11 +81,11 @@ export function setCalendarItems(items) {
   };
 }
 
-export function setFeatureItems(items) {
+export function setFeatureItems(featureItems) {
 
   return {
     type: "SET_FEATURE_ITEMS",
-    payload: items,
+    payload: featureItems,
   };
 }
 

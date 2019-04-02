@@ -64,8 +64,6 @@ const identify = (id: ?string, options?: ?Object = null) => {
 const track = (event: string, options: any = null) => {
   maybeInitialize();
   options = normalizeTrackingOptions(options);
-  console.log("production: " + Environment.isProduction)
-  console.log('aaaaaaaa' + release)
 
   //if (Environment.isProduction) {
 

@@ -123,7 +123,7 @@ function userReducer(state: State = initialState, action: Action): State {
     console.log('user reducer - SET_FEATURE_ITEMS');
   return {
     ...state,
-    items: action.payload,
+    featureItems: action.payload,
   };
 }
 
