@@ -86,7 +86,7 @@ class HomeNav extends Component {
         }
 
         if (!hidden) {
-          this.state.items.push({
+          this.state.featureItems.push({
             title: snapshot.summary,
             description: snapshot.description,
             location: snapshot.location,
