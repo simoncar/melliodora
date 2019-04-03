@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  Image, ListView, FlatList, View, Linking, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions,
+  Image, FlatList, View, Linking, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import {
@@ -13,8 +12,8 @@ import { Grid, Col, Row } from 'react-native-easy-grid';
 import { Constants, Notifications } from 'expo';
 import moment from 'moment';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import * as firebase from 'firebase';
-import { isAdmin } from '../global.js';
+import firebase from 'firebase';
+import { isAdmin } from '../global';
 
 import * as ActionCreators from '../../actions';
 import HeaderContent from '../headerContent/header';
@@ -37,7 +36,7 @@ class HomeNav extends Component {
     super(props);
 
     this.calendarEvents = firebase.database().ref(`instance/${instID}/feature`);
-    
+
     this.state = {
       user: null,
       loading: true,
@@ -58,70 +57,61 @@ class HomeNav extends Component {
   keyExtractor = item => item._key;
 
   loadFromRedux() {
-
     this.state.featureItems = [];
 
     dataSnapshot = (this.props.calendarEventsX.featureItems);
     key = '';
 
-
     for (var key in dataSnapshot) {
-      
-
       const snapshot = dataSnapshot[key];
-      console.log ("LOADED: ", snapshot.summary)
-        strtime = snapshot.date_start;
-      
-        const displayStart = (snapshot.displayStart !== undefined) ? moment().format(snapshot.displayStart) : null;
-        const displayEnd = (snapshot.displayEnd !== undefined) ? moment().format(snapshot.displayEnd) : null;
-        let hidden = true;
+      console.log('LOADED: ', snapshot.summary);
+      strtime = snapshot.date_start;
 
-        if (displayStart != null && displayStart <= today) {
+      const displayStart = (snapshot.displayStart !== undefined) ? moment().format(snapshot.displayStart) : null;
+      const displayEnd = (snapshot.displayEnd !== undefined) ? moment().format(snapshot.displayEnd) : null;
+      let hidden = true;
+
+      if (displayStart != null && displayStart <= today) {
+        // start is less than End
+
+        if (displayStart != null && displayEnd >= today) {
           // start is less than End
-
-          if (displayStart != null && displayEnd >= today) {
-            // start is less than End
-            hidden = false;
-          }
+          hidden = false;
         }
+      }
 
-        if (!hidden) {
-          this.state.featureItems.push({
-            title: snapshot.summary,
-            description: snapshot.description,
-            location: snapshot.location,
-            phone: snapshot.phone,
-            email: snapshot.email,
-            photoSquare: snapshot.photoSquare,
-            url: snapshot.htmlLink,
-            eventDate: snapshot.date_start,
-            eventStartTime: snapshot.time_start_pretty,
-            eventEndTime: snapshot.time_end_pretty,
-            photo1: snapshot.photo1,
-            photo2: snapshot.photo2,
-            photo3: snapshot.photo3,
-            displayStart: snapshot.displayStart,
-            displayEnd: snapshot.displayEnd,
-            hidden: false,
+      if (!hidden) {
+        this.state.featureItems.push({
+          title: snapshot.summary,
+          description: snapshot.description,
+          location: snapshot.location,
+          phone: snapshot.phone,
+          email: snapshot.email,
+          photoSquare: snapshot.photoSquare,
+          url: snapshot.htmlLink,
+          eventDate: snapshot.date_start,
+          eventStartTime: snapshot.time_start_pretty,
+          eventEndTime: snapshot.time_end_pretty,
+          photo1: snapshot.photo1,
+          photo2: snapshot.photo2,
+          photo3: snapshot.photo3,
+          displayStart: snapshot.displayStart,
+          displayEnd: snapshot.displayEnd,
+          hidden: false,
         });
       }
     }
-
   }
-
-
-
 
 
   listenLoadFromFirebase(calendarEvents) {
     calendarEvents.on('value', (dataSnapshot2) => {
       this.props.setFeatureItems(dataSnapshot2);
-     
+
       dataSnapshot = dataSnapshot2;
       this.state.featureItems = [];
       this.state.featureItemsHidden = [];
 
-     
 
       dataSnapshot.forEach((child) => {
         const displayStart = (child.val().displayStart !== undefined) ? moment().format(child.val().displayStart) : null;
@@ -138,9 +128,8 @@ class HomeNav extends Component {
         }
 
         if (!hidden) {
-  
           this.state.featureItems.push({
-            title:  child.val().summary + ".",
+            title: child.val().summary,
             description: child.val().description,
             location: child.val().location,
             phone: child.val().phone,
@@ -186,8 +175,6 @@ class HomeNav extends Component {
       this.setState({
         calendarEvents,
       });
-
-
     });
   }
 
@@ -249,14 +236,14 @@ class HomeNav extends Component {
               renderItem={this._renderItem.bind(this)}
             />
             {isAdmin(this.props.adminPassword)
-            && (
-            <FlatList
-              data={this.state.calendarEventsHidden}
-              keyExtractor={this.keyExtractor}
-              renderItem={this._renderItem}
-            />
-            )
-   }
+              && (
+                <FlatList
+                  data={this.state.calendarEventsHidden}
+                  keyExtractor={this.keyExtractor}
+                  renderItem={this._renderItem}
+                />
+              )
+            }
 
           </View>
 
@@ -264,34 +251,35 @@ class HomeNav extends Component {
 
 
             && (
-            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.ptaHome(); }}>
+              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.ptaHome(); }}>
 
-              <View>
-                <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
-                  <Image
-                    style={{
-  width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray',
-}}
-                    source={{ uri: 'https://saispta.com/wp-content/uploads/2018/12/Screenshot-2018-12-10-15.49.39.png' }}
-                  />
-                  <Text style={{
- fontWeight: 'bold', height: 60, lineHeight: 60, color: 'black' 
-}}>
-                    Parent Connections
-                    {' '}
-{' '}
- 
-                  </Text>
-                </View>
                 <View>
-                  <Image
-                    source={{ uri: 'https://saispta.com/wp-content/uploads/2018/12/ISASAIS-2017-2018-0032-e1544427990824.jpg' }}
-                    style={{ width, height: 200 }}
-                    resizeMode="contain"
-                  />
+                  <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
+                    <Image
+                      style={{
+                        width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray',
+                      }}
+                      source={{ uri: 'https://saispta.com/wp-content/uploads/2018/12/Screenshot-2018-12-10-15.49.39.png' }}
+                    />
+                    <Text style={{
+                      fontWeight: 'bold', height: 60, lineHeight: 60, color: 'black',
+                    }}
+                    >
+                      Parent Connections
+                      {' '}
+                      {' '}
+
+                    </Text>
+                  </View>
+                  <View>
+                    <Image
+                      source={{ uri: 'https://saispta.com/wp-content/uploads/2018/12/ISASAIS-2017-2018-0032-e1544427990824.jpg' }}
+                      style={{ width, height: 200 }}
+                      resizeMode="contain"
+                    />
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
             )
           }
 
@@ -301,43 +289,43 @@ class HomeNav extends Component {
 
 
           {instID == '0001-sais_edu_sg'
-                && (
-                <Row style={{ paddingBottom: 20 }}>
-                  <Col>
-                    <Button transparent style={styles.roundedButton} onPress={() => { Actions.contact(); }}>
-                      <Ionicons name="ios-call" style={styles.icon} />
-                    </Button>
-                    <Text note style={styles.buttonLabel}>Contact</Text>
-                  </Col>
+            && (
+              <Row style={{ paddingBottom: 20 }}>
+                <Col>
+                  <Button transparent style={styles.roundedButton} onPress={() => { Actions.contact(); }}>
+                    <Ionicons name="ios-call" style={styles.icon} />
+                  </Button>
+                  <Text note style={styles.buttonLabel}>Contact</Text>
+                </Col>
 
-                  <Col>
-                    <Button transparent style={styles.roundedButton} onPress={() => { Actions.ptaHome(); }}>
-                      <Icon style={styles.icon} name="ios-people" />
-                    </Button>
-                    <Text note style={styles.buttonLabel}>PTA</Text>
-                  </Col>
+                <Col>
+                  <Button transparent style={styles.roundedButton} onPress={() => { Actions.ptaHome(); }}>
+                    <Icon style={styles.icon} name="ios-people" />
+                  </Button>
+                  <Text note style={styles.buttonLabel}>PTA</Text>
+                </Col>
 
-                  <Col>
-                    <Button transparent style={styles.roundedButton} onPress={() => { Actions.campusMap(); }}>
-                      <Icon style={styles.icon} name="ios-map" />
-                    </Button>
-                    <Text note style={styles.buttonLabel}>School Map</Text>
-                  </Col>
-                </Row>
-                )
-              }
+                <Col>
+                  <Button transparent style={styles.roundedButton} onPress={() => { Actions.campusMap(); }}>
+                    <Icon style={styles.icon} name="ios-map" />
+                  </Button>
+                  <Text note style={styles.buttonLabel}>School Map</Text>
+                </Col>
+              </Row>
+            )
+          }
 
           {isAdmin(this.props.adminPassword)
             && (
-            <TouchableHighlight
-              style={styles.addButton}
-              underlayColor="#ff7043"
-              onPress={() => Actions.storyForm(
+              <TouchableHighlight
+                style={styles.addButton}
+                underlayColor="#ff7043"
+                onPress={() => Actions.storyForm(
 
-              )}
-            >
-              <Text style={{ fontSize: 25, color: 'white' }}>+</Text>
-            </TouchableHighlight>
+                )}
+              >
+                <Text style={{ fontSize: 25, color: 'white' }}>+</Text>
+              </TouchableHighlight>
             )
           }
 

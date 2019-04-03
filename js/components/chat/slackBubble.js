@@ -12,12 +12,13 @@ import {
   Platform,
 } from 'react-native';
 
-import { MessageText, MessageImage, Time, utils } from 'react-native-gifted-chat';
+import {
+  MessageText, MessageImage, Time, utils,
+} from 'react-native-gifted-chat';
 
 const { isSameUser, isSameDay } = utils;
 
 export default class Bubble extends React.Component {
-
   constructor(props) {
     super(props);
     this.onLongPress = this.onLongPress.bind(this);
@@ -38,13 +39,16 @@ export default class Bubble extends React.Component {
           if (buttonIndex === 0) {
             Clipboard.setString(this.props.currentMessage.text);
           }
-        });
+        },
+      );
     }
   }
 
   renderMessageText() {
     if (this.props.currentMessage.text) {
-      const { containerStyle, wrapperStyle, messageTextStyle, ...messageTextProps } = this.props;
+      const {
+        containerStyle, wrapperStyle, messageTextStyle, ...messageTextProps
+      } = this.props;
       if (this.props.renderMessageText) {
         return this.props.renderMessageText(messageTextProps);
       }
@@ -166,7 +170,6 @@ export default class Bubble extends React.Component {
       </View>
     );
   }
-
 }
 
 // Note: Everything is forced to be "left" positioned with this component.
