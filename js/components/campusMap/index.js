@@ -1,25 +1,24 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Image, View, Platform, Slider } from 'react-native';
+import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
-import { Container, Header, Content, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import {
+  Container, Content, Text,
+} from 'native-base';
 
-import Modal from 'react-native-simple-modal';
-import Swiper from 'react-native-swiper';
+import { Constants } from 'expo';
 import { openDrawer } from '../../actions/drawer';
 
 import HeaderContent from './../headerContent/header/';
 import Analytics from '../../lib/analytics';
-import { Constants } from 'expo';
 
 import styles from './styles';
 
 const primary = require('../../themes/variable').brandPrimary;
 
 class campusMap extends Component {
-
   static propTypes = {
     navigation: PropTypes.shape({ key: PropTypes.string }),
     username: PropTypes.string,
