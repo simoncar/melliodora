@@ -1,26 +1,29 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { ImageBackground, View, Platform, Dimensions , TextInput} from 'react-native';
+import {
+  View, Dimensions, TextInput,
+} from 'react-native';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 
 import { Actions } from 'react-native-router-flux';
-import { Container,Content, Text, Item, Button, Icon, Left, Right } from 'native-base';
+import {
+  Container, Content, Text, Item, Button, Icon,
+} from 'native-base';
 
 import HeaderContent from './../headerContent/header/';
 import styles from './styles';
 
 import * as ActionCreators from '../../actions';
 
-console.log("ACfromLogin=", ActionCreators);
+console.log('ACfromLogin=', ActionCreators);
 
-var { skipLogin } = require('../../actions');
+const { skipLogin } = require('../../actions');
 
 const deviceWidth = Dimensions.get('window').width;
 
 class Login extends Component {
-
   static propTypes = {
 
     openDrawer: PropTypes.func,
@@ -34,118 +37,112 @@ class Login extends Component {
     //  this.props.setauthSecret('');
   }
 
-  doLogin(user,password) {
+  doLogin(user, password) {
     Actions.webportal();
   }
 
   _placeHolderNickname() {
+    if (undefined !== this.props.userX.nickname && this.props.userX.nickname !== null && this.props.userX.nickname.length > 0) {
+      return this.props.userX.nickname;
+    }
 
+    console.log('bbb', this.props.userX.nickname);
+    return 'Your Name  (First and Last)';
+  }
 
-      if (undefined !== this.props.userX.nickname && null !== this.props.userX.nickname &&  this.props.userX.nickname.length > 0) {
-          return this.props.userX.nickname
-        } else {
-    
-          console.log("bbb",this.props.userX.nickname)
-          return "Your Name  (First and Last)"
-        }
-      }
-    
 
   _placeHolderEmail() {
-
-
-
-  if (undefined !== this.props.userX.name && null !== this.props.userX.name &&  this.props.userX.name.length > 0) {
-      return this.props.userX.name
-    } else {
-
-      console.log("bbb",this.props.userX.name)
-      return "myStamford parent email"
+    if (undefined !== this.props.userX.name && this.props.userX.name !== null && this.props.userX.name.length > 0) {
+      return this.props.userX.name;
     }
+
+    console.log('bbb', this.props.userX.name);
+    return 'myStamford parent email';
   }
 
   _placeHolderPassword() {
-    if (undefined !== this.props.userX.password && null !== this.props.userX.password &&  this.props.userX.password.length > 0) {
-      return "●●●●●●●●●●"
-    } else {
-      return "myStamford password"
+    if (undefined !== this.props.userX.password && this.props.userX.password !== null && this.props.userX.password.length > 0) {
+      return '●●●●●●●●●●';
     }
+    return 'myStamford password';
   }
 
   render() {
-
     return (
       <Container style={{ backgroundColor: '#fff' }}>
-         <HeaderContent />
+        <HeaderContent />
 
         <Content scrollEnabled bounces={false}>
-           
-            <View style={styles.bg}>
+
+          <View style={styles.bg}>
             <Text style={styles.textHeader}>myStamford</Text>
-              <Item rounded style={styles.inputGrp}>
-                <Icon style={styles.inputIcon} name="md-person" />
-                <TextInput
-                  ref='NicknameInput'
-                  selectTextOnFocus
-                  placeholder= {this._placeHolderNickname()}
-                  onChangeText={(user) => this.props.setNickname(user)}
-                  placeholderTextColor="grey"
-                  style={styles.input}
-                  autoCapitalize="none"
-                  autoFocus = {true}
-                  selectionColor="grey"
-                  enablesReturnKeyAutomatically
-                  returnKeyType="return"
-                  onSubmitEditing={() => this.refs.EmailInput.focus() }
-                />
-              </Item>
+            <Item rounded style={styles.inputGrp}>
+              <Icon style={styles.inputIcon} name="md-person" />
+              <TextInput
+                ref="NicknameInput"
+                selectTextOnFocus
+                placeholder={this._placeHolderNickname()}
+                onChangeText={user => this.props.setNickname(user)}
+                placeholderTextColor="grey"
+                style={styles.input}
+                autoCapitalize="none"
+                autoFocus
+                selectionColor="grey"
+                enablesReturnKeyAutomatically
+                returnKeyType="return"
+                onSubmitEditing={() => this.refs.EmailInput.focus()}
+              />
+            </Item>
 
-              <Item rounded style={styles.inputGrp}>
-                <Icon style={styles.inputIcon} name="ios-mail" />
-                <TextInput
-                  ref='EmailInput'
-                  selectTextOnFocus
-                  placeholder= {this._placeHolderEmail()}
-                  onChangeText={(user) => this.props.setUsername(user)}
-                  placeholderTextColor="grey"
-                  style={styles.input}
-                  autoCapitalize="none"
-                  keyboardType="email-address"
-                  selectionColor="grey"
-                  enablesReturnKeyAutomatically
-                  returnKeyType="return"
-                  onSubmitEditing={() => this.refs.PasswordInput.focus() }
-                />
-              </Item>
+            <Item rounded style={styles.inputGrp}>
+              <Icon style={styles.inputIcon} name="ios-mail" />
+              <TextInput
+                ref="EmailInput"
+                selectTextOnFocus
+                placeholder={this._placeHolderEmail()}
+                onChangeText={user => this.props.setUsername(user)}
+                placeholderTextColor="grey"
+                style={styles.input}
+                autoCapitalize="none"
+                keyboardType="email-address"
+                selectionColor="grey"
+                enablesReturnKeyAutomatically
+                returnKeyType="return"
+                onSubmitEditing={() => this.refs.PasswordInput.focus()}
+              />
+            </Item>
 
-              <Item rounded style={styles.inputGrp}>
-                <Icon style={styles.inputIcon} name="md-lock" />
+            <Item rounded style={styles.inputGrp}>
+              <Icon style={styles.inputIcon} name="md-lock" />
 
-                  <TextInput
-                    ref='PasswordInput'
-                    style={styles.input}
-                    onChangeText={(password) => this.props.setPassword(password)}
-                    secureTextEntry
-                    placeholder={this._placeHolderPassword()}
-                    placeholderTextColor="grey"
-                    autoCapitalize="none"
-                    selectionColor="grey"
-                    enablesReturnKeyAutomatically
-                    returnKeyType="done"
-                    onSubmitEditing={() => this.doLogin(this.username,this.password)}
-                  />
+              <TextInput
+                ref="PasswordInput"
+                style={styles.input}
+                onChangeText={password => this.props.setPassword(password)}
+                secureTextEntry
+                placeholder={this._placeHolderPassword()}
+                placeholderTextColor="grey"
+                autoCapitalize="none"
+                selectionColor="grey"
+                enablesReturnKeyAutomatically
+                returnKeyType="done"
+                onSubmitEditing={() => this.doLogin(this.username, this.password)}
+              />
 
-              </Item>
+            </Item>
 
-              <Button
-                rounded primary block large
-                style={styles.loginBtn}
-                onPress={() => Actions.homeNav()}
-              >
-                <Text style={styles.button}>Save</Text>
-              </Button>
+            <Button
+              rounded
+              primary
+              block
+              large
+              style={styles.loginBtn}
+              onPress={() => Actions.homeNav()}
+            >
+              <Text style={styles.button}>Save</Text>
+            </Button>
 
-            </View>
+          </View>
 
         </Content>
 
@@ -154,9 +151,7 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators (ActionCreators, dispatch)
-};
+const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
