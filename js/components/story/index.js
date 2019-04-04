@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { WebView, Linking, Image, View, TouchableOpacity, TouchableHighlight, Switch, Platform, Dimensions, Share } from 'react-native';
+import { WebView, Linking, View, TouchableOpacity, TouchableHighlight, Switch, Platform, Dimensions, Share } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
 import { Container, Header, Content, Text, Button, Icon, Body } from 'native-base';
 import { Ionicons, EvilIcons, MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
 
+import { Image } from "react-native-expo-image-cache";
 
 import Modal from 'react-native-simple-modal';
 import Swiper from 'react-native-swiper';
@@ -64,6 +65,9 @@ class Story extends Component {
       emailOrUsername: global.username,
       story: `${this.props.eventDate  } - ${  this.props.eventTitle}`,
     };
+
+
+    
 
     Analytics.identify(global.username, trackingOpts);
     Analytics.track(Analytics.events.EVENT_STORY, trackingOpts);
@@ -164,6 +168,11 @@ class Story extends Component {
   }
   
   render() {
+
+
+    const preview = { uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=" };
+    const uri = this.props.photo1;
+    
     return (
       <Container style={{ backgroundColor: '#fff' }}>
 
@@ -197,7 +206,12 @@ class Story extends Component {
 
           {undefined !== this.props.photo1 && this.props.photo1 !== null && this.props.photo1.length > 0
             && <View>
-              <Image source={{ uri: this.props.photo1 }} style={styles.storyPhoto} />
+            
+              <Image  style={styles.storyPhoto} {...{preview, uri}} />
+
+
+
+
             </View>
           }
 
