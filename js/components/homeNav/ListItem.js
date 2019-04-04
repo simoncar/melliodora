@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
-import { Image, Text, View, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import styles from './styles';
 import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
 import { isAdmin } from '../global.js';
+import { Image } from "react-native-expo-image-cache";
 
 const { width } = Dimensions.get('window');
 
@@ -11,9 +12,19 @@ class ListItem extends Component {
 
   render() {
 
+
     var photoSquare = this.props.item.item.photoSquare;
     var photo1 = this.props.item.item.photo1;
 
+
+
+console.log ("PHOTOSQUARE", photoSquare)
+
+    const preview = { uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=" };
+    const uri = this.props.item.item.photo1;
+
+
+    console.log ("URI", uri)
 
     return (
 
@@ -45,11 +56,10 @@ class ListItem extends Component {
 
         <View>
           <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
-            <Image
-              style={{ width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' }}
-              source={{uri: `${photoSquare}`}} 
-             
-            />
+
+
+          <Image  style={{ width: 36, height: 36, margin: 12, borderRadius: 18, borderWidth: StyleSheet.hairlineWidth, borderColor: 'lightgray' }} {...{preview, uri}} />
+
    
             {this.props.item.item.hidden == true &&
                   <Text style={{ fontWeight: 'bold', height: 60, lineHeight: 60 }}>HIDDEN {this.props.item.item.title}</Text>
@@ -70,13 +80,12 @@ class ListItem extends Component {
           </View>
           
           <View>
-          {this.props.item.item.hidden == false &&
-          <Image
-            source={{uri: `${photo1}`}} 
-            style={{ width, height: 200 }}
-            resizeMode={'contain'}
-          />
-          }
+        
+
+          
+        <Image style={{ width, height: 200 }} {...{preview, uri}} resizeMode={'contain'}/>
+
+
         </View>
 
         </View>
@@ -93,3 +102,5 @@ class ListItem extends Component {
 }
 
 module.exports = ListItem;
+
+
