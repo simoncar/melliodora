@@ -105,7 +105,6 @@ class AppNavigator extends Component {
             <Scene key="chatmain" component={chatmain} hideNavBar />
             <Scene key="chatRooms" component={chatRooms} hideNavBar />
             <Scene key="chat" component={chat} hideNavBar />
-
             <Scene key="home" component={Home} hideNavBar />
             <Scene key="phoneCalendar" component={phoneCalendar} />
             <Scene key="login" component={Login} hideNavBar />

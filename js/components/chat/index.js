@@ -356,6 +356,7 @@ class chat extends Component {
         <Container>
           <HeaderContent
             showBack
+            showHome="false"
           />
           <TouchableOpacity onPress={this._showActionSheet}>
             <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
