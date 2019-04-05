@@ -33,7 +33,6 @@
       "color": "#000000"
     },
     "orientation": "portrait",
-    "primaryColor": "#cccccc",
     "packagerOpts": {
       "assetExts": [
         "ttf"
