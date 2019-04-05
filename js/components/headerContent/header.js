@@ -19,7 +19,27 @@ class HeaderContent extends Component {
     }),
   }
 
-  _HomeNav() {
+  _LeftNav() {
+
+    if (this.props.showBack){
+      return (
+      <Button transparent onPress={() => Actions.pop()}>
+        <Icon active style={styles.btnHeader} name="arrow-back" />
+      </Button>
+      )
+    } else {
+      return (
+        <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
+        <Icon active style={styles.btnHeader} name="menu" />
+      </Button>
+    )
+    }
+        
+    
+ 
+  }
+
+  _RightNav() {
 
     if (this.props.showHome == 'false') {
       //dont show home button
@@ -28,13 +48,6 @@ class HeaderContent extends Component {
           width: 35
         }}>
         </Button>
-      )
-
-    } else if (this.props.showBack) {
-      return (
-      <Button transparent onPress={() => Actions.pop()}>
-        <Icon active style={styles.btnHeader} name="arrow-back" />
-      </Button>
       )
     } else {
       return (
@@ -62,15 +75,13 @@ class HeaderContent extends Component {
       <Header style={styles.header}>
         <View style={styles.viewHeader}>
           <View style={styles.btnHeader}>
-            <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
-              <Icon active style={styles.btnHeader} name="menu" />
-            </Button>
+          {this._LeftNav()}
           </View>
           <Body>
             <Text style={styles.textHeader}>{this._PageTitle()}</Text>
           </Body>
           <View style={styles.btnHeader}>
-            {this._HomeNav()}
+            {this._RightNav()}
           </View>
         </View>
     
