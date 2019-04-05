@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { ActionSheet } from 'native-base';
-import { Actions as NavigationActions } from 'react-native-router-flux';
+import { Actions as NavigationActions } from 'react-navigation';
 import {
   GiftedChat, Actions, Bubble, SystemMessage, Time,
 } from 'react-native-gifted-chat';
@@ -411,7 +411,7 @@ function bindAction(dispatch) {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   username: state.username,
   userX: state.user,
 });

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Constants } from 'expo';
 import { Animated, TextInput, TouchableOpacity, WebView, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-navigation';
 
 import { Container, Icon, Spinner } from 'native-base';
 
@@ -398,7 +398,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   userX: state.user,
   ffauth_device_idX: state.ffauth_device_id,
   ffauth_secretX: state.ffauth_secret

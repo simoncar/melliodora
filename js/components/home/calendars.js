@@ -3,7 +3,7 @@ import { Alert, Platform, ScrollView, StyleSheet, Text, View, Image } from 'reac
 import { Container, Content, Header, Icon, Left, Body, Right, Button } from 'native-base';
 
 import { Calendar, Permissions } from 'expo';
-import { Actions } from 'react-native-router-flux';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import * as ActionCreators from '../../actions'
@@ -11,9 +11,11 @@ import * as ActionCreators from '../../actions'
 import Analytics from '../../lib/analytics';
 import { Constants } from 'expo';
 import HeaderContent from './../headerContent/header/';
+import { withMappedNavigationProps } from 'react-navigation-props-mapper'
 
 import styles from './styles';
 
+@withMappedNavigationProps()
 class CalendarRow extends Component {
   static navigationOptions = {
     title: 'Calendars',
@@ -119,7 +121,7 @@ class CalendarRow extends Component {
       url
     } = this.props;
 
-    console.log("props on calendar = " + this.props);
+    console.log(this.props);
 
     const calendarTypeName =
       calendar.entityType === Calendar.EntityTypes.REMINDER ? 'Reminders' : 'Events';
@@ -145,6 +147,7 @@ class CalendarRow extends Component {
   }
 }
 
+@withMappedNavigationProps()
 class phoneCalendar extends Component {
   static navigationOptions = {
     title: 'Calendars',
@@ -252,7 +255,7 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
 
 });
 

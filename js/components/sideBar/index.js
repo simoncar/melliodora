@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { ImageBackground, Image, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-navigation';
 import { Container, Content, Text, Icon, List, ListItem, Thumbnail } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 import { closeDrawer } from '../../actions/drawer';
@@ -93,7 +93,7 @@ function bindAction(dispatch) {
 }
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
 });
 
 export default connect(mapStateToProps, bindAction)(SideBar);

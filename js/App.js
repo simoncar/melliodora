@@ -10,8 +10,6 @@ import registerForPush from './lib/registerForPushNotificationsAsync';
 
 const instID = Constants.manifest.extra.instance;
 
-console.log('AC=', ActionCreators);
-
 class App extends Component {
   componentDidMount() {
     this._notificationSubscription = this._registerForPushNotifications();
@@ -30,8 +28,6 @@ class App extends Component {
   _registerForPushNotifications() {
     
     registerForPush.reg(this.props.userX.name);
-
-
 
     this._notificationSubscription = Notifications.addListener(
       this._handleNotification,
@@ -99,7 +95,7 @@ class App extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   userX: state.user,
 });
 

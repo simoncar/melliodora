@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { View, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-navigation';
 import { Constants } from 'expo';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -54,7 +54,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   userX: state.user,
 
 });

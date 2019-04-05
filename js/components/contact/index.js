@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
 import {Constants } from 'expo';
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-navigation';
 
 import { Container, Header, Content, Text, Button, Icon, Item, Input, Left, Right, Body } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
@@ -207,7 +207,7 @@ function bindAction(dispatch) {
 }
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
 });
 
 export default connect(mapStateToProps, bindAction)(Contact);

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Image, View, TouchableOpacity,  Dimensions,  Platform, Slider  } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-navigation';
 import { Grid, Col, Row, Container, Header, Content, Text, Button, Icon, Left, Body, Right } from 'native-base';
 
 import Modal from 'react-native-simple-modal';
@@ -122,7 +122,7 @@ function bindAction(dispatch) {
 }
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   username: state.username
 });
 

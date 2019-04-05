@@ -79,7 +79,7 @@ async function registerForPushNotificationsAsync(user) {
 const mapDispatchToProps = (dispatch) => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   userX: state.user,
 });
 
