@@ -1,10 +1,16 @@
 
-import PropTypes from 'prop-types';
+
 import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
-import { connect } from 'react-redux';
+
 import { Drawer } from 'native-base';
-import { Router, Scene } from 'react-native-router-flux';
+import {
+  createAppContainer,
+  createStackNavigator,
+  Header,
+  NavigationActions,
+  HeaderBackButton,
+} from 'react-navigation';
 
 import { closeDrawer } from './actions/drawer';
 
@@ -31,25 +37,44 @@ import Webportal from './components/webportal';
 import WebportalAuth from './components/webportal/auth';
 import WebportalSports from './components/webportalSports';
 
-import { statusBarColor } from './themes/base-theme';
 
-const RouterWithRedux = connect()(Router);
+
+const Stack = createStackNavigator(
+  {
+  homeNav: { screen: HomeNav },
+  chatmain: { screen: chatmain },
+  chatRooms: { screen: chatRooms },
+  chat: { screen: chat },
+  home: { screen: Home },
+  phoneCalendar: { screen: phoneCalendar },
+  login: { screen: Login },
+  contact: { screen: Contact },
+  sideBar: { screen: SideBar },
+  settings: { screen: Settings },
+  imageUploadTest: { screen: imageUploadTest },
+  form: { screen: form },
+  ptaHome: { screen: ptaHome },
+  ptaMovieNight: { screen: ptaMovieNight },
+  ptaLionsDen: { screen: ptaLionsDen },
+  ptaEvents: { screen: ptaEvents },
+  story: { screen: Story },
+  campusMap: { screen: campusMap },
+  webportal: { screen: Webportal },
+  WebportalAuth: { screen: WebportalAuth },
+  webportalSports: { screen: WebportalSports },
+  storyForm: { screen: StoryForm },
+},
+
+ {
+  initialRouteName: 'homeNav',
+ });
+
+ const StackAppContainer = createAppContainer(Stack);
 
 class AppNavigator extends Component {
 
-  static propTypes = {
-    drawerState: PropTypes.string,
-    closeDrawer: PropTypes.func,
-  }
-
   componentDidUpdate() {
-    if (this.props.drawerState === 'opened') {
-      this.openDrawer();
-    }
-
-    if (this.props.drawerState === 'closed') {
-      this._drawer._root.close();
-    }
+   
   }
 
   openDrawer() {
@@ -64,7 +89,7 @@ class AppNavigator extends Component {
   }
 
 
-  render() {  // eslint-disable-line class-methods-use-this
+  render() {  
     return (
       <Drawer
         ref={(ref) => { this._drawer = ref; }}
@@ -94,51 +119,16 @@ class AppNavigator extends Component {
         negotiatePan
       >
         <StatusBar
-          backgroundColor={statusBarColor}
-          barStyle="dark-content"
         />
-
-        <RouterWithRedux>
-          <Scene key="root">
-       
-            <Scene key="homeNav" component={HomeNav} hideNavBar/>
-            <Scene key="chatmain" component={chatmain} hideNavBar />
-            <Scene key="chatRooms" component={chatRooms} hideNavBar />
-            <Scene key="chat" component={chat} hideNavBar />
-            <Scene key="home" component={Home} hideNavBar />
-            <Scene key="phoneCalendar" component={phoneCalendar} />
-            <Scene key="login" component={Login} hideNavBar />
-            <Scene key="contact" component={Contact} />
-            <Scene key="sideBar" component={SideBar} />
-            <Scene key="settings" component={Settings} />
-            <Scene key="imageUploadTest" component={imageUploadTest} />
-            <Scene key="form" component={form} />
-            <Scene key="ptaHome" component={ptaHome} hideNavBar />
-            <Scene key="ptaMovieNight" component={ptaMovieNight} hideNavBar />
-            <Scene key="ptaLionsDen" component={ptaLionsDen} hideNavBar />
-            <Scene key="ptaEvents" component={ptaEvents} hideNavBar />
-            <Scene key="story" component={Story} hideNavBar />
-            <Scene key="campusMap" component={campusMap} hideNavBar />
-            <Scene key="webportal" component={Webportal} hideNavBar />
-            <Scene key="WebportalAuth" component={WebportalAuth} hideNavBar />
-            <Scene key="webportalSports" component={WebportalSports} hideNavBar />
-            <Scene key="storyForm" component={StoryForm} hideNavBar />
-     
-          </Scene>
-        </RouterWithRedux>
+            <StackAppContainer
+        onNavigationStateChange={state => console.log(state)}
+      />
+      
       </Drawer>
+      
     );
   }
 }
 
-function bindAction(dispatch) {
-  return {
-    closeDrawer: () => dispatch(closeDrawer()),
-  };
-}
 
-const mapStateToProps = state => ({
-  drawerState: state.drawer.drawerState,
-});
-
-export default connect(mapStateToProps, bindAction)(AppNavigator);
+export default (AppNavigator);

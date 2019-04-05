@@ -4,8 +4,6 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import { Actions } from 'react-native-router-flux';
 import { Container, Text, Icon } from 'native-base';
 import * as firebase from 'firebase';
 
@@ -16,12 +14,14 @@ import * as ActionCreators from '../../actions';
 import styles from './styles';
 import HeaderContent from '../headerContent/header';
 import Analytics from '../../lib/analytics';
+import { withMappedNavigationProps } from 'react-navigation-props-mapper'
 
 import { formatTime, formatMonth } from '../global.js';
 
 const i = 0;
 const { width } = Dimensions.get('window');
 
+@withMappedNavigationProps()
 class calendar1 extends Component {
   constructor(props) {
     super(props);
@@ -226,7 +226,8 @@ class calendar1 extends Component {
     return (
       <TouchableOpacity
         style={{ flexDirection: 'row' }}
-        onPress={() => Actions.story({
+  
+        onPress={() => this.props.navigation.navigate('story', {
           eventTitle: item.title,
           eventDescription: item.description,
           eventDate: item.startDatePretty,
@@ -420,7 +421,7 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   calendarEventsX: state.user,
 });
 

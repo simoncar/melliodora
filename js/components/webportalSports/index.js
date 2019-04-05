@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { TouchableHighlight, Animated, TextInput, Dimensions, TouchableOpacity, WebView, ScrollView, Image, View, Platform } from 'react-native';
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-navigation';
 
 import { Container, Header, Content, Text, Button, Icon, Left, Right, Body } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
@@ -168,7 +168,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   userX: state.user,
 });
 

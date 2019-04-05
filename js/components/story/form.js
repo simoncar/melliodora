@@ -4,7 +4,7 @@ import { StyleSheet, View, Image, Dimensions, Text, TextInput, TouchableOpacity 
 import { connect } from 'react-redux';
 import { Container, Header, Content, Button, Icon, Body } from 'native-base';
 
-import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-navigation';
 import { Constants } from 'expo';
 import styles from './styles';
 

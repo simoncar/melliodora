@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-navigation';
 import {
   Container, Content, Text,
 } from 'native-base';
@@ -93,7 +93,7 @@ function bindAction(dispatch) {
 }
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   username: state.username,
 });
 

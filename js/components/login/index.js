@@ -7,7 +7,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-navigation';
 import {
   Container, Content, Text, Item, Button, Icon,
 } from 'native-base';
@@ -154,7 +154,7 @@ class Login extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   userX: state.user,
 });
 

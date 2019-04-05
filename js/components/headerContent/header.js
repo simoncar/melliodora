@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-navigation';
 import { Icon, Button, Left, Right, Body, Header, Text } from 'native-base';
 
 import { openDrawer } from '../../actions/drawer';
@@ -99,7 +99,7 @@ function bindAction(dispatch) {
 }
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
 });
 
 export default connect(mapStateToProps, bindAction)(HeaderContent);
