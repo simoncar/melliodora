@@ -22,9 +22,9 @@ class CalendarRow extends Component {
   };
 
   _selectCalendar(calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url) {
-
+    const { goBack } = this.props.navigation;
     this._addEvent(calendar.id, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url)
-    Actions.pop();
+    goBack(null);
   };
 
   _addEvent = async (phoneCalendarID, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url) => {
@@ -209,6 +209,7 @@ class phoneCalendar extends Component {
               <ScrollView >
                 {this.state.calendars.map(calendar => (
                   <CalendarRow
+                    navigation={this.props.navigation} 
                     calendar={calendar}
                     eventTitle={this.props.eventTitle}
                     eventDescription={this.props.eventDescription}
