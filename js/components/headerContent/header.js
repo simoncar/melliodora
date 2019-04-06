@@ -8,7 +8,6 @@ import { Icon, Button,  Body, Header, Text } from 'native-base';
 import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
 
-
 class HeaderContent extends Component {
 
   static propTypes = {
@@ -20,7 +19,7 @@ class HeaderContent extends Component {
 
   _LeftNav() {
     const { goBack } = this.props.navigation;
-    if (this.props.showback == 'true') {
+    if (this.props.showBack == 'true') {
       return (
       <Button transparent onPress={() => goBack(null)}>
         <Icon active style={styles.btnHeader} name="arrow-back" />
