@@ -62,20 +62,7 @@ class HeaderContent extends Component {
 
   render() {
     return (
-      <Header style={styles.header}>
-        <View style={styles.viewHeader}>
-          <View style={styles.btnHeader}>
-          {this._LeftNav()}
-          </View>
-          <Body>
-            <Text style={styles.textHeader}>{this._PageTitle()}</Text>
-          </Body>
-          <View style={styles.btnHeader}>
-            {this._RightNav()}
-          </View>
-        </View>
-    
-      </Header>
+      <View />
          
 
     );
