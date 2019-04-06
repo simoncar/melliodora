@@ -26,7 +26,7 @@ class HeaderContent extends Component {
       </Button>
       )
     } 
-      
+
   }
 
   _RightNav() {
