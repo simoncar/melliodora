@@ -52,9 +52,9 @@ class HomeNav extends Component {
   static navigationOptions = {
     title: 'Stamford',
     headerStyle: {
-      backgroundColor: '#151B4D',
+      backgroundColor: '#fff',
     },
-    headerTintColor: '#fff',
+    headerTintColor: '#000',
     headerTitleStyle: {
       fontWeight: 'bold',
       fontSize: '30',
