@@ -201,7 +201,9 @@ class calendar1 extends Component {
     return (
       <Container>
         <HeaderContent 
-        navigation={this.props.navigation} 
+            showback="true"
+            showHome="false"
+            navigation={this.props.navigation} 
         />
 
         <Agenda

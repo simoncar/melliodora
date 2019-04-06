@@ -52,19 +52,19 @@ class SideBar extends Component {
   
        {instID == '0001-sais_edu_sg' &&
           <View>
-                <ListItem button onPress={() => { Actions.webportalSports(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <ListItem button onPress={() => { this.props.navigation.navigate('webportalSports'); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                     <Icon style={styles.linkText} name="ios-football" />
                     <Text style={styles.linkText}>ATHLETICS</Text>
                 </ListItem>
-                <ListItem button onPress={() => { Actions.ptaHome(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <ListItem button onPress={() => { this.props.navigation.navigate('ptaHome'); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                     <Icon style={styles.linkText} name="ios-people" />
                     <Text style={styles.linkText} >PTA</Text>
                 </ListItem>
-                <ListItem button onPress={() => { Actions.campusMap(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <ListItem button onPress={() => { this.props.navigation.navigate('campusMap'); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                     <Icon style={styles.linkText} name="ios-map" />
                     <Text style={styles.linkText} >SCHOOL MAP</Text>
                 </ListItem>
-                <ListItem button onPress={() => { Actions.login(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <ListItem button onPress={() => { this.props.navigation.navigate('login'); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                     <Icon style={styles.linkText} name="md-settings" />
                     <Text style={styles.linkText}>SETTINGS</Text>
                 </ListItem>

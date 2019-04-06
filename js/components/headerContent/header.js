@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-navigation';
-import { Icon, Button, Left, Right, Body, Header, Text } from 'native-base';
+import { Icon, Button,  Body, Header, Text } from 'native-base';
 
 import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
@@ -21,22 +20,14 @@ class HeaderContent extends Component {
 
   _LeftNav() {
     const { goBack } = this.props.navigation;
-    if (this.props.showBack){
+    if (this.props.showback == 'true') {
       return (
       <Button transparent onPress={() => goBack(null)}>
         <Icon active style={styles.btnHeader} name="arrow-back" />
       </Button>
       )
-    } else {
-      return (
-        <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
-        <Icon active style={styles.btnHeader} name="menu" />
-      </Button>
-    )
-    }
-        
-    
- 
+    } 
+      
   }
 
   _RightNav() {
