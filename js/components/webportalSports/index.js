@@ -100,7 +100,8 @@ class WebportalSports extends Component {
     var source = { uri: 'http://google.com' };
     return (
       <Container>
-        <HeaderContent />
+        <HeaderContent 
+        navigation={this.props.navigation} />
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>

@@ -158,14 +158,16 @@ class Story extends Component {
 
     const preview = { uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=" };
     const uri = this.props.navigation.getParam('photo1');
-    
+    const { goBack } = this.props.navigation;
+
+
     return (
       <Container style={{ backgroundColor: '#fff' }}>
 
         <Header style={styles.header}>
           <View style={styles.viewHeader}>
             <View style={styles.btnHeader}>
-              <Button transparent style={styles.btnHeader} onPress={() => Actions.pop()}>
+              <Button transparent style={styles.btnHeader} onPress={() => goBack(null)}>
                 <Icon active name="arrow-back" style={styles.btnHeader} />
               </Button>
             </View>
@@ -273,7 +275,11 @@ class Story extends Component {
                </TouchableOpacity>
               }
   
-            <TouchableOpacity onPress={() => { Actions.chat({ chatroom: this.props.navigation.state.params.eventTitle }); }}>
+            <TouchableOpacity onPress={() => {  this.props.navigation.navigate('chat',
+                { 
+                   chatroom: this.props.navigation.state.params.eventTitle 
+                }); 
+            }}>
               <View style={{ padding: 20 }}>
                   <View style={styles.eventText}>
                     <Text style={styles.eventText}>

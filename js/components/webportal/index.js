@@ -157,7 +157,7 @@ class Webportal extends Component {
 
         } else {
           //nothing :-(
-            Actions.login();
+            this.props.navigation.navigate('login');
         };
 
         if (this.props.userX.password ) {
@@ -165,7 +165,7 @@ class Webportal extends Component {
 
               } else {
                 //nothing :-(
-                  Actions.login();
+                  this.props.navigation.navigate('login');
               };
 
         if (this.props.userX.ffauth_secret ) {
@@ -308,7 +308,8 @@ class Webportal extends Component {
 
     return (
   <Container>
-       <HeaderContent />
+       <HeaderContent 
+       navigation={this.props.navigation} />
 
       <View style={{ flex:1}}>
 

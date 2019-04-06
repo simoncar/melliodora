@@ -196,6 +196,7 @@ class HomeNav extends Component {
 
         <HeaderContent
           showHome="false"
+          navigation={this.props.navigation} 
         />
 
         <Content showsVerticalScrollIndicator={false}>

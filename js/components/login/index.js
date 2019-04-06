@@ -38,7 +38,7 @@ class Login extends Component {
   }
 
   doLogin(user, password) {
-    Actions.webportal();
+    this.props.navigation.navigate('webportal');
   }
 
   _placeHolderNickname() {
@@ -70,7 +70,9 @@ class Login extends Component {
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
-        <HeaderContent />
+        <HeaderContent 
+        navigation={this.props.navigation} 
+        />
 
         <Content scrollEnabled bounces={false}>
 
@@ -137,7 +139,7 @@ class Login extends Component {
               block
               large
               style={styles.loginBtn}
-              onPress={() => Actions.homeNav()}
+              onPress={() =>  this.props.navigation.navigate('homeNav')}
             >
               <Text style={styles.button}>Save</Text>
             </Button>

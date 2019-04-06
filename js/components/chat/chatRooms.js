@@ -37,7 +37,9 @@ class campusMap extends Component {
     return (
       <Container>
 
-        <HeaderContent />
+        <HeaderContent
+        navigation={this.props.navigation} 
+        />
         <Content showsVerticalScrollIndicator showsHorizontalScrollIndicator>
 
           <Text style={styles.heading}>PTA Chatrooms</Text>

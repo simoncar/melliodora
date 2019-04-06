@@ -76,7 +76,9 @@ class Settings extends Component {
   render() {
     return (
       <Container>
-        <HeaderContent />
+        <HeaderContent 
+        navigation={this.props.navigation} 
+        />
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.bg}>
