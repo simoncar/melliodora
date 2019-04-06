@@ -70,7 +70,7 @@ class chat extends Component {
   }
 
   componentDidMount() {
-    Backend.setChatroom(this.props.chatroom);
+    Backend.setChatroom(this.props.navigation.getParam('chatroom'));
 
     Backend.loadMessages((message) => {
       this.setState(previousState => ({
@@ -357,12 +357,12 @@ class chat extends Component {
 
         <Container>
           <HeaderContent
-            showBack
+            showBack="true"
             showHome="false"
             navigation={this.props.navigation} 
           />
           <TouchableOpacity onPress={this._showActionSheet}>
-            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
+            <Text style={styles.chatHeading}>{this.props.navigation.getParam('chatroom')}</Text>
           </TouchableOpacity>
 
           <GiftedChat

@@ -12,9 +12,7 @@ class ListItem extends Component {
   
     super(props);
 
-    console.log ('-----ddddd-------')
-    console.log (this.props)
-    console.log ('------dddd------')
+
   }
   
 
@@ -74,13 +72,14 @@ class ListItem extends Component {
   
             } 
 
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.chat({ chatroom: this.props.item.item.title }); }} >
+              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { 
+               this.props.navigation.navigate('chat',
+                    { chatroom: this.props.item.item.title }); 
+                }} >
                  <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }}></SimpleLineIcons>
              </TouchableOpacity> 
 
-
                  <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }}></Ionicons>
-                 
               
           </View>
           
