@@ -44,7 +44,9 @@ class ptaMovieNight extends Component {
     return (
 
       <Container style={{ backgroundColor: '#fff' }}>
-          <HeaderContent />
+          <HeaderContent 
+          navigation={this.props.navigation} 
+          />
 
               <Content showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1 }}>

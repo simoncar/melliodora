@@ -200,7 +200,9 @@ class calendar1 extends Component {
 
     return (
       <Container>
-        <HeaderContent />
+        <HeaderContent 
+        navigation={this.props.navigation} 
+        />
 
         <Agenda
           items={this.state.items}

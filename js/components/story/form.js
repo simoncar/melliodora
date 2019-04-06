@@ -119,8 +119,10 @@ class newStory extends Component {
       });
     }
 
-    Actions.pop();
-    setTimeout(() => {Actions.pop()}, 100)
+    const { goBack } = this.props.navigation;
+
+    goBack(null)
+    setTimeout(() => {goBack(null)}, 100)
  
   }
 
@@ -132,6 +134,8 @@ class newStory extends Component {
   }
 
   render() {
+    const { goBack } = this.props.navigation;
+    
     return (
 
       <Container style={{ backgroundColor: '#fff' }}>
@@ -139,7 +143,7 @@ class newStory extends Component {
         <Header style={styles.header}>
           <View style={styles.viewHeader}>
             <View style={styles.btnHeader}>
-              <Button transparent style={styles.btnHeader}  onPress={() => Actions.pop()}>
+              <Button transparent style={styles.btnHeader}  onPress={() => goBack(null)}>
                 <Icon active name="arrow-back" style={styles.btnHeader} />
               </Button>
             </View>

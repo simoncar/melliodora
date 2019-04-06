@@ -20,10 +20,10 @@ class HeaderContent extends Component {
   }
 
   _LeftNav() {
-
+    const { goBack } = this.props.navigation;
     if (this.props.showBack){
       return (
-      <Button transparent onPress={() => Actions.pop()}>
+      <Button transparent onPress={() => goBack(null)}>
         <Icon active style={styles.btnHeader} name="arrow-back" />
       </Button>
       )
@@ -51,7 +51,7 @@ class HeaderContent extends Component {
       )
     } else {
       return (
-        <Button transparent onPress={() => Actions.homeNav()}>
+        <Button transparent onPress={() =>  this.props.navigation.navigate('homeNav')}>
           <Icon active style={styles.btnHeader} name="ios-home" />
         </Button>
       )

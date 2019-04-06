@@ -64,7 +64,9 @@ class ptaHome extends Component {
 
       <Container style={{ backgroundColor: '#fff' }}>
 
-     <HeaderContent />
+     <HeaderContent 
+     navigation={this.props.navigation} 
+     />
               <Content showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1 }}>
                   <View >

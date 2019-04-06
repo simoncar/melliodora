@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
 import {Constants } from 'expo';
-import { Actions, ActionConst } from 'react-navigation';
 
 import { Container, Header, Content, Text, Button, Icon, Item, Input, Left, Right, Body } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
@@ -16,7 +15,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Communications from 'react-native-communications';
 import updateFirebase from './../../lib/updateFirebase';
 
-import theme from '../../themes/base-theme';
 import styles from './styles';
 
 
@@ -78,7 +76,9 @@ class Contact extends Component {
   render() {
     return (
       <Container contentOffset={this.state.offset} scrollEnabled={false} >
-           <HeaderContent />
+           <HeaderContent
+           navigation={this.props.navigation} 
+           />
       <View  style={styles.container} >
 
           <Content showsVerticalScrollIndicator={false}>
@@ -154,7 +154,7 @@ class Contact extends Component {
 
           <Row style={{paddingTop: 40}}>
               <Col style={{ width: 80 }}>
-              <Button transparent style={styles.roundedButton}  onPress={() => Actions.chatRooms()} >
+              <Button transparent style={styles.roundedButton}  onPress={() => this.props.navigation.navigate('chatRooms')} >
               <Icon name="ios-chatbubbles" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                      </Button>
               </Col>
@@ -174,7 +174,7 @@ class Contact extends Component {
 
             <Row style={{paddingTop: 40}}>
               <Col style={{ width: 80 }}>
-              <Button transparent style={styles.roundedButton}  onPress={() => Actions.settings()} >
+              <Button transparent style={styles.roundedButton}  onPress={() => this.props.navigation.navigate('settings')} >
               <Icon name="ios-cog" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                      </Button>
               </Col>

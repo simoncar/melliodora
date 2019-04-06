@@ -287,7 +287,9 @@ console.log ( 'https://mystamford.edu.sg/login/api/webgettoken?app=SAISPTA&succe
 
     return (
       <Container>
-        <HeaderContent />
+        <HeaderContent 
+        navigation={this.props.navigation} 
+        />
         <View style={{ flex: 1 }}>
 
           <View style={{ flex: 2 }}>

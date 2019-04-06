@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { View, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native';
-import { Actions } from 'react-navigation';
+
 import { Constants } from 'expo';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,14 +17,16 @@ class Main extends Component {
   }
 
   onPress = () => {
-    Actions.login();
+    this.props.navigation.navigate('login');
   };
 
   componentWillMount() {
   if (Constants.manifest.extra.instance == '0001-sais_edu_sg') {
     if (this.props.userX.nickname) {
       console.log ("yyyyyyy=" , this.props.userX.nickname)
-      Actions.chat({ chatroom: 'CXS', name: this.props.userX.nickname}); 
+      this.props.navigation.navigate('chat', 
+          { chatroom: 'CXS', name: this.props.userX.nickname}
+      ); 
       //we have a value, good
 
     } else {

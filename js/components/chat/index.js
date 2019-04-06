@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { ActionSheet } from 'native-base';
-import { Actions as NavigationActions } from 'react-navigation';
+
 import {
   GiftedChat, Actions, Bubble, SystemMessage, Time,
 } from 'react-native-gifted-chat';
@@ -60,7 +60,9 @@ class chat extends Component {
 
     } else {
       this.noNickname();
-      NavigationActions.login();
+
+
+      this.props.navigation.navigate('login')
     }
 
 
@@ -357,6 +359,7 @@ class chat extends Component {
           <HeaderContent
             showBack
             showHome="false"
+            navigation={this.props.navigation} 
           />
           <TouchableOpacity onPress={this._showActionSheet}>
             <Text style={styles.chatHeading}>{this.props.chatroom}</Text>

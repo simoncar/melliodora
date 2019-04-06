@@ -195,6 +195,7 @@ class phoneCalendar extends Component {
 
                 <HeaderContent
                     showBack
+                    navigation={this.props.navigation} 
                 />
 
           <Content showsVerticalScrollIndicator={false}>
