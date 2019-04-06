@@ -140,27 +140,7 @@ class newStory extends Component {
 
       <Container style={{ backgroundColor: '#fff' }}>
 
-        <Header style={styles.header}>
-          <View style={styles.viewHeader}>
-            <View style={styles.btnHeader}>
-              <Button transparent style={styles.btnHeader}  onPress={() => goBack(null)}>
-                <Icon active name="arrow-back" style={styles.btnHeader} />
-              </Button>
-            </View>
-            <Body>
-              <Text style={styles.textHeader}>Stamford</Text>
-            </Body>
-            <View style={styles.btnHeader}>
-
-              <Button
-                transparent
-                onPress={() => this._shareMessage()} >
-
-                
-              </Button>
-            </View>
-          </View>
-        </Header>
+    
 
         <Content showsVerticalScrollIndicator={false}>
 
