@@ -49,6 +49,18 @@ class HomeNav extends Component {
     this.loadFromRedux();
   }
 
+  static navigationOptions = {
+    title: 'Stamford',
+    headerStyle: {
+      backgroundColor: '#151B4D',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      fontSize: '30',
+    },
+  };
+
   componentDidMount() {
     this.listenLoadFromFirebase(this.calendarEvents);
   }
@@ -193,11 +205,6 @@ class HomeNav extends Component {
   render() {
     return (
       <Container>
-
-        <HeaderContent
-          showHome="false"
-          navigation={this.props.navigation} 
-        />
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.linkTabs}>
