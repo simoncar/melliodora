@@ -20,8 +20,7 @@ import * as ActionCreators from '../../actions';
 
 import styles from './styles';
 
-
-console.log('ACfromSettings=', ActionCreators);
+//console.log('ACfromSettings=', ActionCreators);
 
 const primary = require('../../themes/variable').brandPrimary;
 

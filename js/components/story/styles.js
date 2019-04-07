@@ -155,7 +155,8 @@ export default {
   eventText: {
     color: '#222',
     fontSize: 18,
-    paddingBottom: 10,
+    paddingRight: 10,
+
   },
   eventTextAbbreviation: {
     color: 'grey',
@@ -180,7 +181,7 @@ export default {
   },
   eventIcon: {
     color: '#222',
-    fontSize: 18,
+    fontSize: 30,
     marginRight: 200,
     paddingRight: 200,
   },

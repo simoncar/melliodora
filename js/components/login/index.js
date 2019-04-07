@@ -17,7 +17,7 @@ import styles from './styles';
 
 import * as ActionCreators from '../../actions';
 
-console.log('ACfromLogin=', ActionCreators);
+//console.log('ACfromLogin=', ActionCreators);
 
 const { skipLogin } = require('../../actions');
 

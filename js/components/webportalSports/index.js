@@ -66,9 +66,7 @@ class WebportalSports extends Component {
 
 
   onNavigationStateChange = (navState) => {
-    console.log('webview = onNavigationStateChange=' + navState);
-    console.log(navState);
-    console.log(navState.url);
+
     this.setState({ url: navState.url })
 
     if (navState.url != "https://mystamford.edu.sg/parent-dashboard") {

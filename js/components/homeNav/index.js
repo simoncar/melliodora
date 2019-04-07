@@ -57,7 +57,7 @@ class HomeNav extends Component {
     headerTintColor: '#000',
     headerTitleStyle: {
       fontWeight: 'bold',
-      fontSize: '30',
+      fontSize: 33,
     },
   };
 

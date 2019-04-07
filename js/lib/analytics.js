@@ -38,7 +38,7 @@ const initialize = () => {
 
   Amplitude.initialize(apiKey);
   isInitialized = true;
-  console.log('amplitude initialised')
+
 };
 
 const maybeInitialize = () => {
@@ -50,7 +50,7 @@ const maybeInitialize = () => {
 const identify = (id: ?string, options?: ?Object = null) => {
   maybeInitialize();
   options = normalizeTrackingOptions(options);
-  console.log('amplitude identify')
+
   if (id) {
     Amplitude.setUserId(id);
     if (options) {
