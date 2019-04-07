@@ -14,15 +14,8 @@ const installationID = Constants.installationId;
 class registerForPush {
 
   static reg(user) {
-    this._here;
     registerForPushNotificationsAsync(user);
-
     ActionCreators.setPushToken('token');
- 
-  }
-
-
- _here() {
   }
 }
 
@@ -39,15 +32,11 @@ async function registerForPushNotificationsAsync(user) {
 
   // Get the token that uniquely identifies this device
   const token = await Notifications.getExpoPushTokenAsync();
-  console.log('REGISTER PUSH TOKEN=', token);
 
   global.pushToken = token;
   let safeToken = token.replace('[', '{');
   safeToken = safeToken.replace(']', '}');
   global.safeToken = safeToken;
-  
-
-  console.log ('YYYYY', global.pushToken);
 
   this.storyRef = firebase.database().ref(`instance/${  instID  }/user/${  safeToken}`);
   this.storyRef.update({

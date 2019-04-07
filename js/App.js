@@ -20,9 +20,6 @@ class App extends Component {
   }
 
   _handleNotification = ({ origin, data }) => {
-    console.log(
-      `Push notification ${origin} with data: ${JSON.stringify(data)}`,
-    );
   };
   
   _registerForPushNotifications() {
