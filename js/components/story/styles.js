@@ -155,7 +155,7 @@ export default {
   eventText: {
     color: '#222',
     fontSize: 18,
-    paddingRight: 10,
+    paddingRight: 25,
 
   },
   eventTextAbbreviation: {
