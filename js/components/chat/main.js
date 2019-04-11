@@ -10,11 +10,36 @@ import styles from './styles';
 import { openDrawer } from '../../actions/drawer';
 import * as ActionCreators from '../../actions';
 
+import { SimpleLineIcons } from '@expo/vector-icons';
+
+const tabBarIcon = name => ({ tintColor }) => (
+  <SimpleLineIcons
+    style={{ backgroundColor: 'transparent' }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
+);
+
 class Main extends Component {
 
   constructor(props) {
     super(props);   
   }
+
+  static navigationOptions = {
+    title: 'Chat',
+    tabBarColor: 'green',
+    tabBarIcon: tabBarIcon('bubble'),
+    headerTintColor: 'blue',
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
 
   onPress = () => {
     this.props.navigation.navigate('login');
@@ -24,9 +49,7 @@ class Main extends Component {
   if (Constants.manifest.extra.instance == '0001-sais_edu_sg') {
     if (this.props.userX.nickname) {
       console.log ("yyyyyyy=" , this.props.userX.nickname)
-      this.props.navigation.navigate('chat', 
-          { chatroom: 'CXS', name: this.props.userX.nickname}
-      ); 
+    
       //we have a value, good
 
     } else {

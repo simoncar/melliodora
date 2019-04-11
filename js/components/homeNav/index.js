@@ -18,7 +18,7 @@ import { isAdmin } from '../global';
 
 import * as ActionCreators from '../../actions';
 import HeaderContent from '../headerContent/header';
-
+import { MaterialIcons } from '@expo/vector-icons';
 import { openDrawer } from '../../actions/drawer';
 
 import styles from './styles';
@@ -32,7 +32,14 @@ const instID = Constants.manifest.extra.instance;
 const token = Notifications.getExpoPushTokenAsync();
 const today = new moment().format();
 
-
+const tabBarIcon = name => ({ tintColor }) => (
+  <MaterialIcons
+    style={{ backgroundColor: 'transparent' }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
+);
 
 class HomeNav extends Component {
   constructor(props) {
@@ -50,7 +57,7 @@ class HomeNav extends Component {
   }
 
   static navigationOptions = {
-    title: 'Stamford',
+    title: 'Home',
     headerStyle: {
       backgroundColor: '#fff',
     },
@@ -59,6 +66,8 @@ class HomeNav extends Component {
       fontWeight: 'bold',
       fontSize: 33,
     },
+    tabBarColor: '#2962ff',
+    tabBarIcon: tabBarIcon('home'),
   };
 
   componentDidMount() {
@@ -207,42 +216,7 @@ class HomeNav extends Component {
       <Container>
 
         <Content showsVerticalScrollIndicator={false}>
-          <View style={styles.linkTabs}>
-            <Grid>
-
-              <Row style={{ paddingTop: 20, paddingBottom: 20 }}>
-                <Col>
-
-                
-                  <Button transparent style={styles.roundedButton} onPress={() => { this.props.navigation.navigate('webportalSports'); }}>
-                    <MaterialCommunityIcons style={styles.icon} name="soccer" />
-                  </Button>
-                  <Text note style={styles.buttonLabel}>Athletics</Text>
-                </Col>
-                <Col>
-                  <Button transparent style={styles.roundedButton} onPress={() => { this.props.navigation.navigate('home'); }}>
-                    <Icon style={styles.icon} name="ios-calendar" />
-                  </Button>
-                  <Text note style={styles.buttonLabel}>Calendar</Text>
-                </Col>
-                <Col>
-                  <Button transparent style={styles.roundedButton} onPress={() => { this.props.navigation.navigate('webportal'); }}>
-                    <Icon style={styles.icon} name="ios-grid" />
-                  </Button>
-                  <View style={{ flex: 1, flexDirection: 'row', alignSelf: 'center' }}>
-
-                    <Icon style={styles.iconLabel} name="ios-lock" />
-                    <Text note style={styles.buttonLabel}>
-                      {' '}
-                      {global.switch_portalName}
-                    </Text>
-                  </View>
-                </Col>
-              </Row>
-
-
-            </Grid>
-          </View>
+    
 
 
           <View style={styles.newsContentLine}>

@@ -46,6 +46,8 @@ export function formatMonth(eventDate) {
   return (ret);
 }
 
+
+
 export function getAbbreviations(eventDetails) {
   var ret = '';
 
