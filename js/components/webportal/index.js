@@ -17,6 +17,7 @@ import * as ActionCreators from '../../actions';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
+import { Ionicons } from '@expo/vector-icons';
 
 const primary = require('../../themes/variable').brandPrimary;
 const timer = require('react-native-timer');
@@ -31,6 +32,16 @@ var DEFAULT_URL = global.switch_portalURL;   //'https://mystamford.edu.sg/login/
 
 var injectScript  = '';
 
+
+const tabBarIcon = name => ({ tintColor }) => (
+  <Ionicons
+    style={{ backgroundColor: 'transparent' }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
+);
+
 class Webportal extends Component {
 
   static propTypes = {
@@ -40,7 +51,13 @@ class Webportal extends Component {
       key: PropTypes.string,
     }),
   }
-  
+
+  static navigationOptions = {
+    title: 'myStamford',
+    tabBarColor: '#2962ff',
+    tabBarIcon: tabBarIcon('ios-grid'),
+  };
+
 
   constructor(props) {
     super(props);
@@ -88,6 +105,7 @@ class Webportal extends Component {
       myText: 'My Original Text',
       showMsg: false
   };
+
 
   componentWillUnmount() {
     timer.clearTimeout(this);

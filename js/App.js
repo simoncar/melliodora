@@ -83,11 +83,14 @@ class App extends Component {
         global.switch_address = 'not specified -';
     }
 
+
+
+
+
     return <AppNavigator {...this.props} />;
   }
 }
 
-// export default App;
 
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 

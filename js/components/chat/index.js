@@ -8,6 +8,7 @@ import { ActionSheet } from 'native-base';
 import {
   GiftedChat, Actions, Bubble, SystemMessage, Time,
 } from 'react-native-gifted-chat';
+import { SimpleLineIcons } from '@expo/vector-icons';
 
 import {
   Container, Header, Footer, Button, Icon, Body,
@@ -27,6 +28,16 @@ import SlackMessage from './slackMessage';
 
 const BUTTONS = ['Mute conversation', 'Unmute conversation', 'Cancel'];
 const CANCEL_INDEX = 2;
+
+const tabBarIcon = name => ({ tintColor }) => (
+  <SimpleLineIcons
+    style={{ backgroundColor: 'transparent' }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
+);
+
 
 class chat extends Component {
   constructor(props) {
@@ -53,6 +64,20 @@ class chat extends Component {
 
     this._isAlright = null;
   }
+
+  static navigationOptions = {
+    title: 'Chat',
+    tabBarColor: 'green',
+    tabBarIcon: tabBarIcon('bubble'),
+    headerTintColor: 'blue',
+    headerStyle: {
+      backgroundColor: 'green',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
 
   componentWillMount() {
     if (this.props.userX.nickname) {

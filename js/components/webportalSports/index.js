@@ -6,6 +6,7 @@ import { TouchableHighlight, Animated, TextInput, Dimensions, TouchableOpacity, 
 import { Actions, ActionConst } from 'react-navigation';
 
 import { Container, Header, Content, Text, Button, Icon, Left, Right, Body } from 'native-base';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 
 import { connect } from 'react-redux';
@@ -26,6 +27,16 @@ const primary = require('../../themes/variable').brandPrimary;
 
 var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = 'http://www.stamfordlionsathletics.com/';
+
+
+const tabBarIcon = name => ({ tintColor }) => (
+  <MaterialCommunityIcons
+    style={{ backgroundColor: 'transparent' }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
+);
 
 class WebportalSports extends Component {
 
@@ -62,6 +73,12 @@ class WebportalSports extends Component {
     scalesPageToFit: true,
     cookies: {},
     webViewUrl: '',
+  };
+
+  static navigationOptions = {
+    title: 'Athletics',
+    tabBarColor: '#2962ff',
+    tabBarIcon: tabBarIcon('soccer'),
   };
 
 

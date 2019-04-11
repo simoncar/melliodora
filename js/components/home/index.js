@@ -15,14 +15,26 @@ import styles from './styles';
 import HeaderContent from '../headerContent/header';
 import Analytics from '../../lib/analytics';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper'
-
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { formatTime, formatMonth } from '../global.js';
 
 const i = 0;
 const { width } = Dimensions.get('window');
 
+const tabBarIcon = name => ({ tintColor }) => (
+  <Ionicons
+    style={{ backgroundColor: 'transparent' }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
+);
+
+
 @withMappedNavigationProps()
 class calendar1 extends Component {
+
+
   constructor(props) {
     super(props);
 
@@ -46,6 +58,13 @@ class calendar1 extends Component {
     Analytics.track(Analytics.events.PAGE_CALENDAR, trackingOpts);
     // analytics --------
   }
+
+  
+  static navigationOptions = {
+    title: 'Calendar',
+    tabBarColor: '#c51162',
+    tabBarIcon: tabBarIcon('ios-calendar','green'),
+  };
 
   componentDidMount() {
     this.listenLoadFromFirebase(this.calendarEvents);
