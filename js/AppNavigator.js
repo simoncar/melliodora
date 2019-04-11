@@ -54,7 +54,8 @@ const tabBarIcon = name => ({ tintColor }) => (
 let Tabs = createMaterialBottomTabNavigator({ 
   homeNav: { screen: HomeNav },
   home: { screen: Home },
-  chatmain: { screen: chatmain },
+  chatRooms: { screen: chatRooms },
+
   webportal: { screen: Webportal },
   webportalSports: { screen: WebportalSports },
  },{
@@ -65,8 +66,8 @@ let Tabs = createMaterialBottomTabNavigator({
 const MainScreenNavigator = createStackNavigator({
   
   Tab: { screen: Tabs },
+  chatmain: { screen: chatmain },
 
-  chatRooms: { screen: chatRooms },
   chat: { screen: chat },
   phoneCalendar: { screen: phoneCalendar },
   login: { screen: Login },

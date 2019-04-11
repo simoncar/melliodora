@@ -11,7 +11,13 @@ export default {
       paddingTop: 10,
       paddingBottom: 10,
     },
-
+    chatRow: {
+      
+        height: 60,
+        backgroundColor: "white",
+        flexDirection: "row"
+      
+    },
     nameText: { 
         height: 24 * 2,
         margin: 24,
@@ -20,7 +26,31 @@ export default {
         marginTop: 100,
         fontSize: 24,
       },
-
+      chatTitle: { 
+    
+        fontSize: 14,
+        backgroundColor: 'white',
+        color: '#000',
+        fontSize: 18,
+        fontWeight: "bold",
+        marginLeft: 15
+      },
+      chatDescription: { 
+    
+        fontSize: 14,
+        backgroundColor: 'white',
+        color: '#000',
+        fontSize: 16,
+        marginLeft: 15,
+      },
+      roundedButton: {
+        alignSelf: 'left',
+        alignItems: 'centre',
+        borderRadius: 30,
+        width: 60,
+        height: 60,
+        backgroundColor: '#141b4d',
+      },
   nameInput: { 
         height: 24 * 2,
         margin: 24,
