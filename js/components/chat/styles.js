@@ -15,8 +15,8 @@ export default {
       
         height: 60,
         backgroundColor: "white",
-        flexDirection: "row"
-      
+        flexDirection: "row",
+        marginBottom: 20,
     },
     nameText: { 
         height: 24 * 2,
@@ -33,13 +33,14 @@ export default {
         color: '#000',
         fontSize: 18,
         fontWeight: "bold",
-        marginLeft: 15
+        marginLeft: 15,
+        marginBottom: 5,
       },
       chatDescription: { 
     
         fontSize: 14,
         backgroundColor: 'white',
-        color: '#000',
+        color: 'grey',
         fontSize: 16,
         marginLeft: 15,
       },
@@ -50,6 +51,7 @@ export default {
         width: 60,
         height: 60,
         backgroundColor: '#141b4d',
+        marginLeft: 20,
       },
   nameInput: { 
         height: 24 * 2,
@@ -85,6 +87,7 @@ export default {
       paddingTop: 10,
       paddingBottom: 10,
       fontSize: 25,
+      marginBottom: 30,
       
     },
   chatHeading: {
