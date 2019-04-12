@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 import {
   Image, FlatList, View, Linking, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+
+
 import {
   Container, Content, Text, Icon, Button,
 } from 'native-base';
@@ -17,7 +18,7 @@ import { isAdmin } from '../global';
 
 import * as ActionCreators from '../../actions';
 import HeaderContent from '../headerContent/header';
-
+import { MaterialIcons } from '@expo/vector-icons';
 import { openDrawer } from '../../actions/drawer';
 
 import styles from './styles';
@@ -30,6 +31,15 @@ const instID = Constants.manifest.extra.instance;
 
 const token = Notifications.getExpoPushTokenAsync();
 const today = new moment().format();
+
+const tabBarIcon = name => ({ tintColor }) => (
+  <MaterialIcons
+    style={{ backgroundColor: 'transparent' }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
+);
 
 class HomeNav extends Component {
   constructor(props) {
@@ -45,6 +55,20 @@ class HomeNav extends Component {
 
     this.loadFromRedux();
   }
+
+  static navigationOptions = {
+    title: 'Home',
+    headerStyle: {
+      backgroundColor: '#fff',
+    },
+    headerTintColor: '#000',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      fontSize: 33,
+    },
+    tabBarColor: '#2962ff',
+    tabBarIcon: tabBarIcon('home'),
+  };
 
   componentDidMount() {
     this.listenLoadFromFirebase(this.calendarEvents);
@@ -180,7 +204,10 @@ class HomeNav extends Component {
 
   _renderItem(item) {
     return (
-      <ListItem item={item} />
+      <ListItem 
+        navigation={this.props.navigation} 
+        item={item} 
+      />
     );
   }
 
@@ -188,45 +215,8 @@ class HomeNav extends Component {
     return (
       <Container>
 
-        <HeaderContent
-          showHome="false"
-        />
-
         <Content showsVerticalScrollIndicator={false}>
-          <View style={styles.linkTabs}>
-            <Grid>
-
-              <Row style={{ paddingTop: 20, paddingBottom: 20 }}>
-                <Col>
-                  <Button transparent style={styles.roundedButton} onPress={() => { Actions.webportalSports(); }}>
-                    <MaterialCommunityIcons style={styles.icon} name="soccer" />
-                  </Button>
-                  <Text note style={styles.buttonLabel}>Athletics</Text>
-                </Col>
-                <Col>
-                  <Button transparent style={styles.roundedButton} onPress={() => { Actions.home(); }}>
-                    <Icon style={styles.icon} name="ios-calendar" />
-                  </Button>
-                  <Text note style={styles.buttonLabel}>Calendar</Text>
-                </Col>
-                <Col>
-                  <Button transparent style={styles.roundedButton} onPress={() => { Actions.webportal(); }}>
-                    <Icon style={styles.icon} name="ios-grid" />
-                  </Button>
-                  <View style={{ flex: 1, flexDirection: 'row', alignSelf: 'center' }}>
-
-                    <Icon style={styles.iconLabel} name="ios-lock" />
-                    <Text note style={styles.buttonLabel}>
-                      {' '}
-                      {global.switch_portalName}
-                    </Text>
-                  </View>
-                </Col>
-              </Row>
-
-
-            </Grid>
-          </View>
+    
 
 
           <View style={styles.newsContentLine}>
@@ -251,7 +241,7 @@ class HomeNav extends Component {
 
 
             && (
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { Actions.ptaHome(); }}>
+              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { this.props.navigation.navigate('ptaHome'); }}>
 
                 <View>
                   <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
@@ -292,21 +282,21 @@ class HomeNav extends Component {
             && (
               <Row style={{ paddingBottom: 20 }}>
                 <Col>
-                  <Button transparent style={styles.roundedButton} onPress={() => { Actions.contact(); }}>
+                  <Button transparent style={styles.roundedButton} onPress={() => { this.props.navigation.navigate('contact'); }}>
                     <Ionicons name="ios-call" style={styles.icon} />
                   </Button>
                   <Text note style={styles.buttonLabel}>Contact</Text>
                 </Col>
 
                 <Col>
-                  <Button transparent style={styles.roundedButton} onPress={() => { Actions.ptaHome(); }}>
+                  <Button transparent style={styles.roundedButton} onPress={() => { this.props.navigation.navigate('ptaHome'); }}>
                     <Icon style={styles.icon} name="ios-people" />
                   </Button>
                   <Text note style={styles.buttonLabel}>PTA</Text>
                 </Col>
 
                 <Col>
-                  <Button transparent style={styles.roundedButton} onPress={() => { Actions.campusMap(); }}>
+                  <Button transparent style={styles.roundedButton} onPress={() => { this.props.navigation.navigate('campusMap'); }}>
                     <Icon style={styles.icon} name="ios-map" />
                   </Button>
                   <Text note style={styles.buttonLabel}>School Map</Text>
@@ -320,9 +310,7 @@ class HomeNav extends Component {
               <TouchableHighlight
                 style={styles.addButton}
                 underlayColor="#ff7043"
-                onPress={() => Actions.storyForm(
-
-                )}
+                onPress={() => this.props.navigation.navigate('storyForm')}
               >
                 <Text style={{ fontSize: 25, color: 'white' }}>+</Text>
               </TouchableHighlight>
@@ -371,7 +359,7 @@ function bindAction(dispatch) {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  ////navigation: state.cardNavigation,
   userX: state.user,
   adminPassword: state.user.adminPassword,
   ffauth_device_idX: state.ffauth_device_id,

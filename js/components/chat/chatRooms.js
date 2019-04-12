@@ -1,89 +1,83 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { Image, View, Platform, Slider } from 'react-native';
-import { connect } from 'react-redux';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { Image, View, Platform, Slider } from "react-native";
+import { connect } from "react-redux";
 
-import { Actions } from 'react-native-router-flux';
-import { Container, Content, Text, Button, Icon } from 'native-base';
+import { Actions } from "react-navigation";
+import { Container, Content, Text, Button, Icon } from "native-base";
 
-import Modal from 'react-native-simple-modal';
-import Swiper from 'react-native-swiper';
-import { openDrawer } from '../../actions/drawer';
+import Modal from "react-native-simple-modal";
+import Swiper from "react-native-swiper";
+import { openDrawer } from "../../actions/drawer";
 
-import HeaderContent from './../headerContent/header/';
-import Analytics from '../../lib/analytics';
-import { Constants, Notifications } from 'expo';
+import HeaderContent from "./../headerContent/header/";
+import Analytics from "../../lib/analytics";
+import { Constants, Notifications } from "expo";
 
-import styles from './styles';
+import { SimpleLineIcons } from "@expo/vector-icons";
 
-const primary = require('../../themes/variable').brandPrimary;
+import styles from "./styles";
+const ChatroomItem = require('./chatroomItem');
+
+const primary = require("../../themes/variable").brandPrimary;
+
+const tabBarIcon = name => ({ tintColor }) => (
+  <SimpleLineIcons
+    style={{ backgroundColor: "transparent" }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
+);
 
 class campusMap extends Component {
-
   static propTypes = {
     navigation: PropTypes.shape({ key: PropTypes.string }),
-    username: PropTypes.string,
-  }
+    username: PropTypes.string
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      animationType: 'slideInDown',
-      open: false,
+      animationType: "slideInDown",
+      open: false
     };
+  }
+
+  static navigationOptions = {
+    title: "Chat",
+    tabBarColor: "green",
+    tabBarIcon: tabBarIcon("bubble"),
+    headerTintColor: "blue",
+    headerStyle: {
+      backgroundColor: "green"
+    },
+    headerTintColor: "#fff",
+    headerTitleStyle: {
+      fontWeight: "bold"
+    }
+  };
+
+  _renderItem(item,description) {
+    return (
+      <ChatroomItem 
+        navigation={this.props.navigation} 
+        item={item} 
+        description={description}
+      />
+    );
   }
 
   render() {
     return (
       <Container>
-
-        <HeaderContent />
+        <HeaderContent navigation={this.props.navigation} />
         <Content showsVerticalScrollIndicator showsHorizontalScrollIndicator>
-
-          <Text style={styles.heading}>PTA Chatrooms</Text>
-          <Text style={styles.text}>** Experimental **</Text>
-          <Text style={styles.text}>D={Constants.deviceId}</Text>
-          <Text style={styles.text}>I={Constants.installationId}</Text>
-
-          <Button transparent style={styles.roundedButton} onPress={() => { Actions.login(); }} >
-            <Icon style={styles.icon} name="ios-person" />
-            <Text>{this.props.userX.nickname}</Text>
-          </Button>
-
-          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Lost and Found' }); }} >
-            <Icon style={styles.icon} name="ios-chatbubbles" />
-            <Text>PTA Lost and Found</Text>
-          </Button>
-
-          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: '3SHMU' }); }} >
-            <Icon style={styles.icon} name="ios-chatbubbles" />
-            <Text>3SHMU</Text>
-          </Button>
-
-          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: '5DAYE' }); }} >
-            <Icon style={styles.icon} name="ios-chatbubbles" />
-            <Text>5DAYE</Text>
-          </Button>
-
-          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 6' }); }} >
-            <Icon style={styles.icon} name="ios-chatbubbles" />
-            <Text>Grade 6</Text>
-          </Button>
-          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 7' }); }} >
-            <Icon style={styles.icon} name="ios-chatbubbles" />
-            <Text>Grade 7</Text>
-          </Button>
-          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'Grade 8' }); }} >
-            <Icon style={styles.icon} name="ios-chatbubbles" />
-            <Text>Grade 8</Text>
-          </Button>
-
-          <Button transparent style={styles.roundedButton} onPress={() => { Actions.chat({ chatroom: 'PTA General' }); }} >
-            <Icon style={styles.icon} name="ios-chatbubbles" />
-            <Text>PTA General Chat and Questions</Text>
-          </Button>
-
-
+          <Text style={styles.heading}>PTA and School Messages</Text>
+          {this._renderItem('PTA Volunteer Q&A','Be a part of the community')}
+          {this._renderItem('Lost and Found','Most Mon-Wed-Fri')}
+          {this._renderItem('Stamford 10 Year Gala','May 4th - Sold Out')}
+          {this._renderItem('4DAYE - Daisy Ye','Level 5 Washington')}
         </Content>
       </Container>
     );
@@ -92,14 +86,17 @@ class campusMap extends Component {
 
 function bindAction(dispatch) {
   return {
-    openDrawer: () => dispatch(openDrawer()),
+    openDrawer: () => dispatch(openDrawer())
   };
 }
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   username: state.username,
-  userX: state.user,
+  userX: state.user
 });
 
-export default connect(mapStateToProps, bindAction)(campusMap);
+export default connect(
+  mapStateToProps,
+  bindAction
+)(campusMap);

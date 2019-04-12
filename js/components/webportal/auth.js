@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { TouchableHighlight, Button, Linking, Text, Animated, Dimensions, TouchableOpacity, WebView, ScrollView, Image, View, Platform } from 'react-native';
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-navigation';
 
 import { Container, Header, Content, Icon, Left, Right, Body, Spinner } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
@@ -287,7 +287,9 @@ console.log ( 'https://mystamford.edu.sg/login/api/webgettoken?app=SAISPTA&succe
 
     return (
       <Container>
-        <HeaderContent />
+        <HeaderContent 
+        navigation={this.props.navigation} 
+        />
         <View style={{ flex: 1 }}>
 
           <View style={{ flex: 2 }}>
@@ -361,7 +363,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   userX: state.user,
   ffauth_device_idX: state.ffauth_device_id,
   ffauth_secretX: state.ffauth_secret

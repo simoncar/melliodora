@@ -4,7 +4,7 @@ import { StyleSheet, View, Image, Dimensions, Text, TextInput, TouchableOpacity 
 import { connect } from 'react-redux';
 import { Container, Header, Content, Button, Icon, Body } from 'native-base';
 
-import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-navigation';
 import { Constants } from 'expo';
 import styles from './styles';
 
@@ -119,8 +119,10 @@ class newStory extends Component {
       });
     }
 
-    Actions.pop();
-    setTimeout(() => {Actions.pop()}, 100)
+    const { goBack } = this.props.navigation;
+
+    goBack(null)
+    setTimeout(() => {goBack(null)}, 100)
  
   }
 
@@ -132,31 +134,13 @@ class newStory extends Component {
   }
 
   render() {
+    const { goBack } = this.props.navigation;
+    
     return (
 
       <Container style={{ backgroundColor: '#fff' }}>
 
-        <Header style={styles.header}>
-          <View style={styles.viewHeader}>
-            <View style={styles.btnHeader}>
-              <Button transparent style={styles.btnHeader}  onPress={() => Actions.pop()}>
-                <Icon active name="arrow-back" style={styles.btnHeader} />
-              </Button>
-            </View>
-            <Body>
-              <Text style={styles.textHeader}>Stamford</Text>
-            </Body>
-            <View style={styles.btnHeader}>
-
-              <Button
-                transparent
-                onPress={() => this._shareMessage()} >
-
-                
-              </Button>
-            </View>
-          </View>
-        </Header>
+    
 
         <Content showsVerticalScrollIndicator={false}>
 

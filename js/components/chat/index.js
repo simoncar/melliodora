@@ -4,10 +4,11 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { ActionSheet } from 'native-base';
-import { Actions as NavigationActions } from 'react-native-router-flux';
+
 import {
   GiftedChat, Actions, Bubble, SystemMessage, Time,
 } from 'react-native-gifted-chat';
+import { SimpleLineIcons } from '@expo/vector-icons';
 
 import {
   Container, Header, Footer, Button, Icon, Body,
@@ -27,6 +28,16 @@ import SlackMessage from './slackMessage';
 
 const BUTTONS = ['Mute conversation', 'Unmute conversation', 'Cancel'];
 const CANCEL_INDEX = 2;
+
+const tabBarIcon = name => ({ tintColor }) => (
+  <SimpleLineIcons
+    style={{ backgroundColor: 'transparent' }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
+);
+
 
 class chat extends Component {
   constructor(props) {
@@ -54,13 +65,29 @@ class chat extends Component {
     this._isAlright = null;
   }
 
+  static navigationOptions = {
+    title: 'Chat',
+    tabBarColor: 'green',
+    tabBarIcon: tabBarIcon('bubble'),
+    headerTintColor: 'blue',
+    headerStyle: {
+      backgroundColor: 'green',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+
   componentWillMount() {
     if (this.props.userX.nickname) {
       // we have a value, good
 
     } else {
       this.noNickname();
-      NavigationActions.login();
+
+
+      this.props.navigation.navigate('login')
     }
 
 
@@ -68,7 +95,7 @@ class chat extends Component {
   }
 
   componentDidMount() {
-    Backend.setChatroom(this.props.chatroom);
+    Backend.setChatroom(this.props.navigation.getParam('chatroom'));
 
     Backend.loadMessages((message) => {
       this.setState(previousState => ({
@@ -355,11 +382,12 @@ class chat extends Component {
 
         <Container>
           <HeaderContent
-            showBack
+            showBack="true"
             showHome="false"
+            navigation={this.props.navigation} 
           />
           <TouchableOpacity onPress={this._showActionSheet}>
-            <Text style={styles.chatHeading}>{this.props.chatroom}</Text>
+            <Text style={styles.chatHeading}>{this.props.navigation.getParam('chatroom')}</Text>
           </TouchableOpacity>
 
           <GiftedChat
@@ -411,7 +439,7 @@ function bindAction(dispatch) {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   username: state.username,
   userX: state.user,
 });

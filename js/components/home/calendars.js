@@ -3,7 +3,7 @@ import { Alert, Platform, ScrollView, StyleSheet, Text, View, Image } from 'reac
 import { Container, Content, Header, Icon, Left, Body, Right, Button } from 'native-base';
 
 import { Calendar, Permissions } from 'expo';
-import { Actions } from 'react-native-router-flux';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import * as ActionCreators from '../../actions'
@@ -11,18 +11,20 @@ import * as ActionCreators from '../../actions'
 import Analytics from '../../lib/analytics';
 import { Constants } from 'expo';
 import HeaderContent from './../headerContent/header/';
+import { withMappedNavigationProps } from 'react-navigation-props-mapper'
 
 import styles from './styles';
 
+@withMappedNavigationProps()
 class CalendarRow extends Component {
   static navigationOptions = {
     title: 'Calendars',
   };
 
   _selectCalendar(calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url) {
-
+    const { goBack } = this.props.navigation;
     this._addEvent(calendar.id, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url)
-    Actions.pop();
+    goBack(null);
   };
 
   _addEvent = async (phoneCalendarID, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url) => {
@@ -119,7 +121,7 @@ class CalendarRow extends Component {
       url
     } = this.props;
 
-    console.log("props on calendar = " + this.props);
+    console.log(this.props);
 
     const calendarTypeName =
       calendar.entityType === Calendar.EntityTypes.REMINDER ? 'Reminders' : 'Events';
@@ -145,6 +147,7 @@ class CalendarRow extends Component {
   }
 }
 
+@withMappedNavigationProps()
 class phoneCalendar extends Component {
   static navigationOptions = {
     title: 'Calendars',
@@ -192,6 +195,7 @@ class phoneCalendar extends Component {
 
                 <HeaderContent
                     showBack
+                    navigation={this.props.navigation} 
                 />
 
           <Content showsVerticalScrollIndicator={false}>
@@ -206,6 +210,7 @@ class phoneCalendar extends Component {
               <ScrollView >
                 {this.state.calendars.map(calendar => (
                   <CalendarRow
+                    navigation={this.props.navigation} 
                     calendar={calendar}
                     eventTitle={this.props.eventTitle}
                     eventDescription={this.props.eventDescription}
@@ -252,7 +257,7 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
 
 });
 
