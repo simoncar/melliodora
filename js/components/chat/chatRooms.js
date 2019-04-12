@@ -74,25 +74,10 @@ class campusMap extends Component {
         <HeaderContent navigation={this.props.navigation} />
         <Content showsVerticalScrollIndicator showsHorizontalScrollIndicator>
           <Text style={styles.heading}>PTA and School Messages</Text>
-
-
-
           {this._renderItem('PTA Volunteer Q&A','Be a part of the community')}
-
-
-          {this._renderItem('Parent Helpdesk','Open 9-3pm School days')}
-
-
           {this._renderItem('Lost and Found','Most Mon-Wed-Fri')}
-
-
-          {this._renderItem('10 Year Gala','May 4th - Sold Out')}
-
-
+          {this._renderItem('Stamford 10 Year Gala','May 4th - Sold Out')}
           {this._renderItem('4DAYE - Daisy Ye','Level 5 Washington')}
-
-
-
         </Content>
       </Container>
     );
