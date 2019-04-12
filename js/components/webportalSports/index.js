@@ -77,7 +77,7 @@ class WebportalSports extends Component {
 
   static navigationOptions = {
     title: 'Athletics',
-    tabBarColor: '#2962ff',
+    tabBarColor: '#C10F2F',
     tabBarIcon: tabBarIcon('soccer'),
   };
 
