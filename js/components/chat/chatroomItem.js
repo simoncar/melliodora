@@ -31,13 +31,17 @@ class ChatroomItem extends Component {
 
     return (
       <View style={styles.chatRow}>
+       
+       
+       
         <Button
         
           transparent
           style={styles.roundedButton}
-          onPress={() => {
-            Actions.chat({ chatroom: this.props.item });
-          }}
+          onPress={() => { 
+            this.props.navigation.navigate('chat',
+                 { chatroom: this.props.item }); 
+             }}
         >
           <Icon style={styles.icon} name="ios-chatbubbles" />
         </Button>
