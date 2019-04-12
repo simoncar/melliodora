@@ -38,7 +38,6 @@ const tabBarIcon = name => ({ tintColor }) => (
   />
 );
 
-
 class chat extends Component {
   constructor(props) {
     super(props);
@@ -67,7 +66,7 @@ class chat extends Component {
 
   static navigationOptions = {
     title: 'Chat',
-    tabBarColor: 'green',
+    tabBarColor: '#5AD167',
     tabBarIcon: tabBarIcon('bubble'),
     headerTintColor: 'blue',
     headerStyle: {
@@ -85,11 +84,8 @@ class chat extends Component {
 
     } else {
       this.noNickname();
-
-
       this.props.navigation.navigate('login')
     }
-
 
     this._isMounted = true;
   }

@@ -54,7 +54,7 @@ class Webportal extends Component {
 
   static navigationOptions = {
     title: 'myStamford',
-    tabBarColor: '#2962ff',
+    tabBarColor: '#00A5CD',
     tabBarIcon: tabBarIcon('ios-grid'),
   };
 
