@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { ImageBackground, Image, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-navigation';
 import { Container, Content, Text, Icon, List, ListItem, Thumbnail } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 import { closeDrawer } from '../../actions/drawer';
@@ -30,47 +30,41 @@ class SideBar extends Component {
    
           <Content style={styles.drawerContent}>
 
-            <ListItem button onPress={() => { Actions.homeNav(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+            <ListItem button onPress={() => {  this.props.navigation.navigate('homeNav'); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon style={styles.linkText}  name="ios-home" />
               <Text style={styles.linkText} >HOME</Text>
             </ListItem>
 
-            <ListItem button onPress={() => { Actions.home(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+            <ListItem button onPress={() => {  this.props.navigation.navigate('home'); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon style={styles.linkText} name="ios-calendar" />
               <Text style={styles.linkText} >CALENDAR</Text>
             </ListItem>
 
-            <ListItem button onPress={() => { Actions.contact(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+            <ListItem button onPress={() => {  this.props.navigation.navigate('contact'); this.props.closeDrawer(); }} iconLeft style={styles.links} >
               <Icon style={styles.linkText} name="ios-call" />
               <Text style={styles.linkText} >CONTACT</Text>
             </ListItem>
 
-            <ListItem button onPress={() => { Actions.webportal(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+            <ListItem button onPress={() => {  this.props.navigation.navigate('webportal'); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                 <Icon style={styles.linkText} name="ios-grid" />
                 <Text style={styles.linkText}>{global.switch_portalName}</Text>
             </ListItem>
-
-
-
-
-
-
-            
+  
        {instID == '0001-sais_edu_sg' &&
           <View>
-                <ListItem button onPress={() => { Actions.webportalSports(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <ListItem button onPress={() => { this.props.navigation.navigate('webportalSports'); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                     <Icon style={styles.linkText} name="ios-football" />
                     <Text style={styles.linkText}>ATHLETICS</Text>
                 </ListItem>
-                <ListItem button onPress={() => { Actions.ptaHome(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <ListItem button onPress={() => { this.props.navigation.navigate('ptaHome'); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                     <Icon style={styles.linkText} name="ios-people" />
                     <Text style={styles.linkText} >PTA</Text>
                 </ListItem>
-                <ListItem button onPress={() => { Actions.campusMap(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <ListItem button onPress={() => { this.props.navigation.navigate('campusMap'); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                     <Icon style={styles.linkText} name="ios-map" />
                     <Text style={styles.linkText} >SCHOOL MAP</Text>
                 </ListItem>
-                <ListItem button onPress={() => { Actions.login(); this.props.closeDrawer(); }} iconLeft style={styles.links} >
+                <ListItem button onPress={() => { this.props.navigation.navigate('login'); this.props.closeDrawer(); }} iconLeft style={styles.links} >
                     <Icon style={styles.linkText} name="md-settings" />
                     <Text style={styles.linkText}>SETTINGS</Text>
                 </ListItem>
@@ -93,7 +87,7 @@ function bindAction(dispatch) {
 }
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
 });
 
 export default connect(mapStateToProps, bindAction)(SideBar);

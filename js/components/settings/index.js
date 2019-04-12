@@ -7,7 +7,7 @@ import {TextInput, View, Switch, Platform,} from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-navigation';
 import {
   Container, Header, Content, Text, Button, Icon, Thumbnail, Item, Input, Left, Right, Body,
 } from 'native-base';
@@ -20,8 +20,7 @@ import * as ActionCreators from '../../actions';
 
 import styles from './styles';
 
-
-console.log('ACfromSettings=', ActionCreators);
+//console.log('ACfromSettings=', ActionCreators);
 
 const primary = require('../../themes/variable').brandPrimary;
 
@@ -76,7 +75,9 @@ class Settings extends Component {
   render() {
     return (
       <Container>
-        <HeaderContent />
+        <HeaderContent 
+        navigation={this.props.navigation} 
+        />
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.bg}>
@@ -401,7 +402,7 @@ class Settings extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   adminPassword: state.user.adminPassword,
 });
 

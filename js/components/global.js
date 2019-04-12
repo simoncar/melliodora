@@ -1,6 +1,14 @@
 import { Constants } from 'expo';
 
 
+export function isValue(input) {
+  if (undefined !== input && input !== null && input.length > 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 export function formatTime(starttime, endtime) {
   var ret = '';
 
@@ -37,6 +45,8 @@ export function formatMonth(eventDate) {
   }
   return (ret);
 }
+
+
 
 export function getAbbreviations(eventDetails) {
   var ret = '';

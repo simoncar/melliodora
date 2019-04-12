@@ -143,7 +143,7 @@ footer: {
     alignSelf: 'center',
   },
   linkTabs_tabCounts: {
-    fontSize: 30,
+    fontSize: 31,
     fontWeight: 'bold',
     color: primary,
     alignSelf: 'center',
@@ -166,7 +166,7 @@ footer: {
     marginRight: 0,
     marginLeft: 0,
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 32,
     color:'white',
   },
   icon2: {

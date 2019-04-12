@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Constants } from 'expo';
 import { Animated, TextInput, TouchableOpacity, WebView, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-navigation';
 
 import { Container, Icon, Spinner } from 'native-base';
 
@@ -17,6 +17,7 @@ import * as ActionCreators from '../../actions';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
+import { Ionicons } from '@expo/vector-icons';
 
 const primary = require('../../themes/variable').brandPrimary;
 const timer = require('react-native-timer');
@@ -31,6 +32,16 @@ var DEFAULT_URL = global.switch_portalURL;   //'https://mystamford.edu.sg/login/
 
 var injectScript  = '';
 
+
+const tabBarIcon = name => ({ tintColor }) => (
+  <Ionicons
+    style={{ backgroundColor: 'transparent' }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
+);
+
 class Webportal extends Component {
 
   static propTypes = {
@@ -40,7 +51,13 @@ class Webportal extends Component {
       key: PropTypes.string,
     }),
   }
-  
+
+  static navigationOptions = {
+    title: 'myStamford',
+    tabBarColor: '#2962ff',
+    tabBarIcon: tabBarIcon('ios-grid'),
+  };
+
 
   constructor(props) {
     super(props);
@@ -88,6 +105,7 @@ class Webportal extends Component {
       myText: 'My Original Text',
       showMsg: false
   };
+
 
   componentWillUnmount() {
     timer.clearTimeout(this);
@@ -157,7 +175,7 @@ class Webportal extends Component {
 
         } else {
           //nothing :-(
-            Actions.login();
+            this.props.navigation.navigate('login');
         };
 
         if (this.props.userX.password ) {
@@ -165,7 +183,7 @@ class Webportal extends Component {
 
               } else {
                 //nothing :-(
-                  Actions.login();
+                  this.props.navigation.navigate('login');
               };
 
         if (this.props.userX.ffauth_secret ) {
@@ -308,7 +326,8 @@ class Webportal extends Component {
 
     return (
   <Container>
-       <HeaderContent />
+       <HeaderContent 
+       navigation={this.props.navigation} />
 
       <View style={{ flex:1}}>
 
@@ -398,7 +417,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   userX: state.user,
   ffauth_device_idX: state.ffauth_device_id,
   ffauth_secretX: state.ffauth_secret

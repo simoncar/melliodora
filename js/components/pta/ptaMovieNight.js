@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Linking, Image, View, TouchableOpacity,  Dimensions,  Platform, Slider  } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-navigation';
 import { Grid, Col, Row, Container, Header, Content, Text, Button, Icon, Left, Body, Right } from 'native-base';
 
 import Modal from 'react-native-simple-modal';
@@ -44,7 +44,9 @@ class ptaMovieNight extends Component {
     return (
 
       <Container style={{ backgroundColor: '#fff' }}>
-          <HeaderContent />
+          <HeaderContent 
+          navigation={this.props.navigation} 
+          />
 
               <Content showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1 }}>
@@ -152,7 +154,7 @@ function bindAction(dispatch) {
 }
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   username: state.username
 });
 

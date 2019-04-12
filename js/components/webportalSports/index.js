@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { TouchableHighlight, Animated, TextInput, Dimensions, TouchableOpacity, WebView, ScrollView, Image, View, Platform } from 'react-native';
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-navigation';
 
 import { Container, Header, Content, Text, Button, Icon, Left, Right, Body } from 'native-base';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 
 import { connect } from 'react-redux';
@@ -26,6 +27,16 @@ const primary = require('../../themes/variable').brandPrimary;
 
 var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = 'http://www.stamfordlionsathletics.com/';
+
+
+const tabBarIcon = name => ({ tintColor }) => (
+  <MaterialCommunityIcons
+    style={{ backgroundColor: 'transparent' }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
+);
 
 class WebportalSports extends Component {
 
@@ -64,11 +75,15 @@ class WebportalSports extends Component {
     webViewUrl: '',
   };
 
+  static navigationOptions = {
+    title: 'Athletics',
+    tabBarColor: '#2962ff',
+    tabBarIcon: tabBarIcon('soccer'),
+  };
+
 
   onNavigationStateChange = (navState) => {
-    console.log('webview = onNavigationStateChange=' + navState);
-    console.log(navState);
-    console.log(navState.url);
+
     this.setState({ url: navState.url })
 
     if (navState.url != "https://mystamford.edu.sg/parent-dashboard") {
@@ -100,7 +115,8 @@ class WebportalSports extends Component {
     var source = { uri: 'http://google.com' };
     return (
       <Container>
-        <HeaderContent />
+        <HeaderContent 
+        navigation={this.props.navigation} />
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>
@@ -168,7 +184,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   userX: state.user,
 });
 

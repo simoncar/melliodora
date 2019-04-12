@@ -1,12 +1,20 @@
 
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { StatusBar } from 'react-native';
-import { connect } from 'react-redux';
-import { Drawer } from 'native-base';
-import { Router, Scene } from 'react-native-router-flux';
 
-import { closeDrawer } from './actions/drawer';
+import React, { Component } from 'react';
+import { StatusBar, StyleSheet } from 'react-native';
+
+import { Drawer } from 'native-base';
+import {
+  createAppContainer,
+  createStackNavigator,
+  Header,
+  NavigationActions,
+  HeaderBackButton,
+} from 'react-navigation';
+
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { MaterialIcons } from '@expo/vector-icons';
+
 
 import Login from './components/login/';
 import Home from './components/home/';
@@ -31,114 +39,70 @@ import Webportal from './components/webportal';
 import WebportalAuth from './components/webportal/auth';
 import WebportalSports from './components/webportalSports';
 
-import { statusBarColor } from './themes/base-theme';
-
-const RouterWithRedux = connect()(Router);
-
-class AppNavigator extends Component {
-
-  static propTypes = {
-    drawerState: PropTypes.string,
-    closeDrawer: PropTypes.func,
-  }
-
-  componentDidUpdate() {
-    if (this.props.drawerState === 'opened') {
-      this.openDrawer();
-    }
-
-    if (this.props.drawerState === 'closed') {
-      this._drawer._root.close();
-    }
-  }
-
-  openDrawer() {
-    console.log('openDrawer() {');
-    this._drawer._root.open();
-  }
-
-  closeDrawer() {
-    if (this.props.drawerState === 'opened') {
-      this.props.closeDrawer();
-    }
-  }
+const tabBarIcon = name => ({ tintColor }) => (
+  <MaterialIcons
+    style={{ backgroundColor: 'transparent' }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
+);
 
 
-  render() {  // eslint-disable-line class-methods-use-this
-    return (
-      <Drawer
-        ref={(ref) => { this._drawer = ref; }}
-        type="overlay"
-        tweenDuration={150}
-        content={<SideBar navigator={this._navigator} />}
-        tapToClose
-        acceptPan={false}
-        onClose={() => this.closeDrawer()}
-        openDrawerOffset={0.2}
-        panCloseMask={0.2}
-        styles={{
-          drawer: {
-            shadowColor: '#000000',
-            shadowOpacity: 0.8,
-            shadowRadius: 3,
-          },
-        }}
-        tweenHandler={(ratio) => {  //eslint-disable-line
-          return {
-            drawer: { shadowRadius: ratio < 0.2 ? ratio * 5 * 5 : 5 },
-            main: {
-              opacity: (2 - ratio) / 2,
-            },
-          };
-        }}
-        negotiatePan
-      >
-        <StatusBar
-          backgroundColor={statusBarColor}
-          barStyle="dark-content"
-        />
 
-        <RouterWithRedux>
-          <Scene key="root">
-       
-            <Scene key="homeNav" component={HomeNav} hideNavBar/>
-            <Scene key="chatmain" component={chatmain} hideNavBar />
-            <Scene key="chatRooms" component={chatRooms} hideNavBar />
-            <Scene key="chat" component={chat} hideNavBar />
-            <Scene key="home" component={Home} hideNavBar />
-            <Scene key="phoneCalendar" component={phoneCalendar} />
-            <Scene key="login" component={Login} hideNavBar />
-            <Scene key="contact" component={Contact} />
-            <Scene key="sideBar" component={SideBar} />
-            <Scene key="settings" component={Settings} />
-            <Scene key="imageUploadTest" component={imageUploadTest} />
-            <Scene key="form" component={form} />
-            <Scene key="ptaHome" component={ptaHome} hideNavBar />
-            <Scene key="ptaMovieNight" component={ptaMovieNight} hideNavBar />
-            <Scene key="ptaLionsDen" component={ptaLionsDen} hideNavBar />
-            <Scene key="ptaEvents" component={ptaEvents} hideNavBar />
-            <Scene key="story" component={Story} hideNavBar />
-            <Scene key="campusMap" component={campusMap} hideNavBar />
-            <Scene key="webportal" component={Webportal} hideNavBar />
-            <Scene key="WebportalAuth" component={WebportalAuth} hideNavBar />
-            <Scene key="webportalSports" component={WebportalSports} hideNavBar />
-            <Scene key="storyForm" component={StoryForm} hideNavBar />
-     
-          </Scene>
-        </RouterWithRedux>
-      </Drawer>
-    );
-  }
-}
 
-function bindAction(dispatch) {
-  return {
-    closeDrawer: () => dispatch(closeDrawer()),
-  };
-}
+let Tabs = createMaterialBottomTabNavigator({ 
+  homeNav: { screen: HomeNav },
+  home: { screen: Home },
+  chatRooms: { screen: chatRooms },
 
-const mapStateToProps = state => ({
-  drawerState: state.drawer.drawerState,
+  webportal: { screen: Webportal },
+  webportalSports: { screen: WebportalSports },
+ },{
+  shifting: true,
 });
 
-export default connect(mapStateToProps, bindAction)(AppNavigator);
+
+const MainScreenNavigator = createStackNavigator({
+  
+  Tab: { screen: Tabs },
+  chatmain: { screen: chatmain },
+
+  chat: { screen: chat },
+  phoneCalendar: { screen: phoneCalendar },
+  login: { screen: Login },
+  contact: { screen: Contact },
+  sideBar: { screen: SideBar },
+  settings: { screen: Settings },
+  imageUploadTest: { screen: imageUploadTest },
+  form: { screen: form },
+  ptaHome: { screen: ptaHome },
+  ptaMovieNight: { screen: ptaMovieNight },
+  ptaLionsDen: { screen: ptaLionsDen },
+  ptaEvents: { screen: ptaEvents },
+  story: { screen: Story },
+  campusMap: { screen: campusMap },
+  WebportalAuth: { screen: WebportalAuth },
+  storyForm: { screen: StoryForm },
+
+  navigationOptions: () => ({
+    title: 'Title',
+    headerStyle: {
+      backgroundColor: 'green',
+    },
+  }),
+
+});
+
+export default createAppContainer(MainScreenNavigator);
+
+let styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  paragraph: {
+    fontSize: 18,
+  },
+});

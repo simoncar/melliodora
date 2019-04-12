@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
-import { Icon, Button, Left, Right, Body, Header, Text } from 'native-base';
+import { Icon, Button,  Body, Header, Text } from 'native-base';
 
 import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
-
 
 class HeaderContent extends Component {
 
@@ -20,23 +18,15 @@ class HeaderContent extends Component {
   }
 
   _LeftNav() {
-
-    if (this.props.showBack){
+    const { goBack } = this.props.navigation;
+    if (this.props.showBack == 'true') {
       return (
-      <Button transparent onPress={() => Actions.pop()}>
+      <Button transparent onPress={() => goBack(null)}>
         <Icon active style={styles.btnHeader} name="arrow-back" />
       </Button>
       )
-    } else {
-      return (
-        <Button transparent style={styles.btnHeader} onPress={this.props.openDrawer} >
-        <Icon active style={styles.btnHeader} name="menu" />
-      </Button>
-    )
-    }
-        
-    
- 
+    } 
+
   }
 
   _RightNav() {
@@ -51,7 +41,7 @@ class HeaderContent extends Component {
       )
     } else {
       return (
-        <Button transparent onPress={() => Actions.homeNav()}>
+        <Button transparent onPress={() =>  this.props.navigation.navigate('homeNav')}>
           <Icon active style={styles.btnHeader} name="ios-home" />
         </Button>
       )
@@ -72,20 +62,7 @@ class HeaderContent extends Component {
 
   render() {
     return (
-      <Header style={styles.header}>
-        <View style={styles.viewHeader}>
-          <View style={styles.btnHeader}>
-          {this._LeftNav()}
-          </View>
-          <Body>
-            <Text style={styles.textHeader}>{this._PageTitle()}</Text>
-          </Body>
-          <View style={styles.btnHeader}>
-            {this._RightNav()}
-          </View>
-        </View>
-    
-      </Header>
+      <View />
          
 
     );
@@ -99,7 +76,7 @@ function bindAction(dispatch) {
 }
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
 });
 
 export default connect(mapStateToProps, bindAction)(HeaderContent);

@@ -65,8 +65,6 @@ function loadFromRedux() {
         global.switch_helpEmail = snapshot("helpEmail")
         global.switch_portalName = snapshot("portalName")
 
-        console.log("global = " + global.switch.address)
-
     }
 }
 
@@ -93,7 +91,6 @@ function listenLoadFromFirebase(switches) {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    console.log('bind action creators');
     return bindActionCreators(ActionCreators, dispatch)
 };
 

@@ -7,7 +7,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-navigation';
 import {
   Container, Content, Text, Item, Button, Icon,
 } from 'native-base';
@@ -17,7 +17,7 @@ import styles from './styles';
 
 import * as ActionCreators from '../../actions';
 
-console.log('ACfromLogin=', ActionCreators);
+//console.log('ACfromLogin=', ActionCreators);
 
 const { skipLogin } = require('../../actions');
 
@@ -38,7 +38,7 @@ class Login extends Component {
   }
 
   doLogin(user, password) {
-    Actions.webportal();
+    this.props.navigation.navigate('webportal');
   }
 
   _placeHolderNickname() {
@@ -70,7 +70,9 @@ class Login extends Component {
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
-        <HeaderContent />
+        <HeaderContent 
+        navigation={this.props.navigation} 
+        />
 
         <Content scrollEnabled bounces={false}>
 
@@ -137,7 +139,7 @@ class Login extends Component {
               block
               large
               style={styles.loginBtn}
-              onPress={() => Actions.homeNav()}
+              onPress={() =>  this.props.navigation.navigate('homeNav')}
             >
               <Text style={styles.button}>Save</Text>
             </Button>
@@ -154,7 +156,7 @@ class Login extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+  //navigation: state.cardNavigation,
   userX: state.user,
 });
 
