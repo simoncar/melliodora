@@ -105,9 +105,6 @@ export class Backend extends React.Component {
     }
 
 
-    console.log('global.pushToken=', global.pushToken);
-    console.log('global.safeToken=', global.safeToken);
-    console.log('global.pushToken.len=', global.pushToken.len);
 
     if (global.pushToken.length > 0) {
       this.messageRef = firebase.database().ref(`instance/${ instID }/chat/chatroom/${ this.state.chatroom }/notifications/${ global.safeToken }`);
@@ -137,6 +134,19 @@ export class Backend extends React.Component {
     if (this.messageRef) {
       this.messageRef.off();
     }
+  }
+
+  userRooms() {
+
+    console.log("userrooms=",global.safeToken);
+
+    this.messageRef = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
+    this.messageRef.on('value', (dataSnapshot) => {
+
+      dataSnapshot.forEach((child) => {
+        console.log(child.key)
+      });
+    });
   }
 }
 
