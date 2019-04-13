@@ -136,7 +136,7 @@ export class Backend extends React.Component {
     }
   }
 
-  userRooms() {
+  userRooms(callback) {
 
     console.log("userrooms=",global.safeToken);
 
@@ -145,6 +145,9 @@ export class Backend extends React.Component {
 
       dataSnapshot.forEach((child) => {
         console.log(child.key)
+        callback({
+          chatroom: child.key,
+        })
       });
     });
   }

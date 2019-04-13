@@ -18,6 +18,7 @@ import Backend from './backend';
 import { SimpleLineIcons } from "@expo/vector-icons";
 
 import styles from "./styles";
+
 const ChatroomItem = require('./chatroomItem');
 
 const primary = require("../../themes/variable").brandPrimary;
@@ -60,7 +61,10 @@ class chatRooms extends Component {
   };
 
   componentDidMount() {
-    Backend.userRooms();
+    Backend.userRooms((chatRooms) => {
+    
+        console.log("chatroomsDDD=", chatRooms.chatroom)
+    });
 
   }
 
