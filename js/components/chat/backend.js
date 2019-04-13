@@ -26,7 +26,7 @@ export class Backend extends React.Component {
 
   setChatroom(chatroom) {
     console.log(`chatroom=${  chatroom}`);
-    this.state.chatroom = chatroom;
+    this.state.chatroom = chatroom.trim();
   }
 
   // retrive msg from backend

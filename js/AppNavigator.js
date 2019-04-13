@@ -38,6 +38,7 @@ import chatmain from './components/chat/main';
 import Webportal from './components/webportal';
 import WebportalAuth from './components/webportal/auth';
 import WebportalSports from './components/webportalSports';
+import CustomHeader from "./CustomHeader";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialIcons
@@ -55,17 +56,26 @@ let Tabs = createMaterialBottomTabNavigator({
   homeNav: { screen: HomeNav },
   home: { screen: Home },
   chatRooms: { screen: chatRooms },
-
   webportal: { screen: Webportal },
   webportalSports: { screen: WebportalSports },
- },{
+}, {
   shifting: true,
+
 });
 
 
 const MainScreenNavigator = createStackNavigator({
   
-  Tab: { screen: Tabs },
+  Tab: { screen: Tabs,
+    navigationOptions: {
+      title: 'Stamford',
+      headerTintColor: '#000',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        fontSize:28,
+    },
+    }, 
+  },
   chatmain: { screen: chatmain },
 
   chat: { screen: chat },
@@ -84,6 +94,16 @@ const MainScreenNavigator = createStackNavigator({
   campusMap: { screen: campusMap },
   WebportalAuth: { screen: WebportalAuth },
   storyForm: { screen: StoryForm },
+
+  defaultNavigationOptions: () =>  ({
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  }),
 
   navigationOptions: () => ({
     title: 'Title',

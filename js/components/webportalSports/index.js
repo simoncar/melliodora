@@ -70,7 +70,7 @@ class WebportalSports extends Component {
     backButtonEnabled: false,
     forwardButtonEnabled: false,
     loading: true,
-    scalesPageToFit: true,
+    scalesPageToFit: true, 
     cookies: {},
     webViewUrl: '',
   };

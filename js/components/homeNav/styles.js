@@ -12,6 +12,8 @@ export default {
     flex: 1,
     width: null,
     height: null,
+    backgroundColor: 'white',
+    color: '#c6c6c6',
   },
   beta: {
     backgroundColor: 'white',

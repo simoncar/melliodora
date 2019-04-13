@@ -22,6 +22,8 @@ class ChatroomItem extends Component {
   render() {
     //var photoSquare = this.props.item.item.photoSquare;
     //var photo1 = this.props.item.item.photo1;
+    this.props.item =  this.props.item.trim()
+
 
     const preview = {
       uri:
@@ -30,17 +32,19 @@ class ChatroomItem extends Component {
    //const uri = this.props.item.item.photo1;
 
     return (
-      <View style={styles.chatRow}>
-       
-       
-       
+    
+     
+     <View style={styles.chatRow}>
+        <TouchableOpacity  style={{ flexDirection: 'row' }}  onPress={() => {   this.props.navigation.navigate('chat',
+                 { chatroom: this.props.item.trim() }); 
+                  }}>
         <Button
         
           transparent
           style={styles.roundedButton}
           onPress={() => { 
             this.props.navigation.navigate('chat',
-                 { chatroom: this.props.item }); 
+                 { chatroom: this.props.item.trim() }); 
              }}
         >
           <Icon style={styles.icon} name="ios-chatbubbles" />
@@ -50,6 +54,8 @@ class ChatroomItem extends Component {
              <Text style={styles.chatTitle}>{this.props.item}</Text>
              <Text style={styles.chatDescription}>{this.props.description}</Text>
         </View>
+
+        </TouchableOpacity>
       </View>
     );
   }
