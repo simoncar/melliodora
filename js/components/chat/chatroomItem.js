@@ -32,11 +32,15 @@ class ChatroomItem extends Component {
    //const uri = this.props.item.item.photo1;
 
     return (
-    
      
      <View style={styles.chatRow}>
         <TouchableOpacity  style={{ flexDirection: 'row' }}  onPress={() => {   this.props.navigation.navigate('chat',
-                 { chatroom: this.props.item.trim() }); 
+                 { chatroom: this.props.item.trim() ,
+                    description:this.props.description,
+                    contact:this.props.contact,
+                    url:this.props.url,
+                
+                }); 
                   }}>
         <Button
         
@@ -44,7 +48,11 @@ class ChatroomItem extends Component {
           style={styles.roundedButton}
           onPress={() => { 
             this.props.navigation.navigate('chat',
-                 { chatroom: this.props.item.trim() }); 
+                 { chatroom: this.props.item.trim() ,
+                    description:this.props.description,
+                    contact:this.props.contact,
+                    url:this.props.url,
+                }); 
              }}
         >
           <Icon style={styles.icon} name="ios-chatbubbles" />
