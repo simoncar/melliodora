@@ -50,7 +50,6 @@ class Login extends Component {
     return 'Your Name  (First and Last)';
   }
 
-
   _placeHolderEmail() {
     if (undefined !== this.props.userX.name && this.props.userX.name !== null && this.props.userX.name.length > 0) {
       return this.props.userX.name;
