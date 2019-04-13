@@ -70,7 +70,7 @@ class chat extends Component {
     tabBarIcon: tabBarIcon('bubble'),
     headerTintColor: 'blue',
     headerStyle: {
-      backgroundColor: 'green',
+      backgroundColor: 'green', 
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
@@ -382,8 +382,13 @@ class chat extends Component {
             showHome="false"
             navigation={this.props.navigation} 
           />
+          <View>
+          <Text style={styles.chatDescription}>{this.props.navigation.getParam('description')}</Text>
+            <Text style={styles.chatDescription}>{this.props.navigation.getParam('contact')}</Text>
+          </View>
           <TouchableOpacity onPress={this._showActionSheet}>
             <Text style={styles.chatHeading}>{this.props.navigation.getParam('chatroom')}</Text>
+
           </TouchableOpacity>
 
           <GiftedChat
