@@ -11,6 +11,13 @@ export default {
       paddingTop: 10,
       paddingBottom: 10,
     },
+    container: {
+      backgroundColor: "white",
+    },
+    icon: {
+      fontSize: 25,
+
+    },
     chatRow: {
       
         height: 60,
@@ -48,10 +55,11 @@ export default {
         alignSelf: 'left',
         alignItems: 'centre',
         borderRadius: 30,
-        width: 60,
         height: 60,
         backgroundColor: '#141b4d',
         marginLeft: 20,
+        justifyContent: 'center',
+
       },
   nameInput: { 
         height: 24 * 2,

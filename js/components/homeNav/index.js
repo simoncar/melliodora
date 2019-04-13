@@ -4,8 +4,6 @@ import { bindActionCreators } from 'redux';
 import {
   Image, FlatList, View, Linking, TouchableOpacity, TouchableHighlight, StyleSheet, Dimensions,
 } from 'react-native';
-
-
 import {
   Container, Content, Text, Icon, Button,
 } from 'native-base';
@@ -56,16 +54,9 @@ class HomeNav extends Component {
     this.loadFromRedux();
   }
 
+
   static navigationOptions = {
     title: 'Home',
-    headerStyle: {
-      backgroundColor: '#fff',
-    },
-    headerTintColor: '#000',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      fontSize: 33,
-    },
     tabBarColor: '#2962ff',
     tabBarIcon: tabBarIcon('home'),
   };
@@ -213,7 +204,7 @@ class HomeNav extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.container}>
 
         <Content showsVerticalScrollIndicator={false}>
     

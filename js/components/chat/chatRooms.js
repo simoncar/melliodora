@@ -30,7 +30,7 @@ const tabBarIcon = name => ({ tintColor }) => (
   />
 );
 
-class campusMap extends Component {
+class chatRooms extends Component {
   static propTypes = {
     navigation: PropTypes.shape({ key: PropTypes.string }),
     username: PropTypes.string
@@ -70,9 +70,9 @@ class campusMap extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.container}>
         <HeaderContent navigation={this.props.navigation} />
-        <Content showsVerticalScrollIndicator showsHorizontalScrollIndicator>
+        <Content>
           <Text style={styles.heading}>PTA and School Messages</Text>
           {this._renderItem('PTA Volunteer Q&A','Be a part of the community')}
           {this._renderItem('Lost and Found','Most Mon-Wed-Fri')}
@@ -99,4 +99,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   bindAction
-)(campusMap);
+)(chatRooms);
