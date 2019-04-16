@@ -22,8 +22,6 @@ class ChatroomItem extends Component {
   render() {
     //var photoSquare = this.props.item.item.photoSquare;
     //var photo1 = this.props.item.item.photo1;
-    this.props.item =  this.props.item.trim()
-
 
     const preview = {
       uri:
@@ -35,11 +33,10 @@ class ChatroomItem extends Component {
      
      <View style={styles.chatRow}>
         <TouchableOpacity  style={{ flexDirection: 'row' }}  onPress={() => {   this.props.navigation.navigate('chat',
-                 { chatroom: this.props.item.trim() ,
+                 { chatroom: this.props.title ,
                     description:this.props.description,
                     contact:this.props.contact,
                     url:this.props.url,
-                
                 }); 
                   }}>
         <Button
@@ -48,7 +45,7 @@ class ChatroomItem extends Component {
           style={styles.roundedButton}
           onPress={() => { 
             this.props.navigation.navigate('chat',
-                 { chatroom: this.props.item.trim() ,
+                 { chatroom: this.props.title ,
                     description:this.props.description,
                     contact:this.props.contact,
                     url:this.props.url,
@@ -59,7 +56,7 @@ class ChatroomItem extends Component {
         </Button>
 
         <View>
-             <Text style={styles.chatTitle}>{this.props.item}</Text>
+             <Text style={styles.chatTitle}>{this.props.title}</Text>
              <Text style={styles.chatDescription}>{this.props.description}</Text>
         </View>
 
