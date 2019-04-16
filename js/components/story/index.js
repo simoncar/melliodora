@@ -24,6 +24,7 @@ import { openDrawer } from "../../actions/drawer";
 
 import ParsedText from "react-native-parsed-text";
 import Communications from "react-native-communications";
+import { withMappedNavigationProps } from 'react-navigation-props-mapper'
 
 import styles from "./styles";
 import call from "react-native-phone-call"; //TODO migration to communications
@@ -43,6 +44,7 @@ import * as firebase from "firebase";
 
 var instID = Constants.manifest.extra.instance;
 
+@withMappedNavigationProps()
 class Story extends Component {
   constructor(props) {
     super(props);
@@ -389,15 +391,32 @@ class Story extends Component {
                   </TouchableOpacity>
                 )}
 
-              {isAdmin(this.props.navigation.state.params.adminPassword) && (
+<Text>  </Text>
+<Text>  </Text>
+<Text>  </Text>
+<Text selectable style={styles.eventTextAbbreviation}>
+                {getAbbreviations(this.props.navigation.getParam("eventTitle"))}
+              </Text>
+<Text>  </Text>
+<Text>  </Text>
+<Text>  </Text>
+
+<Text>  </Text>
+<Text>  </Text>
+<Text>  </Text>
+
+
+              {isAdmin(this.props.adminPassword) && (
+                
+
                 <TouchableHighlight
                   style={styles.addButton}
                   underlayColor="#ff7043"
                   onPress={() =>
-                    Actions.storyForm({
-                      eventTitle: this.props.navigation.state.params.eventTitle,
-                      eventDescription: this.props.navigation.state.params
-                        .eventDescription,
+
+                    this.props.navigation.navigate("storyForm", {
+                      eventTitle: this.props.navigation.getParam("eventTitle"),
+                      eventDescription: this.props.navigation.getParam("eventDescription"),
                       eventDate: this.props.navigation.state.params.eventDate,
                       eventStartTime: this.props.navigation.state.params
                         .eventStartTime,
@@ -422,6 +441,8 @@ class Story extends Component {
                     })
                   }
                 >
+
+                
                   <MaterialIcons
                     name="edit"
                     style={{ fontSize: 25, color: "white" }}
@@ -429,9 +450,7 @@ class Story extends Component {
                 </TouchableHighlight>
               )}
 
-              <Text selectable style={styles.eventTextAbbreviation}>
-                {getAbbreviations(this.props.navigation.getParam("eventTitle"))}
-              </Text>
+         
             </View>
           </View>
         </Content>
