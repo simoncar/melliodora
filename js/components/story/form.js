@@ -163,14 +163,12 @@ class newStory extends Component {
                 value={this.state.eventDescription}
               />
 
-
               <TextInput
                 onChangeText={(text) => this.setState({ location: text })}
                 placeholder={"Location"}
                 style={[styles.eventText]}
                 value={this.state.location}
               />
-
 
               <TextInput
                 onChangeText={(text) => this.setState({ phone: text })}

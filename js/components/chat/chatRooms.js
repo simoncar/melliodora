@@ -10,17 +10,17 @@ import Swiper from "react-native-swiper";
 import { openDrawer } from "../../actions/drawer";
 
 import HeaderContent from "./../headerContent/header/";
-import Analytics from "../../lib/analytics";
+
+import Analytics from '../../lib/analytics';
 import { Constants, Notifications } from "expo";
 import Backend from './backend';
 
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { withMappedNavigationProps } from 'react-navigation-props-mapper'
 
 import styles from "./styles";
 
 const ChatroomItem = require('./chatroomItem');
-
-const primary = require("../../themes/variable").brandPrimary;
 
 const tabBarIcon = name => ({ tintColor }) => (
   <SimpleLineIcons
@@ -31,31 +31,37 @@ const tabBarIcon = name => ({ tintColor }) => (
   />
 );
 
+@withMappedNavigationProps()
 class chatRooms extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      animationType: "slideInDown",
-      open: false,
       loading: true,
       userChatrooms: {},
+      user: null,
     };
+
+    // analytics  -----
+    const trackingOpts = {
+      instId: Constants.manifest.extra.instance,
+      emailOrUsername: global.username,
+    };
+
+    Analytics.identify(global.username, trackingOpts);
+    Analytics.track(Analytics.events.PAGE_CHAT, trackingOpts);
+    // analytics --------
   }
+
+      
 
   static navigationOptions = {
     title: "Chat",
     tabBarColor: "green",
     tabBarIcon: tabBarIcon("bubble"),
-    headerTintColor: "blue",
-    headerStyle: {
-      backgroundColor: "green"
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold"
-    }
   };
+   
+
 
   componentDidMount() {
 
