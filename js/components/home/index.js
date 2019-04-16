@@ -438,7 +438,7 @@ class calendar1 extends Component {
 
 
 const mapDispatchToProps = (dispatch) => {
-  console.log('bind action creators');
+
   return bindActionCreators(ActionCreators, dispatch);
 };
 
