@@ -38,6 +38,7 @@ class chatRooms extends Component {
     this.state = {
       animationType: "slideInDown",
       open: false,
+      loading: true,
       userChatrooms: {},
     };
   }
@@ -61,7 +62,9 @@ class chatRooms extends Component {
     this.state.userChatrooms = [];
 
     Backend.userRooms((chatRooms) => {
-    
+
+  
+
       this.state.userChatrooms.push({
         title: chatRooms.chatroom
       })

@@ -13,6 +13,7 @@ export class Backend extends React.Component {
     super();
     this.state = {
       chatroom: '',
+      loading: true,
     };
   }
 

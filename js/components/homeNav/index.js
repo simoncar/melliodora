@@ -118,7 +118,6 @@ class HomeNav extends Component {
     }
   }
 
-
   listenLoadFromFirebase(calendarEvents) {
     calendarEvents.on('value', (dataSnapshot2) => {
       this.props.setFeatureItems(dataSnapshot2);
@@ -138,7 +137,7 @@ class HomeNav extends Component {
           if (displayStart != null && displayEnd >= today) {
             // start is less than End
             hidden = false;
-          }
+          } 
         }
 
         if (!hidden) {
@@ -217,9 +216,9 @@ console.log("kkkkkkkk", this.props.navigation)
             {isAdmin(this.props.adminPassword)
               && (
                 <FlatList
-                  data={this.state.calendarEventsHidden}
+                  data={this.state.featureItemsHidden}
                   keyExtractor={this.keyExtractor}
-                  renderItem={this._renderItem}
+                  renderItem={this._renderItem.bind(this)}
                 />
               )
             }
