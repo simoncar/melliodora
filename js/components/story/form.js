@@ -7,7 +7,7 @@ import { Container, Header, Content, Button, Icon, Body } from 'native-base';
 import { Actions } from 'react-navigation';
 import { Constants } from 'expo';
 import styles from './styles';
-
+import { withMappedNavigationProps } from 'react-navigation-props-mapper'
 import * as firebase from 'firebase';
 import { Ionicons, EvilIcons, MaterialIcons } from '@expo/vector-icons';
 
@@ -15,6 +15,7 @@ var instID = Constants.manifest.extra.instance;
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
+@withMappedNavigationProps()
 class newStory extends Component {
   uid = '';
   storyRef = null;
