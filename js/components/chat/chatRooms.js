@@ -1,9 +1,8 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Image, View, Platform, Slider } from "react-native";
+import { FlatList } from "react-native";
 import { connect } from "react-redux";
 
-import { Actions } from "react-navigation";
 import { Container, Content, Text, Button, Icon } from "native-base";
 
 import Modal from "react-native-simple-modal";
@@ -33,16 +32,13 @@ const tabBarIcon = name => ({ tintColor }) => (
 );
 
 class chatRooms extends Component {
-  static propTypes = {
-    navigation: PropTypes.shape({ key: PropTypes.string }),
-    username: PropTypes.string
-  };
 
   constructor(props) {
     super(props);
     this.state = {
       animationType: "slideInDown",
-      open: false
+      open: false,
+      userChatrooms: {},
     };
   }
 
@@ -61,25 +57,29 @@ class chatRooms extends Component {
   };
 
   componentDidMount() {
+
+    this.state.userChatrooms = [];
+
     Backend.userRooms((chatRooms) => {
     
-        console.log("chatroomsDDD=", chatRooms.chatroom)
+      this.state.userChatrooms.push({
+        title: chatRooms.chatroom
+      })
     });
-
   }
+  
+  keyExtractor = item => item._key;
 
-  _renderItem(item,description, contact, url) {
-
-
+  _renderItem(title,description, contact, url) {
     // {this._renderItem('2JLIU','Jia Liu - Level 3 Washington','jia.liu@sais.edu.sg','https://mystamford.edu.sg/homeroom-2/grade-2/jia-liu-g2-jliu/class-update')}
     // {this._renderItem('4DAYE','Daisy Ye - Level 5 Washington','daisy.ye@sais.edu.sg ','https://mystamford.edu.sg/homeroom-2/grade-4/daisy-ye-g4-daye/class-update')}
     // {this._renderItem('Grade 6','Grade 6 Group Chat','middleschool@sais.edu.sg','https://mystamford.edu.sg/browse-resources/secondary')}
-
+    console.log("rrrrrrrrr", this.props.navigation)
     //ken{YQNwZDOkv0QdHUlDV-T5HQ}  - Simon
     return (
       <ChatroomItem 
         navigation={this.props.navigation} 
-        item={item} 
+        title={title}
         description={description}
         contact={contact}
         url={url}
@@ -87,7 +87,27 @@ class chatRooms extends Component {
     );
   }
 
+  _renderItem2(item) {
+    // {this._renderItem('2JLIU','Jia Liu - Level 3 Washington','jia.liu@sais.edu.sg','https://mystamford.edu.sg/homeroom-2/grade-2/jia-liu-g2-jliu/class-update')}
+    // {this._renderItem('4DAYE','Daisy Ye - Level 5 Washington','daisy.ye@sais.edu.sg ','https://mystamford.edu.sg/homeroom-2/grade-4/daisy-ye-g4-daye/class-update')}
+    // {this._renderItem('Grade 6','Grade 6 Group Chat','middleschool@sais.edu.sg','https://mystamford.edu.sg/browse-resources/secondary')}
+console.log("ffffffffff", this.props.navigation)
+    //ken{YQNwZDOkv0QdHUlDV-T5HQ}  - Simon
+    return (
+      <ChatroomItem 
+        navigation={this.props.navigation} 
+        title={item.item.title} 
+        description={item.item.description}
+        contact={item.item.contact}
+        url={item.item.url}
+        item={item} 
+      />
+    );
+  }
+
   render() {
+
+
     return (
       <Container style={styles.container}>
         <HeaderContent navigation={this.props.navigation} />
@@ -96,6 +116,13 @@ class chatRooms extends Component {
           {this._renderItem('PTA Volunteer Q&A','Be a part of the community')}
           {this._renderItem('Lost and Found','Most Mon-Wed-Fri')}
           {this._renderItem('Stamford 10 Year Gala','May 4th - Sold Out')}
+
+          <FlatList
+              data={this.state.userChatrooms}
+              renderItem={this._renderItem2.bind(this)}
+              keyExtractor={this.keyExtractor}
+            />
+
         </Content>
       </Container>
     );

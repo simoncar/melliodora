@@ -127,7 +127,6 @@ class HomeNav extends Component {
       this.state.featureItems = [];
       this.state.featureItemsHidden = [];
 
-
       dataSnapshot.forEach((child) => {
         const displayStart = (child.val().displayStart !== undefined) ? moment().format(child.val().displayStart) : null;
         const displayEnd = (child.val().displayEnd !== undefined) ? moment().format(child.val().displayEnd) : null;
@@ -194,6 +193,9 @@ class HomeNav extends Component {
   }
 
   _renderItem(item) {
+
+console.log("kkkkkkkk", this.props.navigation)
+
     return (
       <ListItem 
         navigation={this.props.navigation} 
@@ -205,11 +207,7 @@ class HomeNav extends Component {
   render() {
     return (
       <Container style={styles.container}>
-
         <Content showsVerticalScrollIndicator={false}>
-    
-
-
           <View style={styles.newsContentLine}>
             <FlatList
               data={this.state.featureItems}
@@ -227,10 +225,7 @@ class HomeNav extends Component {
             }
 
           </View>
-
           {instID == '0001-sais_edu_sg'
-
-
             && (
               <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { this.props.navigation.navigate('ptaHome'); }}>
 
