@@ -13,7 +13,6 @@ export class Backend extends React.Component {
     super();
     this.state = {
       chatroom: '',
-      loading: true,
     };
   }
 
@@ -137,21 +136,8 @@ export class Backend extends React.Component {
     }
   }
 
-  userRooms(callback) {
-
-    console.log("userrooms=",global.safeToken);
-
-    this.messageRef = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
-    this.messageRef.on('value', (dataSnapshot) => {
-
-      dataSnapshot.forEach((child) => {
-        console.log(child.key)
-        callback({
-          chatroom: child.key,
-        })
-      });
-    });
-  }
+ 
 }
+
 
 export default new Backend();
