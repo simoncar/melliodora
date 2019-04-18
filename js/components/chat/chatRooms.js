@@ -2,7 +2,9 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { FlatList } from "react-native";
 import { connect } from "react-redux";
-
+import { bindActionCreators } from 'redux';
+import * as ActionCreators from '../../actions';
+import * as firebase from 'firebase';
 import { Container, Content, Text, Button, Icon } from "native-base";
 
 import Modal from "react-native-simple-modal";
@@ -21,6 +23,7 @@ import { withMappedNavigationProps } from 'react-navigation-props-mapper'
 import styles from "./styles";
 
 const ChatroomItem = require('./chatroomItem');
+let instID = Constants.manifest.extra.instance;
 
 const tabBarIcon = name => ({ tintColor }) => (
   <SimpleLineIcons
@@ -41,6 +44,9 @@ class chatRooms extends Component {
       userChatrooms: {},
       user: null,
     };
+
+    this.chatRoomsFirebase = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
+    
 
     // analytics  -----
     const trackingOpts = {
@@ -66,17 +72,18 @@ class chatRooms extends Component {
   componentDidMount() {
 
     this.state.userChatrooms = [];
-
-    Backend.userRooms((chatRooms) => {
-
   
-
-      this.state.userChatrooms.push({
-        title: chatRooms.chatroom
-      })
-    });
-  }
+      this.chatRoomsFirebase.on('value', (dataSnapshot) => {
   
+        dataSnapshot.forEach((child) => {
+          console.log("-----",child.key)
+          this.state.userChatrooms.push({
+            title: child.chatroom
+          })
+        });
+      });
+    }
+
   keyExtractor = item => item._key;
 
   _renderItem(title,description, contact, url) {
@@ -138,11 +145,10 @@ console.log("ffffffffff", this.props.navigation)
   }
 }
 
-function bindAction(dispatch) {
-  return {
-    openDrawer: () => dispatch(openDrawer())
-  };
-}
+const mapDispatchToProps = (dispatch) => {
+
+  return bindActionCreators(ActionCreators, dispatch);
+};
 
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
@@ -152,5 +158,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  bindAction
+  mapDispatchToProps
 )(chatRooms);

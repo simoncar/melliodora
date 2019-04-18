@@ -52,8 +52,8 @@ export default {
         marginLeft: 15,
       },
       roundedButton: {
-        alignSelf: 'left',
-        alignItems: 'centre',
+        
+        alignItems: 'center',
         borderRadius: 30,
         height: 60,
         backgroundColor: '#141b4d',
