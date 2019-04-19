@@ -7,6 +7,7 @@ import {
   View,
   ViewPropTypes,
   Text,
+  SafeAreaView
 } from 'react-native';
 
 import CameraRollPicker from 'react-native-camera-roll-picker';
@@ -39,7 +40,7 @@ export default class CustomActions extends React.Component {
   }
 
   onActionsPress() {
-    const options = ['Choose From Library', 'Send Location', 'Cancel'];
+    const options = ['Choose From Library', 'Cancel'];
     const cancelButtonIndex = options.length - 1;
     this.context.actionSheet().showActionSheetWithOptions({
       options,
@@ -81,6 +82,7 @@ export default class CustomActions extends React.Component {
 
   renderNavBar() {
     return (
+      <SafeAreaView style={{backgroundColor: '#fff'}}>
       <NavBar style={{
         statusBar: {
           backgroundColor: '#FFF',
@@ -127,6 +129,7 @@ export default class CustomActions extends React.Component {
           </NavButtonText>
         </NavButton>
       </NavBar>
+      </SafeAreaView>
     );
   }
 
