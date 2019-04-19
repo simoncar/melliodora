@@ -17,8 +17,6 @@ import * as firebase from "firebase";
 
 console.disableYellowBox = true;
 
-
-
 export default class App extends React.Component {
   state = {
     image: null,
@@ -165,18 +163,34 @@ export default class App extends React.Component {
   };
 }
 
-async function uploadImageAsync(uri) {
 
-  const metadata = {
-    contentType: 'image/jpeg',
-  };
-  const response = await fetch(uri);
-  const blob = await response.blob();
+async function uploadImageAsync(uri) {
+  // Why are we using XMLHttpRequest? See:
+  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+  const blob = await new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function(e) {
+      console.log(e);
+      reject(new TypeError('Network request failed'));
+    };
+    xhr.responseType = 'blob';
+    xhr.open('GET', uri, true);
+    xhr.send(null);
+  });
+
   const ref = firebase
     .storage()
     .ref('chatimage')
     .child(uuid.v4());
+  const snapshot = await ref.put(blob);
 
-  const snapshot = await ref.put(blob, metadata);
-  return snapshot.downloadURL;
+  // We're done with the blob, close and release it
+  blob.close();
+
+  console.log('firebase server URL of image', snapshot.ref.getDownloadURL())
+  return await snapshot.ref.getDownloadURL();
 }
+

@@ -144,6 +144,7 @@ class chat extends Component {
     }
 
     onSend(messages = []) {
+      console.log ("backend messages = ", messages)
       Backend.SendMessage(messages);
     }
 
@@ -152,29 +153,14 @@ class chat extends Component {
     }
 
     renderCustomActions(props) {
-      if (Platform.OS === 'ios') {
+
         return (
           <CustomActions
             {...props}
           />
         );
       }
-      const options = {
-        'Action 1': (props) => {
-          alert('option 1');
-        },
-        'Action 2': (props) => {
-          alert('option 2');
-        },
-        Cancel: () => { },
-      };
-      return (
-        <Actions
-          {...props}
-          options={options}
-        />
-      );
-    }
+ 
 
 
     renderSystemMessage(props) {
@@ -403,7 +389,7 @@ class chat extends Component {
               // avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
               }}
 
-                    // renderActions={this.renderCustomActions}
+           renderActions={this.renderCustomActions}
                     // renderBubble={this.renderBubble}
                     // renderSystemMessage={this.renderSystemMessage}
             renderCustomView={this.renderCustomView}
