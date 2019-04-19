@@ -193,7 +193,7 @@ class HomeNav extends Component {
 
   _renderItem(item) {
 
-console.log("kkkkkkkk", this.props.navigation)
+
 
     return (
       <ListItem 

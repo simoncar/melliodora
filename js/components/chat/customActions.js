@@ -24,10 +24,13 @@ export default class CustomActions extends React.Component {
   }
 
   setImages(images) {
+    //console.log ('setImages = ', images.uri);
     this._images = images;
+    //uploadUrl = await uploadImageAsync(images.uri);
   }
 
   getImages() {
+    console.log ('getImages = ');
     return this._images;
   }
 
@@ -36,7 +39,7 @@ export default class CustomActions extends React.Component {
   }
 
   onActionsPress() {
-    const options = ['Notify Office', 'Notify Security' , 'Notify Catering', 'Notify Transport', 'Choose From Library', 'Send Location', 'Cancel'];
+    const options = ['Choose From Library', 'Send Location', 'Cancel'];
     const cancelButtonIndex = options.length - 1;
     this.context.actionSheet().showActionSheetWithOptions({
       options,
@@ -66,7 +69,13 @@ export default class CustomActions extends React.Component {
     });
   }
 
+
   selectImages(images) {
+
+    // dont use as it fires after every image is selected
+    console.log ('images = ', images);
+
+
     this.setImages(images);
   }
 
@@ -98,12 +107,20 @@ export default class CustomActions extends React.Component {
           this.setModalVisible(false);
 
           const images = this.getImages().map((image) => {
+            
+            // fires for every individual image
+
+            console.log ("simon image here2 ", image.uri)
             return {
               image: image.uri,
             };
           });
+
+          console.log ("simon image here", images)
+       
+
           this.props.onSend(images);
-          this.setImages([]);
+          //this.handleAddPicture();
         }}>
           <NavButtonText style={{
             color: '#000',
