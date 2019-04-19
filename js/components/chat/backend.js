@@ -47,7 +47,7 @@ export class Backend extends React.Component {
             name: message.user.name,
             avatar: message.user.avatar,
           },
-          image: "https://saispta.com/wp-content/uploads/2019/04/image-1.png",
+          image: message.image,
           messageType:"image",
           // location: {
           //  latitude: 48.864601,
@@ -64,7 +64,7 @@ export class Backend extends React.Component {
             _id: message.user._id,
             name: message.user.name,
           },
-          image: "https://saispta.com/wp-content/uploads/2019/04/image-1.png",
+          image: message.image,
           messageType:"image",
           // location: {
           //  latitude: 48.864601,
@@ -100,24 +100,8 @@ console.log ("backend message = ", message)
       if (message[i].image.length > 0 ) {
         //we have an image
 
-        uploadUrl = uploadImageAsync(message[i].image);
+        uploadUrl = uploadImageAsync(message[i].image, this.state.chatroom, message[i].user);
 
-console.log ('upload image url = ', uploadUrl)
-
-        this.messageRef.push({
-          image: uploadUrl,
-          chatroom: this.state.chatroom,
-          user: message[i].user,
-          createdAt: this.timestamp,
-          date: new Date().getTime(),
-          system: false,
-          pushToken: global.pushToken,
-
-          // location: {
-          //  latitude: 48.864601,
-          //  longitude: 2.398704
-          // },
-        });
       } else {
         this.messageRef.push({
           text: `${message[i].text}`,
@@ -163,13 +147,13 @@ console.log ('upload image url = ', uploadUrl)
       this.messageRef.off();
     }
   }
-
 }
 
-
-async function uploadImageAsync(uri) {
+async function uploadImageAsync(uri, chatroom, user) {
   // Why are we using XMLHttpRequest? See:
   // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+
+  var URLfile
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -189,7 +173,6 @@ async function uploadImageAsync(uri) {
     .ref('chatimage')
     .child(uuid.v4());
 
-
     const snapshot = await ref.put(blob)
    .then(snapshot => {
        return snapshot.ref.getDownloadURL();   // Will return a promise with the download link
@@ -197,6 +180,7 @@ async function uploadImageAsync(uri) {
 
    .then(downloadURL => {
       console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
+      URLfile = downloadURL
       return downloadURL;
    })
 
@@ -205,11 +189,27 @@ async function uploadImageAsync(uri) {
       console.log(`Failed to upload file and get link - ${error}`);
    });
 
-
   // We're done with the blob, close and release it
   blob.close();
 
-  return await snapshot.ref.getDownloadURL();
+  this.messageRef = firebase.database().ref(`instance/${ instID  }/chat/chatroom/${ chatroom }/messages`);
+  this.messageRef.push({
+    image: URLfile,
+    chatroom: chatroom,
+    user: user,
+    createdAt: firebase.database.ServerValue.TIMESTAMP,
+    date: new Date().getTime(),
+    system: false,
+    pushToken: global.pushToken,
+
+    // location: {
+    //  latitude: 48.864601,
+    //  longitude: 2.398704
+    // },
+  });
+
+
+  return await uploadUrl;
 }
 
 export default new Backend();
