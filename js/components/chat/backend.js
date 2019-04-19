@@ -97,7 +97,8 @@ console.log ("backend message = ", message)
     this.messageRef = firebase.database().ref(`instance/${ instID  }/chat/chatroom/${ this.state.chatroom }/messages`);
 
     for (let i = 0; i < message.length; i++) {
-      if (message[i].image.length > 0 ) {
+      
+      if (undefined != message[i].image &&  message[i].image.length > 0 ) {
         //we have an image
 
         uploadUrl = uploadImageAsync(message[i].image, this.state.chatroom, message[i].user);
@@ -154,6 +155,7 @@ async function uploadImageAsync(uri, chatroom, user) {
   // https://github.com/expo/expo/issues/2402#issuecomment-443726662
 
   var URLfile
+  var d = new Date
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -170,7 +172,7 @@ async function uploadImageAsync(uri, chatroom, user) {
 
   const ref = firebase
     .storage()
-    .ref('chatimage')
+    .ref('chatimage/' + chatroom + '/' + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2) )
     .child(uuid.v4());
 
     const snapshot = await ref.put(blob)
