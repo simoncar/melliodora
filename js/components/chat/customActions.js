@@ -116,9 +116,7 @@ export default class CustomActions extends React.Component {
             };
           });
 
-          console.log ("simon image here", images)
-       
-
+          
           this.props.onSend(images);
           //this.handleAddPicture();
         }}>
@@ -166,9 +164,10 @@ export default class CustomActions extends React.Component {
           {this.renderNavBar()}
           <CameraRollPicker
             maximum={10}
-            imagesPerRow={4}
+            imagesPerRow={3}
             callback={this.selectImages}
             selected={[]}
+            assetType="All"
           />
         </Modal>
         {this.renderIcon()}
