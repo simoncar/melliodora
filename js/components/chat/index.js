@@ -18,6 +18,7 @@ import Constants from 'expo';
 import { bindActionCreators } from 'redux';
 import CustomActions from './customActions';
 import CustomView from './customView';
+import CustomImage from './customImage';
 import styles from './styles';
 import HeaderContent from './../headerContent/header/';
 
@@ -180,6 +181,14 @@ class chat extends Component {
     renderCustomView(props) {
       return (
         <CustomView
+          {...props}
+        />
+      );
+    }
+
+    renderCustomImage(props) {
+      return (
+        <CustomImage
           {...props}
         />
       );
@@ -393,6 +402,7 @@ class chat extends Component {
                     // renderBubble={this.renderBubble}
                     // renderSystemMessage={this.renderSystemMessage}
             renderCustomView={this.renderCustomView}
+            renderMessageImage={this.renderCustomImage}
                     // renderFooter={this.renderFooter}
                     // showAvatarForEveryMessage
                     // showUserAvatar
