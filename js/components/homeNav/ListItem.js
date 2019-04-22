@@ -15,8 +15,6 @@ class ListItem extends Component {
 
   }
   
-
-  
   render() {
 
     var photoSquare = this.props.item.item.photoSquare;
@@ -56,7 +54,6 @@ class ListItem extends Component {
           })
         }>
   
-      
         <View>
           <View style={{ height: 60, backgroundColor: 'white', flexDirection: 'row' }}>
 

@@ -102,6 +102,18 @@ export default {
       color: 'black',
       alignSelf: 'center',
       fontSize: 25,
+      paddingBottom: 5,
+    },
+    chatBanner: {
+      color: 'black',
+      alignSelf: 'center',
+      fontSize: 18,
+      paddingTop: 5,
+    },
+    chat: {
+      color: 'black',
+      alignSelf: 'center',
+      fontSize: 25,
       paddingTop: 10,
       paddingBottom: 10,
     },

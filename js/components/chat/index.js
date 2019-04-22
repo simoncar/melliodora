@@ -226,7 +226,6 @@ class chat extends Component {
       );
     }
 
-
     renderBubble = (props) => {
       const username = this.props.userX.nickname;
       const color = this.getColor(username);
@@ -350,8 +349,8 @@ class chat extends Component {
             navigation={this.props.navigation} 
           />
           <View>
-          <Text style={styles.chatDescription}>{this.props.navigation.getParam('description')}</Text>
-            <Text style={styles.chatDescription}>{this.props.navigation.getParam('contact')}</Text>
+          <Text style={styles.chatBanner}>{this.props.navigation.getParam('description')}</Text>
+            <Text style={styles.chatBanner}>{this.props.navigation.getParam('contact')}</Text>
           </View>
           <TouchableOpacity onPress={this._showActionSheet}>
             <Text style={styles.chatHeading}>{this.props.navigation.getParam('chatroom')}</Text>
