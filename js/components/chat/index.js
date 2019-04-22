@@ -226,39 +226,41 @@ class chat extends Component {
       );
     }
 
-    renderBubble3(props) {
-      return (
-        <Bubble
-          {...props}
-          wrapperStyle={{
-            left: {
-              backgroundColor: '#f0f0f0',
-            },
-          }}
-        />
-      );
-    }
 
-    renderBubble2 = (props) => {
+    renderBubble = (props) => {
       const username = this.props.userX.nickname;
       const color = this.getColor(username);
 
+      myimage = props.currentMessage.image
+
+      if (props.currentMessage.image) {
       return (
 
         <Bubble
-          {...props}
-          textStyle={{
-            right: {
-              color: 'white',
-            },
-          }}
+          {...props}       
           wrapperStyle={{
             left: {
-              backgroundColor: color,
+              backgroundColor: 'white',
+            },
+            right: {
+              backgroundColor: 'white',
             },
           }}
         />
-      );
+
+      ) } else {
+        return (
+
+          <Bubble
+            {...props}
+            textStyle={{
+              right: {
+                color: 'white',
+              },
+            }}
+          />
+        ) 
+      }
     }
 
     get user() {
@@ -297,36 +299,6 @@ class chat extends Component {
         },
       ];
     }
-
-    /** render the chat bubble */
-    renderBubble(props) {
-      return (
-        <Bubble
-          {...props}
-          wrapperStyle={{
-            left: {
-              backgroundColor: 'pink',
-            },
-            right: {
-              backgroundColor: 'blue',
-            },
-          }}
-          textStyle={{
-            right: {
-              color: 'white',
-              // fontFamily: 'Montserrat-Light',
-              fontSize: 14,
-            },
-            left: {
-              color: 'black',
-              // fontFamily: 'Montserrat-Light',
-              fontSize: 14,
-            },
-          }}
-        />
-      );
-    }
-
 
     renderTime() {
       return (
@@ -399,7 +371,6 @@ class chat extends Component {
               }}
 
            renderActions={this.renderCustomActions}
-                    // renderBubble={this.renderBubble}
                     // renderSystemMessage={this.renderSystemMessage}
             renderCustomView={this.renderCustomView}
             renderMessageImage={this.renderCustomImage}
@@ -409,7 +380,7 @@ class chat extends Component {
                     // parsePatterns={this.parsePatterns}
                     // renderMessage={this.renderBubble}
 
-                    // renderBubble={this.renderBubble.bind(this)}
+            renderBubble={this.renderBubble}
                     // renderAvatar={this.renderAvatar.bind(this)}
                     // renderTime={this.renderTime.bind(this)}
             showUserAvatar
