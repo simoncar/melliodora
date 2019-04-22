@@ -193,8 +193,6 @@ class HomeNav extends Component {
 
   _renderItem(item) {
 
-
-
     return (
       <ListItem 
         navigation={this.props.navigation} 

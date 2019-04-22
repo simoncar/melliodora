@@ -1,7 +1,9 @@
 import React from 'react';
 import * as firebase from 'firebase';
-import { Constants } from 'expo';
+import { Constants, FileSystem, ImageManipulator } from 'expo';
 import uuid from 'uuid';
+import AssetUtils from 'expo-asset-utils'; 
+import shortid from 'shortid';
 
 let instID = Constants.manifest.extra.instance;
 
@@ -156,6 +158,43 @@ async function uploadImageAsync(uri, chatroom, user) {
 
   var URLfile
   var d = new Date
+
+  console.log (uri)
+  console.log ('-------')
+
+  // Clear the working folder.
+  const convertedImagesFolder = `${FileSystem.cacheDirectory}image_conversions`;
+  const { exists } = await FileSystem.getInfoAsync(convertedImagesFolder);
+  if (exists) await FileSystem.deleteAsync(convertedImagesFolder);
+
+    // Now recreate it.
+    try {
+      await FileSystem.makeDirectoryAsync(convertedImagesFolder, { intermediates: true });
+    } catch (error) {
+      // Swallow. Android errors if directory exists.
+    }
+    // Now we have an empty working folder.
+    const destinationUri = `${convertedImagesFolder}/${shortid.generate()}.jpg`;
+
+    console.log ('destinationUri=',destinationUri)
+    await FileSystem.copyAsync({
+      from: uri,
+      to: destinationUri,
+    });
+
+    console.log ('file copied=',destinationUri)
+
+    // file is not a real jpeg yet.  Use ImageManipulator to convert to jpeg.
+    const convertedImage = await ImageManipulator.manipulateAsync(destinationUri,  
+      [{ rotate: 90}]);
+
+    console.log('convertedImage=', convertedImage)
+
+  
+// localUri now contains the converted URI to a 'file://' URI
+console.log (convertedImage)
+console.log ('bbbbb22222' )
+
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -166,7 +205,7 @@ async function uploadImageAsync(uri, chatroom, user) {
       reject(new TypeError('Network request failed'));
     };
     xhr.responseType = 'blob';
-    xhr.open('GET', uri, true);
+    xhr.open('GET', convertedImage, true);
     xhr.send(null);
   });
 

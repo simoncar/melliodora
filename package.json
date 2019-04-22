@@ -36,6 +36,7 @@
     "color": "^3.1.0",
     "emoji-utils": "^1.0.1",
     "expo": "^32.0.0",
+    "expo-asset-utils": "^1.1.0",
     "firebase": "^5.8.5",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
@@ -77,6 +78,7 @@
     "remote-redux-devtools": "^0.5.16",
     "remote-redux-devtools-on-debugger": "^0.8.3",
     "sentry-expo": "~1.11.2",
+    "shortid": "^2.2.14",
     "tcomb-form-native": "^0.6.20"
   },
   "detox": {

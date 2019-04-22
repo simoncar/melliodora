@@ -145,7 +145,6 @@ class chat extends Component {
     }
 
     onSend(messages = []) {
-      console.log ("backend messages = ", messages)
       Backend.SendMessage(messages);
     }
 
@@ -273,8 +272,8 @@ class chat extends Component {
 
     getColor(username) {
       let sumChars = 0;
-      for (let i = 0; i < username.length; i++) {
-        sumChars += username.charCodeAt(i);
+      for (let i = 0; i < 10; i++) {
+        sumChars += 5;
       }
 
       const colors = [
@@ -377,7 +376,6 @@ class chat extends Component {
                     // showAvatarForEveryMessage
                     // showUserAvatar
                     // parsePatterns={this.parsePatterns}
-                    // renderMessage={this.renderBubble}
 
             renderBubble={this.renderBubble}
                     // renderAvatar={this.renderAvatar.bind(this)}

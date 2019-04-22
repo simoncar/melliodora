@@ -26,6 +26,7 @@ export default class CustomImage extends React.Component {
     if (this.props.currentMessage.image) {
       return (
         <View>
+
           <Image
             style={{ width, height: 200 }}
             {...{ preview, uri }}
