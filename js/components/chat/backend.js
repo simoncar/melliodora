@@ -88,7 +88,7 @@ export class Backend extends React.Component {
 
   SendMessage(message) {
 
-console.log ("backend message = ", message)
+  console.log ("backend message = ", message)
 
     if (undefined === global.pushToken) {
       global.pushToken = '';

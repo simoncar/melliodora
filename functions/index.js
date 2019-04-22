@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 admin.initializeApp(functions.config().firebase);
 
 // https://firebase.google.com/docs/functions/get-started
-// firebase deploy
+// firebase deploy (from root)
 // send the push notification
 
 exports.sendPushNotificationSimonAll = functions.database.ref('instance/0001-sais_edu_sg/chat/chatroom/{chatroomID}/messages/{newMessageID}').onCreate((snap, context) => {

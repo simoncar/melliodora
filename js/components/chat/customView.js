@@ -5,7 +5,8 @@ import {
   Platform,
   StyleSheet,
   TouchableOpacity,
-  ViewPropTypes,
+  ViewPropTypes, 
+  Text
 } from 'react-native';
 import { MapView } from 'expo';
 
@@ -40,7 +41,7 @@ export default class CustomView extends React.Component {
           />
         </TouchableOpacity>
       );
-    }
+    } else 
     return null;
   }
 }
