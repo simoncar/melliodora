@@ -57,12 +57,12 @@ class HomeNav extends Component {
 
   static navigationOptions = {
     title: 'Home',
-    tabBarColor: '#2962ff',
+    tabBarColor: '#111B4E',
     tabBarIcon: tabBarIcon('home'),
   };
 
   componentDidMount() {
-    this.listenLoadFromFirebase(this.calendarEvents);
+    //this.listenLoadFromFirebase(this.calendarEvents);
   }
 
   _handleOpenWithLinking = (sURL) => {
@@ -79,7 +79,6 @@ class HomeNav extends Component {
 
     for (var key in dataSnapshot) {
       const snapshot = dataSnapshot[key];
-      console.log('LOADED: ', snapshot.summary);
       strtime = snapshot.date_start;
 
       const displayStart = (snapshot.displayStart !== undefined) ? moment().format(snapshot.displayStart) : null;
@@ -113,6 +112,8 @@ class HomeNav extends Component {
           displayStart: snapshot.displayStart,
           displayEnd: snapshot.displayEnd,
           hidden: false,
+          _key: key,
+          key: key,
         });
       }
     }
@@ -160,6 +161,7 @@ class HomeNav extends Component {
             hidden: false,
             adminPassword: this.props.adminPassword,
             _key: child.key,
+            key: child.key,
           });
         } else {
           this.state.featureItemsHidden.push({
@@ -181,6 +183,7 @@ class HomeNav extends Component {
             hidden: true,
             adminPassword: this.props.adminPassword,
             _key: child.key,
+            key: child.key,
           });
         }
       });
