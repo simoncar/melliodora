@@ -1,21 +1,21 @@
-import React from 'react';
-import * as firebase from 'firebase';
-import { Constants, FileSystem, ImageManipulator } from 'expo';
-import uuid from 'uuid';
-import AssetUtils from 'expo-asset-utils'; 
-import shortid from 'shortid';
+import React from "react";
+import * as firebase from "firebase";
+import { Constants, FileSystem, ImageManipulator } from "expo";
+import uuid from "uuid";
+import AssetUtils from "expo-asset-utils";
+import shortid from "shortid";
 
 let instID = Constants.manifest.extra.instance;
 
 export class Backend extends React.Component {
-  uid = '';
+  uid = "";
 
   messagesRef = null;
 
   constructor(props) {
     super();
     this.state = {
-      chatroom: '',
+      chatroom: ""
     };
   }
 
@@ -28,17 +28,23 @@ export class Backend extends React.Component {
   }
 
   setChatroom(chatroom) {
-    console.log(`chatroom=${  chatroom}`);
+    console.log(`chatroom=${chatroom}`);
     this.state.chatroom = chatroom.trim();
   }
 
   // retrive msg from backend
   loadMessages(callback) {
-    this.messageRef = firebase.database().ref(`instance/${  instID  }/chat/chatroom/${  this.state.chatroom  }/messages`);
+    this.messageRef = firebase
+      .database()
+      .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`);
     this.messageRef.off();
-    const onReceive = (data) => {
+    const onReceive = data => {
       const message = data.val();
-      if (undefined !== message.user.avatar && message.user.avatar !== null && message.user.avatar.length > 0) {
+      if (
+        undefined !== message.user.avatar &&
+        message.user.avatar !== null &&
+        message.user.avatar.length > 0
+      ) {
         callback({
           _id: data.key,
           text: message.text,
@@ -47,10 +53,10 @@ export class Backend extends React.Component {
           user: {
             _id: message.user._id,
             name: message.user.name,
-            avatar: message.user.avatar,
+            avatar: message.user.avatar
           },
           image: message.image,
-          messageType:"image",
+          messageType: "image"
           // location: {
           //  latitude: 48.864601,
           //  longitude: 2.398704
@@ -64,10 +70,10 @@ export class Backend extends React.Component {
           chatroom: this.state.chatroom,
           user: {
             _id: message.user._id,
-            name: message.user.name,
+            name: message.user.name
           },
           image: message.image,
-          messageType:"image",
+          messageType: "image"
           // location: {
           //  latitude: 48.864601,
           //  longitude: 2.398704
@@ -75,7 +81,7 @@ export class Backend extends React.Component {
         });
       }
     };
-    this.messageRef.limitToLast(50).on('child_added', onReceive);
+    this.messageRef.limitToLast(50).on("child_added", onReceive);
   }
 
   // 1.
@@ -89,22 +95,25 @@ export class Backend extends React.Component {
   }
 
   SendMessage(message) {
-
-  console.log ("backend message = ", message)
+    console.log("backend message = ", message);
 
     if (undefined === global.pushToken) {
-      global.pushToken = '';
+      global.pushToken = "";
     }
 
-    this.messageRef = firebase.database().ref(`instance/${ instID  }/chat/chatroom/${ this.state.chatroom }/messages`);
+    this.messageRef = firebase
+      .database()
+      .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`);
 
     for (let i = 0; i < message.length; i++) {
-      
-      if (undefined != message[i].image &&  message[i].image.length > 0 ) {
+      if (undefined != message[i].image && message[i].image.length > 0) {
         //we have an image
 
-        uploadUrl = uploadImageAsync(message[i].image, this.state.chatroom, message[i].user);
-
+        uploadUrl = uploadImageAsync(
+          message[i].image,
+          this.state.chatroom,
+          message[i].user
+        );
       } else {
         this.messageRef.push({
           text: `${message[i].text}`,
@@ -113,7 +122,7 @@ export class Backend extends React.Component {
           createdAt: this.timestamp,
           date: new Date().getTime(),
           system: false,
-          pushToken: global.pushToken,
+          pushToken: global.pushToken
 
           // location: {
           //  latitude: 48.864601,
@@ -123,24 +132,36 @@ export class Backend extends React.Component {
       }
     }
     if (global.pushToken.length > 0) {
-      this.messageRef = firebase.database().ref(`instance/${ instID }/chat/chatroom/${ this.state.chatroom }/notifications/${ global.safeToken }`);
+      this.messageRef = firebase
+        .database()
+        .ref(
+          `instance/${instID}/chat/chatroom/${
+            this.state.chatroom
+          }/notifications/${global.safeToken}`
+        );
       this.messageRef.update({
         //mute: false,
-        pushToken: global.pushToken,
+        pushToken: global.pushToken
       });
     }
   }
 
   setMute(muteState) {
     if (undefined === global.pushToken) {
-      global.pushToken = '';
+      global.pushToken = "";
     }
 
     if (global.pushToken.length > 0) {
-      this.messageRef = firebase.database().ref(`instance/${ instID }/chat/chatroom/${ this.state.chatroom }/notifications/${ global.safeToken }`);
+      this.messageRef = firebase
+        .database()
+        .ref(
+          `instance/${instID}/chat/chatroom/${
+            this.state.chatroom
+          }/notifications/${global.safeToken}`
+        );
       this.messageRef.update({
         mute: muteState,
-        pushToken: global.pushToken,
+        pushToken: global.pushToken
       });
     }
   }
@@ -156,44 +177,14 @@ async function uploadImageAsync(uri, chatroom, user) {
   // Why are we using XMLHttpRequest? See:
   // https://github.com/expo/expo/issues/2402#issuecomment-443726662
 
-  var URLfile
-  var d = new Date
+  var URLfile;
+  var d = new Date();
 
-  console.log (uri)
-  console.log ('-------')
-
-  // Clear the working folder.
-  const convertedImagesFolder = `${FileSystem.cacheDirectory}image_conversions`;
-  const { exists } = await FileSystem.getInfoAsync(convertedImagesFolder);
-  if (exists) await FileSystem.deleteAsync(convertedImagesFolder);
-
-    // Now recreate it.
-    try {
-      await FileSystem.makeDirectoryAsync(convertedImagesFolder, { intermediates: true });
-    } catch (error) {
-      // Swallow. Android errors if directory exists.
-    }
-    // Now we have an empty working folder.
-    const destinationUri = `${convertedImagesFolder}/${shortid.generate()}.jpg`;
-
-    console.log ('destinationUri=',destinationUri)
-    await FileSystem.copyAsync({
-      from: uri,
-      to: destinationUri,
-    });
-
-    console.log ('file copied=',destinationUri)
-
-    // file is not a real jpeg yet.  Use ImageManipulator to convert to jpeg.
-    const convertedImage = await ImageManipulator.manipulateAsync(destinationUri,  
-      [{ rotate: 90}]);
-
-    console.log('convertedImage=', convertedImage)
-
-  
-// localUri now contains the converted URI to a 'file://' URI
-console.log (convertedImage)
-console.log ('bbbbb22222' )
+  const convertedImage = await new ImageManipulator.manipulateAsync(
+    uri,
+    [{ resize: { height: 1000 } }],
+    { compress: 0 }
+  );
 
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -202,38 +193,49 @@ console.log ('bbbbb22222' )
     };
     xhr.onerror = function(e) {
       console.log(e);
-      reject(new TypeError('Network request failed'));
+      reject(new TypeError("Network request failed"));
     };
-    xhr.responseType = 'blob';
-    xhr.open('GET', convertedImage, true);
+    xhr.responseType = "blob";
+    xhr.open("GET", convertedImage.uri, true);
     xhr.send(null);
   });
 
   const ref = firebase
     .storage()
-    .ref('chatimage/' + chatroom + '/' + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2) )
+    .ref(
+      "chatimage/" +
+        chatroom +
+        "/" +
+        d.getUTCFullYear() +
+        ("0" + (d.getMonth() + 1)).slice(-2)
+    )
     .child(uuid.v4());
 
-    const snapshot = await ref.put(blob)
-   .then(snapshot => {
-       return snapshot.ref.getDownloadURL();   // Will return a promise with the download link
-   })
+  const snapshot = await ref
+    .put(blob)
+    .then(snapshot => {
+      return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
+    })
 
-   .then(downloadURL => {
-      console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
-      URLfile = downloadURL
+    .then(downloadURL => {
+      console.log(
+        `Successfully uploaded file and got download link - ${downloadURL}`
+      );
+      URLfile = downloadURL;
       return downloadURL;
-   })
+    })
 
-   .catch(error => {
+    .catch(error => {
       // Use to signal error if something goes wrong.
       console.log(`Failed to upload file and get link - ${error}`);
-   });
+    });
 
   // We're done with the blob, close and release it
   blob.close();
 
-  this.messageRef = firebase.database().ref(`instance/${ instID  }/chat/chatroom/${ chatroom }/messages`);
+  this.messageRef = firebase
+    .database()
+    .ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
   this.messageRef.push({
     image: URLfile,
     chatroom: chatroom,
@@ -241,14 +243,13 @@ console.log ('bbbbb22222' )
     createdAt: firebase.database.ServerValue.TIMESTAMP,
     date: new Date().getTime(),
     system: false,
-    pushToken: global.pushToken,
+    pushToken: global.pushToken
 
     // location: {
     //  latitude: 48.864601,
     //  longitude: 2.398704
     // },
   });
-
 
   return await uploadUrl;
 }

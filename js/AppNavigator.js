@@ -14,8 +14,6 @@ import {
 
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
-
-
 import Login from './components/login/';
 import Home from './components/home/';
 import phoneCalendar from './components/home/calendars';
@@ -49,9 +47,6 @@ const tabBarIcon = name => ({ tintColor }) => (
   />
 );
 
-
-
-
 let Tabs = createMaterialBottomTabNavigator({ 
   homeNav: { screen: HomeNav },
   home: { screen: Home },
@@ -60,9 +55,7 @@ let Tabs = createMaterialBottomTabNavigator({
   webportalSports: { screen: WebportalSports },
 }, {
   shifting: true,
-
 });
-
 
 const MainScreenNavigator = createStackNavigator({
   
