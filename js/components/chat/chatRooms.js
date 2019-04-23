@@ -47,7 +47,6 @@ class chatRooms extends Component {
 
     this.chatRoomsFirebase = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
     
-
     // analytics  -----
     const trackingOpts = {
       instId: Constants.manifest.extra.instance,
@@ -59,8 +58,6 @@ class chatRooms extends Component {
     // analytics --------
   }
 
-      
-
   static navigationOptions = {
     title: "Chat",
     tabBarColor: "green",
@@ -68,17 +65,15 @@ class chatRooms extends Component {
   };
    
 
-
   componentDidMount() {
 
     this.state.userChatrooms = [];
-  
       this.chatRoomsFirebase.on('value', (dataSnapshot) => {
-  
         dataSnapshot.forEach((child) => {
           console.log("-----",child.key)
           this.state.userChatrooms.push({
-            title: child.chatroom
+            title: child.chatroom,
+            _key: child.key,
           })
         });
       });
@@ -146,7 +141,6 @@ console.log("ffffffffff", this.props.navigation)
 }
 
 const mapDispatchToProps = (dispatch) => {
-
   return bindActionCreators(ActionCreators, dispatch);
 };
 
