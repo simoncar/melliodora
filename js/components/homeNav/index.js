@@ -62,7 +62,7 @@ class HomeNav extends Component {
   };
 
   componentDidMount() {
-    //this.listenLoadFromFirebase(this.calendarEvents);
+    this.listenLoadFromFirebase(this.calendarEvents);
   }
 
   _handleOpenWithLinking = (sURL) => {

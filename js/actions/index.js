@@ -89,6 +89,15 @@ export function setFeatureItems(featureItems) {
   };
 }
 
+export function setUserChatrooms(userChatrooms) {
+
+  return {
+    type: "SET_USER_CHATROOMS",
+    payload: userChatrooms,
+  };
+}
+
+
 export function setSwitches(items) {
 
     return {
