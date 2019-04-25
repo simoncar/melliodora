@@ -39,7 +39,8 @@ export default class CustomImage extends React.Component {
     const images = [
       {
         // Simplest usage.
-        url: uri
+        url: uri,
+        saveToLocalByLongPress: true
       }
     ];
 
@@ -62,7 +63,7 @@ export default class CustomImage extends React.Component {
             }}
           >
 
-              <Text  style={{ paddingLeft:10, paddingTop: 50 }} >Close</Text>
+              <Text  style={{ fontSize: 20, paddingLeft:10, paddingTop: 50, paddingBottom:5 }} > Close </Text>
               </TouchableOpacity>
 
               <ImageViewer imageUrls={images} />
