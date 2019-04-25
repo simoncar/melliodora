@@ -357,6 +357,7 @@ class chat extends Component {
           </TouchableOpacity>
 
           <GiftedChat
+
             messages={this.state.messages}
             onSend={this.onSend}
                     // loadEarlier={this.state.loadEarlier}

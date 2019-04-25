@@ -8,30 +8,65 @@ import {
   ViewPropTypes,
   Text,
   View,
-  Dimensions
+  Dimensions,
+  Modal
 } from "react-native";
 import { Image } from "react-native-expo-image-cache";
+import ImageViewer from "react-native-image-zoom-viewer";
 
-
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 export default class CustomImage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible: false
+    };
+  }
+
+  setModalVisible(visible = false) {
+    this.setState({ modalVisible: visible });
+  }
+
   render() {
+    console.log(this.props);
+
     const preview = {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
     const uri = this.props.currentMessage.image;
-
+    const images = [{
+      // Simplest usage.
+      url: uri
+    }]
+  
     if (this.props.currentMessage.image) {
       return (
         <View>
+          <TouchableOpacity
+            onPress={() => {
+              this.setModalVisible(!this.state.modalVisible);
+            }}
+          >
+            <Modal
+              animationType={"slide"}
+              transparent={false}
+              visible={this.state.modalVisible}
+            >
+  <Text></Text>
+  <ImageViewer imageUrls={images}/>
 
-          <Image
-            style={{ width, height: 200 }}
-            {...{ preview, uri }}
-            resizeMode={"contain"}
-          />
+            </Modal>
+
+            <Image
+              style={{ width, height: 200 }}
+              {...{ preview, uri }}
+              resizeMode={"contain"}
+            />
+
+            <Text>AAA</Text>
+          </TouchableOpacity>
         </View>
       );
     } else return null;
