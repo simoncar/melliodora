@@ -24,7 +24,7 @@ export default class CustomImage extends React.Component {
     };
   }
 
-  setModalVisible(visible = false) {
+  setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
 
@@ -36,11 +36,13 @@ export default class CustomImage extends React.Component {
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
     const uri = this.props.currentMessage.image;
-    const images = [{
-      // Simplest usage.
-      url: uri
-    }]
-  
+    const images = [
+      {
+        // Simplest usage.
+        url: uri
+      }
+    ];
+
     if (this.props.currentMessage.image) {
       return (
         <View>
@@ -50,13 +52,20 @@ export default class CustomImage extends React.Component {
             }}
           >
             <Modal
-              animationType={"slide"}
               transparent={false}
               visible={this.state.modalVisible}
-            >
-  <Text></Text>
-  <ImageViewer imageUrls={images}/>
+              onRequestClose={() => this.setModalVisible(false)}>
+            
+            <TouchableOpacity
+            onPress={() => {
+              this.setModalVisible(!this.state.modalVisible);
+            }}
+          >
 
+              <Text  style={{ paddingLeft:10, paddingTop: 50 }} >Close</Text>
+              </TouchableOpacity>
+
+              <ImageViewer imageUrls={images} />
             </Modal>
 
             <Image
@@ -64,8 +73,6 @@ export default class CustomImage extends React.Component {
               {...{ preview, uri }}
               resizeMode={"contain"}
             />
-
-            <Text>AAA</Text>
           </TouchableOpacity>
         </View>
       );
