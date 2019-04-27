@@ -39,7 +39,7 @@ class chatRooms extends Component {
     // this.chatRoomsFirebase = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
 
     this.chatRoomsFirebase = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
-    
+    console.log ("pppp-", global.safeToken)
     // analytics  -----
     const trackingOpts = {
       instId: Constants.manifest.extra.instance,

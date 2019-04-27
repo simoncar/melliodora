@@ -179,12 +179,19 @@ async function uploadImageAsync(uri, chatroom, user) {
 
   var URLfile;
   var d = new Date();
+  const fileType = uri.split('.').pop().split(/\#|\?/)[0];
+  var fileToUpload = "";
 
-  const convertedImage = await new ImageManipulator.manipulateAsync(
-    uri,
-    [{ resize: { height: 1000 } }],
-    { compress: 0 }
-  );
+  if (fileType == 'JPG') {
+    const convertedImage = await new ImageManipulator.manipulateAsync(
+      uri,
+      [{ resize: { height: 1000 } }],
+      { compress: 0 }
+    );
+    fileToUpload = convertedImage.uri
+  } else {
+    fileToUpload = uri
+  }
 
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -196,7 +203,7 @@ async function uploadImageAsync(uri, chatroom, user) {
       reject(new TypeError("Network request failed"));
     };
     xhr.responseType = "blob";
-    xhr.open("GET", convertedImage.uri, true);
+    xhr.open("GET", fileToUpload, true);
     xhr.send(null);
   });
 

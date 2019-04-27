@@ -68,21 +68,21 @@ function userReducer(state: State = initialState, action: Action): State {
     };
   }
   if (action.type === 'SET_NICKNAME_DETAILS') {
-    console.log('user reducer - SET_NICKNAME_DETAILS');
+ 
   return {
     ...state,
     nickname: action.payload,
   };
   }
   if (action.type === 'SET_PUSH_TOKEN') {
-    console.log('user reducer - SET_PUSH_TOKEN');
+
   return {
     ...state,
     pushToken: action.payload,
   };
   }
   if (action.type === 'SET_ADMINPASSWORD_DETAILS') {
-    console.log('user reducer - SET_ADMINPASSWORD_DETAILS');
+
   return {
     ...state,
     adminPassword: action.payload,
@@ -90,21 +90,21 @@ function userReducer(state: State = initialState, action: Action): State {
   }
 
   if (action.type === 'SET_PASSWORD') {
-      console.log('user reducer - SET_PASSWORD');
+ 
     return {
       ...state,
       password: action.payload,
     };
   }
   if (action.type === 'SET_AUTH_DEVICE_ID') {
-      console.log('reducer - SET_AUTH_DEVICE_ID');
+   
     return {
       ...state,
       ffauth_device_id: action.payload,
     };
   }
   if (action.type === 'SET_AUTH_SECRET') {
-      console.log('reducer - SET_AUTH_SECRET');
+   
     return {
       ...state,
       ffauth_secret: action.payload,
@@ -112,7 +112,7 @@ function userReducer(state: State = initialState, action: Action): State {
   }
 
   if (action.type === 'SET_CALENDAR_ITEMS') {
-      console.log('user reducer - SET_CALENDAR_ITEMS');
+
     return {
       ...state,
       items: action.payload,
@@ -120,7 +120,7 @@ function userReducer(state: State = initialState, action: Action): State {
   }
 
   if (action.type === 'SET_FEATURE_ITEMS') {
-    console.log('user reducer - SET_FEATURE_ITEMS');
+
   return {
     ...state,
     featureItems: action.payload,
@@ -128,7 +128,7 @@ function userReducer(state: State = initialState, action: Action): State {
 }
 
   if (action.type === 'SET_SWITCHES') {
-    console.log('user reducer - SET_SWITCHES');
+
   return {
     ...state,
     items: action.payload,

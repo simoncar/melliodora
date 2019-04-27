@@ -129,14 +129,12 @@ class WebportalSports extends Component {
 
               <TextInput
                 ref='pageURL'
-                selectTextOnFocus
                 //placeholder= {this.state.url}
                 value={this.state.url}
                 //  onChangeText={(user) => this.props.setUsername(user)}
                 placeholderTextColor="#FFF"
                 style={styles.input}
                 autoCapitalize="none"
-                autoFocus={true}
                 //  keyboardType="email-address"
                 selectionColor="#FFF"
                 enablesReturnKeyAutomatically
