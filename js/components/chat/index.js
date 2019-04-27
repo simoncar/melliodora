@@ -19,6 +19,7 @@ import { bindActionCreators } from 'redux';
 import CustomActions from './customActions';
 import CustomView from './customView';
 import CustomImage from './customImage';
+import CustomVideo from './customVideo';
 import styles from './styles';
 import HeaderContent from './../headerContent/header/';
 
@@ -120,8 +121,7 @@ class chat extends Component {
   }
 
     avatarPress = (props) => {
-      console.log(props._id);
-      console.log(props.name);
+
 
       Alert.alert(
         props.name,
@@ -188,6 +188,15 @@ class chat extends Component {
     renderCustomImage(props) {
       return (
         <CustomImage
+          {...props}
+        />
+      );
+    }
+
+    renderCustomVideo(props) {
+      console.log ("video");
+      return (
+        <CustomVideo
           {...props}
         />
       );
@@ -377,7 +386,7 @@ class chat extends Component {
                     // showAvatarForEveryMessage
                     // showUserAvatar
                     // parsePatterns={this.parsePatterns}
-
+            renderMessageVideo={this.renderCustomVideo}
             renderBubble={this.renderBubble}
                     // renderAvatar={this.renderAvatar.bind(this)}
                     // renderTime={this.renderTime.bind(this)}

@@ -73,6 +73,7 @@ export class Backend extends React.Component {
             name: message.user.name
           },
           image: message.image,
+          video: message.video,
           messageType: "image"
           // location: {
           //  latitude: 48.864601,
@@ -95,7 +96,7 @@ export class Backend extends React.Component {
   }
 
   SendMessage(message) {
-    console.log("backend message = ", message);
+  
 
     if (undefined === global.pushToken) {
       global.pushToken = "";
@@ -199,7 +200,6 @@ async function uploadImageAsync(uri, chatroom, user) {
       resolve(xhr.response);
     };
     xhr.onerror = function(e) {
-      console.log(e);
       reject(new TypeError("Network request failed"));
     };
     xhr.responseType = "blob";
