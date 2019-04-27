@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ActionCreators from '../actions';
 
+
 let instID = Constants.manifest.extra.instance;
 
 const PUSH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwhrlEfQhiSgcsF6AM_AlaMWxU7SsEtJ-yQpvthyQTT1jui588E/exec';
@@ -23,20 +24,27 @@ async function registerForPushNotificationsAsync(user) {
   // Android remote notification permissions are granted during the app
   // install, so this will only ask on iOS
 
-  const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  let token = "DENIED";
 
-  // Stop here if the user did not grant permissions
-  if (status !== 'granted') {
-    return;
+  const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  // Get the token that uniquely identifies this device
+  if (!Constants.isDevice) {
+     token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]";    // override simulator with simon's iphone
+  } else {
+     token = await Notifications.getExpoPushTokenAsync();
   }
 
-  // Get the token that uniquely identifies this device
-  const token = await Notifications.getExpoPushTokenAsync();
-
   global.pushToken = token;
+
   let safeToken = token.replace('[', '{');
   safeToken = safeToken.replace(']', '}');
   global.safeToken = safeToken;
+
+ // Stop here if the user did not grant permissions
+ if (status !== 'granted') {
+  return;
+}
+
 
   this.storyRef = firebase.database().ref(`instance/${  instID  }/user/${  safeToken}`);
   this.storyRef.update({
