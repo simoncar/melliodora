@@ -36,11 +36,10 @@ class chatRooms extends Component {
       user: null
     };
     
-
     // this.chatRoomsFirebase = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
 
     this.chatRoomsFirebase = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
-    console.log ("pppp-", global.safeToken)
+
     // analytics  -----
     const trackingOpts = {
       instId: Constants.manifest.extra.instance,
@@ -74,7 +73,7 @@ class chatRooms extends Component {
       dataSnapshot.forEach((child) => {
         this.state.userChatrooms.push({
           title: child.key,
-          _key: child.key
+          _key: child.key,
         });
       });
 
@@ -112,6 +111,8 @@ class chatRooms extends Component {
       <ChatroomItem
         navigation={this.props.navigation}
         title={title}
+        latestText={latestText}
+        latestUser-={latestUser}
         description={description}
         contact={contact}
         url={url}
