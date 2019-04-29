@@ -10,11 +10,10 @@ import {
   View,
   Dimensions,
   Modal,
-  ImageBackground,
+  ImageBackground
 } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 import ImageViewer from "react-native-image-zoom-viewer";
-
 
 const { width } = Dimensions.get("window");
 
@@ -31,7 +30,7 @@ export default class CustomVideo extends React.Component {
   }
 
   render() {
-   console.log("customVideo");
+    console.log("customVideo");
     const preview = {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
@@ -56,30 +55,49 @@ export default class CustomVideo extends React.Component {
             <Modal
               transparent={false}
               visible={this.state.modalVisible}
-              onRequestClose={() => this.setModalVisible(false)}>
-            
-            <TouchableOpacity
-            onPress={() => {
-              this.setModalVisible(!this.state.modalVisible);
-            }}
-          >
-
-              <Text  style={{ fontSize: 20, paddingLeft:10, paddingTop: 50, paddingBottom:5 }} > Close </Text>
+              onRequestClose={() => this.setModalVisible(false)}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    paddingLeft: 10,
+                    paddingTop: 50,
+                    paddingBottom: 5
+                  }}
+                >
+                  {" "}
+                  Close{" "}
+                </Text>
               </TouchableOpacity>
 
               <ImageViewer imageUrls={images} />
             </Modal>
 
             <ImageBackground
-              style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width, height: 200 }}
+              style={{
+         
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
               {...{ preview, uri }}
               resizeMode={"contain"}
             >
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-            <Text>Play Button</Text>
-            </View>
+              <View
+                style={{
+           
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text>Play Button</Text>
+              </View>
             </ImageBackground>
-
           </TouchableOpacity>
         </View>
       );

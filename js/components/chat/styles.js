@@ -19,12 +19,12 @@ export default {
 
     },
     chatRow: {
-      
-        height: 60,
-        backgroundColor: "white",
-        flexDirection: "row",
-        marginBottom: 20,
-    },
+      height: 60,
+      backgroundColor: "white",
+      flexDirection: "row",
+      marginBottom: 20,
+
+  },
     nameText: { 
         height: 24 * 2,
         margin: 24,
@@ -34,31 +34,33 @@ export default {
         fontSize: 24,
       },
       chatTitle: { 
-    
-        fontSize: 14,
+        marginTop:7,
+        fontSize: 15,
         backgroundColor: 'white',
         color: '#000',
-        fontSize: 18,
-        fontWeight: "bold",
         marginLeft: 15,
         marginBottom: 5,
       },
       chatDescription: { 
     
-        fontSize: 14,
+        fontSize: 13,
         backgroundColor: 'white',
         color: 'grey',
         fontSize: 16,
         marginLeft: 15,
       },
+      
+      
+      
       roundedButton: {
-        
+          
         alignItems: 'center',
         borderRadius: 30,
         height: 60,
         backgroundColor: '#141b4d',
         marginLeft: 20,
         justifyContent: 'center',
+     
 
       },
   nameInput: { 
@@ -103,6 +105,14 @@ export default {
       alignSelf: 'center',
       fontSize: 25,
       paddingBottom: 5,
+      paddingRight:10,
+    },
+    chatHeadingLeft: {
+      color: '#037AFF',
+      alignSelf: 'center',
+      fontSize: 30,
+      paddingBottom: 5,
+      paddingRight:10,
     },
     chatBanner: {
       color: 'black',
@@ -138,5 +148,85 @@ export default {
   footer: {
       height: 10,
     },
-
+    searchSection: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'grey',
+      margin: 8,
+      borderRadius: 8,
+  },
+  searchIcon: {
+      padding: 10,
+      paddingRight: 0,
+  },
+  input: {
+      flex: 1,
+      padding: 5,
+      paddingLeft: 0,
+      fontSize: 16,
+      backgroundColor: 'transparent',
+  },
+  container: {
+      backgroundColor: 'white',
+      flex: 1,
+  },
+  userPhoto: {
+      width: 40,
+      height: 40,
+      marginLeft: 5,
+  },
+  friends: {
+      minHeight: 75,
+      padding: 10,
+  },
+  friendDivider: {
+      width: 30,
+      height: "100%",
+  },
+  friendItemContainer: {
+      alignItems: 'center',
+  },
+  friendPhoto: {
+      height: 60,
+      borderRadius: 30,
+      width: 60,
+  },
+  friendName: {
+      marginTop: 10,
+      alignSelf: 'center',
+  },
+  chats: {
+      flex: 1,
+      padding: 10,
+  },
+  chatItemContainer: {
+      flexDirection: 'row',
+      marginBottom: 20,
+  },
+  chatItemIcon: {
+      height: 70,
+      // borderRadius: 45,
+      width: 70,
+  },
+  chatItemContent: {
+      flex: 1,
+      alignSelf: 'center',
+      marginLeft: 10,
+  },
+  chatFriendName: {
+      color: 'blaco',
+      fontSize: 17,
+  },
+  content: {
+      flexDirection: 'row',
+  },
+  message: {
+      flex: 2,
+      color: 'black'
+  },
+  time: {
+      marginLeft: 5,
+      color: 'black'
+  }
 };
