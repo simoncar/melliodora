@@ -106,6 +106,12 @@ export class Backend extends React.Component {
       .database()
       .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`);
 
+
+      this.latestMessageRef = firebase
+      .database()
+      .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}`);
+
+
     for (let i = 0; i < message.length; i++) {
       if (undefined != message[i].image && message[i].image.length > 0) {
         //we have an image
@@ -124,11 +130,11 @@ export class Backend extends React.Component {
           date: new Date().getTime(),
           system: false,
           pushToken: global.pushToken
+        });
 
-          // location: {
-          //  latitude: 48.864601,
-          //  longitude: 2.398704
-          // },
+        this.latestMessageRef.update({
+          latestText: `${message[i].text}`,
+          latestUser: message[i].user.name,
         });
       }
     }
