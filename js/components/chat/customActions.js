@@ -53,18 +53,7 @@ export default class CustomActions extends React.Component {
           this.setModalVisible(true);
           break;
         case 1:
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              this.props.onSend({
-                location: {
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                },
-              });
-            },
-            (error) => alert(error.message),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-          );
+       
           break;
         default:
       }
