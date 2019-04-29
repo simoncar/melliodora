@@ -35,6 +35,7 @@ class chatRooms extends Component {
       userChatrooms: {},
       user: null
     };
+    
 
     // this.chatRoomsFirebase = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
 
@@ -76,6 +77,23 @@ class chatRooms extends Component {
           _key: child.key
         });
       });
+
+      this.state.userChatrooms.push({
+        title: 'PTA Volunteer Q&A',
+        _key: 'PTA Volunteer Q&A'
+      });
+      this.state.userChatrooms.push({
+        title: 'Lost and Found',
+        _key: 'Lost and Found'
+      });
+      this.state.userChatrooms.push({
+        title: 'Stamford 10 Year Gala',
+        _key: 'Stamford 10 Year Gala'
+      });
+      
+
+
+
       this.setState({
         chatRooms,
       });
@@ -125,9 +143,9 @@ class chatRooms extends Component {
   render() {
     return (
       <Container style={styles.container}>
-        <HeaderContent navigation={this.props.navigation} />
-        <Content>
-          <Text style={styles.heading}>PTA Messages </Text>
+
+        <Content style={{paddingTop: 20 }}>
+       
     
           <FlatList
             data={this.state.userChatrooms}
@@ -135,9 +153,7 @@ class chatRooms extends Component {
             keyExtractor={this.keyExtractor}
           />
 
-          {this._renderItem('PTA Volunteer Q&A','Be a part of the community')}
-          {this._renderItem('Lost and Found','Most Mon-Wed-Fri')}
-          {this._renderItem('Stamford 10 Year Gala','May 4th - Sold Out')}
+
 
 
         </Content>

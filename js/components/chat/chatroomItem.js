@@ -31,6 +31,20 @@ class ChatroomItem extends Component {
 
     return (
      
+  //     return (<TouchableOpacity onPress={() => this.onPressChat(item)}>
+  //     <View style={styles.chatItemContainer}>
+  //         <ChatIconView style={styles.chatItemIcon} participants={item.participants} />
+  //         <View style={styles.chatItemContent}>
+  //             <Text style={styles.chatFriendName}>{title}</Text>
+  //             <View style={styles.content}>
+  //                 <Text numberOfLines={1} ellipsizeMode={'middle'} style={styles.message}>{this.formatMessage(item)} · {AppStyles.utils.timeFormat(item.lastMessageDate)}</Text>
+  //             </View>
+  //         </View>
+  //     </View>
+  // </TouchableOpacity>);
+
+
+      
      <View style={styles.chatRow}>
         <TouchableOpacity  style={{ flexDirection: 'row' }}  onPress={() => {   this.props.navigation.navigate('chat',
                  { chatroom: this.props.title ,

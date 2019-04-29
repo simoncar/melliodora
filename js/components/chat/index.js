@@ -1,44 +1,48 @@
-import React, { Component } from 'react';
-import {
-  Platform, Text, View, Alert, TouchableOpacity,
-} from 'react-native';
-import { connect } from 'react-redux';
-import { ActionSheet } from 'native-base';
+import React, { Component } from "react";
+import { Platform, Text, View, Alert, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
+import { ActionSheet } from "native-base";
 
 import {
-  GiftedChat, Actions, Bubble, SystemMessage, Time,
-} from 'react-native-gifted-chat';
-import { SimpleLineIcons } from '@expo/vector-icons';
+  GiftedChat,
+  Actions,
+  Bubble,
+  SystemMessage,
+  Time,
+  Send
+} from "react-native-gifted-chat";
+import { SimpleLineIcons } from "@expo/vector-icons";
 
-import {
-  Container, Header, Footer, Button, Icon, Body,
-} from 'native-base';
-import emojiUtils from 'emoji-utils';
-import Constants from 'expo';
-import { bindActionCreators } from 'redux';
-import CustomActions from './customActions';
-import CustomView from './customView';
-import CustomImage from './customImage';
-import CustomVideo from './customVideo';
-import styles from './styles';
-import HeaderContent from './../headerContent/header/';
+import { Container, Header, Footer, Button, Icon, Body } from "native-base";
+import emojiUtils from "emoji-utils";
+import Constants from "expo";
+import { bindActionCreators } from "redux";
+import CustomActions from "./customActions";
+import CustomView from "./customView";
+import CustomImage from "./customImage";
+import CustomVideo from "./customVideo";
+import styles from "./styles";
+import HeaderContent from "./../headerContent/header/";
 
-import * as ActionCreators from '../../actions';
+import * as ActionCreators from "../../actions";
 
-import Backend from './backend';
-import SlackMessage from './slackMessage';
+import Backend from "./backend";
+import SlackMessage from "./slackMessage";
 
-const BUTTONS = ['Mute conversation', 'Unmute conversation', 'Cancel'];
+import { Entypo, MaterialIcons } from '@expo/vector-icons';
+
+const BUTTONS = ["Mute conversation", "Unmute conversation", "Cancel"];
 const CANCEL_INDEX = 2;
 
 const tabBarIcon = name => ({ tintColor }) => (
   <SimpleLineIcons
-    style={{ backgroundColor: 'transparent' }}
+    style={{ backgroundColor: "transparent" }}
     name={name}
     color={tintColor}
     size={24}
   />
 );
+
 
 class chat extends Component {
   constructor(props) {
@@ -49,7 +53,7 @@ class chat extends Component {
       typingText: null,
       isLoadingEarlier: false,
       step: 0,
-      muteState: false,
+      muteState: false
     };
 
     this._isMounted = false;
@@ -66,38 +70,56 @@ class chat extends Component {
     this._isAlright = null;
   }
 
-  static navigationOptions = {
-    title: 'Chat',
-    tabBarColor: '#5AD167',
-    tabBarIcon: tabBarIcon('bubble'),
-    headerTintColor: 'blue',
-    headerStyle: {
-      backgroundColor: 'green', 
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  };
+  //   <TouchableOpacity onPress={this._showActionSheet}>
+  //   <Text style={styles.chatHeading}>{this.props.navigation.getParam('chatroom')}</Text>
+
+  // </TouchableOpacity>
+
+
+
+  static navigationOptions = ({ navigation }) => ({
+    
+    headerLeft: (
+      <TouchableOpacity onPress={() => {navigation.goBack()}}>
+       <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
+      </TouchableOpacity>
+    ),
+    
+    headerTitle: (
+       <TouchableOpacity onPress={() => {navigation.state.params._showActionSheet()}}>
+       <Text>{navigation.getParam('chatroom')}</Text>
+      
+      </TouchableOpacity>
+    ),
+    headerRight: (
+      <TouchableOpacity onPress={() => {navigation.state.params._showActionSheet()}}>
+        <Entypo name="cog" style={styles.chatHeading} />
+      
+      </TouchableOpacity>
+    )
+  });
 
   componentWillMount() {
     if (this.props.userX.nickname) {
       // we have a value, good
-
     } else {
       this.noNickname();
-      this.props.navigation.navigate('login')
+      this.props.navigation.navigate("login");
     }
 
     this._isMounted = true;
   }
 
   componentDidMount() {
-    Backend.setChatroom(this.props.navigation.getParam('chatroom'));
+    this.props.navigation.setParams({
+      _showActionSheet: this._showActionSheet
+    });
 
-    Backend.loadMessages((message) => {
+    Backend.setChatroom(this.props.navigation.getParam("chatroom"));
+
+    Backend.loadMessages(message => {
       this.setState(previousState => ({
-        messages: GiftedChat.append(previousState.messages, message),
+        messages: GiftedChat.append(previousState.messages, message)
       }));
     });
   }
@@ -107,316 +129,300 @@ class chat extends Component {
     Backend.closeChat();
   }
 
-
   noNickname() {
     Alert.alert(
-      'Chat Name',
-      'Please enter a Name to Chat',
-      [
-
-        { text: 'OK', onPress: () => console.log('OK Pressed') },
-      ],
-      { cancelable: false },
+      "Chat Name",
+      "Please enter a Name to Chat",
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      { cancelable: false }
     );
   }
 
-    avatarPress = (props) => {
+  avatarPress = props => {
+    Alert.alert(props.name);
+  };
 
+  onLoadEarlier() {
+    this.setState(previousState => ({
+      isLoadingEarlier: true
+    }));
 
-      Alert.alert(
-        props.name,
-      );
-    };
-
-    onLoadEarlier() {
-      this.setState(previousState => ({
-        isLoadingEarlier: true,
-      }));
-
-      setTimeout(() => {
-        if (this._isMounted === true) {
-          this.setState(previousState => ({
-            messages: GiftedChat.prepend(previousState.messages, require('./old_messages.js')),
-            loadEarlier: false,
-            isLoadingEarlier: false,
-          }));
-        }
-      }, 2000); // simulating network
-    }
-
-    onSend(messages = []) {
-      Backend.SendMessage(messages);
-    }
-
-    onReceive(text) {
-
-    }
-
-    renderCustomActions(props) {
-
-        return (
-          <CustomActions
-            {...props}
-          />
-        );
+    setTimeout(() => {
+      if (this._isMounted === true) {
+        this.setState(previousState => ({
+          messages: GiftedChat.prepend(
+            previousState.messages,
+            require("./old_messages.js")
+          ),
+          loadEarlier: false,
+          isLoadingEarlier: false
+        }));
       }
- 
+    }, 2000); // simulating network
+  }
 
+  onSend(messages = []) {
+    Backend.SendMessage(messages);
+  }
 
-    renderSystemMessage(props) {
+  onReceive(text) {}
+
+  renderCustomActions(props) {
+    return <CustomActions {...props} />;
+  }
+
+  renderSystemMessage(props) {
+    return (
+      <SystemMessage
+        {...props}
+        containerStyle={{
+          marginBottom: 15
+        }}
+        textStyle={{
+          fontSize: 14
+        }}
+      />
+    );
+  }
+
+  renderCustomView(props) {
+    return <CustomView {...props} />;
+  }
+
+  renderCustomImage(props) {
+    return <CustomImage {...props} />;
+  }
+
+  renderCustomVideo(props) {
+    console.log("video");
+    return <CustomVideo {...props} />;
+  }
+
+  renderFooter(props) {
+    if (this.state.typingText) {
       return (
-        <SystemMessage
-          {...props}
-          containerStyle={{
-            marginBottom: 15,
-          }}
-          textStyle={{
-            fontSize: 14,
-          }}
-        />
+        <View style={styles.footerContainer}>
+          <Text style={styles.footerText}>{this.state.typingText}</Text>
+        </View>
       );
     }
+    return null;
+  }
 
-    renderCustomView(props) {
-      return (
-        <CustomView
-          {...props}
-        />
-      );
-    }
+  renderMessage(props) {
+    const {
+      currentMessage: { text: currText }
+    } = props;
 
-    renderCustomImage(props) {
-      return (
-        <CustomImage
-          {...props}
-        />
-      );
-    }
+    let messageTextStyle;
 
-    renderCustomVideo(props) {
-      console.log ("video");
-      return (
-        <CustomVideo
-          {...props}
-        />
-      );
-    }
-
-    renderFooter(props) {
-      if (this.state.typingText) {
-        return (
-          <View style={styles.footerContainer}>
-            <Text style={styles.footerText}>
-              {this.state.typingText}
-            </Text>
-          </View>
-        );
-      }
-      return null;
-    }
-
-    renderMessage(props) {
-      const { currentMessage: { text: currText } } = props;
-
-      let messageTextStyle;
-
-      // Make "pure emoji" messages much bigger than plain text.
-      if (currText && emojiUtils.isPureEmojiString(currText)) {
-        messageTextStyle = {
-          fontSize: 28,
-          // Emoji get clipped if lineHeight isn't increased; make it consistent across platforms.
-          lineHeight: Platform.OS === 'android' ? 34 : 30,
-        };
-      }
-
-      return (
-        <SlackMessage {...props} messageTextStyle={messageTextStyle} />
-      );
-    }
-
-    renderBubble = (props) => {
-      const username = this.props.userX.nickname;
-      const color = this.getColor(username);
-
-      myimage = props.currentMessage.image
-
-      if (props.currentMessage.image) {
-      return (
-
-        <Bubble
-          {...props}       
-          wrapperStyle={{
-            left: {
-              backgroundColor: 'white',
-            },
-            right: {
-              backgroundColor: 'white',
-            },
-          }}
-        />
-
-      ) } else {
-        return (
-
-          <Bubble
-            {...props}
-            textStyle={{
-              right: {
-                color: 'white',
-              },
-            }}
-          />
-        ) 
-      }
-    }
-
-    get user() {
-      // Return our name and our UID for GiftedChat to parse
-
-      return {
-        name: this.props.userX.nickname,
-        _id: Expo.Constants.installationId,
+    // Make "pure emoji" messages much bigger than plain text.
+    if (currText && emojiUtils.isPureEmojiString(currText)) {
+      messageTextStyle = {
+        fontSize: 28,
+        // Emoji get clipped if lineHeight isn't increased; make it consistent across platforms.
+        lineHeight: Platform.OS === "android" ? 34 : 30
       };
     }
 
-    getColor(username) {
-      let sumChars = 0;
-      for (let i = 0; i < 10; i++) {
-        sumChars += 5;
-      }
+    return <SlackMessage {...props} messageTextStyle={messageTextStyle} />;
+  }
 
-      const colors = [
-        '#d6cfc7', // carrot
-        '#c7c6c1', // emerald
-        '#bebdb8', // peter  river
-        '#bdb7ab', // wisteria
-        '#d9dddc', // alizarin
-        '#b9bbb6', // turquoise
-        '#808588', // midnight blue
-      ];
-      return colors[sumChars % colors.length];
-    }
+  renderBubble = props => {
+    const username = this.props.userX.nickname;
+    const color = this.getColor(username);
 
-    parsePatterns(linkStyle) {
-      return [
-        {
-          pattern: /#(\w+)/,
-          style: { ...linkStyle, color: 'orange' },
-          onPress: () => Linking.openURL('http://gifted.chat'),
-        },
-      ];
-    }
+    myimage = props.currentMessage.image;
 
-    renderTime() {
+    if (props.currentMessage.image) {
       return (
-        <Time
+        <Bubble
+          {...props}
+          wrapperStyle={{
+            left: {
+              backgroundColor: "white"
+            },
+            right: {
+              backgroundColor: "white"
+            }
+          }}
+        />
+      );
+    } else {
+      return (
+        <Bubble
+          {...props}
           textStyle={{
             right: {
-              color: 'blue',
-              // fontFamily: 'Montserrat-Light',
-              fontSize: 14,
-            },
-            left: {
-              color: 'green',
-              // fontFamily: 'Montserrat-Light',
-              fontSize: 14,
-            },
+              color: "white"
+            }
           }}
         />
       );
     }
+  };
 
-    _showActionSheet() {
-      ActionSheet.show(
-        {
-          options: BUTTONS,
-          cancelButtonIndex: CANCEL_INDEX,
-          // destructiveButtonIndex: DESTRUCTIVE_INDEX,
-          title: 'Mute options',
-        },
-        (buttonIndex) => {
-          switch (buttonIndex) {
-            case 0:
-              Backend.setMute(true);
-              break;
-            case 1:
-              Backend.setMute(false);
-              break;
+  get user() {
+    // Return our name and our UID for GiftedChat to parse
+
+    return {
+      name: this.props.userX.nickname,
+      _id: Expo.Constants.installationId
+    };
+  }
+
+  getColor(username) {
+    let sumChars = 0;
+    for (let i = 0; i < 10; i++) {
+      sumChars += 5;
+    }
+
+    const colors = [
+      "#d6cfc7", // carrot
+      "#c7c6c1", // emerald
+      "#bebdb8", // peter  river
+      "#bdb7ab", // wisteria
+      "#d9dddc", // alizarin
+      "#b9bbb6", // turquoise
+      "#808588" // midnight blue
+    ];
+    return colors[sumChars % colors.length];
+  }
+
+  parsePatterns(linkStyle) {
+    return [
+      {
+        pattern: /#(\w+)/,
+        style: { ...linkStyle, color: "orange" },
+        onPress: () => Linking.openURL("http://gifted.chat")
+      }
+    ];
+  }
+
+  renderTime() {
+    return (
+      <Time
+        textStyle={{
+          right: {
+            color: "blue",
+            // fontFamily: 'Montserrat-Light',
+            fontSize: 14
+          },
+          left: {
+            color: "green",
+            // fontFamily: 'Montserrat-Light',
+            fontSize: 14
           }
-        },
-      );
-    }
+        }}
+      />
+    );
+  }
 
-    render() {
-      return (
+  _showActionSheet() {
+    ActionSheet.show(
+      {
+        options: BUTTONS,
+        cancelButtonIndex: CANCEL_INDEX,
+        // destructiveButtonIndex: DESTRUCTIVE_INDEX,
+        title: "Mute options"
+      },
+      buttonIndex => {
+        switch (buttonIndex) {
+          case 0:
+            Backend.setMute(true);
+            break;
+          case 1:
+            Backend.setMute(false);
+            break;
+        }
+      }
+    );
+  }
 
-        <Container>
-          <HeaderContent
-            showBack="true"
-            showHome="false"
-            navigation={this.props.navigation} 
-          />
-          <View>
-          <Text style={styles.chatBanner}>{this.props.navigation.getParam('description')}</Text>
-            <Text style={styles.chatBanner}>{this.props.navigation.getParam('contact')}</Text>
-          </View>
-          <TouchableOpacity onPress={this._showActionSheet}>
-            <Text style={styles.chatHeading}>{this.props.navigation.getParam('chatroom')}</Text>
+  renderSend(props) {
+    return (
+        <Send
+            {...props}
+        >
+            <View style={{marginRight: 10, marginBottom: 10}}>
+                 <MaterialIcons name="send" style={{fontSize: 25, color: '#0284FF'}} />
+            </View>
+        </Send>
+    );
+}
 
-          </TouchableOpacity>
+  render() {
+    return (
+      <Container>
+        <HeaderContent
+          showBack="true"
+          showHome="false"
+          navigation={this.props.navigation}
+        />
+        <View>
+          <Text style={styles.chatBanner}>
+            {this.props.navigation.getParam("description")}
+          </Text>
+          <Text style={styles.chatBanner}>
+            {this.props.navigation.getParam("contact")}
+          </Text>
+        </View>
 
-          <GiftedChat
+        <GiftedChat
+          messages={this.state.messages}
+          onSend={this.onSend}
+          // loadEarlier={this.state.loadEarlier}
+          // onLoadEarlier={this.onLoadEarlier}
+          // isLoadingEarlier={this.state.isLoadingEarlier}
+          user={{
+            _id: Expo.Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+            name: this.props.userX.nickname
+            // avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
+          }}
+          renderActions={this.renderCustomActions}
+          // renderSystemMessage={this.renderSystemMessage}
+          renderCustomView={this.renderCustomView}
+          renderMessageImage={this.renderCustomImage}
+          // renderFooter={this.renderFooter}
+          // showAvatarForEveryMessage
+          // showUserAvatar
+          // parsePatterns={this.parsePatterns}
+          renderMessageVideo={this.renderCustomVideo}
+          renderBubble={this.renderBubble}
+          // renderAvatar={this.renderAvatar.bind(this)}
+          // renderTime={this.renderTime.bind(this)}
+          showUserAvatar
+          // showAvatarForEveryMessage={true}
+          chatId={this.chatId}
+          // minInputToolbarHeight={50}
+          bottomOffset={0}
+          onPressAvatar={this.avatarPress}
+          alwaysShowSend={true}
+          renderSend={this.renderSend}
+        />
 
-            messages={this.state.messages}
-            onSend={this.onSend}
-                    // loadEarlier={this.state.loadEarlier}
-                    // onLoadEarlier={this.onLoadEarlier}
-                    // isLoadingEarlier={this.state.isLoadingEarlier}
-            user={{
-                _id: Expo.Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-                name: this.props.userX.nickname,
-              // avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
-              }}
-
-           renderActions={this.renderCustomActions}
-                    // renderSystemMessage={this.renderSystemMessage}
-            renderCustomView={this.renderCustomView}
-            renderMessageImage={this.renderCustomImage}
-                    // renderFooter={this.renderFooter}
-                    // showAvatarForEveryMessage
-                    // showUserAvatar
-                    // parsePatterns={this.parsePatterns}
-            renderMessageVideo={this.renderCustomVideo}
-            renderBubble={this.renderBubble}
-                    // renderAvatar={this.renderAvatar.bind(this)}
-                    // renderTime={this.renderTime.bind(this)}
-            showUserAvatar
-                    // showAvatarForEveryMessage={true}
-            chatId={this.chatId}
-                    // minInputToolbarHeight={50}
-            bottomOffset={0}
-            onPressAvatar={this.avatarPress}
-          />
-
-          <Footer style={styles.footer} />
-        </Container>
-
-      );
-    }
+        <Footer style={styles.footer} />
+      </Container>
+    );
+  }
 }
 
 function bindAction(dispatch) {
   return {
-    openDrawer: () => dispatch(openDrawer()),
+    openDrawer: () => dispatch(openDrawer())
   };
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
   username: state.username,
-  userX: state.user,
+  userX: state.user
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(chat);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(chat);
