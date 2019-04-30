@@ -183,11 +183,13 @@ class Story extends Component {
     };
     const uri = imageURI;
 
-    return (
-      <View>
-        <Image style={styles.storyPhoto} {...{ preview, uri }} />
-      </View>
-    );
+    if (undefined !== imageURI && imageURI.length>0) {
+      return (
+        <View>
+          <Image style={styles.storyPhoto} {...{ preview, uri }} />
+        </View>
+      );
+    }
   }
 
   _drawIconChat(chatroom) {
