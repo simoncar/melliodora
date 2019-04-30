@@ -9,7 +9,9 @@ import {
   Text,
   View,
   Dimensions,
-  Modal
+  Modal,
+  Button,
+  CameraRoll,
 } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 import ImageViewer from "react-native-image-zoom-viewer";
@@ -21,13 +23,20 @@ export default class CustomImage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalVisible: false
+      modalVisible: false,
+      saveTitle: "Save"
     };
   }
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
+
+  _share(uri) {
+    CameraRoll.saveToCameraRoll(uri);
+    console.log ("saving=",uri)
+    this.setState({saveTitle: "Saved"});
+  };
 
   render() {
     console.log("customImage");
@@ -66,8 +75,13 @@ export default class CustomImage extends React.Component {
 
               <Text  style={{ fontSize: 20, paddingLeft:10, paddingTop: 50, paddingBottom:5 }} > Close </Text>
               </TouchableOpacity>
+              <Image
+              style={{ width, height: 200 }}
+              {...{ preview, uri }}
+              resizeMode={"contain"}
+            />
 
-              <ImageViewer imageUrls={images} />
+             
             </Modal>
 
             <Image
@@ -75,7 +89,11 @@ export default class CustomImage extends React.Component {
               {...{ preview, uri }}
               resizeMode={"contain"}
             />
+            
           </TouchableOpacity>
+
+          <Button title={this.state.saveTitle} onPress={() =>{this._share(uri)}} />
+
         </View>
       );
     } else return null;
