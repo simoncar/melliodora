@@ -12,6 +12,7 @@ import {
   Modal,
   Button,
   CameraRoll,
+  Share
 } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 import ImageViewer from "react-native-image-zoom-viewer";
@@ -34,9 +35,12 @@ export default class CustomImage extends React.Component {
 
   _share(uri) {
     CameraRoll.saveToCameraRoll(uri);
+   
     console.log ("saving=",uri)
     this.setState({saveTitle: "Saved"});
   };
+
+  
 
   render() {
     console.log("customImage");
