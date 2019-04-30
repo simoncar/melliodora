@@ -55,8 +55,8 @@ export class Backend extends React.Component {
             name: message.user.name,
             avatar: message.user.avatar
           },
-          image: message.image,
-          messageType: "image"
+          video: message.video,
+          image: message.image
           // location: {
           //  latitude: 48.864601,
           //  longitude: 2.398704
@@ -73,8 +73,7 @@ export class Backend extends React.Component {
             name: message.user.name
           },
           image: message.image,
-          video: message.video,
-          messageType: "image"
+          video: message.video
           // location: {
           //  latitude: 48.864601,
           //  longitude: 2.398704
@@ -96,8 +95,6 @@ export class Backend extends React.Component {
   }
 
   SendMessage(message) {
-  
-
     if (undefined === global.pushToken) {
       global.pushToken = "";
     }
@@ -106,11 +103,9 @@ export class Backend extends React.Component {
       .database()
       .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`);
 
-
-      this.latestMessageRef = firebase
+    this.latestMessageRef = firebase
       .database()
       .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}`);
-
 
     for (let i = 0; i < message.length; i++) {
       if (undefined != message[i].image && message[i].image.length > 0) {
@@ -134,7 +129,7 @@ export class Backend extends React.Component {
 
         this.latestMessageRef.update({
           latestText: `${message[i].text}`,
-          latestUser: message[i].user.name,
+          latestUser: message[i].user.name
         });
       }
     }
@@ -185,20 +180,30 @@ async function uploadImageAsync(uri, chatroom, user) {
   // https://github.com/expo/expo/issues/2402#issuecomment-443726662
 
   var URLfile;
+  var mime = '';
   var d = new Date();
-  const fileType = uri.split('.').pop().split(/\#|\?/)[0];
-  var fileToUpload = "";
 
-  if (fileType == 'JPG') {
+  console.log("fileType before uri=", uri);
+
+  const fileType = uri
+    .split(".")
+    .pop()
+    .split(/\#|\?/)[0];
+  var fileToUpload = "";
+  console.log("fileType=", fileType);
+  if (fileType == "JPG") {
     const convertedImage = await new ImageManipulator.manipulateAsync(
       uri,
       [{ resize: { height: 1000 } }],
       { compress: 0 }
     );
-    fileToUpload = convertedImage.uri
+    fileToUpload = convertedImage.uri;
+    mime = "image/jpeg";
   } else {
-    fileToUpload = uri
+    fileToUpload = uri;
+    mime = "video/mp4";
   }
+
 
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -225,7 +230,7 @@ async function uploadImageAsync(uri, chatroom, user) {
     .child(uuid.v4());
 
   const snapshot = await ref
-    .put(blob)
+    .put(blob, { contentType: mime })
     .then(snapshot => {
       return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
     })
@@ -246,23 +251,33 @@ async function uploadImageAsync(uri, chatroom, user) {
   // We're done with the blob, close and release it
   blob.close();
 
-  this.messageRef = firebase
-    .database()
-    .ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
-  this.messageRef.push({
-    image: URLfile,
-    chatroom: chatroom,
-    user: user,
-    createdAt: firebase.database.ServerValue.TIMESTAMP,
-    date: new Date().getTime(),
-    system: false,
-    pushToken: global.pushToken
-
-    // location: {
-    //  latitude: 48.864601,
-    //  longitude: 2.398704
-    // },
-  });
+  if (fileType == "JPG") {
+    this.messageRef = firebase
+      .database()
+      .ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
+    this.messageRef.push({
+      image: URLfile,
+      chatroom: chatroom,
+      user: user,
+      createdAt: firebase.database.ServerValue.TIMESTAMP,
+      date: new Date().getTime(),
+      system: false,
+      pushToken: global.pushToken
+    });
+  } else {
+    this.messageRef = firebase
+      .database()
+      .ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
+    this.messageRef.push({
+      video: URLfile,
+      chatroom: chatroom,
+      user: user,
+      createdAt: firebase.database.ServerValue.TIMESTAMP,
+      date: new Date().getTime(),
+      system: false,
+      pushToken: global.pushToken
+    });
+  }
 
   return await uploadUrl;
 }
