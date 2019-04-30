@@ -34,7 +34,7 @@ export default class CustomImage extends React.Component {
   }
 
   _share(uri) {
-    CameraRoll.saveToCameraRoll(uri);
+    CameraRoll.saveToCameraRoll(uri, 'photo');
    
     console.log ("saving=",uri)
     this.setState({saveTitle: "Saved"});
@@ -43,13 +43,14 @@ export default class CustomImage extends React.Component {
   
 
   render() {
-    console.log("customImage");
+
 
     const preview = {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
     const uri = this.props.currentMessage.image;
+    console.log("customImage=", uri);
     const images = [
       {
         // Simplest usage.

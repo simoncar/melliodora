@@ -10,10 +10,13 @@ import {
   View,
   Dimensions,
   Modal,
-  ImageBackground
+  ImageBackground,
+  Button,
+  CameraRoll
 } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 import ImageViewer from "react-native-image-zoom-viewer";
+import { Video } from "expo";
 
 const { width } = Dimensions.get("window");
 
@@ -21,7 +24,8 @@ export default class CustomVideo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalVisible: false
+      modalVisible: false,
+      saveTitle: "Save"
     };
   }
 
@@ -29,13 +33,26 @@ export default class CustomVideo extends React.Component {
     this.setState({ modalVisible: visible });
   }
 
+  _share(uri) {
+
+    //Remote videos cannot be saved at this time, 
+    //TODO: copy the file locally first
+    
+    CameraRoll.saveToCameraRoll(uri, 'video');
+   
+    console.log ("saving=",uri)
+    this.setState({saveTitle: "Saved"});
+  };
+
+
   render() {
-    console.log("customVideo");
+
     const preview = {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
-    const uri = this.props.currentMessage.image;
+    const uri = this.props.currentMessage.video;
+    console.log("customVideo=", uri);
     const images = [
       {
         // Simplest usage.
@@ -74,28 +91,53 @@ export default class CustomVideo extends React.Component {
                   Close{" "}
                 </Text>
               </TouchableOpacity>
-
-              <ImageViewer imageUrls={images} />
+       
+              <Video
+                  source={{
+                    uri:
+                    uri
+                  }}
+                  rate={1.0}
+                  volume={1.0}
+                  isMuted={false}
+                  resizeMode="cover"
+                  shouldPlay
+                  isLooping
+                  style={{ width, height: 300 }}
+                />
+           
             </Modal>
 
             <ImageBackground
               style={{
-         
                 flexDirection: "column",
                 justifyContent: "center",
-                alignItems: "center",
+                alignItems: "center"
               }}
               {...{ preview, uri }}
               resizeMode={"contain"}
             >
               <View
                 style={{
-           
                   justifyContent: "center",
-                  alignItems: "center",
+                  alignItems: "center"
                 }}
               >
-                <Text>Play Button</Text>
+                
+                <Video
+                  source={{
+                    uri:
+                     uri
+                  }}
+                  rate={1.0}
+                  volume={1.0}
+                  isMuted={true}
+                  resizeMode="cover"
+                  shouldPlay
+                  isLooping
+                  style={{ width: 300, height: 300 }}
+                />
+
               </View>
             </ImageBackground>
           </TouchableOpacity>
