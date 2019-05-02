@@ -17,7 +17,6 @@ import {
 import { Image } from "react-native-expo-image-cache";
 import ImageViewer from "react-native-image-zoom-viewer";
 
-
 const { width } = Dimensions.get("window");
 
 export default class CustomImage extends React.Component {
@@ -34,17 +33,13 @@ export default class CustomImage extends React.Component {
   }
 
   _share(uri) {
-    CameraRoll.saveToCameraRoll(uri, 'photo');
-   
-    console.log ("saving=",uri)
-    this.setState({saveTitle: "Saved"});
-  };
+    CameraRoll.saveToCameraRoll(uri, "photo");
 
-  
+    console.log("saving=", uri);
+    this.setState({ saveTitle: "Saved" });
+  }
 
   render() {
-
-
     const preview = {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
@@ -70,23 +65,36 @@ export default class CustomImage extends React.Component {
             <Modal
               transparent={false}
               visible={this.state.modalVisible}
-              onRequestClose={() => this.setModalVisible(false)}>
-            
-            <TouchableOpacity
-            onPress={() => {
-              this.setModalVisible(!this.state.modalVisible);
-            }}
-          >
-
-              <Text  style={{ fontSize: 20, paddingLeft:10, paddingTop: 50, paddingBottom:5 }} > Close </Text>
+              onRequestClose={() => this.setModalVisible(false)}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    paddingLeft: 10,
+                    paddingTop: 50,
+                    paddingBottom: 5
+                  }}
+                >
+                  {" "}
+                  Close{" "}
+                </Text>
               </TouchableOpacity>
               <Image
-              style={{ width, height: 200 }}
-              {...{ preview, uri }}
-              resizeMode={"contain"}
-            />
-
-             
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: null,
+                  height: null
+                }}
+                {...{ preview, uri }}
+                resizeMode={"contain"}
+              />
             </Modal>
 
             <Image
@@ -94,11 +102,14 @@ export default class CustomImage extends React.Component {
               {...{ preview, uri }}
               resizeMode={"contain"}
             />
-            
           </TouchableOpacity>
 
-          <Button title={this.state.saveTitle} onPress={() =>{this._share(uri)}} />
-
+          <Button
+            title={this.state.saveTitle}
+            onPress={() => {
+              this._share(uri);
+            }}
+          />
         </View>
       );
     } else return null;

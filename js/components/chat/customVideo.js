@@ -34,19 +34,16 @@ export default class CustomVideo extends React.Component {
   }
 
   _share(uri) {
-
-    //Remote videos cannot be saved at this time, 
+    //Remote videos cannot be saved at this time,
     //TODO: copy the file locally first
-    
-    CameraRoll.saveToCameraRoll(uri, 'video');
-   
-    console.log ("saving=",uri)
-    this.setState({saveTitle: "Saved"});
-  };
 
+    CameraRoll.saveToCameraRoll(uri, "video");
+
+    console.log("saving=", uri);
+    this.setState({ saveTitle: "Saved" });
+  }
 
   render() {
-
     const preview = {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
@@ -91,21 +88,24 @@ export default class CustomVideo extends React.Component {
                   Close{" "}
                 </Text>
               </TouchableOpacity>
-       
+
               <Video
-                  source={{
-                    uri:
-                    uri
-                  }}
-                  rate={1.0}
-                  volume={1.0}
-                  isMuted={false}
-                  resizeMode="cover"
-                  shouldPlay
-                  isLooping
-                  style={{ width, height: 300 }}
-                />
-           
+                source={{
+                  uri: uri
+                }}
+                rate={1.0}
+                volume={1.0}
+                resizeMode="cover"
+                shouldPlay
+                isLooping
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: null,
+                  height: null
+                }}
+              />
             </Modal>
 
             <ImageBackground
@@ -123,21 +123,16 @@ export default class CustomVideo extends React.Component {
                   alignItems: "center"
                 }}
               >
-                
                 <Video
                   source={{
-                    uri:
-                     uri
+                    uri: uri
                   }}
                   rate={1.0}
                   volume={1.0}
-                  isMuted={true}
+                  isMuted={false}
                   resizeMode="cover"
-                  shouldPlay
-                  isLooping
                   style={{ width: 300, height: 300 }}
                 />
-
               </View>
             </ImageBackground>
           </TouchableOpacity>
