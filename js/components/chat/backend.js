@@ -108,11 +108,13 @@ export class Backend extends React.Component {
       .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}`);
 
     for (let i = 0; i < message.length; i++) {
+      console.log("here - ", message);
+
       if (undefined != message[i].image && message[i].image.length > 0) {
         //we have an image
 
         uploadUrl = uploadImageAsync(
-          message[i].image,
+          message[i],
           this.state.chatroom,
           message[i].user
         );
@@ -175,35 +177,40 @@ export class Backend extends React.Component {
   }
 }
 
-async function uploadImageAsync(uri, chatroom, user) {
+async function uploadImageAsync(message, chatroom, user) {
   // Why are we using XMLHttpRequest? See:
   // https://github.com/expo/expo/issues/2402#issuecomment-443726662
 
   var URLfile;
-  var mime = '';
+  var mime = "";
   var d = new Date();
 
-  console.log("fileType before uri=", uri);
+  if (undefined == message.filename && message.playableDuration > 0) {
+    message.filename = "image.MOV";
+  } else if (undefined == message.filename && message.playableDuration == 0) {
+    message.filename = "image.JPG";
+  }
 
-  const fileType = uri
+  console.log("fileType before uri=", message);
+
+  const fileType = message.filename
     .split(".")
     .pop()
     .split(/\#|\?/)[0];
   var fileToUpload = "";
   console.log("fileType=", fileType);
-  if (fileType == "JPG") {
+  if ((fileType == "JPG") || (fileType == "HEIC") || (fileType == "PNG")) {
     const convertedImage = await new ImageManipulator.manipulateAsync(
-      uri,
+      message.image,
       [{ resize: { height: 1000 } }],
       { compress: 0 }
     );
     fileToUpload = convertedImage.uri;
     mime = "image/jpeg";
   } else {
-    fileToUpload = uri;
+    fileToUpload = message.image;
     mime = "video/mp4";
   }
-
 
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -250,8 +257,8 @@ async function uploadImageAsync(uri, chatroom, user) {
 
   // We're done with the blob, close and release it
   blob.close();
-
-  if (fileType == "JPG") {
+  console.log ("----------= file type - ", fileType)
+  if ((fileType == "JPG") || (fileType == "HEIC") || (fileType == "PNG")) {
     this.messageRef = firebase
       .database()
       .ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
