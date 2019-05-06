@@ -1,6 +1,6 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-const fetch = require('node-fetch');
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+const fetch = require("node-fetch");
 
 admin.initializeApp(functions.config().firebase);
 
@@ -8,56 +8,65 @@ admin.initializeApp(functions.config().firebase);
 // firebase deploy (from root)
 // send the push notification
 
-exports.sendPushNotificationSimonAll = functions.database.ref('instance/0001-sais_edu_sg/chat/chatroom/{chatroomID}/messages/{newMessageID}').onCreate((snap, context) => {
-  const createdData = snap.val();
-  const messages = [];
+exports.sendPushNotificationSimonAll = functions.database
+  .ref(
+    "instance/0001-sais_edu_sg/chat/chatroom/{chatroomID}/messages/{newMessageID}"
+  )
+  .onCreate((snap, context) => {
+    const createdData = snap.val();
+    const messages = [];
 
-  const query = admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/${createdData.chatroom}/notifications`);
-  query.on('value', (snap) => {
-    snap.forEach((child) => {
-      const { key } = child; // "ada"
-      const childData = child.val();
+    const query = admin
+      .database()
+      .ref(
+        `instance/0001-sais_edu_sg/chat/chatroom/${
+          createdData.chatroom
+        }/notifications`
+      );
+    query.on("value", snap => {
+      snap.forEach(child => {
+        const { key } = child; // "ada"
+        const childData = child.val();
 
-      // simon iPhone
-      messages.push({
-        to: childData.pushToken,
-        title: createdData.chatroom,
-        sound: 'default',
-        body: createdData.text,
+        // simon iPhone
+        messages.push({
+          to: childData.pushToken,
+          title: createdData.chatroom,
+          sound: "default",
+          body: createdData.text
+        });
       });
     });
+
+    // return the main promise
+    return Promise.all(messages)
+
+      .then(messages => {
+        fetch("https://exp.host/--/api/v2/push/send", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(messages)
+        });
+      })
+      .catch(reason => {
+        console.log(reason);
+      });
   });
 
-  // return the main promise
-  return Promise.all(messages)
-
-    .then((messages) => {
-      fetch('https://exp.host/--/api/v2/push/send', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(messages),
-
-      });
-    })
-    .catch((reason) => {
-      console.log(reason);
-    });
-});
-
-'use strict';
+("use strict");
 
 // [START functionsimport]
 
 // [END functionsimport]
 // [START additionalimports]
 // Moments library to format dates.
-const moment = require('moment');
+const moment = require("moment");
 // CORS Express middleware to enable CORS Requests.
-const cors = require('cors')({
-  origin: true,
+const cors = require("cors")({
+  origin: true
 });
 // [END additionalimports]
 
@@ -80,14 +89,14 @@ const cors = require('cors')({
  */
 // [START trigger]
 exports.registerBeacon = functions.https.onRequest((req, res) => {
-
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
+  // https://script.google.com/macros/s/AKfycbwhrlEfQhiSgcsF6AM_AlaMWxU7SsEtJ-yQpvthyQTT1jui588E/exec
 
   // [END trigger]
   // [START sendError]
   // Forbidding PUT requests.
-  if (req.method === 'PUT') {
-    return res.status(403).send('Forbidden!');
+  if (req.method === "PUT") {
+    return res.status(403).send("Forbidden!");
   }
   // [END sendError]
 
@@ -107,8 +116,80 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     }
     // [START sendResponse]
     const formattedDate = moment().format(format);
-    console.log('Sending Formatted date:', formattedDate);
-    res.status(200).send(formattedDate);
+    // console.log("Sending Formatted date:", formattedDate);
+    // console.log("Sending Formatted body:", req.body);
+
+    const firebasebeacons = admin
+      .database()
+      .ref(`instance/0001-sais_edu_sg/beacon/`);
+    firebasebeacons.remove();
+
+    var beacons = req.body;
+    beacons.forEach(function(snapshot) {
+      console.log("some data:", snapshot.mac);
+      const beacon = admin
+        .database()
+        .ref(`instance/0001-sais_edu_sg/beacon/` + snapshot.mac);
+      var personName = "";
+      var personType = "";
+      var personCampus = "";
+      var personGrade = "";
+
+      switch (snapshot.mac) {
+        case "AC233F292EB0":
+          personName = "Simon Cariss";
+          personType = "Parent";
+          personCampus = "Woodleigh - Gate 1";
+          break;
+        case "AC233F292E3E":
+          personName = "Mohd Yusoff";
+          personType = "Staff";
+          personCampus = "Woodleigh - Gate 1";
+          break;
+        case "AC233F292E9A":
+          personName = "Grace Cariss";
+          personType = "Student";
+          personCampus = "Woodleigh - Gate 1";
+          personGrade = "6";
+          break;
+        case "AC233F29148B":
+          personName = "Lucy Cariss";
+          personType = "Student";
+          personCampus = "Woodleigh - Gate 1";
+          personGrade = "4";
+          break;
+        case "AC233F291488":
+          personName = "Ben Cariss";
+          personType = "Student";
+          personCampus = "Woodleigh - Gate 1";
+          personGrade = "2";
+          break;
+          case "AC233F292F52":
+          personName = "Christina Thorsen";
+          personType = "Parent";
+          personCampus = "Woodleigh - Gate 1";
+          break;
+          case "AC233F29148A":
+          personName = "Kayla Thorsen";
+          personType = "Student";
+          personCampus = "Woodleigh - Gate 1";
+          personGrade = "4";
+          break;
+        default:
+        // code block
+      }
+
+      beacon.update({
+        //mute: false,
+        beaconName: personName,
+        beaconType: personType,
+        beaconCampus: personCampus,
+        beaconGrade: personGrade,
+        timestamp: Date.now()
+      });
+    });
+
+    res.status(200).send(req.body);
     // [END sendResponse]
   });
 });
