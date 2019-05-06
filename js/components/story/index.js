@@ -183,7 +183,7 @@ class Story extends Component {
     };
     const uri = imageURI;
 
-    if (undefined !== imageURI && imageURI.length>0) {
+    if (undefined !== imageURI && null !== imageURI && imageURI.length>0) {
       return (
         <View>
           <Image style={styles.storyPhoto} {...{ preview, uri }} />
