@@ -90,9 +90,6 @@ class chatRooms extends Component {
         _key: 'Stamford 10 Year Gala'
       });
       
-
-
-
       this.setState({
         chatRooms,
       });
@@ -144,18 +141,13 @@ class chatRooms extends Component {
   render() {
     return (
       <Container style={styles.container}>
-
         <Content style={{paddingTop: 20 }}>
        
-    
           <FlatList
             data={this.state.userChatrooms}
             renderItem={this._renderItem2.bind(this)}
             keyExtractor={this.keyExtractor}
           />
-
-
-
 
         </Content>
       </Container>
