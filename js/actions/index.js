@@ -97,6 +97,14 @@ export function setUserChatrooms(userChatrooms) {
   };
 }
 
+export function setUserBeacons(userBeacons) {
+
+  return {
+    type: "SET_USER_BEACONS",
+    payload: userBeacons,
+  };
+}
+
 
 export function setSwitches(items) {
 
