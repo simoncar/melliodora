@@ -11,7 +11,7 @@ import { Grid, Col, Row } from "react-native-easy-grid";
 
 import { Container, Content, Text, Button, Icon } from "native-base";
 import styles from "./styles";
-import { FontAwesome, SimpleLineIcons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
 import { isAdmin } from "../global.js";
 
@@ -25,7 +25,14 @@ class BeaconItem extends Component {
   renderProfileIcons(beaconType) {
     if (beaconType == "Staff") {
       return (
-        <View
+       <Grid>
+       <Row>
+       <Col  style={{
+           
+           width: 45,
+           
+         }}>
+       <View
           style={{
             borderRadius: 30,
             backgroundColor: "#1DAEF2",
@@ -40,14 +47,71 @@ class BeaconItem extends Component {
           }}
         >
           <View>
-            <FontAwesome
+            <AntDesign
               style={{ color: "white", fontSize: 20 }}
-              name="hard-of-hearing"
+              name="phone"
             />
           </View>
         </View>
+        </Col>
+        <Col  style={{
+           
+            width: 45,
+            paddingLeft: 10,
+          }}>
+        <View
+          style={{
+            borderRadius: 30,
+            backgroundColor: "#1DAEF2",
+            width: 45,
+            height: 45,
+            marginLeft: 10,
+            marginTop: 10,
+            
+            alignItems: "center",
+            paddingLeft: 0,
+            paddingRight: 0,
+            justifyContent: "center"
+          }}
+        >
+          <View>
+            <AntDesign
+              style={{ color: "white", fontSize: 20 }}
+              name="notification"
+            />
+          </View>
+        </View>
+</Col>
+</Row>
+</Grid>
       );
     }
+
+    if (beaconType == "Asset") {
+        return (
+          <View
+            style={{
+              borderRadius: 30,
+              backgroundColor: "#1DAEF2",
+              width: 45,
+              height: 45,
+              marginLeft: 10,
+              marginTop: 10,
+              alignItems: "center",
+              paddingLeft: 0,
+              paddingRight: 0,
+              justifyContent: "center"
+            }}
+          >
+            <View>
+              <FontAwesome
+                style={{ color: "white", fontSize: 20 }}
+                name="wheelchair"
+              />
+            </View>
+          </View>
+        );
+      }
   }
 
   render() {
@@ -85,7 +149,7 @@ class BeaconItem extends Component {
                 </View>
               </TouchableOpacity>
             </Col>
-            <Col style={{ width: 60 }}>
+            <Col style={{ width: 110 }}>
               {this.renderProfileIcons(this.props.beaconType)}
             </Col>
           </Row>

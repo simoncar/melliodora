@@ -96,7 +96,7 @@ const cors = require("cors")({
 exports.deleteOldItems = functions.database.ref('instance/0001-sais_edu_sg/beacon/{pushId}').onWrite(async (change) => {
   const ref = change.after.ref.parent; // reference to the parent
   const now = Date.now();
-  const cutoff = now - 50000 //CUT_OFF_TIME;
+  const cutoff = now - 10000 //CUT_OFF_TIME;
   const oldItemsQuery = ref.orderByChild('timestamp').endAt(cutoff);
   const snapshot = await oldItemsQuery.once('value');
   // create a map with all children that need to be removed
@@ -241,6 +241,13 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
         case "AC233F2915C5":
           personName = "Angeline Tomlissanra";
           personType = "Student";
+          personCampus = "Woodleigh - Gate 1";
+          personGrade = "4";
+          personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-22.21.19.png"
+          break;
+          case "AC233F292FDD":
+          personName = "Visitor Woodleigh";
+          personType = "Visitor";
           personCampus = "Woodleigh - Gate 1";
           personGrade = "4";
           personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-22.21.19.png"

@@ -4,11 +4,12 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as ActionCreators from "../../actions";
 import * as firebase from "firebase";
-import { Container, Content, Text, Button, Icon } from "native-base";
+import { Container, Content, Text, Button, Icon, View } from "native-base";
+import { Grid, Col, Row } from "react-native-easy-grid";
 
 import Analytics from "../../lib/analytics";
 import { Constants } from "expo";
-import { SimpleLineIcons } from "@expo/vector-icons";
+import { SimpleLineIcons, FontAwesome } from "@expo/vector-icons";
 import { withMappedNavigationProps } from "react-navigation-props-mapper";
 
 import styles from "./styles";
@@ -59,24 +60,28 @@ class beacons extends Component {
       this.countStudent = 0;
       this.countParent = 0;
       this.countAdmin = 0;
-      var beaconIcon = '';
+      this.countVisitor = 0;
+      var beaconIcon = "";
 
       dataSnapshot.forEach(child => {
         switch (child.val().beaconType) {
           case "Student":
             ++this.countStudent;
-            beaconIcon = "G" + child.val().beaconGrade
+            beaconIcon = "G" + child.val().beaconGrade;
             break;
           case "Parent":
             ++this.countParent;
-            beaconIcon = "P" 
+            beaconIcon = "P";
             break;
           case "Staff":
             ++this.countAdmin;
-            beaconIcon = "A" 
+            beaconIcon = "A";
+            break;
+            case "Visitor":
+            ++this.countVisitor;
+            beaconIcon = "V";
             break;
         }
-
 
         this.state.userBeacons.push({
           beaconCampus: child.val().beaconCampus,
@@ -111,16 +116,79 @@ class beacons extends Component {
     );
   }
 
+
+  renderCount(item, count) {
+    
+      return (
+        <View
+          style={{
+            borderRadius: 30,
+            backgroundColor: "#1DAEF2",
+            width: 45,
+            height: 45,
+            marginLeft: 10,
+            marginTop: 10,
+            alignItems: "center",
+            paddingLeft: 0,
+            paddingRight: 0,
+            justifyContent: "center"
+          }}
+        >
+           <View>
+            <Text>{count}</Text>
+          </View>
+
+        </View>
+        
+      );
+    
+  }
+
   render() {
     return (
       <Container style={styles.container}>
-        <Text style={styles.chatTitle}>Total  : {this.countStudent + this.countParent + this.countAdmin}</Text>
-        <Text style={styles.chatTitle}>Students  : {this.countStudent}</Text>
-        <Text style={styles.chatTitle}>Parents : {this.countParent}</Text>
-        <Text style={styles.chatTitle}>Staff : {this.countAdmin}</Text>
-        <Text style={styles.chatTitle}>Visitors : 0</Text>
+        <Text style={styles.chatTitle}>
+          Total : {this.countStudent + this.countParent + this.countAdmin + this.countVisitor}
+        </Text>
+  
+        <View style={{ height: 100 }}>
+        <Grid style={{ height: 50 }}>
+          <Col style={{ alignItems: 'center' }}>
+            <Row>
+            {this.renderCount("Staff",this.countStudent)}
+            </Row>
+            <Row>
+              <Text style={styles.chatTitle}>Students</Text>
+            </Row>
+          </Col>
+          <Col style={{ alignItems: 'center' }}>
+            <Row>
+            {this.renderCount("Staff",this.countParent)}
+            </Row>
+            <Row>
+              <Text style={styles.chatTitle}>Parents</Text>
+            </Row>
+          </Col>
+          <Col style={{ alignItems: 'center' }}>
+            <Row>
+            {this.renderCount("Staff", this.countAdmin)}
+            </Row>
+            <Row>
+              <Text style={styles.chatTitle}>Staff</Text>
+            </Row>
+          </Col>
+          <Col style={{ alignItems: 'center' }}>
+            <Row>
+            {this.renderCount("Staff",this.countVisitor)}
+            </Row>
+            <Row>
+              <Text style={styles.chatTitle}>Visitors</Text>
+            </Row>
+          </Col>
+        </Grid>
+        </View>
 
-        <Content style={{ paddingTop: 20 }}>
+        <Content style={{ paddingTop: 5 }}>
           <FlatList
             data={this.state.userBeacons}
             renderItem={this._renderItem2.bind(this)}
