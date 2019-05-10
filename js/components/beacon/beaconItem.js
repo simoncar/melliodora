@@ -11,7 +11,8 @@ import { Grid, Col, Row } from "react-native-easy-grid";
 
 import { Container, Content, Text, Button, Icon } from "native-base";
 import styles from "./styles";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import moment from "moment";
 
 import { isAdmin } from "../global.js";
 
@@ -25,40 +26,71 @@ class BeaconItem extends Component {
   renderProfileIcons(beaconType) {
     if (beaconType == "Staff") {
       return (
-       <Grid>
-       <Row>
-       <Col  style={{
-           
-           width: 45,
-           
-         }}>
-       <View
-          style={{
-            borderRadius: 30,
-            backgroundColor: "#1DAEF2",
-            width: 45,
-            height: 45,
-            marginLeft: 10,
-            marginTop: 10,
-            alignItems: "center",
-            paddingLeft: 0,
-            paddingRight: 0,
-            justifyContent: "center"
-          }}
-        >
-          <View>
-            <AntDesign
-              style={{ color: "white", fontSize: 20 }}
-              name="phone"
-            />
-          </View>
-        </View>
-        </Col>
-        <Col  style={{
-           
-            width: 45,
-            paddingLeft: 10,
-          }}>
+        <Grid>
+          <Row>
+            <Col
+              style={{
+                width: 45
+              }}
+            >
+              <View
+                style={{
+                  borderRadius: 30,
+                  backgroundColor: "#1DAEF2",
+                  width: 45,
+                  height: 45,
+                  marginLeft: 10,
+                  marginTop: 10,
+                  alignItems: "center",
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                  justifyContent: "center"
+                }}
+              >
+                <View>
+                  <AntDesign
+                    style={{ color: "white", fontSize: 20 }}
+                    name="phone"
+                  />
+                </View>
+              </View>
+            </Col>
+            <Col
+              style={{
+                width: 45,
+                paddingLeft: 10
+              }}
+            >
+              <View
+                style={{
+                  borderRadius: 30,
+                  backgroundColor: "#1DAEF2",
+                  width: 45,
+                  height: 45,
+                  marginLeft: 10,
+                  marginTop: 10,
+
+                  alignItems: "center",
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                  justifyContent: "center"
+                }}
+              >
+                <View>
+                  <AntDesign
+                    style={{ color: "white", fontSize: 20 }}
+                    name="notification"
+                  />
+                </View>
+              </View>
+            </Col>
+          </Row>
+        </Grid>
+      );
+    }
+
+    if (beaconType == "Asset") {
+      return (
         <View
           style={{
             borderRadius: 30,
@@ -67,7 +99,6 @@ class BeaconItem extends Component {
             height: 45,
             marginLeft: 10,
             marginTop: 10,
-            
             alignItems: "center",
             paddingLeft: 0,
             paddingRight: 0,
@@ -75,43 +106,37 @@ class BeaconItem extends Component {
           }}
         >
           <View>
-            <AntDesign
+            <MaterialIcons
               style={{ color: "white", fontSize: 20 }}
-              name="notification"
+              name="device-hub"
             />
           </View>
         </View>
-</Col>
-</Row>
-</Grid>
       );
     }
+  }
 
-    if (beaconType == "Asset") {
-        return (
-          <View
-            style={{
-              borderRadius: 30,
-              backgroundColor: "#1DAEF2",
-              width: 45,
-              height: 45,
-              marginLeft: 10,
-              marginTop: 10,
-              alignItems: "center",
-              paddingLeft: 0,
-              paddingRight: 0,
-              justifyContent: "center"
-            }}
-          >
-            <View>
-              <FontAwesome
-                style={{ color: "white", fontSize: 20 }}
-                name="wheelchair"
-              />
-            </View>
-          </View>
-        );
-      }
+  renderLastSeen(lastSeen) {
+    if (lastSeen != null ) {
+      lastSeenDateTime = moment(lastSeen).format("LLL");
+
+      return (
+        <Text style={styles.chatDescription}>
+          Last seen : {lastSeenDateTime}
+        </Text>
+      );
+    } else
+    { return (
+      <Text style={styles.lastSeenActive}>
+        Active
+      </Text>
+    );}
+  }
+
+  renderBeaconCampus(beaconCampus) {
+    if (beaconCampus != null && beaconCampus.length > 0) {
+      return <Text style={styles.chatDescription}>{beaconCampus}</Text>;
+    }
   }
 
   render() {
@@ -143,9 +168,9 @@ class BeaconItem extends Component {
                   <Text style={styles.chatDescription}>
                     {this.props.beaconType} {this.props.beaconIcon}
                   </Text>
-                  <Text style={styles.chatDescription}>
-                    {this.props.beaconCampus}
-                  </Text>
+                  {this.renderLastSeen(this.props.lastSeen)}
+                  {this.renderBeaconCampus(this.props.beaconCampus)}
+              
                 </View>
               </TouchableOpacity>
             </Col>
