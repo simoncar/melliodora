@@ -91,6 +91,7 @@ class beacons extends Component {
           beaconType: child.val().beaconType,
           beaconPictureURL: child.val().beaconPictureURL,
           timestamp: child.val().timestamp,
+          lastSeen:  child.val().lastSeen,
           _key: child.key
         });
       });
@@ -111,6 +112,8 @@ class beacons extends Component {
         beaconType={item.item.beaconType}
         beaconGrade={item.item.beaconGrade}
         beaconPictureURL={item.item.beaconPictureURL}
+        lastSeen={item.item.lastSeen}
+        timestamp={item.item.timestamp}
         item={item}
       />
     );

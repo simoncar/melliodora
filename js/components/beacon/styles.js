@@ -32,7 +32,7 @@ export default {
         lineHeight:25,
     },
     chatRow: {
-      height: 60,
+  
       backgroundColor: "white",
       flexDirection: "row",
       marginBottom: 20,
@@ -58,10 +58,23 @@ export default {
 
       },
       chatDescription: { 
-    
         fontSize: 13,
         backgroundColor: 'white',
         color: 'grey',
+        fontSize: 16,
+        marginLeft: 15,
+      },
+      lastSeen: { 
+        fontSize: 13,
+        backgroundColor: 'white',
+        color: 'red',
+        fontSize: 16,
+        marginLeft: 15,
+      },
+      lastSeenActive: { 
+        fontSize: 13,
+        backgroundColor: 'white',
+        color: 'green',
         fontSize: 16,
         marginLeft: 15,
       },
