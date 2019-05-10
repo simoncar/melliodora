@@ -60,43 +60,48 @@ exports.sendPushNotificationSimonAll = functions.database
       });
   });
 
-("use strict");
 
-// [START functionsimport]
 
-// [END functionsimport]
-// [START additionalimports]
-// Moments library to format dates.
+  exports.chatBeaconPing = functions.database.ref('instance/0001-sais_edu_sg/beacon/{beaconPing}')
+  .onCreate((snapshot, context) => {
+
+    const createdData = snapshot.val();
+
+    // Grab the current value of what was written to the Realtime Database.
+    const beaconName = createdData.beaconName;
+    console.log('Beacon Name - new Ping', beaconName);
+
+    const newPing = admin
+    .database()
+    .ref(`instance/0001-sais_edu_sg/chat/chatroom/` + beaconName + '/messages');
+ 
+    newPing.push({
+      //mute: false,
+      chatroom: beaconName,
+      text: "Ping - Woodleigh - Gate 1 - Security Hub",
+      createdAt: Date.now(),
+      date: Date.now(),
+      system: true,
+      user: {
+        name: "Gate 1 - Security Hub"
+      },
+
+    });
+
+    return null;
+
+
+  });
+
 const moment = require("moment");
-// CORS Express middleware to enable CORS Requests.
 const cors = require("cors")({
   origin: true
 });
-// [END additionalimports]
-
-// [START all]
-/**
- * Returns the server's date. You must provide a `format` URL query parameter or `format` vaue in
- * the request body with which we'll try to format the date.
- *
- * Format must follow the Node moment library. See: http://momentjs.com/
- *
- * Example format: "MMMM Do YYYY, h:mm:ss a".
- * Example request using URL query parameters:
- *   https://us-central1-<project-id>.cloudfunctions.net/date?format=MMMM%20Do%20YYYY%2C%20h%3Amm%3Ass%20a
- * Example request using request body with cURL:
- *   curl -H 'Content-Type: application/json' /
- *        -d '{"format": "MMMM Do YYYY, h:mm:ss a"}' /
- *        https://us-central1-<project-id>.cloudfunctions.net/date
- *
- * This endpoint supports CORS.
- */
-// [START trigger]
 
 exports.deleteOldItems = functions.database.ref('instance/0001-sais_edu_sg/beacon/{pushId}').onWrite(async (change) => {
   const ref = change.after.ref.parent; // reference to the parent
   const now = Date.now();
-  const cutoff = now - 10000 //CUT_OFF_TIME;
+  const cutoff = now - 100000 //CUT_OFF_TIME;
   const oldItemsQuery = ref.orderByChild('timestamp').endAt(cutoff);
   const snapshot = await oldItemsQuery.once('value');
   // create a map with all children that need to be removed
