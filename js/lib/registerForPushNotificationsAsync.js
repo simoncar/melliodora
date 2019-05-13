@@ -52,6 +52,35 @@ async function registerForPushNotificationsAsync(user) {
     user,
   });
 
+  var userDict = {
+    id: '1234',
+    fullname: 'sinn car',
+    email:'simoncar@mgial.com',
+    profileURL: 'user.photoURL'
+  };
+
+
+  firebase
+  .firestore()
+  .collection("sais_edu_sg")
+  .doc('user')
+  .collection('usernames')
+  .doc(safeToken)
+  .set(userDict);
+
+
+  firebase
+  .firestore()
+  .collection("sais_edu_sg")
+  .doc('user')
+  .collection('loginHistory')
+  .doc(safeToken)
+  .set(userDict);
+
+
+
+console.log("jhere")
+
   // POST the token to our backend so we can use it to send pushes from there
   return fetch(`${PUSH_ENDPOINT  }?token=${  token  }&user=${  user}`, {
     method: 'POST',

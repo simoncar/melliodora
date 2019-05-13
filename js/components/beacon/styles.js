@@ -50,7 +50,7 @@ export default {
       },
       chatTitle: { 
         marginTop:7,
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: 'bold',
         backgroundColor: 'white',
         color: 'black',

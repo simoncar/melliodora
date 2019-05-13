@@ -14,6 +14,7 @@ import { withMappedNavigationProps } from "react-navigation-props-mapper";
 
 import styles from "./styles";
 
+
 const BeaconItem = require("./beaconItem");
 let instID = Constants.manifest.extra.instance;
 
@@ -36,7 +37,7 @@ class beacons extends Component {
       userBeacons: {}
     };
 
-    this.beaconsFirebase = firebase.database().ref(`instance/${instID}/beacon`);
+    this.beaconsFirebase = firebase.database().ref(`instance/${instID}/beacon`).orderByChild('timestamp');
     //this.beaconsFirebase = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
   }
 
@@ -53,6 +54,9 @@ class beacons extends Component {
   keyExtractor = item => item._key;
 
   listenLoadFromFirebase(beacons) {
+
+   
+
     beacons.on("value", dataSnapshot2 => {
       this.props.setUserBeacons(dataSnapshot2);
       dataSnapshot = dataSnapshot2;
@@ -67,7 +71,7 @@ class beacons extends Component {
         switch (child.val().beaconType) {
           case "Student":
             ++this.countStudent;
-            beaconIcon = "G" + child.val().beaconGrade;
+            beaconIcon = "G"
             break;
           case "Parent":
             ++this.countParent;
@@ -93,8 +97,14 @@ class beacons extends Component {
           timestamp: child.val().timestamp,
           lastSeen:  child.val().lastSeen,
           _key: child.key
+
+          
         });
+        console.log ("this.state.userBeacons.lastSeen=", child.val().lastSeen)
+          console.log ("this.state.userBeacons.timestamp=", child.val().timestamp)
       });
+
+      this.state.userBeacons.sort((a, b) => (a.timestamp > b.timestamp) ? 1 : (a.timestamp === undefined) ? ((a.lastSeen < b.lastSeen) ? 1 : -1) : -1 )
 
       this.setState({
         beacons

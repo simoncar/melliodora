@@ -6,7 +6,8 @@ import { createLogger } from 'redux-logger'
 import reducer from './js/reducers'
 import Setup from './js/setup';
 
-import * as firebase from "firebase";
+import firebase from "firebase";
+import '@firebase/firestore';
 
 import Firebase from "./js/lib/firebase";
 import Constants from 'expo';
@@ -51,7 +52,11 @@ export default class App extends React.Component {
 
   constructor(props) {
      super(props);
-     Firebase.initialise();
+    Firebase.initialise();
+    // firebase.initialise();
+
+
+   
   }
 
   render() {
