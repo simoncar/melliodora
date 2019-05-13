@@ -110,6 +110,9 @@ exports.deleteOldItems = functions.database
     snapshot.forEach(child => {
       if (child.child("timestamp").val() != null) {
         updates[child.key] = {
+          beaconName: child.child("beaconName").val(),
+          beaconCampus: child.child("beaconCampus").val(),
+          beaconType: child.child("beaconType").val(),
           lastSeen: Date.now(),
           timestamp: null
         };
@@ -158,11 +161,11 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-10-12.17.21.png";
           break;
         case "AC233F292E3E":
-          personName = "Mohd Yusoff";
-          personType = "Staff";
+          personName = "Grace Cariss";
+          personType = "Student";
           personCampus = "Woodleigh - Gate 1";
-          personPictureURL =
-            "https://saispta.com/wp-content/uploads/2019/05/Yusoff.jpeg";
+          personPictureURL = personGrade = "6";
+          "https://saispta.com/wp-content/uploads/2019/05/graceprofilepic.jpeg";
           break;
         case "AC233F292E9A":
           personName = "Simon Cariss";
@@ -181,7 +184,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             "https://saispta.com/wp-content/uploads/2019/05/lucyprofilepic.jpeg";
 
           break;
-        case "AC233F291488":
+        case "AC233F2915A0":
           personName = "Ben Cariss";
           personType = "Student";
           personCampus = "Woodleigh - Gate 1";
@@ -253,6 +256,14 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           personGrade = "4";
           personPictureURL =
             "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-22.21.19.png";
+          break;
+
+        case "AC233F2915A9":
+          personName = "Mohd Yusoff";
+          personType = "Staff";
+          personCampus = "Woodleigh - Gate 1";
+          personPictureURL =
+            "https://saispta.com/wp-content/uploads/2019/05/Yusoff.jpeg";
           break;
         default:
           personName = "(Not registered with Name)";

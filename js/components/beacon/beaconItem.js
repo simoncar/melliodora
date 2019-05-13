@@ -11,7 +11,7 @@ import { Grid, Col, Row } from "react-native-easy-grid";
 
 import { Container, Content, Text, Button, Icon } from "native-base";
 import styles from "./styles";
-import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons, Feather } from "@expo/vector-icons";
 import moment from "moment";
 
 import { isAdmin } from "../global.js";
@@ -23,8 +23,8 @@ class BeaconItem extends Component {
     super(props);
   }
 
-  renderProfileIcons(beaconType) {
-    if (beaconType == "Staff") {
+  renderProfileIcons(lastSeen, beaconType) {
+    if (lastSeen = null ) {
       return (
         <Grid>
           <Row>
@@ -36,7 +36,7 @@ class BeaconItem extends Component {
               <View
                 style={{
                   borderRadius: 30,
-                  backgroundColor: "#1DAEF2",
+                  backgroundColor: "green",
                   width: 45,
                   height: 45,
                   marginLeft: 10,
@@ -48,42 +48,14 @@ class BeaconItem extends Component {
                 }}
               >
                 <View>
-                  <AntDesign
+                  <Feather
                     style={{ color: "white", fontSize: 20 }}
-                    name="phone"
+                    name="radio"
                   />
                 </View>
               </View>
             </Col>
-            <Col
-              style={{
-                width: 45,
-                paddingLeft: 10
-              }}
-            >
-              <View
-                style={{
-                  borderRadius: 30,
-                  backgroundColor: "#1DAEF2",
-                  width: 45,
-                  height: 45,
-                  marginLeft: 10,
-                  marginTop: 10,
-
-                  alignItems: "center",
-                  paddingLeft: 0,
-                  paddingRight: 0,
-                  justifyContent: "center"
-                }}
-              >
-                <View>
-                  <AntDesign
-                    style={{ color: "white", fontSize: 20 }}
-                    name="notification"
-                  />
-                </View>
-              </View>
-            </Col>
+           
           </Row>
         </Grid>
       );
@@ -122,7 +94,7 @@ class BeaconItem extends Component {
 
       return (
         <Text style={styles.chatDescription}>
-          Last seen : {lastSeenDateTime}
+          {lastSeenDateTime}
         </Text>
       );
     } else
@@ -139,8 +111,19 @@ class BeaconItem extends Component {
     }
   }
 
+  renderBeaconIcon(beaconIcon) {
+    if (beaconIcon != null && beaconIcon != undefined && beaconIcon.length > 0) {
+      return <Text style={styles.chatDescription}></Text>;
+    }
+  }
+  renderBeaconType(beaconType) {
+    if (beaconType != null && beaconType != undefined && beaconType.length > 0) {
+      return <Text style={styles.chatDescription}>{beaconType}</Text>;
+    }
+  }
+
   render() {
-    console.log(this.props.beaconName);
+    //console.log(this.props.beaconName);
 
     return (
       <View style={styles.chatRow}>
@@ -166,7 +149,7 @@ class BeaconItem extends Component {
                 <View>
                   <Text style={styles.chatTitle}>{this.props.beaconName}</Text>
                   <Text style={styles.chatDescription}>
-                    {this.props.beaconType} {this.props.beaconIcon}
+                   {this.renderBeaconIcon(this.props.beaconIcon)}
                   </Text>
                   {this.renderLastSeen(this.props.lastSeen)}
                   {this.renderBeaconCampus(this.props.beaconCampus)}
@@ -174,8 +157,8 @@ class BeaconItem extends Component {
                 </View>
               </TouchableOpacity>
             </Col>
-            <Col style={{ width: 110 }}>
-              {this.renderProfileIcons(this.props.beaconType)}
+            <Col style={{ width: 70 }}>
+              {this.renderProfileIcons(this.props.lastSeen, this.props.beaconType)}
             </Col>
           </Row>
         </Grid>
