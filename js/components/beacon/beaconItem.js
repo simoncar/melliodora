@@ -16,6 +16,7 @@ import moment from "moment";
 
 import { isAdmin } from "../global.js";
 
+
 const { width } = Dimensions.get("window");
 
 class BeaconItem extends Component {
@@ -23,8 +24,8 @@ class BeaconItem extends Component {
     super(props);
   }
 
-  renderProfileIcons(lastSeen, beaconType) {
-    if (lastSeen = null ) {
+  renderProfileIcons(lastSeen,timestamp, beaconType) {
+    if (timestamp != null) {
       return (
         <Grid>
           <Row>
@@ -55,7 +56,6 @@ class BeaconItem extends Component {
                 </View>
               </View>
             </Col>
-           
           </Row>
         </Grid>
       );
@@ -88,21 +88,20 @@ class BeaconItem extends Component {
     }
   }
 
-  renderLastSeen(lastSeen) {
-    if (lastSeen != null ) {
+  renderLastSeen(lastSeen, timestamp) {
+
+    console.log ('lastSeen',lastSeen)
+    console.log ('Date.now()',Date.now())
+
+    if (lastSeen != null && timestamp == null) {
       lastSeenDateTime = moment(lastSeen).format("LLL");
 
-      return (
-        <Text style={styles.chatDescription}>
-          {lastSeenDateTime}
-        </Text>
-      );
-    } else
-    { return (
-      <Text style={styles.lastSeenActive}>
-        Active
-      </Text>
-    );}
+      return <Text style={styles.chatDescription}>{lastSeenDateTime}</Text>;
+    } else if (timestamp != null) {
+      return <Text style={styles.lastSeenActive}>Active</Text>;
+    } else {
+      return <Text style={styles.lastSeenActive}>Active</Text>;
+    }
   }
 
   renderBeaconCampus(beaconCampus) {
@@ -112,12 +111,20 @@ class BeaconItem extends Component {
   }
 
   renderBeaconIcon(beaconIcon) {
-    if (beaconIcon != null && beaconIcon != undefined && beaconIcon.length > 0) {
-      return <Text style={styles.chatDescription}></Text>;
+    if (
+      beaconIcon != null &&
+      beaconIcon != undefined &&
+      beaconIcon.length > 0
+    ) {
+      return <Text style={styles.chatDescription} />;
     }
   }
   renderBeaconType(beaconType) {
-    if (beaconType != null && beaconType != undefined && beaconType.length > 0) {
+    if (
+      beaconType != null &&
+      beaconType != undefined &&
+      beaconType.length > 0
+    ) {
       return <Text style={styles.chatDescription}>{beaconType}</Text>;
     }
   }
@@ -148,17 +155,18 @@ class BeaconItem extends Component {
 
                 <View>
                   <Text style={styles.chatTitle}>{this.props.beaconName}</Text>
-                  <Text style={styles.chatDescription}>
-               
-                  </Text>
-                  {this.renderLastSeen(this.props.lastSeen)}
+                  <Text style={styles.chatDescription} />
+                  {this.renderLastSeen(this.props.lastSeen, this.props.timestamp)}
                   {this.renderBeaconCampus(this.props.beaconCampus)}
-              
                 </View>
               </TouchableOpacity>
             </Col>
             <Col style={{ width: 70 }}>
-              {this.renderProfileIcons(this.props.lastSeen, this.props.beaconType)}
+              {this.renderProfileIcons(
+                this.props.lastSeen,
+                this.props.timestamp,
+                this.props.beaconType
+              )}
             </Col>
           </Row>
         </Grid>
