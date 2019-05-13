@@ -271,15 +271,17 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           personCampus = "Woodleigh - Gate 1";
       }
 
-      beacon.update({
-        //mute: false,
-        beaconName: personName,
-        beaconType: personType,
-        beaconCampus: personCampus,
-        beaconGrade: personGrade,
-        beaconPictureURL: personPictureURL,
-        timestamp: Date.now()
-      });
+      if (personName != "(Not registered with Name)") {
+        beacon.update({
+          //mute: false,
+          beaconName: personName,
+          beaconType: personType,
+          beaconCampus: personCampus,
+          beaconGrade: personGrade,
+          beaconPictureURL: personPictureURL,
+          timestamp: Date.now()
+        });
+      }
     });
 
     res.status(200).send(req.body);

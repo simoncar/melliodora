@@ -51,7 +51,8 @@ export default {
     fontWeight: "bold",
     backgroundColor: "white",
     color: "black",
-    marginLeft: 15
+    marginLeft: 15,
+    paddingBottom: 5,
   },
   chatDescription: {
     fontSize: 13,
