@@ -148,9 +148,7 @@ class BeaconItem extends Component {
 
                 <View>
                   <Text style={styles.chatTitle}>{this.props.beaconName}</Text>
-                  <Text style={styles.chatDescription}>
-                   {this.renderBeaconIcon(this.props.beaconIcon)}
-                  </Text>
+
                   {this.renderLastSeen(this.props.lastSeen)}
                   {this.renderBeaconCampus(this.props.beaconCampus)}
               
