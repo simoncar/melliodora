@@ -61,31 +61,15 @@ class beacons extends Component {
       this.props.setUserBeacons(dataSnapshot2);
       dataSnapshot = dataSnapshot2;
       this.state.userBeacons = [];
-      this.countStudent = 0;
-      this.countParent = 0;
-      this.countAdmin = 0;
-      this.countVisitor = 0;
+      this.countEntered = 0;
       var beaconIcon = "";
 
       dataSnapshot.forEach(child => {
-        switch (child.val().beaconType) {
-          case "Student":
-            ++this.countStudent;
-            beaconIcon = "G"
-            break;
-          case "Parent":
-            ++this.countParent;
-            beaconIcon = "P";
-            break;
-          case "Staff":
-            ++this.countAdmin;
-            beaconIcon = "A";
-            break;
-            case "Visitor":
-            ++this.countVisitor;
-            beaconIcon = "V";
-            break;
-        }
+      
+            ++this.countEntered;
+            beaconIcon = "G";
+         
+        
 
         this.state.userBeacons.push({
           beaconCampus: child.val().beaconCampus,
@@ -160,42 +144,40 @@ class beacons extends Component {
   render() {
     return (
       <Container style={styles.container}>
-        <Text style={styles.chatTitle}>
-          Total : {this.countStudent + this.countParent + this.countAdmin + this.countVisitor}
-        </Text>
+        
   
         <View style={{ height: 100 }}>
         <Grid style={{ height: 50 }}>
           <Col style={{ alignItems: 'center' }}>
             <Row>
-            {this.renderCount("Staff",this.countStudent)}
+            {this.renderCount("Total",3028)}
             </Row>
             <Row>
-              <Text style={styles.chatTitle}>Students</Text>
-            </Row>
-          </Col>
-          <Col style={{ alignItems: 'center' }}>
-            <Row>
-            {this.renderCount("Staff",this.countParent)}
-            </Row>
-            <Row>
-              <Text style={styles.chatTitle}>Parents</Text>
+              <Text style={styles.chatTitle}>Total</Text>
             </Row>
           </Col>
           <Col style={{ alignItems: 'center' }}>
             <Row>
-            {this.renderCount("Staff", this.countAdmin)}
+            {this.renderCount("Entered",this.countEntered)}
             </Row>
             <Row>
-              <Text style={styles.chatTitle}>Staff</Text>
+              <Text style={styles.chatTitle}>Entered</Text>
             </Row>
           </Col>
           <Col style={{ alignItems: 'center' }}>
             <Row>
-            {this.renderCount("Staff",this.countVisitor)}
+            {this.renderCount("Exited", 0)}
             </Row>
             <Row>
-              <Text style={styles.chatTitle}>Visitors</Text>
+              <Text style={styles.chatTitle}>Exited</Text>
+            </Row>
+          </Col>
+          <Col style={{ alignItems: 'center' }}>
+            <Row>
+            {this.renderCount("No Show",3028 - this.countEntered)}
+            </Row>
+            <Row>
+              <Text style={styles.chatTitle}>No Show</Text>
             </Row>
           </Col>
         </Grid>
