@@ -1,16 +1,52 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const fetch = require("node-fetch");
+const {Translate} = require('@google-cloud/translate');
 
 admin.initializeApp(functions.config().firebase);
 
+const translateX = new Translate();
 //const CUT_OFF_TIME = 2 * 60 * 60 * 1000;  - 2 hours
-
+// List of output languages.
+const LANGUAGES = ['en', 'es', 'de', 'fr', 'sv', 'ga', 'it', 'jp'];
 const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
 
 // https://firebase.google.com/docs/functions/get-started
 // firebase deploy (from root)
 // send the push notification
+
+
+// Translate an incoming message.
+exports.translate = functions.database.ref('instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/{languageID}/{messageID}').onWrite(
+  (change, context) => {
+    const snapshot = change.after;
+   
+    if (1 == 2) {
+    
+      return null;
+    }
+    const promises = [];
+    for (let i = 0; i < LANGUAGES.length; i++) {
+      const language = LANGUAGES[i];
+      console.log ('translate = ', language)
+      console.log('   context = ', context.params.languageID)
+      if (language !== context.params.languageID) {
+        console.log ('do some work  = ', snapshot)
+       
+          console.log ('call translator', promises)
+          const results =  translateX.translate("this is a test", {from: context.params.languageID, to: language});
+          console.log ('translate await results = ', results)
+    
+          return admin.database().ref('instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/XX/YYY').set({
+            text: results[0],
+            translated: true,
+          });
+      
+      }
+    }
+    return Promise.all(promises);
+  });
+
 
 exports.sendPushNotificationSimonAll = functions.database
   .ref(
@@ -114,7 +150,8 @@ exports.deleteOldItems = functions.database
           beaconCampus: child.child("beaconCampus").val(),
           beaconType: child.child("beaconType").val(),
           lastSeen: Date.now(),
-          timestamp: null
+          timestamp: null,
+          beaconPictureURL: child.child("beaconPictureURL").val(),
         };
       }
     });
