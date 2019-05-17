@@ -13,7 +13,6 @@ import { withMappedNavigationProps } from "react-navigation-props-mapper";
 
 import styles from "./styles";
 
-
 const ChatroomItem = require("./chatroomItem");
 let instID = Constants.manifest.extra.instance;
 
@@ -35,10 +34,12 @@ class chatRooms extends Component {
       userChatrooms: {},
       user: null
     };
-    
+
     // this.chatRoomsFirebase = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
 
-    this.chatRoomsFirebase = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
+    this.chatRoomsFirebase = firebase
+      .database()
+      .ref(`instance/${instID}/user/${global.safeToken}/chatrooms`);
 
     // analytics  -----
     const trackingOpts = {
@@ -64,38 +65,35 @@ class chatRooms extends Component {
   keyExtractor = item => item._key;
 
   listenLoadFromFirebase(chatRooms) {
-
     chatRooms.on("value", dataSnapshot2 => {
       this.props.setUserChatrooms(dataSnapshot2);
       dataSnapshot = dataSnapshot2;
       this.state.userChatrooms = [];
 
-      dataSnapshot.forEach((child) => {
+      dataSnapshot.forEach(child => {
         this.state.userChatrooms.push({
           title: child.key,
-          _key: child.key,
+          _key: child.key
         });
       });
 
       this.state.userChatrooms.push({
-        title: 'PTA Volunteer Q&A',
-        _key: 'PTA Volunteer Q&A'
+        title: "PTA Volunteer Q&A",
+        _key: "PTA Volunteer Q&A"
       });
       this.state.userChatrooms.push({
-        title: 'Lost and Found',
-        _key: 'Lost and Found'
+        title: "Lost and Found",
+        _key: "Lost and Found"
       });
       this.state.userChatrooms.push({
-        title: 'Stamford 10 Year Gala',
-        _key: 'Stamford 10 Year Gala'
-      });
-      
-      this.setState({
-        chatRooms,
+        title: "Stamford 10 Year Gala",
+        _key: "Stamford 10 Year Gala"
       });
 
+      this.setState({
+        chatRooms
+      });
     });
-    
   }
 
   _renderItem(title, description, contact, url) {
@@ -122,8 +120,7 @@ class chatRooms extends Component {
     // {this._renderItem('4DAYE','Daisy Ye - Level 5 Washington','daisy.ye@sais.edu.sg ','https://mystamford.edu.sg/homeroom-2/grade-4/daisy-ye-g4-daye/class-update')}
     // {this._renderItem('Grade 6','Grade 6 Group Chat','middleschool@sais.edu.sg','https://mystamford.edu.sg/browse-resources/secondary')}
 
-
-    console.log (item);
+    console.log(item);
 
     //ken{YQNwZDOkv0QdHUlDV-T5HQ}  - Simon
     return (
@@ -141,14 +138,12 @@ class chatRooms extends Component {
   render() {
     return (
       <Container style={styles.container}>
-        <Content style={{paddingTop: 20 }}>
-       
+        <Content style={{ paddingTop: 20 }}>
           <FlatList
             data={this.state.userChatrooms}
             renderItem={this._renderItem2.bind(this)}
             keyExtractor={this.keyExtractor}
           />
-
         </Content>
       </Container>
     );

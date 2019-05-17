@@ -1,37 +1,56 @@
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import {
+  TouchableHighlight,
+  Animated,
+  TextInput,
+  Dimensions,
+  TouchableOpacity,
+  WebView,
+  ScrollView,
+  Image,
+  View,
+  Platform
+} from "react-native";
+import { Actions, ActionConst } from "react-navigation";
 
-import { TouchableHighlight, Animated, TextInput, Dimensions, TouchableOpacity, WebView, ScrollView, Image, View, Platform } from 'react-native';
-import { Actions, ActionConst } from 'react-navigation';
+import {
+  Container,
+  Header,
+  Content,
+  Text,
+  Button,
+  Icon,
+  Left,
+  Right,
+  Body
+} from "native-base";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Grid, Col, Row } from "react-native-easy-grid";
 
-import { Container, Header, Content, Text, Button, Icon, Left, Right, Body } from 'native-base';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Grid, Col, Row } from 'react-native-easy-grid';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import Analytics from "../../lib/analytics";
+import { Constants } from "expo";
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
-import Analytics from '../../lib/analytics';
-import { Constants } from 'expo';
+import HeaderContent from "./../headerContent/header";
 
-import HeaderContent from './../headerContent/header';
+import { openDrawer } from "../../actions/drawer";
 
-import { openDrawer } from '../../actions/drawer';
+import * as ActionCreators from "../../actions";
 
-import * as  ActionCreators from '../../actions'
+import theme from "../../themes/base-theme";
+import styles from "./styles";
 
-import theme from '../../themes/base-theme';
-import styles from './styles';
+const primary = require("../../themes/variable").brandPrimary;
 
-const primary = require('../../themes/variable').brandPrimary;
-
-var WEBVIEW_REF = 'webview';
-var DEFAULT_URL = 'http://www.stamfordlionsathletics.com/';
-
+var WEBVIEW_REF = "webview";
+var DEFAULT_URL = "http://www.stamfordlionsathletics.com/";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialCommunityIcons
-    style={{ backgroundColor: 'transparent' }}
+    style={{ backgroundColor: "transparent" }}
     name={name}
     color={tintColor}
     size={24}
@@ -39,24 +58,22 @@ const tabBarIcon = name => ({ tintColor }) => (
 );
 
 class WebportalSports extends Component {
-
   static propTypes = {
-
     openDrawer: PropTypes.func,
     navigation: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-  }
+      key: PropTypes.string
+    })
+  };
 
   constructor(props) {
     super(props);
 
-    injectScript = '';
+    injectScript = "";
 
     //analytics  -----
     let trackingOpts = {
       instId: Constants.manifest.extra.instance,
-      emailOrUsername: global.username,
+      emailOrUsername: global.username
     };
 
     Analytics.identify(global.username, trackingOpts);
@@ -66,36 +83,34 @@ class WebportalSports extends Component {
 
   state = {
     url: DEFAULT_URL,
-    status: 'No Page Loaded',
+    status: "No Page Loaded",
     backButtonEnabled: false,
     forwardButtonEnabled: false,
     loading: true,
-    scalesPageToFit: true, 
+    scalesPageToFit: true,
     cookies: {},
-    webViewUrl: '',
+    webViewUrl: ""
   };
 
   static navigationOptions = {
-    title: 'Athletics',
-    tabBarColor: '#C10F2F',
-    tabBarIcon: tabBarIcon('soccer'),
+    title: "Athletics",
+    tabBarColor: "#C10F2F",
+    tabBarIcon: tabBarIcon("soccer")
   };
 
-
-  onNavigationStateChange = (navState) => {
-
-    this.setState({ url: navState.url })
+  onNavigationStateChange = navState => {
+    this.setState({ url: navState.url });
 
     if (navState.url != "https://mystamford.edu.sg/parent-dashboard") {
-      this.setState({ canGoBack: navState.canGoBack })
+      this.setState({ canGoBack: navState.canGoBack });
     } else {
       this.setState({ canGoBack: false });
     }
 
-    this.setState({ updateFirebaseText: navState.url })
+    this.setState({ updateFirebaseText: navState.url });
 
     var string = navState.url;
-  }
+  };
 
   onBack() {
     this.refs[WEBVIEW_REF].goBack();
@@ -109,14 +124,13 @@ class WebportalSports extends Component {
 
   reload = () => {
     this.refs[WEBVIEW_REF].reload();
-  }
+  };
 
   render() {
-    var source = { uri: 'http://google.com' };
+    var source = { uri: "http://google.com" };
     return (
       <Container>
-        <HeaderContent 
-        navigation={this.props.navigation} />
+        <HeaderContent navigation={this.props.navigation} />
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>
@@ -128,7 +142,7 @@ class WebportalSports extends Component {
               </TouchableOpacity>
 
               <TextInput
-                ref='pageURL'
+                ref="pageURL"
                 //placeholder= {this.state.url}
                 value={this.state.url}
                 //  onChangeText={(user) => this.props.setUsername(user)}
@@ -139,10 +153,14 @@ class WebportalSports extends Component {
                 selectionColor="#FFF"
                 enablesReturnKeyAutomatically
                 returnKeyType="return"
-              //  onSubmitEditing={() => this.refs.PasswordInput.focus() }
+                //  onSubmitEditing={() => this.refs.PasswordInput.focus() }
               />
 
-              <Icon style={styles.navIconRight} active name="ios-arrow-forward" />
+              <Icon
+                style={styles.navIconRight}
+                active
+                name="ios-arrow-forward"
+              />
             </View>
 
             <WebView
@@ -156,34 +174,30 @@ class WebportalSports extends Component {
               scalesPageToFit={true}
               injectedJavaScript={injectScript}
               ref={WEBVIEW_REF}
-
             />
           </View>
         </View>
-
-
       </Container>
     );
-  };
-
-
-
-
+  }
 }
 
 function bindAction(dispatch) {
   return {
-    openDrawer: () => dispatch(openDrawer()),
+    openDrawer: () => dispatch(openDrawer())
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return bindActionCreators(ActionCreators, dispatch);
 };
 
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
-  userX: state.user,
+  userX: state.user
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(WebportalSports);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WebportalSports);
