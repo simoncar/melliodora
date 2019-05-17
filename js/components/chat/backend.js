@@ -199,7 +199,7 @@ async function uploadImageAsync(message, chatroom, user) {
     .split(/\#|\?/)[0];
   var fileToUpload = "";
   console.log("fileType=", fileType);
-  if ((fileType == "JPG") || (fileType == "HEIC") || (fileType == "PNG")) {
+  if (fileType == "JPG" || fileType == "HEIC" || fileType == "PNG") {
     const convertedImage = await new ImageManipulator.manipulateAsync(
       message.image,
       [{ resize: { height: 1000 } }],
@@ -257,8 +257,8 @@ async function uploadImageAsync(message, chatroom, user) {
 
   // We're done with the blob, close and release it
   blob.close();
-  console.log ("----------= file type - ", fileType)
-  if ((fileType == "JPG") || (fileType == "HEIC") || (fileType == "PNG")) {
+  console.log("----------= file type - ", fileType);
+  if (fileType == "JPG" || fileType == "HEIC" || fileType == "PNG") {
     this.messageRef = firebase
       .database()
       .ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);

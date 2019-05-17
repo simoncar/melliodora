@@ -24,7 +24,7 @@ import { openDrawer } from "../../actions/drawer";
 
 import ParsedText from "react-native-parsed-text";
 import Communications from "react-native-communications";
-import { withMappedNavigationProps } from 'react-navigation-props-mapper'
+import { withMappedNavigationProps } from "react-navigation-props-mapper";
 
 import styles from "./styles";
 import call from "react-native-phone-call"; //TODO migration to communications
@@ -183,7 +183,7 @@ class Story extends Component {
     };
     const uri = imageURI;
 
-    if (undefined !== imageURI && null !== imageURI && imageURI.length>0) {
+    if (undefined !== imageURI && null !== imageURI && imageURI.length > 0) {
       return (
         <View>
           <Image style={styles.storyPhoto} {...{ preview, uri }} />
@@ -209,71 +209,61 @@ class Story extends Component {
   }
 
   _drawIconMore(url) {
-
     if (isValue(url)) {
-     
-      return(
+      return (
         <TouchableOpacity
           onPress={() => {
-            this._handleOpenWithLinking(
-              this.props.navigation.state.params.url
-            );
+            this._handleOpenWithLinking(this.props.navigation.state.params.url);
           }}
         >
           <Text style={styles.eventText}>
             <Icon name="md-link" style={styles.eventIcon} />
           </Text>
         </TouchableOpacity>
-      )
+      );
     }
   }
 
   _drawIconCalendar(params) {
-
     if (isValue(params.eventDate)) {
-         return(
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate("phoneCalendar", {
-                eventTitle: this.props.navigation.state.params
-                  .eventTitle,
-                eventDescription: this.props.navigation.state.params
-                  .eventDescription,
-                eventDate: this.props.navigation.state.params.eventDate,
-                eventStartTime: this.props.navigation.state.params
-                  .eventStartTime,
-                eventEndTime: this.props.navigation.state.params
-                  .eventEndTime,
-                location: this.props.navigation.state.params.location,
-                eventImage: this.props.navigation.state.params
-                  .eventImage,
-                phone: this.props.navigation.state.params.phone,
-                email: this.props.navigation.state.params.email,
-                color: this.props.navigation.state.params.color,
-                photo1: this.props.navigation.state.params.photo1,
-                photo2: this.props.navigation.state.params.photo2,
-                photo3: this.props.navigation.state.params.photo3,
-                url: this.props.navigation.state.params.url
-              });
-            }}
-          >
-            <Text style={styles.eventText}>
-              <Ionicons name="ios-calendar" style={styles.eventIcon} />
-            </Text>
-          </TouchableOpacity>
-          )
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            this.props.navigation.navigate("phoneCalendar", {
+              eventTitle: this.props.navigation.state.params.eventTitle,
+              eventDescription: this.props.navigation.state.params
+                .eventDescription,
+              eventDate: this.props.navigation.state.params.eventDate,
+              eventStartTime: this.props.navigation.state.params.eventStartTime,
+              eventEndTime: this.props.navigation.state.params.eventEndTime,
+              location: this.props.navigation.state.params.location,
+              eventImage: this.props.navigation.state.params.eventImage,
+              phone: this.props.navigation.state.params.phone,
+              email: this.props.navigation.state.params.email,
+              color: this.props.navigation.state.params.color,
+              photo1: this.props.navigation.state.params.photo1,
+              photo2: this.props.navigation.state.params.photo2,
+              photo3: this.props.navigation.state.params.photo3,
+              url: this.props.navigation.state.params.url
+            });
+          }}
+        >
+          <Text style={styles.eventText}>
+            <Ionicons name="ios-calendar" style={styles.eventIcon} />
+          </Text>
+        </TouchableOpacity>
+      );
     }
-
   }
 
   _drawIconShare() {
     return (
       <TouchableOpacity onPress={() => this._shareMessage()}>
-      <Text style={styles.eventText}>
-        <EvilIcons name="share-apple" style={styles.eventIcon} />
-      </Text>
-    </TouchableOpacity>
-    )
+        <Text style={styles.eventText}>
+          <EvilIcons name="share-apple" style={styles.eventIcon} />
+        </Text>
+      </TouchableOpacity>
+    );
   }
 
   render() {
@@ -285,24 +275,16 @@ class Story extends Component {
           {this._drawImage(this.props.navigation.getParam("photo1"))}
 
           <View
-              style={{
-                flexDirection: 'row',
-                padding: 5,
-                paddingLeft: 10,
-              }}>
-
-              {this._drawIconChat(
-                this.props.navigation.state.params.eventTitle
-              )}
-                            {this._drawIconMore(
-                this.props.navigation.state.params.url
-              )}
-                            {this._drawIconCalendar(
-                this.props.navigation.state.params
-              )}
-                            {this._drawIconShare()}
-         
-         
+            style={{
+              flexDirection: "row",
+              padding: 5,
+              paddingLeft: 10
+            }}
+          >
+            {this._drawIconChat(this.props.navigation.state.params.eventTitle)}
+            {this._drawIconMore(this.props.navigation.state.params.url)}
+            {this._drawIconCalendar(this.props.navigation.state.params)}
+            {this._drawIconShare()}
           </View>
 
           <View style={{ flex: 1 }}>
@@ -393,32 +375,30 @@ class Story extends Component {
                   </TouchableOpacity>
                 )}
 
-<Text>  </Text>
-<Text>  </Text>
-<Text>  </Text>
-<Text selectable style={styles.eventTextAbbreviation}>
+              <Text> </Text>
+              <Text> </Text>
+              <Text> </Text>
+              <Text selectable style={styles.eventTextAbbreviation}>
                 {getAbbreviations(this.props.navigation.getParam("eventTitle"))}
               </Text>
-<Text>  </Text>
-<Text>  </Text>
-<Text>  </Text>
+              <Text> </Text>
+              <Text> </Text>
+              <Text> </Text>
 
-<Text>  </Text>
-<Text>  </Text>
-<Text>  </Text>
-
+              <Text> </Text>
+              <Text> </Text>
+              <Text> </Text>
 
               {isAdmin(this.props.adminPassword) && (
-                
-
                 <TouchableHighlight
                   style={styles.addButton}
                   underlayColor="#ff7043"
                   onPress={() =>
-
                     this.props.navigation.navigate("storyForm", {
                       eventTitle: this.props.navigation.getParam("eventTitle"),
-                      eventDescription: this.props.navigation.getParam("eventDescription"),
+                      eventDescription: this.props.navigation.getParam(
+                        "eventDescription"
+                      ),
                       eventDate: this.props.navigation.state.params.eventDate,
                       eventStartTime: this.props.navigation.state.params
                         .eventStartTime,
@@ -443,16 +423,12 @@ class Story extends Component {
                     })
                   }
                 >
-
-                
                   <MaterialIcons
                     name="edit"
                     style={{ fontSize: 25, color: "white" }}
                   />
                 </TouchableHighlight>
               )}
-
-         
             </View>
           </View>
         </Content>

@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import {
-  Linking,
-  Platform,
   StyleSheet,
   TouchableOpacity,
   ViewPropTypes,
@@ -12,10 +10,9 @@ import {
   Modal,
   Button,
   CameraRoll,
-  Share
 } from "react-native";
 import { Image } from "react-native-expo-image-cache";
-import ImageViewer from "react-native-image-zoom-viewer";
+
 
 const { width } = Dimensions.get("window");
 
