@@ -23,7 +23,17 @@ export default {
     flexDirection: 'row',
     textAlign: 'center',
         fontSize: 20,
+
   },
+  itemTitle: {
+    fontWeight: "bold",
+    flex: 1,
+    fontSize: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'black',
+  },
+
   version: {
     backgroundColor: 'white',
     color: '#666',

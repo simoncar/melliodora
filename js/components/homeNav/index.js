@@ -219,63 +219,52 @@ class HomeNav extends Component {
       <Container style={styles.container}>
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
-           
-           
-          {isAdmin(this.props.adminPassword) && (
-            <TouchableOpacity
-              style={{ flexDirection: "row" }}
-              onPress={() => {
-                this.props.navigation.navigate("beacon");
-              }}
-            >
-              <View>
-                <View
-                  style={{
-                    height: 30,
-                    backgroundColor: "white",
-                    flexDirection: "row"
-                  }}
-                >
-                  <Image
+            {isAdmin(this.props.adminPassword) && (
+              <TouchableOpacity
+                style={{ flexDirection: "row" }}
+                onPress={() => {
+                  this.props.navigation.navigate("beacon");
+                }}
+              >
+                <View>
+                  <View
                     style={{
-                      width: 36,
-                      height: 36,
-                      margin: 12,
-                      borderRadius: 18,
-                      borderWidth: StyleSheet.hairlineWidth,
-                      borderColor: "lightgray"
-                    }}
-                    source={{
-                      uri:
-                        "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png"
-                    }}
-                  />
-                  <Text
-                    style={{
-                      fontWeight: "bold",
                       height: 60,
-                      lineHeight: 60,
-                      color: "black"
+                      backgroundColor: "white",
+                      flexDirection: "row",
+                      justifyContent: 'center',
+    alignItems: 'center',
                     }}
                   >
-                    Safeguarding{" "}
-                  </Text>
+                    <Image
+                      style={{
+                        width: 36,
+                        height: 36,
+                        margin: 12,
+                        borderRadius: 18,
+                        borderWidth: StyleSheet.hairlineWidth,
+                        borderColor: "lightgray"
+                      }}
+                      source={{
+                        uri:
+                          "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png"
+                      }}
+                    />
+                    <Text style={styles.itemTitle}>Safeguarding</Text>
+                  </View>
+                  <View>
+                    <Image
+                      source={{
+                        uri:
+                          "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png"
+                      }}
+                      style={{ width, height: 200 }}
+                      resizeMode="contain"
+                    />
+                  </View>
                 </View>
-                <View>
-                  <Image
-                    source={{
-                      uri:
-                        "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png"
-                    }}
-                    style={{ width, height: 200 }}
-                    resizeMode="contain"
-                  />
-                </View>
-              </View>
-            </TouchableOpacity>
-
+              </TouchableOpacity>
             )}
-
 
             <FlatList
               data={this.state.featureItems}
