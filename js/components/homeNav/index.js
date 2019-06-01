@@ -265,7 +265,7 @@ class HomeNav extends Component {
                   <Image
                     source={{
                       uri:
-                        "https://saispta.com/wp-content/uploads/2019/05/559615.jpg"
+                        "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png"
                     }}
                     style={{ width, height: 200 }}
                     resizeMode="contain"

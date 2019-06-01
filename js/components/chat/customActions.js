@@ -9,7 +9,6 @@ import {
   Text,
   SafeAreaView
 } from "react-native";
-import { ImagePicker } from "expo";
 
 import CameraRollPicker from "react-native-camera-roll-picker";
 import NavBar, { NavButton, NavButtonText, NavTitle } from "react-native-nav";
@@ -21,7 +20,7 @@ export default class CustomActions extends React.Component {
     this._images = [];
     this.state = {
       modalVisiblePhoto: false,
-      modalVisibleVideo: false,
+      modalVisibleVideo: false
     };
     this.onActionsPress = this.onActionsPress.bind(this);
     this.selectImagesPhoto = this.selectImagesPhoto.bind(this);
@@ -78,14 +77,12 @@ export default class CustomActions extends React.Component {
     this.setImages(images);
   }
 
-
   selectImagesVideo(images) {
     // dont use as it fires after every image is selected
     console.log("images = ", images);
 
     this.setImages(images);
   }
-
 
   renderNavBarPhoto() {
     return (
@@ -130,7 +127,7 @@ export default class CustomActions extends React.Component {
                 return {
                   image: image.uri,
                   filename: image.filename,
-                  playableDuration: 0,
+                  playableDuration: 0
                 };
               });
 
@@ -150,8 +147,6 @@ export default class CustomActions extends React.Component {
       </SafeAreaView>
     );
   }
-
-
 
   renderNavBarVideo() {
     return (
