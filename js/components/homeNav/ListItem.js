@@ -63,7 +63,9 @@ class ListItem extends Component {
               style={{
                 height: 60,
                 backgroundColor: "white",
-                flexDirection: "row"
+                flexDirection: "row",
+                justifyContent: 'center',
+    alignItems: 'center',
               }}
             >
               <Image
@@ -79,21 +81,12 @@ class ListItem extends Component {
               />
 
               {this.props.item.item.hidden == true && (
-                <Text
-                  style={{ fontWeight: "bold", height: 60, lineHeight: 60 }}
-                >
+                <Text style={styles.itemTitle}>
                   HIDDEN {this.props.item.item.title}
                 </Text>
               )}
               {this.props.item.item.hidden == false && (
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    height: 60,
-                    lineHeight: 60,
-                    flex: 1
-                  }}
-                >
+              <Text style={styles.itemTitle}>
                   {this.props.item.item.title}
                 </Text>
               )}
