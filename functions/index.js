@@ -116,26 +116,6 @@ exports.chatBeaconPing = functions.database
     const beaconName = createdData.beaconName;
     console.log("Beacon Name - new Ping", beaconName);
 
-    const newPing = admin
-      .database()
-      .ref(
-        `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
-          beaconName +
-          "/messages"
-      );
-
-    newPing.push({
-      //mute: false,
-      chatroom: beaconName,
-      text: "Ping - Woodleigh - Gate 1 - Security Hub",
-      createdAt: Date.now(),
-      date: Date.now(),
-      system: true,
-      user: {
-        name: "Gate 1 - Security Hub"
-      }
-    });
-
     return null;
   });
 
@@ -167,6 +147,27 @@ exports.deleteOldItems = functions.database
           state: null,
           beaconPictureURL: child.child("beaconPictureURL").val()
         };
+
+        const beaconName =  child.child("beaconName").val();
+        const newPing = admin
+          .database()
+          .ref(
+            `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
+              beaconName +
+              "/messages"
+          );
+
+        newPing.push({
+          //mute: false,
+          chatroom: beaconName,
+          text: "Ping - " + child.child("beaconCampus").val(),
+          createdAt: Date.now(),
+          date: Date.now(),
+          system: true,
+          user: {
+            name: child.child("beaconCampus").val()
+          }
+        });
       }
     });
     // execute all updates in one go and return the result to end the function
