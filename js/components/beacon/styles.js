@@ -22,8 +22,19 @@ export default {
     width: VIEW_WIDTH,
     left: 5,
     top: 5
+  ,
+  fontSize: 34
   },
 
+  singleChatItemImage: {
+    //position: 'absolute',
+    height: VIEW_WIDTH,
+    borderRadius: VIEW_WIDTH / 2,
+    width: VIEW_WIDTH,
+    left: 5,
+    top: 5
+
+  },
   icon: {
     fontSize: 20,
     color: "black",

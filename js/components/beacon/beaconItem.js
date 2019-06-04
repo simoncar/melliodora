@@ -107,13 +107,25 @@ class BeaconItem extends Component {
     }
   }
 
-  renderBeaconIcon(beaconIcon) {
+  renderBeaconIcon(beaconPictureURL) {
     if (
-      beaconIcon != null &&
-      beaconIcon != undefined &&
-      beaconIcon.length > 0
+      beaconPictureURL != null &&
+      beaconPictureURL != undefined &&
+      beaconPictureURL.length > 0
     ) {
-      return <Text style={styles.chatDescription} />;
+      return (
+        <Image
+        style={styles.singleChatItemImage}
+        source={{ uri: beaconPictureURL }}
+      />
+      );
+    } else {
+      return (
+      <MaterialIcons
+        style={styles.singleChatItemIcon}
+        name="person"
+      />
+      )
     }
   }
   renderBeaconType(beaconType) {
@@ -145,10 +157,8 @@ class BeaconItem extends Component {
                   });
                 }}
               >
-                <Image
-                  style={styles.singleChatItemIcon}
-                  source={{ uri: this.props.beaconPictureURL }}
-                />
+
+             {this.renderBeaconIcon(this.props.beaconPictureURL)}
 
                 <View>
                   <Text style={styles.chatTitle}>{this.props.beaconName}</Text>

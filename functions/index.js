@@ -119,7 +119,9 @@ exports.chatBeaconPing = functions.database
     const newPing = admin
       .database()
       .ref(
-        `instance/0001-sais_edu_sg/chat/chatroom/beacon-` + beaconName + "/messages"
+        `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
+          beaconName +
+          "/messages"
       );
 
     newPing.push({
@@ -147,7 +149,7 @@ exports.deleteOldItems = functions.database
   .onWrite(async change => {
     const ref = change.after.ref.parent; // reference to the parent
     const now = Date.now();
-    const cutoff = now - 10000; //CUT_OFF_TIME;
+    const cutoff = now - 100000; //CUT_OFF_TIME;
     const oldItemsQuery = ref.orderByChild("timestamp").endAt(cutoff);
     const snapshot = await oldItemsQuery.once("value");
     // create a map with all children that need to be removed
@@ -185,7 +187,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
       format = req.body.format;
     }
 
-   
     const formattedDate = moment().format(format);
     // console.log("Sending Formatted date:", formattedDate);
     // console.log("Sending Formatted body:", req.body);
@@ -195,8 +196,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
 
     try {
       beacons.forEach(function(snapshot) {
- 
-
         const beacon = admin
           .database()
           .ref(`instance/0001-sais_edu_sg/beacon/` + snapshot.mac);
@@ -241,115 +240,98 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               personCampus = "ELV Gate 1";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-                //console.log ("payloadELV:", beacons);
+
               break;
-              case "AC233FC039BE":
-                personName = "GATEWAY";
-                personCampus = "Woodleigh Parent Helpdesk";
-                personPictureURL =
-                  "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-                  //console.log ("payloadELV:", beacons);
-                break;
-  
+            case "AC233FC039BE":
+              personName = "GATEWAY";
+              personCampus = "Woodleigh Parent Helpdesk";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
 
+              break;
+          }
+        } else {
+          switch (snapshot.mac) {
+            case "AC233F292EB0":
+              personName = "Ryan Windebank";
+              personType = "Student";
+              personGrade = "7";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-10-12.17.21.png";
+              break;
+            case "AC233F292E3E":
+              personName = "Grace Cariss";
+              personType = "Student";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/graceprofilepic.jpeg";
+              personGrade = "6";
 
+              break;
+            case "AC233F292E9A":
+              personName = "Simon Cariss";
+              personType = "Parent";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/27993517_10156308333051494_4863829502063215688_o.jpg";
 
-              
+              break;
+            case "AC233F29148B":
+              personName = "Lucy Cariss";
+              personType = "Student";
+              personGrade = "4";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/lucyprofilepic.jpeg";
+
+              break;
+            case "AC233F2915A0":
+              personName = "Ben Cariss";
+              personType = "Student";
+              personGrade = "2";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/benprofilepic.jpeg";
+
+              break;
+            case "AC233F292F52":
+              personName = "Christina Thorsen";
+              personType = "Parent";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-19.07.22.png";
+              break;
+            case "AC233F29148A":
+              personName = "Kayla Thorsen";
+              personType = "Student";
+              personGrade = "4";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-19.10.12.png";
+
+              break;
+
+            case "AC233F292FDD":
+              personName = "Visitor Woodleigh";
+              personType = "Visitor";
+              personGrade = "4";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-22.21.19.png";
+              break;
+            case "FB1590E2A414":
+              personName = "Unallocated Button";
+              break;
+            case "C33FA1179F52":
+              personName = "Test Card **";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/27993517_10156308333051494_4863829502063215688_o.jpg";
+
+              break;
+            case "AC233F2915A9":
+              personName = "Mohd Yusoff";
+              personType = "Staff";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/Yusoff.jpeg";
+              break;
+            default:
+              personType = snapshot.mac;
+              personName = "~" + snapshot.mac;
           }
         }
-
-        switch (snapshot.mac) {
-          case "AC233F292EB0":
-            personName = "Ryan Windebank";
-            personType = "Student";
-            personGrade = "7";
-            personPictureURL =
-              "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-10-12.17.21.png";
-            break;
-          case "AC233F292E3E":
-            personName = "Grace Cariss";
-            personType = "Student";
-            personPictureURL =
-              "https://saispta.com/wp-content/uploads/2019/05/graceprofilepic.jpeg";
-            personGrade = "6";
-
-            break;
-          case "AC233F292E9A":
-            personName = "Simon Cariss";
-            personType = "Parent";
-            personPictureURL =
-              "https://saispta.com/wp-content/uploads/2019/05/27993517_10156308333051494_4863829502063215688_o.jpg";
-
-            break;
-          case "AC233F29148B":
-            personName = "Lucy Cariss";
-            personType = "Student";
-            personGrade = "4";
-            personPictureURL =
-              "https://saispta.com/wp-content/uploads/2019/05/lucyprofilepic.jpeg";
-
-            break;
-          case "AC233F2915A0":
-            personName = "Ben Cariss";
-            personType = "Student";
-            personGrade = "2";
-            personPictureURL =
-              "https://saispta.com/wp-content/uploads/2019/05/benprofilepic.jpeg";
-
-            break;
-          case "AC233F292F52":
-            personName = "Christina Thorsen";
-            personType = "Parent";
-            personPictureURL =
-              "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-19.07.22.png";
-            break;
-          case "AC233F29148A":
-            personName = "Kayla Thorsen";
-            personType = "Student";
-            personGrade = "4";
-            personPictureURL =
-              "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-19.10.12.png";
-
-            break;
-
-          case "AC233F2916C8":
-            personName = "张伟 Zhang Wei";
-            personType = "Student";
-            personGrade = "4";
-            personPictureURL =
-              "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-21.57.10.png";
-            break;
-          case "AC233F2915C5":
-            personName = "Angeline Tomlissanra";
-            personType = "Student";
-            personGrade = "4";
-            personPictureURL =
-              "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-22.21.19.png";
-            break;
-          case "AC233F292FDD":
-            personName = "Visitor Woodleigh";
-            personType = "Visitor";
-            personGrade = "4";
-            personPictureURL =
-              "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-22.21.19.png";
-            break;
-          case "FB1590E2A414":
-            personName = "Unallocated Button";
-            break;
-          case "C33FA1179F52":
-            personName = "Test Card **";
-            break;
-          case "AC233F2915A9":
-            personName = "Mohd Yusoff";
-            personType = "Staff";
-            personPictureURL =
-              "https://saispta.com/wp-content/uploads/2019/05/Yusoff.jpeg";
-            break;
-          default:
-            personType = snapshot.mac;
-            personName = "~" + snapshot.mac
-        }
-
 
         beacon.update({
           //mute: false,
@@ -359,7 +341,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           beaconGrade: personGrade,
           beaconPictureURL: personPictureURL,
           timestamp: Date.now(),
-          state: "Active",
+          state: "Active"
         });
       });
     } catch (e) {
