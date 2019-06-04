@@ -119,7 +119,7 @@ exports.chatBeaconPing = functions.database
     const newPing = admin
       .database()
       .ref(
-        `instance/0001-sais_edu_sg/chat/chatroom/` + beaconName + "/messages"
+        `instance/0001-sais_edu_sg/chat/chatroom/beacon-` + beaconName + "/messages"
       );
 
     newPing.push({
@@ -147,7 +147,7 @@ exports.deleteOldItems = functions.database
   .onWrite(async change => {
     const ref = change.after.ref.parent; // reference to the parent
     const now = Date.now();
-    const cutoff = now - 100000; //CUT_OFF_TIME;
+    const cutoff = now - 10000; //CUT_OFF_TIME;
     const oldItemsQuery = ref.orderByChild("timestamp").endAt(cutoff);
     const snapshot = await oldItemsQuery.once("value");
     // create a map with all children that need to be removed
@@ -162,6 +162,7 @@ exports.deleteOldItems = functions.database
           beaconType: child.child("beaconType").val(),
           lastSeen: Date.now(),
           timestamp: null,
+          state: null,
           beaconPictureURL: child.child("beaconPictureURL").val()
         };
       }
@@ -183,23 +184,25 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     if (!format) {
       format = req.body.format;
     }
+
+   
     const formattedDate = moment().format(format);
     // console.log("Sending Formatted date:", formattedDate);
     // console.log("Sending Formatted body:", req.body);
 
     var beacons = req.body;
     var personCampus = "";
-    
+
     try {
       beacons.forEach(function(snapshot) {
-        console.log("snapshot:", snapshot);
+ 
 
         const beacon = admin
           .database()
           .ref(`instance/0001-sais_edu_sg/beacon/` + snapshot.mac);
         var personName = "";
         var personType = "";
-   
+
         var personGrade = "";
         var personPictureURL = "";
 
@@ -208,21 +211,50 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             case "AC233FC03164":
               personCampus = "Woodleigh - Gate 1";
               personName = "GATEWAY";
-              personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
- 
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+
               break;
             case "AC233FC031B8":
               personCampus = "Woodleigh - Gate 2";
               personName = "GATEWAY";
-              personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
- 
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+
               break;
             case "AC233FC039DB":
               personName = "GATEWAY";
               personCampus = "Smartcookies Office HQ";
-              personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
- 
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+
               break;
+            case "AC233FC039C9":
+              personName = "GATEWAY";
+              personCampus = "Smartcookies Cove";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+
+              break;
+            case "AC233FC039B2":
+              personName = "GATEWAY";
+              personCampus = "ELV Gate 1";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+                //console.log ("payloadELV:", beacons);
+              break;
+              case "AC233FC039BE":
+                personName = "GATEWAY";
+                personCampus = "Woodleigh Parent Helpdesk";
+                personPictureURL =
+                  "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+                  //console.log ("payloadELV:", beacons);
+                break;
+  
+
+
+
+              
           }
         }
 
@@ -279,7 +311,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-19.10.12.png";
 
             break;
-         
+
           case "AC233F2916C8":
             personName = "张伟 Zhang Wei";
             personType = "Student";
@@ -305,7 +337,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             personName = "Unallocated Button";
             break;
           case "C33FA1179F52":
-            personName = "Unallocated Card";
+            personName = "Test Card **";
             break;
           case "AC233F2915A9":
             personName = "Mohd Yusoff";
@@ -315,7 +347,9 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             break;
           default:
             personType = snapshot.mac;
+            personName = "~" + snapshot.mac
         }
+
 
         beacon.update({
           //mute: false,
@@ -324,7 +358,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           beaconCampus: personCampus,
           beaconGrade: personGrade,
           beaconPictureURL: personPictureURL,
-          timestamp: Date.now()
+          timestamp: Date.now(),
+          state: "Active",
         });
       });
     } catch (e) {
