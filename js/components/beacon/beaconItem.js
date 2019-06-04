@@ -90,9 +90,6 @@ class BeaconItem extends Component {
 
   renderLastSeen(lastSeen, timestamp) {
 
-    console.log ('lastSeen',lastSeen)
-    console.log ('Date.now()',Date.now())
-
     if (lastSeen != null && timestamp == null) {
       lastSeenDateTime = moment(lastSeen).format("LLL");
 
