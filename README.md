@@ -7,21 +7,18 @@ Eucalyptus melliodora, commonly known as yellow box, is a medium-sized to occasi
 
 Screen (Frontend work)
 ----------------------
+
 Login screen
+Password resets
+Remember password
 
-Screen to dispay gateway activity
+Register user (no need to build this as need to be setup in admin screen manually)
 
-Screen to show active cards
+Screen to display gateway status
+Screen to show active students
 
 Search by Student Name
 Search by Card number
-
-Drillable list
- - Campus
- - Grade
- - Class
- - Student
- - Ping History
 
 Desktop View of Dashboard
 
@@ -29,6 +26,13 @@ Count Total Beacons
 Count # Entered Each Day
 Count # Exited
 Count # No Show
+
+Drillable list that works as a filter
+ - Campus
+ - Grade
+ - Class
+ - Student
+ - Ping History
 
 
 Backend
@@ -49,6 +53,15 @@ Utilities
 ----------------------
 Extraction to Spreadsheet
 Extraction and Audit Log to S3
+Beacon allocation spreadsheet backend ETL
+
+Reports 
+Number of students with iBeacons on campus each day
+iBeacon signals not picked up by a BLE Gateway by 9:00 am daily
+Absentees
+Faulty iBeacons
+Did not bring iBeacons
+Battery monitoring
 
 Health
  - Gateway health monitoring
