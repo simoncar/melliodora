@@ -150,7 +150,7 @@ class BeaconItem extends Component {
                 style={{ flexDirection: "row" }}
                 onPress={() => {
                   this.props.navigation.navigate("chat", {
-                    chatroom: this.props.beaconName,
+                    chatroom: "beacon-" + this.props.beaconName,
                     description: "Safeguarding Chat",
                     contact: "",
                     url: this.props.beaconName
