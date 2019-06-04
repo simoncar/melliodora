@@ -38,9 +38,8 @@ class beacons extends Component {
 
     this.beaconsFirebase = firebase
       .database()
-      .ref(`instance/${instID}/beacon`)
-    //this.beaconsFirebase = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
-  }
+      .ref(`instance/${instID}/beacon`).orderByChild('state').equalTo("Active");
+   }
 
   static navigationOptions = {
     title: "Campus Attendance",
@@ -63,12 +62,36 @@ class beacons extends Component {
       var beaconIcon = "";
 
       dataSnapshot.forEach(child => {
-        ++this.countEntered;
+        
         beaconIcon = "G";
 
         if (
           child.val().beaconName != "GATEWAY" &&
           child.val().beaconName != ""
+        ) {
+          ++this.countEntered;
+          this.state.userBeacons.push({
+            beaconCampus: child.val().beaconCampus,
+            beaconGrade: child.val().beaconGrade,
+            beaconIcon: beaconIcon,
+            beaconName: child.val().beaconName,
+            beaconType: child.val().beaconType,
+            beaconPictureURL: child.val().beaconPictureURL,
+            timestamp: child.val().timestamp,
+            lastSeen: child.val().lastSeen,
+            state: child.val().state,
+            _key: child.key
+          });
+        }
+      });
+
+
+      dataSnapshot.forEach(child => {
+      
+        beaconIcon = "G";
+
+        if (
+          child.val().beaconName == "GATEWAY" 
         ) {
           this.state.userBeacons.push({
             beaconCampus: child.val().beaconCampus,
@@ -86,11 +109,11 @@ class beacons extends Component {
       });
 
       //this.state.userBeacons.sort((a, b) => (a.timestamp > b.timestamp) ? 1 : (a.timestamp === undefined) ? ((a.lastSeen < b.lastSeen) ? 1 : -1) : -1 )
-      this.state.userBeacons.sort((a, b) => {
-        if (a.state < b.state) return -1;
-        if (a.state > b.state) return 1;
-        return 0;
-      });
+      // this.state.userBeacons.sort((a, b) => {
+      //   if (a.state < b.state) return -1;
+      //   if (a.state > b.state) return 1;
+      //   return 0;
+      // });
 
       this.setState({
         beacons
