@@ -7,11 +7,14 @@ Eucalyptus melliodora, commonly known as yellow box, is a medium-sized to occasi
 
 Screen (Frontend work)
 ----------------------
+Login screen
+
 Screen to dispay gateway activity
 
 Screen to show active cards
 
-Search by student
+Search by Student Name
+Search by Card number
 
 Drillable list
  - Campus
@@ -49,6 +52,12 @@ Extraction and Audit Log to S3
 
 Health
  - Gateway health monitoring
+
+
+Security
+----------------------
+User management screens 
+Access levels (Just 1 level for now)
 
 
 
