@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, Platform, ScrollView, StyleSheet, Text, View, Image } from 'react-native';
-import { Container, Content, Header, Icon, Left, Body, Right, Button } from 'native-base';
+import { Container, Content, Header, Left, Body, Right, Button } from 'native-base';
 
 import { Calendar, Permissions } from 'expo';
 
@@ -12,6 +12,7 @@ import Analytics from '../../lib/analytics';
 import Constants from 'expo-constants'
 import HeaderContent from './../headerContent/header/';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper'
+import { Ionicons } from '@expo/vector-icons';
 
 import styles from './styles';
 
