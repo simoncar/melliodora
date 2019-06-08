@@ -17,22 +17,13 @@ import { Actions, ActionConst } from "react-navigation";
 
 import {
   Container,
-  Header,
-  Content,
-  Text,
-  Button,
-  Icon,
-  Left,
-  Right,
-  Body
 } from "native-base";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { Grid, Col, Row } from "react-native-easy-grid";
+import { Ionicons,  MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Analytics from "../../lib/analytics";
-import { Constants } from "expo";
+import Constants from 'expo-constants'
 
 import HeaderContent from "./../headerContent/header";
 
@@ -138,7 +129,7 @@ class WebportalSports extends Component {
                 disabled={!this.state.canGoBack}
                 onPress={this.onBack.bind(this)}
               >
-                <Icon style={styles.navIconLeft} active name="ios-arrow-back" />
+                <Ionicons style={styles.navIconLeft} active name="ios-arrow-back" />
               </TouchableOpacity>
 
               <TextInput
@@ -156,7 +147,7 @@ class WebportalSports extends Component {
                 //  onSubmitEditing={() => this.refs.PasswordInput.focus() }
               />
 
-              <Icon
+              <Ionicons
                 style={styles.navIconRight}
                 active
                 name="ios-arrow-forward"

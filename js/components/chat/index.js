@@ -15,7 +15,7 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 
 import { Container, Header, Footer, Button, Icon, Body } from "native-base";
 import emojiUtils from "emoji-utils";
-import Constants from "expo";
+import Constants from 'expo-constants'
 import { bindActionCreators } from "redux";
 import CustomActions from "./customActions";
 import CustomView from "./customView";

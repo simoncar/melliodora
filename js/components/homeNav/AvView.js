@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Image, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 import Video from 'react-native-video'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Ionicons } from "@expo/vector-icons";
 
 const { width } = Dimensions.get('window');
 

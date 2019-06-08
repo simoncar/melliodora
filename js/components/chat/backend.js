@@ -1,6 +1,9 @@
 import React from "react";
 import * as firebase from "firebase";
-import { Constants, FileSystem, ImageManipulator } from "expo";
+import { ImageManipulator } from "expo";
+import Constants from 'expo-constants'
+
+
 import uuid from "uuid";
 import AssetUtils from "expo-asset-utils";
 import shortid from "shortid";
@@ -40,29 +43,7 @@ export class Backend extends React.Component {
     this.messageRef.off();
     const onReceive = data => {
       const message = data.val();
-      if (
-        undefined !== message.user.avatar &&
-        message.user.avatar !== null &&
-        message.user.avatar.length > 0
-      ) {
-        callback({
-          _id: data.key,
-          text: message.text,
-          createdAt: new Date(message.createdAt),
-          chatroom: this.state.chatroom,
-          user: {
-            _id: message.user._id,
-            name: message.user.name,
-            avatar: message.user.avatar
-          },
-          video: message.video,
-          image: message.image
-          // location: {
-          //  latitude: 48.864601,
-          //  longitude: 2.398704
-          // },
-        });
-      } else {
+   
         callback({
           _id: data.key,
           text: message.text,
@@ -79,7 +60,7 @@ export class Backend extends React.Component {
           //  longitude: 2.398704
           // },
         });
-      }
+    
     };
     this.messageRef.limitToLast(50).on("child_added", onReceive);
   }

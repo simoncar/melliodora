@@ -13,15 +13,15 @@ import {
 } from "react-native";
 import { Container, Content, Text, Icon, Button } from "native-base";
 import { Grid, Col, Row } from "react-native-easy-grid";
-import { Constants, Notifications } from "expo";
+import { Notifications } from "expo";
+import Constants from 'expo-constants'
 import moment from "moment";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons , MaterialIcons} from "@expo/vector-icons";
 import firebase from "firebase";
 import { isAdmin } from "../global";
 
 import * as ActionCreators from "../../actions";
 import HeaderContent from "../headerContent/header";
-import { MaterialIcons } from "@expo/vector-icons";
 import { openDrawer } from "../../actions/drawer";
 
 import styles from "./styles";
@@ -32,7 +32,16 @@ const ListItem = require("./ListItem");
 
 const instID = Constants.manifest.extra.instance;
 
-const token = Notifications.getExpoPushTokenAsync();
+let token = "DENIED";
+
+  // Get the token that uniquely identifies this device
+  if (!Constants.isDevice) {
+    token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]";    // override simulator with simon's iphone
+ } else {
+    token = Notifications.getExpoPushTokenAsync();
+ }
+
+
 const today = new moment().format();
 
 const tabBarIcon = name => ({ tintColor }) => (
@@ -368,7 +377,7 @@ class HomeNav extends Component {
                     this.props.navigation.navigate("ptaHome");
                   }}
                 >
-                  <Icon style={styles.icon} name="ios-people" />
+                  <Ionicons style={styles.icon} name="ios-people" />
                 </Button>
                 <Text note style={styles.buttonLabel}>
                   PTA
@@ -383,7 +392,7 @@ class HomeNav extends Component {
                     this.props.navigation.navigate("campusMap");
                   }}
                 >
-                  <Icon style={styles.icon} name="ios-map" />
+                  <Ionicons style={styles.icon} name="ios-map" />
                 </Button>
                 <Text note style={styles.buttonLabel}>
                   School Map

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Permissions, Notifications, Constants } from 'expo';
+import { Permissions, Notifications } from 'expo';
+import Constants from 'expo-constants'
 import * as firebase from 'firebase';
 
 import { connect } from 'react-redux';

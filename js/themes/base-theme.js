@@ -135,7 +135,7 @@ export default {
 
 
   // Icon
-  iconFamily: 'Ionicons',
+
   iconFontSize: (Platform.OS === 'ios') ? 37 : 35,
   iconMargin: 7,
 

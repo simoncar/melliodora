@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import { FlatList } from "react-native";
+import { FlatList, Container, Content, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as ActionCreators from "../../actions";
 import * as firebase from "firebase";
-import { Container, Content, Text, Button, Icon, View } from "native-base";
 import { Grid, Col, Row } from "react-native-easy-grid";
 
-import Analytics from "../../lib/analytics";
-import { Constants } from "expo";
-import { SimpleLineIcons, FontAwesome } from "@expo/vector-icons";
+import Constants from "expo-constants";
+import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationProps } from "react-navigation-props-mapper";
 
 import styles from "./styles";
@@ -38,8 +36,10 @@ class beacons extends Component {
 
     this.beaconsFirebase = firebase
       .database()
-      .ref(`instance/${instID}/beacon`).orderByChild('state').equalTo("Active");
-   }
+      .ref(`instance/${instID}/beacon`)
+      .orderByChild("state")
+      .equalTo("Active");
+  }
 
   static navigationOptions = {
     title: "Campus Attendance",
@@ -62,7 +62,6 @@ class beacons extends Component {
       var beaconIcon = "";
 
       dataSnapshot.forEach(child => {
-        
         beaconIcon = "G";
 
         if (
@@ -85,14 +84,10 @@ class beacons extends Component {
         }
       });
 
-
       dataSnapshot.forEach(child => {
-      
         beaconIcon = "G";
 
-        if (
-          child.val().beaconName == "GATEWAY" 
-        ) {
+        if (child.val().beaconName == "GATEWAY") {
           this.state.userBeacons.push({
             beaconCampus: child.val().beaconCampus,
             beaconGrade: child.val().beaconGrade,
@@ -163,7 +158,7 @@ class beacons extends Component {
 
   render() {
     return (
-      <Container style={styles.container}>
+       <View>
         <View style={{ height: 100 }}>
           <Grid style={{ height: 50 }}>
             <Col style={{ alignItems: "center" }}>
@@ -193,14 +188,14 @@ class beacons extends Component {
           </Grid>
         </View>
 
-        <Content style={{ paddingTop: 5 }}>
+        
           <FlatList
             data={this.state.userBeacons}
             renderItem={this._renderItem2.bind(this)}
             keyExtractor={this.keyExtractor}
           />
-        </Content>
-      </Container>
+      
+     </View>
     );
   }
 }

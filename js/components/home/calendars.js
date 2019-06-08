@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux'
 import * as ActionCreators from '../../actions'
 
 import Analytics from '../../lib/analytics';
-import { Constants } from 'expo';
+import Constants from 'expo-constants'
 import HeaderContent from './../headerContent/header/';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper'
 
@@ -132,13 +132,13 @@ class CalendarRow extends Component {
       <View style={styles.selectCalendar}>
         {calendar.allowsModifications == true &&
           <Button transparent style={styles.calendarButton} onPress={() => this._selectCalendar(calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url)} >
-            <Icon name="ios-calendar" />
+            <Ionicons name="ios-calendar" />
             <Text style={styles.calendarText} > {calendar.title}</Text>
           </Button>
         }
         {calendar.allowsModifications == false &&
           <Button transparent style={styles.calendarButton} >
-            <Icon style={styles.calendarTextDisabled} name="ios-alert" />
+            <Ionicons style={styles.calendarTextDisabled} name="ios-alert" />
             <Text style={styles.calendarTextDisabled} > {calendar.title} (read only)</Text>
           </Button>
         }

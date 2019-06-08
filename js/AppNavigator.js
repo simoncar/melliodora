@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StatusBar, StyleSheet } from "react-native";
 
-import { Drawer } from "native-base";
+
 import {
   createAppContainer,
   createStackNavigator,

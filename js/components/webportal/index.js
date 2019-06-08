@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Constants } from "expo";
+import Constants from 'expo-constants'
 import {
   Animated,
   TextInput,
@@ -342,7 +342,7 @@ class Webportal extends Component {
                 disabled={!this.state.canGoBack}
                 onPress={this.onBack.bind(this)}
               >
-                <Icon style={styles.navIconLeft} active name="ios-arrow-back" />
+                <Ionicons style={styles.navIconLeft} active name="ios-arrow-back" />
               </TouchableOpacity>
 
               <TextInput
@@ -362,7 +362,7 @@ class Webportal extends Component {
                 //  onSubmitEditing={() => this.refs.PasswordInput.focus() }
               />
 
-              <Icon
+              <Ionicons
                 style={styles.navIconRight}
                 active
                 name="ios-arrow-forward"

@@ -76,3 +76,13 @@ Access levels (Just 1 level for now)
 
 
 
+   expo install expo-blur expo-constants expo-file-system
+
+   If "install" is not recognized as an expo command, update your expo-cli installation.
+
+2. Change your imports so they use specific packages instead of the "expo" package:
+
+ - import { BlurView } from 'expo' -> import { BlurView } from 'expo-blur'
+ - import { Constants } from 'expo' -> import Constants from 'expo-constants'
+ - import { FileSystem } from 'expo' -> import * as FileSystem from 'expo-file-system'
+

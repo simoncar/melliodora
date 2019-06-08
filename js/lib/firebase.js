@@ -1,6 +1,5 @@
 
 import * as firebase from "firebase";
-import { Constants } from 'expo';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'

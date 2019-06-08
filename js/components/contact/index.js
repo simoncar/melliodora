@@ -1,16 +1,18 @@
 import PropTypes from 'prop-types';
 
 import React, { Component } from 'react';
-import { Image, View } from 'react-native';
+import {  View } from 'react-native';
 import { connect } from 'react-redux';
-import {Constants } from 'expo';
+import Constants from 'expo-constants'
 
-import { Container, Header, Content, Text, Button, Icon, Item, Input, Left, Right, Body } from 'native-base';
+import { Container, Header, Content, Text, Button } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import { openDrawer } from '../../actions/drawer';
 import HeaderContent from './../headerContent/header/';
 import Analytics from '../../lib/analytics';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+
+
 
 import Communications from 'react-native-communications';
 import updateFirebase from './../../lib/updateFirebase';
@@ -99,7 +101,7 @@ class Contact extends Component {
              <Row style={{paddingTop: 20}}>
                 <Col style={{ width: 80 }}>
                   <Button transparent style={styles.roundedButton}  onPress={() => this._call()} >
-                    <Icon name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                    <Ionicons name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                   </Button>
                 </Col>
                 <Col>
@@ -110,7 +112,7 @@ class Contact extends Component {
              <Row style={{paddingTop: 20}}>
                <Col style={{ width: 80 }}>
                  <Button transparent style={styles.roundedButton}  onPress={() => this._email()} >
-                   <Icon name="ios-mail" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                   <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                  </Button>
                </Col>
                <Col>
@@ -121,7 +123,7 @@ class Contact extends Component {
              <Row style={{paddingTop: 20}}>
               <Col style={{ width: 80 }}>
                 <Button transparent style={styles.roundedButton}>
-                  <Icon name="ios-pin" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                  <Ionicons name="ios-pin" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
               <Col>
@@ -133,7 +135,7 @@ class Contact extends Component {
              <Row style={{paddingTop: 40}}>
               <Col style={{ width: 80 }}>
                 <Button transparent style={styles.roundedButton}  onPress={() => this._updateFirebase()} >
-                    <Icon name="ios-thumbs-up" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                    <Ionicons name="ios-thumbs-up" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
               
@@ -155,7 +157,7 @@ class Contact extends Component {
           <Row style={{paddingTop: 40}}>
               <Col style={{ width: 80 }}>
               <Button transparent style={styles.roundedButton}  onPress={() => this.props.navigation.navigate('chatRooms')} >
-              <Icon name="ios-chatbubbles" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+              <Ionicons name="ios-chatbubbles" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                      </Button>
               </Col>
               
@@ -175,7 +177,7 @@ class Contact extends Component {
             <Row style={{paddingTop: 40}}>
               <Col style={{ width: 80 }}>
               <Button transparent style={styles.roundedButton}  onPress={() => this.props.navigation.navigate('settings')} >
-              <Icon name="ios-cog" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+              <Ionicons name="ios-cog" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                      </Button>
               </Col>
               

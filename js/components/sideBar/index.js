@@ -8,7 +8,7 @@ import { Actions, ActionConst } from 'react-navigation';
 import { Container, Content, Text, Icon, List, ListItem, Thumbnail } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 import { closeDrawer } from '../../actions/drawer';
-import { Constants } from 'expo';
+import Constants from 'expo-constants'
 import styles from './style';
 import {MaterialCommunityIcons } from '@expo/vector-icons';
 

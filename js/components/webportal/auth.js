@@ -15,26 +15,18 @@ import {
   View,
   Platform
 } from "react-native";
-import { Actions, ActionConst } from "react-navigation";
 
 import {
   Container,
-  Header,
-  Content,
-  Icon,
-  Left,
-  Right,
-  Body,
-  Spinner
 } from "native-base";
-import { Grid, Col, Row } from "react-native-easy-grid";
+import { Ionicons } from "@expo/vector-icons";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Constants, WebBrowser } from "expo";
 
 import HeaderContent from "./../headerContent/header/";
-import Analytics from "../../lib/analytics";
+
 import { openDrawer } from "../../actions/drawer";
 
 import * as ActionCreators from "../../actions";
@@ -293,9 +285,9 @@ class WebportalAuth extends Component {
                 disabled={!this.state.canGoBack}
                 onPress={this.onBack.bind(this)}
               >
-                <Icon style={styles.navIconLeft} active name="ios-arrow-back" />
+                <Ionicons style={styles.navIconLeft} active name="ios-arrow-back" />
               </TouchableOpacity>
-              <Icon
+              <Ionicons
                 style={styles.navIconRight}
                 active
                 name="ios-arrow-forward"

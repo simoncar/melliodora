@@ -10,7 +10,7 @@ import firebase from "firebase";
 import '@firebase/firestore';
 
 import Firebase from "./js/lib/firebase";
-import Constants from 'expo';
+import Constants from 'expo-constants'
 import Sentry from 'sentry-expo';
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
@@ -33,7 +33,7 @@ export const setUserContext = (ctx: "user-simon") => {
   Sentry.setUserContext(ctx);
 };
 
-Sentry.captureMessage('App started V' + Expo.Constants.manifest.version);
+Sentry.captureMessage('App started V' + Constants.manifest.version);
 
 function configureStore(initialState) {
   const enhancer = compose(
