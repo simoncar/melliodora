@@ -267,7 +267,7 @@ class chat extends Component {
 
     return {
       name: this.props.userX.nickname,
-      _id: Expo.Constants.installationId
+      _id: Constants.installationId
     };
   }
 
@@ -375,7 +375,7 @@ class chat extends Component {
           // onLoadEarlier={this.onLoadEarlier}
           // isLoadingEarlier={this.state.isLoadingEarlier}
           user={{
-            _id: Expo.Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+            _id: Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
             name: this.props.userX.nickname
             // avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
           }}

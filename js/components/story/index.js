@@ -17,6 +17,7 @@ import {
   MaterialIcons,
   SimpleLineIcons
 } from "@expo/vector-icons";
+import Constants from 'expo-constants'
 
 import { Image } from "react-native-expo-image-cache";
 
@@ -30,7 +31,7 @@ import styles from "./styles";
 import call from "react-native-phone-call"; //TODO migration to communications
 
 import Analytics from "../../lib/analytics";
-import { Constants, Notifications } from "expo";
+import { Notifications } from "expo";
 
 import {
   formatTime,
