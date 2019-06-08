@@ -12,6 +12,7 @@ import {
   Container, Header, Content, Text, Button, Icon, Thumbnail, Item, Input, Left, Right, Body,
 } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
+import { Ionicons } from "@expo/vector-icons";
 
 import { openDrawer } from '../../actions/drawer';
 import HeaderContent from './../headerContent/header/';
@@ -86,7 +87,7 @@ class Settings extends Component {
           <View style={styles.notificationSwitchContainer}>
             <Text style={styles.notificationHeader}>ADMIN PASSWORD</Text>
             <Item rounded style={styles.inputGrp}>
-              <Icon name="ios-lock" />
+              <Ionicons name="ios-lock" />
               <TextInput
                 ref="AdminPassword"
                 onChangeText={adminPassword => this.props.setAdminPassword(adminPassword)}

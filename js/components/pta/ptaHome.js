@@ -13,7 +13,7 @@ import { openDrawer } from '../../actions/drawer';
 import HeaderContent from './../headerContent/header/';
 
 import Analytics from '../../lib/analytics';
-import { Constants } from 'expo';
+import Constants from 'expo-constants'
 
 import styles from './styles';
 

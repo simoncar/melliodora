@@ -161,7 +161,15 @@ class Story extends Component {
 
   setNotifyPreference() {
     // Get the token that uniquely identifies this device
-    const token = Notifications.getExpoPushTokenAsync();
+    let token = "DENIED";
+
+    // Get the token that uniquely identifies this device
+    if (!Constants.isDevice) {
+      token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]";    // override simulator with simon's iphone
+   } else {
+      token = Notifications.getExpoPushTokenAsync();
+   }
+  
 
     this.notifyRef = firebase
       .database()
@@ -217,7 +225,7 @@ class Story extends Component {
           }}
         >
           <Text style={styles.eventText}>
-            <Icon name="md-link" style={styles.eventIcon} />
+            <Ionicons name="md-link" style={styles.eventIcon} />
           </Text>
         </TouchableOpacity>
       );

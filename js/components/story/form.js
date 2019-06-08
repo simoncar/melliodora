@@ -12,12 +12,10 @@ import {
 import { connect } from "react-redux";
 import { Container, Header, Content, Button, Icon, Body } from "native-base";
 
-import { Actions } from "react-navigation";
-import { Constants } from "expo";
+import Constants from 'expo-constants'
 import styles from "./styles";
 import { withMappedNavigationProps } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
-import { Ionicons, EvilIcons, MaterialIcons } from "@expo/vector-icons";
 
 var instID = Constants.manifest.extra.instance;
 

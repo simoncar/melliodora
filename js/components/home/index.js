@@ -8,7 +8,7 @@ import { Container, Text, Icon } from 'native-base';
 import * as firebase from 'firebase';
 
 import { Grid, Col, Row } from 'react-native-easy-grid';
-import { Constants } from 'expo';
+import Constants from 'expo-constants'
 import { Agenda } from 'react-native-calendars';
 import * as ActionCreators from '../../actions';
 import styles from './styles';
@@ -313,7 +313,7 @@ class calendar1 extends Component {
                 >
 
                   <View>
-                    <Icon
+                    <Ionicons
                       style={{ color: 'white', fontSize: 20 }}
                       name={item.icon}
                     />

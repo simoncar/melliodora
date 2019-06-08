@@ -22,7 +22,7 @@ class HeaderContent extends Component {
     if (this.props.showBack == 'true') {
       return (
       <Button transparent onPress={() => goBack(null)}>
-        <Icon active style={styles.btnHeader} name="arrow-back" />
+        <Ionicons active style={styles.btnHeader} name="arrow-back" />
       </Button>
       )
     } 
@@ -42,7 +42,7 @@ class HeaderContent extends Component {
     } else {
       return (
         <Button transparent onPress={() =>  this.props.navigation.navigate('homeNav')}>
-          <Icon active style={styles.btnHeader} name="ios-home" />
+          <Ionicons active style={styles.btnHeader} name="ios-home" />
         </Button>
       )
     }

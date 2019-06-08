@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, Dimensions } from "react-native";
 
-import { Text, Button, Icon } from "native-base";
+import { Text, Button } from "native-base";
 import styles from "./styles";
+import { Ionicons } from '@expo/vector-icons';
 
 class ChatroomItem extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class ChatroomItem extends Component {
               });
             }}
           >
-            <Icon style={styles.icon} name="ios-chatbubbles" />
+            <Ionicons style={styles.icon} name="ios-chatbubbles" />
           </Button>
 
           <View>

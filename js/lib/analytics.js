@@ -2,8 +2,8 @@
  * @flow
  */
 
-import { Amplitude, Constants } from 'expo';
-import Environment from './environment';
+import * as Amplitude from 'expo-analytics-amplitude'
+import Constants from 'expo-constants'
 import { normalizeTrackingOptions } from './analyticsUtil';
 
 

@@ -1,4 +1,4 @@
-import { Constants } from "expo";
+import Constants from 'expo-constants'
 
 export function isValue(input) {
   if (undefined !== input && input !== null && input.length > 0) {

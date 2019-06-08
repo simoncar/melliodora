@@ -1,4 +1,4 @@
-import { Constants } from 'expo';
+
 
 const React = require('react-native');
 

@@ -97,7 +97,7 @@ export default class form extends Component {
             <View>
                 <CardItem>
                     <Item>
-                      <Icon active name="ios-checkmark-circle" style={{fontSize: 30, color: '#4CAF50', marginLeft:5, marginRight:10}} />
+                      <Ionicons active name="ios-checkmark-circle" style={{fontSize: 30, color: '#4CAF50', marginLeft:5, marginRight:10}} />
                        <Text style = {{flex:1}}>Thanks. We will get in touch with you as soon as possible</Text>
                     </Item>
                 </CardItem>
@@ -106,7 +106,7 @@ export default class form extends Component {
                     </Left>
                     <Body>
                         <TouchableOpacity success onPress={() => this._togglePostCard()}>
-                            <Icon active name="refresh" style={{fontSize: 40, color: '#64DD17', marginLeft:10}} />
+                            <Ionicons active name="refresh" style={{fontSize: 40, color: '#64DD17', marginLeft:10}} />
                         </TouchableOpacity>
                     </Body>
                     <Right>

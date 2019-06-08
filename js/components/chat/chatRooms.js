@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as ActionCreators from "../../actions";
 import * as firebase from "firebase";
-import { Container, Content, Text, Button, Icon } from "native-base";
+import { Container, Content, Text, Button } from "native-base";
 import HeaderContent from "./../headerContent/header/";
 import Analytics from "../../lib/analytics";
-import { Constants } from "expo";
+import Constants from 'expo-constants'
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationProps } from "react-navigation-props-mapper";
 

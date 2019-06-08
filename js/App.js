@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Notifications, Constants } from 'expo';
+import { Notifications } from 'expo';
+import Constants from 'expo-constants'
 
 import Analytics from './lib/analytics';
 import * as ActionCreators from './actions';

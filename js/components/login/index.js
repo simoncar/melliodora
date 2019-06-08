@@ -7,7 +7,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Actions } from 'react-navigation';
+import { Ionicons } from '@expo/vector-icons';
 import {
   Container, Content, Text, Item, Button, Icon,
 } from 'native-base';
@@ -78,7 +78,7 @@ class Login extends Component {
           <View style={styles.bg}>
             <Text style={styles.textHeader}>myStamford</Text>
             <Item rounded style={styles.inputGrp}>
-              <Icon style={styles.inputIcon} name="md-person" />
+              <Ionicons style={styles.inputIcon} name="md-person" />
               <TextInput
                 ref="NicknameInput"
                 selectTextOnFocus
@@ -96,7 +96,7 @@ class Login extends Component {
             </Item>
 
             <Item rounded style={styles.inputGrp}>
-              <Icon style={styles.inputIcon} name="ios-mail" />
+              <Ionicons style={styles.inputIcon} name="ios-mail" />
               <TextInput
                 ref="EmailInput"
                 selectTextOnFocus
@@ -114,7 +114,7 @@ class Login extends Component {
             </Item>
 
             <Item rounded style={styles.inputGrp}>
-              <Icon style={styles.inputIcon} name="md-lock" />
+              <Ionicons style={styles.inputIcon} name="md-lock" />
 
               <TextInput
                 ref="PasswordInput"

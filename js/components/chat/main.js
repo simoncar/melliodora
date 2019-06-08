@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 import { View, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native';
-
-import { Constants } from 'expo';
+import Constants from 'expo-constants'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 

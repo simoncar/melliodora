@@ -4,12 +4,11 @@ import {
   TouchableOpacity,
   Dimensions,
   StyleSheet,
-  Image
+  Image,
+  Text
 } from "react-native";
 
 import { Grid, Col, Row } from "react-native-easy-grid";
-
-import { Container, Content, Text, Button, Icon } from "native-base";
 import styles from "./styles";
 import { AntDesign, MaterialIcons, Feather } from "@expo/vector-icons";
 import moment from "moment";
