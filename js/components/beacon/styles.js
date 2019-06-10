@@ -86,7 +86,13 @@ export default {
     fontSize: 16,
     marginLeft: 15
   },
-
+  lastSeenInactive: {
+    fontSize: 13,
+    backgroundColor: "white",
+    color: "grew",
+    fontSize: 16,
+    marginLeft: 15
+  },
   roundedButton: {
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.2)",

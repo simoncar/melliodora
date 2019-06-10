@@ -1,6 +1,6 @@
 {
   "name": "stamford",
-  "version": "14.0.0",
+  "version": "15.0.0",
   "private": true,
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.4.0",

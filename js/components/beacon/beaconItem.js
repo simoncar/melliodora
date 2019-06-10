@@ -24,7 +24,34 @@ class BeaconItem extends Component {
   }
 
   renderProfileIcons(lastSeen,timestamp, beaconType) {
-    if (timestamp != null) {
+   
+
+    if (beaconType == "Asset") {
+      return (
+        <View
+          style={{
+            borderRadius: 30,
+            backgroundColor: "#1DAEF2",
+            width: 45,
+            height: 45,
+            marginLeft: 10,
+            marginTop: 10,
+            alignItems: "center",
+            paddingLeft: 0,
+            paddingRight: 0,
+            justifyContent: "center"
+          }}
+        >
+          <View>
+            <MaterialIcons
+              style={{ color: "white", fontSize: 20 }}
+              name="device-hub"
+            />
+          </View>
+        </View>
+      );
+    } else {
+       
       return (
         <Grid>
           <Row>
@@ -58,45 +85,20 @@ class BeaconItem extends Component {
           </Row>
         </Grid>
       );
-    }
-
-    if (beaconType == "Asset") {
-      return (
-        <View
-          style={{
-            borderRadius: 30,
-            backgroundColor: "#1DAEF2",
-            width: 45,
-            height: 45,
-            marginLeft: 10,
-            marginTop: 10,
-            alignItems: "center",
-            paddingLeft: 0,
-            paddingRight: 0,
-            justifyContent: "center"
-          }}
-        >
-          <View>
-            <MaterialIcons
-              style={{ color: "white", fontSize: 20 }}
-              name="device-hub"
-            />
-          </View>
-        </View>
-      );
+    
     }
   }
 
-  renderLastSeen(lastSeen, timestamp) {
+  renderLastSeen(lastSeen, timestamp, beaconState) {
 
     if (lastSeen != null && timestamp == null) {
       lastSeenDateTime = moment(lastSeen).format("LLL");
 
-      return <Text style={styles.chatDescription}>{lastSeenDateTime}</Text>;
+      return (<View><Text style={styles.chatDescription}>{beaconState}</Text><Text style={styles.chatDescription}>{lastSeenDateTime}</Text></View>)
     } else if (timestamp != null) {
-      return <Text style={styles.lastSeenActive}>Active</Text>;
+      return <Text style={styles.lastSeenActive}>{beaconState}</Text>;
     } else {
-      return <Text style={styles.lastSeenActive}>Active</Text>;
+      return <Text style={styles.lastSeenActive}>{beaconState}</Text>;
     }
   }
 
@@ -162,7 +164,7 @@ class BeaconItem extends Component {
                 <View>
                   <Text style={styles.chatTitle}>{this.props.beaconName}</Text>
                   <Text style={styles.chatDescription} />
-                  {this.renderLastSeen(this.props.lastSeen, this.props.timestamp)}
+                  {this.renderLastSeen(this.props.lastSeen, this.props.timestamp, this.props.state)}
                   {this.renderBeaconCampus(this.props.beaconCampus)}
                 </View>
               </TouchableOpacity>

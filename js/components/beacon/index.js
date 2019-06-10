@@ -38,8 +38,9 @@ class beacons extends Component {
       .database()
       .ref(`instance/${instID}/beacon`)
       .orderByChild("state")
-      .equalTo("Active");
+      
   }
+  //.equalTo("Active");
 
   static navigationOptions = {
     title: "Campus Attendance",
@@ -66,7 +67,12 @@ class beacons extends Component {
 
         if (
           child.val().beaconName != "GATEWAY" &&
-          child.val().beaconName != ""
+          child.val().beaconName != "" &&
+          (
+            child.val().state == "Perimeter" ||
+            child.val().state == "On Campus" ||
+            child.val().state == "Off Campus"
+          )
         ) {
           ++this.countEntered;
           this.state.userBeacons.push({
@@ -129,6 +135,7 @@ class beacons extends Component {
         lastSeen={item.item.lastSeen}
         timestamp={item.item.timestamp}
         item={item}
+        state={item.item.state}
       />
     );
   }
