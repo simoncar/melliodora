@@ -129,7 +129,7 @@ exports.deleteOldItems = functions.database
   .onWrite(async change => {
     const ref = change.after.ref.parent; // reference to the parent
     const now = Date.now();
-    const cutoff = now - 100000; //CUT_OFF_TIME;
+    const cutoff = now - 10000; //CUT_OFF_TIME;
     const oldItemsQuery = ref.orderByChild("timestamp").endAt(cutoff);
     const snapshot = await oldItemsQuery.once("value");
     // create a map with all children that need to be removed
@@ -137,14 +137,14 @@ exports.deleteOldItems = functions.database
     const updates = {};
 
     snapshot.forEach(child => {
-      if (child.child("timestamp").val() != null) {
+      if (child.child("state").val() == "Perimeter") {
         updates[child.key] = {
           beaconName: child.child("beaconName").val(),
           beaconCampus: child.child("beaconCampus").val(),
           beaconType: child.child("beaconType").val(),
           lastSeen: Date.now(),
           timestamp: null,
-          state: null,
+          state: "Off Campus",
           beaconPictureURL: child.child("beaconPictureURL").val()
         };
 
@@ -194,6 +194,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
 
     var beacons = req.body;
     var personCampus = "";
+    var personState = "";
 
     try {
       beacons.forEach(function(snapshot) {
@@ -202,7 +203,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           .ref(`instance/0001-sais_edu_sg/beacon/` + snapshot.mac);
         var personName = "";
         var personType = "";
-
+        
         var personGrade = "";
         var personPictureURL = "";
 
@@ -213,43 +214,51 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               personName = "GATEWAY";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-
+            personState = "Perimeter";
               break;
             case "AC233FC031B8":
               personCampus = "Woodleigh - Gate 2";
               personName = "GATEWAY";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-
+                personState = "On Campus";
               break;
             case "AC233FC039DB":
               personName = "GATEWAY";
               personCampus = "Smartcookies Office HQ";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-
+                personState = "XX Perimeter";
               break;
             case "AC233FC039C9":
               personName = "GATEWAY";
               personCampus = "Smartcookies Cove";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-
+                personState = "XX Perimeter";
               break;
             case "AC233FC039B2":
               personName = "GATEWAY";
               personCampus = "ELV Gate 1";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-
+                personState = "Perimeter";
               break;
             case "AC233FC039BE":
               personName = "GATEWAY";
               personCampus = "Woodleigh Parent Helpdesk";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-
+                personState = "On Campus";
               break;
+              case "AC233FC039BB":
+                personName = "GATEWAY";
+                personCampus = "Woodleigh Stairwell";
+                personPictureURL =
+                  "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+                  personState = "On Campus";
+                break;
+              
           }
         } else {
           switch (snapshot.mac) {
@@ -342,7 +351,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           beaconGrade: personGrade,
           beaconPictureURL: personPictureURL,
           timestamp: Date.now(),
-          state: "Active"
+          state: personState,
         });
       });
     } catch (e) {
