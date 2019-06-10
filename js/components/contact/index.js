@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 import React, { Component } from 'react';
-import {  View } from 'react-native';
+import {  View, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import Constants from 'expo-constants'
 
@@ -17,6 +17,22 @@ import updateFirebase from './../../lib/updateFirebase';
 
 import styles from './styles';
 
+
+class Anchor extends React.Component {
+  
+  _handlePress = () => {
+    console.log("Link clicked for " + this.props.href);
+    Linking.openURL(this.props.href);
+    this.props.onPress && this.props.onPress();
+  };
+
+  render() {
+    console.log("TITLE clicked for " + this.props.title);
+    return (
+        <Text style={styles.feedbackHead}  onPress={this._handlePress}>{this.props.title}</Text>
+    );
+  }
+}
 
 class Contact extends Component {
 
@@ -49,6 +65,8 @@ class Contact extends Component {
 
 
   }
+
+ 
 
   _call() {
     //TODO: only show email/phone links when there are values
@@ -90,6 +108,7 @@ class Contact extends Component {
                   </Col>
                   <Col>
                       <Text style={styles.feedbackHeader}>Help with this App</Text>
+                      
                       <Text style={styles.feedbackHead}>{global.switch_helpEmail }</Text>
                   </Col>
                </Row>
@@ -103,6 +122,7 @@ class Contact extends Component {
                 <Col>
                     <Text style={styles.feedbackHeader}>Call Parent Helpdesk</Text>
                     <Text style={styles.feedbackHead}>{global.switch_call}</Text>
+                    
                 </Col>
              </Row>
              <Row style={{paddingTop: 20}}>
@@ -113,7 +133,8 @@ class Contact extends Component {
                </Col>
                <Col>
                    <Text style={styles.feedbackHeader}>Email</Text>
-                   <Text style={styles.feedbackHead}>{global.switch_contactEmail}</Text>
+                   <Text style={styles.feedbackHead}></Text>
+                   <Anchor href="mailto:help@sais.edu.sg" title={global.switch_contactEmail} />   
                </Col>
             </Row>
            
@@ -135,28 +156,28 @@ class Contact extends Component {
            <Row style={{paddingTop: 20}}>
               <Col style={{ width: 80 }}>
                 <Button transparent style={styles.roundedButton}>
-                  <Ionicons name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                  <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
               <Col>
                   <Text style={styles.feedbackHeader}>Early Years School Office</Text>
                   <Text style={styles.feedbackHead}>(Pre-N - KG1)</Text>
                   <Text style={styles.feedbackHead}>+65 6602 7258	</Text>
-                  <Text style={styles.feedbackHead}>earlyyears@sais.edu.sg</Text>                  
+                  <Anchor href="mailto:earlyyears@sais.edu.sg" title="earlyyears@sais.edu.sg" />                    
               </Col>
            </Row>
        
            <Row style={{paddingTop: 20}}>
               <Col style={{ width: 80 }}>
                 <Button transparent style={styles.roundedButton}>
-                  <Ionicons name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                  <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
               <Col>
                   <Text style={styles.feedbackHeader}>Lower Elementary School Office</Text>
                   <Text style={styles.feedbackHead}>(KG2 - Grade 2)</Text>
                   <Text style={styles.feedbackHead}>+65 6602 4195</Text>
-                  <Text style={styles.feedbackHead}>lowerelementary@sais.edu.sg</Text>                  
+                  <Anchor href="mailto:lowerelementary@sais.edu.sg" title="lowerelementary@sais.edu.sg" />                   
               </Col>
            </Row>
 
@@ -164,14 +185,14 @@ class Contact extends Component {
            <Row style={{paddingTop: 20}}>
               <Col style={{ width: 80 }}>
                 <Button transparent style={styles.roundedButton}>
-                  <Ionicons name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                  <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
               <Col>
                   <Text style={styles.feedbackHeader}>Upper Elementary School Office</Text>
                   <Text style={styles.feedbackHead}>(Grade 3 - Grade 5)</Text>
                   <Text style={styles.feedbackHead}>+65 6709 4811	</Text>
-                  <Text style={styles.feedbackHead}>upperelementary@sais.edu.sg</Text>                  
+                  <Anchor href="mailto:upperelementary@sais.edu.sg" title="upperelementary@sais.edu.sg" />                 
               </Col>
            </Row>
 
@@ -180,14 +201,15 @@ class Contact extends Component {
            <Row style={{paddingTop: 20}}>
               <Col style={{ width: 80 }}>
                 <Button transparent style={styles.roundedButton}>
-                  <Ionicons name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                  <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
               <Col>
                   <Text style={styles.feedbackHeader}>Middle School Office</Text>
                   <Text style={styles.feedbackHead}>(Grade 6 - Grade 8)</Text>
                   <Text style={styles.feedbackHead}>+65 6602 7181</Text>
-                  <Text style={styles.feedbackHead}>middleschool@sais.edu.sg</Text>                  
+                  <Anchor href="mailto:middleschool@sais.edu.sg" title="middleschool@sais.edu.sg" />
+                               
               </Col>
            </Row>
 
@@ -197,14 +219,15 @@ class Contact extends Component {
            <Row style={{paddingTop: 20}}>
               <Col style={{ width: 80 }}>
                 <Button transparent style={styles.roundedButton}>
-                  <Ionicons name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                  <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
               <Col>
                   <Text style={styles.feedbackHeader}>High School Office</Text>
                   <Text style={styles.feedbackHead}>(Grade 9 - Grade 12)</Text>
                   <Text style={styles.feedbackHead}>+65 6602 7262</Text>
-                  <Text style={styles.feedbackHead}>highschool@sais.edu.sg</Text>                  
+                  <Anchor href="mailto:highschool@sais.edu.sg" title="highschool@sais.edu.sg" />
+            
               </Col>
            </Row>
 
