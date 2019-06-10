@@ -25,7 +25,6 @@ import theme from "../../themes/base-theme";
 import styles from "./styles";
 import { Ionicons } from "@expo/vector-icons";
 
-const primary = require("../../themes/variable").brandPrimary;
 const timer = require("react-native-timer");
 
 var WEBVIEW_REF = "webview";
@@ -55,7 +54,7 @@ class Webportal extends Component {
   };
 
   static navigationOptions = {
-    title: "myStamford",
+    title: "myS",
     tabBarColor: "#00A5CD",
     tabBarIcon: tabBarIcon("ios-grid")
   };
@@ -270,7 +269,7 @@ class Webportal extends Component {
   _renderSpinner() {
     if (this.state.showMsg) {
       return (
-        <TouchableOpacity onPress={() => Actions.login()}>
+       
           <View style={styles.settingsMessage}>
             <View style={{ flex: 1 }} />
             <View style={{ flex: 2 }}>
@@ -279,7 +278,7 @@ class Webportal extends Component {
 
             <View style={{ flex: 3 }} />
           </View>
-        </TouchableOpacity>
+      
       );
     } else {
       null;
