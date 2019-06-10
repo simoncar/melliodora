@@ -228,6 +228,58 @@ class HomeNav extends Component {
       <Container style={styles.container}>
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
+          
+          
+          {instID == "0001-sais_edu_sg" && (
+            <Row style={{ paddingBottom: 20,paddingTop: 20, }}>
+              <Col>
+                <Button
+                  transparent
+                  style={styles.roundedButton}
+                  onPress={() => {
+                    this.props.navigation.navigate("contact");
+                  }}
+                >
+                  <Ionicons name="ios-call" style={styles.icon} />
+                </Button>
+                <Text note style={styles.buttonLabel}>
+                  Contact
+                </Text>
+              </Col>
+
+              <Col>
+                <Button
+                  transparent
+                  style={styles.roundedButton}
+                  onPress={() => {
+                    this.props.navigation.navigate("webportal");
+                  }}
+                >
+                  <Ionicons style={styles.icon} name="ios-grid" />
+                </Button>
+                <Text note style={styles.buttonLabel}>
+                  myStamford
+                </Text>
+              </Col>
+
+              <Col>
+                <Button
+                  transparent
+                  style={styles.roundedButton}
+                  onPress={() => {
+                    this.props.navigation.navigate("campusMap");
+                  }}
+                >
+                  <Ionicons style={styles.icon} name="ios-map" />
+                </Button>
+                <Text note style={styles.buttonLabel}>
+                  School Map
+                </Text>
+              </Col>
+            </Row>
+          )}
+          
+          
             {isAdmin(this.props.adminPassword) && (
               <TouchableOpacity
                 style={{ flexDirection: "row" }}
@@ -352,54 +404,7 @@ class HomeNav extends Component {
             />
           </View>
 
-          {instID == "0001-sais_edu_sg" && (
-            <Row style={{ paddingBottom: 20 }}>
-              <Col>
-                <Button
-                  transparent
-                  style={styles.roundedButton}
-                  onPress={() => {
-                    this.props.navigation.navigate("contact");
-                  }}
-                >
-                  <Ionicons name="ios-call" style={styles.icon} />
-                </Button>
-                <Text note style={styles.buttonLabel}>
-                  Contact
-                </Text>
-              </Col>
-
-              <Col>
-                <Button
-                  transparent
-                  style={styles.roundedButton}
-                  onPress={() => {
-                    this.props.navigation.navigate("ptaHome");
-                  }}
-                >
-                  <Ionicons style={styles.icon} name="ios-people" />
-                </Button>
-                <Text note style={styles.buttonLabel}>
-                  PTA
-                </Text>
-              </Col>
-
-              <Col>
-                <Button
-                  transparent
-                  style={styles.roundedButton}
-                  onPress={() => {
-                    this.props.navigation.navigate("campusMap");
-                  }}
-                >
-                  <Ionicons style={styles.icon} name="ios-map" />
-                </Button>
-                <Text note style={styles.buttonLabel}>
-                  School Map
-                </Text>
-              </Col>
-            </Row>
-          )}
+        
 
           {isAdmin(this.props.adminPassword) && (
             <TouchableHighlight

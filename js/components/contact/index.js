@@ -12,15 +12,11 @@ import HeaderContent from './../headerContent/header/';
 import Analytics from '../../lib/analytics';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
-
-
 import Communications from 'react-native-communications';
 import updateFirebase from './../../lib/updateFirebase';
 
 import styles from './styles';
 
-
-const primary = require('../../themes/variable').brandPrimary;
 
 class Contact extends Component {
 
@@ -59,9 +55,9 @@ class Contact extends Component {
       Communications.phonecall(global.switch_call, true);
   }
 
-  _email() {
+  _email(email) {
     //TODO: only show email/phone links when there are values
-      Communications.email(global.switch_contactEmail , null, null, null, null)
+      Communications.email(email , null, null, null, null)
   }
 
   _emailComms() {
@@ -105,13 +101,13 @@ class Contact extends Component {
                   </Button>
                 </Col>
                 <Col>
-                    <Text style={styles.feedbackHeader}>Call</Text>
+                    <Text style={styles.feedbackHeader}>Call Parent Helpdesk</Text>
                     <Text style={styles.feedbackHead}>{global.switch_call}</Text>
                 </Col>
              </Row>
              <Row style={{paddingTop: 20}}>
                <Col style={{ width: 80 }}>
-                 <Button transparent style={styles.roundedButton}  onPress={() => this._email()} >
+                 <Button transparent style={styles.roundedButton}  onPress={() => this._email(global.switch_contactEmail)} >
                    <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                  </Button>
                </Col>
@@ -120,6 +116,8 @@ class Contact extends Component {
                    <Text style={styles.feedbackHead}>{global.switch_contactEmail}</Text>
                </Col>
             </Row>
+           
+           
              <Row style={{paddingTop: 20}}>
               <Col style={{ width: 80 }}>
                 <Button transparent style={styles.roundedButton}>
@@ -132,29 +130,93 @@ class Contact extends Component {
               </Col>
            </Row>
 
-             <Row style={{paddingTop: 40}}>
+
+
+           <Row style={{paddingTop: 20}}>
               <Col style={{ width: 80 }}>
-                <Button transparent style={styles.roundedButton}  onPress={() => this._updateFirebase()} >
-                    <Ionicons name="ios-thumbs-up" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                <Button transparent style={styles.roundedButton}>
+                  <Ionicons name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
                 </Button>
               </Col>
-              
-              {Constants.manifest.extra.instance == '0001-sais_edu_sg' &&
               <Col>
-                  <Text style={styles.feedbackHeader}>'Written by Parents for Parents'</Text>
-                  <Text style={styles.feedbackHead}>This App has been written by SAIS Parents Simon Cariss and Matt Crosby, with support from parents primarily Niall Foley who has helped us along the way</Text>
-                  <Text style={styles.feedbackHead}>Simon on the PTA board this year, if you have app feedback or suggestions or would like to help out, let us know.</Text>
+                  <Text style={styles.feedbackHeader}>Early Years School Office</Text>
+                  <Text style={styles.feedbackHead}>(Pre-N - KG1)</Text>
+                  <Text style={styles.feedbackHead}>+65 6602 7258	</Text>
+                  <Text style={styles.feedbackHead}>earlyyears@sais.edu.sg</Text>                  
+              </Col>
+           </Row>
+       
+           <Row style={{paddingTop: 20}}>
+              <Col style={{ width: 80 }}>
+                <Button transparent style={styles.roundedButton}>
+                  <Ionicons name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                </Button>
+              </Col>
+              <Col>
+                  <Text style={styles.feedbackHeader}>Lower Elementary School Office</Text>
+                  <Text style={styles.feedbackHead}>(KG2 - Grade 2)</Text>
+                  <Text style={styles.feedbackHead}>+65 6602 4195</Text>
+                  <Text style={styles.feedbackHead}>lowerelementary@sais.edu.sg</Text>                  
+              </Col>
+           </Row>
 
-                  <Text style={styles.updateNotes}>{this.state.updateFirebaseText}</Text>
-                  <Text style={styles.spacer}>
 
-                  </Text>
+           <Row style={{paddingTop: 20}}>
+              <Col style={{ width: 80 }}>
+                <Button transparent style={styles.roundedButton}>
+                  <Ionicons name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                </Button>
+              </Col>
+              <Col>
+                  <Text style={styles.feedbackHeader}>Upper Elementary School Office</Text>
+                  <Text style={styles.feedbackHead}>(Grade 3 - Grade 5)</Text>
+                  <Text style={styles.feedbackHead}>+65 6709 4811	</Text>
+                  <Text style={styles.feedbackHead}>upperelementary@sais.edu.sg</Text>                  
+              </Col>
+           </Row>
 
-                  </Col>
-              }
- </Row>
 
-          <Row style={{paddingTop: 40}}>
+
+           <Row style={{paddingTop: 20}}>
+              <Col style={{ width: 80 }}>
+                <Button transparent style={styles.roundedButton}>
+                  <Ionicons name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                </Button>
+              </Col>
+              <Col>
+                  <Text style={styles.feedbackHeader}>Middle School Office</Text>
+                  <Text style={styles.feedbackHead}>(Grade 6 - Grade 8)</Text>
+                  <Text style={styles.feedbackHead}>+65 6602 7181</Text>
+                  <Text style={styles.feedbackHead}>middleschool@sais.edu.sg</Text>                  
+              </Col>
+           </Row>
+
+
+
+
+           <Row style={{paddingTop: 20}}>
+              <Col style={{ width: 80 }}>
+                <Button transparent style={styles.roundedButton}>
+                  <Ionicons name="ios-call" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
+                </Button>
+              </Col>
+              <Col>
+                  <Text style={styles.feedbackHeader}>High School Office</Text>
+                  <Text style={styles.feedbackHead}>(Grade 9 - Grade 12)</Text>
+                  <Text style={styles.feedbackHead}>+65 6602 7262</Text>
+                  <Text style={styles.feedbackHead}>highschool@sais.edu.sg</Text>                  
+              </Col>
+           </Row>
+
+
+
+
+
+
+
+
+
+          <Row style={{paddingTop: 800}}>
               <Col style={{ width: 80 }}>
               <Button transparent style={styles.roundedButton}  onPress={() => this.props.navigation.navigate('chatRooms')} >
               <Ionicons name="ios-chatbubbles" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
