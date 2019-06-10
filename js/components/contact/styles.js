@@ -67,12 +67,20 @@ export default {
     paddingBottom: 10,
     fontWeight: '600',
     color: 'black',
+  
   },
   feedbackHead: {
     opacity: 0.8,
     fontSize: 13,
     fontWeight: 'bold',
     color: 'black',
+  },
+  feedbackButton: {
+    opacity: 0.8,
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: 'black',
+    backgroundColor: '#141b4d',
   },
   spacer: {
     opacity: 0.8,
