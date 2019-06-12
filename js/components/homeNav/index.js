@@ -252,9 +252,10 @@ class HomeNav extends Component {
                   transparent
                   style={styles.roundedButton}
                   onPress={() => {
-                    this.props.navigation.navigate("webportal");
+                    this._handleOpenWithLinking("https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP");
                   }}
                 >
+
                   <Ionicons style={styles.icon} name="ios-grid" />
                 </Button>
                 <Text note style={styles.buttonLabel}>
