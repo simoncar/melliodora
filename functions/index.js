@@ -124,6 +124,30 @@ const cors = require("cors")({
   origin: true
 });
 
+exports.beaconPingHistory = functions.database
+  .ref("instance/0001-sais_edu_sg/beacon/{beaconID}/state")
+  .onWrite(async (change, context) => {
+    const moment = require("moment");
+    const snapshot = change.after;
+
+    const beacon = context.params.beaconID;
+    const state =  snapshot.val();
+
+    const newHistory = admin
+    .database()
+    .ref(
+      'instance/0001-sais_edu_sg/beaconHistory/' + moment().format("YYYYMMDD") + '/' + beacon + '/' + Date.now()
+    );
+
+    newHistory.update({
+      //mute: false,
+   
+      timestamp: Date.now(),
+      state: state
+    });
+
+  });
+
 //https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
 
 exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
@@ -132,7 +156,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   //     .ref(
   //       `instance/0001-sais_edu_sg/beacon/`
   //     );
-var response = "";
+  var response = "";
 
   //const ref = change.after.ref.parent; // reference to the parent
   const now = Date.now();
@@ -143,71 +167,68 @@ var response = "";
     .ref(`instance/0001-sais_edu_sg/beacon/`)
     .orderByChild("timestamp")
     .endAt(cutoff);
-    oldItemsQuery.on('value', function(snapshot) {
-  
-      //.endAt(cutoff);
+  oldItemsQuery.on("value", function(snapshot) {
+    //.endAt(cutoff);
 
-      //const oldItemsQuery = ref.orderByChild("timestamp").endAt(cutoff);
-      //const snapshot = oldItemsQuery.once("value");
-      // create a map with all children that need to be removed
-      const beacon = admin
-      .database()
-      .ref('instance/0001-sais_edu_sg/beacon/');
-      
-      console.log ('before ');
-      response = response + "before";
-      snapshot.forEach(child => {
-        response = response + "<BR>" + "expire - " + child.child("beaconName").val();
-        if (child.child("state").val() == "Perimeter") {
-          
-          updates[child.key] = {
-            beaconName: child.child("beaconName").val(),
-            beaconCampus: child.child("beaconCampus").val(),
-            beaconType: child.child("beaconType").val(),
-            lastSeen: Date.now(),
-            timestamp: null,
-            state: "Off Campus",
-            beaconPictureURL: child.child("beaconPictureURL").val()
-          };
+    //const oldItemsQuery = ref.orderByChild("timestamp").endAt(cutoff);
+    //const snapshot = oldItemsQuery.once("value");
+    // create a map with all children that need to be removed
+    const beacon = admin.database().ref("instance/0001-sais_edu_sg/beacon/");
 
-          const beaconName = child.child("beaconName").val();
-          const newPing = admin
-            .database()
-            .ref(
-              `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
-                beaconName +
-                "/messages"
-            );
+    console.log("before ");
+    response = response + "before";
+    snapshot.forEach(child => {
+      response =
+        response + "<BR>" + "expire - " + child.child("beaconName").val();
+      if (child.child("state").val() == "Perimeter") {
+        updates[child.key] = {
+          beaconName: child.child("beaconName").val(),
+          beaconCampus: child.child("beaconCampus").val(),
+          beaconType: child.child("beaconType").val(),
+          lastSeen: Date.now(),
+          timestamp: null,
+          state: "Off Campus",
+          beaconPictureURL: child.child("beaconPictureURL").val()
+        };
 
-          newPing.push({
-            //mute: false,
-            chatroom: beaconName,
-            text: "Ping - " + child.child("beaconCampus").val(),
-            createdAt: Date.now(),
-            date: Date.now(),
-            system: true,
-            user: {
-              name: child.child("beaconCampus").val()
-            }
-          });
-        }
+        const beaconName = child.child("beaconName").val();
+        const newPing = admin
+          .database()
+          .ref(
+            `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
+              beaconName +
+              "/messages"
+          );
 
-        if (child.child("state").val() == "Gateway - Active") {
-          updates[child.key] = {
-            lastSeen: Date.now(),
-            timestamp: null,
-            state: "Gateway - Offline"
-          };
-        }
-      });
-      console.log ('after ');
-      response = response + "<BR>" + "Here"
-      console.log ('updates = ', updates);
-      beacon.update(updates);
-      //oldItemsQuery.update(updates)
+        newPing.push({
+          //mute: false,
+          chatroom: beaconName,
+          text: "Ping - " + child.child("beaconCampus").val(),
+          createdAt: Date.now(),
+          date: Date.now(),
+          system: true,
+          user: {
+            name: child.child("beaconCampus").val()
+          }
+        });
+      }
+
+      if (child.child("state").val() == "Gateway - Active") {
+        updates[child.key] = {
+          lastSeen: Date.now(),
+          timestamp: null,
+          state: "Gateway - Offline"
+        };
+      }
     });
+    console.log("after ");
+    response = response + "<BR>" + "Here";
+    console.log("updates = ", updates);
+    beacon.update(updates);
+    //oldItemsQuery.update(updates)
+  });
   res.status(200).send(response);
- // return oldItemsQuery.update(updates);
+  // return oldItemsQuery.update(updates);
 });
 
 exports.registerBeacon = functions.https.onRequest((req, res) => {
@@ -218,15 +239,23 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     return res.status(403).send("Forbidden!");
   }
 
+  if (undefined == req.body.length ) {
+    return res.status(403).send("Forbidden!");
+  }
+  if (req.body == "{}") {
+    return res.status(403).send("Forbidden!");
+  }
+
+
   return cors(req, res, () => {
     let format = req.query.format;
     if (!format) {
       format = req.body.format;
     }
 
-    const formattedDate = moment().format(format);
-    // console.log("Sending Formatted date:", formattedDate);
-    // console.log("Sending Formatted body:", req.body);
+    //const formattedDate = moment().format(format);
+    //console.log("DATA:", formattedDate);
+    console.log("DATA:", req.body);
 
     var beacons = req.body;
     var personCampus = "";
