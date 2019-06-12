@@ -124,55 +124,91 @@ const cors = require("cors")({
   origin: true
 });
 
-exports.deleteOldItems = functions.database
-  .ref("instance/0001-sais_edu_sg/beacon/{pushId}")
-  .onWrite(async change => {
-    const ref = change.after.ref.parent; // reference to the parent
-    const now = Date.now();
-    const cutoff = now - 10000; //CUT_OFF_TIME;
-    const oldItemsQuery = ref.orderByChild("timestamp").endAt(cutoff);
-    const snapshot = await oldItemsQuery.once("value");
-    // create a map with all children that need to be removed
+//https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
 
-    const updates = {};
+exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
+  // const ref = admin
+  //     .database()
+  //     .ref(
+  //       `instance/0001-sais_edu_sg/beacon/`
+  //     );
+var response = "";
 
-    snapshot.forEach(child => {
-      if (child.child("state").val() == "Perimeter") {
-        updates[child.key] = {
-          beaconName: child.child("beaconName").val(),
-          beaconCampus: child.child("beaconCampus").val(),
-          beaconType: child.child("beaconType").val(),
-          lastSeen: Date.now(),
-          timestamp: null,
-          state: "Off Campus",
-          beaconPictureURL: child.child("beaconPictureURL").val()
-        };
+  //const ref = change.after.ref.parent; // reference to the parent
+  const now = Date.now();
+  const cutoff = now - 100000; //CUT_OFF_TIME;
+  const updates = {};
+  const oldItemsQuery = await admin
+    .database()
+    .ref(`instance/0001-sais_edu_sg/beacon/`)
+    .orderByChild("timestamp")
+    .endAt(cutoff);
+    oldItemsQuery.on('value', function(snapshot) {
+  
+      //.endAt(cutoff);
 
-        const beaconName =  child.child("beaconName").val();
-        const newPing = admin
-          .database()
-          .ref(
-            `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
-              beaconName +
-              "/messages"
-          );
+      //const oldItemsQuery = ref.orderByChild("timestamp").endAt(cutoff);
+      //const snapshot = oldItemsQuery.once("value");
+      // create a map with all children that need to be removed
+      const beacon = admin
+      .database()
+      .ref('instance/0001-sais_edu_sg/beacon/');
+      
+      console.log ('before ');
+      response = response + "before";
+      snapshot.forEach(child => {
+        response = response + "<BR>" + "expire - " + child.child("beaconName").val();
+        if (child.child("state").val() == "Perimeter") {
+          
+          updates[child.key] = {
+            beaconName: child.child("beaconName").val(),
+            beaconCampus: child.child("beaconCampus").val(),
+            beaconType: child.child("beaconType").val(),
+            lastSeen: Date.now(),
+            timestamp: null,
+            state: "Off Campus",
+            beaconPictureURL: child.child("beaconPictureURL").val()
+          };
 
-        newPing.push({
-          //mute: false,
-          chatroom: beaconName,
-          text: "Ping - " + child.child("beaconCampus").val(),
-          createdAt: Date.now(),
-          date: Date.now(),
-          system: true,
-          user: {
-            name: child.child("beaconCampus").val()
-          }
-        });
-      }
+          const beaconName = child.child("beaconName").val();
+          const newPing = admin
+            .database()
+            .ref(
+              `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
+                beaconName +
+                "/messages"
+            );
+
+          newPing.push({
+            //mute: false,
+            chatroom: beaconName,
+            text: "Ping - " + child.child("beaconCampus").val(),
+            createdAt: Date.now(),
+            date: Date.now(),
+            system: true,
+            user: {
+              name: child.child("beaconCampus").val()
+            }
+          });
+        }
+
+        if (child.child("state").val() == "Gateway - Active") {
+          updates[child.key] = {
+            lastSeen: Date.now(),
+            timestamp: null,
+            state: "Gateway - Offline"
+          };
+        }
+      });
+      console.log ('after ');
+      response = response + "<BR>" + "Here"
+      console.log ('updates = ', updates);
+      beacon.update(updates);
+      //oldItemsQuery.update(updates)
     });
-    // execute all updates in one go and return the result to end the function
-    return ref.update(updates);
-  });
+  res.status(200).send(response);
+ // return oldItemsQuery.update(updates);
+});
 
 exports.registerBeacon = functions.https.onRequest((req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
@@ -203,7 +239,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           .ref(`instance/0001-sais_edu_sg/beacon/` + snapshot.mac);
         var personName = "";
         var personType = "";
-        
+
         var personGrade = "";
         var personPictureURL = "";
 
@@ -214,51 +250,51 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               personName = "GATEWAY";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-            personState = "Perimeter";
+              personState = "Perimeter";
               break;
             case "AC233FC031B8":
               personCampus = "Woodleigh - Gate 2";
               personName = "GATEWAY";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-                personState = "On Campus";
+              personState = "On Campus";
               break;
             case "AC233FC039DB":
               personName = "GATEWAY";
               personCampus = "Smartcookies Office HQ";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-                personState = "XX Perimeter";
+              personState = "XX Perimeter";
               break;
             case "AC233FC039C9":
               personName = "GATEWAY";
               personCampus = "Smartcookies Cove";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-                personState = "XX Perimeter";
+              personState = "XX Perimeter";
               break;
             case "AC233FC039B2":
               personName = "GATEWAY";
               personCampus = "ELV Gate 1";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-                personState = "Perimeter";
+              personState = "Perimeter";
+              console.log("ELV Formatted body:", req.body);
               break;
             case "AC233FC039BE":
               personName = "GATEWAY";
               personCampus = "Woodleigh Parent Helpdesk";
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-                personState = "On Campus";
+              personState = "On Campus";
               break;
-              case "AC233FC039BB":
-                personName = "GATEWAY";
-                personCampus = "Woodleigh Stairwell";
-                personPictureURL =
-                  "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-                  personState = "On Campus";
-                break;
-              
+            case "AC233FC039BB":
+              personName = "GATEWAY";
+              personCampus = "Woodleigh Stairwell";
+              personPictureURL =
+                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+              personState = "On Campus";
+              break;
           }
         } else {
           switch (snapshot.mac) {
@@ -351,7 +387,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           beaconGrade: personGrade,
           beaconPictureURL: personPictureURL,
           timestamp: Date.now(),
-          state: personState,
+          state: personState
         });
       });
     } catch (e) {
