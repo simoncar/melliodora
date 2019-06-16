@@ -49,8 +49,8 @@ let Tabs = createMaterialBottomTabNavigator(
   {
     homeNav: { screen: HomeNav },
     home: { screen: Home },
-    chatRooms: { screen: chatRooms },
- 
+
+    webportal: { screen: Webportal },
     webportalSports: { screen: WebportalSports }
   },
   {
@@ -70,6 +70,7 @@ const MainScreenNavigator = createStackNavigator({
       }
     }
   },
+  chatRooms: { screen: chatRooms },
   chatmain: { screen: chatmain },
   chat: { screen: chat },
   phoneCalendar: { screen: phoneCalendar },

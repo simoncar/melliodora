@@ -15,7 +15,7 @@ import styles from './styles';
 import HeaderContent from '../headerContent/header';
 import Analytics from '../../lib/analytics';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper'
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { formatTime, formatMonth } from '../global.js';
 
 const i = 0;

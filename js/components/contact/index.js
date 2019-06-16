@@ -238,44 +238,6 @@ class Contact extends Component {
 
 
 
-
-          <Row style={{paddingTop: 800}}>
-              <Col style={{ width: 80 }}>
-              <Button transparent style={styles.roundedButton}  onPress={() => this.props.navigation.navigate('chatRooms')} >
-              <Ionicons name="ios-chatbubbles" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
-                     </Button>
-              </Col>
-              
-              {Constants.manifest.extra.instance == '0001-sais_edu_sg' &&
-              <Col>
-                  <Text style={styles.feedbackHeader}>Chat Rooms</Text>
-                  <Text style={styles.feedbackHead}>NOTE, Experimental</Text>
-                  <Text style={styles.feedbackHead}>These are not acitve</Text>      
-                  <Text style={styles.feedbackHead}></Text>    
-                  <Text style={styles.feedbackHead}></Text>    
-                  </Col>
-              }
-            </Row>
-
-
-
-            <Row style={{paddingTop: 40}}>
-              <Col style={{ width: 80 }}>
-              <Button transparent style={styles.roundedButton}  onPress={() => this.props.navigation.navigate('settings')} >
-              <Ionicons name="ios-cog" style={{ fontSize: 30, width: 30, color: '#FFF' }} />
-                     </Button>
-              </Col>
-              
-              {Constants.manifest.extra.instance == '0001-sais_edu_sg' &&
-              <Col>
-                  <Text style={styles.feedbackHeader}>Settings</Text>
-                  <Text style={styles.feedbackHead}>NOTE, Experimental</Text>
-                  <Text style={styles.feedbackHead}>These are not acitve</Text>      
-                  <Text style={styles.feedbackHead}></Text>    
-                  <Text style={styles.feedbackHead}></Text>    
-                  </Col>
-              }
-            </Row>
             </Grid>
             </View>
 
