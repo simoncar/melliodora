@@ -332,6 +332,10 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           .database()
           .ref(`instance/0001-sais_edu_sg/beacon/` + snapshot.mac);
 
+ 
+
+
+
         beacon.once("value").then(async function(snapshot2) {
           if (snapshot2.child("beaconName").exists()) {
             beacon.update({
@@ -342,7 +346,14 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               // beaconGrade: personGrade,
               // beaconPictureURL: personPictureURL,
               timestamp: Date.now(),
-              state: personState
+              state: personState,
+              type: snapshot.type,
+              ibeaconUuid: snapshot.ibeaconUuid,
+              ibeaconMajor:snapshot.ibeaconMajor,
+              ibeaconMinor:snapshot.ibeaconMinor,
+              rssi:snapshot.rssi,
+              ibeaconTxPower:snapshot.ibeaconTxPower,
+              battery:snapshot.battery
             });
           } else {
             // not our beacon
@@ -360,7 +371,14 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               // beaconPictureURL: personPictureURL,
               beaconType: "not ours",
               timestamp: Date.now(),
-              state: personState
+              state: personState,
+              type: snapshot.type,
+              ibeaconUuid: snapshot.ibeaconUuid,
+              ibeaconMajor:snapshot.ibeaconMajor,
+              ibeaconMinor:snapshot.ibeaconMinor,
+              rssi:snapshot.rssi,
+              ibeaconTxPower:snapshot.ibeaconTxPower,
+              battery:snapshot.battery
             });
           }
         });
