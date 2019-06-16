@@ -131,21 +131,23 @@ exports.beaconPingHistory = functions.database
     const snapshot = change.after;
 
     const beacon = context.params.beaconID;
-    const state =  snapshot.val();
+    const state = snapshot.val();
 
     const newHistory = admin
-    .database()
-    .ref(
-      'instance/0001-sais_edu_sg/beaconHistory/' + moment().format("YYYYMMDD") + '/' + beacon + '/' + Date.now()
-    );
+      .database()
+      .ref(
+        "instance/0001-sais_edu_sg/beaconHistory/20190614/" +
+          beacon +
+          "/" +
+          Date.now()
+      );
 
     newHistory.update({
       //mute: false,
-   
+
       timestamp: Date.now(),
       state: state
     });
-
   });
 
 //https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
@@ -157,11 +159,12 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   //       `instance/0001-sais_edu_sg/beacon/`
   //     );
   var response = "";
-
+  var i = 0;
   //const ref = change.after.ref.parent; // reference to the parent
   const now = Date.now();
   const cutoff = now - 100000; //CUT_OFF_TIME;
   const updates = {};
+  const beacon = admin.database().ref("instance/0001-sais_edu_sg/beacon/");
   const oldItemsQuery = await admin
     .database()
     .ref(`instance/0001-sais_edu_sg/beacon/`)
@@ -173,57 +176,60 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
     //const oldItemsQuery = ref.orderByChild("timestamp").endAt(cutoff);
     //const snapshot = oldItemsQuery.once("value");
     // create a map with all children that need to be removed
-    const beacon = admin.database().ref("instance/0001-sais_edu_sg/beacon/");
+    
 
     console.log("before ");
     response = response + "before";
     snapshot.forEach(child => {
-      response =
-        response + "<BR>" + "expire - " + child.child("beaconName").val();
-      if (child.child("state").val() == "Perimeter") {
-        updates[child.key] = {
-          beaconName: child.child("beaconName").val(),
-          beaconCampus: child.child("beaconCampus").val(),
-          beaconType: child.child("beaconType").val(),
-          lastSeen: Date.now(),
-          timestamp: null,
-          state: "Off Campus",
-          beaconPictureURL: child.child("beaconPictureURL").val()
-        };
+     
+      if (i < 100) {
+        if (child.child("state").val() == "Perimeter") {
+          i++;
+          updates[child.key] = {
+            beaconName: child.child("beaconName").val(),
+            beaconCampus: child.child("beaconCampus").val(),
+            beaconType: child.child("beaconType").val(),
+            lastSeen: Date.now(),
+            timestamp: null,
+            state: "Off Campus",
+            beaconPictureURL: child.child("beaconPictureURL").val()
+          };
 
-        const beaconName = child.child("beaconName").val();
-        const newPing = admin
-          .database()
-          .ref(
-            `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
-              beaconName +
-              "/messages"
-          );
+          const beaconName = child.child("beaconName").val();
+          const newPing = admin
+            .database()
+            .ref(
+              `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
+                beaconName +
+                "/messages"
+            );
 
-        newPing.push({
-          //mute: false,
-          chatroom: beaconName,
-          text: "Ping - " + child.child("beaconCampus").val(),
-          createdAt: Date.now(),
-          date: Date.now(),
-          system: true,
-          user: {
-            name: child.child("beaconCampus").val()
-          }
-        });
-      }
+          newPing.push({
+            //mute: false,
+            chatroom: beaconName,
+            text: "Ping - " + child.child("beaconCampus").val(),
+            createdAt: Date.now(),
+            date: Date.now(),
+            system: true,
+            user: {
+              name: child.child("beaconCampus").val()
+            }
+          });
+        }
 
-      if (child.child("state").val() == "Gateway - Active") {
-        updates[child.key] = {
-          lastSeen: Date.now(),
-          timestamp: null,
-          state: "Gateway - Offline"
-        };
-      }
+        if (child.child("state").val() == "Gateway - Active") {
+          i++;
+          updates[child.key] = {
+            lastSeen: Date.now(),
+            timestamp: null,
+            state: "Gateway - Offline"
+          };
+        }
+      } //i
     });
-    console.log("after ");
-    response = response + "<BR>" + "Here";
+
     console.log("updates = ", updates);
+    console.log("i = ", i);
     beacon.update(updates);
     //oldItemsQuery.update(updates)
   });
@@ -239,13 +245,12 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     return res.status(403).send("Forbidden!");
   }
 
-  if (undefined == req.body.length ) {
+  if (undefined == req.body.length) {
     return res.status(403).send("Forbidden!");
   }
   if (req.body == "{}") {
     return res.status(403).send("Forbidden!");
   }
-
 
   return cors(req, res, () => {
     let format = req.query.format;

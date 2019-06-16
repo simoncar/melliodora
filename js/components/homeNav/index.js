@@ -252,7 +252,8 @@ class HomeNav extends Component {
                   transparent
                   style={styles.roundedButton}
                   onPress={() => {
-                    this._handleOpenWithLinking("https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP");
+                    //this._handleOpenWithLinking("https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP");
+                    this.props.navigation.navigate("webportal");
                   }}
                 >
 
@@ -341,59 +342,7 @@ class HomeNav extends Component {
               />
             )}
           </View>
-          {instID == "0001-sais_edu_sg" && (
-            <TouchableOpacity
-              style={{ flexDirection: "row" }}
-              onPress={() => {
-                this.props.navigation.navigate("ptaHome");
-              }}
-            >
-              <View>
-                <View
-                  style={{
-                    height: 60,
-                    backgroundColor: "white",
-                    flexDirection: "row"
-                  }}
-                >
-                  <Image
-                    style={{
-                      width: 36,
-                      height: 36,
-                      margin: 12,
-                      borderRadius: 18,
-                      borderWidth: StyleSheet.hairlineWidth,
-                      borderColor: "lightgray"
-                    }}
-                    source={{
-                      uri:
-                        "https://saispta.com/wp-content/uploads/2018/12/Screenshot-2018-12-10-15.49.39.png"
-                    }}
-                  />
-                  <Text
-                    style={{
-                      fontWeight: "bold",
-                      height: 60,
-                      lineHeight: 60,
-                      color: "black"
-                    }}
-                  >
-                    Parent Connections{" "}
-                  </Text>
-                </View>
-                <View>
-                  <Image
-                    source={{
-                      uri:
-                        "https://saispta.com/wp-content/uploads/2018/12/ISASAIS-2017-2018-0032-e1544427990824.jpg"
-                    }}
-                    style={{ width, height: 200 }}
-                    resizeMode="contain"
-                  />
-                </View>
-              </View>
-            </TouchableOpacity>
-          )}
+
 
           <View>
             <View

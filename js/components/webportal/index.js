@@ -333,8 +333,7 @@ class Webportal extends Component {
         <HeaderContent navigation={this.props.navigation} />
 
         <View style={{ flex: 1 }}>
-          {this._renderSpinner()}
-
+          
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>
               <TouchableOpacity
@@ -377,7 +376,7 @@ class Webportal extends Component {
               domStorageEnabled={true}
               startInLoadingState={true}
               scalesPageToFit={true}
-              injectedJavaScript={injectScript}
+             
               ref={WEBVIEW_REF}
             />
           </View>
