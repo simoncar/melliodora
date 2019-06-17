@@ -17,7 +17,7 @@ const LANGUAGES = [
   "zh-CN",
   "ga",
   "it",
-  "jp",
+  "ja",
   "tl",
   "cy"
 ];
@@ -45,8 +45,7 @@ exports.translate = functions.database
         var message = snapshot.child("text").val();
 
         var results = await translateX.translate(message, {to: "ja"});
-    var detectedSourceLanguage = results[1].data.translations[0].detectedSourceLanguage
-
+        var detectedSourceLanguage = results[1].data.translations[0].detectedSourceLanguage
 
         admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textJA: results[0], detectedSourceLanguage: detectedSourceLanguage});
 
@@ -58,6 +57,10 @@ exports.translate = functions.database
 
          var results = await translateX.translate(message, {to: "fr"});
          admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textFR: results[0]});
+
+         var results = await translateX.translate(message, {to: "en"});
+         admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textEN: results[0]});
+
 
       //}
    // }

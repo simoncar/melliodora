@@ -89,6 +89,10 @@ class chatRooms extends Component {
         title: "Stamford 10 Year Gala",
         _key: "Stamford 10 Year Gala"
       });
+      this.state.userChatrooms.push({
+        title: "Test Chatroom",
+        _key: "Test Chatroom"
+      });
 
       this.setState({
         chatRooms

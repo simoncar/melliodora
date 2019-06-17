@@ -380,7 +380,7 @@ class chat extends Component {
             // avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
           }}
           renderActions={this.renderCustomActions}
-          // renderSystemMessage={this.renderSystemMessage}
+          renderSystemMessage={this.renderSystemMessage}
           renderCustomView={this.renderCustomView}
           renderMessageImage={this.renderCustomImage}
           // renderFooter={this.renderFooter}
