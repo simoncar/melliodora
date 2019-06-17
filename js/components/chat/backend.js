@@ -1,12 +1,13 @@
 import React from "react";
 import * as firebase from "firebase";
 import { ImageManipulator } from "expo";
-import Constants from 'expo-constants'
-
+import Constants from "expo-constants";
+import { getLanguage } from "../global";
 
 import uuid from "uuid";
 import AssetUtils from "expo-asset-utils";
 import shortid from "shortid";
+import QuickReplies from "react-native-gifted-chat/lib/QuickReplies";
 
 let instID = Constants.manifest.extra.instance;
 
@@ -35,6 +36,26 @@ export class Backend extends React.Component {
     this.state.chatroom = chatroom.trim();
   }
 
+  getLanguageMessage(message) {
+    switch (getLanguage()) {
+      case "en":
+        return message.textEN;
+        break;
+      case "fr":
+        return message.textFR;
+        break;
+      case "ko":
+        return message.textKO;
+        break;
+      case "zh":
+        return message.textZHCN;
+        break;
+        case "es":
+          return message.textES;
+          break;
+    }
+  }
+
   // retrive msg from backend
   loadMessages(callback) {
     this.messageRef = firebase
@@ -43,34 +64,38 @@ export class Backend extends React.Component {
       .orderByChild("approved")
       .equalTo(true);
     this.messageRef.off();
+
+    systemLanguage = getLanguage();
+
     const onReceive = data => {
       const message = data.val();
-   
-        callback({
-          _id: data.key,
-          text: message.textZHCN,
-          textEN: message.textEN,
-          textFR: message.textFR,
-          textJA: message.textJA,
-          textKO: message.textKO,
-          textZHCN: message.textZHCN,
 
-          detectedSourceLanguage: message.detectedSourceLanguage,
-          createdAt: new Date(message.createdAt),
-          chatroom: this.state.chatroom,
-          user: {
-            _id: message.user._id,
-            name: message.user.name
-          },
-          image: message.image,
-          video: message.video,
-          system: message.system
-          // location: {
-          //  latitude: 48.864601,
-          //  longitude: 2.398704
-          // },
-        });
-    
+      callback({
+        _id: data.key,
+
+        text: this.getLanguageMessage(message),
+        textEN: message.textEN,
+        textFR: message.textFR,
+        textJA: message.textJA,
+        textKO: message.textKO,
+        textZHCN: message.textZHCN,
+
+        detectedSourceLanguage: message.detectedSourceLanguage,
+        createdAt: new Date(message.createdAt),
+        chatroom: this.state.chatroom,
+        user: {
+          _id: message.user._id,
+          name: message.user.name
+        },
+        image: message.image,
+        video: message.video,
+        system: message.system,
+        // location: {
+        //  latitude: 48.864601,
+        //  longitude: 2.398704
+        // },
+        quickReplies: message.quickReplies
+      });
     };
     this.messageRef.limitToLast(50).on("child_added", onReceive);
   }
