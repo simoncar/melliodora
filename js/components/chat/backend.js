@@ -40,13 +40,20 @@ export class Backend extends React.Component {
     this.messageRef = firebase
       .database()
       .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`);
-    this.messageRef.off();
+    //this.messageRef.off();
     const onReceive = data => {
       const message = data.val();
    
         callback({
           _id: data.key,
-          text: message.text,
+          text: "(translated) \n" + message.textZHCN,
+          textEN: message.textEN,
+          textFR: message.textFR,
+          textJA: message.textJA,
+          textKO: message.textKO,
+          textZHCN: message.textZHCN,
+
+          detectedSourceLanguage: message.detectedSourceLanguage,
           createdAt: new Date(message.createdAt),
           chatroom: this.state.chatroom,
           user: {
@@ -54,7 +61,8 @@ export class Backend extends React.Component {
             name: message.user.name
           },
           image: message.image,
-          video: message.video
+          video: message.video,
+          system: message.system
           // location: {
           //  latitude: 48.864601,
           //  longitude: 2.398704
