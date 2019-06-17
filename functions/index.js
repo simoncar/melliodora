@@ -59,7 +59,7 @@ exports.translate = functions.database
          admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textFR: results[0]});
 
          var results = await translateX.translate(message, {to: "en"});
-         admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textEN: results[0]});
+         admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textEN: results[0], approved: true});
 
 
       //}

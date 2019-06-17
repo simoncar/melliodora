@@ -39,14 +39,16 @@ export class Backend extends React.Component {
   loadMessages(callback) {
     this.messageRef = firebase
       .database()
-      .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`);
-    //this.messageRef.off();
+      .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`)
+      .orderByChild("approved")
+      .equalTo(true);
+    this.messageRef.off();
     const onReceive = data => {
       const message = data.val();
    
         callback({
           _id: data.key,
-          text: "(translated) \n" + message.textZHCN,
+          text: message.textZHCN,
           textEN: message.textEN,
           textFR: message.textFR,
           textJA: message.textJA,
