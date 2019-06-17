@@ -25,6 +25,7 @@ const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
 
 // https://firebase.google.com/docs/functions/get-started
 // firebase deploy (from root)
+//  firebase deploy --only functions:translate
 // send the push notification
 
 // Translate an incoming message.
@@ -43,17 +44,20 @@ exports.translate = functions.database
      // if (language !== context.params.languageID) {
         var message = snapshot.child("text").val();
 
-        var results = await translateX.translate(message, {from: "en", to: "ja"});
-        admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textJA: results[0]});
+        var results = await translateX.translate(message, {to: "ja"});
+    var detectedSourceLanguage = results[1].data.translations[0].detectedSourceLanguage
 
-        var results = await translateX.translate(message, {from: "en", to: "zh-CN"});
-        admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textZHCN: results[0]});
 
-        var results = await translateX.translate(message, {from: "en", to: "ko"});
-        admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textKO: results[0]});
+        admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textJA: results[0], detectedSourceLanguage: detectedSourceLanguage});
 
-        var results = await translateX.translate(message, {from: "en", to: "fr"});
-        admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textFR: results[0]});
+         var results = await translateX.translate(message, {to: "zh-CN"});
+         admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textZHCN: results[0]});
+
+         var results = await translateX.translate(message, {to: "ko"});
+         admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textKO: results[0]});
+
+         var results = await translateX.translate(message, {to: "fr"});
+         admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textFR: results[0]});
 
       //}
    // }

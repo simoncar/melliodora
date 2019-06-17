@@ -19,7 +19,7 @@ import Constants from 'expo-constants'
 import moment from "moment";
 import { Ionicons , MaterialIcons} from "@expo/vector-icons";
 import firebase from "firebase";
-import { isAdmin } from "../global";
+import { isAdmin, getLanguage } from "../global";
 
 import * as ActionCreators from "../../actions";
 import HeaderContent from "../headerContent/header";
@@ -397,10 +397,11 @@ class HomeNav extends Component {
             </Text>
             <Text style={styles.version}>
               Language: {Localization.locale} </Text>
-            <Text style={styles.version} />
+              
+            <Text style={styles.version}>Language Code: {getLanguage()}</Text>
           </View>
         </Content>
-      </Container>
+      </Container>  
     );
   }
 }
