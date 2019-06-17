@@ -1,4 +1,5 @@
 import Constants from 'expo-constants'
+import * as Localization from 'expo-localization'
 
 export function isValue(input) {
   if (undefined !== input && input !== null && input.length > 0) {
@@ -150,4 +151,13 @@ export function isAdmin(sPass) {
   isAdminDevice = installationId || deviceId || adminPass;
 
   return isAdminDevice;
+}
+
+
+export function getLanguage() {
+
+  var str = Localization.locale;
+  var language = str.substring(0, 2);
+
+  return language;
 }
