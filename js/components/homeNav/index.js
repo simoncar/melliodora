@@ -14,6 +14,7 @@ import {
 import { Container, Content, Text, Icon, Button } from "native-base";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import { Notifications } from "expo";
+import * as Localization from 'expo-localization'
 import Constants from 'expo-constants'
 import moment from "moment";
 import { Ionicons , MaterialIcons} from "@expo/vector-icons";
@@ -394,7 +395,8 @@ class HomeNav extends Component {
             <Text style={styles.version}>
               Version: {Constants.manifest.revisionId}
             </Text>
-            <Text style={styles.version}> </Text>
+            <Text style={styles.version}>
+              Language: {Localization.locale} </Text>
             <Text style={styles.version} />
           </View>
         </Content>

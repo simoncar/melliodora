@@ -10,7 +10,17 @@ admin.initializeApp();
 const translateX = new Translate();
 //const CUT_OFF_TIME = 2 * 60 * 60 * 1000;  - 2 hours
 // List of output languages.
-const LANGUAGES = ["en", "es", "de", "fr", "sv", "ga", "it", "jp"];
+const LANGUAGES = [
+  "es",
+  "ko",
+  "fr",
+  "zh-CN",
+  "ga",
+  "it",
+  "jp",
+  "tl",
+  "cy"
+];
 const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
 
 // https://firebase.google.com/docs/functions/get-started
@@ -20,42 +30,33 @@ const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
 // Translate an incoming message.
 exports.translate = functions.database
   .ref(
-    "instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/{languageID}/{messageID}"
+    "instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/{messageID}"
   )
   .onWrite(async (change, context) => {
     const snapshot = change.after;
-
-    if (1 == 2) {
-      return null;
-    }
     const promises = [];
-    for (let i = 0; i < LANGUAGES.length; i++) {
-      const language = LANGUAGES[i];
-      console.log("translate = ", language);
-      console.log("   context = ", context.params.languageID);
-      if (language !== context.params.languageID) {
-        console.log("do some work  = ", snapshot);
+    const messageID = context.params.messageID;
 
-        console.log("call translator", promises);
-        const results = await translateX.translate(snapshot.val().message, {
-          from: context.params.languageID,
-          to: language
-        });
-        console.log("translate await results = ", results);
+    // for (let i = 0; i < LANGUAGES.length; i++) {
+    //   const language = LANGUAGES[i];
 
-        return admin
-          .database()
-          .ref(
-            `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages2/${language}/YYY`
-          )
-          .set({
-            text: results[0],
-            translated: true
-          });
+     // if (language !== context.params.languageID) {
+        var message = snapshot.child("text").val();
 
-        console.log("here errror");
-      }
-    }
+        var results = await translateX.translate(message, {from: "en", to: "ja"});
+        admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textJA: results[0]});
+
+        var results = await translateX.translate(message, {from: "en", to: "zh-CN"});
+        admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textZHCN: results[0]});
+
+        var results = await translateX.translate(message, {from: "en", to: "ko"});
+        admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textKO: results[0]});
+
+        var results = await translateX.translate(message, {from: "en", to: "fr"});
+        admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textFR: results[0]});
+
+      //}
+   // }
     return Promise.all(promises);
   });
 
@@ -338,13 +339,36 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
         var ibeaconUuid = snapshot.ibeaconUuid;
 
         beacon.once("value").then(async function(snapshot2) {
-
-          if (undefined == snapshot.ibeaconUuid ) {ibeaconUuid = ""} else {ibeaconUuid = snapshot.ibeaconUuid};
-          if (undefined == snapshot.ibeaconMajor ) {ibeaconMajor = ""} else {ibeaconMajor = snapshot.ibeaconMajor};
-          if (undefined == snapshot.ibeaconMinor ) {ibeaconMinor = ""} else {ibeaconMinor = snapshot.ibeaconMinor};
-          if (undefined == snapshot.rssi ) {rssi = ""} else {rssi = snapshot.rssi};
-          if (undefined == snapshot.ibeaconTxPower ) {ibeaconTxPower = ""} else {ibeaconTxPower = snapshot.ibeaconTxPower};
-          if (undefined == snapshot.battery ) {battery = ""} else {battery = snapshot.battery};
+          if (undefined == snapshot.ibeaconUuid) {
+            ibeaconUuid = "";
+          } else {
+            ibeaconUuid = snapshot.ibeaconUuid;
+          }
+          if (undefined == snapshot.ibeaconMajor) {
+            ibeaconMajor = "";
+          } else {
+            ibeaconMajor = snapshot.ibeaconMajor;
+          }
+          if (undefined == snapshot.ibeaconMinor) {
+            ibeaconMinor = "";
+          } else {
+            ibeaconMinor = snapshot.ibeaconMinor;
+          }
+          if (undefined == snapshot.rssi) {
+            rssi = "";
+          } else {
+            rssi = snapshot.rssi;
+          }
+          if (undefined == snapshot.ibeaconTxPower) {
+            ibeaconTxPower = "";
+          } else {
+            ibeaconTxPower = snapshot.ibeaconTxPower;
+          }
+          if (undefined == snapshot.battery) {
+            battery = "";
+          } else {
+            battery = snapshot.battery;
+          }
 
           if (snapshot2.child("beaconName").exists()) {
             beacon.update({
