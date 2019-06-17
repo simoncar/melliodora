@@ -127,21 +127,20 @@ const cors = require("cors")({
 exports.beaconPingHistory = functions.database
   .ref("instance/0001-sais_edu_sg/beacon/{beaconID}/state")
   .onWrite(async (change, context) => {
-  
     const snapshot = change.after;
 
     const beacon = context.params.beaconID;
     const state = snapshot.val();
-   
 
     const moment = require("moment");
     const xdate = moment().format("YYYYMMDD");
 
-
     const newHistory = admin
       .database()
       .ref(
-        "instance/0001-sais_edu_sg/beaconHistory/" + xdate + "/" +
+        "instance/0001-sais_edu_sg/beaconHistory/" +
+          xdate +
+          "/" +
           beacon +
           "/" +
           Date.now()
@@ -244,8 +243,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
   // https://script.google.com/macros/s/AKfycbwhrlEfQhiSgcsF6AM_AlaMWxU7SsEtJ-yQpvthyQTT1jui588E/exec
 
-
-
   if (req.method === "PUT") {
     return res.status(403).send("Forbidden!");
   }
@@ -270,6 +267,12 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     var beacons = req.body;
     var personCampus = "";
     var personState = "";
+    var ibeaconUuid = "";
+    var ibeaconMajor = 0;
+    var ibeaconMinor = 0;
+    var rssi = 0;
+    var ibeaconTxPower = 0;
+    var battery = 0;
 
     try {
       beacons.forEach(async function(snapshot) {
@@ -332,11 +335,17 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           .database()
           .ref(`instance/0001-sais_edu_sg/beacon/` + snapshot.mac);
 
- 
-
-
+        var ibeaconUuid = snapshot.ibeaconUuid;
 
         beacon.once("value").then(async function(snapshot2) {
+
+          if (undefined == snapshot.ibeaconUuid ) {ibeaconUuid = ""} else {ibeaconUuid = snapshot.ibeaconUuid};
+          if (undefined == snapshot.ibeaconMajor ) {ibeaconMajor = ""} else {ibeaconMajor = snapshot.ibeaconMajor};
+          if (undefined == snapshot.ibeaconMinor ) {ibeaconMinor = ""} else {ibeaconMinor = snapshot.ibeaconMinor};
+          if (undefined == snapshot.rssi ) {rssi = ""} else {rssi = snapshot.rssi};
+          if (undefined == snapshot.ibeaconTxPower ) {ibeaconTxPower = ""} else {ibeaconTxPower = snapshot.ibeaconTxPower};
+          if (undefined == snapshot.battery ) {battery = ""} else {battery = snapshot.battery};
+
           if (snapshot2.child("beaconName").exists()) {
             beacon.update({
               //mute: false,
@@ -348,12 +357,12 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               timestamp: Date.now(),
               state: personState,
               type: snapshot.type,
-              ibeaconUuid: snapshot.ibeaconUuid,
-              ibeaconMajor:snapshot.ibeaconMajor,
-              ibeaconMinor:snapshot.ibeaconMinor,
-              rssi:snapshot.rssi,
-              ibeaconTxPower:snapshot.ibeaconTxPower,
-              battery:snapshot.battery
+              ibeaconUuid: ibeaconUuid,
+              ibeaconMajor: ibeaconMajor,
+              ibeaconMinor: ibeaconMinor,
+              rssi: rssi,
+              ibeaconTxPower: ibeaconTxPower,
+              battery: battery
             });
           } else {
             // not our beacon
@@ -373,12 +382,12 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               timestamp: Date.now(),
               state: personState,
               type: snapshot.type,
-              ibeaconUuid: snapshot.ibeaconUuid,
-              ibeaconMajor:snapshot.ibeaconMajor,
-              ibeaconMinor:snapshot.ibeaconMinor,
-              rssi:snapshot.rssi,
-              ibeaconTxPower:snapshot.ibeaconTxPower,
-              battery:snapshot.battery
+              ibeaconUuid: ibeaconUuid,
+              ibeaconMajor: ibeaconMajor,
+              ibeaconMinor: ibeaconMinor,
+              rssi: rssi,
+              ibeaconTxPower: ibeaconTxPower,
+              battery: battery
             });
           }
         });
