@@ -30,6 +30,7 @@ export default class Bubble extends React.Component {
     } else if (this.props.currentMessage.text) {
       const options = [
         'Copy Text',
+        'View Original Message',
         'Cancel',
       ];
       const cancelButtonIndex = options.length - 1;
