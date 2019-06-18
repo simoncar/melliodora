@@ -25,12 +25,15 @@ class beaconHistory extends Component {
 
   }
 
+
   componentDidMount() {
     let loginsRef = firebase
       .firestore()
       .collection("sais_edu_sg")
-      .doc("user")
-      .collection("loginHistory");
+      .doc("beacon")
+      .collection("beaconHistory")
+      .doc("20190618")
+      .collection("C33FA1179F52");
 
     let allLogins = loginsRef
       .get()
