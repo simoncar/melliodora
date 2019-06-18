@@ -150,38 +150,45 @@ const cors = require("cors")({
   origin: true
 });
 
-exports.beaconPingHistory = functions.database
-  .ref("instance/0001-sais_edu_sg/beacon/{beaconID}/state")
+exports.beaconPingHistory = functions.firestore
+  .document("sais_edu_sg/beacon/beacons/{beaconID}")
   .onWrite(async (change, context) => {
-    const snapshot = change.after;
+    const newValue = change.after.data();
+    const oldValue = change.before.data();
 
     const beacon = context.params.beaconID;
-    const state = snapshot.val();
 
-    const moment = require("moment");
-    const xdate = moment().format("YYYYMMDD");
-    const timestamp = Date.now();
+    const newState = newValue.state;
+    const newCampus = newValue.campus
+
+    const oldState = oldValue.state;
+    const oldCampus= oldValue.campus
+
+     if (newState !== oldState) {
+      const moment = require("moment");
+      const xdate = moment().format("YYYYMMDD");
+      const timestamp = Date.now();
+
+      var dataDict = {
+        oldState: oldState,
+        oldCampus: oldCampus,
+        state: newState,
+        campus : newCampus,
+        timestamp: Date.now()
+      };
 
 
 
-    var dataDict = {
-   
-          "state" : state,
-          "timestamp" : Date.now(),
-        
-      
-    }
-
-    admin
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("beacon")
-      .collection("beaconHistory")
-      .doc(xdate)
-      .collection(beacon)
-      .doc(timestamp.toString())
-      .set(dataDict);
-
+      admin
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("beacon")
+        .collection("beaconHistory")
+        .doc(xdate)
+        .collection(beacon)
+        .doc(timestamp.toString())
+        .set(dataDict);
+     }
   });
 
 //https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
@@ -299,6 +306,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     var personState = "";
     var personName = "";
     var personPictureURL = "";
+    var targetCollection = "beaconsNotOurs";
 
     try {
       beacons.forEach(async function(snapshot) {
@@ -357,25 +365,25 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           }
         }
 
-        var targetCollection = "beaconsNotOurs";
+        targetCollection = "beaconsNotOurs";
 
-        let beaconRef = admin.firestore()
+        let beaconRef = await admin
+          .firestore()
           .collection("sais_edu_sg")
           .doc("beacon")
           .collection("beacons")
           .doc(snapshot.mac);
-       
 
-
-          let beaconDoc = beaconRef
+        let beaconDoc = await beaconRef
           .get()
           .then(doc => {
-            if (doc.exists) {
-              targetCollection = "beacons";
-            }
-
-            console.log (snapshot.mac, doc.exists )
+            if (!doc.exists) {
+              targetCollection = "beaconsNotOurs";
+              console.log(snapshot.mac, doc.exists);
+            } else targetCollection = "beacons";
+            console.log(snapshot.mac, doc.exists);
           })
+
           .catch(err => {
             console.log("Error getting document", err);
           });
@@ -404,6 +412,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           battery: battery
         };
 
+        console.log(targetCollection);
         admin
           .firestore()
           .collection("sais_edu_sg")
