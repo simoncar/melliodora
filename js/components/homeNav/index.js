@@ -17,7 +17,7 @@ import { Notifications } from "expo";
 import * as Localization from 'expo-localization'
 import Constants from 'expo-constants'
 import moment from "moment";
-import { Ionicons , MaterialIcons} from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
 import { isAdmin, getLanguage } from "../global";
 
@@ -35,12 +35,12 @@ const instID = Constants.manifest.extra.instance;
 
 let token = "DENIED";
 
-  // Get the token that uniquely identifies this device
-  if (!Constants.isDevice) {
-    token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]";    // override simulator with simon's iphone
- } else {
-    token = Notifications.getExpoPushTokenAsync();
- }
+// Get the token that uniquely identifies this device
+if (!Constants.isDevice) {
+  token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]";    // override simulator with simon's iphone
+} else {
+  token = Notifications.getExpoPushTokenAsync();
+}
 
 
 const today = new moment().format();
@@ -227,62 +227,74 @@ class HomeNav extends Component {
   render() {
     return (
       <Container style={styles.container}>
+
+
+        {isAdmin(this.props.adminPassword) && (
+          <TouchableHighlight
+            style={styles.addButton}
+            underlayColor="#ff7043"
+            onPress={() => this.props.navigation.navigate("storyForm")}
+          >
+            <Text style={{ fontSize: 25, color: "white" }}>+</Text>
+          </TouchableHighlight>
+        )}
+
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
-          
-          
-          {instID == "0001-sais_edu_sg" && (
-            <Row style={{ paddingBottom: 20,paddingTop: 20, }}>
-              <Col>
-                <Button
-                  transparent
-                  style={styles.roundedButton}
-                  onPress={() => {
-                    this.props.navigation.navigate("contact");
-                  }}
-                >
-                  <Ionicons name="ios-call" style={styles.icon} />
-                </Button>
-                <Text note style={styles.buttonLabel}>
-                  Contact
-                </Text>
-              </Col>
 
-              <Col>
-                <Button
-                  transparent
-                  style={styles.roundedButton}
-                  onPress={() => {
-                    //this._handleOpenWithLinking("https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP");
-                    this.props.navigation.navigate("webportal");
-                  }}
-                >
 
-                  <Ionicons style={styles.icon} name="ios-grid" />
-                </Button>
-                <Text note style={styles.buttonLabel}>
-                  myStamford
+            {instID == "0001-sais_edu_sg" && (
+              <Row style={{ paddingBottom: 20, paddingTop: 20, }}>
+                <Col>
+                  <Button
+                    transparent
+                    style={styles.roundedButton}
+                    onPress={() => {
+                      this.props.navigation.navigate("contact");
+                    }}
+                  >
+                    <Ionicons name="ios-call" style={styles.icon} />
+                  </Button>
+                  <Text note style={styles.buttonLabel}>
+                    Contact
                 </Text>
-              </Col>
+                </Col>
 
-              <Col>
-                <Button
-                  transparent
-                  style={styles.roundedButton}
-                  onPress={() => {
-                    this.props.navigation.navigate("campusMap");
-                  }}
-                >
-                  <Ionicons style={styles.icon} name="ios-map" />
-                </Button>
-                <Text note style={styles.buttonLabel}>
-                  School Map
+                <Col>
+                  <Button
+                    transparent
+                    style={styles.roundedButton}
+                    onPress={() => {
+                      //this._handleOpenWithLinking("https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP");
+                      this.props.navigation.navigate("webportal");
+                    }}
+                  >
+
+                    <Ionicons style={styles.icon} name="ios-grid" />
+                  </Button>
+                  <Text note style={styles.buttonLabel}>
+                    myStamford
                 </Text>
-              </Col>
-            </Row>
-          )}
-          
-          
+                </Col>
+
+                <Col>
+                  <Button
+                    transparent
+                    style={styles.roundedButton}
+                    onPress={() => {
+                      this.props.navigation.navigate("campusMap");
+                    }}
+                  >
+                    <Ionicons style={styles.icon} name="ios-map" />
+                  </Button>
+                  <Text note style={styles.buttonLabel}>
+                    School Map
+                </Text>
+                </Col>
+              </Row>
+            )}
+
+
             {isAdmin(this.props.adminPassword) && (
               <TouchableOpacity
                 style={{ flexDirection: "row" }}
@@ -297,7 +309,7 @@ class HomeNav extends Component {
                       backgroundColor: "white",
                       flexDirection: "row",
                       justifyContent: 'center',
-    alignItems: 'center',
+                      alignItems: 'center',
                     }}
                   >
                     <Image
@@ -355,17 +367,6 @@ class HomeNav extends Component {
             />
           </View>
 
-        
-
-          {isAdmin(this.props.adminPassword) && (
-            <TouchableHighlight
-              style={styles.addButton}
-              underlayColor="#ff7043"
-              onPress={() => this.props.navigation.navigate("storyForm")}
-            >
-              <Text style={{ fontSize: 25, color: "white" }}>+</Text>
-            </TouchableHighlight>
-          )}
 
           <View>
             <Text style={styles.version} />
@@ -397,11 +398,11 @@ class HomeNav extends Component {
             </Text>
             <Text style={styles.version}>
               Language: {Localization.locale} </Text>
-              
+
             <Text style={styles.version}>Language Code: {getLanguage()}</Text>
           </View>
         </Content>
-      </Container>  
+      </Container>
     );
   }
 }
