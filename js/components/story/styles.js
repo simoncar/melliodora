@@ -93,6 +93,7 @@ export default {
   },
 
   addButton: {
+    zIndex: 999,
     backgroundColor: '#ff5722',
     borderColor: '#ff5722',
     borderWidth: 1,
