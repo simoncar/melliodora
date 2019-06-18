@@ -167,10 +167,10 @@ class Story extends Component {
     // Get the token that uniquely identifies this device
     if (!Constants.isDevice) {
       token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]";    // override simulator with simon's iphone
-   } else {
+    } else {
       token = Notifications.getExpoPushTokenAsync();
-   }
-  
+    }
+
 
     this.notifyRef = firebase
       .database()
@@ -280,6 +280,49 @@ class Story extends Component {
 
     return (
       <Container style={{ backgroundColor: "#fff" }}>
+
+
+        {isAdmin(this.props.adminPassword) && (
+          <TouchableHighlight
+            style={styles.addButton}
+            underlayColor="#ff7043"
+            onPress={() =>
+              this.props.navigation.navigate("storyForm", {
+                eventTitle: this.props.navigation.getParam("eventTitle"),
+                eventDescription: this.props.navigation.getParam(
+                  "eventDescription"
+                ),
+                eventDate: this.props.navigation.state.params.eventDate,
+                eventStartTime: this.props.navigation.state.params
+                  .eventStartTime,
+                eventEndTime: this.props.navigation.state.params
+                  .eventEndTime,
+                location: this.props.navigation.state.params.location,
+                eventImage: this.props.navigation.state.params.eventImage,
+                phone: this.props.navigation.state.params.phone,
+                email: this.props.navigation.state.params.email,
+                color: this.props.navigation.state.params.color,
+                photo1: this.props.navigation.state.params.photo1,
+                photo2: this.props.navigation.state.params.photo2,
+                photo3: this.props.navigation.state.params.photo3,
+                url: this.props.navigation.state.params.url,
+                displayStart: this.props.navigation.state.params
+                  .displayStart,
+                displayEnd: this.props.navigation.state.params.displayEnd,
+                photoSquare: this.props.navigation.state.params
+                  .photoSquare,
+                _key: this.props.navigation.state.params._key,
+                edit: true
+              })
+            }
+          >
+            <MaterialIcons
+              name="edit"
+              style={{ fontSize: 25, color: "white" }}
+            />
+          </TouchableHighlight>
+        )}
+
         <Content showsVerticalScrollIndicator={false}>
           {this._drawImage(this.props.navigation.getParam("photo1"))}
 
@@ -398,46 +441,7 @@ class Story extends Component {
               <Text> </Text>
               <Text> </Text>
 
-              {isAdmin(this.props.adminPassword) && (
-                <TouchableHighlight
-                  style={styles.addButton}
-                  underlayColor="#ff7043"
-                  onPress={() =>
-                    this.props.navigation.navigate("storyForm", {
-                      eventTitle: this.props.navigation.getParam("eventTitle"),
-                      eventDescription: this.props.navigation.getParam(
-                        "eventDescription"
-                      ),
-                      eventDate: this.props.navigation.state.params.eventDate,
-                      eventStartTime: this.props.navigation.state.params
-                        .eventStartTime,
-                      eventEndTime: this.props.navigation.state.params
-                        .eventEndTime,
-                      location: this.props.navigation.state.params.location,
-                      eventImage: this.props.navigation.state.params.eventImage,
-                      phone: this.props.navigation.state.params.phone,
-                      email: this.props.navigation.state.params.email,
-                      color: this.props.navigation.state.params.color,
-                      photo1: this.props.navigation.state.params.photo1,
-                      photo2: this.props.navigation.state.params.photo2,
-                      photo3: this.props.navigation.state.params.photo3,
-                      url: this.props.navigation.state.params.url,
-                      displayStart: this.props.navigation.state.params
-                        .displayStart,
-                      displayEnd: this.props.navigation.state.params.displayEnd,
-                      photoSquare: this.props.navigation.state.params
-                        .photoSquare,
-                      _key: this.props.navigation.state.params._key,
-                      edit: true
-                    })
-                  }
-                >
-                  <MaterialIcons
-                    name="edit"
-                    style={{ fontSize: 25, color: "white" }}
-                  />
-                </TouchableHighlight>
-              )}
+
             </View>
           </View>
         </Content>
