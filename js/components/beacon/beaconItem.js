@@ -150,7 +150,7 @@ class BeaconItem extends Component {
               <TouchableOpacity
                 style={{ flexDirection: "row" }}
                 onPress={() => {
-                  this.props.navigation.navigate("chat", {
+                  this.props.navigation.navigate("beaconHistory", {
                     chatroom: "beacon-" + this.props.beaconName,
                     description: "Safeguarding Chat",
                     contact: "",

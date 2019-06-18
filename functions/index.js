@@ -10,17 +10,7 @@ admin.initializeApp();
 const translateX = new Translate();
 //const CUT_OFF_TIME = 2 * 60 * 60 * 1000;  - 2 hours
 // List of output languages.
-const LANGUAGES = [
-  "es",
-  "ko",
-  "fr",
-  "zh-CN",
-  "ga",
-  "it",
-  "ja",
-  "tl",
-  "cy"
-];
+const LANGUAGES = ["es", "ko", "fr", "zh-CN", "ga", "it", "ja", "tl", "cy"];
 const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
 
 // https://firebase.google.com/docs/functions/get-started
@@ -41,29 +31,57 @@ exports.translate = functions.database
     // for (let i = 0; i < LANGUAGES.length; i++) {
     //   const language = LANGUAGES[i];
 
-     // if (language !== context.params.languageID) {
-        var message = snapshot.child("text").val();
+    // if (language !== context.params.languageID) {
+    var message = snapshot.child("text").val();
 
-        var results = await translateX.translate(message, {to: "ja"});
-        var detectedSourceLanguage = results[1].data.translations[0].detectedSourceLanguage
+    var results = await translateX.translate(message, { to: "ja" });
+    var detectedSourceLanguage =
+      results[1].data.translations[0].detectedSourceLanguage;
 
-        admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textJA: results[0], detectedSourceLanguage: detectedSourceLanguage});
+    admin
+      .database()
+      .ref(
+        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
+      )
+      .update({
+        textJA: results[0],
+        detectedSourceLanguage: detectedSourceLanguage
+      });
 
-         var results = await translateX.translate(message, {to: "zh-CN"});
-         admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textZHCN: results[0]});
+    var results = await translateX.translate(message, { to: "zh-CN" });
+    admin
+      .database()
+      .ref(
+        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
+      )
+      .update({ textZHCN: results[0] });
 
-         var results = await translateX.translate(message, {to: "ko"});
-         admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textKO: results[0]});
+    var results = await translateX.translate(message, { to: "ko" });
+    admin
+      .database()
+      .ref(
+        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
+      )
+      .update({ textKO: results[0] });
 
-         var results = await translateX.translate(message, {to: "fr"});
-         admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textFR: results[0]});
+    var results = await translateX.translate(message, { to: "fr" });
+    admin
+      .database()
+      .ref(
+        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
+      )
+      .update({ textFR: results[0] });
 
-         var results = await translateX.translate(message, {to: "en"});
-         admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`).update({textEN: results[0], approved: true});
+    var results = await translateX.translate(message, { to: "en" });
+    admin
+      .database()
+      .ref(
+        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
+      )
+      .update({ textEN: results[0], approved: true });
 
-
-      //}
-   // }
+    //}
+    // }
     return Promise.all(promises);
   });
 
@@ -142,24 +160,28 @@ exports.beaconPingHistory = functions.database
 
     const moment = require("moment");
     const xdate = moment().format("YYYYMMDD");
+    const timestamp = Date.now();
 
-    const newHistory = admin
-      .database()
-      .ref(
-        "instance/0001-sais_edu_sg/beaconHistory/" +
-          xdate +
-          "/" +
-          beacon +
-          "/" +
-          Date.now()
-      );
 
-    newHistory.update({
-      //mute: false,
 
-      timestamp: Date.now(),
-      state: state
-    });
+    var dataDict = {
+   
+          "state" : state,
+          "timestamp" : Date.now(),
+        
+      
+    }
+
+    admin
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beaconHistory")
+      .doc(xdate)
+      .collection(beacon)
+      .doc(timestamp.toString())
+      .set(dataDict);
+
   });
 
 //https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
@@ -275,12 +297,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     var beacons = req.body;
     var personCampus = "";
     var personState = "";
-    var ibeaconUuid = "";
-    var ibeaconMajor = 0;
-    var ibeaconMinor = 0;
-    var rssi = 0;
-    var ibeaconTxPower = 0;
-    var battery = 0;
+    var personName = "";
+    var personPictureURL = "";
 
     try {
       beacons.forEach(async function(snapshot) {
@@ -339,232 +357,60 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           }
         }
 
-        const beacon = admin
-          .database()
-          .ref(`instance/0001-sais_edu_sg/beacon/` + snapshot.mac);
+        var targetCollection = "beaconsNotOurs";
 
-        var ibeaconUuid = snapshot.ibeaconUuid;
+        let beaconRef = admin.firestore()
+          .collection("sais_edu_sg")
+          .doc("beacon")
+          .collection("beacons")
+          .doc(snapshot.mac);
+       
 
-        beacon.once("value").then(async function(snapshot2) {
-          if (undefined == snapshot.ibeaconUuid) {
-            ibeaconUuid = "";
-          } else {
-            ibeaconUuid = snapshot.ibeaconUuid;
-          }
-          if (undefined == snapshot.ibeaconMajor) {
-            ibeaconMajor = "";
-          } else {
-            ibeaconMajor = snapshot.ibeaconMajor;
-          }
-          if (undefined == snapshot.ibeaconMinor) {
-            ibeaconMinor = "";
-          } else {
-            ibeaconMinor = snapshot.ibeaconMinor;
-          }
-          if (undefined == snapshot.rssi) {
-            rssi = "";
-          } else {
-            rssi = snapshot.rssi;
-          }
-          if (undefined == snapshot.ibeaconTxPower) {
-            ibeaconTxPower = "";
-          } else {
-            ibeaconTxPower = snapshot.ibeaconTxPower;
-          }
-          if (undefined == snapshot.battery) {
-            battery = "";
-          } else {
-            battery = snapshot.battery;
-          }
 
-          if (snapshot2.child("beaconName").exists()) {
-            beacon.update({
-              //mute: false,
-              // beaconName: personName,
-              // beaconType: personType,
-              // beaconCampus: personCampus,
-              // beaconGrade: personGrade,
-              // beaconPictureURL: personPictureURL,
-              timestamp: Date.now(),
-              state: personState,
-              type: snapshot.type,
-              ibeaconUuid: ibeaconUuid,
-              ibeaconMajor: ibeaconMajor,
-              ibeaconMinor: ibeaconMinor,
-              rssi: rssi,
-              ibeaconTxPower: ibeaconTxPower,
-              battery: battery
-            });
-          } else {
-            // not our beacon
+          let beaconDoc = beaconRef
+          .get()
+          .then(doc => {
+            if (doc.exists) {
+              targetCollection = "beacons";
+            }
 
-            const beaconNotOurs = await admin
-              .database()
-              .ref(`instance/0001-sais_edu_sg/beaconNotOurs/` + snapshot.mac);
+            console.log (snapshot.mac, doc.exists )
+          })
+          .catch(err => {
+            console.log("Error getting document", err);
+          });
 
-            beaconNotOurs.update({
-              //mute: false,
-              // beaconName: personName,
-              // beaconType: personType,
-              // beaconCampus: personCampus,
-              // beaconGrade: personGrade,
-              // beaconPictureURL: personPictureURL,
-              beaconType: "not ours",
-              timestamp: Date.now(),
-              state: personState,
-              type: snapshot.type,
-              ibeaconUuid: ibeaconUuid,
-              ibeaconMajor: ibeaconMajor,
-              ibeaconMinor: ibeaconMinor,
-              rssi: rssi,
-              ibeaconTxPower: ibeaconTxPower,
-              battery: battery
-            });
-          }
-        });
-        // Test for the existence of certain keys within a DataSnapshot
+        var ibeaconUuid =
+          snapshot.ibeaconUuid === undefined ? "" : snapshot.ibeaconUuid;
+        var ibeaconMajor =
+          snapshot.ibeaconMajor === undefined ? 0 : snapshot.ibeaconMajor;
+        var ibeaconMinor =
+          snapshot.ibeaconMinor === undefined ? 0 : snapshot.ibeaconMinor;
+        var rssi = snapshot.rssi === undefined ? 0 : snapshot.rssi;
+        var ibeaconTxPower =
+          snapshot.ibeaconTxPower === undefined ? 0 : snapshot.ibeaconTxPower;
+        var battery = snapshot.battery === undefined ? 0 : snapshot.battery;
 
-        var personName = "";
-        var personType = "";
+        var dataDict = {
+          campus: personCampus,
+          timestamp: Date.now(),
+          state: personState,
+          type: snapshot.type,
+          ibeaconUuid: ibeaconUuid,
+          ibeaconMajor: ibeaconMajor,
+          ibeaconMinor: ibeaconMinor,
+          rssi: rssi,
+          ibeaconTxPower: ibeaconTxPower,
+          battery: battery
+        };
 
-        var personGrade = "";
-        var personPictureURL = "";
-
-        // if ((snapshot.type = "Gateway") && personCampus == "") {
-        //   switch (snapshot.mac) {
-        //     case "AC233FC03164":
-        //       personCampus = "Woodleigh - Gate 1";
-        //       personName = "GATEWAY";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-        //       personState = "Perimeter";
-        //       break;
-        //     case "AC233FC031B8":
-        //       personCampus = "Woodleigh - Gate 2";
-        //       personName = "GATEWAY";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-        //       personState = "On Campus";
-        //       break;
-        //     case "AC233FC039DB":
-        //       personName = "GATEWAY";
-        //       personCampus = "Smartcookies Office HQ";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-        //       personState = "XX Perimeter";
-        //       break;
-        //     case "AC233FC039C9":
-        //       personName = "GATEWAY";
-        //       personCampus = "Smartcookies Cove";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-        //       personState = "XX Perimeter";
-        //       break;
-        //     case "AC233FC039B2":
-        //       personName = "GATEWAY";
-        //       personCampus = "ELV Gate 1";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-        //       personState = "Perimeter";
-        //       console.log("ELV Formatted body:", req.body);
-        //       break;
-        //     case "AC233FC039BE":
-        //       personName = "GATEWAY";
-        //       personCampus = "Woodleigh Parent Helpdesk";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-        //       personState = "On Campus";
-        //       break;
-        //     case "AC233FC039BB":
-        //       personName = "GATEWAY";
-        //       personCampus = "Woodleigh Stairwell";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-        //       personState = "On Campus";
-        //       break;
-        //   }
-        // } else {
-        //   // switch (snapshot.mac) {
-        //     case "AC233F292EB0":
-        //       personName = "Ryan Windebank";
-        //       personType = "Student";
-        //       personGrade = "7";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-10-12.17.21.png";
-        //       break;
-        //     case "AC233F292E3E":
-        //       personName = "Grace Cariss";
-        //       personType = "Student";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/graceprofilepic.jpeg";
-        //       personGrade = "6";
-
-        //       break;
-        //     case "AC233F292E9A":
-        //       personName = "Simon Cariss";
-        //       personType = "Parent";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/27993517_10156308333051494_4863829502063215688_o.jpg";
-
-        //       break;
-        //     case "AC233F29148B":
-        //       personName = "Lucy Cariss";
-        //       personType = "Student";
-        //       personGrade = "4";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/lucyprofilepic.jpeg";
-
-        //       break;
-        //     case "AC233F2915A0":
-        //       personName = "Ben Cariss";
-        //       personType = "Student";
-        //       personGrade = "2";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/benprofilepic.jpeg";
-
-        //       break;
-        //     case "AC233F292F52":
-        //       personName = "Christina Thorsen";
-        //       personType = "Parent";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-19.07.22.png";
-        //       break;
-        //     case "AC233F29148A":
-        //       personName = "Kayla Thorsen";
-        //       personType = "Student";
-        //       personGrade = "4";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-19.10.12.png";
-
-        //       break;
-
-        //     case "AC233F292FDD":
-        //       personName = "Visitor Woodleigh";
-        //       personType = "Visitor";
-        //       personGrade = "4";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-22.21.19.png";
-        //       break;
-        //     case "FB1590E2A414":
-        //       personName = "Unallocated Button";
-        //       break;
-        //     case "C33FA1179F52":
-        //       personName = "Test Card **";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/27993517_10156308333051494_4863829502063215688_o.jpg";
-
-        //       break;
-        //     case "AC233F2915A9":
-        //       personName = "Mohd Yusoff";
-        //       personType = "Staff";
-        //       personPictureURL =
-        //         "https://saispta.com/wp-content/uploads/2019/05/Yusoff.jpeg";
-        //       break;
-        //     default:
-        //       personType = snapshot.mac;
-        //       personName = "~" + snapshot.mac;
-        //   }
-        // }
+        admin
+          .firestore()
+          .collection("sais_edu_sg")
+          .doc("beacon")
+          .collection(targetCollection)
+          .doc(snapshot.mac)
+          .set(dataDict);
       });
     } catch (e) {
       console.log("catch error body:", req.body);

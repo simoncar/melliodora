@@ -35,6 +35,7 @@ import WebportalAuth from "./components/webportal/auth";
 import WebportalSports from "./components/webportalSports";
 import CustomHeader from "./CustomHeader";
 import beacon from "./components/beacon";
+import beaconHistory from "./components/beacon/beaconHistory";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialIcons
@@ -88,6 +89,7 @@ const MainScreenNavigator = createStackNavigator({
   WebportalAuth: { screen: WebportalAuth },
   storyForm: { screen: StoryForm },
   beacon: { screen: beacon },
+  beaconHistory: { screen: beaconHistory },
 
   defaultNavigationOptions: () => ({
     headerStyle: {
