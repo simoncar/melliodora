@@ -12,7 +12,7 @@ import {
 import { connect } from "react-redux";
 import { Container, Header, Content, Button, Icon, Body } from "native-base";
 
-import Constants from 'expo-constants'
+import Constants from "expo-constants";
 import styles from "./styles";
 import { withMappedNavigationProps } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
@@ -83,69 +83,71 @@ class newStory extends Component {
   }
 
   addStory() {
-    this.storyRef = firebase
-      .database()
-      .ref("instance/" + instID + "/feature/" + this.state._key);
+    var storyDict = {
+      summary: this.state.eventTitle,
+      description: this.state.eventDescription,
+      location: this.state.location,
+      phone: this.state.phone,
+      email: this.state.email,
+      htmlLink: this.state.url,
+      photo1: this.state.photo1,
+      photo2: this.state.photo2,
+      photo3: this.state.photo3,
+      date_start:
+        this.state.eventDate !== undefined ? this.state.eventDate : null,
+      time_start_pretty:
+        this.state.eventStartTime !== undefined
+          ? this.state.eventStartTime
+          : null,
+      time_end_pretty:
+        this.state.eventEndTime !== undefined ? this.state.eventEndTime : null,
+      displayStart:
+        this.state.displayStart !== undefined ? this.state.displayStart : null,
+      displayEnd:
+        this.state.displayEnd !== undefined ? this.state.displayEnd : null,
+      photoSquare: this.state.photoSquare
+    };
 
-    if (this.props.edit) {
-      this.storyRef.update({
-        summary: this.state.eventTitle,
-        description: this.state.eventDescription,
-        location: this.state.location,
-        phone: this.state.phone,
-        email: this.state.email,
-        htmlLink: this.state.url,
-        photo1: this.state.photo1,
-        photo2: this.state.photo2,
-        photo3: this.state.photo3,
-        date_start:
-          this.state.eventDate !== undefined ? this.state.eventDate : null,
-        time_start_pretty:
-          this.state.eventStartTime !== undefined
-            ? this.state.eventStartTime
-            : null,
-        time_end_pretty:
-          this.state.eventEndTime !== undefined
-            ? this.state.eventEndTime
-            : null,
-        displayStart:
-          this.state.displayStart !== undefined
-            ? this.state.displayStart
-            : null,
-        displayEnd:
-          this.state.displayEnd !== undefined ? this.state.displayEnd : null,
-        photoSquare: this.state.photoSquare
-      });
-    } else {
-      this.storyRef.push({
-        summary: this.state.eventTitle,
-        description: this.state.eventDescription,
-        location: this.state.location,
-        phone: this.state.phone,
-        email: this.state.email,
-        htmlLink: this.state.url,
-        photo1: this.state.photo1,
-        photo2: this.state.photo2,
-        photo3: this.state.photo3,
-        date_start:
-          this.state.eventDate !== undefined ? this.state.eventDate : null,
-        time_start_pretty:
-          this.state.eventStartTime !== undefined
-            ? this.state.eventStartTime
-            : null,
-        time_end_pretty:
-          this.state.eventEndTime !== undefined
-            ? this.state.eventEndTime
-            : null,
-        displayStart:
-          this.state.displayStart !== undefined
-            ? this.state.displayStart
-            : null,
-        displayEnd:
-          this.state.displayEnd !== undefined ? this.state.displayEnd : null,
-        photoSquare: this.state.photoSquare
-      });
-    }
+    var storyRef = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("feature")
+      .collection("feature articles")
+      .doc(this.state._key);
+
+    storyRef.set(storyDict);
+
+    //   });
+    // } else {
+    //   this.storyRef.set({
+    //     summary: this.state.eventTitle,
+    //     description: this.state.eventDescription,
+    //     location: this.state.location,
+    //     phone: this.state.phone,
+    //     email: this.state.email,
+    //     htmlLink: this.state.url,
+    //     photo1: this.state.photo1,
+    //     photo2: this.state.photo2,
+    //     photo3: this.state.photo3,
+    //     date_start:
+    //       this.state.eventDate !== undefined ? this.state.eventDate : null,
+    //     time_start_pretty:
+    //       this.state.eventStartTime !== undefined
+    //         ? this.state.eventStartTime
+    //         : null,
+    //     time_end_pretty:
+    //       this.state.eventEndTime !== undefined
+    //         ? this.state.eventEndTime
+    //         : null,
+    //     displayStart:
+    //       this.state.displayStart !== undefined
+    //         ? this.state.displayStart
+    //         : null,
+    //     displayEnd:
+    //       this.state.displayEnd !== undefined ? this.state.displayEnd : null,
+    //     photoSquare: this.state.photoSquare
+    //   });
+    // }
 
     const { goBack } = this.props.navigation;
 
@@ -153,12 +155,6 @@ class newStory extends Component {
     setTimeout(() => {
       goBack(null);
     }, 100);
-  }
-
-  updateStory() {
-    this.storyRef = firebase
-      .database()
-      .ref("instance/" + instID + "/feature/7");
   }
 
   render() {

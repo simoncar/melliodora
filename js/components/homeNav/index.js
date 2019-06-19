@@ -14,8 +14,8 @@ import {
 import { Container, Content, Text, Icon, Button } from "native-base";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import { Notifications } from "expo";
-import * as Localization from 'expo-localization'
-import Constants from 'expo-constants'
+import * as Localization from "expo-localization";
+import Constants from "expo-constants";
 import moment from "moment";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
@@ -37,11 +37,10 @@ let token = "DENIED";
 
 // Get the token that uniquely identifies this device
 if (!Constants.isDevice) {
-  token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]";    // override simulator with simon's iphone
+  token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
 } else {
   token = Notifications.getExpoPushTokenAsync();
 }
-
 
 const today = new moment().format();
 
@@ -58,15 +57,33 @@ class HomeNav extends Component {
   constructor(props) {
     super(props);
 
-    this.calendarEvents = firebase.database().ref(`instance/${instID}/feature`);
+    this.ref = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("feature")
+      .collection("feature articles");
+
+    // db.collection("cities").where("capital", "==", true)
+    // .get()
+    // .then(function(querySnapshot) {
+    //     querySnapshot.forEach(function(doc) {
+    //         // doc.data() is never undefined for query doc snapshots
+    //         console.log(doc.id, " => ", doc.data());
+    //     });
+    // })
+    // .catch(function(error) {
+    //     console.log("Error getting documents: ", error);
+    // });
+
+    //this.calendarEvents = firebase.database().ref(`instance/${instID}/feature`);
 
     this.state = {
       user: null,
-      loading: true,
-      featureItems: {}
+      loading: false,
+      featureItems: []
     };
 
-    this.loadFromRedux();
+    //this.loadFromRedux();
   }
 
   static navigationOptions = {
@@ -76,8 +93,63 @@ class HomeNav extends Component {
   };
 
   componentDidMount() {
-    this.listenLoadFromFirebase(this.calendarEvents);
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
   }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  onCollectionUpdate = querySnapshot => {
+    const featureItems = [];
+    querySnapshot.forEach(doc => {
+      const {
+        summary,
+        description,
+        location,
+        phone,
+        email,
+        photoSquare,
+        htmlLink,
+        date_start,
+        time_start_pretty,
+        time_end_pretty,
+        photo1,
+        photo2,
+        photo3,
+        displayStart,
+        displayEnd,
+        hidden
+      } = doc.data();
+
+      featureItems.push({
+        key: doc.id,
+        _key: doc.id,
+        doc, // DocumentSnapshot
+        title: summary,
+        description,
+        location,
+        phone,
+        email,
+        photoSquare,
+        url: htmlLink,
+        eventDate: date_start,
+        eventStartTime: time_start_pretty,
+        eventEndTime: time_end_pretty,
+        photo1,
+        photo2,
+        photo3,
+        displayStart,
+        displayEnd,
+        hidden
+      });
+    });
+
+    this.setState({
+      featureItems,
+      loading: false
+    });
+  };
 
   _handleOpenWithLinking = sURL => {
     Linking.openURL(sURL);
@@ -139,96 +211,17 @@ class HomeNav extends Component {
     }
   }
 
-  listenLoadFromFirebase(calendarEvents) {
-    calendarEvents.on("value", dataSnapshot2 => {
-      this.props.setFeatureItems(dataSnapshot2);
-
-      dataSnapshot = dataSnapshot2;
-      this.state.featureItems = [];
-      this.state.featureItemsHidden = [];
-
-      dataSnapshot.forEach(child => {
-        const displayStart =
-          child.val().displayStart !== undefined
-            ? moment().format(child.val().displayStart)
-            : null;
-        const displayEnd =
-          child.val().displayEnd !== undefined
-            ? moment().format(child.val().displayEnd)
-            : null;
-        let hidden = true;
-
-        if (displayStart != null && displayStart <= today) {
-          // start is less than End
-
-          if (displayStart != null && displayEnd >= today) {
-            // start is less than End
-            hidden = false;
-          }
-        }
-
-        if (!hidden) {
-          this.state.featureItems.push({
-            title: child.val().summary,
-            description: child.val().description,
-            location: child.val().location,
-            phone: child.val().phone,
-            email: child.val().email,
-            photoSquare: child.val().photoSquare,
-            url: child.val().htmlLink,
-            eventDate: child.val().date_start,
-            eventStartTime: child.val().time_start_pretty,
-            eventEndTime: child.val().time_end_pretty,
-            photo1: child.val().photo1,
-            photo2: child.val().photo2,
-            photo3: child.val().photo3,
-            displayStart: child.val().displayStart,
-            displayEnd: child.val().displayEnd,
-            hidden: false,
-            adminPassword: this.props.adminPassword,
-            _key: child.key,
-            key: child.key
-          });
-        } else {
-          this.state.featureItemsHidden.push({
-            title: child.val().summary,
-            description: child.val().description,
-            location: child.val().location,
-            phone: child.val().phone,
-            email: child.val().email,
-            photoSquare: child.val().photoSquare,
-            url: child.val().htmlLink,
-            eventDate: child.val().date_start,
-            eventStartTime: child.val().time_start_pretty,
-            eventEndTime: child.val().time_end_pretty,
-            photo1: child.val().photo1,
-            photo2: child.val().photo2,
-            photo3: child.val().photo3,
-            displayStart: child.val().displayStart,
-            displayEnd: child.val().displayEnd,
-            hidden: true,
-            adminPassword: this.props.adminPassword,
-            _key: child.key,
-            key: child.key
-          });
-        }
-      });
-
-      this.setState({
-        calendarEvents
-      });
-    });
-  }
-
   _renderItem(item) {
     return <ListItem navigation={this.props.navigation} item={item} />;
   }
 
   render() {
+    if (this.state.loading) {
+      return null; // or render a loading icon
+    }
+
     return (
       <Container style={styles.container}>
-
-
         {isAdmin(this.props.adminPassword) && (
           <TouchableHighlight
             style={styles.addButton}
@@ -241,10 +234,8 @@ class HomeNav extends Component {
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
-
-
             {instID == "0001-sais_edu_sg" && (
-              <Row style={{ paddingBottom: 20, paddingTop: 20, }}>
+              <Row style={{ paddingBottom: 20, paddingTop: 20 }}>
                 <Col>
                   <Button
                     transparent
@@ -257,7 +248,7 @@ class HomeNav extends Component {
                   </Button>
                   <Text note style={styles.buttonLabel}>
                     Contact
-                </Text>
+                  </Text>
                 </Col>
 
                 <Col>
@@ -269,12 +260,11 @@ class HomeNav extends Component {
                       this.props.navigation.navigate("webportal");
                     }}
                   >
-
                     <Ionicons style={styles.icon} name="ios-grid" />
                   </Button>
                   <Text note style={styles.buttonLabel}>
                     myStamford
-                </Text>
+                  </Text>
                 </Col>
 
                 <Col>
@@ -289,11 +279,10 @@ class HomeNav extends Component {
                   </Button>
                   <Text note style={styles.buttonLabel}>
                     School Map
-                </Text>
+                  </Text>
                 </Col>
               </Row>
             )}
-
 
             {isAdmin(this.props.adminPassword) && (
               <TouchableOpacity
@@ -308,8 +297,8 @@ class HomeNav extends Component {
                       height: 60,
                       backgroundColor: "white",
                       flexDirection: "row",
-                      justifyContent: 'center',
-                      alignItems: 'center',
+                      justifyContent: "center",
+                      alignItems: "center"
                     }}
                   >
                     <Image
@@ -347,15 +336,7 @@ class HomeNav extends Component {
               keyExtractor={this.keyExtractor}
               renderItem={this._renderItem.bind(this)}
             />
-            {isAdmin(this.props.adminPassword) && (
-              <FlatList
-                data={this.state.featureItemsHidden}
-                keyExtractor={this.keyExtractor}
-                renderItem={this._renderItem.bind(this)}
-              />
-            )}
           </View>
-
 
           <View>
             <View
@@ -366,7 +347,6 @@ class HomeNav extends Component {
               }}
             />
           </View>
-
 
           <View>
             <Text style={styles.version} />
@@ -396,8 +376,7 @@ class HomeNav extends Component {
             <Text style={styles.version}>
               Version: {Constants.manifest.revisionId}
             </Text>
-            <Text style={styles.version}>
-              Language: {Localization.locale} </Text>
+            <Text style={styles.version}>Language: {Localization.locale} </Text>
 
             <Text style={styles.version}>Language Code: {getLanguage()}</Text>
           </View>
