@@ -85,11 +85,11 @@ class ListItem extends Component {
                   HIDDEN {this.props.item.item.title}
                 </Text>
               )}
-              {this.props.item.item.hidden == false && (
+            
               <Text style={styles.itemTitle}>
                   {this.props.item.item.title}
                 </Text>
-              )}
+             
 
               <TouchableOpacity
                 style={{ flexDirection: "row" }}
