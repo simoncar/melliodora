@@ -37,7 +37,21 @@ export default {
       }
     )
   },
-
+  switchText: {
+    flexDirection: "row",
+    color: "#222",
+    fontWeight: "bold",
+    alignItems: "center",
+    textAlignVertical: "top"
+  },
+  switch: {
+    flexDirection: "row",
+    alignItems: "center",
+    textAlignVertical: "top"
+  },
+  switchContainer: {
+    alignSelf: "flex-end"
+  },
   chatHeadingLeft: {
     color: "#037AFF",
     alignSelf: "center",
@@ -101,7 +115,8 @@ export default {
 
   switchContainer: {
     alignSelf: "flex-end",
-    alignItems: "center"
+    alignItems: "center",
+    paddingBottom: 30
   },
 
   switch: {
