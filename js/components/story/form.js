@@ -6,17 +6,18 @@ import {
   Dimensions,
   Text,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Switch
 } from "react-native";
 
 import { connect } from "react-redux";
-import { Container, Header, Content, Button, Icon, Body } from "native-base";
+import { Container, Content } from "native-base";
 
 import Constants from "expo-constants";
 import styles from "./styles";
 import { withMappedNavigationProps } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
-import { Entypo } from '@expo/vector-icons';
+import { Entypo } from "@expo/vector-icons";
 
 var instID = Constants.manifest.extra.instance;
 
@@ -58,25 +59,27 @@ class newStory extends Component {
     this.addStory = this.addStory.bind(this);
   }
 
-  
-
   static navigationOptions = ({ navigation }) => ({
-    
     headerLeft: (
-      <TouchableOpacity onPress={() => {navigation.goBack()}}>
-       <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
+        <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
       </TouchableOpacity>
     ),
-   
-  
+
     headerRight: (
-      <TouchableOpacity onPress={() => {navigation.state.params.addStory()}}>
-         <Text  style={styles.chatHeading} >Save</Text>
-      
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params.addStory();
+        }}
+      >
+        <Text style={styles.chatHeading}>Save</Text>
       </TouchableOpacity>
     )
   });
-
 
   componentDidMount() {
     this.props.navigation.setParams({
@@ -194,11 +197,23 @@ class newStory extends Component {
             <View
               style={{
                 flex: 1,
-                paddingTop: 50,
+                paddingTop: 20,
                 paddingLeft: 10,
                 paddingRight: 10
               }}
             >
+              <View style={styles.switchContainer}>
+                
+
+                <Switch
+                  onValueChange={value =>
+                    this.setState({ lowerelemSwitch: value })
+                  }
+                  style={styles.switch}
+                  value={this.state.lowerelemSwitch}
+                />
+              </View>
+
               <TextInput
                 onChangeText={text => this.setState({ eventTitle: text })}
                 placeholder={"Title"}
@@ -315,7 +330,6 @@ class newStory extends Component {
                 value={this.state.displayEnd}
               />
             </View>
-            
           </View>
         </Content>
       </Container>
