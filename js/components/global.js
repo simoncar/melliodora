@@ -1,6 +1,10 @@
 import Constants from 'expo-constants'
 import * as Localization from 'expo-localization'
 
+
+const moment = require("moment");
+
+
 export function isValue(input) {
   if (undefined !== input && input !== null && input.length > 0) {
     return true;
@@ -47,7 +51,9 @@ export function formatMonth(eventDate) {
   } else {
     if (undefined != eventDate && eventDate.length > 1) {
       var d = new Date(eventDate);
-      var ret = monthNames[d.getMonth()] + " " + d.getDate();
+
+      ret = moment(d).format("MMMM Do YYYY");
+      //var ret = monthNames[d.getMonth()] + " " + d.getDate();
     } else {
       ret = "";
     }
