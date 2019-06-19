@@ -16,6 +16,7 @@ import Constants from "expo-constants";
 import styles from "./styles";
 import { withMappedNavigationProps } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
+import { Entypo } from '@expo/vector-icons';
 
 var instID = Constants.manifest.extra.instance;
 
@@ -55,6 +56,32 @@ class newStory extends Component {
 
     this.generateID = this.generateID.bind(this);
     this.addStory = this.addStory.bind(this);
+  }
+
+  
+
+  static navigationOptions = ({ navigation }) => ({
+    
+    headerLeft: (
+      <TouchableOpacity onPress={() => {navigation.goBack()}}>
+       <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
+      </TouchableOpacity>
+    ),
+   
+  
+    headerRight: (
+      <TouchableOpacity onPress={() => {navigation.state.params.addStory()}}>
+         <Text  style={styles.chatHeading} >Save</Text>
+      
+      </TouchableOpacity>
+    )
+  });
+
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      addStory: this.addStory
+    });
   }
 
   generateID() {
@@ -288,25 +315,7 @@ class newStory extends Component {
                 value={this.state.displayEnd}
               />
             </View>
-            <TouchableOpacity
-              style={[styles.saveBtn]}
-              disabled={this.state.eventTitle.length > 0 ? false : true}
-              onPress={this.addStory}
-            >
-              <Text
-                style={[
-                  styles.buttonText,
-                  {
-                    color:
-                      this.state.eventTitle.length > 0
-                        ? "#FFF"
-                        : "rgba(255,255,255,.5)"
-                  }
-                ]}
-              >
-                Save
-              </Text>
-            </TouchableOpacity>
+            
           </View>
         </Content>
       </Container>
