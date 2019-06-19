@@ -9,6 +9,8 @@ import Constants from "expo-constants";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationProps } from "react-navigation-props-mapper";
 
+import BeaconHistoryItem from './BeaconHistoryItem';
+
 import styles from "./styles";
 
 let instID = Constants.manifest.extra.instance;
@@ -20,7 +22,8 @@ class beaconHistory extends Component {
     this.state = {
       loading: true,
       user: null,
-      userBeacons: {}
+      userBeacons: {},
+      history: []
     };
 
   }
@@ -35,23 +38,35 @@ class beaconHistory extends Component {
       .doc("20190618")
       .collection("C33FA1179F52");
 
-    let allLogins = loginsRef
+
+    loginsRef
       .get()
       .then(snapshot => {
+        const history = [];
         snapshot.forEach(doc => {
-          console.log(doc.id, "=>", doc.data());
+          history.push(doc.data());
         });
+        this.setState({ history });
       })
       .catch(err => {
         console.log("Error getting documents", err);
       });
+
+
+  }
+
+  _renderListItem = ({item, index}) => {
+    if (index === 0) return <BeaconHistoryItem start={true} {...item}></BeaconHistoryItem>
+    else if (index === (this.state.history.length -1)) return <BeaconHistoryItem  last={true} {...item}></BeaconHistoryItem>
+    else return <BeaconHistoryItem {...item}></BeaconHistoryItem>
   }
 
   render() {
+    console.log("this.props", this.props.navigation.state.params.chatroom);
     return (
-        <View>
-    <Text>Hello</Text>
-    </View>
+      <View style={{paddingTop:50}}>
+        <FlatList data={this.state.history} renderItem={this._renderListItem} />
+      </View>
     )
   }
 }
