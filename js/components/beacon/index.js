@@ -101,17 +101,17 @@ class beacons extends Component {
       beacons.forEach(doc => {
         beaconIcon = "G";
 
-        if (doc.beaconName == "GATEWAY") {
+        if (doc.data().name == "GATEWAY") {
           userBeacons.push({
-            beaconCampus: doc.beaconCampus,
-            beaconGrade: doc.beaconGrade,
+            beaconCampus: doc.data().campus,
+            beaconGrade: doc.data().beaconGrade,
             beaconIcon: beaconIcon,
-            beaconName: doc.beaconName,
-            beaconType: doc.beaconType,
-            beaconPictureURL: doc.beaconPictureURL,
-            timestamp: doc.timestamp,
-            lastSeen: doc.lastSeen,
-            state: doc.state,
+            beaconName: doc.data().name,
+            beaconType: doc.data().beaconType,
+            beaconPictureURL: doc.data().beaconPictureURL,
+            timestamp: doc.data().timestamp,
+            lastSeen: doc.data().lastSeen,
+            state: doc.data().state,
             _key: doc.id
           });
         }

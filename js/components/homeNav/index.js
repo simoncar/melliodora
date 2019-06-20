@@ -419,6 +419,36 @@ class HomeNav extends Component {
               </Text>
             </TouchableOpacity>
         
+            <TouchableOpacity
+              onPress={() => {
+                this._changeLanguage('fr');
+              }}
+            >
+              <Text style={styles.version}>
+                Change to: French
+              </Text>
+            </TouchableOpacity>      
+            
+             <TouchableOpacity
+              onPress={() => {
+                this._changeLanguage('ko');
+              }}
+            >
+              <Text style={styles.version}>
+                Change to: Korean
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => {
+                this._changeLanguage('es');
+              }}
+            >
+              <Text style={styles.version}>
+                Change to: Spanish
+              </Text>
+            </TouchableOpacity>
+
     
           </View>
         </Content>
