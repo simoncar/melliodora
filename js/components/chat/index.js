@@ -15,7 +15,7 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 
 import { Container, Header, Footer, Button, Icon, Body } from "native-base";
 import emojiUtils from "emoji-utils";
-import Constants from 'expo-constants'
+import Constants from "expo-constants";
 import { bindActionCreators } from "redux";
 import CustomActions from "./customActions";
 import CustomView from "./customView";
@@ -29,10 +29,7 @@ import * as ActionCreators from "../../actions";
 import Backend from "./backend";
 import SlackMessage from "./slackMessage";
 
-import { Entypo, MaterialIcons } from '@expo/vector-icons';
-
-const BUTTONS = ["Mute conversation", "Unmute conversation", "Cancel"];
-const CANCEL_INDEX = 2;
+import { Entypo, MaterialIcons, FontAwesome } from "@expo/vector-icons";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <SimpleLineIcons
@@ -43,7 +40,6 @@ const tabBarIcon = name => ({ tintColor }) => (
   />
 );
 
-
 class chat extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +49,9 @@ class chat extends Component {
       typingText: null,
       isLoadingEarlier: false,
       step: 0,
-      muteState: false
+      muteState: false,
+      language: "",
+      user: null
     };
 
     this._isMounted = false;
@@ -68,6 +66,8 @@ class chat extends Component {
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
 
     this._isAlright = null;
+
+
   }
 
   //   <TouchableOpacity onPress={this._showActionSheet}>
@@ -75,26 +75,36 @@ class chat extends Component {
 
   // </TouchableOpacity>
 
-
-
   static navigationOptions = ({ navigation }) => ({
-    
     headerLeft: (
-      <TouchableOpacity onPress={() => {navigation.goBack()}}>
-       <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
+        <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
       </TouchableOpacity>
     ),
-    
+
     headerTitle: (
-       <TouchableOpacity onPress={() => {navigation.state.params._showActionSheet()}}>
-       <Text>{navigation.getParam('chatroom')}</Text>
-      
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._showActionSheet();
+        }}
+      >
+        <Text>{navigation.getParam("chatroom")}</Text>
       </TouchableOpacity>
     ),
     headerRight: (
-      <TouchableOpacity onPress={() => {navigation.state.params._showActionSheet()}}>
-        <Entypo name="cog" style={styles.chatHeading} />
-      
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._showActionSheet();
+        }}
+      >
+        <View style={styles.chatHeading}>
+       
+          <Entypo name="cog" style={styles.chatHeading} />
+        </View>
       </TouchableOpacity>
     )
   });
@@ -114,10 +124,11 @@ class chat extends Component {
     this.props.navigation.setParams({
       _showActionSheet: this._showActionSheet
     });
-
+  
+    Backend.setLanguage(this.props.userX.language)
     Backend.setChatroom(this.props.navigation.getParam("chatroom"));
 
-    Backend.loadMessages(message => {
+    Backend.loadMessages(this.props.userX.language, message => {
       this.setState(previousState => ({
         messages: GiftedChat.append(previousState.messages, message)
       }));
@@ -163,6 +174,7 @@ class chat extends Component {
 
   onSend(messages = []) {
     Backend.SendMessage(messages);
+   
   }
 
   onReceive(text) {}
@@ -319,15 +331,26 @@ class chat extends Component {
   }
 
   _showActionSheet() {
+
+    const BUTTONS = [
+
+      "Mute conversation",
+      "Unmute conversation",
+      "Cancel"
+    ];
+    const CANCEL_INDEX = 2;
+
     ActionSheet.show(
       {
         options: BUTTONS,
         cancelButtonIndex: CANCEL_INDEX,
         // destructiveButtonIndex: DESTRUCTIVE_INDEX,
-        title: "Mute options"
+        title: "Options"
       },
+
       buttonIndex => {
         switch (buttonIndex) {
+
           case 0:
             Backend.setMute(true);
             break;
@@ -341,15 +364,18 @@ class chat extends Component {
 
   renderSend(props) {
     return (
-        <Send
-            {...props}
-        >
-            <View style={{marginRight: 10, marginBottom: 10}}>
-                 <MaterialIcons name="send" style={{fontSize: 25, color: '#0284FF'}} />
-            </View>
-        </Send>
+      <Send {...props}>
+        <View style={{ marginRight: 10, marginBottom: 10 }}>
+          <MaterialIcons
+            name="send"
+            style={{ fontSize: 25, color: "#0284FF" }}
+          />
+        </View>
+      </Send>
     );
-}
+  }
+
+
 
   render() {
     return (
@@ -359,15 +385,7 @@ class chat extends Component {
           showHome="false"
           navigation={this.props.navigation}
         />
-        <View>
-          <Text style={styles.chatBanner}>
-            {this.props.navigation.getParam("description")}
-          </Text>
-          <Text style={styles.chatBanner}>
-            {this.props.navigation.getParam("contact")}
-          </Text>
-        </View>
-
+       
         <GiftedChat
           messages={this.state.messages}
           onSend={this.onSend}
@@ -419,7 +437,8 @@ const mapDispatchToProps = dispatch =>
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
   username: state.username,
-  userX: state.user
+  userX: state.user,
+  language: state.user.language
 });
 
 export default connect(

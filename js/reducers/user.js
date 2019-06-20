@@ -10,6 +10,7 @@ const initialState = {
   id: null,
   name: '',
   password: '',
+  language: '',
   pushToken: '',
   items: []
 };
@@ -27,6 +28,7 @@ function userReducer(state: State = initialState, action: Action): State {
       id,
       name,
       password,
+      language,
       pushToken,
       items
     };
@@ -40,6 +42,7 @@ function userReducer(state: State = initialState, action: Action): State {
       id: null,
       name: '',
       password: '',
+      language: '',
       pushToken: '',
       items
     };
@@ -96,6 +99,16 @@ function userReducer(state: State = initialState, action: Action): State {
       password: action.payload,
     };
   }
+
+
+  if (action.type === 'SET_LANGUAGE') {
+ 
+    return {
+      ...state,
+      language: action.payload,
+    };
+  }
+
   if (action.type === 'SET_AUTH_DEVICE_ID') {
    
     return {
