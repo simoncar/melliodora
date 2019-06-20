@@ -19,9 +19,7 @@ import Constants from "expo-constants";
 import moment from "moment";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
-import { isAdmin } from "../global";
-import CountDown from 'react-native-countdown-component';
-
+import { isAdmin, getLanguage } from "../global";
 
 import * as ActionCreators from "../../actions";
 import HeaderContent from "../headerContent/header";
@@ -159,16 +157,6 @@ class HomeNav extends Component {
 
   keyExtractor = item => item._key;
 
-  getSeconds() {
-
-    var startDate = new Date();
-    // Do your operations
-    var endDate   = new Date("13 Aug 2019 08:30");
-    var seconds = (endDate.getTime() - startDate.getTime()) / 1000;
-
-    return seconds;
-  }
-
   loadFromRedux() {
     this.state.featureItems = [];
 
@@ -223,10 +211,6 @@ class HomeNav extends Component {
     }
   }
 
-  _changeLanguage() {
-    //this.setState.userX.language = "ja";
-    this.props.setLanguage("ja")
-  }
   _renderItem(item) {
     return <ListItem navigation={this.props.navigation} item={item} />;
   }
@@ -299,16 +283,6 @@ class HomeNav extends Component {
                 </Col>
               </Row>
             )}
-
-
-            <Text style={styles.version}>School Starts in...</Text>
-      <CountDown
-        until={this.getSeconds()}
-        size={20}
-      />
-    
-
-
 
             {isAdmin(this.props.adminPassword) && (
               <TouchableOpacity
@@ -403,15 +377,8 @@ class HomeNav extends Component {
               Version: {Constants.manifest.revisionId}
             </Text>
             <Text style={styles.version}>Language: {Localization.locale} </Text>
-            <TouchableOpacity
-            onPress={() => {
-              this._changeLanguage();
-            }}
-          >
-            <Text style={styles.version}>Language Code: {this.props.userX.language}</Text>
 
-
-            </TouchableOpacity>
+            <Text style={styles.version}>Language Code: {getLanguage()}</Text>
           </View>
         </Content>
       </Container>
@@ -434,8 +401,7 @@ const mapStateToProps = state => ({
   adminPassword: state.user.adminPassword,
   ffauth_device_idX: state.ffauth_device_id,
   ffauth_secretX: state.ffauth_secret,
-  calendarEventsX: state.user,
-  language: state.user.language
+  calendarEventsX: state.user
 });
 
 export default connect(

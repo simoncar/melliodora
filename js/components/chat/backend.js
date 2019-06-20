@@ -2,12 +2,12 @@ import React from "react";
 import * as firebase from "firebase";
 import { ImageManipulator } from "expo";
 import Constants from "expo-constants";
+import { getLanguage } from "../global";
 
 import uuid from "uuid";
 import AssetUtils from "expo-asset-utils";
 import shortid from "shortid";
 import QuickReplies from "react-native-gifted-chat/lib/QuickReplies";
-import configureStore from "../../configureStore";
 
 let instID = Constants.manifest.extra.instance;
 
@@ -17,10 +17,9 @@ export class Backend extends React.Component {
   messagesRef = null;
 
   constructor(props) {
-    super(props);
+    super();
     this.state = {
-      chatroom: "",
-      language: ""
+      chatroom: ""
     };
   }
 
@@ -37,8 +36,11 @@ export class Backend extends React.Component {
     this.state.chatroom = chatroom.trim();
   }
 
-  getLanguageMessage(message, language) {
-    switch (language) {
+  getLanguageMessage(message) {
+    switch (getLanguage()) {
+      case "en":
+        return message.textEN;
+        break;
       case "fr":
         return message.textFR;
         break;
@@ -48,19 +50,14 @@ export class Backend extends React.Component {
       case "zh":
         return message.textZHCN;
         break;
-      case "es":
-        return message.textES;
-        break;
-      case "ja":
-        return message.textJA;
-        break;
-      default:
-        return message.textEN;
+        case "es":
+          return message.textES;
+          break;
     }
   }
 
   // retrive msg from backend
-  loadMessages(language, callback) {
+  loadMessages(callback) {
     this.messageRef = firebase
       .database()
       .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`)
@@ -68,8 +65,7 @@ export class Backend extends React.Component {
       .equalTo(true);
     this.messageRef.off();
 
-    console.log("aaaa language -= ", language);
-    // var systemLanguage = this.state.language;
+    systemLanguage = getLanguage();
 
     const onReceive = data => {
       const message = data.val();
@@ -77,7 +73,7 @@ export class Backend extends React.Component {
       callback({
         _id: data.key,
 
-        text: this.getLanguageMessage(message, language),
+        text: this.getLanguageMessage(message),
         textEN: message.textEN,
         textFR: message.textFR,
         textJA: message.textJA,
@@ -188,31 +184,6 @@ export class Backend extends React.Component {
         pushToken: global.pushToken
       });
     }
-  }
-
-  setLanguage(language) {
-    this.state.language = language;
-    console.log("settttttting language ", language);
-    var userDict = {
-      language: language
-    };
-
-    firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("user")
-      .collection("usernames")
-      .doc(global.safeToken)
-      .update(userDict);
-
-    //global.language = language;
-
-    //this.state.language = language;
-    //this.setState({language: 'es'});
-
-    // this.props.setLanguage(language);
-
-    //this.setState({ language: language });
   }
 
   closeChat() {

@@ -73,13 +73,6 @@ export function setPassword(password) {
   };
 }
 
-export function setLanguage(language) {
-  return {
-    type: "SET_LANGUAGE",
-    payload: language,
-  };
-}
-
 export function setCalendarItems(items) {
 
   return {

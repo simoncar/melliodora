@@ -22,7 +22,20 @@ export default {
     flexDirection: "row",
     marginBottom: 20
   },
-
+  chatHeadingLeft: {
+    color: "#037AFF",
+    alignSelf: "center",
+    fontSize: 30,
+    paddingBottom: 5,
+    paddingRight: 10
+  },
+  chatHeading: {
+    color: "black",
+    alignSelf: "center",
+    fontSize: 25,
+    paddingBottom: 5,
+    paddingRight: 10
+  },
   nameText: {
     height: 24 * 2,
     margin: 24,
@@ -96,9 +109,7 @@ export default {
     alignSelf: "center",
     fontSize: 25,
     paddingBottom: 5,
-    paddingRight: 10,
-    flex: 1,
-    flexDirection: "row",
+    paddingRight: 10
   },
   chatHeadingLeft: {
     color: "#037AFF",

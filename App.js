@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, combineReduxers, compose} from 'redux'
+import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-
+import reducer from './js/reducers'
 import Setup from './js/setup';
 
 import firebase from "firebase";
@@ -33,11 +35,28 @@ export const setUserContext = (ctx: "user-simon") => {
 
 Sentry.captureMessage('App started V' + Constants.manifest.version);
 
+function configureStore(initialState) {
+  const enhancer = compose(
+    applyMiddleware(
+      thunkMiddleware,
+      loggerMiddleware,
+    ),
+  );
+  return createStore(reducer, initialState, enhancer);
+}
+
+const store = configureStore({});
+
 export default class App extends React.Component {
+
 
   constructor(props) {
      super(props);
     Firebase.initialise();
+    // firebase.initialise();
+
+
+   
   }
 
   render() {

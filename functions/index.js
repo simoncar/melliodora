@@ -166,9 +166,8 @@ exports.beaconPingHistory = functions.firestore
 
      if (newState !== oldState) {
       const moment = require("moment");
-      const xdate = moment().add(8,'hours').format("YYYYMMDD");
+      const xdate = moment().format("YYYYMMDD");
       const timestamp = Date.now();
-      
 
       var dataDict = {
         oldState: oldState,
@@ -366,8 +365,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           }
         }
 
-       // targetCollection = "beaconsNotOurs";
-        targetCollection = "beacons";
+        targetCollection = "beaconsNotOurs";
 
         let beaconRef = await admin
           .firestore()
