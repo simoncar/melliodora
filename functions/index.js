@@ -381,6 +381,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           .then(doc => {
             if (!doc.exists) {
               targetCollection = "beaconsNotOurs";
+              targetCollection = "beacons";
               console.log(snapshot.mac, doc.exists);
             } else targetCollection = "beacons";
             console.log(snapshot.mac, doc.exists);
