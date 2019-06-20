@@ -45,7 +45,7 @@ export class Backend extends React.Component {
       case "ko":
         return message.textKO;
         break;
-      case "zh":
+      case "zhcn":
         return message.textZHCN;
         break;
       case "es":
