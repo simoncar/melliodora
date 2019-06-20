@@ -20,8 +20,7 @@ import moment from "moment";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
 import { isAdmin } from "../global";
-import CountDown from 'react-native-countdown-component';
-
+import CountDown from "react-native-countdown-component";
 
 import * as ActionCreators from "../../actions";
 import HeaderContent from "../headerContent/header";
@@ -160,10 +159,9 @@ class HomeNav extends Component {
   keyExtractor = item => item._key;
 
   getSeconds() {
-
     var startDate = new Date();
     // Do your operations
-    var endDate   = new Date("13 Aug 2019 08:30");
+    var endDate = new Date("13 Aug 2019 08:30");
     var seconds = (endDate.getTime() - startDate.getTime()) / 1000;
 
     return seconds;
@@ -223,9 +221,9 @@ class HomeNav extends Component {
     }
   }
 
-  _changeLanguage() {
+  _changeLanguage(language) {
     //this.setState.userX.language = "ja";
-    this.props.setLanguage("ja")
+    this.props.setLanguage(language);
   }
   _renderItem(item) {
     return <ListItem navigation={this.props.navigation} item={item} />;
@@ -300,15 +298,8 @@ class HomeNav extends Component {
               </Row>
             )}
 
-
             <Text style={styles.version}>School Starts in...</Text>
-      <CountDown
-        until={this.getSeconds()}
-        size={20}
-      />
-    
-
-
+            <CountDown until={this.getSeconds()} size={20} />
 
             {isAdmin(this.props.adminPassword) && (
               <TouchableOpacity
@@ -403,15 +394,32 @@ class HomeNav extends Component {
               Version: {Constants.manifest.revisionId}
             </Text>
             <Text style={styles.version}>Language: {Localization.locale} </Text>
+            <Text style={styles.version}>
+                Current Code: {this.props.userX.language}
+              </Text>
+
             <TouchableOpacity
-            onPress={() => {
-              this._changeLanguage();
-            }}
-          >
-            <Text style={styles.version}>Language Code: {this.props.userX.language}</Text>
-
-
+              onPress={() => {
+                this._changeLanguage('ja');
+              }}
+            >
+              <Text style={styles.version}>
+                Change to: Japanese
+              </Text>
             </TouchableOpacity>
+    
+    
+            <TouchableOpacity
+              onPress={() => {
+                this._changeLanguage('zhcn');
+              }}
+            >
+              <Text style={styles.version}>
+                Change to: Chinese
+              </Text>
+            </TouchableOpacity>
+        
+    
           </View>
         </Content>
       </Container>
