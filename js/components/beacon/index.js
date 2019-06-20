@@ -3,7 +3,7 @@ import { FlatList, Container, Content, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as ActionCreators from "../../actions";
-import * as firebase from "firebase";
+import firebase from "firebase";
 import { Grid, Col, Row } from "react-native-easy-grid";
 
 import Constants from "expo-constants";
@@ -11,6 +11,9 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationProps } from "react-navigation-props-mapper";
 
 import styles from "./styles";
+
+
+
 
 const BeaconItem = require("./beaconItem");
 let instID = Constants.manifest.extra.instance;
@@ -29,16 +32,17 @@ class beacons extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
+      loading: false,
       user: null,
-      userBeacons: {}
+      userBeacons: []
     };
 
-    this.beaconsFirebase = firebase
-      .database()
-      .ref(`instance/${instID}/beacon`)
-      .orderByChild("state")
-      
+
+    this.ref = firebase
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("beacon")
+    .collection("beacons")
   }
   //.equalTo("Active");
 
@@ -49,62 +53,66 @@ class beacons extends Component {
   };
 
   componentDidMount() {
-    this.listenLoadFromFirebase(this.beaconsFirebase);
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   keyExtractor = item => item._key;
 
-  listenLoadFromFirebase(beacons) {
-    beacons.on("value", dataSnapshot2 => {
-      this.props.setUserBeacons(dataSnapshot2);
-      dataSnapshot = dataSnapshot2;
-      this.state.userBeacons = [];
+  onCollectionUpdate = beacons => {
+     
+      const userBeacons = [];
       this.countEntered = 0;
       var beaconIcon = "";
 
-      dataSnapshot.forEach(child => {
-        beaconIcon = "G";
+      beacons.forEach(doc => {
 
+        beaconIcon = "G";
+        console.log(doc.data().campus);
         if (
-          child.val().beaconName != "GATEWAY" &&
-          child.val().beaconName != "" &&
+          doc.data().name != "GATEWAY" &&
+          doc.data().name != "" &&
           (
-            child.val().state == "Perimeter" ||
-            child.val().state == "On Campus" ||
-            child.val().state == "Off Campus"
+            doc.data().state == "Perimeter" ||
+            doc.data().state == "On Campus" ||
+            doc.data().state == "Off Campus"
           )
         ) {
           ++this.countEntered;
-          this.state.userBeacons.push({
-            beaconCampus: child.val().beaconCampus,
-            beaconGrade: child.val().beaconGrade,
+    
+          userBeacons.push({
+            beaconCampus: doc.data().campus,
+            beaconGrade: doc.data().beaconGrade,
             beaconIcon: beaconIcon,
-            beaconName: child.val().beaconName,
-            beaconType: child.val().beaconType,
-            beaconPictureURL: child.val().beaconPictureURL,
-            timestamp: child.val().timestamp,
-            lastSeen: child.val().lastSeen,
-            state: child.val().state,
-            _key: child.key
+            beaconName: doc.data().name,
+            beaconType: doc.data().beaconType,
+            beaconPictureURL: doc.data().beaconPictureURL,
+            timestamp: doc.data().timestamp,
+            lastSeen: doc.data().lastSeen,
+            state: doc.data().state,
+            _key: doc.id
           });
         }
       });
 
-      dataSnapshot.forEach(child => {
+      beacons.forEach(doc => {
         beaconIcon = "G";
 
-        if (child.val().beaconName == "GATEWAY") {
-          this.state.userBeacons.push({
-            beaconCampus: child.val().beaconCampus,
-            beaconGrade: child.val().beaconGrade,
+        if (doc.beaconName == "GATEWAY") {
+          userBeacons.push({
+            beaconCampus: doc.beaconCampus,
+            beaconGrade: doc.beaconGrade,
             beaconIcon: beaconIcon,
-            beaconName: child.val().beaconName,
-            beaconType: child.val().beaconType,
-            beaconPictureURL: child.val().beaconPictureURL,
-            timestamp: child.val().timestamp,
-            lastSeen: child.val().lastSeen,
-            state: child.val().state,
-            _key: child.key
+            beaconName: doc.beaconName,
+            beaconType: doc.beaconType,
+            beaconPictureURL: doc.beaconPictureURL,
+            timestamp: doc.timestamp,
+            lastSeen: doc.lastSeen,
+            state: doc.state,
+            _key: doc.id
           });
         }
       });
@@ -117,10 +125,11 @@ class beacons extends Component {
       // });
 
       this.setState({
-        beacons
+        userBeacons
       });
-    });
-  }
+   
+  
+}
 
   _renderItem2(item) {
     return (
@@ -136,6 +145,7 @@ class beacons extends Component {
         timestamp={item.item.timestamp}
         item={item}
         state={item.item.state}
+        _key={item.item._key}
       />
     );
   }

@@ -419,7 +419,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           .doc("beacon")
           .collection(targetCollection)
           .doc(snapshot.mac)
-          .set(dataDict);
+          .update(dataDict);
       });
     } catch (e) {
       console.log("catch error body:", req.body);

@@ -154,7 +154,8 @@ class BeaconItem extends Component {
                     chatroom: "beacon-" + this.props.beaconName,
                     description: "Safeguarding Chat",
                     contact: "",
-                    url: this.props.beaconName
+                    url: this.props.beaconName,
+                    _key: this.props._key
                   });
                 }}
               >
@@ -163,9 +164,11 @@ class BeaconItem extends Component {
 
                 <View>
                   <Text style={styles.chatTitle}>{this.props.beaconName}</Text>
+              
                   <Text style={styles.chatDescription} />
                   {this.renderLastSeen(this.props.lastSeen, this.props.timestamp, this.props.state)}
                   {this.renderBeaconCampus(this.props.beaconCampus)}
+                  <Text style={styles.chatDescription}>{this.props._key}</Text>
                 </View>
               </TouchableOpacity>
             </Col>
