@@ -37,7 +37,6 @@ class App extends Component {
       if (global.loggedLoginAnalytics == 1) {
         if (this.props.userX.name.length > 0) {
           var username = this.props.userX.name;
-          var language = this.props.userX.language;
         } else {
           var username = 'no username';
         }
@@ -50,7 +49,7 @@ class App extends Component {
         Analytics.identify(username, trackingOpts);
         Analytics.track(Analytics.events.APP_STARTED, trackingOpts);
         global.username = username;
-        global.language = language;
+
         global.loggedLoginAnalytics = 2;
       }
     }
