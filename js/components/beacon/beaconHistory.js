@@ -10,8 +10,9 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationProps } from "react-navigation-props-mapper";
 
 import BeaconHistoryItem from './BeaconHistoryItem';
+import moment from "moment";
 
-import styles from "./styles";
+
 
 let instID = Constants.manifest.extra.instance;
 
@@ -30,13 +31,17 @@ class beaconHistory extends Component {
 
 
   componentDidMount() {
+
+    const today = new moment().format("YYYYMMDD");
+    const beacon = this.props._key;
+
     let loginsRef = firebase
       .firestore()
       .collection("sais_edu_sg")
       .doc("beacon")
       .collection("beaconHistory")
-      .doc("20190618")
-      .collection("C33FA1179F52");
+      .doc(today)
+      .collection(beacon);
 
 
     loginsRef
@@ -62,7 +67,7 @@ class beaconHistory extends Component {
   }
 
   render() {
-    console.log("this.props", this.props.navigation.state.params.chatroom);
+    
     return (
       <View style={{paddingTop:50}}>
         <FlatList data={this.state.history} renderItem={this._renderListItem} />
