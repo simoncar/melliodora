@@ -160,10 +160,3 @@ export function isAdmin(sPass) {
 }
 
 
-export function getLanguage() {
-
-  var str = Localization.locale;
-  var language = str.substring(0, 2);
-
-  return language;
-}
