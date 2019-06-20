@@ -122,11 +122,7 @@ class chatRooms extends Component {
     // {this._renderItem('4DAYE','Daisy Ye - Level 5 Washington','daisy.ye@sais.edu.sg ','https://mystamford.edu.sg/homeroom-2/grade-4/daisy-ye-g4-daye/class-update')}
     // {this._renderItem('Grade 6','Grade 6 Group Chat','middleschool@sais.edu.sg','https://mystamford.edu.sg/browse-resources/secondary')}
 
-<<<<<<< HEAD
    
-=======
- 
->>>>>>> parent of 1623ebd... Revert "lanuage switches and countown timer"
 
     //ken{YQNwZDOkv0QdHUlDV-T5HQ}  - Simon
     return (
