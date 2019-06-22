@@ -16,7 +16,6 @@ import moment from "moment";
 import { isAdmin } from "../global.js";
 import { getCurrentFrame } from "expo/build/AR";
 
-
 const { width } = Dimensions.get("window");
 
 class BeaconHistoryItem extends Component {
@@ -27,27 +26,32 @@ class BeaconHistoryItem extends Component {
   render() {
     const { start, last, state, campus, timestamp } = this.props;
     const line = () => {
-      if (start) return style.lineStart
-      if (last) return style.lineEnd
-      return style.line
-    }
+      if (start) return style.lineStart;
+      if (last) return style.lineEnd;
+      return style.line;
+    };
     return (
       <>
         <View style={style.sectionHead}>
-          <Text style={style.location}>{campus ? campus: "-----"}</Text>
+          <Text style={style.location}>{campus ? campus : "-----"}</Text>
         </View>
         <View style={style.container}>
-
-          <Text adjustsFontSizeToFit style={style.time}>{moment(timestamp).format("LLL")}</Text>
+          <Text adjustsFontSizeToFit style={style.time}>
+            {moment(timestamp).format("LLL")}
+          </Text>
           <View style={style.iconPlaceHolder}>
-            <View style={line()}></View>
-            <View style={(start || last) ? style.iconPlacementStartEnd : style.iconPlacement}></View>
-
+            <View style={line()} />
+            <View
+              style={
+                start || last
+                  ? style.iconPlacementStartEnd
+                  : style.iconPlacement
+              }
+            />
           </View>
           <View style={style.details}>
             <Text style={style.detailsText}>{state}</Text>
           </View>
-
         </View>
       </>
     );
@@ -59,7 +63,7 @@ const style = StyleSheet.create({
     width: width,
     flex: 1,
     flexDirection: "row",
-    alignItems: "stretch",
+    alignItems: "stretch"
   },
   sectionHead: {
     backgroundColor: "#f2f2f7",
@@ -68,25 +72,25 @@ const style = StyleSheet.create({
     flexDirection: "row",
     alignItems: "stretch",
     padding: 3,
-    paddingRight: 100,
+    paddingRight: 100
   },
   location: {
-    color:"#48484a",
+    color: "#48484a",
     flex: 1,
-    textAlign: 'center',
-    alignSelf: 'stretch'
+    textAlign: "center",
+    alignSelf: "stretch"
   },
   time: {
     flex: 0.3,
     padding: 10,
-    textAlign: 'right',
-    alignSelf: 'stretch',
-    fontWeight: 'bold'
+    textAlign: "right",
+    alignSelf: "stretch",
+    fontWeight: "bold"
   },
   iconPlaceHolder: {
     flexDirection: "column",
     flex: 0.15,
-    height:70
+    height: 70
   },
   iconPlacement: {
     backgroundColor: "green",
@@ -109,7 +113,7 @@ const style = StyleSheet.create({
     position: "absolute",
     width: 5,
     height: "100%",
-    left: "45%",
+    left: "45%"
   },
   lineStart: {
     backgroundColor: "gray",
@@ -117,14 +121,14 @@ const style = StyleSheet.create({
     marginTop: "25%",
     width: 5,
     left: "45%",
-    height: "82%",
+    height: "82%"
   },
   lineEnd: {
     backgroundColor: "gray",
     position: "absolute",
     width: 5,
     height: "25%",
-    left: "45%",
+    left: "45%"
   },
   details: {
     padding: 5,
@@ -133,7 +137,7 @@ const style = StyleSheet.create({
     flex: 0.5
   },
   detailsText: {
-    fontWeight: "bold",
+    fontWeight: "bold"
   }
 });
 

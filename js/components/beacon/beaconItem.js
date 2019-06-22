@@ -10,22 +10,16 @@ import {
 
 import { Grid, Col, Row } from "react-native-easy-grid";
 import styles from "./styles";
-import { AntDesign, MaterialIcons, Feather } from "@expo/vector-icons";
+import { MaterialIcons, Feather } from "@expo/vector-icons";
 import moment from "moment";
 
-import { isAdmin } from "../global.js";
-
-
-const { width } = Dimensions.get("window");
 
 class BeaconItem extends Component {
   constructor(props) {
     super(props);
   }
 
-  renderProfileIcons(lastSeen,timestamp, beaconType) {
-   
-
+  renderProfileIcons(lastSeen, timestamp, beaconType) {
     if (beaconType == "Asset") {
       return (
         <View
@@ -51,7 +45,6 @@ class BeaconItem extends Component {
         </View>
       );
     } else {
-       
       return (
         <Grid>
           <Row>
@@ -85,16 +78,19 @@ class BeaconItem extends Component {
           </Row>
         </Grid>
       );
-    
     }
   }
 
   renderLastSeen(lastSeen, timestamp, beaconState) {
-
     if (lastSeen != null && timestamp == null) {
       lastSeenDateTime = moment(lastSeen).format("LLL");
 
-      return (<View><Text style={styles.chatDescription}>{beaconState}</Text><Text style={styles.chatDescription}>{lastSeenDateTime}</Text></View>)
+      return (
+        <View>
+          <Text style={styles.chatDescription}>{beaconState}</Text>
+          <Text style={styles.chatDescription}>{lastSeenDateTime}</Text>
+        </View>
+      );
     } else if (timestamp != null) {
       return <Text style={styles.lastSeenActive}>{beaconState}</Text>;
     } else {
@@ -116,17 +112,12 @@ class BeaconItem extends Component {
     ) {
       return (
         <Image
-        style={styles.singleChatItemImage}
-        source={{ uri: beaconPictureURL }}
-      />
+          style={styles.singleChatItemImage}
+          source={{ uri: beaconPictureURL }}
+        />
       );
     } else {
-      return (
-      <MaterialIcons
-        style={styles.singleChatItemIcon}
-        name="person"
-      />
-      )
+      return <MaterialIcons style={styles.singleChatItemIcon} name="person" />;
     }
   }
   renderBeaconType(beaconType) {
@@ -159,14 +150,17 @@ class BeaconItem extends Component {
                   });
                 }}
               >
-
-             {this.renderBeaconIcon(this.props.beaconPictureURL)}
+                {this.renderBeaconIcon(this.props.beaconPictureURL)}
 
                 <View>
                   <Text style={styles.chatTitle}>{this.props.beaconName}</Text>
-              
+
                   <Text style={styles.chatDescription} />
-                  {this.renderLastSeen(this.props.lastSeen, this.props.timestamp, this.props.state)}
+                  {this.renderLastSeen(
+                    this.props.lastSeen,
+                    this.props.timestamp,
+                    this.props.state
+                  )}
                   {this.renderBeaconCampus(this.props.beaconCampus)}
                   <Text style={styles.chatDescription}>{this.props._key}</Text>
                 </View>

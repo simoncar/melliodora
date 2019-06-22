@@ -9,12 +9,8 @@ import Constants from "expo-constants";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationProps } from "react-navigation-props-mapper";
 
-import BeaconHistoryItem from './BeaconHistoryItem';
+import BeaconHistoryItem from "./BeaconHistoryItem";
 import moment from "moment";
-
-
-
-let instID = Constants.manifest.extra.instance;
 
 @withMappedNavigationProps()
 class beaconHistory extends Component {
@@ -28,9 +24,7 @@ class beaconHistory extends Component {
     };
   }
 
-
   componentDidMount() {
-
     const today = new moment().format("YYYYMMDD");
     const beacon = this.props._key;
 
@@ -41,7 +35,6 @@ class beaconHistory extends Component {
       .collection("beaconHistory")
       .doc(today)
       .collection(beacon);
-
 
     loginsRef
       .get()
@@ -55,23 +48,21 @@ class beaconHistory extends Component {
       .catch(err => {
         console.log("Error getting documents", err);
       });
-
-
   }
 
-  _renderListItem = ({item, index}) => {
-    if (index === 0) return <BeaconHistoryItem start={true} {...item}></BeaconHistoryItem>
-    else if (index === (this.state.history.length -1)) return <BeaconHistoryItem  last={true} {...item}></BeaconHistoryItem>
-    else return <BeaconHistoryItem {...item}></BeaconHistoryItem>
-  }
+  _renderListItem = ({ item, index }) => {
+    if (index === 0) return <BeaconHistoryItem start={true} {...item} />;
+    else if (index === this.state.history.length - 1)
+      return <BeaconHistoryItem last={true} {...item} />;
+    else return <BeaconHistoryItem {...item} />;
+  };
 
   render() {
-    
     return (
-      <View style={{paddingTop:50}}>
+      <View style={{ paddingTop: 50 }}>
         <FlatList data={this.state.history} renderItem={this._renderListItem} />
       </View>
-    )
+    );
   }
 }
 

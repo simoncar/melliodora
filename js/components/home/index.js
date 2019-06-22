@@ -164,8 +164,7 @@ class calendar1 extends Component {
 
         snapshot.forEach(doc => {
           items2.push(doc.data());
-          console.log("here", doc.data())
-          console.log("here", doc.data().date_start)
+         
           //save to redux
           // this.props.setCalendarItems(dataSnapshot2);
 

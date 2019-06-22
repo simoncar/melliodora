@@ -12,11 +12,7 @@ import { withMappedNavigationProps } from "react-navigation-props-mapper";
 
 import styles from "./styles";
 
-
-
-
 const BeaconItem = require("./beaconItem");
-let instID = Constants.manifest.extra.instance;
 
 const tabBarIcon = name => ({ tintColor }) => (
   <SimpleLineIcons
@@ -37,12 +33,11 @@ class beacons extends Component {
       userBeacons: []
     };
 
-
     this.ref = firebase
-    .firestore()
-    .collection("sais_edu_sg")
-    .doc("beacon")
-    .collection("beacons")
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beacons");
   }
   //.equalTo("Active");
 
@@ -63,73 +58,60 @@ class beacons extends Component {
   keyExtractor = item => item._key;
 
   onCollectionUpdate = beacons => {
-     
-      const userBeacons = [];
-      this.countEntered = 0;
-      var beaconIcon = "";
+    const userBeacons = [];
+    this.countEntered = 0;
+    var beaconIcon = "";
 
-      beacons.forEach(doc => {
+    beacons.forEach(doc => {
+      beaconIcon = "G";
+      console.log(doc.data().campus);
+      if (
+        doc.data().name != "GATEWAY" &&
+        doc.data().name != "" &&
+        (doc.data().state == "Perimeter" ||
+          doc.data().state == "On Campus" ||
+          doc.data().state == "Off Campus")
+      ) {
+        ++this.countEntered;
 
-        beaconIcon = "G";
-        console.log(doc.data().campus);
-        if (
-          doc.data().name != "GATEWAY" &&
-          doc.data().name != "" &&
-          (
-            doc.data().state == "Perimeter" ||
-            doc.data().state == "On Campus" ||
-            doc.data().state == "Off Campus"
-          )
-        ) {
-          ++this.countEntered;
-    
-          userBeacons.push({
-            beaconCampus: doc.data().campus,
-            beaconGrade: doc.data().beaconGrade,
-            beaconIcon: beaconIcon,
-            beaconName: doc.data().name,
-            beaconType: doc.data().beaconType,
-            beaconPictureURL: doc.data().beaconPictureURL,
-            timestamp: doc.data().timestamp,
-            lastSeen: doc.data().lastSeen,
-            state: doc.data().state,
-            _key: doc.id
-          });
-        }
-      });
+        userBeacons.push({
+          beaconCampus: doc.data().campus,
+          beaconGrade: doc.data().beaconGrade,
+          beaconIcon: beaconIcon,
+          beaconName: doc.data().name,
+          beaconType: doc.data().beaconType,
+          beaconPictureURL: doc.data().beaconPictureURL,
+          timestamp: doc.data().timestamp,
+          lastSeen: doc.data().lastSeen,
+          state: doc.data().state,
+          _key: doc.id
+        });
+      }
+    });
 
-      beacons.forEach(doc => {
-        beaconIcon = "G";
+    beacons.forEach(doc => {
+      beaconIcon = "G";
 
-        if (doc.data().name == "GATEWAY") {
-          userBeacons.push({
-            beaconCampus: doc.data().campus,
-            beaconGrade: doc.data().beaconGrade,
-            beaconIcon: beaconIcon,
-            beaconName: doc.data().name,
-            beaconType: doc.data().beaconType,
-            beaconPictureURL: doc.data().beaconPictureURL,
-            timestamp: doc.data().timestamp,
-            lastSeen: doc.data().lastSeen,
-            state: doc.data().state,
-            _key: doc.id
-          });
-        }
-      });
+      if (doc.data().name == "GATEWAY") {
+        userBeacons.push({
+          beaconCampus: doc.data().campus,
+          beaconGrade: doc.data().beaconGrade,
+          beaconIcon: beaconIcon,
+          beaconName: doc.data().name,
+          beaconType: doc.data().beaconType,
+          beaconPictureURL: doc.data().beaconPictureURL,
+          timestamp: doc.data().timestamp,
+          lastSeen: doc.data().lastSeen,
+          state: doc.data().state,
+          _key: doc.id
+        });
+      }
+    });
 
-      //this.state.userBeacons.sort((a, b) => (a.timestamp > b.timestamp) ? 1 : (a.timestamp === undefined) ? ((a.lastSeen < b.lastSeen) ? 1 : -1) : -1 )
-      // this.state.userBeacons.sort((a, b) => {
-      //   if (a.state < b.state) return -1;
-      //   if (a.state > b.state) return 1;
-      //   return 0;
-      // });
-
-      this.setState({
-        userBeacons
-      });
-   
-  
-}
+    this.setState({
+      userBeacons
+    });
+  };
 
   _renderItem2(item) {
     return (
@@ -175,7 +157,7 @@ class beacons extends Component {
 
   render() {
     return (
-       <View>
+      <View>
         <View style={{ height: 100 }}>
           <Grid style={{ height: 50 }}>
             <Col style={{ alignItems: "center" }}>
@@ -205,14 +187,12 @@ class beacons extends Component {
           </Grid>
         </View>
 
-        
-          <FlatList
-            data={this.state.userBeacons}
-            renderItem={this._renderItem2.bind(this)}
-            keyExtractor={this.keyExtractor}
-          />
-      
-     </View>
+        <FlatList
+          data={this.state.userBeacons}
+          renderItem={this._renderItem2.bind(this)}
+          keyExtractor={this.keyExtractor}
+        />
+      </View>
     );
   }
 }
