@@ -379,6 +379,18 @@ class HomeNav extends Component {
                 Current Code: {this.props.userX.language}
               </Text>
 
+
+
+              <TouchableOpacity
+              onPress={() => {
+                this._changeLanguage('en');
+              }}
+            >
+              <Text style={styles.version}>
+                Change to: English
+              </Text>
+            </TouchableOpacity>
+
             <TouchableOpacity
               onPress={() => {
                 this._changeLanguage('ja');
