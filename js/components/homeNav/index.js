@@ -30,7 +30,6 @@ const { width } = Dimensions.get("window");
 const ListItem = require("./ListItem");
 const instID = Constants.manifest.extra.instance;
 
-
 // Get the token that uniquely identifies this device
 if (!Constants.isDevice) {
   token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
