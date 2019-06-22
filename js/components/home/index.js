@@ -49,7 +49,7 @@ class calendar1 extends Component {
     };
 
     //this.loadFromRedux();
-    const time = Date.now() + i * 24 * 60 * 60 * 1000;
+    const time = Date.now() + 8*3600*1000;
     const todayDate = this.timeToString(time);
 
     if (!this.state.items[todayDate]) {
