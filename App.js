@@ -11,10 +11,11 @@ import Firebase from "./js/lib/firebase";
 import Constants from 'expo-constants'
 import Sentry from 'sentry-expo';
 
-const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
+if(__DEV__) {
+  import('./js/lib/ReactotronConfig').then(() => console.log('Reactotron Configured'))
+}
 
 Sentry.config('https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405').install();
-var switches = [];
 
 export const setExtraContext = () => {
   Sentry.setExtraContext({
@@ -27,9 +28,6 @@ export const setTagsContext = (ctx: 'env-simulator') => {
   });
 };
 
-export const setUserContext = (ctx: "user-simon") => {
-  Sentry.setUserContext(ctx);
-};
 
 Sentry.captureMessage('App started V' + Constants.manifest.version);
 
