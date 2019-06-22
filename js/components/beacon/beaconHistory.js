@@ -26,7 +26,6 @@ class beaconHistory extends Component {
       userBeacons: {},
       history: []
     };
-
   }
 
 
