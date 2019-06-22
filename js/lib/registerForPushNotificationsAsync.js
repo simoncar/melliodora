@@ -9,8 +9,7 @@ import * as ActionCreators from "../actions";
 
 let instID = Constants.manifest.extra.instance;
 
-const PUSH_ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbwhrlEfQhiSgcsF6AM_AlaMWxU7SsEtJ-yQpvthyQTT1jui588E/exec";
+
 const installationID = Constants.installationId;
 
 class registerForPush {
@@ -53,10 +52,18 @@ async function registerForPushNotificationsAsync(user) {
     user
   });
 
+if (undefined  == global.username) {
+  global.username = "";
+}
+
   var userDict = {
     id: safeToken,
     email: global.username,
-  };
+  };  
+  
+  console.log("jhere=", safeToken);
+  console.log("userDict=", userDict);
+  console.log ("username=",global.username);
 
   firebase
     .firestore()
@@ -74,29 +81,8 @@ async function registerForPushNotificationsAsync(user) {
     .doc(safeToken)
     .set(userDict);
 
-  console.log("jhere=", safeToken);
-  console.log("jhere=", user);
-  console.log ("username=",global.username);
 
-  // POST the token to our backend so we can use it to send pushes from there
-  return fetch(`${PUSH_ENDPOINT}?token=${token}&user=${user}`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      token: {
-        value: token
-      },
-      user: {
-        username: user
-      },
-      installationID: {
-        installationID
-      }
-    })
-  });
+
 }
 
 const mapDispatchToProps = dispatch =>
