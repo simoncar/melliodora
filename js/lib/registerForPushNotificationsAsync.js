@@ -7,11 +7,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as ActionCreators from "../actions";
 
-let instID = Constants.manifest.extra.instance;
-
-
-const installationID = Constants.installationId;
-
 class registerForPush {
   static reg(user) {
     registerForPushNotificationsAsync(user);
@@ -37,33 +32,20 @@ async function registerForPushNotificationsAsync(user) {
       return;
     }
   }
-
-  global.pushToken = token;
-
   let safeToken = token.replace("[", "{");
   safeToken = safeToken.replace("]", "}");
+
+  global.pushToken = token;
   global.safeToken = safeToken;
 
-  this.storyRef = firebase
-    .database()
-    .ref(`instance/${instID}/user/${safeToken}`);
-  this.storyRef.update({
-    token,
-    user
-  });
-
-if (undefined  == global.username) {
-  global.username = "";
-}
+  if (undefined == global.username) {
+    global.username = "";
+  }
 
   var userDict = {
     id: safeToken,
-    email: global.username,
-  };  
-  
-  console.log("jhere=", safeToken);
-  console.log("userDict=", userDict);
-  console.log ("username=",global.username);
+    email: global.username
+  };
 
   firebase
     .firestore()
@@ -72,17 +54,6 @@ if (undefined  == global.username) {
     .collection("usernames")
     .doc(safeToken)
     .set(userDict);
-
-  firebase
-    .firestore()
-    .collection("sais_edu_sg")
-    .doc("user")
-    .collection("loginHistory")
-    .doc(safeToken)
-    .set(userDict);
-
-
-
 }
 
 const mapDispatchToProps = dispatch =>
