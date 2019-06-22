@@ -192,6 +192,46 @@ exports.beaconPingHistory = functions.firestore
      }
   });
 
+
+  exports.beaconPingHistoryNotOurs = functions.firestore
+  .document("sais_edu_sg/beacon/beaconsNotOurs/{beaconID}")
+  .onWrite(async (change, context) => {
+    const newValue = change.after.data();
+    const oldValue = change.before.data();
+
+    const beacon = context.params.beaconID;
+
+    const newState = newValue.state;
+    const newCampus = newValue.campus
+
+    const oldState = oldValue.state;
+    const oldCampus= oldValue.campus
+
+     if (newState !== oldState) {
+      const moment = require("moment");
+      const xdate = moment().add(8,'hours').format("YYYYMMDD");
+      const timestamp = Date.now();
+      
+      var dataDict = {
+        oldState: oldState,
+        oldCampus: oldCampus,
+        state: newState,
+        campus : newCampus,
+        timestamp: Date.now()
+      };
+
+      admin
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("beacon")
+        .collection("beaconHistory")
+        .doc(xdate)
+        .collection(beacon)
+        .doc(timestamp.toString())
+        .set(dataDict);
+     }
+  });
+
 //https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
 
 exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
@@ -347,7 +387,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
               personState = "Perimeter";
-              console.log("ELV Formatted body:", req.body);
+              
               break;
             case "AC233FC039BE":
               personName = "GATEWAY";
@@ -368,6 +408,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
 
        // targetCollection = "beaconsNotOurs";
         targetCollection = "beacons";
+        var newBeacon = false
 
         let beaconRef = await admin
           .firestore()
@@ -382,9 +423,9 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             if (!doc.exists) {
               targetCollection = "beaconsNotOurs";
               targetCollection = "beacons";
-              console.log(snapshot.mac, doc.exists);
+              newBeacon = true;
             } else targetCollection = "beacons";
-            console.log(snapshot.mac, doc.exists);
+           
           })
 
           .catch(err => {
@@ -415,14 +456,25 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           battery: battery
         };
 
-        console.log(targetCollection);
-        admin
+        
+        if (newBeacon == true) {
+          admin
+          .firestore()
+          .collection("sais_edu_sg")
+          .doc("beacon")
+          .collection(targetCollection)
+          .doc(snapshot.mac)
+          .set(dataDict);
+        } else {
+          admin
           .firestore()
           .collection("sais_edu_sg")
           .doc("beacon")
           .collection(targetCollection)
           .doc(snapshot.mac)
           .update(dataDict);
+        }
+       
       });
     } catch (e) {
       console.log("catch error body:", req.body);
