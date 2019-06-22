@@ -21,20 +21,15 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
 import { isAdmin } from "../global";
 import CountDown from "react-native-countdown-component";
-
 import * as ActionCreators from "../../actions";
-import HeaderContent from "../headerContent/header";
 import { openDrawer } from "../../actions/drawer";
 
 import styles from "./styles";
 
 const { width } = Dimensions.get("window");
-
 const ListItem = require("./ListItem");
-
 const instID = Constants.manifest.extra.instance;
 
-let token = "DENIED";
 
 // Get the token that uniquely identifies this device
 if (!Constants.isDevice) {
@@ -63,20 +58,6 @@ class HomeNav extends Component {
       .collection("sais_edu_sg")
       .doc("feature")
       .collection("feature articles");
-
-    // db.collection("cities").where("capital", "==", true)
-    // .get()
-    // .then(function(querySnapshot) {
-    //     querySnapshot.forEach(function(doc) {
-    //         // doc.data() is never undefined for query doc snapshots
-    //         console.log(doc.id, " => ", doc.data());
-    //     });
-    // })
-    // .catch(function(error) {
-    //     console.log("Error getting documents: ", error);
-    // });
-
-    //this.calendarEvents = firebase.database().ref(`instance/${instID}/feature`);
 
     this.state = {
       user: null,
