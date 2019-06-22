@@ -17,12 +17,9 @@ import Home from "./components/home/";
 import phoneCalendar from "./components/home/calendars";
 import HomeNav from "./components/homeNav/";
 import Contact from "./components/contact";
-import SideBar from "./components/sideBar";
+
 import Settings from "./components/settings";
-import ptaHome from "./components/pta/ptaHome";
-import ptaMovieNight from "./components/pta/ptaMovieNight";
-import ptaEvents from "./components/pta/ptaEvents";
-import ptaLionsDen from "./components/pta/ptaLionsDen";
+
 import Story from "./components/story";
 import StoryForm from "./components/story/form";
 import campusMap from "./components/campusMap";
@@ -77,13 +74,8 @@ const MainScreenNavigator = createStackNavigator({
   phoneCalendar: { screen: phoneCalendar },
   login: { screen: Login },
   contact: { screen: Contact },
-  sideBar: { screen: SideBar },
   settings: { screen: Settings },
   form: { screen: form },
-  ptaHome: { screen: ptaHome },
-  ptaMovieNight: { screen: ptaMovieNight },
-  ptaLionsDen: { screen: ptaLionsDen },
-  ptaEvents: { screen: ptaEvents },
   story: { screen: Story },
   campusMap: { screen: campusMap },
   WebportalAuth: { screen: WebportalAuth },

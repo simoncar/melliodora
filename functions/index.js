@@ -13,6 +13,11 @@ const translateX = new Translate();
 const LANGUAGES = ["es", "ko", "fr", "zh-CN", "ga", "it", "ja", "tl", "cy"];
 const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
 
+// TODO: Port google app script to function
+//  https://script.google.com/d/1fHtmEsrscPPql_nkxmkBhJw1pTbfHVPEc44QpY-P8WVcrVjlLDC4EWyS/edit?usp=drive_web
+
+
+
 // https://firebase.google.com/docs/functions/get-started
 // firebase deploy (from root)
 //  firebase deploy --only functions:translate
@@ -246,13 +251,17 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   const now = Date.now();
   const cutoff = now - 100000; //CUT_OFF_TIME;
   const updates = {};
-  const beacon = admin.database().ref("instance/0001-sais_edu_sg/beacon/");
-  const oldItemsQuery = await admin
-    .database()
-    .ref(`instance/0001-sais_edu_sg/beacon/`)
-    .orderByChild("timestamp")
-    .endAt(cutoff);
-  oldItemsQuery.on("value", function(snapshot) {
+  //const beacon = admin.database().ref("instance/0001-sais_edu_sg/beacon/")
+ 
+  let beacons = await admin
+  .firestore()
+  .collection("sais_edu_sg")
+  .doc("beacon")
+  .collection("beacons")
+  .where("timestamp", "<", cutoff)
+  .limit(1)
+  
+  beacons.on("value", function(snapshot) {
     //.endAt(cutoff);
 
     //const oldItemsQuery = ref.orderByChild("timestamp").endAt(cutoff);

@@ -8,7 +8,7 @@ const info = require('./variable').brandInfo;
 const success = require('./variable').brandSuccess;
 const danger = require('./variable').brandDanger;
 const warning = require('./variable').brandWarning;
-const sidebar = require('./variable').brandSidebar;
+
 
 export default {
 
@@ -91,7 +91,7 @@ export default {
   brandSuccess: success,
   brandDanger: danger,
   brandWarning: warning,
-  brandSidebar: sidebar,
+
 
   brandSecondary: secondary,   // new style
 
