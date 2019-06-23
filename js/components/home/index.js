@@ -43,11 +43,11 @@ class calendar1 extends Component {
     this.state = {
       user: null,
       loading: true,
-      items: {},
+      items: {}
     };
 
     //this.loadFromRedux();
-    const time = Date.now() + 8*3600*1000;
+    const time = Date.now() + 8 * 3600 * 1000;
     const todayDate = this.timeToString(time);
 
     if (!this.state.items[todayDate]) {
@@ -60,7 +60,7 @@ class calendar1 extends Component {
       color: "yellow",
       title: "Today"
     });
-   
+
     // analytics  -----
     const trackingOpts = {
       instId: Constants.manifest.extra.instance,
@@ -100,20 +100,6 @@ class calendar1 extends Component {
 
     dataSnapshot = this.props.calendarEventsX.items;
     key = "";
-
-    const time = Date.now() + i * 24 * 60 * 60 * 1000;
-    const todayDate = this.timeToString(time);
-
-    // if (!this.state.items[todayDate]) {
-    //   this.state.items[todayDate] = [];
-    // }
-
-    // this.state.items[todayDate].push({
-    //   name: "Today",
-    //   icon: "md-radio-button-off",
-    //   color: "yellow",
-    //   title: "Today"
-    // });
 
     this.loadItems();
 
@@ -163,59 +149,54 @@ class calendar1 extends Component {
 
         snapshot.forEach(doc => {
           items2.push(doc.data());
-         
+
           //save to redux
           // this.props.setCalendarItems(dataSnapshot2);
 
           // dataSnapshot = dataSnapshot2;
           // this.state.items = [];
-           
 
           //console.log(dataSnapshot2);
           //dataSnapshot.forEach(function(doc) {
 
           //   console.log (snapshot)
-            strtime = doc.data().date_start;
-            strtime = strtime.substring(0, 10);
+          strtime = doc.data().date_start;
+          strtime = strtime.substring(0, 10);
 
-            if (!this.state.items[strtime]) {
-              this.state.items[strtime] = [];
-            }
+          if (!this.state.items[strtime]) {
+            this.state.items[strtime] = [];
+          }
 
-            if (undefined != this.state.items[strtime]) {
-              this.state.items[strtime].push({
-                name: doc.data().summary,
-                title: doc.data().summary,
-                description: doc.data().description,
-                location: doc.data().location,
-                startDatePretty: doc.data().date_start,
-                startTimePretty: doc.data().time_start_pretty,
-                endTimePretty: doc.data().time_end_pretty,
-                group: doc.data().group,
-                iconLib: doc.data().iconLib,
-                icon: doc.data().icon,
-                color: doc.data().colorId,
-                phone: doc.data().phone,
-                email: doc.data().email,
-                url: doc.data().htmlLink,
-                photo1: doc.data().photo1,
-                photo2: doc.data().photo2,
-                photo3: doc.data().photo3,
-
-              });
-            }
-      
+          if (undefined != this.state.items[strtime]) {
+            this.state.items[strtime].push({
+              name: doc.data().summary,
+              title: doc.data().summary,
+              description: doc.data().description,
+              location: doc.data().location,
+              startDatePretty: doc.data().date_start,
+              startTimePretty: doc.data().time_start_pretty,
+              endTimePretty: doc.data().time_end_pretty,
+              group: doc.data().group,
+              iconLib: doc.data().iconLib,
+              icon: doc.data().icon,
+              color: doc.data().colorId,
+              phone: doc.data().phone,
+              email: doc.data().email,
+              url: doc.data().htmlLink,
+              photo1: doc.data().photo1,
+              photo2: doc.data().photo2,
+              photo3: doc.data().photo3
+            });
+          }
         });
 
+        items = JSON.parse(JSON.stringify(this.state.items));
 
-        items = JSON.parse(JSON.stringify(this.state.items))
+        this.setState({
+          items
+        });
 
-       this.setState({
-        items,
-       })
-
-       this.loadItems();
-       
+        this.loadItems();
       })
       .catch(err => {
         console.log("Error getting documents", err);
