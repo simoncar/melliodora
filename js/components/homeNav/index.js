@@ -16,6 +16,7 @@ import { Grid, Col, Row } from "react-native-easy-grid";
 import { Notifications } from "expo";
 import * as Localization from "expo-localization";
 import Constants from "expo-constants";
+import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 import moment from "moment";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
@@ -67,11 +68,19 @@ class HomeNav extends Component {
     //this.loadFromRedux();
   }
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title: "Home",
     tabBarColor: "#111B4E",
-    tabBarIcon: tabBarIcon("home")
-  };
+    tabBarIcon: tabBarIcon("home"),
+    headerRight: (
+      <BorderlessButton
+        onPress={() => navigation.navigate("Search")}
+        style={{ marginRight: 15 }}
+      >
+        <Ionicons name="md-search" />
+      </BorderlessButton>
+    )
+  });
 
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
@@ -375,73 +384,56 @@ class HomeNav extends Component {
             </Text>
             <Text style={styles.version}>Language: {Localization.locale} </Text>
             <Text style={styles.version}>
-                Current Code: {this.props.userX.language}
-              </Text>
+              Current Code: {this.props.userX.language}
+            </Text>
 
-
-
-              <TouchableOpacity
+            <TouchableOpacity
               onPress={() => {
-                this._changeLanguage('en');
+                this._changeLanguage("en");
               }}
             >
-              <Text style={styles.version}>
-                Change to: English
-              </Text>
+              <Text style={styles.version}>Change to: English</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => {
-                this._changeLanguage('ja');
+                this._changeLanguage("ja");
               }}
             >
-              <Text style={styles.version}>
-                Change to: Japanese
-              </Text>
-            </TouchableOpacity>
-    
-    
-            <TouchableOpacity
-              onPress={() => {
-                this._changeLanguage('zhcn');
-              }}
-            >
-              <Text style={styles.version}>
-                Change to: Chinese
-              </Text>
-            </TouchableOpacity>
-        
-            <TouchableOpacity
-              onPress={() => {
-                this._changeLanguage('fr');
-              }}
-            >
-              <Text style={styles.version}>
-                Change to: French
-              </Text>
-            </TouchableOpacity>      
-            
-             <TouchableOpacity
-              onPress={() => {
-                this._changeLanguage('ko');
-              }}
-            >
-              <Text style={styles.version}>
-                Change to: Korean
-              </Text>
+              <Text style={styles.version}>Change to: Japanese</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => {
-                this._changeLanguage('es');
+                this._changeLanguage("zhcn");
               }}
             >
-              <Text style={styles.version}>
-                Change to: Spanish
-              </Text>
+              <Text style={styles.version}>Change to: Chinese</Text>
             </TouchableOpacity>
 
-    
+            <TouchableOpacity
+              onPress={() => {
+                this._changeLanguage("fr");
+              }}
+            >
+              <Text style={styles.version}>Change to: French</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => {
+                this._changeLanguage("ko");
+              }}
+            >
+              <Text style={styles.version}>Change to: Korean</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => {
+                this._changeLanguage("es");
+              }}
+            >
+              <Text style={styles.version}>Change to: Spanish</Text>
+            </TouchableOpacity>
           </View>
         </Content>
       </Container>

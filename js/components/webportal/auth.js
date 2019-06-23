@@ -18,29 +18,20 @@ import {
 
 import { Container } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
-
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { WebBrowser } from "expo";
 import Constants from "expo-constants";
-
 import HeaderContent from "./../headerContent/header/";
-
 import { openDrawer } from "../../actions/drawer";
-
 import * as ActionCreators from "../../actions";
-
-import theme from "../../themes/base-theme";
 import styles from "./styles";
 import qs from "qs";
 
-const primary = require("../../themes/variable").brandPrimary;
 const timer = require("react-native-timer");
 
 var WEBVIEW_REF = "webview";
 var DEFAULT_URL = "";
-
-var injectScript = "";
 
 class WebportalAuth extends Component {
   static propTypes = {

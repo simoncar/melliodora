@@ -19,13 +19,13 @@ import styles from "./styles";
 
 class Anchor extends React.Component {
   _handlePress = () => {
-    console.log("Link clicked for " + this.props.href);
+   
     Linking.openURL(this.props.href);
     this.props.onPress && this.props.onPress();
   };
 
   render() {
-    console.log("TITLE clicked for " + this.props.title);
+    
     return (
       <Text style={styles.feedbackHead} onPress={this._handlePress}>
         {this.props.title}

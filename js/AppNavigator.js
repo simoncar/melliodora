@@ -1,12 +1,10 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import {
-  createAppContainer,
-  createStackNavigator,
-} from "react-navigation";
-
+import { createAppContainer, createStackNavigator } from "react-navigation";
+import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import Login from "./components/login/";
 import Home from "./components/home/";
 import phoneCalendar from "./components/home/calendars";
@@ -42,14 +40,22 @@ let Tabs = createMaterialBottomTabNavigator(
 const MainScreenNavigator = createStackNavigator({
   Tab: {
     screen: Tabs,
-    navigationOptions: {
+    navigationOptions: ({ navigation }) => ({
       title: "Stamford",
       headerTintColor: "#000",
       headerTitleStyle: {
         fontWeight: "bold",
         fontSize: 28
-      }
-    }
+      },
+      headerRight: (
+        <BorderlessButton
+          onPress={() => navigation.navigate("settings")}
+          style={{ marginRight: 15 }}
+        >
+          <Entypo name="cog" style={{ fontSize: 25 }} />
+        </BorderlessButton>
+      )
+    })
   },
 
   chatmain: { screen: chatmain },
