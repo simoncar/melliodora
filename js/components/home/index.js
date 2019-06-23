@@ -19,7 +19,7 @@ import * as ActionCreators from "../../actions";
 import styles from "./styles";
 import HeaderContent from "../headerContent/header";
 import Analytics from "../../lib/analytics";
-import { withMappedNavigationProps } from "react-navigation-props-mapper";
+import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons } from "@expo/vector-icons";
 import { formatTime, formatMonth } from "../global.js";
 
@@ -35,12 +35,10 @@ const tabBarIcon = name => ({ tintColor }) => (
   />
 );
 
-@withMappedNavigationProps()
+@withMappedNavigationParams()
 class calendar1 extends Component {
   constructor(props) {
     super(props);
-
-    // this.calendarEvents = firebase.database().ref(`instance/${Constants.manifest.extra.instance}/calendar/all_v2`);
 
     this.state = {
       user: null,
@@ -62,6 +60,7 @@ class calendar1 extends Component {
       color: "yellow",
       title: "Today"
     });
+   
     // analytics  -----
     const trackingOpts = {
       instId: Constants.manifest.extra.instance,

@@ -7,12 +7,12 @@ import * as firebase from "firebase";
 
 import Constants from "expo-constants";
 import { SimpleLineIcons } from "@expo/vector-icons";
-import { withMappedNavigationProps } from "react-navigation-props-mapper";
+import { withMappedNavigationParams } from "react-navigation-props-mapper";
 
 import BeaconHistoryItem from "./BeaconHistoryItem";
 import moment from "moment";
 
-@withMappedNavigationProps()
+@withMappedNavigationParams()
 class beaconHistory extends Component {
   constructor(props) {
     super(props);

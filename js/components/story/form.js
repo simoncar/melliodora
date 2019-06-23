@@ -15,7 +15,7 @@ import { Container, Content } from "native-base";
 
 import Constants from "expo-constants";
 import styles from "./styles";
-import { withMappedNavigationProps } from "react-navigation-props-mapper";
+import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
 import { Entypo } from "@expo/vector-icons";
 
@@ -23,7 +23,7 @@ var instID = Constants.manifest.extra.instance;
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
-@withMappedNavigationProps()
+@withMappedNavigationParams()
 class newStory extends Component {
   uid = "";
   storyRef = null;

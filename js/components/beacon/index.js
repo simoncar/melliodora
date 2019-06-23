@@ -8,7 +8,7 @@ import { Grid, Col, Row } from "react-native-easy-grid";
 
 import Constants from "expo-constants";
 import { SimpleLineIcons } from "@expo/vector-icons";
-import { withMappedNavigationProps } from "react-navigation-props-mapper";
+import { withMappedNavigationParams } from "react-navigation-props-mapper";
 
 import styles from "./styles";
 
@@ -23,7 +23,7 @@ const tabBarIcon = name => ({ tintColor }) => (
   />
 );
 
-@withMappedNavigationProps()
+@withMappedNavigationParams()
 class beacons extends Component {
   constructor(props) {
     super(props);

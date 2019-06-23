@@ -25,7 +25,7 @@ import { openDrawer } from "../../actions/drawer";
 
 import ParsedText from "react-native-parsed-text";
 import Communications from "react-native-communications";
-import { withMappedNavigationProps } from "react-navigation-props-mapper";
+import { withMappedNavigationParams } from "react-navigation-props-mapper";
 
 import styles from "./styles";
 import call from "react-native-phone-call"; //TODO migration to communications
@@ -45,7 +45,7 @@ import * as firebase from "firebase";
 
 var instID = Constants.manifest.extra.instance;
 
-@withMappedNavigationProps()
+@withMappedNavigationParams()
 class Story extends Component {
   constructor(props) {
     super(props);
