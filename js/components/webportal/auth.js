@@ -16,14 +16,13 @@ import {
   Platform
 } from "react-native";
 
-import {
-  Container,
-} from "native-base";
+import { Container } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Constants, WebBrowser } from "expo";
+import { WebBrowser } from "expo";
+import Constants from "expo-constants";
 
 import HeaderContent from "./../headerContent/header/";
 
@@ -285,7 +284,11 @@ class WebportalAuth extends Component {
                 disabled={!this.state.canGoBack}
                 onPress={this.onBack.bind(this)}
               >
-                <Ionicons style={styles.navIconLeft} active name="ios-arrow-back" />
+                <Ionicons
+                  style={styles.navIconLeft}
+                  active
+                  name="ios-arrow-back"
+                />
               </TouchableOpacity>
               <Ionicons
                 style={styles.navIconRight}

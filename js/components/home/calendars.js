@@ -1,43 +1,92 @@
-import React, { Component } from 'react';
-import { Alert, Platform, ScrollView, StyleSheet, Text, View, Image } from 'react-native';
-import { Container, Content, Header, Left, Body, Right, Button } from 'native-base';
+import React, { Component } from "react";
+import {
+  Alert,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Image
+} from "react-native";
+import {
+  Container,
+  Content,
+  Header,
+  Left,
+  Body,
+  Right,
+  Button
+} from "native-base";
 
-import { Calendar, Permissions } from 'expo';
+import { Calendar } from "expo";
+import * as Permissions from "expo-permissions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as ActionCreators from "../../actions";
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
-import * as ActionCreators from '../../actions'
+import Analytics from "../../lib/analytics";
+import Constants from "expo-constants";
+import HeaderContent from "./../headerContent/header/";
+import { withMappedNavigationParams } from "react-navigation-props-mapper";
+import { Ionicons } from "@expo/vector-icons";
 
-import Analytics from '../../lib/analytics';
-import Constants from 'expo-constants'
-import HeaderContent from './../headerContent/header/';
-import { withMappedNavigationParams } from 'react-navigation-props-mapper'
-import { Ionicons } from '@expo/vector-icons';
-
-import styles from './styles';
+import styles from "./styles";
 
 @withMappedNavigationParams()
 class CalendarRow extends Component {
   static navigationOptions = {
-    title: 'Calendars',
+    title: "Calendars"
   };
 
-  _selectCalendar(calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url) {
+  _selectCalendar(
+    calendar,
+    eventTitle,
+    eventDescription,
+    eventDate,
+    eventStartTime,
+    eventEndTime,
+    location,
+    eventImage,
+    phone,
+    email,
+    url
+  ) {
     const { goBack } = this.props.navigation;
-    this._addEvent(calendar.id, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url)
+    this._addEvent(
+      calendar.id,
+      eventTitle,
+      eventDescription,
+      eventDate,
+      eventStartTime,
+      eventEndTime,
+      location,
+      eventImage,
+      phone,
+      email,
+      url
+    );
     goBack(null);
-  };
+  }
 
-  _addEvent = async (phoneCalendarID, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url) => {
-
-
+  _addEvent = async (
+    phoneCalendarID,
+    eventTitle,
+    eventDescription,
+    eventDate,
+    eventStartTime,
+    eventEndTime,
+    location,
+    eventImage,
+    phone,
+    email,
+    url
+  ) => {
     const timeInOneHour = new Date(eventDate);
     timeInOneHour.setHours(timeInOneHour.getHours() + 1);
     //console.log("datestring = " + eventDate + 'T' + eventStartTime +'+08:00')
     var newEvent = {};
 
     if (eventStartTime == null) {
-
       newEvent = {
         title: eventTitle,
         location: location,
@@ -45,32 +94,36 @@ class CalendarRow extends Component {
         startDate: new Date(eventDate),
         endDate: new Date(eventDate),
         notes: eventDescription,
-        timeZone: 'Asia/Singapore',
+        timeZone: "Asia/Singapore"
       };
-
     } else {
-
       newEvent = {
         allDay: false,
         title: eventTitle,
         location: location,
-        startDate: new Date(eventDate + 'T' + eventStartTime + '+08:00'),
-        endDate: new Date(eventDate + 'T' + eventEndTime + '+08:00'),
+        startDate: new Date(eventDate + "T" + eventStartTime + "+08:00"),
+        endDate: new Date(eventDate + "T" + eventEndTime + "+08:00"),
         notes: eventDescription,
-        timeZone: 'Asia/Singapore',
+        timeZone: "Asia/Singapore"
       };
     }
 
     try {
       await Calendar.createEventAsync(phoneCalendarID, newEvent);
-      Alert.alert('Event saved successfully');
-
+      Alert.alert("Event saved successfully");
 
       //analytics  -----
       let trackingOpts = {
         instId: Constants.manifest.extra.instance,
         emailOrUsername: global.username,
-        story: newEvent.eventDate + ' - ' + newEvent.startDate + ' - ' + newEvent.endDate + ' - ' + newEvent.eventTitle
+        story:
+          newEvent.eventDate +
+          " - " +
+          newEvent.startDate +
+          " - " +
+          newEvent.endDate +
+          " - " +
+          newEvent.eventTitle
       };
 
       Analytics.identify(global.username, trackingOpts);
@@ -79,19 +132,25 @@ class CalendarRow extends Component {
 
       this._findEvents(phoneCalendarID);
     } catch (e) {
-      Alert.alert('Event not saved successfully', e.message);
+      Alert.alert("Event not saved successfully", e.message);
 
       //analytics  -----
       let trackingOpts = {
         instId: Constants.manifest.extra.instance,
         emailOrUsername: global.username,
-        story: newEvent.eventDate + ' - ' + newEvent.startDate + ' - ' + newEvent.endDate + ' - ' + newEvent.eventTitle
+        story:
+          newEvent.eventDate +
+          " - " +
+          newEvent.startDate +
+          " - " +
+          newEvent.endDate +
+          " - " +
+          newEvent.eventTitle
       };
 
       Analytics.identify(global.username, trackingOpts);
       Analytics.track(Analytics.events.ADD_TO_CALENDAR_FAILED, trackingOpts);
       //analytics --------
-
     }
   };
 
@@ -107,7 +166,6 @@ class CalendarRow extends Component {
   };
 
   render() {
-
     const {
       calendar,
       eventTitle,
@@ -125,24 +183,47 @@ class CalendarRow extends Component {
     console.log(this.props);
 
     const calendarTypeName =
-      calendar.entityType === Calendar.EntityTypes.REMINDER ? 'Reminders' : 'Events';
+      calendar.entityType === Calendar.EntityTypes.REMINDER
+        ? "Reminders"
+        : "Events";
 
-    console.log("ttttt" + eventTitle + '  ------   ' + eventDescription)
-    //&& calendar.entityType == "event" 
+    console.log("ttttt" + eventTitle + "  ------   " + eventDescription);
+    //&& calendar.entityType == "event"
     return (
       <View style={styles.selectCalendar}>
-        {calendar.allowsModifications == true &&
-          <Button transparent style={styles.calendarButton} onPress={() => this._selectCalendar(calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url)} >
+        {calendar.allowsModifications == true && (
+          <Button
+            transparent
+            style={styles.calendarButton}
+            onPress={() =>
+              this._selectCalendar(
+                calendar,
+                eventTitle,
+                eventDescription,
+                eventDate,
+                eventStartTime,
+                eventEndTime,
+                location,
+                eventImage,
+                phone,
+                email,
+                url
+              )
+            }
+          >
             <Ionicons name="ios-calendar" />
-            <Text style={styles.calendarText} > {calendar.title}</Text>
+            <Text style={styles.calendarText}> {calendar.title}</Text>
           </Button>
-        }
-        {calendar.allowsModifications == false &&
-          <Button transparent style={styles.calendarButton} >
+        )}
+        {calendar.allowsModifications == false && (
+          <Button transparent style={styles.calendarButton}>
             <Ionicons style={styles.calendarTextDisabled} name="ios-alert" />
-            <Text style={styles.calendarTextDisabled} > {calendar.title} (read only)</Text>
+            <Text style={styles.calendarTextDisabled}>
+              {" "}
+              {calendar.title} (read only)
+            </Text>
           </Button>
-        }
+        )}
       </View>
     );
   }
@@ -151,7 +232,7 @@ class CalendarRow extends Component {
 @withMappedNavigationParams()
 class phoneCalendar extends Component {
   static navigationOptions = {
-    title: 'Calendars',
+    title: "Calendars"
   };
 
   constructor(props) {
@@ -166,20 +247,19 @@ class phoneCalendar extends Component {
     activeCalendarId: null,
     activeCalendarEvents: [],
     showAddNewEventForm: false,
-    editingEvent: null,
+    editingEvent: null
   };
 
   _askForCalendarPermissions = async () => {
-    const response = await Permissions.askAsync('calendar');
-    const granted = response.status === 'granted';
+    const response = await Permissions.askAsync("calendar");
+    const granted = response.status === "granted";
     this.setState({
-      haveCalendarPermissions: granted,
+      haveCalendarPermissions: granted
     });
     return granted;
   };
 
   _findCalendars = async () => {
-
     const calendarGranted = await this._askForCalendarPermissions();
     //const reminderGranted = await this._askForReminderPermissions();
     if (calendarGranted) {
@@ -192,26 +272,21 @@ class phoneCalendar extends Component {
   render() {
     if (this.state.calendars.length) {
       return (
-        <Container style={{ backgroundColor: '#fff' }}>
-
-                <HeaderContent
-                    showBack
-                    navigation={this.props.navigation} 
-                />
+        <Container style={{ backgroundColor: "#fff" }}>
+          <HeaderContent showBack navigation={this.props.navigation} />
 
           <Content showsVerticalScrollIndicator={false}>
             <View>
               <View style={styles.newsContent}>
-
                 <Text selectable={true} style={styles.eventTitle}>
                   Select Calendar for {this.props.eventTitle}
                 </Text>
               </View>
 
-              <ScrollView >
+              <ScrollView>
                 {this.state.calendars.map(calendar => (
                   <CalendarRow
-                    navigation={this.props.navigation} 
+                    navigation={this.props.navigation}
                     calendar={calendar}
                     eventTitle={this.props.eventTitle}
                     eventDescription={this.props.eventDescription}
@@ -235,31 +310,24 @@ class phoneCalendar extends Component {
               </ScrollView>
             </View>
           </Content>
-
         </Container>
       );
     }
 
-
-
-    return (
-      <View>
-
-
-      </View>
-    );
+    return <View />;
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  console.log('bind action creators');
-  return bindActionCreators(ActionCreators, dispatch)
+const mapDispatchToProps = dispatch => {
+  console.log("bind action creators");
+  return bindActionCreators(ActionCreators, dispatch);
 };
-
 
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
-
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(phoneCalendar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(phoneCalendar);

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Permissions, Notifications } from "expo";
+import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import * as firebase from "firebase";
 
