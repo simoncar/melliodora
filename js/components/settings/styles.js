@@ -2,7 +2,7 @@ const React = require('react-native');
 
 const { Dimensions, Platform } = React;
 
-const primary = require('../../themes/variable').brandPrimary;
+
 
 export default {
   header: {
@@ -21,87 +21,11 @@ export default {
   btnHeader: {
     alignSelf: 'center',
   },
-  imageHeader: {
-    height: 145,
-    width: 225,
-    resizeMode: 'contain',
-  },
+
   container: {
     flex: 1,
     width: null,
     height: null,
   },
-  bg: {
-    backgroundColor: primary,
-  },
-  signupHeader: {
-    alignSelf: 'center',
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginTop: 20,
-    padding: 5,
-  },
-  roundedButton: {
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    borderRadius: 30,
-    width: 60,
-    height: 60,
-  },
-  profilePic: {
-    width: 60,
-    height: 60,
-    borderRadius: Platform.OS === 'android' ? 60 : 30,
-  },
-  signupContainer: {
-    marginTop: 30,
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-  inputGrp: {
-    flexDirection: 'row',
-    borderRadius: 25,
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    marginBottom: 20,
-    borderWidth: 0,
-    borderColor: 'transparent',
-  },
-  input: {
-    color: '#fff',
-  },
-  notificationSwitchContainer: {
-    backgroundColor: '#fff',
-    padding: 20,
-  },
-  notificationHeader: {
-    color: primary,
-    fontWeight: 'bold',
-    paddingBottom: 20,
-  },
-  switchText: {
-    color: '#222',
-    fontWeight: 'bold',
-    alignSelf: 'flex-start',
-  },
-  aswitchText: {
-    color: '#222',
-    fontWeight: 'bold',
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
-  switchContainer: {
-    alignSelf: 'flex-end',
-  },
-  aswitchContainer: {
-        // alignSelf: 'flex-end'
-  },
-  switch: {
-    transform: [{ scaleX: 0.75 }, { scaleY: 0.75 }],
-    alignSelf: 'flex-end',
-    marginTop: Platform.OS === 'android' ? -2 : -5,
-    paddingTop: Platform.OS === 'android' ? 25 : 10,
-    paddingBottom: Platform.OS === 'android' ? 0 : 10,
-  },
+
 };

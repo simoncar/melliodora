@@ -1,9 +1,6 @@
-import Constants from 'expo-constants'
-import * as Localization from 'expo-localization'
-
+import Constants from "expo-constants";
 
 const moment = require("moment");
-
 
 export function isValue(input) {
   if (undefined !== input && input !== null && input.length > 0) {
@@ -158,5 +155,3 @@ export function isAdmin(sPass) {
 
   return isAdminDevice;
 }
-
-
