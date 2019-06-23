@@ -9,7 +9,7 @@ import HeaderContent from "./../headerContent/header/";
 import Analytics from "../../lib/analytics";
 import Constants from 'expo-constants'
 import { SimpleLineIcons } from "@expo/vector-icons";
-import { withMappedNavigationProps } from "react-navigation-props-mapper";
+import { withMappedNavigationParams } from "react-navigation-props-mapper";
 
 import styles from "./styles";
 
@@ -25,7 +25,7 @@ const tabBarIcon = name => ({ tintColor }) => (
   />
 );
 
-@withMappedNavigationProps()
+@withMappedNavigationParams()
 class chatRooms extends Component {
   constructor(props) {
     super(props);

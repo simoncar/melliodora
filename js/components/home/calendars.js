@@ -11,12 +11,12 @@ import * as ActionCreators from '../../actions'
 import Analytics from '../../lib/analytics';
 import Constants from 'expo-constants'
 import HeaderContent from './../headerContent/header/';
-import { withMappedNavigationProps } from 'react-navigation-props-mapper'
+import { withMappedNavigationParams } from 'react-navigation-props-mapper'
 import { Ionicons } from '@expo/vector-icons';
 
 import styles from './styles';
 
-@withMappedNavigationProps()
+@withMappedNavigationParams()
 class CalendarRow extends Component {
   static navigationOptions = {
     title: 'Calendars',
@@ -148,7 +148,7 @@ class CalendarRow extends Component {
   }
 }
 
-@withMappedNavigationProps()
+@withMappedNavigationParams()
 class phoneCalendar extends Component {
   static navigationOptions = {
     title: 'Calendars',
