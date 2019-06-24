@@ -326,7 +326,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
 
     console.log("updates = ", updates);
     console.log("i = ", i);
-    //beacon.update(updates);
+    doc.update(updates);
     //oldItemsQuery.update(updates)
   });
   res.status(200).send(response);
