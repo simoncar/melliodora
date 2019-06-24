@@ -20,8 +20,8 @@ export default class Setup extends Component {
   }
 
   async componentWillMount() {
-    await Expo.Font.loadAsync({
-      
+    Expo.Font.loadAsync({
+
       //Ionicons: require('/@expo/vector-icons/fonts/Ionicons.ttf'),
       //'Material Icons': require('/@expo/vector-icons/fonts/MaterialIcons.ttf'),
       SFProTextBold: require('../fonts/SF-Pro-Text-Bold.otf'),
@@ -39,10 +39,10 @@ export default class Setup extends Component {
     return (
       <StyleProvider style={getTheme(variables)}>
         <Root>
-            <Provider store={this.state.store}>
-              <App />
-            </Provider>
-         </Root>
+          <Provider store={this.state.store}>
+            <App />
+          </Provider>
+        </Root>
       </StyleProvider>
     );
   }
