@@ -11,12 +11,6 @@ import Firebase from "./js/lib/firebase";
 import Constants from "expo-constants";
 import Sentry from "sentry-expo";
 
-if (__DEV__) {
-  import("./js/lib/ReactotronConfig").then(() =>
-    console.log("Reactotron Configured")
-  );
-}
-
 Sentry.config(
   "https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405"
 ).install();
