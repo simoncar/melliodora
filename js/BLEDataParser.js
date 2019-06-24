@@ -1,4 +1,4 @@
-export default class BLEParseData {
+export default class BLEDataParser {
     constructor(rawData) {
       this.rawData = rawData;
   
@@ -22,7 +22,7 @@ export default class BLEParseData {
         VersionNumber: this.readPairedData(12),
         BatteryLevel: this.readPairedData(13),
         MacAddress: this.readPairedData(14, false, 19).join(":"),
-        Name: this.readPairedData(20, false, 21).join("")
+        Name: this.readPairedData(20, false, this.pairedData.length-1).join("")
       }
     }
   
