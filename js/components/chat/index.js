@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Platform, Text, View, Alert, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { ActionSheet } from "native-base";
+import { AsyncStorage } from "react-native";
 
 import {
   GiftedChat,
@@ -66,8 +67,6 @@ class chat extends Component {
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
 
     this._isAlright = null;
-
-
   }
 
   //   <TouchableOpacity onPress={this._showActionSheet}>
@@ -102,7 +101,6 @@ class chat extends Component {
         }}
       >
         <View style={styles.chatHeading}>
-       
           <Entypo name="cog" style={styles.chatHeading} />
         </View>
       </TouchableOpacity>
@@ -116,6 +114,7 @@ class chat extends Component {
       this.noNickname();
       this.props.navigation.navigate("login");
     }
+    this._retrieveLanguage();
 
     this._isMounted = true;
   }
@@ -124,11 +123,11 @@ class chat extends Component {
     this.props.navigation.setParams({
       _showActionSheet: this._showActionSheet
     });
-  
-    Backend.setLanguage(this.props.userX.language)
+
+    // Backend.setLanguage(this.props.userX.language);
     Backend.setChatroom(this.props.navigation.getParam("chatroom"));
 
-    Backend.loadMessages(this.props.userX.language, message => {
+    Backend.loadMessages(this.state.language, message => {
       this.setState(previousState => ({
         messages: GiftedChat.append(previousState.messages, message)
       }));
@@ -139,6 +138,19 @@ class chat extends Component {
     this._isMounted = false;
     Backend.closeChat();
   }
+
+  _retrieveLanguage = async () => {
+    try {
+      const value = await AsyncStorage.getItem("language");
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+        this.setState({ language: value });
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
 
   noNickname() {
     Alert.alert(
@@ -174,7 +186,6 @@ class chat extends Component {
 
   onSend(messages = []) {
     Backend.SendMessage(messages);
-   
   }
 
   onReceive(text) {}
@@ -331,13 +342,7 @@ class chat extends Component {
   }
 
   _showActionSheet() {
-
-    const BUTTONS = [
-
-      "Mute conversation",
-      "Unmute conversation",
-      "Cancel"
-    ];
+    const BUTTONS = ["Mute conversation", "Unmute conversation", "Cancel"];
     const CANCEL_INDEX = 2;
 
     ActionSheet.show(
@@ -350,7 +355,6 @@ class chat extends Component {
 
       buttonIndex => {
         switch (buttonIndex) {
-
           case 0:
             Backend.setMute(true);
             break;
@@ -375,8 +379,6 @@ class chat extends Component {
     );
   }
 
-
-
   render() {
     return (
       <Container>
@@ -385,7 +387,24 @@ class chat extends Component {
           showHome="false"
           navigation={this.props.navigation}
         />
-       
+
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate("settings", {
+                chatroom: this.props.title,
+                description: this.props.description,
+                contact: this.props.contact,
+                url: this.props.url
+              });
+            }}
+          >
+            <Text style={styles.chatBanner}>
+              Translations by Google Translate >
+            </Text>
+          </TouchableOpacity>
+        </View>
+
         <GiftedChat
           messages={this.state.messages}
           onSend={this.onSend}
@@ -437,8 +456,7 @@ const mapDispatchToProps = dispatch =>
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
   username: state.username,
-  userX: state.user,
-  language: state.user.language
+  userX: state.user
 });
 
 export default connect(

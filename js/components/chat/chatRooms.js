@@ -7,7 +7,7 @@ import * as firebase from "firebase";
 import { Container, Content, Text, Button } from "native-base";
 import HeaderContent from "./../headerContent/header/";
 import Analytics from "../../lib/analytics";
-import Constants from 'expo-constants'
+import Constants from "expo-constants";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 
@@ -86,10 +86,9 @@ class chatRooms extends Component {
         _key: "Lost and Found"
       });
       this.state.userChatrooms.push({
-        title: "Stamford 10 Year Gala",
-        _key: "Stamford 10 Year Gala"
+        title: "Test Chatroom",
+        _key: "Test Chatroom"
       });
-  
 
       this.setState({
         chatRooms
@@ -121,8 +120,6 @@ class chatRooms extends Component {
     // {this._renderItem('2JLIU','Jia Liu - Level 3 Washington','jia.liu@sais.edu.sg','https://mystamford.edu.sg/homeroom-2/grade-2/jia-liu-g2-jliu/class-update')}
     // {this._renderItem('4DAYE','Daisy Ye - Level 5 Washington','daisy.ye@sais.edu.sg ','https://mystamford.edu.sg/homeroom-2/grade-4/daisy-ye-g4-daye/class-update')}
     // {this._renderItem('Grade 6','Grade 6 Group Chat','middleschool@sais.edu.sg','https://mystamford.edu.sg/browse-resources/secondary')}
-
-   
 
     //ken{YQNwZDOkv0QdHUlDV-T5HQ}  - Simon
     return (
