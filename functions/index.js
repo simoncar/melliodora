@@ -16,8 +16,6 @@ const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
 // TODO: Port google app script to function
 //  https://script.google.com/d/1fHtmEsrscPPql_nkxmkBhJw1pTbfHVPEc44QpY-P8WVcrVjlLDC4EWyS/edit?usp=drive_web
 
-
-
 // https://firebase.google.com/docs/functions/get-started
 // firebase deploy (from root)
 //  firebase deploy --only functions:translate
@@ -163,27 +161,33 @@ exports.beaconPingHistory = functions.firestore
 
     const beacon = context.params.beaconID;
 
+    console.log("aaa:", newValue);
+    console.log("bbb:", newValue.state);
+
+    var oldState = "";
+    var oldCampus = "";
+
+    if (undefined !== oldValue) {
+      oldState = oldValue.state;
+      oldCampus = oldValue.campus;
+    }
     const newState = newValue.state;
-    const newCampus = newValue.campus
+    const newCampus = newValue.campus;
 
-    const oldState = oldValue.state;
-    const oldCampus= oldValue.campus
-
-     if (newState !== oldState) {
+    if (newState !== oldState) {
       const moment = require("moment");
-      const xdate = moment().add(8,'hours').format("YYYYMMDD");
+      const xdate = moment()
+        .add(8, "hours")
+        .format("YYYYMMDD");
       const timestamp = Date.now();
-      
 
       var dataDict = {
         oldState: oldState,
         oldCampus: oldCampus,
         state: newState,
-        campus : newCampus,
+        campus: newCampus,
         timestamp: Date.now()
       };
-
-
 
       admin
         .firestore()
@@ -194,11 +198,10 @@ exports.beaconPingHistory = functions.firestore
         .collection(beacon)
         .doc(timestamp.toString())
         .set(dataDict);
-     }
+    }
   });
 
-
-  exports.beaconPingHistoryNotOurs = functions.firestore
+exports.beaconPingHistoryNotOurs = functions.firestore
   .document("sais_edu_sg/beacon/beaconsNotOurs/{beaconID}")
   .onWrite(async (change, context) => {
     const newValue = change.after.data();
@@ -207,21 +210,23 @@ exports.beaconPingHistory = functions.firestore
     const beacon = context.params.beaconID;
 
     const newState = newValue.state;
-    const newCampus = newValue.campus
+    const newCampus = newValue.campus;
 
     const oldState = oldValue.state;
-    const oldCampus= oldValue.campus
+    const oldCampus = oldValue.campus;
 
-     if (newState !== oldState) {
+    if (newState !== oldState) {
       const moment = require("moment");
-      const xdate = moment().add(8,'hours').format("YYYYMMDD");
+      const xdate = moment()
+        .add(8, "hours")
+        .format("YYYYMMDD");
       const timestamp = Date.now();
-      
+
       var dataDict = {
         oldState: oldState,
         oldCampus: oldCampus,
         state: newState,
-        campus : newCampus,
+        campus: newCampus,
         timestamp: Date.now()
       };
 
@@ -234,7 +239,7 @@ exports.beaconPingHistory = functions.firestore
         .collection(beacon)
         .doc(timestamp.toString())
         .set(dataDict);
-     }
+    }
   });
 
 //https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
@@ -252,61 +257,63 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   const cutoff = now - 100000; //CUT_OFF_TIME;
   const updates = {};
   //const beacon = admin.database().ref("instance/0001-sais_edu_sg/beacon/")
- 
+  var child;
+
   let beacons = await admin
-  .firestore()
-  .collection("sais_edu_sg")
-  .doc("beacon")
-  .collection("beacons")
-  .where("timestamp", "<", cutoff)
-  .limit(1)
-  
-  beacons.on("value", function(snapshot) {
-    //.endAt(cutoff);
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("beacon")
+    .collection("beacons")
+    .where("timestamp", "<", cutoff)
+    .limit(1);
 
-    //const oldItemsQuery = ref.orderByChild("timestamp").endAt(cutoff);
-    //const snapshot = oldItemsQuery.once("value");
-    // create a map with all children that need to be removed
+  let query = beacons.get().then(snapshot => {
+    if (snapshot.empty) {
+      console.log("No matching documents.");
+      return;
+    }
 
-    console.log("before ");
-    response = response + "before";
-    snapshot.forEach(child => {
+    snapshot.forEach(doc => {
+      console.log("data to delete 3", doc.id, "=>", doc.data());
+      child = doc.data();
+
       if (i < 100) {
-        if (child.child("state").val() == "Perimeter") {
+        if (child.state == "Perimeter") {
           i++;
-          updates[child.key] = {
-            beaconName: child.child("beaconName").val(),
-            beaconCampus: child.child("beaconCampus").val(),
-            beaconType: child.child("beaconType").val(),
+          updates[doc.id] = {
+            beaconName: child.name,
+            beaconCampus: child.campus,
+            beaconType: child.type,
             lastSeen: Date.now(),
             timestamp: null,
             state: "Off Campus",
-            beaconPictureURL: child.child("beaconPictureURL").val()
+            mac: doc.id,
+            rssi: child.rssi
           };
 
-          const beaconName = child.child("beaconName").val();
-          const newPing = admin
-            .database()
-            .ref(
-              `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
-                beaconName +
-                "/messages"
-            );
+          // const beaconName = childbeaconName;
+          // const newPing = admin
+          //   .database()
+          //   .ref(
+          //     `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
+          //       beaconName +
+          //       "/messages"
+          //   );
 
-          newPing.push({
-            //mute: false,
-            chatroom: beaconName,
-            text: "Ping - " + child.child("beaconCampus").val(),
-            createdAt: Date.now(),
-            date: Date.now(),
-            system: true,
-            user: {
-              name: child.child("beaconCampus").val()
-            }
-          });
+          // newPing.push({
+          //   //mute: false,
+          //   chatroom: beaconName,
+          //   text: "Ping - " + childbeaconCampus,
+          //   createdAt: Date.now(),
+          //   date: Date.now(),
+          //   system: true,
+          //   user: {
+          //     name: childbeaconCampus
+          //   }
+          // });
         }
 
-        if (child.child("state").val() == "Gateway - Active") {
+        if (child.state == "Gateway - Active") {
           i++;
           updates[child.key] = {
             lastSeen: Date.now(),
@@ -319,7 +326,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
 
     console.log("updates = ", updates);
     console.log("i = ", i);
-    beacon.update(updates);
+    //beacon.update(updates);
     //oldItemsQuery.update(updates)
   });
   res.status(200).send(response);
@@ -396,7 +403,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               personPictureURL =
                 "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
               personState = "Perimeter";
-              
+
               break;
             case "AC233FC039BE":
               personName = "GATEWAY";
@@ -415,9 +422,9 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           }
         }
 
-       // targetCollection = "beaconsNotOurs";
+        // targetCollection = "beaconsNotOurs";
         targetCollection = "beacons";
-        var newBeacon = false
+        var newBeacon = false;
 
         let beaconRef = await admin
           .firestore()
@@ -434,7 +441,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               targetCollection = "beacons";
               newBeacon = true;
             } else targetCollection = "beacons";
-           
           })
 
           .catch(err => {
@@ -465,25 +471,23 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           battery: battery
         };
 
-        
         if (newBeacon == true) {
           admin
-          .firestore()
-          .collection("sais_edu_sg")
-          .doc("beacon")
-          .collection(targetCollection)
-          .doc(snapshot.mac)
-          .set(dataDict);
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("beacon")
+            .collection(targetCollection)
+            .doc(snapshot.mac)
+            .set(dataDict);
         } else {
           admin
-          .firestore()
-          .collection("sais_edu_sg")
-          .doc("beacon")
-          .collection(targetCollection)
-          .doc(snapshot.mac)
-          .update(dataDict);
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("beacon")
+            .collection(targetCollection)
+            .doc(snapshot.mac)
+            .update(dataDict);
         }
-       
       });
     } catch (e) {
       console.log("catch error body:", req.body);
@@ -491,7 +495,5 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     }
 
     res.status(200).send(req.body);
-    // [END sendResponse]
   });
 });
-// [END all]
