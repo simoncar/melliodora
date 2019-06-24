@@ -46,6 +46,13 @@ class SettingsListExample extends Component {
     this.setState({ language: language });
     global.language = language;
     AsyncStorage.setItem("language", language);
+
+    const { goBack } = this.props.navigation;
+
+    goBack(null);
+    setTimeout(() => {
+      goBack(null);
+    }, 100);
   }
   _getStyle(language) {
     if (language == this.state.language) {

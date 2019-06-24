@@ -98,7 +98,7 @@ export default {
     paddingBottom: 5,
     paddingRight: 10,
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "row"
   },
   chatHeadingLeft: {
     color: "#037AFF",
@@ -108,10 +108,11 @@ export default {
     paddingRight: 10
   },
   chatBanner: {
-    color: "black",
+    color: "#037AFF",
     alignSelf: "center",
     fontSize: 18,
-    paddingTop: 5
+    paddingTop: 5,
+    textColor: "#037AFF"
   },
   chat: {
     color: "black",

@@ -8,6 +8,7 @@ import AssetUtils from "expo-asset-utils";
 import shortid from "shortid";
 import QuickReplies from "react-native-gifted-chat/lib/QuickReplies";
 import configureStore from "../../configureStore";
+import { AsyncStorage } from "react-native";
 
 let instID = Constants.manifest.extra.instance;
 
@@ -59,8 +60,23 @@ export class Backend extends React.Component {
     }
   }
 
+  _retrieveLanguage = async () => {
+    try {
+      const value = await AsyncStorage.getItem("language");
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+        this.setState({ language: value });
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
   // retrive msg from backend
-  loadMessages(language, callback) {
+  loadMessages = async (language1, callback) => {
+    const language = await AsyncStorage.getItem("language");
+
     this.messageRef = firebase
       .database()
       .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`)
@@ -102,7 +118,7 @@ export class Backend extends React.Component {
       });
     };
     this.messageRef.limitToLast(50).on("child_added", onReceive);
-  }
+  };
 
   // 1.
   get uid() {
