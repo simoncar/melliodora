@@ -23,6 +23,7 @@ import WebportalAuth from "./components/webportal/auth";
 import WebportalSports from "./components/webportalSports";
 import beacon from "./components/beacon";
 import beaconHistory from "./components/beacon/beaconHistory";
+import AttendanceOverview from "./components/beacon/AttendanceOverview";
 
 let Tabs = createMaterialBottomTabNavigator(
   {
@@ -70,6 +71,7 @@ const MainScreenNavigator = createStackNavigator({
   WebportalAuth: { screen: WebportalAuth },
   storyForm: { screen: StoryForm },
   beacon: { screen: beacon },
+  AttendanceOverview: { screen: AttendanceOverview },
   beaconHistory: { screen: beaconHistory },
 
   defaultNavigationOptions: () => ({
