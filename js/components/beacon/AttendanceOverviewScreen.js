@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Button, Text } from "react-native";
+import { StyleSheet, View, Button, Text, Dimensions, TouchableOpacity } from "react-native";
 
-export default class AttendanceOverview extends Component {
+import { LineChart } from 'react-native-chart-kit';
+
+export default class AttendanceOverviewScreen extends Component {
   constructor(props) {
     super(props);
   }
@@ -26,11 +28,10 @@ export default class AttendanceOverview extends Component {
 
 
             <View style={[styles.widget, { backgroundColor: 'olivedrab' }]}>
-              <View style={styles.widgetContent}>
+              <TouchableOpacity style={styles.widgetContent} onPress={() => this.props.navigation.navigate("GradeListingScreen")}>
                 <Text style={styles.widgetTextTitle}>Students on Campus now</Text>
-
                 <Text style={styles.widgetTextContent}>3028</Text>
-              </View>
+              </TouchableOpacity>
             </View>
 
           </View>
@@ -64,6 +65,38 @@ export default class AttendanceOverview extends Component {
           </View>
 
         </View>
+
+        <View>
+          <Text>
+            Activity Line Chart
+         </Text>
+          <LineChart
+            data={{
+              labels: ['7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM'],
+              datasets: [{
+                data: [ 20, 45, 28, 80, 99, 43, 88, 50 ]
+              }]
+            }}
+            width={Dimensions.get('window').width} // from react-native
+            height={300}
+            chartConfig={{
+              backgroundColor: '#fff',
+              backgroundGradientFrom: '#fff',
+              backgroundGradientTo: '#fff',
+              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              decimalPlaces: 0, // optional, defaults to 2dp
+              style: {
+                borderRadius: 16
+              }
+            }}
+            bezier
+            style={{
+              marginVertical: 8,
+              borderRadius: 16
+            }}
+          />
+        </View>
+
 
       </View>
     );
