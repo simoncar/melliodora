@@ -341,7 +341,7 @@ class HomeNav extends Component {
               <TouchableOpacity
                 style={{ flexDirection: "row" }}
                 onPress={() => {
-                  this.props.navigation.navigate("AttendanceOverview");
+                  this.props.navigation.navigate("AttendanceOverviewScreen");
                 }}
               >
                 <View>
