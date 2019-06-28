@@ -8,17 +8,14 @@ import {
   Text
 } from "react-native";
 
-import { Grid, Col, Row } from "react-native-easy-grid";
-import styles from "./styles";
 import { AntDesign, MaterialIcons, Feather } from "@expo/vector-icons";
 import moment from "moment";
 
 import { isAdmin } from "../global.js";
-import { getCurrentFrame } from "expo/build/AR";
 
 const { width } = Dimensions.get("window");
 
-class BeaconHistoryItem extends Component {
+export default class BeaconHistoryItem extends Component {
   constructor(props) {
     super(props);
   }
@@ -37,7 +34,8 @@ class BeaconHistoryItem extends Component {
         </View>
         <View style={style.container}>
           <Text adjustsFontSizeToFit style={style.time}>
-            {moment(timestamp).format("LLL")}
+            {timestamp}
+            {/* {moment(timestamp).format("LLL")} */}
           </Text>
           <View style={style.iconPlaceHolder}>
             <View style={line()} />
@@ -140,5 +138,3 @@ const style = StyleSheet.create({
     fontWeight: "bold"
   }
 });
-
-module.exports = BeaconHistoryItem;
