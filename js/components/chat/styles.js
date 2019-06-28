@@ -14,10 +14,16 @@ export default {
     backgroundColor: "white"
   },
   icon: {
-    fontSize: 25
+    fontSize: 25,
+    color: "#fff"
   },
+  iconRight: {
+    fontSize: 25,
+    color: "#999A9D"
+  },
+
   chatRow: {
-    height: 60,
+    height: 50,
     backgroundColor: "white",
     flexDirection: "row",
     marginBottom: 20
@@ -39,6 +45,14 @@ export default {
     marginLeft: 15,
     marginBottom: 5
   },
+  chatTitleRight: {
+    marginTop: 7,
+    fontSize: 15,
+    backgroundColor: "white",
+    color: "#000",
+    marginLeft: 15,
+    marginBottom: 5
+  },
   chatDescription: {
     fontSize: 13,
     backgroundColor: "white",
@@ -50,8 +64,8 @@ export default {
   roundedButton: {
     alignItems: "center",
     borderRadius: 30,
-    height: 60,
-    backgroundColor: "#141b4d",
+    height: 50,
+    backgroundColor: "#5D6870",
     marginLeft: 20,
     justifyContent: "center"
   },

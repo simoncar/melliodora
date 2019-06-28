@@ -21,6 +21,7 @@ import moment from "moment";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
 import { isAdmin } from "../global";
+import BLEDataParser from "../../lib/BLEDataParser";
 import CountDown from "react-native-countdown-component";
 import * as ActionCreators from "../../actions";
 import { openDrawer } from "../../actions/drawer";
@@ -39,6 +40,10 @@ if (!Constants.isDevice) {
 }
 
 const today = new moment().format();
+
+const parsedRawData = new BLEDataParser(
+  "03039FFE17169FFE0256596E48415957727242510000016B91E7901F"
+);
 
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialIcons
@@ -210,10 +215,6 @@ class HomeNav extends Component {
     }
   }
 
-  _changeLanguage(language) {
-    //this.setState.userX.language = "ja";
-    this.props.setLanguage(language);
-  }
   _renderItem(item) {
     return <ListItem navigation={this.props.navigation} item={item} />;
   }
@@ -263,7 +264,7 @@ class HomeNav extends Component {
                       this.props.navigation.navigate("webportal");
                     }}
                   >
-                    <Ionicons style={styles.icon} name="ios-grid" />
+                    <MaterialIcons style={styles.icon} name="web" />
                   </Button>
                   <Text note style={styles.buttonLabel}>
                     myStamford
@@ -425,62 +426,13 @@ class HomeNav extends Component {
 
           <View>
             <Text style={styles.version} />
-            <Text style={styles.version}> </Text>
+            <Text style={styles.version}>
+              {" "}
+              Battery: {parsedRawData.parsedData.BatteryLevel}
+            </Text>
             <Text style={styles.version}>
               Version: {Constants.manifest.revisionId}
             </Text>
-            <Text style={styles.version}>Language: {Localization.locale} </Text>
-            <Text style={styles.version}>
-              Current Code: {this.props.userX.language}
-            </Text>
-
-            <TouchableOpacity
-              onPress={() => {
-                this._changeLanguage("en");
-              }}
-            >
-              <Text style={styles.version}>Change to: English</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => {
-                this._changeLanguage("ja");
-              }}
-            >
-              <Text style={styles.version}>Change to: Japanese</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => {
-                this._changeLanguage("zhcn");
-              }}
-            >
-              <Text style={styles.version}>Change to: Chinese</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => {
-                this._changeLanguage("fr");
-              }}
-            >
-              <Text style={styles.version}>Change to: French</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => {
-                this._changeLanguage("ko");
-              }}
-            >
-              <Text style={styles.version}>Change to: Korean</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => {
-                this._changeLanguage("es");
-              }}
-            >
-              <Text style={styles.version}>Change to: Spanish</Text>
-            </TouchableOpacity>
           </View>
         </Content>
       </Container>
