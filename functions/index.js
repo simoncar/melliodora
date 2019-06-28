@@ -488,7 +488,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
         var raw = snapshot.rawData === undefined ? "0" : snapshot.rawData;
 
         console.log("a=", raw.length, snapshot.mac);
-        console.log("b=", snapshot.rawData.length, snapshot.mac);
+        // console.log("b=", snapshot.rawData.length, snapshot.mac);
 
         if (raw.length < 10) {
           var dataDict = {
@@ -522,7 +522,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
         }
 
         if (newBeacon == true) {
-          admin
+          await admin
             .firestore()
             .collection("sais_edu_sg")
             .doc("beacon")
@@ -530,7 +530,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             .doc(snapshot.mac)
             .set(dataDict);
         } else {
-          admin
+          await admin
             .firestore()
             .collection("sais_edu_sg")
             .doc("beacon")
