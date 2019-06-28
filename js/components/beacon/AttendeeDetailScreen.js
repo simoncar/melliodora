@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, ScrollView } from 'react-native'
+import { Text, StyleSheet, View, ScrollView, TouchableHighlight } from 'react-native'
 import { ListItem, SearchBar, Avatar, Divider, Button } from 'react-native-elements';
 import BeaconHistoryItem from "./BeaconHistoryItem";
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
@@ -34,57 +34,67 @@ export default class AttendeeDetailScreen extends Component {
 
   render() {
     return (
-      <ScrollView>
-        <View style={styles.topContainer}>
-          <View style={styles.avatarContainer}>
-            <Avatar
-              size="xlarge"
-              rounded
-              source={{ uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' }}
-              activeOpacity={0.7}
-            />
-          </View>
-          <View style={styles.detailContainer}>
-            <View>
-              <Text style={styles.attendeeNameText}>Mrs. Hello World</Text>
-              <Text style={styles.detailsText}>Grade 3</Text>
-              <Text style={styles.detailsText}>Class 3XYZ</Text>
-              <Text></Text>
-              <Text style={styles.detailsText}>last seen today at 11:01 PM</Text>
-              <Text style={styles.detailsText}>last located at Singapore</Text>
+
+      <View style={{ height: "100%" }}>
+        <TouchableHighlight
+          style={styles.bookmark}
+          underlayColor="#ff7043"
+        >
+          <FontAwesome name="star" size={28} color="gold"/>
+        </TouchableHighlight>
+        <ScrollView>
+          <View style={styles.topContainer}>
+            <View style={styles.avatarContainer}>
+              <Avatar
+                size="xlarge"
+                rounded
+                source={{ uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' }}
+                activeOpacity={0.7}
+              />
             </View>
-
-          </View>
-        </View>
-
-
-        <View style={{ paddingVertical: 5, paddingHorizontal: 15 }}>
-          <Button
-            title="Today 28 June 2019"
-            raised
-            icon={
-              <View style={{ paddingRight: 10 }}>
-                <FontAwesome
-                  name="calendar"
-                  size={15}
-                  color='#48484A'
-                />
+            <View style={styles.detailContainer}>
+              <View>
+                <Text style={styles.attendeeNameText}>Mrs. Hello World</Text>
+                <Text style={styles.detailsText}>Grade 3</Text>
+                <Text style={styles.detailsText}>Class 3XYZ</Text>
+                <Text></Text>
+                <Text style={styles.detailsText}>last seen today at 11:01 PM</Text>
+                <Text style={styles.detailsText}>last located at Singapore</Text>
               </View>
 
+            </View>
+          </View>
+
+
+          <View style={{ paddingVertical: 5, paddingHorizontal: 15 }}>
+            <Button
+              title="Today 28 June 2019"
+              raised
+              icon={
+                <View style={{ paddingRight: 10 }}>
+                  <FontAwesome
+                    name="calendar"
+                    size={15}
+                    color='#48484A'
+                  />
+                </View>
+
+              }
+              buttonStyle={{ backgroundColor: '#d3d3d3', padding: 2 }}
+              titleStyle={{ color: '#48484A', fontSize: 14 }}
+            />
+          </View>
+          <View>
+            {
+              this.state.userHistory.map(this._renderListItem)
             }
-            buttonStyle={{ backgroundColor: '#d3d3d3', padding: 2 }}
-            titleStyle={{ color: '#48484A', fontSize: 14 }}
-          />
-        </View>
-        <View>
-          {
-            this.state.userHistory.map(this._renderListItem)
-          }
 
-        </View>
+          </View>
 
 
-      </ScrollView>
+        </ScrollView>
+
+      </View>
     )
   }
 }
@@ -115,5 +125,26 @@ const styles = StyleSheet.create({
   },
   detailsText: {
     color: '#48484A'
+  },
+  bookmark: {
+    backgroundColor: "#ff5722",
+    borderColor: "#ff5722",
+    borderWidth: 1,
+    height: 50,
+    width: 50,
+    borderRadius: 50 / 2,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 50,
+    right: 35,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    },
+    zIndex: 1
   }
 })
