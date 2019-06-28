@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, FlatList, Text } from 'react-native'
-import { ListItem, SearchBar } from 'react-native-elements';
+import { StyleSheet, View, FlatList } from 'react-native'
+import { ListItem, SearchBar, Text } from 'react-native-elements';
 
-export default class GradeListingScreen extends Component {
+export default class ClassListingScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: navigation.getParam("title")
     });
@@ -10,12 +10,12 @@ export default class GradeListingScreen extends Component {
         super(props);
         this.state = {
             loading: false,
-            campusData: [
-                { gradeLevel: "Grade 1", amount: 234 },
-                { gradeLevel: "Grade 2", amount: 344 },
-                { gradeLevel: "Grade 3", amount: 234 },
-                { gradeLevel: "Grade 4", amount: 123 },
-                { gradeLevel: "Grade 5", amount: 124 }
+            classData: [
+                { classID: "2DAYE", amount: 20 },
+                { classID: "2GHRD", amount: 18 },
+                { classID: "2RFSU", amount: 22 },
+                { classID: "2KLUG", amount: 23 },
+                { classID: "2SSSS", amount: 22 }
             ]
         };
     }
@@ -23,11 +23,11 @@ export default class GradeListingScreen extends Component {
 
     _renderItem = ({ item }) => (
         <ListItem
-            title={item.gradeLevel}
+            title={item.classID}
             chevron={true}
             rightIcon={{ name: 'person' }}
             badge={{ value: item.amount, textStyle: { color: 'white', fontSize: 16 }, badgeStyle: { backgroundColor: 'black', minWidth: 50, minHeight: 25, borderRadius: 50, paddingHorizontal: 5 } }}
-            onPress={() => this.props.navigation.navigate("ClassListingScreen", {title: this.props.navigation.getParam("title"), selectedGrade:item.gradeLevel })}
+            onPress={() => this.props.navigation.navigate("AttendeeListingScreen", {title: this.props.navigation.getParam("title"), selectedGrade:item.classID })}
         />
     );
 
@@ -46,9 +46,9 @@ export default class GradeListingScreen extends Component {
     render() {
         return (
             <View>
-                <Text style={styles.listingText}>Listing By Grade</Text>
+                <Text style={styles.listingText}>Listing By Class</Text>
                 <FlatList
-                    data={this.state.campusData}
+                    data={this.state.classData}
                     renderItem={this._renderItem}
                     keyExtractor={this._keyExtractor}
                     ItemSeparatorComponent={this.renderSeparator}
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
         padding:15,
         fontSize: 15
     }
-})
+});
