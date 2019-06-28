@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import Constants from 'expo-constants'
+import Constants from "expo-constants";
 import {
   Animated,
   TextInput,
@@ -23,7 +23,7 @@ import * as ActionCreators from "../../actions";
 
 import theme from "../../themes/base-theme";
 import styles from "./styles";
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
 const timer = require("react-native-timer");
 
@@ -37,7 +37,7 @@ var DEFAULT_URL = global.switch_portalURL; //'https://mystamford.edu.sg/login/lo
 var injectScript = "";
 
 const tabBarIcon = name => ({ tintColor }) => (
-  <Ionicons
+  <MaterialIcons
     style={{ backgroundColor: "transparent" }}
     name={name}
     color={tintColor}
@@ -55,8 +55,8 @@ class Webportal extends Component {
 
   static navigationOptions = {
     title: "myS",
-    tabBarColor: "#00A5CD",
-    tabBarIcon: tabBarIcon("ios-grid")
+
+    tabBarIcon: tabBarIcon("web")
   };
 
   constructor(props) {
@@ -269,16 +269,14 @@ class Webportal extends Component {
   _renderSpinner() {
     if (this.state.showMsg) {
       return (
-       
-          <View style={styles.settingsMessage}>
-            <View style={{ flex: 1 }} />
-            <View style={{ flex: 2 }}>
-              <Spinner color="#172245" />
-            </View>
-
-            <View style={{ flex: 3 }} />
+        <View style={styles.settingsMessage}>
+          <View style={{ flex: 1 }} />
+          <View style={{ flex: 2 }}>
+            <Spinner color="#172245" />
           </View>
-      
+
+          <View style={{ flex: 3 }} />
+        </View>
       );
     } else {
       null;
@@ -333,14 +331,17 @@ class Webportal extends Component {
         <HeaderContent navigation={this.props.navigation} />
 
         <View style={{ flex: 1 }}>
-          
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>
               <TouchableOpacity
                 disabled={!this.state.canGoBack}
                 onPress={this.onBack.bind(this)}
               >
-                <Ionicons style={styles.navIconLeft} active name="ios-arrow-back" />
+                <Ionicons
+                  style={styles.navIconLeft}
+                  active
+                  name="ios-arrow-back"
+                />
               </TouchableOpacity>
 
               <TextInput
@@ -376,7 +377,6 @@ class Webportal extends Component {
               domStorageEnabled={true}
               startInLoadingState={true}
               scalesPageToFit={true}
-             
               ref={WEBVIEW_REF}
             />
           </View>

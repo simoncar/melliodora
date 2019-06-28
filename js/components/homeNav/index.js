@@ -264,7 +264,7 @@ class HomeNav extends Component {
                       this.props.navigation.navigate("webportal");
                     }}
                   >
-                    <Ionicons style={styles.icon} name="ios-grid" />
+                    <MaterialIcons style={styles.icon} name="web" />
                   </Button>
                   <Text note style={styles.buttonLabel}>
                     myStamford
