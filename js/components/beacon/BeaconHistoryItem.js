@@ -75,7 +75,7 @@ const style = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "stretch",
-    paddingLeft: 160,
+    paddingLeft: 155,
 
   },
   location: {
