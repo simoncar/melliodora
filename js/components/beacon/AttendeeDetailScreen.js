@@ -57,13 +57,13 @@ export default class AttendeeDetailScreen extends Component {
           </View>
         </View>
 
-  
+
         <View style={{ paddingVertical: 5, paddingHorizontal: 15 }}>
           <Button
             title="Today 28 June 2019"
             raised
             icon={
-              <View style={{paddingRight: 10}}>
+              <View style={{ paddingRight: 10 }}>
                 <FontAwesome
                   name="calendar"
                   size={15}
@@ -72,17 +72,17 @@ export default class AttendeeDetailScreen extends Component {
               </View>
 
             }
-      
             buttonStyle={{ backgroundColor: '#d3d3d3', padding: 2 }}
-            titleStyle={{ color: '#48484A', fontSize:14 }}
-
+            titleStyle={{ color: '#48484A', fontSize: 14 }}
           />
         </View>
+        <View>
+          {
+            this.state.userHistory.map(this._renderListItem)
+          }
 
+        </View>
 
-        {
-          this.state.userHistory.map(this._renderListItem)
-        }
 
       </ScrollView>
     )
