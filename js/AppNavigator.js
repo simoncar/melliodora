@@ -37,7 +37,7 @@ let Tabs = createMaterialBottomTabNavigator(
     labeled: true,
     activeColor: "#1278F1",
     inactiveColor: "#5D6870",
-    barStyle: { backgroundColor: "#fff" }
+    barStyle: { backgroundColor: "#F7F7F7" }
   }
 );
 
