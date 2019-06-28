@@ -23,6 +23,12 @@ import WebportalAuth from "./components/webportal/auth";
 import WebportalSports from "./components/webportalSports";
 import beacon from "./components/beacon";
 import beaconHistory from "./components/beacon/beaconHistory";
+import AttendanceOverviewScreen from "./components/beacon/AttendanceOverviewScreen";
+import GradeListingScreen from "./components/beacon/GradeListingScreen";
+import ClassListingScreen from "./components/beacon/ClassListingScreen";
+import AttendeeListingScreen from "./components/beacon/AttendeeListingScreen";
+import AttendeeDetailScreen from "./components/beacon/AttendeeDetailScreen";
+
 
 let Tabs = createMaterialBottomTabNavigator(
   {
@@ -74,7 +80,12 @@ const MainScreenNavigator = createStackNavigator({
   WebportalAuth: { screen: WebportalAuth },
   storyForm: { screen: StoryForm },
   beacon: { screen: beacon },
+  AttendanceOverviewScreen: { screen: AttendanceOverviewScreen },
+  GradeListingScreen: { screen: GradeListingScreen },
+  ClassListingScreen: { screen: ClassListingScreen },
+  AttendeeListingScreen: { screen: AttendeeListingScreen },
   beaconHistory: { screen: beaconHistory },
+  AttendeeDetailScreen: { screen: AttendeeDetailScreen },
 
   defaultNavigationOptions: () => ({
     headerStyle: {
