@@ -21,7 +21,8 @@ export default class Setup extends Component {
 
   async componentWillMount() {
     Expo.Font.loadAsync({
-
+      'Material Icons': require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
+      Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
       //Ionicons: require('/@expo/vector-icons/fonts/Ionicons.ttf'),
       //'Material Icons': require('/@expo/vector-icons/fonts/MaterialIcons.ttf'),
       SFProTextBold: require('../fonts/SF-Pro-Text-Bold.otf'),

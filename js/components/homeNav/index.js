@@ -338,6 +338,53 @@ class HomeNav extends Component {
               </TouchableOpacity>
             )}
 
+            {isAdmin(this.props.adminPassword) && (
+              <TouchableOpacity
+                style={{ flexDirection: "row" }}
+                onPress={() => {
+                  this.props.navigation.navigate("AttendanceOverviewScreen");
+                }}
+              >
+                <View>
+                  <View
+                    style={{
+                      height: 60,
+                      backgroundColor: "white",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Image
+                      style={{
+                        width: 36,
+                        height: 36,
+                        margin: 12,
+                        borderRadius: 18,
+                        borderWidth: StyleSheet.hairlineWidth,
+                        borderColor: "lightgray"
+                      }}
+                      source={{
+                        uri:
+                          "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png"
+                      }}
+                    />
+                    <Text style={styles.itemTitle}>Safeguarding Overview</Text>
+                  </View>
+                  <View>
+                    <Image
+                      source={{
+                        uri:
+                          "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png"
+                      }}
+                      style={{ width, height: 200 }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                </View>
+              </TouchableOpacity>
+            )}
+
             <FlatList
               data={this.state.featureItems}
               keyExtractor={this.keyExtractor}
