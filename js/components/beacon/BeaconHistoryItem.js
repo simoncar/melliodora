@@ -29,14 +29,20 @@ export default class BeaconHistoryItem extends Component {
     };
     return (
       <>
-        <View style={style.sectionHead}>
-          <Text style={style.location}>{campus ? campus : "-----"}</Text>
-        </View>
+
+        {start && (
+          <View style={style.sectionHead}>
+            <Text style={style.location}>{campus ? campus : "-----"}</Text>
+          </View>)
+        }
         <View style={style.container}>
-          <Text adjustsFontSizeToFit style={style.time}>
-            {timestamp}
-            {/* {moment(timestamp).format("LLL")} */}
-          </Text>
+          <View style={style.timeContainer}>
+            <Text adjustsFontSizeToFit style={style.time}>
+              {timestamp}
+              {/* {moment(timestamp).format("LLL")} */}
+            </Text>
+          </View>
+
           <View style={style.iconPlaceHolder}>
             <View style={line()} />
             <View
@@ -69,25 +75,26 @@ const style = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "stretch",
-    padding: 3,
-    paddingRight: 100
+    paddingLeft: 160,
+
   },
   location: {
     color: "#48484a",
     flex: 1,
-    textAlign: "center",
     alignSelf: "stretch"
   },
+  timeContainer: {
+    flex: 2,
+    justifyContent: "center"
+  },
   time: {
-    flex: 0.3,
-    padding: 10,
+    // padding  : 10,
     textAlign: "right",
-    alignSelf: "stretch",
     fontWeight: "bold"
   },
   iconPlaceHolder: {
     flexDirection: "column",
-    flex: 0.15,
+    flex: 1,
     height: 70
   },
   iconPlacement: {
@@ -129,10 +136,9 @@ const style = StyleSheet.create({
     left: "45%"
   },
   details: {
-    padding: 5,
     alignSelf: "center",
     justifyContent: "center",
-    flex: 0.5
+    flex: 3
   },
   detailsText: {
     fontWeight: "bold"
