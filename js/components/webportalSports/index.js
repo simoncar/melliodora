@@ -16,7 +16,7 @@ const tabBarIcon = name => ({ tintColor }) => (
   <MaterialCommunityIcons
     style={{ backgroundColor: "transparent" }}
     name={name}
-    color={"#000"}
+    color={tintColor}
     size={24}
   />
 );
@@ -51,7 +51,6 @@ class WebportalSports extends Component {
 
   static navigationOptions = {
     title: "Athletics",
-    tabBarColor: "#FFF",
     tabBarIcon: tabBarIcon("soccer")
   };
 
