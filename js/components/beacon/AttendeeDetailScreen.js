@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, ScrollView } from 'react-native'
-import { ListItem, SearchBar, Avatar, Divider } from 'react-native-elements';
+import { ListItem, SearchBar, Avatar, Divider, Button } from 'react-native-elements';
 import BeaconHistoryItem from "./BeaconHistoryItem";
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+// import Icon from 'react-native-vector-icons/FontAwesome';
+import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
 
 export default class AttendeeDetailScreen extends Component {
   constructor(props) {
@@ -54,12 +57,32 @@ export default class AttendeeDetailScreen extends Component {
           </View>
         </View>
 
-        <Divider style={{ backgroundColor: 'white', height: 10 }} />
+  
+        <View style={{ paddingVertical: 5, paddingHorizontal: 15 }}>
+          <Button
+            title="Today 28 June 2019"
+            raised
+            icon={
+              <View style={{paddingRight: 10}}>
+                <FontAwesome
+                  name="calendar"
+                  size={15}
+                  color='#48484A'
+                />
+              </View>
+
+            }
+      
+            buttonStyle={{ backgroundColor: '#d3d3d3', padding: 2 }}
+            titleStyle={{ color: '#48484A', fontSize:14 }}
+
+          />
+        </View>
+
 
         {
           this.state.userHistory.map(this._renderListItem)
         }
-
 
       </ScrollView>
     )
