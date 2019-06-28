@@ -255,7 +255,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   //const ref = change.after.ref.parent; // reference to the parent
   const now = Date.now();
   const cutoff = now - 100000; //CUT_OFF_TIME;
-  const updates = {};
+  const updates = [];
   //const beacon = admin.database().ref("instance/0001-sais_edu_sg/beacon/")
   var child;
 
@@ -277,10 +277,12 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
       console.log("data to delete 3", doc.id, "=>", doc.data());
       child = doc.data();
 
+      console.log("state=", child.state);
+
       if (i < 100) {
         if (child.state == "Perimeter") {
           i++;
-          updates[doc.id] = {
+          updates[i] = {
             beaconName: child.name,
             beaconCampus: child.campus,
             beaconType: child.type,
@@ -290,6 +292,16 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
             mac: doc.id,
             rssi: child.rssi
           };
+
+          console.log("updates i ", updates[i]);
+
+          admin
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("beacon")
+            .collection("beacons")
+            .doc(doc.id)
+            .update(updates[i]);
 
           // const beaconName = childbeaconName;
           // const newPing = admin
@@ -315,18 +327,34 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
 
         if (child.state == "Gateway - Active") {
           i++;
-          updates[child.key] = {
+          updates[i] = {
             lastSeen: Date.now(),
             timestamp: null,
             state: "Gateway - Offline"
           };
+
+          admin
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("beacon")
+            .collection("beacons")
+            .doc(doc.id)
+            .update(updates[i]);
         }
+
+        console.log("updates = ", updates);
+        console.log("i = ", i);
+
+        // admin
+        //   .firestore()
+        //   .collection("sais_edu_sg")
+        //   .doc("beacon")
+        //   .collection("beacons")
+        //   .doc(doc.id)
+        //   .update(updates);
       } //i
     });
 
-    console.log("updates = ", updates);
-    console.log("i = ", i);
-    doc.update(updates);
     //oldItemsQuery.update(updates)
   });
   res.status(200).send(response);
@@ -457,22 +485,44 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
         var ibeaconTxPower =
           snapshot.ibeaconTxPower === undefined ? 0 : snapshot.ibeaconTxPower;
         var battery = snapshot.battery === undefined ? 0 : snapshot.battery;
+        var raw = snapshot.rawData === undefined ? "0" : snapshot.rawData;
 
-        var dataDict = {
-          campus: personCampus,
-          timestamp: Date.now(),
-          state: personState,
-          type: snapshot.type,
-          ibeaconUuid: ibeaconUuid,
-          ibeaconMajor: ibeaconMajor,
-          ibeaconMinor: ibeaconMinor,
-          rssi: rssi,
-          ibeaconTxPower: ibeaconTxPower,
-          battery: battery
-        };
+        console.log("a=", raw.length, snapshot.mac);
+        // console.log("b=", snapshot.rawData.length, snapshot.mac);
+
+        if (raw.length < 10) {
+          var dataDict = {
+            campus: personCampus,
+            timestamp: Date.now(),
+            state: personState,
+            type: snapshot.type,
+            ibeaconUuid: ibeaconUuid,
+            ibeaconMajor: ibeaconMajor,
+            ibeaconMinor: ibeaconMinor,
+            rssi: rssi,
+            ibeaconTxPower: ibeaconTxPower,
+            battery: battery,
+            mac: snapshot.mac
+          };
+        } else {
+          var dataDict = {
+            campus: personCampus,
+            timestamp: Date.now(),
+            state: personState,
+            type: snapshot.type,
+            ibeaconUuid: ibeaconUuid,
+            ibeaconMajor: ibeaconMajor,
+            ibeaconMinor: ibeaconMinor,
+            rssi: rssi,
+            ibeaconTxPower: ibeaconTxPower,
+            battery: battery,
+            raw: raw,
+            mac: snapshot.mac
+          };
+        }
 
         if (newBeacon == true) {
-          admin
+          await admin
             .firestore()
             .collection("sais_edu_sg")
             .doc("beacon")
@@ -480,7 +530,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             .doc(snapshot.mac)
             .set(dataDict);
         } else {
-          admin
+          await admin
             .firestore()
             .collection("sais_edu_sg")
             .doc("beacon")

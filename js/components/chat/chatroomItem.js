@@ -3,7 +3,8 @@ import { View, TouchableOpacity, Dimensions } from "react-native";
 
 import { Text, Button } from "native-base";
 import styles from "./styles";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Entypo, Octicons } from "@expo/vector-icons";
+import { Grid, Col, Row } from "react-native-easy-grid";
 
 class ChatroomItem extends Component {
   constructor(props) {
@@ -12,41 +13,55 @@ class ChatroomItem extends Component {
 
   render() {
     return (
-      <View style={styles.chatRow}>
-        <TouchableOpacity
-          style={{ flexDirection: "row" }}
-          onPress={() => {
-            this.props.navigation.navigate("chat", {
-              chatroom: this.props.title,
-              description: this.props.description,
-              contact: this.props.contact,
-              url: this.props.url
-            });
-          }}
-        >
-          <Button
-            transparent
-            style={styles.roundedButton}
-            onPress={() => {
-              this.props.navigation.navigate("chat", {
-                chatroom: this.props.title,
-                description: this.props.description,
-                contact: this.props.contact,
-                url: this.props.url,
-                language: this.props.language,
-              });
+      <TouchableOpacity
+        style={{ flexDirection: "row" }}
+        onPress={() => {
+          this.props.navigation.navigate("chat", {
+            chatroom: this.props.title,
+            description: this.props.description,
+            contact: this.props.contact,
+            url: this.props.url
+          });
+        }}
+      >
+        <Grid>
+          <Col>
+            <View style={{ flexDirection: "row" }}>
+              <Button
+                transparent
+                style={styles.roundedButton}
+                onPress={() => {
+                  this.props.navigation.navigate("chat", {
+                    chatroom: this.props.title,
+                    description: this.props.description,
+                    contact: this.props.contact,
+                    url: this.props.url,
+                    language: this.props.language
+                  });
+                }}
+              >
+                <Ionicons style={styles.icon} name="ios-chatbubbles" />
+              </Button>
+
+              <View>
+                <Text style={styles.chatTitle}>{this.props.title}</Text>
+                <Text style={styles.chatTitle}>{this.props.latestUser}</Text>
+                <Text style={styles.chatTitle}>{this.props.latestText}</Text>
+              </View>
+            </View>
+          </Col>
+          <Col
+            style={{
+              width: 65
             }}
           >
-            <Ionicons style={styles.icon} name="ios-chatbubbles" />
-          </Button>
-
-          <View>
-            <Text style={styles.chatTitle}>{this.props.title}</Text>
-            <Text style={styles.chatTitle}>{this.props.latestUser}</Text>
-            <Text style={styles.chatTitle}>{this.props.latestText}</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+            <View style={{ flexDirection: "row" }}>
+              <Octicons style={styles.iconRight} name="mute" />
+              <Entypo style={styles.iconRight} name="chevron-right" />
+            </View>
+          </Col>
+        </Grid>
+      </TouchableOpacity>
     );
   }
 }

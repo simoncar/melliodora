@@ -39,7 +39,11 @@ let Tabs = createMaterialBottomTabNavigator(
     webportalSports: { screen: WebportalSports }
   },
   {
-    shifting: true
+    shifting: false,
+    labeled: true,
+    activeColor: "#1278F1",
+    inactiveColor: "#5D6870",
+    barStyle: { backgroundColor: "#F7F7F7" }
   }
 );
 
@@ -90,13 +94,6 @@ const MainScreenNavigator = createStackNavigator({
     headerTintColor: "#fff",
     headerTitleStyle: {
       fontWeight: "bold"
-    }
-  }),
-
-  navigationOptions: () => ({
-    title: "Title",
-    headerStyle: {
-      backgroundColor: "green"
     }
   })
 });

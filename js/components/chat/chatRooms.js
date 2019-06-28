@@ -54,7 +54,6 @@ class chatRooms extends Component {
 
   static navigationOptions = {
     title: "Chat",
-    tabBarColor: "green",
     tabBarIcon: tabBarIcon("bubble")
   };
 

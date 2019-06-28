@@ -1,5 +1,5 @@
 import * as firebase from "firebase";
-import '@firebase/firestore';
+import "@firebase/firestore";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -13,45 +13,54 @@ class Firebase {
     if (!firebase.apps.length) {
       firebase.initializeApp(ApiKeys.FirebaseConfig);
 
-    //   firebase
-    //     .firestore()
-    //     .enablePersistence()
-    //     .catch(function(err) {
-    //       if (err.code == "failed-precondition") {
-    //         // Multiple tabs open, persistence can only be enabled
-    //         // in one tab at a a time.
-    //         // ...
-    //       } else if (err.code == "unimplemented") {
-    //         // The current browser does not support all of the
-    //         // features required to enable persistence
-    //         // ...
-    //       }
-    //     });
-    //   // Subsequent queries will use persistence, if it was enabled successfully
+      //   firebase
+      //     .firestore()
+      //     .enablePersistence()
+      //     .catch(function(err) {
+      //       if (err.code == "failed-precondition") {
+      //         // Multiple tabs open, persistence can only be enabled
+      //         // in one tab at a a time.
+      //         // ...
+      //       } else if (err.code == "unimplemented") {
+      //         // The current browser does not support all of the
+      //         // features required to enable persistence
+      //         // ...
+      //       }
+      //     });
+      //   // Subsequent queries will use persistence, if it was enabled successfully
     }
 
-    firebase
-      .auth()
-      .signInAnonymously()
-      .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
+    try {
+      firebase
+        .auth()
+        .signInAnonymously()
+        .catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // ...
+        });
+    } catch (e) {
+      console.log("catch error body:", req.body);
+      console.error(e.message);
+    }
+    try {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          var isAnonymous = user.isAnonymous;
+          var uid = user.uid;
+          // ...
+        } else {
+          // User is signed out.
+          // ...
+        }
         // ...
       });
-
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        // ...
-      } else {
-        // User is signed out.
-        // ...
-      }
-      // ...
-    });
+    } catch (e) {
+      console.log("catch error body:", req.body);
+      console.error(e.message);
+    }
 
     // this.switches = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/switch');
 

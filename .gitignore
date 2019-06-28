@@ -68,3 +68,4 @@ fastlane/screenshots
 .vscode/launch.json
 functions/firebase-debug.log
 
+package-lock.json
