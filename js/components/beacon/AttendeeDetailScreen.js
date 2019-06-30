@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, ScrollView, TouchableHighlight } from 'react-native'
+import { Text, StyleSheet, View, ScrollView, TouchableHighlight, Dimensions } from 'react-native'
 import { ListItem, SearchBar, Avatar, Divider, Button } from 'react-native-elements';
 import BeaconHistoryItem from "./BeaconHistoryItem";
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
@@ -7,6 +7,14 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
 
 export default class AttendeeDetailScreen extends Component {
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+
+
+    }
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -36,11 +44,17 @@ export default class AttendeeDetailScreen extends Component {
     return (
 
       <View style={{ height: "100%" }}>
+        {/* <SearchBar
+          lightTheme
+          placeholder="Type Here..."
+          inputContainerStyle={{ backgroundColor: 'white' }}
+          containerStyle={{ backgroundColor: 'white' }}
+        /> */}
         <TouchableHighlight
           style={styles.bookmark}
           underlayColor="#ff7043"
         >
-          <FontAwesome name="star" size={28} color="gold"/>
+          <FontAwesome name="star" size={28} color="gold" />
         </TouchableHighlight>
         <ScrollView>
           <View style={styles.topContainer}>
