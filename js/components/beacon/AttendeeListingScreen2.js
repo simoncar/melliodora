@@ -1,63 +1,17 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, FlatList, StatusBar, Button, TouchableOpacity } from 'react-native'
-import { ListItem, Text, Divider, SearchBar } from 'react-native-elements';
-import { SafeAreaView } from 'react-navigation';
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
-// import { Searchbar } from 'react-native-paper';
-import { AsyncStorage } from "react-native";
+import { StyleSheet, View, FlatList, Text } from 'react-native'
+import { ListItem, Divider } from 'react-native-elements';
+import HeaderSearchBar from './HeaderSearchBar';
 
 
 export default class AttendeeListingScreen extends Component {
 
   static navigationOptions = ({ navigation }) => {
-    const forceInset = {
-      top: 'always',
-      bottom: 'never',
-      horizontal: 'always',
-    };
-    const value =  AsyncStorage.getItem("language");
-
-    if (value !== null) {
-      // We have data!!
-      console.log("lang", value);
-    }
-    console.log("nav props state", navigation.state);
     return {
       header: (
-        <View style={{
-          backgroundColor: '#fff',
-          borderBottomColor: 'gray',
-          borderBottomWidth: 0.5
-        }}>
-          <SafeAreaView forceInset={forceInset} style={{ flex: 1, flexDirection: 'row' }}>
-            <TouchableOpacity style={{ flexShrink: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 10 }}
-              onPress={() => navigation.goBack()}>
-              <Ionicons name="ios-arrow-back" size={32} color="#007aff" />
-            </TouchableOpacity>
-            <SearchBar
-              placeholder="Type Here..."
-              lightTheme
-              round
-              containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0, borderBottomWidth: 0, flex: 1 }}
-            />
-
-            {/* <Searchbar
-              placeholder="Search"
-              style={{ flex: 1, marginBottom:10 }}
-            /> */}
-
-            <TouchableOpacity
-              style={{ flexShrink: 1, alignItems: 'center', justifyContent: 'center', paddingRight: 10 }}
-            >
-              <FontAwesome name="star-o" size={28} color="#007aff" />
-            </TouchableOpacity>
-          </SafeAreaView>
-        </View>
-
-
+        <HeaderSearchBar navigation={navigation} />
       )
     }
-
   };
 
   constructor(props) {
