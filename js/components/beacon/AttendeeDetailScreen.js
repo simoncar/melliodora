@@ -44,12 +44,6 @@ export default class AttendeeDetailScreen extends Component {
     return (
 
       <View style={{ height: "100%" }}>
-        {/* <SearchBar
-          lightTheme
-          placeholder="Type Here..."
-          inputContainerStyle={{ backgroundColor: 'white' }}
-          containerStyle={{ backgroundColor: 'white' }}
-        /> */}
         <TouchableHighlight
           style={styles.bookmark}
           underlayColor="#ff7043"

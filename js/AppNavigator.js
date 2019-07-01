@@ -26,7 +26,7 @@ import beaconHistory from "./components/beacon/beaconHistory";
 import AttendanceOverviewScreen from "./components/beacon/AttendanceOverviewScreen";
 import GradeListingScreen from "./components/beacon/GradeListingScreen";
 import ClassListingScreen from "./components/beacon/ClassListingScreen";
-import AttendeeListingScreen from "./components/beacon/AttendeeListingScreen";
+import AttendeeListingScreen from "./components/beacon/AttendeeListingScreen2";
 import AttendeeDetailScreen from "./components/beacon/AttendeeDetailScreen";
 
 
