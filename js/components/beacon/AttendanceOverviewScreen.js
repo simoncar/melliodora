@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Button, Text, Dimensions, TouchableOpacity } from "react-native";
-
+import { StyleSheet, View, Button, Text, Dimensions, TouchableOpacity, ScrollView } from "react-native";
+import { Divider } from 'react-native-elements';
 import { LineChart } from 'react-native-chart-kit';
 
 import AttendanceStats from './AttendanceStats';
@@ -12,15 +12,22 @@ export default class AttendanceOverviewScreen extends Component {
 
   render() {
     return (
-      <View style={{flex:1, flexDirection: 'column'}}>
+      <View style={{ minHeight: "100%" }}>
+        <ScrollView style={{ backgroundColor: "#f2f2f2" }}>
 
-        <AttendanceStats navigation={this.props.navigation}/>
 
-        <View style={{flex:1}}>
-          <Text>
-            Activity Line Chart
-         </Text>
-          <LineChart
+          <AttendanceStats navigation={this.props.navigation} />
+
+
+          <Divider style={{ backgroundColor: 'gray', margin:12 }} />
+
+          {/* </View> */}
+
+          <View style={{ flex: 1 }}>
+            {/* <Text>
+              Activity Line Chart
+         </Text> */}
+            {/*  <LineChart
             data={{
               labels: ['7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM'],
               datasets: [{
@@ -44,10 +51,10 @@ export default class AttendanceOverviewScreen extends Component {
               marginVertical: 8,
               borderRadius: 16
             }}
-          />
-        </View>
+          /> */}
+          </View>
 
-
+        </ScrollView>
       </View>
     );
   }
