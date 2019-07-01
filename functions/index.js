@@ -7,6 +7,8 @@ const { Translate } = require("@google-cloud/translate");
 
 admin.initializeApp();
 
+const moment = require("moment");
+
 const translateX = new Translate();
 //const CUT_OFF_TIME = 2 * 60 * 60 * 1000;  - 2 hours
 // List of output languages.
@@ -148,7 +150,6 @@ exports.chatBeaconPing = functions.database
     return null;
   });
 
-const moment = require("moment");
 const cors = require("cors")({
   origin: true
 });
@@ -175,7 +176,6 @@ exports.beaconPingHistory = functions.firestore
     const newCampus = newValue.campus;
 
     if (newState !== oldState) {
-      const moment = require("moment");
       const xdate = moment()
         .add(8, "hours")
         .format("YYYYMMDD");
@@ -216,7 +216,6 @@ exports.beaconPingHistoryNotOurs = functions.firestore
     const oldCampus = oldValue.campus;
 
     if (newState !== oldState) {
-      const moment = require("moment");
       const xdate = moment()
         .add(8, "hours")
         .format("YYYYMMDD");
