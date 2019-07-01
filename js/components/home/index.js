@@ -22,6 +22,7 @@ import Analytics from "../../lib/analytics";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons } from "@expo/vector-icons";
 import { formatTime, formatMonth } from "../global.js";
+const moment = require("moment");
 
 const i = 0;
 const { width } = Dimensions.get("window");
@@ -49,16 +50,17 @@ class calendar1 extends Component {
     //this.loadFromRedux();
     const time = Date.now() + 8 * 3600 * 1000;
     const todayDate = this.timeToString(time);
+    const todayDay = new moment().format("MMMM Do");
 
     if (!this.state.items[todayDate]) {
       this.state.items[todayDate] = [];
     }
 
     this.state.items[todayDate].push({
-      name: "Today",
+      name: "Today, " + todayDay,
       icon: "md-radio-button-off",
       color: "yellow",
-      title: "Today"
+      title: "Today, " + todayDay
     });
 
     // analytics  -----
