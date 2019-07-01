@@ -1,16 +1,36 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
+import { Button } from 'react-native-elements';
+import { FontAwesome } from "@expo/vector-icons";
 
 export default class AttendanceStats extends Component {
 
-  routeBtn = (title, amt) =>{
-    if (amt > 300){
-      this.props.navigation.navigate("GradeListingScreen", {title});
+  routeBtn = (title, amt) => {
+    if (amt > 300) {
+      this.props.navigation.navigate("GradeListingScreen", { title });
     }
   }
   render() {
     return (
       <View style={styles.container}>
+        <Text style={{ padding: 8, fontWeight: 'bold', color:'#48484a' }}>Overview</Text>
+        <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
+          <Button
+            title="Today 28 June 2019"
+            raised
+            icon={
+              <View style={{ paddingRight: 10 }}>
+                <FontAwesome
+                  name="calendar"
+                  size={15}
+                  color='#48484A'
+                />
+              </View>
+            }
+            buttonStyle={{ backgroundColor: '#d3d3d3', padding: 2 }}
+            titleStyle={{ color: '#48484A', fontSize: 14 }}
+          />
+        </View>
         <View style={styles.stats}>
           <View style={styles.statsCol}>
             <View style={[styles.widget, { backgroundColor: '#0074D9' }]}>
@@ -65,12 +85,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#d3d3d3'
+    // backgroundColor: '#d3d3d3'
   },
   stats: {
     flex: 1,
-    flexDirection: 'row',
-    maxHeight: 350
+    flexDirection: 'row'
   },
   statsCol: {
     flex: 1,
@@ -86,7 +105,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 2
+    padding: 2,
+    borderRadius: 8
   },
   widgetTextTitle: {
     fontSize: 22,
