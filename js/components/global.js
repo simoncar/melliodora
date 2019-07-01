@@ -150,8 +150,9 @@ export function isAdmin(sPass) {
   const installationId = adminDevices.indexOf(Constants.installationId) > -1;
   const deviceId = adminDevices.indexOf(Constants.deviceId) > -1;
   const adminPass = sPass === "cookies";
+  const simulator = !Constants.isDevice;
 
-  isAdminDevice = installationId || deviceId || adminPass;
+  isAdminDevice = installationId || deviceId || adminPass || simulator;
 
   return isAdminDevice;
 }
