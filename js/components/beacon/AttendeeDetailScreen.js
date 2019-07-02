@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, ScrollView, TouchableHighlight, Dimensions, TouchableOpacity, Modal } from 'react-native'
-import { ListItem, SearchBar, Avatar, Divider, Button } from 'react-native-elements';
+import { ListItem, SearchBar, Avatar, Divider, Button, Overlay } from 'react-native-elements';
 import BeaconHistoryItem from "./BeaconHistoryItem";
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
@@ -41,14 +41,14 @@ export default class AttendeeDetailScreen extends Component {
         { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
         { timestamp: 2359, campus: "SAIS", state: "Perimeter" }
       ],
-      modalVisible: false,
+      calendarModalVisible: false,
       selectedDate: ''
     };
   }
 
 
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
+  setCalendarModalVisible(visible) {
+    this.setState({ calendarModalVisible: visible });
   }
 
   _renderListItem = (item, index) => {
@@ -64,14 +64,28 @@ export default class AttendeeDetailScreen extends Component {
 
       <SafeAreaView forceInset={forceInset} style={{ height: "100%", backgroundColor: '#d3d3d3' }}>
 
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          style={styles.modalContent}
+        <Overlay
+          isVisible={this.state.calendarModalVisible}
+          onBackdropPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
+          windowBackgroundColor="rgba(0, 0, 0, .8)"
+          width="auto"
+          height="auto"
         >
-          <SafeAreaView style={{ paddingHorizontal: 20, paddingVertical: 70 }}>
-            <View>
+          <SafeAreaView >
+
+            <TouchableOpacity
+              onPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                zIndex: 10
+              }}
+            >
+              <Ionicons name="md-close" size={28} color='gray' />
+            </TouchableOpacity>
+            <View style={{ paddingHorizontal: 20, paddingTop: 40, paddingBottom: 10 }}  >
+
 
               <Text style={{ marginBottom: 15, fontWeight: 'bold' }}>
                 Select Date
@@ -86,12 +100,12 @@ export default class AttendeeDetailScreen extends Component {
 
               <Button
                 title="Submit"
-                onPress={() => { this.setModalVisible(!this.state.modalVisible) }}
+                onPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
                 containerStyle={{ marginTop: 15 }} />
 
             </View>
           </SafeAreaView>
-        </Modal>
+        </Overlay>
 
 
         <TouchableOpacity
@@ -148,17 +162,11 @@ export default class AttendeeDetailScreen extends Component {
               }
               buttonStyle={{ backgroundColor: '#d3d3d3', padding: 2 }}
               titleStyle={{ color: '#48484A', fontSize: 14 }}
+              onPress={() => {
+                this.setCalendarModalVisible(true);
+              }}
             />
           </View>
-
-          <TouchableHighlight
-            onPress={() => {
-              this.setModalVisible(true);
-            }}>
-            <Text>Show Modal</Text>
-          </TouchableHighlight>
-
-
 
           <View>
             {
