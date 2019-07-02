@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, ScrollView, TouchableHighlight, Dimensions } from 'react-native'
+import { Text, StyleSheet, View, ScrollView, TouchableHighlight, Dimensions, TouchableOpacity, Modal } from 'react-native'
 import { ListItem, SearchBar, Avatar, Divider, Button } from 'react-native-elements';
 import BeaconHistoryItem from "./BeaconHistoryItem";
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+
 // import Icon from 'react-native-vector-icons/FontAwesome';
-import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
+import {
+  AntDesign, MaterialIcons, Feather, FontAwesome,
+  Ionicons
+} from "@expo/vector-icons";
+import { SafeAreaView } from 'react-navigation';
 
 export default class AttendeeDetailScreen extends Component {
 
@@ -28,9 +33,22 @@ export default class AttendeeDetailScreen extends Component {
         { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
         { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
         { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
         { timestamp: 2359, campus: "SAIS", state: "Perimeter" }
-      ]
+      ],
+      modalVisible: false,
+      selectedDate: ''
     };
+  }
+
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
   }
 
   _renderListItem = (item, index) => {
@@ -41,16 +59,56 @@ export default class AttendeeDetailScreen extends Component {
   };
 
   render() {
+    const { navigation } = this.props;
     return (
 
-      <View style={{ height: "100%" }}>
+      <SafeAreaView forceInset={forceInset} style={{ height: "100%", backgroundColor: '#d3d3d3' }}>
+
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          style={styles.modalContent}
+        >
+          <SafeAreaView style={{ paddingHorizontal: 20, paddingVertical: 70 }}>
+            <View>
+
+              <Text style={{ marginBottom: 15, fontWeight: 'bold' }}>
+                Select Date
+              </Text>
+
+              <Calendar
+                onDayPress={(day) => { this.setState({ selectedDate: day }) }}
+                markedDates={{ [this.state.selectedDate.dateString]: { selected: true, disableTouchEvent: true } }}
+              />
+
+
+
+              <Button
+                title="Submit"
+                onPress={() => { this.setModalVisible(!this.state.modalVisible) }}
+                containerStyle={{ marginTop: 15 }} />
+
+            </View>
+          </SafeAreaView>
+        </Modal>
+
+
+        <TouchableOpacity
+          style={styles.exitBtn}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="md-close" size={28} color='white' />
+        </TouchableOpacity>
+
+
         <TouchableHighlight
           style={styles.bookmark}
           underlayColor="#ff7043"
         >
           <FontAwesome name="star" size={28} color="gold" />
         </TouchableHighlight>
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: '#fff' }}>
           <View style={styles.topContainer}>
             <View style={styles.avatarContainer}>
               <Avatar
@@ -92,6 +150,16 @@ export default class AttendeeDetailScreen extends Component {
               titleStyle={{ color: '#48484A', fontSize: 14 }}
             />
           </View>
+
+          <TouchableHighlight
+            onPress={() => {
+              this.setModalVisible(true);
+            }}>
+            <Text>Show Modal</Text>
+          </TouchableHighlight>
+
+
+
           <View>
             {
               this.state.userHistory.map(this._renderListItem)
@@ -102,10 +170,18 @@ export default class AttendeeDetailScreen extends Component {
 
         </ScrollView>
 
-      </View>
+      </SafeAreaView>
+
     )
   }
 }
+
+const forceInset = {
+  top: 'always',
+  bottom: 'never',
+  horizontal: 'always',
+};
+
 
 const styles = StyleSheet.create({
   topContainer: {
@@ -154,5 +230,30 @@ const styles = StyleSheet.create({
       width: 0
     },
     zIndex: 1
+  },
+  exitBtn: {
+    backgroundColor: "#2c2c2e",
+    opacity: 0.5,
+    height: 40,
+    width: 40,
+    borderRadius: 50 / 2,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    top: 45,
+    left: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    },
+    zIndex: 1
+  },
+  modalContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 0
   }
 })

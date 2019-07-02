@@ -85,7 +85,6 @@ const MainScreenNavigator = createStackNavigator({
   ClassListingScreen: { screen: ClassListingScreen },
   AttendeeListingScreen: { screen: AttendeeListingScreen },
   beaconHistory: { screen: beaconHistory },
-  AttendeeDetailScreen: { screen: AttendeeDetailScreen },
 
   defaultNavigationOptions: () => ({
     headerStyle: {
@@ -98,4 +97,18 @@ const MainScreenNavigator = createStackNavigator({
   })
 });
 
-export default createAppContainer(MainScreenNavigator);
+const RootStack = createStackNavigator(
+  {
+    Main: {
+      screen: MainScreenNavigator,
+    },
+    AttendeeDetailScreen: { screen: AttendeeDetailScreen }
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  }
+);
+
+
+export default createAppContainer(RootStack);
