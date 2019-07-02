@@ -162,8 +162,8 @@ exports.beaconPingHistory = functions.firestore
 
     const beacon = context.params.beaconID;
 
-    console.log("aaa:", newValue);
-    console.log("bbb:", newValue.state);
+    console.log("aaaSimon:", newValue);
+    console.log("bbbSimon:", newValue.state);
 
     var oldState = "";
     var oldCampus = "";
@@ -241,7 +241,12 @@ exports.beaconPingHistoryNotOurs = functions.firestore
     }
   });
 
-//https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
+//https://us-central1-calendar-app-57e88.cloudfunctions.net/computeCounts
+exports.computeCounts = functions.https.onRequest(async (req, res) => {
+  console.log("Total Students on Campus : ", 0);
+
+  res.status(200).send("some data");
+});
 
 exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   // const ref = admin
