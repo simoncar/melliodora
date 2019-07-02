@@ -145,7 +145,6 @@ exports.chatBeaconPing = functions.database
 
     // Grab the current value of what was written to the Realtime Database.
     const beaconName = createdData.beaconName;
-    console.log("Beacon Name - new Ping", beaconName);
 
     return null;
   });
@@ -159,12 +158,7 @@ exports.beaconPingHistory = functions.firestore
   .onWrite(async (change, context) => {
     const newValue = change.after.data();
     const oldValue = change.before.data();
-
     const beacon = context.params.beaconID;
-
-    console.log("aaaSimon:", newValue);
-    console.log("bbbSimon:", newValue.state);
-
     var oldState = "";
     var oldCampus = "";
 
@@ -267,19 +261,13 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
   res.status(200).send("count:" + count);
 });
 
+// https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
 exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
-  // const ref = admin
-  //     .database()
-  //     .ref(
-  //       `instance/0001-sais_edu_sg/beacon/`
-  //     );
   var response = "";
   var i = 0;
-  //const ref = change.after.ref.parent; // reference to the parent
   const now = Date.now();
   const cutoff = now - 100000; //CUT_OFF_TIME;
   const updates = [];
-  //const beacon = admin.database().ref("instance/0001-sais_edu_sg/beacon/")
   var child;
 
   let beacons = await admin
@@ -288,7 +276,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
     .doc("beacon")
     .collection("beacons")
     .where("timestamp", "<", cutoff)
-    .limit(1);
+    .where("state", "==", "Perimeter");
 
   let query = beacons.get().then(snapshot => {
     if (snapshot.empty) {
@@ -296,19 +284,15 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
       return;
     }
 
+    var update = [];
+
     snapshot.forEach(doc => {
-      console.log("data to delete 3", doc.id, "=>", doc.data());
       child = doc.data();
-
-      console.log("state=", child.state);
-
       if (i < 100) {
         if (child.state == "Perimeter") {
           i++;
-          updates[i] = {
-            beaconName: child.name,
+          var update = {
             beaconCampus: child.campus,
-            beaconType: child.type,
             lastSeen: Date.now(),
             timestamp: null,
             state: "Off Campus",
@@ -316,36 +300,13 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
             rssi: child.rssi
           };
 
-          console.log("updates i ", updates[i]);
-
           admin
             .firestore()
             .collection("sais_edu_sg")
             .doc("beacon")
             .collection("beacons")
             .doc(doc.id)
-            .update(updates[i]);
-
-          // const beaconName = childbeaconName;
-          // const newPing = admin
-          //   .database()
-          //   .ref(
-          //     `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
-          //       beaconName +
-          //       "/messages"
-          //   );
-
-          // newPing.push({
-          //   //mute: false,
-          //   chatroom: beaconName,
-          //   text: "Ping - " + childbeaconCampus,
-          //   createdAt: Date.now(),
-          //   date: Date.now(),
-          //   system: true,
-          //   user: {
-          //     name: childbeaconCampus
-          //   }
-          // });
+            .update(update);
         }
 
         if (child.state == "Gateway - Active") {
@@ -364,29 +325,14 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
             .doc(doc.id)
             .update(updates[i]);
         }
-
-        console.log("updates = ", updates);
-        console.log("i = ", i);
-
-        // admin
-        //   .firestore()
-        //   .collection("sais_edu_sg")
-        //   .doc("beacon")
-        //   .collection("beacons")
-        //   .doc(doc.id)
-        //   .update(updates);
       } //i
     });
-
-    //oldItemsQuery.update(updates)
   });
   res.status(200).send(response);
-  // return oldItemsQuery.update(updates);
 });
 
 exports.registerBeacon = functions.https.onRequest((req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
-  // https://script.google.com/macros/s/AKfycbwhrlEfQhiSgcsF6AM_AlaMWxU7SsEtJ-yQpvthyQTT1jui588E/exec
 
   if (req.method === "PUT") {
     return res.status(403).send("Forbidden!");
@@ -419,57 +365,62 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     try {
       beacons.forEach(async function(snapshot) {
         if ((snapshot.type = "Gateway" && personCampus == "")) {
+          personName = "GATEWAY";
+          personPictureURL =
+            "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+
           switch (snapshot.mac) {
             case "AC233FC03164":
               personCampus = "Woodleigh - Gate 1";
-              personName = "GATEWAY";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
               personState = "Perimeter";
               break;
             case "AC233FC031B8":
               personCampus = "Woodleigh - Gate 2";
-              personName = "GATEWAY";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-              personState = "On Campus";
+              personState = "Perimeter";
               break;
             case "AC233FC039DB":
-              personName = "GATEWAY";
               personCampus = "Smartcookies Office HQ";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
               personState = "Perimeter";
               break;
             case "AC233FC039C9":
-              personName = "GATEWAY";
               personCampus = "Smartcookies Cove";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
               personState = "Perimeter";
               break;
             case "AC233FC039B2":
-              personName = "GATEWAY";
               personCampus = "ELV Gate 1";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
               personState = "Perimeter";
-
               break;
             case "AC233FC039BE":
-              personName = "GATEWAY";
               personCampus = "Woodleigh Parent Helpdesk";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+              personState = "On Campus";
+              break;
+            case "AC233FC039A7":
+              personCampus = "Woodleigh TBA 1";
+              personState = "On Campus";
+              break;
+            case "AC233FC03A44":
+              personCampus = "Woodleigh TBA 2";
+              personState = "On Campus";
+              break;
+            case "AC233FC039B1":
+              personCampus = "Woodleigh TBA 3";
+              personState = "On Campus";
+              break;
+            case "AC233FC039CA":
+              personCampus = "Woodleigh TBA 4";
               personState = "On Campus";
               break;
             case "AC233FC039BB":
-              personName = "GATEWAY";
-              personCampus = "Woodleigh Stairwell";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+              personCampus = "Woodleigh TBA 5";
               personState = "On Campus";
               break;
+            case "AC233FC039B8":
+              personCampus = "Woodleigh TBA 6";
+              personState = "On Campus";
+              break;
+            default:
+              personName = "";
+              personPictureURL = "";
           }
         }
 
@@ -510,7 +461,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
         var battery = snapshot.battery === undefined ? 0 : snapshot.battery;
         var raw = snapshot.rawData === undefined ? "0" : snapshot.rawData;
 
-        console.log("a=", raw.length, snapshot.mac);
+        //console.log("a=", raw.length, snapshot.mac);
         // console.log("b=", snapshot.rawData.length, snapshot.mac);
 
         if (raw.length < 10) {
