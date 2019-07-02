@@ -243,9 +243,28 @@ exports.beaconPingHistoryNotOurs = functions.firestore
 
 //https://us-central1-calendar-app-57e88.cloudfunctions.net/computeCounts
 exports.computeCounts = functions.https.onRequest(async (req, res) => {
-  console.log("Total Students on Campus : ", 0);
+  var count = 0;
 
-  res.status(200).send("some data");
+  let beacons = await admin
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("beacon")
+    .collection("beacons");
+  // .where("timestamp", "<", cutoff)
+  // .limit(1);
+
+  let query = beacons.get().then(snapshot => {
+    if (snapshot.empty) {
+      count = 0;
+      return;
+    } else {
+      count = snapshot.count;
+    }
+  });
+
+  console.log("Total Students on Campus : ", count);
+
+  res.status(200).send("count:" + count);
 });
 
 exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
