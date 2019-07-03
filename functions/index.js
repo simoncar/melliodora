@@ -268,23 +268,24 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   const now = Date.now();
   const cutoff = now - 100000; //CUT_OFF_TIME;
   const updates = [];
+  var update = [];
   var child;
 
+  //part 1 - perimeter beacons that have not been heard of
   let beacons = await admin
     .firestore()
     .collection("sais_edu_sg")
     .doc("beacon")
     .collection("beacons")
     .where("timestamp", "<", cutoff)
-    .where("state", "==", "Perimeter");
+    .where("state", "==", "Perimeter")
+    .limit(100);
 
   let query = beacons.get().then(snapshot => {
     if (snapshot.empty) {
-      console.log("No matching documents.");
+      console.log("No matching Perimeter beacons to expire.");
       return;
     }
-
-    var update = [];
 
     snapshot.forEach(doc => {
       child = doc.data();
@@ -328,6 +329,54 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
       } //i
     });
   });
+
+  //part 2 - on campus 'lost beacons' expire overnight
+
+  // const cutoff = now - 100000; //CUT_OFF_TIME;
+  const cutoffOvernight = now - 1000000; //CUT_OFF_TIME;
+  beacons = await admin
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("beacon")
+    .collection("beacons")
+    .where("timestamp", "<", cutoffOvernight)
+    .where("state", "==", "On Campus")
+    .limit(100);
+
+  let query2 = beacons.get().then(snapshot => {
+    if (snapshot.empty) {
+      console.log("No matching On Campus beacons to expire.");
+      return;
+    }
+
+    snapshot.forEach(doc => {
+      child = doc.data();
+      if (i < 100) {
+        if (child.state == "On Campus") {
+          i++;
+          update = {
+            beaconCampus: child.campus,
+            lastSeen: Date.now(),
+            timestamp: null,
+            state: "Off Campus",
+            mac: doc.id,
+            rssi: child.rssi
+          };
+
+          console.log("Expire lost on campus.", doc.id, update);
+
+          admin
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("beacon")
+            .collection("beacons")
+            .doc(doc.id)
+            .update(update);
+        }
+      }
+    });
+  });
+
   res.status(200).send(response);
 });
 
