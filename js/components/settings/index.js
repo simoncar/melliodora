@@ -119,7 +119,8 @@ class Settings extends Component {
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
-                  url: "https://www.CCA.com/",
+                  url:
+                    "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fco-curricular-activities-cca-1%2fcca-brochure-semester-1&kr=iSAMS:ParentPP",
                   title: "CCA's"
                 })
               }
@@ -137,7 +138,7 @@ class Settings extends Component {
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
-                  url: "https://www.campasia.com/",
+                  url: "https://www.campasia.asia",
                   title: "Camp Asia"
                 })
               }
@@ -300,6 +301,68 @@ class Settings extends Component {
               hasNavArrow={true}
               title="Admin Access"
               onPress={() => this.props.navigation.navigate("adminPassword")}
+            />
+
+            <SettingsList.Header headerStyle={{ marginTop: 15 }} />
+
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/airplane.png")}
+                />
+              }
+              hasSwitch={true}
+              switchState={this.state.switchValue}
+              switchOnValueChange={this.onValueChange}
+              title="ELV"
+              hasNavArrow={false}
+              onPress={() => Alert.alert("NA")}
+            />
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/airplane.png")}
+                />
+              }
+              hasSwitch={true}
+              switchState={this.state.switchValue}
+              switchOnValueChange={this.onValueChange}
+              title="Elementary"
+              titleInfo="KG2 - Grade 5"
+              hasNavArrow={false}
+              onPress={() => Alert.alert("NA")}
+            />
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/airplane.png")}
+                />
+              }
+              hasSwitch={true}
+              switchState={this.state.switchValue}
+              switchOnValueChange={this.onValueChange}
+              title="Middle School"
+              titleInfo="Grade 6 - 8"
+              hasNavArrow={false}
+              onPress={() => Alert.alert("NA")}
+            />
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/airplane.png")}
+                />
+              }
+              hasSwitch={true}
+              switchState={this.state.switchValue}
+              switchOnValueChange={this.onValueChange}
+              title="High School"
+              titleInfo="Grade 9 - 12"
+              hasNavArrow={false}
+              onPress={() => Alert.alert("NA")}
             />
           </SettingsList>
         </View>

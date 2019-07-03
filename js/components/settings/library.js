@@ -34,11 +34,32 @@ class Library extends Component {
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
-                  url: "https://www.library.org/",
+                  url:
+                    "https://sais.follettdestiny.com/common/welcome.jsp?context=saas18_8400395",
                   title: "Library"
                 })
               }
             />
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/wifi.png")}
+                />
+              }
+              title="myStamford Library"
+              titleInfo=""
+              titleInfoStyle={styles.titleInfoStyle}
+              onPress={() =>
+                this.props.navigation.navigate("webportalURL", {
+                  url:
+                    "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2flibrary&kr=iSAMS:ParentPP",
+                  title: "Library"
+                })
+              }
+            />
+
+            <SettingsList.Header headerStyle={{ marginTop: 15 }} />
 
             <SettingsList.Item
               icon={
@@ -47,13 +68,13 @@ class Library extends Component {
                   source={require("./images/hotspot.png")}
                 />
               }
-              title="World News"
+              title="Pebble Go"
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
-                  url: "https://www.library.org/",
-                  title: "Library"
+                  url: "https://www.pebblego.com/choose",
+                  title: "Pebble Go"
                 })
               }
             />
@@ -65,13 +86,52 @@ class Library extends Component {
                   source={require("./images/display.png")}
                 />
               }
-              title="Search Global Publications"
+              title="Tuble Books"
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
-                  url: "https://www.library.org/",
-                  title: "Library"
+                  url:
+                    "http://www.tumblebooks.com/library/auto_login.asp?U=saiss&P=books",
+                  title: "Tubble Books"
+                })
+              }
+            />
+
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/display.png")}
+                />
+              }
+              title="1000 eBooks"
+              titleInfo=""
+              titleInfoStyle={styles.titleInfoStyle}
+              onPress={() =>
+                this.props.navigation.navigate("webportalURL", {
+                  url:
+                    "https://sais.follettdestiny.com/cataloging/servlet/presentbooklistform.do?listID=10728306&context=saas18_8400395&site=100",
+                  title: "1000 eBooks"
+                })
+              }
+            />
+
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/display.png")}
+                />
+              }
+              title="Gale Reference LIbrary"
+              titleInfo=""
+              titleInfoStyle={styles.titleInfoStyle}
+              onPress={() =>
+                this.props.navigation.navigate("webportalURL", {
+                  url:
+                    "http://galeapps.galegroup.com/apps/auth/sgsais?cause=http%3A%2F%2Ffind.galegroup.com%2Fmenu%2Fstart%3FuserGroupName%3Dsgsais%26prod%3DGVRL%26finalAuth%3Dtrue",
+                  title: "password = book"
                 })
               }
             />
