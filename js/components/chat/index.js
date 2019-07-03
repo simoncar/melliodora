@@ -75,6 +75,7 @@ class chat extends Component {
   // </TouchableOpacity>
 
   static navigationOptions = ({ navigation }) => ({
+    headerBackTitle: null,
     headerLeft: (
       <TouchableOpacity
         onPress={() => {

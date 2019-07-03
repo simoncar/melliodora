@@ -74,16 +74,19 @@ class HomeNav extends Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    title: "Home",
+    title: "Stamford",
+    headerTitleStyle: {
+      fontWeight: "bold",
+      fontSize: 28
+    },
     tabBarColor: "#111B4E",
     tabBarIcon: tabBarIcon("home"),
+    headerBackTitle: null,
     headerRight: (
       <BorderlessButton
         onPress={() => navigation.navigate("Search")}
         style={{ marginRight: 15 }}
-      >
-        <Ionicons name="md-search" />
-      </BorderlessButton>
+      />
     )
   });
 
@@ -290,100 +293,6 @@ class HomeNav extends Component {
 
             <Text style={styles.version}>School Starts in...</Text>
             <CountDown until={this.getSeconds()} size={20} />
-
-            {isAdmin(this.props.adminPassword) && (
-              <TouchableOpacity
-                style={{ flexDirection: "row" }}
-                onPress={() => {
-                  this.props.navigation.navigate("beacon");
-                }}
-              >
-                <View>
-                  <View
-                    style={{
-                      height: 60,
-                      backgroundColor: "white",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center"
-                    }}
-                  >
-                    <Image
-                      style={{
-                        width: 36,
-                        height: 36,
-                        margin: 12,
-                        borderRadius: 18,
-                        borderWidth: StyleSheet.hairlineWidth,
-                        borderColor: "lightgray"
-                      }}
-                      source={{
-                        uri:
-                          "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png"
-                      }}
-                    />
-                    <Text style={styles.itemTitle}>Safeguarding</Text>
-                  </View>
-                  <View>
-                    <Image
-                      source={{
-                        uri:
-                          "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png"
-                      }}
-                      style={{ width, height: 200 }}
-                      resizeMode="contain"
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity>
-            )}
-
-            {isAdmin(this.props.adminPassword) && (
-              <TouchableOpacity
-                style={{ flexDirection: "row" }}
-                onPress={() => {
-                  this.props.navigation.navigate("AttendanceOverviewScreen");
-                }}
-              >
-                <View>
-                  <View
-                    style={{
-                      height: 60,
-                      backgroundColor: "white",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center"
-                    }}
-                  >
-                    <Image
-                      style={{
-                        width: 36,
-                        height: 36,
-                        margin: 12,
-                        borderRadius: 18,
-                        borderWidth: StyleSheet.hairlineWidth,
-                        borderColor: "lightgray"
-                      }}
-                      source={{
-                        uri:
-                          "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png"
-                      }}
-                    />
-                    <Text style={styles.itemTitle}>Safeguarding Overview</Text>
-                  </View>
-                  <View>
-                    <Image
-                      source={{
-                        uri:
-                          "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png"
-                      }}
-                      style={{ width, height: 200 }}
-                      resizeMode="contain"
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity>
-            )}
 
             <FlatList
               data={this.state.featureItems}
