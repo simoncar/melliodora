@@ -467,6 +467,18 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               personCampus = "Woodleigh TBA 6";
               personState = "On Campus";
               break;
+            case "AC233FC03E1F":
+              personCampus = "Woodleigh - Gate 1 II";
+              personState = "On Campus";
+              break;
+            case "AC233FC03E00":
+              personCampus = "Woodleigh - Gate 1 II";
+              personState = "On Campus";
+              break;
+            case "AC233FC03E46":
+              personCampus = "Woodleigh Parent Helpdesk II";
+              personState = "On Campus";
+              break;
             default:
               personName = "";
               personPictureURL = "";
