@@ -54,7 +54,8 @@ class chatRooms extends Component {
 
   static navigationOptions = {
     title: "Chat",
-    tabBarIcon: tabBarIcon("bubble")
+    tabBarIcon: tabBarIcon("bubble"),
+    headerBackTitle: null
   };
 
   componentDidMount() {

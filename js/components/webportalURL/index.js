@@ -6,11 +6,10 @@ import { Container } from "native-base";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Analytics from "../../lib/analytics";
 import Constants from "expo-constants";
-import HeaderContent from "./../headerContent/header";
+import HeaderContent from "../headerContent/header";
 import styles from "./styles";
 
 var WEBVIEW_REF = "webview";
-var DEFAULT_URL = "http://www.stamfordlionsathletics.com/";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialCommunityIcons
@@ -22,6 +21,11 @@ const tabBarIcon = name => ({ tintColor }) => (
 );
 
 class WebportalSports extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.getParam("title"),
+    headerBackTitle: null
+  });
+
   constructor(props) {
     super(props);
 
@@ -36,10 +40,12 @@ class WebportalSports extends Component {
     Analytics.identify(global.username, trackingOpts);
     Analytics.track(Analytics.events.PAGE_ATHLETICS, trackingOpts);
     //analytics --------
+
+    let pageTitle = this.props.navigation.getParam("title");
   }
 
   state = {
-    url: DEFAULT_URL,
+    url: this.props.navigation.getParam("url"),
     status: "No Page Loaded",
     backButtonEnabled: false,
     forwardButtonEnabled: false,
@@ -47,11 +53,6 @@ class WebportalSports extends Component {
     scalesPageToFit: true,
     cookies: {},
     webViewUrl: ""
-  };
-
-  static navigationOptions = {
-    title: "Athletics",
-    tabBarIcon: tabBarIcon("soccer")
   };
 
   onNavigationStateChange = navState => {
@@ -83,7 +84,6 @@ class WebportalSports extends Component {
   };
 
   render() {
-    var source = { uri: "http://google.com" };
     return (
       <Container>
         <HeaderContent navigation={this.props.navigation} />
@@ -94,33 +94,19 @@ class WebportalSports extends Component {
                 disabled={!this.state.canGoBack}
                 onPress={this.onBack.bind(this)}
               >
-                <Ionicons
-                  style={styles.navIconLeft}
-                  active
-                  name="ios-arrow-back"
-                />
+                <Ionicons style={styles.navIcon} name="ios-arrow-back" />
               </TouchableOpacity>
 
               <TextInput
                 ref="pageURL"
-                //placeholder= {this.state.url}
                 value={this.state.url}
-                //  onChangeText={(user) => this.props.setUsername(user)}
                 placeholderTextColor="#FFF"
-                style={styles.input}
+                style={styles.url}
                 autoCapitalize="none"
-                //  keyboardType="email-address"
                 selectionColor="#FFF"
-                enablesReturnKeyAutomatically
-                returnKeyType="return"
-                //  onSubmitEditing={() => this.refs.PasswordInput.focus() }
               />
 
-              <Ionicons
-                style={styles.navIconRight}
-                active
-                name="ios-arrow-forward"
-              />
+              <Ionicons style={styles.navIcon} name="ios-arrow-forward" />
             </View>
 
             <WebView
@@ -128,7 +114,6 @@ class WebportalSports extends Component {
               javaScriptEnabled={true}
               automaticallyAdjustContentInsets={false}
               onNavigationStateChange={this.onNavigationStateChange.bind(this)}
-              //onMessage={this._onMessage}
               domStorageEnabled={true}
               startInLoadingState={true}
               scalesPageToFit={true}
