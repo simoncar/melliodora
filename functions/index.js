@@ -537,7 +537,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             rssi: rssi,
             ibeaconTxPower: ibeaconTxPower,
             battery: battery,
-            mac: snapshot.mac
+            mac: snapshot.mac,
+            name: personName
           };
         } else {
           var dataDict = {
@@ -552,7 +553,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             ibeaconTxPower: ibeaconTxPower,
             battery: battery,
             raw: raw,
-            mac: snapshot.mac
+            mac: snapshot.mac,
+            name: personName
           };
         }
 
