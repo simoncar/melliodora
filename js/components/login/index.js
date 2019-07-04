@@ -1,36 +1,31 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import {
-  View, Dimensions, TextInput,
-} from 'react-native';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { View, Dimensions, TextInput } from "react-native";
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import { Ionicons } from '@expo/vector-icons';
-import {
-  Container, Content, Text, Item, Button, Icon,
-} from 'native-base';
+import { Ionicons } from "@expo/vector-icons";
+import { Container, Content, Text, Item, Button, Icon } from "native-base";
 
-import HeaderContent from './../headerContent/header/';
-import styles from './styles';
+import HeaderContent from "./../headerContent/header/";
+import styles from "./styles";
 
-import * as ActionCreators from '../../actions';
+import * as ActionCreators from "../../actions";
 
 //console.log('ACfromLogin=', ActionCreators);
 
-const { skipLogin } = require('../../actions');
+const { skipLogin } = require("../../actions");
 
-const deviceWidth = Dimensions.get('window').width;
+const deviceWidth = Dimensions.get("window").width;
 
 class Login extends Component {
   static propTypes = {
-
     openDrawer: PropTypes.func,
     navigation: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-  }
+      key: PropTypes.string
+    })
+  };
 
   constructor(props) {
     super(props);
@@ -38,43 +33,56 @@ class Login extends Component {
   }
 
   doLogin(user, password) {
-    this.props.navigation.navigate('webportal');
+    this.props.navigation.navigate("webportalURL", {
+      url:
+        "https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP",
+      title: "myStamford"
+    });
   }
 
   _placeHolderNickname() {
-    if (undefined !== this.props.userX.nickname && this.props.userX.nickname !== null && this.props.userX.nickname.length > 0) {
+    if (
+      undefined !== this.props.userX.nickname &&
+      this.props.userX.nickname !== null &&
+      this.props.userX.nickname.length > 0
+    ) {
       return this.props.userX.nickname;
     }
 
-    console.log('bbb', this.props.userX.nickname);
-    return 'Your Name  (First and Last)';
+    console.log("bbb", this.props.userX.nickname);
+    return "Your Name  (First and Last)";
   }
 
   _placeHolderEmail() {
-    if (undefined !== this.props.userX.name && this.props.userX.name !== null && this.props.userX.name.length > 0) {
+    if (
+      undefined !== this.props.userX.name &&
+      this.props.userX.name !== null &&
+      this.props.userX.name.length > 0
+    ) {
       return this.props.userX.name;
     }
 
-    console.log('bbb', this.props.userX.name);
-    return 'myStamford parent email';
+    console.log("bbb", this.props.userX.name);
+    return "myStamford parent email";
   }
 
   _placeHolderPassword() {
-    if (undefined !== this.props.userX.password && this.props.userX.password !== null && this.props.userX.password.length > 0) {
-      return '●●●●●●●●●●';
+    if (
+      undefined !== this.props.userX.password &&
+      this.props.userX.password !== null &&
+      this.props.userX.password.length > 0
+    ) {
+      return "●●●●●●●●●●";
     }
-    return 'myStamford password';
+    return "myStamford password";
   }
 
   render() {
     return (
-      <Container style={{ backgroundColor: '#fff' }}>
-        <HeaderContent 
-        navigation={this.props.navigation} 
-        />
+      <Container style={{ backgroundColor: "#fff" }}>
+        <HeaderContent navigation={this.props.navigation} />
 
         <Content scrollEnabled bounces={false}>
-
           <View style={styles.bg}>
             <Text style={styles.textHeader}>myStamford</Text>
             <Item rounded style={styles.inputGrp}>
@@ -127,9 +135,10 @@ class Login extends Component {
                 selectionColor="grey"
                 enablesReturnKeyAutomatically
                 returnKeyType="done"
-                onSubmitEditing={() => this.doLogin(this.username, this.password)}
+                onSubmitEditing={() =>
+                  this.doLogin(this.username, this.password)
+                }
               />
-
             </Item>
 
             <Button
@@ -138,25 +147,26 @@ class Login extends Component {
               block
               large
               style={styles.loginBtn}
-              onPress={() =>  this.props.navigation.navigate('homeNav')}
+              onPress={() => this.props.navigation.navigate("homeNav")}
             >
               <Text style={styles.button}>Save</Text>
             </Button>
-
           </View>
-
         </Content>
-
       </Container>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
-  userX: state.user,
+  userX: state.user
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

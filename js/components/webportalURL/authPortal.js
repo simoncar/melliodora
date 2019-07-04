@@ -8,20 +8,13 @@ import {
   WebView,
   View
 } from "react-native";
-import { Actions } from "react-navigation";
 
-import { Container, Icon, Spinner } from "native-base";
+import { Container, Spinner } from "native-base";
 
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import HeaderContent from "./../headerContent/header/";
 
 import { getParameterByName } from "../global.js";
 
-import { openDrawer } from "../../actions/drawer";
-import * as ActionCreators from "../../actions";
-
-import theme from "../../themes/base-theme";
 import styles from "./styles";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
@@ -45,18 +38,10 @@ const tabBarIcon = name => ({ tintColor }) => (
   />
 );
 
-class Webportal extends Component {
-  static propTypes = {
-    openDrawer: PropTypes.func,
-    navigation: PropTypes.shape({
-      key: PropTypes.string
-    })
-  };
-
+class authPortal extends Component {
   static navigationOptions = {
-    title: "myS",
-
-    tabBarIcon: tabBarIcon("web")
+    title: "myStamford",
+    headerBackTitle: null
   };
 
   constructor(props) {
@@ -65,13 +50,13 @@ class Webportal extends Component {
 
     injectScript =
       'document.getElementById("username").value="' +
-      this.props.userX.name +
+      //this.props.userX.name +
       '"';
     injectScript =
       injectScript +
       ";" +
       'document.getElementById("password").value="' +
-      this.props.userX.password +
+      //this.props.userX.password +
       '"';
     injectScript = injectScript + ";" + "document.forms[0].submit()";
     injectScript =
@@ -87,15 +72,15 @@ class Webportal extends Component {
 
     console.log("going to this URL (constructor)=" + DEFAULT_URL);
 
-    var authSecret2 = this.props.userX.authSecret;
+    //var authSecret2 = this.props.userX.authSecret;
 
     DEFAULT_URL = "https://mystamford.edu.sg/login/api/getsession?";
 
     DEFAULT_URL = DEFAULT_URL + "ffauth_device_id=";
-    DEFAULT_URL = DEFAULT_URL + this.props.userX.ffauth_device_id; // "AB305CAC-1373-4C13-AA04-79ADB8C17854"
+    //DEFAULT_URL = DEFAULT_URL + this.props.userX.ffauth_device_id; // "AB305CAC-1373-4C13-AA04-79ADB8C17854"
 
     DEFAULT_URL = DEFAULT_URL + "&ffauth_secret=";
-    DEFAULT_URL = DEFAULT_URL + this.props.userX.ffauth_secret; //"6fbfcef8d9d0524cbb90cb75285df9a1"
+    //DEFAULT_URL = DEFAULT_URL + this.props.userX.ffauth_secret; //"6fbfcef8d9d0524cbb90cb75285df9a1"
 
     DEFAULT_URL = DEFAULT_URL + "&prelogin=";
     DEFAULT_URL =
@@ -139,9 +124,6 @@ class Webportal extends Component {
   }
 
   onNavigationStateChange = navState => {
-    console.log("webview = onNavigationStateChange=" + navState);
-    console.log(navState);
-    console.log(navState.url);
     this.setState({ url: navState.url });
 
     if (navState.url != "https://mystamford.edu.sg/parent-dashboard") {
@@ -160,13 +142,9 @@ class Webportal extends Component {
     var string = navState.url;
 
     if (string.indexOf("ffauth_secret") > 1) {
-      console.log("we have ffatah secret - need to grab it");
-      var authSecret = getParameterByName("ffauth_secret", string);
-      console.log("foo=" + authSecret);
-      this.props.setauthSecret(authSecret);
-      console.log("redux auth =" + this.props.userX.authSecret);
+      //var authSecret = getParameterByName("ffauth_secret", string);
+      //this.props.setauthSecret(authSecret);
     } else {
-      console.log("no auth secret in URL");
     }
   };
 
@@ -175,32 +153,7 @@ class Webportal extends Component {
   }
 
   componentWillMount() {
-    //Actions.WebportalAuth();
-
-    console.log("componentWillMount");
-
     if (Constants.manifest.extra.instance == "0001-sais_edu_sg") {
-      if (this.props.userX.name) {
-        //we have a value, good
-      } else {
-        //nothing :-(
-        this.props.navigation.navigate("login");
-      }
-
-      if (this.props.userX.password) {
-        //we have a value, good
-      } else {
-        //nothing :-(
-        this.props.navigation.navigate("login");
-      }
-
-      if (this.props.userX.ffauth_secret) {
-        //we have a value, good
-      } else {
-        //nothing :-(
-        //  Actions.login();
-      }
-
       this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
 
       this.setState({ showMsg: true }, () =>
@@ -220,22 +173,6 @@ class Webportal extends Component {
     }
   }
 
-  _checkNeededCookies = () => {
-    console.log("webview = _checkNeededCookies");
-    const { cookies, webViewUrl } = this.state;
-
-    if (webViewUrl === "SUCCESS_URL") {
-      console.log(
-        "webview = _checkNeededCookies",
-        cookies("ASP.NET_SessionId")
-      );
-      if (cookies["ASP.NET_SessionId"]) {
-        alert(cookies["ASP.NET_SessionId"]);
-        // do your magic...
-      }
-    }
-  };
-
   getInitialState = () => {
     return {
       webViewHeight: 100 // default height, can be anything
@@ -243,10 +180,8 @@ class Webportal extends Component {
   };
 
   _onMessage = event => {
-    console.log("webview = _onMessage");
     const { data } = event.nativeEvent;
     const cookies = data.split(";"); // `csrftoken=...; rur=...; mid=...; somethingelse=...`
-    console.log("webview = _onMessage cookies", cookies);
     cookies.forEach(cookie => {
       const c = cookie.trim().split("=");
 
@@ -254,7 +189,6 @@ class Webportal extends Component {
       new_cookies[c[0]] = c[1];
 
       this.setState({ cookies: new_cookies });
-      console.log("     cookie = ", c);
     });
 
     this._checkNeededCookies();
@@ -289,7 +223,6 @@ class Webportal extends Component {
 
   render() {
     _login = () => {
-      console.log("here");
       Animated.visible = false;
       Animated.height = 0;
       //this.toggleCancel();
@@ -299,32 +232,6 @@ class Webportal extends Component {
 
     // this.setState({url: 'My Changed Text'})
     const { visible, style, children, ...rest } = this.props;
-
-    var authSecret = this.props.userX.authSecret;
-
-    console.log("A=" + authSecret);
-    if (
-      undefined !== authSecret &&
-      null !== authSecret &&
-      authSecret.length > 5
-    ) {
-      //we have an auth secret
-      console.log("B");
-
-      //  this.state.url = 'https://mystamford.edu.sg/login/api/getsession?ffauth_device_id=SAISPTA&ffauth_secret=MERGE_AUTH_SECRET&prelogin=https://mystamford.edu.sg/parent-dashboard';
-      //  this.state.url = this.state.url.replace("MERGE_AUTH_SECRET", authSecret );
-      //  this.state.url = 'https://mystamford.edu.sg';
-    } else {
-      console.log("C");
-      //  this.state.url = 'https://mystamford.edu.sg/login/api/webgettoken?app=SAISPTA&successURL=https://saispta.com/app/success&failURL=https://saispta.com/app/fail';
-    }
-
-    //  this.state.url = 'https://mystamford.edu.sg/login/api/webgettoken?app=SAISPTA&successURL=https://saispta.com/app/success&failURL=https://saispta.com/app/fail';
-
-    //this.state.url = 'https://saispta.com/app/Authentication.php';
-
-    //this.state.url = 'https://mystamford.edu.sg/login/api/getsession?ffauth_device_id=AB305CAC-1373-4C13-AA04-79ADB8C17854&ffauth_secret=89b4f72988148141a6ba2248896610c4&prelogin=https://mystamford.edu.sg/'
-    console.log("going hereaa > " + this.state.url);
 
     return (
       <Container>
@@ -337,35 +244,20 @@ class Webportal extends Component {
                 disabled={!this.state.canGoBack}
                 onPress={this.onBack.bind(this)}
               >
-                <Ionicons
-                  style={styles.navIconLeft}
-                  active
-                  name="ios-arrow-back"
-                />
+                <Ionicons style={styles.navIcon} name="ios-arrow-back" />
               </TouchableOpacity>
 
               <TextInput
                 ref="pageURL"
-                selectTextOnFocus
-                //placeholder= {this.state.url}
                 value={this.state.url}
-                //  onChangeText={(user) => this.props.setUsername(user)}
                 placeholderTextColor="#FFF"
-                style={styles.input}
+                style={styles.url}
                 autoCapitalize="none"
                 autoFocus={true}
-                //  keyboardType="email-address"
                 selectionColor="#FFF"
-                enablesReturnKeyAutomatically
-                returnKeyType="return"
-                //  onSubmitEditing={() => this.refs.PasswordInput.focus() }
               />
 
-              <Ionicons
-                style={styles.navIconRight}
-                active
-                name="ios-arrow-forward"
-              />
+              <Ionicons style={styles.navIcon} name="ios-arrow-forward" />
             </View>
 
             <WebView
@@ -402,24 +294,4 @@ class Webportal extends Component {
   };
 }
 
-function bindAction(dispatch) {
-  return {
-    openDrawer: () => dispatch(openDrawer())
-  };
-}
-
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(ActionCreators, dispatch);
-};
-
-const mapStateToProps = state => ({
-  //navigation: state.cardNavigation,
-  userX: state.user,
-  ffauth_device_idX: state.ffauth_device_id,
-  ffauth_secretX: state.ffauth_secret
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Webportal);
+export default authPortal;

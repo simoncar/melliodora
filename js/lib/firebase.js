@@ -10,27 +10,11 @@ var switches = [];
 
 class Firebase {
   static initialise() {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(ApiKeys.FirebaseConfig);
-
-      //   firebase
-      //     .firestore()
-      //     .enablePersistence()
-      //     .catch(function(err) {
-      //       if (err.code == "failed-precondition") {
-      //         // Multiple tabs open, persistence can only be enabled
-      //         // in one tab at a a time.
-      //         // ...
-      //       } else if (err.code == "unimplemented") {
-      //         // The current browser does not support all of the
-      //         // features required to enable persistence
-      //         // ...
-      //       }
-      //     });
-      //   // Subsequent queries will use persistence, if it was enabled successfully
-    }
-
     try {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(ApiKeys.FirebaseConfig);
+      }
+
       firebase
         .auth()
         .signInAnonymously()
@@ -41,8 +25,8 @@ class Firebase {
           // ...
         });
     } catch (e) {
-      console.log("catch error body:", req.body);
-      console.error(e.message);
+      console.log("catch error body:", e.message);
+      //console.error(e.message);
     }
     try {
       firebase.auth().onAuthStateChanged(function(user) {
@@ -58,16 +42,9 @@ class Firebase {
         // ...
       });
     } catch (e) {
-      console.log("catch error body:", req.body);
-      console.error(e.message);
+      console.log("catch error body:", e.message);
+      //console.error(e.message);
     }
-
-    // this.switches = firebase.database().ref('instance/' + Constants.manifest.extra.instance + '/switch');
-
-    // console.log("global = " + global.switch_address)
-
-    // loadFromRedux();
-    // listenLoadFromFirebase(this.switches);
   }
 }
 

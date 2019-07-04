@@ -102,7 +102,7 @@ exports.sendPushNotificationSimonAll = functions.database
       .database()
       .ref(
         `instance/0001-sais_edu_sg/chat/chatroom/${
-          createdData.chatroom
+        createdData.chatroom
         }/notifications`
       );
     query.on("value", snap => {
@@ -145,7 +145,6 @@ exports.chatBeaconPing = functions.database
 
     // Grab the current value of what was written to the Realtime Database.
     const beaconName = createdData.beaconName;
-    console.log("Beacon Name - new Ping", beaconName);
 
     return null;
   });
@@ -159,12 +158,7 @@ exports.beaconPingHistory = functions.firestore
   .onWrite(async (change, context) => {
     const newValue = change.after.data();
     const oldValue = change.before.data();
-
     const beacon = context.params.beaconID;
-
-    console.log("aaa:", newValue);
-    console.log("bbb:", newValue.state);
-
     var oldState = "";
     var oldCampus = "";
 
@@ -241,50 +235,104 @@ exports.beaconPingHistoryNotOurs = functions.firestore
     }
   });
 
-//https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
-
-exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
-  // const ref = admin
-  //     .database()
-  //     .ref(
-  //       `instance/0001-sais_edu_sg/beacon/`
-  //     );
-  var response = "";
-  var i = 0;
-  //const ref = change.after.ref.parent; // reference to the parent
-  const now = Date.now();
-  const cutoff = now - 100000; //CUT_OFF_TIME;
-  const updates = [];
-  //const beacon = admin.database().ref("instance/0001-sais_edu_sg/beacon/")
-  var child;
+//https://us-central1-calendar-app-57e88.cloudfunctions.net/computeCounts
+exports.computeCounts = functions.https.onRequest(async (req, res) => {
+  let entered = 0
+  let onCampus = 0;
+  let enteredExited = 0;
+  let noShow = 0;
 
   let beacons = await admin
     .firestore()
     .collection("sais_edu_sg")
     .doc("beacon")
     .collection("beacons")
+    .limit(50);
+  // .where("timestamp", "<", cutoff)
+  // .limit(1);
+
+  let query = beacons.get().then( async snapshot => {
+    console.log("querying")
+
+    snapshot.forEach(doc => {
+      const state = doc.data().state
+      console.log("state=", state);
+      ++entered;
+
+      switch (state) {
+        case "Perimeter":
+        case "On Campus":
+          ++onCampus;
+          break;
+        case "No Show":
+          ++noShow;
+          break;
+        case "Entered then Exited":
+          ++enteredExited;
+          break;
+        default:
+        // code block
+      }
+
+    });
+    let result = {
+      entered: entered,
+      onCampus: onCampus,
+      noShow: noShow,
+      enteredExited: enteredExited
+    }
+
+    console.log("Attendance Overview : ", JSON.stringify(result));
+    let today = new Date();
+    console.log("today", today.toISOString())
+    let setWithOptions  = await admin
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beaconHistory")
+      .doc("20190703")
+      .set(result, { merge: true });
+
+    res.status(200).send("setWithOptions " + setWithOptions);
+  });
+
+
+  
+});
+
+// https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
+exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
+  var response = "";
+  var i = 0;
+  const now = Date.now();
+  const cutoff = now - 100000; //CUT_OFF_TIME;
+  const updates = [];
+  var update = [];
+  var child;
+
+  //part 1 - perimeter beacons that have not been heard of
+  let beacons = await admin
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("beacon")
+    .collection("beacons")
     .where("timestamp", "<", cutoff)
-    .limit(1);
+    .where("state", "==", "Perimeter")
+    .limit(100);
 
   let query = beacons.get().then(snapshot => {
     if (snapshot.empty) {
-      console.log("No matching documents.");
+      console.log("No matching Perimeter beacons to expire.");
       return;
     }
 
     snapshot.forEach(doc => {
-      console.log("data to delete 3", doc.id, "=>", doc.data());
       child = doc.data();
-
-      console.log("state=", child.state);
-
       if (i < 100) {
         if (child.state == "Perimeter") {
           i++;
-          updates[i] = {
-            beaconName: child.name,
+          var update = {
             beaconCampus: child.campus,
-            beaconType: child.type,
             lastSeen: Date.now(),
             timestamp: null,
             state: "Off Campus",
@@ -292,36 +340,13 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
             rssi: child.rssi
           };
 
-          console.log("updates i ", updates[i]);
-
           admin
             .firestore()
             .collection("sais_edu_sg")
             .doc("beacon")
             .collection("beacons")
             .doc(doc.id)
-            .update(updates[i]);
-
-          // const beaconName = childbeaconName;
-          // const newPing = admin
-          //   .database()
-          //   .ref(
-          //     `instance/0001-sais_edu_sg/chat/chatroom/beacon-` +
-          //       beaconName +
-          //       "/messages"
-          //   );
-
-          // newPing.push({
-          //   //mute: false,
-          //   chatroom: beaconName,
-          //   text: "Ping - " + childbeaconCampus,
-          //   createdAt: Date.now(),
-          //   date: Date.now(),
-          //   system: true,
-          //   user: {
-          //     name: childbeaconCampus
-          //   }
-          // });
+            .update(update);
         }
 
         if (child.state == "Gateway - Active") {
@@ -340,29 +365,62 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
             .doc(doc.id)
             .update(updates[i]);
         }
-
-        console.log("updates = ", updates);
-        console.log("i = ", i);
-
-        // admin
-        //   .firestore()
-        //   .collection("sais_edu_sg")
-        //   .doc("beacon")
-        //   .collection("beacons")
-        //   .doc(doc.id)
-        //   .update(updates);
       } //i
     });
-
-    //oldItemsQuery.update(updates)
   });
+
+  //part 2 - on campus 'lost beacons' expire overnight
+
+  // const cutoff = now - 100000; //CUT_OFF_TIME;
+  const cutoffOvernight = now - 1000000; //CUT_OFF_TIME;
+  beacons = await admin
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("beacon")
+    .collection("beacons")
+    .where("timestamp", "<", cutoffOvernight)
+    .where("state", "==", "On Campus")
+    .limit(100);
+
+  let query2 = beacons.get().then(snapshot => {
+    if (snapshot.empty) {
+      console.log("No matching On Campus beacons to expire.");
+      return;
+    }
+
+    snapshot.forEach(doc => {
+      child = doc.data();
+      if (i < 100) {
+        if (child.state == "On Campus") {
+          i++;
+          update = {
+            beaconCampus: child.campus,
+            lastSeen: Date.now(),
+            timestamp: null,
+            state: "Off Campus",
+            mac: doc.id,
+            rssi: child.rssi
+          };
+
+          console.log("Expire lost on campus.", doc.id, update);
+
+          admin
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("beacon")
+            .collection("beacons")
+            .doc(doc.id)
+            .update(update);
+        }
+      }
+    });
+  });
+
   res.status(200).send(response);
-  // return oldItemsQuery.update(updates);
 });
 
 exports.registerBeacon = functions.https.onRequest((req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
-  // https://script.google.com/macros/s/AKfycbwhrlEfQhiSgcsF6AM_AlaMWxU7SsEtJ-yQpvthyQTT1jui588E/exec
 
   if (req.method === "PUT") {
     return res.status(403).send("Forbidden!");
@@ -393,59 +451,94 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     var targetCollection = "beaconsNotOurs";
 
     try {
+
       beacons.forEach(async function(snapshot) {
+        personName = "";
+
         if ((snapshot.type = "Gateway" && personCampus == "")) {
+          personPictureURL =
+            "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+
           switch (snapshot.mac) {
             case "AC233FC03164":
-              personCampus = "Woodleigh - Gate 1";
               personName = "GATEWAY";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+              personCampus = "Woodleigh - Gate 1";
               personState = "Perimeter";
               break;
             case "AC233FC031B8":
-              personCampus = "Woodleigh - Gate 2";
               personName = "GATEWAY";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-              personState = "On Campus";
+              personCampus = "Woodleigh - Gate 2";
+              personState = "Perimeter";
               break;
             case "AC233FC039DB":
               personName = "GATEWAY";
               personCampus = "Smartcookies Office HQ";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
               personState = "Perimeter";
               break;
             case "AC233FC039C9":
               personName = "GATEWAY";
               personCampus = "Smartcookies Cove";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
               personState = "Perimeter";
               break;
             case "AC233FC039B2":
               personName = "GATEWAY";
               personCampus = "ELV Gate 1";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
               personState = "Perimeter";
-
               break;
             case "AC233FC039BE":
               personName = "GATEWAY";
               personCampus = "Woodleigh Parent Helpdesk";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+              personState = "On Campus";
+              break;
+            case "AC233FC039A7":
+              personName = "GATEWAY";
+              personCampus = "Woodleigh TBA 1";
+              personState = "On Campus";
+              break;
+            case "AC233FC03A44":
+              personName = "GATEWAY";
+              personCampus = "Woodleigh TBA 2";
+              personState = "On Campus";
+              break;
+            case "AC233FC039B1":
+              personName = "GATEWAY";
+              personCampus = "Woodleigh TBA 3";
+              personState = "On Campus";
+              break;
+            case "AC233FC039CA":
+              personName = "GATEWAY";
+              personCampus = "Woodleigh TBA 4";
               personState = "On Campus";
               break;
             case "AC233FC039BB":
               personName = "GATEWAY";
-              personCampus = "Woodleigh Stairwell";
-              personPictureURL =
-                "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+
+              personCampus = "Woodleigh TBA 5";
               personState = "On Campus";
               break;
+            case "AC233FC039B8":
+              personName = "GATEWAY";
+              personCampus = "Woodleigh TBA 6";
+              personState = "On Campus";
+              break;
+            case "AC233FC03E1F":
+              personName = "GATEWAY";
+              personCampus = "Woodleigh - Gate 1 II";
+              personState = "On Campus";
+              break;
+            case "AC233FC03E00":
+              personName = "GATEWAY";
+              personCampus = "Woodleigh - Gate 1 II";
+              personState = "On Campus";
+              break;
+            case "AC233FC03E46":
+              personName = "GATEWAY";
+              personCampus = "Woodleigh Parent Helpdesk II";
+              personState = "On Campus";
+              break;
+            default:
+              personName = "";
+              personPictureURL = "";
           }
         }
 
@@ -486,7 +579,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
         var battery = snapshot.battery === undefined ? 0 : snapshot.battery;
         var raw = snapshot.rawData === undefined ? "0" : snapshot.rawData;
 
-        console.log("a=", raw.length, snapshot.mac);
+        //console.log("a=", raw.length, snapshot.mac);
         // console.log("b=", snapshot.rawData.length, snapshot.mac);
 
         if (raw.length < 10) {
@@ -501,7 +594,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             rssi: rssi,
             ibeaconTxPower: ibeaconTxPower,
             battery: battery,
-            mac: snapshot.mac
+            mac: snapshot.mac,
+            name: personName
           };
         } else {
           var dataDict = {
@@ -516,7 +610,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             ibeaconTxPower: ibeaconTxPower,
             battery: battery,
             raw: raw,
-            mac: snapshot.mac
+            mac: snapshot.mac,
+            name: personName
           };
         }
 

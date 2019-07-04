@@ -13,7 +13,6 @@ import styles from "./styles";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
 import moment from "moment";
 
-
 class BeaconItem extends Component {
   constructor(props) {
     super(props);
@@ -153,7 +152,9 @@ class BeaconItem extends Component {
                 {this.renderBeaconIcon(this.props.beaconPictureURL)}
 
                 <View>
-                  <Text style={styles.chatTitle}>{this.props.beaconName}</Text>
+                  <Text style={styles.chatTitle}>
+                    {this.renderBeaconCampus(this.props.beaconCampus)}
+                  </Text>
 
                   <Text style={styles.chatDescription} />
                   {this.renderLastSeen(

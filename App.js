@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 
-import { createLogger } from "redux-logger";
-
 import Setup from "./js/setup";
 
-import firebase from "firebase";
 import "@firebase/firestore";
 
 import Firebase from "./js/lib/firebase";
@@ -31,7 +28,12 @@ Sentry.captureMessage("App started V" + Constants.manifest.version);
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    Firebase.initialise();
+    try {
+      Firebase.initialise();
+    } catch (e) {
+      console.log("firebase error", e.message);
+      //console.error(e.message);
+    }
   }
 
   render() {
