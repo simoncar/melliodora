@@ -8,7 +8,6 @@ import {
   Platform,
   Share
 } from "react-native";
-import { connect } from "react-redux";
 
 import { Container, Content, Text, Icon } from "native-base";
 import {
@@ -17,11 +16,9 @@ import {
   MaterialIcons,
   SimpleLineIcons
 } from "@expo/vector-icons";
-import Constants from 'expo-constants'
+import Constants from "expo-constants";
 
 import { Image } from "react-native-expo-image-cache";
-
-import { openDrawer } from "../../actions/drawer";
 
 import ParsedText from "react-native-parsed-text";
 import Communications from "react-native-communications";
@@ -47,6 +44,11 @@ var instID = Constants.manifest.extra.instance;
 
 @withMappedNavigationParams()
 class Story extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: "Story",
+    headerBackTitle: "AAAA"
+  });
+
   constructor(props) {
     super(props);
     this.state = {};
@@ -166,11 +168,10 @@ class Story extends Component {
 
     // Get the token that uniquely identifies this device
     if (!Constants.isDevice) {
-      token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]";    // override simulator with simon's iphone
+      token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
     } else {
       token = Notifications.getExpoPushTokenAsync();
     }
-
 
     this.notifyRef = firebase
       .database()
@@ -276,12 +277,8 @@ class Story extends Component {
   }
 
   render() {
-    const { goBack } = this.props.navigation;
-
     return (
       <Container style={{ backgroundColor: "#fff" }}>
-
-
         {isAdmin(this.props.adminPassword) && (
           <TouchableHighlight
             style={styles.addButton}
@@ -295,8 +292,7 @@ class Story extends Component {
                 eventDate: this.props.navigation.state.params.eventDate,
                 eventStartTime: this.props.navigation.state.params
                   .eventStartTime,
-                eventEndTime: this.props.navigation.state.params
-                  .eventEndTime,
+                eventEndTime: this.props.navigation.state.params.eventEndTime,
                 location: this.props.navigation.state.params.location,
                 eventImage: this.props.navigation.state.params.eventImage,
                 phone: this.props.navigation.state.params.phone,
@@ -306,11 +302,9 @@ class Story extends Component {
                 photo2: this.props.navigation.state.params.photo2,
                 photo3: this.props.navigation.state.params.photo3,
                 url: this.props.navigation.state.params.url,
-                displayStart: this.props.navigation.state.params
-                  .displayStart,
+                displayStart: this.props.navigation.state.params.displayStart,
                 displayEnd: this.props.navigation.state.params.displayEnd,
-                photoSquare: this.props.navigation.state.params
-                  .photoSquare,
+                photoSquare: this.props.navigation.state.params.photoSquare,
                 _key: this.props.navigation.state.params._key,
                 edit: true
               })
@@ -440,8 +434,6 @@ class Story extends Component {
               <Text> </Text>
               <Text> </Text>
               <Text> </Text>
-
-
             </View>
           </View>
         </Content>
@@ -450,19 +442,4 @@ class Story extends Component {
   }
 }
 
-function bindAction(dispatch) {
-  return {
-    openDrawer: () => dispatch(openDrawer())
-  };
-}
-
-const mapStateToProps = state => ({
-  username: state.username,
-  userX: state.user,
-  adminPassword: state.user.adminPassword
-});
-
-export default connect(
-  mapStateToProps,
-  bindAction
-)(Story);
+export default Story;

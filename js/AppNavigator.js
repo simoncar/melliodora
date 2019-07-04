@@ -1,16 +1,26 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 
-import { createAppContainer, createStackNavigator } from "react-navigation";
-import { RectButton, BorderlessButton } from "react-native-gesture-handler";
-import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
-import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import {
+  createAppContainer,
+  createStackNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
+import { BorderlessButton } from "react-native-gesture-handler";
+import {
+  MaterialIcons,
+  Ionicons,
+  SimpleLineIcons,
+  Feather
+} from "@expo/vector-icons";
 import Login from "./components/login/";
 import Home from "./components/home/";
 import phoneCalendar from "./components/home/calendars";
 import HomeNav from "./components/homeNav/";
 import Contact from "./components/contact";
 import Settings from "./components/settings";
+import Library from "./components/settings/library";
+import adminPassword from "./components/settings/adminPassword";
+import selectLanguage from "./components/settings/language";
 import Story from "./components/story";
 import StoryForm from "./components/story/form";
 import campusMap from "./components/campusMap";
@@ -18,9 +28,8 @@ import chatRooms from "./components/chat/chatRooms";
 import form from "./components/chat/form";
 import chat from "./components/chat";
 import chatmain from "./components/chat/main";
-import Webportal from "./components/webportal";
-import WebportalAuth from "./components/webportal/auth";
-import WebportalSports from "./components/webportalSports";
+import authPortal from "./components/webportalURL/authPortal";
+import WebportalURL from "./components/webportalURL";
 import beacon from "./components/beacon";
 import beaconHistory from "./components/beacon/beaconHistory";
 import AttendanceOverviewScreen from "./components/beacon/AttendanceOverviewScreen";
@@ -29,14 +38,124 @@ import ClassListingScreen from "./components/beacon/ClassListingScreen";
 import AttendeeListingScreen from "./components/beacon/AttendeeListingScreen";
 import AttendeeDetailScreen from "./components/beacon/AttendeeDetailScreen";
 
-
-let Tabs = createMaterialBottomTabNavigator(
+let StackHome = createStackNavigator(
   {
     homeNav: { screen: HomeNav },
+    contact: { screen: Contact },
+    form: { screen: form },
+    story: { screen: Story },
+    campusMap: { screen: campusMap },
+    storyForm: { screen: StoryForm }
+  },
+  {
+    navigationOptions: {
+      title: "Home",
+      headerBackTitle: null,
+      tabBarIcon: ({ focused, tintColor, horizontal }) => (
+        <Ionicons
+          name="ios-home"
+          size={horizontal ? 20 : 25}
+          color={tintColor}
+        />
+      )
+    }
+  }
+);
+
+let StackCalendar = createStackNavigator(
+  {
     home: { screen: Home },
+    phoneCalendar: { screen: phoneCalendar }
+  },
+  {
+    navigationOptions: {
+      title: "Calendar",
+      headerBackTitle: null,
+      tabBarIcon: ({ focused, tintColor, horizontal }) => (
+        <Ionicons
+          name="ios-calendar"
+          size={horizontal ? 20 : 25}
+          color={tintColor}
+        />
+      )
+    }
+  }
+);
+
+let StackChat = createStackNavigator(
+  {
     chatRooms: { screen: chatRooms },
-    webportal: { screen: Webportal },
-    webportalSports: { screen: WebportalSports }
+    chatmain: { screen: chatmain },
+    chat: { screen: chat }
+  },
+  {
+    navigationOptions: {
+      title: "Chat",
+      headerBackTitle: null,
+      tabBarIcon: ({ focused, tintColor, horizontal }) => (
+        <SimpleLineIcons
+          name="bubble"
+          size={horizontal ? 20 : 25}
+          color={tintColor}
+        />
+      )
+    }
+  }
+);
+
+let StackWeb = createStackNavigator(
+  {
+    authPortal: { screen: authPortal },
+    login: { screen: Login }
+  },
+  {
+    navigationOptions: {
+      title: "myS",
+      headerBackTitle: null,
+      tabBarIcon: ({ focused, tintColor, horizontal }) => (
+        <MaterialIcons
+          name="web"
+          size={horizontal ? 20 : 25}
+          color={tintColor}
+        />
+      )
+    }
+  }
+);
+
+let StackOther = createStackNavigator(
+  {
+    settings: { screen: Settings },
+    library: { screen: Library },
+    webportalURL: { screen: WebportalURL },
+    selectLanguage: { screen: selectLanguage },
+    adminPassword: { screen: adminPassword },
+    beacon: { screen: beacon },
+    AttendanceOverviewScreen: { screen: AttendanceOverviewScreen },
+    GradeListingScreen: { screen: GradeListingScreen },
+    ClassListingScreen: { screen: ClassListingScreen },
+    AttendeeListingScreen: { screen: AttendeeListingScreen },
+    beaconHistory: { screen: beaconHistory },
+    AttendeeDetailScreen: { screen: AttendeeDetailScreen }
+  },
+  {
+    navigationOptions: {
+      title: "More",
+      headerBackTitle: null,
+      tabBarIcon: ({ focused, tintColor, horizontal }) => (
+        <Feather name="menu" size={horizontal ? 20 : 25} color={tintColor} />
+      )
+    }
+  }
+);
+
+let Tabs = createBottomTabNavigator(
+  {
+    homeNav: StackHome,
+    home: StackCalendar,
+    chatRooms: StackChat,
+    webportal: StackWeb,
+    other: StackOther
   },
   {
     shifting: false,
@@ -47,55 +166,29 @@ let Tabs = createMaterialBottomTabNavigator(
   }
 );
 
-const MainScreenNavigator = createStackNavigator({
-  Tab: {
-    screen: Tabs,
-    navigationOptions: ({ navigation }) => ({
-      title: "Stamford",
-      headerTintColor: "#000",
-      headerTitleStyle: {
-        fontWeight: "bold",
-        fontSize: 28
+const MainScreenNavigator = createStackNavigator(
+  {
+    Tab: {
+      screen: Tabs
+    },
+
+    authPortal: { screen: authPortal },
+
+    defaultNavigationOptions: () => ({
+      headerStyle: {
+        backgroundColor: "#f4511e"
       },
-      headerRight: (
-        <BorderlessButton
-          onPress={() => navigation.navigate("settings")}
-          style={{ marginRight: 15 }}
-        >
-          <Entypo name="cog" style={{ fontSize: 25 }} />
-        </BorderlessButton>
-      )
+      headerBackTitle: null,
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        fontWeight: "bold"
+      }
     })
   },
-
-  chatmain: { screen: chatmain },
-  chat: { screen: chat },
-  phoneCalendar: { screen: phoneCalendar },
-  login: { screen: Login },
-  contact: { screen: Contact },
-  settings: { screen: Settings },
-  form: { screen: form },
-  story: { screen: Story },
-  campusMap: { screen: campusMap },
-  WebportalAuth: { screen: WebportalAuth },
-  storyForm: { screen: StoryForm },
-  beacon: { screen: beacon },
-  AttendanceOverviewScreen: { screen: AttendanceOverviewScreen },
-  GradeListingScreen: { screen: GradeListingScreen },
-  ClassListingScreen: { screen: ClassListingScreen },
-  AttendeeListingScreen: { screen: AttendeeListingScreen },
-  beaconHistory: { screen: beaconHistory },
-  AttendeeDetailScreen: { screen: AttendeeDetailScreen },
-
-  defaultNavigationOptions: () => ({
-    headerStyle: {
-      backgroundColor: "#f4511e"
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold"
-    }
-  })
-});
+  {
+    mode: "modal",
+    headerMode: "none"
+  }
+);
 
 export default createAppContainer(MainScreenNavigator);
