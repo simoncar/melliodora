@@ -119,6 +119,7 @@ class WebportalSports extends Component {
               scalesPageToFit={true}
               injectedJavaScript={injectScript}
               ref={WEBVIEW_REF}
+              useWebKit={true}
             />
           </View>
         </View>
