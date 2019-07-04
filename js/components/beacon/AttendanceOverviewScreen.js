@@ -30,7 +30,9 @@ export default class AttendanceOverviewScreen extends Component {
           <AttendanceStats navigation={this.props.navigation} />
 
           <Divider style={{ backgroundColor: "gray", margin: 12 }} />
-
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
+            <Text>View All Bookmarks</Text>
+          </TouchableOpacity>
           {/* </View> */}
 
           <View style={{ flex: 1 }}>

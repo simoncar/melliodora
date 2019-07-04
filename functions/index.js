@@ -102,7 +102,7 @@ exports.sendPushNotificationSimonAll = functions.database
       .database()
       .ref(
         `instance/0001-sais_edu_sg/chat/chatroom/${
-          createdData.chatroom
+        createdData.chatroom
         }/notifications`
       );
     query.on("value", snap => {
@@ -237,28 +237,67 @@ exports.beaconPingHistoryNotOurs = functions.firestore
 
 //https://us-central1-calendar-app-57e88.cloudfunctions.net/computeCounts
 exports.computeCounts = functions.https.onRequest(async (req, res) => {
-  var count = 0;
+  let entered = 0
+  let onCampus = 0;
+  let enteredExited = 0;
+  let noShow = 0;
 
   let beacons = await admin
     .firestore()
     .collection("sais_edu_sg")
     .doc("beacon")
-    .collection("beacons");
+    .collection("beacons")
+    .limit(50);
   // .where("timestamp", "<", cutoff)
   // .limit(1);
 
-  let query = beacons.get().then(snapshot => {
-    if (snapshot.empty) {
-      count = 0;
-      return;
-    } else {
-      count = snapshot.count;
+  let query = beacons.get().then( async snapshot => {
+    console.log("querying")
+
+    snapshot.forEach(doc => {
+      const state = doc.data().state
+      console.log("state=", state);
+      ++entered;
+
+      switch (state) {
+        case "Perimeter":
+        case "On Campus":
+          ++onCampus;
+          break;
+        case "No Show":
+          ++noShow;
+          break;
+        case "Entered then Exited":
+          ++enteredExited;
+          break;
+        default:
+        // code block
+      }
+
+    });
+    let result = {
+      entered: entered,
+      onCampus: onCampus,
+      noShow: noShow,
+      enteredExited: enteredExited
     }
+
+    console.log("Attendance Overview : ", JSON.stringify(result));
+    let today = new Date();
+    console.log("today", today.toISOString())
+    let setWithOptions  = await admin
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beaconHistory")
+      .doc("20190703")
+      .set(result, { merge: true });
+
+    res.status(200).send("setWithOptions " + setWithOptions);
   });
 
-  console.log("Total Students on Campus : ", count);
 
-  res.status(200).send("count:" + count);
+  
 });
 
 // https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
@@ -412,8 +451,10 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     var targetCollection = "beaconsNotOurs";
 
     try {
+
       beacons.forEach(async function(snapshot) {
         personName = "";
+
         if ((snapshot.type = "Gateway" && personCampus == "")) {
           personPictureURL =
             "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
