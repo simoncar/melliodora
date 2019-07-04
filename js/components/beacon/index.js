@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import { FlatList, Container, Content, Text, View } from "react-native";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as ActionCreators from "../../actions";
 import firebase from "firebase";
 import { Grid, Col, Row } from "react-native-easy-grid";
 
@@ -14,17 +11,13 @@ import styles from "./styles";
 
 const BeaconItem = require("./beaconItem");
 
-const tabBarIcon = name => ({ tintColor }) => (
-  <SimpleLineIcons
-    style={{ backgroundColor: "transparent" }}
-    name={name}
-    color={tintColor}
-    size={24}
-  />
-);
-
 @withMappedNavigationParams()
 class beacons extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: "Gateways",
+    headerBackTitle: null
+  });
+
   constructor(props) {
     super(props);
     this.state = {
@@ -37,15 +30,10 @@ class beacons extends Component {
       .firestore()
       .collection("sais_edu_sg")
       .doc("beacon")
-      .collection("beacons");
+      .collection("beacons")
+      .where("name", "==", "GATEWAY");
   }
   //.equalTo("Active");
-
-  static navigationOptions = {
-    title: "Campus Attendance",
-    tabBarColor: "yellow",
-    tabBarIcon: tabBarIcon("bubble")
-  };
 
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
@@ -61,33 +49,6 @@ class beacons extends Component {
     const userBeacons = [];
     this.countEntered = 0;
     var beaconIcon = "";
-
-    beacons.forEach(doc => {
-      beaconIcon = "G";
-      console.log(doc.data().campus);
-      if (
-        doc.data().name != "GATEWAY" &&
-        doc.data().name != "" &&
-        (doc.data().state == "Perimeter" ||
-          doc.data().state == "On Campus" ||
-          doc.data().state == "Off Campus")
-      ) {
-        ++this.countEntered;
-
-        userBeacons.push({
-          beaconCampus: doc.data().campus,
-          beaconGrade: doc.data().beaconGrade,
-          beaconIcon: beaconIcon,
-          beaconName: doc.data().name,
-          beaconType: doc.data().beaconType,
-          beaconPictureURL: doc.data().beaconPictureURL,
-          timestamp: doc.data().timestamp,
-          lastSeen: doc.data().lastSeen,
-          state: doc.data().state,
-          _key: doc.id
-        });
-      }
-    });
 
     beacons.forEach(doc => {
       beaconIcon = "G";
@@ -158,35 +119,6 @@ class beacons extends Component {
   render() {
     return (
       <View>
-        <View style={{ height: 100 }}>
-          <Grid style={{ height: 50 }}>
-            <Col style={{ alignItems: "center" }}>
-              <Row>{this.renderCount("Total", 3028)}</Row>
-              <Row>
-                <Text style={styles.chatTitle}>Total</Text>
-              </Row>
-            </Col>
-            <Col style={{ alignItems: "center" }}>
-              <Row>{this.renderCount("Entered", this.countEntered)}</Row>
-              <Row>
-                <Text style={styles.chatTitle}>Entered</Text>
-              </Row>
-            </Col>
-            <Col style={{ alignItems: "center" }}>
-              <Row>{this.renderCount("Exited", 0)}</Row>
-              <Row>
-                <Text style={styles.chatTitle}>Exited</Text>
-              </Row>
-            </Col>
-            <Col style={{ alignItems: "center" }}>
-              <Row>{this.renderCount("No Show", 3028 - this.countEntered)}</Row>
-              <Row>
-                <Text style={styles.chatTitle}>No Show</Text>
-              </Row>
-            </Col>
-          </Grid>
-        </View>
-
         <FlatList
           data={this.state.userBeacons}
           renderItem={this._renderItem2.bind(this)}
@@ -197,17 +129,4 @@ class beacons extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(ActionCreators, dispatch);
-};
-
-const mapStateToProps = state => ({
-  //navigation: state.cardNavigation,
-  username: state.username,
-  userX: state.user
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(beacons);
+export default beacons;

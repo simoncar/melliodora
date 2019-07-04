@@ -75,6 +75,7 @@ class chat extends Component {
   // </TouchableOpacity>
 
   static navigationOptions = ({ navigation }) => ({
+    headerBackTitle: null,
     headerLeft: (
       <TouchableOpacity
         onPress={() => {
@@ -391,7 +392,7 @@ class chat extends Component {
         <View>
           <TouchableOpacity
             onPress={() => {
-              this.props.navigation.navigate("settings", {
+              this.props.navigation.navigate("selectLanguage", {
                 chatroom: this.props.title,
                 description: this.props.description,
                 contact: this.props.contact,

@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, ScrollView, TouchableHighlight, Dimensions, TouchableOpacity, Modal } from 'react-native'
 import { ListItem, SearchBar, Avatar, Divider, Button, Overlay } from 'react-native-elements';
@@ -11,12 +12,11 @@ import {
 } from "@expo/vector-icons";
 import { SafeAreaView } from 'react-navigation';
 
+
 export default class AttendeeDetailScreen extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-
-
     }
   }
 
@@ -27,6 +27,7 @@ export default class AttendeeDetailScreen extends Component {
       user: null,
       userBeacons: {},
       userHistoryData: {},
+
       userHistory: [
         { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
         { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
@@ -52,15 +53,28 @@ export default class AttendeeDetailScreen extends Component {
   }
 
   _renderListItem = (item, index) => {
-    if (index === 0) return <BeaconHistoryItem start={true} {...item} />;
+    key = index.toString();
+    if (index === 0) return <BeaconHistoryItem start={true} {...item} key={key} />;
     else if (index === this.state.userHistory.length - 1)
-      return <BeaconHistoryItem last={true} {...item} />;
-    else return <BeaconHistoryItem {...item} />;
+      return <BeaconHistoryItem last={true} {...item} key={key} />;
+    else return <BeaconHistoryItem {...item} key={key} />;
   };
+
 
   render() {
     const { navigation } = this.props;
+
     return (
+      <TouchableHighlight
+        style={styles.bookmark}
+        underlayColor="#ff7043"
+        onPress={onPressFunc}
+      >
+        <FontAwesome name="star" size={28} color={color} />
+      </TouchableHighlight>
+    )
+  }
+
 
       <SafeAreaView forceInset={forceInset} style={{ height: "100%", backgroundColor: '#d3d3d3' }}>
 
@@ -123,12 +137,16 @@ export default class AttendeeDetailScreen extends Component {
           <FontAwesome name="star" size={28} color="gold" />
         </TouchableHighlight>
         <ScrollView style={{ backgroundColor: '#fff' }}>
+
           <View style={styles.topContainer}>
             <View style={styles.avatarContainer}>
               <Avatar
                 size="xlarge"
                 rounded
-                source={{ uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' }}
+                source={{
+                  uri:
+                    "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
+                }}
                 activeOpacity={0.7}
               />
             </View>
@@ -138,13 +156,11 @@ export default class AttendeeDetailScreen extends Component {
                 <Text style={styles.detailsText}>Grade 3</Text>
                 <Text style={styles.detailsText}>Class 3XYZ</Text>
                 <Text></Text>
-                <Text style={styles.detailsText}>last seen today at 11:01 PM</Text>
-                <Text style={styles.detailsText}>last located at Singapore</Text>
+                <Text style={styles.detailsText}>last seen {moment(lastSeen).format("LLL")}</Text>
+                <Text style={styles.detailsText}>current status {state}</Text>
               </View>
-
             </View>
           </View>
-
 
           <View style={{ paddingVertical: 5, paddingHorizontal: 15 }}>
             <Button
@@ -152,14 +168,10 @@ export default class AttendeeDetailScreen extends Component {
               raised
               icon={
                 <View style={{ paddingRight: 10 }}>
-                  <FontAwesome
-                    name="calendar"
-                    size={15}
-                    color='#48484A'
-                  />
+                  <FontAwesome name="calendar" size={15} color="#48484A" />
                 </View>
-
               }
+
               buttonStyle={{ backgroundColor: '#d3d3d3', padding: 2 }}
               titleStyle={{ color: '#48484A', fontSize: 14 }}
               onPress={() => {
@@ -181,6 +193,7 @@ export default class AttendeeDetailScreen extends Component {
       </SafeAreaView>
 
     )
+
   }
 }
 
@@ -194,8 +207,8 @@ const forceInset = {
 const styles = StyleSheet.create({
   topContainer: {
     flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#d3d3d3'
+    flexDirection: "row",
+    backgroundColor: "#d3d3d3"
   },
   avatarContainer: {
     flex: 0,
@@ -208,15 +221,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
+    padding: 20
   },
   attendeeNameText: {
     fontWeight: "bold",
     marginBottom: 20,
-    fontSize: 16,
+    fontSize: 16
   },
   detailsText: {
-    color: '#48484A'
+    color: '#48484A',
+    fontSize: 12
   },
   bookmark: {
     backgroundColor: "#ff5722",
@@ -264,4 +278,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 0
   }
-})
+});
