@@ -151,8 +151,10 @@ export function isAdmin(sPass) {
   const deviceId = adminDevices.indexOf(Constants.deviceId) > -1;
   const adminPass = sPass === "cookies";
   const simulator = !Constants.isDevice;
+  const globalAdminPass = global.adminPassword === "cookies";
 
-  isAdminDevice = installationId || deviceId || adminPass || simulator;
+  isAdminDevice =
+    globalAdminPass || installationId || deviceId || adminPass || simulator;
 
   return isAdminDevice;
 }

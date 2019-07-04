@@ -1,8 +1,21 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View, ScrollView, TouchableHighlight, Dimensions } from 'react-native'
-import { ListItem, SearchBar, Avatar, Divider, Button } from 'react-native-elements';
+import React, { Component } from "react";
+import {
+  Text,
+  StyleSheet,
+  View,
+  ScrollView,
+  TouchableHighlight,
+  Dimensions
+} from "react-native";
+import {
+  ListItem,
+  SearchBar,
+  Avatar,
+  Divider,
+  Button
+} from "react-native-elements";
 import BeaconHistoryItem from "./BeaconHistoryItem";
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 // import Icon from 'react-native-vector-icons/FontAwesome';
 import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
@@ -23,7 +36,7 @@ export default class AttendeeDetailScreen extends Component {
       userBeacons: {},
       userHistoryData: {},
       userHistory: []
-    };
+    }
   }
 
   componentDidMount() {
@@ -72,7 +85,6 @@ export default class AttendeeDetailScreen extends Component {
     const {lastSeen, state, mac} = this.props.navigation.state.params;
 
     return (
-
       <View style={{ height: "100%" }}>
         <TouchableHighlight
           style={styles.bookmark}
@@ -86,7 +98,10 @@ export default class AttendeeDetailScreen extends Component {
               <Avatar
                 size="xlarge"
                 rounded
-                source={{ uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' }}
+                source={{
+                  uri:
+                    "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
+                }}
                 activeOpacity={0.7}
               />
             </View>
@@ -99,10 +114,8 @@ export default class AttendeeDetailScreen extends Component {
                 <Text style={styles.detailsText}>last seen {moment(lastSeen).format("LLL")}</Text>
                 <Text style={styles.detailsText}>current status {state}</Text>
               </View>
-
             </View>
           </View>
-
 
           <View style={{ paddingVertical: 5, paddingHorizontal: 15 }}>
             <Button
@@ -110,38 +123,25 @@ export default class AttendeeDetailScreen extends Component {
               raised
               icon={
                 <View style={{ paddingRight: 10 }}>
-                  <FontAwesome
-                    name="calendar"
-                    size={15}
-                    color='#48484A'
-                  />
+                  <FontAwesome name="calendar" size={15} color="#48484A" />
                 </View>
-
               }
-              buttonStyle={{ backgroundColor: '#d3d3d3', padding: 2 }}
-              titleStyle={{ color: '#48484A', fontSize: 14 }}
+              buttonStyle={{ backgroundColor: "#d3d3d3", padding: 2 }}
+              titleStyle={{ color: "#48484A", fontSize: 14 }}
             />
           </View>
-          <View>
-            {
-              this.state.userHistory.map(this._renderListItem)
-            }
-
-          </View>
-
-
+          <View>{this.state.userHistory.map(this._renderListItem)}</View>
         </ScrollView>
-
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   topContainer: {
     flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#d3d3d3'
+    flexDirection: "row",
+    backgroundColor: "#d3d3d3"
   },
   avatarContainer: {
     flex: 0,
@@ -154,12 +154,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
+    padding: 20
   },
   attendeeNameText: {
     fontWeight: "bold",
     marginBottom: 20,
-    fontSize: 16,
+    fontSize: 16
   },
   detailsText: {
     color: '#48484A',
@@ -186,4 +186,4 @@ const styles = StyleSheet.create({
     },
     zIndex: 1
   }
-})
+});

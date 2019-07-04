@@ -14,8 +14,14 @@ import SettingsList from "react-native-settings-list";
 import * as Localization from "expo-localization";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AsyncStorage } from "react-native";
+import { isAdmin } from "../global";
 
-class SettingsListExample extends Component {
+class Settings extends Component {
+  static navigationOptions = {
+    title: "Menu",
+    headerBackTitle: null
+  };
+
   constructor(props) {
     super(props);
     this.onValueChange = this.onValueChange.bind(this);
@@ -66,142 +72,297 @@ class SettingsListExample extends Component {
     var bgColor = "#DCE3F4";
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
-        <View
-          style={{
-            borderBottomWidth: 1,
-            backgroundColor: "#f7f7f8",
-            borderColor: "#c8c7cc"
-          }}
-        >
-          <Text
-            style={{
-              alignSelf: "center",
-              marginTop: 30,
-              marginBottom: 10,
-              fontWeight: "bold",
-              fontSize: 20
-            }}
-          >
-            Settings
-          </Text>
-        </View>
         <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
           <SettingsList borderColor="#c8c7cc" defaultItemSize={50}>
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
-            {this.state.toggleAuthView ? (
+
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/wifi.png")}
+                />
+              }
+              title="myStamford"
+              titleInfo=""
+              titleInfoStyle={styles.titleInfoStyle}
+              onPress={() => this.props.navigation.navigate("webportal")}
+            />
+
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/wifi.png")}
+                />
+              }
+              title="Athletics"
+              titleInfo=""
+              titleInfoStyle={styles.titleInfoStyle}
+              onPress={() =>
+                this.props.navigation.navigate("webportalURL", {
+                  url: "https://www.stamfordlionsathletics.com/",
+                  title: "Athletics"
+                })
+              }
+            />
+
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/wifi.png")}
+                />
+              }
+              title="CCA's"
+              titleInfo="After School"
+              titleInfoStyle={styles.titleInfoStyle}
+              onPress={() =>
+                this.props.navigation.navigate("webportalURL", {
+                  url:
+                    "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fco-curricular-activities-cca-1%2fcca-brochure-semester-1&kr=iSAMS:ParentPP",
+                  title: "CCA's"
+                })
+              }
+            />
+
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/wifi.png")}
+                />
+              }
+              title="Camp Asia"
+              titleInfo="Holidays"
+              titleInfoStyle={styles.titleInfoStyle}
+              onPress={() =>
+                this.props.navigation.navigate("webportalURL", {
+                  url: "https://www.campasia.asia",
+                  title: "Camp Asia"
+                })
+              }
+            />
+
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/cellular.png")}
+                />
+              }
+              title="Cafe Top Up"
+              titleInfo="Balance $999.99"
+              onPress={() => Alert.alert("This function is not active")}
+            />
+
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/hotspot.png")}
+                />
+              }
+              title="Contact School"
+              titleInfo=""
+              titleInfoStyle={styles.titleInfoStyle}
+              onPress={() => {
+                this.props.navigation.navigate("contact");
+              }}
+            />
+
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/cellular.png")}
+                />
+              }
+              title="PTA Onlne Shop"
+              titleInfo="Parent Teacher Association"
+              onPress={() =>
+                this.props.navigation.navigate("webportalURL", {
+                  url: "https://www.saispta.com/",
+                  title: "PTA Online Shop"
+                })
+              }
+            />
+
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/display.png")}
+                />
+              }
+              title="Campus Map"
+              titleInfo=""
+              titleInfoStyle={styles.titleInfoStyle}
+              onPress={() => {
+                this.props.navigation.navigate("campusMap");
+              }}
+            />
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/display.png")}
+                />
+              }
+              title="Library"
+              titleInfo=""
+              titleInfoStyle={styles.titleInfoStyle}
+              onPress={() => {
+                this.props.navigation.navigate("library");
+              }}
+            />
+
+            {isAdmin(this.props.adminPassword) && (
+              <SettingsList.Header headerStyle={{ marginTop: 15 }} />
+            )}
+            {isAdmin(this.props.adminPassword) && (
               <SettingsList.Item
                 icon={
                   <Image
                     style={styles.imageStyle}
-                    source={require("./images/user.png")}
+                    source={require("./images/notifications.png")}
                   />
                 }
-                title="Logged In As..."
-                hasNavArrow={false}
+                title="[Admin] Attendance Dashboard"
+                titleInfo="3,139"
+                onPress={() =>
+                  this.props.navigation.navigate("AttendanceOverviewScreen")
+                }
               />
-            ) : (
+            )}
+            {isAdmin(this.props.adminPassword) && (
               <SettingsList.Item
                 icon={
                   <Image
                     style={styles.imageStyle}
-                    source={require("./images/user.png")}
+                    source={require("./images/cellular.png")}
                   />
                 }
-                isAuth={true}
-                authPropsUser={{ placeholder: "E-mail" }}
-                authPropsPW={{ placeholder: "Password" }}
-                onPress={() => this.toggleAuthView()}
+                title="[Admin] Gateways"
+                titleInfo="Online"
+                onPress={() => this.props.navigation.navigate("beacon")}
+              />
+            )}
+
+            {isAdmin(this.props.adminPassword) && (
+              <SettingsList.Item
+                icon={
+                  <Image
+                    style={styles.imageStyle}
+                    source={require("./images/control.png")}
+                  />
+                }
+                title="[Admin] Reports"
+                onPress={() => Alert.alert("Route To Reports")}
+              />
+            )}
+
+            {isAdmin(this.props.adminPassword) && (
+              <SettingsList.Item
+                icon={
+                  <Image
+                    style={styles.imageStyle}
+                    source={require("./images/dnd.png")}
+                  />
+                }
+                title="[Admin] Student Lookup"
+                onPress={() => Alert.alert("Route Student Search")}
               />
             )}
 
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
-
             <SettingsList.Item
-              hasSwitch={false}
-              switchState={this.state.switchValue}
-              switchOnValueChange={this.onValueChange}
-              hasNavArrow={false}
-              title="English"
-              onPress={() => this._changeLanguage("en")}
               icon={
-                <MaterialCommunityIcons
-                  name="check"
-                  style={this._getStyle("en")}
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/general.png")}
                 />
               }
+              title="Language"
+              titleInfo={this.state.language}
+              titleInfoStyle={styles.titleInfoStyle}
+              onPress={() => this.props.navigation.navigate("selectLanguage")}
             />
             <SettingsList.Item
-              hasSwitch={false}
-              switchState={this.state.switchValue}
-              switchOnValueChange={this.onValueChange}
-              hasNavArrow={false}
-              title="中文(简体)"
-              onPress={() => this._changeLanguage("zhcn")}
               icon={
-                <MaterialCommunityIcons
-                  name="check"
-                  style={this._getStyle("zhcn")}
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/airplane.png")}
                 />
               }
-            />
-            <SettingsList.Item
-              hasSwitch={false}
+              hasSwitch={true}
               switchState={this.state.switchValue}
               switchOnValueChange={this.onValueChange}
-              hasNavArrow={false}
-              title="日本語"
-              onPress={() => this._changeLanguage("ja")}
-              icon={
-                <MaterialCommunityIcons
-                  name="check"
-                  style={this._getStyle("ja")}
-                />
-              }
+              hasNavArrow={true}
+              title="Admin Access"
+              onPress={() => this.props.navigation.navigate("adminPassword")}
             />
 
-            <SettingsList.Item
-              hasSwitch={false}
-              switchState={this.state.switchValue}
-              switchOnValueChange={this.onValueChange}
-              hasNavArrow={false}
-              title="Français"
-              onPress={() => this._changeLanguage("fr")}
-              icon={
-                <MaterialCommunityIcons
-                  name="check"
-                  style={this._getStyle("fr")}
-                />
-              }
-            />
+            <SettingsList.Header headerStyle={{ marginTop: 15 }} />
 
             <SettingsList.Item
-              hasSwitch={false}
-              switchState={this.state.switchValue}
-              switchOnValueChange={this.onValueChange}
-              hasNavArrow={false}
-              title="한국어"
-              onPress={() => this._changeLanguage("ko")}
               icon={
-                <MaterialCommunityIcons
-                  name="check"
-                  style={this._getStyle("ko")}
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/airplane.png")}
                 />
               }
+              hasSwitch={true}
+              switchState={this.state.switchValue}
+              switchOnValueChange={this.onValueChange}
+              title="ELV"
+              hasNavArrow={false}
+              onPress={() => Alert.alert("NA")}
             />
-
             <SettingsList.Item
-              hasSwitch={false}
-              switchState={this.state.switchValue}
-              switchOnValueChange={this.onValueChange}
-              hasNavArrow={false}
-              title="Español"
-              onPress={() => this._changeLanguage("es")}
               icon={
-                <MaterialCommunityIcons
-                  name="check"
-                  style={this._getStyle("es")}
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/airplane.png")}
                 />
               }
+              hasSwitch={true}
+              switchState={this.state.switchValue}
+              switchOnValueChange={this.onValueChange}
+              title="Elementary"
+              titleInfo="KG2 - Grade 5"
+              hasNavArrow={false}
+              onPress={() => Alert.alert("NA")}
+            />
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/airplane.png")}
+                />
+              }
+              hasSwitch={true}
+              switchState={this.state.switchValue}
+              switchOnValueChange={this.onValueChange}
+              title="Middle School"
+              titleInfo="Grade 6 - 8"
+              hasNavArrow={false}
+              onPress={() => Alert.alert("NA")}
+            />
+            <SettingsList.Item
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/airplane.png")}
+                />
+              }
+              hasSwitch={true}
+              switchState={this.state.switchValue}
+              switchOnValueChange={this.onValueChange}
+              title="High School"
+              titleInfo="Grade 9 - 12"
+              hasNavArrow={false}
+              onPress={() => Alert.alert("NA")}
             />
           </SettingsList>
         </View>
@@ -248,4 +409,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = SettingsListExample;
+module.exports = Settings;

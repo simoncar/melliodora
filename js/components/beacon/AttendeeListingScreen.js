@@ -5,7 +5,6 @@ import firebase from "firebase";
 import moment from "moment";
 
 export default class AttendeeListingScreen extends Component {
-
   static navigationOptions = ({ navigation }) => ({
     title: null
   });
@@ -70,7 +69,7 @@ export default class AttendeeListingScreen extends Component {
         }
         onPress={() => this.props.navigation.navigate("AttendeeDetailScreen", item)}
       />
-    )
+    );
   };
 
   renderSeparator = () => {
@@ -78,8 +77,8 @@ export default class AttendeeListingScreen extends Component {
       <View
         style={{
           height: 1,
-          width: '100%',
-          backgroundColor: '#CED0CE'
+          width: "100%",
+          backgroundColor: "#CED0CE"
         }}
       />
     );
@@ -97,10 +96,8 @@ export default class AttendeeListingScreen extends Component {
           ItemSeparatorComponent={this.renderSeparator}
         />
       </View>
-    )
+    );
   }
 }
 
-const styles = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({});

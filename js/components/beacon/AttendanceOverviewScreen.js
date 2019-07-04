@@ -1,11 +1,24 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Button, Text, Dimensions, TouchableOpacity, ScrollView } from "react-native";
-import { Divider } from 'react-native-elements';
-import { LineChart } from 'react-native-chart-kit';
+import React, { Component } from "react";
+import {
+  StyleSheet,
+  View,
+  Button,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+  ScrollView
+} from "react-native";
+import { Divider } from "react-native-elements";
+import { LineChart } from "react-native-chart-kit";
 
-import AttendanceStats from './AttendanceStats';
+import AttendanceStats from "./AttendanceStats";
 
 export default class AttendanceOverviewScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.getParam("title"),
+    headerBackTitle: null
+  });
+
   constructor(props) {
     super(props);
   }
@@ -14,12 +27,9 @@ export default class AttendanceOverviewScreen extends Component {
     return (
       <View style={{ minHeight: "100%" }}>
         <ScrollView style={{ backgroundColor: "#f2f2f2" }}>
-
-
           <AttendanceStats navigation={this.props.navigation} />
 
-
-          <Divider style={{ backgroundColor: 'gray', margin:12 }} />
+          <Divider style={{ backgroundColor: "gray", margin: 12 }} />
 
           {/* </View> */}
 
@@ -53,7 +63,6 @@ export default class AttendanceOverviewScreen extends Component {
             }}
           /> */}
           </View>
-
         </ScrollView>
       </View>
     );
