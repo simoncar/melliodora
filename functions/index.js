@@ -451,70 +451,88 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     var targetCollection = "beaconsNotOurs";
 
     try {
-      beacons.forEach(async function (snapshot) {
+
+      beacons.forEach(async function(snapshot) {
+        personName = "";
+
         if ((snapshot.type = "Gateway" && personCampus == "")) {
-          personName = "GATEWAY";
           personPictureURL =
             "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
 
           switch (snapshot.mac) {
             case "AC233FC03164":
+              personName = "GATEWAY";
               personCampus = "Woodleigh - Gate 1";
               personState = "Perimeter";
               break;
             case "AC233FC031B8":
+              personName = "GATEWAY";
               personCampus = "Woodleigh - Gate 2";
               personState = "Perimeter";
               break;
             case "AC233FC039DB":
+              personName = "GATEWAY";
               personCampus = "Smartcookies Office HQ";
               personState = "Perimeter";
               break;
             case "AC233FC039C9":
+              personName = "GATEWAY";
               personCampus = "Smartcookies Cove";
               personState = "Perimeter";
               break;
             case "AC233FC039B2":
+              personName = "GATEWAY";
               personCampus = "ELV Gate 1";
               personState = "Perimeter";
               break;
             case "AC233FC039BE":
+              personName = "GATEWAY";
               personCampus = "Woodleigh Parent Helpdesk";
               personState = "On Campus";
               break;
             case "AC233FC039A7":
+              personName = "GATEWAY";
               personCampus = "Woodleigh TBA 1";
               personState = "On Campus";
               break;
             case "AC233FC03A44":
+              personName = "GATEWAY";
               personCampus = "Woodleigh TBA 2";
               personState = "On Campus";
               break;
             case "AC233FC039B1":
+              personName = "GATEWAY";
               personCampus = "Woodleigh TBA 3";
               personState = "On Campus";
               break;
             case "AC233FC039CA":
+              personName = "GATEWAY";
               personCampus = "Woodleigh TBA 4";
               personState = "On Campus";
               break;
             case "AC233FC039BB":
+              personName = "GATEWAY";
+
               personCampus = "Woodleigh TBA 5";
               personState = "On Campus";
               break;
             case "AC233FC039B8":
+              personName = "GATEWAY";
               personCampus = "Woodleigh TBA 6";
               personState = "On Campus";
               break;
             case "AC233FC03E1F":
+              personName = "GATEWAY";
               personCampus = "Woodleigh - Gate 1 II";
               personState = "On Campus";
               break;
             case "AC233FC03E00":
+              personName = "GATEWAY";
               personCampus = "Woodleigh - Gate 1 II";
               personState = "On Campus";
               break;
             case "AC233FC03E46":
+              personName = "GATEWAY";
               personCampus = "Woodleigh Parent Helpdesk II";
               personState = "On Campus";
               break;

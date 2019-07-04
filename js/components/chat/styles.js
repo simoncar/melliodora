@@ -126,7 +126,10 @@ export default {
     alignSelf: "center",
     fontSize: 18,
     paddingTop: 5,
-    textColor: "#037AFF"
+    paddingBottom: 5,
+    textColor: "#037AFF",
+    borderBottomWidth: 1,
+    borderBottomColor: "#666"
   },
   chat: {
     color: "black",
