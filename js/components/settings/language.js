@@ -41,6 +41,7 @@ class selectLanguage extends Component {
       // Error retrieving data
     }
   };
+
   _changeLanguage(language) {
     this.state.language = "ja";
     this.setState({ language: language });
@@ -66,54 +67,8 @@ class selectLanguage extends Component {
     var bgColor = "#DCE3F4";
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
-        <View
-          style={{
-            borderBottomWidth: 1,
-            backgroundColor: "#f7f7f8",
-            borderColor: "#c8c7cc"
-          }}
-        >
-          <Text
-            style={{
-              alignSelf: "center",
-              marginTop: 30,
-              marginBottom: 10,
-              fontWeight: "bold",
-              fontSize: 20
-            }}
-          >
-            Settings
-          </Text>
-        </View>
         <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
           <SettingsList borderColor="#c8c7cc" defaultItemSize={50}>
-            <SettingsList.Header headerStyle={{ marginTop: 15 }} />
-            {this.state.toggleAuthView ? (
-              <SettingsList.Item
-                icon={
-                  <Image
-                    style={styles.imageStyle}
-                    source={require("./images/user.png")}
-                  />
-                }
-                title="Logged In As..."
-                hasNavArrow={false}
-              />
-            ) : (
-              <SettingsList.Item
-                icon={
-                  <Image
-                    style={styles.imageStyle}
-                    source={require("./images/user.png")}
-                  />
-                }
-                isAuth={true}
-                authPropsUser={{ placeholder: "E-mail" }}
-                authPropsPW={{ placeholder: "Password" }}
-                onPress={() => this.toggleAuthView()}
-              />
-            )}
-
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
 
             <SettingsList.Item

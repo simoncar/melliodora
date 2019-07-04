@@ -264,7 +264,11 @@ class HomeNav extends Component {
                     style={styles.roundedButton}
                     onPress={() => {
                       //this._handleOpenWithLinking("https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP");
-                      this.props.navigation.navigate("webportal");
+                      tthis.props.navigation.navigate("webportalURL", {
+                        url:
+                          "https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP",
+                        title: "myStamford"
+                      });
                     }}
                   >
                     <MaterialIcons style={styles.icon} name="web" />
