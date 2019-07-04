@@ -38,8 +38,7 @@ export default class BeaconHistoryItem extends Component {
         <View style={style.container}>
           <View style={style.timeContainer}>
             <Text adjustsFontSizeToFit style={style.time}>
-              {timestamp}
-              {/* {moment(timestamp).format("LLL")} */}
+              {moment(timestamp).format("hh:mm a")}
             </Text>
           </View>
 

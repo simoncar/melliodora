@@ -5,13 +5,13 @@ import BeaconHistoryItem from "./BeaconHistoryItem";
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
+import firebase from "firebase";
+import moment from "moment";
 
 export default class AttendeeDetailScreen extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-
-
     }
   }
 
@@ -22,34 +22,58 @@ export default class AttendeeDetailScreen extends Component {
       user: null,
       userBeacons: {},
       userHistoryData: {},
-      userHistory: [
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" }
-      ]
+      userHistory: []
     };
   }
 
+  componentDidMount() {
+    const beaconID = this.props.navigation.getParam("beaconID");
+
+    const todayDate = moment()
+      .add(8, "hours")
+      .format("YYYYMMDD");
+
+    this.getData(beaconID, todayDate)
+      .then(data => this.setState({
+        userHistory: data,
+        loading: false
+      }));
+  }
+
+  async getData(beaconID, date) {
+    const data = [];
+    await firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beaconHistory")
+      .doc(date)
+      .collection("5AE59BBD544E") //beaconID
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.docs.forEach(doc => {
+          console.log(doc.data());
+          data.push(doc.data());
+        });
+      });
+    return data;
+  }
+
   _renderListItem = (item, index) => {
-    if (index === 0) return <BeaconHistoryItem start={true} {...item} />;
+    key = index.toString();
+    if (index === 0) return <BeaconHistoryItem start={true} {...item} key={key}/>;
     else if (index === this.state.userHistory.length - 1)
-      return <BeaconHistoryItem last={true} {...item} />;
-    else return <BeaconHistoryItem {...item} />;
+      return <BeaconHistoryItem last={true} {...item} key={key}/>;
+    else return <BeaconHistoryItem {...item} key={key}/>;
   };
 
   render() {
+
+    const {lastSeen, state, mac} = this.props.navigation.state.params;
+
     return (
 
       <View style={{ height: "100%" }}>
-        {/* <SearchBar
-          lightTheme
-          placeholder="Type Here..."
-          inputContainerStyle={{ backgroundColor: 'white' }}
-          containerStyle={{ backgroundColor: 'white' }}
-        /> */}
         <TouchableHighlight
           style={styles.bookmark}
           underlayColor="#ff7043"
@@ -72,8 +96,8 @@ export default class AttendeeDetailScreen extends Component {
                 <Text style={styles.detailsText}>Grade 3</Text>
                 <Text style={styles.detailsText}>Class 3XYZ</Text>
                 <Text></Text>
-                <Text style={styles.detailsText}>last seen today at 11:01 PM</Text>
-                <Text style={styles.detailsText}>last located at Singapore</Text>
+                <Text style={styles.detailsText}>last seen {moment(lastSeen).format("LLL")}</Text>
+                <Text style={styles.detailsText}>current status {state}</Text>
               </View>
 
             </View>
@@ -138,7 +162,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   detailsText: {
-    color: '#48484A'
+    color: '#48484A',
+    fontSize: 12
   },
   bookmark: {
     backgroundColor: "#ff5722",
