@@ -5,7 +5,8 @@ import {
   View,
   ScrollView,
   TouchableHighlight,
-  Dimensions
+  Dimensions,
+  AsyncStorage
 } from "react-native";
 import {
   ListItem,
@@ -35,11 +36,14 @@ export default class AttendeeDetailScreen extends Component {
       user: null,
       userBeacons: {},
       userHistoryData: {},
-      userHistory: []
+      userHistory: [],
+      bookmarked: false
     }
   }
 
   componentDidMount() {
+    this._checkBookmarked();
+
     const beaconID = this.props.navigation.getParam("beaconID");
 
     const todayDate = moment()
@@ -51,6 +55,8 @@ export default class AttendeeDetailScreen extends Component {
         userHistory: data,
         loading: false
       }));
+
+
   }
 
   async getData(beaconID, date) {
@@ -74,24 +80,122 @@ export default class AttendeeDetailScreen extends Component {
 
   _renderListItem = (item, index) => {
     key = index.toString();
-    if (index === 0) return <BeaconHistoryItem start={true} {...item} key={key}/>;
+    if (index === 0) return <BeaconHistoryItem start={true} {...item} key={key} />;
     else if (index === this.state.userHistory.length - 1)
-      return <BeaconHistoryItem last={true} {...item} key={key}/>;
-    else return <BeaconHistoryItem {...item} key={key}/>;
+      return <BeaconHistoryItem last={true} {...item} key={key} />;
+    else return <BeaconHistoryItem {...item} key={key} />;
   };
+
+  _storeBookmarkData = () => {
+    try {
+
+      this.updateBookmarkList()
+        .then((updatedBookmarkList) => AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarkList)))
+        .then(() => this._checkBookmarked())
+        .then((result) => console.log(result))
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  updateBookmarkList = async () => {
+    const bookmarks = await this._retrieveBookmarkData();
+    const mac = this.props.navigation.state.params.mac;
+    let bookmarksSet;
+    if (bookmarks) {
+      // add bookmark to existing bookmarks list
+      bookmarksSet = new Set(bookmarks);
+      bookmarksSet.add(mac)
+    } else {
+      // no exisitng bookmarks list
+      console.log("hit!!!", mac);
+      bookmarksSet = [mac];
+    }
+
+    return [...bookmarksSet];
+  }
+
+  removeBookmark = async () => {
+    const bookmarks = await this._retrieveBookmarkData();
+    const mac = this.props.navigation.state.params.mac;
+    let bookmarksSet;
+    if (bookmarks) {
+      // add bookmark to existing bookmarks list
+      bookmarksSet = new Set(bookmarks);
+      bookmarksSet.delete(mac)
+    } else {
+      // no exisitng bookmarks list
+      console.log("hit!!!", mac);
+      bookmarksSet = [];
+    }
+    return [...bookmarksSet];
+  }
+
+  _unbookmark = () => {
+    try {
+      this.removeBookmark()
+        .then((updatedBookmarkList) => AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarkList)))
+        .then(() => this._checkBookmarked())
+        .then((result) => console.log(result))
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  _retrieveBookmarkData = async () => {
+    try {
+      const bookmarks = await AsyncStorage.getItem('myBookmarks')
+      return JSON.parse(bookmarks);
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
+  _checkBookmarked = async () => {
+    const bookmarks = await this._retrieveBookmarkData();
+
+    const mac = this.props.navigation.state.params.mac;
+
+    console.log("bookmarks _checkBookmarked", bookmarks, mac);
+    if (!bookmarks || bookmarks.indexOf(mac) < 0) {
+      this.setState({ bookmarked: false });
+    } else {
+      this.setState({ bookmarked: true });
+    }
+
+    return this.state.bookmarked;
+  }
+
+  renderBookmarkBtn = () => {
+    let onPressFunc, color;
+
+    if (this.state.bookmarked) {
+      onPressFunc = this._unbookmark;
+      color = "gold";
+    } else {
+      onPressFunc = this._storeBookmarkData;
+      color = "white";
+    }
+    return (
+      <TouchableHighlight
+        style={styles.bookmark}
+        underlayColor="#ff7043"
+        onPress={onPressFunc}
+      >
+        <FontAwesome name="star" size={28} color={color} />
+      </TouchableHighlight>
+    )
+  }
 
   render() {
 
-    const {lastSeen, state, mac} = this.props.navigation.state.params;
+    const { lastSeen, state, mac } = this.props.navigation.state.params;
 
     return (
       <View style={{ height: "100%" }}>
-        <TouchableHighlight
-          style={styles.bookmark}
-          underlayColor="#ff7043"
-        >
-          <FontAwesome name="star" size={28} color="gold" />
-        </TouchableHighlight>
+        {this.renderBookmarkBtn()}
         <ScrollView>
           <View style={styles.topContainer}>
             <View style={styles.avatarContainer}>

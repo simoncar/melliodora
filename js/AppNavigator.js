@@ -37,6 +37,7 @@ import GradeListingScreen from "./components/beacon/GradeListingScreen";
 import ClassListingScreen from "./components/beacon/ClassListingScreen";
 import AttendeeListingScreen from "./components/beacon/AttendeeListingScreen";
 import AttendeeDetailScreen from "./components/beacon/AttendeeDetailScreen";
+import BookmarkScreen from "./components/beacon/BookmarkScreen";
 
 let StackHome = createStackNavigator(
   {
@@ -136,7 +137,8 @@ let StackOther = createStackNavigator(
     ClassListingScreen: { screen: ClassListingScreen },
     AttendeeListingScreen: { screen: AttendeeListingScreen },
     beaconHistory: { screen: beaconHistory },
-    AttendeeDetailScreen: { screen: AttendeeDetailScreen }
+    AttendeeDetailScreen: { screen: AttendeeDetailScreen },
+    BookmarkScreen: { screen: BookmarkScreen }
   },
   {
     navigationOptions: {
