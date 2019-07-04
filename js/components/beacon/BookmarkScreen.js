@@ -76,7 +76,7 @@ export default class BookmarkScreen extends Component {
       color = "gold";
     } else {
       onPressFunc = this._storeBookmarkData;
-      color = "white";
+      color = "gray";
     }
 
     return (
