@@ -18,7 +18,7 @@ export default class BookmarkScreen extends Component {
     this.state = {
       loading: true,
       bookmarks: [],
-      attendeeData: []
+      bookmarksData: []
     }
   }
 
@@ -27,7 +27,7 @@ export default class BookmarkScreen extends Component {
       .then((bookmarks) => this.setState({ bookmarks }))
       .then(() => this.getData())
       .then(data => this.setState({
-        attendeeData: data,
+        bookmarksData: data,
         loading: false
       }));
 
@@ -57,9 +57,6 @@ export default class BookmarkScreen extends Component {
       )));
     return data;
   }
-
-  _keyExtractor = (item, index) => item.mac;
-
 
   _renderItem = (item, index) => {
     const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: 'MD' };
@@ -149,7 +146,7 @@ export default class BookmarkScreen extends Component {
 
     return (
 
-      <View>{this.state.attendeeData.map(this._renderItem)}</View>
+      <View>{this.state.bookmarksData.map(this._renderItem)}</View>
     );
   }
 }
