@@ -12,6 +12,7 @@ import { Divider } from "react-native-elements";
 import { LineChart } from "react-native-chart-kit";
 
 import AttendanceStats from "./AttendanceStats";
+import BookmarkPreview from "./BookmarkPreview";
 
 export default class AttendanceOverviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -27,12 +28,25 @@ export default class AttendanceOverviewScreen extends Component {
     return (
       <View style={{ minHeight: "100%" }}>
         <ScrollView style={{ backgroundColor: "#f2f2f2" }}>
+          <Text style={{ padding: 8, fontWeight: 'bold', color: '#48484a' }}>Overview</Text>
           <AttendanceStats navigation={this.props.navigation} />
 
           <Divider style={{ backgroundColor: "gray", margin: 12 }} />
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            <Text style={{ paddingLeft: 8, fontWeight: 'bold', color: '#48484a', flex: 1 }}>Recent Bookmarks</Text>
+
+            <View style={{ flex: 1, alignItems: "flex-end", paddingRight: 8 }}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
+                <Text style={{fontSize: 12, color: 'gray'}}>View All</Text>
+              </TouchableOpacity>
+            </View>
+
+          </View>
+          <BookmarkPreview navigation={this.props.navigation} />
+
+          {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
             <Text>View All Bookmarks</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           {/* </View> */}
 
           <View style={{ flex: 1 }}>
