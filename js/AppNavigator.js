@@ -35,7 +35,7 @@ import beaconHistory from "./components/beacon/beaconHistory";
 import AttendanceOverviewScreen from "./components/beacon/AttendanceOverviewScreen";
 import GradeListingScreen from "./components/beacon/GradeListingScreen";
 import ClassListingScreen from "./components/beacon/ClassListingScreen";
-import AttendeeListingScreen from "./components/beacon/AttendeeListingScreen2";
+import AttendeeListingScreen from "./components/beacon/AttendeeListingScreen";
 import AttendeeDetailScreen from "./components/beacon/AttendeeDetailScreen";
 import BookmarkScreen from "./components/beacon/BookmarkScreen";
 
@@ -168,31 +168,24 @@ let Tabs = createBottomTabNavigator(
   }
 );
 
-const MainScreenNavigator = createStackNavigator({
-  Tab: {
-    screen: Tabs
-  },
-
-  authPortal: { screen: authPortal },
-
-  defaultNavigationOptions: () => ({
-    headerStyle: {
-      backgroundColor: "#f4511e"
-    },
-    headerBackTitle: null,
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold"
-    }
-  })
-});
-
-const RootStack = createStackNavigator(
+const MainScreenNavigator = createStackNavigator(
   {
-    Main: {
-      screen: MainScreenNavigator
+    Tab: {
+      screen: Tabs
     },
-    AttendeeDetailScreen: { screen: AttendeeDetailScreen }
+
+    authPortal: { screen: authPortal },
+
+    defaultNavigationOptions: () => ({
+      headerStyle: {
+        backgroundColor: "#f4511e"
+      },
+      headerBackTitle: null,
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        fontWeight: "bold"
+      }
+    })
   },
   {
     mode: "modal",
@@ -200,4 +193,4 @@ const RootStack = createStackNavigator(
   }
 );
 
-export default createAppContainer(RootStack);
+export default createAppContainer(MainScreenNavigator);
