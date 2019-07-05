@@ -5,6 +5,11 @@ import moment from "moment";
 import { ListItem } from 'react-native-elements';
 import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
 
+import BookmarkHooks from "./hooks/BookmarkHook";
+
+const {addBookmark, removeBookmark, retrieveBookmarkData, checkBookmarked} = BookmarkHooks();
+
+
 export default class BookmarkScreen extends Component {
 
   constructor(props) {
@@ -13,16 +18,16 @@ export default class BookmarkScreen extends Component {
     this.state = {
       loading: true,
       bookmarks: [],
-      attendeeData: []
+      bookmarksData: []
     }
   }
 
   componentDidMount() {
-    this._retrieveBookmarkData()
+    retrieveBookmarkData()
       .then((bookmarks) => this.setState({ bookmarks }))
       .then(() => this.getData())
       .then(data => this.setState({
-        attendeeData: data,
+        bookmarksData: data,
         loading: false
       }));
 
@@ -53,19 +58,6 @@ export default class BookmarkScreen extends Component {
     return data;
   }
 
-  _retrieveBookmarkData = async () => {
-    try {
-      const bookmarks = await AsyncStorage.getItem('myBookmarks')
-      return JSON.parse(bookmarks) || [];
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
-
-
-  _keyExtractor = (item, index) => item.mac;
-
-
   _renderItem = (item, index) => {
     const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: 'MD' };
 
@@ -75,7 +67,7 @@ export default class BookmarkScreen extends Component {
       onPressFunc = this._unbookmark;
       color = "gold";
     } else {
-      onPressFunc = this._storeBookmarkData;
+      onPressFunc = this._bookmark;
       color = "gray";
     }
 
@@ -90,7 +82,7 @@ export default class BookmarkScreen extends Component {
         }
         chevron={false}
         subtitle={
-          <View style={{ flex: 1, flexDirection: 'column', paddingTop: 8 }}>
+          <View style={{ flex: 1, flexDirection: 'column', paddingTop: 8}}>
             <Text style={{ color: 'gray', fontSize: 12 }}>Class {item.campus}</Text>
             <Text style={{ color: 'gray', fontSize: 12 }}>last seen {moment(item.lastSeen).format("LLL")}</Text>
             <Text style={{ color: 'gray', fontSize: 12 }}>current status {item.state}</Text>
@@ -104,6 +96,8 @@ export default class BookmarkScreen extends Component {
 
         }
         onPress={() => this.props.navigation.navigate("AttendeeDetailScreen", item)}
+        topDivider={true}
+        containerStyle={{margin: 10}}
       />
     );
   };
@@ -120,80 +114,39 @@ export default class BookmarkScreen extends Component {
     );
   };
 
-
-
-  _storeBookmarkData = (mac) => {
+  _bookmark = (mac) => {
     try {
-
-      this.updateBookmarkList(mac)
-        .then((updatedBookmarkList) =>
-          AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarkList),
-            () => this.setState({ bookmarks: updatedBookmarkList })
-          )
-        );
+      addBookmark(mac)
+        .then(() => this._setBookmarks())
 
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  updateBookmarkList = async (mac) => {
-    const bookmarks = await this._retrieveBookmarkData();
-    let bookmarksSet;
-    if (bookmarks) {
-      // add bookmark to existing bookmarks list
-      bookmarksSet = new Set(bookmarks);
-      bookmarksSet.add(mac)
-    } else {
-      bookmarksSet = [mac];
-    }
-
-    return [...bookmarksSet];
-  }
-
-  removeBookmark = async (mac) => {
-    const bookmarks = await this._retrieveBookmarkData();
-    let bookmarksSet;
-    if (bookmarks) {
-      // add bookmark to existing bookmarks list
-      bookmarksSet = new Set(bookmarks);
-      bookmarksSet.delete(mac)
-    } else {
-      bookmarksSet = [];
-    }
-    return [...bookmarksSet];
-  }
 
   _unbookmark = (mac) => {
     try {
-      console.log("_unbookmark");
-      this.removeBookmark(mac)
-        .then((updatedBookmarkList) =>
-          AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarkList),
-            () => this.setState({ bookmarks: updatedBookmarkList })
-          )
-        );
+
+      removeBookmark(mac)
+        .then(() => this._setBookmarks())
 
     } catch (error) {
       console.log(error.message);
     }
   }
 
-  _retrieveBookmarkData = async () => {
-    try {
-      const bookmarks = await AsyncStorage.getItem('myBookmarks')
-      return JSON.parse(bookmarks);
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
+  _setBookmarks = async () => {
+    const bookmarks = await retrieveBookmarkData();;
+    this.setState({ bookmarks: bookmarks });
+  }
 
   render() {
     if (this.state.loading) return null;
 
     return (
 
-      <View>{this.state.attendeeData.map(this._renderItem)}</View>
+      <View>{this.state.bookmarksData.map(this._renderItem)}</View>
     );
   }
 }

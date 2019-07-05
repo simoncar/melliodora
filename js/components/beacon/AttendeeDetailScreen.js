@@ -6,11 +6,15 @@ import BeaconHistoryItem from "./BeaconHistoryItem";
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 // import Icon from 'react-native-vector-icons/FontAwesome';
-import {
-  AntDesign, MaterialIcons, Feather, FontAwesome,
-  Ionicons
-} from "@expo/vector-icons";
-import { SafeAreaView } from 'react-navigation';
+
+import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
+import firebase from "firebase";
+import moment from "moment";
+import _ from "lodash";
+
+import BookmarkHooks from "./hooks/BookmarkHook";
+
+const {addBookmark, removeBookmark, checkBookmarked} = BookmarkHooks();
 
 
 export default class AttendeeDetailScreen extends Component {
@@ -27,6 +31,29 @@ export default class AttendeeDetailScreen extends Component {
       user: null,
       userBeacons: {},
       userHistoryData: {},
+      userHistory: [],
+      bookmarked: false
+    }
+
+    
+  }
+
+  componentDidMount() {
+    this._setBookmarked();
+
+    const { mac } = this.props.navigation.state.params;
+
+    const todayDate = moment()
+      .add(8, "hours")
+      .format("YYYYMMDD");
+
+    this.getData(mac, todayDate)
+      .then(data => this.setState({
+        userHistory: data,
+        loading: false
+      }));
+
+
 
       userHistory: [
         { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
@@ -48,8 +75,28 @@ export default class AttendeeDetailScreen extends Component {
   }
 
 
+  async getData(mac, date) {
+    const data = [];
+    await firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beaconHistory")
+      .doc(date)
+      .collection(mac) //beaconID
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.docs.forEach(doc => {
+          console.log("dock", doc.data());
+          data.push(doc.data());
+        });
+      });
+    return data;
+
+
   setCalendarModalVisible(visible) {
     this.setState({ calendarModalVisible: visible });
+
   }
 
   _renderListItem = (item, index) => {
@@ -61,8 +108,11 @@ export default class AttendeeDetailScreen extends Component {
   };
 
 
-  render() {
-    const { navigation } = this.props;
+  _bookmark = () => {
+    try {
+      const { mac } = this.props.navigation.state.params;
+      addBookmark(mac)
+
 
     return (
       <TouchableHighlight
@@ -76,50 +126,45 @@ export default class AttendeeDetailScreen extends Component {
   }
 
 
-      <SafeAreaView forceInset={forceInset} style={{ height: "100%", backgroundColor: '#d3d3d3' }}>
 
-        <Overlay
-          isVisible={this.state.calendarModalVisible}
-          onBackdropPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
-          windowBackgroundColor="rgba(0, 0, 0, .8)"
-          width="auto"
-          height="auto"
-        >
-          <SafeAreaView >
-
-            <TouchableOpacity
-              onPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                zIndex: 10
-              }}
-            >
-              <Ionicons name="md-close" size={28} color='gray' />
-            </TouchableOpacity>
-            <View style={{ paddingHorizontal: 20, paddingTop: 40, paddingBottom: 10 }}  >
-
-
-              <Text style={{ marginBottom: 15, fontWeight: 'bold' }}>
-                Select Date
-              </Text>
-
-              <Calendar
-                onDayPress={(day) => { this.setState({ selectedDate: day }) }}
-                markedDates={{ [this.state.selectedDate.dateString]: { selected: true, disableTouchEvent: true } }}
-              />
+  _unbookmark = () => {
+    try {
+      const { mac } = this.props.navigation.state.params;
+      removeBookmark(mac)
+        .then(() => this._setBookmarked())
 
 
 
-              <Button
-                title="Submit"
-                onPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
-                containerStyle={{ marginTop: 15 }} />
+
+  _setBookmarked = async () => {
+    const { mac } = this.props.navigation.state.params;
+    const bookmarked = await checkBookmarked(mac);
+    this.setState({ bookmarked: bookmarked });
+  }
+
 
             </View>
           </SafeAreaView>
         </Overlay>
+
+
+    if (this.state.bookmarked) {
+      onPressFunc = this._unbookmark;
+      color = "gold";
+    } else {
+      onPressFunc = this._bookmark;
+      color = "white";
+    }
+    return (
+      <TouchableHighlight
+        style={styles.bookmark}
+        underlayColor="#ff7043"
+        onPress={onPressFunc}
+      >
+        <FontAwesome name="star" size={28} color={color} />
+      </TouchableHighlight>
+    )
+  }
 
 
         <TouchableOpacity
