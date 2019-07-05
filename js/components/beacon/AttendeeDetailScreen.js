@@ -21,6 +21,7 @@ import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
 import moment from "moment";
+import _ from "lodash";
 
 export default class AttendeeDetailScreen extends Component {
 
@@ -67,11 +68,11 @@ export default class AttendeeDetailScreen extends Component {
       .doc("beacon")
       .collection("beaconHistory")
       .doc(date)
-      .collection("5AE59BBD544E") //beaconID
+      .collection(beaconID) //beaconID
       .get()
       .then(querySnapshot => {
         querySnapshot.docs.forEach(doc => {
-          console.log(doc.data());
+          console.log("dock", doc.data());
           data.push(doc.data());
         });
       });
@@ -89,7 +90,7 @@ export default class AttendeeDetailScreen extends Component {
   _storeBookmarkData = () => {
     try {
 
-      this.updateBookmarkList()
+      this.addBookmark()
         .then((updatedBookmarkList) => AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarkList)))
         .then(() => this._checkBookmarked())
         .then((result) => console.log(result))
@@ -99,37 +100,38 @@ export default class AttendeeDetailScreen extends Component {
     }
   };
 
-  updateBookmarkList = async () => {
+  addBookmark = async () => {
+
     const bookmarks = await this._retrieveBookmarkData();
-    const mac = this.props.navigation.state.params.mac;
-    let bookmarksSet;
-    if (bookmarks) {
-      // add bookmark to existing bookmarks list
-      bookmarksSet = new Set(bookmarks);
-      bookmarksSet.add(mac)
-    } else {
-      // no exisitng bookmarks list
-      console.log("hit!!!", mac);
-      bookmarksSet = [mac];
+    const { lastSeen, state, mac } = this.props.navigation.state.params;
+
+    const newBookmark = {
+      lastSeen,
+      state,
+      mac,
+      studentName: 'Student name',
+      studentGrade: '3XYZ',
+      studentNo: '123456'
     }
 
-    return [...bookmarksSet];
+    if (bookmarks) {
+      // add bookmark to existing bookmarks list
+      bookmarks.push(newBookmark)
+    }
+
+    return bookmarks;
   }
 
   removeBookmark = async () => {
     const bookmarks = await this._retrieveBookmarkData();
     const mac = this.props.navigation.state.params.mac;
-    let bookmarksSet;
+
     if (bookmarks) {
       // add bookmark to existing bookmarks list
-      bookmarksSet = new Set(bookmarks);
-      bookmarksSet.delete(mac)
-    } else {
-      // no exisitng bookmarks list
-      console.log("hit!!!", mac);
-      bookmarksSet = [];
+      _.remove(bookmarks, { 'mac': mac });
+      console.log("remove bookmark", bookmarks)
     }
-    return [...bookmarksSet];
+    return bookmarks;
   }
 
   _unbookmark = () => {
@@ -147,7 +149,7 @@ export default class AttendeeDetailScreen extends Component {
   _retrieveBookmarkData = async () => {
     try {
       const bookmarks = await AsyncStorage.getItem('myBookmarks')
-      return JSON.parse(bookmarks);
+      return JSON.parse(bookmarks) || [];
     } catch (error) {
       // Error retrieving data
     }
@@ -158,13 +160,12 @@ export default class AttendeeDetailScreen extends Component {
 
     const mac = this.props.navigation.state.params.mac;
 
-    console.log("bookmarks _checkBookmarked", bookmarks, mac);
-    if (!bookmarks || bookmarks.indexOf(mac) < 0) {
-      this.setState({ bookmarked: false });
-    } else {
+    // console.log("bookmarks _checkBookmarked", bookmarks, mac, _.find(bookmarks, { 'mac': mac }));
+    if (_.find(bookmarks, { 'mac': mac })) {
       this.setState({ bookmarked: true });
+    } else {
+      this.setState({ bookmarked: false });
     }
-
     return this.state.bookmarked;
   }
 
