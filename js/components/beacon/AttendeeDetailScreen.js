@@ -25,7 +25,7 @@ import _ from "lodash";
 
 import BookmarkHooks from "./hooks/BookmarkHook";
 
-const {addBookmark, removeBookmark, retrieveBookmarkData, checkBookmarked} = BookmarkHooks();
+const {addBookmark, removeBookmark, checkBookmarked} = BookmarkHooks();
 
 export default class AttendeeDetailScreen extends Component {
 
@@ -51,7 +51,7 @@ export default class AttendeeDetailScreen extends Component {
   componentDidMount() {
     this._setBookmarked();
 
-    const mac = this.props.navigation.getParam("mac");
+    const { mac } = this.props.navigation.state.params;
 
     const todayDate = moment()
       .add(8, "hours")
@@ -95,18 +95,8 @@ export default class AttendeeDetailScreen extends Component {
 
   _bookmark = () => {
     try {
-
-      console.log("bb");
-      const { lastSeen, state, mac } = this.props.navigation.state.params;
-      const newBookmark = {
-        lastSeen,
-        state,
-        mac,
-        studentName: 'Student name',
-        studentGrade: '3XYZ',
-        studentNo: '123456'
-      }
-      addBookmark(newBookmark)
+      const { mac } = this.props.navigation.state.params;
+      addBookmark(mac)
         .then(() => this._setBookmarked())
 
     } catch (error) {
@@ -117,7 +107,7 @@ export default class AttendeeDetailScreen extends Component {
 
   _unbookmark = () => {
     try {
-      const mac = this.props.navigation.state.params.mac;
+      const { mac } = this.props.navigation.state.params;
       removeBookmark(mac)
         .then(() => this._setBookmarked())
 
@@ -127,7 +117,7 @@ export default class AttendeeDetailScreen extends Component {
   }
 
   _setBookmarked = async () => {
-    const mac = this.props.navigation.state.params.mac;
+    const { mac } = this.props.navigation.state.params;
     const bookmarked = await checkBookmarked(mac);
     this.setState({ bookmarked: bookmarked });
   }
