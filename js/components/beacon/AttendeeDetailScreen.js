@@ -1,26 +1,17 @@
-import React, { Component } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  ScrollView,
-  TouchableHighlight,
-  Dimensions,
-  AsyncStorage
-} from "react-native";
-import {
-  ListItem,
-  SearchBar,
-  Avatar,
-  Divider,
-  Button
-} from "react-native-elements";
+
+import React, { Component } from 'react'
+import { Text, StyleSheet, View, ScrollView, TouchableHighlight, Dimensions, TouchableOpacity, Modal } from 'react-native'
+import { ListItem, SearchBar, Avatar, Divider, Button, Overlay } from 'react-native-elements';
 import BeaconHistoryItem from "./BeaconHistoryItem";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+
 // import Icon from 'react-native-vector-icons/FontAwesome';
-import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
-import firebase from "firebase";
-import moment from "moment";
+import {
+  AntDesign, MaterialIcons, Feather, FontAwesome,
+  Ionicons
+} from "@expo/vector-icons";
+import { SafeAreaView } from 'react-navigation';
+
 
 export default class AttendeeDetailScreen extends Component {
 
@@ -36,46 +27,29 @@ export default class AttendeeDetailScreen extends Component {
       user: null,
       userBeacons: {},
       userHistoryData: {},
-      userHistory: [],
-      bookmarked: false
-    }
+
+      userHistory: [
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
+        { timestamp: 2359, campus: "SAIS", state: "Perimeter" }
+      ],
+      calendarModalVisible: false,
+      selectedDate: ''
+    };
   }
 
-  componentDidMount() {
-    this._checkBookmarked();
 
-    const beaconID = this.props.navigation.getParam("beaconID");
-
-    const todayDate = moment()
-      .add(8, "hours")
-      .format("YYYYMMDD");
-
-    this.getData(beaconID, todayDate)
-      .then(data => this.setState({
-        userHistory: data,
-        loading: false
-      }));
-
-
-  }
-
-  async getData(beaconID, date) {
-    const data = [];
-    await firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("beacon")
-      .collection("beaconHistory")
-      .doc(date)
-      .collection("5AE59BBD544E") //beaconID
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.docs.forEach(doc => {
-          console.log(doc.data());
-          data.push(doc.data());
-        });
-      });
-    return data;
+  setCalendarModalVisible(visible) {
+    this.setState({ calendarModalVisible: visible });
   }
 
   _renderListItem = (item, index) => {
@@ -86,98 +60,10 @@ export default class AttendeeDetailScreen extends Component {
     else return <BeaconHistoryItem {...item} key={key} />;
   };
 
-  _storeBookmarkData = () => {
-    try {
 
-      this.updateBookmarkList()
-        .then((updatedBookmarkList) => AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarkList)))
-        .then(() => this._checkBookmarked())
-        .then((result) => console.log(result))
+  render() {
+    const { navigation } = this.props;
 
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  updateBookmarkList = async () => {
-    const bookmarks = await this._retrieveBookmarkData();
-    const mac = this.props.navigation.state.params.mac;
-    let bookmarksSet;
-    if (bookmarks) {
-      // add bookmark to existing bookmarks list
-      bookmarksSet = new Set(bookmarks);
-      bookmarksSet.add(mac)
-    } else {
-      // no exisitng bookmarks list
-      console.log("hit!!!", mac);
-      bookmarksSet = [mac];
-    }
-
-    return [...bookmarksSet];
-  }
-
-  removeBookmark = async () => {
-    const bookmarks = await this._retrieveBookmarkData();
-    const mac = this.props.navigation.state.params.mac;
-    let bookmarksSet;
-    if (bookmarks) {
-      // add bookmark to existing bookmarks list
-      bookmarksSet = new Set(bookmarks);
-      bookmarksSet.delete(mac)
-    } else {
-      // no exisitng bookmarks list
-      console.log("hit!!!", mac);
-      bookmarksSet = [];
-    }
-    return [...bookmarksSet];
-  }
-
-  _unbookmark = () => {
-    try {
-      this.removeBookmark()
-        .then((updatedBookmarkList) => AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarkList)))
-        .then(() => this._checkBookmarked())
-        .then((result) => console.log(result))
-
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
-  _retrieveBookmarkData = async () => {
-    try {
-      const bookmarks = await AsyncStorage.getItem('myBookmarks')
-      return JSON.parse(bookmarks);
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
-
-  _checkBookmarked = async () => {
-    const bookmarks = await this._retrieveBookmarkData();
-
-    const mac = this.props.navigation.state.params.mac;
-
-    console.log("bookmarks _checkBookmarked", bookmarks, mac);
-    if (!bookmarks || bookmarks.indexOf(mac) < 0) {
-      this.setState({ bookmarked: false });
-    } else {
-      this.setState({ bookmarked: true });
-    }
-
-    return this.state.bookmarked;
-  }
-
-  renderBookmarkBtn = () => {
-    let onPressFunc, color;
-
-    if (this.state.bookmarked) {
-      onPressFunc = this._unbookmark;
-      color = "gold";
-    } else {
-      onPressFunc = this._storeBookmarkData;
-      color = "white";
-    }
     return (
       <TouchableHighlight
         style={styles.bookmark}
@@ -189,14 +75,69 @@ export default class AttendeeDetailScreen extends Component {
     )
   }
 
-  render() {
 
-    const { lastSeen, state, mac } = this.props.navigation.state.params;
+      <SafeAreaView forceInset={forceInset} style={{ height: "100%", backgroundColor: '#d3d3d3' }}>
 
-    return (
-      <View style={{ height: "100%" }}>
-        {this.renderBookmarkBtn()}
-        <ScrollView>
+        <Overlay
+          isVisible={this.state.calendarModalVisible}
+          onBackdropPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
+          windowBackgroundColor="rgba(0, 0, 0, .8)"
+          width="auto"
+          height="auto"
+        >
+          <SafeAreaView >
+
+            <TouchableOpacity
+              onPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                zIndex: 10
+              }}
+            >
+              <Ionicons name="md-close" size={28} color='gray' />
+            </TouchableOpacity>
+            <View style={{ paddingHorizontal: 20, paddingTop: 40, paddingBottom: 10 }}  >
+
+
+              <Text style={{ marginBottom: 15, fontWeight: 'bold' }}>
+                Select Date
+              </Text>
+
+              <Calendar
+                onDayPress={(day) => { this.setState({ selectedDate: day }) }}
+                markedDates={{ [this.state.selectedDate.dateString]: { selected: true, disableTouchEvent: true } }}
+              />
+
+
+
+              <Button
+                title="Submit"
+                onPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
+                containerStyle={{ marginTop: 15 }} />
+
+            </View>
+          </SafeAreaView>
+        </Overlay>
+
+
+        <TouchableOpacity
+          style={styles.exitBtn}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="md-close" size={28} color='white' />
+        </TouchableOpacity>
+
+
+        <TouchableHighlight
+          style={styles.bookmark}
+          underlayColor="#ff7043"
+        >
+          <FontAwesome name="star" size={28} color="gold" />
+        </TouchableHighlight>
+        <ScrollView style={{ backgroundColor: '#fff' }}>
+
           <View style={styles.topContainer}>
             <View style={styles.avatarContainer}>
               <Avatar
@@ -230,16 +171,38 @@ export default class AttendeeDetailScreen extends Component {
                   <FontAwesome name="calendar" size={15} color="#48484A" />
                 </View>
               }
-              buttonStyle={{ backgroundColor: "#d3d3d3", padding: 2 }}
-              titleStyle={{ color: "#48484A", fontSize: 14 }}
+
+              buttonStyle={{ backgroundColor: '#d3d3d3', padding: 2 }}
+              titleStyle={{ color: '#48484A', fontSize: 14 }}
+              onPress={() => {
+                this.setCalendarModalVisible(true);
+              }}
             />
           </View>
-          <View>{this.state.userHistory.map(this._renderListItem)}</View>
+
+          <View>
+            {
+              this.state.userHistory.map(this._renderListItem)
+            }
+
+          </View>
+
+
         </ScrollView>
-      </View>
-    );
+
+      </SafeAreaView>
+
+    )
+
   }
 }
+
+const forceInset = {
+  top: 'always',
+  bottom: 'never',
+  horizontal: 'always',
+};
+
 
 const styles = StyleSheet.create({
   topContainer: {
@@ -289,5 +252,30 @@ const styles = StyleSheet.create({
       width: 0
     },
     zIndex: 1
+  },
+  exitBtn: {
+    backgroundColor: "#2c2c2e",
+    opacity: 0.5,
+    height: 40,
+    width: 40,
+    borderRadius: 50 / 2,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    top: 45,
+    left: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    },
+    zIndex: 1
+  },
+  modalContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 0
   }
 });
