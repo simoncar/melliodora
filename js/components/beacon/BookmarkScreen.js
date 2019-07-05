@@ -90,7 +90,7 @@ export default class BookmarkScreen extends Component {
         }
         chevron={false}
         subtitle={
-          <View style={{ flex: 1, flexDirection: 'column', paddingTop: 8 }}>
+          <View style={{ flex: 1, flexDirection: 'column', paddingTop: 8}}>
             <Text style={{ color: 'gray', fontSize: 12 }}>Class {item.campus}</Text>
             <Text style={{ color: 'gray', fontSize: 12 }}>last seen {moment(item.lastSeen).format("LLL")}</Text>
             <Text style={{ color: 'gray', fontSize: 12 }}>current status {item.state}</Text>
@@ -104,6 +104,8 @@ export default class BookmarkScreen extends Component {
 
         }
         onPress={() => this.props.navigation.navigate("AttendeeDetailScreen", item)}
+        topDivider={true}
+        containerStyle={{margin: 10}}
       />
     );
   };
