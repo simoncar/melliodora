@@ -13,7 +13,6 @@ export default class AttendanceStats extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{ padding: 8, fontWeight: 'bold', color:'#48484a' }}>Overview</Text>
         <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
           <Button
             title="Today 28 June 2019"
