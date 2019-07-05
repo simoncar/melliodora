@@ -168,31 +168,18 @@ let Tabs = createBottomTabNavigator(
   }
 );
 
-const MainScreenNavigator = createStackNavigator(
-  {
-    Tab: {
-      screen: Tabs
-    },
-
-    authPortal: { screen: authPortal },
-
-    defaultNavigationOptions: () => ({
-      headerStyle: {
-        backgroundColor: "#f4511e"
-      },
-      headerBackTitle: null,
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        fontWeight: "bold"
-      }
-    })
+const MainScreenNavigator = createStackNavigator({
+  Tab: {
+    screen: Tabs
   },
 
+  authPortal: { screen: authPortal },
 
   defaultNavigationOptions: () => ({
     headerStyle: {
       backgroundColor: "#f4511e"
     },
+    headerBackTitle: null,
     headerTintColor: "#fff",
     headerTitleStyle: {
       fontWeight: "bold"
@@ -200,19 +187,17 @@ const MainScreenNavigator = createStackNavigator(
   })
 });
 
-
 const RootStack = createStackNavigator(
   {
     Main: {
-      screen: MainScreenNavigator,
+      screen: MainScreenNavigator
     },
     AttendeeDetailScreen: { screen: AttendeeDetailScreen }
   },
   {
-    mode: 'modal',
-    headerMode: 'none',
+    mode: "modal",
+    headerMode: "none"
   }
 );
-
 
 export default createAppContainer(RootStack);
