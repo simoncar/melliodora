@@ -12,7 +12,7 @@ import { Divider } from "react-native-elements";
 import { LineChart } from "react-native-chart-kit";
 
 import AttendanceStats from "./AttendanceStats";
-// import BookmarkPreview from "./BookmarkPreview";
+import BookmarkPreview from "./BookmarkPreview";
 
 export default class AttendanceOverviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -37,23 +37,26 @@ export default class AttendanceOverviewScreen extends Component {
 
             <View style={{ flex: 1, alignItems: "flex-end", paddingRight: 8 }}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
-                <Text style={{fontSize: 12, color: 'gray'}}>View All</Text>
+                <Text style={{ fontSize: 12, color: 'gray' }}>View All</Text>
               </TouchableOpacity>
             </View>
 
           </View>
-          {/* <BookmarkPreview navigation={this.props.navigation} /> */}
+          <View style={{ paddingBottom: 120 }}>
+            <BookmarkPreview />
+          </View>
+
 
           {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
             <Text>View All Bookmarks</Text>
           </TouchableOpacity> */}
           {/* </View> */}
 
-          <View style={{ flex: 1 }}>
-            {/* <Text>
+          {/* <View style={{ flex: 1 }}>
+            <Text>
               Activity Line Chart
          </Text> */}
-            {/*  <LineChart
+          {/*  <LineChart
             data={{
               labels: ['7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM'],
               datasets: [{
@@ -77,8 +80,8 @@ export default class AttendanceOverviewScreen extends Component {
               marginVertical: 8,
               borderRadius: 16
             }}
-          /> */}
-          </View>
+          /> 
+          </View>*/}
         </ScrollView>
       </View>
     );

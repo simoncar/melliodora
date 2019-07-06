@@ -1,12 +1,23 @@
-
-import React, { Component } from 'react'
-import { Text, StyleSheet, View, ScrollView, TouchableHighlight, Dimensions, TouchableOpacity, Modal } from 'react-native'
-import { ListItem, SearchBar, Avatar, Divider, Button, Overlay } from 'react-native-elements';
+import React, { Component } from "react";
+import {
+  Text,
+  StyleSheet,
+  View,
+  ScrollView,
+  TouchableHighlight,
+  Dimensions,
+  AsyncStorage
+} from "react-native";
+import {
+  ListItem,
+  SearchBar,
+  Avatar,
+  Divider,
+  Button
+} from "react-native-elements";
 import BeaconHistoryItem from "./BeaconHistoryItem";
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
-
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 // import Icon from 'react-native-vector-icons/FontAwesome';
-
 import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
 import moment from "moment";
@@ -15,7 +26,6 @@ import _ from "lodash";
 import BookmarkHooks from "./hooks/BookmarkHook";
 
 const {addBookmark, removeBookmark, checkBookmarked} = BookmarkHooks();
-
 
 export default class AttendeeDetailScreen extends Component {
 
@@ -54,26 +64,7 @@ export default class AttendeeDetailScreen extends Component {
       }));
 
 
-
-      userHistory: [
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" },
-        { timestamp: 2359, campus: "SAIS", state: "Perimeter" }
-      ],
-      calendarModalVisible: false,
-      selectedDate: ''
-    };
   }
-
 
   async getData(mac, date) {
     const data = [];
@@ -92,11 +83,6 @@ export default class AttendeeDetailScreen extends Component {
         });
       });
     return data;
-
-
-  setCalendarModalVisible(visible) {
-    this.setState({ calendarModalVisible: visible });
-
   }
 
   _renderListItem = (item, index) => {
@@ -107,24 +93,16 @@ export default class AttendeeDetailScreen extends Component {
     else return <BeaconHistoryItem {...item} key={key} />;
   };
 
-
   _bookmark = () => {
     try {
       const { mac } = this.props.navigation.state.params;
       addBookmark(mac)
+        .then(() => this._setBookmarked())
 
-
-    return (
-      <TouchableHighlight
-        style={styles.bookmark}
-        underlayColor="#ff7043"
-        onPress={onPressFunc}
-      >
-        <FontAwesome name="star" size={28} color={color} />
-      </TouchableHighlight>
-    )
-  }
-
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
 
   _unbookmark = () => {
@@ -133,8 +111,10 @@ export default class AttendeeDetailScreen extends Component {
       removeBookmark(mac)
         .then(() => this._setBookmarked())
 
-
-
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   _setBookmarked = async () => {
     const { mac } = this.props.navigation.state.params;
@@ -142,11 +122,8 @@ export default class AttendeeDetailScreen extends Component {
     this.setState({ bookmarked: bookmarked });
   }
 
-
-            </View>
-          </SafeAreaView>
-        </Overlay>
-
+  renderBookmarkBtn = () => {
+    let onPressFunc, color;
 
     if (this.state.bookmarked) {
       onPressFunc = this._unbookmark;
@@ -166,23 +143,14 @@ export default class AttendeeDetailScreen extends Component {
     )
   }
 
+  render() {
 
-        <TouchableOpacity
-          style={styles.exitBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="md-close" size={28} color='white' />
-        </TouchableOpacity>
+    const { lastSeen, state, mac } = this.props.navigation.state.params;
 
-
-        <TouchableHighlight
-          style={styles.bookmark}
-          underlayColor="#ff7043"
-        >
-          <FontAwesome name="star" size={28} color="gold" />
-        </TouchableHighlight>
-        <ScrollView style={{ backgroundColor: '#fff' }}>
-
+    return (
+      <View style={{ height: "100%" }}>
+        {this.renderBookmarkBtn()}
+        <ScrollView>
           <View style={styles.topContainer}>
             <View style={styles.avatarContainer}>
               <Avatar
@@ -216,38 +184,16 @@ export default class AttendeeDetailScreen extends Component {
                   <FontAwesome name="calendar" size={15} color="#48484A" />
                 </View>
               }
-
-              buttonStyle={{ backgroundColor: '#d3d3d3', padding: 2 }}
-              titleStyle={{ color: '#48484A', fontSize: 14 }}
-              onPress={() => {
-                this.setCalendarModalVisible(true);
-              }}
+              buttonStyle={{ backgroundColor: "#d3d3d3", padding: 2 }}
+              titleStyle={{ color: "#48484A", fontSize: 14 }}
             />
           </View>
-
-          <View>
-            {
-              this.state.userHistory.map(this._renderListItem)
-            }
-
-          </View>
-
-
+          <View>{this.state.userHistory.map(this._renderListItem)}</View>
         </ScrollView>
-
-      </SafeAreaView>
-
-    )
-
+      </View>
+    );
   }
 }
-
-const forceInset = {
-  top: 'always',
-  bottom: 'never',
-  horizontal: 'always',
-};
-
 
 const styles = StyleSheet.create({
   topContainer: {
@@ -297,30 +243,5 @@ const styles = StyleSheet.create({
       width: 0
     },
     zIndex: 1
-  },
-  exitBtn: {
-    backgroundColor: "#2c2c2e",
-    opacity: 0.5,
-    height: 40,
-    width: 40,
-    borderRadius: 50 / 2,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    top: 45,
-    left: 10,
-    shadowColor: "#000000",
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 0
-    },
-    zIndex: 1
-  },
-  modalContent: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 0
   }
 });
