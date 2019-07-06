@@ -66,7 +66,7 @@ const BookmarkHook = () => {
 
   retrieveBookmarkData = async () => {
     try {
-      const bookmarks = await AsyncStorage.getItem('myBookmarks')
+      const bookmarks = await AsyncStorage.getItem('myBookmarks') || []
       return JSON.parse(bookmarks || []);
     } catch (error) {
       // Error retrieving data

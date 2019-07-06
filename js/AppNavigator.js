@@ -35,7 +35,7 @@ import beaconHistory from "./components/beacon/beaconHistory";
 import AttendanceOverviewScreen from "./components/beacon/AttendanceOverviewScreen";
 import GradeListingScreen from "./components/beacon/GradeListingScreen";
 import ClassListingScreen from "./components/beacon/ClassListingScreen";
-import AttendeeListingScreen from "./components/beacon/AttendeeListingScreen2";
+import AttendeeListingScreen from "./components/beacon/AttendeeListingScreen";
 import AttendeeDetailScreen from "./components/beacon/AttendeeDetailScreen";
 import BookmarkScreen from "./components/beacon/BookmarkScreen";
 
@@ -187,18 +187,10 @@ const MainScreenNavigator = createStackNavigator(
       }
     })
   },
-
-
-  defaultNavigationOptions: () => ({
-    headerStyle: {
-      backgroundColor: "#f4511e"
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold"
-    }
-  })
-});
+  {
+    headerMode: 'none',
+  }
+);
 
 
 const RootStack = createStackNavigator(
