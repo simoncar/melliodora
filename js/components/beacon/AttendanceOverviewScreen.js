@@ -12,7 +12,7 @@ import { Divider } from "react-native-elements";
 import { LineChart } from "react-native-chart-kit";
 
 import AttendanceStats from "./AttendanceStats";
-import BookmarkPreview from "./BookmarkPreview";
+// import BookmarkPreview from "./BookmarkPreview";
 
 export default class AttendanceOverviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -42,7 +42,7 @@ export default class AttendanceOverviewScreen extends Component {
             </View>
 
           </View>
-          <BookmarkPreview navigation={this.props.navigation} />
+          {/* <BookmarkPreview navigation={this.props.navigation} /> */}
 
           {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
             <Text>View All Bookmarks</Text>

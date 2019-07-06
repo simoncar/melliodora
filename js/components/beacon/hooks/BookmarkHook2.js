@@ -4,10 +4,13 @@ import firebase from "firebase";
 
 const BookmarkHook = () => {
   const [bookmarksData, setBookmarksData] = useState([]);
+  const [bookmarks, setBookmarks] = useState([]);
 
 
   useEffect(() => {
     function getData(bm) {
+
+      if (!bm || bm == []) return [];
 
       // const data = [];
       const docRef = firebase
@@ -37,37 +40,43 @@ const BookmarkHook = () => {
     retrieveBookmarkData()
       .then((bookmarks) => getData(bookmarks))
       .then(data => setBookmarksData(data));
-  });
+  }, []);
 
-
+  useEffect(() => {
+    _setBookmarks()
+  }, []);
 
   addBookmark = async (mac) => {
 
     const bookmarks = await retrieveBookmarkData();
     const updatedBookmarks = bookmarks.filter(e => e !== mac);
     updatedBookmarks.push(mac)
-    return await AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarks));
+    return await AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarks))
+      .then(() => _setBookmarks());
   }
 
   removeBookmark = async (mac) => {
     const bookmarks = await retrieveBookmarkData();
     const updatedBookmarks = bookmarks.filter(e => e !== mac);
-    return await AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarks));
+    return await AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarks))
+      .then(() => _setBookmarks());
+
   }
 
 
   retrieveBookmarkData = async () => {
     try {
       const bookmarks = await AsyncStorage.getItem('myBookmarks')
-      return JSON.parse(bookmarks) || [];
+      return JSON.parse(bookmarks || []);
     } catch (error) {
       // Error retrieving data
     }
   };
 
   checkBookmarked = async (mac) => {
+    console.log("hit check bookmarked");
     const bookmarks = await retrieveBookmarkData();
-
+    console.log("bookmarks", bookmarks, mac);
     if (bookmarks.indexOf(mac) > -1) {
       return true;
     } else {
@@ -75,7 +84,12 @@ const BookmarkHook = () => {
     }
   }
 
-  return { addBookmark, removeBookmark, retrieveBookmarkData, checkBookmarked, bookmarksData }
+  _setBookmarks = async () => {
+    const bookmarks = await retrieveBookmarkData();;
+    setBookmarks(bookmarks);
+  }
+
+  return { addBookmark, removeBookmark, retrieveBookmarkData, checkBookmarked, bookmarksData, bookmarks }
 }
 
 export default BookmarkHook
