@@ -102,7 +102,7 @@ exports.sendPushNotificationSimonAll = functions.database
       .database()
       .ref(
         `instance/0001-sais_edu_sg/chat/chatroom/${
-        createdData.chatroom
+          createdData.chatroom
         }/notifications`
       );
     query.on("value", snap => {
@@ -237,7 +237,7 @@ exports.beaconPingHistoryNotOurs = functions.firestore
 
 //https://us-central1-calendar-app-57e88.cloudfunctions.net/computeCounts
 exports.computeCounts = functions.https.onRequest(async (req, res) => {
-  let entered = 0
+  let entered = 0;
   let onCampus = 0;
   let enteredExited = 0;
   let noShow = 0;
@@ -251,11 +251,11 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
   // .where("timestamp", "<", cutoff)
   // .limit(1);
 
-  let query = beacons.get().then( async snapshot => {
-    console.log("querying")
+  let query = beacons.get().then(async snapshot => {
+    console.log("querying");
 
     snapshot.forEach(doc => {
-      const state = doc.data().state
+      const state = doc.data().state;
       console.log("state=", state);
       ++entered;
 
@@ -273,19 +273,18 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
         default:
         // code block
       }
-
     });
     let result = {
       entered: entered,
       onCampus: onCampus,
       noShow: noShow,
       enteredExited: enteredExited
-    }
+    };
 
     console.log("Attendance Overview : ", JSON.stringify(result));
     let today = new Date();
-    console.log("today", today.toISOString())
-    let setWithOptions  = await admin
+    console.log("today", today.toISOString());
+    let setWithOptions = await admin
       .firestore()
       .collection("sais_edu_sg")
       .doc("beacon")
@@ -295,9 +294,6 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
 
     res.status(200).send("setWithOptions " + setWithOptions);
   });
-
-
-  
 });
 
 // https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
@@ -451,109 +447,141 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     var targetCollection = "beaconsNotOurs";
 
     try {
-
       beacons.forEach(async function(snapshot) {
         personName = "";
+        personPictureURL = "";
 
-        if ((snapshot.type = "Gateway" && personCampus == "")) {
-          personPictureURL =
-            "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+        switch (snapshot.mac) {
+          case "AC233FC03164":
+            personName = "GATEWAY";
+            personCampus = "Woodleigh - Gate 1";
+            personState = "Perimeter";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC031B8":
+            personName = "GATEWAY";
+            personCampus = "Woodleigh - Gate 2";
+            personState = "Perimeter";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC039DB":
+            personName = "GATEWAY";
+            personCampus = "Smartcookies Office HQ";
+            personState = "Perimeter";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC039C9":
+            personName = "GATEWAY";
+            personCampus = "Smartcookies Cove";
+            personState = "Perimeter";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC039B2":
+            personName = "GATEWAY";
+            personCampus = "ELV Gate 1";
+            personState = "Perimeter";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC039BE":
+            personName = "GATEWAY";
+            personCampus = "Woodleigh Parent Helpdesk";
+            personState = "On Campus";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC039A7":
+            personName = "GATEWAY";
+            personCampus = "Woodleigh TBA 1";
+            personState = "On Campus";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC03A44":
+            personName = "GATEWAY";
+            personCampus = "Woodleigh TBA 2";
+            personState = "On Campus";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC039B1":
+            personName = "GATEWAY";
+            personCampus = "Woodleigh TBA 3";
+            personState = "On Campus";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC039CA":
+            personName = "GATEWAY";
+            personCampus = "Woodleigh TBA 4";
+            personState = "On Campus";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC039BB":
+            personName = "GATEWAY";
 
-          switch (snapshot.mac) {
-            case "AC233FC03164":
-              personName = "GATEWAY";
-              personCampus = "Woodleigh - Gate 1";
-              personState = "Perimeter";
-              break;
-            case "AC233FC031B8":
-              personName = "GATEWAY";
-              personCampus = "Woodleigh - Gate 2";
-              personState = "Perimeter";
-              break;
-            case "AC233FC039DB":
-              personName = "GATEWAY";
-              personCampus = "Smartcookies Office HQ";
-              personState = "Perimeter";
-              break;
-            case "AC233FC039C9":
-              personName = "GATEWAY";
-              personCampus = "Smartcookies Cove";
-              personState = "Perimeter";
-              break;
-            case "AC233FC039B2":
-              personName = "GATEWAY";
-              personCampus = "ELV Gate 1";
-              personState = "Perimeter";
-              break;
-            case "AC233FC039BE":
-              personName = "GATEWAY";
-              personCampus = "Woodleigh Parent Helpdesk";
-              personState = "On Campus";
-              break;
-            case "AC233FC039A7":
-              personName = "GATEWAY";
-              personCampus = "Woodleigh TBA 1";
-              personState = "On Campus";
-              break;
-            case "AC233FC03A44":
-              personName = "GATEWAY";
-              personCampus = "Woodleigh TBA 2";
-              personState = "On Campus";
-              break;
-            case "AC233FC039B1":
-              personName = "GATEWAY";
-              personCampus = "Woodleigh TBA 3";
-              personState = "On Campus";
-              break;
-            case "AC233FC039CA":
-              personName = "GATEWAY";
-              personCampus = "Woodleigh TBA 4";
-              personState = "On Campus";
-              break;
-            case "AC233FC039BB":
-              personName = "GATEWAY";
-
-              personCampus = "Woodleigh TBA 5";
-              personState = "On Campus";
-              break;
-            case "AC233FC039B8":
-              personName = "GATEWAY";
-              personCampus = "Woodleigh TBA 6";
-              personState = "On Campus";
-              break;
-            case "AC233FC03E1F":
-              personName = "GATEWAY";
-              personCampus = "Woodleigh - Gate 1 II";
-              personState = "On Campus";
-              break;
-            case "AC233FC03E00":
-              personName = "GATEWAY";
-              personCampus = "Woodleigh - Gate 1 II";
-              personState = "On Campus";
-              break;
-            case "AC233FC03E46":
-              personName = "GATEWAY";
-              personCampus = "Woodleigh Parent Helpdesk II";
-              personState = "On Campus";
-              break;
-            default:
-              personName = "";
-              personPictureURL = "";
-          }
+            personCampus = "Woodleigh TBA 5";
+            personState = "On Campus";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC039B8":
+            personName = "GATEWAY";
+            personCampus = "Woodleigh TBA 6";
+            personState = "On Campus";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC03E1F":
+            personName = "GATEWAY";
+            personCampus = "Woodleigh - Gate 1 II";
+            personState = "On Campus";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC03E00":
+            personName = "GATEWAY";
+            personCampus = "Woodleigh - Gate 1 II";
+            personState = "On Campus";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
+          case "AC233FC03E46":
+            personName = "GATEWAY";
+            personCampus = "Woodleigh Parent Helpdesk II";
+            personState = "On Campus";
+            personPictureURL =
+              "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+            break;
         }
+
+        console.log("record1=", snapshot.type, snapshot.mac, personName);
 
         // targetCollection = "beaconsNotOurs";
         targetCollection = "beacons";
         var newBeacon = false;
 
-        let beaconRef = await admin
+        let beaconRef = admin
           .firestore()
           .collection("sais_edu_sg")
           .doc("beacon")
           .collection("beacons")
           .doc(snapshot.mac);
 
-        let beaconDoc = await beaconRef
+        console.log(
+          "record2=",
+          snapshot.type,
+          snapshot.mac,
+          personName,
+          personCampus
+        );
+
+        let beaconDoc = beaconRef
           .get()
           .then(doc => {
             if (!doc.exists) {
@@ -567,6 +595,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             console.log("Error getting document", err);
           });
 
+        console.log("record3=", snapshot.type, snapshot.mac, personName);
         var ibeaconUuid =
           snapshot.ibeaconUuid === undefined ? "" : snapshot.ibeaconUuid;
         var ibeaconMajor =
@@ -581,6 +610,14 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
 
         //console.log("a=", raw.length, snapshot.mac);
         // console.log("b=", snapshot.rawData.length, snapshot.mac);
+        if (
+          personPictureURL ==
+          "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png"
+        ) {
+          personName = "GATEWAY";
+        }
+
+        console.log("record4=", snapshot.type, snapshot.mac, personName);
 
         if (raw.length < 10) {
           var dataDict = {
@@ -595,7 +632,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             ibeaconTxPower: ibeaconTxPower,
             battery: battery,
             mac: snapshot.mac,
-            name: personName
+            name: personName,
+            beaconPictureURL: personPictureURL
           };
         } else {
           var dataDict = {
@@ -611,9 +649,14 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             battery: battery,
             raw: raw,
             mac: snapshot.mac,
-            name: personName
+            name: personName,
+            beaconPictureURL: personPictureURL
           };
         }
+
+        console.log("record5=", snapshot.type, snapshot.mac, personName);
+
+        console.log("FS update 111=", dataDict);
 
         if (newBeacon == true) {
           await admin
