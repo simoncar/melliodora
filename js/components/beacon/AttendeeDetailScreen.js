@@ -23,7 +23,7 @@ import firebase from "firebase";
 import moment from "moment";
 import _ from "lodash";
 
-import BookmarkHooks from "./hooks/BookmarkHook2";
+import BookmarkHooks from "./hooks/BookmarkHook";
 
 
 
@@ -120,7 +120,7 @@ export default class AttendeeDetailScreen extends Component {
 
     return (
       <View style={{ height: "100%" }}>
-        <BookmarkBtn mac={mac}></BookmarkBtn>
+        <BookmarkBtn mac={mac} />
         <ScrollView>
           <View style={styles.topContainer}>
             <View style={styles.avatarContainer}>
