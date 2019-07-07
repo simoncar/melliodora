@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -23,9 +23,31 @@ import firebase from "firebase";
 import moment from "moment";
 import _ from "lodash";
 
-import BookmarkHooks from "./hooks/BookmarkHook";
+import BookmarkHooks from "./hooks/BookmarkHook2";
 
-const {addBookmark, removeBookmark, checkBookmarked} = BookmarkHooks();
+
+
+const BookmarkBtn = ({ mac }) => {
+  const { addBookmark, removeBookmark, bookmarks } = BookmarkHooks();
+  console.log(mac, "mac");
+  let onPressFunc, color;
+  if (bookmarks.indexOf(mac) > -1) {
+    onPressFunc = removeBookmark;
+    color = "gold";
+  } else {
+    onPressFunc = addBookmark;
+    color = "white";
+  }
+  return (
+    <TouchableHighlight
+      style={styles.bookmark}
+      underlayColor="#ff7043"
+      onPress={() => onPressFunc(mac)}
+    >
+      <FontAwesome name="star" size={28} color={color} />
+    </TouchableHighlight>
+  )
+}
 
 export default class AttendeeDetailScreen extends Component {
 
@@ -41,15 +63,13 @@ export default class AttendeeDetailScreen extends Component {
       user: null,
       userBeacons: {},
       userHistoryData: {},
-      userHistory: [],
-      bookmarked: false
+      userHistory: []
     }
 
-    
+
   }
 
   componentDidMount() {
-    this._setBookmarked();
 
     const { mac } = this.props.navigation.state.params;
 
@@ -93,55 +113,6 @@ export default class AttendeeDetailScreen extends Component {
     else return <BeaconHistoryItem {...item} key={key} />;
   };
 
-  _bookmark = () => {
-    try {
-      const { mac } = this.props.navigation.state.params;
-      addBookmark(mac)
-        .then(() => this._setBookmarked())
-
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-
-  _unbookmark = () => {
-    try {
-      const { mac } = this.props.navigation.state.params;
-      removeBookmark(mac)
-        .then(() => this._setBookmarked())
-
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
-  _setBookmarked = async () => {
-    const { mac } = this.props.navigation.state.params;
-    const bookmarked = await checkBookmarked(mac);
-    this.setState({ bookmarked: bookmarked });
-  }
-
-  renderBookmarkBtn = () => {
-    let onPressFunc, color;
-
-    if (this.state.bookmarked) {
-      onPressFunc = this._unbookmark;
-      color = "gold";
-    } else {
-      onPressFunc = this._bookmark;
-      color = "white";
-    }
-    return (
-      <TouchableHighlight
-        style={styles.bookmark}
-        underlayColor="#ff7043"
-        onPress={onPressFunc}
-      >
-        <FontAwesome name="star" size={28} color={color} />
-      </TouchableHighlight>
-    )
-  }
 
   render() {
 
@@ -149,7 +120,7 @@ export default class AttendeeDetailScreen extends Component {
 
     return (
       <View style={{ height: "100%" }}>
-        {this.renderBookmarkBtn()}
+        <BookmarkBtn mac={mac}></BookmarkBtn>
         <ScrollView>
           <View style={styles.topContainer}>
             <View style={styles.avatarContainer}>
