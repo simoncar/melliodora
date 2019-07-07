@@ -6,7 +6,6 @@ const BookmarkHook = () => {
   const [bookmarksData, setBookmarksData] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
 
-
   useEffect(() => {
     function getData(bm) {
 
