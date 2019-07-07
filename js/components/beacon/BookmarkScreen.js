@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Text, StyleSheet, View, AsyncStorage, FlatList, TouchableOpacity } from 'react-native'
 import firebase from "firebase";
 import moment from "moment";
@@ -7,7 +7,7 @@ import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-ico
 
 import BookmarkHooks from "./hooks/BookmarkHook2";
 
-const BookmarkScreen = () => {
+const BookmarkScreen = ({ navigation }) => {
 
   const { addBookmark, removeBookmark, bookmarksData, bookmarks } = BookmarkHooks();
 
@@ -36,7 +36,7 @@ const BookmarkScreen = () => {
         }
         chevron={false}
         subtitle={
-          <View style={{ flex: 1, flexDirection: 'column', paddingTop: 8}}>
+          <View style={{ flex: 1, flexDirection: 'column', paddingTop: 8 }}>
             <Text style={{ color: 'gray', fontSize: 12 }}>Class {item.campus}</Text>
             <Text style={{ color: 'gray', fontSize: 12 }}>last seen {moment(item.lastSeen).format("LLL")}</Text>
             <Text style={{ color: 'gray', fontSize: 12 }}>current status {item.state}</Text>
@@ -49,16 +49,16 @@ const BookmarkScreen = () => {
           </TouchableOpacity>
 
         }
-        onPress={() => this.props.navigation.navigate("AttendeeDetailScreen", item)}
+        onPress={() => navigation.navigate("AttendeeDetailScreen", item)}
         topDivider={true}
-        containerStyle={{margin: 10}}
+        containerStyle={{ margin: 10 }}
       />
     );
   };
 
-  console.log("bookmarks",bookmarks);
-  console.log("bookmarksData",bookmarksData);
-  return(
+  console.log("bookmarks", bookmarks);
+  console.log("bookmarksData", bookmarksData);
+  return (
     <View>{bookmarksData.map(this._renderItem)}</View>
   );
 }
