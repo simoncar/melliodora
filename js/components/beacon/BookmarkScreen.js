@@ -5,7 +5,7 @@ import moment from "moment";
 import { ListItem } from 'react-native-elements';
 import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
 
-import BookmarkHooks from "./hooks/BookmarkHook2";
+import BookmarkHooks from "./hooks/BookmarkHook";
 
 const BookmarkScreen = ({ navigation }) => {
 

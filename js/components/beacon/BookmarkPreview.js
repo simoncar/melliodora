@@ -3,7 +3,7 @@ import { Text, StyleSheet, View, ScrollView, TouchableOpacity } from 'react-nati
 import { Avatar, Card } from 'react-native-elements';
 import firebase from "firebase";
 
-import BookmarkHooks from "./hooks/BookmarkHook2";
+import BookmarkHooks from "./hooks/BookmarkHook";
 
 const BookmarkPreview = ({ navigation }) => {
   const { bookmarksData } = BookmarkHooks();
