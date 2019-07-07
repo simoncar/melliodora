@@ -43,7 +43,7 @@ export default class AttendanceOverviewScreen extends Component {
 
           </View>
           <View style={{ paddingBottom: 120 }}>
-            <BookmarkPreview />
+            <BookmarkPreview navigation={this.props.navigation}/>
           </View>
 
 
