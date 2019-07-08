@@ -37,6 +37,8 @@ const BookmarkPreview = ({ navigation }) => {
     <View>
       <ScrollView
         horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
       >
         {bookmarksData.map(e => renderBookmarkItem(e))}
         <View style={{ marginLeft: 8 }}></View>
