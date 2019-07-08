@@ -2,6 +2,7 @@ const admin = require("firebase-admin");
 var response = "";
 var i = 0;
 var grade = -2;
+var gradeTitle = "";
 batchCount = 0;
 var batch;
 admin.initializeApp();
@@ -30,17 +31,21 @@ function bulkAllocateTestData(batchCount) {
         }
 
         classCode = getClassCode(grade, i);
+        gradeTitle = getGradeTitle(grade, i);
+
         var dataDict = {
           grade: grade,
+          gradeTitle: gradeTitle,
           class: classCode
         };
 
         // console.log(child.grade);
         // For each doc, add a delete operation to the batch
-        if ((child.grade == undefined) & (batchCount < 500)) {
-          console.log("childA=", child);
-          console.log("childB=", child.grade);
+        if ((child.gradeTitle == undefined) & (batchCount < 500)) {
+          //console.log("childA=", child);
+          //console.log("childB=", child.grade);
           batchCount++;
+          console.log("childC=", dataDict);
           batch.update(doc.ref, dataDict);
         }
         //response = response + "i" + i + ":" + doc.ref + "<br>";
@@ -104,6 +109,25 @@ function bulkDelete(batchCount) {
   console.log(response);
 }
 
+function getGradeTitle(grade, i) {
+  var gradeTitle = "";
+  switch (grade) {
+    case -2:
+      gradeTitle = "Nursery";
+      break;
+    case -1:
+      gradeTitle = "KG 1";
+      break;
+    case 0:
+      gradeTitle = "KG 2";
+      break;
+
+    default:
+      gradeTitle = "Grade " + grade;
+  }
+  return gradeTitle;
+}
+
 function getClassCode(grade, i) {
   var teacherString = getTeacherString(i);
   var classCode = "";
@@ -111,19 +135,23 @@ function getClassCode(grade, i) {
   switch (grade) {
     case -2:
       classCode = "N-" + teacherString;
+      gradeTitle = "Nursery";
       // code block
       break;
 
     case -1:
       classCode = "KG1-" + teacherString;
+      gradeTitle = "KG 1";
       // code block
       break;
     case 0:
       classCode = "KG2-" + teacherString;
+      gradeTitle = "KG 2";
       break;
 
     default:
       classCode = "G" + grade + "-" + teacherString;
+      gradeTitle = "Grade " + grade;
     // code block
   }
   return classCode;
