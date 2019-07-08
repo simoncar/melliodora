@@ -1,9 +1,16 @@
 "use strict";
 import React, { Component } from "react";
 
-import { StyleSheet, View, TextInput, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Text,
+  TouchableOpacity
+} from "react-native";
 import * as Localization from "expo-localization";
 import { AsyncStorage } from "react-native";
+import { Updates } from "expo";
 
 class adminPassword extends Component {
   static navigationOptions = {
@@ -43,7 +50,7 @@ class adminPassword extends Component {
     this.setState({ adminPassword: adminPassword });
     if (adminPassword == "cookies") {
       this.setState({ adminPasswordCorrect: "Password Correct!" });
-      this.setState({ restartMessage: "Please Restart App to Apply" });
+      this.setState({ restartMessage: "Click to Restart in Admin Mode" });
     } else {
       this.setState({ adminPasswordCorrect: "Password Incorrect!" });
     }
@@ -68,7 +75,10 @@ class adminPassword extends Component {
           value={this.state.text}
         />
         <Text style={styles.alert}>{this.state.adminPasswordCorrect}</Text>
-        <Text style={styles.alert}>{this.state.restartMessage}</Text>
+
+        <TouchableOpacity onPress={() => Updates.reloadFromCache()}>
+          <Text style={styles.alertRestart}>{this.state.restartMessage}</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -92,6 +102,10 @@ const styles = StyleSheet.create({
   },
   alert: {
     paddingTop: 16
+  },
+  alertRestart: {
+    paddingTop: 16,
+    color: "red"
   }
 });
 
