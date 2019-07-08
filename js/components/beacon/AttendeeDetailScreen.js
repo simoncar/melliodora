@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+
+import React, { Component, useState, useEffect } from "react";
+
 import {
   Text,
   StyleSheet,
@@ -18,14 +20,37 @@ import {
 import BeaconHistoryItem from "./BeaconHistoryItem";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 // import Icon from 'react-native-vector-icons/FontAwesome';
-import {
-  AntDesign,
-  MaterialIcons,
-  Feather,
-  FontAwesome
-} from "@expo/vector-icons";
+
+import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
 import moment from "moment";
+import _ from "lodash";
+
+import BookmarkHooks from "./hooks/BookmarkHook";
+
+
+
+const BookmarkBtn = ({ mac }) => {
+  const { addBookmark, removeBookmark, bookmarks } = BookmarkHooks();
+  console.log(mac, "mac");
+  let onPressFunc, color;
+  if (bookmarks.indexOf(mac) > -1) {
+    onPressFunc = removeBookmark;
+    color = "gold";
+  } else {
+    onPressFunc = addBookmark;
+    color = "white";
+  }
+  return (
+    <TouchableHighlight
+      style={styles.bookmark}
+      underlayColor="#ff7043"
+      onPress={() => onPressFunc(mac)}
+    >
+      <FontAwesome name="star" size={28} color={color} />
+    </TouchableHighlight>
+  )
+}
 
 export default class AttendeeDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -39,13 +64,15 @@ export default class AttendeeDetailScreen extends Component {
       user: null,
       userBeacons: {},
       userHistoryData: {},
-      userHistory: [],
-      bookmarked: false
-    };
+
+      userHistory: []
+    }
+
+
   }
 
   componentDidMount() {
-    this._checkBookmarked();
+
 
     const beaconID = this.props.navigation.getParam("beaconID");
 
@@ -57,11 +84,14 @@ export default class AttendeeDetailScreen extends Component {
       this.setState({
         userHistory: data,
         loading: false
-      })
-    );
+
+      }));
+
+
   }
 
-  async getData(beaconID, date) {
+  async getData(mac, date) {
+
     const data = [];
     await firebase
       .firestore()
@@ -89,122 +119,15 @@ export default class AttendeeDetailScreen extends Component {
     else return <BeaconHistoryItem {...item} key={key} />;
   };
 
-  _storeBookmarkData = () => {
-    try {
-      this.updateBookmarkList()
-        .then(updatedBookmarkList =>
-          AsyncStorage.setItem(
-            "myBookmarks",
-            JSON.stringify(updatedBookmarkList)
-          )
-        )
-        .then(() => this._checkBookmarked())
-        .then(result => console.log(result));
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  updateBookmarkList = async () => {
-    const bookmarks = await this._retrieveBookmarkData();
-    const mac = this.props.navigation.state.params.mac;
-    let bookmarksSet;
-    if (bookmarks) {
-      // add bookmark to existing bookmarks list
-      bookmarksSet = new Set(bookmarks);
-      bookmarksSet.add(mac);
-    } else {
-      // no exisitng bookmarks list
-      console.log("hit!!!", mac);
-      bookmarksSet = [mac];
-    }
-
-    return [...bookmarksSet];
-  };
-
-  removeBookmark = async () => {
-    const bookmarks = await this._retrieveBookmarkData();
-    const mac = this.props.navigation.state.params.mac;
-    let bookmarksSet;
-    if (bookmarks) {
-      // add bookmark to existing bookmarks list
-      bookmarksSet = new Set(bookmarks);
-      bookmarksSet.delete(mac);
-    } else {
-      // no exisitng bookmarks list
-      console.log("hit!!!", mac);
-      bookmarksSet = [];
-    }
-    return [...bookmarksSet];
-  };
-
-  _unbookmark = () => {
-    try {
-      this.removeBookmark()
-        .then(updatedBookmarkList =>
-          AsyncStorage.setItem(
-            "myBookmarks",
-            JSON.stringify(updatedBookmarkList)
-          )
-        )
-        .then(() => this._checkBookmarked())
-        .then(result => console.log(result));
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  _retrieveBookmarkData = async () => {
-    try {
-      const bookmarks = await AsyncStorage.getItem("myBookmarks");
-      return JSON.parse(bookmarks);
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
-
-  _checkBookmarked = async () => {
-    const bookmarks = await this._retrieveBookmarkData();
-
-    const mac = this.props.navigation.state.params.mac;
-
-    console.log("bookmarks _checkBookmarked", bookmarks, mac);
-    if (!bookmarks || bookmarks.indexOf(mac) < 0) {
-      this.setState({ bookmarked: false });
-    } else {
-      this.setState({ bookmarked: true });
-    }
-
-    return this.state.bookmarked;
-  };
-
-  renderBookmarkBtn = () => {
-    let onPressFunc, color;
-
-    if (this.state.bookmarked) {
-      onPressFunc = this._unbookmark;
-      color = "gold";
-    } else {
-      onPressFunc = this._storeBookmarkData;
-      color = "white";
-    }
-    return (
-      <TouchableHighlight
-        style={styles.bookmark}
-        underlayColor="#ff7043"
-        onPress={onPressFunc}
-      >
-        <FontAwesome name="star" size={28} color={color} />
-      </TouchableHighlight>
-    );
-  };
 
   render() {
+
     const { lastSeen, state, mac } = this.props.navigation.state.params;
 
     return (
       <View style={{ height: "100%" }}>
-        {this.renderBookmarkBtn()}
+        <BookmarkBtn mac={mac} />
+
         <ScrollView>
           <View style={styles.topContainer}>
             <View style={styles.avatarContainer}>

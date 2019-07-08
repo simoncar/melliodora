@@ -1,84 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import { Avatar, Card } from 'react-native-elements';
 import firebase from "firebase";
 
 import BookmarkHooks from "./hooks/BookmarkHook";
 
-const { retrieveBookmarkData } = BookmarkHooks();
+const BookmarkPreview = ({ navigation }) => {
+  const { bookmarksData } = BookmarkHooks();
 
-export default class BookmarkPreview extends Component {
-
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: true,
-      bookmarksData: []
-    }
-  }
-
-  componentDidMount() {
-    retrieveBookmarkData()
-      .then((bookmarks) => this.setState({ bookmarks }))
-      .then(() => this.getData())
-      .then(data => this.setState({
-        bookmarksData: data.slice(-10).reverse(),
-        loading: false
-      }));
-
-
-  }
-
-  async getData() {
-
-    // const data = [];
-    const docRef = firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("beacon")
-      .collection("beacons");
-
-    const data = Promise.all(this.state.bookmarks.map(
-      bookmark => (
-        docRef.doc(bookmark).get().then(function (doc) {
-          if (doc.exists) {
-            return doc.data();
-          } else {
-            console.log("No such document!");
-          }
-        }).catch(function (error) {
-          console.log("Error getting document:", error);
-        })
-      )));
-    return data;
-  }
   renderBookmarkItem = (item) => {
-    const {campus, studentName, studentClass, mac, lastseen, state} = item;
+    // console.log("item", item);
+    const { campus, studentName, studentClass, mac, lastSeen, state } = item;
     return (
-      <Card containerStyle={styles.bookmarkItemContainer}>
-        <View style={styles.avaterContainer}><Avatar rounded title="MD" size="medium" /></View>
-        <Text style={styles.bookmarkItemText}>{studentName || "No Name"}</Text>
-        <Text style={styles.bookmarkItemText}>{studentClass || "No Class"}</Text>
-        <Text style={styles.bookmarkItemText}>{lastseen}</Text>
-        <Text style={styles.bookmarkItemText}>{state}</Text>
-      </Card>
-    )
-  }
-  render() {
-    return (
-      <View>
+      <TouchableOpacity onPress={() => navigation.navigate("AttendeeDetailScreen", item) }>
+        <Card containerStyle={styles.bookmarkItemContainer}>
+          <View style={styles.avaterContainer}><Avatar rounded title="MD" size="medium" /></View>
+          <Text style={styles.bookmarkItemText}>{studentName || "No Name"}</Text>
+          <Text style={styles.bookmarkItemText}>{studentClass || "No Class"}</Text>
+          <Text style={styles.bookmarkItemText}>{lastSeen} </Text>
+          <Text style={styles.bookmarkItemText}>{state}</Text>
+        </Card>
+      </TouchableOpacity>
 
-        <ScrollView
-          horizontal={true}
-        >
-          {this.state.bookmarksData.map(e => this.renderBookmarkItem(e))}
-        </ScrollView>
-      </View>
     )
   }
+
+  return (
+    <View>
+      <ScrollView
+        horizontal={true}
+      >
+        {bookmarksData.map(e => renderBookmarkItem(e))}
+        <View style={{ marginLeft: 8 }}></View>
+      </ScrollView>
+    </View>
+  )
 }
+
 
 const styles = StyleSheet.create({
   bookmarkItemContainer: {
@@ -99,4 +57,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'gray'
   }
-})
+});
+
+export default BookmarkPreview;
