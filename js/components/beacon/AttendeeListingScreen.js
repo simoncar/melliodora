@@ -159,6 +159,18 @@ export default class AttendeeListingScreen extends React.Component {
     );
   };
 
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: "#CED0CE"
+        }}
+      />
+    );
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -170,6 +182,8 @@ export default class AttendeeListingScreen extends React.Component {
           // Render Items
 
           renderItem={this._renderItem}
+
+          ItemSeparatorComponent={this.renderSeparator}
 
           // Item Key
 
