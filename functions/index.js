@@ -328,7 +328,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
         if (child.state == "Perimeter") {
           i++;
           var update = {
-            beaconCampus: child.campus,
+            campus: child.campus,
             lastSeen: Date.now(),
             timestamp: null,
             state: "Off Campus",
@@ -390,7 +390,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
         if (child.state == "On Campus") {
           i++;
           update = {
-            beaconCampus: child.campus,
+            campus: child.campus,
             lastSeen: Date.now(),
             timestamp: null,
             state: "Off Campus",
@@ -445,12 +445,13 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     var personName = "";
     var personPictureURL = "";
     var targetCollection = "beaconsNotOurs";
+    var personType = "";
 
     try {
       beacons.forEach(async function(snapshot) {
         personName = "";
         personPictureURL = "";
-
+        personType = "GATEWAY";
         switch (snapshot.mac) {
           case "AC233FC03164":
             personName = "GATEWAY";
@@ -558,6 +559,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             personPictureURL =
               "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
             break;
+          default:
+            personType = "beacon";
         }
 
         console.log("record1=", snapshot.type, snapshot.mac, personName);
@@ -575,7 +578,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
 
         console.log(
           "record2=",
-          snapshot.type,
+          personType,
           snapshot.mac,
           personName,
           personCampus
@@ -617,14 +620,14 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           personName = "GATEWAY";
         }
 
-        console.log("record4=", snapshot.type, snapshot.mac, personName);
+        console.log("record4=", personType, snapshot.mac, personName);
 
         if (raw.length < 10) {
           var dataDict = {
             campus: personCampus,
             timestamp: Date.now(),
             state: personState,
-            type: snapshot.type,
+            type: personType,
             ibeaconUuid: ibeaconUuid,
             ibeaconMajor: ibeaconMajor,
             ibeaconMinor: ibeaconMinor,
@@ -640,7 +643,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             campus: personCampus,
             timestamp: Date.now(),
             state: personState,
-            type: snapshot.type,
+            type: personType,
             ibeaconUuid: ibeaconUuid,
             ibeaconMajor: ibeaconMajor,
             ibeaconMinor: ibeaconMinor,

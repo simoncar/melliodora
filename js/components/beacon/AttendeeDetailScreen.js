@@ -1,4 +1,6 @@
+
 import React, { Component, useState, useEffect } from "react";
+
 import {
   Text,
   StyleSheet,
@@ -18,6 +20,7 @@ import {
 import BeaconHistoryItem from "./BeaconHistoryItem";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 // import Icon from 'react-native-vector-icons/FontAwesome';
+
 import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
 import moment from "moment";
@@ -50,11 +53,9 @@ const BookmarkBtn = ({ mac }) => {
 }
 
 export default class AttendeeDetailScreen extends Component {
-
   static navigationOptions = ({ navigation }) => {
-    return {
-    }
-  }
+    return {};
+  };
 
   constructor(props) {
     super(props);
@@ -63,6 +64,7 @@ export default class AttendeeDetailScreen extends Component {
       user: null,
       userBeacons: {},
       userHistoryData: {},
+
       userHistory: []
     }
 
@@ -71,22 +73,25 @@ export default class AttendeeDetailScreen extends Component {
 
   componentDidMount() {
 
-    const { mac } = this.props.navigation.state.params;
+
+    const beaconID = this.props.navigation.getParam("beaconID");
 
     const todayDate = moment()
       .add(8, "hours")
       .format("YYYYMMDD");
 
-    this.getData(mac, todayDate)
-      .then(data => this.setState({
+    this.getData(beaconID, todayDate).then(data =>
+      this.setState({
         userHistory: data,
         loading: false
+
       }));
 
 
   }
 
   async getData(mac, date) {
+
     const data = [];
     await firebase
       .firestore()
@@ -94,11 +99,11 @@ export default class AttendeeDetailScreen extends Component {
       .doc("beacon")
       .collection("beaconHistory")
       .doc(date)
-      .collection(mac) //beaconID
+      .collection("5AE59BBD544E") //beaconID
       .get()
       .then(querySnapshot => {
         querySnapshot.docs.forEach(doc => {
-          console.log("dock", doc.data());
+          console.log(doc.data());
           data.push(doc.data());
         });
       });
@@ -107,7 +112,8 @@ export default class AttendeeDetailScreen extends Component {
 
   _renderListItem = (item, index) => {
     key = index.toString();
-    if (index === 0) return <BeaconHistoryItem start={true} {...item} key={key} />;
+    if (index === 0)
+      return <BeaconHistoryItem start={true} {...item} key={key} />;
     else if (index === this.state.userHistory.length - 1)
       return <BeaconHistoryItem last={true} {...item} key={key} />;
     else return <BeaconHistoryItem {...item} key={key} />;
@@ -121,6 +127,7 @@ export default class AttendeeDetailScreen extends Component {
     return (
       <View style={{ height: "100%" }}>
         <BookmarkBtn mac={mac} />
+
         <ScrollView>
           <View style={styles.topContainer}>
             <View style={styles.avatarContainer}>
@@ -139,8 +146,10 @@ export default class AttendeeDetailScreen extends Component {
                 <Text style={styles.attendeeNameText}>Mrs. Hello World</Text>
                 <Text style={styles.detailsText}>Grade 3</Text>
                 <Text style={styles.detailsText}>Class 3XYZ</Text>
-                <Text></Text>
-                <Text style={styles.detailsText}>last seen {moment(lastSeen).format("LLL")}</Text>
+                <Text />
+                <Text style={styles.detailsText}>
+                  last seen {moment(lastSeen).format("LLL")}
+                </Text>
                 <Text style={styles.detailsText}>current status {state}</Text>
               </View>
             </View>
@@ -191,7 +200,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   detailsText: {
-    color: '#48484A',
+    color: "#48484A",
     fontSize: 12
   },
   bookmark: {

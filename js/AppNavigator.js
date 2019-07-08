@@ -187,6 +187,7 @@ const MainScreenNavigator = createStackNavigator(
       }
     })
   },
+
   {
     headerMode: 'none',
   }
@@ -194,17 +195,11 @@ const MainScreenNavigator = createStackNavigator(
 
 
 const RootStack = createStackNavigator(
+
   {
-    Main: {
-      screen: MainScreenNavigator,
-    },
-    AttendeeDetailScreen: { screen: AttendeeDetailScreen }
-  },
-  {
-    mode: 'modal',
-    headerMode: 'none',
+    mode: "modal",
+    headerMode: "none"
   }
 );
 
-
-export default createAppContainer(RootStack);
+export default createAppContainer(MainScreenNavigator);
