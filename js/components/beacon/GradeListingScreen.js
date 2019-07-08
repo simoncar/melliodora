@@ -27,17 +27,17 @@ export default class GradeListingScreen extends Component {
       title={item.gradeLevel}
       chevron={true}
       rightIcon={{ name: "person" }}
-      badge={{
-        value: item.amount,
-        textStyle: { color: "white", fontSize: 16 },
-        badgeStyle: {
-          backgroundColor: "black",
-          minWidth: 50,
-          minHeight: 25,
-          borderRadius: 50,
-          paddingHorizontal: 5
-        }
-      }}
+      // badge={{
+      //   value: item.amount,
+      //   textStyle: { color: "white", fontSize: 16 },
+      //   badgeStyle: {
+      //     backgroundColor: "black",
+      //     minWidth: 50,
+      //     minHeight: 25,
+      //     borderRadius: 50,
+      //     paddingHorizontal: 5
+      //   }
+      // }}
       onPress={() =>
         this.props.navigation.navigate("ClassListingScreen", {
           title: this.props.navigation.getParam("title"),

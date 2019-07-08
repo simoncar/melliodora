@@ -28,17 +28,17 @@ export default class ClassListingScreen extends Component {
       title={item.classID}
       chevron={true}
       rightIcon={{ name: "person" }}
-      badge={{
-        value: item.amount,
-        textStyle: { color: "white", fontSize: 16 },
-        badgeStyle: {
-          backgroundColor: "black",
-          minWidth: 50,
-          minHeight: 25,
-          borderRadius: 50,
-          paddingHorizontal: 5
-        }
-      }}
+      // badge={{
+      //   value: item.amount,
+      //   textStyle: { color: "white", fontSize: 16 },
+      //   badgeStyle: {
+      //     backgroundColor: "black",
+      //     minWidth: 50,
+      //     minHeight: 25,
+      //     borderRadius: 50,
+      //     paddingHorizontal: 5
+      //   }
+      // }}
       onPress={() =>
         this.props.navigation.navigate("AttendeeListingScreen", {
           title: this.props.navigation.getParam("title"),
