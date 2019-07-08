@@ -7,7 +7,34 @@ batchCount = 0;
 var batch;
 admin.initializeApp();
 
-bulkAllocateTestData(batchCount);
+writeFile();
+
+function writeFile() {
+  const fs = require("fs");
+  var sF = "";
+  admin
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("beacon")
+    .collection("beacons")
+    .get()
+    .then(function(querySnapshot) {
+      var batch = admin.firestore().batch();
+
+      querySnapshot.forEach(function(doc) {
+        child = doc.data();
+        sF = sF + "\n" + child.mac;
+      });
+
+      fs.writeFile("/tmp/test.txt", sF, function(err) {
+        if (err) {
+          return console.log(err);
+        }
+
+        console.log("The file was saved!");
+      });
+    });
+}
 
 function bulkAllocateTestData(batchCount) {
   var ClassCode = "";
