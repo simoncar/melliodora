@@ -187,6 +187,15 @@ const MainScreenNavigator = createStackNavigator(
       }
     })
   },
+
+  {
+    headerMode: 'none',
+  }
+);
+
+
+const RootStack = createStackNavigator(
+
   {
     mode: "modal",
     headerMode: "none"
