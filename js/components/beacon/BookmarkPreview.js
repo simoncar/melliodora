@@ -40,7 +40,7 @@ const BookmarkPreview = ({ navigation }) => {
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
       >
-        {bookmarksData.map(e => renderBookmarkItem(e))}
+        {bookmarksData.slice(-10).reverse().map(e => renderBookmarkItem(e))}
         <View style={{ marginLeft: 8 }}></View>
       </ScrollView>
     </View>
