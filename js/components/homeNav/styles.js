@@ -39,7 +39,8 @@ export default {
     flexDirection: "column",
     textAlign: "center",
     fontSize: 12,
-    paddingBottom: 10
+    paddingBottom: 10,
+    paddingTop: 10
   },
   addButton: {
     backgroundColor: "#ff5722",
