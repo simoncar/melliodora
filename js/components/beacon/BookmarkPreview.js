@@ -9,7 +9,7 @@ const BookmarkPreview = ({ navigation }) => {
 
   const [globalState, globalActions] = useGlobal();
   const { loading, bookmarksData } = globalState;
-  
+
   //on Startup
   useEffect(() => {
     globalActions.init();
@@ -17,13 +17,16 @@ const BookmarkPreview = ({ navigation }) => {
 
   renderBookmarkItem = (item) => {
     // console.log("item", item);
-    const { campus, studentName, mac, lastSeen, state } = item;
+    const { campus, fullname, mac, lastSeen, state } = item;
     const studentClass = item.class;
+    const firstName = item.firstName || "" ;
+    const lastName  = item.lastName || "";
+    const avatarTitle = firstName.slice(0,1) + lastName.slice(0,1);
     return (
       <TouchableOpacity onPress={() => navigation.navigate("AttendeeDetailScreen", item)} key={item.mac}>
         <Card containerStyle={styles.bookmarkItemContainer}>
-          <View style={styles.avaterContainer}><Avatar rounded title="MD" size="medium" /></View>
-          <Text style={styles.bookmarkItemText}>{studentName || "No Name"}</Text>
+          <View style={styles.avaterContainer}><Avatar rounded title={avatarTitle} size="medium" /></View>
+          <Text style={styles.bookmarkItemText}>{fullname || "No Name"}</Text>
           <Text style={styles.bookmarkItemText}>{studentClass || "No Class"}</Text>
           <Text style={styles.bookmarkItemText}>{moment(lastSeen).format("LLL")}</Text>
           <Text style={styles.bookmarkItemText}>{state}</Text>

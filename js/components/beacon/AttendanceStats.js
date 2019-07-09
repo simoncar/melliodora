@@ -61,7 +61,7 @@ export default class AttendanceStats extends Component {
             <View style={[styles.widget, { backgroundColor: '#FF4136' }]}>
 
               <View style={styles.widgetContent}>
-                <Text style={styles.widgetTextTitle}>Entered then Exited</Text>
+                <Text style={styles.widgetTextTitle}>Exited</Text>
                 <Text style={styles.widgetTextContent}>27</Text>
               </View>
             </View>

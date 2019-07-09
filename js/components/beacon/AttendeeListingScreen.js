@@ -136,22 +136,25 @@ export default class AttendeeListingScreen extends React.Component {
   };
 
   _renderItem = ({ item }) => {
-    const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: 'MD' };
+    const firstName = item.firstName || "" ;
+    const lastName  = item.lastName || "";
+    const avatarTitle = firstName.slice(0,1) + lastName.slice(0,1);
+    const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: avatarTitle };
     return (
       <ListItem
         leftAvatar={{ rounded: true, ...avatar }}
         title={
           <View style={{ flex: 1, flexDirection: 'row' }}>
-            <Text style={{ flex: 1, fontSize: 16 }}>{item.mac}</Text>
+            <Text style={{ flex: 1, fontSize: 16 }}>{item.fullname || "No Name"}</Text>
             <Text style={{ flex: 0, flexShrink: 1, fontSize: 10, alignSelf: 'center', justifyContent: 'center', color: 'gray' }}>{item.mac}</Text>
           </View>
         }
         chevron={true}
         subtitle={
           <View style={{ flex: 1, flexDirection: 'column', paddingTop: 8 }}>
-            <Text style={{ color: 'gray' }}>Class {item.campus}</Text>
+            <Text style={{ color: 'gray' }}>Class {item.class}</Text>
             <Text style={{ color: 'gray' }}>last seen {moment(item.lastSeen).format("LLL")}</Text>
-            <Text style={{ color: 'gray' }}>current status {item.state}</Text>
+            <Text style={{ color: 'gray' }}>{item.state}</Text>
           </View>
         }
         onPress={() => this.props.navigation.navigate("AttendeeDetailScreen", item)}
