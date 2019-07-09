@@ -80,13 +80,10 @@ class BeaconItem extends Component {
     }
   }
 
-  renderBeaconIcon(beaconPictureURL) {
-    if (beaconPictureURL != null && beaconPictureURL != undefined && beaconPictureURL.length > 0) {
-      return <Image style={styles.singleChatItemImage} source={{ uri: beaconPictureURL }} />;
-    } else {
-      return <MaterialIcons style={styles.singleChatItemIcon} name="person" />;
-    }
+  renderBeaconIcon() {
+    return <Image style={styles.singleChatItemImage} source={require("../../../images/minew_G1.png")} />;
   }
+
   renderBeaconType(beaconType) {
     if (beaconType != null && beaconType != undefined && beaconType.length > 0) {
       return <Text style={styles.chatDescription}>{beaconType}</Text>;
@@ -102,7 +99,7 @@ class BeaconItem extends Component {
           <Row>
             <Col>
               <TouchableOpacity style={{ flexDirection: "row" }}>
-                {this.renderBeaconIcon("https://saispta.com/wp-content/uploads/2019/05/minew_G1.png")}
+                {this.renderBeaconIcon()}
 
                 <View>
                   <Text style={styles.chatTitle}>{this.rendercampus(this.props.item.item.campus)}</Text>
