@@ -211,6 +211,10 @@ class chat extends Component {
       images[0] = {
         image: result.uri,
         filename: result.uri,
+        user: {
+          _id: Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+          name: this.props.userX.nickname,
+        },
       };
 
       this.onSend(images);
@@ -234,10 +238,12 @@ class chat extends Component {
   }
 
   renderCustomView(props) {
+    console.log("renderCustomView", props);
     return <CustomView {...props} />;
   }
 
   renderCustomImage(props) {
+    console.log("imageimageimageimageimage");
     return <CustomImage {...props} />;
   }
 
