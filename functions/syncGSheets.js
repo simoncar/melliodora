@@ -5,6 +5,8 @@ admin.initializeApp();
 
 //writeFile();
 
+//  /Users/simon/Documents/code/app/functions/Calendar App-915d5dbe4185.json
+//export GOOGLE_APPLICATION_CREDENTIALS="/Users/simon/Documents/code/app/functions/Calendar App-915d5dbe4185.json"
 var async = require("async");
 
 // spreadsheet key is the long id in the sheets URL
@@ -24,14 +26,7 @@ async.series(
         console.log(err);
         console.log("Loaded doc: " + info.title + " by " + info.author.email);
         sheet = info.worksheets[0];
-        console.log(
-          "sheet 1: " +
-            sheet.title +
-            " " +
-            sheet.rowCount +
-            "x" +
-            sheet.colCount
-        );
+        console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
         step();
       });
     },
@@ -41,7 +36,7 @@ async.series(
         {
           offset: 1,
           limit: 20,
-          orderby: "col2"
+          orderby: "col2",
         },
         function(err, rows) {
           console.log("Read " + rows.length + " rows");
@@ -54,7 +49,7 @@ async.series(
           //rows[0].del(); // this is async
 
           step();
-        }
+        },
       );
     },
     function workingWithCells(step) {
@@ -84,13 +79,13 @@ async.series(
       //       step();
       //     }
       //   );
-    }
+    },
   ],
   function(err) {
     if (err) {
       console.log("Error: " + err);
     }
-  }
+  },
 );
 
 function updateCells(start, end) {
@@ -107,7 +102,7 @@ function updateCells(start, end) {
       "max-row": end,
       "min-col": 1,
       "max-col": 10,
-      "return-empty": true
+      "return-empty": true,
     },
     function(err, cells) {
       if (undefined == cells) {
@@ -155,7 +150,8 @@ function updateCells(start, end) {
           studentNo: studentNo,
           class: classCode,
           grade: grade,
-          gradeTitle: gradeTitle
+          gradeTitle: gradeTitle,
+          state: "Not Present",
         };
 
         if (cell.col == 10) {
@@ -173,7 +169,7 @@ function updateCells(start, end) {
       batch.commit();
 
       //
-    }
+    },
   );
 }
 
