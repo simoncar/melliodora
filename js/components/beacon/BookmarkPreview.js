@@ -3,17 +3,24 @@ import { Text, StyleSheet, View, ScrollView, TouchableOpacity } from 'react-nati
 import { Avatar, Card } from 'react-native-elements';
 import moment from "moment";
 
-import BookmarkHooks from "./hooks/BookmarkHook";
+import useGlobal from "./utils/BookmarkStore";
 
 const BookmarkPreview = ({ navigation }) => {
-  const { bookmarksData } = BookmarkHooks();
+
+  const [globalState, globalActions] = useGlobal();
+  const { loading, bookmarksData } = globalState;
+  
+  //on Startup
+  useEffect(() => {
+    globalActions.init();
+  }, []);
 
   renderBookmarkItem = (item) => {
     // console.log("item", item);
     const { campus, studentName, mac, lastSeen, state } = item;
     const studentClass = item.class;
     return (
-      <TouchableOpacity onPress={() => navigation.navigate("AttendeeDetailScreen", item) } key={item.mac}>
+      <TouchableOpacity onPress={() => navigation.navigate("AttendeeDetailScreen", item)} key={item.mac}>
         <Card containerStyle={styles.bookmarkItemContainer}>
           <View style={styles.avaterContainer}><Avatar rounded title="MD" size="medium" /></View>
           <Text style={styles.bookmarkItemText}>{studentName || "No Name"}</Text>
@@ -30,8 +37,10 @@ const BookmarkPreview = ({ navigation }) => {
     <View>
       <ScrollView
         horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
       >
-        {bookmarksData.map(e => renderBookmarkItem(e))}
+        {bookmarksData.slice(-10).reverse().map(e => renderBookmarkItem(e))}
         <View style={{ marginLeft: 8 }}></View>
       </ScrollView>
     </View>
