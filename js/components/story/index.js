@@ -1,21 +1,8 @@
 import React, { Component } from "react";
-import {
-  WebView,
-  Linking,
-  View,
-  TouchableOpacity,
-  TouchableHighlight,
-  Platform,
-  Share
-} from "react-native";
+import { WebView, Linking, View, TouchableOpacity, TouchableHighlight, Platform, Share } from "react-native";
 
 import { Container, Content, Text, Icon } from "native-base";
-import {
-  Ionicons,
-  EvilIcons,
-  MaterialIcons,
-  SimpleLineIcons
-} from "@expo/vector-icons";
+import { Ionicons, Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 
 import { Image } from "react-native-expo-image-cache";
@@ -30,13 +17,7 @@ import call from "react-native-phone-call"; //TODO migration to communications
 import Analytics from "../../lib/analytics";
 import { Notifications } from "expo";
 
-import {
-  formatTime,
-  formatMonth,
-  getAbbreviations,
-  isAdmin,
-  isValue
-} from "../global.js";
+import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../global.js";
 
 import * as firebase from "firebase";
 
@@ -45,8 +26,7 @@ var instID = Constants.manifest.extra.instance;
 @withMappedNavigationParams()
 class Story extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Story",
-    headerBackTitle: "AAAA"
+    title: navigation.getParam("eventTitle"),
   });
 
   constructor(props) {
@@ -57,9 +37,7 @@ class Story extends Component {
     const trackingOpts = {
       instId: Constants.manifest.extra.instance,
       emailOrUsername: global.username,
-      story: `${this.props.navigation.getParam(
-        "eventDate"
-      )} - ${this.props.navigation.getParam("eventTitle")}`
+      story: `${this.props.navigation.getParam("eventDate")} - ${this.props.navigation.getParam("eventTitle")}`,
     };
 
     Analytics.identify(global.username, trackingOpts);
@@ -81,7 +59,7 @@ class Story extends Component {
         this.props.navigation.getParam("location") +
         " \n" +
         this.props.navigation.getParam("eventDescription"),
-      title: this.props.navigation.getParam("eventTitle")
+      title: this.props.navigation.getParam("eventTitle"),
     })
 
       .then(this._showResult)
@@ -91,7 +69,7 @@ class Story extends Component {
   _call() {
     const args = {
       number: this.props.navigation.getParam("phone"), // String value with the number to call
-      prompt: true // Optional boolean property. Determines if the user should be prompt prior to the call
+      prompt: true, // Optional boolean property. Determines if the user should be prompt prior to the call
     };
 
     call(args).catch(console.error);
@@ -99,13 +77,7 @@ class Story extends Component {
 
   _email() {
     // TODO: only show email/phone links when there are values
-    Communications.email(
-      [this.props.navigation.getParam("email")],
-      null,
-      null,
-      null,
-      null
-    );
+    Communications.email([this.props.navigation.getParam("email")], null, null, null, null);
   }
 
   _handleOpenWithLinking = sURL => {
@@ -130,12 +102,7 @@ class Story extends Component {
 
   _formatWeb(sURL) {
     if (sURL.length > 0) {
-      return (
-        <WebView
-          source={{ uri: "https://github.com/facebook/react-native" }}
-          javaScriptEnabled
-        />
-      );
+      return <WebView source={{ uri: "https://github.com/facebook/react-native" }} javaScriptEnabled />;
     }
   }
 
@@ -175,21 +142,17 @@ class Story extends Component {
 
     this.notifyRef = firebase
       .database()
-      .ref(
-        `instance/${instID}/feature/${this.props.navigation.getParam(
-          "_key"
-        )}/notify/`
-      );
+      .ref(`instance/${instID}/feature/${this.props.navigation.getParam("_key")}/notify/`);
 
     this.notifyRef.update({
-      token: "sdvaiushviuasjbnviuasviasviivh"
+      token: "sdvaiushviuasjbnviuasviasviivh",
     });
   }
 
   _drawImage(imageURI) {
     const preview = {
       uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const uri = imageURI;
 
@@ -207,7 +170,7 @@ class Story extends Component {
       <TouchableOpacity
         onPress={() => {
           this.props.navigation.navigate("chat", {
-            chatroom: chatroom
+            chatroom: chatroom,
           });
         }}
       >
@@ -241,8 +204,7 @@ class Story extends Component {
           onPress={() => {
             this.props.navigation.navigate("phoneCalendar", {
               eventTitle: this.props.navigation.state.params.eventTitle,
-              eventDescription: this.props.navigation.state.params
-                .eventDescription,
+              eventDescription: this.props.navigation.state.params.eventDescription,
               eventDate: this.props.navigation.state.params.eventDate,
               eventStartTime: this.props.navigation.state.params.eventStartTime,
               eventEndTime: this.props.navigation.state.params.eventEndTime,
@@ -254,7 +216,7 @@ class Story extends Component {
               photo1: this.props.navigation.state.params.photo1,
               photo2: this.props.navigation.state.params.photo2,
               photo3: this.props.navigation.state.params.photo3,
-              url: this.props.navigation.state.params.url
+              url: this.props.navigation.state.params.url,
             });
           }}
         >
@@ -270,7 +232,7 @@ class Story extends Component {
     return (
       <TouchableOpacity onPress={() => this._shareMessage()}>
         <Text style={styles.eventText}>
-          <EvilIcons name="share-apple" style={styles.eventIcon} />
+          <Feather name="share" style={styles.eventIcon} />
         </Text>
       </TouchableOpacity>
     );
@@ -286,12 +248,9 @@ class Story extends Component {
             onPress={() =>
               this.props.navigation.navigate("storyForm", {
                 eventTitle: this.props.navigation.getParam("eventTitle"),
-                eventDescription: this.props.navigation.getParam(
-                  "eventDescription"
-                ),
+                eventDescription: this.props.navigation.getParam("eventDescription"),
                 eventDate: this.props.navigation.state.params.eventDate,
-                eventStartTime: this.props.navigation.state.params
-                  .eventStartTime,
+                eventStartTime: this.props.navigation.state.params.eventStartTime,
                 eventEndTime: this.props.navigation.state.params.eventEndTime,
                 location: this.props.navigation.state.params.location,
                 eventImage: this.props.navigation.state.params.eventImage,
@@ -306,14 +265,11 @@ class Story extends Component {
                 displayEnd: this.props.navigation.state.params.displayEnd,
                 photoSquare: this.props.navigation.state.params.photoSquare,
                 _key: this.props.navigation.state.params._key,
-                edit: true
+                edit: true,
               })
             }
           >
-            <MaterialIcons
-              name="edit"
-              style={{ fontSize: 25, color: "white" }}
-            />
+            <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
           </TouchableHighlight>
         )}
 
@@ -323,8 +279,15 @@ class Story extends Component {
           <View
             style={{
               flexDirection: "row",
+              justifyContent: "flex-end",
               padding: 5,
-              paddingLeft: 10
+              paddingLeft: 10,
+              paddingTop: 10,
+              paddingLeft: 10,
+              paddingRight: 0,
+              flex: 1,
+              borderTopWidth: 1,
+              borderTopColor: "#ddd",
             }}
           >
             {this._drawIconChat(this.props.navigation.state.params.eventTitle)}
@@ -349,7 +312,7 @@ class Story extends Component {
                 <Text selectable style={styles.eventText}>
                   {formatTime(
                     this.props.navigation.getParam("eventStartTime"),
-                    this.props.navigation.getParam("eventEndTime")
+                    this.props.navigation.getParam("eventEndTime"),
                   )}
                 </Text>
               )}
@@ -360,31 +323,31 @@ class Story extends Component {
                   {
                     type: "url",
                     style: styles.url,
-                    onPress: this._handleOpenWithLinking
+                    onPress: this._handleOpenWithLinking,
                   },
                   {
                     type: "phone",
                     style: styles.phone,
-                    onPress: this.handlePhonePress
+                    onPress: this.handlePhonePress,
                   },
                   {
                     type: "email",
                     style: styles.email,
-                    onPress: this.handleEmailPress
+                    onPress: this.handleEmailPress,
                   },
                   {
                     pattern: /Bobbbbb|Davidfffff/,
                     style: styles.name,
-                    onPress: this.handleNamePress
+                    onPress: this.handleNamePress,
                   },
                   {
                     pattern: /\[(@[^:]+):([^\]]+)\]/i,
                     style: styles.username,
                     onPress: this.handleNamePress,
-                    renderText: this.renderText
+                    renderText: this.renderText,
                   },
                   { pattern: /433333332/, style: styles.magicNumber },
-                  { pattern: /#(\w+)/, style: styles.hashTag }
+                  { pattern: /#(\w+)/, style: styles.hashTag },
                 ]}
                 childrenProps={{ allowFontScaling: false }}
               >
@@ -404,8 +367,7 @@ class Story extends Component {
                 this.props.navigation.state.params.phone.length > 0 && (
                   <TouchableOpacity>
                     <Text style={styles.eventText}>
-                      <MaterialIcons name="phone" style={styles.eventIcon} />{" "}
-                      {this.props.navigation.state.params.phone}
+                      <MaterialIcons name="phone" style={styles.eventIcon} /> {this.props.navigation.state.params.phone}
                     </Text>
                   </TouchableOpacity>
                 )}
@@ -415,8 +377,7 @@ class Story extends Component {
                 this.props.navigation.state.params.email.length > 0 && (
                   <TouchableOpacity>
                     <Text style={styles.eventText}>
-                      <MaterialIcons name="email" style={styles.eventIcon} />{" "}
-                      {this.props.navigation.state.params.email}
+                      <MaterialIcons name="email" style={styles.eventIcon} /> {this.props.navigation.state.params.email}
                     </Text>
                   </TouchableOpacity>
                 )}
