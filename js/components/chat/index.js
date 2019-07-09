@@ -200,7 +200,7 @@ class chat extends Component {
   _pickImage = async () => {
     var images = [];
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
     });
 
     console.log(result);
