@@ -304,7 +304,6 @@ class HomeNav extends Component {
 
           <View>
             <Text style={styles.version} />
-            <Text style={styles.version}> Battery: {parsedRawData.parsedData.BatteryLevel}</Text>
             <Text style={styles.version}>Version: {Constants.manifest.revisionId}</Text>
           </View>
         </Content>
