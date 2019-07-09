@@ -134,8 +134,14 @@ export default class AttendeeDetailScreen extends Component {
 
   render() {
 
-    const { lastSeen, state, mac } = this.props.navigation.state.params;
+    const { lastSeen, state, mac, fullname, gradeTitle } = this.props.navigation.state.params;
+    const firstName = this.props.navigation.state.params.firstName || "" ;
+    const lastName  = this.props.navigation.state.params.lastName || "";
+    const avatarTitle = firstName.slice(0,1) + lastName.slice(0,1);
 
+    const studentClass = this.props.navigation.state.params.class;
+
+    // const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: avatarTitle };
     return (
       <View style={{ height: "100%" }}>
         <BookmarkBtn mac={mac} />
@@ -146,23 +152,20 @@ export default class AttendeeDetailScreen extends Component {
               <Avatar
                 size="xlarge"
                 rounded
-                source={{
-                  uri:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
-                }}
+                title = {avatarTitle}
                 activeOpacity={0.7}
               />
             </View>
             <View style={styles.detailContainer}>
               <View>
-                <Text style={styles.attendeeNameText}>Mrs. Hello World</Text>
-                <Text style={styles.detailsText}>Grade 3</Text>
-                <Text style={styles.detailsText}>Class 3XYZ</Text>
+                <Text style={styles.attendeeNameText}>{fullname || "No Name"}</Text>
+                <Text style={styles.detailsText}>{gradeTitle}</Text>
+                <Text style={styles.detailsText}>{studentClass || "No Class"}</Text>
                 <Text />
                 <Text style={styles.detailsText}>
                   last seen {moment(lastSeen).format("LLL")}
                 </Text>
-                <Text style={styles.detailsText}>current status {state}</Text>
+                <Text style={styles.detailsText}>{state}</Text>
               </View>
             </View>
           </View>
