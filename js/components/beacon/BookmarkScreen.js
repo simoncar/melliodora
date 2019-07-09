@@ -1,16 +1,23 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, StyleSheet, View, AsyncStorage, FlatList, TouchableOpacity } from 'react-native'
 import firebase from "firebase";
 import moment from "moment";
 import { ListItem } from 'react-native-elements';
 import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
 
-import BookmarkHooks from "./hooks/BookmarkHook";
+import useGlobal from "./utils/BookmarkStore";
 
 const BookmarkScreen = ({ navigation }) => {
 
-  const { addBookmark, removeBookmark, bookmarksData, bookmarks } = BookmarkHooks();
+  const [globalState, globalActions] = useGlobal();
+  const { loading, bookmarksData, bookmarks } = globalState;
 
+  const [initialbookmarksData, setInitialbookmarksData] = useState([]);
+  //on Startup
+  useEffect(() => {
+    globalActions.init()
+    .then(() => setInitialbookmarksData([...bookmarksData]));
+  }, []);
 
   _renderItem = (item, index) => {
     const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: 'MD' };
@@ -18,10 +25,10 @@ const BookmarkScreen = ({ navigation }) => {
     let onPressFunc, color;
 
     if (bookmarks.indexOf(item.mac) > -1) {
-      onPressFunc = removeBookmark;
+      onPressFunc = globalActions.removeBookmark;
       color = "gold";
     } else {
-      onPressFunc = addBookmark;
+      onPressFunc = globalActions.addBookmark;
       color = "gray";
     }
 
@@ -56,10 +63,8 @@ const BookmarkScreen = ({ navigation }) => {
     );
   };
 
-  console.log("bookmarks", bookmarks);
-  console.log("bookmarksData", bookmarksData);
   return (
-    <View>{bookmarksData.map(this._renderItem)}</View>
+    <View>{initialbookmarksData.map(this._renderItem)}</View>
   );
 }
 

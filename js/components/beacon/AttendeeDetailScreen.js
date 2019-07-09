@@ -28,19 +28,31 @@ import _ from "lodash";
 
 import BookmarkHooks from "./hooks/BookmarkHook";
 
-
+import useGlobal from "./utils/BookmarkStore";
 
 const BookmarkBtn = ({ mac }) => {
-  const { addBookmark, removeBookmark, bookmarks } = BookmarkHooks();
+  const [globalState, globalActions] = useGlobal();
+  const { loading, bookmarks } = globalState;
+
+  //on Startup
+  useEffect(() => {
+    globalActions.init();
+  },[]);
+
+
+
   console.log(mac, "mac");
+  console.log("globalState bookmarks", bookmarks);
   let onPressFunc, color;
   if (bookmarks.indexOf(mac) > -1) {
-    onPressFunc = removeBookmark;
+    onPressFunc = globalActions.removeBookmark;
     color = "gold";
   } else {
-    onPressFunc = addBookmark;
+    onPressFunc = globalActions.addBookmark;
     color = "white";
   }
+
+  if(loading) return(<View></View>);
   return (
     <TouchableHighlight
       style={styles.bookmark}

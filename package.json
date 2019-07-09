@@ -93,7 +93,8 @@
     "remote-redux-devtools-on-debugger": "^0.8.3",
     "sentry-expo": "~1.11.2",
     "shortid": "^2.2.14",
-    "tcomb-form-native": "^0.6.20"
+    "tcomb-form-native": "^0.6.20",
+    "use-global-hook": "^0.1.7"
   },
   "detox": {
     "configurations": {
