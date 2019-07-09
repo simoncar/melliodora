@@ -4,17 +4,11 @@ import { connect } from "react-redux";
 import { ActionSheet } from "native-base";
 import { AsyncStorage } from "react-native";
 
-import {
-  GiftedChat,
-  Actions,
-  Bubble,
-  SystemMessage,
-  Time,
-  Send
-} from "react-native-gifted-chat";
-import { SimpleLineIcons } from "@expo/vector-icons";
+import { GiftedChat, Bubble, SystemMessage, Time, Send } from "react-native-gifted-chat";
+import { SimpleLineIcons, MaterialIcons, Entypo } from "@expo/vector-icons";
+import { ImagePicker, Permissions } from "expo";
 
-import { Container, Header, Footer, Button, Icon, Body } from "native-base";
+import { Container, Footer } from "native-base";
 import emojiUtils from "emoji-utils";
 import Constants from "expo-constants";
 import { bindActionCreators } from "redux";
@@ -30,15 +24,8 @@ import * as ActionCreators from "../../actions";
 import Backend from "./backend";
 import SlackMessage from "./slackMessage";
 
-import { Entypo, MaterialIcons, FontAwesome } from "@expo/vector-icons";
-
 const tabBarIcon = name => ({ tintColor }) => (
-  <SimpleLineIcons
-    style={{ backgroundColor: "transparent" }}
-    name={name}
-    color={tintColor}
-    size={24}
-  />
+  <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
 class chat extends Component {
@@ -52,7 +39,7 @@ class chat extends Component {
       step: 0,
       muteState: false,
       language: "",
-      user: null
+      user: null,
     };
 
     this._isMounted = false;
@@ -105,7 +92,7 @@ class chat extends Component {
           <Entypo name="cog" style={styles.chatHeading} />
         </View>
       </TouchableOpacity>
-    )
+    ),
   });
 
   componentWillMount() {
@@ -121,8 +108,10 @@ class chat extends Component {
   }
 
   componentDidMount() {
+    this.getPermissionAsync();
+
     this.props.navigation.setParams({
-      _showActionSheet: this._showActionSheet
+      _showActionSheet: this._showActionSheet,
     });
 
     // Backend.setLanguage(this.props.userX.language);
@@ -130,10 +119,19 @@ class chat extends Component {
 
     Backend.loadMessages(this.state.language, message => {
       this.setState(previousState => ({
-        messages: GiftedChat.append(previousState.messages, message)
+        messages: GiftedChat.append(previousState.messages, message),
       }));
     });
   }
+
+  getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  };
 
   componentWillUnmount() {
     this._isMounted = false;
@@ -158,7 +156,7 @@ class chat extends Component {
       "Chat Name",
       "Please enter a Name to Chat",
       [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-      { cancelable: false }
+      { cancelable: false },
     );
   }
 
@@ -168,42 +166,68 @@ class chat extends Component {
 
   onLoadEarlier() {
     this.setState(previousState => ({
-      isLoadingEarlier: true
+      isLoadingEarlier: true,
     }));
 
     setTimeout(() => {
       if (this._isMounted === true) {
         this.setState(previousState => ({
-          messages: GiftedChat.prepend(
-            previousState.messages,
-            require("./old_messages.js")
-          ),
+          messages: GiftedChat.prepend(previousState.messages, require("./old_messages.js")),
           loadEarlier: false,
-          isLoadingEarlier: false
+          isLoadingEarlier: false,
         }));
       }
     }, 2000); // simulating network
   }
 
   onSend(messages = []) {
+    console.log("messages = ", messages);
     Backend.SendMessage(messages);
   }
 
   onReceive(text) {}
 
   renderCustomActions(props) {
-    return <CustomActions {...props} />;
+    return (
+      <TouchableOpacity style={styles.photoContainer} onPress={this._pickImage}>
+        <View>
+          <Entypo name="camera" style={{ fontSize: 25, color: "#0284FF" }} />
+        </View>
+      </TouchableOpacity>
+    );
   }
+
+  _pickImage = async () => {
+    var images = [];
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      //this.setState({ image: result.uri });
+      //this._images = images;
+      images[0] = {
+        image: result.uri,
+        filename: result.uri,
+      };
+
+      this.onSend(images);
+      //Backend.SendMessage(image);
+      //uploadUrl = await uploadImageAsync(images.uri);
+    }
+  };
 
   renderSystemMessage(props) {
     return (
       <SystemMessage
         {...props}
         containerStyle={{
-          marginBottom: 15
+          marginBottom: 15,
         }}
         textStyle={{
-          fontSize: 14
+          fontSize: 14,
         }}
       />
     );
@@ -235,7 +259,7 @@ class chat extends Component {
 
   renderMessage(props) {
     const {
-      currentMessage: { text: currText }
+      currentMessage: { text: currText },
     } = props;
 
     let messageTextStyle;
@@ -245,7 +269,7 @@ class chat extends Component {
       messageTextStyle = {
         fontSize: 28,
         // Emoji get clipped if lineHeight isn't increased; make it consistent across platforms.
-        lineHeight: Platform.OS === "android" ? 34 : 30
+        lineHeight: Platform.OS === "android" ? 34 : 30,
       };
     }
 
@@ -264,11 +288,11 @@ class chat extends Component {
           {...props}
           wrapperStyle={{
             left: {
-              backgroundColor: "white"
+              backgroundColor: "white",
             },
             right: {
-              backgroundColor: "white"
-            }
+              backgroundColor: "white",
+            },
           }}
         />
       );
@@ -278,8 +302,8 @@ class chat extends Component {
           {...props}
           textStyle={{
             right: {
-              color: "white"
-            }
+              color: "white",
+            },
           }}
         />
       );
@@ -291,7 +315,7 @@ class chat extends Component {
 
     return {
       name: this.props.userX.nickname,
-      _id: Constants.installationId
+      _id: Constants.installationId,
     };
   }
 
@@ -308,7 +332,7 @@ class chat extends Component {
       "#bdb7ab", // wisteria
       "#d9dddc", // alizarin
       "#b9bbb6", // turquoise
-      "#808588" // midnight blue
+      "#808588", // midnight blue
     ];
     return colors[sumChars % colors.length];
   }
@@ -318,8 +342,8 @@ class chat extends Component {
       {
         pattern: /#(\w+)/,
         style: { ...linkStyle, color: "orange" },
-        onPress: () => Linking.openURL("http://gifted.chat")
-      }
+        onPress: () => Linking.openURL("http://gifted.chat"),
+      },
     ];
   }
 
@@ -330,13 +354,13 @@ class chat extends Component {
           right: {
             color: "blue",
             // fontFamily: 'Montserrat-Light',
-            fontSize: 14
+            fontSize: 14,
           },
           left: {
             color: "green",
             // fontFamily: 'Montserrat-Light',
-            fontSize: 14
-          }
+            fontSize: 14,
+          },
         }}
       />
     );
@@ -351,7 +375,7 @@ class chat extends Component {
         options: BUTTONS,
         cancelButtonIndex: CANCEL_INDEX,
         // destructiveButtonIndex: DESTRUCTIVE_INDEX,
-        title: "Options"
+        title: "Options",
       },
 
       buttonIndex => {
@@ -363,7 +387,7 @@ class chat extends Component {
             Backend.setMute(false);
             break;
         }
-      }
+      },
     );
   }
 
@@ -371,10 +395,7 @@ class chat extends Component {
     return (
       <Send {...props}>
         <View style={{ marginRight: 10, marginBottom: 10 }}>
-          <MaterialIcons
-            name="send"
-            style={{ fontSize: 25, color: "#0284FF" }}
-          />
+          <MaterialIcons name="send" style={{ fontSize: 25, color: "#0284FF" }} />
         </View>
       </Send>
     );
@@ -383,11 +404,7 @@ class chat extends Component {
   render() {
     return (
       <Container>
-        <HeaderContent
-          showBack="true"
-          showHome="false"
-          navigation={this.props.navigation}
-        />
+        <HeaderContent showBack="true" showHome="false" navigation={this.props.navigation} />
 
         <View>
           <TouchableOpacity
@@ -396,13 +413,11 @@ class chat extends Component {
                 chatroom: this.props.title,
                 description: this.props.description,
                 contact: this.props.contact,
-                url: this.props.url
+                url: this.props.url,
               });
             }}
           >
-            <Text style={styles.chatBanner}>
-              Translations by Google Translate >
-            </Text>
+            <Text style={styles.chatBanner}>Translations by Google Translate ></Text>
           </TouchableOpacity>
         </View>
 
@@ -414,7 +429,7 @@ class chat extends Component {
           // isLoadingEarlier={this.state.isLoadingEarlier}
           user={{
             _id: Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-            name: this.props.userX.nickname
+            name: this.props.userX.nickname,
             // avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
           }}
           renderActions={this.renderCustomActions}
@@ -445,22 +460,27 @@ class chat extends Component {
   }
 }
 
-function bindAction(dispatch) {
-  return {
-    openDrawer: () => dispatch(openDrawer())
-  };
-}
+_pickVideo = async () => {
+  let result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+  });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(ActionCreators, dispatch);
+  console.log(result);
+
+  if (!result.cancelled) {
+    //this.setState({ image: result.uri });
+  }
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
   username: state.username,
-  userX: state.user
+  userX: state.user,
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(chat);
