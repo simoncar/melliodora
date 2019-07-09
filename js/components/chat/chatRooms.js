@@ -1,28 +1,15 @@
 import React, { Component } from "react";
 import { FlatList } from "react-native";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as ActionCreators from "../../actions";
 import * as firebase from "firebase";
-import { Container, Content, Text, Button } from "native-base";
-import HeaderContent from "./../headerContent/header/";
-import Analytics from "../../lib/analytics";
-import Constants from "expo-constants";
+import { Container, Content } from "native-base";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
-
 import styles from "./styles";
 
 const ChatroomItem = require("./chatroomItem");
-let instID = Constants.manifest.extra.instance;
 
 const tabBarIcon = name => ({ tintColor }) => (
-  <SimpleLineIcons
-    style={{ backgroundColor: "transparent" }}
-    name={name}
-    color={tintColor}
-    size={24}
-  />
+  <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
 @withMappedNavigationParams()
@@ -30,98 +17,43 @@ class chatRooms extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
       userChatrooms: {},
-      user: null
     };
 
-    // this.chatRoomsFirebase = firebase.database().ref(`instance/${  instID  }/user/${ global.safeToken}/chatrooms`);
-
-    this.chatRoomsFirebase = firebase
-      .database()
-      .ref(`instance/${instID}/user/${global.safeToken}/chatrooms`);
-
-    // analytics  -----
-    const trackingOpts = {
-      instId: Constants.manifest.extra.instance,
-      emailOrUsername: global.username
-    };
-
-    Analytics.identify(global.username, trackingOpts);
-    Analytics.track(Analytics.events.PAGE_CHAT, trackingOpts);
-    // analytics --------
+    this.ref = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("chat")
+      .collection("chatrooms");
   }
 
   static navigationOptions = {
     title: "Chat",
     tabBarIcon: tabBarIcon("bubble"),
-    headerBackTitle: null
+    headerBackTitle: null,
   };
 
   componentDidMount() {
-    this.listenLoadFromFirebase(this.chatRoomsFirebase);
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
   }
+
+  onCollectionUpdate = chatRooms => {
+    var userChatrooms = [];
+    chatRooms.forEach(doc => {
+      userChatrooms.push({
+        title: doc.data().title,
+        _key: doc.data().key,
+      });
+    });
+
+    this.setState({
+      userChatrooms,
+    });
+  };
 
   keyExtractor = item => item._key;
 
-  listenLoadFromFirebase(chatRooms) {
-    chatRooms.on("value", dataSnapshot2 => {
-      this.props.setUserChatrooms(dataSnapshot2);
-      dataSnapshot = dataSnapshot2;
-      this.state.userChatrooms = [];
-
-      dataSnapshot.forEach(child => {
-        this.state.userChatrooms.push({
-          title: child.key,
-          _key: child.key
-        });
-      });
-
-      this.state.userChatrooms.push({
-        title: "PTA Volunteer Q&A",
-        _key: "PTA Volunteer Q&A"
-      });
-      this.state.userChatrooms.push({
-        title: "Lost and Found",
-        _key: "Lost and Found"
-      });
-      this.state.userChatrooms.push({
-        title: "Test Chatroom",
-        _key: "Test Chatroom"
-      });
-
-      this.setState({
-        chatRooms
-      });
-    });
-  }
-
-  _renderItem(title, description, contact, url) {
-    // {this._renderItem('2JLIU','Jia Liu - Level 3 Washington','jia.liu@sais.edu.sg','https://mystamford.edu.sg/homeroom-2/grade-2/jia-liu-g2-jliu/class-update')}
-    // {this._renderItem('4DAYE','Daisy Ye - Level 5 Washington','daisy.ye@sais.edu.sg ','https://mystamford.edu.sg/homeroom-2/grade-4/daisy-ye-g4-daye/class-update')}
-    // {this._renderItem('Grade 6','Grade 6 Group Chat','middleschool@sais.edu.sg','https://mystamford.edu.sg/browse-resources/secondary')}
-
-    //ken{YQNwZDOkv0QdHUlDV-T5HQ}  - Simon
-    return (
-      <ChatroomItem
-        navigation={this.props.navigation}
-        title={title}
-        latestText={latestText}
-        latestUser-={latestUser}
-        description={description}
-        contact={contact}
-        url={url}
-        language={language}
-      />
-    );
-  }
-
-  _renderItem2(item) {
-    // {this._renderItem('2JLIU','Jia Liu - Level 3 Washington','jia.liu@sais.edu.sg','https://mystamford.edu.sg/homeroom-2/grade-2/jia-liu-g2-jliu/class-update')}
-    // {this._renderItem('4DAYE','Daisy Ye - Level 5 Washington','daisy.ye@sais.edu.sg ','https://mystamford.edu.sg/homeroom-2/grade-4/daisy-ye-g4-daye/class-update')}
-    // {this._renderItem('Grade 6','Grade 6 Group Chat','middleschool@sais.edu.sg','https://mystamford.edu.sg/browse-resources/secondary')}
-
-    //ken{YQNwZDOkv0QdHUlDV-T5HQ}  - Simon
+  _renderItem(item) {
     return (
       <ChatroomItem
         navigation={this.props.navigation}
@@ -140,7 +72,7 @@ class chatRooms extends Component {
         <Content style={{ paddingTop: 20 }}>
           <FlatList
             data={this.state.userChatrooms}
-            renderItem={this._renderItem2.bind(this)}
+            renderItem={this._renderItem.bind(this)}
             keyExtractor={this.keyExtractor}
           />
         </Content>
@@ -149,17 +81,4 @@ class chatRooms extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(ActionCreators, dispatch);
-};
-
-const mapStateToProps = state => ({
-  //navigation: state.cardNavigation,
-  username: state.username,
-  userX: state.user
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(chatRooms);
+export default chatRooms;
