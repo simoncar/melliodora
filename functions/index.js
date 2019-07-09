@@ -174,7 +174,6 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
 
     snapshot.forEach(doc => {
       const state = doc.data().state;
-      console.log("state=", state);
       ++entered;
 
       switch (state) {
@@ -458,8 +457,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                 raw: raw,
                 mac: snapshot.mac
               };
-
-              console.log("update= ", dataDictUpdate);
 
               admin
                 .firestore()
