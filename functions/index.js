@@ -25,9 +25,7 @@ const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
 
 // Translate an incoming message.
 exports.translate = functions.database
-  .ref(
-    "instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/{messageID}"
-  )
+  .ref("instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/{messageID}")
   .onWrite(async (change, context) => {
     const snapshot = change.after;
     const promises = [];
@@ -40,49 +38,38 @@ exports.translate = functions.database
     var message = snapshot.child("text").val();
 
     var results = await translateX.translate(message, { to: "ja" });
-    var detectedSourceLanguage =
-      results[1].data.translations[0].detectedSourceLanguage;
+    var detectedSourceLanguage = results[1].data.translations[0].detectedSourceLanguage;
 
     admin
       .database()
-      .ref(
-        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
-      )
+      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
       .update({
         textJA: results[0],
-        detectedSourceLanguage: detectedSourceLanguage
+        detectedSourceLanguage: detectedSourceLanguage,
       });
 
     var results = await translateX.translate(message, { to: "zh-CN" });
     admin
       .database()
-      .ref(
-        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
-      )
+      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
       .update({ textZHCN: results[0] });
 
     var results = await translateX.translate(message, { to: "ko" });
     admin
       .database()
-      .ref(
-        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
-      )
+      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
       .update({ textKO: results[0] });
 
     var results = await translateX.translate(message, { to: "fr" });
     admin
       .database()
-      .ref(
-        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
-      )
+      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
       .update({ textFR: results[0] });
 
     var results = await translateX.translate(message, { to: "en" });
     admin
       .database()
-      .ref(
-        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
-      )
+      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
       .update({ textEN: results[0], approved: true });
 
     //}
@@ -91,20 +78,12 @@ exports.translate = functions.database
   });
 
 exports.sendPushNotificationSimonAll = functions.database
-  .ref(
-    "instance/0001-sais_edu_sg/chat/chatroom/{chatroomID}/messages/{newMessageID}"
-  )
+  .ref("instance/0001-sais_edu_sg/chat/chatroom/{chatroomID}/messages/{newMessageID}")
   .onCreate((snap, context) => {
     const createdData = snap.val();
     const messages = [];
 
-    const query = admin
-      .database()
-      .ref(
-        `instance/0001-sais_edu_sg/chat/chatroom/${
-          createdData.chatroom
-        }/notifications`
-      );
+    const query = admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/${createdData.chatroom}/notifications`);
     query.on("value", snap => {
       snap.forEach(child => {
         const { key } = child; // "ada"
@@ -115,7 +94,7 @@ exports.sendPushNotificationSimonAll = functions.database
           to: childData.pushToken,
           title: createdData.chatroom,
           sound: "default",
-          body: createdData.text
+          body: createdData.text,
         });
       });
     });
@@ -128,9 +107,9 @@ exports.sendPushNotificationSimonAll = functions.database
           method: "POST",
           headers: {
             Accept: "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(messages)
+          body: JSON.stringify(messages),
         });
       })
       .catch(reason => {
@@ -150,7 +129,7 @@ exports.chatBeaconPing = functions.database
   });
 
 const cors = require("cors")({
-  origin: true
+  origin: true,
 });
 
 //https://us-central1-calendar-app-57e88.cloudfunctions.net/computeCounts
@@ -195,7 +174,7 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
       entered: entered,
       onCampus: onCampus,
       noShow: noShow,
-      enteredExited: enteredExited
+      enteredExited: enteredExited,
     };
 
     console.log("Attendance Overview : ", JSON.stringify(result));
@@ -250,7 +229,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
             timestamp: null,
             state: "Off Campus",
             mac: doc.id,
-            rssi: child.rssi
+            rssi: child.rssi,
           };
 
           admin
@@ -267,7 +246,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
           updates[i] = {
             lastSeen: Date.now(),
             timestamp: null,
-            state: "Gateway - Offline"
+            state: "Gateway - Offline",
           };
 
           admin
@@ -312,7 +291,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
             timestamp: null,
             state: "Off Campus",
             mac: doc.id,
-            rssi: child.rssi
+            rssi: child.rssi,
           };
 
           console.log("Expire lost on campus.", doc.id, update);
@@ -359,7 +338,7 @@ exports.beaconPingHistory = functions.firestore
         oldCampus: oldCampus,
         state: newState,
         campus: newCampus,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
 
       admin
@@ -401,9 +380,10 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     var personState = "";
     var dataDict = "";
     //  try {
+
     beacons.forEach(snapshot => {
       if (snapshot.type == "Gateway") {
-        dataDict = setGateway(snapshot.mac);
+        dataDict = setGateway(snapshot);
         admin
           .firestore()
           .collection("sais_edu_sg")
@@ -426,19 +406,12 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               personState = dataDict.state;
               campus = dataDict.campus;
 
-              var ibeaconUuid =
-                snapshot.ibeaconUuid === undefined ? "" : snapshot.ibeaconUuid;
-              var ibeaconMajor =
-                snapshot.ibeaconMajor === undefined ? 0 : snapshot.ibeaconMajor;
-              var ibeaconMinor =
-                snapshot.ibeaconMinor === undefined ? 0 : snapshot.ibeaconMinor;
+              var ibeaconUuid = snapshot.ibeaconUuid === undefined ? "" : snapshot.ibeaconUuid;
+              var ibeaconMajor = snapshot.ibeaconMajor === undefined ? 0 : snapshot.ibeaconMajor;
+              var ibeaconMinor = snapshot.ibeaconMinor === undefined ? 0 : snapshot.ibeaconMinor;
               var rssi = snapshot.rssi === undefined ? 0 : snapshot.rssi;
-              var ibeaconTxPower =
-                snapshot.ibeaconTxPower === undefined
-                  ? 0
-                  : snapshot.ibeaconTxPower;
-              var battery =
-                snapshot.battery === undefined ? 0 : snapshot.battery;
+              var ibeaconTxPower = snapshot.ibeaconTxPower === undefined ? 0 : snapshot.ibeaconTxPower;
+              var battery = snapshot.battery === undefined ? 0 : snapshot.battery;
               var raw = snapshot.rawData === undefined ? "0" : snapshot.rawData;
 
               if (raw.length < 10) {
@@ -455,7 +428,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                 rssi: rssi,
                 ibeaconTxPower: ibeaconTxPower,
                 raw: raw,
-                mac: snapshot.mac
+                mac: snapshot.mac,
               };
 
               admin
@@ -482,13 +455,12 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
   });
 });
 
-function setGateway(mac) {
+function setGateway(snapshot) {
   var state = "On Campus";
   var personCampus = "";
-  var personPictureURL =
-    "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+  var personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
 
-  switch (mac) {
+  switch (snapshot.mac) {
     case "AC233FC03164":
       personCampus = "Woodleigh - Gate 1";
       state = "Perimeter";
@@ -542,7 +514,7 @@ function setGateway(mac) {
       personCampus = "Woodleigh Parent Helpdesk II";
       break;
     default:
-      personCampus = "Unknown - " + mac;
+      personCampus = "Unknown - " + snapshot.mac;
       state = "Perimeter";
   }
 
@@ -550,8 +522,10 @@ function setGateway(mac) {
     campus: personCampus,
     timestamp: Date.now(),
     state: state,
-    personPictureURL: personPictureURL,
-    mac: mac
+    picture: personPictureURL,
+    mac: snapshot.mac,
+    gatewayFree: snapshot.gatewayFree,
+    gatewayLoad: snapshot.gatewayLoad,
   };
 
   return dataDict;
