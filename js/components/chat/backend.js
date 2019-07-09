@@ -1,6 +1,7 @@
 import React from "react";
 import * as firebase from "firebase";
-import { ImageManipulator } from "expo";
+
+import * as ImageManipulator from "expo-image-manipulator";
 import Constants from "expo-constants";
 
 import uuid from "uuid";
@@ -298,6 +299,7 @@ async function uploadImageAsync(message, chatroom, user) {
   if (fileType == "JPG" || fileType == "HEIC" || fileType == "PNG") {
     this.messageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
     this.messageRef.push({
+      approved: true,
       image: URLfile,
       chatroom: chatroom,
       user: user,
@@ -309,6 +311,7 @@ async function uploadImageAsync(message, chatroom, user) {
   } else {
     this.messageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
     this.messageRef.push({
+      approved: true,
       video: URLfile,
       chatroom: chatroom,
       user: user,
