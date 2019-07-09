@@ -1,19 +1,15 @@
 import React, { Component } from "react";
 import { Image, View, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Container, Text } from "native-base";
 import * as firebase from "firebase";
 
 import { Grid, Col, Row } from "react-native-easy-grid";
-import Constants from "expo-constants";
 import { Agenda } from "react-native-calendars";
 import * as ActionCreators from "../../actions";
 import styles from "./styles";
 import HeaderContent from "../headerContent/header";
-import Analytics from "../../lib/analytics";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 import { formatTime, formatMonth } from "../global.js";
 const moment = require("moment");
 
@@ -30,7 +26,6 @@ class calendar1 extends Component {
       items: {},
     };
 
-    //this.loadFromRedux();
     const time = Date.now(); //+ 8 * 3600 * 1000;
     const todayDate = moment().format("YYYY-MM-DD");
     const todayDay = new moment().format("MMMM Do");
@@ -160,8 +155,10 @@ class calendar1 extends Component {
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
           hideKnob={false}
+          renderKnob={() => {
+            return <Ionicons style={{ color: "#00adf5", fontSize: 30 }} name="ios-arrow-down" />;
+          }}
           theme={{
-            agendaKnobColor: "#1DAEF2",
             selectedDayBackgroundColor: "#00adf5",
           }}
           style={{}}
@@ -233,9 +230,8 @@ class calendar1 extends Component {
                     justifyContent: "center",
                   }}
                 >
-                  <View>
-                    <Ionicons style={{ color: "white", fontSize: 20 }} name={item.icon} />
-                  </View>
+                  <Ionicons style={{ color: "white", fontSize: 20 }} name={item.icon} />
+                  <View />
                 </View>
               </Col>
             </Row>
@@ -333,16 +329,4 @@ class calendar1 extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(ActionCreators, dispatch);
-};
-
-const mapStateToProps = state => ({
-  //navigation: state.cardNavigation,
-  calendarEventsX: state.user,
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(calendar1);
+export default calendar1;
