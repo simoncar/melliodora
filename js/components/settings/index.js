@@ -120,14 +120,14 @@ class Settings extends Component {
                   source={require("./images/wifi.png")}
                 />
               }
-              title="CCA's"
+              title="CCAs"
               titleInfo="After School"
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
                   url:
                     "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fco-curricular-activities-cca-1%2fcca-brochure-semester-1&kr=iSAMS:ParentPP",
-                  title: "CCA's"
+                  title: "CCAs"
                 })
               }
             />

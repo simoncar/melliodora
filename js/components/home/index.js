@@ -1,39 +1,20 @@
 import React, { Component } from "react";
-import {
-  Image,
-  View,
-  TouchableOpacity,
-  Platform,
-  Dimensions,
-  StyleSheet
-} from "react-native";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { Container, Text, Icon } from "native-base";
+import { Image, View, TouchableOpacity } from "react-native";
+import { Container, Text } from "native-base";
 import * as firebase from "firebase";
 
 import { Grid, Col, Row } from "react-native-easy-grid";
-import Constants from "expo-constants";
 import { Agenda } from "react-native-calendars";
 import * as ActionCreators from "../../actions";
 import styles from "./styles";
 import HeaderContent from "../headerContent/header";
-import Analytics from "../../lib/analytics";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 import { formatTime, formatMonth } from "../global.js";
 const moment = require("moment");
 
-const i = 0;
-const { width } = Dimensions.get("window");
-
 const tabBarIcon = name => ({ tintColor }) => (
-  <Ionicons
-    style={{ backgroundColor: "transparent" }}
-    name={name}
-    color={tintColor}
-    size={24}
-  />
+  <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
 @withMappedNavigationParams()
@@ -42,14 +23,11 @@ class calendar1 extends Component {
     super(props);
 
     this.state = {
-      user: null,
-      loading: true,
-      items: {}
+      items: {},
     };
 
-    //this.loadFromRedux();
-    const time = Date.now() + 8 * 3600 * 1000;
-    const todayDate = this.timeToString(time);
+    const time = Date.now(); //+ 8 * 3600 * 1000;
+    const todayDate = moment().format("YYYY-MM-DD");
     const todayDay = new moment().format("MMMM Do");
 
     if (!this.state.items[todayDate]) {
@@ -60,24 +38,14 @@ class calendar1 extends Component {
       name: "Today, " + todayDay,
       icon: "md-radio-button-off",
       color: "yellow",
-      title: "Today, " + todayDay
+      title: todayDay,
     });
-
-    // analytics  -----
-    const trackingOpts = {
-      instId: Constants.manifest.extra.instance,
-      emailOrUsername: global.username
-    };
-
-    Analytics.identify(global.username, trackingOpts);
-    Analytics.track(Analytics.events.PAGE_CALENDAR, trackingOpts);
-    // analytics --------
   }
 
   static navigationOptions = {
     title: "Calendar",
     tabBarColor: "#c51162",
-    tabBarIcon: tabBarIcon("ios-calendar", "green")
+    tabBarIcon: tabBarIcon("ios-calendar", "green"),
   };
 
   componentDidMount() {
@@ -93,52 +61,7 @@ class calendar1 extends Component {
   }
 
   componentWillUnmount() {
-    //this.unsubscribe();
-  }
-
-  loadFromRedux() {
-    this.state.items = [];
-    this.loadItems();
-
-    dataSnapshot = this.props.calendarEventsX.items;
-    key = "";
-
-    this.loadItems();
-
-    for (var key in dataSnapshot) {
-      if (!dataSnapshot.hasOwnProperty(key)) continue;
-
-      const snapshot = dataSnapshot[key];
-
-      if (undefined != snapshot.date_start) {
-        strtime = snapshot.date_start;
-        strtime = strtime.substring(0, 10);
-
-        if (!this.state.items[strtime]) {
-          this.state.items[strtime] = [];
-        }
-
-        this.state.items[strtime].push({
-          name: snapshot.summary,
-          title: snapshot.summary,
-          description: snapshot.description,
-          location: snapshot.location,
-          startDatePretty: snapshot.date_start,
-          startTimePretty: snapshot.time_start_pretty,
-          endTimePretty: snapshot.time_end_pretty,
-          group: snapshot.group,
-          iconLib: snapshot.iconLib,
-          icon: snapshot.icon,
-          color: snapshot.colorId,
-          phone: snapshot.phone,
-          email: snapshot.email,
-          url: snapshot.htmlLink,
-          photo1: snapshot.photo1,
-          photo2: snapshot.photo2,
-          photo3: snapshot.photo3
-        });
-      }
-    }
+    this.unsubscribe();
   }
 
   listenLoadFromFirebase(dataSnapshot2) {
@@ -151,15 +74,6 @@ class calendar1 extends Component {
 
         snapshot.forEach(doc => {
           items2.push(doc.data());
-
-          //save to redux
-          // this.props.setCalendarItems(dataSnapshot2);
-
-          // dataSnapshot = dataSnapshot2;
-          // this.state.items = [];
-
-          //console.log(dataSnapshot2);
-          //dataSnapshot.forEach(function(doc) {
 
           //   console.log (snapshot)
           strtime = doc.data().date_start;
@@ -187,7 +101,7 @@ class calendar1 extends Component {
               url: doc.data().htmlLink,
               photo1: doc.data().photo1,
               photo2: doc.data().photo2,
-              photo3: doc.data().photo3
+              photo3: doc.data().photo3,
             });
           }
         });
@@ -195,7 +109,7 @@ class calendar1 extends Component {
         items = JSON.parse(JSON.stringify(this.state.items));
 
         this.setState({
-          items
+          items,
         });
 
         this.loadItems();
@@ -227,18 +141,11 @@ class calendar1 extends Component {
 
   render() {
     const date = new Date();
-
-    // add a day
     date.setDate(date.getDate());
-    // date.setDate(Date());
 
     return (
       <Container>
-        <HeaderContent
-          showBack="true"
-          showHome="false"
-          navigation={this.props.navigation}
-        />
+        <HeaderContent showBack="true" showHome="false" navigation={this.props.navigation} />
 
         <Agenda
           items={this.state.items}
@@ -248,9 +155,11 @@ class calendar1 extends Component {
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
           hideKnob={false}
+          renderKnob={() => {
+            return <Ionicons style={{ color: "#00adf5", fontSize: 30 }} name="ios-arrow-down" />;
+          }}
           theme={{
-            agendaKnobColor: "#1DAEF2",
-            selectedDayBackgroundColor: "#00adf5"
+            selectedDayBackgroundColor: "#00adf5",
           }}
           style={{}}
         />
@@ -278,7 +187,7 @@ class calendar1 extends Component {
             photo1: item.photo1,
             photo2: item.photo2,
             photo3: item.photo3,
-            url: item.url
+            url: item.url,
           })
         }
       >
@@ -287,8 +196,8 @@ class calendar1 extends Component {
             styles.agendaItem,
             {
               height: item.height,
-              borderRightColor: this.formatBackground(item.color)
-            }
+              borderRightColor: this.formatBackground(item.color),
+            },
           ]}
         >
           <Grid>
@@ -300,13 +209,11 @@ class calendar1 extends Component {
 
                 <Text style={styles.text}>{item.name}</Text>
 
-                {undefined !== item.group &&
-                  item.group !== null &&
-                  item.group.length > 0 && (
-                    <View style={styles.groupView}>
-                      <Text style={styles.groupText}>{item.group}</Text>
-                    </View>
-                  )}
+                {undefined !== item.group && item.group !== null && item.group.length > 0 && (
+                  <View style={styles.groupView}>
+                    <Text style={styles.groupText}>{item.group}</Text>
+                  </View>
+                )}
               </Col>
               <Col style={{ width: 60 }}>
                 <View
@@ -320,15 +227,11 @@ class calendar1 extends Component {
                     alignItems: "center",
                     paddingLeft: 0,
                     paddingRight: 0,
-                    justifyContent: "center"
+                    justifyContent: "center",
                   }}
                 >
-                  <View>
-                    <Ionicons
-                      style={{ color: "white", fontSize: 20 }}
-                      name={item.icon}
-                    />
-                  </View>
+                  <Ionicons style={{ color: "white", fontSize: 20 }} name={item.icon} />
+                  <View />
                 </View>
               </Col>
             </Row>
@@ -363,13 +266,7 @@ class calendar1 extends Component {
 
   renderImage(calImage) {
     if (undefined != calImage && calImage.length > 0) {
-      return (
-        <Image
-          source={{ uri: calImage }}
-          style={{ width: 300, height: 150 }}
-          resizeMode="contain"
-        />
-      );
+      return <Image source={{ uri: calImage }} style={{ width: 300, height: 150 }} resizeMode="contain" />;
     }
   }
 
@@ -432,16 +329,4 @@ class calendar1 extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(ActionCreators, dispatch);
-};
-
-const mapStateToProps = state => ({
-  //navigation: state.cardNavigation,
-  calendarEventsX: state.user
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(calendar1);
+export default calendar1;
