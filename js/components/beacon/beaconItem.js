@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-  Image,
-  Text
-} from "react-native";
+import { View, TouchableOpacity, Image, Text } from "react-native";
 
 import { Grid, Col, Row } from "react-native-easy-grid";
 import styles from "./styles";
@@ -19,159 +12,116 @@ class BeaconItem extends Component {
   }
 
   renderProfileIcons(lastSeen, timestamp, beaconType) {
-    if (beaconType == "Asset") {
-      return (
-        <View
-          style={{
-            borderRadius: 30,
-            backgroundColor: "#1DAEF2",
-            width: 45,
-            height: 45,
-            marginLeft: 10,
-            marginTop: 10,
-            alignItems: "center",
-            paddingLeft: 0,
-            paddingRight: 0,
-            justifyContent: "center"
-          }}
-        >
-          <View>
-            <MaterialIcons
-              style={{ color: "white", fontSize: 20 }}
-              name="device-hub"
-            />
-          </View>
-        </View>
-      );
+    if (this.isOnline(timestamp)) {
+      var color = "green";
     } else {
-      return (
-        <Grid>
-          <Row>
-            <Col
+      var color = "red";
+    }
+
+    return (
+      <Grid>
+        <Row>
+          <Col
+            style={{
+              width: 45,
+            }}
+          >
+            <View
               style={{
-                width: 45
+                borderRadius: 30,
+                backgroundColor: color,
+                width: 45,
+                height: 45,
+                marginLeft: 10,
+                marginTop: 10,
+                alignItems: "center",
+                paddingLeft: 0,
+                paddingRight: 0,
+                justifyContent: "center",
               }}
             >
-              <View
-                style={{
-                  borderRadius: 30,
-                  backgroundColor: "green",
-                  width: 45,
-                  height: 45,
-                  marginLeft: 10,
-                  marginTop: 10,
-                  alignItems: "center",
-                  paddingLeft: 0,
-                  paddingRight: 0,
-                  justifyContent: "center"
-                }}
-              >
-                <View>
-                  <Feather
-                    style={{ color: "white", fontSize: 20 }}
-                    name="radio"
-                  />
-                </View>
+              <View>
+                <Feather style={{ color: "white", fontSize: 20 }} name="radio" />
               </View>
-            </Col>
-          </Row>
-        </Grid>
-      );
+            </View>
+          </Col>
+        </Row>
+      </Grid>
+    );
+  }
+
+  isOnline(timestamp) {
+    const now = Date.now();
+    const cutoff = now - 100000; //CUT_OFF_TIME;
+    if (timestamp < cutoff) {
+      return false;
+    } else {
+      return true;
     }
   }
 
   renderLastSeen(lastSeen, timestamp, beaconState) {
-    if (lastSeen != null && timestamp == null) {
-      lastSeenDateTime = moment(lastSeen).format("LLL");
-
+    if (this.isOnline(timestamp)) {
+      return <Text style={styles.lastSeenActive}>Healthy</Text>;
+    } else {
+      lastSeenDateTime = moment(timestamp).format("LLL");
       return (
         <View>
-          <Text style={styles.chatDescription}>{beaconState}</Text>
-          <Text style={styles.chatDescription}>{lastSeenDateTime}</Text>
+          <Text style={styles.offlineTitle}>Offline</Text>
+          <Text style={styles.chatDescription}>Last Seen {lastSeenDateTime}</Text>
         </View>
       );
-    } else if (timestamp != null) {
-      return <Text style={styles.lastSeenActive}>{beaconState}</Text>;
-    } else {
-      return <Text style={styles.lastSeenActive}>{beaconState}</Text>;
     }
   }
 
-  renderBeaconCampus(beaconCampus) {
-    if (beaconCampus != null && beaconCampus.length > 0) {
-      return <Text style={styles.chatDescription}>{beaconCampus}</Text>;
+  rendercampus(campus) {
+    if (campus != null && campus.length > 0) {
+      return <Text style={styles.chatDescription}>{campus}</Text>;
     }
   }
 
-  renderBeaconIcon(beaconPictureURL) {
-    if (
-      beaconPictureURL != null &&
-      beaconPictureURL != undefined &&
-      beaconPictureURL.length > 0
-    ) {
-      return (
-        <Image
-          style={styles.singleChatItemImage}
-          source={{ uri: beaconPictureURL }}
-        />
-      );
-    } else {
-      return <MaterialIcons style={styles.singleChatItemIcon} name="person" />;
-    }
+  renderBeaconIcon() {
+    return <Image style={styles.singleChatItemImage} source={require("../../../images/minew_G1.png")} />;
   }
+
   renderBeaconType(beaconType) {
-    if (
-      beaconType != null &&
-      beaconType != undefined &&
-      beaconType.length > 0
-    ) {
+    if (beaconType != null && beaconType != undefined && beaconType.length > 0) {
       return <Text style={styles.chatDescription}>{beaconType}</Text>;
     }
   }
 
   render() {
-    //console.log(this.props.beaconName);
+    console.log(this.props);
 
     return (
       <View style={styles.chatRow}>
         <Grid>
           <Row>
             <Col>
-              <TouchableOpacity
-                style={{ flexDirection: "row" }}
-                onPress={() => {
-                  this.props.navigation.navigate("beaconHistory", {
-                    chatroom: "beacon-" + this.props.beaconName,
-                    description: "Safeguarding Chat",
-                    contact: "",
-                    url: this.props.beaconName,
-                    _key: this.props._key
-                  });
-                }}
-              >
-                {this.renderBeaconIcon(this.props.beaconPictureURL)}
+              <TouchableOpacity style={{ flexDirection: "row" }}>
+                {this.renderBeaconIcon()}
 
                 <View>
-                  <Text style={styles.chatTitle}>
-                    {this.renderBeaconCampus(this.props.beaconCampus)}
-                  </Text>
+                  <Text style={styles.chatTitle}>{this.rendercampus(this.props.item.item.campus)}</Text>
 
                   <Text style={styles.chatDescription} />
                   {this.renderLastSeen(
-                    this.props.lastSeen,
-                    this.props.timestamp,
-                    this.props.state
+                    this.props.item.item.lastSeen,
+                    this.props.item.item.timestamp,
+                    this.props.item.item.state,
                   )}
-                  {this.renderBeaconCampus(this.props.beaconCampus)}
-                  <Text style={styles.chatDescription}>{this.props._key}</Text>
+
+                  <Text style={styles.chatDescription}>{this.props.item.item._key}</Text>
+                  <Text style={styles.chatDescription}>Load : {this.props.item.item.gatewayLoad} %</Text>
+                  <Text style={styles.chatDescription}>Free : {this.props.item.item.gatewayFree} %</Text>
                 </View>
               </TouchableOpacity>
             </Col>
             <Col style={{ width: 70 }}>
               {this.renderProfileIcons(
-                this.props.lastSeen,
-                this.props.timestamp,
-                this.props.beaconType
+                this.props.item.item.lastSeen,
+                this.props.item.item.timestamp,
+                this.props.item.item.beaconType,
               )}
             </Col>
           </Row>

@@ -1,16 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {
-  Modal,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ViewPropTypes,
-  Text,
-  SafeAreaView
-} from "react-native";
+import { Modal, StyleSheet, TouchableOpacity, View, ViewPropTypes, Text, SafeAreaView } from "react-native";
 
 import CameraRollPicker from "react-native-camera-roll-picker";
+import ImagePicker from "expo-image-picker";
+import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
+
 import NavBar, { NavButton, NavButtonText, NavTitle } from "react-native-nav";
 import { Entypo } from "@expo/vector-icons";
 
@@ -19,13 +15,27 @@ export default class CustomActions extends React.Component {
     super(props);
     this._images = [];
     this.state = {
+      image: null,
       modalVisiblePhoto: false,
-      modalVisibleVideo: false
+      modalVisibleVideo: false,
     };
     this.onActionsPress = this.onActionsPress.bind(this);
     this.selectImagesPhoto = this.selectImagesPhoto.bind(this);
     this.selectImagesVideo = this.selectImagesVideo.bind(this);
   }
+
+  componentDidMount() {
+    this.getPermissionAsync();
+  }
+
+  getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  };
 
   setImages(images) {
     //console.log ('setImages = ', images.uri);
@@ -47,26 +57,30 @@ export default class CustomActions extends React.Component {
   }
 
   onActionsPress() {
+    //_pickImage();
+
     const options = ["Photo", "Video", "Cancel"];
     const cancelButtonIndex = options.length - 1;
     this.context.actionSheet().showActionSheetWithOptions(
       {
         options,
-        cancelButtonIndex
+        cancelButtonIndex,
       },
       buttonIndex => {
         switch (buttonIndex) {
           case 0:
-            this.setModalVisiblePhoto(true);
+            _pickImage();
+            //this.setModalVisiblePhoto(true);
             break;
           case 1:
-            this.setModalVisibleVideo(true);
+            _pickVideo();
+
             break;
           case 2:
             break;
           default:
         }
-      }
+      },
     );
   }
 
@@ -90,11 +104,11 @@ export default class CustomActions extends React.Component {
         <NavBar
           style={{
             statusBar: {
-              backgroundColor: "#FFF"
+              backgroundColor: "#FFF",
             },
             navBar: {
-              backgroundColor: "#FFF"
-            }
+              backgroundColor: "#FFF",
+            },
           }}
         >
           <NavButton
@@ -104,7 +118,7 @@ export default class CustomActions extends React.Component {
           >
             <NavButtonText
               style={{
-                color: "#000"
+                color: "#000",
               }}
             >
               {"Cancel"}
@@ -112,7 +126,7 @@ export default class CustomActions extends React.Component {
           </NavButton>
           <NavTitle
             style={{
-              color: "#000"
+              color: "#000",
             }}
           >
             {"Photos"}
@@ -127,7 +141,7 @@ export default class CustomActions extends React.Component {
                 return {
                   image: image.uri,
                   filename: image.filename,
-                  playableDuration: 0
+                  playableDuration: 0,
                 };
               });
 
@@ -137,7 +151,7 @@ export default class CustomActions extends React.Component {
           >
             <NavButtonText
               style={{
-                color: "#000"
+                color: "#000",
               }}
             >
               {"Send"}
@@ -154,11 +168,11 @@ export default class CustomActions extends React.Component {
         <NavBar
           style={{
             statusBar: {
-              backgroundColor: "#FFF"
+              backgroundColor: "#FFF",
             },
             navBar: {
-              backgroundColor: "#FFF"
-            }
+              backgroundColor: "#FFF",
+            },
           }}
         >
           <NavButton
@@ -168,7 +182,7 @@ export default class CustomActions extends React.Component {
           >
             <NavButtonText
               style={{
-                color: "#000"
+                color: "#000",
               }}
             >
               {"Cancel"}
@@ -176,7 +190,7 @@ export default class CustomActions extends React.Component {
           </NavButton>
           <NavTitle
             style={{
-              color: "#000"
+              color: "#000",
             }}
           >
             {"Videos"}
@@ -191,7 +205,7 @@ export default class CustomActions extends React.Component {
                 return {
                   image: image.uri,
                   filename: image.filename,
-                  playableDuration: 1
+                  playableDuration: 1,
                 };
               });
 
@@ -201,7 +215,7 @@ export default class CustomActions extends React.Component {
           >
             <NavButtonText
               style={{
-                color: "#000"
+                color: "#000",
               }}
             >
               {"Send"}
@@ -225,46 +239,7 @@ export default class CustomActions extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity
-        style={[styles.container, this.props.containerStyle]}
-        onPress={this.onActionsPress}
-      >
-        <Modal
-          animationType={"slide"}
-          transparent={false}
-          visible={this.state.modalVisiblePhoto}
-          onRequestClose={() => {
-            this.setModalVisiblePhoto(false);
-          }}
-        >
-          {this.renderNavBarPhoto()}
-          <CameraRollPicker
-            maximum={10}
-            imagesPerRow={3}
-            callback={this.selectImagesPhoto}
-            selected={[]}
-            assetType="Photos"
-          />
-        </Modal>
-
-        <Modal
-          animationType={"slide"}
-          transparent={false}
-          visible={this.state.modalVisibleVideo}
-          onRequestClose={() => {
-            this.setModalVisibleVideo(false);
-          }}
-        >
-          {this.renderNavBarVideo()}
-          <CameraRollPicker
-            maximum={10}
-            imagesPerRow={3}
-            callback={this.selectImagesVideo}
-            selected={[]}
-            assetType="Videos"
-          />
-        </Modal>
-
+      <TouchableOpacity style={[styles.container, this.props.containerStyle]} onPress={this.onActionsPress}>
         {this.renderIcon()}
       </TouchableOpacity>
     );
@@ -276,25 +251,25 @@ const styles = StyleSheet.create({
     width: 26,
     height: 26,
     marginLeft: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
   wrapper: {
     borderRadius: 13,
     borderColor: "#b2b2b2",
     borderWidth: 2,
-    flex: 1
+    flex: 1,
   },
   iconText: {
     color: "#b2b2b2",
     fontWeight: "bold",
     fontSize: 16,
     backgroundColor: "transparent",
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
 
 CustomActions.contextTypes = {
-  actionSheet: PropTypes.func
+  actionSheet: PropTypes.func,
 };
 
 CustomActions.defaultProps = {
@@ -303,7 +278,7 @@ CustomActions.defaultProps = {
   icon: null,
   containerStyle: {},
   wrapperStyle: {},
-  iconTextStyle: {}
+  iconTextStyle: {},
 };
 
 CustomActions.propTypes = {
@@ -312,5 +287,5 @@ CustomActions.propTypes = {
   icon: PropTypes.func,
   containerStyle: ViewPropTypes.style,
   wrapperStyle: ViewPropTypes.style,
-  iconTextStyle: Text.propTypes.style
+  iconTextStyle: Text.propTypes.style,
 };

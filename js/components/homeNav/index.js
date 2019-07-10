@@ -9,12 +9,10 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   StyleSheet,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { Container, Content, Text, Icon, Button } from "native-base";
-import { Grid, Col, Row } from "react-native-easy-grid";
 import { Notifications } from "expo";
-import * as Localization from "expo-localization";
 import Constants from "expo-constants";
 import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 import moment from "moment";
@@ -41,17 +39,10 @@ if (!Constants.isDevice) {
 
 const today = new moment().format();
 
-const parsedRawData = new BLEDataParser(
-  "03039FFE17169FFE0256596E48415957727242510000016B91E7901F"
-);
+const parsedRawData = new BLEDataParser("03039FFE17169FFE0256596E48415957727242510000016B91E7901F");
 
 const tabBarIcon = name => ({ tintColor }) => (
-  <MaterialIcons
-    style={{ backgroundColor: "transparent" }}
-    name={name}
-    color={tintColor}
-    size={24}
-  />
+  <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
 class HomeNav extends Component {
@@ -67,7 +58,7 @@ class HomeNav extends Component {
     this.state = {
       user: null,
       loading: false,
-      featureItems: []
+      featureItems: [],
     };
 
     //this.loadFromRedux();
@@ -77,17 +68,12 @@ class HomeNav extends Component {
     title: "Stamford",
     headerTitleStyle: {
       fontWeight: "bold",
-      fontSize: 28
+      fontSize: 28,
     },
     tabBarColor: "#111B4E",
     tabBarIcon: tabBarIcon("home"),
     headerBackTitle: null,
-    headerRight: (
-      <BorderlessButton
-        onPress={() => navigation.navigate("Search")}
-        style={{ marginRight: 15 }}
-      />
-    )
+    headerRight: <BorderlessButton onPress={() => navigation.navigate("Search")} style={{ marginRight: 15 }} />,
   });
 
   componentDidMount() {
@@ -117,7 +103,7 @@ class HomeNav extends Component {
         photo3,
         displayStart,
         displayEnd,
-        hidden
+        hidden,
       } = doc.data();
 
       featureItems.push({
@@ -139,13 +125,13 @@ class HomeNav extends Component {
         photo3,
         displayStart,
         displayEnd,
-        hidden
+        hidden,
       });
     });
 
     this.setState({
       featureItems,
-      loading: false
+      loading: false,
     });
   };
 
@@ -174,14 +160,8 @@ class HomeNav extends Component {
       const snapshot = dataSnapshot[key];
       strtime = snapshot.date_start;
 
-      const displayStart =
-        snapshot.displayStart !== undefined
-          ? moment().format(snapshot.displayStart)
-          : null;
-      const displayEnd =
-        snapshot.displayEnd !== undefined
-          ? moment().format(snapshot.displayEnd)
-          : null;
+      const displayStart = snapshot.displayStart !== undefined ? moment().format(snapshot.displayStart) : null;
+      const displayEnd = snapshot.displayEnd !== undefined ? moment().format(snapshot.displayEnd) : null;
       let hidden = true;
 
       if (displayStart != null && displayStart <= today) {
@@ -212,7 +192,7 @@ class HomeNav extends Component {
           displayEnd: snapshot.displayEnd,
           hidden: false,
           _key: key,
-          key: key
+          key: key,
         });
       }
     }
@@ -241,60 +221,6 @@ class HomeNav extends Component {
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
-            {instID == "0001-sais_edu_sg" && (
-              <Row style={{ paddingBottom: 20, paddingTop: 20 }}>
-                <Col>
-                  <Button
-                    transparent
-                    style={styles.roundedButton}
-                    onPress={() => {
-                      this.props.navigation.navigate("contact");
-                    }}
-                  >
-                    <Ionicons name="ios-call" style={styles.icon} />
-                  </Button>
-                  <Text note style={styles.buttonLabel}>
-                    Contact
-                  </Text>
-                </Col>
-
-                <Col>
-                  <Button
-                    transparent
-                    style={styles.roundedButton}
-                    onPress={() => {
-                      //this._handleOpenWithLinking("https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP");
-                      tthis.props.navigation.navigate("webportalURL", {
-                        url:
-                          "https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP",
-                        title: "myStamford"
-                      });
-                    }}
-                  >
-                    <MaterialIcons style={styles.icon} name="web" />
-                  </Button>
-                  <Text note style={styles.buttonLabel}>
-                    myStamford
-                  </Text>
-                </Col>
-
-                <Col>
-                  <Button
-                    transparent
-                    style={styles.roundedButton}
-                    onPress={() => {
-                      this.props.navigation.navigate("campusMap");
-                    }}
-                  >
-                    <Ionicons style={styles.icon} name="ios-map" />
-                  </Button>
-                  <Text note style={styles.buttonLabel}>
-                    School Map
-                  </Text>
-                </Col>
-              </Row>
-            )}
-
             <Text style={styles.version}>School Starts in...</Text>
             <CountDown until={this.getSeconds()} size={20} />
 
@@ -312,7 +238,7 @@ class HomeNav extends Component {
                       backgroundColor: "white",
                       flexDirection: "row",
                       justifyContent: "center",
-                      alignItems: "center"
+                      alignItems: "center",
                     }}
                   >
                     <Image
@@ -322,11 +248,10 @@ class HomeNav extends Component {
                         margin: 12,
                         borderRadius: 18,
                         borderWidth: StyleSheet.hairlineWidth,
-                        borderColor: "lightgray"
+                        borderColor: "lightgray",
                       }}
                       source={{
-                        uri:
-                          "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png"
+                        uri: "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png",
                       }}
                     />
                     <Text style={styles.itemTitle}>Safeguarding</Text>
@@ -334,8 +259,7 @@ class HomeNav extends Component {
                   <View>
                     <Image
                       source={{
-                        uri:
-                          "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png"
+                        uri: "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png",
                       }}
                       style={{ width, height: 200 }}
                       resizeMode="contain"
@@ -357,7 +281,7 @@ class HomeNav extends Component {
               style={{
                 height: 60,
                 backgroundColor: "white",
-                flexDirection: "row"
+                flexDirection: "row",
               }}
             />
           </View>
@@ -368,31 +292,19 @@ class HomeNav extends Component {
 
             <Text style={styles.version} />
           </View>
-          <Image
-            source={require("../../../images/sais.edu.sg/10yearLogo.png")}
-            style={styles.tenYearLogo}
-          />
+          <Image source={require("../../../images/sais.edu.sg/10yearLogo.png")} style={styles.tenYearLogo} />
 
           <TouchableOpacity
             onPress={() => {
               this._handleOpenWithLinking("https://smartcookies.io");
             }}
           >
-            <Image
-              source={require("../../../images/sais.edu.sg/SCLogo.png")}
-              style={styles.sclogo}
-            />
+            <Image source={require("../../../images/sais.edu.sg/SCLogo.png")} style={styles.sclogo} />
           </TouchableOpacity>
 
           <View>
             <Text style={styles.version} />
-            <Text style={styles.version}>
-              {" "}
-              Battery: {parsedRawData.parsedData.BatteryLevel}
-            </Text>
-            <Text style={styles.version}>
-              Version: {Constants.manifest.revisionId}
-            </Text>
+            <Text style={styles.version}>Version: {Constants.manifest.revisionId}</Text>
           </View>
         </Content>
       </Container>
@@ -402,12 +314,11 @@ class HomeNav extends Component {
 
 function bindAction(dispatch) {
   return {
-    openDrawer: () => dispatch(openDrawer())
+    openDrawer: () => dispatch(openDrawer()),
   };
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(ActionCreators, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   ////navigation: state.cardNavigation,
@@ -416,10 +327,10 @@ const mapStateToProps = state => ({
   ffauth_device_idX: state.ffauth_device_id,
   ffauth_secretX: state.ffauth_secret,
   calendarEventsX: state.user,
-  language: state.user.language
+  language: state.user.language,
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(HomeNav);
