@@ -34,15 +34,15 @@ export default class AttendanceStats extends Component {
           <View style={styles.statsCol}>
             <View style={[styles.widget, { backgroundColor: '#0074D9' }]}>
               <View style={styles.widgetContent}>
-                <Text style={styles.widgetTextTitle}>Total Students</Text>
-                <Text style={styles.widgetTextContent}>3210</Text>
+                <Text style={styles.widgetTextTitle}>Entered</Text>
+                <Text style={styles.widgetTextContent}>3055</Text>
               </View>
             </View>
 
             <View style={[styles.widget, { backgroundColor: 'olivedrab' }]}>
               <TouchableOpacity style={styles.widgetContent} onPress={() => this.routeBtn("On Campus", 3028)}>
-                <Text style={styles.widgetTextTitle}>Students on Campus now</Text>
-                <Text style={styles.widgetTextContent}>3028</Text>
+                <Text style={styles.widgetTextTitle}>Exited</Text>
+                <Text style={styles.widgetTextContent}>27</Text>
               </TouchableOpacity>
             </View>
 
@@ -52,24 +52,24 @@ export default class AttendanceStats extends Component {
             <View style={[styles.widget, { backgroundColor: 'darkorchid' }]}>
 
               <View style={styles.widgetContent}>
-                <Text style={styles.widgetTextTitle}>Entered</Text>
+                <Text style={styles.widgetTextTitle}>Total</Text>
 
-                <Text style={styles.widgetTextContent}>3055</Text>
+                <Text style={styles.widgetTextContent}>3210</Text>
               </View>
             </View>
 
             <View style={[styles.widget, { backgroundColor: '#FF4136' }]}>
 
               <View style={styles.widgetContent}>
-                <Text style={styles.widgetTextTitle}>Exited</Text>
-                <Text style={styles.widgetTextContent}>27</Text>
+                <Text style={styles.widgetTextTitle}>Perimeter</Text>
+                <Text style={styles.widgetTextContent}>270</Text>
               </View>
             </View>
 
             <View style={[styles.widget, { backgroundColor: 'tomato' }]}>
 
               <View style={styles.widgetContent}>
-                <Text style={styles.widgetTextTitle}>No Show</Text>
+                <Text style={styles.widgetTextTitle}>Not Present</Text>
                 <Text style={styles.widgetTextContent}>155</Text>
               </View>
             </View>
