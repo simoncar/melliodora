@@ -26,8 +26,6 @@ import firebase from "firebase";
 import moment from "moment";
 import _ from "lodash";
 
-import BookmarkHooks from "./hooks/BookmarkHook";
-
 import useGlobal from "./utils/BookmarkStore";
 
 const BookmarkBtn = ({ mac }) => {
