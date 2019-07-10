@@ -18,8 +18,20 @@ const init = async store => {
   console.log("init2");
   const bookmarks = await retrieveBookmarks();
   const bookmarksData = await getData(bookmarks);
+  // const updatedBookmarksData = bookmarksData.filter(b => { if (b) return b });
+  // const updatedBookmarks = updatedBookmarksData.filter(b => b.mac);
 
-  store.setState({ initial: false, bookmarks: bookmarks, bookmarksData: bookmarksData, loading: false });
+  const { bk, bkData } = bookmarksData.reduce((a,b) => {
+    if (b) {
+      a.bk.push(b.mac);
+      a.bkData.push(b);
+    }
+    return a;
+
+  }, { bk: [], bkData: [] });
+
+  AsyncStorage.setItem('myBookmarks', JSON.stringify(bk))
+  store.setState({ initial: false, bookmarks: bk, bookmarksData: bkData, loading: false });
 }
 
 const addBookmark = (store, mac) => {
@@ -30,8 +42,8 @@ const addBookmark = (store, mac) => {
   const updatedBookmarks = bookmarks.filter(e => e !== mac);
   updatedBookmarks.push(mac)
   AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarks))
-  .then(() => getData(updatedBookmarks))
-  .then(bookmarksData => store.setState({ bookmarks: updatedBookmarks, bookmarksData: bookmarksData, loading: false }));
+    .then(() => getData(updatedBookmarks))
+    .then(bookmarksData => store.setState({ bookmarks: updatedBookmarks, bookmarksData: bookmarksData, loading: false }));
 }
 
 const removeBookmark = (store, mac) => {
@@ -44,7 +56,7 @@ const removeBookmark = (store, mac) => {
   const updatedBookmarksData = bookmarksData.filter(e => e.mac !== mac);
 
   AsyncStorage.setItem('myBookmarks', JSON.stringify(updatedBookmarks))
-  .then(() => store.setState({ bookmarks: updatedBookmarks, bookmarksData: updatedBookmarksData, loading: false }));
+    .then(() => store.setState({ bookmarks: updatedBookmarks, bookmarksData: updatedBookmarksData, loading: false }));
 }
 
 const retrieveBookmarks = async () => {

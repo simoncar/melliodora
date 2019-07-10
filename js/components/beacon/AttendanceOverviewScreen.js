@@ -28,23 +28,31 @@ export default class AttendanceOverviewScreen extends Component {
     return (
       <View style={{ minHeight: "100%" }}>
         <ScrollView style={{ backgroundColor: "#f2f2f2" }}>
-          <Text style={{ padding: 8, fontWeight: 'bold', color: '#48484a' }}>Overview</Text>
-          <AttendanceStats navigation={this.props.navigation} />
 
-          <Divider style={{ backgroundColor: "gray", margin: 12 }} />
-          <View style={{ flex: 1, flexDirection: 'row' }}>
-            <Text style={{ paddingLeft: 8, fontWeight: 'bold', color: '#48484a', flex: 1 }}>Recent Bookmarks</Text>
+          <View style={{ backgroundColor: "#fff", marginVertical: 8, marginHorizontal: 4, padding: 10 }}>
+            <Text style={{ paddingBottom: 8, fontWeight: 'bold', color: '#48484a' }}>Overview</Text>
+            <AttendanceStats navigation={this.props.navigation} />
+          </View>
 
-            <View style={{ flex: 1, alignItems: "flex-end", paddingRight: 8 }}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
-                <Text style={{ fontSize: 12, color: 'gray' }}>View All</Text>
-              </TouchableOpacity>
+          <View style={{ backgroundColor: "#fff", marginVertical: 8, flex:1, flexDirection:'column'}}>
+            <View style={{ flex: 1, flexDirection: 'row', flexShrink:1 }}>
+              <Text style={{ padding: 8, fontWeight: 'bold', color: '#48484a', flex: 1 }}>Recent Bookmarks</Text>
+
+              <View style={{ flex: 1, alignItems: "flex-end", paddingRight: 8, justifyContent:'center' }}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
+                  <Text style={{ fontSize: 12, color: 'gray' }}>View All</Text>
+                </TouchableOpacity>
+              </View>
+
+            </View>
+            <View style={{ minHeight: 120, flex:1 }}>
+              <BookmarkPreview navigation={this.props.navigation} />
             </View>
 
           </View>
-          <View style={{ paddingBottom: 120 }}>
-            <BookmarkPreview navigation={this.props.navigation}/>
-          </View>
+          <View style={{ minHeight: 150 }}>
+
+            </View>
 
 
           {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
