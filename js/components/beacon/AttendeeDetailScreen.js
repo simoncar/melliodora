@@ -37,10 +37,6 @@ const BookmarkBtn = ({ mac }) => {
     globalActions.init();
   },[]);
 
-
-
-  console.log(mac, "mac");
-  console.log("globalState bookmarks", bookmarks);
   let onPressFunc, color;
   if (bookmarks.indexOf(mac) > -1) {
     onPressFunc = globalActions.removeBookmark;

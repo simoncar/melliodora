@@ -34,18 +34,19 @@ export default class AttendanceOverviewScreen extends Component {
             <AttendanceStats navigation={this.props.navigation} />
           </View>
 
-          <View style={{ backgroundColor: "#fff", marginVertical: 8, flex:1, flexDirection:'column'}}>
-            <View style={{ flex: 1, flexDirection: 'row', flexShrink:1 }}>
-              <Text style={{ padding: 8, fontWeight: 'bold', color: '#48484a', flex: 1 }}>Recent Bookmarks</Text>
+          
+          <View style={{ backgroundColor: "#fff", flex:1, flexDirection:'column'}}>
+            <View style={{flexDirection: 'row', flexShrink:1, paddingTop: 8, paddingHorizontal:8 }}>
+              <Text style={{fontWeight: 'bold', color: '#48484a', flex: 1 }}>Recent Bookmarks</Text>
 
-              <View style={{ flex: 1, alignItems: "flex-end", paddingRight: 8, justifyContent:'center' }}>
+              <View style={{ flex: 1, alignItems: "flex-end", justifyContent:'center' }}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
                   <Text style={{ fontSize: 12, color: 'gray' }}>View All</Text>
                 </TouchableOpacity>
               </View>
 
             </View>
-            <View style={{ minHeight: 120, flex:1 }}>
+            <View style={{ flex:1 }}>
               <BookmarkPreview navigation={this.props.navigation} />
             </View>
 
