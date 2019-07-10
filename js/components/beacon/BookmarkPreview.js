@@ -37,7 +37,7 @@ const BookmarkPreview = ({ navigation }) => {
   }
 
   return (
-    <View>
+    <View style={{minHeight: 120, paddingBottom:8}}>
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}

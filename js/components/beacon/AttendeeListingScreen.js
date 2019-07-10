@@ -14,7 +14,7 @@ export default class AttendeeListingScreen extends React.Component {
     super(props);
     this.state = {
       documentData: [],
-      limit: 9,
+      limit: 12,
       lastVisible: null,
       loading: false,
       refreshing: false,
@@ -24,7 +24,10 @@ export default class AttendeeListingScreen extends React.Component {
 
   componentDidMount = () => {
     try {
-
+      this.beaconDB = firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("beacon");
       // Cloud Firestore: Initial Query
       this.retrieveData();
     }
@@ -43,10 +46,7 @@ export default class AttendeeListingScreen extends React.Component {
       console.log('Retrieving Data');
       // Cloud Firestore: Query
 
-      let initialQuery = await firebase
-        .firestore()
-        .collection("sais_edu_sg")
-        .doc("beacon")
+      let initialQuery = await this.beaconDB
         .collection("beacons")
         .orderBy('mac')
         .limit(this.state.limit);
@@ -57,7 +57,7 @@ export default class AttendeeListingScreen extends React.Component {
       let documentData = documentSnapshots.docs.map(document => document.data());
       // Cloud Firestore: Last Visible Document (Document ID To Start From For Proceeding Queries)
       let lastVisible = documentData[documentData.length - 1].mac;
-      console.log("lastVisible", lastVisible);
+
       // Set State
       this.setState({
         documentData: documentData,
@@ -79,10 +79,7 @@ export default class AttendeeListingScreen extends React.Component {
       });
       console.log('Retrieving additional Data');
       // Cloud Firestore: Query (Additional Query)
-      let additionalQuery = await firebase
-        .firestore()
-        .collection("sais_edu_sg")
-        .doc("beacon")
+      let additionalQuery = await this.beaconDB
         .collection("beacons")
         .orderBy('mac')
         .startAfter(this.state.lastVisible)
@@ -136,9 +133,9 @@ export default class AttendeeListingScreen extends React.Component {
   };
 
   _renderItem = ({ item }) => {
-    const firstName = item.firstName || "" ;
-    const lastName  = item.lastName || "";
-    const avatarTitle = firstName.slice(0,1) + lastName.slice(0,1);
+    const firstName = item.firstName || "";
+    const lastName = item.lastName || "";
+    const avatarTitle = firstName.slice(0, 1) + lastName.slice(0, 1);
     const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: avatarTitle };
     return (
       <ListItem
@@ -206,7 +203,7 @@ export default class AttendeeListingScreen extends React.Component {
 
           // How Close To The End Of List Until Next Data Request Is Made
 
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={0.1}
 
           // Refreshing (Set To True When End Reached)
           refreshing={this.state.refreshing}
