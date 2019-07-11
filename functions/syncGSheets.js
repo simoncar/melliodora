@@ -24,6 +24,7 @@ async.series(
     function getInfoAndWorksheets(step) {
       doc.getInfo(function(err, info) {
         console.log(err);
+
         console.log("Loaded doc: " + info.title + " by " + info.author.email);
         sheet = info.worksheets[0];
         console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
@@ -54,10 +55,12 @@ async.series(
     },
     function workingWithCells(step) {
       var n = 2;
+      var classList = {};
+      var gradeList = {};
 
       for (var i = 2; i < 45; i++) {
         console.log(n, n + 100);
-        updateCells(n, n + 100);
+        updateCells(n, n + 100, classList, gradeList);
         n = n + 101;
       }
 
@@ -88,7 +91,7 @@ async.series(
   },
 );
 
-function updateCells(start, end) {
+function updateCells(start, end, classList, gradeList) {
   var firstName = "";
   var lastName = "";
   var fullname = "";
@@ -101,9 +104,10 @@ function updateCells(start, end) {
       "min-row": start,
       "max-row": end,
       "min-col": 1,
-      "max-col": 10,
+      "max-col": 11,
       "return-empty": true,
     },
+
     function(err, cells) {
       if (undefined == cells) {
         return;
@@ -140,6 +144,18 @@ function updateCells(start, end) {
           case 10:
             var classCode = cell.value;
             break;
+          case 11:
+            var campus = cell.value;
+            //if (!(classCode in classList)) {
+            classList = { classCode: classCode, grade: grade, gradeTitle: gradeTitle, campus: campus };
+            //}
+
+            if (!(grade in gradeList)) {
+              gradeList = { gradeTitle: gradeTitle, grade: grade, campus: campus };
+            }
+
+            console.log("classList=", classList, classCode);
+            break;
         }
 
         var dataDict = {
@@ -151,18 +167,36 @@ function updateCells(start, end) {
           class: classCode,
           grade: grade,
           gradeTitle: gradeTitle,
+          campus: campus,
           state: "Not Present",
         };
 
-        if (cell.col == 10) {
-          let ref = admin
+        if (cell.col == 11) {
+          let refBecon = admin
             .firestore()
             .collection("sais_edu_sg")
             .doc("beacon")
             .collection("beacons")
             .doc(beacon);
 
-          batch.update(ref, dataDict);
+          let refClass = admin
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("org")
+            .collection("class")
+            .doc(classCode);
+
+          let refGrade = admin
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("org")
+            .collection("grade")
+            .doc(grade);
+
+          batch.update(refBecon, dataDict);
+
+          batch.set(refClass, classList);
+          batch.set(refGrade, gradeList);
         }
       }
 
