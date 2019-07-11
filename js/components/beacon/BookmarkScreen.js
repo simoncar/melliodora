@@ -5,11 +5,11 @@ import moment from "moment";
 import { ListItem } from 'react-native-elements';
 import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
 
-import useGlobal from "./utils/BookmarkStore";
+import useBookmarkHook from "./utils/BookmarkStore";
 
 const BookmarkScreen = ({ navigation }) => {
 
-  const [globalState, globalActions] = useGlobal();
+  const [globalState, globalActions] = useBookmarkHook();
   const { loading, bookmarksData, bookmarks } = globalState;
 
   const [initialbookmarksData, setInitialbookmarksData] = useState([]);
@@ -72,4 +72,8 @@ const BookmarkScreen = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({});
+
+BookmarkScreen.navigationOptions = {
+  title: 'Bookmarks',
+  };
 export default BookmarkScreen;

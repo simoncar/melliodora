@@ -26,10 +26,10 @@ import firebase from "firebase";
 import moment from "moment";
 import _ from "lodash";
 
-import useGlobal from "./utils/BookmarkStore";
+import useBookmarkHook from "./utils/BookmarkStore";
 
 const BookmarkBtn = ({ recordInfo }) => {
-  const [globalState, globalActions] = useGlobal();
+  const [globalState, globalActions] = useBookmarkHook();
   const { loading, bookmarks } = globalState;
 
   //on Startup
