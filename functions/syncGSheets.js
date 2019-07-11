@@ -147,11 +147,11 @@ function updateCells(start, end, classList, gradeList) {
           case 11:
             var campus = cell.value;
             //if (!(classCode in classList)) {
-            classList = { classCode: classCode, grade: grade, gradeTitle: gradeTitle, campus: campus };
+            classList = { classCode: classCode, grade: parseInt(grade, 10), gradeTitle: gradeTitle, campus: campus };
             //}
 
             if (!(grade in gradeList)) {
-              gradeList = { gradeTitle: gradeTitle, grade: grade, campus: campus };
+              gradeList = { gradeTitle: gradeTitle, grade: parseInt(grade, 10), campus: campus };
             }
 
             console.log("classList=", classList, classCode);
