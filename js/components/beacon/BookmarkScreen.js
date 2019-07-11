@@ -16,7 +16,7 @@ const BookmarkScreen = ({ navigation }) => {
   //on Startup
   useEffect(() => {
     globalActions.init()
-    .then(() => setInitialbookmarksData([...bookmarksData]));
+    .then(() => setInitialbookmarksData([...bookmarksData].reverse()));
   }, []);
 
   _renderItem = (item, index) => {
@@ -26,15 +26,15 @@ const BookmarkScreen = ({ navigation }) => {
     const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: avatarTitle };
 
     let onPressFunc, color;
-
+    console.log(index, "index");
     if (bookmarks.indexOf(item.mac) > -1) {
-      onPressFunc = globalActions.removeBookmark;
+      onPressFunc = () => globalActions.removeBookmark(item.mac);
       color = "gold";
     } else {
-      onPressFunc = globalActions.addBookmark;
+      
+      onPressFunc = () => globalActions.addBookmarkWithInfo(item, initialbookmarksData.length-1-index);
       color = "gray";
     }
-
     return (
       <ListItem
         leftAvatar={{ rounded: true, ...avatar }}
@@ -54,7 +54,7 @@ const BookmarkScreen = ({ navigation }) => {
         }
 
         rightIcon={
-          <TouchableOpacity style={{ paddingRight: 8 }} onPress={() => onPressFunc(item.mac)}>
+          <TouchableOpacity style={{ paddingRight: 8 }} onPress={onPressFunc}>
             <FontAwesome name="star" size={28} color={color} />
           </TouchableOpacity>
 
@@ -67,7 +67,7 @@ const BookmarkScreen = ({ navigation }) => {
   };
 
   return (
-    <View>{initialbookmarksData.reverse().map(this._renderItem)}</View>
+    <View>{initialbookmarksData.map(this._renderItem)}</View>
   );
 }
 

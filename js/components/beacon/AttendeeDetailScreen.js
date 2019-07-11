@@ -28,7 +28,7 @@ import _ from "lodash";
 
 import useGlobal from "./utils/BookmarkStore";
 
-const BookmarkBtn = ({ mac }) => {
+const BookmarkBtn = ({ recordInfo }) => {
   const [globalState, globalActions] = useGlobal();
   const { loading, bookmarks } = globalState;
 
@@ -38,11 +38,11 @@ const BookmarkBtn = ({ mac }) => {
   },[]);
 
   let onPressFunc, color;
-  if (bookmarks.indexOf(mac) > -1) {
-    onPressFunc = globalActions.removeBookmark;
+  if (bookmarks.indexOf(recordInfo.mac) > -1) {
+    onPressFunc = () => globalActions.removeBookmark(recordInfo.mac);
     color = "gold";
   } else {
-    onPressFunc = globalActions.addBookmark;
+    onPressFunc = () => globalActions.addBookmarkWithInfo(recordInfo);
     color = "white";
   }
 
@@ -51,7 +51,7 @@ const BookmarkBtn = ({ mac }) => {
     <TouchableHighlight
       style={styles.bookmark}
       underlayColor="#ff7043"
-      onPress={() => onPressFunc(mac)}
+      onPress={onPressFunc}
     >
       <FontAwesome name="star" size={28} color={color} />
     </TouchableHighlight>
@@ -127,18 +127,18 @@ export default class AttendeeDetailScreen extends Component {
 
 
   render() {
-
-    const { lastSeen, state, mac, fullname, gradeTitle } = this.props.navigation.state.params;
-    const firstName = this.props.navigation.state.params.firstName || "" ;
-    const lastName  = this.props.navigation.state.params.lastName || "";
+    const recordInfo  = this.props.navigation.state.params;
+    const { lastSeen, state, mac, fullname, gradeTitle } = recordInfo;
+    const firstName = recordInfo.firstName || "" ;
+    const lastName  = recordInfo.lastName || "";
     const avatarTitle = firstName.slice(0,1) + lastName.slice(0,1);
 
-    const studentClass = this.props.navigation.state.params.class;
+    const studentClass = recordInfo.class;
 
     // const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: avatarTitle };
     return (
       <View style={{ height: "100%" }}>
-        <BookmarkBtn mac={mac} />
+        <BookmarkBtn recordInfo={recordInfo} />
 
         <ScrollView>
           <View style={styles.topContainer}>
