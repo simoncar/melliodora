@@ -1,5 +1,5 @@
 // Imports: Dependencies
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, Dimensions, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import moment from "moment";
@@ -9,61 +9,49 @@ import firebase from "firebase";
 // Screen Dimensions
 const { height, width } = Dimensions.get('window');
 // Screen: Infinite Scroll
-export default class AttendeeListingScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      documentData: [],
-      limit: 12,
-      lastVisible: null,
-      loading: false,
-      refreshing: false,
-    };
-  }
-  // Component Did Mount
 
-  componentDidMount = () => {
-    try {
-      this.beaconDB = firebase
-        .firestore()
-        .collection("sais_edu_sg")
-        .doc("beacon");
-      // Cloud Firestore: Initial Query
-      this.retrieveData();
-    }
-    catch (error) {
-      console.log(error);
-    }
-  };
+const AttendeeListingScreen = ({ navigation }) => {
+
+  const [documentData, setDocumentData] = useState([]);
+  const [limit, setLimit] = useState(12);
+  const [lastVisible, setLastVisible] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+
+  useEffect(() => {
+    retrieveData();
+  }, []);
+
+
   // Retrieve Data
   retrieveData = async () => {
     try {
 
       // Set State: Loading
-      this.setState({
-        loading: true,
-      });
+      setLoading(true);
       console.log('Retrieving Data');
       // Cloud Firestore: Query
 
-      let initialQuery = await this.beaconDB
+      let initialQuery = await firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("beacon")
         .collection("beacons")
         .orderBy('mac')
-        .limit(this.state.limit);
+        .limit(limit);
 
       // Cloud Firestore: Query Snapshot
       let documentSnapshots = await initialQuery.get();
       // Cloud Firestore: Document Data
-      let documentData = documentSnapshots.docs.map(document => document.data());
+      let newDocumentData = documentSnapshots.docs.map(document => document.data());
       // Cloud Firestore: Last Visible Document (Document ID To Start From For Proceeding Queries)
-      let lastVisible = documentData[documentData.length - 1].mac;
+      let newlastVisible = newDocumentData[newDocumentData.length - 1].mac;
 
       // Set State
-      this.setState({
-        documentData: documentData,
-        lastVisible: lastVisible,
-        loading: false,
-      });
+      setDocumentData(newDocumentData);
+      setLastVisible(newlastVisible);
+      setLoading(false);
     }
     catch (error) {
       console.log(error);
@@ -74,28 +62,27 @@ export default class AttendeeListingScreen extends React.Component {
     try {
 
       // Set State: Refreshing
-      this.setState({
-        refreshing: true,
-      });
+      setRefreshing(true);
       console.log('Retrieving additional Data');
       // Cloud Firestore: Query (Additional Query)
-      let additionalQuery = await this.beaconDB
+      let additionalQuery = await firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("beacon")
         .collection("beacons")
         .orderBy('mac')
-        .startAfter(this.state.lastVisible)
-        .limit(this.state.limit)
+        .startAfter(lastVisible)
+        .limit(limit)
       // Cloud Firestore: Query Snapshot
       let documentSnapshots = await additionalQuery.get();
       // Cloud Firestore: Document Data
-      let documentData = documentSnapshots.docs.map(document => document.data());
+      let newDocumentData = documentSnapshots.docs.map(document => document.data());
       // Cloud Firestore: Last Visible Document (Document ID To Start From For Proceeding Queries)
-      let lastVisible = documentData[documentData.length - 1].mac;
+      let newlastVisible = newDocumentData[newDocumentData.length - 1].mac;
       // Set State
-      this.setState({
-        documentData: [...this.state.documentData, ...documentData],
-        lastVisible: lastVisible,
-        refreshing: false,
-      });
+      setDocumentData([...documentData, ...newDocumentData]);
+      setLastVisible(newlastVisible);
+      setRefreshing(false);
     }
     catch (error) {
       console.log(error);
@@ -118,7 +105,7 @@ export default class AttendeeListingScreen extends React.Component {
 
       // Check If Loading
 
-      if (this.state.loading) {
+      if (loading) {
         return (
           <ActivityIndicator />
         )
@@ -154,7 +141,7 @@ export default class AttendeeListingScreen extends React.Component {
             <Text style={{ color: 'gray' }}>{item.state}</Text>
           </View>
         }
-        onPress={() => this.props.navigation.navigate("AttendeeDetailScreen", item)}
+        onPress={() => navigation.navigate("AttendeeDetailScreen", item)}
       />
     );
   };
@@ -171,46 +158,46 @@ export default class AttendeeListingScreen extends React.Component {
     );
   };
 
-  render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <FlatList
-          // Data
 
-          data={this.state.documentData}
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        // Data
 
-          // Render Items
+        data={documentData}
 
-          renderItem={this._renderItem}
+        // Render Items
 
-          ItemSeparatorComponent={this.renderSeparator}
+        renderItem={_renderItem}
 
-          // Item Key
+        ItemSeparatorComponent={renderSeparator}
 
-          keyExtractor={(item, index) => String(index)}
+        // Item Key
 
-          // Header (Title)
+        keyExtractor={(item, index) => String(index)}
 
-          ListHeaderComponent={this.renderHeader}
+        // Header (Title)
 
-          // Footer (Activity Indicator)
+        ListHeaderComponent={renderHeader}
 
-          ListFooterComponent={this.renderFooter}
+        // Footer (Activity Indicator)
 
-          // On End Reached (Takes a function)
+        ListFooterComponent={renderFooter}
 
-          onEndReached={this.retrieveMore}
+        // On End Reached (Takes a function)
 
-          // How Close To The End Of List Until Next Data Request Is Made
+        onEndReached={retrieveMore}
 
-          onEndReachedThreshold={0.1}
+        // How Close To The End Of List Until Next Data Request Is Made
 
-          // Refreshing (Set To True When End Reached)
-          refreshing={this.state.refreshing}
-        />
-      </SafeAreaView>
-    )
-  }
+        onEndReachedThreshold={0.1}
+
+        // Refreshing (Set To True When End Reached)
+        refreshing={refreshing}
+      />
+    </SafeAreaView>
+  )
+
 }
 // Styles
 const styles = StyleSheet.create({
@@ -241,3 +228,9 @@ const styles = StyleSheet.create({
     color: '#000',
   },
 });
+
+AttendeeListingScreen.navigationOptions = {
+  title: "Select Student",
+  headerBackTitle: null
+};
+export default AttendeeListingScreen;

@@ -1,26 +1,21 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import { ListItem, SearchBar, Text } from "react-native-elements";
 
-export default class ClassListingScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam("title"),
-    headerBackTitle: null
-  });
+import useBeaconSearchHook from "./utils/BeaconSearchStore";
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-      classData: [
-        { classID: "2DAYE", amount: 20 },
-        { classID: "2GHRD", amount: 18 },
-        { classID: "2RFSU", amount: 22 },
-        { classID: "2KLUG", amount: 23 },
-        { classID: "2SSSS", amount: 22 }
-      ]
-    };
-  }
+const ClassListingScreen = ({ navigation }) => {
+
+  const [globalBeaconSearch, globalBeaconSearchAction] = useBeaconSearchHook();
+  const [loading, setLoading] = useState(false);
+  const [classData, setClassData] = useState([
+    { classID: "2DAYE", amount: 20 },
+    { classID: "2GHRD", amount: 18 },
+    { classID: "2RFSU", amount: 22 },
+    { classID: "2KLUG", amount: 23 },
+    { classID: "2SSSS", amount: 22 }
+  ]);
+
   _keyExtractor = (item, index) => index.toString();
 
   _renderItem = ({ item }) => (
@@ -39,12 +34,13 @@ export default class ClassListingScreen extends Component {
       //     paddingHorizontal: 5
       //   }
       // }}
-      onPress={() =>
-        this.props.navigation.navigate("AttendeeListingScreen", {
-          title: this.props.navigation.getParam("title"),
+      onPress={() => {
+        globalBeaconSearchAction.setClass(item.classID);
+        navigation.navigate("AttendeeListingScreen", {
+          title: navigation.getParam("title"),
           selectedGrade: item.classID
-        })
-      }
+        });
+      }}
     />
   );
 
@@ -60,19 +56,19 @@ export default class ClassListingScreen extends Component {
     );
   };
 
-  render() {
-    return (
-      <View>
-        <Text style={styles.listingText}>Listing By Class</Text>
-        <FlatList
-          data={this.state.classData}
-          renderItem={this._renderItem}
-          keyExtractor={this._keyExtractor}
-          ItemSeparatorComponent={this.renderSeparator}
-        />
-      </View>
-    );
-  }
+
+  return (
+    <View>
+      <Text style={styles.listingText}>Listing By Class</Text>
+      <FlatList
+        data={classData}
+        renderItem={_renderItem}
+        keyExtractor={_keyExtractor}
+        ItemSeparatorComponent={renderSeparator}
+      />
+    </View>
+  );
+
 }
 
 const styles = StyleSheet.create({
@@ -82,3 +78,9 @@ const styles = StyleSheet.create({
     fontSize: 15
   }
 });
+
+ClassListingScreen.navigationOptions = {
+  title: "Select Class",
+  headerBackTitle: null
+};
+export default ClassListingScreen;

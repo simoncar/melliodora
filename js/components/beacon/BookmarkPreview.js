@@ -3,11 +3,11 @@ import { Text, StyleSheet, View, ScrollView, TouchableOpacity } from 'react-nati
 import { Avatar, Card } from 'react-native-elements';
 import moment from "moment";
 
-import useGlobal from "./utils/BookmarkStore";
+import useBookmarkHook from "./utils/BookmarkStore";
 
 const BookmarkPreview = ({ navigation }) => {
 
-  const [globalState, globalActions] = useGlobal();
+  const [globalState, globalActions] = useBookmarkHook();
   const { loading, bookmarksData } = globalState;
 
   //on Startup

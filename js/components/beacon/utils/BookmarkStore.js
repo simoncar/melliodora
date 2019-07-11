@@ -123,6 +123,6 @@ const getData = (bm) => {
 }
 
 const actions = { init, addBookmark, removeBookmark, addBookmarkWithInfo };
-const useGlobal = useGlobalHook(React, initialState, actions);
+const useBookmarkHook = useGlobalHook(React, initialState, actions);
 
-export default useGlobal;
+export default useBookmarkHook;

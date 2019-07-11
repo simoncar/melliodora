@@ -1,25 +1,23 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, FlatList, Text } from "react-native";
 import { ListItem, SearchBar } from "react-native-elements";
 
-export default class GradeListingScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam("title"),
-    headerBackTitle: null
-  });
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-      campusData: [
-        { gradeLevel: "Grade 1", amount: 234 },
-        { gradeLevel: "Grade 2", amount: 344 },
-        { gradeLevel: "Grade 3", amount: 234 },
-        { gradeLevel: "Grade 4", amount: 123 },
-        { gradeLevel: "Grade 5", amount: 124 }
-      ]
-    };
-  }
+import useBeaconSearchHook from "./utils/BeaconSearchStore";
+
+const GradeListingScreen = ({ navigation }) => {
+
+  const [globalBeaconSearch, globalBeaconSearchAction] = useBeaconSearchHook();
+
+
+  const [loading, setLoading] = useState(false);
+  const [campusData, setCampusData] = useState([
+    { gradeLevel: "Grade 1", amount: 234 },
+    { gradeLevel: "Grade 2", amount: 344 },
+    { gradeLevel: "Grade 3", amount: 234 },
+    { gradeLevel: "Grade 4", amount: 123 },
+    { gradeLevel: "Grade 5", amount: 124 }
+  ]);
+
   _keyExtractor = (item, index) => index.toString();
 
   _renderItem = ({ item }) => (
@@ -38,11 +36,13 @@ export default class GradeListingScreen extends Component {
       //     paddingHorizontal: 5
       //   }
       // }}
-      onPress={() =>
-        this.props.navigation.navigate("ClassListingScreen", {
-          title: this.props.navigation.getParam("title"),
-          selectedGrade: item.gradeLevel
-        })
+      onPress={() => {
+        globalBeaconSearchAction.setGrade(item.gradeLevel);
+        navigation.navigate("ClassListingScreen", {
+          title: navigation.getParam("title")
+        });
+      }
+
       }
     />
   );
@@ -59,19 +59,19 @@ export default class GradeListingScreen extends Component {
     );
   };
 
-  render() {
-    return (
-      <View>
-        <Text style={styles.listingText}>Listing By Grade</Text>
-        <FlatList
-          data={this.state.campusData}
-          renderItem={this._renderItem}
-          keyExtractor={this._keyExtractor}
-          ItemSeparatorComponent={this.renderSeparator}
-        />
-      </View>
-    );
-  }
+
+  return (
+    <View>
+      <Text style={styles.listingText}>Listing By Grade</Text>
+      <FlatList
+        data={campusData}
+        renderItem={_renderItem}
+        keyExtractor={_keyExtractor}
+        ItemSeparatorComponent={renderSeparator}
+      />
+    </View>
+  );
+
 }
 
 const styles = StyleSheet.create({
@@ -81,3 +81,9 @@ const styles = StyleSheet.create({
     fontSize: 15
   }
 });
+
+GradeListingScreen.navigationOptions = {
+  title: "Select Grade",
+  headerBackTitle: null
+};
+export default GradeListingScreen;
