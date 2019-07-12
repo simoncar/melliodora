@@ -13,10 +13,12 @@ const { height, width } = Dimensions.get('window');
 // Screen: Infinite Scroll
 
 const AttendeeListingScreen = ({ navigation }) => {
-  
+
   const [globalBeaconSearchState, globalBeaconSearchAction] = useBeaconSearchHook();
   const { beaconState, grade } = globalBeaconSearchState;
   const studentClass = globalBeaconSearchState.class;
+
+  console.log("statesss", beaconState, grade, studentClass);
   const [documentData, setDocumentData] = useState([]);
   const [limit, setLimit] = useState(12);
   const [lastVisible, setLastVisible] = useState("");
@@ -43,7 +45,7 @@ const AttendeeListingScreen = ({ navigation }) => {
         .collection("sais_edu_sg")
         .doc("beacon")
         .collection("beacons")
-        .where("state", "==", "Not Present")
+        .where("state", "==", beaconState)
         .where("grade", "==", String(grade))
         .where("class", "==", studentClass)
         .orderBy('mac')
@@ -53,13 +55,21 @@ const AttendeeListingScreen = ({ navigation }) => {
       let documentSnapshots = await initialQuery.get();
       // Cloud Firestore: Document Data
       let newDocumentData = documentSnapshots.docs.map(document => document.data());
-      // Cloud Firestore: Last Visible Document (Document ID To Start From For Proceeding Queries)
-      let newlastVisible = newDocumentData[newDocumentData.length - 1].mac;
 
-      // Set State
-      setDocumentData(newDocumentData);
-      setLastVisible(newlastVisible);
-      setLoading(false);
+      if (newDocumentData.length > 0) {
+        // Cloud Firestore: Last Visible Document (Document ID To Start From For Proceeding Queries)
+        let newlastVisible = newDocumentData[newDocumentData.length - 1].mac;
+
+        // Set State
+        setDocumentData(newDocumentData);
+        setLastVisible(newlastVisible);
+        setLoading(false);
+      } else {
+        // Set State
+        setDocumentData([]);
+        setLoading(false);
+      }
+
     }
     catch (error) {
       console.log(error);
@@ -69,6 +79,7 @@ const AttendeeListingScreen = ({ navigation }) => {
   retrieveMore = async () => {
     try {
 
+      if(!documentData) return;
       // Set State: Refreshing
       setRefreshing(true);
       console.log('Retrieving additional Data');
@@ -78,7 +89,7 @@ const AttendeeListingScreen = ({ navigation }) => {
         .collection("sais_edu_sg")
         .doc("beacon")
         .collection("beacons")
-        .where("state", "==", "Not Present")
+        .where("state", "==", beaconState)
         .where("grade", "==", String(grade))
         .where("class", "==", studentClass)
         .orderBy('mac')
