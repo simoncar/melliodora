@@ -26,12 +26,10 @@ import firebase from "firebase";
 import moment from "moment";
 import _ from "lodash";
 
-import BookmarkHooks from "./hooks/BookmarkHook";
+import useBookmarkHook from "./utils/BookmarkStore";
 
-import useGlobal from "./utils/BookmarkStore";
-
-const BookmarkBtn = ({ mac }) => {
-  const [globalState, globalActions] = useGlobal();
+const BookmarkBtn = ({ recordInfo }) => {
+  const [globalState, globalActions] = useBookmarkHook();
   const { loading, bookmarks } = globalState;
 
   //on Startup
@@ -39,16 +37,12 @@ const BookmarkBtn = ({ mac }) => {
     globalActions.init();
   },[]);
 
-
-
-  console.log(mac, "mac");
-  console.log("globalState bookmarks", bookmarks);
   let onPressFunc, color;
-  if (bookmarks.indexOf(mac) > -1) {
-    onPressFunc = globalActions.removeBookmark;
+  if (bookmarks.indexOf(recordInfo.mac) > -1) {
+    onPressFunc = () => globalActions.removeBookmark(recordInfo.mac);
     color = "gold";
   } else {
-    onPressFunc = globalActions.addBookmark;
+    onPressFunc = () => globalActions.addBookmarkWithInfo(recordInfo);
     color = "white";
   }
 
@@ -57,7 +51,7 @@ const BookmarkBtn = ({ mac }) => {
     <TouchableHighlight
       style={styles.bookmark}
       underlayColor="#ff7043"
-      onPress={() => onPressFunc(mac)}
+      onPress={onPressFunc}
     >
       <FontAwesome name="star" size={28} color={color} />
     </TouchableHighlight>
@@ -133,12 +127,18 @@ export default class AttendeeDetailScreen extends Component {
 
 
   render() {
+    const recordInfo  = this.props.navigation.state.params;
+    const { lastSeen, state, mac, fullname, gradeTitle } = recordInfo;
+    const firstName = recordInfo.firstName || "" ;
+    const lastName  = recordInfo.lastName || "";
+    const avatarTitle = firstName.slice(0,1) + lastName.slice(0,1);
 
-    const { lastSeen, state, mac } = this.props.navigation.state.params;
+    const studentClass = recordInfo.class;
 
+    // const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: avatarTitle };
     return (
       <View style={{ height: "100%" }}>
-        <BookmarkBtn mac={mac} />
+        <BookmarkBtn recordInfo={recordInfo} />
 
         <ScrollView>
           <View style={styles.topContainer}>
@@ -146,23 +146,20 @@ export default class AttendeeDetailScreen extends Component {
               <Avatar
                 size="xlarge"
                 rounded
-                source={{
-                  uri:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
-                }}
+                title = {avatarTitle}
                 activeOpacity={0.7}
               />
             </View>
             <View style={styles.detailContainer}>
               <View>
-                <Text style={styles.attendeeNameText}>Mrs. Hello World</Text>
-                <Text style={styles.detailsText}>Grade 3</Text>
-                <Text style={styles.detailsText}>Class 3XYZ</Text>
+                <Text style={styles.attendeeNameText}>{fullname || "No Name"}</Text>
+                <Text style={styles.detailsText}>{gradeTitle}</Text>
+                <Text style={styles.detailsText}>{studentClass || "No Class"}</Text>
                 <Text />
                 <Text style={styles.detailsText}>
                   last seen {moment(lastSeen).format("LLL")}
                 </Text>
-                <Text style={styles.detailsText}>current status {state}</Text>
+                <Text style={styles.detailsText}>{state}</Text>
               </View>
             </View>
           </View>
