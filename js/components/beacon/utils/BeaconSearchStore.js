@@ -8,7 +8,7 @@ const initialState = {
   searchTerm: "",
   date: "",
   beaconState: "",
-  grade: "",
+  grade: null,
   class: "",
   initial: true
 };

@@ -6,12 +6,17 @@ import moment from "moment";
 
 import firebase from "firebase";
 
+import useBeaconSearchHook from "./utils/BeaconSearchStore";
+
 // Screen Dimensions
 const { height, width } = Dimensions.get('window');
 // Screen: Infinite Scroll
 
 const AttendeeListingScreen = ({ navigation }) => {
-
+  
+  const [globalBeaconSearchState, globalBeaconSearchAction] = useBeaconSearchHook();
+  const { beaconState, grade } = globalBeaconSearchState;
+  const studentClass = globalBeaconSearchState.class;
   const [documentData, setDocumentData] = useState([]);
   const [limit, setLimit] = useState(12);
   const [lastVisible, setLastVisible] = useState("");
@@ -38,8 +43,11 @@ const AttendeeListingScreen = ({ navigation }) => {
         .collection("sais_edu_sg")
         .doc("beacon")
         .collection("beacons")
+        .where("state", "==", "Not Present")
+        .where("grade", "==", String(grade))
+        .where("class", "==", studentClass)
         .orderBy('mac')
-        .limit(limit);
+        .limit(30);
 
       // Cloud Firestore: Query Snapshot
       let documentSnapshots = await initialQuery.get();
@@ -70,6 +78,9 @@ const AttendeeListingScreen = ({ navigation }) => {
         .collection("sais_edu_sg")
         .doc("beacon")
         .collection("beacons")
+        .where("state", "==", "Not Present")
+        .where("grade", "==", String(grade))
+        .where("class", "==", studentClass)
         .orderBy('mac')
         .startAfter(lastVisible)
         .limit(limit)

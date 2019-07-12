@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, FlatList, Text } from "react-native";
+import { StyleSheet, View, FlatList, Text, ActivityIndicator } from "react-native";
 import { ListItem, SearchBar } from "react-native-elements";
+import firebase from "firebase";
 
 import useBeaconSearchHook from "./utils/BeaconSearchStore";
 
@@ -10,19 +11,47 @@ const GradeListingScreen = ({ navigation }) => {
 
 
   const [loading, setLoading] = useState(false);
-  const [campusData, setCampusData] = useState([
-    { gradeLevel: "Grade 1", amount: 234 },
-    { gradeLevel: "Grade 2", amount: 344 },
-    { gradeLevel: "Grade 3", amount: 234 },
-    { gradeLevel: "Grade 4", amount: 123 },
-    { gradeLevel: "Grade 5", amount: 124 }
-  ]);
+  const [campusData, setCampusData] = useState([]);
+
+  useEffect(() => {
+    retrieveData();
+  }, []);
+
+  // Retrieve Data
+  retrieveData = async () => {
+    try {
+
+      // Set State: Loading
+      setLoading(true);
+      console.log('Retrieving Data');
+      // Cloud Firestore: Query
+
+      let initialQuery = await firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("org")
+        .collection("grade")
+
+
+      // Cloud Firestore: Query Snapshot
+      let documentSnapshots = await initialQuery.get();
+      // Cloud Firestore: Document Data
+      let newDocumentData = documentSnapshots.docs.map(document => document.data());
+
+      // Set State
+      setCampusData(newDocumentData);
+      setLoading(false);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
 
   _keyExtractor = (item, index) => index.toString();
 
   _renderItem = ({ item }) => (
     <ListItem
-      title={item.gradeLevel}
+      title={item.gradeTitle}
       chevron={true}
       rightIcon={{ name: "person" }}
       // badge={{
@@ -37,10 +66,8 @@ const GradeListingScreen = ({ navigation }) => {
       //   }
       // }}
       onPress={() => {
-        globalBeaconSearchAction.setGrade(item.gradeLevel);
-        navigation.navigate("ClassListingScreen", {
-          title: navigation.getParam("title")
-        });
+        globalBeaconSearchAction.setGrade(item.grade);
+        navigation.navigate("ClassListingScreen");
       }
 
       }
@@ -59,6 +86,25 @@ const GradeListingScreen = ({ navigation }) => {
     );
   };
 
+  // Render Footer
+  renderFooter = () => {
+    try {
+
+      // Check If Loading
+
+      if (loading) {
+        return (
+          <ActivityIndicator />
+        )
+      }
+      else {
+        return null;
+      }
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View>
@@ -68,6 +114,7 @@ const GradeListingScreen = ({ navigation }) => {
         renderItem={_renderItem}
         keyExtractor={_keyExtractor}
         ItemSeparatorComponent={renderSeparator}
+        ListFooterComponent={renderFooter}
       />
     </View>
   );
