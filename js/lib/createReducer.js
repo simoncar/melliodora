@@ -8,5 +8,4 @@ export default function createReducer(initialState, handlers) {
   }
 }
 
-
 //reducers accept state and return new state
