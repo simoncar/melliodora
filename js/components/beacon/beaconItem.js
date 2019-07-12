@@ -6,7 +6,7 @@ import styles from "./styles";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
 import moment from "moment";
 
-class BeaconItem extends Component {
+export default class BeaconItem extends Component {
   constructor(props) {
     super(props);
   }
@@ -130,5 +130,3 @@ class BeaconItem extends Component {
     );
   }
 }
-
-module.exports = BeaconItem;
