@@ -1,21 +1,15 @@
 "use strict";
 import React, { Component } from "react";
 
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  Text,
-  TouchableOpacity
-} from "react-native";
+import { StyleSheet, View, TextInput, Text, TouchableOpacity } from "react-native";
 import * as Localization from "expo-localization";
 import { AsyncStorage } from "react-native";
 import { Updates } from "expo";
 
-class adminPassword extends Component {
+export default class adminPassword extends Component {
   static navigationOptions = {
     title: "Admin Password",
-    headerBackTitle: null
+    headerBackTitle: null,
   };
 
   constructor(props) {
@@ -23,7 +17,7 @@ class adminPassword extends Component {
     this.state = {
       adminPassword: "placeholder",
       adminPasswordCorrect: "Password Incorrect",
-      restartMessage: ""
+      restartMessage: "",
     };
 
     this._retrieveAdminPassword();
@@ -67,7 +61,7 @@ class adminPassword extends Component {
             height: 40,
             borderColor: "gray",
             borderWidth: 1,
-            paddingLeft: 10
+            paddingLeft: 10,
           }}
           placeholder={this.state.adminPassword}
           onChangeText={text => this._setAdminPassword(text)}
@@ -95,18 +89,16 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingLeft: 20,
     paddingRight: 20,
-    color: "#8e8e93"
+    color: "#8e8e93",
   },
   title: {
-    paddingBottom: 16
+    paddingBottom: 16,
   },
   alert: {
-    paddingTop: 16
+    paddingTop: 16,
   },
   alertRestart: {
     paddingTop: 16,
-    color: "red"
-  }
+    color: "red",
+  },
 });
-
-module.exports = adminPassword;
