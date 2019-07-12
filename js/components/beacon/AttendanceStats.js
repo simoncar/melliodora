@@ -3,81 +3,77 @@ import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements';
 import { FontAwesome } from "@expo/vector-icons";
 
-export default class AttendanceStats extends Component {
+import useBeaconSearchHook from "./utils/BeaconSearchStore";
 
-  routeBtn = (title, amt) => {
-    if (amt > 300) {
-      this.props.navigation.navigate("GradeListingScreen", { title });
-    }
+const AttendanceStats = ({ navigation }) => {
+  const [globalBeaconSearchState, globalBeaconSearchAction] = useBeaconSearchHook();
+
+  routeBtn = (state) => {
+    globalBeaconSearchAction.setBeaconState(state);
+    navigation.navigate("GradeListingScreen");
   }
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-          <Button
-            title="Today 28 June 2019"
-            raised
-            icon={
-              <View style={{ paddingRight: 10 }}>
-                <FontAwesome
-                  name="calendar"
-                  size={15}
-                  color='#48484A'
-                />
-              </View>
-            }
-            buttonStyle={{ backgroundColor: '#d3d3d3', padding: 2 }}
-            titleStyle={{ color: '#48484A', fontSize: 14 }}
-          />
+
+  return (
+    <View style={styles.container}>
+      <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
+        <Button
+          title="Today 28 June 2019"
+          raised
+          icon={
+            <View style={{ paddingRight: 10 }}>
+              <FontAwesome
+                name="calendar"
+                size={15}
+                color='#48484A'
+              />
+            </View>
+          }
+          buttonStyle={{ backgroundColor: '#d3d3d3', padding: 2 }}
+          titleStyle={{ color: '#48484A', fontSize: 14 }}
+        />
+      </View>
+      <View style={styles.stats}>
+        <View style={styles.statsCol}>
+          <TouchableOpacity style={[styles.widget, { backgroundColor: '#0074D9' }]} onPress={() => routeBtn("Entered")}>
+            <View>
+              <Text style={styles.widgetTextTitle}>Entered</Text>
+              <Text style={styles.widgetTextContent}>3055</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={[styles.widget, { backgroundColor: 'olivedrab' }]} onPress={() => routeBtn("Exited")}>
+            <View>
+              <Text style={styles.widgetTextTitle}>Exited</Text>
+              <Text style={styles.widgetTextContent}>27</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-        <View style={styles.stats}>
-          <View style={styles.statsCol}>
-            <View style={[styles.widget, { backgroundColor: '#0074D9' }]}>
-              <View style={styles.widgetContent}>
-                <Text style={styles.widgetTextTitle}>Total Students</Text>
-                <Text style={styles.widgetTextContent}>3210</Text>
-              </View>
+        <View style={styles.statsCol}>
+
+          <TouchableOpacity style={[styles.widget, { backgroundColor: 'darkorchid' }]} onPress={() => routeBtn("Entered")}>
+            <View>
+              <Text style={styles.widgetTextTitle}>Total</Text>
+              <Text style={styles.widgetTextContent}>3210</Text>
             </View>
+          </TouchableOpacity>
 
-            <View style={[styles.widget, { backgroundColor: 'olivedrab' }]}>
-              <TouchableOpacity style={styles.widgetContent} onPress={() => this.routeBtn("On Campus", 3028)}>
-                <Text style={styles.widgetTextTitle}>Students on Campus now</Text>
-                <Text style={styles.widgetTextContent}>3028</Text>
-              </TouchableOpacity>
+          <TouchableOpacity style={[styles.widget, { backgroundColor: '#FF4136' }]} onPress={() => routeBtn("Perimeter")}>
+            <View>
+              <Text style={styles.widgetTextTitle}>Perimeter</Text>
+              <Text style={styles.widgetTextContent}>270</Text>
             </View>
+          </TouchableOpacity>
 
-          </View>
-          <View style={styles.statsCol}>
-
-            <View style={[styles.widget, { backgroundColor: 'darkorchid' }]}>
-
-              <View style={styles.widgetContent}>
-                <Text style={styles.widgetTextTitle}>Entered</Text>
-
-                <Text style={styles.widgetTextContent}>3055</Text>
-              </View>
+          <TouchableOpacity style={[styles.widget, { backgroundColor: 'tomato' }]} onPress={() => routeBtn("Not Present")}>
+            <View>
+              <Text style={styles.widgetTextTitle}>Not Present</Text>
+              <Text style={styles.widgetTextContent}>155</Text>
             </View>
-
-            <View style={[styles.widget, { backgroundColor: '#FF4136' }]}>
-
-              <View style={styles.widgetContent}>
-                <Text style={styles.widgetTextTitle}>Entered then Exited</Text>
-                <Text style={styles.widgetTextContent}>27</Text>
-              </View>
-            </View>
-
-            <View style={[styles.widget, { backgroundColor: 'tomato' }]}>
-
-              <View style={styles.widgetContent}>
-                <Text style={styles.widgetTextTitle}>No Show</Text>
-                <Text style={styles.widgetTextContent}>155</Text>
-              </View>
-            </View>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
-    )
-  }
+    </View >
+  )
 }
 
 const styles = StyleSheet.create({
@@ -119,3 +115,6 @@ const styles = StyleSheet.create({
     color: '#333'
   }
 });
+
+
+export default AttendanceStats;
