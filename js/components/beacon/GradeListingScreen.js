@@ -108,7 +108,6 @@ const GradeListingScreen = ({ navigation }) => {
 
   return (
     <View>
-      <Text style={styles.listingText}>Listing By Grade</Text>
       <FlatList
         data={campusData}
         renderItem={_renderItem}

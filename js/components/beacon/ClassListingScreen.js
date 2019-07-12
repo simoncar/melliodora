@@ -109,7 +109,6 @@ const ClassListingScreen = ({ navigation }) => {
 
   return (
     <View>
-      <Text style={styles.listingText}>Listing By Class</Text>
       <FlatList
         data={classData}
         renderItem={_renderItem}
