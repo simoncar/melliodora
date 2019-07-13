@@ -23,7 +23,7 @@ import BLEDataParser from "../../lib/BLEDataParser";
 import CountDown from "react-native-countdown-component";
 import * as ActionCreators from "../../actions";
 import { openDrawer } from "../../actions/drawer";
-
+import I18n from "../../lib/i18n";
 import styles from "./styles";
 
 const { width } = Dimensions.get("window");
@@ -221,6 +221,7 @@ class HomeNav extends Component {
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
+            <Text style={styles.version}>{I18n.t("home")}</Text>
             <Text style={styles.version}>School Starts in...</Text>
             <CountDown until={this.getSeconds()} size={20} />
 
