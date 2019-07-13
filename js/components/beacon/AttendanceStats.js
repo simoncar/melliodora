@@ -1,16 +1,42 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+import { Text, StyleSheet, View, TouchableOpacity, TouchableHighlight } from 'react-native'
 import { Button } from 'react-native-elements';
 import { FontAwesome } from "@expo/vector-icons";
-
+import Tooltip from 'react-native-walkthrough-tooltip';
 import useBeaconSearchHook from "./utils/BeaconSearchStore";
 
 const AttendanceStats = ({ navigation }) => {
   const [globalBeaconSearchState, globalBeaconSearchAction] = useBeaconSearchHook();
 
+  const [enteredToolTipVisible, setEnteredToolTipVisible] = useState(false);
+  const [totalToolTipVisible, setTotalToolTipVisible] = useState(false);
+  const [exitedToolTipVisible, setExixtedToolTipVisible] = useState(false);
+  const [perimeterToolTipVisible, setPerimeterToolTipVisible] = useState(false);
+  const [notpresentToolTipVisible, setNotpresentToolTipVisible] = useState(false);
+
+
   routeBtn = (state) => {
     globalBeaconSearchAction.setBeaconState(state);
     navigation.navigate("GradeListingScreen");
+  }
+
+  infoToolTip = (tooltipText, visibleState, setVisibleState) => {
+    return (
+      <View>
+        <Tooltip
+          animated
+          isVisible={visibleState}
+          content={<Text>{tooltipText}</Text>}
+          placement="top"
+          onClose={() => setVisibleState(false)}
+
+        >
+          <TouchableHighlight onPress={() => setVisibleState(true)}>
+            <FontAwesome name="info-circle" size={20} color="#DDDDDD" />
+          </TouchableHighlight>
+        </Tooltip>
+      </View>
+    )
   }
 
   return (
@@ -35,15 +61,25 @@ const AttendanceStats = ({ navigation }) => {
       <View style={styles.stats}>
         <View style={styles.statsCol}>
           <TouchableOpacity style={[styles.widget, { backgroundColor: '#0074D9' }]} onPress={() => routeBtn("Entered")}>
-            <View>
-              <Text style={styles.widgetTextTitle}>Entered</Text>
+            <View style={styles.widgetContainer}>
+
+              <View style={styles.widgetTitleContainer}>
+                <Text style={styles.widgetTextTitle}>Entered </Text>
+                {infoToolTip("Entered\n(inside ping)", enteredToolTipVisible, setEnteredToolTipVisible)}
+              </View>
+
               <Text style={styles.widgetTextContent}>3055</Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.widget, { backgroundColor: 'olivedrab' }]} onPress={() => routeBtn("Exited")}>
-            <View>
-              <Text style={styles.widgetTextTitle}>Exited</Text>
+            <View style={styles.widgetContainer}>
+
+              <View style={styles.widgetTitleContainer}>
+                <Text style={styles.widgetTextTitle}>Exited </Text>
+                {infoToolTip("Exited\n(last ping at perimeter then not seen for 10 mins)", exitedToolTipVisible, setExixtedToolTipVisible)}
+              </View>
+
               <Text style={styles.widgetTextContent}>27</Text>
             </View>
           </TouchableOpacity>
@@ -51,22 +87,37 @@ const AttendanceStats = ({ navigation }) => {
         <View style={styles.statsCol}>
 
           <TouchableOpacity style={[styles.widget, { backgroundColor: 'darkorchid' }]} onPress={() => routeBtn("Entered")}>
-            <View>
-              <Text style={styles.widgetTextTitle}>Total</Text>
+            <View style={styles.widgetContainer}>
+
+              <View style={styles.widgetTitleContainer}>
+                <Text style={styles.widgetTextTitle}>Total </Text>
+                {infoToolTip("Total\n(number of students in the system)", totalToolTipVisible, setTotalToolTipVisible)}
+              </View>
+
               <Text style={styles.widgetTextContent}>3210</Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.widget, { backgroundColor: '#FF4136' }]} onPress={() => routeBtn("Perimeter")}>
-            <View>
-              <Text style={styles.widgetTextTitle}>Perimeter</Text>
+            <View style={styles.widgetContainer}>
+
+              <View style={styles.widgetTitleContainer}>
+                <Text style={styles.widgetTextTitle}>Perimeter </Text>
+                {infoToolTip("Perimeter\n(gate 1 or 2)", perimeterToolTipVisible, setPerimeterToolTipVisible)}
+              </View>
+
               <Text style={styles.widgetTextContent}>270</Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.widget, { backgroundColor: 'tomato' }]} onPress={() => routeBtn("Not Present")}>
-            <View>
-              <Text style={styles.widgetTextTitle}>Not Present</Text>
+            <View style={styles.widgetContainer}>
+
+              <View style={styles.widgetTitleContainer}>
+                <Text style={styles.widgetTextTitle}>Not Present </Text>
+                {infoToolTip("Not Present\n(no pings for the day)", notpresentToolTipVisible, setNotpresentToolTipVisible)}
+              </View>
+
               <Text style={styles.widgetTextContent}>155</Text>
             </View>
           </TouchableOpacity>
@@ -98,10 +149,17 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     margin: 3,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: 2,
     borderRadius: 8
+  },
+  widgetContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  widgetTitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   widgetTextTitle: {
     fontSize: 22,
