@@ -84,7 +84,7 @@ const AttendanceStats = ({ navigation }) => {
             <View style={styles.widgetContainer}>
 
               <View style={styles.widgetTitleContainer}>
-                <Text style={styles.widgetTextTitle}>Exited</Text>
+                <Text style={styles.widgetTextTitle}>Exited </Text>
                 {infoToolTip("Exited\n(last ping at perimeter then not seen for 10 mins)", exitedToolTipVisible, setExixtedToolTipVisible)}
               </View>
 
@@ -96,7 +96,7 @@ const AttendanceStats = ({ navigation }) => {
         <View style={styles.statsCol}>
 
           <TouchableOpacity style={[styles.widget, { backgroundColor: 'darkorchid' }]} onPress={() => routeBtn("")}>
-            <View style={[styles.widgetContainer, {paddingBottom:6}]}>
+            <View style={[styles.widgetContainer, {paddingBottom:12, paddingTop:5}]}>
 
               <View style={styles.widgetTitleContainer}>
                 <Text style={styles.widgetTextTitle}>Total </Text>
@@ -109,7 +109,7 @@ const AttendanceStats = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.widget, { backgroundColor: '#FF4136' }]} onPress={() => routeBtn("Perimeter")}>
-            <View style={[styles.widgetContainer, {paddingBottom:6}]}>
+            <View style={[styles.widgetContainer, {paddingBottom:12, paddingTop:5}]}>
 
               <View style={styles.widgetTitleContainer}>
                 <Text style={styles.widgetTextTitle}>Perimeter </Text>
@@ -122,7 +122,7 @@ const AttendanceStats = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.widget, { backgroundColor: 'tomato' }]} onPress={() => routeBtn("Not Present")}>
-            <View style={[styles.widgetContainer, {paddingBottom:6}]}>
+            <View style={[styles.widgetContainer, {paddingBottom:12, paddingTop:5}]}>
 
               <View style={styles.widgetTitleContainer}>
                 <Text style={styles.widgetTextTitle}>Not Present </Text>
@@ -174,13 +174,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   widgetTextTitle: {
-    fontSize: 22,
+    fontSize: 18,
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#DDDDDD'
   },
   widgetTextContent: {
-    fontSize: 38,
+    fontSize: 28,
     textAlign: 'center',
     color: '#333'
   }
