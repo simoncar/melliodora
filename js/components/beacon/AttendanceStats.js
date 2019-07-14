@@ -86,7 +86,7 @@ const AttendanceStats = ({ navigation }) => {
         </View>
         <View style={styles.statsCol}>
 
-          <TouchableOpacity style={[styles.widget, { backgroundColor: 'darkorchid' }]} onPress={() => routeBtn("Entered")}>
+          <TouchableOpacity style={[styles.widget, { backgroundColor: 'darkorchid' }]} onPress={() => routeBtn("")}>
             <View style={styles.widgetContainer}>
 
               <View style={styles.widgetTitleContainer}>
