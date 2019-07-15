@@ -58,7 +58,6 @@ class beacons extends Component {
   };
 
   _renderItem(item) {
-    console.log("item=", item);
     return <BeaconItem item={item} />;
   }
 
