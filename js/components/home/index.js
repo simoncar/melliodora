@@ -11,7 +11,36 @@ import HeaderContent from "../headerContent/header";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { formatTime, formatMonth } from "../global.js";
-const moment = require("moment");
+import I18n from "../../lib/i18n";
+import moment from "moment";
+import "moment/min/locales";
+import momentFR from "moment/src/locale/fr";
+
+import { LocaleConfig } from "react-native-calendars";
+
+moment.defineLocale("fr", momentFR);
+
+LocaleConfig.locales["fr"] = {
+  monthNames: [
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Août",
+    "Septembre",
+    "Octobre",
+    "Novembre",
+    "Décembre",
+  ],
+  monthNamesShort: ["Janv.", "Févr.", "Mars", "Avril", "Mai", "Juin", "Juil.", "Août", "Sept.", "Oct.", "Nov.", "Déc."],
+  dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+  dayNamesShort: ["Dim.", "Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam."],
+  today: "Aujourd'hui",
+};
+LocaleConfig.defaultLocale = "fr";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
@@ -35,7 +64,7 @@ class calendar1 extends Component {
     }
 
     this.state.items[todayDate].push({
-      name: "Today, " + todayDay,
+      name: I18n.t("today") + " " + todayDay,
       icon: "md-radio-button-off",
       color: "yellow",
       title: todayDay,
@@ -43,7 +72,7 @@ class calendar1 extends Component {
   }
 
   static navigationOptions = {
-    title: "Calendar",
+    title: I18n.t("calendar"),
     tabBarColor: "#c51162",
     tabBarIcon: tabBarIcon("ios-calendar", "green"),
   };
@@ -51,6 +80,10 @@ class calendar1 extends Component {
   componentDidMount() {
     //this.unsubscribe = this.calendarEvents.onSnapshot(this.onCollectionUpdate);
     //
+
+    moment.updateLocale;
+
+    console.log("AAA", moment.months());
     this.calendarEvents = firebase
       .firestore()
       .collection("sais_edu_sg")
