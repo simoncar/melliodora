@@ -16,7 +16,7 @@ import BookmarkPreview from "./BookmarkPreview";
 
 export default class AttendanceOverviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam("title"),
+    title: "Attendance",
     headerBackTitle: null
   });
 

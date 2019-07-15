@@ -30,7 +30,27 @@ const AttendeeListingScreen = ({ navigation }) => {
     retrieveData();
   }, []);
 
-
+  getQuery = () => {
+    if(!beaconState){
+      return firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beacons")
+      .where("grade", "==", String(grade))
+      .where("class", "==", studentClass)
+      .orderBy('mac');
+    }
+    return firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beacons")
+      .where("state", "==", beaconState)
+      .where("grade", "==", String(grade))
+      .where("class", "==", studentClass)
+      .orderBy('mac');
+  }
   // Retrieve Data
   retrieveData = async () => {
     try {
@@ -40,15 +60,7 @@ const AttendeeListingScreen = ({ navigation }) => {
       console.log('Retrieving Data');
       // Cloud Firestore: Query
 
-      let initialQuery = await firebase
-        .firestore()
-        .collection("sais_edu_sg")
-        .doc("beacon")
-        .collection("beacons")
-        .where("state", "==", beaconState)
-        .where("grade", "==", String(grade))
-        .where("class", "==", studentClass)
-        .orderBy('mac')
+      let initialQuery = await getQuery()
         .limit(30);
 
       // Cloud Firestore: Query Snapshot
@@ -79,20 +91,12 @@ const AttendeeListingScreen = ({ navigation }) => {
   retrieveMore = async () => {
     try {
 
-      if(!documentData) return;
+      if (!documentData) return;
       // Set State: Refreshing
       setRefreshing(true);
       console.log('Retrieving additional Data');
       // Cloud Firestore: Query (Additional Query)
-      let additionalQuery = await firebase
-        .firestore()
-        .collection("sais_edu_sg")
-        .doc("beacon")
-        .collection("beacons")
-        .where("state", "==", beaconState)
-        .where("grade", "==", String(grade))
-        .where("class", "==", studentClass)
-        .orderBy('mac')
+      let additionalQuery = await getQuery()
         .startAfter(lastVisible)
         .limit(limit)
       // Cloud Firestore: Query Snapshot

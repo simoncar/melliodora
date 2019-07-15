@@ -31,6 +31,7 @@ const GradeListingScreen = ({ navigation }) => {
         .collection("sais_edu_sg")
         .doc("org")
         .collection("grade")
+        .orderBy("grade")
 
 
       // Cloud Firestore: Query Snapshot
