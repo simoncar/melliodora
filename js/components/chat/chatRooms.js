@@ -5,6 +5,7 @@ import { Container, Content } from "native-base";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
+import I18n from "../../lib/i18n";
 
 const ChatroomItem = require("./chatroomItem");
 
@@ -28,7 +29,7 @@ class chatRooms extends Component {
   }
 
   static navigationOptions = {
-    title: "Chat",
+    title: I18n.t("chat"),
     tabBarIcon: tabBarIcon("bubble"),
     headerBackTitle: null,
   };
