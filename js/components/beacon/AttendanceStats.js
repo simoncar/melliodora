@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, StyleSheet, View, TouchableOpacity, TouchableHighlight } from 'react-native'
 import { Button } from 'react-native-elements';
-import { FontAwesome } from "@expo/vector-icons";
+import { Feather, FontAwesome } from "@expo/vector-icons";
 import Tooltip from 'react-native-walkthrough-tooltip';
 import useBeaconSearchHook from "./utils/BeaconSearchStore";
 
@@ -39,6 +39,13 @@ const AttendanceStats = ({ navigation }) => {
     )
   }
 
+  renderViewMore = () => (
+    <View style={{ position: 'absolute', bottom: 0.5, left: 0, width: '100%', flexDirection: 'row', borderTopColor: '#d3d3d3', borderTopWidth: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text style={{ fontSize: 8, color: '#d3d3d3' }}>View More</Text>
+      <Feather name="chevron-right" size={8} color="#DDDDDD" style={{ paddingTop: 1 }} />
+    </View>
+  )
+
   return (
     <View style={styles.container}>
       <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
@@ -69,6 +76,7 @@ const AttendanceStats = ({ navigation }) => {
               </View>
 
               <Text style={styles.widgetTextContent}>3055</Text>
+              {renderViewMore()}
             </View>
           </TouchableOpacity>
 
@@ -81,13 +89,14 @@ const AttendanceStats = ({ navigation }) => {
               </View>
 
               <Text style={styles.widgetTextContent}>27</Text>
+              {renderViewMore()}
             </View>
           </TouchableOpacity>
         </View>
         <View style={styles.statsCol}>
 
-          <TouchableOpacity style={[styles.widget, { backgroundColor: 'darkorchid' }]} onPress={() => routeBtn("Entered")}>
-            <View style={styles.widgetContainer}>
+          <TouchableOpacity style={[styles.widget, { backgroundColor: 'darkorchid' }]} onPress={() => routeBtn("")}>
+            <View style={[styles.widgetContainer, {paddingBottom:12, paddingTop:5}]}>
 
               <View style={styles.widgetTitleContainer}>
                 <Text style={styles.widgetTextTitle}>Total </Text>
@@ -95,11 +104,12 @@ const AttendanceStats = ({ navigation }) => {
               </View>
 
               <Text style={styles.widgetTextContent}>3210</Text>
+              {renderViewMore()}
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.widget, { backgroundColor: '#FF4136' }]} onPress={() => routeBtn("Perimeter")}>
-            <View style={styles.widgetContainer}>
+            <View style={[styles.widgetContainer, {paddingBottom:12, paddingTop:5}]}>
 
               <View style={styles.widgetTitleContainer}>
                 <Text style={styles.widgetTextTitle}>Perimeter </Text>
@@ -107,11 +117,12 @@ const AttendanceStats = ({ navigation }) => {
               </View>
 
               <Text style={styles.widgetTextContent}>270</Text>
+              {renderViewMore()}
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.widget, { backgroundColor: 'tomato' }]} onPress={() => routeBtn("Not Present")}>
-            <View style={styles.widgetContainer}>
+            <View style={[styles.widgetContainer, {paddingBottom:12, paddingTop:5}]}>
 
               <View style={styles.widgetTitleContainer}>
                 <Text style={styles.widgetTextTitle}>Not Present </Text>
@@ -119,6 +130,7 @@ const AttendanceStats = ({ navigation }) => {
               </View>
 
               <Text style={styles.widgetTextContent}>155</Text>
+              {renderViewMore()}
             </View>
           </TouchableOpacity>
         </View>
@@ -162,13 +174,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   widgetTextTitle: {
-    fontSize: 22,
+    fontSize: 18,
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#DDDDDD'
   },
   widgetTextContent: {
-    fontSize: 44,
+    fontSize: 28,
     textAlign: 'center',
     color: '#333'
   }
