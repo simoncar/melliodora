@@ -23,7 +23,7 @@ import BLEDataParser from "../../lib/BLEDataParser";
 import CountDown from "react-native-countdown-component";
 import * as ActionCreators from "../../actions";
 import { openDrawer } from "../../actions/drawer";
-
+import I18n from "../../lib/i18n";
 import styles from "./styles";
 
 const { width } = Dimensions.get("window");
@@ -221,7 +221,7 @@ class HomeNav extends Component {
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
-            <Text style={styles.version}>School Starts in...</Text>
+            <Text style={styles.version}>{I18n.t("schoolStarts")}</Text>
             <CountDown until={this.getSeconds()} size={20} />
 
             {isAdmin(this.props.adminPassword) && (
@@ -254,7 +254,7 @@ class HomeNav extends Component {
                         uri: "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png",
                       }}
                     />
-                    <Text style={styles.itemTitle}>Safeguarding</Text>
+                    <Text style={styles.itemTitle}>{I18n.t("safeguarding")}</Text>
                   </View>
                   <View>
                     <Image
@@ -304,7 +304,7 @@ class HomeNav extends Component {
 
           <View>
             <Text style={styles.version} />
-            <Text style={styles.version}>Version: {Constants.manifest.revisionId}</Text>
+            <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
           </View>
         </Content>
       </Container>
