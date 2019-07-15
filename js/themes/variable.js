@@ -1,20 +1,19 @@
-
-const color = require('color');
+const color = require('color')
 
 // theme background
-const primary = color('white'); //  color('#01cca1');
+const primary = color('white') //  color('#01cca1');
 // header
-const secondary = color('#b63642');     //color('#00c497');
-const info = color('#5bc0de');
-const success = color('#5cb85c');
-const danger = color('#d9534f');
-const warning = color('#f0ad4e');
-const sidebar = color('#252932');
-const dark = color('rgba(0,0,0,0.8)');
-const light = color('rgba(255,255,255,0.8)');
+const secondary = color('#b63642') //color('#00c497');
+const info = color('#5bc0de')
+const success = color('#5cb85c')
+const danger = color('#d9534f')
+const warning = color('#f0ad4e')
+const sidebar = color('#252932')
+const dark = color('rgba(0,0,0,0.8)')
+const light = color('rgba(255,255,255,0.8)')
 
-const theme1 = '#01cca1';		// theme background
-const header1 = '#00c497';	// header
+const theme1 = '#01cca1' // theme background
+const header1 = '#00c497' // header
 
 // var theme2 = "#E74C3C";
 // var header2 ="#CB4335";
@@ -39,4 +38,4 @@ module.exports = {
   // darker: darken,
   dark: dark.hex().toString(),
   light: light.hex().toString(),
-};
+}
