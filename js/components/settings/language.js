@@ -1,28 +1,20 @@
 "use strict";
 import React, { Component } from "react";
 
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Alert,
-  TouchableOpacity
-} from "react-native";
+import { AppRegistry, StyleSheet, Text, View, Image, Alert, TouchableOpacity } from "react-native";
 import SettingsList from "react-native-settings-list";
 import * as Localization from "expo-localization";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AsyncStorage } from "react-native";
 
-class selectLanguage extends Component {
+export default class selectLanguage extends Component {
   constructor(props) {
     super(props);
     this.onValueChange = this.onValueChange.bind(this);
     this.state = {
       switchValue: false,
       loggedIn: false,
-      language: ""
+      language: "",
     };
   }
 
@@ -78,12 +70,7 @@ class selectLanguage extends Component {
               hasNavArrow={false}
               title="English"
               onPress={() => this._changeLanguage("en")}
-              icon={
-                <MaterialCommunityIcons
-                  name="check"
-                  style={this._getStyle("en")}
-                />
-              }
+              icon={<MaterialCommunityIcons name="check" style={this._getStyle("en")} />}
             />
             <SettingsList.Item
               hasSwitch={false}
@@ -92,12 +79,7 @@ class selectLanguage extends Component {
               hasNavArrow={false}
               title="中文(简体)"
               onPress={() => this._changeLanguage("zhcn")}
-              icon={
-                <MaterialCommunityIcons
-                  name="check"
-                  style={this._getStyle("zhcn")}
-                />
-              }
+              icon={<MaterialCommunityIcons name="check" style={this._getStyle("zhcn")} />}
             />
             <SettingsList.Item
               hasSwitch={false}
@@ -106,12 +88,7 @@ class selectLanguage extends Component {
               hasNavArrow={false}
               title="日本語"
               onPress={() => this._changeLanguage("ja")}
-              icon={
-                <MaterialCommunityIcons
-                  name="check"
-                  style={this._getStyle("ja")}
-                />
-              }
+              icon={<MaterialCommunityIcons name="check" style={this._getStyle("ja")} />}
             />
 
             <SettingsList.Item
@@ -121,12 +98,7 @@ class selectLanguage extends Component {
               hasNavArrow={false}
               title="Français"
               onPress={() => this._changeLanguage("fr")}
-              icon={
-                <MaterialCommunityIcons
-                  name="check"
-                  style={this._getStyle("fr")}
-                />
-              }
+              icon={<MaterialCommunityIcons name="check" style={this._getStyle("fr")} />}
             />
 
             <SettingsList.Item
@@ -136,12 +108,7 @@ class selectLanguage extends Component {
               hasNavArrow={false}
               title="한국어"
               onPress={() => this._changeLanguage("ko")}
-              icon={
-                <MaterialCommunityIcons
-                  name="check"
-                  style={this._getStyle("ko")}
-                />
-              }
+              icon={<MaterialCommunityIcons name="check" style={this._getStyle("ko")} />}
             />
 
             <SettingsList.Item
@@ -151,12 +118,7 @@ class selectLanguage extends Component {
               hasNavArrow={false}
               title="Español"
               onPress={() => this._changeLanguage("es")}
-              icon={
-                <MaterialCommunityIcons
-                  name="check"
-                  style={this._getStyle("es")}
-                />
-              }
+              icon={<MaterialCommunityIcons name="check" style={this._getStyle("es")} />}
             />
           </SettingsList>
         </View>
@@ -176,7 +138,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     alignSelf: "center",
     height: 30,
-    width: 30
+    width: 30,
   },
   imageStyleCheckOn: {
     marginLeft: 15,
@@ -185,7 +147,7 @@ const styles = StyleSheet.create({
     width: 30,
     fontSize: 30,
     width: 30,
-    color: "#007AFF"
+    color: "#007AFF",
   },
   imageStyleCheckOff: {
     marginLeft: 15,
@@ -194,13 +156,11 @@ const styles = StyleSheet.create({
     width: 30,
     fontSize: 30,
     width: 30,
-    color: "#FFF"
+    color: "#FFF",
   },
 
   titleInfoStyle: {
     fontSize: 16,
-    color: "#8e8e93"
-  }
+    color: "#8e8e93",
+  },
 });
-
-module.exports = selectLanguage;

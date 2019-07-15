@@ -1,8 +1,7 @@
-const PUSH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwhrlEfQhiSgcsF6AM_AlaMWxU7SsEtJ-yQpvthyQTT1jui588E/exec';
+const PUSH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwhrlEfQhiSgcsF6AM_AlaMWxU7SsEtJ-yQpvthyQTT1jui588E/exec'
 
 export default (async function updateFirebase() {
-
-console.log('update firebase service triggered');
+  console.log('update firebase service triggered')
 
   return fetch(PUSH_ENDPOINT, {
     method: 'POST',
@@ -10,20 +9,13 @@ console.log('update firebase service triggered');
       Accept: 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: 'action=republish'
-
+    body: 'action=republish',
   })
-
-
-
-
-  .then((response) => response.text())
-  .then((responseText) => {
-    alert(responseText);
-  })
-  .catch((error) => {
-      console.error(error);
-  });
-
-
-});
+    .then(response => response.text())
+    .then(responseText => {
+      alert(responseText)
+    })
+    .catch(error => {
+      console.error(error)
+    })
+})

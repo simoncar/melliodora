@@ -5,6 +5,8 @@ admin.initializeApp();
 
 //writeFile();
 
+//  /Users/simon/Documents/code/app/functions/Calendar App-915d5dbe4185.json
+//export GOOGLE_APPLICATION_CREDENTIALS="/Users/simon/Documents/code/app/functions/Calendar App-915d5dbe4185.json"
 var async = require("async");
 
 // spreadsheet key is the long id in the sheets URL
@@ -22,16 +24,10 @@ async.series(
     function getInfoAndWorksheets(step) {
       doc.getInfo(function(err, info) {
         console.log(err);
+
         console.log("Loaded doc: " + info.title + " by " + info.author.email);
         sheet = info.worksheets[0];
-        console.log(
-          "sheet 1: " +
-            sheet.title +
-            " " +
-            sheet.rowCount +
-            "x" +
-            sheet.colCount
-        );
+        console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
         step();
       });
     },
@@ -41,7 +37,7 @@ async.series(
         {
           offset: 1,
           limit: 20,
-          orderby: "col2"
+          orderby: "col2",
         },
         function(err, rows) {
           console.log("Read " + rows.length + " rows");
@@ -54,15 +50,17 @@ async.series(
           //rows[0].del(); // this is async
 
           step();
-        }
+        },
       );
     },
     function workingWithCells(step) {
       var n = 2;
+      var classList = {};
+      var gradeList = {};
 
       for (var i = 2; i < 45; i++) {
         console.log(n, n + 100);
-        updateCells(n, n + 100);
+        updateCells(n, n + 100, classList, gradeList);
         n = n + 101;
       }
 
@@ -84,16 +82,16 @@ async.series(
       //       step();
       //     }
       //   );
-    }
+    },
   ],
   function(err) {
     if (err) {
       console.log("Error: " + err);
     }
-  }
+  },
 );
 
-function updateCells(start, end) {
+function updateCells(start, end, classList, gradeList) {
   var firstName = "";
   var lastName = "";
   var fullname = "";
@@ -106,9 +104,10 @@ function updateCells(start, end) {
       "min-row": start,
       "max-row": end,
       "min-col": 1,
-      "max-col": 10,
-      "return-empty": true
+      "max-col": 11,
+      "return-empty": true,
     },
+
     function(err, cells) {
       if (undefined == cells) {
         return;
@@ -145,6 +144,18 @@ function updateCells(start, end) {
           case 10:
             var classCode = cell.value;
             break;
+          case 11:
+            var campus = cell.value;
+            //if (!(classCode in classList)) {
+            classList = { classCode: classCode, grade: parseInt(grade, 10), gradeTitle: gradeTitle, campus: campus };
+            //}
+
+            if (!(grade in gradeList)) {
+              gradeList = { gradeTitle: gradeTitle, grade: parseInt(grade, 10), campus: campus };
+            }
+
+            console.log("classList=", classList, classCode);
+            break;
         }
 
         var dataDict = {
@@ -155,25 +166,44 @@ function updateCells(start, end) {
           studentNo: studentNo,
           class: classCode,
           grade: grade,
-          gradeTitle: gradeTitle
+          gradeTitle: gradeTitle,
+          campus: campus,
+          state: "Not Present",
         };
 
-        if (cell.col == 10) {
-          let ref = admin
+        if (cell.col == 11) {
+          let refBecon = admin
             .firestore()
             .collection("sais_edu_sg")
             .doc("beacon")
             .collection("beacons")
             .doc(beacon);
 
-          batch.update(ref, dataDict);
+          let refClass = admin
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("org")
+            .collection("class")
+            .doc(classCode);
+
+          let refGrade = admin
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("org")
+            .collection("grade")
+            .doc(grade);
+
+          batch.update(refBecon, dataDict);
+
+          batch.set(refClass, classList);
+          batch.set(refGrade, gradeList);
         }
       }
 
       batch.commit();
 
       //
-    }
+    },
   );
 }
 
