@@ -18,6 +18,7 @@ import CustomImage from "./customImage";
 import CustomVideo from "./customVideo";
 import styles from "./styles";
 import HeaderContent from "./../headerContent/header/";
+import I18n from "../../lib/i18n";
 
 import * as ActionCreators from "../../actions";
 
