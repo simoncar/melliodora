@@ -41,6 +41,7 @@ import "moment/min/locales";
 //   today: "Aujourd'hui",
 // };
 // LocaleConfig.defaultLocale = "fr";
+//LocaleConfig.defaultLocale = "fr";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
