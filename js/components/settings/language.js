@@ -6,6 +6,8 @@ import SettingsList from "react-native-settings-list";
 import * as Localization from "expo-localization";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AsyncStorage } from "react-native";
+import { Updates } from "expo";
+import I18n from "../../lib/i18n";
 
 export default class selectLanguage extends Component {
   constructor(props) {
@@ -17,6 +19,12 @@ export default class selectLanguage extends Component {
       language: "",
     };
   }
+
+  static navigationOptions = {
+    title: I18n.t("language"),
+
+    headerBackTitle: null,
+  };
 
   componentWillMount() {
     this._retrieveLanguage();
@@ -40,12 +48,7 @@ export default class selectLanguage extends Component {
     global.language = language;
     AsyncStorage.setItem("language", language);
 
-    const { goBack } = this.props.navigation;
-
-    goBack(null);
-    setTimeout(() => {
-      goBack(null);
-    }, 100);
+    Updates.reloadFromCache();
   }
   _getStyle(language) {
     if (language == this.state.language) {
@@ -78,8 +81,8 @@ export default class selectLanguage extends Component {
               switchOnValueChange={this.onValueChange}
               hasNavArrow={false}
               title="中文(简体)"
-              onPress={() => this._changeLanguage("zhcn")}
-              icon={<MaterialCommunityIcons name="check" style={this._getStyle("zhcn")} />}
+              onPress={() => this._changeLanguage("zh")}
+              icon={<MaterialCommunityIcons name="check" style={this._getStyle("zh")} />}
             />
             <SettingsList.Item
               hasSwitch={false}

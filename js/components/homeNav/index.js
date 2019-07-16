@@ -304,7 +304,7 @@ class HomeNav extends Component {
 
           <View>
             <Text style={styles.version} />
-            <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
+            <Text style={styles.version}>Version: {Constants.manifest.revisionId}</Text>
           </View>
         </Content>
       </Container>
