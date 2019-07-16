@@ -49,19 +49,7 @@ class Settings extends Component {
       // Error retrieving data
     }
   };
-  _changeLanguage(language) {
-    this.state.language = "ja";
-    this.setState({ language: language });
-    global.language = language;
-    AsyncStorage.setItem("language", language);
 
-    const { goBack } = this.props.navigation;
-
-    goBack(null);
-    setTimeout(() => {
-      goBack(null);
-    }, 100);
-  }
   _getStyle(language) {
     if (language == this.state.language) {
       return styles.imageStyleCheckOn;
@@ -217,7 +205,7 @@ class Settings extends Component {
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/general.png")} />}
-              title={I18n.t("language")}
+              title={"Language " + I18n.t("language")}
               titleInfo={this.state.language}
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() => this.props.navigation.navigate("selectLanguage")}

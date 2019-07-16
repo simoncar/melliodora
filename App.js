@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import Setup from "./js/setup";
 
 import "@firebase/firestore";
-
+import { I18nManager, AsyncStorage } from "react-native";
+import I18n from "i18n-js";
 import Firebase from "./js/lib/firebase";
 import Constants from "expo-constants";
 import Sentry from "sentry-expo";
@@ -34,6 +35,24 @@ export default class App extends React.Component {
       console.log("firebase error", e.message);
       //console.error(e.message);
     }
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem("language").then(language => {
+      if (language === "ar") {
+        I18nManager.forceRTL(true);
+        if (!I18nManager.isRTL) {
+          Updates.reloadFromCache();
+        }
+      } else {
+        I18nManager.forceRTL(false);
+        if (I18nManager.isRTL) {
+          Updates.reloadFromCache();
+        }
+      }
+      I18n.locale = language;
+      global.language = language;
+    });
   }
 
   render() {
