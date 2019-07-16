@@ -80,7 +80,7 @@ class chat extends Component {
           navigation.state.params._showActionSheet();
         }}
       >
-        <Text>{navigation.getParam("chatroom")}</Text>
+        <Text style={{ fontSize: 17, fontWeight: "600" }}>{navigation.getParam("chatroom")}</Text>
       </TouchableOpacity>
     ),
     headerRight: (
