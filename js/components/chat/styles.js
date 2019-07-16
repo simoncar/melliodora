@@ -114,6 +114,16 @@ export default {
     flex: 1,
     flexDirection: "row",
   },
+  chatHeadingText: {
+    color: "black",
+    alignSelf: "center",
+    fontSize: 16,
+    paddingBottom: 5,
+    paddingRight: 10,
+    flex: 1,
+    flexDirection: "row",
+    fontWeight: "bold",
+  },
   chatHeadingLeft: {
     color: "#037AFF",
     alignSelf: "center",
