@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AsyncStorage } from "react-native";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
+import AttendanceMenu from "../beacon/AttendanceMenu";
 
 class Settings extends Component {
   static navigationOptions = {
@@ -168,40 +169,6 @@ class Settings extends Component {
               }}
             />
 
-            {isAdmin(this.props.adminPassword) && <SettingsList.Header headerStyle={{ marginTop: 15 }} />}
-            {isAdmin(this.props.adminPassword) && (
-              <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require("./images/notifications.png")} />}
-                title={I18n.t("safeguarding")}
-                titleInfo="3,139"
-                onPress={() => this.props.navigation.navigate("AttendanceOverviewScreen")}
-              />
-            )}
-            {isAdmin(this.props.adminPassword) && (
-              <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require("./images/cellular.png")} />}
-                title={I18n.t("gateways")}
-                titleInfo="Online"
-                onPress={() => this.props.navigation.navigate("beacon")}
-              />
-            )}
-
-            {isAdmin(this.props.adminPassword) && (
-              <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require("./images/control.png")} />}
-                title={I18n.t("reports")}
-                onPress={() => Alert.alert("Route To Reports")}
-              />
-            )}
-
-            {isAdmin(this.props.adminPassword) && (
-              <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
-                title={I18n.t("studentLookup")}
-                onPress={() => Alert.alert("Route Student Search")}
-              />
-            )}
-
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/general.png")} />}
@@ -218,6 +185,15 @@ class Settings extends Component {
               title={I18n.t("adminAccess")}
               onPress={() => this.props.navigation.navigate("adminPassword")}
             />
+            {isAdmin(this.props.adminPassword) && <SettingsList.Header headerStyle={{ marginTop: 15 }} />}
+            {isAdmin(this.props.adminPassword) && (
+              <SettingsList.Item
+                icon={<Image style={styles.imageStyle} source={require("./images/notifications.png")} />}
+                title={I18n.t("safeguarding")}
+                titleInfo="3,139"
+                onPress={() => this.props.navigation.navigate("AttendanceOverviewScreen")}
+              />
+            )}
 
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
 
