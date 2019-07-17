@@ -25,6 +25,7 @@ import * as ActionCreators from "../../actions";
 import { openDrawer } from "../../actions/drawer";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
+import { AsyncStorage } from "react-native";
 
 const { width } = Dimensions.get("window");
 const ListItem = require("./ListItem");
@@ -60,6 +61,8 @@ class HomeNav extends Component {
       loading: false,
       featureItems: [],
     };
+
+    this.loadFromAsyncStorage();
 
     //this.loadFromRedux();
   }
@@ -109,7 +112,7 @@ class HomeNav extends Component {
       featureItems.push({
         key: doc.id,
         _key: doc.id,
-        doc, // DocumentSnapshot
+        //doc, // DocumentSnapshot
         title: summary,
         description,
         location,
@@ -129,8 +132,14 @@ class HomeNav extends Component {
       });
     });
 
+    if (featureItems.length > 0) {
+      this._storeData(JSON.stringify(featureItems));
+      this.setState({
+        featureItems,
+      });
+    }
+
     this.setState({
-      featureItems,
       loading: false,
     });
   };
@@ -149,6 +158,28 @@ class HomeNav extends Component {
 
     return seconds;
   }
+  loadFromAsyncStorage() {
+    AsyncStorage.getItem("featureItems").then(fi => {
+      var featureItems = JSON.parse(fi);
+      console.log("loading = ", fi);
+      this.setState({
+        featureItems,
+        loading: false,
+      });
+    });
+
+    //AsyncStorage.setItem('my_key', 'my_value', () => { console.log('done setting item!') });
+  }
+
+  _storeData = async featureItems => {
+    try {
+      console.log("Storing = ", featureItems);
+      AsyncStorage.setItem("featureItems", featureItems);
+    } catch (error) {
+      console.log(error);
+      // Error saving data
+    }
+  };
 
   loadFromRedux() {
     this.state.featureItems = [];
