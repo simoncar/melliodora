@@ -230,29 +230,7 @@ const styles = StyleSheet.create({
   container: {
     height: height,
     width: width,
-  },
-  headerText: {
-    fontFamily: 'System',
-    fontSize: 36,
-    fontWeight: '600',
-    color: '#000',
-    marginLeft: 12,
-    marginBottom: 12,
-  },
-  itemContainer: {
-    height: 80,
-    width: width,
-    borderWidth: .2,
-    borderColor: '#000',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontFamily: 'System',
-    fontSize: 16,
-    fontWeight: '400',
-    color: '#000',
-  },
+  }
 });
 
 AttendeeListingScreen.navigationOptions = {

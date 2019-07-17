@@ -13,11 +13,19 @@ import { LineChart } from "react-native-chart-kit";
 
 import AttendanceStats from "./AttendanceStats";
 import BookmarkPreview from "./BookmarkPreview";
+import { Feather } from "@expo/vector-icons";
 
 export default class AttendanceOverviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Attendance",
-    headerBackTitle: null
+    headerBackTitle: null,
+    headerRight: (
+      <View style={{ paddingRight: 7, flexDirection: 'row' }}>
+        <TouchableOpacity onPress={() => navigation.navigate("BeaconSearch")}>
+          <Feather name="search" size={28} color="gray" style={{ paddingHorizontal: 8 }} />
+        </TouchableOpacity>
+      </View>
+    )
   });
 
   constructor(props) {
@@ -34,26 +42,26 @@ export default class AttendanceOverviewScreen extends Component {
             <AttendanceStats navigation={this.props.navigation} />
           </View>
 
-          
-          <View style={{ backgroundColor: "#fff", flex:1, flexDirection:'column'}}>
-            <View style={{flexDirection: 'row', flexShrink:1, paddingTop: 8, paddingHorizontal:8 }}>
-              <Text style={{fontWeight: 'bold', color: '#48484a', flex: 1 }}>Recent Bookmarks</Text>
 
-              <View style={{ flex: 1, alignItems: "flex-end", justifyContent:'center' }}>
+          <View style={{ backgroundColor: "#fff", flex: 1, flexDirection: 'column' }}>
+            <View style={{ flexDirection: 'row', flexShrink: 1, paddingTop: 8, paddingHorizontal: 8 }}>
+              <Text style={{ fontWeight: 'bold', color: '#48484a', flex: 1 }}>Recent Bookmarks</Text>
+
+              <View style={{ flex: 1, alignItems: "flex-end", justifyContent: 'center' }}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
                   <Text style={{ fontSize: 12, color: 'gray' }}>View All</Text>
                 </TouchableOpacity>
               </View>
 
             </View>
-            <View style={{ flex:1 }}>
+            <View style={{ flex: 1 }}>
               <BookmarkPreview navigation={this.props.navigation} />
             </View>
 
           </View>
           <View style={{ minHeight: 150 }}>
 
-            </View>
+          </View>
 
 
           {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
