@@ -158,6 +158,7 @@ class HomeNav extends Component {
 
     return seconds;
   }
+
   loadFromAsyncStorage() {
     AsyncStorage.getItem("featureItems").then(fi => {
       var featureItems = JSON.parse(fi);
@@ -167,8 +168,6 @@ class HomeNav extends Component {
         loading: false,
       });
     });
-
-    //AsyncStorage.setItem('my_key', 'my_value', () => { console.log('done setting item!') });
   }
 
   _storeData = async featureItems => {
