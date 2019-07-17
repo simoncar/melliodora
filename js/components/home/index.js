@@ -14,6 +14,7 @@ import { formatTime, formatMonth } from "../global.js";
 import I18n from "../../lib/i18n";
 import moment from "moment";
 import "moment/min/locales";
+import { AsyncStorage } from "react-native";
 //import momentFR from "moment/src/locale/fr";
 
 //import { LocaleConfig } from "react-native-calendars";
@@ -91,6 +92,8 @@ class calendar1 extends Component {
       .doc("calendar")
       .collection("calendarItems");
 
+    this.loadFromAsyncStorage();
+
     this.listenLoadFromFirebase(this.calendarEvents);
   }
 
@@ -105,8 +108,9 @@ class calendar1 extends Component {
         const items2 = [];
 
         this.loadItems();
-
+        var itemCount = 0;
         snapshot.forEach(doc => {
+          itemCount++;
           items2.push(doc.data());
 
           //   console.log (snapshot)
@@ -141,6 +145,9 @@ class calendar1 extends Component {
         });
 
         items = JSON.parse(JSON.stringify(this.state.items));
+        if (itemCount > 10) {
+          this._storeData(JSON.stringify(this.state.items));
+        }
 
         this.setState({
           items,
@@ -152,6 +159,30 @@ class calendar1 extends Component {
         console.log("Error getting documents", err);
       });
   }
+
+  loadFromAsyncStorage() {
+    AsyncStorage.getItem("calendarItems").then(fi => {
+      var items = JSON.parse(fi);
+      console.log("loading = ", fi);
+      this.setState({
+        items,
+        loading: false,
+      });
+      this.loadItems();
+    });
+
+    //AsyncStorage.setItem('my_key', 'my_value', () => { console.log('done setting item!') });
+  }
+
+  _storeData = async calendarItems => {
+    try {
+      console.log("Storing  calendarItems = ", calendarItems);
+      AsyncStorage.setItem("calendarItems", calendarItems);
+    } catch (error) {
+      console.log(error);
+      // Error saving data
+    }
+  };
 
   loadItems(day) {
     setTimeout(() => {
