@@ -79,12 +79,8 @@ class calendar1 extends Component {
   };
 
   componentDidMount() {
-    //this.unsubscribe = this.calendarEvents.onSnapshot(this.onCollectionUpdate);
-    //
-
     moment.updateLocale;
 
-    console.log("AAA", moment.months());
     this.calendarEvents = firebase
       .firestore()
       .collection("sais_edu_sg")

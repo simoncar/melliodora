@@ -49,12 +49,15 @@ const tabBarIcon = name => ({ tintColor }) => (
 class HomeNav extends Component {
   constructor(props) {
     super(props);
-
-    this.ref = firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("feature")
-      .collection("feature articles");
+    try {
+      this.ref = firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("feature")
+        .collection("feature articles");
+    } catch (e) {
+      console.error(e.message);
+    }
 
     this.state = {
       user: null,
@@ -80,7 +83,11 @@ class HomeNav extends Component {
   });
 
   componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    try {
+      this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    } catch (e) {
+      console.error(e.message);
+    }
   }
 
   componentWillUnmount() {
