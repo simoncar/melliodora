@@ -25,5 +25,6 @@
   "unmute": "Unmute",
   "contact": "Contact",
   "shop": "Shop",
-  "pta": "Parent Teacher Association"
+  "pta": "Parent Teacher Association",
+  "languageChangeWarning": "App will restart after selecting a new language"
 }
