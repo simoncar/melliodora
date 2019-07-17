@@ -123,6 +123,8 @@ export default class selectLanguage extends Component {
               onPress={() => this._changeLanguage("es")}
               icon={<MaterialCommunityIcons name="check" style={this._getStyle("es")} />}
             />
+
+            <Text style={styles.titleInfoStyle}>{I18n.t("languageChangeWarning")}</Text>
           </SettingsList>
         </View>
       </View>
@@ -163,7 +165,10 @@ const styles = StyleSheet.create({
   },
 
   titleInfoStyle: {
+    marginTop: 20,
     fontSize: 16,
     color: "#8e8e93",
+    marginLeft: 10,
+    alignSelf: "center",
   },
 });
