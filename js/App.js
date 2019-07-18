@@ -3,16 +3,21 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Notifications } from "expo";
 import Constants from "expo-constants";
-import { AsyncStorage } from "react-native";
+import { I18nManager, AsyncStorage } from "react-native";
+import { Updates } from "expo";
+import I18n from "i18n-js";
 
 import Analytics from "./lib/analytics";
 import * as ActionCreators from "./actions";
 import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
+import { update } from "tcomb";
 
 const instID = Constants.manifest.extra.instance;
 
 class App extends Component {
+  componentWillMount() {}
+
   componentDidMount() {
     this._retrieveAdminPassword();
     this._notificationSubscription = this._registerForPushNotifications();
@@ -27,9 +32,7 @@ class App extends Component {
   _registerForPushNotifications() {
     registerForPush.reg(this.props.userX.name);
 
-    this._notificationSubscription = Notifications.addListener(
-      this._handleNotification
-    );
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
 
   _retrieveAdminPassword = async () => {
@@ -61,7 +64,7 @@ class App extends Component {
 
         const trackingOpts = {
           instId: instID,
-          emailOrUsername: username
+          emailOrUsername: username,
         };
 
         Analytics.identify(username, trackingOpts);
@@ -86,9 +89,7 @@ class App extends Component {
         global.switch_portalURL =
           "https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP";
         global.switch_call = "+65 6709 4800";
-        global.header_logo = `../../../resources/${
-          Constants.manifest.extra.instance
-        }/headerLogo.png`;
+        global.header_logo = `../../../resources/${Constants.manifest.extra.instance}/headerLogo.png`;
         global.header_logoID = require("../resources/0001-sais_edu_sg/headerLogo.png");
         break;
       case "0002-singaporepoloclub":
@@ -98,9 +99,7 @@ class App extends Component {
         global.switch_portalName = "Polo Contacts";
         global.switch_portalURL = "https://polocontacts.com/";
         global.switch_call = "+65 0000 0000";
-        global.header_logo = `../../../resources/${
-          Constants.manifest.extra.instance
-        }/headerLogo.png`;
+        global.header_logo = `../../../resources/${Constants.manifest.extra.instance}/headerLogo.png`;
         global.header_logoID = require("../resources/0002-singaporepoloclub/headerLogo.png");
         break;
       default:
@@ -111,15 +110,14 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(ActionCreators, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
-  userX: state.user
+  userX: state.user,
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(App);

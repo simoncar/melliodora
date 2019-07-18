@@ -11,7 +11,38 @@ import HeaderContent from "../headerContent/header";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { formatTime, formatMonth } from "../global.js";
-const moment = require("moment");
+import I18n from "../../lib/i18n";
+import moment from "moment";
+import "moment/min/locales";
+import { AsyncStorage } from "react-native";
+//import momentFR from "moment/src/locale/fr";
+
+//import { LocaleConfig } from "react-native-calendars";
+
+//moment.defineLocale("fr", momentFR);
+
+// LocaleConfig.locales["fr"] = {
+//   monthNames: [
+//     "Janvier",
+//     "Février",
+//     "Mars",
+//     "Avril",
+//     "Mai",
+//     "Juin",
+//     "Juillet",
+//     "Août",
+//     "Septembre",
+//     "Octobre",
+//     "Novembre",
+//     "Décembre",
+//   ],
+//   monthNamesShort: ["Janv.", "Févr.", "Mars", "Avril", "Mai", "Juin", "Juil.", "Août", "Sept.", "Oct.", "Nov.", "Déc."],
+//   dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+//   dayNamesShort: ["Dim.", "Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam."],
+//   today: "Aujourd'hui",
+// };
+// LocaleConfig.defaultLocale = "fr";
+//LocaleConfig.defaultLocale = "fr";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
@@ -35,7 +66,7 @@ class calendar1 extends Component {
     }
 
     this.state.items[todayDate].push({
-      name: "Today, " + todayDay,
+      name: I18n.t("today") + " " + todayDay,
       icon: "md-radio-button-off",
       color: "yellow",
       title: todayDay,
@@ -43,19 +74,21 @@ class calendar1 extends Component {
   }
 
   static navigationOptions = {
-    title: "Calendar",
+    title: I18n.t("calendar"),
     tabBarColor: "#c51162",
     tabBarIcon: tabBarIcon("ios-calendar", "green"),
   };
 
   componentDidMount() {
-    //this.unsubscribe = this.calendarEvents.onSnapshot(this.onCollectionUpdate);
-    //
+    moment.updateLocale;
+
     this.calendarEvents = firebase
       .firestore()
       .collection("sais_edu_sg")
       .doc("calendar")
       .collection("calendarItems");
+
+    this.loadFromAsyncStorage();
 
     this.listenLoadFromFirebase(this.calendarEvents);
   }
@@ -71,8 +104,9 @@ class calendar1 extends Component {
         const items2 = [];
 
         this.loadItems();
-
+        var itemCount = 0;
         snapshot.forEach(doc => {
+          itemCount++;
           items2.push(doc.data());
 
           //   console.log (snapshot)
@@ -107,6 +141,9 @@ class calendar1 extends Component {
         });
 
         items = JSON.parse(JSON.stringify(this.state.items));
+        if (itemCount > 10) {
+          this._storeData(JSON.stringify(this.state.items));
+        }
 
         this.setState({
           items,
@@ -118,6 +155,30 @@ class calendar1 extends Component {
         console.log("Error getting documents", err);
       });
   }
+
+  loadFromAsyncStorage() {
+    AsyncStorage.getItem("calendarItems").then(fi => {
+      var items = JSON.parse(fi);
+      console.log("loading = ", fi);
+      this.setState({
+        items,
+        loading: false,
+      });
+      this.loadItems();
+    });
+
+    //AsyncStorage.setItem('my_key', 'my_value', () => { console.log('done setting item!') });
+  }
+
+  _storeData = async calendarItems => {
+    try {
+      console.log("Storing  calendarItems = ", calendarItems);
+      AsyncStorage.setItem("calendarItems", calendarItems);
+    } catch (error) {
+      console.log(error);
+      // Error saving data
+    }
+  };
 
   loadItems(day) {
     setTimeout(() => {

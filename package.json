@@ -25,11 +25,11 @@
   },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "react-native-scripts start",
-    "eject": "react-native-scripts eject",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
-    "test": "node node_modules/jest/bin/jest.js --watch"
+    "start": "expo start",
+    "eject": "expo eject",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "test": "jest"
   },
   "dependencies": {
     "@expo/react-native-action-sheet": "^2.1.0",
@@ -46,9 +46,11 @@
     "expo-file-system": "~5.0.1",
     "expo-font": "^5.0.1",
     "expo-image-manipulator": "~5.0.1",
+    "expo-localization": "~5.0.1",
     "expo-permissions": "~5.0.1",
     "firebase": "^6.2.2",
     "hex-to-array-buffer": "^1.1.0",
+    "i18n-js": "^3.3.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "native-base": "^2.12.1",

@@ -27,7 +27,11 @@ class beacons extends Component {
   }
 
   componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    try {
+      this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    } catch (e) {
+      console.error(e.message);
+    }
   }
 
   componentWillUnmount() {
@@ -58,7 +62,6 @@ class beacons extends Component {
   };
 
   _renderItem(item) {
-    console.log("item=", item);
     return <BeaconItem item={item} />;
   }
 
