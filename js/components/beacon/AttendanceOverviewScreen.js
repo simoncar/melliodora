@@ -20,6 +20,7 @@ export default class AttendanceOverviewScreen extends Component {
         </TouchableOpacity>
       </View>
     )
+    });
 
 
   constructor(props) {
