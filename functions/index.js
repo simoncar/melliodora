@@ -270,6 +270,9 @@ exports.beaconPingHistory = functions.firestore
   });
 
 exports.computeCounts = functions.https.onRequest(async (req, res) => {
+  // This function is scheduled to run periodically
+  //https://console.cloud.google.com/cloudscheduler?project=calendar-app-57e88&folder&organizationId&jobs-tablesize=50
+
   var countPerimeter = 0;
   var countExited = 0;
   var countEntered = 0;
