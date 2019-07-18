@@ -19,8 +19,11 @@ export default class AttendanceOverviewScreen extends Component {
           <Feather name="search" size={28} color="gray" style={{ paddingHorizontal: 8 }} />
         </TouchableOpacity>
       </View>
-    ),
-  });
+
+    )
+    });
+
+
 
   constructor(props) {
     super(props);
