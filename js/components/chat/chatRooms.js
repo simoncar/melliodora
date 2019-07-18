@@ -6,6 +6,7 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
+import { AsyncStorage } from "react-native";
 
 const ChatroomItem = require("./chatroomItem");
 
@@ -34,6 +35,10 @@ class chatRooms extends Component {
     headerBackTitle: null,
   };
 
+  componentWillMount() {
+    this.loadFromAsyncStorage();
+  }
+
   componentDidMount() {
     try {
       this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
@@ -51,9 +56,32 @@ class chatRooms extends Component {
       });
     });
 
-    this.setState({
-      userChatrooms,
+    if (userChatrooms.length > 0) {
+      this._storeData(JSON.stringify(userChatrooms));
+      this.setState({
+        userChatrooms,
+      });
+    }
+  };
+
+  loadFromAsyncStorage() {
+    AsyncStorage.getItem("userChatrooms").then(fi => {
+      var userChatrooms = JSON.parse(fi);
+      console.log("loading = ", fi);
+      this.setState({
+        userChatrooms,
+        loading: false,
+      });
     });
+  }
+  _storeData = async userChatrooms => {
+    try {
+      console.log("Storing  userChatrooms = ", userChatrooms);
+      AsyncStorage.setItem("userChatrooms", userChatrooms);
+    } catch (error) {
+      console.log(error);
+      // Error saving data
+    }
   };
 
   keyExtractor = item => item._key;
