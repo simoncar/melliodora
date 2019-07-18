@@ -1,23 +1,17 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  View,
-  Button,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-  ScrollView
-} from "react-native";
+import { StyleSheet, View, Button, Text, Dimensions, TouchableOpacity, ScrollView } from "react-native";
 import { Divider } from "react-native-elements";
 import { LineChart } from "react-native-chart-kit";
+import I18n from "../../lib/i18n";
 
 import AttendanceStats from "./AttendanceStats";
 import BookmarkPreview from "./BookmarkPreview";
+import AttendanceMenu from "./AttendanceMenu";
 
 export default class AttendanceOverviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Attendance",
-    headerBackTitle: null
+    title: I18n.t("safeguarding"),
+    headerBackTitle: null,
   });
 
   constructor(props) {
@@ -28,33 +22,27 @@ export default class AttendanceOverviewScreen extends Component {
     return (
       <View style={{ minHeight: "100%" }}>
         <ScrollView style={{ backgroundColor: "#f2f2f2" }}>
-
           <View style={{ backgroundColor: "#fff", marginVertical: 8, marginHorizontal: 4, padding: 10 }}>
-            <Text style={{ paddingBottom: 8, fontWeight: 'bold', color: '#48484a' }}>Overview</Text>
             <AttendanceStats navigation={this.props.navigation} />
           </View>
 
-          
-          <View style={{ backgroundColor: "#fff", flex:1, flexDirection:'column'}}>
-            <View style={{flexDirection: 'row', flexShrink:1, paddingTop: 8, paddingHorizontal:8 }}>
-              <Text style={{fontWeight: 'bold', color: '#48484a', flex: 1 }}>Recent Bookmarks</Text>
+          <View style={{ backgroundColor: "#fff", flex: 1, flexDirection: "column" }}>
+            <View style={{ flexDirection: "row", flexShrink: 1, paddingTop: 8, paddingHorizontal: 8 }}>
+              <Text style={{ fontWeight: "bold", color: "#48484a", flex: 1 }}>Recent Bookmarks</Text>
 
-              <View style={{ flex: 1, alignItems: "flex-end", justifyContent:'center' }}>
+              <View style={{ flex: 1, alignItems: "flex-end", justifyContent: "center" }}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
-                  <Text style={{ fontSize: 12, color: 'gray' }}>View All</Text>
+                  <Text style={{ fontSize: 12, color: "gray" }}>View All</Text>
                 </TouchableOpacity>
               </View>
-
             </View>
-            <View style={{ flex:1 }}>
+            <View style={{ flex: 1 }}>
               <BookmarkPreview navigation={this.props.navigation} />
             </View>
-
           </View>
           <View style={{ minHeight: 150 }}>
-
-            </View>
-
+            <AttendanceMenu navigation={this.props.navigation} />
+          </View>
 
           {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
             <Text>View All Bookmarks</Text>
