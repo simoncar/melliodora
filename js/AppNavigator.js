@@ -34,7 +34,6 @@ import BeaconSearch from "./components/beacon/BeaconSearch";
 
 import I18n from "./lib/i18n";
 
-
 let StackHome = createStackNavigator(
   {
     homeNav: { screen: HomeNav },
@@ -119,9 +118,7 @@ let StackOther = createStackNavigator(
     beaconHistory: { screen: beaconHistory },
     AttendeeDetailScreen: { screen: AttendeeDetailScreen },
     BookmarkScreen: { screen: BookmarkScreen },
-
-    BeaconSearch: { screen: BeaconSearch }
-
+    BeaconSearch: { screen: BeaconSearch },
   },
   {
     navigationOptions: {
