@@ -23,27 +23,26 @@ const AttendeeListingScreen = ({ navigation }) => {
   const [lastVisible, setLastVisible] = useState("");
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [noResult, setNoResult] = useState(false);
 
   useEffect(() => {
     retrieveData();
   }, []);
 
   getQuery = () => {
+
+    baseQuery = firebase
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("beacon")
+    .collection("beacons")
     if (!beaconState) {
-      return firebase
-        .firestore()
-        .collection("sais_edu_sg")
-        .doc("beacon")
-        .collection("beacons")
+      return baseQuery
         .where("grade", "==", String(grade))
         .where("class", "==", studentClass)
         .orderBy("mac");
     }
-    return firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("beacon")
-      .collection("beacons")
+    return baseQuery
       .where("state", "==", beaconState)
       .where("grade", "==", String(grade))
       .where("class", "==", studentClass)
@@ -76,6 +75,7 @@ const AttendeeListingScreen = ({ navigation }) => {
         // Set State
         setDocumentData([]);
         setLoading(false);
+        setNoResult(true);
       }
     } catch (error) {
       console.log(error);
@@ -127,6 +127,23 @@ const AttendeeListingScreen = ({ navigation }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  ListEmpty = () => {
+
+    if (noResult) {
+      return (
+        //View to show when list is empty
+        <View style={{
+          justifyContent: 'center',
+          flex: 1,
+          margin: 10,
+        }}>
+          <Text style={{ color: 'gray', textAlign: 'center' }}>No Result Found</Text>
+        </View>
+      );
+    }
+    return null;
   };
 
   _renderItem = ({ item }) => {
@@ -206,6 +223,7 @@ const AttendeeListingScreen = ({ navigation }) => {
         onEndReachedThreshold={0.1}
         // Refreshing (Set To True When End Reached)
         refreshing={refreshing}
+        ListEmptyComponent={this.ListEmpty}
       />
     </SafeAreaView>
   );
