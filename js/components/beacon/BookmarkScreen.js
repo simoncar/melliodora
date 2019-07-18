@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, StyleSheet, View, AsyncStorage, FlatList, TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, View, AsyncStorage, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native'
 import firebase from "firebase";
 import moment from "moment";
 import { ListItem } from 'react-native-elements';
@@ -16,13 +16,48 @@ const BookmarkScreen = ({ navigation }) => {
   //on Startup
   useEffect(() => {
     globalActions.init()
-    .then(() => setInitialbookmarksData([...bookmarksData].reverse()));
+      .then(() => setInitialbookmarksData([...bookmarksData].reverse()));
   }, []);
 
-  _renderItem = (item, index) => {
-    const firstName = item.firstName || "" ;
-    const lastName  = item.lastName || "";
-    const avatarTitle = firstName.slice(0,1) + lastName.slice(0,1);
+  // Render Header
+  renderHeader = () => {
+    try {
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // Render Footer
+  renderFooter = () => {
+    try {
+      // Check If Loading
+      if (loading) {
+        return <ActivityIndicator />;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  ListEmpty = () => {
+    return (
+      //View to show when list is empty
+      <View style={{
+        justifyContent: 'center',
+        flex: 1,
+        margin: 10,
+      }}>
+        <Text style={{ color: 'gray', textAlign: 'center' }}>No Bookmarks</Text>
+      </View>
+    );
+  };
+
+  _renderItem = ({ item, index }) => {
+    const firstName = item.firstName || "";
+    const lastName = item.lastName || "";
+    const avatarTitle = firstName.slice(0, 1) + lastName.slice(0, 1);
     const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: avatarTitle };
 
     let onPressFunc, color;
@@ -31,8 +66,8 @@ const BookmarkScreen = ({ navigation }) => {
       onPressFunc = () => globalActions.removeBookmark(item.mac);
       color = "gold";
     } else {
-      
-      onPressFunc = () => globalActions.addBookmarkWithInfo(item, initialbookmarksData.length-1-index);
+
+      onPressFunc = () => globalActions.addBookmarkWithInfo(item, initialbookmarksData.length - 1 - index);
       color = "gray";
     }
     return (
@@ -60,14 +95,38 @@ const BookmarkScreen = ({ navigation }) => {
 
         }
         onPress={() => navigation.navigate("AttendeeDetailScreen", item)}
-        topDivider={true}
-        containerStyle={{ margin: 10 }}
+      />
+    );
+  };
+
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: "#CED0CE",
+        }}
       />
     );
   };
 
   return (
-    <View>{initialbookmarksData.map(this._renderItem)}</View>
+    <FlatList
+      // Data
+      data={initialbookmarksData}
+      // Render Items
+      renderItem={_renderItem}
+
+      ItemSeparatorComponent={this.renderSeparator}
+      // Item Key
+      keyExtractor={(item, index) => String(index)}
+      // // Header (Title)
+      ListHeaderComponent={this.renderHeader}
+      // // Footer (Activity Indicator)
+      ListFooterComponent={this.renderFooter}
+      ListEmptyComponent={this.ListEmpty}
+    />
   );
 }
 
@@ -75,5 +134,5 @@ const styles = StyleSheet.create({});
 
 BookmarkScreen.navigationOptions = {
   title: 'Bookmarks',
-  };
+};
 export default BookmarkScreen;
