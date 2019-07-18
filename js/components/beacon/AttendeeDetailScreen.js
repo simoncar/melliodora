@@ -7,24 +7,26 @@ import {
   View,
   ScrollView,
   TouchableHighlight,
+  TouchableOpacity,
   Dimensions,
-  AsyncStorage
+  SafeAreaView
 } from "react-native";
 import {
   ListItem,
   SearchBar,
   Avatar,
   Divider,
-  Button
+  Button,
+  Overlay
 } from "react-native-elements";
 import BeaconHistoryItem from "./BeaconHistoryItem";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
-// import Icon from 'react-native-vector-icons/FontAwesome';
-
-import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import firebase from "firebase";
 import moment from "moment";
+import 'moment/locale/en-SG'  // without this line it didn't work
+moment.locale('en-SG');
 import _ from "lodash";
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 import useBookmarkHook from "./utils/BookmarkStore";
 
@@ -35,7 +37,7 @@ const BookmarkBtn = ({ recordInfo }) => {
   //on Startup
   useEffect(() => {
     globalActions.init();
-  },[]);
+  }, []);
 
   let onPressFunc, color;
   if (bookmarks.indexOf(recordInfo.mac) > -1) {
@@ -46,7 +48,7 @@ const BookmarkBtn = ({ recordInfo }) => {
     color = "white";
   }
 
-  if(loading) return(<View></View>);
+  if (loading) return (<View></View>);
   return (
     <TouchableHighlight
       style={styles.bookmark}
@@ -70,34 +72,27 @@ export default class AttendeeDetailScreen extends Component {
       user: null,
       userBeacons: {},
       userHistoryData: {},
-
-      userHistory: []
+      userHistory: [],
+      calendarModalVisible: false,
+      selectedDate: ''
     }
-
-
   }
 
   componentDidMount() {
-
-
-    const beaconID = this.props.navigation.getParam("beaconID");
-
+    const beaconID = this.props.navigation.state.params.mac;
     const todayDate = moment()
-      .add(8, "hours")
       .format("YYYYMMDD");
 
+    this.setState({ selectedDate: todayDate });
+    console.log("beaconID", beaconID);
     this.getData(beaconID, todayDate).then(data =>
       this.setState({
         userHistory: data,
         loading: false
-
       }));
-
-
   }
 
   async getData(mac, date) {
-
     const data = [];
     await firebase
       .firestore()
@@ -105,7 +100,7 @@ export default class AttendeeDetailScreen extends Component {
       .doc("beacon")
       .collection("beaconHistory")
       .doc(date)
-      .collection("5AE59BBD544E") //beaconID
+      .collection(mac) //beaconID
       .get()
       .then(querySnapshot => {
         querySnapshot.docs.forEach(doc => {
@@ -114,6 +109,10 @@ export default class AttendeeDetailScreen extends Component {
         });
       });
     return data;
+  }
+
+  setCalendarModalVisible(visible) {
+    this.setState({ calendarModalVisible: visible });
   }
 
   _renderListItem = (item, index) => {
@@ -127,11 +126,11 @@ export default class AttendeeDetailScreen extends Component {
 
 
   render() {
-    const recordInfo  = this.props.navigation.state.params;
+    const recordInfo = this.props.navigation.state.params;
     const { lastSeen, state, mac, fullname, gradeTitle } = recordInfo;
-    const firstName = recordInfo.firstName || "" ;
-    const lastName  = recordInfo.lastName || "";
-    const avatarTitle = firstName.slice(0,1) + lastName.slice(0,1);
+    const firstName = recordInfo.firstName || "";
+    const lastName = recordInfo.lastName || "";
+    const avatarTitle = firstName.slice(0, 1) + lastName.slice(0, 1);
 
     const studentClass = recordInfo.class;
 
@@ -139,6 +138,42 @@ export default class AttendeeDetailScreen extends Component {
     return (
       <View style={{ height: "100%" }}>
         <BookmarkBtn recordInfo={recordInfo} />
+        <Overlay
+          isVisible={this.state.calendarModalVisible}
+          onBackdropPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
+          windowBackgroundColor="rgba(0, 0, 0, .8)"
+          width="auto"
+          height="auto"
+        >
+          <SafeAreaView >
+
+            <TouchableOpacity
+              onPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                zIndex: 10
+              }}
+            >
+              <Ionicons name="md-close" size={28} color='gray' />
+            </TouchableOpacity>
+            <View style={{ paddingHorizontal: 20, paddingTop: 40, paddingBottom: 10 }}  >
+              <Text style={{ marginBottom: 15, fontWeight: 'bold' }}>
+                Select Date
+              </Text>
+              <Calendar
+                onDayPress={(day) => { this.setState({ selectedDate: day.dateString }) }}
+                markedDates={{ [this.state.selectedDate]: { selected: true, disableTouchEvent: true } }}
+              />
+              <Button
+                title="Submit"
+                onPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
+                containerStyle={{ marginTop: 15 }} />
+
+            </View>
+          </SafeAreaView>
+        </Overlay>
 
         <ScrollView>
           <View style={styles.topContainer}>
@@ -146,7 +181,7 @@ export default class AttendeeDetailScreen extends Component {
               <Avatar
                 size="xlarge"
                 rounded
-                title = {avatarTitle}
+                title={avatarTitle}
                 activeOpacity={0.7}
               />
             </View>
@@ -166,7 +201,7 @@ export default class AttendeeDetailScreen extends Component {
 
           <View style={{ paddingVertical: 5, paddingHorizontal: 15 }}>
             <Button
-              title="Today 28 June 2019"
+              title={moment(this.state.selectedDate).format("LL")}
               raised
               icon={
                 <View style={{ paddingRight: 10 }}>
@@ -175,6 +210,9 @@ export default class AttendeeDetailScreen extends Component {
               }
               buttonStyle={{ backgroundColor: "#d3d3d3", padding: 2 }}
               titleStyle={{ color: "#48484A", fontSize: 14 }}
+              onPress={() => {
+                this.setCalendarModalVisible(true);
+              }}
             />
           </View>
           <View>{this.state.userHistory.map(this._renderListItem)}</View>

@@ -6,13 +6,21 @@ import I18n from "../../lib/i18n";
 
 import AttendanceStats from "./AttendanceStats";
 import BookmarkPreview from "./BookmarkPreview";
-import AttendanceMenu from "./AttendanceMenu";
 
+import { Feather } from "@expo/vector-icons";
+import AttendanceMenu from "./AttendanceMenu";
 export default class AttendanceOverviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: I18n.t("safeguarding"),
     headerBackTitle: null,
-  });
+    headerRight: (
+      <View style={{ paddingRight: 7, flexDirection: 'row' }}>
+        <TouchableOpacity onPress={() => navigation.navigate("BeaconSearch")}>
+          <Feather name="search" size={28} color="gray" style={{ paddingHorizontal: 8 }} />
+        </TouchableOpacity>
+      </View>
+    )
+
 
   constructor(props) {
     super(props);
@@ -26,11 +34,14 @@ export default class AttendanceOverviewScreen extends Component {
             <AttendanceStats navigation={this.props.navigation} />
           </View>
 
-          <View style={{ backgroundColor: "#fff", flex: 1, flexDirection: "column" }}>
-            <View style={{ flexDirection: "row", flexShrink: 1, paddingTop: 8, paddingHorizontal: 8 }}>
-              <Text style={{ fontWeight: "bold", color: "#48484a", flex: 1 }}>Recent Bookmarks</Text>
 
-              <View style={{ flex: 1, alignItems: "flex-end", justifyContent: "center" }}>
+
+          <View style={{ backgroundColor: "#fff", flex: 1, flexDirection: 'column' }}>
+            <View style={{ flexDirection: 'row', flexShrink: 1, paddingTop: 8, paddingHorizontal: 8 }}>
+              <Text style={{ fontWeight: 'bold', color: '#48484a', flex: 1 }}>Recent Bookmarks</Text>
+
+              <View style={{ flex: 1, alignItems: "flex-end", justifyContent: 'center' }}>
+
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
                   <Text style={{ fontSize: 12, color: "gray" }}>View All</Text>
                 </TouchableOpacity>
@@ -41,8 +52,10 @@ export default class AttendanceOverviewScreen extends Component {
             </View>
           </View>
           <View style={{ minHeight: 150 }}>
+
             <AttendanceMenu navigation={this.props.navigation} />
           </View>
+
 
           {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
             <Text>View All Bookmarks</Text>

@@ -29,7 +29,11 @@ import ClassListingScreen from "./components/beacon/ClassListingScreen";
 import AttendeeListingScreen from "./components/beacon/AttendeeListingScreen";
 import AttendeeDetailScreen from "./components/beacon/AttendeeDetailScreen";
 import BookmarkScreen from "./components/beacon/BookmarkScreen";
+
+import BeaconSearch from "./components/beacon/BeaconSearch";
+
 import I18n from "./lib/i18n";
+
 
 let StackHome = createStackNavigator(
   {
@@ -115,6 +119,9 @@ let StackOther = createStackNavigator(
     beaconHistory: { screen: beaconHistory },
     AttendeeDetailScreen: { screen: AttendeeDetailScreen },
     BookmarkScreen: { screen: BookmarkScreen },
+
+    BeaconSearch: { screen: BeaconSearch }
+
   },
   {
     navigationOptions: {

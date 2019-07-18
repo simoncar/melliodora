@@ -81,8 +81,10 @@ export default class selectLanguage extends Component {
               switchOnValueChange={this.onValueChange}
               hasNavArrow={false}
               title="中文(简体)"
+
               onPress={() => this._changeLanguage("zh")}
               icon={<MaterialCommunityIcons name="check" style={this._getStyle("zh")} />}
+
             />
             <SettingsList.Item
               hasSwitch={false}
@@ -168,7 +170,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 16,
     color: "#8e8e93",
+
     marginLeft: 10,
     alignSelf: "center",
+
   },
 });
