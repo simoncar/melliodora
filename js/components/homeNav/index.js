@@ -23,8 +23,9 @@ import BLEDataParser from "../../lib/BLEDataParser";
 import CountDown from "react-native-countdown-component";
 import * as ActionCreators from "../../actions";
 import { openDrawer } from "../../actions/drawer";
-
+import I18n from "../../lib/i18n";
 import styles from "./styles";
+import { AsyncStorage } from "react-native";
 
 const { width } = Dimensions.get("window");
 const ListItem = require("./ListItem");
@@ -48,18 +49,23 @@ const tabBarIcon = name => ({ tintColor }) => (
 class HomeNav extends Component {
   constructor(props) {
     super(props);
-
-    this.ref = firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("feature")
-      .collection("feature articles");
+    try {
+      this.ref = firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("feature")
+        .collection("feature articles");
+    } catch (e) {
+      console.error(e.message);
+    }
 
     this.state = {
       user: null,
       loading: false,
       featureItems: [],
     };
+
+    this.loadFromAsyncStorage();
 
     //this.loadFromRedux();
   }
@@ -77,7 +83,11 @@ class HomeNav extends Component {
   });
 
   componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    try {
+      this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    } catch (e) {
+      console.error(e.message);
+    }
   }
 
   componentWillUnmount() {
@@ -109,7 +119,7 @@ class HomeNav extends Component {
       featureItems.push({
         key: doc.id,
         _key: doc.id,
-        doc, // DocumentSnapshot
+        //doc, // DocumentSnapshot
         title: summary,
         description,
         location,
@@ -129,8 +139,14 @@ class HomeNav extends Component {
       });
     });
 
+    if (featureItems.length > 0) {
+      this._storeData(JSON.stringify(featureItems));
+      this.setState({
+        featureItems,
+      });
+    }
+
     this.setState({
-      featureItems,
       loading: false,
     });
   };
@@ -149,6 +165,27 @@ class HomeNav extends Component {
 
     return seconds;
   }
+
+  loadFromAsyncStorage() {
+    AsyncStorage.getItem("featureItems").then(fi => {
+      var featureItems = JSON.parse(fi);
+      console.log("loading = ", fi);
+      this.setState({
+        featureItems,
+        loading: false,
+      });
+    });
+  }
+
+  _storeData = async featureItems => {
+    try {
+      console.log("Storing = ", featureItems);
+      AsyncStorage.setItem("featureItems", featureItems);
+    } catch (error) {
+      console.log(error);
+      // Error saving data
+    }
+  };
 
   loadFromRedux() {
     this.state.featureItems = [];
@@ -221,7 +258,7 @@ class HomeNav extends Component {
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
-            <Text style={styles.version}>School Starts in...</Text>
+            <Text style={styles.version}>{I18n.t("schoolStarts")}</Text>
             <CountDown until={this.getSeconds()} size={20} />
 
             {isAdmin(this.props.adminPassword) && (
@@ -254,7 +291,7 @@ class HomeNav extends Component {
                         uri: "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png",
                       }}
                     />
-                    <Text style={styles.itemTitle}>Safeguarding</Text>
+                    <Text style={styles.itemTitle}>{I18n.t("safeguarding")}</Text>
                   </View>
                   <View>
                     <Image

@@ -91,8 +91,6 @@ class BeaconItem extends Component {
   }
 
   render() {
-    console.log(this.props);
-
     return (
       <View style={styles.chatRow}>
         <Grid>

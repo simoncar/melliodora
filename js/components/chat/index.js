@@ -18,6 +18,7 @@ import CustomImage from "./customImage";
 import CustomVideo from "./customVideo";
 import styles from "./styles";
 import HeaderContent from "./../headerContent/header/";
+import I18n from "../../lib/i18n";
 
 import * as ActionCreators from "../../actions";
 
@@ -79,7 +80,7 @@ class chat extends Component {
           navigation.state.params._showActionSheet();
         }}
       >
-        <Text>{navigation.getParam("chatroom")}</Text>
+        <Text style={{ fontSize: 17, fontWeight: "600" }}>{navigation.getParam("chatroom")}</Text>
       </TouchableOpacity>
     ),
     headerRight: (

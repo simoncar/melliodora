@@ -5,6 +5,8 @@ import { Container, Content } from "native-base";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
+import I18n from "../../lib/i18n";
+import { AsyncStorage } from "react-native";
 
 const ChatroomItem = require("./chatroomItem");
 
@@ -28,13 +30,21 @@ class chatRooms extends Component {
   }
 
   static navigationOptions = {
-    title: "Chat",
+    title: I18n.t("chat"),
     tabBarIcon: tabBarIcon("bubble"),
     headerBackTitle: null,
   };
 
+  componentWillMount() {
+    this.loadFromAsyncStorage();
+  }
+
   componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    try {
+      this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    } catch (e) {
+      console.error(e.message);
+    }
   }
 
   onCollectionUpdate = chatRooms => {
@@ -46,9 +56,32 @@ class chatRooms extends Component {
       });
     });
 
-    this.setState({
-      userChatrooms,
+    if (userChatrooms.length > 0) {
+      this._storeData(JSON.stringify(userChatrooms));
+      this.setState({
+        userChatrooms,
+      });
+    }
+  };
+
+  loadFromAsyncStorage() {
+    AsyncStorage.getItem("userChatrooms").then(fi => {
+      var userChatrooms = JSON.parse(fi);
+      console.log("loading = ", fi);
+      this.setState({
+        userChatrooms,
+        loading: false,
+      });
     });
+  }
+  _storeData = async userChatrooms => {
+    try {
+      console.log("Storing  userChatrooms = ", userChatrooms);
+      AsyncStorage.setItem("userChatrooms", userChatrooms);
+    } catch (error) {
+      console.log(error);
+      // Error saving data
+    }
   };
 
   keyExtractor = item => item._key;

@@ -296,6 +296,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     var campus = "";
     var personState = "";
     var dataDict = "";
+    var beaconUpdates = [];
+
     //  try {
 
     beacons.forEach(snapshot => {
@@ -309,58 +311,63 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
           .doc(snapshot.mac)
           .set(dataDict);
       } else {
-        let beaconRef = admin
-          .firestore()
-          .collection("sais_edu_sg")
-          .doc("beacon")
-          .collection("beacons")
-          .doc(snapshot.mac)
-          .get()
-          .then(function(doc) {
-            if (!doc.exists) {
-              //IGNORE
-            } else {
-              personState = dataDict.state;
-              campus = dataDict.campus;
+        if (beaconUpdates.indexOf(snapshot.mac) == -1) {
+          beaconUpdates.push(snapshot.mac);
+          console.log("Index : " + beaconUpdates.indexOf(snapshot.mac), snapshot.mac);
 
-              var ibeaconUuid = snapshot.ibeaconUuid === undefined ? "" : snapshot.ibeaconUuid;
-              var ibeaconMajor = snapshot.ibeaconMajor === undefined ? 0 : snapshot.ibeaconMajor;
-              var ibeaconMinor = snapshot.ibeaconMinor === undefined ? 0 : snapshot.ibeaconMinor;
-              var rssi = snapshot.rssi === undefined ? 0 : snapshot.rssi;
-              var ibeaconTxPower = snapshot.ibeaconTxPower === undefined ? 0 : snapshot.ibeaconTxPower;
-              var battery = snapshot.battery === undefined ? 0 : snapshot.battery;
-              var raw = snapshot.rawData === undefined ? "0" : snapshot.rawData;
+          let beaconRef = admin
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("beacon")
+            .collection("beacons")
+            .doc(snapshot.mac)
+            .get()
+            .then(function(doc) {
+              if (!doc.exists) {
+                //IGNORE
+              } else {
+                personState = dataDict.state;
+                campus = dataDict.campus;
 
-              if (raw.length < 10) {
-                raw = "";
+                var ibeaconUuid = snapshot.ibeaconUuid === undefined ? "" : snapshot.ibeaconUuid;
+                var ibeaconMajor = snapshot.ibeaconMajor === undefined ? 0 : snapshot.ibeaconMajor;
+                var ibeaconMinor = snapshot.ibeaconMinor === undefined ? 0 : snapshot.ibeaconMinor;
+                var rssi = snapshot.rssi === undefined ? 0 : snapshot.rssi;
+                var ibeaconTxPower = snapshot.ibeaconTxPower === undefined ? 0 : snapshot.ibeaconTxPower;
+                var battery = snapshot.battery === undefined ? 0 : snapshot.battery;
+                var raw = snapshot.rawData === undefined ? "0" : snapshot.rawData;
+
+                if (raw.length < 10) {
+                  raw = "";
+                }
+
+                var dataDictUpdate = {
+                  campus: campus,
+                  timestamp: Date.now(),
+                  state: personState,
+                  ibeaconUuid: ibeaconUuid,
+                  ibeaconMajor: ibeaconMajor,
+                  ibeaconMinor: ibeaconMinor,
+                  rssi: rssi,
+                  ibeaconTxPower: ibeaconTxPower,
+                  raw: raw,
+                  mac: snapshot.mac,
+                };
+
+                admin
+                  .firestore()
+                  .collection("sais_edu_sg")
+                  .doc("beacon")
+                  .collection("beacons")
+                  .doc(snapshot.mac)
+                  .update(dataDictUpdate);
               }
+            })
 
-              var dataDictUpdate = {
-                campus: campus,
-                timestamp: Date.now(),
-                state: personState,
-                ibeaconUuid: ibeaconUuid,
-                ibeaconMajor: ibeaconMajor,
-                ibeaconMinor: ibeaconMinor,
-                rssi: rssi,
-                ibeaconTxPower: ibeaconTxPower,
-                raw: raw,
-                mac: snapshot.mac,
-              };
-
-              admin
-                .firestore()
-                .collection("sais_edu_sg")
-                .doc("beacon")
-                .collection("beacons")
-                .doc(snapshot.mac)
-                .update(dataDictUpdate);
-            }
-          })
-
-          .catch(err => {
-            console.log("Error getting document", err);
-          });
+            .catch(err => {
+              console.log("Error getting document", err);
+            });
+        }
       }
     });
     // } catch (e) {
