@@ -28,7 +28,7 @@ export default class AttendanceMenu extends Component {
           <SettingsList.Item
             icon={<Image style={styles.imageStyle} source={require("../settings/images/dnd.png")} />}
             title={I18n.t("studentLookup")}
-            onPress={() => Alert.alert("Route Student Search")}
+            onPress={() => this.props.navigation.navigate("BeaconSearch")}
           />
         </SettingsList>
       </View>
