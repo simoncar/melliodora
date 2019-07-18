@@ -160,11 +160,14 @@ class calendar1 extends Component {
     AsyncStorage.getItem("calendarItems").then(fi => {
       var items = JSON.parse(fi);
       console.log("loading = ", fi);
-      this.setState({
-        items,
-        loading: false,
-      });
-      this.loadItems();
+
+      if (items.length > 0) {
+        this.setState({
+          items,
+          loading: false,
+        });
+        this.loadItems();
+      }
     });
 
     //AsyncStorage.setItem('my_key', 'my_value', () => { console.log('done setting item!') });
