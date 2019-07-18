@@ -1,9 +1,8 @@
-"use strict";
-
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const fetch = require("node-fetch");
 const { Translate } = require("@google-cloud/translate");
+const computeCounts = require("./computeCounts.js");
 
 admin.initializeApp();
 
@@ -269,6 +268,77 @@ exports.beaconPingHistory = functions.firestore
         .set(dataDict);
     }
   });
+
+exports.computeCounts = functions.https.onRequest(async (req, res) => {
+  // This function is scheduled to run periodically
+  //https://console.cloud.google.com/cloudscheduler?project=calendar-app-57e88&folder&organizationId&jobs-tablesize=50
+
+  var countPerimeter = 0;
+  var countExited = 0;
+  var countEntered = 0;
+  var countNotPresent = 0;
+  var countOther = 0;
+
+  const xdate = moment()
+    .add(8, "hours")
+    .format("YYYYMMDD");
+
+  let ref = await admin
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("beacon")
+    .collection("beacons")
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log("No matching Perimeter beacons to expire.");
+        return;
+      } else {
+        snapshot.forEach(doc => {
+          child = doc.data();
+          switch (child.state) {
+            case "Not Present":
+              countNotPresent++;
+              break;
+            case "Perimeter":
+              countPerimeter++;
+              break;
+            case "Entered":
+              countEntered++;
+              break;
+            case "Exited":
+              countExited++;
+              break;
+            default:
+              countOther++;
+              console.log(doc.id);
+          }
+        });
+      }
+      console.log(countNotPresent, countPerimeter, countEntered, countExited, countOther);
+
+      var dataDict = {
+        countNotPresent,
+        countPerimeter,
+        countEntered,
+        countExited,
+        countOther,
+        timestamp: Date.now(),
+      };
+
+      console.log(dataDict);
+
+      admin
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("beacon")
+        .collection("beaconHistory")
+        .doc(xdate)
+        .set(dataDict);
+    });
+
+  res.status(200).send(req.body);
+});
 
 exports.registerBeacon = functions.https.onRequest((req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
