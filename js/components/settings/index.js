@@ -12,7 +12,9 @@ import AttendanceMenu from "../beacon/AttendanceMenu";
 
 class Settings extends Component {
   static navigationOptions = {
+
     title: I18n.t("more"),
+
     headerBackTitle: null,
   };
 
@@ -83,7 +85,9 @@ class Settings extends Component {
 
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
+
               title={I18n.t("athletics")}
+
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() =>
@@ -130,7 +134,9 @@ class Settings extends Component {
 
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/hotspot.png")} />}
+
               title={I18n.t("contact")}
+
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() => {
@@ -140,19 +146,23 @@ class Settings extends Component {
 
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/cellular.png")} />}
+
               title={I18n.t("shop")}
               titleInfo={I18n.t("pta")}
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
                   url: "https://www.saispta.com/",
                   title: I18n.t("shop"),
+
                 })
               }
             />
 
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/display.png")} />}
+
               title={I18n.t("map")}
+
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() => {
@@ -161,7 +171,9 @@ class Settings extends Component {
             />
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/display.png")} />}
+
               title={I18n.t("library")}
+
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() => {
@@ -169,10 +181,12 @@ class Settings extends Component {
               }}
             />
 
+
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/general.png")} />}
               title={"Language " + I18n.t("language")}
+
               titleInfo={this.state.language}
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() => this.props.navigation.navigate("selectLanguage")}

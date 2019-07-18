@@ -216,6 +216,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: height,
     width: width,
+
   },
   headerText: {
     fontFamily: "System",
@@ -239,6 +240,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#000",
   },
+
 });
 
 AttendeeListingScreen.navigationOptions = {
