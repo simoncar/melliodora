@@ -57,6 +57,7 @@ export default class BeaconSearch extends Component {
           noResult: false
         });
       } else {
+        //No Result found
         this.setState({
           documentData: documentData,
           loading: false,
@@ -100,6 +101,24 @@ export default class BeaconSearch extends Component {
       console.log(error);
     }
   };
+
+  ListEmpty = () => {
+
+    if (this.state.noResult) {
+      return (
+        //View to show when list is empty
+        <View style={{
+          justifyContent: 'center',
+          flex: 1,
+          margin: 10,
+        }}>
+          <Text style={{ color: 'gray', textAlign: 'center' }}>No Result Found</Text>
+        </View>
+      );
+    }
+    return null;
+  };
+
   _renderItem = ({ item }) => {
     console.log("item", item);
     const firstName = item.firstName || "";
@@ -177,9 +196,7 @@ export default class BeaconSearch extends Component {
           onPress={this.retrieveData}
         />
 
-        {this.state.noResult &&
-          <Text style={{ color: 'gray', fontSize: 8, marginLeft: 20 }}>No Result Found</Text>
-        }
+
         <FlatList
           // Data
           data={this.state.documentData}
@@ -193,6 +210,7 @@ export default class BeaconSearch extends Component {
           ListHeaderComponent={this.renderHeader}
           // Footer (Activity Indicator)
           ListFooterComponent={this.renderFooter}
+          ListEmptyComponent={this.ListEmpty}
         />
 
       </View>
