@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, FlatList, Text, ActivityIndicator } from "react-native";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Text,
+  ActivityIndicator
+} from "react-native";
 import { ListItem, SearchBar } from "react-native-elements";
 import firebase from "firebase";
 
 import useBeaconSearchHook from "./utils/BeaconSearchStore";
 
 const GradeListingScreen = ({ navigation }) => {
-
   const [globalBeaconSearch, globalBeaconSearchAction] = useBeaconSearchHook();
-
 
   const [loading, setLoading] = useState(false);
   const [campusData, setCampusData] = useState([]);
@@ -18,12 +22,11 @@ const GradeListingScreen = ({ navigation }) => {
   }, []);
 
   // Retrieve Data
-  retrieveData = async () => {
+  const retrieveData = async () => {
     try {
-
       // Set State: Loading
       setLoading(true);
-      console.log('Retrieving Data');
+      console.log("Retrieving Data");
       // Cloud Firestore: Query
 
       let initialQuery = await firebase
@@ -31,26 +34,26 @@ const GradeListingScreen = ({ navigation }) => {
         .collection("sais_edu_sg")
         .doc("org")
         .collection("grade")
-        .orderBy("grade")
-
+        .orderBy("grade");
 
       // Cloud Firestore: Query Snapshot
       let documentSnapshots = await initialQuery.get();
       // Cloud Firestore: Document Data
-      let newDocumentData = documentSnapshots.docs.map(document => document.data());
+      let newDocumentData = documentSnapshots.docs.map(document =>
+        document.data()
+      );
 
       // Set State
       setCampusData(newDocumentData);
       setLoading(false);
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   };
 
-  _keyExtractor = (item, index) => index.toString();
+  const _keyExtractor = (item, index) => index.toString();
 
-  _renderItem = ({ item }) => (
+  const _renderItem = ({ item }) => (
     <ListItem
       title={item.gradeTitle}
       chevron={true}
@@ -69,13 +72,11 @@ const GradeListingScreen = ({ navigation }) => {
       onPress={() => {
         globalBeaconSearchAction.setGrade(item.grade);
         navigation.navigate("ClassListingScreen");
-      }
-
-      }
+      }}
     />
   );
 
-  renderSeparator = () => {
+  const renderSeparator = () => {
     return (
       <View
         style={{
@@ -88,21 +89,16 @@ const GradeListingScreen = ({ navigation }) => {
   };
 
   // Render Footer
-  renderFooter = () => {
+  const renderFooter = () => {
     try {
-
       // Check If Loading
 
       if (loading) {
-        return (
-          <ActivityIndicator />
-        )
-      }
-      else {
+        return <ActivityIndicator />;
+      } else {
         return null;
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   };
@@ -118,8 +114,7 @@ const GradeListingScreen = ({ navigation }) => {
       />
     </View>
   );
-
-}
+};
 
 const styles = StyleSheet.create({
   listingText: {

@@ -22,7 +22,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { WebBrowser } from "expo";
 import Constants from "expo-constants";
-import HeaderContent from "./../headerContent/header/";
 import { openDrawer } from "../../actions/drawer";
 import * as ActionCreators from "../../actions";
 import styles from "./styles";
@@ -267,7 +266,6 @@ class WebportalAuth extends Component {
   render2() {
     return (
       <Container>
-        <HeaderContent navigation={this.props.navigation} />
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>

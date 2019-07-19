@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Dimensions } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 
 import { Text, Button } from "native-base";
-import styles from "./styles";
 import { Ionicons, Entypo, Octicons } from "@expo/vector-icons";
 import { Grid, Col, Row } from "react-native-easy-grid";
+import styles from "./styles";
 
 class ChatroomItem extends Component {
   constructor(props) {

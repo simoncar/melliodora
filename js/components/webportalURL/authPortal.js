@@ -11,8 +11,6 @@ import {
 
 import { Container, Spinner } from "native-base";
 
-import HeaderContent from "./../headerContent/header/";
-
 import { getParameterByName } from "../global.js";
 
 import styles from "./styles";
@@ -222,7 +220,7 @@ class authPortal extends Component {
   };
 
   render() {
-    _login = () => {
+    const _login = () => {
       Animated.visible = false;
       Animated.height = 0;
       //this.toggleCancel();
@@ -235,8 +233,6 @@ class authPortal extends Component {
 
     return (
       <Container>
-        <HeaderContent navigation={this.props.navigation} />
-
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>

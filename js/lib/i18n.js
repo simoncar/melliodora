@@ -32,7 +32,7 @@ I18n.translations = {
   sv: require("../locales/sv.json"),
   th: require("../locales/th.json"),
   vi: require("../locales/vi.json"),
-  cy: require("../locales/cy.json"),
+  cy: require("../locales/cy.json")
 };
 
 I18n.locale = Localization.locale;

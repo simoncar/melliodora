@@ -24,7 +24,9 @@ const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
 
 // Translate an incoming message.
 exports.translate = functions.database
-  .ref("instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/{messageID}")
+  .ref(
+    "instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/{messageID}"
+  )
   .onWrite(async (change, context) => {
     const snapshot = change.after;
     const promises = [];
@@ -37,38 +39,49 @@ exports.translate = functions.database
     var message = snapshot.child("text").val();
 
     var results = await translateX.translate(message, { to: "ja" });
-    var detectedSourceLanguage = results[1].data.translations[0].detectedSourceLanguage;
+    var detectedSourceLanguage =
+      results[1].data.translations[0].detectedSourceLanguage;
 
     admin
       .database()
-      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
+      .ref(
+        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
+      )
       .update({
         textJA: results[0],
-        detectedSourceLanguage: detectedSourceLanguage,
+        detectedSourceLanguage: detectedSourceLanguage
       });
 
     var results = await translateX.translate(message, { to: "zh-CN" });
     admin
       .database()
-      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
+      .ref(
+        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
+      )
       .update({ textZHCN: results[0] });
 
     var results = await translateX.translate(message, { to: "ko" });
     admin
       .database()
-      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
+      .ref(
+        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
+      )
       .update({ textKO: results[0] });
 
     var results = await translateX.translate(message, { to: "fr" });
     admin
       .database()
-      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
+      .ref(
+        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
+      )
       .update({ textFR: results[0] });
 
     var results = await translateX.translate(message, { to: "en" });
     admin
       .database()
-      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
+      .ref(
+        `instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`
+      )
       .update({ textEN: results[0], approved: true });
 
     //}
@@ -77,12 +90,18 @@ exports.translate = functions.database
   });
 
 exports.sendPushNotificationSimonAll = functions.database
-  .ref("instance/0001-sais_edu_sg/chat/chatroom/{chatroomID}/messages/{newMessageID}")
+  .ref(
+    "instance/0001-sais_edu_sg/chat/chatroom/{chatroomID}/messages/{newMessageID}"
+  )
   .onCreate((snap, context) => {
     const createdData = snap.val();
     const messages = [];
 
-    const query = admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/${createdData.chatroom}/notifications`);
+    const query = admin
+      .database()
+      .ref(
+        `instance/0001-sais_edu_sg/chat/chatroom/${createdData.chatroom}/notifications`
+      );
     query.on("value", snap => {
       snap.forEach(child => {
         const { key } = child; // "ada"
@@ -93,7 +112,7 @@ exports.sendPushNotificationSimonAll = functions.database
           to: childData.pushToken,
           title: createdData.chatroom,
           sound: "default",
-          body: createdData.text,
+          body: createdData.text
         });
       });
     });
@@ -106,9 +125,9 @@ exports.sendPushNotificationSimonAll = functions.database
           method: "POST",
           headers: {
             Accept: "application/json",
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
-          body: JSON.stringify(messages),
+          body: JSON.stringify(messages)
         });
       })
       .catch(reason => {
@@ -128,7 +147,7 @@ exports.chatBeaconPing = functions.database
   });
 
 const cors = require("cors")({
-  origin: true,
+  origin: true
 });
 
 // https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
@@ -168,7 +187,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
             timestamp: null,
             state: "Exited",
             mac: doc.id,
-            rssi: child.rssi,
+            rssi: child.rssi
           };
 
           admin
@@ -210,7 +229,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
           timestamp: null,
           state: "Not Present",
           mac: doc.id,
-          rssi: child.rssi,
+          rssi: child.rssi
         };
 
         admin
@@ -254,7 +273,7 @@ exports.beaconPingHistory = functions.firestore
         oldCampus: oldCampus,
         state: newState,
         campus: newCampus,
-        timestamp: Date.now(),
+        timestamp: Date.now()
       };
 
       admin
@@ -315,7 +334,13 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
           }
         });
       }
-      console.log(countNotPresent, countPerimeter, countEntered, countExited, countOther);
+      console.log(
+        countNotPresent,
+        countPerimeter,
+        countEntered,
+        countExited,
+        countOther
+      );
 
       var dataDict = {
         countNotPresent,
@@ -323,7 +348,7 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
         countEntered,
         countExited,
         countOther,
-        timestamp: Date.now(),
+        timestamp: Date.now()
       };
 
       console.log(dataDict);
@@ -383,7 +408,10 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
       } else {
         if (beaconUpdates.indexOf(snapshot.mac) == -1) {
           beaconUpdates.push(snapshot.mac);
-          console.log("Index : " + beaconUpdates.indexOf(snapshot.mac), snapshot.mac);
+          console.log(
+            "Index : " + beaconUpdates.indexOf(snapshot.mac),
+            snapshot.mac
+          );
 
           let beaconRef = admin
             .firestore()
@@ -399,13 +427,27 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                 personState = dataDict.state;
                 campus = dataDict.campus;
 
-                var ibeaconUuid = snapshot.ibeaconUuid === undefined ? "" : snapshot.ibeaconUuid;
-                var ibeaconMajor = snapshot.ibeaconMajor === undefined ? 0 : snapshot.ibeaconMajor;
-                var ibeaconMinor = snapshot.ibeaconMinor === undefined ? 0 : snapshot.ibeaconMinor;
+                var ibeaconUuid =
+                  snapshot.ibeaconUuid === undefined
+                    ? ""
+                    : snapshot.ibeaconUuid;
+                var ibeaconMajor =
+                  snapshot.ibeaconMajor === undefined
+                    ? 0
+                    : snapshot.ibeaconMajor;
+                var ibeaconMinor =
+                  snapshot.ibeaconMinor === undefined
+                    ? 0
+                    : snapshot.ibeaconMinor;
                 var rssi = snapshot.rssi === undefined ? 0 : snapshot.rssi;
-                var ibeaconTxPower = snapshot.ibeaconTxPower === undefined ? 0 : snapshot.ibeaconTxPower;
-                var battery = snapshot.battery === undefined ? 0 : snapshot.battery;
-                var raw = snapshot.rawData === undefined ? "0" : snapshot.rawData;
+                var ibeaconTxPower =
+                  snapshot.ibeaconTxPower === undefined
+                    ? 0
+                    : snapshot.ibeaconTxPower;
+                var battery =
+                  snapshot.battery === undefined ? 0 : snapshot.battery;
+                var raw =
+                  snapshot.rawData === undefined ? "0" : snapshot.rawData;
 
                 if (raw.length < 10) {
                   raw = "";
@@ -421,7 +463,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   rssi: rssi,
                   ibeaconTxPower: ibeaconTxPower,
                   raw: raw,
-                  mac: snapshot.mac,
+                  mac: snapshot.mac
                 };
 
                 admin
@@ -452,7 +494,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
 function setGateway(snapshot) {
   var state = "Entered";
   var personCampus = "";
-  var personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+  var personPictureURL =
+    "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
 
   switch (snapshot.mac) {
     case "AC233FC03164":
@@ -519,7 +562,7 @@ function setGateway(snapshot) {
     picture: personPictureURL,
     mac: snapshot.mac,
     gatewayFree: snapshot.gatewayFree,
-    gatewayLoad: snapshot.gatewayLoad,
+    gatewayLoad: snapshot.gatewayLoad
   };
 
   return dataDict;

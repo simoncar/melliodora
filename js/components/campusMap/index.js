@@ -2,19 +2,11 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Image, View } from "react-native";
 import { connect } from "react-redux";
-
-import { Actions } from "react-navigation";
 import { Container, Content, Text } from "native-base";
-
 import Constants from "expo-constants";
 import { openDrawer } from "../../actions/drawer";
-
-import HeaderContent from "./../headerContent/header/";
 import Analytics from "../../lib/analytics";
-
 import styles from "./styles";
-
-const primary = require("../../themes/variable").brandPrimary;
 
 class campusMap extends Component {
   static propTypes = {
@@ -43,7 +35,6 @@ class campusMap extends Component {
   render() {
     return (
       <Container>
-        <HeaderContent navigation={this.props.navigation} />
         <Content showsVerticalScrollIndicator showsHorizontalScrollIndicator>
           <View
             style={{
