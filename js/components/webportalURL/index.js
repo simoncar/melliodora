@@ -12,13 +12,18 @@ var WEBVIEW_REF = "webview";
 var injectScript = "";
 
 const tabBarIcon = name => ({ tintColor }) => (
-  <MaterialCommunityIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
+  <MaterialCommunityIcons
+    style={{ backgroundColor: "transparent" }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
 );
 
 class WebportalSports extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.getParam("title"),
-    headerBackTitle: null,
+    headerBackTitle: null
   });
 
   constructor(props) {
@@ -29,7 +34,7 @@ class WebportalSports extends Component {
     //analytics  -----
     let trackingOpts = {
       instId: Constants.manifest.extra.instance,
-      emailOrUsername: global.username,
+      emailOrUsername: global.username
     };
 
     Analytics.identify(global.username, trackingOpts);
@@ -47,7 +52,7 @@ class WebportalSports extends Component {
     loading: true,
     scalesPageToFit: true,
     cookies: {},
-    webViewUrl: "",
+    webViewUrl: ""
   };
 
   onNavigationStateChange = navState => {
@@ -84,7 +89,10 @@ class WebportalSports extends Component {
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>
-              <TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
+              <TouchableOpacity
+                disabled={!this.state.canGoBack}
+                onPress={this.onBack.bind(this)}
+              >
                 <Ionicons style={styles.navIcon} name="ios-arrow-back" />
               </TouchableOpacity>
 

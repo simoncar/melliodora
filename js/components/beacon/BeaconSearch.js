@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
   Dimensions,
   FlatList,
-  SafeAreaView,
+  SafeAreaView
 } from "react-native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { ButtonGroup, Input, Button, ListItem } from "react-native-elements";
@@ -24,7 +24,7 @@ export default class BeaconSearch extends Component {
       loading: false,
       searchTerm: "",
       selectedIndex: 0,
-      noResult: false,
+      noResult: false
     };
   }
 
@@ -51,33 +51,39 @@ export default class BeaconSearch extends Component {
       .doc("beacon")
       .collection("beacons");
 
-    return baseQuery.where("searchArray", "array-contains", this.state.searchTerm.toUpperCase());
+    return baseQuery.where(
+      "searchArray",
+      "array-contains",
+      this.state.searchTerm.toUpperCase()
+    );
   };
   // Retrieve Data
   retrieveData = async () => {
     try {
       // Set State: Loading
       this.setState({
-        loading: true,
+        loading: true
       });
       console.log("Retrieving Data"); // Cloud Firestore: Query
       let initialQuery = await this.getQuery();
 
       // Cloud Firestore: Query Snapshot
       let documentSnapshots = await initialQuery.get(); // Cloud Firestore: Document Data
-      let documentData = documentSnapshots.docs.map(document => document.data());
+      let documentData = documentSnapshots.docs.map(document =>
+        document.data()
+      );
       if (documentData.length > 0) {
         this.setState({
           documentData: documentData,
           loading: false,
-          noResult: false,
+          noResult: false
         });
       } else {
         //No Result found
         this.setState({
           documentData: documentData,
           loading: false,
-          noResult: true,
+          noResult: true
         });
       }
     } catch (error) {
@@ -116,10 +122,12 @@ export default class BeaconSearch extends Component {
           style={{
             justifyContent: "center",
             flex: 1,
-            margin: 10,
+            margin: 10
           }}
         >
-          <Text style={{ color: "gray", textAlign: "center" }}>No Result Found</Text>
+          <Text style={{ color: "gray", textAlign: "center" }}>
+            No Result Found
+          </Text>
         </View>
       );
     }
@@ -131,13 +139,17 @@ export default class BeaconSearch extends Component {
     const firstName = item.firstName || "";
     const lastName = item.lastName || "";
     const avatarTitle = firstName.slice(0, 1) + lastName.slice(0, 1);
-    const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: avatarTitle };
+    const avatar = item.imgSrc
+      ? { source: { uri: item.imgSrc } }
+      : { title: avatarTitle };
     return (
       <ListItem
         leftAvatar={{ rounded: true, ...avatar }}
         title={
           <View style={{ flex: 1, flexDirection: "row" }}>
-            <Text style={{ flex: 1, fontSize: 16 }}>{item.fullname || "No Name"}</Text>
+            <Text style={{ flex: 1, fontSize: 16 }}>
+              {item.fullname || "No Name"}
+            </Text>
             <Text
               style={{
                 flex: 0,
@@ -145,7 +157,7 @@ export default class BeaconSearch extends Component {
                 fontSize: 10,
                 alignSelf: "center",
                 justifyContent: "center",
-                color: "gray",
+                color: "gray"
               }}
             >
               {item.mac}
@@ -156,11 +168,15 @@ export default class BeaconSearch extends Component {
         subtitle={
           <View style={{ flex: 1, flexDirection: "column", paddingTop: 8 }}>
             <Text style={{ color: "gray" }}>Class {item.class}</Text>
-            <Text style={{ color: "gray" }}>last seen {moment(item.lastSeen).format("LLL")}</Text>
+            <Text style={{ color: "gray" }}>
+              last seen {moment(item.lastSeen).format("LLL")}
+            </Text>
             <Text style={{ color: "gray" }}>{item.state}</Text>
           </View>
         }
-        onPress={() => this.props.navigation.navigate("AttendeeDetailScreen", item)}
+        onPress={() =>
+          this.props.navigation.navigate("AttendeeDetailScreen", item)
+        }
       />
     );
   };
@@ -171,7 +187,7 @@ export default class BeaconSearch extends Component {
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#CED0CE",
+          backgroundColor: "#CED0CE"
         }}
       />
     );
@@ -185,18 +201,35 @@ export default class BeaconSearch extends Component {
       <View style={{ padding: 10 }}>
         <Input
           placeholder="Search"
-          leftIcon={<Ionicons name="ios-search" size={24} style={{ paddingRight: 12 }} color="gray" />}
+          leftIcon={
+            <Ionicons
+              name="ios-search"
+              size={24}
+              style={{ paddingRight: 12 }}
+              color="gray"
+            />
+          }
           shake={true}
           leftIconContainerStyle={{ marginLeft: 0, paddingLeft: 0 }}
-          containerStyle={{ borderWidth: 1, borderRadius: 25, borderColor: "gray" }}
+          containerStyle={{
+            borderWidth: 1,
+            borderRadius: 25,
+            borderColor: "gray"
+          }}
           inputContainerStyle={{ borderBottomWidth: 0 }}
           onChangeText={text => this.setState({ searchTerm: text })}
           value={this.state.searchTerm}
         />
         {this.state.selectedIndex === 1 && (
-          <Text style={{ color: "red", fontSize: 8, marginLeft: 20 }}>* Case Sensitive</Text>
+          <Text style={{ color: "red", fontSize: 8, marginLeft: 20 }}>
+            * Case Sensitive
+          </Text>
         )}
-        <ButtonGroup onPress={this.updateIndex} selectedIndex={selectedIndex} buttons={buttons} />
+        <ButtonGroup
+          onPress={this.updateIndex}
+          selectedIndex={selectedIndex}
+          buttons={buttons}
+        />
         <Button title="Submit" raised onPress={this.retrieveData} />
 
         <FlatList

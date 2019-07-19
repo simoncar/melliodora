@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  ScrollView,
+  TouchableOpacity
+} from "react-native";
 import { Avatar, Card } from "react-native-elements";
 import moment from "moment";
 
@@ -22,14 +28,21 @@ const BookmarkPreview = ({ navigation }) => {
     const lastName = item.lastName || "";
     const avatarTitle = firstName.slice(0, 1) + lastName.slice(0, 1);
     return (
-      <TouchableOpacity onPress={() => navigation.navigate("AttendeeDetailScreen", item)} key={item.mac}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("AttendeeDetailScreen", item)}
+        key={item.mac}
+      >
         <Card containerStyle={styles.bookmarkItemContainer}>
           <View style={styles.avaterContainer}>
             <Avatar rounded title={avatarTitle} size="medium" />
           </View>
           <Text style={styles.bookmarkItemText}>{fullname || "No Name"}</Text>
-          <Text style={styles.bookmarkItemText}>{studentClass || "No Class"}</Text>
-          <Text style={styles.bookmarkItemText}>{moment(lastSeen).format("LLL")}</Text>
+          <Text style={styles.bookmarkItemText}>
+            {studentClass || "No Class"}
+          </Text>
+          <Text style={styles.bookmarkItemText}>
+            {moment(lastSeen).format("LLL")}
+          </Text>
           <Text style={styles.bookmarkItemText}>{state}</Text>
         </Card>
       </TouchableOpacity>
@@ -41,7 +54,7 @@ const BookmarkPreview = ({ navigation }) => {
       <View
         style={{
           flex: 1,
-          margin: 10,
+          margin: 10
         }}
       >
         <Text style={{ color: "gray" }}>No Bookmarks</Text>
@@ -51,7 +64,11 @@ const BookmarkPreview = ({ navigation }) => {
 
   return (
     <View style={{ minHeight: 120, paddingBottom: 8 }}>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+      >
         {bookmarksData
           .slice(-10)
           .reverse()
@@ -68,19 +85,19 @@ const styles = StyleSheet.create({
     minHeight: 120,
     marginLeft: 8,
     marginRight: 0,
-    borderRadius: 25,
+    borderRadius: 25
   },
   avaterContainer: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 14,
+    marginBottom: 14
   },
   bookmarkItemText: {
     fontSize: 12,
-    color: "gray",
-  },
+    color: "gray"
+  }
 });
 
 export default BookmarkPreview;

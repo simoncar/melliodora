@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 
-import { View, StyleSheet, TextInput, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Text,
+  TouchableOpacity
+} from "react-native";
 import Constants from "expo-constants";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -12,7 +18,12 @@ import * as ActionCreators from "../../actions";
 import { SimpleLineIcons } from "@expo/vector-icons";
 
 const tabBarIcon = name => ({ tintColor }) => (
-  <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
+  <SimpleLineIcons
+    style={{ backgroundColor: "transparent" }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
 );
 
 class Main extends Component {
@@ -26,11 +37,11 @@ class Main extends Component {
     tabBarIcon: tabBarIcon("bubble"),
     headerTintColor: "blue",
     headerStyle: {
-      backgroundColor: "#f4511e",
+      backgroundColor: "#f4511e"
     },
     headerTitleStyle: {
-      fontWeight: "bold",
-    },
+      fontWeight: "bold"
+    }
   };
 
   onPress = () => {
@@ -50,7 +61,9 @@ class Main extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.nameText}>You need to setup your chat account name</Text>
+        <Text style={styles.nameText}>
+          You need to setup your chat account name
+        </Text>
 
         <TouchableOpacity onPress={this.onPress}>
           <Text style={styles.buttonText}>Setup Chat Name</Text>
@@ -66,10 +79,10 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
-  userX: state.user,
+  userX: state.user
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Main);

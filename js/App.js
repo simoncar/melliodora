@@ -29,7 +29,9 @@ class App extends Component {
   _registerForPushNotifications() {
     registerForPush.reg(this.props.userX.name);
 
-    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+    this._notificationSubscription = Notifications.addListener(
+      this._handleNotification
+    );
   }
 
   _retrieveAdminPassword = async () => {
@@ -61,7 +63,7 @@ class App extends Component {
 
         const trackingOpts = {
           instId: instID,
-          emailOrUsername: username,
+          emailOrUsername: username
         };
 
         Analytics.identify(username, trackingOpts);
@@ -107,14 +109,15 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
-  userX: state.user,
+  userX: state.user
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(App);

@@ -10,13 +10,13 @@ const BeaconItem = require("./beaconItem");
 class beacons extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Gateways",
-    headerBackTitle: null,
+    headerBackTitle: null
   });
 
   constructor(props) {
     super(props);
     this.state = {
-      userBeacons: [],
+      userBeacons: []
     };
 
     this.ref = firebase
@@ -52,12 +52,12 @@ class beacons extends Component {
         mac: doc.data().mac,
         gatewayLoad: doc.data().gatewayLoad,
         gatewayFree: doc.data().gatewayFree,
-        _key: doc.id,
+        _key: doc.id
       });
     });
 
     this.setState({
-      userBeacons,
+      userBeacons
     });
   };
 

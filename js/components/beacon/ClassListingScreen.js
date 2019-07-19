@@ -6,7 +6,10 @@ import firebase from "firebase";
 import useBeaconSearchHook from "./utils/BeaconSearchStore";
 
 const ClassListingScreen = ({ navigation }) => {
-  const [globalBeaconSearchState, globalBeaconSearchAction] = useBeaconSearchHook();
+  const [
+    globalBeaconSearchState,
+    globalBeaconSearchAction
+  ] = useBeaconSearchHook();
   const [loading, setLoading] = useState(false);
   const [classData, setClassData] = useState([]);
 
@@ -35,7 +38,9 @@ const ClassListingScreen = ({ navigation }) => {
       // Cloud Firestore: Query Snapshot
       let documentSnapshots = await initialQuery.get();
       // Cloud Firestore: Document Data
-      let newDocumentData = documentSnapshots.docs.map(document => document.data());
+      let newDocumentData = documentSnapshots.docs.map(document =>
+        document.data()
+      );
 
       // Set State
       setClassData(newDocumentData);
@@ -76,7 +81,7 @@ const ClassListingScreen = ({ navigation }) => {
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#CED0CE",
+          backgroundColor: "#CED0CE"
         }}
       />
     );
@@ -114,12 +119,12 @@ const styles = StyleSheet.create({
   listingText: {
     fontWeight: "bold",
     padding: 15,
-    fontSize: 15,
-  },
+    fontSize: 15
+  }
 });
 
 ClassListingScreen.navigationOptions = {
   title: "Select Class",
-  headerBackTitle: null,
+  headerBackTitle: null
 };
 export default ClassListingScreen;

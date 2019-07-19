@@ -8,7 +8,7 @@ const initialState = {
   beaconState: "",
   grade: null,
   class: "",
-  initial: true,
+  initial: true
 };
 
 const setBeaconState = (store, beaconState) => {

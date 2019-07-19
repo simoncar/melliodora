@@ -23,7 +23,7 @@ const events = {
   CALENDAR_EVENT_STORY: "CALENDAR_EVENT_STORY",
   ADD_TO_CALENDAR_SUCCESS: "ADD_TO_CALENDAR_SUCCESS",
   ADD_TO_CALENDAR_FAILED: "ADD_TO_CALENDAR_FAILED",
-  SHARE_STORY: "SHARE_STORY",
+  SHARE_STORY: "SHARE_STORY"
 };
 
 let isInitialized = false;
@@ -76,5 +76,5 @@ const track = (event: string, options: any = null) => {
 export default {
   events,
   track,
-  identify,
+  identify
 };

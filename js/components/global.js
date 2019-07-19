@@ -40,7 +40,7 @@ export function formatMonth(eventDate) {
     "September",
     "October",
     "November",
-    "December",
+    "December"
   ];
 
   if (eventDate === null && typeof eventDate === "object") {
@@ -153,7 +153,8 @@ export function isAdmin(sPass) {
   const simulator = !Constants.isDevice;
   const globalAdminPass = global.adminPassword === "cookies";
 
-  var isAdminDevice = globalAdminPass || installationId || deviceId || adminPass || simulator;
+  var isAdminDevice =
+    globalAdminPass || installationId || deviceId || adminPass || simulator;
 
   return isAdminDevice;
 }
