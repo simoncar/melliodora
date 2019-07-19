@@ -36,7 +36,6 @@ export default class AttendanceOverviewScreen extends Component {
   componentWillMount() {
     //TODO: Pass in the date from a date picker
     const xdate = moment()
-      .add(8, "hours")
       .format("YYYYMMDD");
 
     let ref = firebase
@@ -75,7 +74,8 @@ export default class AttendanceOverviewScreen extends Component {
 
   render() {
     console.log("fffff=", this.state.countDict);
-    var countDict = this.state.countDict;
+    const countDict = this.state.countDict;
+    console.log("countDict",countDict)
     return (
       <View style={{ minHeight: "100%" }}>
         <ScrollView style={{ backgroundColor: "#f2f2f2" }}>

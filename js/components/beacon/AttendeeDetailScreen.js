@@ -74,7 +74,8 @@ export default class AttendeeDetailScreen extends Component {
       userHistoryData: {},
       userHistory: [],
       calendarModalVisible: false,
-      selectedDate: ''
+      selectedDate: '',
+      tempSelectedDate: ''
     }
   }
 
@@ -138,6 +139,8 @@ export default class AttendeeDetailScreen extends Component {
     return (
       <View style={{ height: "100%" }}>
         <BookmarkBtn recordInfo={recordInfo} />
+
+        {/* {Calendar Pop up} */}
         <Overlay
           isVisible={this.state.calendarModalVisible}
           onBackdropPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
@@ -163,12 +166,17 @@ export default class AttendeeDetailScreen extends Component {
                 Select Date
               </Text>
               <Calendar
-                onDayPress={(day) => { this.setState({ selectedDate: day.dateString }) }}
-                markedDates={{ [this.state.selectedDate]: { selected: true, disableTouchEvent: true } }}
+                onDayPress={(day) => { this.setState({ tempSelectedDate: day.dateString }) }}
+                markedDates={{ 
+                  [this.state.tempSelectedDate]: { selected: true, disableTouchEvent: true }
+               }}
               />
               <Button
                 title="Submit"
-                onPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
+                onPress={() => {
+                  this.setState({ selectedDate: this.state.tempSelectedDate });
+                  this.setCalendarModalVisible(!this.state.calendarModalVisible);
+                }}
                 containerStyle={{ marginTop: 15 }} />
 
             </View>
