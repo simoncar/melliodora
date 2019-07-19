@@ -3,13 +3,13 @@ import { StyleSheet, View, Button, Text, Dimensions, TouchableOpacity, ScrollVie
 import { Divider } from "react-native-elements";
 import { LineChart } from "react-native-chart-kit";
 import I18n from "../../lib/i18n";
-import firebase from "firebase";
+
 import AttendanceStats from "./AttendanceStats";
 import BookmarkPreview from "./BookmarkPreview";
 import { Feather } from "@expo/vector-icons";
 import AttendanceMenu from "./AttendanceMenu";
 
-const moment = require("moment");
+
 
 export default class AttendanceOverviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -29,58 +29,14 @@ export default class AttendanceOverviewScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      countDict: [],
-    };
-  }
-  componentWillMount() {
-    //TODO: Pass in the date from a date picker
-    const xdate = moment()
-      .add(8, "hours")
-      .format("YYYYMMDD");
-
-    let ref = firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("beacon")
-      .collection("beaconHistory")
-      .doc(xdate);
-
-    let historyDoc = ref
-      .get()
-      .then(doc => {
-        if (!doc.exists) {
-          console.log("No such document!");
-        } else {
-          console.log("Document data:", doc.data());
-          countData = doc.data();
-
-          var countDict = {
-            countNotPresent: countData.countNotPresent,
-            countPerimeter: countData.countPerimeter,
-            countEntered: countData.countEntered,
-            countExited: countData.countExited,
-            countOther: countData.countOther,
-          };
-
-          this.setState({
-            countDict,
-          });
-        }
-      })
-      .catch(err => {
-        console.log("Error getting document", err);
-      });
   }
 
   render() {
-    console.log("fffff=", this.state.countDict);
-    var countDict = this.state.countDict;
     return (
       <View style={{ minHeight: "100%" }}>
         <ScrollView style={{ backgroundColor: "#f2f2f2" }}>
           <View style={{ backgroundColor: "#fff", marginVertical: 8, marginHorizontal: 4, padding: 10 }}>
-            <AttendanceStats navigation={this.props.navigation} countDict={countDict} />
+            <AttendanceStats navigation={this.props.navigation}/>
           </View>
 
           <View style={{ backgroundColor: "#fff", flex: 1, flexDirection: "column" }}>

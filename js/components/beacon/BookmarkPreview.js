@@ -19,9 +19,9 @@ const BookmarkPreview = ({ navigation }) => {
     // console.log("item", item);
     const { campus, fullname, mac, lastSeen, state } = item;
     const studentClass = item.class;
-    const firstName = item.firstName || "" ;
-    const lastName  = item.lastName || "";
-    const avatarTitle = firstName.slice(0,1) + lastName.slice(0,1);
+    const firstName = item.firstName || "";
+    const lastName = item.lastName || "";
+    const avatarTitle = firstName.slice(0, 1) + lastName.slice(0, 1);
     return (
       <TouchableOpacity onPress={() => navigation.navigate("AttendeeDetailScreen", item)} key={item.mac}>
         <Card containerStyle={styles.bookmarkItemContainer}>
@@ -36,8 +36,19 @@ const BookmarkPreview = ({ navigation }) => {
     )
   }
 
+  if(!loading && bookmarksData.length === 0){
+    return(
+      <View style={{
+        flex: 1,
+        margin: 10,
+      }}>
+        <Text style={{ color: 'gray'}}>No Bookmarks</Text>
+      </View>
+    )
+  }
+
   return (
-    <View style={{minHeight: 120, paddingBottom:8}}>
+    <View style={{ minHeight: 120, paddingBottom: 8 }}>
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}
