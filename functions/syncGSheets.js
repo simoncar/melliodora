@@ -15,6 +15,7 @@ var sheet;
 
 async.series(
   [
+    
     function setAuth(step) {
       // see notes below for authentication instructions!
       var creds = require("./Calendar App-915d5dbe4185.json");
