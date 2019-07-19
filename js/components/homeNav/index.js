@@ -169,7 +169,6 @@ class HomeNav extends Component {
   loadFromAsyncStorage() {
     AsyncStorage.getItem("featureItems").then(fi => {
       var featureItems = JSON.parse(fi);
-      console.log("loading = ", fi);
       this.setState({
         featureItems,
         loading: false,
@@ -179,7 +178,6 @@ class HomeNav extends Component {
 
   _storeData = async featureItems => {
     try {
-      console.log("Storing = ", featureItems);
       AsyncStorage.setItem("featureItems", featureItems);
     } catch (error) {
       console.log(error);
