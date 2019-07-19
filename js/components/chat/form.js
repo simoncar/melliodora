@@ -16,7 +16,7 @@ import {
   Input,
   Form,
   Textarea,
-  Left,
+  Left
 } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -27,25 +27,37 @@ export default class form extends Component {
       name: null,
       mobile: null,
       email: null,
-      msg: null,
+      msg: null
     };
   }
 
-  postMsg = (name, mobile, email, msg, nameClear, mobileClear, emailClear, msgClear) => {
+  postMsg = (
+    name,
+    mobile,
+    email,
+    msg,
+    nameClear,
+    mobileClear,
+    emailClear,
+    msgClear
+  ) => {
     if (this.state.msg != null) {
-      fetch("https://calendar-app-57e88.firebaseio.com/instance/0001-sais_edu_sg/gala2018/contacts.json", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          mobile: mobile,
-          email: email,
-          msg: msg,
-        }),
-      })
+      fetch(
+        "https://calendar-app-57e88.firebaseio.com/instance/0001-sais_edu_sg/gala2018/contacts.json",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: name,
+            mobile: mobile,
+            email: email,
+            msg: msg
+          })
+        }
+      )
         .then(response => response.json())
         .then(responseData => {
           if (responseData.name != null) {
@@ -58,14 +70,20 @@ export default class form extends Component {
               mobile: null,
               email: null,
               msg: null,
-              isSubmited: true,
+              isSubmited: true
             });
           } else {
             Alert.alert(
               "Oops !",
               "Something went wrong",
-              [{ text: "OK", onPress: () => console.log("Cancel Pressed"), style: "cancel" }],
-              { cancelable: false },
+              [
+                {
+                  text: "OK",
+                  onPress: () => console.log("Cancel Pressed"),
+                  style: "cancel"
+                }
+              ],
+              { cancelable: false }
             );
           }
         })
@@ -74,23 +92,39 @@ export default class form extends Component {
       Alert.alert(
         "Oops !",
         "Press SUBMIT button after entering your Message.",
-        [{ text: "OK", onPress: () => console.log("Cancel Pressed"), style: "cancel" }],
-        { cancelable: false },
+        [
+          {
+            text: "OK",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          }
+        ],
+        { cancelable: false }
       );
     }
   };
 
   _togglePostCard() {
     this.setState({
-      isSubmited: false,
+      isSubmited: false
     });
   }
 
   render() {
     return (
       <Container>
-        <Header androidStatusBarColor="#1362af" style={{ backgroundColor: "#1976D2" }}>
-          <Body style={{ flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+        <Header
+          androidStatusBarColor="#1362af"
+          style={{ backgroundColor: "#1976D2" }}
+        >
+          <Body
+            style={{
+              flex: 1,
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
             <Title>CONTACT</Title>
           </Body>
         </Header>
@@ -103,16 +137,34 @@ export default class form extends Component {
                     <Ionicons
                       active
                       name="ios-checkmark-circle"
-                      style={{ fontSize: 30, color: "#4CAF50", marginLeft: 5, marginRight: 10 }}
+                      style={{
+                        fontSize: 30,
+                        color: "#4CAF50",
+                        marginLeft: 5,
+                        marginRight: 10
+                      }}
                     />
-                    <Text style={{ flex: 1 }}>Thanks. We will get in touch with you as soon as possible</Text>
+                    <Text style={{ flex: 1 }}>
+                      Thanks. We will get in touch with you as soon as possible
+                    </Text>
                   </Item>
                 </CardItem>
                 <CardItem>
                   <Left></Left>
                   <Body>
-                    <TouchableOpacity success onPress={() => this._togglePostCard()}>
-                      <Ionicons active name="refresh" style={{ fontSize: 40, color: "#64DD17", marginLeft: 10 }} />
+                    <TouchableOpacity
+                      success
+                      onPress={() => this._togglePostCard()}
+                    >
+                      <Ionicons
+                        active
+                        name="refresh"
+                        style={{
+                          fontSize: 40,
+                          color: "#64DD17",
+                          marginLeft: 10
+                        }}
+                      />
                     </TouchableOpacity>
                   </Body>
                   <Right></Right>
@@ -122,7 +174,11 @@ export default class form extends Component {
               <View>
                 <CardItem>
                   <Item>
-                    <Input placeholder="Name" onChangeText={name => this.setState({ name })} ref={"nameClear"} />
+                    <Input
+                      placeholder="Name"
+                      onChangeText={name => this.setState({ name })}
+                      ref={"nameClear"}
+                    />
                   </Item>
                 </CardItem>
                 <CardItem>
@@ -168,7 +224,7 @@ export default class form extends Component {
                           "nameClear",
                           "mobileClear",
                           "emailClear",
-                          "msgClear",
+                          "msgClear"
                         )
                       }
                     >
@@ -191,33 +247,33 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   alertBox: {
-    backgroundColor: "#1C97F7",
+    backgroundColor: "#1C97F7"
   },
   alertText: {
     fontSize: 12,
-    color: "#ffffff",
+    color: "#ffffff"
   },
   conCard: {
     marginLeft: 25,
     marginRight: 25,
-    marginTop: 20,
+    marginTop: 20
   },
   conCardItem: {
     marginLeft: 5,
-    marginTop: 5,
+    marginTop: 5
   },
   conDetails: {
     fontSize: 15,
     color: "black",
-    marginLeft: 5,
+    marginLeft: 5
   },
   postCard: {
     marginLeft: 25,
     marginRight: 25,
     marginTop: 20,
-    marginBottom: 20,
-  },
+    marginBottom: 20
+  }
 });

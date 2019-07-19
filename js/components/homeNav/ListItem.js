@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet
+} from "react-native";
 import styles from "./styles";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { isAdmin } from "../global.js";
@@ -18,7 +24,7 @@ class ListItem extends Component {
 
     const preview = {
       uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
     const uri = this.props.item.item.photo1;
 
@@ -48,7 +54,7 @@ class ListItem extends Component {
               _key: this.props.item.item._key,
               key: this.props.item.item._key,
               calendarEvents: this.props.calendarEvents,
-              hidden: this.props.item.item.hidden,
+              hidden: this.props.item.item.hidden
             })
           }
         >
@@ -59,7 +65,7 @@ class ListItem extends Component {
                 backgroundColor: "white",
                 flexDirection: "row",
                 justifyContent: "center",
-                alignItems: "center",
+                alignItems: "center"
               }}
             >
               <Image
@@ -69,13 +75,15 @@ class ListItem extends Component {
                   margin: 12,
                   borderRadius: 18,
                   borderWidth: StyleSheet.hairlineWidth,
-                  borderColor: "lightgray",
+                  borderColor: "lightgray"
                 }}
                 {...{ preview, uri }}
               />
 
               {this.props.item.item.hidden == true && (
-                <Text style={styles.itemTitle}>HIDDEN {this.props.item.item.title}</Text>
+                <Text style={styles.itemTitle}>
+                  HIDDEN {this.props.item.item.title}
+                </Text>
               )}
 
               <Text style={styles.itemTitle}>{this.props.item.item.title}</Text>
@@ -84,18 +92,32 @@ class ListItem extends Component {
                 style={{ flexDirection: "row" }}
                 onPress={() => {
                   this.props.navigation.navigate("chat", {
-                    chatroom: this.props.item.item.title,
+                    chatroom: this.props.item.item.title
                   });
                 }}
               >
-                <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+                <SimpleLineIcons
+                  name="bubble"
+                  size={30}
+                  color="black"
+                  style={{ lineHeight: 60, marginRight: 15 }}
+                />
               </TouchableOpacity>
 
-              <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+              <Ionicons
+                name="ios-more"
+                size={30}
+                color="black"
+                style={{ lineHeight: 60, marginRight: 15 }}
+              />
             </View>
 
             <View>
-              <Image style={{ width, height: 200 }} {...{ preview, uri }} resizeMode={"contain"} />
+              <Image
+                style={{ width, height: 200 }}
+                {...{ preview, uri }}
+                resizeMode={"contain"}
+              />
             </View>
           </View>
         </TouchableOpacity>

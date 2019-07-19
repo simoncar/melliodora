@@ -11,14 +11,22 @@ const initialState = {
   password: "",
   language: "",
   pushToken: "",
-  items: [],
+  items: []
 };
 
 // some ES6 initialisation technique if state is not passed to reducer
 
 function userReducer(state: State = initialState, action: Action): State {
   if (action.type === "LOGGED_IN") {
-    let { id, name, sharedSchedule, password, language, pushToken, items } = action.data;
+    let {
+      id,
+      name,
+      sharedSchedule,
+      password,
+      language,
+      pushToken,
+      items
+    } = action.data;
     console.log("reducer - LOGGED_IN");
     return {
       isLoggedIn: true,
@@ -29,7 +37,7 @@ function userReducer(state: State = initialState, action: Action): State {
       password,
       language,
       pushToken,
-      items,
+      items
     };
   }
   if (action.type === "SKIPPED_LOGIN") {
@@ -43,7 +51,7 @@ function userReducer(state: State = initialState, action: Action): State {
       password: "",
       language: "",
       pushToken: "",
-      items: "",
+      items: ""
     };
   }
   if (action.type === "LOGGED_OUT") {
@@ -58,7 +66,7 @@ function userReducer(state: State = initialState, action: Action): State {
     console.log("user reducer - SET_AUTH_SECRET " + action.payload);
     return {
       ...state,
-      authSecret: action.payload,
+      authSecret: action.payload
     };
   }
 
@@ -66,80 +74,80 @@ function userReducer(state: State = initialState, action: Action): State {
     console.log("user reducer - SET_LOGIN_DETAILS");
     return {
       ...state,
-      name: action.payload,
+      name: action.payload
     };
   }
   if (action.type === "SET_NICKNAME_DETAILS") {
     return {
       ...state,
-      nickname: action.payload,
+      nickname: action.payload
     };
   }
   if (action.type === "SET_PUSH_TOKEN") {
     return {
       ...state,
-      pushToken: action.payload,
+      pushToken: action.payload
     };
   }
   if (action.type === "SET_ADMINPASSWORD_DETAILS") {
     return {
       ...state,
-      adminPassword: action.payload,
+      adminPassword: action.payload
     };
   }
 
   if (action.type === "SET_PASSWORD") {
     return {
       ...state,
-      password: action.payload,
+      password: action.payload
     };
   }
 
   if (action.type === "SET_LANGUAGE") {
     return {
       ...state,
-      language: action.payload,
+      language: action.payload
     };
   }
 
   if (action.type === "SET_AUTH_DEVICE_ID") {
     return {
       ...state,
-      ffauth_device_id: action.payload,
+      ffauth_device_id: action.payload
     };
   }
   if (action.type === "SET_AUTH_SECRET") {
     return {
       ...state,
-      ffauth_secret: action.payload,
+      ffauth_secret: action.payload
     };
   }
 
   if (action.type === "SET_CALENDAR_ITEMS") {
     return {
       ...state,
-      items: action.payload,
+      items: action.payload
     };
   }
 
   if (action.type === "SET_FEATURE_ITEMS") {
     return {
       ...state,
-      featureItems: action.payload,
+      featureItems: action.payload
     };
   }
 
   if (action.type === "SET_SWITCHES") {
     return {
       ...state,
-      items: action.payload,
+      items: action.payload
     };
   }
 
   if (action.type === "SET_SHARING") {
     return {
       ...state,
-      sharedSchedule: action.enabled,
+      sharedSchedule: action.enabled
     };
     // immutable state - return new state with old values of state + update to sharedSchedule only
     // https://www.youtube.com/watch?v=7bMTJxvEJiE

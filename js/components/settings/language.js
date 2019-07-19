@@ -14,14 +14,14 @@ export default class selectLanguage extends Component {
     this.state = {
       switchValue: false,
       loggedIn: false,
-      language: "",
+      language: ""
     };
   }
 
   static navigationOptions = {
     title: I18n.t("language"),
 
-    headerBackTitle: null,
+    headerBackTitle: null
   };
 
   componentWillMount() {
@@ -70,7 +70,12 @@ export default class selectLanguage extends Component {
               hasNavArrow={false}
               title="English"
               onPress={() => this._changeLanguage("en")}
-              icon={<MaterialCommunityIcons name="check" style={this._getStyle("en")} />}
+              icon={
+                <MaterialCommunityIcons
+                  name="check"
+                  style={this._getStyle("en")}
+                />
+              }
             />
             <SettingsList.Item
               hasSwitch={false}
@@ -79,7 +84,12 @@ export default class selectLanguage extends Component {
               hasNavArrow={false}
               title="中文(简体)"
               onPress={() => this._changeLanguage("zh")}
-              icon={<MaterialCommunityIcons name="check" style={this._getStyle("zh")} />}
+              icon={
+                <MaterialCommunityIcons
+                  name="check"
+                  style={this._getStyle("zh")}
+                />
+              }
             />
             <SettingsList.Item
               hasSwitch={false}
@@ -88,7 +98,12 @@ export default class selectLanguage extends Component {
               hasNavArrow={false}
               title="日本語"
               onPress={() => this._changeLanguage("ja")}
-              icon={<MaterialCommunityIcons name="check" style={this._getStyle("ja")} />}
+              icon={
+                <MaterialCommunityIcons
+                  name="check"
+                  style={this._getStyle("ja")}
+                />
+              }
             />
 
             <SettingsList.Item
@@ -98,7 +113,12 @@ export default class selectLanguage extends Component {
               hasNavArrow={false}
               title="Français"
               onPress={() => this._changeLanguage("fr")}
-              icon={<MaterialCommunityIcons name="check" style={this._getStyle("fr")} />}
+              icon={
+                <MaterialCommunityIcons
+                  name="check"
+                  style={this._getStyle("fr")}
+                />
+              }
             />
 
             <SettingsList.Item
@@ -108,7 +128,12 @@ export default class selectLanguage extends Component {
               hasNavArrow={false}
               title="한국어"
               onPress={() => this._changeLanguage("ko")}
-              icon={<MaterialCommunityIcons name="check" style={this._getStyle("ko")} />}
+              icon={
+                <MaterialCommunityIcons
+                  name="check"
+                  style={this._getStyle("ko")}
+                />
+              }
             />
 
             <SettingsList.Item
@@ -118,10 +143,17 @@ export default class selectLanguage extends Component {
               hasNavArrow={false}
               title="Español"
               onPress={() => this._changeLanguage("es")}
-              icon={<MaterialCommunityIcons name="check" style={this._getStyle("es")} />}
+              icon={
+                <MaterialCommunityIcons
+                  name="check"
+                  style={this._getStyle("es")}
+                />
+              }
             />
 
-            <Text style={styles.titleInfoStyle}>{I18n.t("languageChangeWarning")}</Text>
+            <Text style={styles.titleInfoStyle}>
+              {I18n.t("languageChangeWarning")}
+            </Text>
           </SettingsList>
         </View>
       </View>
@@ -140,7 +172,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     alignSelf: "center",
     height: 30,
-    width: 30,
+    width: 30
   },
   imageStyleCheckOn: {
     marginLeft: 15,
@@ -148,7 +180,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    color: "#007AFF",
+    color: "#007AFF"
   },
   imageStyleCheckOff: {
     marginLeft: 15,
@@ -156,7 +188,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    color: "#FFF",
+    color: "#FFF"
   },
 
   titleInfoStyle: {
@@ -165,6 +197,6 @@ const styles = StyleSheet.create({
     color: "#8e8e93",
 
     marginLeft: 10,
-    alignSelf: "center",
-  },
+    alignSelf: "center"
+  }
 });

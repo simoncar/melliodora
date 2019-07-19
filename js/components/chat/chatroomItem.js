@@ -20,7 +20,7 @@ class ChatroomItem extends Component {
             chatroom: this.props.title,
             description: this.props.description,
             contact: this.props.contact,
-            url: this.props.url,
+            url: this.props.url
           });
         }}
       >
@@ -36,7 +36,7 @@ class ChatroomItem extends Component {
                     description: this.props.description,
                     contact: this.props.contact,
                     url: this.props.url,
-                    language: this.props.language,
+                    language: this.props.language
                   });
                 }}
               >
@@ -52,7 +52,7 @@ class ChatroomItem extends Component {
           </Col>
           <Col
             style={{
-              width: 65,
+              width: 65
             }}
           >
             <View style={{ flexDirection: "row" }}>

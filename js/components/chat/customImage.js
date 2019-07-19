@@ -9,10 +9,9 @@ import {
   Dimensions,
   Modal,
   Button,
-  CameraRoll,
+  CameraRoll
 } from "react-native";
 import { Image } from "react-native-expo-image-cache";
-
 
 const { width } = Dimensions.get("window");
 

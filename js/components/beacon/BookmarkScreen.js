@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View, AsyncStorage, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  AsyncStorage,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator
+} from "react-native";
 import firebase from "firebase";
 import moment from "moment";
 import { ListItem } from "react-native-elements";
-import { AntDesign, MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
+import {
+  AntDesign,
+  MaterialIcons,
+  Feather,
+  FontAwesome
+} from "@expo/vector-icons";
 
 import useBookmarkHook from "./utils/BookmarkStore";
 
@@ -14,7 +27,9 @@ const BookmarkScreen = ({ navigation }) => {
   const [initialbookmarksData, setInitialbookmarksData] = useState([]);
   //on Startup
   useEffect(() => {
-    globalActions.init().then(() => setInitialbookmarksData([...bookmarksData].reverse()));
+    globalActions
+      .init()
+      .then(() => setInitialbookmarksData([...bookmarksData].reverse()));
   }, []);
 
   // Render Header
@@ -46,7 +61,7 @@ const BookmarkScreen = ({ navigation }) => {
         style={{
           justifyContent: "center",
           flex: 1,
-          margin: 10,
+          margin: 10
         }}
       >
         <Text style={{ color: "gray", textAlign: "center" }}>No Bookmarks</Text>
@@ -58,7 +73,9 @@ const BookmarkScreen = ({ navigation }) => {
     const firstName = item.firstName || "";
     const lastName = item.lastName || "";
     const avatarTitle = firstName.slice(0, 1) + lastName.slice(0, 1);
-    const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: avatarTitle };
+    const avatar = item.imgSrc
+      ? { source: { uri: item.imgSrc } }
+      : { title: avatarTitle };
 
     let onPressFunc, color;
     console.log(index, "index");
@@ -66,7 +83,11 @@ const BookmarkScreen = ({ navigation }) => {
       onPressFunc = () => globalActions.removeBookmark(item.mac);
       color = "gold";
     } else {
-      onPressFunc = () => globalActions.addBookmarkWithInfo(item, initialbookmarksData.length - 1 - index);
+      onPressFunc = () =>
+        globalActions.addBookmarkWithInfo(
+          item,
+          initialbookmarksData.length - 1 - index
+        );
       color = "gray";
     }
     return (
@@ -74,7 +95,9 @@ const BookmarkScreen = ({ navigation }) => {
         leftAvatar={{ rounded: true, ...avatar }}
         title={
           <View style={{ flex: 1, flexDirection: "row" }}>
-            <Text style={{ flex: 1, fontSize: 14 }}>{item.fullname || "No Name"}</Text>
+            <Text style={{ flex: 1, fontSize: 14 }}>
+              {item.fullname || "No Name"}
+            </Text>
             <Text
               style={{
                 flex: 0,
@@ -82,7 +105,7 @@ const BookmarkScreen = ({ navigation }) => {
                 fontSize: 8,
                 alignSelf: "center",
                 justifyContent: "center",
-                color: "gray",
+                color: "gray"
               }}
             >
               {item.mac}
@@ -92,8 +115,12 @@ const BookmarkScreen = ({ navigation }) => {
         chevron={false}
         subtitle={
           <View style={{ flex: 1, flexDirection: "column", paddingTop: 8 }}>
-            <Text style={{ color: "gray", fontSize: 12 }}>Class {item.class}</Text>
-            <Text style={{ color: "gray", fontSize: 12 }}>last seen {moment(item.lastSeen).format("LLL")}</Text>
+            <Text style={{ color: "gray", fontSize: 12 }}>
+              Class {item.class}
+            </Text>
+            <Text style={{ color: "gray", fontSize: 12 }}>
+              last seen {moment(item.lastSeen).format("LLL")}
+            </Text>
             <Text style={{ color: "gray", fontSize: 12 }}>{item.state}</Text>
           </View>
         }
@@ -113,7 +140,7 @@ const BookmarkScreen = ({ navigation }) => {
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#CED0CE",
+          backgroundColor: "#CED0CE"
         }}
       />
     );
@@ -140,6 +167,6 @@ const BookmarkScreen = ({ navigation }) => {
 const styles = StyleSheet.create({});
 
 BookmarkScreen.navigationOptions = {
-  title: "Bookmarks",
+  title: "Bookmarks"
 };
 export default BookmarkScreen;

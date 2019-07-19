@@ -203,8 +203,6 @@ class newStory extends Component {
               }}
             >
               <View style={styles.switchContainer}>
-                
-
                 <Switch
                   onValueChange={value =>
                     this.setState({ lowerelemSwitch: value })

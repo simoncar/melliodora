@@ -10,7 +10,12 @@ import I18n from "../../lib/i18n";
 const ChatroomItem = require("./chatroomItem");
 
 const tabBarIcon = name => ({ tintColor }) => (
-  <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
+  <SimpleLineIcons
+    style={{ backgroundColor: "transparent" }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
 );
 
 @withMappedNavigationParams()
@@ -18,13 +23,13 @@ class chatRooms extends Component {
   static navigationOptions = {
     title: I18n.t("chat"),
     tabBarIcon: tabBarIcon("bubble"),
-    headerBackTitle: null,
+    headerBackTitle: null
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      userChatrooms: {},
+      userChatrooms: {}
     };
 
     this.ref = firebase
@@ -51,14 +56,14 @@ class chatRooms extends Component {
     chatRooms.forEach(doc => {
       userChatrooms.push({
         title: doc.data().title,
-        _key: doc.data().key,
+        _key: doc.data().key
       });
     });
 
     if (userChatrooms.length > 0) {
       this._storeData(JSON.stringify(userChatrooms));
       this.setState({
-        userChatrooms,
+        userChatrooms
       });
     }
   };
@@ -79,7 +84,7 @@ class chatRooms extends Component {
       var userChatrooms = JSON.parse(fi);
       this.setState({
         userChatrooms,
-        loading: false,
+        loading: false
       });
     });
   }

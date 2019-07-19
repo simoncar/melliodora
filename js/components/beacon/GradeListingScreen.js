@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, FlatList, Text, ActivityIndicator } from "react-native";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Text,
+  ActivityIndicator
+} from "react-native";
 import { ListItem, SearchBar } from "react-native-elements";
 import firebase from "firebase";
 
@@ -33,7 +39,9 @@ const GradeListingScreen = ({ navigation }) => {
       // Cloud Firestore: Query Snapshot
       let documentSnapshots = await initialQuery.get();
       // Cloud Firestore: Document Data
-      let newDocumentData = documentSnapshots.docs.map(document => document.data());
+      let newDocumentData = documentSnapshots.docs.map(document =>
+        document.data()
+      );
 
       // Set State
       setCampusData(newDocumentData);
@@ -74,7 +82,7 @@ const GradeListingScreen = ({ navigation }) => {
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#CED0CE",
+          backgroundColor: "#CED0CE"
         }}
       />
     );
@@ -112,12 +120,12 @@ const styles = StyleSheet.create({
   listingText: {
     fontWeight: "bold",
     padding: 15,
-    fontSize: 15,
-  },
+    fontSize: 15
+  }
 });
 
 GradeListingScreen.navigationOptions = {
   title: "Select Grade",
-  headerBackTitle: null,
+  headerBackTitle: null
 };
 export default GradeListingScreen;

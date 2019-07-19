@@ -1,25 +1,32 @@
-import React, { Component } from 'react'
-import { View, Image, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
-import Video from 'react-native-video'
+import React, { Component } from "react";
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity
+} from "react-native";
+import Video from "react-native-video";
 import { Ionicons } from "@expo/vector-icons";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 export default class AvView extends Component {
   state = {
     rate: 1,
     volume: 1,
     muted: false,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     duration: 0.0,
     currentTime: 0.0,
     controls: false,
     paused: true,
-    skin: 'custom',
+    skin: "custom",
     ignoreSilentSwitch: null,
     isBuffering: false,
     imageHeight: 0
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -29,10 +36,10 @@ export default class AvView extends Component {
   }
 
   componentWillMount() {
-    if (this.props.type === 'image') {
+    if (this.props.type === "image") {
       Image.getSize(this.props.source, (w, h) => {
-        this.setState({ imageHeight: Math.floor(h * (width / w)) })
-      })
+        this.setState({ imageHeight: Math.floor(h * (width / w)) });
+      });
     }
   }
 
@@ -49,21 +56,23 @@ export default class AvView extends Component {
   }
 
   render() {
-    if (this.props.type === 'image') {
+    if (this.props.type === "image") {
       return (
         <View>
           <Image
             source={{ uri: this.props.source }}
             style={{ width, height: this.state.imageHeight }}
-            resizeMode={'contain'}
+            resizeMode={"contain"}
           />
         </View>
-      )
+      );
     }
 
     return (
       <TouchableOpacity
-        onPress={() => {this.setState({ paused: !this.state.paused })}}
+        onPress={() => {
+          this.setState({ paused: !this.state.paused });
+        }}
         activeOpacity={0.8}
         style={{ width, height: width }}
       >
@@ -75,17 +84,36 @@ export default class AvView extends Component {
           volume={this.state.volume}
           muted={this.state.muted}
           ignoreSilentSwitch={this.state.ignoreSilentSwitch}
-          resizeMode={'cover'}
+          resizeMode={"cover"}
           onLoad={this.onLoad}
           onBuffer={this.onBuffer}
           onProgress={this.onProgress}
           onEnd={() => null}
           repeat={true}
         />
-      <View style={{ position: 'absolute', right: 10, top: 10, backgroundColor: 'rgba(0, 0, 0, 0.6)', height: 40, width: 40, borderRadius: 20 }}>
-        <Ionicons name="ios-videocam-outline" size={24} color="white" style={{ backgroundColor: 'transparent', lineHeight: 40, marginLeft: 10 }} />
-      </View>
+        <View
+          style={{
+            position: "absolute",
+            right: 10,
+            top: 10,
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            height: 40,
+            width: 40,
+            borderRadius: 20
+          }}
+        >
+          <Ionicons
+            name="ios-videocam-outline"
+            size={24}
+            color="white"
+            style={{
+              backgroundColor: "transparent",
+              lineHeight: 40,
+              marginLeft: 10
+            }}
+          />
+        </View>
       </TouchableOpacity>
-    )
+    );
   }
 }

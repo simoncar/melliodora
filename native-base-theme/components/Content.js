@@ -1,15 +1,15 @@
-import { Platform } from 'react-native';
-import _ from 'lodash';
+import { Platform } from "react-native";
+import _ from "lodash";
 
-import variable from './../variables/platform';
+import variable from "./../variables/platform";
 
 export default (variables = variable) => {
   const contentTheme = {
-    '.padder': {
-      padding: variables.contentPadding,
+    ".padder": {
+      padding: variables.contentPadding
     },
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent"
   };
 
   return contentTheme;

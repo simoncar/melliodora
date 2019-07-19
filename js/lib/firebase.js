@@ -60,7 +60,7 @@ function listenLoadFromFirebase(switches) {
       global.switch_portalName = snapshot.child("portalName").val();
 
       this.setState({
-        switches: switches,
+        switches: switches
       });
 
       //this.state.items = [];
@@ -73,10 +73,10 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => ({
-  switchesX: state.user,
+  switchesX: state.user
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Firebase);
