@@ -159,7 +159,6 @@ class calendar1 extends Component {
   loadFromAsyncStorage() {
     AsyncStorage.getItem("calendarItems").then(fi => {
       var items = JSON.parse(fi);
-      console.log("loading = ", fi);
 
       if (items.length > 0) {
         this.setState({
@@ -169,13 +168,10 @@ class calendar1 extends Component {
         this.loadItems();
       }
     });
-
-    //AsyncStorage.setItem('my_key', 'my_value', () => { console.log('done setting item!') });
   }
 
   _storeData = async calendarItems => {
     try {
-      console.log("Storing  calendarItems = ", calendarItems);
       AsyncStorage.setItem("calendarItems", calendarItems);
     } catch (error) {
       console.log(error);
