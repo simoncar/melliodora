@@ -3,15 +3,12 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Notifications } from "expo";
 import Constants from "expo-constants";
-import { I18nManager, AsyncStorage } from "react-native";
-import { Updates } from "expo";
-import I18n from "i18n-js";
+import { AsyncStorage } from "react-native";
 
 import Analytics from "./lib/analytics";
 import * as ActionCreators from "./actions";
 import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
-import { update } from "tcomb";
 
 const instID = Constants.manifest.extra.instance;
 
@@ -32,7 +29,9 @@ class App extends Component {
   _registerForPushNotifications() {
     registerForPush.reg(this.props.userX.name);
 
-    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+    this._notificationSubscription = Notifications.addListener(
+      this._handleNotification
+    );
   }
 
   _retrieveAdminPassword = async () => {
@@ -64,7 +63,7 @@ class App extends Component {
 
         const trackingOpts = {
           instId: instID,
-          emailOrUsername: username,
+          emailOrUsername: username
         };
 
         Analytics.identify(username, trackingOpts);
@@ -110,14 +109,15 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
-  userX: state.user,
+  userX: state.user
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(App);

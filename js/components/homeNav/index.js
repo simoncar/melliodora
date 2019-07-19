@@ -10,6 +10,7 @@ import {
   TouchableHighlight,
   StyleSheet,
   Dimensions,
+  AsyncStorage
 } from "react-native";
 import { Container, Content, Text, Icon, Button } from "native-base";
 import { Notifications } from "expo";
@@ -25,7 +26,6 @@ import * as ActionCreators from "../../actions";
 import { openDrawer } from "../../actions/drawer";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
-import { AsyncStorage } from "react-native";
 
 const { width } = Dimensions.get("window");
 const ListItem = require("./ListItem");
@@ -33,17 +33,24 @@ const instID = Constants.manifest.extra.instance;
 
 // Get the token that uniquely identifies this device
 if (!Constants.isDevice) {
-  token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
+  var token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
 } else {
-  token = Notifications.getExpoPushTokenAsync();
+  var token = Notifications.getExpoPushTokenAsync();
 }
 
 const today = new moment().format();
 
-const parsedRawData = new BLEDataParser("03039FFE17169FFE0256596E48415957727242510000016B91E7901F");
+const parsedRawData = new BLEDataParser(
+  "03039FFE17169FFE0256596E48415957727242510000016B91E7901F"
+);
 
 const tabBarIcon = name => ({ tintColor }) => (
-  <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
+  <MaterialIcons
+    style={{ backgroundColor: "transparent" }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
 );
 
 class HomeNav extends Component {
@@ -62,7 +69,7 @@ class HomeNav extends Component {
     this.state = {
       user: null,
       loading: false,
-      featureItems: [],
+      featureItems: []
     };
 
     this.loadFromAsyncStorage();
@@ -74,12 +81,17 @@ class HomeNav extends Component {
     title: "Stamford",
     headerTitleStyle: {
       fontWeight: "bold",
-      fontSize: 28,
+      fontSize: 28
     },
     tabBarColor: "#111B4E",
     tabBarIcon: tabBarIcon("home"),
     headerBackTitle: null,
-    headerRight: <BorderlessButton onPress={() => navigation.navigate("Search")} style={{ marginRight: 15 }} />,
+    headerRight: (
+      <BorderlessButton
+        onPress={() => navigation.navigate("Search")}
+        style={{ marginRight: 15 }}
+      />
+    )
   });
 
   componentDidMount() {
@@ -113,7 +125,7 @@ class HomeNav extends Component {
         photo3,
         displayStart,
         displayEnd,
-        hidden,
+        hidden
       } = doc.data();
 
       featureItems.push({
@@ -135,19 +147,19 @@ class HomeNav extends Component {
         photo3,
         displayStart,
         displayEnd,
-        hidden,
+        hidden
       });
     });
 
     if (featureItems.length > 0) {
       this._storeData(JSON.stringify(featureItems));
       this.setState({
-        featureItems,
+        featureItems
       });
     }
 
     this.setState({
-      loading: false,
+      loading: false
     });
   };
 
@@ -171,7 +183,7 @@ class HomeNav extends Component {
       var featureItems = JSON.parse(fi);
       this.setState({
         featureItems,
-        loading: false,
+        loading: false
       });
     });
   }
@@ -188,15 +200,21 @@ class HomeNav extends Component {
   loadFromRedux() {
     this.state.featureItems = [];
 
-    dataSnapshot = this.props.calendarEventsX.featureItems;
+    var dataSnapshot = this.props.calendarEventsX.featureItems;
     key = "";
 
     for (var key in dataSnapshot) {
       const snapshot = dataSnapshot[key];
-      strtime = snapshot.date_start;
+      var strtime = snapshot.date_start;
 
-      const displayStart = snapshot.displayStart !== undefined ? moment().format(snapshot.displayStart) : null;
-      const displayEnd = snapshot.displayEnd !== undefined ? moment().format(snapshot.displayEnd) : null;
+      const displayStart =
+        snapshot.displayStart !== undefined
+          ? moment().format(snapshot.displayStart)
+          : null;
+      const displayEnd =
+        snapshot.displayEnd !== undefined
+          ? moment().format(snapshot.displayEnd)
+          : null;
       let hidden = true;
 
       if (displayStart != null && displayStart <= today) {
@@ -227,7 +245,7 @@ class HomeNav extends Component {
           displayEnd: snapshot.displayEnd,
           hidden: false,
           _key: key,
-          key: key,
+          key: key
         });
       }
     }
@@ -273,7 +291,7 @@ class HomeNav extends Component {
                       backgroundColor: "white",
                       flexDirection: "row",
                       justifyContent: "center",
-                      alignItems: "center",
+                      alignItems: "center"
                     }}
                   >
                     <Image
@@ -283,18 +301,22 @@ class HomeNav extends Component {
                         margin: 12,
                         borderRadius: 18,
                         borderWidth: StyleSheet.hairlineWidth,
-                        borderColor: "lightgray",
+                        borderColor: "lightgray"
                       }}
                       source={{
-                        uri: "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png",
+                        uri:
+                          "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png"
                       }}
                     />
-                    <Text style={styles.itemTitle}>{I18n.t("safeguarding")}</Text>
+                    <Text style={styles.itemTitle}>
+                      {I18n.t("safeguarding")}
+                    </Text>
                   </View>
                   <View>
                     <Image
                       source={{
-                        uri: "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png",
+                        uri:
+                          "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png"
                       }}
                       style={{ width, height: 200 }}
                       resizeMode="contain"
@@ -316,7 +338,7 @@ class HomeNav extends Component {
               style={{
                 height: 60,
                 backgroundColor: "white",
-                flexDirection: "row",
+                flexDirection: "row"
               }}
             />
           </View>
@@ -327,19 +349,27 @@ class HomeNav extends Component {
 
             <Text style={styles.version} />
           </View>
-          <Image source={require("../../../images/sais.edu.sg/10yearLogo.png")} style={styles.tenYearLogo} />
+          <Image
+            source={require("../../../images/sais.edu.sg/10yearLogo.png")}
+            style={styles.tenYearLogo}
+          />
 
           <TouchableOpacity
             onPress={() => {
               this._handleOpenWithLinking("https://smartcookies.io");
             }}
           >
-            <Image source={require("../../../images/sais.edu.sg/SCLogo.png")} style={styles.sclogo} />
+            <Image
+              source={require("../../../images/sais.edu.sg/SCLogo.png")}
+              style={styles.sclogo}
+            />
           </TouchableOpacity>
 
           <View>
             <Text style={styles.version} />
-            <Text style={styles.version}>Version: {Constants.manifest.revisionId}</Text>
+            <Text style={styles.version}>
+              Version: {Constants.manifest.revisionId}
+            </Text>
           </View>
         </Content>
       </Container>
@@ -349,11 +379,12 @@ class HomeNav extends Component {
 
 function bindAction(dispatch) {
   return {
-    openDrawer: () => dispatch(openDrawer()),
+    openDrawer: () => dispatch(openDrawer())
   };
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   ////navigation: state.cardNavigation,
@@ -362,10 +393,10 @@ const mapStateToProps = state => ({
   ffauth_device_idX: state.ffauth_device_id,
   ffauth_secretX: state.ffauth_secret,
   calendarEventsX: state.user,
-  language: state.user.language,
+  language: state.user.language
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(HomeNav);

@@ -1,7 +1,5 @@
 import React from "react";
 import useGlobalHook from "use-global-hook";
-import { AsyncStorage } from 'react-native'
-import firebase from "firebase";
 
 const initialState = {
   loading: true,
@@ -24,8 +22,6 @@ const setGrade = (store, grade) => {
 const setClass = (store, str_class) => {
   store.setState({ class: str_class });
 };
-
-
 
 const actions = { setBeaconState, setGrade, setClass };
 const useBeaconSearchHook = useGlobalHook(React, initialState, actions);

@@ -8,7 +8,6 @@ import { bindActionCreators } from "redux";
 import { Ionicons } from "@expo/vector-icons";
 import { Container, Content, Text, Item, Button, Icon } from "native-base";
 
-import HeaderContent from "./../headerContent/header/";
 import styles from "./styles";
 
 import * as ActionCreators from "../../actions";
@@ -49,7 +48,6 @@ class Login extends Component {
       return this.props.userX.nickname;
     }
 
-    console.log("bbb", this.props.userX.nickname);
     return "Your Name  (First and Last)";
   }
 
@@ -61,8 +59,6 @@ class Login extends Component {
     ) {
       return this.props.userX.name;
     }
-
-    console.log("bbb", this.props.userX.name);
     return "myStamford parent email";
   }
 
@@ -80,8 +76,6 @@ class Login extends Component {
   render() {
     return (
       <Container style={{ backgroundColor: "#fff" }}>
-        <HeaderContent navigation={this.props.navigation} />
-
         <Content scrollEnabled bounces={false}>
           <View style={styles.bg}>
             <Text style={styles.textHeader}>myStamford</Text>

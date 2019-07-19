@@ -6,8 +6,10 @@ import firebase from "firebase";
 import useBeaconSearchHook from "./utils/BeaconSearchStore";
 
 const ClassListingScreen = ({ navigation }) => {
-
-  const [globalBeaconSearchState, globalBeaconSearchAction] = useBeaconSearchHook();
+  const [
+    globalBeaconSearchState,
+    globalBeaconSearchAction
+  ] = useBeaconSearchHook();
   const [loading, setLoading] = useState(false);
   const [classData, setClassData] = useState([]);
 
@@ -19,12 +21,11 @@ const ClassListingScreen = ({ navigation }) => {
   }, []);
 
   // Retrieve Data
-  retrieveData = async () => {
+  const retrieveData = async () => {
     try {
-
       // Set State: Loading
       setLoading(true);
-      console.log('Retrieving Data');
+      console.log("Retrieving Data");
       // Cloud Firestore: Query
 
       let initialQuery = await firebase
@@ -34,24 +35,24 @@ const ClassListingScreen = ({ navigation }) => {
         .collection("class")
         .where("grade", "==", grade);
 
-
       // Cloud Firestore: Query Snapshot
       let documentSnapshots = await initialQuery.get();
       // Cloud Firestore: Document Data
-      let newDocumentData = documentSnapshots.docs.map(document => document.data());
+      let newDocumentData = documentSnapshots.docs.map(document =>
+        document.data()
+      );
 
       // Set State
       setClassData(newDocumentData);
       setLoading(false);
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   };
 
-  _keyExtractor = (item, index) => index.toString();
+  const _keyExtractor = (item, index) => index.toString();
 
-  _renderItem = ({ item }) => (
+  const _renderItem = ({ item }) => (
     <ListItem
       title={item.classCode}
       chevron={true}
@@ -74,7 +75,7 @@ const ClassListingScreen = ({ navigation }) => {
     />
   );
 
-  renderSeparator = () => {
+  const renderSeparator = () => {
     return (
       <View
         style={{
@@ -87,25 +88,19 @@ const ClassListingScreen = ({ navigation }) => {
   };
 
   // Render Footer
-  renderFooter = () => {
+  const renderFooter = () => {
     try {
-
       // Check If Loading
 
       if (loading) {
-        return (
-          <ActivityIndicator />
-        )
-      }
-      else {
+        return <ActivityIndicator />;
+      } else {
         return null;
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   };
-
 
   return (
     <View>
@@ -118,8 +113,7 @@ const ClassListingScreen = ({ navigation }) => {
       />
     </View>
   );
-
-}
+};
 
 const styles = StyleSheet.create({
   listingText: {

@@ -1,4 +1,3 @@
-
 import React, { Component, useState, useEffect } from "react";
 
 import {
@@ -23,10 +22,10 @@ import BeaconHistoryItem from "./BeaconHistoryItem";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import firebase from "firebase";
 import moment from "moment";
-import 'moment/locale/en-SG'  // without this line it didn't work
-moment.locale('en-SG');
+import "moment/locale/en-SG"; // without this line it didn't work
+moment.locale("en-SG");
 import _ from "lodash";
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 import useBookmarkHook from "./utils/BookmarkStore";
 
@@ -48,7 +47,7 @@ const BookmarkBtn = ({ recordInfo }) => {
     color = "white";
   }
 
-  if (loading) return (<View></View>);
+  if (loading) return <View></View>;
   return (
     <TouchableHighlight
       style={styles.bookmark}
@@ -57,8 +56,8 @@ const BookmarkBtn = ({ recordInfo }) => {
     >
       <FontAwesome name="star" size={28} color={color} />
     </TouchableHighlight>
-  )
-}
+  );
+};
 
 export default class AttendeeDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -74,15 +73,14 @@ export default class AttendeeDetailScreen extends Component {
       userHistoryData: {},
       userHistory: [],
       calendarModalVisible: false,
-      selectedDate: '',
-      tempSelectedDate: ''
-    }
+      selectedDate: "",
+      tempSelectedDate: ""
+    };
   }
 
   componentDidMount() {
     const beaconID = this.props.navigation.state.params.mac;
-    const todayDate = moment()
-      .format("YYYYMMDD");
+    const todayDate = moment().format("YYYYMMDD");
 
     this.setState({ selectedDate: todayDate });
     console.log("beaconID", beaconID);
@@ -90,7 +88,8 @@ export default class AttendeeDetailScreen extends Component {
       this.setState({
         userHistory: data,
         loading: false
-      }));
+      })
+    );
   }
 
   async getData(mac, date) {
@@ -117,14 +116,13 @@ export default class AttendeeDetailScreen extends Component {
   }
 
   _renderListItem = (item, index) => {
-    key = index.toString();
+    var key = index.toString();
     if (index === 0)
       return <BeaconHistoryItem start={true} {...item} key={key} />;
     else if (index === this.state.userHistory.length - 1)
       return <BeaconHistoryItem last={true} {...item} key={key} />;
     else return <BeaconHistoryItem {...item} key={key} />;
   };
-
 
   render() {
     const recordInfo = this.props.navigation.state.params;
@@ -143,15 +141,18 @@ export default class AttendeeDetailScreen extends Component {
         {/* {Calendar Pop up} */}
         <Overlay
           isVisible={this.state.calendarModalVisible}
-          onBackdropPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
+          onBackdropPress={() => {
+            this.setCalendarModalVisible(!this.state.calendarModalVisible);
+          }}
           windowBackgroundColor="rgba(0, 0, 0, .8)"
           width="auto"
           height="auto"
         >
-          <SafeAreaView >
-
+          <SafeAreaView>
             <TouchableOpacity
-              onPress={() => { this.setCalendarModalVisible(!this.state.calendarModalVisible) }}
+              onPress={() => {
+                this.setCalendarModalVisible(!this.state.calendarModalVisible);
+              }}
               style={{
                 position: "absolute",
                 top: 0,
@@ -159,26 +160,39 @@ export default class AttendeeDetailScreen extends Component {
                 zIndex: 10
               }}
             >
-              <Ionicons name="md-close" size={28} color='gray' />
+              <Ionicons name="md-close" size={28} color="gray" />
             </TouchableOpacity>
-            <View style={{ paddingHorizontal: 20, paddingTop: 40, paddingBottom: 10 }}  >
-              <Text style={{ marginBottom: 15, fontWeight: 'bold' }}>
+            <View
+              style={{
+                paddingHorizontal: 20,
+                paddingTop: 40,
+                paddingBottom: 10
+              }}
+            >
+              <Text style={{ marginBottom: 15, fontWeight: "bold" }}>
                 Select Date
               </Text>
               <Calendar
-                onDayPress={(day) => { this.setState({ tempSelectedDate: day.dateString }) }}
-                markedDates={{ 
-                  [this.state.tempSelectedDate]: { selected: true, disableTouchEvent: true }
-               }}
+                onDayPress={day => {
+                  this.setState({ tempSelectedDate: day.dateString });
+                }}
+                markedDates={{
+                  [this.state.tempSelectedDate]: {
+                    selected: true,
+                    disableTouchEvent: true
+                  }
+                }}
               />
               <Button
                 title="Submit"
                 onPress={() => {
                   this.setState({ selectedDate: this.state.tempSelectedDate });
-                  this.setCalendarModalVisible(!this.state.calendarModalVisible);
+                  this.setCalendarModalVisible(
+                    !this.state.calendarModalVisible
+                  );
                 }}
-                containerStyle={{ marginTop: 15 }} />
-
+                containerStyle={{ marginTop: 15 }}
+              />
             </View>
           </SafeAreaView>
         </Overlay>
@@ -195,9 +209,13 @@ export default class AttendeeDetailScreen extends Component {
             </View>
             <View style={styles.detailContainer}>
               <View>
-                <Text style={styles.attendeeNameText}>{fullname || "No Name"}</Text>
+                <Text style={styles.attendeeNameText}>
+                  {fullname || "No Name"}
+                </Text>
                 <Text style={styles.detailsText}>{gradeTitle}</Text>
-                <Text style={styles.detailsText}>{studentClass || "No Class"}</Text>
+                <Text style={styles.detailsText}>
+                  {studentClass || "No Class"}
+                </Text>
                 <Text />
                 <Text style={styles.detailsText}>
                   last seen {moment(lastSeen).format("LLL")}

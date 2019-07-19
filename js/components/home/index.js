@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, View, TouchableOpacity } from "react-native";
+import { Image, View, TouchableOpacity, AsyncStorage } from "react-native";
 import { Container, Text } from "native-base";
 import * as firebase from "firebase";
 
@@ -7,14 +7,12 @@ import { Grid, Col, Row } from "react-native-easy-grid";
 import { Agenda } from "react-native-calendars";
 import * as ActionCreators from "../../actions";
 import styles from "./styles";
-import HeaderContent from "../headerContent/header";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { formatTime, formatMonth } from "../global.js";
 import I18n from "../../lib/i18n";
 import moment from "moment";
 import "moment/min/locales";
-import { AsyncStorage } from "react-native";
 //import momentFR from "moment/src/locale/fr";
 
 //import { LocaleConfig } from "react-native-calendars";
@@ -45,7 +43,12 @@ import { AsyncStorage } from "react-native";
 //LocaleConfig.defaultLocale = "fr";
 
 const tabBarIcon = name => ({ tintColor }) => (
-  <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
+  <Ionicons
+    style={{ backgroundColor: "transparent" }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
 );
 
 @withMappedNavigationParams()
@@ -54,7 +57,7 @@ class calendar1 extends Component {
     super(props);
 
     this.state = {
-      items: {},
+      items: {}
     };
 
     const time = Date.now(); //+ 8 * 3600 * 1000;
@@ -69,14 +72,14 @@ class calendar1 extends Component {
       name: I18n.t("today") + " " + todayDay,
       icon: "md-radio-button-off",
       color: "yellow",
-      title: todayDay,
+      title: todayDay
     });
   }
 
   static navigationOptions = {
     title: I18n.t("calendar"),
     tabBarColor: "#c51162",
-    tabBarIcon: tabBarIcon("ios-calendar", "green"),
+    tabBarIcon: tabBarIcon("ios-calendar", "green")
   };
 
   componentDidMount() {
@@ -105,6 +108,7 @@ class calendar1 extends Component {
 
         this.loadItems();
         var itemCount = 0;
+        var strtime = 0;
         snapshot.forEach(doc => {
           itemCount++;
           items2.push(doc.data());
@@ -135,18 +139,18 @@ class calendar1 extends Component {
               url: doc.data().htmlLink,
               photo1: doc.data().photo1,
               photo2: doc.data().photo2,
-              photo3: doc.data().photo3,
+              photo3: doc.data().photo3
             });
           }
         });
 
-        items = JSON.parse(JSON.stringify(this.state.items));
+        var items = JSON.parse(JSON.stringify(this.state.items));
         if (itemCount > 10) {
           this._storeData(JSON.stringify(this.state.items));
         }
 
         this.setState({
-          items,
+          items
         });
 
         this.loadItems();
@@ -163,7 +167,7 @@ class calendar1 extends Component {
       if (items.length > 0) {
         this.setState({
           items,
-          loading: false,
+          loading: false
         });
         this.loadItems();
       }
@@ -205,8 +209,6 @@ class calendar1 extends Component {
 
     return (
       <Container>
-        <HeaderContent showBack="true" showHome="false" navigation={this.props.navigation} />
-
         <Agenda
           items={this.state.items}
           loadItemsForMonth={this.loadItems.bind(this)}
@@ -216,10 +218,15 @@ class calendar1 extends Component {
           rowHasChanged={this.rowHasChanged.bind(this)}
           hideKnob={false}
           renderKnob={() => {
-            return <Ionicons style={{ color: "#00adf5", fontSize: 30 }} name="ios-arrow-down" />;
+            return (
+              <Ionicons
+                style={{ color: "#00adf5", fontSize: 30 }}
+                name="ios-arrow-down"
+              />
+            );
           }}
           theme={{
-            selectedDayBackgroundColor: "#00adf5",
+            selectedDayBackgroundColor: "#00adf5"
           }}
           style={{}}
         />
@@ -247,7 +254,7 @@ class calendar1 extends Component {
             photo1: item.photo1,
             photo2: item.photo2,
             photo3: item.photo3,
-            url: item.url,
+            url: item.url
           })
         }
       >
@@ -256,8 +263,8 @@ class calendar1 extends Component {
             styles.agendaItem,
             {
               height: item.height,
-              borderRightColor: this.formatBackground(item.color),
-            },
+              borderRightColor: this.formatBackground(item.color)
+            }
           ]}
         >
           <Grid>
@@ -269,11 +276,13 @@ class calendar1 extends Component {
 
                 <Text style={styles.text}>{item.name}</Text>
 
-                {undefined !== item.group && item.group !== null && item.group.length > 0 && (
-                  <View style={styles.groupView}>
-                    <Text style={styles.groupText}>{item.group}</Text>
-                  </View>
-                )}
+                {undefined !== item.group &&
+                  item.group !== null &&
+                  item.group.length > 0 && (
+                    <View style={styles.groupView}>
+                      <Text style={styles.groupText}>{item.group}</Text>
+                    </View>
+                  )}
               </Col>
               <Col style={{ width: 60 }}>
                 <View
@@ -287,10 +296,13 @@ class calendar1 extends Component {
                     alignItems: "center",
                     paddingLeft: 0,
                     paddingRight: 0,
-                    justifyContent: "center",
+                    justifyContent: "center"
                   }}
                 >
-                  <Ionicons style={{ color: "white", fontSize: 20 }} name={item.icon} />
+                  <Ionicons
+                    style={{ color: "white", fontSize: 20 }}
+                    name={item.icon}
+                  />
                   <View />
                 </View>
               </Col>
@@ -318,15 +330,15 @@ class calendar1 extends Component {
     return ret;
   }
 
-  renderTime(start, end) {
-    if (undefined != start && start.length > 0) {
-      return <Text style={styles.agendaDate}>{formatTime(start, end)} </Text>;
-    }
-  }
-
   renderImage(calImage) {
     if (undefined != calImage && calImage.length > 0) {
-      return <Image source={{ uri: calImage }} style={{ width: 300, height: 150 }} resizeMode="contain" />;
+      return (
+        <Image
+          source={{ uri: calImage }}
+          style={{ width: 300, height: 150 }}
+          resizeMode="contain"
+        />
+      );
     }
   }
 
@@ -367,16 +379,16 @@ class calendar1 extends Component {
         ret = "#E63946";
         break;
       case "green":
-        day = "#64D4D2";
+        ret = "#64D4D2";
         break;
       case "light blue":
-        day = "white";
+        ret = "white";
         break;
       case 5:
-        day = "Friday";
+        ret = "Friday";
         break;
       case 6:
-        day = "Saturday";
+        ret = "Saturday";
     }
 
     return ret;
