@@ -17,7 +17,7 @@ export default (variables = variable) => {
       },
       "NativeBase.Input": {
         paddingHorizontal: 5
-      },
+      }, 
       flex: 1,
       borderWidth: null,
       margin: -10,

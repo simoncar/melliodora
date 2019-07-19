@@ -23,13 +23,11 @@ export default class BLEDataParser {
       BatteryLevel: this.readPairedData(13),
       MacAddress: this.readPairedData(14, false, 19).join(":"),
       Name: this.readPairedData(20, false, this.pairedData.length - 1).join("")
-    };
+       };
   }
 
   getDataLength(dataLength) {
-    if (dataLength !== dataLength) {
-      throw `Data Length is not ${dataLength} as specified by documentation`;
-    }
+ 
     return dataLength;
   }
 
