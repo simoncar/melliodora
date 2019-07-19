@@ -38,13 +38,11 @@ export default class CustomActions extends React.Component {
   };
 
   setImages(images) {
-    //console.log ('setImages = ', images.uri);
     this._images = images;
     //uploadUrl = await uploadImageAsync(images.uri);
   }
 
   getImages() {
-    console.log("getImages = ");
     return this._images;
   }
 
@@ -69,11 +67,11 @@ export default class CustomActions extends React.Component {
       buttonIndex => {
         switch (buttonIndex) {
           case 0:
-            _pickImage();
+            //_pickImage();
             //this.setModalVisiblePhoto(true);
             break;
           case 1:
-            _pickVideo();
+            // _pickVideo();
 
             break;
           case 2:
@@ -86,14 +84,12 @@ export default class CustomActions extends React.Component {
 
   selectImagesPhoto(images) {
     // dont use as it fires after every image is selected
-    console.log("images = ", images);
 
     this.setImages(images);
   }
 
   selectImagesVideo(images) {
     // dont use as it fires after every image is selected
-    console.log("images = ", images);
 
     this.setImages(images);
   }

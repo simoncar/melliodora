@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    width: 30,
     color: "#007AFF",
   },
   imageStyleCheckOff: {
@@ -138,7 +137,6 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    width: 30,
     color: "#FFF",
   },
 

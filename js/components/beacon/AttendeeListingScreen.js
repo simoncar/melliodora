@@ -29,13 +29,12 @@ const AttendeeListingScreen = ({ navigation }) => {
     retrieveData();
   }, []);
 
-  getQuery = () => {
-
-    baseQuery = firebase
-    .firestore()
-    .collection("sais_edu_sg")
-    .doc("beacon")
-    .collection("beacons")
+  const getQuery = () => {
+    var baseQuery = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beacons");
     if (!beaconState) {
       return baseQuery
         .where("grade", "==", String(grade))
@@ -49,7 +48,7 @@ const AttendeeListingScreen = ({ navigation }) => {
       .orderBy("mac");
   };
   // Retrieve Data
-  retrieveData = async () => {
+  const retrieveData = async () => {
     try {
       // Set State: Loading
       setLoading(true);
@@ -82,7 +81,7 @@ const AttendeeListingScreen = ({ navigation }) => {
     }
   };
   // Retrieve More
-  retrieveMore = async () => {
+  const retrieveMore = async () => {
     try {
       if (!documentData) return;
       // Set State: Refreshing
@@ -107,7 +106,7 @@ const AttendeeListingScreen = ({ navigation }) => {
     }
   };
   // Render Header
-  renderHeader = () => {
+  const renderHeader = () => {
     try {
       return null;
     } catch (error) {
@@ -115,7 +114,7 @@ const AttendeeListingScreen = ({ navigation }) => {
     }
   };
   // Render Footer
-  renderFooter = () => {
+  const renderFooter = () => {
     try {
       // Check If Loading
 
@@ -129,24 +128,25 @@ const AttendeeListingScreen = ({ navigation }) => {
     }
   };
 
-  ListEmpty = () => {
-
+  const ListEmpty = () => {
     if (noResult) {
       return (
         //View to show when list is empty
-        <View style={{
-          justifyContent: 'center',
-          flex: 1,
-          margin: 10,
-        }}>
-          <Text style={{ color: 'gray', textAlign: 'center' }}>No Result Found</Text>
+        <View
+          style={{
+            justifyContent: "center",
+            flex: 1,
+            margin: 10,
+          }}
+        >
+          <Text style={{ color: "gray", textAlign: "center" }}>No Result Found</Text>
         </View>
       );
     }
     return null;
   };
 
-  _renderItem = ({ item }) => {
+  const _renderItem = ({ item }) => {
     const firstName = item.firstName || "";
     const lastName = item.lastName || "";
     const avatarTitle = firstName.slice(0, 1) + lastName.slice(0, 1);
@@ -184,7 +184,7 @@ const AttendeeListingScreen = ({ navigation }) => {
     );
   };
 
-  renderSeparator = () => {
+  const renderSeparator = () => {
     return (
       <View
         style={{
@@ -234,7 +234,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: height,
     width: width,
-
   },
   headerText: {
     fontFamily: "System",
@@ -258,7 +257,6 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#000",
   },
-
 });
 
 AttendeeListingScreen.navigationOptions = {

@@ -6,9 +6,7 @@ import firebase from "firebase";
 import useBeaconSearchHook from "./utils/BeaconSearchStore";
 
 const GradeListingScreen = ({ navigation }) => {
-
   const [globalBeaconSearch, globalBeaconSearchAction] = useBeaconSearchHook();
-
 
   const [loading, setLoading] = useState(false);
   const [campusData, setCampusData] = useState([]);
@@ -18,12 +16,11 @@ const GradeListingScreen = ({ navigation }) => {
   }, []);
 
   // Retrieve Data
-  retrieveData = async () => {
+  const retrieveData = async () => {
     try {
-
       // Set State: Loading
       setLoading(true);
-      console.log('Retrieving Data');
+      console.log("Retrieving Data");
       // Cloud Firestore: Query
 
       let initialQuery = await firebase
@@ -31,8 +28,7 @@ const GradeListingScreen = ({ navigation }) => {
         .collection("sais_edu_sg")
         .doc("org")
         .collection("grade")
-        .orderBy("grade")
-
+        .orderBy("grade");
 
       // Cloud Firestore: Query Snapshot
       let documentSnapshots = await initialQuery.get();
@@ -42,15 +38,14 @@ const GradeListingScreen = ({ navigation }) => {
       // Set State
       setCampusData(newDocumentData);
       setLoading(false);
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   };
 
-  _keyExtractor = (item, index) => index.toString();
+  const _keyExtractor = (item, index) => index.toString();
 
-  _renderItem = ({ item }) => (
+  const _renderItem = ({ item }) => (
     <ListItem
       title={item.gradeTitle}
       chevron={true}
@@ -69,40 +64,33 @@ const GradeListingScreen = ({ navigation }) => {
       onPress={() => {
         globalBeaconSearchAction.setGrade(item.grade);
         navigation.navigate("ClassListingScreen");
-      }
-
-      }
+      }}
     />
   );
 
-  renderSeparator = () => {
+  const renderSeparator = () => {
     return (
       <View
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#CED0CE"
+          backgroundColor: "#CED0CE",
         }}
       />
     );
   };
 
   // Render Footer
-  renderFooter = () => {
+  const renderFooter = () => {
     try {
-
       // Check If Loading
 
       if (loading) {
-        return (
-          <ActivityIndicator />
-        )
-      }
-      else {
+        return <ActivityIndicator />;
+      } else {
         return null;
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   };
@@ -118,19 +106,18 @@ const GradeListingScreen = ({ navigation }) => {
       />
     </View>
   );
-
-}
+};
 
 const styles = StyleSheet.create({
   listingText: {
     fontWeight: "bold",
     padding: 15,
-    fontSize: 15
-  }
+    fontSize: 15,
+  },
 });
 
 GradeListingScreen.navigationOptions = {
   title: "Select Grade",
-  headerBackTitle: null
+  headerBackTitle: null,
 };
 export default GradeListingScreen;

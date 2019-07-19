@@ -3,15 +3,12 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Notifications } from "expo";
 import Constants from "expo-constants";
-import { I18nManager, AsyncStorage } from "react-native";
-import { Updates } from "expo";
-import I18n from "i18n-js";
+import { AsyncStorage } from "react-native";
 
 import Analytics from "./lib/analytics";
 import * as ActionCreators from "./actions";
 import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
-import { update } from "tcomb";
 
 const instID = Constants.manifest.extra.instance;
 

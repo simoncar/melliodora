@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     alignSelf: "center",
     height: 30,
-    width: 30,
     fontSize: 30,
     width: 30,
     color: "#007AFF",
@@ -58,7 +57,6 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    width: 30,
     color: "#FFF",
   },
 

@@ -10,7 +10,6 @@ import * as ActionCreators from "../../actions";
 
 import Analytics from "../../lib/analytics";
 import Constants from "expo-constants";
-import HeaderContent from "./../headerContent/header/";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
@@ -238,8 +237,6 @@ class phoneCalendar extends Component {
     if (this.state.calendars.length) {
       return (
         <Container style={{ backgroundColor: "#fff" }}>
-          <HeaderContent showBack navigation={this.props.navigation} />
-
           <Content showsVerticalScrollIndicator={false}>
             <View>
               <View style={styles.newsContent}>

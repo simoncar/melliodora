@@ -59,7 +59,6 @@ export default class Contact extends Component {
   }
 
   _updateFirebase() {
-    console.log("update firebase");
     updateFirebase();
     this.setState({ updateFirebaseText: "Another golf day booked!" });
   }

@@ -64,7 +64,7 @@ class BeaconItem extends Component {
     if (this.isOnline(timestamp)) {
       return <Text style={styles.lastSeenActive}>Healthy</Text>;
     } else {
-      lastSeenDateTime = moment(timestamp).format("LLL");
+      var lastSeenDateTime = moment(timestamp).format("LLL");
       return (
         <View>
           <Text style={styles.offlineTitle}>Offline</Text>

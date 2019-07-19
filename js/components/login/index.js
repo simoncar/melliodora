@@ -8,7 +8,6 @@ import { bindActionCreators } from "redux";
 import { Ionicons } from "@expo/vector-icons";
 import { Container, Content, Text, Item, Button, Icon } from "native-base";
 
-import HeaderContent from "./../headerContent/header/";
 import styles from "./styles";
 
 import * as ActionCreators from "../../actions";
@@ -23,8 +22,8 @@ class Login extends Component {
   static propTypes = {
     openDrawer: PropTypes.func,
     navigation: PropTypes.shape({
-      key: PropTypes.string
-    })
+      key: PropTypes.string,
+    }),
   };
 
   constructor(props) {
@@ -34,9 +33,8 @@ class Login extends Component {
 
   doLogin(user, password) {
     this.props.navigation.navigate("webportalURL", {
-      url:
-        "https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP",
-      title: "myStamford"
+      url: "https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP",
+      title: "myStamford",
     });
   }
 
@@ -49,20 +47,13 @@ class Login extends Component {
       return this.props.userX.nickname;
     }
 
-    console.log("bbb", this.props.userX.nickname);
     return "Your Name  (First and Last)";
   }
 
   _placeHolderEmail() {
-    if (
-      undefined !== this.props.userX.name &&
-      this.props.userX.name !== null &&
-      this.props.userX.name.length > 0
-    ) {
+    if (undefined !== this.props.userX.name && this.props.userX.name !== null && this.props.userX.name.length > 0) {
       return this.props.userX.name;
     }
-
-    console.log("bbb", this.props.userX.name);
     return "myStamford parent email";
   }
 
@@ -80,8 +71,6 @@ class Login extends Component {
   render() {
     return (
       <Container style={{ backgroundColor: "#fff" }}>
-        <HeaderContent navigation={this.props.navigation} />
-
         <Content scrollEnabled bounces={false}>
           <View style={styles.bg}>
             <Text style={styles.textHeader}>myStamford</Text>
@@ -135,9 +124,7 @@ class Login extends Component {
                 selectionColor="grey"
                 enablesReturnKeyAutomatically
                 returnKeyType="done"
-                onSubmitEditing={() =>
-                  this.doLogin(this.username, this.password)
-                }
+                onSubmitEditing={() => this.doLogin(this.username, this.password)}
               />
             </Item>
 
@@ -158,15 +145,14 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(ActionCreators, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
-  userX: state.user
+  userX: state.user,
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Login);

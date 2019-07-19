@@ -6,7 +6,6 @@ import firebase from "firebase";
 import useBeaconSearchHook from "./utils/BeaconSearchStore";
 
 const ClassListingScreen = ({ navigation }) => {
-
   const [globalBeaconSearchState, globalBeaconSearchAction] = useBeaconSearchHook();
   const [loading, setLoading] = useState(false);
   const [classData, setClassData] = useState([]);
@@ -19,12 +18,11 @@ const ClassListingScreen = ({ navigation }) => {
   }, []);
 
   // Retrieve Data
-  retrieveData = async () => {
+  const retrieveData = async () => {
     try {
-
       // Set State: Loading
       setLoading(true);
-      console.log('Retrieving Data');
+      console.log("Retrieving Data");
       // Cloud Firestore: Query
 
       let initialQuery = await firebase
@@ -34,7 +32,6 @@ const ClassListingScreen = ({ navigation }) => {
         .collection("class")
         .where("grade", "==", grade);
 
-
       // Cloud Firestore: Query Snapshot
       let documentSnapshots = await initialQuery.get();
       // Cloud Firestore: Document Data
@@ -43,15 +40,14 @@ const ClassListingScreen = ({ navigation }) => {
       // Set State
       setClassData(newDocumentData);
       setLoading(false);
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   };
 
-  _keyExtractor = (item, index) => index.toString();
+  const _keyExtractor = (item, index) => index.toString();
 
-  _renderItem = ({ item }) => (
+  const _renderItem = ({ item }) => (
     <ListItem
       title={item.classCode}
       chevron={true}
@@ -74,38 +70,32 @@ const ClassListingScreen = ({ navigation }) => {
     />
   );
 
-  renderSeparator = () => {
+  const renderSeparator = () => {
     return (
       <View
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#CED0CE"
+          backgroundColor: "#CED0CE",
         }}
       />
     );
   };
 
   // Render Footer
-  renderFooter = () => {
+  const renderFooter = () => {
     try {
-
       // Check If Loading
 
       if (loading) {
-        return (
-          <ActivityIndicator />
-        )
-      }
-      else {
+        return <ActivityIndicator />;
+      } else {
         return null;
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   };
-
 
   return (
     <View>
@@ -118,19 +108,18 @@ const ClassListingScreen = ({ navigation }) => {
       />
     </View>
   );
-
-}
+};
 
 const styles = StyleSheet.create({
   listingText: {
     fontWeight: "bold",
     padding: 15,
-    fontSize: 15
-  }
+    fontSize: 15,
+  },
 });
 
 ClassListingScreen.navigationOptions = {
   title: "Select Class",
-  headerBackTitle: null
+  headerBackTitle: null,
 };
 export default ClassListingScreen;

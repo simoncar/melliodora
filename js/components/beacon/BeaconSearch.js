@@ -12,9 +12,8 @@ import {
   SafeAreaView,
 } from "react-native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import { ButtonGroup, Input, Button } from "react-native-elements";
+import { ButtonGroup, Input, Button, ListItem } from "react-native-elements";
 import firebase from "firebase";
-import { ListItem } from "react-native-elements";
 import moment from "moment";
 
 export default class BeaconSearch extends Component {
@@ -46,7 +45,7 @@ export default class BeaconSearch extends Component {
     // return baseQuery
     //   .where("fullname", "==", this.state.searchTerm)
 
-    baseQuery = firebase
+    var baseQuery = firebase
       .firestore()
       .collection("sais_edu_sg")
       .doc("beacon")

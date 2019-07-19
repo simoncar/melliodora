@@ -20,8 +20,7 @@ const AttendanceStats = ({ navigation }) => {
 
   useEffect(() => {
     //TODO: Pass in the date from a date picker
-    const xdate = moment()
-      .format("YYYYMMDD");
+    const xdate = moment().format("YYYYMMDD");
 
     let ref = firebase
       .firestore()
@@ -37,7 +36,7 @@ const AttendanceStats = ({ navigation }) => {
           console.log("No such document!");
         } else {
           console.log("Document data:", doc.data());
-          countData = doc.data();
+          var countData = doc.data();
 
           const countDict = {
             countNotPresent: countData.countNotPresent,
@@ -53,14 +52,14 @@ const AttendanceStats = ({ navigation }) => {
       .catch(err => {
         console.log("Error getting document", err);
       });
-  },[]);
+  }, []);
 
-  routeBtn = state => {
+  const routeBtn = state => {
     globalBeaconSearchAction.setBeaconState(state);
     navigation.navigate("GradeListingScreen");
   };
 
-  infoToolTip = (tooltipText, visibleState, setVisibleState) => {
+  const infoToolTip = (tooltipText, visibleState, setVisibleState) => {
     return (
       <View>
         <Tooltip
@@ -78,7 +77,7 @@ const AttendanceStats = ({ navigation }) => {
     );
   };
 
-  renderViewMore = () => (
+  const renderViewMore = () => (
     <View
       style={{
         position: "absolute",

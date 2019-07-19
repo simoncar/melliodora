@@ -1,14 +1,11 @@
 "use strict";
 import React, { Component } from "react";
 
-import { AppRegistry, StyleSheet, Text, View, Image, Alert, TouchableOpacity } from "react-native";
+import { AppRegistry, StyleSheet, Text, View, Image, Alert, TouchableOpacity, AsyncStorage } from "react-native";
 import SettingsList from "react-native-settings-list";
 import * as Localization from "expo-localization";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { AsyncStorage } from "react-native";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
-import AttendanceMenu from "../beacon/AttendanceMenu";
 
 class Settings extends Component {
   static navigationOptions = {
@@ -44,7 +41,6 @@ class Settings extends Component {
       const value = await AsyncStorage.getItem("language");
       if (value !== null) {
         // We have data!!
-        console.log(value);
         this.setState({ language: value });
       }
     } catch (error) {
@@ -274,14 +270,12 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    width: 30,
     color: "#007AFF",
   },
   imageStyleCheckOff: {
     marginLeft: 15,
     alignSelf: "center",
     height: 30,
-    width: 30,
     fontSize: 30,
     width: 30,
     color: "#FFF",
