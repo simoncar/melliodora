@@ -4,7 +4,7 @@ import Setup from "./js/setup";
 
 import "@firebase/firestore";
 import { I18nManager, AsyncStorage } from "react-native";
-import I18n from "i18n-js";
+import I18n from "./js/lib/i18n";
 import Firebase from "./js/lib/firebase";
 import Constants from "expo-constants";
 import Sentry from "sentry-expo";
