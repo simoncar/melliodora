@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View, TouchableOpacity, TouchableHighlight } from "react-native";
 import { Button } from "react-native-elements";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import Tooltip from "react-native-walkthrough-tooltip";
 import useBeaconSearchHook from "./utils/BeaconSearchStore";
+const moment = require("moment");
+import firebase from "firebase";
 
-const AttendanceStats = ({ navigation, countDict }) => {
+const AttendanceStats = ({ navigation }) => {
   const [globalBeaconSearchState, globalBeaconSearchAction] = useBeaconSearchHook();
 
   const [enteredToolTipVisible, setEnteredToolTipVisible] = useState(false);
@@ -13,6 +15,45 @@ const AttendanceStats = ({ navigation, countDict }) => {
   const [exitedToolTipVisible, setExixtedToolTipVisible] = useState(false);
   const [perimeterToolTipVisible, setPerimeterToolTipVisible] = useState(false);
   const [notpresentToolTipVisible, setNotpresentToolTipVisible] = useState(false);
+
+  const [countDict, setCountDict] = useState({});
+
+  useEffect(() => {
+    //TODO: Pass in the date from a date picker
+    const xdate = moment()
+      .format("YYYYMMDD");
+
+    let ref = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beaconHistory")
+      .doc(xdate);
+
+    let historyDoc = ref
+      .get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log("No such document!");
+        } else {
+          console.log("Document data:", doc.data());
+          countData = doc.data();
+
+          const countDict = {
+            countNotPresent: countData.countNotPresent,
+            countPerimeter: countData.countPerimeter,
+            countEntered: countData.countEntered,
+            countExited: countData.countExited,
+            countOther: countData.countOther,
+          };
+
+          setCountDict(countDict);
+        }
+      })
+      .catch(err => {
+        console.log("Error getting document", err);
+      });
+  },[]);
 
   routeBtn = state => {
     globalBeaconSearchAction.setBeaconState(state);
