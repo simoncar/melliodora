@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-import { Platform, Text, View, Alert, TouchableOpacity } from "react-native";
+import { Platform, Text, View, Alert, TouchableOpacity, AsyncStorage, Linking } from "react-native";
 import { connect } from "react-redux";
-import { ActionSheet } from "native-base";
-import { AsyncStorage } from "react-native";
+import { ActionSheet, Container, Footer } from "native-base";
 
 import { GiftedChat, Bubble, SystemMessage, Time, Send } from "react-native-gifted-chat";
 import { SimpleLineIcons, MaterialIcons, Entypo } from "@expo/vector-icons";
 import { ImagePicker, Permissions } from "expo";
 
-import { Container, Footer } from "native-base";
 import emojiUtils from "emoji-utils";
 import Constants from "expo-constants";
 import { bindActionCreators } from "redux";
@@ -17,7 +15,6 @@ import CustomView from "./customView";
 import CustomImage from "./customImage";
 import CustomVideo from "./customVideo";
 import styles from "./styles";
-import HeaderContent from "./../headerContent/header/";
 import I18n from "../../lib/i18n";
 
 import * as ActionCreators from "../../actions";
@@ -144,7 +141,6 @@ class chat extends Component {
       const value = await AsyncStorage.getItem("language");
       if (value !== null) {
         // We have data!!
-        console.log(value);
         this.setState({ language: value });
       }
     } catch (error) {
@@ -182,7 +178,6 @@ class chat extends Component {
   }
 
   onSend(messages = []) {
-    console.log("messages = ", messages);
     Backend.SendMessage(messages);
   }
 
@@ -203,8 +198,6 @@ class chat extends Component {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
     });
-
-    console.log(result);
 
     if (!result.cancelled) {
       //this.setState({ image: result.uri });
@@ -239,17 +232,14 @@ class chat extends Component {
   }
 
   renderCustomView(props) {
-    console.log("renderCustomView", props);
     return <CustomView {...props} />;
   }
 
   renderCustomImage(props) {
-    console.log("imageimageimageimageimage");
     return <CustomImage {...props} />;
   }
 
   renderCustomVideo(props) {
-    console.log("video");
     return <CustomVideo {...props} />;
   }
 
@@ -287,7 +277,7 @@ class chat extends Component {
     const username = this.props.userX.nickname;
     const color = this.getColor(username);
 
-    myimage = props.currentMessage.image;
+    var myimage = props.currentMessage.image;
 
     if (props.currentMessage.image) {
       return (
@@ -411,8 +401,6 @@ class chat extends Component {
   render() {
     return (
       <Container>
-        <HeaderContent showBack="true" showHome="false" navigation={this.props.navigation} />
-
         <View>
           <TouchableOpacity
             onPress={() => {
@@ -467,12 +455,10 @@ class chat extends Component {
   }
 }
 
-_pickVideo = async () => {
+const _pickVideo = async () => {
   let result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Videos,
   });
-
-  console.log(result);
 
   if (!result.cancelled) {
     //this.setState({ image: result.uri });

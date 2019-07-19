@@ -67,35 +67,30 @@ export default {
     fontSize: 13,
     backgroundColor: "white",
     color: "grey",
-    fontSize: 16,
     marginLeft: 15,
   },
   lastSeen: {
     fontSize: 13,
     backgroundColor: "white",
     color: "red",
-    fontSize: 16,
     marginLeft: 15,
   },
   offlineTitle: {
     fontSize: 13,
     backgroundColor: "white",
     color: "red",
-    fontSize: 16,
     marginLeft: 15,
   },
   lastSeenActive: {
     fontSize: 13,
     backgroundColor: "white",
     color: "green",
-    fontSize: 16,
     marginLeft: 15,
   },
   lastSeenInactive: {
     fontSize: 13,
     backgroundColor: "white",
     color: "grew",
-    fontSize: 16,
     marginLeft: 15,
   },
   roundedButton: {
@@ -213,10 +208,7 @@ export default {
     fontSize: 16,
     backgroundColor: "transparent",
   },
-  container: {
-    backgroundColor: "white",
-    flex: 1,
-  },
+
   userPhoto: {
     width: 40,
     height: 40,

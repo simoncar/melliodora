@@ -1,17 +1,9 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import Constants from "expo-constants";
-import {
-  Animated,
-  TextInput,
-  TouchableOpacity,
-  WebView,
-  View
-} from "react-native";
+import { Animated, TextInput, TouchableOpacity, WebView, View } from "react-native";
 
 import { Container, Spinner } from "native-base";
-
-import HeaderContent from "./../headerContent/header/";
 
 import { getParameterByName } from "../global.js";
 
@@ -30,18 +22,13 @@ var DEFAULT_URL = global.switch_portalURL; //'https://mystamford.edu.sg/login/lo
 var injectScript = "";
 
 const tabBarIcon = name => ({ tintColor }) => (
-  <MaterialIcons
-    style={{ backgroundColor: "transparent" }}
-    name={name}
-    color={tintColor}
-    size={24}
-  />
+  <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
 class authPortal extends Component {
   static navigationOptions = {
     title: "myStamford",
-    headerBackTitle: null
+    headerBackTitle: null,
   };
 
   constructor(props) {
@@ -64,9 +51,7 @@ class authPortal extends Component {
       ";" +
       'document.getElementsByClassName("ff-login-personalised-logo")[0].style.visibility = "hidden";';
     injectScript =
-      injectScript +
-      ";" +
-      'document.getElementsByClassName("global-logo")[0].style.visibility = "hidden";';
+      injectScript + ";" + 'document.getElementsByClassName("global-logo")[0].style.visibility = "hidden";';
     //  injectScript = injectScript + ';' +  'window.postMessage(document.cookie)'
     //  injectScript = '';
 
@@ -83,8 +68,7 @@ class authPortal extends Component {
     //DEFAULT_URL = DEFAULT_URL + this.props.userX.ffauth_secret; //"6fbfcef8d9d0524cbb90cb75285df9a1"
 
     DEFAULT_URL = DEFAULT_URL + "&prelogin=";
-    DEFAULT_URL =
-      DEFAULT_URL + "https://mystamford.edu.sg/cafe/cafe-online-ordering";
+    DEFAULT_URL = DEFAULT_URL + "https://mystamford.edu.sg/cafe/cafe-online-ordering";
 
     DEFAULT_URL =
       "https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP";
@@ -103,7 +87,7 @@ class authPortal extends Component {
     webViewUrl: "",
     visible: this.props.visible,
     myText: "My Original Text",
-    showMsg: false
+    showMsg: false,
   };
 
   componentWillUnmount() {
@@ -113,12 +97,7 @@ class authPortal extends Component {
   showMsg() {
     if (Constants.manifest.extra.instance == "0001-sais_edu_sg") {
       this.setState({ showMsg: true }, () =>
-        timer.setTimeout(
-          this,
-          "hideMsg",
-          () => this.setState({ showMsg: false }),
-          5000
-        )
+        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 5000),
       );
     }
   }
@@ -157,12 +136,7 @@ class authPortal extends Component {
       this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
 
       this.setState({ showMsg: true }, () =>
-        timer.setTimeout(
-          this,
-          "hideMsg",
-          () => this.setState({ showMsg: false }),
-          10000
-        )
+        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000),
       );
     }
   }
@@ -175,7 +149,7 @@ class authPortal extends Component {
 
   getInitialState = () => {
     return {
-      webViewHeight: 100 // default height, can be anything
+      webViewHeight: 100, // default height, can be anything
     };
   };
 
@@ -196,7 +170,7 @@ class authPortal extends Component {
 
   toggleCancel() {
     this.setState({
-      showCancel: !this.state.showCancel
+      showCancel: !this.state.showCancel,
     });
   }
 
@@ -222,7 +196,7 @@ class authPortal extends Component {
   };
 
   render() {
-    _login = () => {
+    const _login = () => {
       Animated.visible = false;
       Animated.height = 0;
       //this.toggleCancel();
@@ -235,15 +209,10 @@ class authPortal extends Component {
 
     return (
       <Container>
-        <HeaderContent navigation={this.props.navigation} />
-
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>
-              <TouchableOpacity
-                disabled={!this.state.canGoBack}
-                onPress={this.onBack.bind(this)}
-              >
+              <TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
                 <Ionicons style={styles.navIcon} name="ios-arrow-back" />
               </TouchableOpacity>
 
@@ -288,7 +257,7 @@ class authPortal extends Component {
       this.reload();
     } else {
       this.setState({
-        url: url
+        url: url,
       });
     }
   };

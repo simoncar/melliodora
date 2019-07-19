@@ -1,13 +1,12 @@
+import React, { Component } from "react";
+import { Provider } from "react-redux";
+import { StyleProvider, Root } from "native-base";
 
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import { StyleProvider, Root } from 'native-base';
-
-import App from './App';
-import configureStore from './configureStore';
-import getTheme from '../native-base-theme/components';
-import variables from '../native-base-theme/variables/commonColor';
-
+import App from "./App";
+import configureStore from "./configureStore";
+import variables from "../native-base-theme/variables/commonColor";
+import getTheme from "../native-base-theme/components";
+import { Font, AppLoading } from "expo";
 
 export default class Setup extends Component {
   constructor() {
@@ -20,15 +19,15 @@ export default class Setup extends Component {
   }
 
   async componentWillMount() {
-    Expo.Font.loadAsync({
-      'Material Icons': require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
+    Font.loadAsync({
+      "Material Icons": require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       MaterialIcons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
       //Ionicons: require('/@expo/vector-icons/fonts/Ionicons.ttf'),
       //'Material Icons': require('/@expo/vector-icons/fonts/MaterialIcons.ttf'),
-      SFProTextBold: require('../fonts/SF-Pro-Text-Bold.otf'),
-      SFProTextSemiBold: require('../fonts/SF-Pro-Text-Semibold.otf'),
-      SFProTextRegular: require('../fonts/SF-Pro-Text-Regular.otf'),
+      SFProTextBold: require("../fonts/SF-Pro-Text-Bold.otf"),
+      SFProTextSemiBold: require("../fonts/SF-Pro-Text-Semibold.otf"),
+      SFProTextRegular: require("../fonts/SF-Pro-Text-Regular.otf"),
     });
 
     this.setState({ isReady: true });
@@ -36,7 +35,7 @@ export default class Setup extends Component {
 
   render() {
     if (!this.state.isReady) {
-      return <Expo.AppLoading />;
+      return <AppLoading />;
     }
     return (
       <StyleProvider style={getTheme(variables)}>

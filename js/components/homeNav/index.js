@@ -10,6 +10,7 @@ import {
   TouchableHighlight,
   StyleSheet,
   Dimensions,
+  AsyncStorage,
 } from "react-native";
 import { Container, Content, Text, Icon, Button } from "native-base";
 import { Notifications } from "expo";
@@ -25,7 +26,6 @@ import * as ActionCreators from "../../actions";
 import { openDrawer } from "../../actions/drawer";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
-import { AsyncStorage } from "react-native";
 
 const { width } = Dimensions.get("window");
 const ListItem = require("./ListItem");
@@ -33,9 +33,9 @@ const instID = Constants.manifest.extra.instance;
 
 // Get the token that uniquely identifies this device
 if (!Constants.isDevice) {
-  token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
+  var token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
 } else {
-  token = Notifications.getExpoPushTokenAsync();
+  var token = Notifications.getExpoPushTokenAsync();
 }
 
 const today = new moment().format();
@@ -188,12 +188,12 @@ class HomeNav extends Component {
   loadFromRedux() {
     this.state.featureItems = [];
 
-    dataSnapshot = this.props.calendarEventsX.featureItems;
+    var dataSnapshot = this.props.calendarEventsX.featureItems;
     key = "";
 
     for (var key in dataSnapshot) {
       const snapshot = dataSnapshot[key];
-      strtime = snapshot.date_start;
+      var strtime = snapshot.date_start;
 
       const displayStart = snapshot.displayStart !== undefined ? moment().format(snapshot.displayStart) : null;
       const displayEnd = snapshot.displayEnd !== undefined ? moment().format(snapshot.displayEnd) : null;

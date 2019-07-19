@@ -95,8 +95,6 @@ class Story extends Component {
       ret = "";
     }
 
-    console.log(sURL);
-
     Linking.openURL(sURL);
   };
 
@@ -104,10 +102,6 @@ class Story extends Component {
     if (sURL.length > 0) {
       return <WebView source={{ uri: "https://github.com/facebook/react-native" }} javaScriptEnabled />;
     }
-  }
-
-  handleUrlPress(url) {
-    LinkingIOS.openURL(url);
   }
 
   handlePhonePress(phone) {
@@ -281,7 +275,6 @@ class Story extends Component {
               flexDirection: "row",
               justifyContent: "flex-end",
               padding: 5,
-              paddingLeft: 10,
               paddingTop: 10,
               paddingLeft: 10,
               paddingRight: 0,

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Dimensions } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 
 import { Text, Button } from "native-base";
-import styles from "./styles";
 import { Ionicons, Entypo, Octicons } from "@expo/vector-icons";
 import { Grid, Col, Row } from "react-native-easy-grid";
+import styles from "./styles";
 
 class ChatroomItem extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class ChatroomItem extends Component {
             chatroom: this.props.title,
             description: this.props.description,
             contact: this.props.contact,
-            url: this.props.url
+            url: this.props.url,
           });
         }}
       >
@@ -36,7 +36,7 @@ class ChatroomItem extends Component {
                     description: this.props.description,
                     contact: this.props.contact,
                     url: this.props.url,
-                    language: this.props.language
+                    language: this.props.language,
                   });
                 }}
               >
@@ -52,7 +52,7 @@ class ChatroomItem extends Component {
           </Col>
           <Col
             style={{
-              width: 65
+              width: 65,
             }}
           >
             <View style={{ flexDirection: "row" }}>

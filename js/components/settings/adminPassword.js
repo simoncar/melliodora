@@ -1,9 +1,7 @@
 "use strict";
 import React, { Component } from "react";
 
-import { StyleSheet, View, TextInput, Text, TouchableOpacity } from "react-native";
-import * as Localization from "expo-localization";
-import { AsyncStorage } from "react-native";
+import { StyleSheet, View, TextInput, Text, TouchableOpacity, AsyncStorage } from "react-native";
 import { Updates } from "expo";
 
 export default class adminPassword extends Component {
@@ -28,7 +26,6 @@ export default class adminPassword extends Component {
       const value = await AsyncStorage.getItem("adminPassword");
       if (value !== null) {
         // We have data!!
-        console.log(value);
         if (value == "cookies") {
           this.setState({ adminPasswordCorrect: "Password Correct!" });
         }

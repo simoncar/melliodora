@@ -1,20 +1,10 @@
 /* eslint-disable no-underscore-dangle, no-use-before-define */
 
-import PropTypes from 'prop-types';
-import React from 'react';
-import {
-  Text,
-  Clipboard,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ViewPropTypes,
-  Platform,
-} from 'react-native';
+import PropTypes from "prop-types";
+import React from "react";
+import { Text, Clipboard, StyleSheet, TouchableOpacity, View, ViewPropTypes, Platform } from "react-native";
 
-import {
-  MessageText, MessageImage, Time, utils,
-} from 'react-native-gifted-chat';
+import { MessageText, MessageImage, Time, utils } from "react-native-gifted-chat";
 
 const { isSameUser, isSameDay } = utils;
 
@@ -28,28 +18,19 @@ export default class Bubble extends React.Component {
     if (this.props.onLongPress) {
       this.props.onLongPress(this.context);
     } else if (this.props.currentMessage.text) {
-      const options = [
-        'Copy Text',
-        'View Original Message',
-        'Cancel',
-      ];
+      const options = ["Copy Text", "View Original Message", "Cancel"];
       const cancelButtonIndex = options.length - 1;
-      this.context.actionSheet().showActionSheetWithOptions(
-        { options, cancelButtonIndex },
-        (buttonIndex) => {
-          if (buttonIndex === 0) {
-            Clipboard.setString(this.props.currentMessage.text);
-          }
-        },
-      );
+      this.context.actionSheet().showActionSheetWithOptions({ options, cancelButtonIndex }, buttonIndex => {
+        if (buttonIndex === 0) {
+          Clipboard.setString(this.props.currentMessage.text);
+        }
+      });
     }
   }
 
   renderMessageText() {
     if (this.props.currentMessage.text) {
-      const {
-        containerStyle, wrapperStyle, messageTextStyle, ...messageTextProps
-      } = this.props;
+      const { containerStyle, wrapperStyle, messageTextStyle, ...messageTextProps } = this.props;
       if (this.props.renderMessageText) {
         return this.props.renderMessageText(messageTextProps);
       }
@@ -136,8 +117,9 @@ export default class Bubble extends React.Component {
   }
 
   render() {
-    const isSameThread = isSameUser(this.props.currentMessage, this.props.previousMessage)
-      && isSameDay(this.props.currentMessage, this.props.previousMessage);
+    const isSameThread =
+      isSameUser(this.props.currentMessage, this.props.previousMessage) &&
+      isSameDay(this.props.currentMessage, this.props.previousMessage);
 
     const messageHeader = isSameThread ? null : (
       <View style={styles.headerView}>
@@ -149,17 +131,8 @@ export default class Bubble extends React.Component {
 
     return (
       <View style={[styles.container, this.props.containerStyle]}>
-        <TouchableOpacity
-          onLongPress={this.onLongPress}
-          accessibilityTraits="text"
-          {...this.props.touchableProps}
-        >
-          <View
-            style={[
-              styles.wrapper,
-              this.props.wrapperStyle,
-            ]}
-          >
+        <TouchableOpacity onLongPress={this.onLongPress} accessibilityTraits="text" {...this.props.touchableProps}>
+          <View style={[styles.wrapper, this.props.wrapperStyle]}>
             <View>
               {this.renderCustomView()}
               {messageHeader}
@@ -185,18 +158,18 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
   },
   wrapper: {
     marginRight: 60,
     minHeight: 20,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   username: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   time: {
-    textAlign: 'left',
+    textAlign: "left",
     fontSize: 12,
   },
   timeContainer: {
@@ -209,18 +182,16 @@ const styles = StyleSheet.create({
   },
   headerView: {
     // Try to align it better with the avatar on Android.
-    marginTop: Platform.OS === 'android' ? -2 : 0,
-    flexDirection: 'row',
-    alignItems: 'baseline',
+    marginTop: Platform.OS === "android" ? -2 : 0,
+    flexDirection: "row",
+    alignItems: "baseline",
   },
-  /* eslint-disable react-native/no-color-literals */
   tick: {
-    backgroundColor: 'transparent',
-    color: 'white',
+    backgroundColor: "transparent",
+    color: "white",
   },
-  /* eslint-enable react-native/no-color-literals */
   tickView: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   slackImage: {
     borderRadius: 3,

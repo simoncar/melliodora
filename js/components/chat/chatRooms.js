@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { FlatList } from "react-native";
+import { FlatList, AsyncStorage } from "react-native";
 import * as firebase from "firebase";
 import { Container, Content } from "native-base";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
-import { AsyncStorage } from "react-native";
 
 const ChatroomItem = require("./chatroomItem");
 
@@ -16,6 +15,12 @@ const tabBarIcon = name => ({ tintColor }) => (
 
 @withMappedNavigationParams()
 class chatRooms extends Component {
+  static navigationOptions = {
+    title: I18n.t("chat"),
+    tabBarIcon: tabBarIcon("bubble"),
+    headerBackTitle: null,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -28,12 +33,6 @@ class chatRooms extends Component {
       .doc("chat")
       .collection("chatrooms");
   }
-
-  static navigationOptions = {
-    title: I18n.t("chat"),
-    tabBarIcon: tabBarIcon("bubble"),
-    headerBackTitle: null,
-  };
 
   componentWillMount() {
     this.loadFromAsyncStorage();
@@ -64,19 +63,10 @@ class chatRooms extends Component {
     }
   };
 
-  loadFromAsyncStorage() {
-    AsyncStorage.getItem("userChatrooms").then(fi => {
-      var userChatrooms = JSON.parse(fi);
-      console.log("loading = ", fi);
-      this.setState({
-        userChatrooms,
-        loading: false,
-      });
-    });
-  }
+  keyExtractor = item => item._key;
+
   _storeData = async userChatrooms => {
     try {
-      console.log("Storing  userChatrooms = ", userChatrooms);
       AsyncStorage.setItem("userChatrooms", userChatrooms);
     } catch (error) {
       console.log(error);
@@ -84,7 +74,15 @@ class chatRooms extends Component {
     }
   };
 
-  keyExtractor = item => item._key;
+  loadFromAsyncStorage() {
+    AsyncStorage.getItem("userChatrooms").then(fi => {
+      var userChatrooms = JSON.parse(fi);
+      this.setState({
+        userChatrooms,
+        loading: false,
+      });
+    });
+  }
 
   _renderItem(item) {
     return (

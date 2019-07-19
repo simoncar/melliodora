@@ -1,11 +1,9 @@
 "use strict";
 import React, { Component } from "react";
 
-import { AppRegistry, StyleSheet, Text, View, Image, Alert, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, AsyncStorage } from "react-native";
 import SettingsList from "react-native-settings-list";
-import * as Localization from "expo-localization";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { AsyncStorage } from "react-native";
 import { Updates } from "expo";
 import I18n from "../../lib/i18n";
 
@@ -34,7 +32,6 @@ export default class selectLanguage extends Component {
       const value = await AsyncStorage.getItem("language");
       if (value !== null) {
         // We have data!!
-        console.log(value);
         this.setState({ language: value });
       }
     } catch (error) {
@@ -81,10 +78,8 @@ export default class selectLanguage extends Component {
               switchOnValueChange={this.onValueChange}
               hasNavArrow={false}
               title="中文(简体)"
-
               onPress={() => this._changeLanguage("zh")}
               icon={<MaterialCommunityIcons name="check" style={this._getStyle("zh")} />}
-
             />
             <SettingsList.Item
               hasSwitch={false}
@@ -153,7 +148,6 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    width: 30,
     color: "#007AFF",
   },
   imageStyleCheckOff: {
@@ -162,7 +156,6 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    width: 30,
     color: "#FFF",
   },
 
@@ -173,6 +166,5 @@ const styles = StyleSheet.create({
 
     marginLeft: 10,
     alignSelf: "center",
-
   },
 });

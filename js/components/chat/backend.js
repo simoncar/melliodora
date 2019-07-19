@@ -5,10 +5,6 @@ import * as ImageManipulator from "expo-image-manipulator";
 import Constants from "expo-constants";
 
 import uuid from "uuid";
-import AssetUtils from "expo-asset-utils";
-import shortid from "shortid";
-import QuickReplies from "react-native-gifted-chat/lib/QuickReplies";
-import configureStore from "../../configureStore";
 import { AsyncStorage } from "react-native";
 
 let instID = Constants.manifest.extra.instance;
@@ -144,7 +140,7 @@ export class Backend extends React.Component {
       if (undefined != message[i].image && message[i].image.length > 0) {
         //we have an image
 
-        uploadUrl = uploadImageAsync(message[i], this.state.chatroom, message[i].user);
+        var uploadUrl = uploadImageAsync(message[i], this.state.chatroom, message[i].user);
       } else {
         this.messageRef.push({
           text: `${message[i].text}`,
@@ -322,7 +318,7 @@ async function uploadImageAsync(message, chatroom, user) {
     });
   }
 
-  return await uploadUrl;
+  return;
 }
 
 export default new Backend();

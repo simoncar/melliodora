@@ -57,7 +57,6 @@ export default {
     fontSize: 13,
     backgroundColor: "white",
     color: "grey",
-    fontSize: 16,
     marginLeft: 15,
   },
 
@@ -192,10 +191,7 @@ export default {
     fontSize: 16,
     backgroundColor: "transparent",
   },
-  container: {
-    backgroundColor: "white",
-    flex: 1,
-  },
+
   userPhoto: {
     width: 40,
     height: 40,
