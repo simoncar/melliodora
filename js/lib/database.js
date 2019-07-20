@@ -2,7 +2,7 @@
  * @class Database
  */
 
-import * as firebase from 'firebase'
+import * as firebase from "firebase";
 
 export default class Database {
   /**
@@ -12,14 +12,14 @@ export default class Database {
    * @returns {firebase.Promise<any>|!firebase.Promise.<void>}
    */
   static setUserMobile(userId, mobile) {
-    let userMobilePath = '/user/' + userId + '/details'
+    let userMobilePath = "/user/" + userId + "/details";
 
     return firebase
       .database()
       .ref(userMobilePath)
       .set({
-        mobile: mobile,
-      })
+        mobile: mobile
+      });
   }
 
   /**
@@ -28,19 +28,19 @@ export default class Database {
    * @param callback Users mobile number
    */
   static listenUserMobile(userId, callback) {
-    let userMobilePath = '/user/' + userId + '/details'
+    let userMobilePath = "/user/" + userId + "/details";
 
     firebase
       .database()
       .ref(userMobilePath)
-      .on('value', snapshot => {
-        var mobile = ''
+      .on("value", snapshot => {
+        var mobile = "";
 
         if (snapshot.val()) {
-          mobile = snapshot.val().mobile
+          mobile = snapshot.val().mobile;
         }
 
-        callback(mobile)
-      })
+        callback(mobile);
+      });
   }
 }

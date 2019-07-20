@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, View, TouchableOpacity } from "react-native";
+import { Image, View, TouchableOpacity, AsyncStorage } from "react-native";
 import { Container, Text } from "native-base";
 import * as firebase from "firebase";
 
@@ -7,14 +7,12 @@ import { Grid, Col, Row } from "react-native-easy-grid";
 import { Agenda } from "react-native-calendars";
 import * as ActionCreators from "../../actions";
 import styles from "./styles";
-import HeaderContent from "../headerContent/header";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { formatTime, formatMonth } from "../global.js";
 import I18n from "../../lib/i18n";
 import moment from "moment";
 import "moment/min/locales";
-import { AsyncStorage } from "react-native";
 //import momentFR from "moment/src/locale/fr";
 
 //import { LocaleConfig } from "react-native-calendars";
@@ -105,6 +103,7 @@ class calendar1 extends Component {
 
         this.loadItems();
         var itemCount = 0;
+        var strtime = 0;
         snapshot.forEach(doc => {
           itemCount++;
           items2.push(doc.data());
@@ -140,7 +139,7 @@ class calendar1 extends Component {
           }
         });
 
-        items = JSON.parse(JSON.stringify(this.state.items));
+        var items = JSON.parse(JSON.stringify(this.state.items));
         if (itemCount > 10) {
           this._storeData(JSON.stringify(this.state.items));
         }
@@ -159,23 +158,20 @@ class calendar1 extends Component {
   loadFromAsyncStorage() {
     AsyncStorage.getItem("calendarItems").then(fi => {
       var items = JSON.parse(fi);
-      console.log("loading = ", fi);
-
-      if (items.length > 0) {
-        this.setState({
-          items,
-          loading: false,
-        });
-        this.loadItems();
+      if (null != items) {
+        if (items.length > 0) {
+          this.setState({
+            items,
+            loading: false,
+          });
+          this.loadItems();
+        }
       }
     });
-
-    //AsyncStorage.setItem('my_key', 'my_value', () => { console.log('done setting item!') });
   }
 
   _storeData = async calendarItems => {
     try {
-      console.log("Storing  calendarItems = ", calendarItems);
       AsyncStorage.setItem("calendarItems", calendarItems);
     } catch (error) {
       console.log(error);
@@ -209,8 +205,6 @@ class calendar1 extends Component {
 
     return (
       <Container>
-        <HeaderContent showBack="true" showHome="false" navigation={this.props.navigation} />
-
         <Agenda
           items={this.state.items}
           loadItemsForMonth={this.loadItems.bind(this)}
@@ -322,12 +316,6 @@ class calendar1 extends Component {
     return ret;
   }
 
-  renderTime(start, end) {
-    if (undefined != start && start.length > 0) {
-      return <Text style={styles.agendaDate}>{formatTime(start, end)} </Text>;
-    }
-  }
-
   renderImage(calImage) {
     if (undefined != calImage && calImage.length > 0) {
       return <Image source={{ uri: calImage }} style={{ width: 300, height: 150 }} resizeMode="contain" />;
@@ -371,16 +359,16 @@ class calendar1 extends Component {
         ret = "#E63946";
         break;
       case "green":
-        day = "#64D4D2";
+        ret = "#64D4D2";
         break;
       case "light blue":
-        day = "white";
+        ret = "white";
         break;
       case 5:
-        day = "Friday";
+        ret = "Friday";
         break;
       case 6:
-        day = "Saturday";
+        ret = "Saturday";
     }
 
     return ret;
