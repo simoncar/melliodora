@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  TouchableHighlight
-} from "react-native";
-import { Button } from "react-native-elements";
+
+import { Text, StyleSheet, View, TouchableOpacity, TouchableHighlight, SafeAreaView } from "react-native";
+import { Button, Overlay } from "react-native-elements";
+
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import Tooltip from "react-native-walkthrough-tooltip";
 import useBeaconSearchHook from "./utils/BeaconSearchStore";
 const moment = require("moment");
 import firebase from "firebase";
+import { Calendar } from 'react-native-calendars';
+import { Ionicons } from "@expo/vector-icons";
 
 const AttendanceStats = ({ navigation }) => {
   const [
@@ -28,10 +26,16 @@ const AttendanceStats = ({ navigation }) => {
   );
 
   const [countDict, setCountDict] = useState({});
+  const [calendarModalVisible, setCalendarModalVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
+  const [tempSelectedDate, setTempSelectedDate] = useState('');
+
 
   useEffect(() => {
     //TODO: Pass in the date from a date picker
     const xdate = moment().format("YYYYMMDD");
+
+    setSelectedDate(xdate);
 
     let ref = firebase
       .firestore()
@@ -114,9 +118,56 @@ const AttendanceStats = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+
+
+      {/* {Calendar Pop up} */}
+      <Overlay
+        isVisible={calendarModalVisible}
+        onBackdropPress={() => { setCalendarModalVisible(false) }}
+        windowBackgroundColor="rgba(0, 0, 0, .8)"
+        width="auto"
+        height="auto"
+      >
+        <SafeAreaView >
+
+          <TouchableOpacity
+            onPress={() => { setCalendarModalVisible(false) }}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              zIndex: 10
+            }}
+          >
+            <Ionicons name="md-close" size={28} color='gray' />
+          </TouchableOpacity>
+          <View style={{ paddingHorizontal: 20, paddingTop: 40, paddingBottom: 10 }}  >
+            <Text style={{ marginBottom: 15, fontWeight: 'bold' }}>
+              Select Date
+              </Text>
+            <Calendar
+              onDayPress={(day) => { setTempSelectedDate(day.dateString) }}
+              markedDates={{
+                [tempSelectedDate]: { selected: true, disableTouchEvent: true }
+              }}
+            />
+            <Button
+              title="Submit"
+              onPress={() => {
+                setSelectedDate(tempSelectedDate);
+                setCalendarModalVisible(false);
+              }}
+              containerStyle={{ marginTop: 15 }} />
+
+          </View>
+        </SafeAreaView>
+      </Overlay>
+
+
+
       <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
         <Button
-          title="Today 28 June 2019"
+          title={moment(selectedDate).format("LL")}
           raised
           icon={
             <View style={{ paddingRight: 10 }}>
@@ -125,6 +176,9 @@ const AttendanceStats = ({ navigation }) => {
           }
           buttonStyle={{ backgroundColor: "#d3d3d3", padding: 2 }}
           titleStyle={{ color: "#48484A", fontSize: 14 }}
+          onPress={() => {
+            setCalendarModalVisible(true);
+          }}
         />
       </View>
       <View style={styles.stats}>
