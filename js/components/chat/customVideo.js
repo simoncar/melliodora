@@ -39,7 +39,6 @@ export default class CustomVideo extends React.Component {
 
     CameraRoll.saveToCameraRoll(uri, "video");
 
-    console.log("saving=", uri);
     this.setState({ saveTitle: "Saved" });
   }
 
@@ -49,7 +48,6 @@ export default class CustomVideo extends React.Component {
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
     const uri = this.props.currentMessage.video;
-    console.log("customVideo=", uri);
     const images = [
       {
         // Simplest usage.

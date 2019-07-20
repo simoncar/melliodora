@@ -6,10 +6,10 @@ import { Container } from "native-base";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Analytics from "../../lib/analytics";
 import Constants from "expo-constants";
-import HeaderContent from "../headerContent/header";
 import styles from "./styles";
 
 var WEBVIEW_REF = "webview";
+var injectScript = "";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialCommunityIcons
@@ -86,7 +86,6 @@ class WebportalSports extends Component {
   render() {
     return (
       <Container>
-        <HeaderContent navigation={this.props.navigation} />
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>

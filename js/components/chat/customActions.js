@@ -1,6 +1,14 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Modal, StyleSheet, TouchableOpacity, View, ViewPropTypes, Text, SafeAreaView } from "react-native";
+import {
+  Modal,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewPropTypes,
+  Text,
+  SafeAreaView
+} from "react-native";
 
 import CameraRollPicker from "react-native-camera-roll-picker";
 import ImagePicker from "expo-image-picker";
@@ -17,7 +25,7 @@ export default class CustomActions extends React.Component {
     this.state = {
       image: null,
       modalVisiblePhoto: false,
-      modalVisibleVideo: false,
+      modalVisibleVideo: false
     };
     this.onActionsPress = this.onActionsPress.bind(this);
     this.selectImagesPhoto = this.selectImagesPhoto.bind(this);
@@ -38,13 +46,11 @@ export default class CustomActions extends React.Component {
   };
 
   setImages(images) {
-    //console.log ('setImages = ', images.uri);
     this._images = images;
     //uploadUrl = await uploadImageAsync(images.uri);
   }
 
   getImages() {
-    console.log("getImages = ");
     return this._images;
   }
 
@@ -64,36 +70,34 @@ export default class CustomActions extends React.Component {
     this.context.actionSheet().showActionSheetWithOptions(
       {
         options,
-        cancelButtonIndex,
+        cancelButtonIndex
       },
       buttonIndex => {
         switch (buttonIndex) {
           case 0:
-            _pickImage();
+            //_pickImage();
             //this.setModalVisiblePhoto(true);
             break;
           case 1:
-            _pickVideo();
+            // _pickVideo();
 
             break;
           case 2:
             break;
           default:
         }
-      },
+      }
     );
   }
 
   selectImagesPhoto(images) {
     // dont use as it fires after every image is selected
-    console.log("images = ", images);
 
     this.setImages(images);
   }
 
   selectImagesVideo(images) {
     // dont use as it fires after every image is selected
-    console.log("images = ", images);
 
     this.setImages(images);
   }
@@ -104,11 +108,11 @@ export default class CustomActions extends React.Component {
         <NavBar
           style={{
             statusBar: {
-              backgroundColor: "#FFF",
+              backgroundColor: "#FFF"
             },
             navBar: {
-              backgroundColor: "#FFF",
-            },
+              backgroundColor: "#FFF"
+            }
           }}
         >
           <NavButton
@@ -118,7 +122,7 @@ export default class CustomActions extends React.Component {
           >
             <NavButtonText
               style={{
-                color: "#000",
+                color: "#000"
               }}
             >
               {"Cancel"}
@@ -126,7 +130,7 @@ export default class CustomActions extends React.Component {
           </NavButton>
           <NavTitle
             style={{
-              color: "#000",
+              color: "#000"
             }}
           >
             {"Photos"}
@@ -141,7 +145,7 @@ export default class CustomActions extends React.Component {
                 return {
                   image: image.uri,
                   filename: image.filename,
-                  playableDuration: 0,
+                  playableDuration: 0
                 };
               });
 
@@ -151,7 +155,7 @@ export default class CustomActions extends React.Component {
           >
             <NavButtonText
               style={{
-                color: "#000",
+                color: "#000"
               }}
             >
               {"Send"}
@@ -168,11 +172,11 @@ export default class CustomActions extends React.Component {
         <NavBar
           style={{
             statusBar: {
-              backgroundColor: "#FFF",
+              backgroundColor: "#FFF"
             },
             navBar: {
-              backgroundColor: "#FFF",
-            },
+              backgroundColor: "#FFF"
+            }
           }}
         >
           <NavButton
@@ -182,7 +186,7 @@ export default class CustomActions extends React.Component {
           >
             <NavButtonText
               style={{
-                color: "#000",
+                color: "#000"
               }}
             >
               {"Cancel"}
@@ -190,7 +194,7 @@ export default class CustomActions extends React.Component {
           </NavButton>
           <NavTitle
             style={{
-              color: "#000",
+              color: "#000"
             }}
           >
             {"Videos"}
@@ -205,7 +209,7 @@ export default class CustomActions extends React.Component {
                 return {
                   image: image.uri,
                   filename: image.filename,
-                  playableDuration: 1,
+                  playableDuration: 1
                 };
               });
 
@@ -215,7 +219,7 @@ export default class CustomActions extends React.Component {
           >
             <NavButtonText
               style={{
-                color: "#000",
+                color: "#000"
               }}
             >
               {"Send"}
@@ -239,7 +243,10 @@ export default class CustomActions extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity style={[styles.container, this.props.containerStyle]} onPress={this.onActionsPress}>
+      <TouchableOpacity
+        style={[styles.container, this.props.containerStyle]}
+        onPress={this.onActionsPress}
+      >
         {this.renderIcon()}
       </TouchableOpacity>
     );
@@ -251,25 +258,25 @@ const styles = StyleSheet.create({
     width: 26,
     height: 26,
     marginLeft: 10,
-    marginBottom: 10,
+    marginBottom: 10
   },
   wrapper: {
     borderRadius: 13,
     borderColor: "#b2b2b2",
     borderWidth: 2,
-    flex: 1,
+    flex: 1
   },
   iconText: {
     color: "#b2b2b2",
     fontWeight: "bold",
     fontSize: 16,
     backgroundColor: "transparent",
-    textAlign: "center",
-  },
+    textAlign: "center"
+  }
 });
 
 CustomActions.contextTypes = {
-  actionSheet: PropTypes.func,
+  actionSheet: PropTypes.func
 };
 
 CustomActions.defaultProps = {
@@ -278,7 +285,7 @@ CustomActions.defaultProps = {
   icon: null,
   containerStyle: {},
   wrapperStyle: {},
-  iconTextStyle: {},
+  iconTextStyle: {}
 };
 
 CustomActions.propTypes = {
@@ -287,5 +294,5 @@ CustomActions.propTypes = {
   icon: PropTypes.func,
   containerStyle: ViewPropTypes.style,
   wrapperStyle: ViewPropTypes.style,
-  iconTextStyle: Text.propTypes.style,
+  iconTextStyle: Text.propTypes.style
 };

@@ -55,14 +55,9 @@ export default {
     alignItems: "center",
     justifyContent: "center",
     height: 40,
-    justifyContent: "space-between",
-    alignItems: "center",
     backgroundColor: "grey"
   },
   topbarTextDisabled: {
     color: "green"
-  },
-  topbarTextDisabled: {
-    color: "gray"
   }
 };

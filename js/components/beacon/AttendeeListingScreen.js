@@ -1,6 +1,14 @@
 // Imports: Dependencies
 import React, { useState, useEffect } from "react";
-import { ActivityIndicator, Dimensions, FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
 import { ListItem } from "react-native-elements";
 import moment from "moment";
 
@@ -13,7 +21,10 @@ const { height, width } = Dimensions.get("window");
 // Screen: Infinite Scroll
 
 const AttendeeListingScreen = ({ navigation }) => {
-  const [globalBeaconSearchState, globalBeaconSearchAction] = useBeaconSearchHook();
+  const [
+    globalBeaconSearchState,
+    globalBeaconSearchAction
+  ] = useBeaconSearchHook();
   const { beaconState, grade } = globalBeaconSearchState;
   const studentClass = globalBeaconSearchState.class;
 
@@ -29,13 +40,12 @@ const AttendeeListingScreen = ({ navigation }) => {
     retrieveData();
   }, []);
 
-  getQuery = () => {
-
-    baseQuery = firebase
-    .firestore()
-    .collection("sais_edu_sg")
-    .doc("beacon")
-    .collection("beacons")
+  const getQuery = () => {
+    var baseQuery = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beacons");
     if (!beaconState) {
       return baseQuery
         .where("grade", "==", String(grade))
@@ -49,7 +59,7 @@ const AttendeeListingScreen = ({ navigation }) => {
       .orderBy("mac");
   };
   // Retrieve Data
-  retrieveData = async () => {
+  const retrieveData = async () => {
     try {
       // Set State: Loading
       setLoading(true);
@@ -61,7 +71,9 @@ const AttendeeListingScreen = ({ navigation }) => {
       // Cloud Firestore: Query Snapshot
       let documentSnapshots = await initialQuery.get();
       // Cloud Firestore: Document Data
-      let newDocumentData = documentSnapshots.docs.map(document => document.data());
+      let newDocumentData = documentSnapshots.docs.map(document =>
+        document.data()
+      );
 
       if (newDocumentData.length > 0) {
         // Cloud Firestore: Last Visible Document (Document ID To Start From For Proceeding Queries)
@@ -82,7 +94,7 @@ const AttendeeListingScreen = ({ navigation }) => {
     }
   };
   // Retrieve More
-  retrieveMore = async () => {
+  const retrieveMore = async () => {
     try {
       if (!documentData) return;
       // Set State: Refreshing
@@ -95,7 +107,9 @@ const AttendeeListingScreen = ({ navigation }) => {
       // Cloud Firestore: Query Snapshot
       let documentSnapshots = await additionalQuery.get();
       // Cloud Firestore: Document Data
-      let newDocumentData = documentSnapshots.docs.map(document => document.data());
+      let newDocumentData = documentSnapshots.docs.map(document =>
+        document.data()
+      );
       // Cloud Firestore: Last Visible Document (Document ID To Start From For Proceeding Queries)
       let newlastVisible = newDocumentData[newDocumentData.length - 1].mac;
       // Set State
@@ -107,7 +121,7 @@ const AttendeeListingScreen = ({ navigation }) => {
     }
   };
   // Render Header
-  renderHeader = () => {
+  const renderHeader = () => {
     try {
       return null;
     } catch (error) {
@@ -115,7 +129,7 @@ const AttendeeListingScreen = ({ navigation }) => {
     }
   };
   // Render Footer
-  renderFooter = () => {
+  const renderFooter = () => {
     try {
       // Check If Loading
 
@@ -129,34 +143,41 @@ const AttendeeListingScreen = ({ navigation }) => {
     }
   };
 
-  ListEmpty = () => {
-
+  const ListEmpty = () => {
     if (noResult) {
       return (
         //View to show when list is empty
-        <View style={{
-          justifyContent: 'center',
-          flex: 1,
-          margin: 10,
-        }}>
-          <Text style={{ color: 'gray', textAlign: 'center' }}>No Result Found</Text>
+        <View
+          style={{
+            justifyContent: "center",
+            flex: 1,
+            margin: 10
+          }}
+        >
+          <Text style={{ color: "gray", textAlign: "center" }}>
+            No Result Found
+          </Text>
         </View>
       );
     }
     return null;
   };
 
-  _renderItem = ({ item }) => {
+  const _renderItem = ({ item }) => {
     const firstName = item.firstName || "";
     const lastName = item.lastName || "";
     const avatarTitle = firstName.slice(0, 1) + lastName.slice(0, 1);
-    const avatar = item.imgSrc ? { source: { uri: item.imgSrc } } : { title: avatarTitle };
+    const avatar = item.imgSrc
+      ? { source: { uri: item.imgSrc } }
+      : { title: avatarTitle };
     return (
       <ListItem
         leftAvatar={{ rounded: true, ...avatar }}
         title={
           <View style={{ flex: 1, flexDirection: "row" }}>
-            <Text style={{ flex: 1, fontSize: 16 }}>{item.fullname || "No Name"}</Text>
+            <Text style={{ flex: 1, fontSize: 16 }}>
+              {item.fullname || "No Name"}
+            </Text>
             <Text
               style={{
                 flex: 0,
@@ -164,7 +185,7 @@ const AttendeeListingScreen = ({ navigation }) => {
                 fontSize: 10,
                 alignSelf: "center",
                 justifyContent: "center",
-                color: "gray",
+                color: "gray"
               }}
             >
               {item.mac}
@@ -175,7 +196,9 @@ const AttendeeListingScreen = ({ navigation }) => {
         subtitle={
           <View style={{ flex: 1, flexDirection: "column", paddingTop: 8 }}>
             <Text style={{ color: "gray" }}>Class {item.class}</Text>
-            <Text style={{ color: "gray" }}>last seen {moment(item.lastSeen).format("LLL")}</Text>
+            <Text style={{ color: "gray" }}>
+              last seen {moment(item.lastSeen).format("LLL")}
+            </Text>
             <Text style={{ color: "gray" }}>{item.state}</Text>
           </View>
         }
@@ -184,13 +207,13 @@ const AttendeeListingScreen = ({ navigation }) => {
     );
   };
 
-  renderSeparator = () => {
+  const renderSeparator = () => {
     return (
       <View
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#CED0CE",
+          backgroundColor: "#CED0CE"
         }}
       />
     );
@@ -233,8 +256,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: height,
-    width: width,
-
+    width: width
   },
   headerText: {
     fontFamily: "System",
@@ -242,7 +264,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#000",
     marginLeft: 12,
-    marginBottom: 12,
+    marginBottom: 12
   },
   itemContainer: {
     height: 80,
@@ -250,19 +272,18 @@ const styles = StyleSheet.create({
     borderWidth: 0.2,
     borderColor: "#000",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   text: {
     fontFamily: "System",
     fontSize: 16,
     fontWeight: "400",
-    color: "#000",
-  },
-
+    color: "#000"
+  }
 });
 
 AttendeeListingScreen.navigationOptions = {
   title: "Select Student",
-  headerBackTitle: null,
+  headerBackTitle: null
 };
 export default AttendeeListingScreen;

@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle, no-use-before-define */
 
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 import {
   Text,
   Clipboard,
@@ -9,12 +9,15 @@ import {
   TouchableOpacity,
   View,
   ViewPropTypes,
-  Platform,
-} from 'react-native';
+  Platform
+} from "react-native";
 
 import {
-  MessageText, MessageImage, Time, utils,
-} from 'react-native-gifted-chat';
+  MessageText,
+  MessageImage,
+  Time,
+  utils
+} from "react-native-gifted-chat";
 
 const { isSameUser, isSameDay } = utils;
 
@@ -28,27 +31,28 @@ export default class Bubble extends React.Component {
     if (this.props.onLongPress) {
       this.props.onLongPress(this.context);
     } else if (this.props.currentMessage.text) {
-      const options = [
-        'Copy Text',
-        'View Original Message',
-        'Cancel',
-      ];
+      const options = ["Copy Text", "View Original Message", "Cancel"];
       const cancelButtonIndex = options.length - 1;
-      this.context.actionSheet().showActionSheetWithOptions(
-        { options, cancelButtonIndex },
-        (buttonIndex) => {
-          if (buttonIndex === 0) {
-            Clipboard.setString(this.props.currentMessage.text);
+      this.context
+        .actionSheet()
+        .showActionSheetWithOptions(
+          { options, cancelButtonIndex },
+          buttonIndex => {
+            if (buttonIndex === 0) {
+              Clipboard.setString(this.props.currentMessage.text);
+            }
           }
-        },
-      );
+        );
     }
   }
 
   renderMessageText() {
     if (this.props.currentMessage.text) {
       const {
-        containerStyle, wrapperStyle, messageTextStyle, ...messageTextProps
+        containerStyle,
+        wrapperStyle,
+        messageTextStyle,
+        ...messageTextProps
       } = this.props;
       if (this.props.renderMessageText) {
         return this.props.renderMessageText(messageTextProps);
@@ -57,7 +61,12 @@ export default class Bubble extends React.Component {
         <MessageText
           {...messageTextProps}
           textStyle={{
-            left: [styles.standardFont, styles.slackMessageText, messageTextProps.textStyle, messageTextStyle],
+            left: [
+              styles.standardFont,
+              styles.slackMessageText,
+              messageTextProps.textStyle,
+              messageTextStyle
+            ]
           }}
         />
       );
@@ -71,7 +80,12 @@ export default class Bubble extends React.Component {
       if (this.props.renderMessageImage) {
         return this.props.renderMessageImage(messageImageProps);
       }
-      return <MessageImage {...messageImageProps} imageStyle={[styles.slackImage, messageImageProps.imageStyle]} />;
+      return (
+        <MessageImage
+          {...messageImageProps}
+          imageStyle={[styles.slackImage, messageImageProps.imageStyle]}
+        />
+      );
     }
     return null;
   }
@@ -87,8 +101,20 @@ export default class Bubble extends React.Component {
     if (currentMessage.sent || currentMessage.received) {
       return (
         <View style={[styles.headerItem, styles.tickView]}>
-          {currentMessage.sent && <Text style={[styles.standardFont, styles.tick, this.props.tickStyle]}>✓</Text>}
-          {currentMessage.received && <Text style={[styles.standardFont, styles.tick, this.props.tickStyle]}>✓</Text>}
+          {currentMessage.sent && (
+            <Text
+              style={[styles.standardFont, styles.tick, this.props.tickStyle]}
+            >
+              ✓
+            </Text>
+          )}
+          {currentMessage.received && (
+            <Text
+              style={[styles.standardFont, styles.tick, this.props.tickStyle]}
+            >
+              ✓
+            </Text>
+          )}
         </View>
       );
     }
@@ -103,7 +129,14 @@ export default class Bubble extends React.Component {
         return this.props.renderUsername(usernameProps);
       }
       return (
-        <Text style={[styles.standardFont, styles.headerItem, styles.username, this.props.usernameStyle]}>
+        <Text
+          style={[
+            styles.standardFont,
+            styles.headerItem,
+            styles.username,
+            this.props.usernameStyle
+          ]}
+        >
           {username}
         </Text>
       );
@@ -121,7 +154,14 @@ export default class Bubble extends React.Component {
         <Time
           {...timeProps}
           containerStyle={{ left: [styles.timeContainer] }}
-          textStyle={{ left: [styles.standardFont, styles.headerItem, styles.time, timeProps.textStyle] }}
+          textStyle={{
+            left: [
+              styles.standardFont,
+              styles.headerItem,
+              styles.time,
+              timeProps.textStyle
+            ]
+          }}
         />
       );
     }
@@ -136,8 +176,9 @@ export default class Bubble extends React.Component {
   }
 
   render() {
-    const isSameThread = isSameUser(this.props.currentMessage, this.props.previousMessage)
-      && isSameDay(this.props.currentMessage, this.props.previousMessage);
+    const isSameThread =
+      isSameUser(this.props.currentMessage, this.props.previousMessage) &&
+      isSameDay(this.props.currentMessage, this.props.previousMessage);
 
     const messageHeader = isSameThread ? null : (
       <View style={styles.headerView}>
@@ -154,12 +195,7 @@ export default class Bubble extends React.Component {
           accessibilityTraits="text"
           {...this.props.touchableProps}
         >
-          <View
-            style={[
-              styles.wrapper,
-              this.props.wrapperStyle,
-            ]}
-          >
+          <View style={[styles.wrapper, this.props.wrapperStyle]}>
             <View>
               {this.renderCustomView()}
               {messageHeader}
@@ -177,60 +213,58 @@ export default class Bubble extends React.Component {
 // The "right" position is only used in the default Bubble.
 const styles = StyleSheet.create({
   standardFont: {
-    fontSize: 15,
+    fontSize: 15
   },
   slackMessageText: {
     marginLeft: 0,
-    marginRight: 0,
+    marginRight: 0
   },
   container: {
     flex: 1,
-    alignItems: 'flex-start',
+    alignItems: "flex-start"
   },
   wrapper: {
     marginRight: 60,
     minHeight: 20,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end"
   },
   username: {
-    fontWeight: 'bold',
+    fontWeight: "bold"
   },
   time: {
-    textAlign: 'left',
-    fontSize: 12,
+    textAlign: "left",
+    fontSize: 12
   },
   timeContainer: {
     marginLeft: 0,
     marginRight: 0,
-    marginBottom: 0,
+    marginBottom: 0
   },
   headerItem: {
-    marginRight: 10,
+    marginRight: 10
   },
   headerView: {
     // Try to align it better with the avatar on Android.
-    marginTop: Platform.OS === 'android' ? -2 : 0,
-    flexDirection: 'row',
-    alignItems: 'baseline',
+    marginTop: Platform.OS === "android" ? -2 : 0,
+    flexDirection: "row",
+    alignItems: "baseline"
   },
-  /* eslint-disable react-native/no-color-literals */
   tick: {
-    backgroundColor: 'transparent',
-    color: 'white',
+    backgroundColor: "transparent",
+    color: "white"
   },
-  /* eslint-enable react-native/no-color-literals */
   tickView: {
-    flexDirection: 'row',
+    flexDirection: "row"
   },
   slackImage: {
     borderRadius: 3,
     marginLeft: 0,
-    marginRight: 0,
-  },
+    marginRight: 0
+  }
 });
 
 Bubble.contextTypes = {
-  actionSheet: PropTypes.func,
+  actionSheet: PropTypes.func
 };
 
 Bubble.defaultProps = {
@@ -243,7 +277,7 @@ Bubble.defaultProps = {
   currentMessage: {
     text: null,
     createdAt: null,
-    image: null,
+    image: null
   },
   nextMessage: {},
   previousMessage: {},
@@ -251,7 +285,7 @@ Bubble.defaultProps = {
   wrapperStyle: {},
   tickStyle: {},
   containerToNextStyle: {},
-  containerToPreviousStyle: {},
+  containerToPreviousStyle: {}
 };
 
 Bubble.propTypes = {
@@ -269,21 +303,21 @@ Bubble.propTypes = {
   user: PropTypes.object,
   containerStyle: PropTypes.shape({
     left: ViewPropTypes.style,
-    right: ViewPropTypes.style,
+    right: ViewPropTypes.style
   }),
   wrapperStyle: PropTypes.shape({
     left: ViewPropTypes.style,
-    right: ViewPropTypes.style,
+    right: ViewPropTypes.style
   }),
   messageTextStyle: Text.propTypes.style,
   usernameStyle: Text.propTypes.style,
   tickStyle: Text.propTypes.style,
   containerToNextStyle: PropTypes.shape({
     left: ViewPropTypes.style,
-    right: ViewPropTypes.style,
+    right: ViewPropTypes.style
   }),
   containerToPreviousStyle: PropTypes.shape({
     left: ViewPropTypes.style,
-    right: ViewPropTypes.style,
-  }),
+    right: ViewPropTypes.style
+  })
 };

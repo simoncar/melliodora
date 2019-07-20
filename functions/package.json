@@ -25,5 +25,6 @@
     "moment": "^2.24.0",
     "node-fetch": "^2.5.0"
   },
+  
   "private": true
 }

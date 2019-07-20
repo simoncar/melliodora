@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Text, StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
-import { Avatar, Card } from 'react-native-elements';
+import React, { useState, useEffect } from "react";
+import {
+  Text,
+  StyleSheet,
+  View,
+  ScrollView,
+  TouchableOpacity
+} from "react-native";
+import { Avatar, Card } from "react-native-elements";
 import moment from "moment";
 
 import useBookmarkHook from "./utils/BookmarkStore";
 
 const BookmarkPreview = ({ navigation }) => {
-
   const [globalState, globalActions] = useBookmarkHook();
   const { loading, bookmarksData } = globalState;
 
@@ -15,7 +20,7 @@ const BookmarkPreview = ({ navigation }) => {
     globalActions.init();
   }, []);
 
-  renderBookmarkItem = (item) => {
+  const renderBookmarkItem = item => {
     // console.log("item", item);
     const { campus, fullname, mac, lastSeen, state } = item;
     const studentClass = item.class;
@@ -23,28 +28,38 @@ const BookmarkPreview = ({ navigation }) => {
     const lastName = item.lastName || "";
     const avatarTitle = firstName.slice(0, 1) + lastName.slice(0, 1);
     return (
-      <TouchableOpacity onPress={() => navigation.navigate("AttendeeDetailScreen", item)} key={item.mac}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("AttendeeDetailScreen", item)}
+        key={item.mac}
+      >
         <Card containerStyle={styles.bookmarkItemContainer}>
-          <View style={styles.avaterContainer}><Avatar rounded title={avatarTitle} size="medium" /></View>
+          <View style={styles.avaterContainer}>
+            <Avatar rounded title={avatarTitle} size="medium" />
+          </View>
           <Text style={styles.bookmarkItemText}>{fullname || "No Name"}</Text>
-          <Text style={styles.bookmarkItemText}>{studentClass || "No Class"}</Text>
-          <Text style={styles.bookmarkItemText}>{moment(lastSeen).format("LLL")}</Text>
+          <Text style={styles.bookmarkItemText}>
+            {studentClass || "No Class"}
+          </Text>
+          <Text style={styles.bookmarkItemText}>
+            {moment(lastSeen).format("LLL")}
+          </Text>
           <Text style={styles.bookmarkItemText}>{state}</Text>
         </Card>
       </TouchableOpacity>
+    );
+  };
 
-    )
-  }
-
-  if(!loading && bookmarksData.length === 0){
-    return(
-      <View style={{
-        flex: 1,
-        margin: 10,
-      }}>
-        <Text style={{ color: 'gray'}}>No Bookmarks</Text>
+  if (!loading && bookmarksData.length === 0) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          margin: 10
+        }}
+      >
+        <Text style={{ color: "gray" }}>No Bookmarks</Text>
       </View>
-    )
+    );
   }
 
   return (
@@ -54,13 +69,15 @@ const BookmarkPreview = ({ navigation }) => {
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
       >
-        {bookmarksData.slice(-10).reverse().map(e => renderBookmarkItem(e))}
+        {bookmarksData
+          .slice(-10)
+          .reverse()
+          .map(e => this.renderBookmarkItem(e))}
         <View style={{ marginLeft: 8 }}></View>
       </ScrollView>
     </View>
-  )
-}
-
+  );
+};
 
 const styles = StyleSheet.create({
   bookmarkItemContainer: {
@@ -72,14 +89,14 @@ const styles = StyleSheet.create({
   },
   avaterContainer: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 14
   },
   bookmarkItemText: {
     fontSize: 12,
-    color: 'gray'
+    color: "gray"
   }
 });
 

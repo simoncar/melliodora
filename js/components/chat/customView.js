@@ -18,12 +18,8 @@ export default class CustomView extends React.Component {
           style={[styles.container, this.props.containerStyle]}
           onPress={() => {
             const url = Platform.select({
-              ios: `http://maps.apple.com/?ll=${
-                this.props.currentMessage.location.latitude
-              },${this.props.currentMessage.location.longitude}`,
-              android: `http://maps.google.com/?q=${
-                this.props.currentMessage.location.latitude
-              },${this.props.currentMessage.location.longitude}`
+              ios: `http://maps.apple.com/?ll=${this.props.currentMessage.location.latitude},${this.props.currentMessage.location.longitude}`,
+              android: `http://maps.google.com/?q=${this.props.currentMessage.location.latitude},${this.props.currentMessage.location.longitude}`
             });
             Linking.canOpenURL(url)
               .then(supported => {

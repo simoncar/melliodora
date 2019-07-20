@@ -29,12 +29,11 @@ export default class BeaconHistoryItem extends Component {
     };
     return (
       <>
-
         {start && (
           <View style={style.sectionHead}>
             <Text style={style.location}>{campus ? campus : "-----"}</Text>
-          </View>)
-        }
+          </View>
+        )}
         <View style={style.container}>
           <View style={style.timeContainer}>
             <Text adjustsFontSizeToFit style={style.time}>
@@ -74,8 +73,7 @@ const style = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "stretch",
-    paddingLeft: 155,
-
+    paddingLeft: 155
   },
   location: {
     color: "#48484a",
