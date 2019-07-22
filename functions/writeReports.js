@@ -40,16 +40,13 @@ async.series(
         .doc("beacon")
         .collection("beacons")
         .orderBy("mac")
-        .limit(7)
+        .limit(3000)
         .get()
         .then(async function(documentSnapshotArray) {
           documentSnapshotArray.forEach(doc => {
             item = doc.data();
             dataDictUpdate.push({
-              beaconID: item.mac,
-              studentID: item.studentNo,
-              firstName: item.firstName,
-              lastName: item.lastName,
+              item,
             });
           });
           step();
@@ -65,7 +62,8 @@ async.series(
     function workingWithCells(step) {
       //dataDictUpdate = loadData(dataDictUpdate);
       console.log("dataDictUpdate=", dataDictUpdate.length);
-      var cols = 5;
+      var cols = 11;
+
       sheet.getCells(
         {
           "min-row": 2,
@@ -74,31 +72,52 @@ async.series(
           "max-col": cols,
           "return-empty": true,
         },
-        function(err, cells) {
+        async function(err, cells) {
           var startBlock = 0;
           dataDictUpdate.forEach(doc => {
             for (var i = startBlock * cols; i < startBlock * cols + cols; i++) {
               var cell = cells[i];
               switch (cell.col) {
                 case 1:
-                  cell.value = doc.beaconID;
+                  cell.value = "" + doc.item.mac;
                   break;
                 case 2:
-                  cell.value = doc.studentID;
+                  cell.value = "" + doc.item.studentNo;
                   break;
                 case 3:
-                  cell.value = doc.firstName;
+                  cell.value = doc.item.firstName;
                   break;
                 case 4:
-                  cell.value = doc.lastName;
+                  cell.value = doc.item.lastName;
+                  break;
+                case 5:
+                  cell.value = doc.item.email;
+                  break;
+                case 6:
+                  break;
+                case 7:
+                  cell.value = doc.item.state;
+                  break;
+                case 8:
+                  cell.value = doc.item.grade;
+                  break;
+                case 9:
+                  cell.value = doc.item.gradeTitle;
+                  break;
+                case 10:
+                  cell.value = doc.item.class;
+                  break;
+                case 11:
+                  cell.value = doc.item.campus;
                   break;
               }
             }
             startBlock++;
           });
-          sheet.bulkUpdateCells(cells); //async
 
-          step();
+          sheet.bulkUpdateCells(cells, function() {
+            step();
+          }); //async
         },
       );
     },
