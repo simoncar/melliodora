@@ -8,32 +8,25 @@ import Tooltip from "react-native-walkthrough-tooltip";
 import useBeaconSearchHook from "./utils/BeaconSearchStore";
 const moment = require("moment");
 import firebase from "firebase";
-import { Calendar } from 'react-native-calendars';
+import { Calendar } from "react-native-calendars";
 import { Ionicons } from "@expo/vector-icons";
 
 const AttendanceStats = ({ navigation }) => {
-  const [
-    globalBeaconSearchState,
-    globalBeaconSearchAction
-  ] = useBeaconSearchHook();
+  const [globalBeaconSearchState, globalBeaconSearchAction] = useBeaconSearchHook();
 
   const [enteredToolTipVisible, setEnteredToolTipVisible] = useState(false);
   const [totalToolTipVisible, setTotalToolTipVisible] = useState(false);
   const [exitedToolTipVisible, setExixtedToolTipVisible] = useState(false);
   const [perimeterToolTipVisible, setPerimeterToolTipVisible] = useState(false);
-  const [notpresentToolTipVisible, setNotpresentToolTipVisible] = useState(
-    false
-  );
+  const [notpresentToolTipVisible, setNotpresentToolTipVisible] = useState(false);
 
   const [countDict, setCountDict] = useState({});
   const [calendarModalVisible, setCalendarModalVisible] = useState(false);
   const [maxDate, setMaxDate] = useState(moment().format("YYYY-MM-DD"));
   const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM-DD"));
-  const [tempSelectedDate, setTempSelectedDate] = useState('');
-
+  const [tempSelectedDate, setTempSelectedDate] = useState("");
 
   useEffect(() => {
-
     console.log("useEffect selectedDate", selectedDate);
 
     let ref = firebase
@@ -57,7 +50,7 @@ const AttendanceStats = ({ navigation }) => {
             countPerimeter: countData.countPerimeter,
             countEntered: countData.countEntered,
             countExited: countData.countExited,
-            countOther: countData.countOther
+            countOther: countData.countOther,
           };
 
           setCountDict(countDict);
@@ -102,53 +95,49 @@ const AttendanceStats = ({ navigation }) => {
         borderTopColor: "#d3d3d3",
         borderTopWidth: 1,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
       }}
     >
       <Text style={{ fontSize: 8, color: "#d3d3d3" }}>View More</Text>
-      <Feather
-        name="chevron-right"
-        size={8}
-        color="#DDDDDD"
-        style={{ paddingTop: 1 }}
-      />
+      <Feather name="chevron-right" size={8} color="#DDDDDD" style={{ paddingTop: 1 }} />
     </View>
   );
 
   return (
     <View style={styles.container}>
-
-
       {/* {Calendar Pop up} */}
       <Overlay
         isVisible={calendarModalVisible}
-        onBackdropPress={() => { setCalendarModalVisible(false) }}
+        onBackdropPress={() => {
+          setCalendarModalVisible(false);
+        }}
         windowBackgroundColor="rgba(0, 0, 0, .8)"
         width="auto"
         height="auto"
       >
-        <SafeAreaView >
-
+        <SafeAreaView>
           <TouchableOpacity
-            onPress={() => { setCalendarModalVisible(false) }}
+            onPress={() => {
+              setCalendarModalVisible(false);
+            }}
             style={{
               position: "absolute",
               top: 0,
               left: 0,
-              zIndex: 10
+              zIndex: 10,
             }}
           >
-            <Ionicons name="md-close" size={28} color='gray' />
+            <Ionicons name="md-close" size={28} color="gray" />
           </TouchableOpacity>
-          <View style={{ paddingHorizontal: 20, paddingTop: 40, paddingBottom: 10 }}  >
-            <Text style={{ marginBottom: 15, fontWeight: 'bold' }}>
-              Select Date
-              </Text>
+          <View style={{ paddingHorizontal: 20, paddingTop: 40, paddingBottom: 10 }}>
+            <Text style={{ marginBottom: 15, fontWeight: "bold" }}>Select Date</Text>
             <Calendar
               maxDate={maxDate}
-              onDayPress={(day) => { setTempSelectedDate(day.dateString) }}
+              onDayPress={day => {
+                setTempSelectedDate(day.dateString);
+              }}
               markedDates={{
-                [tempSelectedDate]: { selected: true, disableTouchEvent: true }
+                [tempSelectedDate]: { selected: true, disableTouchEvent: true },
               }}
             />
             <Button
@@ -157,13 +146,11 @@ const AttendanceStats = ({ navigation }) => {
                 setSelectedDate(tempSelectedDate);
                 setCalendarModalVisible(false);
               }}
-              containerStyle={{ marginTop: 15 }} />
-
+              containerStyle={{ marginTop: 15 }}
+            />
           </View>
         </SafeAreaView>
       </Overlay>
-
-
 
       <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
         <Button
@@ -181,25 +168,17 @@ const AttendanceStats = ({ navigation }) => {
           }}
         />
       </View>
+
       <View style={styles.stats}>
         <View style={styles.statsCol}>
-          <TouchableOpacity
-            style={[styles.widget, { backgroundColor: "#0074D9" }]}
-            onPress={() => routeBtn("Entered")}
-          >
+          <TouchableOpacity style={[styles.widget, { backgroundColor: "#0074D9" }]} onPress={() => routeBtn("Entered")}>
             <View style={styles.widgetContainer}>
               <View style={styles.widgetTitleContainer}>
                 <Text style={styles.widgetTextTitle}>Entered </Text>
-                {infoToolTip(
-                  "Entered\n(inside ping)",
-                  enteredToolTipVisible,
-                  setEnteredToolTipVisible
-                )}
+                {infoToolTip("Entered\n(inside ping)", enteredToolTipVisible, setEnteredToolTipVisible)}
               </View>
 
-              <Text style={styles.widgetTextContent}>
-                {countDict.countEntered}
-              </Text>
+              <Text style={styles.widgetTextContent}>{countDict.countEntered}</Text>
               {renderViewMore()}
             </View>
           </TouchableOpacity>
@@ -214,35 +193,21 @@ const AttendanceStats = ({ navigation }) => {
                 {infoToolTip(
                   "Exited\n(last ping at perimeter then not seen for 10 mins)",
                   exitedToolTipVisible,
-                  setExixtedToolTipVisible
+                  setExixtedToolTipVisible,
                 )}
               </View>
 
-              <Text style={styles.widgetTextContent}>
-                {countDict.countExited}
-              </Text>
+              <Text style={styles.widgetTextContent}>{countDict.countExited}</Text>
               {renderViewMore()}
             </View>
           </TouchableOpacity>
         </View>
         <View style={styles.statsCol}>
-          <TouchableOpacity
-            style={[styles.widget, { backgroundColor: "darkorchid" }]}
-            onPress={() => routeBtn("")}
-          >
-            <View
-              style={[
-                styles.widgetContainer,
-                { paddingBottom: 12, paddingTop: 5 }
-              ]}
-            >
+          <TouchableOpacity style={[styles.widget, { backgroundColor: "darkorchid" }]} onPress={() => routeBtn("")}>
+            <View style={[styles.widgetContainer, { paddingBottom: 12, paddingTop: 5 }]}>
               <View style={styles.widgetTitleContainer}>
                 <Text style={styles.widgetTextTitle}>Total </Text>
-                {infoToolTip(
-                  "Total\n(number of students in the system)",
-                  totalToolTipVisible,
-                  setTotalToolTipVisible
-                )}
+                {infoToolTip("Total\n(number of students in the system)", totalToolTipVisible, setTotalToolTipVisible)}
               </View>
 
               <Text style={styles.widgetTextContent}>3210</Text>
@@ -254,24 +219,13 @@ const AttendanceStats = ({ navigation }) => {
             style={[styles.widget, { backgroundColor: "#FF4136" }]}
             onPress={() => routeBtn("Perimeter")}
           >
-            <View
-              style={[
-                styles.widgetContainer,
-                { paddingBottom: 12, paddingTop: 5 }
-              ]}
-            >
+            <View style={[styles.widgetContainer, { paddingBottom: 12, paddingTop: 5 }]}>
               <View style={styles.widgetTitleContainer}>
                 <Text style={styles.widgetTextTitle}>Perimeter </Text>
-                {infoToolTip(
-                  "Perimeter\n(gate 1 or 2)",
-                  perimeterToolTipVisible,
-                  setPerimeterToolTipVisible
-                )}
+                {infoToolTip("Perimeter\n(gate 1 or 2)", perimeterToolTipVisible, setPerimeterToolTipVisible)}
               </View>
 
-              <Text style={styles.widgetTextContent}>
-                {countDict.countPerimeter}
-              </Text>
+              <Text style={styles.widgetTextContent}>{countDict.countPerimeter}</Text>
               {renderViewMore()}
             </View>
           </TouchableOpacity>
@@ -280,24 +234,17 @@ const AttendanceStats = ({ navigation }) => {
             style={[styles.widget, { backgroundColor: "tomato" }]}
             onPress={() => routeBtn("Not Present")}
           >
-            <View
-              style={[
-                styles.widgetContainer,
-                { paddingBottom: 12, paddingTop: 5 }
-              ]}
-            >
+            <View style={[styles.widgetContainer, { paddingBottom: 12, paddingTop: 5 }]}>
               <View style={styles.widgetTitleContainer}>
                 <Text style={styles.widgetTextTitle}>Not Present </Text>
                 {infoToolTip(
                   "Not Present\n(no pings for the day)",
                   notpresentToolTipVisible,
-                  setNotpresentToolTipVisible
+                  setNotpresentToolTipVisible,
                 )}
               </View>
 
-              <Text style={styles.widgetTextContent}>
-                {countDict.countNotPresent}
-              </Text>
+              <Text style={styles.widgetTextContent}>{countDict.countNotPresent}</Text>
               {renderViewMore()}
             </View>
           </TouchableOpacity>
@@ -310,16 +257,16 @@ const AttendanceStats = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: "column",
     // backgroundColor: '#d3d3d3'
   },
   stats: {
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   statsCol: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: "column",
   },
   widget: {
     elevation: 2,
@@ -330,28 +277,28 @@ const styles = StyleSheet.create({
     margin: 3,
     flex: 1,
     padding: 2,
-    borderRadius: 8
+    borderRadius: 8,
   },
   widgetContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   widgetTitleContainer: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   widgetTextTitle: {
     fontSize: 18,
     textAlign: "center",
     fontWeight: "bold",
-    color: "#DDDDDD"
+    color: "#DDDDDD",
   },
   widgetTextContent: {
     fontSize: 28,
     textAlign: "center",
-    color: "#333"
-  }
+    color: "#333",
+  },
 });
 
 export default AttendanceStats;
