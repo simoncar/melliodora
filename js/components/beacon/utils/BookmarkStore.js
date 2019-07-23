@@ -17,9 +17,7 @@ const init = async store => {
     if (store.state.initial == false) return;
     console.log("init2");
     const bookmarks = await retrieveBookmarks();
-    const bookmarksData = await getData(
-      bookmarks.filter(b => typeof b === "string")
-    );
+    const bookmarksData = await getData(bookmarks);
     // const updatedBookmarksData = bookmarksData.filter(b => { if (b) return b });
     // const updatedBookmarks = updatedBookmarksData.filter(b => b.mac);
 
@@ -127,8 +125,8 @@ const removeBookmark = (store, mac) => {
 
 const retrieveBookmarks = async () => {
   try {
-    const bookmarks = (await AsyncStorage.getItem("myBookmarks")) || [];
-    return JSON.parse(bookmarks || []);
+    const bookmarks = await AsyncStorage.getItem("myBookmarks");
+    return JSON.parse(bookmarks) || [];
   } catch (error) {
     // Error retrieving data
   }
