@@ -104,19 +104,11 @@ class HomeNav extends Component {
         summary,
         description,
         location,
-        phone,
-        email,
-        photoSquare,
-        htmlLink,
         date_start,
         time_start_pretty,
         time_end_pretty,
         photo1,
-        photo2,
-        photo3,
-        displayStart,
-        displayEnd,
-        hidden,
+        visible,
       } = doc.data();
 
       featureItems.push({
@@ -126,19 +118,11 @@ class HomeNav extends Component {
         title: summary,
         description,
         location,
-        phone,
-        email,
-        photoSquare,
-        url: htmlLink,
         eventDate: date_start,
         eventStartTime: time_start_pretty,
         eventEndTime: time_end_pretty,
         photo1,
-        photo2,
-        photo3,
-        displayStart,
-        displayEnd,
-        hidden,
+        visible,
       });
     });
 
@@ -187,54 +171,6 @@ class HomeNav extends Component {
       // Error saving data
     }
   };
-
-  loadFromRedux() {
-    this.state.featureItems = [];
-
-    var dataSnapshot = this.props.calendarEventsX.featureItems;
-    key = "";
-
-    for (var key in dataSnapshot) {
-      const snapshot = dataSnapshot[key];
-      var strtime = snapshot.date_start;
-
-      const displayStart = snapshot.displayStart !== undefined ? moment().format(snapshot.displayStart) : null;
-      const displayEnd = snapshot.displayEnd !== undefined ? moment().format(snapshot.displayEnd) : null;
-      let hidden = true;
-
-      if (displayStart != null && displayStart <= today) {
-        // start is less than End
-
-        if (displayStart != null && displayEnd >= today) {
-          // start is less than End
-          hidden = false;
-        }
-      }
-
-      if (!hidden) {
-        this.state.featureItems.push({
-          title: snapshot.summary,
-          description: snapshot.description,
-          location: snapshot.location,
-          phone: snapshot.phone,
-          email: snapshot.email,
-          photoSquare: snapshot.photoSquare,
-          url: snapshot.htmlLink,
-          eventDate: snapshot.date_start,
-          eventStartTime: snapshot.time_start_pretty,
-          eventEndTime: snapshot.time_end_pretty,
-          photo1: snapshot.photo1,
-          photo2: snapshot.photo2,
-          photo3: snapshot.photo3,
-          displayStart: snapshot.displayStart,
-          displayEnd: snapshot.displayEnd,
-          hidden: false,
-          _key: key,
-          key: key,
-        });
-      }
-    }
-  }
 
   _renderItem(item) {
     return <ListItem navigation={this.props.navigation} item={item} />;
