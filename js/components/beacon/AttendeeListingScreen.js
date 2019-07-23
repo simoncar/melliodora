@@ -28,7 +28,6 @@ const AttendeeListingScreen = ({ navigation }) => {
   const { beaconState, grade } = globalBeaconSearchState;
   const studentClass = globalBeaconSearchState.class;
 
-  console.log("statesss", beaconState, grade, studentClass);
   const [documentData, setDocumentData] = useState([]);
   const [limit, setLimit] = useState(12);
   const [lastVisible, setLastVisible] = useState("");
