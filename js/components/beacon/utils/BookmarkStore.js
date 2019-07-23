@@ -7,17 +7,19 @@ const initialState = {
   loading: true,
   bookmarks: [],
   bookmarksData: [],
-  initial: true
+  initial: true,
 };
 
 // Actions
-const init = async store => {
+init = async store => {
   try {
     console.log("init1");
     if (store.state.initial == false) return;
     console.log("init2");
+
     const bookmarks = await retrieveBookmarks();
     const bookmarksData = await getData(bookmarks);
+
     // const updatedBookmarksData = bookmarksData.filter(b => { if (b) return b });
     // const updatedBookmarks = updatedBookmarksData.filter(b => b.mac);
 
@@ -29,7 +31,7 @@ const init = async store => {
         }
         return a;
       },
-      { bk: [], bkData: [] }
+      { bk: [], bkData: [] },
     );
 
     AsyncStorage.setItem("myBookmarks", JSON.stringify(bk));
@@ -37,17 +39,14 @@ const init = async store => {
       initial: false,
       bookmarks: bk,
       bookmarksData: bkData,
-      loading: false
+      loading: false,
     });
   } catch (error) {
     console.log("Bookmarks init", error);
   }
 };
 
-const _removeBookamarksWithMac = (mac, bookmarksData) => {
-  var updatedBookmarks = [];
-  var updatedBookmarksData = [];
-
+_removeBookamarksWithMac = (mac, bookmarksData) => {
   return ({ updatedBookmarks, updatedBookmarksData } = bookmarksData.reduce(
     (a, b, i) => {
       if (b.mac !== mac) {
@@ -56,19 +55,16 @@ const _removeBookamarksWithMac = (mac, bookmarksData) => {
       }
       return a;
     },
-    { updatedBookmarks: [], updatedBookmarksData: [] }
+    { updatedBookmarks: [], updatedBookmarksData: [] },
   ));
 };
 
-const addBookmarkWithInfo = (store, bookmarkInfo, insertIndex = null) => {
+addBookmarkWithInfo = (store, bookmarkInfo, insertIndex = null) => {
   console.log("hit add 2");
 
   store.setState({ loading: true });
   const bookmarksData = store.state.bookmarksData;
-  const { updatedBookmarks, updatedBookmarksData } = _removeBookamarksWithMac(
-    bookmarkInfo.mac,
-    bookmarksData
-  );
+  const { updatedBookmarks, updatedBookmarksData } = _removeBookamarksWithMac(bookmarkInfo.mac, bookmarksData);
   if (typeof insertIndex == "number") {
     updatedBookmarks.splice(insertIndex, 0, bookmarkInfo.mac);
     updatedBookmarksData.splice(insertIndex, 0, bookmarkInfo);
@@ -77,17 +73,16 @@ const addBookmarkWithInfo = (store, bookmarkInfo, insertIndex = null) => {
     updatedBookmarksData.push(bookmarkInfo);
   }
 
-  AsyncStorage.setItem("myBookmarks", JSON.stringify(updatedBookmarks)).then(
-    () =>
-      store.setState({
-        bookmarks: updatedBookmarks,
-        bookmarksData: updatedBookmarksData,
-        loading: false
-      })
+  AsyncStorage.setItem("myBookmarks", JSON.stringify(updatedBookmarks)).then(() =>
+    store.setState({
+      bookmarks: updatedBookmarks,
+      bookmarksData: updatedBookmarksData,
+      loading: false,
+    }),
   );
 };
 
-const addBookmark = (store, mac) => {
+addBookmark = (store, mac) => {
   console.log("hit add");
 
   store.setState({ loading: true });
@@ -100,30 +95,26 @@ const addBookmark = (store, mac) => {
       store.setState({
         bookmarks: updatedBookmarks,
         bookmarksData: bookmarksData,
-        loading: false
-      })
+        loading: false,
+      }),
     );
 };
 
-const removeBookmark = (store, mac) => {
+removeBookmark = (store, mac) => {
   console.log("hit remove");
   store.setState({ loading: true });
   const bookmarksData = store.state.bookmarksData;
-  const { updatedBookmarks, updatedBookmarksData } = _removeBookamarksWithMac(
-    mac,
-    bookmarksData
-  );
-  AsyncStorage.setItem("myBookmarks", JSON.stringify(updatedBookmarks)).then(
-    () =>
-      store.setState({
-        bookmarks: updatedBookmarks,
-        bookmarksData: updatedBookmarksData,
-        loading: false
-      })
+  const { updatedBookmarks, updatedBookmarksData } = _removeBookamarksWithMac(mac, bookmarksData);
+  AsyncStorage.setItem("myBookmarks", JSON.stringify(updatedBookmarks)).then(() =>
+    store.setState({
+      bookmarks: updatedBookmarks,
+      bookmarksData: updatedBookmarksData,
+      loading: false,
+    }),
   );
 };
 
-const retrieveBookmarks = async () => {
+retrieveBookmarks = async () => {
   try {
     const bookmarks = await AsyncStorage.getItem("myBookmarks");
     return JSON.parse(bookmarks) || [];
@@ -132,7 +123,7 @@ const retrieveBookmarks = async () => {
   }
 };
 
-const getData = bm => {
+getData = bm => {
   try {
     if (!bm || bm == []) return [];
 
@@ -158,8 +149,8 @@ const getData = bm => {
           })
           .catch(function(error) {
             console.log("Error getting document:", error);
-          })
-      )
+          }),
+      ),
     ).then(function(data) {
       return data;
     });
