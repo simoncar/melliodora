@@ -1,16 +1,7 @@
 "use strict";
 import React, { Component } from "react";
 
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Alert,
-  TouchableOpacity,
-  AsyncStorage
-} from "react-native";
+import { AppRegistry, StyleSheet, Text, View, Image, Alert, TouchableOpacity, AsyncStorage } from "react-native";
 import SettingsList from "react-native-settings-list";
 import * as Localization from "expo-localization";
 import { isAdmin } from "../global";
@@ -20,7 +11,7 @@ class Settings extends Component {
   static navigationOptions = {
     title: I18n.t("more"),
 
-    headerBackTitle: null
+    headerBackTitle: null,
   };
 
   constructor(props) {
@@ -38,7 +29,7 @@ class Settings extends Component {
       switchValueMS: false,
       switchValueHS: false,
       loggedIn: false,
-      language: ""
+      language: "",
     };
   }
 
@@ -74,12 +65,7 @@ class Settings extends Component {
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
 
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/wifi.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
               title="myStamford"
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
@@ -87,36 +73,26 @@ class Settings extends Component {
                 this.props.navigation.navigate("webportalURL", {
                   url:
                     "https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP",
-                  title: "myStamford"
+                  title: "myStamford",
                 })
               }
             />
 
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/wifi.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
               title={I18n.t("athletics")}
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
                   url: "https://www.stamfordlionsathletics.com/",
-                  title: "Athletics"
+                  title: "Athletics",
                 })
               }
             />
 
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/wifi.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
               title="CCAs"
               titleInfo="After School"
               titleInfoStyle={styles.titleInfoStyle}
@@ -124,48 +100,33 @@ class Settings extends Component {
                 this.props.navigation.navigate("webportalURL", {
                   url:
                     "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fco-curricular-activities-cca-1%2fcca-brochure-semester-1&kr=iSAMS:ParentPP",
-                  title: "CCAs"
+                  title: "CCAs",
                 })
               }
             />
 
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/wifi.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
               title="Camp Asia"
               titleInfo="Holidays"
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
                   url: "https://www.campasia.asia",
-                  title: "Camp Asia"
+                  title: "Camp Asia",
                 })
               }
             />
 
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/cellular.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/cellular.png")} />}
               title="Cafe Top Up"
               titleInfo="Balance $999.99"
               onPress={() => Alert.alert("This function is not active")}
             />
 
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/hotspot.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/hotspot.png")} />}
               title={I18n.t("contact")}
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
@@ -175,29 +136,19 @@ class Settings extends Component {
             />
 
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/cellular.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/cellular.png")} />}
               title={I18n.t("shop")}
               titleInfo={I18n.t("pta")}
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
                   url: "https://www.saispta.com/",
-                  title: I18n.t("shop")
+                  title: I18n.t("shop"),
                 })
               }
             />
 
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/display.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/display.png")} />}
               title={I18n.t("map")}
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
@@ -206,12 +157,7 @@ class Settings extends Component {
               }}
             />
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/display.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/display.png")} />}
               title={I18n.t("library")}
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
@@ -222,57 +168,41 @@ class Settings extends Component {
 
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/general.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/general.png")} />}
               title={"Language " + I18n.t("language")}
               titleInfo={this.state.language}
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() => this.props.navigation.navigate("selectLanguage")}
             />
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/airplane.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
               switchState={this.state.switchValue}
               switchOnValueChange={this.onValueChange}
               hasNavArrow={true}
               title={I18n.t("adminAccess")}
               onPress={() => this.props.navigation.navigate("adminPassword")}
             />
-            {isAdmin(this.props.adminPassword) && (
-              <SettingsList.Header headerStyle={{ marginTop: 15 }} />
-            )}
+            {isAdmin(this.props.adminPassword) && <SettingsList.Header headerStyle={{ marginTop: 15 }} />}
             {isAdmin(this.props.adminPassword) && (
               <SettingsList.Item
-                icon={
-                  <Image
-                    style={styles.imageStyle}
-                    source={require("./images/notifications.png")}
-                  />
-                }
+                icon={<Image style={styles.imageStyle} source={require("./images/notifications.png")} />}
                 title={I18n.t("safeguarding")}
-                onPress={() =>
-                  this.props.navigation.navigate("AttendanceOverviewScreen")
-                }
+                onPress={() => this.props.navigation.navigate("AttendanceOverviewScreen")}
+              />
+            )}
+
+            {isAdmin(this.props.adminPassword) && (
+              <SettingsList.Item
+                icon={<Image style={styles.imageStyle} source={require("./images/memory.png")} />}
+                title={I18n.t("logs")}
+                onPress={() => this.props.navigation.navigate("logs")}
               />
             )}
 
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
 
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/airplane.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
               hasSwitch={true}
               switchState={this.state.switchValueELV}
               switchOnValueChange={this.onValueChangeELV}
@@ -281,12 +211,7 @@ class Settings extends Component {
               onPress={() => Alert.alert("NA")}
             />
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/airplane.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
               hasSwitch={true}
               switchState={this.state.switchValueELEM}
               switchOnValueChange={this.onValueChangeELEM}
@@ -296,12 +221,7 @@ class Settings extends Component {
               onPress={() => Alert.alert("NA")}
             />
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/airplane.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
               hasSwitch={true}
               switchState={this.state.switchValueMS}
               switchOnValueChange={this.onValueChangeMS}
@@ -311,12 +231,7 @@ class Settings extends Component {
               onPress={() => Alert.alert("NA")}
             />
             <SettingsList.Item
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/airplane.png")}
-                />
-              }
+              icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
               hasSwitch={true}
               switchState={this.state.switchValueHS}
               switchOnValueChange={this.onValueChangeHS}
@@ -355,7 +270,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     alignSelf: "center",
     height: 30,
-    width: 30
+    width: 30,
   },
   imageStyleCheckOn: {
     marginLeft: 15,
@@ -363,7 +278,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    color: "#007AFF"
+    color: "#007AFF",
   },
   imageStyleCheckOff: {
     marginLeft: 15,
@@ -371,13 +286,13 @@ const styles = StyleSheet.create({
     height: 30,
     fontSize: 30,
     width: 30,
-    color: "#FFF"
+    color: "#FFF",
   },
 
   titleInfoStyle: {
     fontSize: 16,
-    color: "#8e8e93"
-  }
+    color: "#8e8e93",
+  },
 });
 
 module.exports = Settings;
