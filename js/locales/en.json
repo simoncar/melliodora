@@ -21,6 +21,8 @@
   "typeMessage": "Type a message",
   "photos": "Photos",
   "save": "Save",
+  "edit": "Edit",
+  "delete": "Delete",
   "mute": "Mute",
   "unmute": "Unmute",
   "contact": "Contact",
