@@ -55,7 +55,7 @@ const BookmarkPreview = ({ navigation }) => {
         {bookmarksData
           .slice(-10)
           .reverse()
-          .map(e => this.renderBookmarkItem(e))}
+          .map(e => renderBookmarkItem(e))}
         <View style={{ marginLeft: 8 }}></View>
       </ScrollView>
     </View>

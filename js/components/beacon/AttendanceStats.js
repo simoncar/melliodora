@@ -27,22 +27,21 @@ const AttendanceStats = ({ navigation }) => {
 
   const [countDict, setCountDict] = useState({});
   const [calendarModalVisible, setCalendarModalVisible] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [maxDate, setMaxDate] = useState(moment().format("YYYY-MM-DD"));
+  const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM-DD"));
   const [tempSelectedDate, setTempSelectedDate] = useState('');
 
 
   useEffect(() => {
-    //TODO: Pass in the date from a date picker
-    const xdate = moment().format("YYYYMMDD");
 
-    setSelectedDate(xdate);
+    console.log("useEffect selectedDate", selectedDate);
 
     let ref = firebase
       .firestore()
       .collection("sais_edu_sg")
       .doc("beacon")
       .collection("beaconHistory")
-      .doc(xdate);
+      .doc(moment(selectedDate).format("YYYYMMDD"));
 
     let historyDoc = ref
       .get()
@@ -67,7 +66,7 @@ const AttendanceStats = ({ navigation }) => {
       .catch(err => {
         console.log("Error getting document", err);
       });
-  }, []);
+  }, [selectedDate]);
 
   const routeBtn = state => {
     globalBeaconSearchAction.setBeaconState(state);
@@ -146,6 +145,7 @@ const AttendanceStats = ({ navigation }) => {
               Select Date
               </Text>
             <Calendar
+              maxDate={maxDate}
               onDayPress={(day) => { setTempSelectedDate(day.dateString) }}
               markedDates={{
                 [tempSelectedDate]: { selected: true, disableTouchEvent: true }
