@@ -63,6 +63,8 @@ export default class AttendeeDetailScreen extends Component {
       calendarModalVisible: false,
       selectedDate: "",
       tempSelectedDate: "",
+      diagnostic: "",
+      showDiagnostic: false,
     };
   }
 
@@ -76,6 +78,11 @@ export default class AttendeeDetailScreen extends Component {
       this.setState({
         userHistory: data,
         loading: false,
+      }),
+    );
+    this.getDiagnostic(beaconID).then(data =>
+      this.setState({
+        diagnostic: data,
       }),
     );
   }
@@ -99,6 +106,43 @@ export default class AttendeeDetailScreen extends Component {
     return data;
   }
 
+  async getDiagnostic(mac) {
+    await firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beacons")
+      .doc(mac)
+      .onSnapshot(doc => {
+        var data = [];
+        if (!doc.exists) {
+        } else {
+          var object = doc.data();
+          for (var property in object) {
+            if (object.hasOwnProperty(property)) {
+              var str = object[property].toString();
+              if (str == null || str == undefined) {
+                str = "";
+              }
+              if (str.substring(0, 3) == "156") {
+                //we have a timestamp
+                data.push("\n" + property + ": " + moment(object[property]).format("ddd LLL:ss"));
+              } else {
+                data.push("\n" + property + ": " + object[property]);
+              }
+            }
+          }
+        }
+        this.setState({
+          diagnostic: data,
+        });
+      })
+      .catch(err => {
+        console.log("Error getting document", err);
+      });
+
+    return data;
+  }
   setCalendarModalVisible(visible) {
     this.setState({ calendarModalVisible: visible });
   }
@@ -109,6 +153,18 @@ export default class AttendeeDetailScreen extends Component {
     else if (index === this.state.userHistory.length - 1) return <BeaconHistoryItem last={true} {...item} key={key} />;
     else return <BeaconHistoryItem {...item} key={key} />;
   };
+
+  getDiagnosticView() {
+    if (this.state.showDiagnostic == true) {
+      return (
+        <View>
+          <Text style={styles.diagnostic}>{this.state.diagnostic}</Text>
+        </View>
+      );
+    } else {
+      return <View></View>;
+    }
+  }
 
   render() {
     const recordInfo = this.props.navigation.state.params;
@@ -192,9 +248,20 @@ export default class AttendeeDetailScreen extends Component {
                 <Text />
                 <Text style={styles.detailsText}>last seen {moment(lastSeen).format("LLL")}</Text>
                 <Text style={styles.detailsText}>{state}</Text>
+
+                <TouchableOpacity
+                  style={{ flexDirection: "row" }}
+                  onPress={() => {
+                    this.setState({ showDiagnostic: !this.state.showDiagnostic });
+                  }}
+                >
+                  <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+                </TouchableOpacity>
               </View>
             </View>
           </View>
+
+          {this.getDiagnosticView()}
 
           <View style={{ paddingVertical: 5, paddingHorizontal: 15 }}>
             <Button
@@ -212,6 +279,7 @@ export default class AttendeeDetailScreen extends Component {
               }}
             />
           </View>
+
           <View>{this.state.userHistory.map(this._renderListItem)}</View>
         </ScrollView>
       </View>
@@ -224,6 +292,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     backgroundColor: "#d3d3d3",
+  },
+  diagnostic: {
+    paddingLeft: 10,
+    color: "#48484A",
+    fontSize: 16,
   },
   avatarContainer: {
     flex: 0,
