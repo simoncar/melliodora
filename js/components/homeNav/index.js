@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
-  Image,
   FlatList,
   View,
   Linking,
@@ -12,12 +11,13 @@ import {
   Dimensions,
   AsyncStorage,
 } from "react-native";
+import { Image } from "react-native-expo-image-cache";
 import { Container, Content, Text, Icon, Button } from "native-base";
 import { Notifications } from "expo";
 import Constants from "expo-constants";
-import { RectButton, BorderlessButton } from "react-native-gesture-handler";
+import { BorderlessButton } from "react-native-gesture-handler";
 import moment from "moment";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
 import { isAdmin } from "../global";
 import BLEDataParser from "../../lib/BLEDataParser";
@@ -29,7 +29,6 @@ import styles from "./styles";
 
 const { width } = Dimensions.get("window");
 const ListItem = require("./ListItem");
-const instID = Constants.manifest.extra.instance;
 
 // Get the token that uniquely identifies this device
 if (!Constants.isDevice) {
@@ -61,8 +60,6 @@ class HomeNav extends Component {
     };
 
     this.loadFromAsyncStorage();
-
-    //this.loadFromRedux();
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -78,18 +75,22 @@ class HomeNav extends Component {
   });
 
   componentWillMount() {
-    this.ref = firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("feature")
-      .collection("feature articles");
+    try {
+      this.ref = firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("feature")
+        .collection("feature articles");
+    } catch (e) {
+      //console.error(e.message);
+    }
   }
 
   componentDidMount() {
     try {
       this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
     } catch (e) {
-      //console.error(e.message);
+      console.log(e.message);
     }
   }
 
@@ -250,22 +251,6 @@ class HomeNav extends Component {
             />
           </View>
 
-          <View>
-            <View
-              style={{
-                height: 60,
-                backgroundColor: "white",
-                flexDirection: "row",
-              }}
-            />
-          </View>
-
-          <View>
-            <Text style={styles.version} />
-            <Text style={styles.version} />
-
-            <Text style={styles.version} />
-          </View>
           <Image source={require("../../../images/sais.edu.sg/10yearLogo.png")} style={styles.tenYearLogo} />
 
           <TouchableOpacity
@@ -277,8 +262,7 @@ class HomeNav extends Component {
           </TouchableOpacity>
 
           <View>
-            <Text style={styles.version} />
-            <Text style={styles.version}>Version: {Constants.manifest.revisionId}</Text>
+            <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
           </View>
         </Content>
       </Container>
