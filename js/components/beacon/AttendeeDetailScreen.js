@@ -80,11 +80,37 @@ export default class AttendeeDetailScreen extends Component {
         loading: false,
       }),
     );
-    this.getDiagnostic(beaconID).then(data =>
-      this.setState({
-        diagnostic: data,
-      }),
-    );
+    this.unsubscribe = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beacons")
+      .doc(beaconID)
+      .onSnapshot(doc => {
+        var data = [];
+        if (!doc.exists) {
+        } else {
+          console.log("getting update ", doc.data());
+          var object = doc.data();
+          for (var property in object) {
+            if (object.hasOwnProperty(property)) {
+              var str = object[property].toString();
+              if (str == null || str == undefined) {
+                str = "";
+              }
+              if (str.substring(0, 3) == "156") {
+                //we have a timestamp
+                data.push("\n" + property + ": " + moment(object[property]).format("ddd LLL:ss"));
+              } else {
+                data.push("\n" + property + ": " + object[property]);
+              }
+            }
+          }
+        }
+        this.setState({
+          diagnostic: data,
+        });
+      });
   }
 
   async getData(mac, date) {
@@ -106,43 +132,11 @@ export default class AttendeeDetailScreen extends Component {
     return data;
   }
 
-  async getDiagnostic(mac) {
-    await firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("beacon")
-      .collection("beacons")
-      .doc(mac)
-      .onSnapshot(doc => {
-        var data = [];
-        if (!doc.exists) {
-        } else {
-          var object = doc.data();
-          for (var property in object) {
-            if (object.hasOwnProperty(property)) {
-              var str = object[property].toString();
-              if (str == null || str == undefined) {
-                str = "";
-              }
-              if (str.substring(0, 3) == "156") {
-                //we have a timestamp
-                data.push("\n" + property + ": " + moment(object[property]).format("ddd LLL:ss"));
-              } else {
-                data.push("\n" + property + ": " + object[property]);
-              }
-            }
-          }
-        }
-        this.setState({
-          diagnostic: data,
-        });
-      })
-      .catch(err => {
-        console.log("Error getting document", err);
-      });
-
-    return data;
+  componentWillUnmount() {
+    this.unsubscribe();
+    console.log("unsubscribed");
   }
+
   setCalendarModalVisible(visible) {
     this.setState({ calendarModalVisible: visible });
   }
