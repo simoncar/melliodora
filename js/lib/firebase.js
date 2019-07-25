@@ -1,17 +1,14 @@
 import * as firebase from "firebase";
-import "@firebase/firestore";
-
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as ActionCreators from "../actions";
 import ApiKeys from "../ApiKeys";
 
-var switches = [];
-
 class Firebase {
   static initialise() {
     try {
       if (!firebase.apps.length) {
+        console.log("firebase initialised");
         firebase.initializeApp(ApiKeys.FirebaseConfig);
       }
 
@@ -48,35 +45,15 @@ class Firebase {
   }
 }
 
-function listenLoadFromFirebase(switches) {
-  switches.on("value", dataSnapshot2 => {
-    this.props.setSwitches(dataSnapshot2);
-
-    var dataSnapshot = dataSnapshot2;
-
-    dataSnapshot.forEach(snapshot => {
-      global.switch_address = snapshot.child("address").val();
-      global.switch_helpEmail = snapshot.child("helpEmail").val();
-      global.switch_portalName = snapshot.child("portalName").val();
-
-      this.setState({
-        switches: switches
-      });
-
-      //this.state.items = [];
-    });
-  });
-}
-
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(ActionCreators, dispatch);
 };
 
 const mapStateToProps = state => ({
-  switchesX: state.user
+  switchesX: state.user,
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Firebase);

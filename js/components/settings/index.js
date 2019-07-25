@@ -1,9 +1,9 @@
 "use strict";
 import React, { Component } from "react";
 
-import { AppRegistry, StyleSheet, Text, View, Image, Alert, TouchableOpacity, AsyncStorage } from "react-native";
+import { StyleSheet, View, Alert, AsyncStorage } from "react-native";
+import { Image } from "react-native-expo-image-cache";
 import SettingsList from "react-native-settings-list";
-import * as Localization from "expo-localization";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
 
@@ -57,7 +57,6 @@ class Settings extends Component {
   }
 
   render() {
-    var bgColor = "#DCE3F4";
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
         <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>

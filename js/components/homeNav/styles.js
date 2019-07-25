@@ -11,7 +11,7 @@ export default {
     width: null,
     height: null,
     backgroundColor: "white",
-    color: "#c6c6c6"
+    color: "#c6c6c6",
   },
   beta: {
     backgroundColor: "white",
@@ -20,7 +20,7 @@ export default {
     flex: 1,
     flexDirection: "row",
     textAlign: "center",
-    fontSize: 20
+    fontSize: 20,
   },
   itemTitle: {
     fontWeight: "bold",
@@ -28,7 +28,7 @@ export default {
     fontSize: 16,
     justifyContent: "center",
     alignItems: "center",
-    color: "black"
+    color: "black",
   },
 
   version: {
@@ -40,7 +40,7 @@ export default {
     textAlign: "center",
     fontSize: 12,
     paddingBottom: 10,
-    paddingTop: 10
+    paddingTop: 10,
   },
   addButton: {
     backgroundColor: "#ff5722",
@@ -59,15 +59,15 @@ export default {
     shadowRadius: 2,
     shadowOffset: {
       height: 1,
-      width: 0
+      width: 0,
     },
-    zIndex: 1
+    zIndex: 1,
   },
 
   betaView: {
     backgroundColor: "#707372",
     alignSelf: "center",
-    flexDirection: "row"
+    flexDirection: "row",
   },
   betaButton: {
     paddingTop: 50,
@@ -75,22 +75,22 @@ export default {
     backgroundColor: "white",
     alignSelf: "center",
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
     //color: '#141b4d'
   },
   storyPhoto: {
     width: null,
     height: 200,
-    flex: 1
+    flex: 1,
   },
 
   footer: {
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
 
   footerTab: {
     backgroundColor: "white",
-    paddingTop: 3
+    paddingTop: 3,
   },
 
   buttonLabelFooter: {
@@ -98,26 +98,26 @@ export default {
     alignSelf: "center",
     paddingTop: 2,
     paddingBottom: 4,
-    fontSize: 10
+    fontSize: 10,
   },
   profileInfoContainer: {
     backgroundColor: primary,
-    paddingTop: 10
+    paddingTop: 10,
   },
   profileUser: {
     alignSelf: "center",
     fontSize: 22,
     fontWeight: "bold",
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   profileUserInfo: {
     alignSelf: "center",
     opacity: 0.8,
     fontWeight: "bold",
-    color: "#FFF"
+    color: "#FFF",
   },
   profilePic: {
-    height: 0
+    height: 0,
   },
   roundedButton: {
     alignSelf: "center",
@@ -127,7 +127,7 @@ export default {
     borderRadius: 30,
     width: 60,
     height: 60,
-    justifyContent: "center"
+    justifyContent: "center",
   },
   roundedButtonCalendar: {
     alignSelf: "center",
@@ -135,38 +135,38 @@ export default {
     backgroundColor: "#C6F1F0",
     borderRadius: 1,
     width: 60,
-    height: 60
+    height: 60,
   },
 
   profileInfo: {
     alignSelf: "center",
     paddingTop: 5,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   linkTabs: {
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
   linkTabs_header: {
     padding: 15,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   linkTabs_tabCounts: {
     fontSize: 31,
     fontWeight: "bold",
     color: primary,
     alignSelf: "center",
-    paddingBottom: Platform.OS === "android" ? 3 : 0
+    paddingBottom: Platform.OS === "android" ? 3 : 0,
   },
   buttonLabel: {
     color: "#707372",
     alignSelf: "center",
-    paddingTop: 10
+    paddingTop: 10,
   },
   iconLabel: {
     color: "#707372",
     alignSelf: "center",
     paddingTop: 10,
-    fontSize: 15
+    fontSize: 15,
   },
 
   icon: {
@@ -175,7 +175,7 @@ export default {
     marginLeft: 0,
     fontWeight: "bold",
     fontSize: 32,
-    color: "white"
+    color: "white",
   },
   iconWithText: {
     alignSelf: "center",
@@ -183,39 +183,40 @@ export default {
     marginLeft: 0,
     fontWeight: "bold",
     fontSize: 20,
-    color: "white"
+    color: "white",
   },
   icon2: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 
   newsImage: {
-    borderTopWidth: 1
+    borderTopWidth: 1,
   },
 
   tenYearLogo: {
+    marginTop: 100,
     width: 120,
     height: 120,
     borderTopWidth: 1,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   sclogo: {
     marginTop: 100,
     width: 40,
     height: 40,
     borderTopWidth: 1,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   newsImage2: {
     width: 340,
     height: 200,
     alignSelf: "center",
     borderTopWidth: 1,
-    borderTopColor: "#ddd"
+    borderTopColor: "#ddd",
   },
   newsContentLine: {
     borderTopWidth: 1,
-    borderTopColor: "#ddd"
+    borderTopColor: "#ddd",
   },
   newsContent: {
     flexDirection: "column",
@@ -224,7 +225,7 @@ export default {
     paddingRight: 20,
     flex: 1,
     borderTopWidth: 1,
-    borderTopColor: "#ddd"
+    borderTopColor: "#ddd",
   },
   newsContentNoLine: {
     flexDirection: "column",
@@ -233,13 +234,13 @@ export default {
 
     paddingLeft: 20,
     paddingRight: 20,
-    flex: 1
+    flex: 1,
   },
   newsHeader: {
     paddingTop: 10,
     paddingBottom: 5,
     color: "#444",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 
   featureTitle: {
@@ -250,7 +251,7 @@ export default {
     paddingRight: 5,
     fontSize: 16,
     color: "#444",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 
   featureDescription: {
@@ -258,7 +259,7 @@ export default {
     paddingBottom: 5,
     color: "#444",
     paddingLeft: 5,
-    paddingRight: 5
+    paddingRight: 5,
   },
 
   newsLink: {
@@ -267,18 +268,18 @@ export default {
     color: "#666",
     fontSize: 12,
     fontWeight: "bold",
-    paddingTop: 3
+    paddingTop: 3,
   },
   newsTypeView: {
     borderBottomWidth: 1,
     borderBottomColor: "#666",
-    alignSelf: "flex-end"
+    alignSelf: "flex-end",
   },
   newsTypeText: {
     textAlign: "left",
     color: "#666",
     fontSize: 12,
     fontWeight: "bold",
-    paddingTop: 0
-  }
+    paddingTop: 0,
+  },
 };
