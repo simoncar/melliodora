@@ -40,7 +40,7 @@ async.series(
         .doc("beacon")
         .collection("beacons")
         .orderBy("mac")
-        .limit(000)
+        .limit(500)
         .get()
         .then(async function(documentSnapshotArray) {
           documentSnapshotArray.forEach(doc => {
