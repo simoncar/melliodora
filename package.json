@@ -17,7 +17,11 @@
     "prettier": "^1.18.2",
     "react-native-scripts": "^2.0.1",
     "react-test-renderer": "^16.8.6",
-    "reactotron-react-native": "^3.6.4"
+    "reactotron-react-native": "^3.6.4",
+    "detox": "~12.3.0",
+    "detox-expo-helpers": "^0.6.0",
+    "expo-detox-hook": "^1.0.10",
+    "jest": "^24.8.0"
   },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -25,7 +29,9 @@
     "eject": "expo eject",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "test": "jest"
+    "test": "jest",
+    "starte2e": "RN_SRC_EXT='e2e.js,js' expo start",
+    "e2e": "detox test --configuration ios.sim --debug-synchronization 200"
   },
   "dependencies": {
     "@firebase/firestore": "^1.4.5",
@@ -91,12 +97,13 @@
   },
   "detox": {
     "configurations": {
-      "ios.sim.debug": {
-        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/Stamford.app",
-        "build": "xcodebuild -project ios/Stamford.xcodeproj -scheme Stamford -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+      "ios.sim": {
+        "binaryPath": "bin/Exponent.app",
         "type": "ios.simulator",
         "name": "iPhone 7"
       }
-    }
+    },
+    "test-runner": "jest",
+    "specs": ""
   }
 }
