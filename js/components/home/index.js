@@ -13,34 +13,6 @@ import { formatTime, formatMonth } from "../global.js";
 import I18n from "../../lib/i18n";
 import moment from "moment";
 import "moment/min/locales";
-//import momentFR from "moment/src/locale/fr";
-
-//import { LocaleConfig } from "react-native-calendars";
-
-//moment.defineLocale("fr", momentFR);
-
-// LocaleConfig.locales["fr"] = {
-//   monthNames: [
-//     "Janvier",
-//     "Février",
-//     "Mars",
-//     "Avril",
-//     "Mai",
-//     "Juin",
-//     "Juillet",
-//     "Août",
-//     "Septembre",
-//     "Octobre",
-//     "Novembre",
-//     "Décembre",
-//   ],
-//   monthNamesShort: ["Janv.", "Févr.", "Mars", "Avril", "Mai", "Juin", "Juil.", "Août", "Sept.", "Oct.", "Nov.", "Déc."],
-//   dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-//   dayNamesShort: ["Dim.", "Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam."],
-//   today: "Aujourd'hui",
-// };
-// LocaleConfig.defaultLocale = "fr";
-//LocaleConfig.defaultLocale = "fr";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />

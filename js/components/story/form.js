@@ -1,27 +1,13 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  Dimensions,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Switch
-} from "react-native";
-
+import { StyleSheet, View, Image, Dimensions, Text, TextInput, TouchableOpacity, Switch } from "react-native";
 import { connect } from "react-redux";
 import { Container, Content } from "native-base";
-
-import Constants from "expo-constants";
 import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
+import DatePicker from "react-native-datepicker";
 import { Entypo } from "@expo/vector-icons";
-
-var instID = Constants.manifest.extra.instance;
-
-const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+import I18n from "../../lib/i18n";
 
 @withMappedNavigationParams()
 class newStory extends Component {
@@ -33,26 +19,15 @@ class newStory extends Component {
 
     this.state = {
       notifyMeSwitch: false,
-
+      visible: props.edit ? props.visible : false,
       eventTitle: props.edit ? props.eventTitle : "",
       eventDescription: props.edit ? props.eventDescription : "",
-      location:
-        props.edit && props.location !== undefined ? props.location : null,
-      phone: props.edit && props.phone !== undefined ? props.phone : null,
-      email: props.edit && props.email !== undefined ? props.email : null,
-      url: props.edit ? props.url : "",
+      location: props.edit && props.location !== undefined ? props.location : null,
       photo1: props.edit && props.photo1 !== undefined ? props.photo1 : null,
-      photo2: props.edit && props.photo2 !== undefined ? props.photo2 : null,
-      photo3: props.edit && props.photo3 !== undefined ? props.photo3 : null,
-      photoSquare: props.edit ? props.photoSquare : "",
       eventDate: props.eventDate,
       eventStartTime: props.eventStartTime,
       eventEndTime: props.eventEndTime,
-
-      displayStart: props.displayStart,
-      displayEnd: props.displayEnd,
-
-      _key: props.edit ? props._key : ""
+      _key: props.edit ? props._key : "",
     };
 
     this.generateID = this.generateID.bind(this);
@@ -70,28 +45,27 @@ class newStory extends Component {
       </TouchableOpacity>
     ),
 
+    headerTitle: <Text style={{ fontSize: 17, fontWeight: "600" }}>{I18n.t("edit")}</Text>,
     headerRight: (
       <TouchableOpacity
         onPress={() => {
           navigation.state.params.addStory();
         }}
       >
-        <Text style={styles.chatHeading}>Save</Text>
+        <Text style={styles.chatHeading}>{I18n.t("save")}</Text>
       </TouchableOpacity>
-    )
+    ),
   });
 
   componentDidMount() {
     this.props.navigation.setParams({
-      addStory: this.addStory
+      addStory: this.addStory,
     });
   }
 
   generateID() {
     let d = new Date().getTime();
-    let id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(
-      c
-    ) {
+    let id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
       let r = (d + Math.random() * 16) % 16 | 0;
       d = Math.floor(d / 16);
       return (c == "x" ? r : (r & 0x3) | 0x8).toString(5);
@@ -112,30 +86,22 @@ class newStory extends Component {
     return firebase.database.ServerValue.TIMESTAMP;
   }
 
+  clearDates() {
+    this.setState({ eventDate: null });
+    this.setState({ eventStartTime: null });
+    this.setState({ eventEndTime: null });
+  }
+
   addStory() {
     var storyDict = {
       summary: this.state.eventTitle,
+      visible: this.state.visible,
       description: this.state.eventDescription,
       location: this.state.location,
-      phone: this.state.phone,
-      email: this.state.email,
-      htmlLink: this.state.url,
       photo1: this.state.photo1,
-      photo2: this.state.photo2,
-      photo3: this.state.photo3,
-      date_start:
-        this.state.eventDate !== undefined ? this.state.eventDate : null,
-      time_start_pretty:
-        this.state.eventStartTime !== undefined
-          ? this.state.eventStartTime
-          : null,
-      time_end_pretty:
-        this.state.eventEndTime !== undefined ? this.state.eventEndTime : null,
-      displayStart:
-        this.state.displayStart !== undefined ? this.state.displayStart : null,
-      displayEnd:
-        this.state.displayEnd !== undefined ? this.state.displayEnd : null,
-      photoSquare: this.state.photoSquare
+      date_start: this.state.eventDate !== undefined ? this.state.eventDate : null,
+      time_start_pretty: this.state.eventStartTime !== undefined ? this.state.eventStartTime : null,
+      time_end_pretty: this.state.eventEndTime !== undefined ? this.state.eventEndTime : null,
     };
 
     var storyRef = firebase
@@ -146,38 +112,6 @@ class newStory extends Component {
       .doc(this.state._key);
 
     storyRef.set(storyDict);
-
-    //   });
-    // } else {
-    //   this.storyRef.set({
-    //     summary: this.state.eventTitle,
-    //     description: this.state.eventDescription,
-    //     location: this.state.location,
-    //     phone: this.state.phone,
-    //     email: this.state.email,
-    //     htmlLink: this.state.url,
-    //     photo1: this.state.photo1,
-    //     photo2: this.state.photo2,
-    //     photo3: this.state.photo3,
-    //     date_start:
-    //       this.state.eventDate !== undefined ? this.state.eventDate : null,
-    //     time_start_pretty:
-    //       this.state.eventStartTime !== undefined
-    //         ? this.state.eventStartTime
-    //         : null,
-    //     time_end_pretty:
-    //       this.state.eventEndTime !== undefined
-    //         ? this.state.eventEndTime
-    //         : null,
-    //     displayStart:
-    //       this.state.displayStart !== undefined
-    //         ? this.state.displayStart
-    //         : null,
-    //     displayEnd:
-    //       this.state.displayEnd !== undefined ? this.state.displayEnd : null,
-    //     photoSquare: this.state.photoSquare
-    //   });
-    // }
 
     const { goBack } = this.props.navigation;
 
@@ -199,16 +133,15 @@ class newStory extends Component {
                 flex: 1,
                 paddingTop: 20,
                 paddingLeft: 10,
-                paddingRight: 10
+                paddingRight: 10,
               }}
             >
               <View style={styles.switchContainer}>
+                <Text>Visible</Text>
                 <Switch
-                  onValueChange={value =>
-                    this.setState({ lowerelemSwitch: value })
-                  }
+                  onValueChange={value => this.setState({ visible: value })}
                   style={styles.switch}
-                  value={this.state.lowerelemSwitch}
+                  value={this.state.visible}
                 />
               </View>
 
@@ -229,104 +162,58 @@ class newStory extends Component {
               />
 
               <TextInput
-                onChangeText={text => this.setState({ location: text })}
-                placeholder={"Location"}
-                style={[styles.eventText]}
-                value={this.state.location}
-              />
-
-              <TextInput
-                onChangeText={text => this.setState({ phone: text })}
-                placeholder={"Phone"}
-                style={[styles.eventText]}
-                value={this.state.phone}
-              />
-
-              <TextInput
-                onChangeText={text => this.setState({ email: text })}
-                placeholder={"Email"}
-                style={[styles.eventText]}
-                value={this.state.email}
-              />
-
-              <TextInput
-                onChangeText={text => this.setState({ url: text })}
-                placeholder={"More info website URL"}
-                style={[styles.eventText]}
-                value={this.state.url}
-              />
-              <TextInput
                 onChangeText={text => this.setState({ photo1: text })}
                 placeholder={"Photo 1 URL"}
-                style={[styles.eventText]}
+                style={[styles.photoURL]}
                 value={this.state.photo1}
               />
-              <TextInput
-                onChangeText={text => this.setState({ photo2: text })}
-                placeholder={"Photo 2 URL"}
-                style={[styles.eventText]}
-                value={this.state.photo2}
+
+              <Text>Dates (optional)</Text>
+              <DatePicker
+                style={{ width: 200 }}
+                date={this.state.eventDate}
+                mode="date"
+                placeholder="Event Date"
+                format="YYYY-MM-DD"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                onDateChange={date => {
+                  this.setState({ eventDate: date });
+                }}
               />
 
-              <TextInput
-                onChangeText={text => this.setState({ photo3: text })}
-                placeholder={"Photo 3 URL"}
-                style={[styles.eventText]}
-                value={this.state.photo3}
-              />
-              <TextInput
-                onChangeText={text => this.setState({ photoSquare: text })}
-                placeholder={"Photo Square"}
-                style={[styles.eventText]}
-                value={this.state.photoSquare}
+              <Text>Time (optional)</Text>
+
+              <DatePicker
+                style={{ width: 200 }}
+                date={this.state.eventStartTime}
+                placeholder="Start Time"
+                mode="time"
+                format="HH:mm"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                minuteInterval={10}
+                onDateChange={time => {
+                  this.setState({ eventStartTime: time });
+                }}
               />
 
-              <Text>
-                Event Date (needs some re-programming but good enough for now -
-                please use exact format or it will break)
-              </Text>
-              <Text />
-              <Text>Event Date (if user presses 'add to calendar')</Text>
-              <Text>format: 2019-01-01 yyyy-mm-dd</Text>
-              <TextInput
-                onChangeText={text => this.setState({ eventDate: text })}
-                placeholder={"Event Date  format: 2019-01-01"}
-                style={[styles.eventText]}
-                value={this.state.eventDate}
+              <DatePicker
+                style={{ width: 200 }}
+                date={this.state.eventEndTime}
+                placeholder="End Time"
+                mode="time"
+                format="HH:mm"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                minuteInterval={10}
+                onDateChange={time => {
+                  this.setState({ eventEndTime: time });
+                }}
               />
-
-              <Text>Event Time (if user presses 'add to calendar')</Text>
-              <Text>format: 18:00 hh:mm (optional)</Text>
-              <TextInput
-                onChangeText={text => this.setState({ eventStartTime: text })}
-                placeholder={"Start Time  format: hh:mm (optional)"}
-                style={[styles.eventText]}
-                value={this.state.eventStartTime}
-              />
-              <TextInput
-                onChangeText={text => this.setState({ eventEndTime: text })}
-                placeholder={"End Time  format: hh:mm (otional)"}
-                style={[styles.eventText]}
-                value={this.state.eventEndTime}
-              />
-
-              <Text>Display to users - Start</Text>
-              <Text>format: 2019-01-01 09:00 yyyy-mm-dd hh:mm</Text>
-              <TextInput
-                onChangeText={text => this.setState({ displayStart: text })}
-                placeholder={"Display Start"}
-                style={[styles.eventText]}
-                value={this.state.displayStart}
-              />
-
-              <Text>Display to users - End</Text>
-              <Text>format: 2019-02-01 13:00 yyyy-mm-dd hh:mm</Text>
-              <TextInput
-                onChangeText={text => this.setState({ displayEnd: text })}
-                placeholder={"Display End"}
-                style={[styles.eventText]}
-                value={this.state.displayEnd}
-              />
+              <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.clearDates()}>
+                <Text>Clear Dates</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Content>

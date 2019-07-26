@@ -135,8 +135,9 @@ const cors = require("cors")({
 exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   var response = "";
   var i = 0;
+  var minutes = 1000 * 60;
   const now = Date.now();
-  const cutoff = now - 100000; //CUT_OFF_TIME;
+  const cutoff = now - minutes * 10; //CUT_OFF_TIME;
   const updates = [];
   var update = [];
   var child;
@@ -148,7 +149,8 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
     .doc("beacon")
     .collection("beacons")
     .where("timestamp", "<", cutoff)
-    .where("state", "==", "Perimeter")
+    .where("timestampPerimeter", "<", cutoff)
+    .where("stateCandidate",'==',"Perimeter")
     .limit(100);
 
   let query = beacons.get().then(snapshot => {
@@ -384,7 +386,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
         if (beaconUpdates.indexOf(snapshot.mac) == -1) {
           beaconUpdates.push(snapshot.mac);
           console.log("Index : " + beaconUpdates.indexOf(snapshot.mac), snapshot.mac);
-
           let beaconRef = admin
             .firestore()
             .collection("sais_edu_sg")
@@ -396,25 +397,35 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
               if (!doc.exists) {
                 //IGNORE
               } else {
+                var objAllUpdates = {},
+                  objLocation = {},
+                  objFirstSeen = {};
+                beacon = doc.data();
                 personState = dataDict.state;
-                campus = dataDict.campus;
+                location = dataDict.location;
+                gateway = dataDict.mac;
 
-                var ibeaconUuid = snapshot.ibeaconUuid === undefined ? "" : snapshot.ibeaconUuid;
-                var ibeaconMajor = snapshot.ibeaconMajor === undefined ? 0 : snapshot.ibeaconMajor;
-                var ibeaconMinor = snapshot.ibeaconMinor === undefined ? 0 : snapshot.ibeaconMinor;
+                var ibeaconUuidOld = beacon.ibeaconUuid === undefined ? "" : beacon.ibeaconUuid;
+                var ibeaconMajorOld = beacon.ibeaconMajor === undefined ? 0 : beacon.ibeaconMajor;
+                var ibeaconMinorOld = beacon.ibeaconMinor === undefined ? 0 : beacon.ibeaconMinor;
+                var ibeaconTxPowerOld = beacon.ibeaconTxPower === undefined ? 0 : beacon.ibeaconTxPower;
+                var rawOld = beacon.rawData === undefined ? "" : beacon.rawData;
+
+                var ibeaconUuid = snapshot.ibeaconUuid === undefined ? ibeaconUuidOld : snapshot.ibeaconUuid;
+                var ibeaconMajor = snapshot.ibeaconMajor === undefined ? ibeaconMajorOld : snapshot.ibeaconMajor;
+                var ibeaconMinor = snapshot.ibeaconMinor === undefined ? ibeaconMinorOld : snapshot.ibeaconMinor;
+                var ibeaconTxPower =
+                  snapshot.ibeaconTxPower === undefined ? ibeaconTxPowerOld : snapshot.ibeaconTxPower;
+                var raw = pickLatest(beacon.raw, snapshot.rawData, "");
+                var battery = 100;
+
                 var rssi = snapshot.rssi === undefined ? 0 : snapshot.rssi;
-                var ibeaconTxPower = snapshot.ibeaconTxPower === undefined ? 0 : snapshot.ibeaconTxPower;
-                var battery = snapshot.battery === undefined ? 0 : snapshot.battery;
-                var raw = snapshot.rawData === undefined ? "0" : snapshot.rawData;
 
-                if (raw.length < 10) {
-                  raw = "";
-                }
-
-                var dataDictUpdate = {
-                  campus: campus,
+                var getwayMacdesc = "gateway-" + gateway;
+                //master
+                var objAllUpdates = {
+                  location: location,
                   timestamp: Date.now(),
-                  state: personState,
                   ibeaconUuid: ibeaconUuid,
                   ibeaconMajor: ibeaconMajor,
                   ibeaconMinor: ibeaconMinor,
@@ -422,7 +433,36 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   ibeaconTxPower: ibeaconTxPower,
                   raw: raw,
                   mac: snapshot.mac,
+                  gatewayMostRecent: gateway,
+                  [getwayMacdesc]: Date.now(),
+                  timestamp: Date.now(),
+                  battery: battery,
                 };
+
+                //nuances
+
+                if (beacon.state == "Not Present") {
+                  // first time today we are seeing this person
+                  var objFirstSeen = {
+                    timestampFirstSeenToday: Date.now(),
+                    state: "Arriving",
+                  };
+                }
+
+                if (personState == "Perimeter") {
+                  objLocation = {
+                    stateCandidate: "Perimeter",
+                    timestampPerimeterCandidate: Date.now(),
+                  };
+                } else {
+                  objLocation = {
+                    state: "Entered",
+                    timestampEntered: Date.now(),
+                  };
+                }
+                let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
+
+                console.log("dataDictUpdate=", dataDictUpdate);
 
                 admin
                   .firestore()
@@ -451,71 +491,75 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
 
 function setGateway(snapshot) {
   var state = "Entered";
-  var personCampus = "";
+  var location = "";
   var personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
 
   switch (snapshot.mac) {
     case "AC233FC03164":
-      personCampus = "Woodleigh - Gate 1";
+      location = "Woodleigh - Gate 1";
       state = "Perimeter";
       break;
     case "AC233FC031B8":
-      personCampus = "Woodleigh - Gate 2";
+      location = "Woodleigh - Gate 2";
       state = "Perimeter";
       break;
     case "AC233FC039DB":
-      personCampus = "Smartcookies Office HQ";
+      location = "Smartcookies Office HQ";
       state = "Perimeter";
       break;
     case "AC233FC039C9":
-      personCampus = "Smartcookies Cove";
+      location = "Smartcookies Cove";
       state = "Perimeter";
       break;
     case "AC233FC039B2":
-      personCampus = "ELV Gate 1";
+      location = "ELV Gate 1";
       state = "Perimeter";
       break;
     case "AC233FC039BE":
-      personCampus = "Woodleigh Parent Helpdesk";
+      location = "Woodleigh Parent Helpdesk";
       break;
     case "AC233FC039A7":
-      personCampus = "Woodleigh TBA 1";
+      location = "Woodleigh TBA 1";
       break;
     case "AC233FC03A44":
-      personCampus = "Woodleigh TBA 2";
+      location = "Woodleigh TBA 2";
       break;
     case "AC233FC039B1":
-      personCampus = "Woodleigh TBA 3";
+      location = "Woodleigh TBA 3";
       break;
     case "AC233FC039CA":
-      personCampus = "Woodleigh TBA 4";
+      location = "Woodleigh TBA 4";
       break;
     case "AC233FC039BB":
-      personCampus = "Woodleigh TBA 5";
+      location = "Woodleigh TBA 5";
       break;
     case "AC233FC039B8":
-      personCampus = "Woodleigh TBA 6";
+      location = "Woodleigh TBA 6";
       break;
     case "AC233FC03E1F":
-      personCampus = "Woodleigh - Gate 1 II";
+      location = "Woodleigh - Gate 1 II";
       state = "Perimeter";
       break;
     case "AC233FC03E00":
-      personCampus = "Woodleigh - Gate 1 II";
+      location = "Woodleigh - Gate 1 II";
       state = "Perimeter";
       break;
     case "AC233FC03E46":
-      personCampus = "Woodleigh Parent Helpdesk II";
+      location = "Woodleigh Parent Helpdesk II";
       break;
     default:
-      personCampus = "Unknown - " + snapshot.mac;
+      location = "Unknown - " + snapshot.mac;
       state = "Perimeter";
   }
+
+  console.log(snapshot.mac, state);
 
   var dataDict = {
     //campus: personCampus,
     timestamp: Date.now(),
+    location: location,
     state: state,
+    mac: snapshot.mac,
     //picture: personPictureURL,
     //mac: snapshot.mac,
     gatewayFree: snapshot.gatewayFree,
@@ -523,4 +567,26 @@ function setGateway(snapshot) {
   };
 
   return dataDict;
+}
+
+function pickLatest(oldValue, potentialNewValue, fallback) {
+  if (oldValue == undefined) {
+    oldValue = fallback;
+  }
+
+  if (potentialNewValue === undefined) {
+    potentialNewValue = fallback;
+  }
+
+  if (potentialNewValue === "") {
+    potentialNewValue = fallback;
+  }
+
+  if (potentialNewValue == fallback) {
+    ret = oldValue;
+  } else {
+    ret = potentialNewValue;
+  }
+  console.log(oldValue, potentialNewValue, fallback, ret);
+  return ret;
 }

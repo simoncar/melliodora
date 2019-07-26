@@ -14,7 +14,7 @@ export default class Setup extends Component {
     this.state = {
       isLoading: false,
       store: configureStore(() => this.setState({ isLoading: false })),
-      isReady: false
+      isReady: false,
     };
   }
 
@@ -25,9 +25,6 @@ export default class Setup extends Component {
       Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
       //Ionicons: require('/@expo/vector-icons/fonts/Ionicons.ttf'),
       //'Material Icons': require('/@expo/vector-icons/fonts/MaterialIcons.ttf'),
-      SFProTextBold: require("../fonts/SF-Pro-Text-Bold.otf"),
-      SFProTextSemiBold: require("../fonts/SF-Pro-Text-Semibold.otf"),
-      SFProTextRegular: require("../fonts/SF-Pro-Text-Regular.otf")
     });
 
     this.setState({ isReady: true });

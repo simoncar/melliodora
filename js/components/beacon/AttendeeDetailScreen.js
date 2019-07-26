@@ -1,15 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 
-import {
-  Text,
-  StyleSheet,
-  View,
-  ScrollView,
-  TouchableHighlight,
-  TouchableOpacity,
-  Dimensions,
-  SafeAreaView,
-} from "react-native";
+import { Text, StyleSheet, View, ScrollView, TouchableHighlight, TouchableOpacity, SafeAreaView } from "react-native";
 import { ListItem, SearchBar, Avatar, Divider, Button, Overlay } from "react-native-elements";
 import BeaconHistoryItem from "./BeaconHistoryItem";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
@@ -18,7 +9,7 @@ import moment from "moment";
 import "moment/locale/en-SG"; // without this line it didn't work
 moment.locale("en-SG");
 import _ from "lodash";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 
 import useBookmarkHook from "./utils/BookmarkStore";
 
@@ -63,6 +54,8 @@ export default class AttendeeDetailScreen extends Component {
       calendarModalVisible: false,
       selectedDate: "",
       tempSelectedDate: "",
+      diagnostic: "",
+      showDiagnostic: false,
     };
   }
 
@@ -78,6 +71,39 @@ export default class AttendeeDetailScreen extends Component {
         loading: false,
       }),
     );
+    this.unsubscribe = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("beacons")
+      .doc(beaconID)
+      .onSnapshot(doc => {
+        var data = [];
+        if (!doc.exists) {
+        } else {
+          console.log("getting update ", doc.data());
+          var object = doc.data();
+          for (var property in object) {
+            if (object.hasOwnProperty(property)) {
+              if (object[property] != null) {
+                var str = object[property].toString();
+                if (str == null || str == undefined) {
+                  str = "";
+                }
+                if (str.substring(0, 3) == "156") {
+                  //we have a timestamp
+                  data.push("\n" + property + ": " + moment(object[property]).format("ddd LLL:ss"));
+                } else {
+                  data.push("\n" + property + ": " + object[property]);
+                }
+              }
+            }
+          }
+        }
+        this.setState({
+          diagnostic: data,
+        });
+      });
   }
 
   async getData(mac, date) {
@@ -99,6 +125,11 @@ export default class AttendeeDetailScreen extends Component {
     return data;
   }
 
+  componentWillUnmount() {
+    this.unsubscribe();
+    console.log("unsubscribed");
+  }
+
   setCalendarModalVisible(visible) {
     this.setState({ calendarModalVisible: visible });
   }
@@ -109,6 +140,18 @@ export default class AttendeeDetailScreen extends Component {
     else if (index === this.state.userHistory.length - 1) return <BeaconHistoryItem last={true} {...item} key={key} />;
     else return <BeaconHistoryItem {...item} key={key} />;
   };
+
+  getDiagnosticView() {
+    if (this.state.showDiagnostic == true) {
+      return (
+        <View>
+          <Text style={styles.diagnostic}>{this.state.diagnostic}</Text>
+        </View>
+      );
+    } else {
+      return <View></View>;
+    }
+  }
 
   render() {
     const recordInfo = this.props.navigation.state.params;
@@ -192,9 +235,20 @@ export default class AttendeeDetailScreen extends Component {
                 <Text />
                 <Text style={styles.detailsText}>last seen {moment(lastSeen).format("LLL")}</Text>
                 <Text style={styles.detailsText}>{state}</Text>
+
+                <TouchableOpacity
+                  style={{ flexDirection: "row" }}
+                  onPress={() => {
+                    this.setState({ showDiagnostic: !this.state.showDiagnostic });
+                  }}
+                >
+                  <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+                </TouchableOpacity>
               </View>
             </View>
           </View>
+
+          {this.getDiagnosticView()}
 
           <View style={{ paddingVertical: 5, paddingHorizontal: 15 }}>
             <Button
@@ -212,6 +266,7 @@ export default class AttendeeDetailScreen extends Component {
               }}
             />
           </View>
+
           <View>{this.state.userHistory.map(this._renderListItem)}</View>
         </ScrollView>
       </View>
@@ -224,6 +279,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     backgroundColor: "#d3d3d3",
+  },
+  diagnostic: {
+    paddingLeft: 10,
+    color: "#48484A",
+    fontSize: 16,
   },
   avatarContainer: {
     flex: 0,

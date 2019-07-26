@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
-  Image,
   FlatList,
   View,
   Linking,
@@ -11,13 +10,14 @@ import {
   StyleSheet,
   Dimensions,
   AsyncStorage,
+  Image,
 } from "react-native";
 import { Container, Content, Text, Icon, Button } from "native-base";
 import { Notifications } from "expo";
 import Constants from "expo-constants";
-import { RectButton, BorderlessButton } from "react-native-gesture-handler";
+import { BorderlessButton } from "react-native-gesture-handler";
 import moment from "moment";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
 import { isAdmin } from "../global";
 import BLEDataParser from "../../lib/BLEDataParser";
@@ -29,7 +29,6 @@ import styles from "./styles";
 
 const { width } = Dimensions.get("window");
 const ListItem = require("./ListItem");
-const instID = Constants.manifest.extra.instance;
 
 // Get the token that uniquely identifies this device
 if (!Constants.isDevice) {
@@ -49,10 +48,6 @@ const tabBarIcon = name => ({ tintColor }) => (
 class HomeNav extends Component {
   constructor(props) {
     super(props);
-    try {
-    } catch (e) {
-      console.error(e.message);
-    }
 
     this.state = {
       user: null,
@@ -61,8 +56,6 @@ class HomeNav extends Component {
     };
 
     this.loadFromAsyncStorage();
-
-    //this.loadFromRedux();
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -78,45 +71,37 @@ class HomeNav extends Component {
   });
 
   componentWillMount() {
-    this.ref = firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("feature")
-      .collection("feature articles");
-  }
-
-  componentDidMount() {
     try {
-      this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+      this.ref = firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("feature")
+        .collection("feature articles")
+        .get()
+        .then(snapshot => {
+          this.onCollectionUpdate(snapshot);
+        });
     } catch (e) {
       //console.error(e.message);
     }
   }
 
   componentWillUnmount() {
-    this.unsubscribe();
+    //this.unsubscribe();
   }
 
-  onCollectionUpdate = querySnapshot => {
+  onCollectionUpdate(querySnapshot) {
     const featureItems = [];
     querySnapshot.forEach(doc => {
       const {
         summary,
         description,
         location,
-        phone,
-        email,
-        photoSquare,
-        htmlLink,
         date_start,
         time_start_pretty,
         time_end_pretty,
         photo1,
-        photo2,
-        photo3,
-        displayStart,
-        displayEnd,
-        hidden,
+        visible,
       } = doc.data();
 
       featureItems.push({
@@ -126,19 +111,11 @@ class HomeNav extends Component {
         title: summary,
         description,
         location,
-        phone,
-        email,
-        photoSquare,
-        url: htmlLink,
         eventDate: date_start,
         eventStartTime: time_start_pretty,
         eventEndTime: time_end_pretty,
         photo1,
-        photo2,
-        photo3,
-        displayStart,
-        displayEnd,
-        hidden,
+        visible,
       });
     });
 
@@ -152,7 +129,7 @@ class HomeNav extends Component {
     this.setState({
       loading: false,
     });
-  };
+  }
 
   _handleOpenWithLinking = sURL => {
     Linking.openURL(sURL);
@@ -187,54 +164,6 @@ class HomeNav extends Component {
       // Error saving data
     }
   };
-
-  loadFromRedux() {
-    this.state.featureItems = [];
-
-    var dataSnapshot = this.props.calendarEventsX.featureItems;
-    key = "";
-
-    for (var key in dataSnapshot) {
-      const snapshot = dataSnapshot[key];
-      var strtime = snapshot.date_start;
-
-      const displayStart = snapshot.displayStart !== undefined ? moment().format(snapshot.displayStart) : null;
-      const displayEnd = snapshot.displayEnd !== undefined ? moment().format(snapshot.displayEnd) : null;
-      let hidden = true;
-
-      if (displayStart != null && displayStart <= today) {
-        // start is less than End
-
-        if (displayStart != null && displayEnd >= today) {
-          // start is less than End
-          hidden = false;
-        }
-      }
-
-      if (!hidden) {
-        this.state.featureItems.push({
-          title: snapshot.summary,
-          description: snapshot.description,
-          location: snapshot.location,
-          phone: snapshot.phone,
-          email: snapshot.email,
-          photoSquare: snapshot.photoSquare,
-          url: snapshot.htmlLink,
-          eventDate: snapshot.date_start,
-          eventStartTime: snapshot.time_start_pretty,
-          eventEndTime: snapshot.time_end_pretty,
-          photo1: snapshot.photo1,
-          photo2: snapshot.photo2,
-          photo3: snapshot.photo3,
-          displayStart: snapshot.displayStart,
-          displayEnd: snapshot.displayEnd,
-          hidden: false,
-          _key: key,
-          key: key,
-        });
-      }
-    }
-  }
 
   _renderItem(item) {
     return <ListItem navigation={this.props.navigation} item={item} />;
@@ -288,17 +217,13 @@ class HomeNav extends Component {
                         borderWidth: StyleSheet.hairlineWidth,
                         borderColor: "lightgray",
                       }}
-                      source={{
-                        uri: "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png",
-                      }}
+                      source={require("../../../images/safeguarding_lockl.png")}
                     />
                     <Text style={styles.itemTitle}>{I18n.t("safeguarding")}</Text>
                   </View>
                   <View>
                     <Image
-                      source={{
-                        uri: "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png",
-                      }}
+                      source={require("../../../images/safeguarding.png")}
                       style={{ width, height: 200 }}
                       resizeMode="contain"
                     />
@@ -314,22 +239,6 @@ class HomeNav extends Component {
             />
           </View>
 
-          <View>
-            <View
-              style={{
-                height: 60,
-                backgroundColor: "white",
-                flexDirection: "row",
-              }}
-            />
-          </View>
-
-          <View>
-            <Text style={styles.version} />
-            <Text style={styles.version} />
-
-            <Text style={styles.version} />
-          </View>
           <Image source={require("../../../images/sais.edu.sg/10yearLogo.png")} style={styles.tenYearLogo} />
 
           <TouchableOpacity
@@ -341,8 +250,7 @@ class HomeNav extends Component {
           </TouchableOpacity>
 
           <View>
-            <Text style={styles.version} />
-            <Text style={styles.version}>Version: {Constants.manifest.revisionId}</Text>
+            <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
           </View>
         </Content>
       </Container>
