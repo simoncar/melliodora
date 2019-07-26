@@ -1,15 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 
-import {
-  Text,
-  StyleSheet,
-  View,
-  ScrollView,
-  TouchableHighlight,
-  TouchableOpacity,
-  Dimensions,
-  SafeAreaView,
-} from "react-native";
+import { Text, StyleSheet, View, ScrollView, TouchableHighlight, TouchableOpacity, SafeAreaView } from "react-native";
 import { ListItem, SearchBar, Avatar, Divider, Button, Overlay } from "react-native-elements";
 import BeaconHistoryItem from "./BeaconHistoryItem";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
@@ -18,7 +9,7 @@ import moment from "moment";
 import "moment/locale/en-SG"; // without this line it didn't work
 moment.locale("en-SG");
 import _ from "lodash";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 
 import useBookmarkHook from "./utils/BookmarkStore";
 
@@ -94,15 +85,17 @@ export default class AttendeeDetailScreen extends Component {
           var object = doc.data();
           for (var property in object) {
             if (object.hasOwnProperty(property)) {
-              var str = object[property].toString();
-              if (str == null || str == undefined) {
-                str = "";
-              }
-              if (str.substring(0, 3) == "156") {
-                //we have a timestamp
-                data.push("\n" + property + ": " + moment(object[property]).format("ddd LLL:ss"));
-              } else {
-                data.push("\n" + property + ": " + object[property]);
+              if (object[property] != null) {
+                var str = object[property].toString();
+                if (str == null || str == undefined) {
+                  str = "";
+                }
+                if (str.substring(0, 3) == "156") {
+                  //we have a timestamp
+                  data.push("\n" + property + ": " + moment(object[property]).format("ddd LLL:ss"));
+                } else {
+                  data.push("\n" + property + ": " + object[property]);
+                }
               }
             }
           }

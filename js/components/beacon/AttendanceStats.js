@@ -7,7 +7,7 @@ import { Feather, FontAwesome } from "@expo/vector-icons";
 import Tooltip from "react-native-walkthrough-tooltip";
 import useBeaconSearchHook from "./utils/BeaconSearchStore";
 const moment = require("moment");
-import firebase from "firebase";
+import * as firebase from "firebase";
 import { Calendar } from "react-native-calendars";
 import { Ionicons } from "@expo/vector-icons";
 

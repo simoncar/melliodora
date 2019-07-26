@@ -1,13 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {
-  Linking,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  ViewPropTypes,
-  Text
-} from "react-native";
+import { Linking, Platform, StyleSheet, TouchableOpacity, ViewPropTypes, Text } from "react-native";
 import { MapView } from "expo";
 
 export default class CustomView extends React.Component {
@@ -19,7 +12,7 @@ export default class CustomView extends React.Component {
           onPress={() => {
             const url = Platform.select({
               ios: `http://maps.apple.com/?ll=${this.props.currentMessage.location.latitude},${this.props.currentMessage.location.longitude}`,
-              android: `http://maps.google.com/?q=${this.props.currentMessage.location.latitude},${this.props.currentMessage.location.longitude}`
+              android: `http://maps.google.com/?q=${this.props.currentMessage.location.latitude},${this.props.currentMessage.location.longitude}`,
             });
             Linking.canOpenURL(url)
               .then(supported => {
@@ -28,7 +21,7 @@ export default class CustomView extends React.Component {
                 }
               })
               .catch(err => {
-                console.error("An error occurred", err);
+                //console.error("An error occurred", err);
               });
           }}
         >
@@ -38,7 +31,7 @@ export default class CustomView extends React.Component {
               latitude: this.props.currentMessage.location.latitude,
               longitude: this.props.currentMessage.location.longitude,
               latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421
+              longitudeDelta: 0.0421,
             }}
             scrollEnabled={false}
             zoomEnabled={false}
@@ -55,18 +48,18 @@ const styles = StyleSheet.create({
     width: 150,
     height: 100,
     borderRadius: 13,
-    margin: 3
-  }
+    margin: 3,
+  },
 });
 
 CustomView.defaultProps = {
   currentMessage: {},
   containerStyle: {},
-  mapViewStyle: {}
+  mapViewStyle: {},
 };
 
 CustomView.propTypes = {
   currentMessage: PropTypes.object,
   containerStyle: ViewPropTypes.style,
-  mapViewStyle: ViewPropTypes.style
+  mapViewStyle: ViewPropTypes.style,
 };

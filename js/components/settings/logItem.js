@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 
 import { Grid, Col, Row } from "react-native-easy-grid";
 import moment from "moment";
@@ -11,7 +11,6 @@ class LogItem extends Component {
 
   render() {
     var timestamp = moment(this.props.item.item.logItem.timestamp).format("LLL");
-    console.log(this.props);
 
     return (
       <View style={styles.chatRow}>

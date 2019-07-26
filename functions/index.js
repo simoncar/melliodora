@@ -150,6 +150,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
     .collection("beacons")
     .where("timestamp", "<", cutoff)
     .where("timestampPerimeter", "<", cutoff)
+    .where("stateCandidate",'==',"Perimeter")
     .limit(100);
 
   let query = beacons.get().then(snapshot => {

@@ -1,6 +1,4 @@
-"use strict";
 import React, { Component } from "react";
-
 import { StyleSheet, View, TextInput, Text, TouchableOpacity, AsyncStorage } from "react-native";
 import { Updates } from "expo";
 
@@ -14,7 +12,7 @@ export default class adminPassword extends Component {
     super(props);
     this.state = {
       adminPassword: "enter password",
-      adminPasswordCorrect: "Password Incorrect",
+      adminPasswordCorrect: "",
       restartMessage: "",
     };
 
@@ -25,7 +23,6 @@ export default class adminPassword extends Component {
     try {
       const value = await AsyncStorage.getItem("adminPassword");
       if (value !== null) {
-        // We have data!!
         if (value == "cookies") {
           this.setState({ adminPasswordCorrect: "Password Correct!" });
         }
@@ -37,13 +34,12 @@ export default class adminPassword extends Component {
   };
 
   _setAdminPassword(adminPassword) {
-    console.log(adminPassword);
     this.setState({ adminPassword: adminPassword });
     if (adminPassword == "cookies") {
       this.setState({ adminPasswordCorrect: "Password Correct!" });
       this.setState({ restartMessage: "Click to Restart in Admin Mode" });
     } else {
-      this.setState({ adminPasswordCorrect: "Password Incorrect!" });
+      this.setState({ adminPasswordCorrect: "" });
     }
     global.adminPassword = adminPassword;
     AsyncStorage.setItem("adminPassword", adminPassword);
@@ -54,16 +50,10 @@ export default class adminPassword extends Component {
       <View style={styles.padding}>
         <Text style={styles.title}>Enter the Admin Password:</Text>
         <TextInput
-          style={{
-            height: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            paddingLeft: 10,
-          }}
+          style={styles.passwordField}
           placeholder={this.state.adminPassword}
           onChangeText={text => this._setAdminPassword(text)}
           autoCapitalize="none"
-          value={this.state.adminPassword}
         />
         <Text style={styles.alert}>{this.state.adminPasswordCorrect}</Text>
 
@@ -97,5 +87,11 @@ const styles = StyleSheet.create({
   alertRestart: {
     paddingTop: 16,
     color: "red",
+  },
+  passwordField: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    paddingLeft: 10,
   },
 });

@@ -45,27 +45,31 @@ async function registerForPushNotificationsAsync(user) {
 
   var userDict = {
     id: safeToken,
-    email: global.username
+    email: global.username,
   };
 
-  firebase
-    .firestore()
-    .collection("sais_edu_sg")
-    .doc("user")
-    .collection("usernames")
-    .doc(safeToken)
-    .set(userDict);
+  try {
+    firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("user")
+      .collection("usernames")
+      .doc(safeToken)
+      .set(userDict);
+  } catch (error) {
+    console.log(error);
+    // Error saving data
+  }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(ActionCreators, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => ({
   //navigation: state.cardNavigation,
-  userX: state.user
+  userX: state.user,
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(registerForPush);
