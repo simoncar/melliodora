@@ -85,15 +85,17 @@ export default class AttendeeDetailScreen extends Component {
           var object = doc.data();
           for (var property in object) {
             if (object.hasOwnProperty(property)) {
-              var str = object[property].toString();
-              if (str == null || str == undefined) {
-                str = "";
-              }
-              if (str.substring(0, 3) == "156") {
-                //we have a timestamp
-                data.push("\n" + property + ": " + moment(object[property]).format("ddd LLL:ss"));
-              } else {
-                data.push("\n" + property + ": " + object[property]);
+              if (object[property] != null) {
+                var str = object[property].toString();
+                if (str == null || str == undefined) {
+                  str = "";
+                }
+                if (str.substring(0, 3) == "156") {
+                  //we have a timestamp
+                  data.push("\n" + property + ": " + moment(object[property]).format("ddd LLL:ss"));
+                } else {
+                  data.push("\n" + property + ": " + object[property]);
+                }
               }
             }
           }

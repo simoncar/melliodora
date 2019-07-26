@@ -1,6 +1,4 @@
-"use strict";
 import React, { Component } from "react";
-
 import { StyleSheet, Text, View, AsyncStorage } from "react-native";
 import SettingsList from "react-native-settings-list";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
