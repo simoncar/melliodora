@@ -90,8 +90,6 @@ class HomeNav extends Component {
     return (
       <View style={styles.container}>
         <Text style={{color:'black'}}>Text for test</Text>
-        <Text>Text for test!!!</Text>
-        <Text>Text for test!!!</Text>
 
         {isAdmin(this.props.adminPassword) && (
           <TouchableHighlight
@@ -114,6 +112,7 @@ class HomeNav extends Component {
                 onPress={() => {
                   this.props.navigation.navigate("AttendanceOverviewScreen");
                 }}
+                testID="safeguardnav"
               >
                 <View>
                   <View
