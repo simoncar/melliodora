@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-  Image,
-  Text
-} from "react-native";
+import { View, TouchableOpacity, Dimensions, StyleSheet, Image, Text } from "react-native";
 
 import { AntDesign, MaterialIcons, Feather } from "@expo/vector-icons";
 import moment from "moment";
@@ -43,13 +36,7 @@ export default class BeaconHistoryItem extends Component {
 
           <View style={style.iconPlaceHolder}>
             <View style={line()} />
-            <View
-              style={
-                start || last
-                  ? style.iconPlacementStartEnd
-                  : style.iconPlacement
-              }
-            />
+            <View style={start || last ? style.iconPlacementStartEnd : style.iconPlacement} />
           </View>
           <View style={style.details}>
             <Text style={style.detailsText}>{state}</Text>
@@ -65,7 +52,7 @@ const style = StyleSheet.create({
     width: width,
     flex: 1,
     flexDirection: "row",
-    alignItems: "stretch"
+    alignItems: "stretch",
   },
   sectionHead: {
     backgroundColor: "#f2f2f7",
@@ -73,26 +60,26 @@ const style = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "stretch",
-    paddingLeft: 155
+    paddingLeft: 155,
   },
   location: {
     color: "#48484a",
     flex: 1,
-    alignSelf: "stretch"
+    alignSelf: "stretch",
   },
   timeContainer: {
     flex: 2,
-    justifyContent: "center"
+    justifyContent: "center",
   },
   time: {
     // padding  : 10,
     textAlign: "right",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   iconPlaceHolder: {
     flexDirection: "column",
     flex: 1,
-    height: 70
+    height: 70,
   },
   iconPlacement: {
     backgroundColor: "green",
@@ -100,7 +87,7 @@ const style = StyleSheet.create({
     width: 40,
     height: 40,
     alignSelf: "center",
-    marginTop: "25%"
+    marginTop: "25%",
   },
   iconPlacementStartEnd: {
     backgroundColor: "green",
@@ -108,14 +95,14 @@ const style = StyleSheet.create({
     width: 40,
     height: 40,
     alignSelf: "center",
-    marginTop: "20%"
+    marginTop: "20%",
   },
   line: {
     backgroundColor: "gray",
     position: "absolute",
     width: 5,
     height: "100%",
-    left: "45%"
+    left: "45%",
   },
   lineStart: {
     backgroundColor: "gray",
@@ -123,21 +110,21 @@ const style = StyleSheet.create({
     marginTop: "25%",
     width: 5,
     left: "45%",
-    height: "82%"
+    height: "82%",
   },
   lineEnd: {
     backgroundColor: "gray",
     position: "absolute",
     width: 5,
     height: "25%",
-    left: "45%"
+    left: "45%",
   },
   details: {
     alignSelf: "center",
     justifyContent: "center",
-    flex: 3
+    flex: 3,
   },
   detailsText: {
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 });

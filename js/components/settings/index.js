@@ -1,8 +1,6 @@
-"use strict";
 import React, { Component } from "react";
 
-import { StyleSheet, View, Alert, AsyncStorage } from "react-native";
-import { Image } from "react-native-expo-image-cache";
+import { Image, StyleSheet, View, Alert, AsyncStorage } from "react-native";
 import SettingsList from "react-native-settings-list";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";

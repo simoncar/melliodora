@@ -1,38 +1,11 @@
 import * as types from "./types";
-import Api from "../lib/api";
-
-function fetchReceipes(ingredients) {
-  return (dispatch, getState) => {
-    const params = [`i=${encodeURIComponent(ingredients)}`, "p=1"].join("&");
-    return Api.get(`/api/?${params}`)
-      .then(resp => {
-        dispatch(setSearchedRecipes({ recipes: resp }));
-      })
-      .catch(ex => {
-        console.log(ex);
-      });
-  };
-}
-
-function setSearchedRecipes({ recipes }) {
-  return {
-    type: types.SET_SEARCHED_RECIPES,
-    recipes
-  };
-}
-
-function addRecipe() {
-  return {
-    type: types.ADD_RECIPE
-  };
-}
 
 function setUsername(username) {
   console.log("Actions > setUsername", username);
 
   return {
     type: "SET_LOGIN_DETAILS",
-    payload: username
+    payload: username,
   };
 }
 
@@ -41,7 +14,7 @@ function setAdminPassword(adminPassword) {
 
   return {
     type: "SET_ADMINPASSWORD_DETAILS",
-    payload: adminPassword
+    payload: adminPassword,
   };
 }
 
@@ -50,7 +23,7 @@ function setNickname(nickname) {
 
   return {
     type: "SET_NICKNAME_DETAILS",
-    payload: nickname
+    payload: nickname,
   };
 }
 
@@ -59,7 +32,7 @@ function setPushToken(pushToken) {
 
   return {
     type: "SET_PUSH_TOKEN",
-    payload: pushToken
+    payload: pushToken,
   };
 }
 
@@ -68,7 +41,7 @@ function setauthSecret(authSecret) {
 
   return {
     type: "SET_AUTH_SECRET",
-    payload: authSecret
+    payload: authSecret,
   };
 }
 
@@ -77,7 +50,7 @@ function setPassword(password) {
 
   return {
     type: "SET_PASSWORD",
-    payload: password
+    payload: password,
   };
 }
 
@@ -93,7 +66,7 @@ function logIn(source: ?string): ThunkAction {
 function skipLogin(): Action {
   console.log("skip login - action");
   return {
-    type: "SKIPPED_LOGIN"
+    type: "SKIPPED_LOGIN",
   };
 }
 
@@ -105,7 +78,7 @@ function logOut(): ThunkAction {
 
     // TODO: Make sure reducers clear their state
     return dispatch({
-      type: "LOGGED_OUT"
+      type: "LOGGED_OUT",
     });
   };
 }
@@ -120,5 +93,5 @@ module.exports = {
   logOut,
   addRecipe,
   setSearchedRecipes,
-  fetchReceipes
+  fetchReceipes,
 };

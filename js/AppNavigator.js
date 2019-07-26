@@ -1,7 +1,6 @@
 import React from "react";
 
 import { createAppContainer, createStackNavigator, createBottomTabNavigator } from "react-navigation";
-import { BorderlessButton } from "react-native-gesture-handler";
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather } from "@expo/vector-icons";
 import Login from "./components/login/";
 import Home from "./components/home/";

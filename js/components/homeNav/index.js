@@ -10,8 +10,8 @@ import {
   StyleSheet,
   Dimensions,
   AsyncStorage,
+  Image,
 } from "react-native";
-import { Image } from "react-native-expo-image-cache";
 import { Container, Content, Text, Icon, Button } from "native-base";
 import { Notifications } from "expo";
 import Constants from "expo-constants";
@@ -48,10 +48,6 @@ const tabBarIcon = name => ({ tintColor }) => (
 class HomeNav extends Component {
   constructor(props) {
     super(props);
-    try {
-    } catch (e) {
-      console.error(e.message);
-    }
 
     this.state = {
       user: null,
@@ -225,17 +221,13 @@ class HomeNav extends Component {
                         borderWidth: StyleSheet.hairlineWidth,
                         borderColor: "lightgray",
                       }}
-                      source={{
-                        uri: "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png",
-                      }}
+                      source={require("../../../images/safeguarding_lockl.png")}
                     />
                     <Text style={styles.itemTitle}>{I18n.t("safeguarding")}</Text>
                   </View>
                   <View>
                     <Image
-                      source={{
-                        uri: "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png",
-                      }}
+                      source={require("../../../images/safeguarding.png")}
                       style={{ width, height: 200 }}
                       resizeMode="contain"
                     />
