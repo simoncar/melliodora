@@ -1,19 +1,18 @@
-describe("Example", () => {
-  beforeEach(async () => {
-    await device.reloadReactNative();
-  });
+import { reloadApp } from "detox-expo-helpers";
 
-  it("should have welcome screen", async () => {
-    await expect(element(by.id("welcome"))).toBeVisible();
-  });
+describe('Authentication tests', () => {
+    beforeEach(async () => {
+        await reloadApp();
+        await device.setURLBlacklist(['.*firestore.*', '.*19001/onchange.*']);
+        await device.disableSynchronization();
 
-  it("should show hello screen after tap", async () => {
-    await element(by.id("hello_button")).tap();
-    await expect(element(by.label("Hello!!!"))).toBeVisible();
-  });
+    });
 
-  it("should show world screen after tap", async () => {
-    await element(by.id("world_button")).tap();
-    await expect(element(by.label("World!!!"))).toBeVisible();
-  });
+    it('Test HomeNav', async () => {
+        await device.setURLBlacklist(['.*firestore.*', '.*19001/onchange.*']);
+        await device.disableSynchronization();
+        await waitFor(element(by.label("Text for test"))).toBeVisible().withTimeout(20000);
+        await expect(element(by.label("Text for test"))).toBeVisible();
+    });
+
 });
