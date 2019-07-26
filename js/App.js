@@ -1,22 +1,11 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Notifications } from "expo";
 import Constants from "expo-constants";
-import { AsyncStorage } from "react-native";
-
-import Analytics from "./lib/analytics";
-import * as ActionCreators from "./actions";
 import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
 
-const instID = Constants.manifest.extra.instance;
-
 class App extends Component {
-  componentWillMount() {}
-
   componentDidMount() {
-    this._retrieveAdminPassword();
     this._notificationSubscription = this._registerForPushNotifications();
   }
 
@@ -24,60 +13,12 @@ class App extends Component {
     this._notificationSubscription && this._notificationSubscription.remove();
   }
 
-  _handleNotification = ({ origin, data }) => {};
-
   _registerForPushNotifications() {
-    registerForPush.reg(this.props.userX.name);
-
-    this._notificationSubscription = Notifications.addListener(
-      this._handleNotification
-    );
+    registerForPush.reg("");
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
 
-  _retrieveAdminPassword = async () => {
-    try {
-      const value = await AsyncStorage.getItem("adminPassword");
-      if (value !== null) {
-        // We have data!!
-        console.log("_retrieveAdminPassword=", value);
-        if (value == "cookies") {
-          this.setState({ adminPasswordCorrect: "Password Correct!" });
-        }
-        this.setState({ adminPassword: value });
-        global.adminPassword = value;
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
-
   render() {
-    if (undefined != global.loggedLoginAnalytics) {
-      if (global.loggedLoginAnalytics == 1) {
-        if (this.props.userX.name.length > 0) {
-          var username = this.props.userX.name;
-          var language = this.props.userX.language;
-        } else {
-          var username = "no username";
-        }
-
-        const trackingOpts = {
-          instId: instID,
-          emailOrUsername: username
-        };
-
-        Analytics.identify(username, trackingOpts);
-        Analytics.track(Analytics.events.APP_STARTED, trackingOpts);
-        global.username = username;
-        global.language = language;
-        global.loggedLoginAnalytics = 2;
-      }
-    }
-
-    if (!global.loggedLoginAnalytics) {
-      global.loggedLoginAnalytics = 1;
-    }
-
     switch (Constants.manifest.extra.instance) {
       case "0001-sais_edu_sg":
         global.switch_address =
@@ -109,15 +50,4 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(ActionCreators, dispatch);
-
-const mapStateToProps = state => ({
-  //navigation: state.cardNavigation,
-  userX: state.user
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default App;
