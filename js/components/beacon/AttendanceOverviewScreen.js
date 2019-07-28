@@ -1,20 +1,12 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  View,
-  Button,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-  ScrollView
-} from "react-native";
+import { StyleSheet, View, Button, Text, Dimensions, TouchableOpacity, ScrollView } from "react-native";
 import { Divider } from "react-native-elements";
 import { LineChart } from "react-native-chart-kit";
 import I18n from "../../lib/i18n";
 
 import AttendanceStats from "./AttendanceStats";
 import BookmarkPreview from "./BookmarkPreview";
-import { Feather } from "@expo/vector-icons";
+import { Feather, Entypo } from "@expo/vector-icons";
 import AttendanceMenu from "./AttendanceMenu";
 
 export default class AttendanceOverviewScreen extends Component {
@@ -24,15 +16,10 @@ export default class AttendanceOverviewScreen extends Component {
     headerRight: (
       <View style={{ paddingRight: 7, flexDirection: "row" }}>
         <TouchableOpacity onPress={() => navigation.navigate("BeaconSearch")}>
-          <Feather
-            name="search"
-            size={28}
-            color="gray"
-            style={{ paddingHorizontal: 8 }}
-          />
+          <Feather name="search" size={28} color="gray" style={{ paddingHorizontal: 8 }} />
         </TouchableOpacity>
       </View>
-    )
+    ),
   });
 
   constructor(props) {
@@ -48,7 +35,7 @@ export default class AttendanceOverviewScreen extends Component {
               backgroundColor: "#fff",
               marginVertical: 8,
               marginHorizontal: 4,
-              padding: 10
+              padding: 10,
             }}
           >
             <AttendanceStats navigation={this.props.navigation} />
@@ -58,7 +45,7 @@ export default class AttendanceOverviewScreen extends Component {
             style={{
               backgroundColor: "#fff",
               flex: 1,
-              flexDirection: "column"
+              flexDirection: "column",
             }}
           >
             <View
@@ -66,25 +53,19 @@ export default class AttendanceOverviewScreen extends Component {
                 flexDirection: "row",
                 flexShrink: 1,
                 paddingTop: 8,
-                paddingHorizontal: 8
+                paddingHorizontal: 8,
               }}
             >
-              <Text style={{ fontWeight: "bold", color: "#48484a", flex: 1 }}>
-                Recent Bookmarks
-              </Text>
+              <Text style={{ fontWeight: "bold", color: "#48484a", flex: 1 }}>Recent Bookmarks</Text>
 
               <View
                 style={{
                   flex: 1,
                   alignItems: "flex-end",
-                  justifyContent: "center"
+                  justifyContent: "center",
                 }}
               >
-                <TouchableOpacity
-                  onPress={() =>
-                    this.props.navigation.navigate("BookmarkScreen")
-                  }
-                >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("BookmarkScreen")}>
                   <Text style={{ fontSize: 12, color: "gray" }}>View All</Text>
                 </TouchableOpacity>
               </View>
@@ -130,7 +111,7 @@ export default class AttendanceOverviewScreen extends Component {
               marginVertical: 8,
               borderRadius: 16
             }}
-          /> 
+          />
           </View>*/}
         </ScrollView>
       </View>
