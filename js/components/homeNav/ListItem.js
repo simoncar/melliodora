@@ -91,4 +91,4 @@ class ListItem extends Component {
   }
 }
 
-module.exports = ListItem;
+export default ListItem;
