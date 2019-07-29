@@ -1,5 +1,6 @@
 import { reloadApp } from "detox-expo-helpers";
 
+
 describe('tests', () => {
     beforeEach(async () => {
         await reloadApp();
@@ -16,5 +17,6 @@ describe('tests', () => {
     //     await waitFor(element(by.id("safeguardnav"))).toBeVisible().withTimeout(20000);
     //     await element(by.id("safeguardnav")).tap();
     // });
+
 
 });
