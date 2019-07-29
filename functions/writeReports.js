@@ -6,7 +6,7 @@ admin.initializeApp();
 //writeFile();
 
 //  /Users/simon/Documents/code/app/functions/Calendar App-915d5dbe4185.json
-//export GOOGLE_APPLICATION_CREDENTIALS="/Users/simon/Documents/code/app/functions/Calendar App-915d5dbe4185.json"
+//export GOOGLE_APPLICATION_CREDENTIALS="./Calendar App-915d5dbe4185.json"
 var async = require("async");
 
 // spreadsheet key is the long id in the sheets URL
@@ -40,7 +40,6 @@ async.series(
         .doc("beacon")
         .collection("beacons")
         .orderBy("mac")
-        .limit(500)
         .get()
         .then(async function(documentSnapshotArray) {
           documentSnapshotArray.forEach(doc => {
@@ -61,7 +60,9 @@ async.series(
 
     function workingWithCells(step) {
       //dataDictUpdate = loadData(dataDictUpdate);
-      console.log("dataDictUpdate=", dataDictUpdate.length);
+
+      let rows = dataDictUpdate.length;
+      console.log("dataDictUpdate=", rows);
       var cols = 11;
 
       sheet.getCells(
@@ -115,9 +116,17 @@ async.series(
             startBlock++;
           });
 
-          sheet.bulkUpdateCells(cells, function() {
-            step();
-          }); //async
+          const batchSize = 500;
+          const iterations =  Math.ceil(rows/batchSize);
+          
+          const cellsUpdatePerBatch = batchSize*cols;
+          for(let i=1; i<=iterations; i++){
+            const end = i*cellsUpdatePerBatch
+            const start = (i-1)*cellsUpdatePerBatch;
+            console.log(start, end);
+            sheet.bulkUpdateCells(cells.slice(start, end)); //async
+          }
+          step();
         },
       );
     },
