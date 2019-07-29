@@ -23,7 +23,7 @@ class BeaconItem extends Component {
         <Row>
           <Col
             style={{
-              width: 45
+              width: 45,
             }}
           >
             <View
@@ -37,14 +37,11 @@ class BeaconItem extends Component {
                 alignItems: "center",
                 paddingLeft: 0,
                 paddingRight: 0,
-                justifyContent: "center"
+                justifyContent: "center",
               }}
             >
               <View>
-                <Feather
-                  style={{ color: "white", fontSize: 20 }}
-                  name="radio"
-                />
+                <Feather style={{ color: "white", fontSize: 20 }} name="radio" />
               </View>
             </View>
           </Col>
@@ -71,9 +68,7 @@ class BeaconItem extends Component {
       return (
         <View>
           <Text style={styles.offlineTitle}>Offline</Text>
-          <Text style={styles.chatDescription}>
-            Last Seen {lastSeenDateTime}
-          </Text>
+          <Text style={styles.chatDescription}>Last Seen {lastSeenDateTime}</Text>
         </View>
       );
     }
@@ -86,20 +81,11 @@ class BeaconItem extends Component {
   }
 
   renderBeaconIcon() {
-    return (
-      <Image
-        style={styles.singleChatItemImage}
-        source={require("../../../images/minew_G1.png")}
-      />
-    );
+    return <Image style={styles.singleChatItemImage} source={require("../../../images/minew_G1.png")} />;
   }
 
   renderBeaconType(beaconType) {
-    if (
-      beaconType != null &&
-      beaconType != undefined &&
-      beaconType.length > 0
-    ) {
+    if (beaconType != null && beaconType != undefined && beaconType.length > 0) {
       return <Text style={styles.chatDescription}>{beaconType}</Text>;
     }
   }
@@ -114,26 +100,18 @@ class BeaconItem extends Component {
                 {this.renderBeaconIcon()}
 
                 <View>
-                  <Text style={styles.chatTitle}>
-                    {this.rendercampus(this.props.item.item.campus)}
-                  </Text>
+                  <Text style={styles.chatTitle}>{this.rendercampus(this.props.item.item.campus)}</Text>
 
                   <Text style={styles.chatDescription} />
                   {this.renderLastSeen(
                     this.props.item.item.lastSeen,
                     this.props.item.item.timestamp,
-                    this.props.item.item.state
+                    this.props.item.item.state,
                   )}
 
-                  <Text style={styles.chatDescription}>
-                    {this.props.item.item._key}
-                  </Text>
-                  <Text style={styles.chatDescription}>
-                    Load : {this.props.item.item.gatewayLoad} %
-                  </Text>
-                  <Text style={styles.chatDescription}>
-                    Free : {this.props.item.item.gatewayFree} %
-                  </Text>
+                  <Text style={styles.chatDescription}>{this.props.item.item._key}</Text>
+                  <Text style={styles.chatDescription}>Load : {this.props.item.item.gatewayLoad} %</Text>
+                  <Text style={styles.chatDescription}>Free : {this.props.item.item.gatewayFree} %</Text>
                 </View>
               </TouchableOpacity>
             </Col>
@@ -141,7 +119,7 @@ class BeaconItem extends Component {
               {this.renderProfileIcons(
                 this.props.item.item.lastSeen,
                 this.props.item.item.timestamp,
-                this.props.item.item.beaconType
+                this.props.item.item.beaconType,
               )}
             </Col>
           </Row>
@@ -151,4 +129,4 @@ class BeaconItem extends Component {
   }
 }
 
-module.exports = BeaconItem;
+export default BeaconItem;
