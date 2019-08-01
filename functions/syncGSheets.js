@@ -15,7 +15,6 @@ var sheet;
 
 async.series(
   [
-    
     function setAuth(step) {
       // see notes below for authentication instructions!
       var creds = require("./Calendar App-915d5dbe4185.json");
@@ -28,14 +27,7 @@ async.series(
 
         console.log("Loaded doc: " + info.title + " by " + info.author.email);
         sheet = info.worksheets[0];
-        console.log(
-          "sheet 1: " +
-            sheet.title +
-            " " +
-            sheet.rowCount +
-            "x" +
-            sheet.colCount
-        );
+        console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
         step();
       });
     },
@@ -45,7 +37,7 @@ async.series(
         {
           offset: 1,
           limit: 20,
-          orderby: "col2"
+          orderby: "col2",
         },
         function(err, rows) {
           console.log("Read " + rows.length + " rows");
@@ -58,7 +50,7 @@ async.series(
           //rows[0].del(); // this is async
 
           step();
-        }
+        },
       );
     },
     function workingWithCells(step) {
@@ -90,13 +82,13 @@ async.series(
       //       step();
       //     }
       //   );
-    }
+    },
   ],
   function(err) {
     if (err) {
       console.log("Error: " + err);
     }
-  }
+  },
 );
 
 function updateCells(start, end, classList, gradeList) {
@@ -113,7 +105,7 @@ function updateCells(start, end, classList, gradeList) {
       "max-row": end,
       "min-col": 1,
       "max-col": 11,
-      "return-empty": true
+      "return-empty": true,
     },
 
     function(err, cells) {
@@ -159,7 +151,7 @@ function updateCells(start, end, classList, gradeList) {
               classCode: classCode,
               grade: parseInt(grade, 10),
               gradeTitle: gradeTitle,
-              campus: campus
+              campus: campus,
             };
             //}
 
@@ -167,7 +159,7 @@ function updateCells(start, end, classList, gradeList) {
               gradeList = {
                 gradeTitle: gradeTitle,
                 grade: parseInt(grade, 10),
-                campus: campus
+                campus: campus,
               };
             }
 
@@ -185,7 +177,7 @@ function updateCells(start, end, classList, gradeList) {
           grade: grade,
           gradeTitle: gradeTitle,
           campus: campus,
-          state: "Not Present"
+          state: "Not Present",
         };
 
         if (cell.col == 11) {
@@ -220,7 +212,7 @@ function updateCells(start, end, classList, gradeList) {
       batch.commit();
 
       //
-    }
+    },
   );
 }
 

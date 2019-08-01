@@ -148,9 +148,8 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
     .collection("sais_edu_sg")
     .doc("beacon")
     .collection("beacons")
-    .where("timestamp", "<", cutoff)
     .where("timestampPerimeter", "<", cutoff)
-    .where("stateCandidate",'==',"Perimeter")
+    .where("stateCandidate", "==", "Perimeter")
     .limit(100);
 
   let query = beacons.get().then(snapshot => {
@@ -162,7 +161,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
     snapshot.forEach(doc => {
       child = doc.data();
       if (i < 100) {
-        if (child.state == "Perimeter") {
+        if (child.timestamp < cutoff) {
           i++;
           var update = {
             campus: child.campus,
@@ -317,7 +316,6 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
           }
         });
       }
-      console.log(countNotPresent, countPerimeter, countEntered, countExited, countOther);
 
       var dataDict = {
         countNotPresent,
@@ -327,8 +325,6 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
         countOther,
         timestamp: Date.now(),
       };
-
-      console.log(dataDict);
 
       admin
         .firestore()
@@ -385,7 +381,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
       } else {
         if (beaconUpdates.indexOf(snapshot.mac) == -1) {
           beaconUpdates.push(snapshot.mac);
-          console.log("Index : " + beaconUpdates.indexOf(snapshot.mac), snapshot.mac);
           let beaconRef = admin
             .firestore()
             .collection("sais_edu_sg")
@@ -461,8 +456,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   };
                 }
                 let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
-
-                console.log("dataDictUpdate=", dataDictUpdate);
 
                 admin
                   .firestore()
@@ -551,8 +544,6 @@ function setGateway(snapshot) {
       location = "Unknown - " + snapshot.mac;
       state = "Perimeter";
   }
-
-  console.log(snapshot.mac, state);
 
   var dataDict = {
     //campus: personCampus,
