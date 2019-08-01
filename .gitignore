@@ -75,3 +75,4 @@ functions/package-lock.json
 functions/package-lock.json
 functions/package-lock.json
 package-lock.json
+*.lock
