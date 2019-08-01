@@ -49,6 +49,7 @@ async function registerForPushNotificationsAsync(user) {
   };
 
   try {
+    console.log(safeToken);
     firebase
       .firestore()
       .collection("sais_edu_sg")

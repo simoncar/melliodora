@@ -6,8 +6,6 @@ import BeaconHistoryItem from "./BeaconHistoryItem";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import firebase from "firebase";
 import moment from "moment";
-import "moment/locale/en-SG"; // without this line it didn't work
-moment.locale("en-SG");
 import _ from "lodash";
 import { Calendar } from "react-native-calendars";
 
