@@ -21,6 +21,7 @@ class Firebase {
       console.log("catch error body:", e.message);
       //console.error(e.message);
     }
+    
     try {
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
