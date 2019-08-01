@@ -63,7 +63,7 @@ async.series(
 
       let rows = dataDictUpdate.length;
       console.log("dataDictUpdate=", rows);
-      var cols = 11;
+      var cols = 12;
 
       sheet.getCells(
         {
@@ -97,18 +97,20 @@ async.series(
                 case 6:
                   break;
                 case 7:
-                  cell.value = doc.item.state;
                   break;
                 case 8:
-                  cell.value = doc.item.grade;
+                  cell.value = doc.item.state;
                   break;
                 case 9:
-                  cell.value = doc.item.gradeTitle;
+                  cell.value = doc.item.grade;
                   break;
                 case 10:
-                  cell.value = doc.item.class;
+                  cell.value = doc.item.gradeTitle;
                   break;
                 case 11:
+                  cell.value = doc.item.class;
+                  break;
+                case 12:
                   cell.value = doc.item.campus;
                   break;
               }
@@ -117,16 +119,17 @@ async.series(
           });
 
           const batchSize = 500;
-          const iterations =  Math.ceil(rows/batchSize);
-          
-          const cellsUpdatePerBatch = batchSize*cols;
-          for(let i=1; i<=iterations; i++){
-            const end = i*cellsUpdatePerBatch
-            const start = (i-1)*cellsUpdatePerBatch;
+          const iterations = Math.ceil(rows / batchSize);
+
+          const cellsUpdatePerBatch = batchSize * cols;
+          for (let i = 1; i <= iterations; i++) {
+            const end = i * cellsUpdatePerBatch;
+            const start = (i - 1) * cellsUpdatePerBatch;
             console.log(start, end);
             sheet.bulkUpdateCells(cells.slice(start, end)); //async
           }
           step();
+          
         },
       );
     },
