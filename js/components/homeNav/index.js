@@ -26,9 +26,9 @@ import * as ActionCreators from "../../actions";
 import { openDrawer } from "../../actions/drawer";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
+import ListItem from "./ListItem";
 
 const { width } = Dimensions.get("window");
-const ListItem = require("./ListItem");
 
 // Get the token that uniquely identifies this device
 if (!Constants.isDevice) {
