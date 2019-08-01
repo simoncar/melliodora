@@ -62,8 +62,6 @@ const track = (event: string, options: any = null) => {
   maybeInitialize();
   options = normalizeTrackingOptions(options);
 
-  //if (Environment.isProduction) {
-
   if (options) {
     Amplitude.logEventWithProperties(event, options);
   } else {

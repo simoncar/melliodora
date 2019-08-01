@@ -1,7 +1,6 @@
 import React from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { AppLoading, Asset } from "expo";
-import ApiKeys from "./ApiKeys";
 import * as firebase from "firebase";
 import ApiKeys from "./../../ApiKeys";
 
