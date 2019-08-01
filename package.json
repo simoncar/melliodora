@@ -34,7 +34,7 @@
     "e2e": "detox test --configuration ios.sim --debug-synchronization 200"
   },
   "dependencies": {
-    "@firebase/firestore": "^1.4.5",
+    "@firebase/firestore": "^1.4.7",
     "asap": "^2.0.6",
     "babel-preset-expo": "^5.2.0",
     "babel-runtime": "^6.26.0",
