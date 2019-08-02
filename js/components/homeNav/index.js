@@ -71,26 +71,26 @@ class HomeNav extends Component {
   });
 
   componentWillMount() {
+    this.ref = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("feature")
+      .collection("feature articles");
+  }
+
+  componentDidMount() {
     try {
-      this.ref = firebase
-        .firestore()
-        .collection("sais_edu_sg")
-        .doc("feature")
-        .collection("feature articles")
-        .get()
-        .then(snapshot => {
-          this.onCollectionUpdate(snapshot);
-        });
+      this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
     } catch (e) {
       //console.error(e.message);
     }
   }
 
   componentWillUnmount() {
-    //this.unsubscribe();
+    this.unsubscribe();
   }
 
-  onCollectionUpdate(querySnapshot) {
+  onCollectionUpdate = querySnapshot => {
     const featureItems = [];
     querySnapshot.forEach(doc => {
       const {
@@ -129,7 +129,7 @@ class HomeNav extends Component {
     this.setState({
       loading: false,
     });
-  }
+  };
 
   _handleOpenWithLinking = sURL => {
     Linking.openURL(sURL);

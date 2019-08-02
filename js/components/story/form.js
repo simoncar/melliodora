@@ -97,21 +97,31 @@ class newStory extends Component {
       summary: this.state.eventTitle,
       visible: this.state.visible,
       description: this.state.eventDescription,
-      location: this.state.location,
       photo1: this.state.photo1,
       date_start: this.state.eventDate !== undefined ? this.state.eventDate : null,
       time_start_pretty: this.state.eventStartTime !== undefined ? this.state.eventStartTime : null,
       time_end_pretty: this.state.eventEndTime !== undefined ? this.state.eventEndTime : null,
     };
 
-    var storyRef = firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("feature")
-      .collection("feature articles")
-      .doc(this.state._key);
+    console.log("saving = ", storyDict, this.state._key);
+    console.log("this.state._key=", this.state._key);
+    if (this.state._key == "") {
+      var storyRef = firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("feature")
+        .collection("feature articles")
+        .add(storyDict);
+    } else {
+      var storyRef = firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("feature")
+        .collection("feature articles")
+        .doc(this.state._key);
 
-    storyRef.set(storyDict);
+      storyRef.set(storyDict);
+    }
 
     const { goBack } = this.props.navigation;
 
