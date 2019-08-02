@@ -116,6 +116,42 @@ exports.sendPushNotificationSimonAll = functions.database
       });
   });
 
+// firebase deploy --only functions:sendPushNotificationFromQueue
+exports.sendPushNotificationFromQueue = functions.firestore
+  .document("sais_edu_sg/push/queue/{messageID}")
+  .onCreate((snap, context) => {
+    const createdData = snap.data();
+    var messages = [];
+    // simon iPhone
+    var token = createdData.pushToken;
+    var realToken = token.replace("{", "[");
+    realToken = realToken.replace("}", "]");
+
+    messages.push({
+      to: realToken,
+      title: "PTA Message",
+      sound: "default",
+      body: createdData.text,
+    });
+
+    // return the main promise
+    return Promise.all(messages)
+
+      .then(messages => {
+        fetch("https://exp.host/--/api/v2/push/send", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(messages),
+        });
+      })
+      .catch(reason => {
+        console.log(reason);
+      });
+  });
+
 exports.chatBeaconPing = functions.database
   .ref("instance/0001-sais_edu_sg/beacon/{beaconPing}")
   .onCreate((snapshot, context) => {
