@@ -103,8 +103,6 @@ class newStory extends Component {
       time_end_pretty: this.state.eventEndTime !== undefined ? this.state.eventEndTime : null,
     };
 
-    console.log("saving = ", storyDict, this.state._key);
-    console.log("this.state._key=", this.state._key);
     if (this.state._key == "") {
       var storyRef = firebase
         .firestore()

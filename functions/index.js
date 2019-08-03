@@ -133,7 +133,7 @@ exports.sendPushNotificationFromQueue = functions.firestore
       sound: "default",
       body: createdData.text,
     });
-
+    console.log("Send Push > ", realToken, createdData.text);
     // return the main promise
     return Promise.all(messages)
 

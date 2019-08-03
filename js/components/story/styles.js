@@ -114,7 +114,7 @@ export default {
   },
 
   addButton: {
-    zIndex: 999,
+    zIndex: 990,
     backgroundColor: "#ff5722",
     borderColor: "#ff5722",
     borderWidth: 1,
@@ -167,6 +167,24 @@ export default {
     fontSize: 18,
     paddingRight: 25,
   },
+
+  imageStyleCheckOn: {
+    marginLeft: 15,
+    alignSelf: "center",
+    height: 30,
+    width: 30,
+    fontSize: 30,
+    color: "#007AFF",
+  },
+  imageStyleCheckOff: {
+    marginLeft: 15,
+    alignSelf: "center",
+    height: 30,
+    width: 30,
+    fontSize: 30,
+    color: "#FFF",
+  },
+
   photoURL: {
     color: "#222",
     fontSize: 18,
@@ -195,6 +213,12 @@ export default {
   },
   eventIcon: {
     color: "#222",
+    fontSize: 30,
+    marginRight: 200,
+    paddingRight: 200,
+  },
+  eventIconSendLock: {
+    color: "#ff5722",
     fontSize: 30,
     marginRight: 200,
     paddingRight: 200,
