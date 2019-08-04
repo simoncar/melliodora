@@ -5,6 +5,7 @@ var async = require("async");
 var messageItem = {};
 var userItem = {};
 var messageArray = [];
+var userList = [];
 async.series(
   [
     function loadData(step) {
@@ -44,6 +45,10 @@ async.series(
               userItem = docUser.data();
 
               // 1 record for each parent
+              // check if not already in the message list
+              userList.indexOf(userItem.id) === -1
+                ? userList.push(userItem.id)
+                : console.log("This item already exists", userItem.id);
 
               var dataDict = {
                 pushToken: userItem.id,

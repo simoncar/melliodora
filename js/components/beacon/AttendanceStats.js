@@ -51,6 +51,8 @@ const AttendanceStats = ({ navigation }) => {
             countEntered: countData.countEntered,
             countExited: countData.countExited,
             countOther: countData.countOther,
+            countTotal:
+              countData.countNotPresent + countData.countPerimeter + countData.countEntered + countData.countExited,
           };
 
           setCountDict(countDict);
@@ -174,8 +176,8 @@ const AttendanceStats = ({ navigation }) => {
           <TouchableOpacity style={[styles.widget, { backgroundColor: "#0074D9" }]} onPress={() => routeBtn("Entered")}>
             <View style={styles.widgetContainer}>
               <View style={styles.widgetTitleContainer}>
-                <Text style={styles.widgetTextTitle}>Entered </Text>
-                {infoToolTip("Entered\n(inside ping)", enteredToolTipVisible, setEnteredToolTipVisible)}
+                <Text style={styles.widgetTextTitle}>On Campus </Text>
+                {infoToolTip("On Campus\n(inside ping)", enteredToolTipVisible, setEnteredToolTipVisible)}
               </View>
 
               <Text style={styles.widgetTextContent}>{countDict.countEntered}</Text>
@@ -210,7 +212,7 @@ const AttendanceStats = ({ navigation }) => {
                 {infoToolTip("Total\n(number of students in the system)", totalToolTipVisible, setTotalToolTipVisible)}
               </View>
 
-              <Text style={styles.widgetTextContent}>3210</Text>
+              <Text style={styles.widgetTextContent}>{countDict.countTotal}</Text>
               {renderViewMore()}
             </View>
           </TouchableOpacity>

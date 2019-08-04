@@ -18,6 +18,7 @@ import campusMap from "./components/campusMap";
 import chatRooms from "./components/chat/chatRooms";
 import form from "./components/chat/form";
 import chat from "./components/chat";
+import push from "./components/story/push";
 import chatmain from "./components/chat/main";
 import authPortal from "./components/webportalURL/authPortal";
 import WebportalURL from "./components/webportalURL";
@@ -40,6 +41,7 @@ let StackHome = createStackNavigator(
     contact: { screen: Contact },
     form: { screen: form },
     story: { screen: Story },
+    push: { screen: push },
     campusMap: { screen: campusMap },
     storyForm: { screen: StoryForm },
   },
