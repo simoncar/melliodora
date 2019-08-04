@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { FlatList, Text, View } from "react-native";
 import firebase from "firebase";
+import BeaconItem from "./beaconItem";
 
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
-
-const BeaconItem = require("./beaconItem");
 
 @withMappedNavigationParams()
 class beacons extends Component {
