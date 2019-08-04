@@ -25,6 +25,8 @@ async function registerForPushNotificationsAsync(user) {
   // Get the token that uniquely identifies this device
   if (!Constants.isDevice) {
     token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
+    //  ExponentPushToken{LQTd3QIbBBfGdHT6JluSWy}    // simon android - expo
+    //  ExponentPushToken{7vlNCrIXB7fBC2d_CDdCbA}    // simon iphone - expo
   } else {
     token = await Notifications.getExpoPushTokenAsync();
 

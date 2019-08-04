@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { WebView, Linking, View, TouchableOpacity, TouchableHighlight, Platform, Share } from "react-native";
 import { Container, Content, Text, Icon } from "native-base";
-import { Ionicons, Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
+import { Ionicons, Feather, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import { Image } from "react-native-expo-image-cache";
 import ParsedText from "react-native-parsed-text";
@@ -169,6 +169,26 @@ class Story extends Component {
     );
   }
 
+  _drawIconSend(chatroom) {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          this.props.navigation.navigate("push", {
+            eventTitle: this.props.navigation.state.params.eventTitle,
+            eventDescription: this.props.navigation.state.params.eventDescription,
+            eventDate: this.props.navigation.state.params.eventDate,
+            eventStartTime: this.props.navigation.state.params.eventStartTime,
+            eventEndTime: this.props.navigation.state.params.eventEndTime,
+          });
+        }}
+      >
+        <Text style={styles.eventText}>
+          <MaterialCommunityIcons name="send-lock" style={styles.eventIconSendLock} />{" "}
+        </Text>
+      </TouchableOpacity>
+    );
+  }
+
   _drawIconMore(url) {
     if (isValue(url)) {
       return (
@@ -269,6 +289,7 @@ class Story extends Component {
             {this._drawIconMore(this.props.navigation.state.params.url)}
             {this._drawIconCalendar(this.props.navigation.state.params)}
             {this._drawIconShare()}
+            {this._drawIconSend(this.props.navigation.state.params)}
           </View>
 
           <View style={{ flex: 1 }}>
