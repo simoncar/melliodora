@@ -63,14 +63,21 @@ class push extends Component {
   }
 
   pushSend() {
+
+
+    var grades = this._getGrade()
+  
+
     var pushMessage = {
       from: "App",
       text: this.state.initialText,
-      grade: [8, 10, 12],
+      grade: grades,
       image: "",
       state: "pending",
       timestamp: Date.now(),
     };
+
+    console.log ("push =",pushMessage)
 
     var storyRef = firebase
       .firestore()
@@ -102,7 +109,6 @@ class push extends Component {
         title={title}
         titleInfo={level}
         hasNavArrow={false}
-        onPress={() => this._changeLanguage("en")}
         icon={<MaterialIcons name="people" style={styles.imageStyleCheckOn} />}
       />
     );
@@ -110,7 +116,18 @@ class push extends Component {
 
   _setGrade(grade) {
     this.setState({ [grade]: !this.state[grade] });
-    console.log(grade, this.state, this.state[grade]);
+  }
+
+
+  _getGrade() {
+    var grades = [];
+    for (var i = -4; i < 13; i++) {
+      console.log("loop=",i, this.state[i]);
+      if (this.state[i] == true) {
+        grades.push(i);
+      }
+    }
+    return grades
   }
 
   render() {
