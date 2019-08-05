@@ -18,7 +18,7 @@ export class Backend extends React.Component {
     super(props);
     this.state = {
       chatroom: "",
-      language: ""
+      language: "",
     };
   }
 
@@ -44,6 +44,9 @@ export class Backend extends React.Component {
         return message.textKO;
         break;
       case "zhcn":
+        return message.textZH;
+        break;
+      case "zh":
         return message.textZHCN;
         break;
       case "es":
@@ -102,7 +105,7 @@ export class Backend extends React.Component {
         chatroom: this.state.chatroom,
         user: {
           _id: message.user._id,
-          name: message.user.name
+          name: message.user.name,
         },
         image: message.image,
         video: message.video,
@@ -111,7 +114,7 @@ export class Backend extends React.Component {
         //  latitude: 48.864601,
         //  longitude: 2.398704
         // },
-        quickReplies: message.quickReplies
+        quickReplies: message.quickReplies,
       });
     };
     this.messageRef.limitToLast(50).on("child_added", onReceive);
@@ -132,23 +135,15 @@ export class Backend extends React.Component {
       global.pushToken = "";
     }
     console.log("backend has an imagem,", message.image);
-    this.messageRef = firebase
-      .database()
-      .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`);
+    this.messageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`);
 
-    this.latestMessageRef = firebase
-      .database()
-      .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}`);
+    this.latestMessageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}`);
 
     for (let i = 0; i < message.length; i++) {
       if (undefined != message[i].image && message[i].image.length > 0) {
         //we have an image
 
-        var uploadUrl = uploadImageAsync(
-          message[i],
-          this.state.chatroom,
-          message[i].user
-        );
+        var uploadUrl = uploadImageAsync(message[i], this.state.chatroom, message[i].user);
       } else {
         this.messageRef.push({
           text: `${message[i].text}`,
@@ -157,24 +152,22 @@ export class Backend extends React.Component {
           createdAt: this.timestamp,
           date: new Date().getTime(),
           system: false,
-          pushToken: global.pushToken
+          pushToken: global.pushToken,
         });
 
         this.latestMessageRef.update({
           latestText: `${message[i].text}`,
-          latestUser: message[i].user.name
+          latestUser: message[i].user.name,
         });
       }
     }
     if (global.pushToken.length > 0) {
       this.messageRef = firebase
         .database()
-        .ref(
-          `instance/${instID}/chat/chatroom/${this.state.chatroom}/notifications/${global.safeToken}`
-        );
+        .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/notifications/${global.safeToken}`);
       this.messageRef.update({
         //mute: false,
-        pushToken: global.pushToken
+        pushToken: global.pushToken,
       });
     }
   }
@@ -187,12 +180,10 @@ export class Backend extends React.Component {
     if (global.pushToken.length > 0) {
       this.messageRef = firebase
         .database()
-        .ref(
-          `instance/${instID}/chat/chatroom/${this.state.chatroom}/notifications/${global.safeToken}`
-        );
+        .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/notifications/${global.safeToken}`);
       this.messageRef.update({
         mute: muteState,
-        pushToken: global.pushToken
+        pushToken: global.pushToken,
       });
     }
   }
@@ -201,7 +192,7 @@ export class Backend extends React.Component {
     this.state.language = language;
     console.log("settttttting language ", language);
     var userDict = {
-      language: language
+      language: language,
     };
 
     firebase
@@ -254,13 +245,9 @@ async function uploadImageAsync(message, chatroom, user) {
   fileType = fileType.toUpperCase();
   if (fileType == "JPG" || fileType == "HEIC" || fileType == "PNG") {
     console.log("C");
-    const convertedImage = await new ImageManipulator.manipulateAsync(
-      message.image,
-      [{ resize: { height: 1000 } }],
-      {
-        compress: 0
-      }
-    );
+    const convertedImage = await new ImageManipulator.manipulateAsync(message.image, [{ resize: { height: 1000 } }], {
+      compress: 0,
+    });
     fileToUpload = convertedImage.uri;
     mime = "image/jpeg";
     console.log("A");
@@ -285,13 +272,7 @@ async function uploadImageAsync(message, chatroom, user) {
 
   const ref = firebase
     .storage()
-    .ref(
-      "chatimage/" +
-        chatroom +
-        "/" +
-        d.getUTCFullYear() +
-        ("0" + (d.getMonth() + 1)).slice(-2)
-    )
+    .ref("chatimage/" + chatroom + "/" + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2))
     .child(uuid.v4());
 
   const snapshot = await ref
@@ -301,9 +282,7 @@ async function uploadImageAsync(message, chatroom, user) {
     })
 
     .then(downloadURL => {
-      console.log(
-        `Successfully uploaded file and got download link - ${downloadURL}`
-      );
+      console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
       URLfile = downloadURL;
       return downloadURL;
     })
@@ -317,9 +296,7 @@ async function uploadImageAsync(message, chatroom, user) {
   blob.close();
   console.log("----------= file type - ", fileType);
   if (fileType == "JPG" || fileType == "HEIC" || fileType == "PNG") {
-    this.messageRef = firebase
-      .database()
-      .ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
+    this.messageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
     this.messageRef.push({
       approved: true,
       image: URLfile,
@@ -328,12 +305,10 @@ async function uploadImageAsync(message, chatroom, user) {
       createdAt: firebase.database.ServerValue.TIMESTAMP,
       date: new Date().getTime(),
       system: false,
-      pushToken: global.pushToken
+      pushToken: global.pushToken,
     });
   } else {
-    this.messageRef = firebase
-      .database()
-      .ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
+    this.messageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
     this.messageRef.push({
       approved: true,
       video: URLfile,
@@ -342,7 +317,7 @@ async function uploadImageAsync(message, chatroom, user) {
       createdAt: firebase.database.ServerValue.TIMESTAMP,
       date: new Date().getTime(),
       system: false,
-      pushToken: global.pushToken
+      pushToken: global.pushToken,
     });
   }
 
