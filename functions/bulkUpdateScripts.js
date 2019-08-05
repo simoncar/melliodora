@@ -53,7 +53,7 @@ function bulkAllocateTestData(batchCount) {
 
         i++;
         grade++;
-        if (grade > 12) {
+        if (grade > 13) {
           grade = -2;
         }
 
@@ -63,7 +63,7 @@ function bulkAllocateTestData(batchCount) {
         var dataDict = {
           grade: grade,
           gradeTitle: gradeTitle,
-          class: classCode
+          class: classCode,
         };
 
         // console.log(child.grade);
@@ -109,12 +109,12 @@ function bulkDelete(batchCount) {
       querySnapshot.forEach(function(doc) {
         i++;
         grade++;
-        if (grade > 12) {
+        if (grade > 13) {
           grade = -2;
         }
 
         var dataDict = {
-          grade: grade
+          grade: grade,
         };
         // For each doc, add a delete operation to the batch
         batch.update(doc.ref);

@@ -55,6 +55,8 @@ const AttendanceStats = ({ navigation }) => {
               countData.countNotPresent + countData.countPerimeter + countData.countEntered + countData.countExited,
           };
 
+          //Purple Flag
+
           setCountDict(countDict);
         }
       })
