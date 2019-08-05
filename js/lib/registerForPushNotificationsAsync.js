@@ -7,6 +7,7 @@ import * as firebase from "firebase";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as ActionCreators from "../actions";
+import _ from "lodash";
 
 class registerForPush {
   static reg(user) {
@@ -40,28 +41,24 @@ async function registerForPushNotificationsAsync(user) {
 
   global.pushToken = token;
   global.safeToken = safeToken;
+  console.log("safeToken2=", safeToken, global.uid);
 
   if (undefined == global.username) {
     global.username = "";
   }
+  if (!_.isNil(global.uid)) {
+    var userDict = {
+      token,
+      safeToken,
+    };
 
-  var userDict = {
-    id: safeToken,
-    email: global.username,
-  };
-
-  try {
-    console.log(safeToken);
     firebase
       .firestore()
       .collection("sais_edu_sg")
       .doc("user")
       .collection("usernames")
-      .doc(safeToken)
-      .set(userDict);
-  } catch (error) {
-    console.log(error);
-    // Error saving data
+      .doc(uid)
+      .set(userDict, { merge: true });
   }
 }
 
