@@ -71,6 +71,12 @@ exports.translate = functions.database
       .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
       .update({ textEN: results[0], approved: true });
 
+    var results = await translateX.translate(message, { to: "es" });
+    admin
+      .database()
+      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
+      .update({ textES: results[0], approved: true });
+
     //}
     // }
     return Promise.all(promises);
