@@ -4,6 +4,8 @@ import { Image, StyleSheet, View, Alert, AsyncStorage } from "react-native";
 import SettingsList from "react-native-settings-list";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
+import { MaterialIcons } from "@expo/vector-icons";
+import * as firebase from "firebase";
 
 class Settings extends Component {
   static navigationOptions = {
@@ -14,18 +16,8 @@ class Settings extends Component {
 
   constructor(props) {
     super(props);
-    this.onValueChange = this.onValueChange.bind(this);
-    this.onValueChangeELV = this.onValueChangeELV.bind(this);
-    this.onValueChangeELEM = this.onValueChangeELEM.bind(this);
-    this.onValueChangeMS = this.onValueChangeMS.bind(this);
-    this.onValueChangeHS = this.onValueChangeHS.bind(this);
 
     this.state = {
-      switchValue: false,
-      switchValueELV: false,
-      switchValueELEM: false,
-      switchValueMS: false,
-      switchValueHS: false,
       loggedIn: false,
       language: "",
     };
@@ -33,7 +25,13 @@ class Settings extends Component {
 
   componentWillMount() {
     this._retrieveLanguage();
+    this._retrieveGradeSelectors();
   }
+
+  componentDidMount() {
+    console.log(this.state);
+  }
+
   _retrieveLanguage = async () => {
     try {
       const value = await AsyncStorage.getItem("language");
@@ -46,12 +44,69 @@ class Settings extends Component {
     }
   };
 
+  _retrieveGradeSelectors = async () => {
+    var value = await AsyncStorage.getItem("gradeNotify");
+    value = JSON.parse(value) || [];
+    var arrayLength = value.length;
+    for (var i = 0; i < arrayLength; i++) {
+      console.log(value[i]);
+      this.setState({ [value[i]]: true });
+    }
+  };
+
   _getStyle(language) {
     if (language == this.state.language) {
       return styles.imageStyleCheckOn;
     } else {
       return styles.imageStyleCheckOff;
     }
+  }
+
+  gradeSelector(title, level, grade) {
+    return (
+      <SettingsList.Item
+        hasSwitch={true}
+        switchState={this.state[grade]}
+        switchOnValueChange={() => this._setGrade(grade)}
+        title={title}
+        titleInfo={level}
+        hasNavArrow={false}
+        icon={<MaterialIcons name="people" style={styles.imageStyleCheckOn} />}
+      />
+    );
+  }
+
+  _setGrade(grade) {
+    console.log(grade);
+    this.state[grade] = !this.state[grade];
+    this.setState({ [grade]: this.state[grade] });
+
+    var grades = this._getGrade();
+
+    AsyncStorage.setItem("gradeNotify", JSON.stringify(grades));
+
+    var userDict = {
+      gradeNotify: grades,
+    };
+
+    firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("user")
+      .collection("usernames")
+      .doc(uid)
+      .set(userDict, { merge: true });
+  }
+
+  _getGrade() {
+    var grades = [];
+    for (var i = -4; i < 13; i++) {
+      console.log("loop=", i, this.state[i]);
+      if (this.state[i] == true) {
+        grades.push(i);
+      }
+    }
+    return grades;
   }
 
   render() {
@@ -173,8 +228,6 @@ class Settings extends Component {
             />
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
-              switchState={this.state.switchValue}
-              switchOnValueChange={this.onValueChange}
               hasNavArrow={true}
               title={I18n.t("adminAccess")}
               onPress={() => this.props.navigation.navigate("adminPassword")}
@@ -221,21 +274,6 @@ class Settings extends Component {
   }
   toggleAuthView() {
     this.setState({ toggleAuthView: !this.state.toggleAuthView });
-  }
-  onValueChange(value) {
-    this.setState({ switchValue: value });
-  }
-  onValueChangeELV(value) {
-    this.setState({ switchValueELV: value });
-  }
-  onValueChangeELEM(value) {
-    this.setState({ switchValueELEM: value });
-  }
-  onValueChangeMS(value) {
-    this.setState({ switchValueMS: value });
-  }
-  onValueChangeHS(value) {
-    this.setState({ switchValueHS: value });
   }
 }
 
