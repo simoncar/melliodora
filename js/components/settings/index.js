@@ -195,48 +195,25 @@ class Settings extends Component {
                 onPress={() => this.props.navigation.navigate("logs")}
               />
             )}
-
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
 
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
-              hasSwitch={true}
-              switchState={this.state.switchValueELV}
-              switchOnValueChange={this.onValueChangeELV}
-              title="ELV"
-              hasNavArrow={false}
-              onPress={() => Alert.alert("NA")}
-            />
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
-              hasSwitch={true}
-              switchState={this.state.switchValueELEM}
-              switchOnValueChange={this.onValueChangeELEM}
-              title="Elementary"
-              titleInfo="KG2 - Grade 5"
-              hasNavArrow={false}
-              onPress={() => Alert.alert("NA")}
-            />
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
-              hasSwitch={true}
-              switchState={this.state.switchValueMS}
-              switchOnValueChange={this.onValueChangeMS}
-              title="Middle School"
-              titleInfo="Grade 6 - 8"
-              hasNavArrow={false}
-              onPress={() => Alert.alert("NA")}
-            />
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
-              hasSwitch={true}
-              switchState={this.state.switchValueHS}
-              switchOnValueChange={this.onValueChangeHS}
-              title="High School"
-              titleInfo="Grade 9 - 12"
-              hasNavArrow={false}
-              onPress={() => Alert.alert("NA")}
-            />
+            {this.gradeSelector("Pre-Nursery", "Early Years", -4)}
+            {this.gradeSelector("Nursery", "Early Years", -3)}
+            {this.gradeSelector("Pre-K", "Early Years", -2)}
+            {this.gradeSelector("Kindergarten 1", "Early Years", -1)}
+            {this.gradeSelector("Kindergarten 2", "Lower Elem", 0)}
+            {this.gradeSelector("Grade 1", "Lower Elem", 1)}
+            {this.gradeSelector("Grade 2", "Lower Elem", 2)}
+            {this.gradeSelector("Grade 3", "Upper Elem", 3)}
+            {this.gradeSelector("Grade 4", "Upper Elem", 4)}
+            {this.gradeSelector("Grade 5", "Upper Elem", 5)}
+            {this.gradeSelector("Grade 6", "Middle School", 6)}
+            {this.gradeSelector("Grade 7", "Middle School", 7)}
+            {this.gradeSelector("Grade 8", "Middle School", 8)}
+            {this.gradeSelector("Grade 9", "High School", 9)}
+            {this.gradeSelector("Grade 10", "High School", 10)}
+            {this.gradeSelector("Grade 11", "High School", 11)}
+            {this.gradeSelector("Grade 12", "High School", 12)}
           </SettingsList>
         </View>
       </View>
