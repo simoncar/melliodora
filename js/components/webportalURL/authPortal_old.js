@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Constants from "expo-constants";
-import { Animated, TextInput, TouchableOpacity, View } from "react-native";
-import { WebView } from "react-native-webview";
+import { Animated, TextInput, TouchableOpacity, WebView, View } from "react-native";
 
 import { Container, Spinner } from "native-base";
 
@@ -103,7 +102,6 @@ class authPortal extends Component {
   }
 
   onNavigationStateChange = navState => {
-    console.log(navState.url);
     this.setState({ url: navState.url });
 
     if (navState.url != "https://mystamford.edu.sg/parent-dashboard") {
@@ -154,6 +152,21 @@ class authPortal extends Component {
     };
   };
 
+  _onMessage = event => {
+    const { data } = event.nativeEvent;
+    const cookies = data.split(";"); // `csrftoken=...; rur=...; mid=...; somethingelse=...`
+    cookies.forEach(cookie => {
+      const c = cookie.trim().split("=");
+
+      const new_cookies = this.state.cookies;
+      new_cookies[c[0]] = c[1];
+
+      this.setState({ cookies: new_cookies });
+    });
+
+    this._checkNeededCookies();
+  };
+
   toggleCancel() {
     this.setState({
       showCancel: !this.state.showCancel,
@@ -177,16 +190,8 @@ class authPortal extends Component {
     }
   }
 
-  _onMessage = event => {
-    const { data } = event.nativeEvent;
-    console.log(event.nativeEvent.data.toString());
-    returnData = event.nativeEvent.data;
-
-    string = [].map
-      .call(returnData, function(node) {
-        console.log(node.textContent || node.innerText || "");
-      })
-      .join("");
+  updateText = () => {
+    this.setState({ myText: "My Changed Text" });
   };
 
   render() {
@@ -200,20 +205,6 @@ class authPortal extends Component {
 
     // this.setState({url: 'My Changed Text'})
     const { visible, style, children, ...rest } = this.props;
-    const runFirst = `
-    document.body.style.backgroundColor = 'red';
-    setTimeout(function() { window.alert('hi') }, 2000);
-    true; // note: this is required, or you'll sometimes get silent failures
-  `;
-
-    const run = `document.body.style.backgroundColor = 'blue';
-    true;`;
-
-    const jsCode = "window.ReactNativeWebView.postMessage(document.innerHTML())";
-
-    setTimeout(() => {
-      //this.webref.injectJavaScript(jsCode);
-    }, 7000);
 
     return (
       <Container>
@@ -240,14 +231,13 @@ class authPortal extends Component {
             <WebView
               source={{ uri: this.state.url }}
               javaScriptEnabled={true}
-              // injectedJavaScript={runFirst}
               automaticallyAdjustContentInsets={false}
               onNavigationStateChange={this.onNavigationStateChange.bind(this)}
               //onMessage={this._onMessage}
               domStorageEnabled={true}
               startInLoadingState={true}
-              ref={r => (this.webref = r)}
-              // onMessage={this._onMessage}
+              scalesPageToFit={true}
+              ref={WEBVIEW_REF}
             />
           </View>
         </View>
@@ -257,6 +247,18 @@ class authPortal extends Component {
 
   reload = () => {
     this.refs[WEBVIEW_REF].reload();
+  };
+
+  pressGoButton = () => {
+    var url = "https://mystamford.edu.sg/cafe/cafe-online-ordering#anchor";
+
+    if (url === this.state.url) {
+      this.reload();
+    } else {
+      this.setState({
+        url: url,
+      });
+    }
   };
 }
 
