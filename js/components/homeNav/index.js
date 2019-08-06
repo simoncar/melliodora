@@ -102,6 +102,7 @@ class HomeNav extends Component {
         time_end_pretty,
         photo1,
         visible,
+        order,
       } = doc.data();
 
       featureItems.push({
@@ -116,6 +117,7 @@ class HomeNav extends Component {
         eventEndTime: time_end_pretty,
         photo1,
         visible,
+        order,
       });
     });
 

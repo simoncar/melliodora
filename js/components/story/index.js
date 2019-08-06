@@ -179,6 +179,7 @@ class Story extends Component {
             eventDate: this.props.navigation.state.params.eventDate,
             eventStartTime: this.props.navigation.state.params.eventStartTime,
             eventEndTime: this.props.navigation.state.params.eventEndTime,
+            eventOrder: this.props.navigation.state.params.eventOrder,
           });
         }}
       >
@@ -216,6 +217,7 @@ class Story extends Component {
               eventDate: this.props.navigation.state.params.eventDate,
               eventStartTime: this.props.navigation.state.params.eventStartTime,
               eventEndTime: this.props.navigation.state.params.eventEndTime,
+              order: this.props.navigation.state.params.order,
               location: this.props.navigation.state.params.location,
               photo1: this.props.navigation.state.params.photo1,
               visible: this.props.navigation.state.params.visible,
@@ -254,6 +256,7 @@ class Story extends Component {
                 eventDate: this.props.navigation.state.params.eventDate,
                 eventStartTime: this.props.navigation.state.params.eventStartTime,
                 eventEndTime: this.props.navigation.state.params.eventEndTime,
+                order: this.props.navigation.state.params.order,
                 location: this.props.navigation.state.params.location,
                 eventImage: this.props.navigation.state.params.eventImage,
                 phone: this.props.navigation.state.params.phone,
