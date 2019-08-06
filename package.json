@@ -34,7 +34,6 @@
     "e2e": "detox test --configuration ios.sim --debug-synchronization 200"
   },
   "dependencies": {
-    "@expo/react-native-action-sheet": "^3.0.3",
     "@firebase/firestore": "^1.4.7",
     "asap": "^2.0.6",
     "babel-preset-expo": "^5.2.0",
