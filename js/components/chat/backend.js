@@ -43,11 +43,8 @@ export class Backend extends React.Component {
       case "ko":
         return message.textKO;
         break;
-      case "zhcn":
-        return message.textZH;
-        break;
       case "zh":
-        return message.textZHCN;
+        return message.textZH;
         break;
       case "es":
         return message.textES;
@@ -72,59 +69,112 @@ export class Backend extends React.Component {
     }
   };
 
-  // retrive msg from backend
   loadMessages = async (language1, callback) => {
     const language = await AsyncStorage.getItem("language");
+    global.language = language;
 
-    this.messageRef = firebase
-      .database()
-      .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`)
-      .orderByChild("approved")
-      .equalTo(true);
-    this.messageRef.off();
+    this.ref = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("chat")
+      .collection("chatrooms")
+      .doc(this.state.chatroom)
+      .collection("messages");
 
-    console.log("aaaa language -= ", language);
-    // var systemLanguage = this.state.language;
+    console.log("loading messages", this.state.chatroom);
 
-    const onReceive = data => {
-      const message = data.val();
+    this.unsubscribe = this.ref.onSnapshot(messages => {
+      messages.docChanges().forEach(change => {
+        if (change.type === "added") {
+          const message = change.doc.data();
+          console.log(message.textLanguage, language);
+          if (message.textLanguage == language) {
+            var mesageText = message.text;
+            callback({
+              _id: message.id,
 
-      callback({
-        _id: data.key,
+              text: mesageText,
+              textEN: message.textEN,
+              textFR: message.textFR,
+              textJA: message.textJA,
+              textKO: message.textKO,
+              textZH: message.textZH,
+              textES: message.textES,
 
-        text: this.getLanguageMessage(message, language),
-        textEN: message.textEN,
-        textFR: message.textFR,
-        textJA: message.textJA,
-        textKO: message.textKO,
-        textZHCN: message.textZHCN,
-
-        detectedSourceLanguage: message.detectedSourceLanguage,
-        createdAt: new Date(message.createdAt),
-        chatroom: this.state.chatroom,
-        user: {
-          _id: message.user._id,
-          name: message.user.name,
-        },
-        image: message.image,
-        video: message.video,
-        system: message.system,
-        // location: {
-        //  latitude: 48.864601,
-        //  longitude: 2.398704
-        // },
-        quickReplies: message.quickReplies,
+              detectedSourceLanguage: message.detectedSourceLanguage,
+              timestamp: new Date(message.timestamp),
+              chatroom: this.state.chatroom,
+              user: {
+                _id: message.user._id,
+                name: message.user.name,
+              },
+              uid: message.uid,
+              image: message.image,
+              video: message.video,
+              system: message.system,
+              quickReplies: message.quickReplies,
+            });
+          } else {
+            var mesageText = this.getLanguageMessage(message, language);
+          }
+        }
       });
-    };
-    this.messageRef.limitToLast(50).on("child_added", onReceive);
+    });
+
+    this.ref = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("chat")
+      .collection("chatrooms")
+      .doc(this.state.chatroom)
+      .collection("messages")
+      .where("translated", "==", true);
+
+    console.log("loading messages", this.state.chatroom);
+
+    this.unsubscribe = this.ref.onSnapshot(messages => {
+      messages.docChanges().forEach(change => {
+        if (change.type === "added") {
+          const message = change.doc.data();
+          console.log(message.textLanguage, language);
+          if (message.textLanguage == language) {
+            var mesageText = message.text;
+          } else {
+            var mesageText = this.getLanguageMessage(message, language);
+            callback({
+              _id: message.id,
+
+              text: mesageText,
+              textEN: message.textEN,
+              textFR: message.textFR,
+              textJA: message.textJA,
+              textKO: message.textKO,
+              textZH: message.textZH,
+              textES: message.textES,
+
+              detectedSourceLanguage: message.detectedSourceLanguage,
+              timestamp: new Date(message.timestamp),
+              chatroom: this.state.chatroom,
+              user: {
+                _id: message.user._id,
+                name: message.user.name,
+              },
+              uid: message.uid,
+              image: message.image,
+              video: message.video,
+              system: message.system,
+              quickReplies: message.quickReplies,
+            });
+          }
+        }
+      });
+    });
   };
 
-  // 1.
   get uid() {
     return (firebase.auth().currentUser || {}).uid;
   }
 
-  // 2.
   get timestamp() {
     return firebase.database.ServerValue.TIMESTAMP;
   }
@@ -133,32 +183,33 @@ export class Backend extends React.Component {
     if (undefined === global.pushToken) {
       global.pushToken = "";
     }
-    console.log("backend has an imagem,", message.image);
-    this.messageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`);
-
-    this.latestMessageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}`);
 
     for (let i = 0; i < message.length; i++) {
       if (undefined != message[i].image && message[i].image.length > 0) {
-        //we have an image
-
         var uploadUrl = uploadImageAsync(message[i], this.state.chatroom, message[i].user);
       } else {
-        this.messageRef.push({
+        var messageDict = {
           text: `${message[i].text}`,
+          textLanguage: language,
           chatroom: this.state.chatroom,
           user: message[i].user,
-          createdAt: this.timestamp,
-          date: new Date().getTime(),
+          timestamp: Date.now(),
           system: false,
           pushToken: global.pushToken,
-        });
+          uid: global.uid,
+        };
 
-        this.latestMessageRef.update({
-          latestText: `${message[i].text}`,
-          latestUser: message[i].user.name,
-        });
+        this.messageRef = firebase
+          .firestore()
+          .collection("sais_edu_sg")
+          .doc("chat")
+          .collection("chatrooms")
+          .doc(this.state.chatroom)
+          .collection("messages")
+          .add(messageDict);
       }
+
+      console.log(messageDict);
     }
     if (global.pushToken.length > 0) {
       this.messageRef = firebase
@@ -189,7 +240,6 @@ export class Backend extends React.Component {
 
   setLanguage(language) {
     this.state.language = language;
-    console.log("settttttting language ", language);
     var userDict = {
       language: language,
     };
@@ -201,15 +251,6 @@ export class Backend extends React.Component {
       .collection("usernames")
       .doc(global.safeToken)
       .update(userDict);
-
-    //global.language = language;
-
-    //this.state.language = language;
-    //this.setState({language: 'es'});
-
-    // this.props.setLanguage(language);
-
-    //this.setState({ language: language });
   }
 
   closeChat() {

@@ -54,11 +54,6 @@ class chat extends Component {
     this._isAlright = null;
   }
 
-  //   <TouchableOpacity onPress={this._showActionSheet}>
-  //   <Text style={styles.chatHeading}>{this.props.navigation.getParam('chatroom')}</Text>
-
-  // </TouchableOpacity>
-
   static navigationOptions = ({ navigation }) => ({
     headerBackTitle: null,
     headerLeft: (
@@ -95,7 +90,6 @@ class chat extends Component {
 
   componentWillMount() {
     if (this.props.userX.nickname) {
-      // we have a value, good
     } else {
       this.noNickname();
       this.props.navigation.navigate("login");

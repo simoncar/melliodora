@@ -23,6 +23,88 @@ const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
 // send the push notification
 
 // Translate an incoming message.
+
+//   firebase deploy --only functions:translateFirestoreChat
+exports.translateFirestoreChat = functions.firestore
+  .document("sais_edu_sg/chat/chatrooms/{chatroom}/messages/{messageID}")
+  .onCreate(async (snap, context) => {
+    const promises = [];
+
+    const id = snap.id;
+    const message = snap.data().text;
+    const chatroom = snap.data().chatroom;
+    const messageID = snap.data().messageID;
+
+    var resultsJA = await translateX.translate(message, { to: "ja" });
+    var resultsZH = await translateX.translate(message, { to: "zh-CN" });
+    var resultsKO = await translateX.translate(message, { to: "ko" });
+    var resultsFR = await translateX.translate(message, { to: "fr" });
+    var resultsES = await translateX.translate(message, { to: "es" });
+
+    var detectedSourceLanguage = resultsJA[1].data.translations[0].detectedSourceLanguage;
+
+    if (detectedSourceLanguage != "en") {
+      var resultsEN = await translateX.translate(message, { to: "en" });
+    } else {
+      var resultsEN = [message];
+    }
+
+    var messageDict = {
+      textJA: resultsJA[0],
+      textZH: resultsZH[0],
+      textKO: resultsKO[0],
+      textFR: resultsFR[0],
+      textEN: resultsEN[0],
+      textES: resultsES[0],
+      detectedSourceLanguage: detectedSourceLanguage,
+      translated: true,
+    };
+
+    console.log(messageDict);
+
+    admin
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("chat")
+      .collection("chatrooms")
+      .doc(chatroom)
+      .collection("messages")
+      .doc(id)
+      .set(messageDict, { merge: true });
+
+    // var results = await translateX.translate(message, { to: "zh-CN" });
+    // admin
+    //   .database()
+    //   .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
+    //   .update({ textZHCN: results[0] });
+
+    // var results = await translateX.translate(message, { to: "" });
+    // admin
+    //   .database()
+    //   .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
+    //   .update({ textKO: results[0] });
+
+    // var results = await translateX.translate(message, { to: "" });
+    // admin
+    //   .database()
+    //   .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
+    //   .update({ textFR: results[0] });
+
+    // var results = await translateX.translate(message, { to: "" });
+    // admin
+    //   .database()
+    //   .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
+    //   .update({ textEN: results[0], approved: true });
+
+    // var results = await translateX.translate(message, { to: "" });
+    // admin
+    //   .database()
+    //   .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
+    //   .update({ textES: results[0], approved: true });
+
+    return Promise.all(promises);
+  });
+
 exports.translate = functions.database
   .ref("instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/{messageID}")
   .onWrite(async (change, context) => {
