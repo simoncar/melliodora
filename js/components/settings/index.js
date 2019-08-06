@@ -110,6 +110,11 @@ class Settings extends Component {
   }
 
   render() {
+    var languageTitle = "Language";
+    if (I18n.t("language") != "Language") {
+      languageTitle = "Language " + I18n.t("language");
+    }
+
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
         <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
@@ -214,7 +219,7 @@ class Settings extends Component {
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/general.png")} />}
-              title={"Language " + I18n.t("language")}
+              title={languageTitle}
               titleInfo={this.state.language}
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() => this.props.navigation.navigate("selectLanguage")}

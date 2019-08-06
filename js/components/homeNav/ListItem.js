@@ -83,7 +83,7 @@ class ListItem extends Component {
             </View>
 
             <View>
-              <Image style={{ width, height: 200 }} {...{ preview, uri }} resizeMode={"contain"} />
+              <Image style={{ width, height: 200 }} {...{ preview, uri }} />
             </View>
           </View>
         </TouchableOpacity>
