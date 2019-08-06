@@ -30,6 +30,7 @@ class ListItem extends Component {
               eventDate: this.props.item.item.eventDate,
               eventStartTime: this.props.item.item.eventStartTime,
               eventEndTime: this.props.item.item.eventEndTime,
+              order: this.props.item.item.order,
               location: this.props.item.item.location,
               photo1: this.props.item.item.photo1,
               _key: this.props.item.item._key,

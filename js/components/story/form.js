@@ -27,6 +27,7 @@ class newStory extends Component {
       eventDate: props.eventDate,
       eventStartTime: props.eventStartTime,
       eventEndTime: props.eventEndTime,
+      order: props.order,
       _key: props.edit ? props._key : "",
     };
 
@@ -101,6 +102,7 @@ class newStory extends Component {
       date_start: this.state.eventDate !== undefined ? this.state.eventDate : null,
       time_start_pretty: this.state.eventStartTime !== undefined ? this.state.eventStartTime : null,
       time_end_pretty: this.state.eventEndTime !== undefined ? this.state.eventEndTime : null,
+      order: this.state.order !== undefined ? this.state.order : 0,
     };
 
     if (this.state._key == "") {
@@ -152,7 +154,6 @@ class newStory extends Component {
                   value={this.state.visible}
                 />
               </View>
-
               <TextInput
                 onChangeText={text => this.setState({ eventTitle: text })}
                 placeholder={"Title"}
@@ -160,7 +161,6 @@ class newStory extends Component {
                 style={[styles.eventTitle]}
                 value={this.state.eventTitle}
               />
-
               <TextInput
                 onChangeText={text => this.setState({ eventDescription: text })}
                 placeholder={"Description"}
@@ -168,14 +168,12 @@ class newStory extends Component {
                 style={[styles.eventText]}
                 value={this.state.eventDescription}
               />
-
               <TextInput
                 onChangeText={text => this.setState({ photo1: text })}
                 placeholder={"Photo 1 URL"}
                 style={[styles.photoURL]}
                 value={this.state.photo1}
               />
-
               <Text>Dates (optional)</Text>
               <DatePicker
                 style={{ width: 200 }}
@@ -189,9 +187,7 @@ class newStory extends Component {
                   this.setState({ eventDate: date });
                 }}
               />
-
               <Text>Time (optional)</Text>
-
               <DatePicker
                 style={{ width: 200 }}
                 date={this.state.eventStartTime}
@@ -205,7 +201,6 @@ class newStory extends Component {
                   this.setState({ eventStartTime: time });
                 }}
               />
-
               <DatePicker
                 style={{ width: 200 }}
                 date={this.state.eventEndTime}
@@ -222,6 +217,22 @@ class newStory extends Component {
               <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.clearDates()}>
                 <Text>Clear Dates</Text>
               </TouchableOpacity>
+
+              <View
+                style={{
+                  paddingTop: 20,
+                  flexDirection: "row",
+                }}
+              >
+                <Text>Order: </Text>
+                <TextInput
+                  onChangeText={text => this.setState({ order: text })}
+                  placeholder={"0"}
+                  style={styles.eventTitle}
+                  value={this.state.order}
+                  keyboardType="number-pad"
+                />
+              </View>
             </View>
           </View>
         </Content>
