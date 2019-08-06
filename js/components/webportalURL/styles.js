@@ -32,12 +32,20 @@ export default {
     fontSize: 20,
   },
 
-  Heading: {
+  heading: {
     color: "#037AFF",
     alignSelf: "center",
     fontSize: 30,
     paddingBottom: 5,
     paddingRight: 10,
+  },
+  Leftheading: {
+    color: "#037AFF",
+    alignSelf: "center",
+    fontSize: 30,
+    paddingBottom: 5,
+    paddingRight: 10,
+    paddingLeft: 10,
   },
 
   roundedButton: {
@@ -50,7 +58,7 @@ export default {
   },
   url: {
     color: "#FFF",
-    width: 250,
+
     fontSize: 14,
   },
   container: {
@@ -61,7 +69,6 @@ export default {
   topbar: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
     height: 40,
     backgroundColor: "grey",
   },
