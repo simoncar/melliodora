@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Constants from "expo-constants";
-import { Animated, TextInput, TouchableOpacity, View } from "react-native";
+import { Animated, TextInput, TouchableOpacity, View, Text } from "react-native";
 import { WebView } from "react-native-webview";
 
 import { Container, Spinner } from "native-base";
-
+import { connectActionSheet, ActionSheetProvider, ActionSheetOptions } from "@expo/react-native-action-sheet";
 import { getParameterByName } from "../global.js";
-
+import { withNavigation } from "react-navigation";
 import styles from "./styles";
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
 import AuthParser from "./authParser";
 
 const timer = require("react-native-timer");
@@ -22,11 +22,6 @@ const tabBarIcon = name => ({ tintColor }) => (
 );
 
 class authPortal extends Component {
-  static navigationOptions = {
-    title: "myStamford",
-    headerBackTitle: null,
-  };
-
   constructor(props) {
     super(props);
     DEFAULT_URL = global.switch_portalURL;
@@ -51,6 +46,53 @@ class authPortal extends Component {
     timer.clearTimeout(this);
   }
 
+  componentDidMount() {
+    this.props.navigation.setParams({
+      _onOpenActionSheet: this._onOpenActionSheet,
+      reload: this.reload,
+    });
+  }
+
+  _onOpenActionSheet = () => {
+    // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
+    const options = ["Home", "Cafe Top-Up", "Events", "Forms", "PTA", "Cancel"];
+    const destructiveButtonIndex = 0;
+    const cancelButtonIndex = 5;
+
+    this.props.showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex,
+      },
+      buttonIndex => {
+        // Do something here depending on the button index selected
+
+        console.log(buttonIndex);
+        switch (buttonIndex) {
+          case 0:
+            this.setState({ url: "https://mystamford.edu.sg/parent-dashboard" });
+            break;
+          case 1:
+            this.setState({ url: "https://mystamford.edu.sg/cafe/cafe-online-ordering" });
+            //
+            //https://campusonline.mystamford.edu.sg/e-account/vcardbalances.asp
+            // document.getElementById('{ID of element}').innerHTML = '{content}';
+            break;
+          case 2:
+            this.setState({ url: "https://mystamford.edu.sg/events-1" });
+            break;
+          case 3:
+            this.setState({ url: "https://mystamford.edu.sg/forms-1" });
+            break;
+          case 4:
+            this.setState({ url: "https://mystamford.edu.sg/pta" });
+            break;
+        }
+      },
+    );
+  };
+
   showMsg() {
     if (Constants.manifest.extra.instance == "0001-sais_edu_sg") {
       this.setState({ showMsg: true }, () =>
@@ -66,10 +108,11 @@ class authPortal extends Component {
     //https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fparent-dashboard
 
     if (navState.url == "https://mystamford.edu.sg/parent-dashboard") {
-      const jsCode = "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML)";
+      var jsCode = "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML);";
 
       console.log("Injecting script");
       setTimeout(() => {
+        var jsCode = "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML);";
         this.webref.injectJavaScript(jsCode);
       }, 5000);
       this.setState({ canGoBack: false });
@@ -92,8 +135,12 @@ class authPortal extends Component {
   };
 
   onBack() {
-    this.refs[WEBVIEW_REF].goBack();
+    this.webref.goBack();
   }
+
+  reload = () => {
+    this.webref.reload();
+  };
 
   componentWillMount() {
     if (Constants.manifest.extra.instance == "0001-sais_edu_sg") {
@@ -123,28 +170,21 @@ class authPortal extends Component {
     });
   }
 
-  _renderSpinner() {
-    if (this.state.showMsg) {
-      return (
-        <View style={styles.settingsMessage}>
-          <View style={{ flex: 1 }} />
-          <View style={{ flex: 2 }}>
-            <Spinner color="#172245" />
-          </View>
-
-          <View style={{ flex: 3 }} />
-        </View>
-      );
-    } else {
-      null;
-    }
-  }
-
   handleMessage(message) {
     var authName = AuthParser.extractLoginUsername(message.nativeEvent.data);
     var authEmail = AuthParser.extractLoginEmail(message.nativeEvent.data);
     console.log("authName=", authName);
     AuthParser.saveDetails(authName, authEmail);
+  }
+
+  _onLoadEnd() {
+    var jsCodeNoLogo = "document.getElementById('userbar-react-component').style.display = 'none';";
+    jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('school-logo')[0].style.display = 'none';";
+    jsCodeNoLogo = jsCodeNoLogo + "document.getElementById('school-header').style.margin = '0px';";
+    jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('search-container')[0].style.display = 'none';";
+    setTimeout(() => {
+      this.webref.injectJavaScript(jsCodeNoLogo);
+    }, 500);
   }
 
   render() {
@@ -174,36 +214,69 @@ class authPortal extends Component {
                 autoFocus={false}
                 selectionColor="#FFF"
               />
-
-              <Ionicons style={styles.navIcon} name="ios-arrow-forward" />
             </View>
 
             <WebView
               source={{ uri: this.state.url }}
               javaScriptEnabled={true}
-              //injectedJavaScript={jsCode}
               automaticallyAdjustContentInsets={false}
               onNavigationStateChange={this.onNavigationStateChange.bind(this)}
-              //onMessage={this._onMessage}
               domStorageEnabled={true}
               startInLoadingState={true}
               ref={r => (this.webref = r)}
               keyboardDisplayRequiresUserAction={true}
               sharedCookiesEnabled={true}
-              // onMessage={this._onMessage}
-              //injectedJavaScript={yourAlert}
-              //injectedJavaScript="window.postMessage(document.title) , true"
               onMessage={this.handleMessage}
+              onLoadEnd={this._onLoadEnd.bind(this)}
             />
           </View>
         </View>
       </Container>
     );
   }
-
-  reload = () => {
-    this.refs[WEBVIEW_REF].reload();
-  };
 }
 
-export default authPortal;
+const ConnectedApp = connectActionSheet(withNavigation(authPortal));
+
+export default class AppContainer extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerBackTitle: null,
+    headerLeft: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params.reload();
+        }}
+      >
+        <Ionicons name="md-refresh" style={styles.Leftheading} />
+      </TouchableOpacity>
+    ),
+
+    headerTitle: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._onOpenActionSheet();
+        }}
+      >
+        <Text style={{ fontSize: 17, fontWeight: "600" }}>myStamford</Text>
+      </TouchableOpacity>
+    ),
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._onOpenActionSheet();
+        }}
+      >
+        <View style={styles.chatHeading}>
+          <Ionicons name="ios-bookmarks" style={styles.heading} />
+        </View>
+      </TouchableOpacity>
+    ),
+  });
+  render() {
+    return (
+      <ActionSheetProvider>
+        <ConnectedApp />
+      </ActionSheetProvider>
+    );
+  }
+}

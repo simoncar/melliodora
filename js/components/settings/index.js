@@ -171,13 +171,6 @@ class Settings extends Component {
             />
 
             <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/cellular.png")} />}
-              title="Cafe Top Up"
-              titleInfo="Balance $999.99"
-              onPress={() => Alert.alert("This function is not active")}
-            />
-
-            <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/hotspot.png")} />}
               title={I18n.t("contact")}
               titleInfo=""
