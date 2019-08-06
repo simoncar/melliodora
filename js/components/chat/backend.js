@@ -64,7 +64,6 @@ export class Backend extends React.Component {
     try {
       const value = await AsyncStorage.getItem("language");
       if (value !== null) {
-        // We have data!!
         console.log(value);
         this.setState({ language: value });
       }
