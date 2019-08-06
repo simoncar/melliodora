@@ -94,12 +94,6 @@ export class Backend extends React.Component {
               _id: message.id,
 
               text: mesageText,
-              textEN: message.textEN,
-              textFR: message.textFR,
-              textJA: message.textJA,
-              textKO: message.textKO,
-              textZH: message.textZH,
-              textES: message.textES,
 
               detectedSourceLanguage: message.detectedSourceLanguage,
               timestamp: new Date(message.timestamp),
