@@ -58,7 +58,6 @@ export default {
   },
   url: {
     color: "#FFF",
-
     fontSize: 14,
   },
   container: {
