@@ -75,7 +75,8 @@ class HomeNav extends Component {
       .firestore()
       .collection("sais_edu_sg")
       .doc("feature")
-      .collection("feature articles");
+      .collection("feature articles")
+      .orderBy("order");
   }
 
   componentDidMount() {

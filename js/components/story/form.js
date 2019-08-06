@@ -27,7 +27,7 @@ class newStory extends Component {
       eventDate: props.eventDate,
       eventStartTime: props.eventStartTime,
       eventEndTime: props.eventEndTime,
-      order: props.order,
+      order: props.edit ? props.order : 1,
       _key: props.edit ? props._key : "",
     };
 
@@ -102,7 +102,7 @@ class newStory extends Component {
       date_start: this.state.eventDate !== undefined ? this.state.eventDate : null,
       time_start_pretty: this.state.eventStartTime !== undefined ? this.state.eventStartTime : null,
       time_end_pretty: this.state.eventEndTime !== undefined ? this.state.eventEndTime : null,
-      order: this.state.order !== undefined ? this.state.order : 0,
+      order: this.state.order !== undefined ? Number(this.state.order) : 1,
     };
 
     if (this.state._key == "") {
@@ -133,7 +133,7 @@ class newStory extends Component {
 
   render() {
     const { goBack } = this.props.navigation;
-
+    const order = this.state.order.toString();
     return (
       <Container style={{ backgroundColor: "#fff" }}>
         <Content showsVerticalScrollIndicator={false}>
@@ -224,12 +224,12 @@ class newStory extends Component {
                   flexDirection: "row",
                 }}
               >
-                <Text>Order: </Text>
+                <Text style={styles.eventTitle}>Order: </Text>
                 <TextInput
                   onChangeText={text => this.setState({ order: text })}
                   placeholder={"0"}
                   style={styles.eventTitle}
-                  value={this.state.order}
+                  value={order}
                   keyboardType="number-pad"
                 />
               </View>
