@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Constants from "expo-constants";
-import { Animated, TextInput, TouchableOpacity, View } from "react-native";
+import { Animated, TextInput, TouchableOpacity, View, Text } from "react-native";
 import { WebView } from "react-native-webview";
 
 import { Container, Spinner } from "native-base";
@@ -8,7 +8,7 @@ import { Container, Spinner } from "native-base";
 import { getParameterByName } from "../global.js";
 
 import styles from "./styles";
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
 import AuthParser from "./authParser";
 
 const timer = require("react-native-timer");
@@ -22,10 +22,39 @@ const tabBarIcon = name => ({ tintColor }) => (
 );
 
 class authPortal extends Component {
-  static navigationOptions = {
-    title: "myStamford",
+  static navigationOptions = ({ navigation }) => ({
     headerBackTitle: null,
-  };
+    headerLeft: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
+        <Entypo name="chevron-left" style={styles.Heading} />
+      </TouchableOpacity>
+    ),
+
+    headerTitle: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._showActionSheet();
+        }}
+      >
+        <Text style={{ fontSize: 17, fontWeight: "600" }}>myStamford</Text>
+      </TouchableOpacity>
+    ),
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._showActionSheet();
+        }}
+      >
+        <View style={styles.Heading}>
+          <Entypo name="cog" style={styles.Heading} />
+        </View>
+      </TouchableOpacity>
+    ),
+  });
 
   constructor(props) {
     super(props);
@@ -51,12 +80,43 @@ class authPortal extends Component {
     timer.clearTimeout(this);
   }
 
+  componentDidMount() {
+    this.props.navigation.setParams({
+      _showActionSheet: this._showActionSheet,
+    });
+  }
+
   showMsg() {
     if (Constants.manifest.extra.instance == "0001-sais_edu_sg") {
       this.setState({ showMsg: true }, () =>
         timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 5000),
       );
     }
+  }
+
+  _showActionSheet() {
+    const BUTTONS = ["Mute conversation", "Unmute conversation", "Cancel"];
+    const CANCEL_INDEX = 2;
+
+    ActionSheet.show(
+      {
+        options: BUTTONS,
+        cancelButtonIndex: CANCEL_INDEX,
+        // destructiveButtonIndex: DESTRUCTIVE_INDEX,
+        title: "Options",
+      },
+
+      buttonIndex => {
+        switch (buttonIndex) {
+          case 0:
+            Backend.setMute(true);
+            break;
+          case 1:
+            Backend.setMute(false);
+            break;
+        }
+      },
+    );
   }
 
   onNavigationStateChange = navState => {

@@ -7,6 +7,7 @@ import configureStore from "./configureStore";
 import variables from "../native-base-theme/variables/commonColor";
 import getTheme from "../native-base-theme/components";
 import { Font, AppLoading } from "expo";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 
 export default class Setup extends Component {
   constructor() {
@@ -37,9 +38,11 @@ export default class Setup extends Component {
     return (
       <StyleProvider style={getTheme(variables)}>
         <Root>
-          <Provider store={this.state.store}>
-            <App />
-          </Provider>
+          <ActionSheetProvider>
+            <Provider store={this.state.store}>
+              <App />
+            </Provider>
+          </ActionSheetProvider>
         </Root>
       </StyleProvider>
     );
