@@ -9,15 +9,11 @@ import { getParameterByName } from "../global.js";
 
 import styles from "./styles";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import AuthParser from "./authParser";
 
 const timer = require("react-native-timer");
 
 var WEBVIEW_REF = "webview";
-//var DEFAULT_URL = 'https://saispta.com/app/Authentication.php';
-//var DEFAULT_URL = 'https://www.google.com';
-
-//var DEFAULT_URL = 'https://mystamford.edu.sg/login/api/getsession?ffauth_device_id=SOME_RANDOM&ffauth_secret=MERGE_AUTH_SECRET&prelogin=https://mystamford.edu.sg/pta/pta-events/christmas-2017';
-var DEFAULT_URL = global.switch_portalURL; //'https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP';
 
 var injectScript = "";
 
@@ -34,50 +30,11 @@ class authPortal extends Component {
   constructor(props) {
     super(props);
     DEFAULT_URL = global.switch_portalURL;
-
-    injectScript =
-      'document.getElementById("username").value="' +
-      //this.props.userX.name +
-      '"';
-    injectScript =
-      injectScript +
-      ";" +
-      'document.getElementById("password").value="' +
-      //this.props.userX.password +
-      '"';
-    injectScript = injectScript + ";" + "document.forms[0].submit()";
-    injectScript =
-      injectScript +
-      ";" +
-      'document.getElementsByClassName("ff-login-personalised-logo")[0].style.visibility = "hidden";';
-    injectScript =
-      injectScript + ";" + 'document.getElementsByClassName("global-logo")[0].style.visibility = "hidden";';
-    //  injectScript = injectScript + ';' +  'window.postMessage(document.cookie)'
-    //  injectScript = '';
-
-    console.log("going to this URL (constructor)=" + DEFAULT_URL);
-
-    //var authSecret2 = this.props.userX.authSecret;
-
-    DEFAULT_URL = "https://mystamford.edu.sg/login/api/getsession?";
-
-    DEFAULT_URL = DEFAULT_URL + "ffauth_device_id=";
-    //DEFAULT_URL = DEFAULT_URL + this.props.userX.ffauth_device_id; // "AB305CAC-1373-4C13-AA04-79ADB8C17854"
-
-    DEFAULT_URL = DEFAULT_URL + "&ffauth_secret=";
-    //DEFAULT_URL = DEFAULT_URL + this.props.userX.ffauth_secret; //"6fbfcef8d9d0524cbb90cb75285df9a1"
-
-    DEFAULT_URL = DEFAULT_URL + "&prelogin=";
-    DEFAULT_URL = DEFAULT_URL + "https://mystamford.edu.sg/cafe/cafe-online-ordering";
-
-    DEFAULT_URL =
-      "https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP";
-    DEFAULT_URL = global.switch_portalURL;
-    console.log("im hereyyy -= " + global.switch_portalURL);
+    DEFAULT_URL = "https://mystamford.edu.sg/parent-dashboard";
   }
 
   state = {
-    url: global.switch_portalURL,
+    url: "https://mystamford.edu.sg/parent-dashboard",
     status: "No Page Loaded",
     backButtonEnabled: false,
     forwardButtonEnabled: false,
@@ -106,18 +63,24 @@ class authPortal extends Component {
     console.log(navState.url);
     this.setState({ url: navState.url });
 
-    if (navState.url != "https://mystamford.edu.sg/parent-dashboard") {
-      this.setState({ canGoBack: navState.canGoBack });
-    } else {
+    //https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fparent-dashboard
+
+    if (navState.url == "https://mystamford.edu.sg/parent-dashboard") {
+      const jsCode = "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML)";
+
+      console.log("Injecting script");
+      setTimeout(() => {
+        this.webref.injectJavaScript(jsCode);
+      }, 5000);
       this.setState({ canGoBack: false });
+    } else {
+      this.setState({ canGoBack: navState.canGoBack });
     }
 
     if (navState.url == "https://mystamford.edu.sg/logout.aspx") {
       this.props.setauthSecret("");
       console.log("PROCESS LOGOUT - CLEAR SECRET");
     }
-
-    this.setState({ updateFirebaseText: navState.url });
 
     var string = navState.url;
 
@@ -177,43 +140,21 @@ class authPortal extends Component {
     }
   }
 
-  _onMessage = event => {
-    const { data } = event.nativeEvent;
-    console.log(event.nativeEvent.data.toString());
-    returnData = event.nativeEvent.data;
-
-    string = [].map
-      .call(returnData, function(node) {
-        console.log(node.textContent || node.innerText || "");
-      })
-      .join("");
-  };
+  handleMessage(message) {
+    var authName = AuthParser.extractLoginUsername(message.nativeEvent.data);
+    var authEmail = AuthParser.extractLoginEmail(message.nativeEvent.data);
+    console.log("authName=", authName);
+    AuthParser.saveDetails(authName, authEmail);
+  }
 
   render() {
     const _login = () => {
       Animated.visible = false;
       Animated.height = 0;
-      //this.toggleCancel();
       this.state.showCancel = true;
-      this.setState({ url: "My Changed Text" });
     };
 
-    // this.setState({url: 'My Changed Text'})
     const { visible, style, children, ...rest } = this.props;
-    const runFirst = `
-    document.body.style.backgroundColor = 'red';
-    setTimeout(function() { window.alert('hi') }, 2000);
-    true; // note: this is required, or you'll sometimes get silent failures
-  `;
-
-    const run = `document.body.style.backgroundColor = 'blue';
-    true;`;
-
-    const jsCode = "window.ReactNativeWebView.postMessage(document.innerHTML())";
-
-    setTimeout(() => {
-      //this.webref.injectJavaScript(jsCode);
-    }, 7000);
 
     return (
       <Container>
@@ -230,7 +171,7 @@ class authPortal extends Component {
                 placeholderTextColor="#FFF"
                 style={styles.url}
                 autoCapitalize="none"
-                autoFocus={true}
+                autoFocus={false}
                 selectionColor="#FFF"
               />
 
@@ -240,14 +181,19 @@ class authPortal extends Component {
             <WebView
               source={{ uri: this.state.url }}
               javaScriptEnabled={true}
-              // injectedJavaScript={runFirst}
+              //injectedJavaScript={jsCode}
               automaticallyAdjustContentInsets={false}
               onNavigationStateChange={this.onNavigationStateChange.bind(this)}
               //onMessage={this._onMessage}
               domStorageEnabled={true}
               startInLoadingState={true}
               ref={r => (this.webref = r)}
+              keyboardDisplayRequiresUserAction={true}
+              sharedCookiesEnabled={true}
               // onMessage={this._onMessage}
+              //injectedJavaScript={yourAlert}
+              //injectedJavaScript="window.postMessage(document.title) , true"
+              onMessage={this.handleMessage}
             />
           </View>
         </View>
