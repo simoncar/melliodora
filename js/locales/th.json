@@ -21,9 +21,17 @@
 	"typeMessage": "พิมพ์ข้อความ",
 	"photos": "ภาพถ่าย",
 	"save": "บันทึก",
+	"saved": "ที่บันทึกไว้",
+	"message": "ข่าวสาร",
+	"send": "ส่ง",
+	"edit": "แก้ไข",
+	"delete": "ลบ",
 	"mute": "ใบ้",
+	"logs": "ท่อน",
 	"unmute": "เปิดเสียง",
 	"contact": "ติดต่อ",
 	"shop": "ร้านขายของ",
-	"pta": "สมาคมครูผู้ปกครอง"
+	"translationsGoogle": "Google Translate",
+	"pta": "สมาคมครูผู้ปกครอง",
+	"languageChangeWarning": "แอพจะรีสตาร์ทหลังจากเลือกภาษาใหม่"
 }

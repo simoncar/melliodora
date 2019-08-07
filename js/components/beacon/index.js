@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FlatList, Text, View } from "react-native";
 import firebase from "firebase";
 import BeaconItem from "./beaconItem";
-
+import _ from "lodash";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 
 @withMappedNavigationParams()
@@ -22,7 +22,8 @@ class beacons extends Component {
       .firestore()
       .collection("sais_edu_sg")
       .doc("beacon")
-      .collection("gateways");
+      .collection("gateways")
+      .orderBy("location");
   }
 
   componentDidMount() {
@@ -43,8 +44,12 @@ class beacons extends Component {
     const userBeacons = [];
 
     beacons.forEach(doc => {
+      var location = doc.data().location;
+      if (!_.isString(location)) {
+        location = "";
+      }
       userBeacons.push({
-        campus: doc.data().campus,
+        campus: doc.data().location,
         picture: doc.data().picture,
         timestamp: doc.data().timestamp,
         state: doc.data().state,

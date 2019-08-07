@@ -3,7 +3,7 @@ import * as firebase from "firebase";
 
 import * as ImageManipulator from "expo-image-manipulator";
 import Constants from "expo-constants";
-
+import _ from "lodash";
 import uuid from "uuid";
 import { AsyncStorage } from "react-native";
 
@@ -31,7 +31,6 @@ export class Backend extends React.Component {
   }
 
   setChatroom(chatroom) {
-    console.log(`chatroom=${chatroom}`);
     this.state.chatroom = chatroom.trim();
   }
 
@@ -43,11 +42,8 @@ export class Backend extends React.Component {
       case "ko":
         return message.textKO;
         break;
-      case "zhcn":
-        return message.textZH;
-        break;
       case "zh":
-        return message.textZHCN;
+        return message.textZH;
         break;
       case "es":
         return message.textES;
@@ -64,7 +60,6 @@ export class Backend extends React.Component {
     try {
       const value = await AsyncStorage.getItem("language");
       if (value !== null) {
-        console.log(value);
         this.setState({ language: value });
       }
     } catch (error) {
@@ -72,59 +67,64 @@ export class Backend extends React.Component {
     }
   };
 
-  // retrive msg from backend
   loadMessages = async (language1, callback) => {
     const language = await AsyncStorage.getItem("language");
+    global.language = language;
 
-    this.messageRef = firebase
-      .database()
-      .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`)
-      .orderByChild("approved")
-      .equalTo(true);
-    this.messageRef.off();
+    this.ref = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("chat")
+      .collection("chatrooms")
+      .doc(this.state.chatroom)
+      .collection("messages")
+      .orderBy("timestamp")
+      .where("translated", "==", true);
 
-    console.log("aaaa language -= ", language);
-    // var systemLanguage = this.state.language;
+    this.unsubscribe = this.ref.onSnapshot(messages => {
+      messages.docChanges().forEach(change => {
+        if (change.type === "added") {
+          const message = change.doc.data();
+          if (message.textLanguage == language) {
+            var mesageText = message.text;
+          } else {
+            var mesageText = this.getLanguageMessage(message, language);
+          }
+          callback({
+            _id: message._id,
 
-    const onReceive = data => {
-      const message = data.val();
+            text: mesageText,
+            textEN: message.textEN,
+            textFR: message.textFR,
+            textJA: message.textJA,
+            textKO: message.textKO,
+            textZH: message.textZH,
+            textES: message.textES,
 
-      callback({
-        _id: data.key,
-
-        text: this.getLanguageMessage(message, language),
-        textEN: message.textEN,
-        textFR: message.textFR,
-        textJA: message.textJA,
-        textKO: message.textKO,
-        textZHCN: message.textZHCN,
-
-        detectedSourceLanguage: message.detectedSourceLanguage,
-        createdAt: new Date(message.createdAt),
-        chatroom: this.state.chatroom,
-        user: {
-          _id: message.user._id,
-          name: message.user.name,
-        },
-        image: message.image,
-        video: message.video,
-        system: message.system,
-        // location: {
-        //  latitude: 48.864601,
-        //  longitude: 2.398704
-        // },
-        quickReplies: message.quickReplies,
+            detectedSourceLanguage: message.detectedSourceLanguage,
+            createdAt: new Date(message.timestamp),
+            timestamp: new Date(message.timestamp),
+            chatroom: this.state.chatroom,
+            user: {
+              _id: message.user._id,
+              name: message.user.name,
+              email: message.user.email,
+            },
+            uid: message.uid,
+            image: message.image,
+            video: message.video,
+            system: message.system,
+            quickReplies: message.quickReplies,
+          });
+        }
       });
-    };
-    this.messageRef.limitToLast(50).on("child_added", onReceive);
+    });
   };
 
-  // 1.
   get uid() {
     return (firebase.auth().currentUser || {}).uid;
   }
 
-  // 2.
   get timestamp() {
     return firebase.database.ServerValue.TIMESTAMP;
   }
@@ -133,31 +133,34 @@ export class Backend extends React.Component {
     if (undefined === global.pushToken) {
       global.pushToken = "";
     }
-    console.log("backend has an imagem,", message.image);
-    this.messageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/messages`);
-
-    this.latestMessageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}`);
+    if (!_.isString(language)) {
+      language = "en";
+    }
 
     for (let i = 0; i < message.length; i++) {
       if (undefined != message[i].image && message[i].image.length > 0) {
-        //we have an image
-
         var uploadUrl = uploadImageAsync(message[i], this.state.chatroom, message[i].user);
       } else {
-        this.messageRef.push({
-          text: `${message[i].text}`,
+        var messageDict = {
+          _id: message[i]._id,
+          text: message[i].text,
+          textLanguage: language,
           chatroom: this.state.chatroom,
           user: message[i].user,
-          createdAt: this.timestamp,
-          date: new Date().getTime(),
+          timestamp: Date.now(),
           system: false,
           pushToken: global.pushToken,
-        });
+          uid: global.uid,
+        };
 
-        this.latestMessageRef.update({
-          latestText: `${message[i].text}`,
-          latestUser: message[i].user.name,
-        });
+        this.messageRef = firebase
+          .firestore()
+          .collection("sais_edu_sg")
+          .doc("chat")
+          .collection("chatrooms")
+          .doc(this.state.chatroom)
+          .collection("messages")
+          .add(messageDict);
       }
     }
     if (global.pushToken.length > 0) {
@@ -172,24 +175,44 @@ export class Backend extends React.Component {
   }
 
   setMute(muteState) {
-    if (undefined === global.pushToken) {
-      global.pushToken = "";
-    }
+    if (_.isString(global.pushToken) && global.pushToken.length > 0) {
+      if (_.isBoolean(muteState)) {
+        var messageDict = {
+          mute: muteState,
+          pushToken: global.pushToken,
+          timestamp: Date.now(),
+          uid: global.uid,
+          language: global.language,
+          email: global.email,
+          name: global.username,
+        };
+      } else {
+        var messageDict = {
+          pushToken: global.pushToken,
+          timestamp: Date.now(),
+          uid: global.uid,
+          language: global.language,
+          email: global.email,
+          name: global.username,
+        };
+      }
 
-    if (global.pushToken.length > 0) {
-      this.messageRef = firebase
-        .database()
-        .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/notifications/${global.safeToken}`);
-      this.messageRef.update({
-        mute: muteState,
-        pushToken: global.pushToken,
-      });
+      console.log(messageDict, this.state.chatroom, global.safeToken);
+
+      firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("chat")
+        .collection("chatrooms")
+        .doc(this.state.chatroom)
+        .collection("notifications")
+        .doc(global.safeToken)
+        .set(messageDict, { merge: true });
     }
   }
 
   setLanguage(language) {
     this.state.language = language;
-    console.log("settttttting language ", language);
     var userDict = {
       language: language,
     };
@@ -201,15 +224,6 @@ export class Backend extends React.Component {
       .collection("usernames")
       .doc(global.safeToken)
       .update(userDict);
-
-    //global.language = language;
-
-    //this.state.language = language;
-    //this.setState({language: 'es'});
-
-    // this.props.setLanguage(language);
-
-    //this.setState({ language: language });
   }
 
   closeChat() {
@@ -232,8 +246,6 @@ async function uploadImageAsync(message, chatroom, user) {
   } else if (undefined == message.filename && message.playableDuration == 0) {
     message.filename = "image.JPG";
   }
-
-  console.log("fileType before uri=", message);
 
   var fileType = message.filename
     .split(".")
@@ -295,31 +307,38 @@ async function uploadImageAsync(message, chatroom, user) {
   blob.close();
   console.log("----------= file type - ", fileType);
   if (fileType == "JPG" || fileType == "HEIC" || fileType == "PNG") {
-    this.messageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
-    this.messageRef.push({
-      approved: true,
+    var messageDict = {
+      _id: message._id,
+      translated: true,
       image: URLfile,
       chatroom: chatroom,
       user: user,
-      createdAt: firebase.database.ServerValue.TIMESTAMP,
-      date: new Date().getTime(),
+      timestamp: Date.now(),
       system: false,
       pushToken: global.pushToken,
-    });
+    };
   } else {
-    this.messageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
-    this.messageRef.push({
-      approved: true,
+    var messageDict = {
+      _id: message._id,
+      translated: true,
       video: URLfile,
       chatroom: chatroom,
       user: user,
-      createdAt: firebase.database.ServerValue.TIMESTAMP,
-      date: new Date().getTime(),
+      timestamp: Date.now(),
       system: false,
       pushToken: global.pushToken,
-    });
+    };
   }
+  console.log("messageDict=", messageDict);
 
+  firebase
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("chat")
+    .collection("chatrooms")
+    .doc(chatroom)
+    .collection("messages")
+    .add(messageDict);
   return;
 }
 
