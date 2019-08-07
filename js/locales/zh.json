@@ -21,9 +21,17 @@
 	"typeMessage": "输入消息",
 	"photos": "相片",
 	"save": "保存",
+	"saved": "保存",
+	"message": "信息",
+	"send": "发送",
+	"edit": "编辑",
+	"delete": "删除",
 	"mute": "静音",
+	"logs": "日志",
 	"unmute": "取消静音",
 	"contact": "联系",
 	"shop": "店",
-	"pta": "家长教师协会"
+	"translationsGoogle": "谷歌翻译",
+	"pta": "家长教师协会",
+	"languageChangeWarning": "选择新语言后应用程序将重新启动"
 }

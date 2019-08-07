@@ -21,9 +21,17 @@
 	"typeMessage": "Taip mesej",
 	"photos": "Foto",
 	"save": "Simpan",
+	"saved": "Disimpan",
+	"message": "Mesej",
+	"send": "Hantar",
+	"edit": "Edit",
+	"delete": "Padam",
 	"mute": "Bisu",
+	"logs": "Log",
 	"unmute": "Nyahredam",
 	"contact": "Hubungi",
-	"shop": "Kedai",
-	"pta": "Persatuan Guru Ibu Bapa"
+	"shop": "Shop",
+	"translationsGoogle": "Terjemahan Google",
+	"pta": "Persatuan Guru Ibu Bapa",
+	"languageChangeWarning": "Apl akan bermula semula selepas memilih bahasa baharu"
 }

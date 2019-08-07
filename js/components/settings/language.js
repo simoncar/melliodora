@@ -37,10 +37,9 @@ export default class selectLanguage extends Component {
   };
 
   _changeLanguage(language) {
-    this.state.language = "ja";
     this.setState({ language: language });
-    global.language = language;
     AsyncStorage.setItem("language", language);
+    global.language = language;
 
     Updates.reloadFromCache();
   }

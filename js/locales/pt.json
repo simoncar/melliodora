@@ -21,9 +21,17 @@
 	"typeMessage": "Digite uma mensagem",
 	"photos": "Fotos",
 	"save": "Salve ",
+	"saved": "Salvou",
+	"message": "mensagem",
+	"send": "Mandar",
+	"edit": "Editar",
+	"delete": "Excluir",
 	"mute": "Mudo",
+	"logs": "Logs",
 	"unmute": "Cancelar mudo",
 	"contact": "Contato",
-	"shop": "fazer compras",
-	"pta": "Associação de pais e mestres"
+	"shop": "Shop",
+	"translationsGoogle": "Google Tradutor",
+	"pta": "Associação de pais e mestres",
+	"languageChangeWarning": "App será reiniciado depois de selecionar um novo idioma"
 }

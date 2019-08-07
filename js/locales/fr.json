@@ -21,9 +21,17 @@
 	"typeMessage": "Tapez un message",
 	"photos": "Photos",
 	"save": "sauvegarder",
+	"saved": "Enregistré",
+	"message": "Message",
+	"send": "Envoyer",
+	"edit": "modifier",
+	"delete": "Effacer",
 	"mute": "Muet",
+	"logs": "Les journaux",
 	"unmute": "Activer le muet",
 	"contact": "Contact",
 	"shop": "Boutique",
-	"pta": "Association des parents enseignants"
+	"translationsGoogle": "Google Traduction",
+	"pta": "Association des parents enseignants",
+	"languageChangeWarning": "L'application va redémarrer après la sélection d'une nouvelle langue"
 }

@@ -9,9 +9,10 @@ import {
   Dimensions,
   Modal,
   Button,
-  CameraRoll
+  CameraRoll,
 } from "react-native";
 import { Image } from "react-native-expo-image-cache";
+import I18n from "../../lib/i18n";
 
 const { width } = Dimensions.get("window");
 
@@ -20,7 +21,7 @@ export default class CustomImage extends React.Component {
     super(props);
     this.state = {
       modalVisible: false,
-      saveTitle: "Save"
+      saveTitle: I18n.t("save"),
     };
   }
 
@@ -30,22 +31,21 @@ export default class CustomImage extends React.Component {
 
   _share(uri) {
     CameraRoll.saveToCameraRoll(uri, "photo");
-
-    this.setState({ saveTitle: "Saved" });
+    this.setState({ saveTitle: I18n.t("saved") });
   }
 
   render() {
     const preview = {
       uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const uri = this.props.currentMessage.image;
     const images = [
       {
         // Simplest usage.
         url: uri,
-        saveToLocalByLongPress: true
-      }
+        saveToLocalByLongPress: true,
+      },
     ];
 
     if (this.props.currentMessage.image) {
@@ -71,7 +71,7 @@ export default class CustomImage extends React.Component {
                     fontSize: 20,
                     paddingLeft: 10,
                     paddingTop: 50,
-                    paddingBottom: 5
+                    paddingBottom: 5,
                   }}
                 >
                   {" "}
@@ -84,18 +84,14 @@ export default class CustomImage extends React.Component {
                   justifyContent: "center",
                   alignItems: "center",
                   width: null,
-                  height: null
+                  height: null,
                 }}
                 {...{ preview, uri }}
                 resizeMode={"contain"}
               />
             </Modal>
 
-            <Image
-              style={{ width, height: 200 }}
-              {...{ preview, uri }}
-              resizeMode={"contain"}
-            />
+            <Image style={{ width, height: 200 }} {...{ preview, uri }} resizeMode={"contain"} />
           </TouchableOpacity>
 
           <Button
@@ -116,18 +112,18 @@ const styles = StyleSheet.create({
     width: 150,
     height: 100,
     borderRadius: 13,
-    margin: 3
-  }
+    margin: 3,
+  },
 });
 
 CustomImage.defaultProps = {
   currentMessage: {},
   containerStyle: {},
-  mapViewStyle: {}
+  mapViewStyle: {},
 };
 
 CustomImage.propTypes = {
   currentMessage: PropTypes.object,
   containerStyle: ViewPropTypes.style,
-  mapViewStyle: ViewPropTypes.style
+  mapViewStyle: ViewPropTypes.style,
 };
