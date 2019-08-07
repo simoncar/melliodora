@@ -92,7 +92,7 @@ class chat extends Component {
   });
 
   componentWillMount() {
-    if (this.props.userX.nickname) {
+    if (global.name.length > 0) {
     } else {
       this.noNickname();
       this.props.navigation.navigate("login");
