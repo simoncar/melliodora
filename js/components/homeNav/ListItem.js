@@ -18,7 +18,6 @@ class ListItem extends Component {
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const uri = this.props.item.item.photo1;
-    console.log(this.props.item.item.order);
     return (
       <View style={styles.newsContentLine}>
         <TouchableOpacity

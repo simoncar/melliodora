@@ -46,15 +46,14 @@ class Firebase {
                 console.log("No such document!");
               } else {
                 var docData = doc.data();
-                console.log("Document data:", docData.gradeNotify);
-                for (var i = -4; i < 13; i++) {
-                  if (docData.gradeNotify[i] != undefined && docData.gradeNotify[i] >= -4) {
-                    //grades.push(docData.gradeNotify[i]);
-                    console.log("loop=", docData.gradeNotify[i]);
+                if (_.isArray(docData.gradeNotify)) {
+                  for (var i = -4; i < 13; i++) {
+                    if (_.isNumber(docData.gradeNotify[i])) {
+                      console.log("loop=", docData.gradeNotify[i]);
+                    }
                   }
+                  AsyncStorage.setItem("gradeNotify", JSON.stringify(docData.gradeNotify));
                 }
-                console.log("json1=", JSON.stringify(docData.gradeNotify));
-                AsyncStorage.setItem("gradeNotify", JSON.stringify(docData.gradeNotify));
               }
             });
 

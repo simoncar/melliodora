@@ -8,6 +8,7 @@ import Firebase from "./js/lib/firebase";
 import Constants from "expo-constants";
 import Sentry from "sentry-expo";
 import { Updates } from "expo";
+import _ from "lodash";
 
 Sentry.config("https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405").install();
 
@@ -37,6 +38,12 @@ export default class App extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem("language").then(language => {
+      if (!_.isString(language)) {
+        console.log("NO LANGUAGE SET");
+        language = "en";
+        AsyncStorage.setItem("language", language);
+      }
+
       if (language === "ar") {
         I18nManager.forceRTL(true);
         if (!I18nManager.isRTL) {
@@ -50,6 +57,7 @@ export default class App extends Component {
       }
       I18n.locale = language;
       global.language = language;
+      console.log("GLOBAL LANGUAGE 1 = ", global.language);
     });
   }
 

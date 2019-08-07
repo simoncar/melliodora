@@ -5,8 +5,8 @@ import { ActionSheet, Container, Footer } from "native-base";
 
 import { GiftedChat, Bubble, SystemMessage, Time, Send } from "react-native-gifted-chat";
 import { SimpleLineIcons, MaterialIcons, Entypo } from "@expo/vector-icons";
-import { ImagePicker, Permissions } from "expo";
-
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
 import emojiUtils from "emoji-utils";
 import Constants from "expo-constants";
 import { bindActionCreators } from "redux";
