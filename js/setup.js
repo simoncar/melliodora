@@ -6,7 +6,8 @@ import App from "./App";
 import configureStore from "./configureStore";
 import variables from "../native-base-theme/variables/commonColor";
 import getTheme from "../native-base-theme/components";
-import { Font, AppLoading } from "expo";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 
 export default class Setup extends Component {
   constructor() {

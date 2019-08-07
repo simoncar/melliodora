@@ -3,7 +3,7 @@ import * as firebase from "firebase";
 
 import * as ImageManipulator from "expo-image-manipulator";
 import Constants from "expo-constants";
-
+import _ from "lodash";
 import uuid from "uuid";
 import { AsyncStorage } from "react-native";
 
@@ -61,7 +61,6 @@ export class Backend extends React.Component {
     try {
       const value = await AsyncStorage.getItem("language");
       if (value !== null) {
-        console.log(value);
         this.setState({ language: value });
       }
     } catch (error) {
@@ -79,19 +78,17 @@ export class Backend extends React.Component {
       .doc("chat")
       .collection("chatrooms")
       .doc(this.state.chatroom)
-      .collection("messages");
-
-    console.log("loading messages", this.state.chatroom);
+      .collection("messages")
+      .orderBy("timestamp");
 
     this.unsubscribe = this.ref.onSnapshot(messages => {
       messages.docChanges().forEach(change => {
         if (change.type === "added") {
           const message = change.doc.data();
-          console.log(message.textLanguage, language);
           if (message.textLanguage == language) {
             var mesageText = message.text;
             callback({
-              _id: message.id,
+              _id: change.doc.id,
 
               text: mesageText,
 
@@ -122,21 +119,19 @@ export class Backend extends React.Component {
       .collection("chatrooms")
       .doc(this.state.chatroom)
       .collection("messages")
+      .orderBy("timestamp")
       .where("translated", "==", true);
-
-    console.log("loading messages", this.state.chatroom);
 
     this.unsubscribe = this.ref.onSnapshot(messages => {
       messages.docChanges().forEach(change => {
         if (change.type === "added") {
           const message = change.doc.data();
-          console.log(message.textLanguage, language);
           if (message.textLanguage == language) {
             var mesageText = message.text;
           } else {
             var mesageText = this.getLanguageMessage(message, language);
             callback({
-              _id: message.id,
+              _id: change.doc.id,
 
               text: mesageText,
               textEN: message.textEN,
@@ -177,13 +172,16 @@ export class Backend extends React.Component {
     if (undefined === global.pushToken) {
       global.pushToken = "";
     }
+    if (!_.isString(language)) {
+      language = "en";
+    }
 
     for (let i = 0; i < message.length; i++) {
       if (undefined != message[i].image && message[i].image.length > 0) {
         var uploadUrl = uploadImageAsync(message[i], this.state.chatroom, message[i].user);
       } else {
         var messageDict = {
-          text: `${message[i].text}`,
+          text: message[i].text,
           textLanguage: language,
           chatroom: this.state.chatroom,
           user: message[i].user,
@@ -202,8 +200,6 @@ export class Backend extends React.Component {
           .collection("messages")
           .add(messageDict);
       }
-
-      console.log(messageDict);
     }
     if (global.pushToken.length > 0) {
       this.messageRef = firebase
@@ -267,8 +263,6 @@ async function uploadImageAsync(message, chatroom, user) {
   } else if (undefined == message.filename && message.playableDuration == 0) {
     message.filename = "image.JPG";
   }
-
-  console.log("fileType before uri=", message);
 
   var fileType = message.filename
     .split(".")
