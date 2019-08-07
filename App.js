@@ -59,6 +59,13 @@ export default class App extends Component {
       global.language = language;
       console.log("GLOBAL LANGUAGE 1 = ", global.language);
     });
+
+    AsyncStorage.getItem("email").then(email => {
+      global.email = _.isString(email) ? email : "";
+    });
+    AsyncStorage.getItem("name").then(name => {
+      global.name = _.isString(name) ? name : "";
+    });
   }
 
   render() {
