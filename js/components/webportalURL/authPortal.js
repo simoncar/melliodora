@@ -187,11 +187,11 @@ class authPortal extends Component {
     ) {
       //this.webref.injectJavaScript(jsCode);
       setTimeout(() => {
-        // var jsCode = "document.getElementById('username').value='" + global.email + "';true;";
-        var jsCode =
-          "document.getElementsByClassName('ff-login-personalised-background')[0].style.display = 'none';true;";
-
+        // var jsCode =
+        var jsCode = "document.getElementsByClassName('ff-login-personalised-background')[0].style.display = 'none';";
+        jsCode = jsCode + "document.getElementById('username').value='" + global.email + "';true;";
         this.webref.injectJavaScript(jsCode);
+        console.log(jsCode);
       }, 500);
     } else {
       var jsCodeNoLogo = "document.getElementById('userbar-react-component').style.display = 'none';";
