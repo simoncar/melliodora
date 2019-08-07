@@ -7,6 +7,7 @@ import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
+import _ from "lodash";
 
 @withMappedNavigationParams()
 class push extends Component {
@@ -50,7 +51,12 @@ class push extends Component {
   });
 
   componentWillMount() {
-    var initialText = this.state.eventTitle + "\n\n" + this.state.eventDescription;
+    var initialText = this.state.eventTitle;
+
+    if (_.isString(this.state.eventDescription)) {
+      initialText = initialText + "\n\n" + this.state.eventDescription;
+    }
+
     var initialDate = this.state.eventDate;
 
     this.setState({ initialText: initialText });
@@ -63,10 +69,7 @@ class push extends Component {
   }
 
   pushSend() {
-
-
-    var grades = this._getGrade()
-  
+    var grades = this._getGrade();
 
     var pushMessage = {
       from: "App",
@@ -77,7 +80,7 @@ class push extends Component {
       timestamp: Date.now(),
     };
 
-    console.log ("push =",pushMessage)
+    console.log("push =", pushMessage);
 
     var storyRef = firebase
       .firestore()
@@ -118,16 +121,15 @@ class push extends Component {
     this.setState({ [grade]: !this.state[grade] });
   }
 
-
   _getGrade() {
     var grades = [];
     for (var i = -4; i < 13; i++) {
-      console.log("loop=",i, this.state[i]);
+      console.log("loop=", i, this.state[i]);
       if (this.state[i] == true) {
         grades.push(i);
       }
     }
-    return grades
+    return grades;
   }
 
   render() {
