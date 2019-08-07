@@ -46,6 +46,21 @@ class Firebase {
                 console.log("No such document!");
               } else {
                 var docData = doc.data();
+
+                if (_.isString(docData.name)) {
+                  AsyncStorage.setItem("name", docData.name);
+                  global.name = docData.name;
+                } else {
+                  global.name = "";
+                }
+
+                if (_.isString(docData.email)) {
+                  AsyncStorage.setItem("email", docData.email);
+                  global.email = docData.email;
+                } else {
+                  global.email = "";
+                }
+
                 if (_.isArray(docData.gradeNotify)) {
                   for (var i = -4; i < 13; i++) {
                     if (_.isNumber(docData.gradeNotify[i])) {
