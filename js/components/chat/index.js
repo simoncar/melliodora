@@ -16,6 +16,7 @@ import CustomImage from "./customImage";
 import CustomVideo from "./customVideo";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
+import uuid from "uuid";
 
 import * as ActionCreators from "../../actions";
 
@@ -25,6 +26,8 @@ import SlackMessage from "./slackMessage";
 const tabBarIcon = name => ({ tintColor }) => (
   <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
+
+var localMessages = [];
 
 class chat extends Component {
   constructor(props) {
@@ -110,10 +113,29 @@ class chat extends Component {
     Backend.setChatroom(this.props.navigation.getParam("chatroom"));
     Backend.setMute(null);
     Backend.loadMessages(this.state.language, message => {
-      this.setState(previousState => ({
-        messages: GiftedChat.append(previousState.messages, message),
-      }));
+      if (!localMessages.includes(message._id)) {
+        this.setState(previousState => ({
+          messages: GiftedChat.append(previousState.messages, message),
+        }));
+      } else {
+        console.log("ignoring message");
+      }
     });
+  }
+
+  onSend(messages = []) {
+    //console.log("previousState.messages=", previousState.messages);
+    if (messages[0]._id == undefined) {
+      messages[0]._id = uuid.v4();
+    }
+
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }));
+
+    //console.log(messages);
+    localMessages.push(messages[0]._id);
+    Backend.SendMessage(messages);
   }
 
   getPermissionAsync = async () => {
@@ -171,14 +193,6 @@ class chat extends Component {
     }, 2000); // simulating network
   }
 
-  onSend(messages = []) {
-    // this.setState(previousState => ({
-    //   messages: GiftedChat.append(previousState.messages, messages),
-    // }));
-    console.log(messages);
-    Backend.SendMessage(messages);
-  }
-
   onReceive(text) {}
 
   renderCustomActions(props) {
@@ -194,7 +208,7 @@ class chat extends Component {
   _pickImage = async () => {
     var images = [];
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
     });
 
     if (!result.cancelled) {
@@ -411,7 +425,7 @@ class chat extends Component {
             }}
           >
             <View style={styles.topbar}>
-              <Text style={styles.chatBanner}>Translations by Google Translate</Text>
+              <Text style={styles.chatBanner}>{I18n.t("translationsGoogle")}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -419,9 +433,6 @@ class chat extends Component {
         <GiftedChat
           messages={this.state.messages}
           onSend={this.onSend}
-          // loadEarlier={this.state.loadEarlier}
-          // onLoadEarlier={this.onLoadEarlier}
-          // isLoadingEarlier={this.state.isLoadingEarlier}
           user={{
             _id: global.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
             name: global.name,
@@ -432,21 +443,14 @@ class chat extends Component {
           renderSystemMessage={this.renderSystemMessage}
           renderCustomView={this.renderCustomView}
           renderMessageImage={this.renderCustomImage}
-          // renderFooter={this.renderFooter}
-          // showAvatarForEveryMessage
-          // showUserAvatar
-          // parsePatterns={this.parsePatterns}
           renderMessageVideo={this.renderCustomVideo}
           renderBubble={this.renderBubble}
-          // renderAvatar={this.renderAvatar.bind(this)}
-          // renderTime={this.renderTime.bind(this)}
           showUserAvatar
-          // showAvatarForEveryMessage={true}
-          // minInputToolbarHeight={50}
           bottomOffset={0}
           onPressAvatar={this.avatarPress}
           alwaysShowSend={true}
           renderSend={this.renderSend}
+          placeholder={I18n.t("typeMessage")}
         />
 
         <Footer style={styles.footer} />

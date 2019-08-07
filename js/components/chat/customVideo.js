@@ -12,11 +12,12 @@ import {
   Modal,
   ImageBackground,
   Button,
-  CameraRoll
+  CameraRoll,
 } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 import ImageViewer from "react-native-image-zoom-viewer";
 import { Video } from "expo";
+import I18n from "../../lib/i18n";
 
 const { width } = Dimensions.get("window");
 
@@ -25,7 +26,7 @@ export default class CustomVideo extends React.Component {
     super(props);
     this.state = {
       modalVisible: false,
-      saveTitle: "Save"
+      saveTitle: I18n.t("save"),
     };
   }
 
@@ -39,21 +40,21 @@ export default class CustomVideo extends React.Component {
 
     CameraRoll.saveToCameraRoll(uri, "video");
 
-    this.setState({ saveTitle: "Saved" });
+    this.setState({ saveTitle: I18n.t("saved") });
   }
 
   render() {
     const preview = {
       uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const uri = this.props.currentMessage.video;
     const images = [
       {
         // Simplest usage.
         url: uri,
-        saveToLocalByLongPress: true
-      }
+        saveToLocalByLongPress: true,
+      },
     ];
 
     if (this.props.currentMessage.video) {
@@ -79,7 +80,7 @@ export default class CustomVideo extends React.Component {
                     fontSize: 20,
                     paddingLeft: 10,
                     paddingTop: 50,
-                    paddingBottom: 5
+                    paddingBottom: 5,
                   }}
                 >
                   {" "}
@@ -89,7 +90,7 @@ export default class CustomVideo extends React.Component {
 
               <Video
                 source={{
-                  uri: uri
+                  uri: uri,
                 }}
                 rate={1.0}
                 volume={1.0}
@@ -101,7 +102,7 @@ export default class CustomVideo extends React.Component {
                   justifyContent: "center",
                   alignItems: "center",
                   width: null,
-                  height: null
+                  height: null,
                 }}
               />
             </Modal>
@@ -110,7 +111,7 @@ export default class CustomVideo extends React.Component {
               style={{
                 flexDirection: "column",
                 justifyContent: "center",
-                alignItems: "center"
+                alignItems: "center",
               }}
               {...{ preview, uri }}
               resizeMode={"contain"}
@@ -118,12 +119,12 @@ export default class CustomVideo extends React.Component {
               <View
                 style={{
                   justifyContent: "center",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
               >
                 <Video
                   source={{
-                    uri: uri
+                    uri: uri,
                   }}
                   rate={1.0}
                   volume={1.0}
@@ -146,18 +147,18 @@ const styles = StyleSheet.create({
     width: 150,
     height: 100,
     borderRadius: 13,
-    margin: 3
-  }
+    margin: 3,
+  },
 });
 
 CustomVideo.defaultProps = {
   currentMessage: {},
   containerStyle: {},
-  mapViewStyle: {}
+  mapViewStyle: {},
 };
 
 CustomVideo.propTypes = {
   currentMessage: PropTypes.object,
   containerStyle: ViewPropTypes.style,
-  mapViewStyle: ViewPropTypes.style
+  mapViewStyle: ViewPropTypes.style,
 };

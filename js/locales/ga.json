@@ -21,9 +21,17 @@
 	"typeMessage": "Clóscríobh teachtaireacht",
 	"photos": "Grianghraif",
 	"save": "Sábháil",
+	"saved": "Sábháil",
+	"message": "Teachtaireacht",
+	"send": "Seol",
+	"edit": "Athraigh",
+	"delete": "Scrios",
 	"mute": "Mute",
+	"logs": "Logchomhaid",
 	"unmute": "Neamhchinnte",
 	"contact": "Teagmháil",
 	"shop": "Siopa",
-	"pta": "Cumann Tuismitheoirí agus Múinteoirí"
+	"translationsGoogle": "Google Translate",
+	"pta": "Cumann Tuismitheoirí agus Múinteoirí",
+	"languageChangeWarning": "Atosóidh an feidhmchlár tar éis teanga nua a roghnú"
 }

@@ -21,9 +21,17 @@
 	"typeMessage": "Ketik pesan",
 	"photos": "Foto",
 	"save": "Menyimpan",
+	"saved": "Disimpan",
+	"message": "Pesan",
+	"send": "Kirim",
+	"edit": "Edit",
+	"delete": "Menghapus",
 	"mute": "Bisu",
+	"logs": "Log",
 	"unmute": "Suarakan",
 	"contact": "Kontak",
 	"shop": "Toko",
-	"pta": "Asosiasi Orangtua Guru"
+	"translationsGoogle": "penerjemah Google",
+	"pta": "Asosiasi Orangtua Guru",
+	"languageChangeWarning": "Aplikasi akan dimulai ulang setelah memilih bahasa baru"
 }

@@ -137,8 +137,6 @@ export class Backend extends React.Component {
       language = "en";
     }
 
-    console.log("sendmessage=", message);
-
     for (let i = 0; i < message.length; i++) {
       if (undefined != message[i].image && message[i].image.length > 0) {
         var uploadUrl = uploadImageAsync(message[i], this.state.chatroom, message[i].user);
@@ -310,6 +308,7 @@ async function uploadImageAsync(message, chatroom, user) {
   console.log("----------= file type - ", fileType);
   if (fileType == "JPG" || fileType == "HEIC" || fileType == "PNG") {
     var messageDict = {
+      _id: message._id,
       translated: true,
       image: URLfile,
       chatroom: chatroom,
@@ -320,6 +319,7 @@ async function uploadImageAsync(message, chatroom, user) {
     };
   } else {
     var messageDict = {
+      _id: message._id,
       translated: true,
       video: URLfile,
       chatroom: chatroom,
@@ -329,6 +329,8 @@ async function uploadImageAsync(message, chatroom, user) {
       pushToken: global.pushToken,
     };
   }
+  console.log("messageDict=", messageDict);
+
   firebase
     .firestore()
     .collection("sais_edu_sg")

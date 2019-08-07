@@ -21,9 +21,17 @@
 	"typeMessage": "Gõ một tin nhắn",
 	"photos": "Hình ảnh",
 	"save": "Tiết kiệm",
+	"saved": "Đã lưu",
+	"message": "Thông điệp",
+	"send": "Gửi",
+	"edit": "Chỉnh sửa",
+	"delete": "Xóa bỏ",
 	"mute": "Tắt tiếng",
+	"logs": "Nhật ký",
 	"unmute": "Bật tiếng",
 	"contact": "Tiếp xúc",
 	"shop": "cửa tiệm",
-	"pta": "Hội phụ huynh"
+	"translationsGoogle": "Google dịch",
+	"pta": "Hội phụ huynh",
+	"languageChangeWarning": "Ứng dụng sẽ khởi động lại sau khi chọn ngôn ngữ mới"
 }

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Linking, Platform, StyleSheet, TouchableOpacity, ViewPropTypes, Text } from "react-native";
 import { MapView } from "expo";
+import I18n from "../../lib/i18n";
 
 export default class CustomView extends React.Component {
   render() {

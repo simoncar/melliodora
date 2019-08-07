@@ -18,9 +18,10 @@
   "adminAccess": "Admin Access",
   "studentLookup": "Student Lookup",
   "version": "Version",
-  "typeMessage": "Type a message",
+  "typeMessage": "Type a message...",
   "photos": "Photos",
   "save": "Save",
+  "saved": "Saved",
   "message": "Message",
   "send": "Send",
   "edit": "Edit",
@@ -30,6 +31,7 @@
   "unmute": "Unmute",
   "contact": "Contact",
   "shop": "Shop",
+  "translationsGoogle": "Google Translate",
   "pta": "Parent Teacher Association",
   "languageChangeWarning": "App will restart after selecting a new language"
 }
