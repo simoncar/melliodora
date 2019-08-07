@@ -76,7 +76,45 @@ exports.translateFirestoreChat = functions.firestore
     return Promise.all(promises);
   });
 
-exports.ChatroomsNotifications_PushMessage = functions.database
+function sendNotifications(messageItem, chatroom) {
+  //lookup all the people that need to be notified
+  this.ref = admin
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("chat")
+    .collection("chatrooms")
+    .doc(chatroom)
+    .collection("notifications")
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log("No notifications");
+        return;
+      }
+      snapshot.forEach(doc => {
+        userItem = docUser.data();
+        var dataDict = {
+          pushToken: userItem.id,
+          text: messageItem.text,
+          from: messageItem.chatroom,
+          timestamp: Date.now(),
+        };
+
+        let queueItem = admin
+          .firestore()
+          .collection("sais_edu_sg")
+          .doc("push")
+          .collection("queue")
+          .add(dataDict);
+      });
+    })
+    .catch(err => {
+      console.log("Error getting documents", err);
+    });
+  //put a message in the queue for each person
+}
+
+exports.ChatroomsNotifications_PushMessage = functions.firestore
   .document("sais_edu_sg//chat/chatroom/{chatroomID}/messages/{newMessageID}")
   .onCreate((snap, context) => {
     const createdData = snap.val();

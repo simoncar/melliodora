@@ -52,12 +52,6 @@ class App extends Component {
   render() {
     if (undefined != global.loggedLoginAnalytics) {
       if (global.loggedLoginAnalytics == 1) {
-        if (this.props.userX.name.length > 0) {
-          var username = this.props.userX.name;
-        } else {
-          var username = "no username";
-        }
-
         const trackingOpts = {
           instId: instID,
           emailOrUsername: username,
@@ -65,8 +59,6 @@ class App extends Component {
 
         Analytics.identify(username, trackingOpts);
         Analytics.track(Analytics.events.APP_STARTED, trackingOpts);
-        global.username = username;
-
         global.loggedLoginAnalytics = 2;
         console.log("GLOBAL LANGUAGE 1 = ", global.language);
       }
