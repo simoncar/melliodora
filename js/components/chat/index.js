@@ -172,6 +172,10 @@ class chat extends Component {
   }
 
   onSend(messages = []) {
+    // this.setState(previousState => ({
+    //   messages: GiftedChat.append(previousState.messages, messages),
+    // }));
+    console.log(messages);
     Backend.SendMessage(messages);
   }
 
@@ -200,7 +204,7 @@ class chat extends Component {
         image: result.uri,
         filename: result.uri,
         user: {
-          _id: Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+          _id: global.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
           name: this.props.userX.nickname,
         },
       };
@@ -419,8 +423,9 @@ class chat extends Component {
           // onLoadEarlier={this.onLoadEarlier}
           // isLoadingEarlier={this.state.isLoadingEarlier}
           user={{
-            _id: Constants.installationId, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-            name: this.props.userX.nickname,
+            _id: global.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+            name: global.name,
+            email: global.email,
             // avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
           }}
           renderActions={this.renderCustomActions}
@@ -437,7 +442,6 @@ class chat extends Component {
           // renderTime={this.renderTime.bind(this)}
           showUserAvatar
           // showAvatarForEveryMessage={true}
-          chatId={this.chatId}
           // minInputToolbarHeight={50}
           bottomOffset={0}
           onPressAvatar={this.avatarPress}

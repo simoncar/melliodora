@@ -4,6 +4,9 @@ const fetch = require("node-fetch");
 const { Translate } = require("@google-cloud/translate");
 const computeCounts = require("./computeCounts.js");
 const _ = require("lodash");
+const cors = require("cors")({
+  origin: true,
+});
 
 admin.initializeApp();
 
@@ -71,93 +74,76 @@ exports.translateFirestoreChat = functions.firestore
         .set(messageDict, { merge: true });
     }
 
-    sendNotifications(messageDict, chatroom);
+    //sendNotifications(messageDict, chatroom);
+
+    let ref = admin
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("chat")
+      .collection("chatrooms")
+      .doc(chatroom)
+      .collection("notifications")
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log("No notifications");
+          return;
+        }
+        snapshot.forEach(doc => {
+          userItem = doc.data();
+
+          var messageInLanguage = getMessageInLanguage(messageDict, userItem.language);
+
+          var dataDict = {
+            pushToken: doc.id,
+            text: messageInLanguage,
+            from: chatroom,
+            timestamp: Date.now(),
+            sent: false,
+          };
+
+          let queueItem = admin
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("push")
+            .collection("queue")
+            .add(dataDict);
+        });
+      })
+      .catch(err => {
+        console.log("Error getting documents", err);
+      });
 
     return Promise.all(promises);
   });
 
-function sendNotifications(messageItem, chatroom) {
-  //lookup all the people that need to be notified
-  this.ref = admin
-    .firestore()
-    .collection("sais_edu_sg")
-    .doc("chat")
-    .collection("chatrooms")
-    .doc(chatroom)
-    .collection("notifications")
-    .get()
-    .then(snapshot => {
-      if (snapshot.empty) {
-        console.log("No notifications");
-        return;
-      }
-      snapshot.forEach(doc => {
-        userItem = docUser.data();
-        var dataDict = {
-          pushToken: userItem.id,
-          text: messageItem.text,
-          from: messageItem.chatroom,
-          timestamp: Date.now(),
-        };
-
-        let queueItem = admin
-          .firestore()
-          .collection("sais_edu_sg")
-          .doc("push")
-          .collection("queue")
-          .add(dataDict);
-      });
-    })
-    .catch(err => {
-      console.log("Error getting documents", err);
-    });
-  //put a message in the queue for each person
+function getMessageInLanguage(message, language) {
+  switch (language) {
+    case "fr":
+      return message.textFR;
+      break;
+    case "ko":
+      return message.textKO;
+      break;
+    case "zh":
+      return message.textZH;
+      break;
+    case "es":
+      return message.textES;
+      break;
+    case "ja":
+      return message.textJA;
+      break;
+    default:
+      return message.textEN;
+  }
 }
-
-exports.ChatroomsNotifications_PushMessage = functions.firestore
-  .document("sais_edu_sg//chat/chatroom/{chatroomID}/messages/{newMessageID}")
-  .onCreate((snap, context) => {
-    const createdData = snap.val();
-    const messages = [];
-
-    const query = admin.database().ref(`instance/0001-sais_edu_sg/chat/chatroom/${createdData.chatroom}/notifications`);
-    query.on("value", snap => {
-      snap.forEach(child => {
-        const { key } = child; // "ada"
-        const childData = child.val();
-
-        // simon iPhone
-        messages.push({
-          to: childData.pushToken,
-          title: createdData.chatroom,
-          sound: "default",
-          body: createdData.text,
-        });
-      });
-    });
-
-    // return the main promise
-    return Promise.all(messages)
-
-      .then(messages => {
-        fetch("https://exp.host/--/api/v2/push/send", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(messages),
-        });
-      })
-      .catch(reason => {
-        console.log(reason);
-      });
-  });
 
 // firebase deploy --only functions:sendPushNotificationFromQueue
 exports.sendPushNotificationFromQueue = functions.firestore
   .document("sais_edu_sg/push/queue/{messageID}")
   .onCreate((snap, context) => {
+    const id = snap.id;
     const createdData = snap.data();
     var messages = [];
     var token = createdData.pushToken;
@@ -166,11 +152,20 @@ exports.sendPushNotificationFromQueue = functions.firestore
 
     messages.push({
       to: realToken,
-      title: "PTA Message",
+      title: createdData.from,
       sound: "default",
       body: createdData.text,
     });
-    console.log("Send Push > ", realToken, createdData.text);
+    console.log("Send Push 4 > ", realToken, createdData.text, id);
+
+    admin
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("push")
+      .collection("queue")
+      .doc(id)
+      .set({ sent: true }, { merge: true });
+
     return Promise.all(messages)
       .then(messages => {
         fetch("https://exp.host/--/api/v2/push/send", {
@@ -181,15 +176,6 @@ exports.sendPushNotificationFromQueue = functions.firestore
           },
           body: JSON.stringify(messages),
         });
-
-        this.messageRef = admin
-          .firestore()
-          .collection("sais_edu_sg")
-          .doc("push")
-          .collection("queue")
-          .doc(this.state.chatroom)
-          .collection(snap.id)
-          .set({ state: "sent" }, { merge: true });
       })
       .catch(reason => {
         console.log(reason);
