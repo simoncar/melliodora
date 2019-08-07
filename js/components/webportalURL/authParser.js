@@ -1,4 +1,5 @@
 import React from "react";
+import { AsyncStorage } from "react-native";
 import * as firebase from "firebase";
 import _ from "lodash";
 
@@ -44,6 +45,8 @@ export class AuthParser extends React.Component {
         .doc(global.uid)
         .set(userDict, { merge: true });
     }
+    AsyncStorage.setItem("name", name);
+    AsyncStorage.setItem("email", email);
 
     console.log("Saving details: ", global.uid, name, email);
   }

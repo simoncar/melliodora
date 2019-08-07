@@ -29,7 +29,7 @@ class Anchor extends React.Component {
 export default class Contact extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerBackTitle: null,
-    title: "Contacts"
+    title: "Contacts",
   });
 
   constructor(props) {
@@ -37,9 +37,9 @@ export default class Contact extends Component {
     this.state = {
       offset: {
         x: 0,
-        y: 0
+        y: 0,
       },
-      updateFirebaseText: ""
+      updateFirebaseText: "",
     };
   }
 
@@ -71,21 +71,12 @@ export default class Contact extends Component {
             <Grid>
               <Row style={{ paddingTop: 20 }}>
                 <Col style={{ width: 80 }}>
-                  <Button
-                    transparent
-                    style={styles.roundedButton}
-                    onPress={() => this._call()}
-                  >
-                    <Ionicons
-                      name="ios-call"
-                      style={{ fontSize: 30, width: 30, color: "#FFF" }}
-                    />
+                  <Button transparent style={styles.roundedButton} onPress={() => this._call()}>
+                    <Ionicons name="ios-call" style={{ fontSize: 30, width: 30, color: "#FFF" }} />
                   </Button>
                 </Col>
                 <Col>
-                  <Text style={styles.feedbackHeader}>
-                    Call Parent Helpdesk
-                  </Text>
+                  <Text style={styles.feedbackHeader}>Call Parent Helpdesk</Text>
                   <Text style={styles.feedbackHead}>{global.switch_call}</Text>
                 </Col>
               </Row>
@@ -96,172 +87,96 @@ export default class Contact extends Component {
                     style={styles.roundedButton}
                     onPress={() => this._email(global.switch_contactEmail)}
                   >
-                    <Ionicons
-                      name="ios-mail"
-                      style={{ fontSize: 30, width: 30, color: "#FFF" }}
-                    />
+                    <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: "#FFF" }} />
                   </Button>
                 </Col>
                 <Col>
                   <Text style={styles.feedbackHeader}>Email</Text>
                   <Text style={styles.feedbackHead} />
-                  <Anchor
-                    href="mailto:help@sais.edu.sg"
-                    title={global.switch_contactEmail}
-                  />
+                  <Anchor href="mailto:help@sais.edu.sg" title={global.switch_contactEmail} />
                 </Col>
               </Row>
 
               <Row style={{ paddingTop: 20 }}>
                 <Col style={{ width: 80 }}>
                   <Button transparent style={styles.roundedButton}>
-                    <Ionicons
-                      name="ios-pin"
-                      style={{ fontSize: 30, width: 30, color: "#FFF" }}
-                    />
+                    <Ionicons name="ios-pin" style={{ fontSize: 30, width: 30, color: "#FFF" }} />
                   </Button>
                 </Col>
                 <Col>
                   <Text style={styles.feedbackHeader}>Visit</Text>
-                  <Text style={styles.feedbackHead}>
-                    {global.switch_address}
-                  </Text>
+                  <Text style={styles.feedbackHead}>{global.switch_address}</Text>
                 </Col>
               </Row>
 
               <Row style={{ paddingTop: 20 }}>
                 <Col style={{ width: 80 }}>
                   <Button transparent style={styles.roundedButton}>
-                    <Ionicons
-                      name="ios-mail"
-                      style={{ fontSize: 30, width: 30, color: "#FFF" }}
-                    />
+                    <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: "#FFF" }} />
                   </Button>
                 </Col>
                 <Col>
-                  <Text style={styles.feedbackHeader}>
-                    Early Years School Office
-                  </Text>
+                  <Text style={styles.feedbackHeader}>Early Years School Office</Text>
                   <Text style={styles.feedbackHead}>(Pre-N - KG1)</Text>
                   <Text style={styles.feedbackHead}>+65 6602 7258 </Text>
-                  <Anchor
-                    href="mailto:earlyyears@sais.edu.sg"
-                    title="earlyyears@sais.edu.sg"
-                  />
+                  <Anchor href="mailto:earlyyears@sais.edu.sg" title="earlyyears@sais.edu.sg" />
                 </Col>
               </Row>
 
               <Row style={{ paddingTop: 20 }}>
                 <Col style={{ width: 80 }}>
                   <Button transparent style={styles.roundedButton}>
-                    <Ionicons
-                      name="ios-mail"
-                      style={{ fontSize: 30, width: 30, color: "#FFF" }}
-                    />
+                    <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: "#FFF" }} />
                   </Button>
                 </Col>
                 <Col>
-                  <Text style={styles.feedbackHeader}>
-                    Lower Elementary School Office
-                  </Text>
+                  <Text style={styles.feedbackHeader}>Lower Elementary School Office</Text>
                   <Text style={styles.feedbackHead}>(KG2 - Grade 2)</Text>
                   <Text style={styles.feedbackHead}>+65 6602 4195</Text>
-                  <Anchor
-                    href="mailto:lowerelementary@sais.edu.sg"
-                    title="lowerelementary@sais.edu.sg"
-                  />
+                  <Anchor href="mailto:lowerelementary@sais.edu.sg" title="lowerelementary@sais.edu.sg" />
                 </Col>
               </Row>
 
               <Row style={{ paddingTop: 20 }}>
                 <Col style={{ width: 80 }}>
                   <Button transparent style={styles.roundedButton}>
-                    <Ionicons
-                      name="ios-mail"
-                      style={{ fontSize: 30, width: 30, color: "#FFF" }}
-                    />
+                    <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: "#FFF" }} />
                   </Button>
                 </Col>
                 <Col>
-                  <Text style={styles.feedbackHeader}>
-                    Upper Elementary School Office
-                  </Text>
+                  <Text style={styles.feedbackHeader}>Upper Elementary School Office</Text>
                   <Text style={styles.feedbackHead}>(Grade 3 - Grade 5)</Text>
                   <Text style={styles.feedbackHead}>+65 6709 4811 </Text>
-                  <Anchor
-                    href="mailto:upperelementary@sais.edu.sg"
-                    title="upperelementary@sais.edu.sg"
-                  />
+                  <Anchor href="mailto:upperelementary@sais.edu.sg" title="upperelementary@sais.edu.sg" />
                 </Col>
               </Row>
 
               <Row style={{ paddingTop: 20 }}>
                 <Col style={{ width: 80 }}>
                   <Button transparent style={styles.roundedButton}>
-                    <Ionicons
-                      name="ios-mail"
-                      style={{ fontSize: 30, width: 30, color: "#FFF" }}
-                    />
+                    <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: "#FFF" }} />
                   </Button>
                 </Col>
                 <Col>
-                  <Text style={styles.feedbackHeader}>
-                    Middle School Office
-                  </Text>
+                  <Text style={styles.feedbackHeader}>Middle School Office</Text>
                   <Text style={styles.feedbackHead}>(Grade 6 - Grade 8)</Text>
                   <Text style={styles.feedbackHead}>+65 6602 7181</Text>
-                  <Anchor
-                    href="mailto:middleschool@sais.edu.sg"
-                    title="middleschool@sais.edu.sg"
-                  />
+                  <Anchor href="mailto:middleschool@sais.edu.sg" title="middleschool@sais.edu.sg" />
                 </Col>
               </Row>
 
               <Row style={{ paddingTop: 20 }}>
                 <Col style={{ width: 80 }}>
                   <Button transparent style={styles.roundedButton}>
-                    <Ionicons
-                      name="ios-mail"
-                      style={{ fontSize: 30, width: 30, color: "#FFF" }}
-                    />
+                    <Ionicons name="ios-mail" style={{ fontSize: 30, width: 30, color: "#FFF" }} />
                   </Button>
                 </Col>
                 <Col>
                   <Text style={styles.feedbackHeader}>High School Office</Text>
                   <Text style={styles.feedbackHead}>(Grade 9 - Grade 12)</Text>
                   <Text style={styles.feedbackHead}>+65 6602 7262</Text>
-                  <Anchor
-                    href="mailto:highschool@sais.edu.sg"
-                    title="highschool@sais.edu.sg"
-                  />
+                  <Anchor href="mailto:highschool@sais.edu.sg" title="highschool@sais.edu.sg" />
                 </Col>
-              </Row>
-
-              <Row style={{ paddingTop: 400 }}>
-                <Col style={{ width: 80 }}>
-                  <Button
-                    transparent
-                    style={styles.roundedButton}
-                    onPress={() => this.props.navigation.navigate("settings")}
-                  >
-                    <Ionicons
-                      name="ios-cog"
-                      style={{ fontSize: 30, width: 30, color: "#FFF" }}
-                    />
-                  </Button>
-                </Col>
-
-                {Constants.manifest.extra.instance == "0001-sais_edu_sg" && (
-                  <Col>
-                    <Text style={styles.feedbackHeader}>Settings</Text>
-                    <Text style={styles.feedbackHead}>NOTE, Experimental</Text>
-                    <Text style={styles.feedbackHead}>
-                      These are not acitve
-                    </Text>
-                    <Text style={styles.feedbackHead} />
-                    <Text style={styles.feedbackHead} />
-                  </Col>
-                )}
               </Row>
             </Grid>
           </View>
