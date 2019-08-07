@@ -24,7 +24,6 @@ const tabBarIcon = name => ({ tintColor }) => (
 class authPortal extends Component {
   constructor(props) {
     super(props);
-    DEFAULT_URL = global.switch_portalURL;
     DEFAULT_URL = "https://mystamford.edu.sg/parent-dashboard";
   }
 
@@ -54,7 +53,6 @@ class authPortal extends Component {
   }
 
   _onOpenActionSheet = () => {
-    // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
     const options = ["Home", "Cafe Top-Up", "Events", "Forms", "PTA", "Cancel"];
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 5;
@@ -66,18 +64,12 @@ class authPortal extends Component {
         destructiveButtonIndex,
       },
       buttonIndex => {
-        // Do something here depending on the button index selected
-
-        console.log(buttonIndex);
         switch (buttonIndex) {
           case 0:
             this.setState({ url: "https://mystamford.edu.sg/parent-dashboard" });
             break;
           case 1:
             this.setState({ url: "https://mystamford.edu.sg/cafe/cafe-online-ordering" });
-            //
-            //https://campusonline.mystamford.edu.sg/e-account/vcardbalances.asp
-            // document.getElementById('{ID of element}').innerHTML = '{content}';
             break;
           case 2:
             this.setState({ url: "https://mystamford.edu.sg/events-1" });
@@ -123,6 +115,17 @@ class authPortal extends Component {
     if (navState.url == "https://mystamford.edu.sg/logout.aspx") {
       this.props.setauthSecret("");
       console.log("PROCESS LOGOUT - CLEAR SECRET");
+    }
+
+    if (
+      navState.url ==
+      "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fparent-dashboard"
+    ) {
+      this.setState({
+        url:
+          "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fparent-dashboard&kr=iSAMS:ParentPP",
+      });
+      console.log("Overrule Login", global.email);
     }
 
     var string = navState.url;
@@ -178,13 +181,27 @@ class authPortal extends Component {
   }
 
   _onLoadEnd() {
-    var jsCodeNoLogo = "document.getElementById('userbar-react-component').style.display = 'none';";
-    jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('school-logo')[0].style.display = 'none';";
-    jsCodeNoLogo = jsCodeNoLogo + "document.getElementById('school-header').style.margin = '0px';";
-    jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('search-container')[0].style.display = 'none';";
-    setTimeout(() => {
-      this.webref.injectJavaScript(jsCodeNoLogo);
-    }, 500);
+    if (
+      this.state.url ==
+      "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fparent-dashboard&kr=iSAMS:ParentPP"
+    ) {
+      //this.webref.injectJavaScript(jsCode);
+      setTimeout(() => {
+        // var jsCode = "document.getElementById('username').value='" + global.email + "';true;";
+        var jsCode =
+          "document.getElementsByClassName('ff-login-personalised-background')[0].style.display = 'none';true;";
+
+        this.webref.injectJavaScript(jsCode);
+      }, 500);
+    } else {
+      var jsCodeNoLogo = "document.getElementById('userbar-react-component').style.display = 'none';";
+      jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('school-logo')[0].style.display = 'none';";
+      jsCodeNoLogo = jsCodeNoLogo + "document.getElementById('school-header').style.margin = '0px';";
+      jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('search-container')[0].style.display = 'none';";
+      setTimeout(() => {
+        this.webref.injectJavaScript(jsCodeNoLogo);
+      }, 500);
+    }
   }
 
   render() {
