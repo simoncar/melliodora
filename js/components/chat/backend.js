@@ -78,44 +78,6 @@ export class Backend extends React.Component {
       .collection("chatrooms")
       .doc(this.state.chatroom)
       .collection("messages")
-      .orderBy("timestamp");
-
-    this.unsubscribe = this.ref.onSnapshot(messages => {
-      messages.docChanges().forEach(change => {
-        if (change.type === "added") {
-          const message = change.doc.data();
-          if (message.textLanguage == language) {
-            var mesageText = message.text;
-            callback({
-              _id: change.doc.id,
-              text: mesageText,
-              detectedSourceLanguage: message.detectedSourceLanguage,
-              timestamp: new Date(message.timestamp),
-              chatroom: this.state.chatroom,
-              user: {
-                _id: message.user._id,
-                name: message.user.name,
-              },
-              uid: message.uid,
-              image: message.image,
-              video: message.video,
-              system: message.system,
-              quickReplies: message.quickReplies,
-            });
-          } else {
-            var mesageText = this.getLanguageMessage(message, language);
-          }
-        }
-      });
-    });
-
-    this.ref = firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("chat")
-      .collection("chatrooms")
-      .doc(this.state.chatroom)
-      .collection("messages")
       .orderBy("timestamp")
       .where("translated", "==", true);
 
@@ -127,31 +89,33 @@ export class Backend extends React.Component {
             var mesageText = message.text;
           } else {
             var mesageText = this.getLanguageMessage(message, language);
-            callback({
-              _id: change.doc.id,
-
-              text: mesageText,
-              textEN: message.textEN,
-              textFR: message.textFR,
-              textJA: message.textJA,
-              textKO: message.textKO,
-              textZH: message.textZH,
-              textES: message.textES,
-
-              detectedSourceLanguage: message.detectedSourceLanguage,
-              timestamp: new Date(message.timestamp),
-              chatroom: this.state.chatroom,
-              user: {
-                _id: message.user._id,
-                name: message.user.name,
-              },
-              uid: message.uid,
-              image: message.image,
-              video: message.video,
-              system: message.system,
-              quickReplies: message.quickReplies,
-            });
           }
+          callback({
+            _id: message._id,
+
+            text: mesageText,
+            textEN: message.textEN,
+            textFR: message.textFR,
+            textJA: message.textJA,
+            textKO: message.textKO,
+            textZH: message.textZH,
+            textES: message.textES,
+
+            detectedSourceLanguage: message.detectedSourceLanguage,
+            createdAt: new Date(message.timestamp),
+            timestamp: new Date(message.timestamp),
+            chatroom: this.state.chatroom,
+            user: {
+              _id: message.user._id,
+              name: message.user.name,
+              email: message.user.email,
+            },
+            uid: message.uid,
+            image: message.image,
+            video: message.video,
+            system: message.system,
+            quickReplies: message.quickReplies,
+          });
         }
       });
     });
@@ -173,11 +137,14 @@ export class Backend extends React.Component {
       language = "en";
     }
 
+    console.log("sendmessage=", message);
+
     for (let i = 0; i < message.length; i++) {
       if (undefined != message[i].image && message[i].image.length > 0) {
         var uploadUrl = uploadImageAsync(message[i], this.state.chatroom, message[i].user);
       } else {
         var messageDict = {
+          _id: message[i]._id,
           text: message[i].text,
           textLanguage: language,
           chatroom: this.state.chatroom,

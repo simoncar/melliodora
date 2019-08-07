@@ -61,6 +61,8 @@ class Firebase {
                   global.email = "";
                 }
 
+                console.log("GLOBAL EMAIL - ", global.email);
+
                 if (_.isArray(docData.gradeNotify)) {
                   for (var i = -4; i < 13; i++) {
                     if (_.isNumber(docData.gradeNotify[i])) {

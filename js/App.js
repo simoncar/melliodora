@@ -54,10 +54,8 @@ class App extends Component {
       if (global.loggedLoginAnalytics == 1) {
         const trackingOpts = {
           instId: instID,
-          emailOrUsername: username,
         };
 
-        Analytics.identify(username, trackingOpts);
         Analytics.track(Analytics.events.APP_STARTED, trackingOpts);
         global.loggedLoginAnalytics = 2;
         console.log("GLOBAL LANGUAGE 1 = ", global.language);
