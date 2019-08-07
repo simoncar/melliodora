@@ -108,7 +108,7 @@ class chat extends Component {
 
     // Backend.setLanguage(this.props.userX.language);
     Backend.setChatroom(this.props.navigation.getParam("chatroom"));
-
+    Backend.setMute(null);
     Backend.loadMessages(this.state.language, message => {
       this.setState(previousState => ({
         messages: GiftedChat.append(previousState.messages, message),

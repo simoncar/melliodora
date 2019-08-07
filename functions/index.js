@@ -3,6 +3,7 @@ const admin = require("firebase-admin");
 const fetch = require("node-fetch");
 const { Translate } = require("@google-cloud/translate");
 const computeCounts = require("./computeCounts.js");
+const _ = require("lodash");
 
 admin.initializeApp();
 
@@ -29,143 +30,54 @@ exports.translateFirestoreChat = functions.firestore
   .document("sais_edu_sg/chat/chatrooms/{chatroom}/messages/{messageID}")
   .onCreate(async (snap, context) => {
     const promises = [];
-
     const id = snap.id;
     const message = snap.data().text;
     const chatroom = snap.data().chatroom;
-    const messageID = snap.data().messageID;
 
-    var resultsJA = await translateX.translate(message, { to: "ja" });
-    var resultsZH = await translateX.translate(message, { to: "zh-CN" });
-    var resultsKO = await translateX.translate(message, { to: "ko" });
-    var resultsFR = await translateX.translate(message, { to: "fr" });
-    var resultsES = await translateX.translate(message, { to: "es" });
+    if (_.isString(message)) {
+      var resultsJA = await translateX.translate(message, { to: "ja" });
+      var resultsZH = await translateX.translate(message, { to: "zh-CN" });
+      var resultsKO = await translateX.translate(message, { to: "ko" });
+      var resultsFR = await translateX.translate(message, { to: "fr" });
+      var resultsES = await translateX.translate(message, { to: "es" });
 
-    var detectedSourceLanguage = resultsJA[1].data.translations[0].detectedSourceLanguage;
+      var detectedSourceLanguage = resultsJA[1].data.translations[0].detectedSourceLanguage;
 
-    if (detectedSourceLanguage != "en") {
-      var resultsEN = await translateX.translate(message, { to: "en" });
-    } else {
-      var resultsEN = [message];
+      if (detectedSourceLanguage != "en") {
+        var resultsEN = await translateX.translate(message, { to: "en" });
+      } else {
+        var resultsEN = [message];
+      }
+
+      var messageDict = {
+        textJA: resultsJA[0],
+        textZH: resultsZH[0],
+        textKO: resultsKO[0],
+        textFR: resultsFR[0],
+        textEN: resultsEN[0],
+        textES: resultsES[0],
+        detectedSourceLanguage: detectedSourceLanguage,
+        translated: true,
+      };
+
+      admin
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("chat")
+        .collection("chatrooms")
+        .doc(chatroom)
+        .collection("messages")
+        .doc(id)
+        .set(messageDict, { merge: true });
     }
 
-    var messageDict = {
-      textJA: resultsJA[0],
-      textZH: resultsZH[0],
-      textKO: resultsKO[0],
-      textFR: resultsFR[0],
-      textEN: resultsEN[0],
-      textES: resultsES[0],
-      detectedSourceLanguage: detectedSourceLanguage,
-      translated: true,
-    };
-
-    console.log(messageDict);
-
-    admin
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("chat")
-      .collection("chatrooms")
-      .doc(chatroom)
-      .collection("messages")
-      .doc(id)
-      .set(messageDict, { merge: true });
-
-    // var results = await translateX.translate(message, { to: "zh-CN" });
-    // admin
-    //   .database()
-    //   .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
-    //   .update({ textZHCN: results[0] });
-
-    // var results = await translateX.translate(message, { to: "" });
-    // admin
-    //   .database()
-    //   .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
-    //   .update({ textKO: results[0] });
-
-    // var results = await translateX.translate(message, { to: "" });
-    // admin
-    //   .database()
-    //   .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
-    //   .update({ textFR: results[0] });
-
-    // var results = await translateX.translate(message, { to: "" });
-    // admin
-    //   .database()
-    //   .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
-    //   .update({ textEN: results[0], approved: true });
-
-    // var results = await translateX.translate(message, { to: "" });
-    // admin
-    //   .database()
-    //   .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
-    //   .update({ textES: results[0], approved: true });
+    sendNotifications(messageDict, chatroom);
 
     return Promise.all(promises);
   });
 
-exports.translate = functions.database
-  .ref("instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/{messageID}")
-  .onWrite(async (change, context) => {
-    const snapshot = change.after;
-    const promises = [];
-    const messageID = context.params.messageID;
-
-    // for (let i = 0; i < LANGUAGES.length; i++) {
-    //   const language = LANGUAGES[i];
-
-    // if (language !== context.params.languageID) {
-    var message = snapshot.child("text").val();
-
-    var results = await translateX.translate(message, { to: "ja" });
-    var detectedSourceLanguage = results[1].data.translations[0].detectedSourceLanguage;
-
-    admin
-      .database()
-      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
-      .update({
-        textJA: results[0],
-        detectedSourceLanguage: detectedSourceLanguage,
-      });
-
-    var results = await translateX.translate(message, { to: "zh-CN" });
-    admin
-      .database()
-      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
-      .update({ textZHCN: results[0] });
-
-    var results = await translateX.translate(message, { to: "ko" });
-    admin
-      .database()
-      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
-      .update({ textKO: results[0] });
-
-    var results = await translateX.translate(message, { to: "fr" });
-    admin
-      .database()
-      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
-      .update({ textFR: results[0] });
-
-    var results = await translateX.translate(message, { to: "en" });
-    admin
-      .database()
-      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
-      .update({ textEN: results[0], approved: true });
-
-    var results = await translateX.translate(message, { to: "es" });
-    admin
-      .database()
-      .ref(`instance/0001-sais_edu_sg/chat/chatroom/Test Chatroom/messages/${messageID}`)
-      .update({ textES: results[0], approved: true });
-
-    //}
-    // }
-    return Promise.all(promises);
-  });
-
-exports.sendPushNotificationSimonAll = functions.database
-  .ref("instance/0001-sais_edu_sg/chat/chatroom/{chatroomID}/messages/{newMessageID}")
+exports.ChatroomsNotifications_PushMessage = functions.database
+  .document("sais_edu_sg//chat/chatroom/{chatroomID}/messages/{newMessageID}")
   .onCreate((snap, context) => {
     const createdData = snap.val();
     const messages = [];
@@ -210,7 +122,6 @@ exports.sendPushNotificationFromQueue = functions.firestore
   .onCreate((snap, context) => {
     const createdData = snap.data();
     var messages = [];
-    // simon iPhone
     var token = createdData.pushToken;
     var realToken = token.replace("{", "[");
     realToken = realToken.replace("}", "]");
@@ -222,9 +133,7 @@ exports.sendPushNotificationFromQueue = functions.firestore
       body: createdData.text,
     });
     console.log("Send Push > ", realToken, createdData.text);
-    // return the main promise
     return Promise.all(messages)
-
       .then(messages => {
         fetch("https://exp.host/--/api/v2/push/send", {
           method: "POST",
@@ -234,26 +143,20 @@ exports.sendPushNotificationFromQueue = functions.firestore
           },
           body: JSON.stringify(messages),
         });
+
+        this.messageRef = admin
+          .firestore()
+          .collection("sais_edu_sg")
+          .doc("push")
+          .collection("queue")
+          .doc(this.state.chatroom)
+          .collection(snap.id)
+          .set({ state: "sent" }, { merge: true });
       })
       .catch(reason => {
         console.log(reason);
       });
   });
-
-exports.chatBeaconPing = functions.database
-  .ref("instance/0001-sais_edu_sg/beacon/{beaconPing}")
-  .onCreate((snapshot, context) => {
-    const createdData = snapshot.val();
-
-    // Grab the current value of what was written to the Realtime Database.
-    const beaconName = createdData.beaconName;
-
-    return null;
-  });
-
-const cors = require("cors")({
-  origin: true,
-});
 
 // https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
 exports.deleteOldItems = functions.https.onRequest(async (req, res) => {

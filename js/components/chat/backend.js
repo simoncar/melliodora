@@ -31,7 +31,6 @@ export class Backend extends React.Component {
   }
 
   setChatroom(chatroom) {
-    console.log(`chatroom=${chatroom}`);
     this.state.chatroom = chatroom.trim();
   }
 
@@ -89,9 +88,7 @@ export class Backend extends React.Component {
             var mesageText = message.text;
             callback({
               _id: change.doc.id,
-
               text: mesageText,
-
               detectedSourceLanguage: message.detectedSourceLanguage,
               timestamp: new Date(message.timestamp),
               chatroom: this.state.chatroom,
@@ -213,18 +210,39 @@ export class Backend extends React.Component {
   }
 
   setMute(muteState) {
-    if (undefined === global.pushToken) {
-      global.pushToken = "";
-    }
+    if (_.isString(global.pushToken) && global.pushToken.length > 0) {
+      if (_.isBoolean(muteState)) {
+        var messageDict = {
+          mute: muteState,
+          pushToken: global.pushToken,
+          timestamp: Date.now(),
+          uid: global.uid,
+          language: global.language,
+          email: global.email,
+          name: global.username,
+        };
+      } else {
+        var messageDict = {
+          pushToken: global.pushToken,
+          timestamp: Date.now(),
+          uid: global.uid,
+          language: global.language,
+          email: global.email,
+          name: global.username,
+        };
+      }
 
-    if (global.pushToken.length > 0) {
-      this.messageRef = firebase
-        .database()
-        .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/notifications/${global.safeToken}`);
-      this.messageRef.update({
-        mute: muteState,
-        pushToken: global.pushToken,
-      });
+      console.log(messageDict, this.state.chatroom, global.safeToken);
+
+      firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("chat")
+        .collection("chatrooms")
+        .doc(this.state.chatroom)
+        .collection("notifications")
+        .doc(global.safeToken)
+        .set(messageDict, { merge: true });
     }
   }
 
@@ -324,31 +342,34 @@ async function uploadImageAsync(message, chatroom, user) {
   blob.close();
   console.log("----------= file type - ", fileType);
   if (fileType == "JPG" || fileType == "HEIC" || fileType == "PNG") {
-    this.messageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
-    this.messageRef.push({
-      approved: true,
+    var messageDict = {
+      translated: true,
       image: URLfile,
       chatroom: chatroom,
       user: user,
-      createdAt: firebase.database.ServerValue.TIMESTAMP,
-      date: new Date().getTime(),
+      timestamp: Date.now(),
       system: false,
       pushToken: global.pushToken,
-    });
+    };
   } else {
-    this.messageRef = firebase.database().ref(`instance/${instID}/chat/chatroom/${chatroom}/messages`);
-    this.messageRef.push({
-      approved: true,
+    var messageDict = {
+      translated: true,
       video: URLfile,
       chatroom: chatroom,
       user: user,
-      createdAt: firebase.database.ServerValue.TIMESTAMP,
-      date: new Date().getTime(),
+      timestamp: Date.now(),
       system: false,
       pushToken: global.pushToken,
-    });
+    };
   }
-
+  firebase
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("chat")
+    .collection("chatrooms")
+    .doc(chatroom)
+    .collection("messages")
+    .add(messageDict);
   return;
 }
 
