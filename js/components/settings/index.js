@@ -126,13 +126,7 @@ class Settings extends Component {
               title="myStamford"
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
-              onPress={() =>
-                this.props.navigation.navigate("webportalURL", {
-                  url:
-                    "https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP",
-                  title: "myStamford",
-                })
-              }
+              onPress={() => this.props.navigation.navigate("authPortal")}
             />
 
             <SettingsList.Item

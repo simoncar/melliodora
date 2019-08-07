@@ -170,24 +170,26 @@ class Story extends Component {
   }
 
   _drawIconSend(chatroom) {
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          this.props.navigation.navigate("push", {
-            eventTitle: this.props.navigation.state.params.eventTitle,
-            eventDescription: this.props.navigation.state.params.eventDescription,
-            eventDate: this.props.navigation.state.params.eventDate,
-            eventStartTime: this.props.navigation.state.params.eventStartTime,
-            eventEndTime: this.props.navigation.state.params.eventEndTime,
-            eventOrder: this.props.navigation.state.params.eventOrder,
-          });
-        }}
-      >
-        <Text style={styles.eventText}>
-          <MaterialCommunityIcons name="send-lock" style={styles.eventIconSendLock} />{" "}
-        </Text>
-      </TouchableOpacity>
-    );
+    if (isAdmin(this.props.adminPassword)) {
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            this.props.navigation.navigate("push", {
+              eventTitle: this.props.navigation.state.params.eventTitle,
+              eventDescription: this.props.navigation.state.params.eventDescription,
+              eventDate: this.props.navigation.state.params.eventDate,
+              eventStartTime: this.props.navigation.state.params.eventStartTime,
+              eventEndTime: this.props.navigation.state.params.eventEndTime,
+              eventOrder: this.props.navigation.state.params.eventOrder,
+            });
+          }}
+        >
+          <Text style={styles.eventText}>
+            <MaterialCommunityIcons name="send-lock" style={styles.eventIconSendLock} />{" "}
+          </Text>
+        </TouchableOpacity>
+      );
+    }
   }
 
   _drawIconMore(url) {
@@ -292,6 +294,7 @@ class Story extends Component {
             {this._drawIconMore(this.props.navigation.state.params.url)}
             {this._drawIconCalendar(this.props.navigation.state.params)}
             {this._drawIconShare()}
+
             {this._drawIconSend(this.props.navigation.state.params)}
           </View>
 
