@@ -21,9 +21,17 @@
 	"typeMessage": "Geben Sie eine Nachricht ein",
 	"photos": "Fotos",
 	"save": "sparen",
+	"saved": "Gerettet",
+	"message": "Botschaft",
+	"send": "Senden",
+	"edit": "Bearbeiten",
+	"delete": "Löschen",
 	"mute": "Stumm",
+	"logs": "Protokolle",
 	"unmute": "Stummschaltung aufheben",
 	"contact": "Kontakt",
 	"shop": "Geschäft",
-	"pta": "Eltern-Lehrer-Vereinigung"
+	"translationsGoogle": "Google Übersetzer",
+	"pta": "Eltern-Lehrer-Vereinigung",
+	"languageChangeWarning": "Die App wird nach Auswahl einer neuen Sprache neu gestartet"
 }

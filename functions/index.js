@@ -556,7 +556,7 @@ function setGateway(snapshot) {
       state = "Perimeter";
       break;
     case "AC233FC039B2":
-      location = "ELV Gate 1";
+      location = "ELV - Gate 1";
       state = "Perimeter";
       break;
     case "AC233FC039BE":
@@ -591,6 +591,22 @@ function setGateway(snapshot) {
     case "AC233FC03E46":
       location = "Woodleigh Parent Helpdesk II";
       break;
+    case "AC233FC03EAC":
+      location = "ELV - Tower B, Level 1 lift lobby";
+      break;
+    case "AC233FC03E77":
+      location = "ELV - Tower B, B1 lift lobby";
+      break;
+    case "AC233FC03E74":
+      location = "ELV - Pick up/Drop off point";
+      break;
+    case "AC233FC03E85":
+      location = "ELV - Tower A, Level 1 lift lobby";
+      break;
+    case "AC233FC03EA8":
+      location = "ELV - Tower A, B1 lift lobby";
+      break;
+
     default:
       location = "Unknown - " + snapshot.mac;
       state = "Perimeter";
