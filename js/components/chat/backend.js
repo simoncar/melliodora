@@ -30,8 +30,9 @@ export class Backend extends React.Component {
     return this.uid;
   }
 
-  setChatroom(chatroom) {
-    this.state.chatroom = chatroom.trim();
+  setChatroom(chatroom, title) {
+    this.state.chatroom = chatroom;
+    this.state.title = title;
   }
 
   getLanguageMessage(message, language) {
@@ -146,6 +147,7 @@ export class Backend extends React.Component {
           text: message[i].text,
           textLanguage: language,
           chatroom: this.state.chatroom,
+          chatroomTitle: this.state.title,
           user: message[i].user,
           timestamp: Date.now(),
           system: false,

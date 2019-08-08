@@ -1,5 +1,5 @@
 import Constants from "expo-constants";
-
+import _ from "lodash";
 const moment = require("moment");
 
 export function isValue(input) {
@@ -22,6 +22,9 @@ export function formatTime(starttime, endtime) {
       ret = "";
     }
   }
+
+  ret = _.isNil(ret) ? "" : ret;
+  console.log(ret);
   return ret;
 }
 
@@ -40,7 +43,7 @@ export function formatMonth(eventDate) {
     "September",
     "October",
     "November",
-    "December"
+    "December",
   ];
 
   if (eventDate === null && typeof eventDate === "object") {
@@ -153,8 +156,14 @@ export function isAdmin(sPass) {
   const simulator = !Constants.isDevice;
   const globalAdminPass = global.adminPassword === "cookies";
 
-  var isAdminDevice =
-    globalAdminPass || installationId || deviceId || adminPass || simulator;
+  var isAdminDevice = globalAdminPass || installationId || deviceId || adminPass || simulator;
 
   return isAdminDevice;
+}
+
+export function getLanguageString(language, object, field) {
+  language = "zh";
+  var fieldName = field + language.toUpperCase();
+
+  return object[fieldName];
 }

@@ -27,7 +27,6 @@ class Firebase {
     try {
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          var isAnonymous = user.isAnonymous;
           var uid = user.uid;
           console.log("Auth = ", uid);
 
@@ -61,8 +60,6 @@ class Firebase {
                   global.email = "";
                 }
 
-                console.log("GLOBAL EMAIL - ", global.email);
-
                 if (_.isArray(docData.gradeNotify)) {
                   for (var i = -4; i < 13; i++) {
                     if (_.isNumber(docData.gradeNotify[i])) {
@@ -80,7 +77,6 @@ class Firebase {
             token = "";
           }
           var safeToken = global.safeToken;
-          console.log("safeToken=", safeToken);
 
           if (_.isNil(safeToken)) {
             safeToken = "";
@@ -94,7 +90,6 @@ class Firebase {
           };
 
           try {
-            console.log(safeToken);
             firebase
               .firestore()
               .collection("sais_edu_sg")
@@ -112,7 +107,6 @@ class Firebase {
       });
     } catch (e) {
       console.log("catch error body:", e.message);
-      //console.error(e.message);
     }
   }
 }

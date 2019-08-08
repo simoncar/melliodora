@@ -11,7 +11,7 @@ import styles from "./styles";
 import call from "react-native-phone-call"; //TODO migration to communications
 import Analytics from "../../lib/analytics";
 import { Notifications } from "expo";
-import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../global.js";
+import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue, getLanguageString } from "../global.js";
 
 import * as firebase from "firebase";
 
@@ -20,7 +20,7 @@ var instID = Constants.manifest.extra.instance;
 @withMappedNavigationParams()
 class Story extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam("eventTitle"),
+    title: navigation.getParam("summaryMyLanguage"),
   });
 
   constructor(props) {
@@ -43,35 +43,18 @@ class Story extends Component {
     Share.share({
       message:
         "" +
-        this.props.navigation.getParam("eventTitle") +
+        this.props.summaryMyLanguage +
         "\n" +
-        formatMonth(this.props.navigation.getParam("eventDate")) +
+        formatMonth(this.props.eventDate) +
         "\n" +
-        formatTime(this.props.navigation.getParam("eventStartTime")) +
-        this.props.navigation.getParam("eventEndTime") +
+        formatTime(this.props.eventStartTime, this.props.eventEndTime) +
         " \n" +
-        this.props.navigation.getParam("location") +
-        " \n" +
-        this.props.navigation.getParam("eventDescription"),
-      title: this.props.navigation.getParam("eventTitle"),
+        this.props.navigation.state.params.descriptionMyLanguage,
+      title: this.props.summaryMyLanguage,
     })
 
       .then(this._showResult)
       .catch(error => this.setState({ result: `error: ${error.message}` }));
-  }
-
-  _call() {
-    const args = {
-      number: this.props.navigation.getParam("phone"), // String value with the number to call
-      prompt: true, // Optional boolean property. Determines if the user should be prompt prior to the call
-    };
-
-    call(args).catch(console.error);
-  }
-
-  _email() {
-    // TODO: only show email/phone links when there are values
-    Communications.email([this.props.navigation.getParam("email")], null, null, null, null);
   }
 
   _handleOpenWithLinking = sURL => {
@@ -98,43 +81,11 @@ class Story extends Component {
     }
   }
 
-  handlePhonePress(phone) {
-    // AlertIOS.alert(`${phone} has been pressed!`);
-  }
-
-  handleNamePress(name) {
-    // AlertIOS.alert(`Hello ${name}`);
-  }
-
-  handleEmailPress(email) {
-    Communications.email(email, null, null, null, null);
-  }
-
   renderText(matchingString, matches) {
     // matches => ["[@michel:5455345]", "@michel", "5455345"]
     const pattern = /\[(@[^:]+):([^\]]+)\]/i;
     const match = matchingString.match(pattern);
     return `^^${match[1]}^^`;
-  }
-
-  setNotifyPreference() {
-    // Get the token that uniquely identifies this device
-    let token = "DENIED";
-
-    // Get the token that uniquely identifies this device
-    if (!Constants.isDevice) {
-      token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
-    } else {
-      token = Notifications.getExpoPushTokenAsync();
-    }
-
-    this.notifyRef = firebase
-      .database()
-      .ref(`instance/${instID}/feature/${this.props.navigation.getParam("_key")}/notify/`);
-
-    this.notifyRef.update({
-      token: "sdvaiushviuasjbnviuasviasviivh",
-    });
   }
 
   _drawImage(imageURI) {
@@ -153,12 +104,13 @@ class Story extends Component {
     }
   }
 
-  _drawIconChat(chatroom) {
+  _drawIconChat(chatroom, title) {
     return (
       <TouchableOpacity
         onPress={() => {
           this.props.navigation.navigate("chat", {
             chatroom: chatroom,
+            title: title,
           });
         }}
       >
@@ -174,14 +126,7 @@ class Story extends Component {
       return (
         <TouchableOpacity
           onPress={() => {
-            this.props.navigation.navigate("push", {
-              eventTitle: this.props.navigation.state.params.eventTitle,
-              eventDescription: this.props.navigation.state.params.eventDescription,
-              eventDate: this.props.navigation.state.params.eventDate,
-              eventStartTime: this.props.navigation.state.params.eventStartTime,
-              eventEndTime: this.props.navigation.state.params.eventEndTime,
-              eventOrder: this.props.navigation.state.params.eventOrder,
-            });
+            this.props.navigation.navigate("push", this.props.navigation.state.params);
           }}
         >
           <Text style={styles.eventText}>
@@ -213,17 +158,7 @@ class Story extends Component {
       return (
         <TouchableOpacity
           onPress={() => {
-            this.props.navigation.navigate("phoneCalendar", {
-              eventTitle: this.props.navigation.state.params.eventTitle,
-              eventDescription: this.props.navigation.state.params.eventDescription,
-              eventDate: this.props.navigation.state.params.eventDate,
-              eventStartTime: this.props.navigation.state.params.eventStartTime,
-              eventEndTime: this.props.navigation.state.params.eventEndTime,
-              order: this.props.navigation.state.params.order,
-              location: this.props.navigation.state.params.location,
-              photo1: this.props.navigation.state.params.photo1,
-              visible: this.props.navigation.state.params.visible,
-            });
+            this.props.navigation.navigate("phoneCalendar", this.props.navigation.state.params);
           }}
         >
           <Text style={styles.eventText}>
@@ -252,22 +187,7 @@ class Story extends Component {
             style={styles.addButton}
             underlayColor="#ff7043"
             onPress={() =>
-              this.props.navigation.navigate("storyForm", {
-                eventTitle: this.props.navigation.getParam("eventTitle"),
-                eventDescription: this.props.navigation.getParam("eventDescription"),
-                eventDate: this.props.navigation.state.params.eventDate,
-                eventStartTime: this.props.navigation.state.params.eventStartTime,
-                eventEndTime: this.props.navigation.state.params.eventEndTime,
-                order: this.props.navigation.state.params.order,
-                location: this.props.navigation.state.params.location,
-                eventImage: this.props.navigation.state.params.eventImage,
-                phone: this.props.navigation.state.params.phone,
-                email: this.props.navigation.state.params.email,
-                photo1: this.props.navigation.state.params.photo1,
-                visible: this.props.navigation.state.params.visible,
-                _key: this.props.navigation.state.params._key,
-                edit: true,
-              })
+              this.props.navigation.navigate("storyForm", { ...{ edit: true }, ...this.props.navigation.state.params })
             }
           >
             <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
@@ -290,7 +210,7 @@ class Story extends Component {
               borderTopColor: "#ddd",
             }}
           >
-            {this._drawIconChat(this.props.navigation.state.params.eventTitle)}
+            {this._drawIconChat(this.props._key, this.props.summaryMyLanguage)}
             {this._drawIconMore(this.props.navigation.state.params.url)}
             {this._drawIconCalendar(this.props.navigation.state.params)}
             {this._drawIconShare()}
@@ -301,20 +221,20 @@ class Story extends Component {
           <View style={{ flex: 1 }}>
             <View style={styles.newsContent}>
               <Text selectable style={styles.eventTitle}>
-                {this.props.navigation.state.params.eventTitle}
+                {this.props.navigation.state.params.summaryMyLanguage}
               </Text>
 
-              {isValue(this.props.navigation.getParam("eventDate")) && (
+              {isValue(this.props.navigation.getParam("date_start")) && (
                 <Text selectable style={styles.eventText}>
-                  {formatMonth(this.props.navigation.getParam("eventDate"))}
+                  {formatMonth(this.props.navigation.getParam("date_start"))}
                 </Text>
               )}
 
-              {isValue(this.props.navigation.getParam("eventStartTime")) && (
+              {isValue(this.props.navigation.getParam("time_start_pretty")) && (
                 <Text selectable style={styles.eventText}>
                   {formatTime(
-                    this.props.navigation.getParam("eventStartTime"),
-                    this.props.navigation.getParam("eventEndTime"),
+                    this.props.navigation.getParam("time_start_pretty"),
+                    this.props.navigation.getParam("time_end_pretty"),
                   )}
                 </Text>
               )}
@@ -353,42 +273,23 @@ class Story extends Component {
                 ]}
                 childrenProps={{ allowFontScaling: false }}
               >
-                {this.props.navigation.getParam("eventDescription")}
+                {this.props.descriptionMyLanguage}
               </ParsedText>
 
-              {undefined !== this.props.navigation.getParam("location") &&
-                this.props.navigation.getParam("location") !== null &&
-                this.props.navigation.getParam("location").length > 0 && (
-                  <Text selectable style={styles.eventText}>
-                    {this.props.navigation.state.params.location}
-                  </Text>
-                )}
-
-              {undefined !== this.props.navigation.state.params.phone &&
-                this.props.navigation.state.params.phone !== null &&
-                this.props.navigation.state.params.phone.length > 0 && (
-                  <TouchableOpacity>
-                    <Text style={styles.eventText}>
-                      <MaterialIcons name="phone" style={styles.eventIcon} /> {this.props.navigation.state.params.phone}
-                    </Text>
-                  </TouchableOpacity>
-                )}
-
-              {undefined !== this.props.navigation.state.params.email &&
-                this.props.navigation.state.params.email !== null &&
-                this.props.navigation.state.params.email.length > 0 && (
-                  <TouchableOpacity>
-                    <Text style={styles.eventText}>
-                      <MaterialIcons name="email" style={styles.eventIcon} /> {this.props.navigation.state.params.email}
-                    </Text>
-                  </TouchableOpacity>
-                )}
-
+              {global.language != "en" && (
+                <Text selectable style={styles.englishFallback}>
+                  {"\n\n"}
+                  {this.props.description}
+                  {"\n\n"}
+                </Text>
+              )}
               <Text> </Text>
               <Text> </Text>
               <Text> </Text>
               <Text selectable style={styles.eventTextAbbreviation}>
-                {getAbbreviations(this.props.navigation.getParam("eventTitle"))}
+                {getAbbreviations(
+                  this.props.navigation.getParam("summary") + " " + this.props.navigation.getParam("description"),
+                )}
               </Text>
               <Text> </Text>
               <Text> </Text>

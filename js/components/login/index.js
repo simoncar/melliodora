@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { View, Dimensions, TextInput } from "react-native";
 
@@ -19,12 +18,7 @@ const { skipLogin } = require("../../actions");
 const deviceWidth = Dimensions.get("window").width;
 
 class Login extends Component {
-  static propTypes = {
-    openDrawer: PropTypes.func,
-    navigation: PropTypes.shape({
-      key: PropTypes.string
-    })
-  };
+
 
   constructor(props) {
     super(props);

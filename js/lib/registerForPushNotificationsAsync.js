@@ -3,16 +3,11 @@ import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import * as firebase from "firebase";
-
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as ActionCreators from "../actions";
 import _ from "lodash";
 
 class registerForPush {
   static reg(user) {
     registerForPushNotificationsAsync(user);
-    ActionCreators.setPushToken("token");
   }
 }
 
@@ -23,7 +18,6 @@ async function registerForPushNotificationsAsync(user) {
   let token = "DENIED";
 
   const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-  // Get the token that uniquely identifies this device
   if (!Constants.isDevice) {
     token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
     //  ExponentPushToken{LQTd3QIbBBfGdHT6JluSWy}    // simon android - expo
@@ -41,7 +35,6 @@ async function registerForPushNotificationsAsync(user) {
 
   global.pushToken = token;
   global.safeToken = safeToken;
-  console.log("safeToken2=", safeToken, global.uid);
 
   if (undefined == global.username) {
     global.username = "";
@@ -62,14 +55,4 @@ async function registerForPushNotificationsAsync(user) {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
-
-const mapStateToProps = state => ({
-  //navigation: state.cardNavigation,
-  userX: state.user,
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(registerForPush);
+export default registerForPush;

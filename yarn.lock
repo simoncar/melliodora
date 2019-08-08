@@ -1441,6 +1441,13 @@
   dependencies:
     cross-spawn "^4.0.2"
 
+"@expo/vector-icons@^10.0.0":
+  version "10.0.3"
+  resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-10.0.3.tgz#9dec25cf6c29871f2bb1fe932029878c221f1f75"
+  integrity sha512-3iTdjnBlleddgcRGZV9JQXi+WRL3n2BehW48JOFv/mydx8BjHD0QAcYLOXGuwrcRKR0AIRhHxFQwKVyQ4YcYLA==
+  dependencies:
+    lodash "^4.17.4"
+
 "@expo/vector-icons@^10.0.1":
   version "10.0.2"
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-10.0.2.tgz#63223bd4a97bb1943dc8ea947fc10b29cbf84e4e"
@@ -1527,13 +1534,13 @@
     tslib "1.10.0"
 
 "@firebase/firestore@^1.4.7":
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/@firebase/firestore/-/firestore-1.4.7.tgz#d72910ff3a272967ebed8c64d54dacdc65cb3f93"
-  integrity sha512-iuUO639N6+UU7Y1hc6VDr+kQaocmRg8Cbgs7x1pFHM5pFGGDyIIEoJrKxaqXsTlp5lOCVIpe6xr7wEDbeJdcVA==
+  version "1.4.8"
+  resolved "https://registry.yarnpkg.com/@firebase/firestore/-/firestore-1.4.8.tgz#a17ee01463b546a2adfb2162a0613c74d0a25208"
+  integrity sha512-/Ult2LpbweinNnpqGrGiMw+EAaMEy6uA71DWN868oZoUmnn/+s/DCe2J0P+On2HATqvg5WggrQRa9I0in8fFag==
   dependencies:
     "@firebase/firestore-types" "1.4.4"
-    "@firebase/logger" "0.1.20"
-    "@firebase/util" "0.2.23"
+    "@firebase/logger" "0.1.21"
+    "@firebase/util" "0.2.24"
     "@firebase/webchannel-wrapper" "0.2.23"
     "@grpc/proto-loader" "^0.5.0"
     grpc "1.22.2"
@@ -1574,10 +1581,10 @@
   resolved "https://registry.yarnpkg.com/@firebase/logger/-/logger-0.1.19.tgz#edb7fbf7ed6f32fdfe1769c22b4b2232695a9391"
   integrity sha512-MoznIjuCE5ynUqHhqr8RYSA//EW8o+7oC1+x9p4gvMLZq/BpnvCR8uZ+FrGCiz9BWS+RFhYrhp0kMJY5P3ztww==
 
-"@firebase/logger@0.1.20":
-  version "0.1.20"
-  resolved "https://registry.yarnpkg.com/@firebase/logger/-/logger-0.1.20.tgz#b04cc13ddd4ec58e41efd335e98ad477f57202aa"
-  integrity sha512-ahGXFhqow5RjrhwnYZNHluZt6UVdFt1iRrGzhYEJVGlkyBy0vXELn1P6ajIi8BKGQhu5sBQm8I1n6bVDlHQkUA==
+"@firebase/logger@0.1.21":
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/@firebase/logger/-/logger-0.1.21.tgz#4918944ae01561afa8801f2bc4fc609351418007"
+  integrity sha512-O4aIK1wkMpczqnDSwzDaEcQ8a5puVU4Bpt+16PfenicsBSrIR+gKq44crPM3nv/LURWtDpUVSYGoqhKPeodPAg==
 
 "@firebase/messaging-types@0.3.1":
   version "0.3.1"
@@ -1639,10 +1646,10 @@
   dependencies:
     tslib "1.10.0"
 
-"@firebase/util@0.2.23":
-  version "0.2.23"
-  resolved "https://registry.yarnpkg.com/@firebase/util/-/util-0.2.23.tgz#3e4090be9e2b8e720d72730724f026ce83f71736"
-  integrity sha512-Zfc9Oo656ad/a51pow3zJvc2kGJR/KvacaL8MgHAWxYzOsiN6RofcgRlanWO2zLy76KCVI4ZRDrvcmGRnD7e+w==
+"@firebase/util@0.2.24":
+  version "0.2.24"
+  resolved "https://registry.yarnpkg.com/@firebase/util/-/util-0.2.24.tgz#5ccb7888f3dacf911c1c6ec51b68a17dea5c9b74"
+  integrity sha512-XFBNxfkMajl2zSUdcCQ3H32IN9JSM7Dacv8RK72DKoFV8Zn8dx4iZvtx8RB/VTFpXfcl435A0RzXqkLfSSEK/A==
   dependencies:
     tslib "1.10.0"
 
@@ -2428,11 +2435,6 @@ array-equal@^1.0.0:
 array-filter@~0.0.0:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/array-filter/-/array-filter-0.0.1.tgz#7da8cf2e26628ed732803581fd21f67cacd2eeec"
-
-array-find-index@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/array-find-index/-/array-find-index-1.0.2.tgz#df010aa1287e164bbda6f9723b0a96a1ec4187a1"
-  integrity sha1-3wEKoSh+Fku9pvlyOwqWoexBh6E=
 
 array-flatten@1.1.1:
   version "1.1.1"
@@ -3835,14 +3837,6 @@ crypto-token@^1.0.1:
   resolved "https://registry.yarnpkg.com/crypto-token/-/crypto-token-1.0.1.tgz#27c6482faf3b63c2f5da11577f8304346fe797a5"
   integrity sha1-J8ZIL687Y8L12hFXf4MENG/nl6U=
 
-css-in-js-utils@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/css-in-js-utils/-/css-in-js-utils-2.0.1.tgz#3b472b398787291b47cfe3e44fecfdd9e914ba99"
-  integrity sha512-PJF0SpJT+WdbVVt0AOYp9C8GnuruRlL/UFW7932nLWmFLQTaWEzTBQEx7/hn4BuV+WON75iAViSUJLiU3PKbpA==
-  dependencies:
-    hyphenate-style-name "^1.0.2"
-    isobject "^3.0.1"
-
 cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   version "0.3.8"
   resolved "https://registry.yarnpkg.com/cssom/-/cssom-0.3.8.tgz#9f1276f5b2b463f2114d3f2c75250af8c1a36f4a"
@@ -3879,11 +3873,6 @@ data-urls@^1.0.0:
     abab "^2.0.0"
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
-
-debounce@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.0.tgz#44a540abc0ea9943018dc0eaa95cce87f65cd131"
-  integrity sha512-mYtLl1xfZLi1m4RtQYlZgJUNQjl4ZxVnHzIR8nLLgi4q1YT8o/WM+MK/f8yfcc9s5Ir5zRaPZyZU6xs1Syoocg==
 
 debug@2, debug@2.6.9, debug@^2.1.2, debug@^2.3.3, debug@^2.6.2, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -3956,13 +3945,6 @@ decompress-response@^3.3.0:
 dedent@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/dedent/-/dedent-0.6.0.tgz#0e6da8f0ce52838ef5cec5c8f9396b0c1b64a3cb"
-
-deep-assign@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/deep-assign/-/deep-assign-3.0.0.tgz#c8e4c4d401cba25550a2f0f486a2e75bc5f219a2"
-  integrity sha512-YX2i9XjJ7h5q/aQ/IM9PEwEnDqETAIYbggmdDB3HLTlSgo1CxPsj6pvhPG68rq6SVE0+p+6Ywsm5fTYNrYtBWw==
-  dependencies:
-    is-obj "^1.0.0"
 
 deep-diff@0.3.4:
   version "0.3.4"
@@ -4761,9 +4743,9 @@ expo-app-loader-provider@~5.0.1:
   integrity sha512-RrbKXYmy980MdSgroY0fWPEFp4qqRGfE2oixPgN52poXJyrLbFeSmV/92IDsEOFv02jtrbbHJ8i3tiIF63czXA==
 
 expo-asset-utils@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/expo-asset-utils/-/expo-asset-utils-1.1.1.tgz#2dcbd0cce0364257c78c4dffc42fe863ffee6f9e"
-  integrity sha512-9dOPkiQwHDwTsEdvTlta4UqYW91UHvv9rnUDgHgqB2MfJ5jsPSh7tls5k1eVhXpltn4RBfLA/0ii71BZ5MPPRA==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/expo-asset-utils/-/expo-asset-utils-1.2.0.tgz#df52f8e8c836c343ad713a0044db79be69cfe64b"
+  integrity sha512-06zVi5aXzyMq7SFiawxu2FUbpbVlxnE9W44cG4K5HyhLaqyRqss+o5MZMEGn8Ibd+008UiK7yCPy/bSpx2hVag==
 
 expo-asset@~5.0.1:
   version "5.0.1"
@@ -6351,11 +6333,6 @@ humanize-ms@^1.2.1:
   dependencies:
     ms "^2.0.0"
 
-hyphenate-style-name@^1.0.2:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.3.tgz#097bb7fa0b8f1a9cf0bd5c734cf95899981a9b48"
-  integrity sha512-EcuixamT82oplpoJ2XU4pDtKGWQ7b00CD9f1ug9IaQ3p1bkHMiKCZ9ut9QDI6qsa6cpUuB+A/I+zLtdNK4n2DQ==
-
 i18n-js@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/i18n-js/-/i18n-js-3.3.0.tgz#05512f7184b5117c087ab597be649720a834c068"
@@ -6475,13 +6452,6 @@ ini@^1.3.4:
 ini@~1.3.0:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.4.tgz#0537cb79daf59b59a1a517dff706c86ec039162e"
-
-inline-style-prefixer@^5.0.3:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/inline-style-prefixer/-/inline-style-prefixer-5.1.0.tgz#cb63195f9456dcda25cf59743e45c4d9815b0811"
-  integrity sha512-giteQHPMrApQOSjNSjteO5ZGSGMRf9gas14fRy2lg2buSc1nRnj6o6xuNds5cMTKrkncyrTu3gJn/yflFMVdmg==
-  dependencies:
-    css-in-js-utils "^2.0.0"
 
 inquirer@1.1.3:
   version "1.1.3"
@@ -6783,11 +6753,6 @@ is-number@^3.0.0:
   integrity sha1-JP1iAaR4LPUFYcgQJ2r8fRLXEZU=
   dependencies:
     kind-of "^3.0.2"
-
-is-obj@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/is-obj/-/is-obj-1.0.1.tgz#3e4729ac1f5fde025cd7d83a896dab9f4f67db0f"
-  integrity sha1-PkcprB9f3gJc19g6iW2rn09n2w8=
 
 is-object@^1.0.1:
   version "1.0.1"
@@ -7759,15 +7724,6 @@ lodash.clonedeep@4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
 
-lodash.get@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
-  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
-
-lodash.isequal@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
-
 lodash.once@^4.0.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
@@ -7797,7 +7753,7 @@ lodash@4.17.11, lodash@^4.15.0, lodash@^4.16.2, lodash@^4.17.10, lodash@^4.17.11
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
-lodash@4.x.x, lodash@^4.14.1, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.2.1:
+lodash@4.x.x, lodash@^4.14.1, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.3, lodash@^4.2.1:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -8836,11 +8792,6 @@ nopt@^4.0.1:
   dependencies:
     abbrev "1"
     osenv "^0.1.4"
-
-normalize-css-color@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/normalize-css-color/-/normalize-css-color-1.0.2.tgz#02991e97cccec6623fe573afbbf0de6a1f3e9f8d"
-  integrity sha1-Apkel8zOxmI/5XOvu/Deah8+n40=
 
 normalize-package-data@^2.3.2:
   version "2.3.6"
@@ -10039,13 +9990,12 @@ react-native-branch@2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
 
-react-native-calendars@^1.200.0:
-  version "1.200.0"
-  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.200.0.tgz#d352e34f946c94d34d0c45522c1ed8cca77a2267"
-  integrity sha512-hWJMQfR0FMToieFukZIsmhH/X8PfwtTHX+wBSGrR8XxRSmtYHf4vTniJvqplnFP0IgcGp90f2T/sUZf8M6l5yg==
+react-native-calendars@^1.205.0:
+  version "1.205.0"
+  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.205.0.tgz#5918ab9666370bb00b7c2ec42d252c0c9386cf58"
+  integrity sha512-AjJiYtSDqQppJVrn3IxkqOeGoqVKN+/XFlJSZxZ4IT4vIaMvamM8AWsQI/F7oj3HXhQzGGKc+fTe5/Xv2BxJ3w==
   dependencies:
-    lodash.get "^4.4.2"
-    lodash.isequal "^4.5.0"
+    lodash "^4.0.0"
     prop-types "^15.5.10"
     xdate "^0.8.0"
 
@@ -10069,12 +10019,12 @@ react-native-communications@2.2.1, react-native-communications@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-native-communications/-/react-native-communications-2.2.1.tgz#7883b56b20a002eeb790c113f8616ea8692ca795"
 
-react-native-countdown-component@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/react-native-countdown-component/-/react-native-countdown-component-2.5.0.tgz#f4b77c4541bdba739ac0df2d82368d725d25b0b7"
-  integrity sha512-u9Fiz0mFJsSLVk0sBwymoczuY5oiXQMvfWv4UcxK+NotXe2qRPtNZrgycFZH4tnZZUDn0iRymaJXjB9arWNXFw==
+react-native-countdown-component@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/react-native-countdown-component/-/react-native-countdown-component-2.5.2.tgz#108ca1e04a9b1ad24d45753804eef8fd805df537"
+  integrity sha512-Z5kKpPxEN7Ti2mx0vsiAF9Un2kSmott8DQwBnFKH6Ufcyb4JxlD6/rzQoU69noXItE5lILCB1viS2sqjAabqvw==
   dependencies:
-    lodash "^4.0.0"
+    lodash "^4.17.3"
     prop-types "^15.5.8"
     sprintf-js "^1.1.1"
 
@@ -10346,22 +10296,6 @@ react-native-walkthrough-tooltip@^0.5.3:
   integrity sha512-05NvUhqN/limYRiEgzwQVWL44uoN0Uz5UiyNJVFNgm8FRTqCTfi7/Li595LEi/GU54AM82bID8BGkPpoRjJP7w==
   dependencies:
     prop-types "^15.6.1"
-
-react-native-web@^0.11.5:
-  version "0.11.5"
-  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.11.5.tgz#adf2eff902fdb32e86be7877294d9a6bb0ad3815"
-  integrity sha512-KVvE6s32uBgp5m1BNSfNOXvGo1wt/pORSKvi8oy8tdhAPYqsr0oMuMP3rZd8vk+MpiYt1Z8raS/n+DK2xj85Jg==
-  dependencies:
-    array-find-index "^1.0.2"
-    create-react-class "^15.6.2"
-    debounce "^1.2.0"
-    deep-assign "^3.0.0"
-    fbjs "^1.0.0"
-    hyphenate-style-name "^1.0.2"
-    inline-style-prefixer "^5.0.3"
-    normalize-css-color "^1.0.2"
-    prop-types "^15.6.0"
-    react-timer-mixin "^0.13.4"
 
 react-native-webview@5.8.1:
   version "5.8.1"
@@ -11528,13 +11462,6 @@ shell-utils@^1.0.9:
 shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
-
-shortid@^2.2.14:
-  version "2.2.14"
-  resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.14.tgz#80db6aafcbc3e3a46850b3c88d39e051b84c8d18"
-  integrity sha512-4UnZgr9gDdA1kaKj/38IiudfC3KHKhDc1zi/HSxd9FQDR0VLwH3/y79tZJLsVYPsJgIjeHjqIWaWVRJUj9qZOQ==
-  dependencies:
-    nanoid "^2.0.0"
 
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"

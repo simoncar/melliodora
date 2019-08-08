@@ -139,6 +139,91 @@ function getMessageInLanguage(message, language) {
   }
 }
 
+exports.translateFirestoreStories = functions.firestore
+  .document("sais_edu_sg/feature/features/{storyID}")
+  .onWrite(async (snap, context) => {
+    if (_.isNil(snap.after.data())) {
+      console.log("delete event, exiting");
+      return; ///Exit when the data is deleted.
+    }
+
+    const newValue = snap.after.data();
+    const oldValue = snap.before.data();
+    const promises = [];
+    var featureDesc = {},
+      featureTitle = {};
+    const id = snap.after.id;
+    var update = false;
+
+    console.log("context=", context);
+
+    const titleBefore = _.isNil(snap.before.data()) ? "" : snap.before.data().summary;
+    const descriptionBefore = _.isNil(snap.before.data()) ? "" : snap.before.data().description;
+
+    const title = _.isNil(snap.after.data().summary) ? "" : snap.after.data().summary;
+    const description = _.isNil(snap.after.data().description) ? "" : snap.after.data().description;
+
+    console.log("before=", snap.before.data());
+    console.log("after=", snap.after.data());
+
+    console.log("beforeTitle=", titleBefore);
+    console.log("afterdTitle=", title);
+
+    console.log("beforeDescription=", descriptionBefore);
+    console.log("afterdDescriptione=", description);
+
+    if (title != titleBefore) {
+      var titleJA = await translateX.translate(title, { to: "ja" });
+      var titleZH = await translateX.translate(title, { to: "zh-CN" });
+      var titleKO = await translateX.translate(title, { to: "ko" });
+      var titleFR = await translateX.translate(title, { to: "fr" });
+      var titleES = await translateX.translate(title, { to: "es" });
+      featureTitle = {
+        summaryEN: title,
+        summaryJA: titleJA[0],
+        summaryZH: titleZH[0],
+        summaryKO: titleKO[0],
+        summaryFR: titleFR[0],
+        summaryES: titleES[0],
+      };
+      update = true;
+    }
+
+    if (description != descriptionBefore) {
+      var descriptionJA = await translateX.translate(description, { to: "ja" });
+      var descriptionZH = await translateX.translate(description, { to: "zh-CN" });
+      var descriptionKO = await translateX.translate(description, { to: "ko" });
+      var descriptionFR = await translateX.translate(description, { to: "fr" });
+      var descriptionES = await translateX.translate(description, { to: "es" });
+      featureDesc = {
+        descriptionEN: description,
+        descriptionJA: descriptionJA[0],
+        descriptionZH: descriptionZH[0],
+        descriptionKO: descriptionKO[0],
+        descriptionFR: descriptionFR[0],
+        descriptionES: descriptionES[0],
+
+        translated: true,
+      };
+      update = true;
+    }
+
+    const featureDict = { ...featureTitle, ...featureDesc };
+
+    console.log(featureDict);
+    console.log("update= ", update);
+    if (update) {
+      await admin
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("feature")
+        .collection("features")
+        .doc(id)
+        .set(featureDict, { merge: true });
+    }
+    return Promise.all(promises);
+  });
+
 // firebase deploy --only functions:sendPushNotificationFromQueue
 exports.sendPushNotificationFromQueue = functions.firestore
   .document("sais_edu_sg/push/queue/{messageID}")
@@ -363,7 +448,6 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
               break;
             default:
               countOther++;
-              console.log(doc.id);
           }
         });
       }
@@ -645,6 +729,6 @@ function pickLatest(oldValue, potentialNewValue, fallback) {
   } else {
     ret = potentialNewValue;
   }
-  console.log(oldValue, potentialNewValue, fallback, ret);
+  //console.log(oldValue, potentialNewValue, fallback, ret);
   return ret;
 }

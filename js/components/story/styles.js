@@ -165,7 +165,8 @@ export default {
   eventText: {
     color: "#222",
     fontSize: 18,
-    paddingRight: 25,
+    paddingRight: 5,
+    paddingBottom: 25,
   },
 
   imageStyleCheckOn: {
@@ -191,7 +192,12 @@ export default {
     paddingRight: 25,
     paddingBottom: 25,
   },
-
+  englishFallback: {
+    color: "grey",
+    fontSize: 18,
+    paddingBottom: 10,
+    paddingTop: 30,
+  },
   eventTextAbbreviation: {
     color: "grey",
     fontSize: 18,
