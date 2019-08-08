@@ -6,6 +6,7 @@ import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as firebase from "firebase";
+import { Updates } from "expo";
 
 class Settings extends Component {
   static navigationOptions = {
@@ -110,17 +111,21 @@ class Settings extends Component {
   }
 
   _logout() {
-    AsyncStorage.setItem("authenticated", "false");
-    AsyncStorage.setItem("adminPassword", "");
-    AsyncStorage.setItem("name", "");
-    AsyncStorage.setItem("email", "");
+    AsyncStorage.setItem("authenticated", "false").then(() => {
+      AsyncStorage.setItem("adminPassword", "").then(() => {
+        AsyncStorage.setItem("name", "").then(() => {
+          AsyncStorage.setItem("email", "").then(() => {
+            global.adminPassword = "";
+            global.name = "";
+            global.email = "";
+            global.authenticated = "false";
 
-    global.adminPassword = "";
-    global.name = "";
-    global.email = "";
-    global.authenticated = "false";
-
-    Alert.alert("Logged Out, Please restart");
+            Alert.alert("Restarting");
+            Updates.reloadFromCache();
+          });
+        });
+      });
+    });
   }
 
   render() {
