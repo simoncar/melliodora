@@ -177,13 +177,7 @@ class newStory extends Component {
                 style={[styles.eventTitle]}
                 value={this.state.eventTitle}
               />
-              <TextInput
-                onChangeText={text => this.setState({ eventDescription: text })}
-                placeholder={"Description"}
-                multiline
-                style={[styles.eventText]}
-                value={this.state.eventDescription}
-              />
+
               <TextInput
                 onChangeText={text => this.setState({ photo1: text })}
                 placeholder={"Photo 1 URL"}
@@ -249,6 +243,14 @@ class newStory extends Component {
                   keyboardType="number-pad"
                 />
               </View>
+
+              <TextInput
+                onChangeText={text => this.setState({ eventDescription: text })}
+                placeholder={"Description"}
+                multiline
+                style={[styles.eventText]}
+                value={this.state.eventDescription}
+              />
             </View>
           </View>
         </Content>
