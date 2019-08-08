@@ -253,7 +253,7 @@ class HomeNav extends Component {
             <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
             <Text style={styles.user}>{global.name}</Text>
             <Text style={styles.user}>{global.email}</Text>
-            <Text style={styles.user}>{global.authenticated}</Text>
+            <Text style={styles.user}>{global.uid}</Text>
             <Text style={styles.user}>{global.language}</Text>
           </View>
         </Content>
