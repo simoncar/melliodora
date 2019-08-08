@@ -129,7 +129,7 @@ class Story extends Component {
             this.props.navigation.navigate("push", this.props.navigation.state.params);
           }}
         >
-          <Text style={styles.eventText}>
+          <Text style={styles.eventTextSend}>
             <MaterialCommunityIcons name="send-lock" style={styles.eventIconSendLock} />{" "}
           </Text>
         </TouchableOpacity>

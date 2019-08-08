@@ -165,10 +165,17 @@ export default {
   eventText: {
     color: "#222",
     fontSize: 18,
-    paddingRight: 5,
-    paddingBottom: 25,
+    paddingRight: 15,
+    paddingBottom: 15,
   },
 
+  eventTextSend: {
+    color: "#222",
+    fontSize: 18,
+    paddingRight: 10,
+    paddingLeft: 15,
+    paddingBottom: 15,
+  },
   imageStyleCheckOn: {
     marginLeft: 15,
     alignSelf: "center",
