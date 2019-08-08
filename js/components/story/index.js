@@ -12,7 +12,7 @@ import call from "react-native-phone-call"; //TODO migration to communications
 import Analytics from "../../lib/analytics";
 import { Notifications } from "expo";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue, getLanguageString } from "../global.js";
-
+import _ from "lodash";
 import * as firebase from "firebase";
 
 var instID = Constants.manifest.extra.instance;
@@ -91,13 +91,20 @@ class Story extends Component {
   }
 
   _drawImage(imageURI) {
+    console.log("imageURI=", imageURI);
+
+    if (_.isNil(imageURI)) {
+      var uri =
+        "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fxdesk-calendar-980x470-20181016.jpg.pagespeed.ic.BdAsh-Nj_6.jpg?alt=media&token=697fef73-e77d-46de-83f5-a45540694274";
+    } else {
+      var uri = imageURI;
+    }
     const preview = {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
-    const uri = imageURI;
 
-    if (undefined !== imageURI && null !== imageURI && imageURI.length > 0) {
+    if (undefined !== uri && null !== uri && uri.length > 0) {
       return (
         <View>
           <Image style={styles.storyPhoto} {...{ preview, uri }} />
