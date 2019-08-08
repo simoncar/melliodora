@@ -15,8 +15,6 @@ import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue, getLanguag
 import _ from "lodash";
 import * as firebase from "firebase";
 
-var instID = Constants.manifest.extra.instance;
-
 @withMappedNavigationParams()
 class Story extends Component {
   static navigationOptions = ({ navigation }) => ({
