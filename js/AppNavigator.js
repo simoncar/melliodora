@@ -60,6 +60,7 @@ let StackCalendar = createStackNavigator(
   {
     home: { screen: Home },
     phoneCalendar: { screen: phoneCalendar },
+    storyCalendar: { screen: Story },
   },
   {
     navigationOptions: {
