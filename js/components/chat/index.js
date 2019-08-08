@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Platform, Text, View, Alert, TouchableOpacity, AsyncStorage, Linking } from "react-native";
+import { Platform, Text, View, Alert, TouchableOpacity, AsyncStorage, Linking, ActivityIndicator } from "react-native";
 import { connect } from "react-redux";
 import { ActionSheet, Container, Footer } from "native-base";
 
@@ -18,7 +18,7 @@ import styles from "./styles";
 import I18n from "../../lib/i18n";
 import uuid from "uuid";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
-
+import _ from "lodash";
 import * as ActionCreators from "../../actions";
 
 import Backend from "./backend";
@@ -33,6 +33,7 @@ var localMessages = [];
 class chat extends Component {
   constructor(props) {
     super(props);
+    this._bootstrapAsync();
     this.state = {
       messages: [],
       loadEarlier: true,
@@ -42,6 +43,7 @@ class chat extends Component {
       muteState: false,
       language: "",
       user: null,
+      authenticated: false,
     };
 
     this._isMounted = false;
@@ -56,7 +58,24 @@ class chat extends Component {
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
 
     this._isAlright = null;
+
+    console.log("global.authenticated FROM chat", global.authenticated, global.name, global.email);
+    console.log("lodash = ", _.isBoolean(global.authenticated));
   }
+
+  // Fetch the token from storage then navigate to our appropriate place
+  _bootstrapAsync = async () => {
+    //const userToken = await AsyncStorage.getItem('userToken');
+
+    // This will switch to the App screen or Auth screen and this loading
+    // screen will be unmounted and thrown away.
+    //this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+
+    if (_.isBoolean(global.authenticated) && global.authenticated) {
+      // let me in
+    } else {
+    }
+  };
 
   static navigationOptions = ({ navigation }) => ({
     headerBackTitle: null,
@@ -92,17 +111,6 @@ class chat extends Component {
     ),
   });
 
-  componentWillMount() {
-    if (global.name.length > 0) {
-    } else {
-      this.noNickname();
-      this.props.navigation.navigate("login");
-    }
-    this._retrieveLanguage();
-
-    this._isMounted = true;
-  }
-
   componentDidMount() {
     this.getPermissionAsync();
 
@@ -110,10 +118,9 @@ class chat extends Component {
       _showActionSheet: this._showActionSheet,
     });
 
-    // Backend.setLanguage(this.props.userX.language);
     Backend.setChatroom(this.props.chatroom, this.props.title);
     Backend.setMute(null);
-    Backend.loadMessages(this.state.language, message => {
+    Backend.loadMessages(global.language, message => {
       if (!localMessages.includes(message._id)) {
         this.setState(previousState => ({
           messages: GiftedChat.append(previousState.messages, message),
@@ -151,27 +158,6 @@ class chat extends Component {
   componentWillUnmount() {
     this._isMounted = false;
     Backend.closeChat();
-  }
-
-  _retrieveLanguage = async () => {
-    try {
-      const value = await AsyncStorage.getItem("language");
-      if (value !== null) {
-        // We have data!!
-        this.setState({ language: value });
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
-
-  noNickname() {
-    Alert.alert(
-      "Chat Name",
-      "Please enter a Name to Chat",
-      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-      { cancelable: false },
-    );
   }
 
   avatarPress = props => {
@@ -393,6 +379,24 @@ class chat extends Component {
   }
 
   render() {
+    console.log("IMA A LOADING....global.authenticated FROM chat ", global.authenticated);
+
+    if (!global.authenticated) {
+      const { goBack } = this.props.navigation;
+      goBack(null);
+      setTimeout(() => {
+        // Alert.alert(I18n.t("login"));
+        this.props.navigation.navigate("authPortal");
+      }, 100);
+
+      this.props.navigation.navigate("chatRooms");
+      return (
+        <View>
+          <Text>{I18n.t("login")}</Text>
+        </View>
+      );
+    }
+
     return (
       <Container>
         <View>
