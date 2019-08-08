@@ -90,6 +90,7 @@ class calendar1 extends Component {
 
           trans = {
             source: "calendar",
+            photo1: null,
             summaryMyLanguage: doc.data().summary,
             descriptionMyLanguage: doc.data().description,
           };
