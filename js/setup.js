@@ -10,6 +10,9 @@ import getTheme from "../native-base-theme/components";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import _ from "lodash";
+import "@firebase/firestore";
+import * as firebase from "firebase";
+import Firebase from "./lib/firebase";
 
 export default class Setup extends Component {
   constructor() {
@@ -21,6 +24,13 @@ export default class Setup extends Component {
   }
 
   async componentWillMount() {
+    try {
+      await Firebase.initialise();
+    } catch (e) {
+      console.log("firebase error", e.message);
+      //console.error(e.message);
+    }
+
     Font.loadAsync({
       "Material Icons": require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       MaterialIcons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
@@ -54,11 +64,11 @@ export default class Setup extends Component {
     });
     await AsyncStorage.getItem("name").then(name => {
       global.name = _.isString(name) ? name : "";
-      global.authenticated = _.isString(name) ? name : "";
     });
-    await AsyncStorage.getItem("authenticated").then(authenticated => {
+    await AsyncStorage.getItem("authenticated").then(authenticatedString => {
+      var authenticated = authenticatedString == "true";
       global.authenticated = authenticated;
-      console.log(authenticated);
+      console.log("authenticated=", authenticated);
     });
 
     this.setState({ isReady: true });

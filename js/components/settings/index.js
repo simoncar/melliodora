@@ -118,7 +118,7 @@ class Settings extends Component {
             global.adminPassword = "";
             global.name = "";
             global.email = "";
-            global.authenticated = "false";
+            global.authenticated = false;
 
             Alert.alert("Restarting");
             Updates.reloadFromCache();
