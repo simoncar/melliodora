@@ -36,6 +36,7 @@ exports.translateFirestoreChat = functions.firestore
     const id = snap.id;
     const message = snap.data().text;
     const chatroom = snap.data().chatroom;
+    const chatroomTitle = snap.data().chatroomTitle;
 
     if (_.isString(message)) {
       var resultsJA = await translateX.translate(message, { to: "ja" });
@@ -97,7 +98,7 @@ exports.translateFirestoreChat = functions.firestore
           var dataDict = {
             pushToken: doc.id,
             text: messageInLanguage,
-            from: chatroom,
+            from: chatroomTitle,
             timestamp: Date.now(),
             sent: false,
           };

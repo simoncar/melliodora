@@ -9,7 +9,7 @@ export class AuthParser extends React.Component {
     var e = res.indexOf('"', s + 13);
     if (s > -1) {
       var ret = res.substring(s + 12, e);
-      global.username = ret;
+      global.name = ret;
     } else {
       var ret = "";
     }
@@ -37,6 +37,7 @@ export class AuthParser extends React.Component {
         authenticated: true,
       };
 
+      console.log("firebase=", userDict);
       firebase
         .firestore()
         .collection("sais_edu_sg")
@@ -44,12 +45,15 @@ export class AuthParser extends React.Component {
         .collection("usernames")
         .doc(global.uid)
         .set(userDict, { merge: true });
-    }
-    AsyncStorage.setItem("name", name);
-    AsyncStorage.setItem("email", email);
-    AsyncStorage.setItem("authenticated", "true");
 
-    console.log("Saving details: ", global.uid, name, email);
+      AsyncStorage.setItem("name", name);
+      AsyncStorage.setItem("email", email);
+      AsyncStorage.setItem("authenticated", "true");
+
+      global.authenticated = true;
+
+      console.log("Saving details: ", global.uid, name, email);
+    }
   }
 }
 

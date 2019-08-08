@@ -4,13 +4,13 @@ import { AsyncStorage } from "react-native";
 import _ from "lodash";
 
 class Firebase {
-  static initialise() {
+  static async initialise() {
     try {
       if (!firebase.apps.length) {
-        firebase.initializeApp(ApiKeys.FirebaseConfig);
+        await firebase.initializeApp(ApiKeys.FirebaseConfig);
       }
 
-      firebase
+      await firebase
         .auth()
         .signInAnonymously()
         .catch(function(error) {
@@ -25,15 +25,14 @@ class Firebase {
     }
 
     try {
-      firebase.auth().onAuthStateChanged(function(user) {
+      await firebase.auth().onAuthStateChanged(async function(user) {
         if (user) {
           var uid = user.uid;
           console.log("Auth = ", uid);
 
           // store the auth as a valid user
           global.uid = uid;
-
-          let ref = firebase
+          await firebase
             .firestore()
             .collection("sais_edu_sg")
             .doc("user")
@@ -48,6 +47,7 @@ class Firebase {
 
                 if (_.isString(docData.name)) {
                   AsyncStorage.setItem("name", docData.name);
+                  console.log("firebase.js AsyncStorage.setItem('name', docData.name);", docData.name);
                   global.name = docData.name;
                 } else {
                   global.name = "";
@@ -55,9 +55,25 @@ class Firebase {
 
                 if (_.isString(docData.email)) {
                   AsyncStorage.setItem("email", docData.email);
+                  console.log("firebase.js AsyncStorage.setItem('email', docData.email);", docData.email);
                   global.email = docData.email;
                 } else {
                   global.email = "";
+                }
+                console.log("A");
+                if (_.isBoolean(docData.authenticated)) {
+                  console.log("B", _.isBoolean(docData.authenticated));
+
+                  if (docData.authenticated) {
+                    console.log("C", docData.authenticated);
+
+                    AsyncStorage.setItem("authenticated", "true");
+                    global.authenticated = true;
+                  } else {
+                    console.log("D");
+                  }
+                } else {
+                  global.authenticated = false;
                 }
 
                 if (_.isArray(docData.gradeNotify)) {
@@ -81,6 +97,8 @@ class Firebase {
           if (_.isNil(safeToken)) {
             safeToken = "";
           }
+
+          console.log("Auth2 = ", uid, global.authenticated, global.name, global.email);
 
           var userDict = {
             uid: uid,
