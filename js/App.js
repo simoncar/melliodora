@@ -16,7 +16,6 @@ class App extends Component {
   componentWillMount() {}
 
   componentDidMount() {
-    this._retrieveAdminPassword();
     this._notificationSubscription = this._registerForPushNotifications();
   }
 
@@ -31,23 +30,6 @@ class App extends Component {
 
     this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
-
-  _retrieveAdminPassword = async () => {
-    try {
-      const value = await AsyncStorage.getItem("adminPassword");
-      if (value !== null) {
-        // We have data!!
-        console.log("_retrieveAdminPassword=", value);
-        if (value == "cookies") {
-          this.setState({ adminPasswordCorrect: "Password Correct!" });
-        }
-        this.setState({ adminPassword: value });
-        global.adminPassword = value;
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
 
   render() {
     if (undefined != global.loggedLoginAnalytics) {

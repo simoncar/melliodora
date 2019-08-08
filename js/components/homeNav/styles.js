@@ -30,7 +30,6 @@ export default {
     alignItems: "center",
     color: "black",
   },
-
   version: {
     backgroundColor: "white",
     color: "#666",
@@ -39,8 +38,19 @@ export default {
     flexDirection: "column",
     textAlign: "center",
     fontSize: 12,
-    paddingBottom: 10,
-    paddingTop: 10,
+    paddingBottom: 20,
+    paddingTop: 0,
+  },
+  user: {
+    backgroundColor: "white",
+    color: "#666",
+    alignSelf: "center",
+    flex: 1,
+    flexDirection: "column",
+    textAlign: "center",
+    fontSize: 12,
+    paddingBottom: 0,
+    paddingTop: 0,
   },
   addButton: {
     backgroundColor: "#ff5722",
