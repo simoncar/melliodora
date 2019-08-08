@@ -97,11 +97,13 @@ class HomeNav extends Component {
     querySnapshot.forEach(doc => {
       if (doc.data().translated == true) {
         trans = {
+          source: "feature",
           summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
           descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
         };
       } else {
         trans = {
+          source: "feature",
           summaryMyLanguage: doc.data().summary,
           descriptionMyLanguage: doc.data().description,
         };

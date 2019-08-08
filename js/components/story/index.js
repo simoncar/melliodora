@@ -25,6 +25,8 @@ class Story extends Component {
 
   constructor(props) {
     super(props);
+
+    console.log("story=", this.props.summary);
     this.state = {};
 
     // analytics  -----
@@ -182,7 +184,7 @@ class Story extends Component {
   render() {
     return (
       <Container style={{ backgroundColor: "#fff" }}>
-        {isAdmin(this.props.adminPassword) && (
+        {isAdmin(this.props.adminPassword) && this.props.source == "feature" && (
           <TouchableHighlight
             style={styles.addButton}
             underlayColor="#ff7043"

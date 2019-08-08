@@ -72,7 +72,7 @@ class calendar1 extends Component {
       .get()
       .then(snapshot => {
         const items2 = [];
-
+        var trans = {};
         this.loadItems();
         var itemCount = 0;
         var strtime = 0;
@@ -88,26 +88,14 @@ class calendar1 extends Component {
             this.state.items[strtime] = [];
           }
 
+          trans = {
+            source: "calendar",
+            summaryMyLanguage: doc.data().summary,
+            descriptionMyLanguage: doc.data().description,
+          };
+
           if (undefined != this.state.items[strtime]) {
-            this.state.items[strtime].push({
-              name: doc.data().summary,
-              title: doc.data().summary,
-              description: doc.data().description,
-              location: doc.data().location,
-              startDatePretty: doc.data().date_start,
-              startTimePretty: doc.data().time_start_pretty,
-              endTimePretty: doc.data().time_end_pretty,
-              group: doc.data().group,
-              iconLib: doc.data().iconLib,
-              icon: doc.data().icon,
-              color: doc.data().colorId,
-              phone: doc.data().phone,
-              email: doc.data().email,
-              url: doc.data().htmlLink,
-              photo1: doc.data().photo1,
-              photo2: doc.data().photo2,
-              photo3: doc.data().photo3,
-            });
+            this.state.items[strtime].push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
           }
         });
 
@@ -199,28 +187,7 @@ class calendar1 extends Component {
 
   renderItem(item) {
     return (
-      <TouchableOpacity
-        style={{ flexDirection: "row" }}
-        onPress={() =>
-          this.props.navigation.navigate("story", {
-            eventTitle: item.title,
-            eventDescription: item.description,
-            eventDate: item.startDatePretty,
-            eventStartTime: item.startTimePretty,
-            eventEndTime: item.endTimePretty,
-            group: item.group,
-            location: item.location,
-            eventImage: item.eventImage,
-            phone: item.phone,
-            email: item.email,
-            color: item.color,
-            photo1: item.photo1,
-            photo2: item.photo2,
-            photo3: item.photo3,
-            url: item.url,
-          })
-        }
-      >
+      <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.props.navigation.navigate("story", item)}>
         <View
           style={[
             styles.agendaItem,
@@ -234,10 +201,10 @@ class calendar1 extends Component {
             <Row>
               <Col>
                 <Text style={styles.agendaLocation}>
-                  {formatMonth(item.startDatePretty)} {item.location}{" "}
+                  {formatMonth(item.date_start)} {item.location}{" "}
                 </Text>
 
-                <Text style={styles.text}>{item.name}</Text>
+                <Text style={styles.text}>{item.summary}</Text>
 
                 {undefined !== item.group && item.group !== null && item.group.length > 0 && (
                   <View style={styles.groupView}>
