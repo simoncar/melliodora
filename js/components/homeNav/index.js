@@ -106,7 +106,15 @@ class HomeNav extends Component {
           descriptionMyLanguage: doc.data().description,
         };
       }
-      featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
+      console.log("title", doc.data().summary);
+      console.log("admin", global.administrator);
+      console.log("visible", doc.data().visible);
+
+      if (global.administrator != true && doc.data().visible == false) {
+        //skip item
+      } else {
+        featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
+      }
     });
 
     if (featureItems.length > 0) {
@@ -166,7 +174,7 @@ class HomeNav extends Component {
 
     return (
       <Container style={styles.container}>
-        {isAdmin(this.props.adminPassword) && (
+        {global.administrator && (
           <TouchableHighlight
             style={styles.addButton}
             underlayColor="#ff7043"
@@ -181,7 +189,7 @@ class HomeNav extends Component {
             <Text style={styles.version}>{I18n.t("schoolStarts")}</Text>
             <CountDown until={this.getSeconds()} size={20} />
 
-            {isAdmin(this.props.adminPassword) && (
+            {global.administrator && (
               <TouchableOpacity
                 style={{ flexDirection: "row" }}
                 onPress={() => {
@@ -241,7 +249,8 @@ class HomeNav extends Component {
 
           <View>
             <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
-            <Text style={styles.version}>{global.safeToken}</Text>
+            <Text style={styles.user}>{global.name}</Text>
+            <Text style={styles.user}>{global.email}</Text>
           </View>
         </Content>
       </Container>

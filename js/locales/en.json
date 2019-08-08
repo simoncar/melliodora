@@ -33,5 +33,7 @@
   "shop": "Shop",
   "translationsGoogle": "Google Translate",
   "pta": "Parent Teacher Association",
-  "languageChangeWarning": "App will restart after selecting a new language"
+  "languageChangeWarning": "App will restart after selecting a new language",
+  "login": "Login",
+  "logout": "Logout"
 }

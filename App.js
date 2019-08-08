@@ -63,6 +63,13 @@ export default class App extends Component {
     AsyncStorage.getItem("name").then(name => {
       global.name = _.isString(name) ? name : "";
     });
+    AsyncStorage.getItem("authenticated").then(authenticated => {
+      global.authenticated = _.isString(authenticated) ? authenticated : "false";
+    });
+    AsyncStorage.getItem("adminPassword").then(adminPassword => {
+      global.adminPassword = _.isString(adminPassword) ? adminPassword : "";
+      global.administrator = global.adminPassword == "cookies" ? true : false;
+    });
   }
 
   render() {

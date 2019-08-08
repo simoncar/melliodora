@@ -6,6 +6,7 @@ import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as firebase from "firebase";
+import { Updates } from "expo";
 
 class Settings extends Component {
   static navigationOptions = {
@@ -107,6 +108,24 @@ class Settings extends Component {
       }
     }
     return grades;
+  }
+
+  _logout() {
+    AsyncStorage.setItem("authenticated", "false").then(() => {
+      AsyncStorage.setItem("adminPassword", "").then(() => {
+        AsyncStorage.setItem("name", "").then(() => {
+          AsyncStorage.setItem("email", "").then(() => {
+            global.adminPassword = "";
+            global.name = "";
+            global.email = "";
+            global.authenticated = "false";
+
+            Alert.alert("Restarting");
+            Updates.reloadFromCache();
+          });
+        });
+      });
+    });
   }
 
   render() {
@@ -259,6 +278,13 @@ class Settings extends Component {
             {this.gradeSelector("Grade 10", "High School", 10)}
             {this.gradeSelector("Grade 11", "High School", 11)}
             {this.gradeSelector("Grade 12", "High School", 12)}
+            <SettingsList.Header headerStyle={{ marginTop: 15 }} />
+            <SettingsList.Item
+              hasNavArrow={false}
+              icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
+              title={I18n.t("logout")}
+              onPress={() => this._logout()}
+            />
           </SettingsList>
         </View>
       </View>

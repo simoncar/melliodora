@@ -162,7 +162,8 @@ export function isAdmin(sPass) {
 }
 
 export function getLanguageString(language, object, field) {
-  language = "zh";
+  language = global.language;
+
   var fieldName = field + language.toUpperCase();
 
   return object[fieldName];
