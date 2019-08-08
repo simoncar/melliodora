@@ -242,7 +242,15 @@ exports.sendPushNotificationFromQueue = functions.firestore
       sound: "default",
       body: createdData.text,
     });
-    console.log("Send Push 4 > ", realToken, createdData.text, id);
+
+    messages.push({
+      to: "ExponentPushToken[lPaJFgBp_pmdxzYZkgaVL8]",
+      title: createdData.from,
+      sound: "default",
+      body: createdData.text,
+    });
+
+    console.log("Send Push 4 > ", messages);
 
     admin
       .firestore()
