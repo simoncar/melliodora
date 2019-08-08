@@ -17,10 +17,12 @@ class ChatroomItem extends Component {
         style={{ flexDirection: "row" }}
         onPress={() => {
           this.props.navigation.navigate("chat", {
-            chatroom: this.props.title,
+            chatroom: this.props.chatroom,
+            title: this.props.title,
             description: this.props.description,
             contact: this.props.contact,
-            url: this.props.url
+            url: this.props.url,
+            language: this.props.language,
           });
         }}
       >
@@ -32,11 +34,12 @@ class ChatroomItem extends Component {
                 style={styles.roundedButton}
                 onPress={() => {
                   this.props.navigation.navigate("chat", {
-                    chatroom: this.props.title,
+                    chatroom: this.props.chatroom,
+                    title: this.props.title,
                     description: this.props.description,
                     contact: this.props.contact,
                     url: this.props.url,
-                    language: this.props.language
+                    language: this.props.language,
                   });
                 }}
               >
@@ -52,7 +55,7 @@ class ChatroomItem extends Component {
           </Col>
           <Col
             style={{
-              width: 65
+              width: 65,
             }}
           >
             <View style={{ flexDirection: "row" }}>

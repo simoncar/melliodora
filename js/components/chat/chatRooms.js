@@ -6,8 +6,7 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
-
-const ChatroomItem = require("./chatroomItem");
+import ChatroomItem from "./chatroomItem";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
@@ -26,53 +25,39 @@ class chatRooms extends Component {
     this.state = {
       userChatrooms: {},
     };
-
-    this.ref = firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("chat")
-      .collection("chatrooms");
   }
 
   componentWillMount() {
     this.loadFromAsyncStorage();
-  }
-
-  componentDidMount() {
-    try {
-      this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
-    } catch (e) {
-      //console.error(e.message);
-    }
-  }
-
-  onCollectionUpdate = chatRooms => {
     var userChatrooms = [];
-    chatRooms.forEach(doc => {
-      userChatrooms.push({
-        title: doc.data().title,
-        _key: doc.data().key,
+    firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("chat")
+      .collection("chatrooms")
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log("No notifications");
+          return;
+        }
+        snapshot.forEach(doc => {
+          item = doc.data();
+          userChatrooms.push({
+            chatroom: doc.id,
+            title: doc.data().title,
+          });
+        });
+
+        AsyncStorage.setItem("userChatrooms", JSON.stringify(userChatrooms));
+
+        this.setState({
+          userChatrooms,
+        });
       });
-    });
+  }
 
-    if (userChatrooms.length > 0) {
-      this._storeData(JSON.stringify(userChatrooms));
-      this.setState({
-        userChatrooms,
-      });
-    }
-  };
-
-  keyExtractor = item => item._key;
-
-  _storeData = async userChatrooms => {
-    try {
-      AsyncStorage.setItem("userChatrooms", userChatrooms);
-    } catch (error) {
-      console.log(error);
-      // Error saving data
-    }
-  };
+  keyExtractor = item => item.chatroom;
 
   loadFromAsyncStorage() {
     AsyncStorage.getItem("userChatrooms").then(fi => {
@@ -88,6 +73,7 @@ class chatRooms extends Component {
     return (
       <ChatroomItem
         navigation={this.props.navigation}
+        chatroom={item.item.chatroom}
         title={item.item.title}
         description={item.item.description}
         contact={item.item.contact}

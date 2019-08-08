@@ -33,7 +33,6 @@ class authPortal extends Component {
     backButtonEnabled: false,
     forwardButtonEnabled: false,
     loading: true,
-    scalesPageToFit: true,
     cookies: {},
     webViewUrl: "",
     visible: this.props.visible,

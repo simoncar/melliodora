@@ -19,7 +19,7 @@ import { BorderlessButton } from "react-native-gesture-handler";
 import moment from "moment";
 import { MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
-import { isAdmin } from "../global";
+import { isAdmin, getLanguageString } from "../global";
 import BLEDataParser from "../../lib/BLEDataParser";
 import CountDown from "react-native-countdown-component";
 import * as ActionCreators from "../../actions";
@@ -75,7 +75,7 @@ class HomeNav extends Component {
       .firestore()
       .collection("sais_edu_sg")
       .doc("feature")
-      .collection("feature articles")
+      .collection("features")
       .orderBy("order");
   }
 
@@ -92,34 +92,21 @@ class HomeNav extends Component {
   }
 
   onCollectionUpdate = querySnapshot => {
-    const featureItems = [];
+    var trans = {};
+    var featureItems = [];
     querySnapshot.forEach(doc => {
-      const {
-        summary,
-        description,
-        location,
-        date_start,
-        time_start_pretty,
-        time_end_pretty,
-        photo1,
-        visible,
-        order,
-      } = doc.data();
-
-      featureItems.push({
-        key: doc.id,
-        _key: doc.id,
-        //doc, // DocumentSnapshot
-        title: summary,
-        description,
-        location,
-        eventDate: date_start,
-        eventStartTime: time_start_pretty,
-        eventEndTime: time_end_pretty,
-        photo1,
-        visible,
-        order,
-      });
+      if (doc.data().translated == true) {
+        trans = {
+          summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
+          descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
+        };
+      } else {
+        trans = {
+          summaryMyLanguage: doc.data().summary,
+          descriptionMyLanguage: doc.data().description,
+        };
+      }
+      featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
     });
 
     if (featureItems.length > 0) {

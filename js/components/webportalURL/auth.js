@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { Component } from "react";
 
 import {
@@ -33,12 +32,7 @@ var WEBVIEW_REF = "webview";
 var DEFAULT_URL = "";
 
 class WebportalAuth extends Component {
-  static propTypes = {
-    openDrawer: PropTypes.func,
-    navigation: PropTypes.shape({
-      key: PropTypes.string
-    })
-  };
+
   constructor(props) {
     DEFAULT_URL = "https://saispta.com/app/Authentication.php";
     super(props);

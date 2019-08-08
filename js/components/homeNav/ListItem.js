@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Text, View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import styles from "./styles";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
-import { isAdmin } from "../global.js";
 import { Image } from "react-native-expo-image-cache";
+import { getLanguageString } from "../global";
 
 const { width } = Dimensions.get("window");
 
@@ -17,27 +17,14 @@ class ListItem extends Component {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
+
+    var summary = getLanguageString(global.language, this.props.item.item, "summary");
     const uri = this.props.item.item.photo1;
     return (
       <View style={styles.newsContentLine}>
         <TouchableOpacity
           style={{ flexDirection: "row" }}
-          onPress={() =>
-            this.props.navigation.navigate("story", {
-              eventTitle: this.props.item.item.title,
-              eventDescription: this.props.item.item.description,
-              eventDate: this.props.item.item.eventDate,
-              eventStartTime: this.props.item.item.eventStartTime,
-              eventEndTime: this.props.item.item.eventEndTime,
-              order: this.props.item.item.order,
-              location: this.props.item.item.location,
-              photo1: this.props.item.item.photo1,
-              _key: this.props.item.item._key,
-              key: this.props.item.item._key,
-              calendarEvents: this.props.calendarEvents,
-              visible: this.props.item.item.visible,
-            })
-          }
+          onPress={() => this.props.navigation.navigate("story", this.props.item.item)}
         >
           <View>
             <View
@@ -61,17 +48,15 @@ class ListItem extends Component {
                 {...{ preview, uri }}
               />
 
-              {this.props.item.item.visible != true && (
-                <Text style={styles.itemTitle}>HIDDEN {this.props.item.item.title}</Text>
-              )}
-
-              <Text style={styles.itemTitle}>{this.props.item.item.title}</Text>
+              {this.props.item.item.visible != true && <Text style={styles.itemTitle}>HIDDEN {summary}</Text>}
+              {this.props.item.item.visible == true && <Text style={styles.itemTitle}>{summary}</Text>}
 
               <TouchableOpacity
                 style={{ flexDirection: "row" }}
                 onPress={() => {
                   this.props.navigation.navigate("chat", {
-                    chatroom: this.props.item.item.title,
+                    chatroom: this.props.item.item._key,
+                    title: summary,
                   });
                 }}
               >

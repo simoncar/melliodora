@@ -20,13 +20,13 @@ class newStory extends Component {
     this.state = {
       notifyMeSwitch: false,
       visible: props.edit ? props.visible : false,
-      eventTitle: props.edit ? props.eventTitle : "",
-      eventDescription: props.edit ? props.eventDescription : "",
+      eventTitle: props.edit ? props.summary : "",
+      eventDescription: props.edit ? props.description : "",
       location: props.edit && props.location !== undefined ? props.location : null,
       photo1: props.edit && props.photo1 !== undefined ? props.photo1 : null,
-      eventDate: props.eventDate,
-      eventStartTime: props.eventStartTime,
-      eventEndTime: props.eventEndTime,
+      eventDate: props.date_start,
+      eventStartTime: props.time_start_pretty,
+      eventEndTime: props.time_end_pretty,
       order: props.edit ? props.order : 1,
       _key: props.edit ? props._key : "",
     };
@@ -112,15 +112,31 @@ class newStory extends Component {
         .doc("feature")
         .collection("feature articles")
         .add(storyDict);
-    } else {
+
       var storyRef = firebase
         .firestore()
         .collection("sais_edu_sg")
         .doc("feature")
         .collection("feature articles")
+        .add(storyDict);
+    } else {
+      var storyRef = firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("feature")
+        .collection("features")
         .doc(this.state._key);
 
-      storyRef.set(storyDict);
+      storyRef.set(storyDict, { merge: true });
+
+      var storyRef = firebase
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("feature")
+        .collection("features")
+        .doc(this.state._key);
+
+      storyRef.set(storyDict, { merge: true });
     }
 
     const { goBack } = this.props.navigation;

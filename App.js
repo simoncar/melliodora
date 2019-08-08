@@ -21,8 +21,6 @@ export const setTagsContext = (ctx: "env-simulator") => {
   });
 };
 
-// TODO: Persist navigation state
-
 Sentry.captureMessage("App started V" + Constants.manifest.version);
 
 export default class App extends Component {
@@ -39,7 +37,6 @@ export default class App extends Component {
   componentDidMount() {
     AsyncStorage.getItem("language").then(language => {
       if (!_.isString(language)) {
-        console.log("NO LANGUAGE SET");
         language = "en";
         AsyncStorage.setItem("language", language);
       }

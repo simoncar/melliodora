@@ -17,11 +17,11 @@ import CustomVideo from "./customVideo";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
 import uuid from "uuid";
+import { withMappedNavigationParams } from "react-navigation-props-mapper";
 
 import * as ActionCreators from "../../actions";
 
 import Backend from "./backend";
-import SlackMessage from "./slackMessage";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
@@ -29,6 +29,7 @@ const tabBarIcon = name => ({ tintColor }) => (
 
 var localMessages = [];
 
+@withMappedNavigationParams()
 class chat extends Component {
   constructor(props) {
     super(props);
@@ -75,7 +76,7 @@ class chat extends Component {
           navigation.state.params._showActionSheet();
         }}
       >
-        <Text style={{ fontSize: 17, fontWeight: "600" }}>{navigation.getParam("chatroom")}</Text>
+        <Text style={{ fontSize: 17, fontWeight: "600" }}>{navigation.getParam("title")}</Text>
       </TouchableOpacity>
     ),
     headerRight: (
@@ -110,7 +111,7 @@ class chat extends Component {
     });
 
     // Backend.setLanguage(this.props.userX.language);
-    Backend.setChatroom(this.props.navigation.getParam("chatroom"));
+    Backend.setChatroom(this.props.chatroom, this.props.title);
     Backend.setMute(null);
     Backend.loadMessages(this.state.language, message => {
       if (!localMessages.includes(message._id)) {
@@ -264,25 +265,6 @@ class chat extends Component {
       );
     }
     return null;
-  }
-
-  renderMessage(props) {
-    const {
-      currentMessage: { text: currText },
-    } = props;
-
-    let messageTextStyle;
-
-    // Make "pure emoji" messages much bigger than plain text.
-    if (currText && emojiUtils.isPureEmojiString(currText)) {
-      messageTextStyle = {
-        fontSize: 28,
-        // Emoji get clipped if lineHeight isn't increased; make it consistent across platforms.
-        lineHeight: Platform.OS === "android" ? 34 : 30,
-      };
-    }
-
-    return <SlackMessage {...props} messageTextStyle={messageTextStyle} />;
   }
 
   renderBubble = props => {
