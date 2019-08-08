@@ -109,6 +109,20 @@ class Settings extends Component {
     return grades;
   }
 
+  _logout() {
+    AsyncStorage.setItem("authenticated", "false");
+    AsyncStorage.setItem("adminPassword", "");
+    AsyncStorage.setItem("name", "");
+    AsyncStorage.setItem("email", "");
+
+    global.adminPassword = "";
+    global.name = "";
+    global.email = "";
+    global.authenticated = "false";
+
+    Alert.alert("Logged Out, Please restart");
+  }
+
   render() {
     var languageTitle = "Language";
     if (I18n.t("language") != "Language") {
@@ -259,6 +273,13 @@ class Settings extends Component {
             {this.gradeSelector("Grade 10", "High School", 10)}
             {this.gradeSelector("Grade 11", "High School", 11)}
             {this.gradeSelector("Grade 12", "High School", 12)}
+            <SettingsList.Header headerStyle={{ marginTop: 15 }} />
+            <SettingsList.Item
+              hasNavArrow={false}
+              icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
+              title={I18n.t("logout")}
+              onPress={() => this._logout()}
+            />
           </SettingsList>
         </View>
       </View>
