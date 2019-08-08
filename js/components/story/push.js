@@ -15,11 +15,6 @@ class push extends Component {
     super(props);
 
     this.state = {
-      eventTitle: props.eventTitle,
-      eventDescription: props.eventDescription,
-      eventDate: props.eventDate,
-      eventStartTime: props.eventStartTime,
-      eventEndTime: props.eventEndTime,
       initialText: "",
       _key: props._key,
     };
@@ -51,13 +46,13 @@ class push extends Component {
   });
 
   componentWillMount() {
-    var initialText = this.state.eventTitle;
+    var initialText = this.props.summary;
 
-    if (_.isString(this.state.eventDescription)) {
-      initialText = initialText + "\n\n" + this.state.eventDescription;
+    if (_.isString(this.props.description)) {
+      initialText = initialText + "\n\n" + this.props.description;
     }
 
-    var initialDate = this.state.eventDate;
+    var initialDate = this.state.start_date;
 
     this.setState({ initialText: initialText });
   }
