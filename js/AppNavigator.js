@@ -78,6 +78,7 @@ let StackChat = createStackNavigator(
     chatRooms: { screen: chatRooms },
     chatmain: { screen: chatmain },
     chat: { screen: chat },
+    selectLanguageChat: { screen: selectLanguage },
   },
   {
     navigationOptions: {

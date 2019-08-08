@@ -402,7 +402,7 @@ class chat extends Component {
         <View>
           <TouchableOpacity
             onPress={() => {
-              this.props.navigation.navigate("selectLanguage", {
+              this.props.navigation.navigate("selectLanguageChat", {
                 chatroom: this.props.title,
                 description: this.props.description,
                 contact: this.props.contact,
