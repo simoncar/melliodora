@@ -70,6 +70,13 @@ export default class Setup extends Component {
       global.authenticated = authenticated;
       console.log("authenticated=", authenticated);
     });
+    await AsyncStorage.getItem("adminPassword").then(adminPassword => {
+      global.adminPassword = adminPassword;
+      console.log("adminPassword=", adminPassword);
+      if (adminPassword == "cookies") {
+        global.administrator = true;
+      }
+    });
 
     this.setState({ isReady: true });
   }
