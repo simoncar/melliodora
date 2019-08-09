@@ -17,6 +17,7 @@ import CustomVideo from "./customVideo";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
 import uuid from "uuid";
+
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import _ from "lodash";
 import * as ActionCreators from "../../actions";

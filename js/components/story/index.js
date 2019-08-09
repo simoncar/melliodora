@@ -18,25 +18,11 @@ import * as firebase from "firebase";
 @withMappedNavigationParams()
 class Story extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam("summaryMyLanguage"),
+    title: navigation.getParam("summaryMyLanguage")
   });
 
   constructor(props) {
     super(props);
-
-    console.log("story=", this.props.summary);
-    this.state = {};
-
-    // analytics  -----
-    const trackingOpts = {
-      instId: Constants.manifest.extra.instance,
-      emailOrUsername: global.username,
-      story: `${this.props.navigation.getParam("eventDate")} - ${this.props.navigation.getParam("eventTitle")}`,
-    };
-
-    Analytics.identify(global.username, trackingOpts);
-    Analytics.track(Analytics.events.EVENT_STORY, trackingOpts);
-    // analytics --------
   }
 
   _shareMessage() {
@@ -50,7 +36,7 @@ class Story extends Component {
         formatTime(this.props.eventStartTime, this.props.eventEndTime) +
         " \n" +
         this.props.navigation.state.params.descriptionMyLanguage,
-      title: this.props.summaryMyLanguage,
+      title: this.props.summaryMyLanguage
     })
 
       .then(this._showResult)
@@ -60,20 +46,24 @@ class Story extends Component {
   _handleOpenWithLinking = sURL => {
     let ret;
 
-    if (sURL.indexOf("https://www.facebook.com/groups/") !== -1) {
-      ret = sURL.substring(32);
-
-      if (Platform.OS === "android") {
-        sURL = `fb://group/${ret}`;
-      } else {
-        sURL = `fb://profile/${ret}`;
-      }
+    if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
+      Linking.openURL(sURL);
     } else {
-      ret = "";
+      this.props.navigation.navigate("authPortalStory", {
+        url: sURL
+      });
     }
-
-    Linking.openURL(sURL);
   };
+
+  _handleEmailPress(email, matchIndex /*: number*/) {
+    Linking.openURL("mailto:" + email);
+  }
+
+  handlePhonePress(phone, matchIndex /*: number*/) {
+    Linking.openURL("tel:" + email);
+  }
+
+
 
   _formatWeb(sURL) {
     if (sURL.length > 0) {
@@ -99,7 +89,7 @@ class Story extends Component {
     }
     const preview = {
       uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
 
     if (undefined !== uri && null !== uri && uri.length > 0) {
@@ -117,7 +107,7 @@ class Story extends Component {
         onPress={() => {
           this.props.navigation.navigate("chat", {
             chatroom: chatroom,
-            title: title,
+            title: title
           });
         }}
       >
@@ -138,22 +128,6 @@ class Story extends Component {
         >
           <Text style={styles.eventTextSend}>
             <MaterialCommunityIcons name="send-lock" style={styles.eventIconSendLock} />{" "}
-          </Text>
-        </TouchableOpacity>
-      );
-    }
-  }
-
-  _drawIconMore(url) {
-    if (isValue(url)) {
-      return (
-        <TouchableOpacity
-          onPress={() => {
-            this._handleOpenWithLinking(this.props.navigation.state.params.url);
-          }}
-        >
-          <Text style={styles.eventText}>
-            <Ionicons name="md-link" style={styles.eventIcon} />
           </Text>
         </TouchableOpacity>
       );
@@ -214,14 +188,12 @@ class Story extends Component {
               paddingRight: 0,
               flex: 1,
               borderTopWidth: 1,
-              borderTopColor: "#ddd",
+              borderTopColor: "#ddd"
             }}
           >
             {this._drawIconChat(this.props._key, this.props.summaryMyLanguage)}
-            {this._drawIconMore(this.props.navigation.state.params.url)}
             {this._drawIconCalendar(this.props.navigation.state.params)}
             {this._drawIconShare()}
-
             {this._drawIconSend(this.props.navigation.state.params)}
           </View>
 
@@ -241,7 +213,7 @@ class Story extends Component {
                 <Text selectable style={styles.eventText}>
                   {formatTime(
                     this.props.navigation.getParam("time_start_pretty"),
-                    this.props.navigation.getParam("time_end_pretty"),
+                    this.props.navigation.getParam("time_end_pretty")
                   )}
                 </Text>
               )}
@@ -252,31 +224,31 @@ class Story extends Component {
                   {
                     type: "url",
                     style: styles.url,
-                    onPress: this._handleOpenWithLinking,
+                    onPress: this._handleOpenWithLinking
                   },
                   {
                     type: "phone",
                     style: styles.phone,
-                    onPress: this.handlePhonePress,
+                    onPress: this._handlePhonePress
                   },
                   {
                     type: "email",
                     style: styles.email,
-                    onPress: this.handleEmailPress,
+                    onPress: this._handleEmailPress
                   },
                   {
                     pattern: /Bobbbbb|Davidfffff/,
                     style: styles.name,
-                    onPress: this.handleNamePress,
+                    onPress: this.handleNamePress
                   },
                   {
                     pattern: /\[(@[^:]+):([^\]]+)\]/i,
                     style: styles.username,
                     onPress: this.handleNamePress,
-                    renderText: this.renderText,
+                    renderText: this.renderText
                   },
                   { pattern: /433333332/, style: styles.magicNumber },
-                  { pattern: /#(\w+)/, style: styles.hashTag },
+                  { pattern: /#(\w+)/, style: styles.hashTag }
                 ]}
                 childrenProps={{ allowFontScaling: false }}
               >
@@ -295,7 +267,7 @@ class Story extends Component {
               <Text> </Text>
               <Text selectable style={styles.eventTextAbbreviation}>
                 {getAbbreviations(
-                  this.props.navigation.getParam("summary") + " " + this.props.navigation.getParam("description"),
+                  this.props.navigation.getParam("summary") + " " + this.props.navigation.getParam("description")
                 )}
               </Text>
               <Text> </Text>
