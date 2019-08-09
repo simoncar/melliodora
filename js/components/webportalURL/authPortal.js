@@ -154,7 +154,9 @@ class authPortal extends Component {
   handleMessage(message) {
     var authName = AuthParser.extractLoginUsername(message.nativeEvent.data);
     var authEmail = AuthParser.extractLoginEmail(message.nativeEvent.data);
-    AuthParser.saveDetails(authName, authEmail);
+    var authID = AuthParser.extractLoginID(message.nativeEvent.data);
+    var authRole = AuthParser.extractLoginRole(message.nativeEvent.data);
+    AuthParser.saveDetails(authName, authEmail,  authRole, authID);
   }
 
   _onLoadEnd() {

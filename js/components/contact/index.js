@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, Linking } from "react-native";
-import Constants from "expo-constants";
 
 import { Content, Text, Button } from "native-base";
 import { Grid, Col, Row } from "react-native-easy-grid";

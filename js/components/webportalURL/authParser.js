@@ -29,11 +29,37 @@ export class AuthParser extends React.Component {
     return ret;
   }
 
-  saveDetails(name, email) {
+  extractLoginRole(res) {
+    var s = res.indexOf('@guid":');
+    var e = res.indexOf('"', s + 9);
+    if (s > -1) {
+      var ret = res.substring(s + 8, e);
+      global.guid = ret;
+    } else {
+      var ret = "";
+    }
+    return ret;
+  }
+
+  extractLoginID(res) {
+    var s = res.indexOf('@role":');
+    var e = res.indexOf('"', s + 9);
+    if (s > -1) {
+      var ret = res.substring(s + 8, e);
+      global.role = ret;
+    } else {
+      var ret = "";
+    }
+    return ret;
+  }
+
+  saveDetails(name, email,guid, role) {
     if (!_.isNil(global.uid) && name.length > 0 && email.length > 0) {
       var userDict = {
         name,
         email,
+        guid,
+        role,
         authenticated: true,
       };
 
