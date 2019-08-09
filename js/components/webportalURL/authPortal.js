@@ -2,43 +2,47 @@ import React, { Component } from "react";
 import Constants from "expo-constants";
 import { Animated, TextInput, TouchableOpacity, View, Text } from "react-native";
 import { WebView } from "react-native-webview";
-
-import { Container, Spinner } from "native-base";
+import { Container } from "native-base";
 import { connectActionSheet, ActionSheetProvider, ActionSheetOptions } from "@expo/react-native-action-sheet";
-import { getParameterByName } from "../global.js";
 import { withNavigation } from "react-navigation";
 import styles from "./styles";
 import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
 import AuthParser from "./authParser";
+import { withMappedNavigationParams } from "react-navigation-props-mapper";
+import _ from "lodash";
 
 const timer = require("react-native-timer");
-
-var WEBVIEW_REF = "webview";
-
-var injectScript = "";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
+@withMappedNavigationParams()
 class authPortal extends Component {
   constructor(props) {
     super(props);
-    DEFAULT_URL = "https://mystamford.edu.sg/parent-dashboard";
-  }
 
-  state = {
-    url: "https://mystamford.edu.sg/parent-dashboard",
-    status: "No Page Loaded",
-    backButtonEnabled: false,
-    forwardButtonEnabled: false,
-    loading: true,
-    cookies: {},
-    webViewUrl: "",
-    visible: this.props.visible,
-    myText: "My Original Text",
-    showMsg: false,
-  };
+    console.log(this.props.url);
+    if (_.isString(this.props.url)) {
+      var url = this.props.url;
+    } else {
+      var url = "https://mystamford.edu.sg/parent-dashboard";
+    }
+
+    this.state = {
+      url: url,
+      status: "No Page Loaded",
+      backButtonEnabled: false,
+      forwardButtonEnabled: false,
+      loading: true,
+      cookies: {},
+      webViewUrl: "",
+      visible: this.props.visible,
+      myText: "My Original Text",
+      showMsg: false
+    };
+  }
+  //this.props.chatroom
 
   componentWillUnmount() {
     timer.clearTimeout(this);
@@ -47,20 +51,20 @@ class authPortal extends Component {
   componentDidMount() {
     this.props.navigation.setParams({
       _onOpenActionSheet: this._onOpenActionSheet,
-      reload: this.reload,
+      reload: this.reload
     });
   }
 
   _onOpenActionSheet = () => {
-    const options = ["Home", "Cafe Top-Up", "Events", "Forms", "PTA", "Cancel"];
+    const options = ["Home", "Cafe Top-Up", "Events", "Forms", "PTA", "Logout", "Cancel"];
     const destructiveButtonIndex = 0;
-    const cancelButtonIndex = 5;
+    const cancelButtonIndex = 6;
 
     this.props.showActionSheetWithOptions(
       {
         options,
         cancelButtonIndex,
-        destructiveButtonIndex,
+        destructiveButtonIndex
       },
       buttonIndex => {
         switch (buttonIndex) {
@@ -79,29 +83,29 @@ class authPortal extends Component {
           case 4:
             this.setState({ url: "https://mystamford.edu.sg/pta" });
             break;
+          case 5:
+            this.setState({ url: "https://mystamford.edu.sg/logout" });
+            break;
         }
-      },
+      }
     );
   };
 
   showMsg() {
     if (Constants.manifest.extra.instance == "0001-sais_edu_sg") {
       this.setState({ showMsg: true }, () =>
-        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 5000),
+        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 5000)
       );
     }
   }
 
   onNavigationStateChange = navState => {
     console.log(navState.url);
-    this.setState({ url: navState.url });
-
-    //https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fparent-dashboard
-
-    if (navState.url == "https://mystamford.edu.sg/parent-dashboard") {
-      var jsCode = "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML);";
-
-      console.log("Injecting script");
+    if (
+      navState.url.substring(0, 42) != "https://mystamford.edu.sg/login/login.aspx" &&
+      navState.url.substring(0, 25) == "https://mystamford.edu.sg" &&
+      global.authenticated != true
+    ) {
       setTimeout(() => {
         var jsCode = "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML);";
         this.webref.injectJavaScript(jsCode);
@@ -111,28 +115,15 @@ class authPortal extends Component {
       this.setState({ canGoBack: navState.canGoBack });
     }
 
-    if (navState.url == "https://mystamford.edu.sg/logout.aspx") {
-      this.props.setauthSecret("");
-      console.log("PROCESS LOGOUT - CLEAR SECRET");
-    }
-
-    if (
-      navState.url ==
-      "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fparent-dashboard"
-    ) {
-      this.setState({
-        url:
-          "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fparent-dashboard&kr=iSAMS:ParentPP",
-      });
-      console.log("Overrule Login", global.email);
-    }
-
-    var string = navState.url;
-
-    if (string.indexOf("ffauth_secret") > 1) {
-      //var authSecret = getParameterByName("ffauth_secret", string);
-      //this.props.setauthSecret(authSecret);
-    } else {
+    if (navState.url.substring(0, 42) == "https://mystamford.edu.sg/login/login.aspx") {
+      if (!navState.url.includes("&kr=iSAMS:ParentPP")) {
+        if (navState.url.includes("&kr=ActiveDirectoryKeyRing")) {
+          //do overrule - they are staff
+        } else {
+          navState.url = navState.url + "&kr=iSAMS:ParentPP";
+          this.setState({ url: navState.url });
+        }
+      }
     }
   };
 
@@ -149,7 +140,7 @@ class authPortal extends Component {
       this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
 
       this.setState({ showMsg: true }, () =>
-        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000),
+        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000)
       );
     }
   }
@@ -160,56 +151,32 @@ class authPortal extends Component {
     }
   }
 
-  getInitialState = () => {
-    return {
-      webViewHeight: 100, // default height, can be anything
-    };
-  };
-
-  toggleCancel() {
-    this.setState({
-      showCancel: !this.state.showCancel,
-    });
-  }
-
   handleMessage(message) {
     var authName = AuthParser.extractLoginUsername(message.nativeEvent.data);
     var authEmail = AuthParser.extractLoginEmail(message.nativeEvent.data);
-    console.log("authName=", authName);
     AuthParser.saveDetails(authName, authEmail);
   }
 
   _onLoadEnd() {
-    if (
-      this.state.url ==
-      "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fparent-dashboard&kr=iSAMS:ParentPP"
-    ) {
-      //this.webref.injectJavaScript(jsCode);
+    if (this.state.url.substring(0, 42) == "https://mystamford.edu.sg/login/login.aspx") {
       setTimeout(() => {
-        // var jsCode =
         var jsCode = "document.getElementsByClassName('ff-login-personalised-background')[0].style.display = 'none';";
         jsCode = jsCode + "document.getElementById('username').value='" + global.email + "';true;";
         this.webref.injectJavaScript(jsCode);
-        console.log(jsCode);
       }, 500);
     } else {
-      var jsCodeNoLogo = "document.getElementById('userbar-react-component').style.display = 'none';";
-      jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('school-logo')[0].style.display = 'none';";
-      jsCodeNoLogo = jsCodeNoLogo + "document.getElementById('school-header').style.margin = '0px';";
-      jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('search-container')[0].style.display = 'none';";
-      setTimeout(() => {
-        this.webref.injectJavaScript(jsCodeNoLogo);
-      }, 500);
+        setTimeout(() => {
+          var jsCodeNoLogo = "document.getElementById('userbar-react-component').style.display = 'none';";
+          jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('school-logo')[0].style.display = 'none';";
+          jsCodeNoLogo = jsCodeNoLogo + "document.getElementById('school-header').style.margin = '0px';";
+          jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('search-container')[0].style.display = 'none';";
+     
+          this.webref.injectJavaScript(jsCodeNoLogo);
+      }, 700);
     }
   }
 
   render() {
-    const _login = () => {
-      Animated.visible = false;
-      Animated.height = 0;
-      this.state.showCancel = true;
-    };
-
     const { visible, style, children, ...rest } = this.props;
 
     return (
@@ -286,7 +253,7 @@ export default class AppContainer extends React.Component {
           <Ionicons name="ios-bookmarks" style={styles.heading} />
         </View>
       </TouchableOpacity>
-    ),
+    )
   });
   render() {
     return (
