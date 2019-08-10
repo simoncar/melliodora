@@ -163,7 +163,7 @@ class Settings extends Component {
 
 
 <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
+              icon={<Image style={styles.imageStyle} source={require("./images/shop.png")} />}
               title={I18n.t("uniforms") + " - Lims Online Shop"}
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
