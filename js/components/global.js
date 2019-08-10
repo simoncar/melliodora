@@ -148,16 +148,15 @@ export function getParameterByName(name, url) {
 }
 
 export function isAdmin(sPass) {
-  const adminDevices = ["3C57D89ssssE-B681-48D0-B5A9-B2C2E5530F3B"];
+  // const adminDevices = ["3C57D89ssssE-B681-48D0-B5A9-B2C2E5530F3B"];
 
-  const installationId = adminDevices.indexOf(Constants.installationId) > -1;
-  const deviceId = adminDevices.indexOf(Constants.deviceId) > -1;
+  //const installationId = adminDevices.indexOf(Constants.installationId) > -1;
+  //const deviceId = adminDevices.indexOf(Constants.deviceId) > -1;
   const adminPass = sPass === "cookies";
-  const simulator = !Constants.isDevice;
+  //const simulator = !Constants.isDevice;
   const globalAdminPass = global.adminPassword === "cookies";
 
-  var isAdminDevice = globalAdminPass || installationId || deviceId || adminPass || simulator;
-
+  var isAdminDevice = globalAdminPass || adminPass;
   return isAdminDevice;
 }
 
