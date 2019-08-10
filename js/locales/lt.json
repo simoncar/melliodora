@@ -18,7 +18,7 @@
 	"adminAccess": "Administratoriaus prieiga",
 	"studentLookup": "Studentų peržiūra",
 	"version": "Versija",
-	"typeMessage": "Įveskite pranešimą",
+	"typeMessage": "Įveskite pranešimą ...",
 	"photos": "Nuotraukos",
 	"save": "Sutaupyti",
 	"saved": "Išsaugota",
@@ -33,5 +33,7 @@
 	"shop": "Parduotuvė",
 	"translationsGoogle": "Google vertėjas",
 	"pta": "Tėvų mokytojų asociacija",
-	"languageChangeWarning": "Pasirinkus naują kalbą, programa bus paleista iš naujo"
+	"languageChangeWarning": "Pasirinkus naują kalbą, programa bus paleista iš naujo",
+	"login": "Prisijungti",
+	"logout": "Atsijungti"
 }

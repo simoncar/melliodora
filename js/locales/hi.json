@@ -18,7 +18,7 @@
 	"adminAccess": "व्यवस्थापक पहुँच",
 	"studentLookup": "छात्र लुकअप",
 	"version": "संस्करण",
-	"typeMessage": "एक संदेश लिखें",
+	"typeMessage": "एक संदेश लिखें...",
 	"photos": "तस्वीरें",
 	"save": "बचाना",
 	"saved": "बचाया",
@@ -33,5 +33,7 @@
 	"shop": "दुकान",
 	"translationsGoogle": "गूगल अनुवाद",
 	"pta": "अभिभावक शिक्षक संघ",
-	"languageChangeWarning": "नई भाषा का चयन करने के बाद ऐप पुनः आरंभ होगा"
+	"languageChangeWarning": "नई भाषा का चयन करने के बाद ऐप पुनः आरंभ होगा",
+	"login": "लॉग इन करें",
+	"logout": "लोग आउट"
 }

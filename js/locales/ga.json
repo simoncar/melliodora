@@ -18,7 +18,7 @@
 	"adminAccess": "Rochtain Riaracháin",
 	"studentLookup": "Cuardach Mac Léinn",
 	"version": "Leagan",
-	"typeMessage": "Clóscríobh teachtaireacht",
+	"typeMessage": "Clóscríobh teachtaireacht ...",
 	"photos": "Grianghraif",
 	"save": "Sábháil",
 	"saved": "Sábháil",
@@ -33,5 +33,7 @@
 	"shop": "Siopa",
 	"translationsGoogle": "Google Translate",
 	"pta": "Cumann Tuismitheoirí agus Múinteoirí",
-	"languageChangeWarning": "Atosóidh an feidhmchlár tar éis teanga nua a roghnú"
+	"languageChangeWarning": "Atosóidh an feidhmchlár tar éis teanga nua a roghnú",
+	"login": "Logáil isteach",
+	"logout": "Logáil Amach"
 }

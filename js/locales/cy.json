@@ -18,7 +18,7 @@
 	"adminAccess": "Mynediad Gweinyddol",
 	"studentLookup": "Edrych Myfyrwyr",
 	"version": "Fersiwn",
-	"typeMessage": "Teipiwch neges",
+	"typeMessage": "Teipiwch neges ...",
 	"photos": "Lluniau",
 	"save": "Arbedwch",
 	"saved": "Wedi'i gadw",
@@ -33,5 +33,7 @@
 	"shop": "Siop",
 	"translationsGoogle": "Google Translate",
 	"pta": "Cymdeithas Rhieni ac Athrawon",
-	"languageChangeWarning": "Bydd App yn ailgychwyn ar ôl dewis iaith newydd"
+	"languageChangeWarning": "Bydd App yn ailgychwyn ar ôl dewis iaith newydd",
+	"login": "Mewngofnodi",
+	"logout": "Allgofnodi"
 }

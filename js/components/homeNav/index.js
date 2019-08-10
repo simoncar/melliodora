@@ -108,9 +108,6 @@ class HomeNav extends Component {
           descriptionMyLanguage: doc.data().description,
         };
       }
-      console.log("title", doc.data().summary);
-      console.log("admin", global.administrator);
-      console.log("visible", doc.data().visible);
 
       if (global.administrator != true && doc.data().visible == false) {
         //skip item

@@ -263,7 +263,6 @@ async function uploadImageAsync(message, chatroom, user) {
     });
     fileToUpload = convertedImage.uri;
     mime = "image/jpeg";
-    console.log("A");
   } else {
     fileToUpload = message.image;
     mime = "video/mp4";
