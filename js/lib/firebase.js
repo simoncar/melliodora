@@ -3,6 +3,7 @@ import ApiKeys from "../ApiKeys";
 import { AsyncStorage } from "react-native";
 import _ from "lodash";
 import * as Localization from "expo-localization";
+import Constants from "expo-constants";
 
 class Firebase {
   static async initialise() {
@@ -90,7 +91,7 @@ class Firebase {
           }
 
           console.log("Auth2 = ", uid, global.authenticated, global.name, global.email);
-
+          var version = _.isNil(Constants.manifest.revisionId) ? "unknown" : Constants.manifest.revisionId;
           var userDict = {
             uid: uid,
             token,
@@ -98,6 +99,8 @@ class Firebase {
             loginCount: firebase.firestore.FieldValue.increment(1),
             languageSelected: global.language,
             phoneLocale: Localization.locale,
+            version: version,
+            lastLogin: Date.now(),
           };
           console.log("uid=", uid);
           try {
