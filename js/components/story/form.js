@@ -132,7 +132,7 @@ class newStory extends Component {
         .firestore()
         .collection("sais_edu_sg")
         .doc("feature")
-        .collection("features")
+        .collection("feature articles")
         .doc(this.state._key);
 
       storyRef.set(storyDict, { merge: true });
@@ -268,13 +268,7 @@ class newStory extends Component {
                 value={this.state.eventTitle}
               />
 
-              <TextInput
-                onChangeText={text => this.setState({ photo1: text })}
-                placeholder={"Photo 1 URL"}
-                style={[styles.photoURL]}
-                value={this.state.photo1}
-              />
-              <Text>Dates (optional)</Text>
+              <Text>Date (optional)</Text>
               <DatePicker
                 style={{ width: 200 }}
                 date={this.state.eventDate}

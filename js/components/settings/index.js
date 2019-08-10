@@ -189,7 +189,7 @@ class Settings extends Component {
             />
 
             <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/hotspot.png")} />}
+              icon={<Image style={styles.imageStyle} source={require("./images/contact.png")} />}
               title={I18n.t("contact")}
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
@@ -199,7 +199,7 @@ class Settings extends Component {
             />
 
             <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/cellular.png")} />}
+              icon={<Image style={styles.imageStyle} source={require("./images/shop.png")} />}
               title={I18n.t("shop")}
               titleInfo={I18n.t("pta")}
               onPress={() =>
@@ -211,7 +211,7 @@ class Settings extends Component {
             />
 
             <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/display.png")} />}
+              icon={<Image style={styles.imageStyle} source={require("./images/map.png")} />}
               title={I18n.t("map")}
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
@@ -220,7 +220,7 @@ class Settings extends Component {
               }}
             />
             <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/display.png")} />}
+              icon={<Image style={styles.imageStyle} source={require("./images/library.png")} />}
               title={I18n.t("library")}
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
