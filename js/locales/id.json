@@ -18,7 +18,7 @@
 	"adminAccess": "Akses Admin",
 	"studentLookup": "Pencarian Siswa",
 	"version": "Versi",
-	"typeMessage": "Ketik pesan",
+	"typeMessage": "Ketik pesan...",
 	"photos": "Foto",
 	"save": "Menyimpan",
 	"saved": "Disimpan",
@@ -33,5 +33,7 @@
 	"shop": "Toko",
 	"translationsGoogle": "penerjemah Google",
 	"pta": "Asosiasi Orangtua Guru",
-	"languageChangeWarning": "Aplikasi akan dimulai ulang setelah memilih bahasa baru"
+	"languageChangeWarning": "Aplikasi akan dimulai ulang setelah memilih bahasa baru",
+	"login": "Masuk",
+	"logout": "Keluar"
 }

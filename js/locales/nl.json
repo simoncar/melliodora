@@ -18,7 +18,7 @@
 	"adminAccess": "Beheerderstoegang",
 	"studentLookup": "Studenten opzoeken",
 	"version": "Versie",
-	"typeMessage": "Type een bericht",
+	"typeMessage": "Type een bericht...",
 	"photos": "foto's",
 	"save": "Opslaan",
 	"saved": "opgeslagen",
@@ -33,5 +33,7 @@
 	"shop": "Winkel",
 	"translationsGoogle": "Google Vertalen",
 	"pta": "Ouder leraar vereniging",
-	"languageChangeWarning": "App wordt opnieuw gestart na het selecteren van een nieuwe taal"
+	"languageChangeWarning": "App wordt opnieuw gestart na het selecteren van een nieuwe taal",
+	"login": "Log in",
+	"logout": "Uitloggen"
 }

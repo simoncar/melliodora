@@ -18,7 +18,7 @@
 	"adminAccess": "Administratorzugriff",
 	"studentLookup": "Student Lookup",
 	"version": "Ausführung",
-	"typeMessage": "Geben Sie eine Nachricht ein",
+	"typeMessage": "Nachricht eingeben ...",
 	"photos": "Fotos",
 	"save": "sparen",
 	"saved": "Gerettet",
@@ -33,5 +33,7 @@
 	"shop": "Geschäft",
 	"translationsGoogle": "Google Übersetzer",
 	"pta": "Eltern-Lehrer-Vereinigung",
-	"languageChangeWarning": "Die App wird nach Auswahl einer neuen Sprache neu gestartet"
+	"languageChangeWarning": "Die App wird nach Auswahl einer neuen Sprache neu gestartet",
+	"login": "Anmeldung",
+	"logout": "Ausloggen"
 }

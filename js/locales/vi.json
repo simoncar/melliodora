@@ -18,7 +18,7 @@
 	"adminAccess": "Quản trị viên truy cập",
 	"studentLookup": "Tra cứu học sinh",
 	"version": "Phiên bản",
-	"typeMessage": "Gõ một tin nhắn",
+	"typeMessage": "Gõ một tin nhắn...",
 	"photos": "Hình ảnh",
 	"save": "Tiết kiệm",
 	"saved": "Đã lưu",
@@ -33,5 +33,7 @@
 	"shop": "cửa tiệm",
 	"translationsGoogle": "Google dịch",
 	"pta": "Hội phụ huynh",
-	"languageChangeWarning": "Ứng dụng sẽ khởi động lại sau khi chọn ngôn ngữ mới"
+	"languageChangeWarning": "Ứng dụng sẽ khởi động lại sau khi chọn ngôn ngữ mới",
+	"login": "Đăng nhập",
+	"logout": "Đăng xuất"
 }

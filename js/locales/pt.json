@@ -18,7 +18,7 @@
 	"adminAccess": "Acesso Administrativo",
 	"studentLookup": "Estudante de pesquisa",
 	"version": "Versão",
-	"typeMessage": "Digite uma mensagem",
+	"typeMessage": "Digite uma mensagem...",
 	"photos": "Fotos",
 	"save": "Salve ",
 	"saved": "Salvou",
@@ -30,8 +30,10 @@
 	"logs": "Logs",
 	"unmute": "Cancelar mudo",
 	"contact": "Contato",
-	"shop": "Shop",
+	"shop": "fazer compras",
 	"translationsGoogle": "Google Tradutor",
 	"pta": "Associação de pais e mestres",
-	"languageChangeWarning": "App será reiniciado depois de selecionar um novo idioma"
+	"languageChangeWarning": "App será reiniciado depois de selecionar um novo idioma",
+	"login": "Entrar",
+	"logout": "Sair"
 }

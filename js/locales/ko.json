@@ -18,9 +18,9 @@
 	"adminAccess": "관리자 액세스",
 	"studentLookup": "학생 조회",
 	"version": "번역",
-	"typeMessage": "메시지를 입력",
+	"typeMessage": "메시지를 입력하십시오 ...",
 	"photos": "사진",
-	"save": "구하다",
+	"save": "Save",
 	"saved": "저장되었습니다",
 	"message": "메시지",
 	"send": "보내다",
@@ -33,5 +33,7 @@
 	"shop": "가게",
 	"translationsGoogle": "구글 번역",
 	"pta": "학부모 교사 협회",
-	"languageChangeWarning": "새로운 언어를 선택한 후 앱이 다시 시작됩니다"
+	"languageChangeWarning": "새로운 언어를 선택한 후 앱이 다시 시작됩니다",
+	"login": "로그인",
+	"logout": "로그 아웃"
 }

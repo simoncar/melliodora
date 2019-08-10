@@ -18,7 +18,7 @@
 	"adminAccess": "การเข้าถึงของผู้ดูแลระบบ",
 	"studentLookup": "การค้นหานักศึกษา",
 	"version": "รุ่น",
-	"typeMessage": "พิมพ์ข้อความ",
+	"typeMessage": "พิมพ์ข้อความ ...",
 	"photos": "ภาพถ่าย",
 	"save": "บันทึก",
 	"saved": "ที่บันทึกไว้",
@@ -33,5 +33,7 @@
 	"shop": "ร้านขายของ",
 	"translationsGoogle": "Google Translate",
 	"pta": "สมาคมครูผู้ปกครอง",
-	"languageChangeWarning": "แอพจะรีสตาร์ทหลังจากเลือกภาษาใหม่"
+	"languageChangeWarning": "แอพจะรีสตาร์ทหลังจากเลือกภาษาใหม่",
+	"login": "เข้าสู่ระบบ",
+	"logout": "ออกจากระบบ"
 }

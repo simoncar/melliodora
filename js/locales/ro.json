@@ -18,7 +18,7 @@
 	"adminAccess": "Acces Admin",
 	"studentLookup": "Căutarea studenților",
 	"version": "Versiune",
-	"typeMessage": "Scrie un mesaj",
+	"typeMessage": "Scrie un mesaj...",
 	"photos": "Fotografii",
 	"save": "Salvați",
 	"saved": "salvat",
@@ -33,5 +33,7 @@
 	"shop": "Magazin",
 	"translationsGoogle": "Google Translate",
 	"pta": "Asociația profesorilor de părinți",
-	"languageChangeWarning": "Aplicația va reporni după selectarea unei limbi noi"
+	"languageChangeWarning": "Aplicația va reporni după selectarea unei limbi noi",
+	"login": "Logare",
+	"logout": "Deconectare"
 }

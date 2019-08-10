@@ -18,7 +18,7 @@
 	"adminAccess": "管理者アクセス",
 	"studentLookup": "学生ルックアップ",
 	"version": "バージョン",
-	"typeMessage": "メッセージを入力してください",
+	"typeMessage": "メッセージを入力...",
 	"photos": "写真",
 	"save": "保存する",
 	"saved": "保存しました",
@@ -33,5 +33,7 @@
 	"shop": "ショップ",
 	"translationsGoogle": "グーグル翻訳",
 	"pta": "親教師協会",
-	"languageChangeWarning": "新しい言語を選択すると、アプリが再起動します"
+	"languageChangeWarning": "新しい言語を選択すると、アプリが再起動します",
+	"login": "ログイン",
+	"logout": "Logout"
 }
