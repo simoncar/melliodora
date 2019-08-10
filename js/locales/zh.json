@@ -18,7 +18,7 @@
 	"adminAccess": "管理员访问",
 	"studentLookup": "学生查询",
 	"version": "版",
-	"typeMessage": "输入消息",
+	"typeMessage": "输入消息......",
 	"photos": "相片",
 	"save": "保存",
 	"saved": "保存",
@@ -33,5 +33,7 @@
 	"shop": "店",
 	"translationsGoogle": "谷歌翻译",
 	"pta": "家长教师协会",
-	"languageChangeWarning": "选择新语言后应用程序将重新启动"
+	"languageChangeWarning": "选择新语言后应用程序将重新启动",
+	"login": "登录",
+	"logout": "登出"
 }

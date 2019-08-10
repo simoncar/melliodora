@@ -18,7 +18,7 @@
 	"adminAccess": "Administratortilgang",
 	"studentLookup": "Studentoppslag",
 	"version": "Versjon",
-	"typeMessage": "Skriv inn en melding",
+	"typeMessage": "Skriv inn en melding ...",
 	"photos": "Bilder",
 	"save": "Lagre",
 	"saved": "lagret",
@@ -33,5 +33,7 @@
 	"shop": "Butikk",
 	"translationsGoogle": "Google Oversetter",
 	"pta": "Foreldrelærerforening",
-	"languageChangeWarning": "Appen vil starte på nytt etter å ha valgt et nytt språk"
+	"languageChangeWarning": "Appen vil starte på nytt etter å ha valgt et nytt språk",
+	"login": "Logg Inn",
+	"logout": "Logg ut"
 }

@@ -15,10 +15,10 @@
 	"gateways": "Gateways",
 	"reports": "rapporter",
 	"language": "Språk",
-	"adminAccess": "Admin Access",
+	"adminAccess": "Adminåtkomst",
 	"studentLookup": "Studentuppslag",
 	"version": "Version",
-	"typeMessage": "Skriv ett meddelande",
+	"typeMessage": "Skriv ett meddelande...",
 	"photos": "foton",
 	"save": "Spara",
 	"saved": "sparad",
@@ -33,5 +33,7 @@
 	"shop": "affär",
 	"translationsGoogle": "Google översätt",
 	"pta": "Föräldrarnas lärarförening",
-	"languageChangeWarning": "Appen startas om efter att du har valt ett nytt språk"
+	"languageChangeWarning": "Appen startas om efter att du har valt ett nytt språk",
+	"login": "Logga in",
+	"logout": "Logga ut"
 }

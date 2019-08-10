@@ -18,7 +18,7 @@
 	"adminAccess": "Akses Admin",
 	"studentLookup": "Lookup Pelajar",
 	"version": "Versi",
-	"typeMessage": "Taip mesej",
+	"typeMessage": "Taip mesej ...",
 	"photos": "Foto",
 	"save": "Simpan",
 	"saved": "Disimpan",
@@ -30,8 +30,10 @@
 	"logs": "Log",
 	"unmute": "Nyahredam",
 	"contact": "Hubungi",
-	"shop": "Shop",
+	"shop": "Kedai",
 	"translationsGoogle": "Terjemahan Google",
 	"pta": "Persatuan Guru Ibu Bapa",
-	"languageChangeWarning": "Apl akan bermula semula selepas memilih bahasa baharu"
+	"languageChangeWarning": "Apl akan bermula semula selepas memilih bahasa baharu",
+	"login": "Log masuk",
+	"logout": "Log keluar"
 }

@@ -18,7 +18,7 @@
 	"adminAccess": "Administratorski dostop",
 	"studentLookup": "Iskanje študentov",
 	"version": "Različica",
-	"typeMessage": "Vnesite sporočilo",
+	"typeMessage": "Vnesite sporočilo ...",
 	"photos": "Fotografije",
 	"save": "Shrani",
 	"saved": "Shranjeno",
@@ -33,5 +33,7 @@
 	"shop": "Trgovina",
 	"translationsGoogle": "Google prevajalnik",
 	"pta": "Združenje staršev učiteljev",
-	"languageChangeWarning": "Aplikacija se bo znova zagnala po izbiri novega jezika"
+	"languageChangeWarning": "Aplikacija se bo znova zagnala po izbiri novega jezika",
+	"login": "Login",
+	"logout": "Izpisati"
 }
