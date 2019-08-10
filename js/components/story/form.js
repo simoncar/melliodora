@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, Dimensions, Text, TextInput, TouchableOpacity, Switch } from "react-native";
+import { View, ImageBackground, Text, TextInput, TouchableOpacity, Switch } from "react-native";
 import { connect } from "react-redux";
 import { Container, Content } from "native-base";
 import styles from "./styles";
@@ -8,6 +8,11 @@ import * as firebase from "firebase";
 import DatePicker from "react-native-datepicker";
 import { Entypo } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
+import _ from "lodash";
+import * as ImagePicker from "expo-image-picker";
+import * as ImageManipulator from "expo-image-manipulator";
+import * as Permissions from "expo-permissions";
+import uuid from "uuid";
 
 @withMappedNavigationParams()
 class newStory extends Component {
@@ -29,6 +34,7 @@ class newStory extends Component {
       eventEndTime: props.time_end_pretty,
       order: props.edit ? props.order : 1,
       _key: props.edit ? props._key : "",
+      cameraIcon: "camera",
     };
 
     this.generateID = this.generateID.bind(this);
@@ -105,6 +111,8 @@ class newStory extends Component {
       order: this.state.order !== undefined ? Number(this.state.order) : 1,
     };
 
+    console.log(storyDict);
+
     if (this.state._key == "") {
       var storyRef = firebase
         .firestore()
@@ -117,7 +125,7 @@ class newStory extends Component {
         .firestore()
         .collection("sais_edu_sg")
         .doc("feature")
-        .collection("feature articles")
+        .collection("features")
         .add(storyDict);
     } else {
       var storyRef = firebase
@@ -147,6 +155,87 @@ class newStory extends Component {
     }, 100);
   }
 
+  _drawImage(imageURI) {
+    if (_.isNil(imageURI)) {
+      var uri =
+        "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fxdesk-calendar-980x470-20181016.jpg.pagespeed.ic.BdAsh-Nj_6.jpg?alt=media&token=697fef73-e77d-46de-83f5-a45540694274";
+    } else {
+      var uri = imageURI;
+    }
+
+    if (undefined !== uri && null !== uri && uri.length > 0) {
+      console.log("imageURI=", imageURI);
+      return (
+        <View>
+          <ImageBackground style={styles.storyPhoto} source={{ uri: `${this.state.photo1}` }}>
+            <TouchableOpacity style={styles.photoButton} onPress={this._pickImage}>
+              <View>
+                <Entypo name={this.state.cameraIcon} style={{ fontSize: 25, color: "white" }} />
+              </View>
+            </TouchableOpacity>
+          </ImageBackground>
+        </View>
+      );
+    }
+  }
+
+  _pickImage = async () => {
+    var d = new Date();
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    });
+
+    if (!result.cancelled) {
+      //this.setState({ image: result.uri });
+      //this._images = images;
+
+      const convertedImage = await new ImageManipulator.manipulateAsync(result.uri, [{ resize: { height: 1000 } }], {
+        compress: 0,
+      });
+
+      fileToUpload = convertedImage.uri;
+      mime = "image/jpeg";
+      this.setState({ cameraIcon: "hour-glass" });
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+          resolve(xhr.response);
+        };
+        xhr.onerror = function(e) {
+          reject(new TypeError("Network request failed"));
+        };
+        xhr.responseType = "blob";
+        xhr.open("GET", fileToUpload, true);
+        xhr.send(null);
+      });
+
+      const ref = firebase
+        .storage()
+        .ref("random/" + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2))
+        .child(uuid.v4());
+
+      const snapshot = await ref
+        .put(blob, { contentType: mime })
+        .then(snapshot => {
+          return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
+        })
+        .then(downloadURL => {
+          console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
+          this.setState({ photo1: downloadURL });
+          return downloadURL;
+        })
+
+        .catch(error => {
+          // Use to signal error if something goes wrong.
+          console.log(`Failed to upload file and get link - ${error}`);
+        });
+
+      // We're done with the blob, close and release it
+      blob.close();
+      this.setState({ cameraIcon: "camera" });
+    }
+  };
+
   render() {
     const { goBack } = this.props.navigation;
     const order = this.state.order.toString();
@@ -154,6 +243,7 @@ class newStory extends Component {
       <Container style={{ backgroundColor: "#fff" }}>
         <Content showsVerticalScrollIndicator={false}>
           <View style={{ flex: 1, backgroundColor: "#fff" }}>
+            {this._drawImage(this.state.photo1)}
             <View
               style={{
                 flex: 1,
