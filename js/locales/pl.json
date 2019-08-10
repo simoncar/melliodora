@@ -18,7 +18,7 @@
 	"adminAccess": "Dostęp administratora",
 	"studentLookup": "Wyszukiwanie uczniów",
 	"version": "Wersja",
-	"typeMessage": "Wpisz wiadomość",
+	"typeMessage": "Wpisz wiadomość...",
 	"photos": "Zdjęcia",
 	"save": "Zapisać",
 	"saved": "Zapisano",
@@ -33,5 +33,7 @@
 	"shop": "Sklep",
 	"translationsGoogle": "tłumacz Google",
 	"pta": "Stowarzyszenie Rodziców i Nauczycieli",
-	"languageChangeWarning": "Aplikacja uruchomi się ponownie po wybraniu nowego języka"
+	"languageChangeWarning": "Aplikacja uruchomi się ponownie po wybraniu nowego języka",
+	"login": "Zaloguj Się",
+	"logout": "Logout"
 }

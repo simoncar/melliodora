@@ -18,7 +18,7 @@
 	"adminAccess": "Adminadgang",
 	"studentLookup": "Studenteropslag",
 	"version": "Version",
-	"typeMessage": "Skriv en meddelelse",
+	"typeMessage": "Skriv en meddelelse ...",
 	"photos": "Billeder",
 	"save": "Gemme",
 	"saved": "Gemt",
@@ -33,5 +33,7 @@
 	"shop": "Butik",
 	"translationsGoogle": "Google Oversæt",
 	"pta": "Forælderlærerforening",
-	"languageChangeWarning": "App genstarter efter valg af et nyt sprog"
+	"languageChangeWarning": "App genstarter efter valg af et nyt sprog",
+	"login": "Log på",
+	"logout": "Log ud"
 }
