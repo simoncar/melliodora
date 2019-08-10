@@ -156,10 +156,25 @@ class Settings extends Component {
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
                   url: "https://www.stamfordlionsathletics.com/",
-                  title: "Athletics",
+                  title: I18n.t("athletics"),
                 })
               }
             />
+
+
+<SettingsList.Item
+              icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
+              title={I18n.t("uniforms") + " - Lims Online Shop"}
+              titleInfo=""
+              titleInfoStyle={styles.titleInfoStyle}
+              onPress={() =>
+                this.props.navigation.navigate("webportalURL", {
+                  url: "https://limsuniforms.com/pages/stamford-american-international-school",
+                  title: I18n.t("uniforms") + " - Lims Online Shop",
+                })
+              }
+            />
+
 
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
