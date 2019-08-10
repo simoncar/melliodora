@@ -38,11 +38,12 @@ export default class adminPassword extends Component {
     if (adminPassword == "cookies") {
       this.setState({ adminPasswordCorrect: "Password Correct!" });
       this.setState({ restartMessage: "Click to Restart in Admin Mode" });
+
+      global.adminPassword = adminPassword;
+      AsyncStorage.setItem("adminPassword", adminPassword);
     } else {
       this.setState({ adminPasswordCorrect: "" });
     }
-    global.adminPassword = adminPassword;
-    AsyncStorage.setItem("adminPassword", adminPassword);
   }
 
   render() {
@@ -51,7 +52,6 @@ export default class adminPassword extends Component {
         <Text style={styles.title}>Enter the Admin Password:</Text>
         <TextInput
           style={styles.passwordField}
-          placeholder={this.state.adminPassword}
           onChangeText={text => this._setAdminPassword(text)}
           autoCapitalize="none"
         />
