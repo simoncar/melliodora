@@ -2,6 +2,7 @@ import * as firebase from "firebase";
 import ApiKeys from "../ApiKeys";
 import { AsyncStorage } from "react-native";
 import _ from "lodash";
+import * as Localization from "expo-localization";
 
 class Firebase {
   static async initialise() {
@@ -47,7 +48,6 @@ class Firebase {
 
                 if (_.isString(docData.name)) {
                   AsyncStorage.setItem("name", docData.name);
-                  console.log("firebase.js AsyncStorage.setItem('name', docData.name);", docData.name);
                   global.name = docData.name;
                 } else {
                   global.name = "";
@@ -55,22 +55,14 @@ class Firebase {
 
                 if (_.isString(docData.email)) {
                   AsyncStorage.setItem("email", docData.email);
-                  console.log("firebase.js AsyncStorage.setItem('email', docData.email);", docData.email);
                   global.email = docData.email;
                 } else {
                   global.email = "";
                 }
-                console.log("A");
                 if (_.isBoolean(docData.authenticated)) {
-                  console.log("B", _.isBoolean(docData.authenticated));
-
                   if (docData.authenticated) {
-                    console.log("C", docData.authenticated);
-
-                    AsyncStorage.setItem("authenticated", "true");
                     global.authenticated = true;
                   } else {
-                    console.log("D");
                   }
                 } else {
                   global.authenticated = false;
@@ -79,7 +71,6 @@ class Firebase {
                 if (_.isArray(docData.gradeNotify)) {
                   for (var i = -4; i < 13; i++) {
                     if (_.isNumber(docData.gradeNotify[i])) {
-                      console.log("loop=", docData.gradeNotify[i]);
                     }
                   }
                   AsyncStorage.setItem("gradeNotify", JSON.stringify(docData.gradeNotify));
@@ -105,8 +96,10 @@ class Firebase {
             token,
             safeToken,
             loginCount: firebase.firestore.FieldValue.increment(1),
+            languageSelected: global.language,
+            phoneLocale: Localization.locale,
           };
-
+          console.log("uid=", uid);
           try {
             firebase
               .firestore()
