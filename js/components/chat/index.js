@@ -207,7 +207,7 @@ class chat extends Component {
         filename: result.uri,
         user: {
           _id: global.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-          name: this.props.userX.nickname,
+          name: global.name,
         },
       };
 
@@ -255,7 +255,6 @@ class chat extends Component {
   }
 
   renderBubble = props => {
-    const username = this.props.userX.nickname;
     const color = this.getColor(username);
 
     var myimage = props.currentMessage.image;
