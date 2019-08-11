@@ -257,7 +257,6 @@ async function uploadImageAsync(message, chatroom, user) {
   console.log("fileType=", fileType);
   fileType = fileType.toUpperCase();
   if (fileType == "JPG" || fileType == "HEIC" || fileType == "PNG") {
-    console.log("C");
     const convertedImage = await new ImageManipulator.manipulateAsync(message.image, [{ resize: { height: 1000 } }], {
       compress: 0,
     });
@@ -266,7 +265,6 @@ async function uploadImageAsync(message, chatroom, user) {
   } else {
     fileToUpload = message.image;
     mime = "video/mp4";
-    console.log("B");
   }
 
   const blob = await new Promise((resolve, reject) => {
@@ -292,7 +290,6 @@ async function uploadImageAsync(message, chatroom, user) {
     .then(snapshot => {
       return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
     })
-
     .then(downloadURL => {
       console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
       URLfile = downloadURL;

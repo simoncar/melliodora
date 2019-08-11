@@ -1,28 +1,9 @@
 import React, { Component } from "react";
-
-import {
-  TouchableHighlight,
-  Button,
-  Linking,
-  Text,
-  Animated,
-  Dimensions,
-  TouchableOpacity,
-  WebView,
-  ScrollView,
-  Image,
-  View,
-  Platform
-} from "react-native";
-
+import { Button, Linking, Text, Animated, TouchableOpacity, WebView, Image, View, Platform } from "react-native";
 import { Container } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { WebBrowser } from "expo";
 import Constants from "expo-constants";
-import { openDrawer } from "../../actions/drawer";
-import * as ActionCreators from "../../actions";
 import styles from "./styles";
 import qs from "qs";
 
@@ -32,7 +13,6 @@ var WEBVIEW_REF = "webview";
 var DEFAULT_URL = "";
 
 class WebportalAuth extends Component {
-
   constructor(props) {
     DEFAULT_URL = "https://saispta.com/app/Authentication.php";
     super(props);
@@ -50,7 +30,7 @@ class WebportalAuth extends Component {
     visible: this.props.visible,
     myText: "My Original Text",
     showMsg: false,
-    result: null
+    result: null,
   };
 
   showMsg() {
@@ -98,7 +78,7 @@ class WebportalAuth extends Component {
     }
     Animated.timing(this._visibility, {
       toValue: nextProps.visible ? 1 : 0,
-      duration: 1200
+      duration: 1200,
     }).start(() => {
       this.setState({ visible: nextProps.visible });
     });
@@ -113,10 +93,7 @@ class WebportalAuth extends Component {
     const { cookies, webViewUrl } = this.state;
 
     if (webViewUrl === "SUCCESS_URL") {
-      console.log(
-        "webview = _checkNeededCookies",
-        cookies("ASP.NET_SessionId")
-      );
+      console.log("webview = _checkNeededCookies", cookies("ASP.NET_SessionId"));
       if (cookies["ASP.NET_SessionId"]) {
         alert(cookies["ASP.NET_SessionId"]);
         // do your magic...
@@ -126,7 +103,7 @@ class WebportalAuth extends Component {
 
   getInitialState = () => {
     return {
-      webViewHeight: 100 // default height, can be anything
+      webViewHeight: 100, // default height, can be anything
     };
   };
 
@@ -150,7 +127,7 @@ class WebportalAuth extends Component {
 
   toggleCancel() {
     this.setState({
-      showCancel: !this.state.showCancel
+      showCancel: !this.state.showCancel,
     });
   }
 
@@ -163,10 +140,7 @@ class WebportalAuth extends Component {
       <View style={styles.container}>
         <Text style={styles.header}>Redirect Example</Text>
 
-        <Button
-          onPress={this._openWebBrowserAsync}
-          title="Tap here to try it out"
-        />
+        <Button onPress={this._openWebBrowserAsync} title="Tap here to try it out" />
         <Text>{Constants.linkingUri}</Text>
 
         <Text>
@@ -174,10 +148,7 @@ class WebportalAuth extends Component {
           {Constants.linkingUri}&failURL=https://saispta.com/app/fail
         </Text>
 
-        <Button
-          onPress={this._openWebBrowserAsync2}
-          title="Tap here to try it out"
-        />
+        <Button onPress={this._openWebBrowserAsync2} title="Tap here to try it out" />
         {this._maybeRenderRedirectData()}
       </View>
     );
@@ -211,13 +182,13 @@ class WebportalAuth extends Component {
     console.log(
       "https://mystamford.edu.sg/login/api/webgettoken?app=SAISPTA&successURL=https://saispta.com/app/Authentication.php?linkingUri=" +
         Constants.linkingUri +
-        "&failURL=https://saispta.com/app/fail"
+        "&failURL=https://saispta.com/app/fail",
     );
 
     let result = await WebBrowser.openBrowserAsync(
       "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2flogin%2fapi%2fwebgettoken%3fapp%3dSAISPTA%26successURL%3dhttps%3a%2f%2fsaispta.com%2fapp%2fAuthentication.php%3flinkingUri%3d" +
         Constants.linkingUri +
-        "%26failURL%3dhttps%3a%2f%2fsaispta.com%2fapp%2ffail"
+        "%26failURL%3dhttps%3a%2f%2fsaispta.com%2fapp%2ffail",
     );
 
     this._removeLinkingListener();
@@ -234,9 +205,7 @@ class WebportalAuth extends Component {
 `https://saispta.com/app/Authentication.php`
 'exp://localhost:19002/+authToken=ffff23xbdbb21b3'
     */
-    let result = await WebBrowser.openBrowserAsync(
-      "https://mystamford.edu.sg/"
-    );
+    let result = await WebBrowser.openBrowserAsync("https://mystamford.edu.sg/");
     this._removeLinkingListener();
     this.setState({ result });
   };
@@ -263,21 +232,10 @@ class WebportalAuth extends Component {
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>
-              <TouchableOpacity
-                disabled={!this.state.canGoBack}
-                onPress={this.onBack.bind(this)}
-              >
-                <Ionicons
-                  style={styles.navIconLeft}
-                  active
-                  name="ios-arrow-back"
-                />
+              <TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
+                <Ionicons style={styles.navIconLeft} active name="ios-arrow-back" />
               </TouchableOpacity>
-              <Ionicons
-                style={styles.navIconRight}
-                active
-                name="ios-arrow-forward"
-              />
+              <Ionicons style={styles.navIconRight} active name="ios-arrow-forward" />
             </View>
             <WebView
               source={{ uri: this.state.url }}
@@ -300,7 +258,7 @@ class WebportalAuth extends Component {
   _handlePressButtonAsync = async () => {
     let result = await WebBrowser.openAuthSessionAsync(
       "https://mystamford.edu.sg/login/api/webgettoken?app=SAISPTA&successURL=https://saispta.com/app/Authentication.php",
-      "https://saispta.com/app/Authentication.php"
+      "https://saispta.com/app/Authentication.php",
     );
     this.setState({ result });
   };
@@ -316,30 +274,10 @@ class WebportalAuth extends Component {
       this.reload();
     } else {
       this.setState({
-        url: url
+        url: url,
       });
     }
   };
 }
 
-function bindAction(dispatch) {
-  return {
-    openDrawer: () => dispatch(openDrawer())
-  };
-}
-
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(ActionCreators, dispatch);
-};
-
-const mapStateToProps = state => ({
-  //navigation: state.cardNavigation,
-  userX: state.user,
-  ffauth_device_idX: state.ffauth_device_id,
-  ffauth_secretX: state.ffauth_secret
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WebportalAuth);
+export default WebportalAuth;

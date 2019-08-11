@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import {
   FlatList,
   View,
@@ -16,31 +14,17 @@ import { Container, Content, Text, Icon, Button } from "native-base";
 import { Notifications } from "expo";
 import Constants from "expo-constants";
 import { BorderlessButton } from "react-native-gesture-handler";
-import moment from "moment";
 import { MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
 import { isAdmin, getLanguageString } from "../global";
 import BLEDataParser from "../../lib/BLEDataParser";
 import CountDown from "react-native-countdown-component";
 import * as ActionCreators from "../../actions";
-import { openDrawer } from "../../actions/drawer";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
 import ListItem from "./ListItem";
 
 const { width } = Dimensions.get("window");
-
-// Get the token that uniquely identifies this device
-if (!Constants.isDevice) {
-  var token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
-} else {
-  var token = Notifications.getExpoPushTokenAsync();
-}
-
-const today = new moment().format();
-
-const parsedRawData = new BLEDataParser("03039FFE17169FFE0256596E48415957727242510000016B91E7901F");
-
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
@@ -51,7 +35,7 @@ class HomeNav extends Component {
 
     this.state = {
       user: null,
-      loading: false,
+      loading: true,
       featureItems: [],
     };
 
@@ -259,25 +243,4 @@ class HomeNav extends Component {
   }
 }
 
-function bindAction(dispatch) {
-  return {
-    openDrawer: () => dispatch(openDrawer()),
-  };
-}
-
-const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
-
-const mapStateToProps = state => ({
-  ////navigation: state.cardNavigation,
-  userX: state.user,
-  adminPassword: state.user.adminPassword,
-  ffauth_device_idX: state.ffauth_device_id,
-  ffauth_secretX: state.ffauth_secret,
-  calendarEventsX: state.user,
-  language: state.user.language,
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(HomeNav);
+export default HomeNav;

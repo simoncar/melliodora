@@ -8,15 +8,15 @@ import styles from "./styles";
 import I18n from "../../lib/i18n";
 import ChatroomItem from "./chatroomItem";
 
-const tabBarIcon = name => ({ tintColor }) => (
-  <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
-);
-
 @withMappedNavigationParams()
 class chatRooms extends Component {
   static navigationOptions = {
     title: I18n.t("chat"),
-    tabBarIcon: tabBarIcon("bubble"),
+    headerTitleStyle: {
+      fontWeight: "bold",
+      fontSize: 28,
+    },
+    tabBarIcon: <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={"bubble"} color={"grey"} size={24} />,
     headerBackTitle: null,
   };
 
@@ -28,8 +28,10 @@ class chatRooms extends Component {
   }
 
   componentWillMount() {
-    this.loadFromAsyncStorage();
     var userChatrooms = [];
+
+    this.loadFromAsyncStorage();
+
     firebase
       .firestore()
       .collection("sais_edu_sg")
