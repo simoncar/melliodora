@@ -22,8 +22,6 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { isAdmin } from "../global";
 import BLEDataParser from "../../lib/BLEDataParser";
 import CountDown from "react-native-countdown-component";
-import * as ActionCreators from "../../actions";
-import { openDrawer } from "../../actions/drawer";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
 
