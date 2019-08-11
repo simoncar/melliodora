@@ -125,6 +125,7 @@ class authPortal extends Component {
         }
       }
     }
+    this.setState({ url: navState.url });
   };
 
   onBack() {
