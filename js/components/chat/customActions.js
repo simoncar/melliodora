@@ -1,12 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Modal, StyleSheet, TouchableOpacity, View, ViewPropTypes, Text, SafeAreaView } from "react-native";
-
-import CameraRollPicker from "react-native-camera-roll-picker";
-import ImagePicker from "expo-image-picker";
+import { StyleSheet, TouchableOpacity, View, ViewPropTypes, Text, SafeAreaView } from "react-native";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
-
 import NavBar, { NavButton, NavButtonText, NavTitle } from "react-native-nav";
 import { Entypo } from "@expo/vector-icons";
 

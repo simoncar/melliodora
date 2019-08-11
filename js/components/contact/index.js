@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { View, Linking } from "react-native";
-
 import { Content, Text, Button } from "native-base";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-
 import Communications from "react-native-communications";
 import updateFirebase from "./../../lib/updateFirebase";
-
 import styles from "./styles";
 
 class Anchor extends React.Component {

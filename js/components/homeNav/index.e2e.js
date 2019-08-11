@@ -89,9 +89,7 @@ class HomeNav extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={{color:'black'}}>Text for test</Text>
-
-
+        <Text style={{ color: "black" }}>Text for test</Text>
 
         {isAdmin(this.props.adminPassword) && (
           <TouchableHighlight
@@ -114,7 +112,6 @@ class HomeNav extends Component {
                 onPress={() => {
                   this.props.navigation.navigate("AttendanceOverviewScreen");
                 }}
-
                 testID="safeguardnav"
               >
                 <View>
@@ -198,25 +195,4 @@ class HomeNav extends Component {
   }
 }
 
-function bindAction(dispatch) {
-  return {
-    openDrawer: () => dispatch(openDrawer()),
-  };
-}
-
-const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
-
-const mapStateToProps = state => ({
-  ////navigation: state.cardNavigation,
-  userX: state.user,
-  adminPassword: state.user.adminPassword,
-  ffauth_device_idX: state.ffauth_device_id,
-  ffauth_secretX: state.ffauth_secret,
-  calendarEventsX: state.user,
-  language: state.user.language,
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(HomeNav);
+export default HomeNav;
