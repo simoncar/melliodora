@@ -89,7 +89,6 @@ class WebportalSports extends Component {
               onNavigationStateChange={this.onNavigationStateChange.bind(this)}
               domStorageEnabled={true}
               startInLoadingState={true}
-              scalesPageToFit={true}
               injectedJavaScript={injectScript}
               ref={WEBVIEW_REF}
               useWebKit={true}

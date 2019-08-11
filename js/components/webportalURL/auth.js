@@ -24,7 +24,6 @@ class WebportalAuth extends Component {
     backButtonEnabled: false,
     forwardButtonEnabled: false,
     loading: true,
-    scalesPageToFit: true,
     cookies: {},
     webViewUrl: "",
     visible: this.props.visible,
@@ -245,7 +244,6 @@ class WebportalAuth extends Component {
               //onMessage={this._onMessage}
               domStorageEnabled={true}
               startInLoadingState={true}
-              scalesPageToFit={true}
               //injectedJavaScript={injectScript}
               ref={WEBVIEW_REF}
             />
