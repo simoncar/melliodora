@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import { WebView, Linking, View, TouchableOpacity, TouchableHighlight, Platform, Share } from "react-native";
 import { Container, Content, Text, Icon } from "native-base";
 import { Ionicons, Feather, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-import Constants from "expo-constants";
 import { Image } from "react-native-expo-image-cache";
 import ParsedText from "react-native-parsed-text";
 import Communications from "react-native-communications";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
 import call from "react-native-phone-call"; //TODO migration to communications
-import Analytics from "../../lib/analytics";
 import { Notifications } from "expo";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue, getLanguageString } from "../global.js";
 import _ from "lodash";
@@ -18,7 +16,7 @@ import * as firebase from "firebase";
 @withMappedNavigationParams()
 class Story extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam("summaryMyLanguage")
+    title: navigation.getParam("summaryMyLanguage"),
   });
 
   constructor(props) {
@@ -36,7 +34,7 @@ class Story extends Component {
         formatTime(this.props.eventStartTime, this.props.eventEndTime) +
         " \n" +
         this.props.navigation.state.params.descriptionMyLanguage,
-      title: this.props.summaryMyLanguage
+      title: this.props.summaryMyLanguage,
     })
 
       .then(this._showResult)
@@ -50,7 +48,7 @@ class Story extends Component {
       Linking.openURL(sURL);
     } else {
       this.props.navigation.navigate("authPortalStory", {
-        url: sURL
+        url: sURL,
       });
     }
   };
@@ -61,14 +59,6 @@ class Story extends Component {
 
   handlePhonePress(phone, matchIndex /*: number*/) {
     Linking.openURL("tel:" + email);
-  }
-
-
-
-  _formatWeb(sURL) {
-    if (sURL.length > 0) {
-      return <WebView source={{ uri: "https://github.com/facebook/react-native" }} javaScriptEnabled />;
-    }
   }
 
   renderText(matchingString, matches) {
@@ -89,7 +79,7 @@ class Story extends Component {
     }
     const preview = {
       uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
 
     if (undefined !== uri && null !== uri && uri.length > 0) {
@@ -102,12 +92,16 @@ class Story extends Component {
   }
 
   _drawIconChat(chatroom, title) {
+    if (_.isNil(chatroom)) {
+      return;
+    }
+
     return (
       <TouchableOpacity
         onPress={() => {
           this.props.navigation.navigate("chat", {
             chatroom: chatroom,
-            title: title
+            title: title,
           });
         }}
       >
@@ -188,7 +182,7 @@ class Story extends Component {
               paddingRight: 0,
               flex: 1,
               borderTopWidth: 1,
-              borderTopColor: "#ddd"
+              borderTopColor: "#ddd",
             }}
           >
             {this._drawIconChat(this.props._key, this.props.summaryMyLanguage)}
@@ -213,7 +207,7 @@ class Story extends Component {
                 <Text selectable style={styles.eventText}>
                   {formatTime(
                     this.props.navigation.getParam("time_start_pretty"),
-                    this.props.navigation.getParam("time_end_pretty")
+                    this.props.navigation.getParam("time_end_pretty"),
                   )}
                 </Text>
               )}
@@ -224,31 +218,31 @@ class Story extends Component {
                   {
                     type: "url",
                     style: styles.url,
-                    onPress: this._handleOpenWithLinking
+                    onPress: this._handleOpenWithLinking,
                   },
                   {
                     type: "phone",
                     style: styles.phone,
-                    onPress: this._handlePhonePress
+                    onPress: this._handlePhonePress,
                   },
                   {
                     type: "email",
                     style: styles.email,
-                    onPress: this._handleEmailPress
+                    onPress: this._handleEmailPress,
                   },
                   {
                     pattern: /Bobbbbb|Davidfffff/,
                     style: styles.name,
-                    onPress: this.handleNamePress
+                    onPress: this.handleNamePress,
                   },
                   {
                     pattern: /\[(@[^:]+):([^\]]+)\]/i,
                     style: styles.username,
                     onPress: this.handleNamePress,
-                    renderText: this.renderText
+                    renderText: this.renderText,
                   },
                   { pattern: /433333332/, style: styles.magicNumber },
-                  { pattern: /#(\w+)/, style: styles.hashTag }
+                  { pattern: /#(\w+)/, style: styles.hashTag },
                 ]}
                 childrenProps={{ allowFontScaling: false }}
               >
@@ -267,7 +261,7 @@ class Story extends Component {
               <Text> </Text>
               <Text selectable style={styles.eventTextAbbreviation}>
                 {getAbbreviations(
-                  this.props.navigation.getParam("summary") + " " + this.props.navigation.getParam("description")
+                  this.props.navigation.getParam("summary") + " " + this.props.navigation.getParam("description"),
                 )}
               </Text>
               <Text> </Text>

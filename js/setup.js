@@ -28,15 +28,12 @@ export default class Setup extends Component {
       await Firebase.initialise();
     } catch (e) {
       console.log("firebase error", e.message);
-      //console.error(e.message);
     }
 
     Font.loadAsync({
       "Material Icons": require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       MaterialIcons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
-      //Ionicons: require('/@expo/vector-icons/fonts/Ionicons.ttf'),
-      //'Material Icons': require('/@expo/vector-icons/fonts/MaterialIcons.ttf'),
     });
 
     await AsyncStorage.getItem("language").then(language => {

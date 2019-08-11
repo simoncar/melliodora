@@ -1,31 +1,8 @@
 import React, { Component } from "react";
-import {
-  Alert,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Image
-} from "react-native";
-import {
-  Container,
-  Content,
-  Header,
-  Left,
-  Body,
-  Right,
-  Button
-} from "native-base";
-
+import { Alert, ScrollView, Text, View } from "react-native";
+import { Container, Content, Button } from "native-base";
 import { Calendar } from "expo";
 import * as Permissions from "expo-permissions";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as ActionCreators from "../../actions";
-
-import Analytics from "../../lib/analytics";
-import Constants from "expo-constants";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
@@ -35,7 +12,7 @@ import styles from "./styles";
 @withMappedNavigationParams()
 class CalendarRow extends Component {
   static navigationOptions = {
-    title: "Calendars"
+    title: "Calendars",
   };
 
   _selectCalendar(
@@ -49,7 +26,7 @@ class CalendarRow extends Component {
     eventImage,
     phone,
     email,
-    url
+    url,
   ) {
     const { goBack } = this.props.navigation;
     this._addEvent(
@@ -63,7 +40,7 @@ class CalendarRow extends Component {
       eventImage,
       phone,
       email,
-      url
+      url,
     );
     goBack(null);
   }
@@ -79,7 +56,7 @@ class CalendarRow extends Component {
     eventImage,
     phone,
     email,
-    url
+    url,
   ) => {
     const timeInOneHour = new Date(eventDate);
     timeInOneHour.setHours(timeInOneHour.getHours() + 1);
@@ -94,7 +71,7 @@ class CalendarRow extends Component {
         startDate: new Date(eventDate),
         endDate: new Date(eventDate),
         notes: eventDescription,
-        timeZone: "Asia/Singapore"
+        timeZone: "Asia/Singapore",
       };
     } else {
       newEvent = {
@@ -104,53 +81,16 @@ class CalendarRow extends Component {
         startDate: new Date(eventDate + "T" + eventStartTime + "+08:00"),
         endDate: new Date(eventDate + "T" + eventEndTime + "+08:00"),
         notes: eventDescription,
-        timeZone: "Asia/Singapore"
+        timeZone: "Asia/Singapore",
       };
     }
 
     try {
       await Calendar.createEventAsync(phoneCalendarID, newEvent);
-      //Alert.alert("Event saved successfully");
-
-      //analytics  -----
-      let trackingOpts = {
-        instId: Constants.manifest.extra.instance,
-        emailOrUsername: global.username,
-        story:
-          newEvent.eventDate +
-          " - " +
-          newEvent.startDate +
-          " - " +
-          newEvent.endDate +
-          " - " +
-          newEvent.eventTitle
-      };
-
-      Analytics.identify(global.username, trackingOpts);
-      Analytics.track(Analytics.events.ADD_TO_CALENDAR_SUCCESS, trackingOpts);
-      //analytics --------
 
       this._findEvents(phoneCalendarID);
     } catch (e) {
       Alert.alert("Event not saved successfully", e.message);
-
-      //analytics  -----
-      let trackingOpts = {
-        instId: Constants.manifest.extra.instance,
-        emailOrUsername: global.username,
-        story:
-          newEvent.eventDate +
-          " - " +
-          newEvent.startDate +
-          " - " +
-          newEvent.endDate +
-          " - " +
-          newEvent.eventTitle
-      };
-
-      Analytics.identify(global.username, trackingOpts);
-      Analytics.track(Analytics.events.ADD_TO_CALENDAR_FAILED, trackingOpts);
-      //analytics --------
     }
   };
 
@@ -177,15 +117,12 @@ class CalendarRow extends Component {
       eventImage,
       phone,
       email,
-      url
+      url,
     } = this.props;
 
     console.log(this.props);
 
-    const calendarTypeName =
-      calendar.entityType === Calendar.EntityTypes.REMINDER
-        ? "Reminders"
-        : "Events";
+    const calendarTypeName = calendar.entityType === Calendar.EntityTypes.REMINDER ? "Reminders" : "Events";
 
     console.log("ttttt" + eventTitle + "  ------   " + eventDescription);
     //&& calendar.entityType == "event"
@@ -207,7 +144,7 @@ class CalendarRow extends Component {
                 eventImage,
                 phone,
                 email,
-                url
+                url,
               )
             }
           >
@@ -218,10 +155,7 @@ class CalendarRow extends Component {
         {calendar.allowsModifications == false && (
           <Button transparent style={styles.calendarButton}>
             <Ionicons style={styles.calendarTextDisabled} name="ios-alert" />
-            <Text style={styles.calendarTextDisabled}>
-              {" "}
-              {calendar.title} (read only)
-            </Text>
+            <Text style={styles.calendarTextDisabled}> {calendar.title} (read only)</Text>
           </Button>
         )}
       </View>
@@ -232,7 +166,7 @@ class CalendarRow extends Component {
 @withMappedNavigationParams()
 class phoneCalendar extends Component {
   static navigationOptions = {
-    title: I18n.t("calendar")
+    title: I18n.t("calendar"),
   };
 
   constructor(props) {
@@ -247,14 +181,14 @@ class phoneCalendar extends Component {
     activeCalendarId: null,
     activeCalendarEvents: [],
     showAddNewEventForm: false,
-    editingEvent: null
+    editingEvent: null,
   };
 
   _askForCalendarPermissions = async () => {
     const response = await Permissions.askAsync("calendar");
     const granted = response.status === "granted";
     this.setState({
-      haveCalendarPermissions: granted
+      haveCalendarPermissions: granted,
     });
     return granted;
   };
@@ -316,16 +250,4 @@ class phoneCalendar extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  console.log("bind action creators");
-  return bindActionCreators(ActionCreators, dispatch);
-};
-
-const mapStateToProps = state => ({
-  //navigation: state.cardNavigation,
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(phoneCalendar);
+export default phoneCalendar;

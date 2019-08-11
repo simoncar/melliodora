@@ -1,32 +1,21 @@
 import React, { Component } from "react";
-import { Platform, Text, View, Alert, TouchableOpacity, AsyncStorage, Linking, ActivityIndicator } from "react-native";
-import { connect } from "react-redux";
+import { Text, View, Alert, TouchableOpacity, AsyncStorage, ActivityIndicator } from "react-native";
 import { ActionSheet, Container, Footer } from "native-base";
-
 import { GiftedChat, Bubble, SystemMessage, Time, Send } from "react-native-gifted-chat";
-import { SimpleLineIcons, MaterialIcons, Entypo } from "@expo/vector-icons";
+import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import emojiUtils from "emoji-utils";
 import Constants from "expo-constants";
-import { bindActionCreators } from "redux";
-import CustomActions from "./customActions";
 import CustomView from "./customView";
 import CustomImage from "./customImage";
 import CustomVideo from "./customVideo";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
 import uuid from "uuid";
-
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import _ from "lodash";
-import * as ActionCreators from "../../actions";
-
 import Backend from "./backend";
-
-const tabBarIcon = name => ({ tintColor }) => (
-  <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
-);
 
 var localMessages = [];
 
@@ -34,7 +23,6 @@ var localMessages = [];
 class chat extends Component {
   constructor(props) {
     super(props);
-    this._bootstrapAsync();
     this.state = {
       messages: [],
       loadEarlier: true,
@@ -64,20 +52,6 @@ class chat extends Component {
     console.log("lodash = ", _.isBoolean(global.authenticated));
   }
 
-  // Fetch the token from storage then navigate to our appropriate place
-  _bootstrapAsync = async () => {
-    //const userToken = await AsyncStorage.getItem('userToken');
-
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
-    //this.props.navigation.navigate(userToken ? 'App' : 'Auth');
-
-    if (_.isBoolean(global.authenticated) && global.authenticated) {
-      // let me in
-    } else {
-    }
-  };
-
   static navigationOptions = ({ navigation }) => ({
     headerBackTitle: null,
     headerLeft: (
@@ -96,7 +70,7 @@ class chat extends Component {
           navigation.state.params._showActionSheet();
         }}
       >
-        <Text style={{ fontSize: 17, fontWeight: "600" }}>{navigation.getParam("title")}</Text>
+        <Text style={{ fontSize: 28, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
       </TouchableOpacity>
     ),
     headerRight: (
@@ -171,13 +145,13 @@ class chat extends Component {
     }));
 
     setTimeout(() => {
-      if (this._isMounted === true) {
-        this.setState(previousState => ({
-          messages: GiftedChat.prepend(previousState.messages, require("./old_messages.js")),
-          loadEarlier: false,
-          isLoadingEarlier: false,
-        }));
-      }
+      // if (this._isMounted === true) {
+      //   this.setState(previousState => ({
+      //     messages: GiftedChat.prepend(previousState.messages, require("./old_messages.js")),
+      //     loadEarlier: false,
+      //     isLoadingEarlier: false,
+      //   }));
+      // }
     }, 2000); // simulating network
   }
 
@@ -200,8 +174,6 @@ class chat extends Component {
     });
 
     if (!result.cancelled) {
-      //this.setState({ image: result.uri });
-      //this._images = images;
       images[0] = {
         image: result.uri,
         filename: result.uri,
@@ -212,8 +184,6 @@ class chat extends Component {
       };
 
       this.onSend(images);
-      //Backend.SendMessage(image);
-      //uploadUrl = await uploadImageAsync(images.uri);
     }
   };
 
@@ -324,25 +294,6 @@ class chat extends Component {
     ];
   }
 
-  renderTime() {
-    return (
-      <Time
-        textStyle={{
-          right: {
-            color: "blue",
-            // fontFamily: 'Montserrat-Light',
-            fontSize: 14,
-          },
-          left: {
-            color: "green",
-            // fontFamily: 'Montserrat-Light',
-            fontSize: 14,
-          },
-        }}
-      />
-    );
-  }
-
   _showActionSheet() {
     const BUTTONS = ["Mute conversation", "Unmute conversation", "Cancel"];
     const CANCEL_INDEX = 2;
@@ -445,25 +396,4 @@ class chat extends Component {
   }
 }
 
-const _pickVideo = async () => {
-  let result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-  });
-
-  if (!result.cancelled) {
-    //this.setState({ image: result.uri });
-  }
-};
-
-const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
-
-const mapStateToProps = state => ({
-  //navigation: state.cardNavigation,
-  username: state.username,
-  userX: state.user,
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(chat);
+export default chat;
