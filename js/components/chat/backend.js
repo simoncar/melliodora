@@ -186,7 +186,7 @@ export class Backend extends React.Component {
           uid: global.uid,
           language: global.language,
           email: global.email,
-          name: global.username,
+          name: global.name,
         };
       } else {
         var messageDict = {
@@ -195,7 +195,7 @@ export class Backend extends React.Component {
           uid: global.uid,
           language: global.language,
           email: global.email,
-          name: global.username,
+          name: global.name,
         };
       }
 

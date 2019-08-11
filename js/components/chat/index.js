@@ -5,7 +5,6 @@ import { GiftedChat, Bubble, SystemMessage, Time, Send } from "react-native-gift
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
-import emojiUtils from "emoji-utils";
 import Constants from "expo-constants";
 import CustomView from "./customView";
 import CustomImage from "./customImage";
@@ -38,7 +37,6 @@ class chat extends Component {
     this._isMounted = false;
     this.onSend = this.onSend.bind(this);
     this.parsePatterns = this.parsePatterns.bind(this);
-
     this.onReceive = this.onReceive.bind(this);
     this.renderCustomActions = this.renderCustomActions.bind(this);
     this.renderBubble = this.renderBubble.bind(this);
@@ -330,8 +328,6 @@ class chat extends Component {
   }
 
   render() {
-    console.log("IMA A LOADING....global.authenticated FROM chat ", global.authenticated);
-
     if (!global.authenticated) {
       const { goBack } = this.props.navigation;
       goBack(null);
