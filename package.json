@@ -90,8 +90,6 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^4.8.1",
     "redux-thunk": "^2.3.0",
-    "remote-redux-devtools": "^0.5.16",
-    "remote-redux-devtools-on-debugger": "^0.8.3",
     "sentry-expo": "^1.13.0",
     "tcomb-form-native": "^0.6.20",
     "use-global-hook": "^0.1.7"

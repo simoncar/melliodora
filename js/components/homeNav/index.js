@@ -10,16 +10,12 @@ import {
   AsyncStorage,
   Image,
 } from "react-native";
-import { Container, Content, Text, Icon, Button } from "native-base";
-import { Notifications } from "expo";
+import { Container, Content, Text } from "native-base";
 import Constants from "expo-constants";
-import { BorderlessButton } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
-import { isAdmin, getLanguageString } from "../global";
-import BLEDataParser from "../../lib/BLEDataParser";
+import { getLanguageString } from "../global";
 import CountDown from "react-native-countdown-component";
-import * as ActionCreators from "../../actions";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
 import ListItem from "./ListItem";
@@ -34,7 +30,6 @@ class HomeNav extends Component {
     super(props);
 
     this.state = {
-      user: null,
       loading: true,
       featureItems: [],
     };
@@ -51,7 +46,6 @@ class HomeNav extends Component {
     tabBarColor: "#111B4E",
     tabBarIcon: tabBarIcon("home"),
     headerBackTitle: null,
-    headerRight: <BorderlessButton onPress={() => navigation.navigate("Search")} style={{ marginRight: 15 }} />,
   });
 
   componentWillMount() {

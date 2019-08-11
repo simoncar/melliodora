@@ -1,9 +1,9 @@
 {
-  "hostType": "localhost",
+  "hostType": "lan",
   "lanType": "ip",
-  "dev": true,
+  "dev": false,
   "strict": false,
-  "minify": false,
+  "minify": true,
   "urlType": "exp",
   "urlRandomness": "72-kvg"
 }
