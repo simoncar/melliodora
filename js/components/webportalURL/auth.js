@@ -54,20 +54,6 @@ class WebportalAuth extends Component {
   }
 
   componentWillMount() {
-    if (this.props.userX.ffauth_device_id) {
-      //we have a value, good
-    } else {
-      //nothing :-(
-      //Actions.login();
-    }
-
-    if (this.props.userX.ffauth_secret) {
-      //we have a value, good
-    } else {
-      //nothing :-(
-      //Actions.login();
-    }
-
     this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
   }
 

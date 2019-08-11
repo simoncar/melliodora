@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, ImageBackground, Text, TextInput, TouchableOpacity, Switch } from "react-native";
-import { connect } from "react-redux";
 import { Container, Content } from "native-base";
 import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
@@ -11,7 +10,6 @@ import I18n from "../../lib/i18n";
 import _ from "lodash";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
-import * as Permissions from "expo-permissions";
 import uuid from "uuid";
 
 @withMappedNavigationParams()
@@ -344,4 +342,4 @@ class newStory extends Component {
 }
 
 //Connect everything
-export default connect(null)(newStory);
+export default newStory;
