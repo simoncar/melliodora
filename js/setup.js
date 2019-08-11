@@ -1,24 +1,20 @@
 import React, { Component } from "react";
-import { Provider } from "react-redux";
 import { StyleProvider, Root } from "native-base";
 import { I18nManager, AsyncStorage } from "react-native";
 import App from "./App";
 import I18n from "./lib/i18n";
-import configureStore from "./configureStore";
 import variables from "../native-base-theme/variables/commonColor";
 import getTheme from "../native-base-theme/components";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import _ from "lodash";
 import "@firebase/firestore";
-import * as firebase from "firebase";
 import Firebase from "./lib/firebase";
 
 export default class Setup extends Component {
   constructor() {
     super();
     this.state = {
-      store: configureStore(() => this.setState({ isLoading: false })),
       isReady: false,
     };
   }
@@ -87,9 +83,7 @@ export default class Setup extends Component {
     return (
       <StyleProvider style={getTheme(variables)}>
         <Root>
-          <Provider store={this.state.store}>
-            <App />
-          </Provider>
+          <App />
         </Root>
       </StyleProvider>
     );

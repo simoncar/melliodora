@@ -105,7 +105,6 @@ class chat extends Component {
   }
 
   onSend(messages = []) {
-    //console.log("previousState.messages=", previousState.messages);
     if (messages[0]._id == undefined) {
       messages[0]._id = uuid.v4();
     }
@@ -114,7 +113,6 @@ class chat extends Component {
       messages: GiftedChat.append(previousState.messages, messages),
     }));
 
-    //console.log(messages);
     localMessages.push(messages[0]._id);
     Backend.SendMessage(messages);
   }
@@ -254,15 +252,6 @@ class chat extends Component {
       );
     }
   };
-
-  get user() {
-    // Return our name and our UID for GiftedChat to parse
-
-    return {
-      name: this.props.userX.nickname,
-      _id: Constants.installationId,
-    };
-  }
 
   getColor(username) {
     let sumChars = 0;

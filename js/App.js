@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Notifications } from "expo";
 import Constants from "expo-constants";
-import * as ActionCreators from "./actions";
 import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
-
-const instID = Constants.manifest.extra.instance;
 
 class App extends Component {
   componentWillMount() {}
@@ -23,7 +18,7 @@ class App extends Component {
   _handleNotification = ({ origin, data }) => {};
 
   _registerForPushNotifications() {
-    registerForPush.reg(this.props.userX.name);
+    registerForPush.reg(global.name);
 
     this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
@@ -60,14 +55,4 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
-
-const mapStateToProps = state => ({
-  //navigation: state.cardNavigation,
-  userX: state.user,
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+export default App;
