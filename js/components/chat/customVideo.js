@@ -1,25 +1,17 @@
 import PropTypes from "prop-types";
 import React from "react";
 import {
-  Linking,
-  Platform,
   StyleSheet,
   TouchableOpacity,
   ViewPropTypes,
   Text,
   View,
-  Dimensions,
   Modal,
   ImageBackground,
-  Button,
   CameraRoll,
 } from "react-native";
-import { Image } from "react-native-expo-image-cache";
-import ImageViewer from "react-native-image-zoom-viewer";
 import { Video } from "expo";
 import I18n from "../../lib/i18n";
-
-const { width } = Dimensions.get("window");
 
 export default class CustomVideo extends React.Component {
   constructor(props) {
@@ -35,11 +27,7 @@ export default class CustomVideo extends React.Component {
   }
 
   _share(uri) {
-    //Remote videos cannot be saved at this time,
-    //TODO: copy the file locally first
-
     CameraRoll.saveToCameraRoll(uri, "video");
-
     this.setState({ saveTitle: I18n.t("saved") });
   }
 
@@ -49,13 +37,6 @@ export default class CustomVideo extends React.Component {
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const uri = this.props.currentMessage.video;
-    const images = [
-      {
-        // Simplest usage.
-        url: uri,
-        saveToLocalByLongPress: true,
-      },
-    ];
 
     if (this.props.currentMessage.video) {
       return (

@@ -2,13 +2,11 @@ import React, { Component } from "react";
 import { Image, View, TouchableOpacity, AsyncStorage } from "react-native";
 import { Container, Text } from "native-base";
 import * as firebase from "firebase";
-
 import { Grid, Col, Row } from "react-native-easy-grid";
 import { Agenda } from "react-native-calendars";
-import * as ActionCreators from "../../actions";
 import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
-import { Ionicons, Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { formatTime, formatMonth } from "../global.js";
 import I18n from "../../lib/i18n";
 import moment from "moment";
@@ -27,7 +25,6 @@ class calendar1 extends Component {
       items: {},
     };
 
-    const time = Date.now(); //+ 8 * 3600 * 1000;
     const todayDate = moment().format("YYYY-MM-DD");
     const todayDay = new moment().format("MMMM Do");
 
@@ -36,7 +33,8 @@ class calendar1 extends Component {
     }
 
     this.state.items[todayDate].push({
-      name: I18n.t("today") + " " + todayDay,
+      summary: I18n.t("today") + " " + todayDay,
+      summaryMyLanguage: I18n.t("today") + " " + todayDay,
       icon: "md-radio-button-off",
       color: "yellow",
       title: todayDay,
@@ -45,6 +43,10 @@ class calendar1 extends Component {
 
   static navigationOptions = {
     title: I18n.t("calendar"),
+    headerTitleStyle: {
+      fontWeight: "bold",
+      fontSize: 28,
+    },
     tabBarColor: "#c51162",
     tabBarIcon: tabBarIcon("ios-calendar", "green"),
   };

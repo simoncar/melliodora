@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import { Image, StyleSheet, View, Alert, AsyncStorage } from "react-native";
 import SettingsList from "react-native-settings-list";
 import { isAdmin } from "../global";
@@ -11,7 +10,10 @@ import { Updates } from "expo";
 class Settings extends Component {
   static navigationOptions = {
     title: I18n.t("more"),
-
+    headerTitleStyle: {
+      fontWeight: "bold",
+      fontSize: 28,
+    },
     headerBackTitle: null,
   };
 
@@ -142,14 +144,6 @@ class Settings extends Component {
 
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
-              title="myStamford"
-              titleInfo=""
-              titleInfoStyle={styles.titleInfoStyle}
-              onPress={() => this.props.navigation.navigate("authPortal")}
-            />
-
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
               title={I18n.t("athletics")}
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
@@ -167,9 +161,8 @@ class Settings extends Component {
               titleInfo="After School"
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() =>
-                this.props.navigation.navigate("webportalURL", {
-                  url:
-                    "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2fco-curricular-activities-cca-1%2fcca-brochure-semester-1&kr=iSAMS:ParentPP",
+                this.props.navigation.navigate("authPortal", {
+                  url: "https://mystamford.edu.sg/co-curricular-activities-cca-1",
                   title: "CCAs",
                 })
               }
@@ -204,7 +197,7 @@ class Settings extends Component {
               titleInfo={I18n.t("pta")}
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
-                  url: "https://saispta.com/",
+                  url: "https://www.saispta.com/",
                   title: I18n.t("shop"),
                 })
               }

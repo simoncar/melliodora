@@ -3,9 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Notifications } from "expo";
 import Constants from "expo-constants";
-import { AsyncStorage } from "react-native";
-
-import Analytics from "./lib/analytics";
 import * as ActionCreators from "./actions";
 import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
@@ -32,22 +29,6 @@ class App extends Component {
   }
 
   render() {
-    if (undefined != global.loggedLoginAnalytics) {
-      if (global.loggedLoginAnalytics == 1) {
-        const trackingOpts = {
-          instId: instID,
-        };
-
-        Analytics.track(Analytics.events.APP_STARTED, trackingOpts);
-        global.loggedLoginAnalytics = 2;
-        console.log("GLOBAL LANGUAGE 1 = ", global.language);
-      }
-    }
-
-    if (!global.loggedLoginAnalytics) {
-      global.loggedLoginAnalytics = 1;
-    }
-
     switch (Constants.manifest.extra.instance) {
       case "0001-sais_edu_sg":
         global.switch_address =

@@ -1,5 +1,4 @@
 import React from "react";
-
 import { createAppContainer, createStackNavigator, createBottomTabNavigator } from "react-navigation";
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather } from "@expo/vector-icons";
 import Login from "./components/login/";
@@ -16,10 +15,8 @@ import Story from "./components/story";
 import StoryForm from "./components/story/form";
 import campusMap from "./components/campusMap";
 import chatRooms from "./components/chat/chatRooms";
-import form from "./components/chat/form";
 import chat from "./components/chat";
 import push from "./components/story/push";
-import chatmain from "./components/chat/main";
 import authPortal from "./components/webportalURL/authPortal";
 import WebportalURL from "./components/webportalURL";
 import beacon from "./components/beacon";
@@ -30,16 +27,13 @@ import ClassListingScreen from "./components/beacon/ClassListingScreen";
 import AttendeeListingScreen from "./components/beacon/AttendeeListingScreen";
 import AttendeeDetailScreen from "./components/beacon/AttendeeDetailScreen";
 import BookmarkScreen from "./components/beacon/BookmarkScreen";
-
 import BeaconSearch from "./components/beacon/BeaconSearch";
-
 import I18n from "./lib/i18n";
 
 let StackHome = createStackNavigator(
   {
     homeNav: { screen: HomeNav },
     contact: { screen: Contact },
-    form: { screen: form },
     story: { screen: Story },
     push: { screen: push },
     campusMap: { screen: campusMap },
@@ -77,7 +71,6 @@ let StackCalendar = createStackNavigator(
 let StackChat = createStackNavigator(
   {
     chatRooms: { screen: chatRooms },
-    chatmain: { screen: chatmain },
     chat: { screen: chat },
     selectLanguageChat: { screen: selectLanguage },
   },

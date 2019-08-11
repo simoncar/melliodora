@@ -39,7 +39,7 @@ class authPortal extends Component {
       webViewUrl: "",
       visible: this.props.visible,
       myText: "My Original Text",
-      showMsg: false
+      showMsg: false,
     };
   }
   //this.props.chatroom
@@ -51,7 +51,7 @@ class authPortal extends Component {
   componentDidMount() {
     this.props.navigation.setParams({
       _onOpenActionSheet: this._onOpenActionSheet,
-      reload: this.reload
+      reload: this.reload,
     });
   }
 
@@ -64,7 +64,7 @@ class authPortal extends Component {
       {
         options,
         cancelButtonIndex,
-        destructiveButtonIndex
+        destructiveButtonIndex,
       },
       buttonIndex => {
         switch (buttonIndex) {
@@ -87,14 +87,14 @@ class authPortal extends Component {
             this.setState({ url: "https://mystamford.edu.sg/logout" });
             break;
         }
-      }
+      },
     );
   };
 
   showMsg() {
     if (Constants.manifest.extra.instance == "0001-sais_edu_sg") {
       this.setState({ showMsg: true }, () =>
-        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 5000)
+        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 5000),
       );
     }
   }
@@ -140,7 +140,7 @@ class authPortal extends Component {
       this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
 
       this.setState({ showMsg: true }, () =>
-        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000)
+        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000),
       );
     }
   }
@@ -156,7 +156,7 @@ class authPortal extends Component {
     var authEmail = AuthParser.extractLoginEmail(message.nativeEvent.data);
     var authID = AuthParser.extractLoginID(message.nativeEvent.data);
     var authRole = AuthParser.extractLoginRole(message.nativeEvent.data);
-    AuthParser.saveDetails(authName, authEmail,  authRole, authID);
+    AuthParser.saveDetails(authName, authEmail, authRole, authID);
   }
 
   _onLoadEnd() {
@@ -167,13 +167,13 @@ class authPortal extends Component {
         this.webref.injectJavaScript(jsCode);
       }, 500);
     } else {
-        setTimeout(() => {
-          var jsCodeNoLogo = "document.getElementById('userbar-react-component').style.display = 'none';";
-          jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('school-logo')[0].style.display = 'none';";
-          jsCodeNoLogo = jsCodeNoLogo + "document.getElementById('school-header').style.margin = '0px';";
-          jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('search-container')[0].style.display = 'none';";
-     
-          this.webref.injectJavaScript(jsCodeNoLogo);
+      setTimeout(() => {
+        var jsCodeNoLogo = "document.getElementById('userbar-react-component').style.display = 'none';";
+        jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('school-logo')[0].style.display = 'none';";
+        jsCodeNoLogo = jsCodeNoLogo + "document.getElementById('school-header').style.margin = '0px';";
+        jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('search-container')[0].style.display = 'none';";
+
+        this.webref.injectJavaScript(jsCodeNoLogo);
       }, 700);
     }
   }
@@ -242,7 +242,7 @@ export default class AppContainer extends React.Component {
           navigation.state.params._onOpenActionSheet();
         }}
       >
-        <Text style={{ fontSize: 17, fontWeight: "600" }}>myStamford</Text>
+        <Text style={{ fontSize: 28, fontWeight: "bold" }}>myStamford</Text>
       </TouchableOpacity>
     ),
     headerRight: (
@@ -255,7 +255,7 @@ export default class AppContainer extends React.Component {
           <Ionicons name="ios-bookmarks" style={styles.heading} />
         </View>
       </TouchableOpacity>
-    )
+    ),
   });
   render() {
     return (
