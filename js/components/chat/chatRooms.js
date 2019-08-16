@@ -8,6 +8,8 @@ import styles from "./styles";
 import I18n from "../../lib/i18n";
 import ChatroomItem from "./chatroomItem";
 
+var specialChatrooms = {};
+
 @withMappedNavigationParams()
 class chatRooms extends Component {
   static navigationOptions = {
@@ -30,6 +32,13 @@ class chatRooms extends Component {
   componentWillMount() {
     var userChatrooms = [];
 
+    if (global.email == "christinathorsen@gmail.com") {
+      specialChatrooms = {
+        chatroom: "sealysicochat",
+        title: "App Developers Chat",
+      };
+      userChatrooms.push(specialChatrooms);
+    }
     this.loadFromAsyncStorage();
 
     firebase
@@ -64,6 +73,7 @@ class chatRooms extends Component {
   loadFromAsyncStorage() {
     AsyncStorage.getItem("userChatrooms").then(fi => {
       var userChatrooms = JSON.parse(fi);
+
       this.setState({
         userChatrooms,
         loading: false,

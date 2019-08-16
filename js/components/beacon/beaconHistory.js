@@ -1,15 +1,8 @@
 import React, { Component } from "react";
 import { FlatList, Container, Content, Text, View } from "react-native";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as ActionCreators from "../../actions";
 import * as firebase from "firebase";
-
-import Constants from "expo-constants";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
-
 import BeaconHistoryItem from "./BeaconHistoryItem";
+import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import moment from "moment";
 
 @withMappedNavigationParams()
@@ -20,7 +13,7 @@ class beaconHistory extends Component {
       loading: true,
       user: null,
       userBeacons: {},
-      history: []
+      history: [],
     };
   }
 
@@ -52,8 +45,7 @@ class beaconHistory extends Component {
 
   _renderListItem = ({ item, index }) => {
     if (index === 0) return <BeaconHistoryItem start={true} {...item} />;
-    else if (index === this.state.history.length - 1)
-      return <BeaconHistoryItem last={true} {...item} />;
+    else if (index === this.state.history.length - 1) return <BeaconHistoryItem last={true} {...item} />;
     else return <BeaconHistoryItem {...item} />;
   };
 
@@ -66,17 +58,4 @@ class beaconHistory extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(ActionCreators, dispatch);
-};
-
-const mapStateToProps = state => ({
-  //navigation: state.cardNavigation,
-  username: state.username,
-  userX: state.user
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(beaconHistory);
+export default beaconHistory;

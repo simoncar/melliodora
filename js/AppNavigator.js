@@ -1,7 +1,6 @@
 import React from "react";
 import { createAppContainer, createStackNavigator, createBottomTabNavigator } from "react-navigation";
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather } from "@expo/vector-icons";
-import Login from "./components/login/";
 import Home from "./components/home/";
 import phoneCalendar from "./components/home/calendars";
 import HomeNav from "./components/homeNav/";
@@ -88,7 +87,6 @@ let StackChat = createStackNavigator(
 let StackWeb = createStackNavigator(
   {
     authPortal: { screen: authPortal },
-    login: { screen: Login },
   },
   {
     navigationOptions: {
