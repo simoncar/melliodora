@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, Alert, TouchableOpacity, AsyncStorage, ActivityIndicator } from "react-native";
+import { Text, View, Alert, TouchableOpacity, AsyncStorage, Linking } from "react-native";
 import { ActionSheet, Container, Footer } from "native-base";
 import { GiftedChat, Bubble, SystemMessage, Time, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
@@ -46,6 +46,7 @@ class chat extends Component {
 
     this._isAlright = null;
 
+    localMessages = [];
     console.log("global.authenticated FROM chat", global.authenticated, global.name, global.email);
     console.log("lodash = ", _.isBoolean(global.authenticated));
   }
@@ -221,7 +222,7 @@ class chat extends Component {
   }
 
   renderBubble = props => {
-    const color = this.getColor(username);
+    const color = this.getColor(global.name);
 
     var myimage = props.currentMessage.image;
 
@@ -272,14 +273,20 @@ class chat extends Component {
   }
 
   parsePatterns(linkStyle) {
-    return [
-      {
-        pattern: /#(\w+)/,
-        style: { ...linkStyle, color: "orange" },
-        onPress: () => Linking.openURL("http://gifted.chat"),
-      },
-    ];
+    return [{ type: "url", style: styles.url, onPress: this._handleOpenWithLinking }];
   }
+
+  _handleOpenWithLinking = sURL => {
+    let ret;
+
+    if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
+      Linking.openURL(sURL);
+    } else {
+      this.props.navigation.navigate("authPortalStory", {
+        url: sURL,
+      });
+    }
+  };
 
   _showActionSheet() {
     const BUTTONS = ["Mute conversation", "Unmute conversation", "Cancel"];
@@ -373,6 +380,7 @@ class chat extends Component {
           alwaysShowSend={true}
           renderSend={this.renderSend}
           placeholder={I18n.t("typeMessage")}
+          parsePatterns={this.parsePatterns}
         />
 
         <Footer style={styles.footer} />

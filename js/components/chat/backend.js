@@ -86,6 +86,7 @@ export class Backend extends React.Component {
       messages.docChanges().forEach(change => {
         if (change.type === "added") {
           const message = change.doc.data();
+
           if (message.textLanguage == language) {
             var mesageText = message.text;
           } else {
@@ -198,8 +199,6 @@ export class Backend extends React.Component {
           name: global.name,
         };
       }
-
-      console.log(messageDict, this.state.chatroom, global.safeToken);
 
       firebase
         .firestore()
@@ -327,7 +326,6 @@ async function uploadImageAsync(message, chatroom, user) {
       pushToken: global.pushToken,
     };
   }
-  console.log("messageDict=", messageDict);
 
   firebase
     .firestore()
