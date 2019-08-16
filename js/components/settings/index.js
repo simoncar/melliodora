@@ -197,7 +197,7 @@ class Settings extends Component {
               titleInfo={I18n.t("pta")}
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
-                  url: "https://www.saispta.com/",
+                  url: "https://saispta.com/",
                   title: "PTA " + I18n.t("shop"),
                 })
               }

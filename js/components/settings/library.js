@@ -37,9 +37,8 @@ export default class Library extends Component {
               titleInfo=""
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() =>
-                this.props.navigation.navigate("webportalURL", {
-                  url:
-                    "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2flibrary&kr=iSAMS:ParentPP",
+                this.props.navigation.navigate("authPortal", {
+                  url: "https://mystamford.edu.sg/library",
                   title: "Library",
                 })
               }

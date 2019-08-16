@@ -16,6 +16,10 @@ export default {
     fontSize: 25,
     color: "#999A9D",
   },
+  url: {
+    textDecorationLine: "underline",
+    color: "blue",
+  },
 
   chatRow: {
     height: 50,

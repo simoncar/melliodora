@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { Text, View, Alert, TouchableOpacity, AsyncStorage, ActivityIndicator } from "react-native";
+import { Text, View, Alert, TouchableOpacity, AsyncStorage, Linking } from "react-native";
 import { ActionSheet, Container, Footer } from "native-base";
 import { GiftedChat, Bubble, SystemMessage, Time, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
-import emojiUtils from "emoji-utils";
 import Constants from "expo-constants";
 import CustomView from "./customView";
 import CustomImage from "./customImage";
@@ -38,7 +37,6 @@ class chat extends Component {
     this._isMounted = false;
     this.onSend = this.onSend.bind(this);
     this.parsePatterns = this.parsePatterns.bind(this);
-
     this.onReceive = this.onReceive.bind(this);
     this.renderCustomActions = this.renderCustomActions.bind(this);
     this.renderBubble = this.renderBubble.bind(this);
@@ -48,6 +46,7 @@ class chat extends Component {
 
     this._isAlright = null;
 
+    localMessages = [];
     console.log("global.authenticated FROM chat", global.authenticated, global.name, global.email);
     console.log("lodash = ", _.isBoolean(global.authenticated));
   }
@@ -107,7 +106,6 @@ class chat extends Component {
   }
 
   onSend(messages = []) {
-    //console.log("previousState.messages=", previousState.messages);
     if (messages[0]._id == undefined) {
       messages[0]._id = uuid.v4();
     }
@@ -116,7 +114,6 @@ class chat extends Component {
       messages: GiftedChat.append(previousState.messages, messages),
     }));
 
-    //console.log(messages);
     localMessages.push(messages[0]._id);
     Backend.SendMessage(messages);
   }
@@ -225,7 +222,7 @@ class chat extends Component {
   }
 
   renderBubble = props => {
-    const color = this.getColor(username);
+    const color = this.getColor(global.name);
 
     var myimage = props.currentMessage.image;
 
@@ -257,15 +254,6 @@ class chat extends Component {
     }
   };
 
-  get user() {
-    // Return our name and our UID for GiftedChat to parse
-
-    return {
-      name: this.props.userX.nickname,
-      _id: Constants.installationId,
-    };
-  }
-
   getColor(username) {
     let sumChars = 0;
     for (let i = 0; i < 10; i++) {
@@ -285,14 +273,20 @@ class chat extends Component {
   }
 
   parsePatterns(linkStyle) {
-    return [
-      {
-        pattern: /#(\w+)/,
-        style: { ...linkStyle, color: "orange" },
-        onPress: () => Linking.openURL("http://gifted.chat"),
-      },
-    ];
+    return [{ type: "url", style: styles.url, onPress: this._handleOpenWithLinking }];
   }
+
+  _handleOpenWithLinking = sURL => {
+    let ret;
+
+    if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
+      Linking.openURL(sURL);
+    } else {
+      this.props.navigation.navigate("authPortalStory", {
+        url: sURL,
+      });
+    }
+  };
 
   _showActionSheet() {
     const BUTTONS = ["Mute conversation", "Unmute conversation", "Cancel"];
@@ -330,8 +324,6 @@ class chat extends Component {
   }
 
   render() {
-    console.log("IMA A LOADING....global.authenticated FROM chat ", global.authenticated);
-
     if (!global.authenticated) {
       const { goBack } = this.props.navigation;
       goBack(null);
@@ -388,6 +380,7 @@ class chat extends Component {
           alwaysShowSend={true}
           renderSend={this.renderSend}
           placeholder={I18n.t("typeMessage")}
+          parsePatterns={this.parsePatterns}
         />
 
         <Footer style={styles.footer} />

@@ -36,8 +36,8 @@ async function registerForPushNotificationsAsync(user) {
   global.pushToken = token;
   global.safeToken = safeToken;
 
-  if (undefined == global.username) {
-    global.username = "";
+  if (undefined == global.name) {
+    global.name = "";
   }
   if (!_.isNil(global.uid)) {
     var userDict = {
