@@ -163,9 +163,6 @@ class HomeNav extends Component {
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
-            <Text style={styles.version}>{I18n.t("schoolStarts")}</Text>
-            <CountDown until={this.getSeconds()} size={20} />
-
             {global.administrator && (
               <TouchableOpacity
                 style={{ flexDirection: "row" }}
