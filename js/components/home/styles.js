@@ -1,255 +1,295 @@
-import { ifIphoneX } from "react-native-iphone-x-helper";
-
 const React = require("react-native");
 
-const { Dimensions, Platform } = React;
+const { Platform, Dimensions } = React;
+
+const deviceWidth = Dimensions.get("window").width;
+const primary = require("../../themes/variable").brandPrimary;
 
 export default {
-  newsContent: {
-    paddingTop: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
-
-    borderTopWidth: 1,
-    borderTopColor: "#ddd"
+  container: {
+    flex: 1,
+    width: null,
+    height: null,
+    backgroundColor: "white",
+    color: "#c6c6c6",
   },
-
-  header: {
-    width: Dimensions.get("window").width,
-    paddingLeft: 15,
-    paddingRight: 15,
-    ...ifIphoneX(
-      {
-        paddingTop: 0,
-        height: 80
-      },
-      {
-        paddingTop: 0,
-        height: 60
-      }
-    )
-  },
-
-  viewHeader: {
+  beta: {
+    backgroundColor: "white",
+    color: "#c6c6c6",
+    alignSelf: "center",
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between",
-    ...ifIphoneX(
-      {
-        paddingTop: 30
-      },
-      {
-        paddingTop: 20
-      }
-    )
+    textAlign: "center",
+    fontSize: 20,
   },
-  calendarText: {
-    fontSize: 22
+  itemTitle: {
+    fontWeight: "bold",
+    flex: 1,
+    fontSize: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    color: "black",
   },
-  calendarTextDisabled: {
-    fontSize: 22,
-    color: "grey"
-  },
-
-  selectCalendar: {
-    paddingTop: 0
-  },
-
-  calendarButton: {
-    marginTop: 0,
-    marginBottom: 20,
-    fontSize: 22
-  },
-  eventTitle: {
-    fontSize: 22,
+  version: {
+    backgroundColor: "white",
+    color: "#666",
+    alignSelf: "center",
+    flex: 1,
+    flexDirection: "column",
+    textAlign: "center",
+    fontSize: 12,
     paddingBottom: 20,
-    fontWeight: "bold"
+    paddingTop: 0,
   },
-  headerIcons: {
-    fontSize: 30,
-    backgroundColor: "transparent"
+  user: {
+    backgroundColor: "white",
+    color: "#666",
+    alignSelf: "center",
+    flex: 1,
+    flexDirection: "column",
+    textAlign: "center",
+    fontSize: 12,
+    paddingBottom: 0,
+    paddingTop: 0,
+  },
+  addButton: {
+    backgroundColor: "#ff5722",
+    borderColor: "#ff5722",
+    borderWidth: 1,
+    height: 50,
+    width: 50,
+    borderRadius: 50 / 2,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0,
+    },
+    zIndex: 1,
   },
 
+  betaView: {
+    backgroundColor: "#707372",
+    alignSelf: "center",
+    flexDirection: "row",
+  },
+  betaButton: {
+    paddingTop: 50,
+    paddingBottom: 20,
+    backgroundColor: "white",
+    alignSelf: "center",
+    flex: 1,
+    flexDirection: "row",
+    //color: '#141b4d'
+  },
+  storyPhoto: {
+    width: null,
+    height: 200,
+    flex: 1,
+  },
+
+  footer: {
+    backgroundColor: "white",
+  },
+
+  footerTab: {
+    backgroundColor: "white",
+    paddingTop: 3,
+  },
+
+  buttonLabelFooter: {
+    color: "#707372",
+    alignSelf: "center",
+    paddingTop: 2,
+    paddingBottom: 4,
+    fontSize: 10,
+  },
+  profileInfoContainer: {
+    backgroundColor: primary,
+    paddingTop: 10,
+  },
+  profileUser: {
+    alignSelf: "center",
+    fontSize: 22,
+    fontWeight: "bold",
+    paddingBottom: 5,
+  },
+  profileUserInfo: {
+    alignSelf: "center",
+    opacity: 0.8,
+    fontWeight: "bold",
+    color: "#FFF",
+  },
+  profilePic: {
+    height: 0,
+  },
   roundedButton: {
     alignSelf: "center",
     alignItems: "center",
+    //backgroundColor: 'rgba(0,0,0,0.1)'
+    backgroundColor: "#141b4d",
+    borderRadius: 30,
+    width: 60,
+    height: 60,
+    justifyContent: "center",
+  },
+  roundedButtonCalendar: {
+    alignSelf: "center",
+    alignItems: "center",
+    backgroundColor: "#C6F1F0",
     borderRadius: 1,
-    height: 10
+    width: 60,
+    height: 60,
   },
 
-  newsHeader: {
-    color: "#444",
-    fontWeight: "bold"
+  profileInfo: {
+    alignSelf: "center",
+    paddingTop: 5,
+    paddingBottom: 10,
   },
+  linkTabs: {
+    backgroundColor: "#fff",
+  },
+  linkTabs_header: {
+    padding: 15,
+    alignSelf: "center",
+  },
+  linkTabs_tabCounts: {
+    fontSize: 31,
+    fontWeight: "bold",
+    color: primary,
+    alignSelf: "center",
+    paddingBottom: Platform.OS === "android" ? 3 : 0,
+  },
+  buttonLabel: {
+    color: "#707372",
+    alignSelf: "center",
+    paddingTop: 10,
+  },
+  iconLabel: {
+    color: "#707372",
+    alignSelf: "center",
+    paddingTop: 10,
+    fontSize: 15,
+  },
+
+  icon: {
+    alignSelf: "center",
+    marginRight: 0,
+    marginLeft: 0,
+    fontWeight: "bold",
+    fontSize: 32,
+    color: "white",
+  },
+  iconWithText: {
+    alignSelf: "center",
+    marginRight: 0,
+    marginLeft: 0,
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "white",
+  },
+  icon2: {
+    fontWeight: "bold",
+  },
+
+  newsImage: {
+    borderTopWidth: 1,
+  },
+
+  tenYearLogo: {
+    marginTop: 100,
+    width: 120,
+    height: 120,
+    borderTopWidth: 1,
+    alignSelf: "center",
+  },
+  sclogo: {
+    marginTop: 100,
+    width: 40,
+    height: 40,
+    borderTopWidth: 1,
+    alignSelf: "center",
+  },
+  newsImage2: {
+    width: 340,
+    height: 200,
+    alignSelf: "center",
+    borderTopWidth: 1,
+    borderTopColor: "#ddd",
+  },
+  newsContentLine: {
+    borderTopWidth: 1,
+    borderTopColor: "#ddd",
+  },
+  newsContent: {
+    flexDirection: "column",
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    flex: 1,
+    borderTopWidth: 1,
+    borderTopColor: "#ddd",
+  },
+  newsContentNoLine: {
+    flexDirection: "column",
+    paddingTop: 0,
+    paddingBottom: 0,
+
+    paddingLeft: 20,
+    paddingRight: 20,
+    flex: 1,
+  },
+  newsHeader: {
+    paddingTop: 10,
+    paddingBottom: 5,
+    color: "#444",
+    fontWeight: "bold",
+  },
+
+  featureTitle: {
+    borderTopWidth: 1,
+    borderTopColor: "#ddd",
+    paddingTop: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
+    fontSize: 16,
+    color: "#444",
+    fontWeight: "bold",
+  },
+
+  featureDescription: {
+    paddingTop: 10,
+    paddingBottom: 5,
+    color: "#444",
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+
   newsLink: {
+    flex: 1,
+    textAlign: "left",
     color: "#666",
     fontSize: 12,
-    alignSelf: "flex-start",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    paddingTop: 3,
   },
   newsTypeView: {
     borderBottomWidth: 1,
     borderBottomColor: "#666",
-    alignSelf: "flex-end"
+    alignSelf: "flex-end",
   },
   newsTypeText: {
+    textAlign: "left",
     color: "#666",
     fontSize: 12,
     fontWeight: "bold",
-    paddingBottom: 5
+    paddingTop: 0,
   },
-  newsPoster: {
-    height: null,
-    width: null,
-    resizeMode: "cover",
-    flex: 1,
-    position: "relative"
-  },
-  newsPosterHeader: {
-    fontWeight: "900"
-  },
-  newsPosterLink: {
-    opacity: 0.8,
-    fontSize: 12,
-    alignSelf: "flex-start",
-    fontWeight: "bold"
-  },
-  newsPosterTypeView: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#666",
-    alignSelf: "flex-end"
-  },
-  newsPosterTypeText: {
-    opacity: 0.8,
-    fontSize: 12,
-    fontWeight: "bold",
-    paddingBottom: 5
-  },
-  timeIcon: {
-    fontSize: 20,
-    marginLeft: Platform.OS === "android" ? 15 : 0,
-    paddingLeft: Platform.OS === "android" ? 0 : 20,
-    paddingRight: 10,
-    marginTop: Platform.OS === "android" ? -1 : -3
-  },
-  slide: {
-    flex: 1,
-    width: null,
-    backgroundColor: "transparent"
-  },
-  swiperTextContent: {
-    position: "absolute",
-    bottom: -5,
-    padding: 20
-  },
-  swiperDot: {
-    backgroundColor: "rgba(0,0,0,.8)",
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginLeft: 3,
-    marginRight: 3,
-    marginTop: 3,
-    marginBottom: 0
-  },
-  swiperActiveDot: {
-    backgroundColor: "#fff",
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginLeft: 3,
-    marginRight: 3,
-    marginTop: 3,
-    marginBottom: 0
-  },
-  swiperContentBox: {
-    paddingTop: 20,
-    paddingBottom: 20
-  },
-  container: {
-    flex: 1,
-    width: null,
-    height: null
-  },
-  imageHeader: {
-    height: 135,
-    width: 225,
-    resizeMode: "contain",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  logoHeader: {
-    width: 20,
-    height: 28,
-    alignSelf: "center"
-  },
-  text: {
-    fontSize: 18,
-    color: "#000",
-    marginBottom: 10,
-    paddingTop: 5
-  },
-  groupView: {
-    borderRadius: 3,
-    backgroundColor: "#D3D3D3",
-    width: 95,
-    height: 15,
-    alignItems: "center",
-    paddingLeft: 0,
-    paddingRight: 0,
-    justifyContent: "center"
-  },
-  groupText: {
-    fontSize: 16,
-    color: "white"
-  },
-  rowHeader: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignSelf: "stretch",
-    paddingTop: Platform.OS === "android" ? 0 : 0
-  },
-  agendaItem: {
-    backgroundColor: "white",
-    flex: 1,
-    borderRadius: 5,
-    padding: 10,
-    marginRight: 10,
-    marginTop: 5,
-    alignSelf: "stretch",
-    borderRightWidth: 5
-  },
-  agendaItemSystemMonth: {
-    backgroundColor: "gray",
-    flex: 1,
-    borderRadius: 5,
-    padding: 10,
-    marginRight: 10,
-    marginTop: 10,
-    alignSelf: "stretch"
-  },
-  agendaDateSystemMonth: {
-    color: "white",
-    fontSize: 20,
-    marginBottom: 0,
-    marginTop: 10
-  },
-  emptyDate: {
-    height: 15,
-    flex: 1,
-    paddingTop: 30
-  },
-  agendaDate: {
-    color: "gray",
-    fontSize: 12,
-    marginBottom: 3
-  },
-  agendaLocation: {
-    color: "gray",
-    fontSize: 12,
-    marginTop: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: "#666"
-  }
 };
