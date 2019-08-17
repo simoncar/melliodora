@@ -34,8 +34,6 @@ class App extends Component {
         global.switch_portalURL =
           "https://mystamford.edu.sg/login/login.aspx?prelogin=http%3a%2f%2fmystamford.edu.sg%2f&kr=iSAMS:ParentPP";
         global.switch_call = "+65 6709 4800";
-        global.header_logo = `../../../resources/${Constants.manifest.extra.instance}/headerLogo.png`;
-        global.header_logoID = require("../resources/0001-sais_edu_sg/headerLogo.png");
         break;
       case "0002-singaporepoloclub":
         global.switch_address = "Polo Club \nSingapore  00000";
@@ -44,8 +42,6 @@ class App extends Component {
         global.switch_portalName = "Polo Contacts";
         global.switch_portalURL = "https://polocontacts.com/";
         global.switch_call = "+65 0000 0000";
-        global.header_logo = `../../../resources/${Constants.manifest.extra.instance}/headerLogo.png`;
-        global.header_logoID = require("../resources/0002-singaporepoloclub/headerLogo.png");
         break;
       default:
         global.switch_address = "not specified -";

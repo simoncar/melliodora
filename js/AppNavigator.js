@@ -1,9 +1,11 @@
 import React from "react";
+
 import { createAppContainer, createStackNavigator, createBottomTabNavigator } from "react-navigation";
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather } from "@expo/vector-icons";
-import Home from "./components/home/";
-import phoneCalendar from "./components/home/calendars";
-import HomeNav from "./components/homeNav/";
+
+import Calendar from "./components/calendar";
+import phoneCalendar from "./components/calendar/calendars";
+import Home from "./components/home";
 import Contact from "./components/contact";
 import Settings from "./components/settings";
 import Library from "./components/settings/library";
@@ -31,7 +33,7 @@ import I18n from "./lib/i18n";
 
 let StackHome = createStackNavigator(
   {
-    homeNav: { screen: HomeNav },
+    homeNav: { screen: Home },
     contact: { screen: Contact },
     story: { screen: Story },
     push: { screen: push },
@@ -52,7 +54,7 @@ let StackHome = createStackNavigator(
 
 let StackCalendar = createStackNavigator(
   {
-    home: { screen: Home },
+    home: { screen: Calendar },
     phoneCalendar: { screen: phoneCalendar },
     storyCalendar: { screen: Story },
   },

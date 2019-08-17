@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  Image,
   FlatList,
   View,
   Linking,
@@ -8,19 +9,34 @@ import {
   StyleSheet,
   Dimensions,
   AsyncStorage,
-  Image,
 } from "react-native";
-import { Container, Content, Text } from "native-base";
+import { Container, Content, Text, Icon, Button } from "native-base";
+import { Notifications } from "expo";
 import Constants from "expo-constants";
-import { MaterialIcons } from "@expo/vector-icons";
-import firebase from "firebase";
-import { getLanguageString } from "../global";
-import CountDown from "react-native-countdown-component";
+import { RectButton, BorderlessButton } from "react-native-gesture-handler";
+import moment from "moment";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+// import firebase from "firebase";
+import { isAdmin } from "../global";
+import BLEDataParser from "../../lib/BLEDataParser";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
-import ListItem from "./ListItem";
 
 const { width } = Dimensions.get("window");
+const ListItem = require("./ListItem");
+const instID = Constants.manifest.extra.instance;
+
+// Get the token that uniquely identifies this device
+if (!Constants.isDevice) {
+  var token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
+} else {
+  var token = Notifications.getExpoPushTokenAsync();
+}
+
+const today = new moment().format();
+
+const parsedRawData = new BLEDataParser("03039FFE17169FFE0256596E48415957727242510000016B91E7901F");
+
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
@@ -30,11 +46,10 @@ class HomeNav extends Component {
     super(props);
 
     this.state = {
-      loading: true,
+      user: null,
+      loading: false,
       featureItems: [],
     };
-
-    this.loadFromAsyncStorage();
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -46,71 +61,8 @@ class HomeNav extends Component {
     tabBarColor: "#111B4E",
     tabBarIcon: tabBarIcon("home"),
     headerBackTitle: null,
+    headerRight: <BorderlessButton onPress={() => navigation.navigate("Search")} style={{ marginRight: 15 }} />,
   });
-
-  componentWillMount() {
-    this.ref = firebase
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("feature")
-      .collection("features")
-      .orderBy("order");
-  }
-
-  componentDidMount() {
-    try {
-      this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
-    } catch (e) {
-      //console.error(e.message);
-    }
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  onCollectionUpdate = querySnapshot => {
-    var trans = {};
-    var featureItems = [];
-    querySnapshot.forEach(doc => {
-      if (doc.data().translated == true) {
-        trans = {
-          source: "feature",
-          summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
-          descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
-        };
-      } else {
-        trans = {
-          source: "feature",
-          summaryMyLanguage: doc.data().summary,
-          descriptionMyLanguage: doc.data().description,
-        };
-      }
-
-      if (global.administrator != true && doc.data().visible == false) {
-        //skip item
-      } else {
-        featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
-      }
-    });
-
-    if (featureItems.length > 0) {
-      this._storeData(JSON.stringify(featureItems));
-      this.setState({
-        featureItems,
-      });
-    }
-
-    this.setState({
-      loading: false,
-    });
-  };
-
-  _handleOpenWithLinking = sURL => {
-    Linking.openURL(sURL);
-  };
-
-  keyExtractor = item => item._key;
 
   getSeconds() {
     var startDate = new Date();
@@ -120,25 +72,6 @@ class HomeNav extends Component {
 
     return seconds;
   }
-
-  loadFromAsyncStorage() {
-    AsyncStorage.getItem("featureItems").then(fi => {
-      var featureItems = JSON.parse(fi);
-      this.setState({
-        featureItems,
-        loading: false,
-      });
-    });
-  }
-
-  _storeData = async featureItems => {
-    try {
-      AsyncStorage.setItem("featureItems", featureItems);
-    } catch (error) {
-      console.log(error);
-      // Error saving data
-    }
-  };
 
   _renderItem(item) {
     return <ListItem navigation={this.props.navigation} item={item} />;
@@ -150,8 +83,10 @@ class HomeNav extends Component {
     }
 
     return (
-      <Container style={styles.container}>
-        {global.administrator && (
+      <View style={styles.container}>
+        <Text style={{ color: "black" }}>Text for test</Text>
+
+        {isAdmin(this.props.adminPassword) && (
           <TouchableHighlight
             style={styles.addButton}
             underlayColor="#ff7043"
@@ -163,12 +98,15 @@ class HomeNav extends Component {
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
-            {global.administrator && (
+            <Text style={styles.version}>{I18n.t("schoolStarts")}</Text>
+
+            {isAdmin(this.props.adminPassword) && (
               <TouchableOpacity
                 style={{ flexDirection: "row" }}
                 onPress={() => {
                   this.props.navigation.navigate("AttendanceOverviewScreen");
                 }}
+                testID="safeguardnav"
               >
                 <View>
                   <View
@@ -189,13 +127,17 @@ class HomeNav extends Component {
                         borderWidth: StyleSheet.hairlineWidth,
                         borderColor: "lightgray",
                       }}
-                      source={require("../../../images/safeguarding_lockl.png")}
+                      source={{
+                        uri: "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-06-14.54.37.png",
+                      }}
                     />
                     <Text style={styles.itemTitle}>{I18n.t("safeguarding")}</Text>
                   </View>
                   <View>
                     <Image
-                      source={require("../../../images/safeguarding.png")}
+                      source={{
+                        uri: "https://saispta.com/wp-content/uploads/2019/05/Screenshot-2019-05-21-11.40.14.png",
+                      }}
                       style={{ width, height: 200 }}
                       resizeMode="contain"
                     />
@@ -211,6 +153,22 @@ class HomeNav extends Component {
             />
           </View>
 
+          <View>
+            <View
+              style={{
+                height: 60,
+                backgroundColor: "white",
+                flexDirection: "row",
+              }}
+            />
+          </View>
+
+          <View>
+            <Text style={styles.version} />
+            <Text style={styles.version} />
+
+            <Text style={styles.version} />
+          </View>
           <Image source={require("../../../images/sais.edu.sg/10yearLogo.png")} style={styles.tenYearLogo} />
 
           <TouchableOpacity
@@ -222,14 +180,11 @@ class HomeNav extends Component {
           </TouchableOpacity>
 
           <View>
-            <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
-            <Text style={styles.user}>{global.name}</Text>
-            <Text style={styles.user}>{global.email}</Text>
-            <Text style={styles.user}>{global.uid}</Text>
-            <Text style={styles.user}>{global.language}</Text>
+            <Text style={styles.version} />
+            <Text style={styles.version}>Version: {Constants.manifest.revisionId}</Text>
           </View>
         </Content>
-      </Container>
+      </View>
     );
   }
 }
