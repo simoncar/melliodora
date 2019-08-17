@@ -15,7 +15,6 @@ import Constants from "expo-constants";
 import { MaterialIcons } from "@expo/vector-icons";
 import firebase from "firebase";
 import { getLanguageString } from "../global";
-import CountDown from "react-native-countdown-component";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
 import ListItem from "./ListItem";

@@ -19,7 +19,6 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 // import firebase from "firebase";
 import { isAdmin } from "../global";
 import BLEDataParser from "../../lib/BLEDataParser";
-import CountDown from "react-native-countdown-component";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
 
@@ -100,7 +99,6 @@ class HomeNav extends Component {
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
             <Text style={styles.version}>{I18n.t("schoolStarts")}</Text>
-            <CountDown until={this.getSeconds()} size={20} />
 
             {isAdmin(this.props.adminPassword) && (
               <TouchableOpacity
