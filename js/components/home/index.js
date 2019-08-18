@@ -64,9 +64,7 @@ class HomeNav extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
+  componentWillUnmount() {}
 
   onCollectionUpdate = querySnapshot => {
     var trans = {};
@@ -103,6 +101,7 @@ class HomeNav extends Component {
     this.setState({
       loading: false,
     });
+    this.unsubscribe();
   };
 
   _handleOpenWithLinking = sURL => {
@@ -110,15 +109,6 @@ class HomeNav extends Component {
   };
 
   keyExtractor = item => item._key;
-
-  getSeconds() {
-    var startDate = new Date();
-    // Do your operations
-    var endDate = new Date("13 Aug 2019 08:30");
-    var seconds = (endDate.getTime() - startDate.getTime()) / 1000;
-
-    return seconds;
-  }
 
   loadFromAsyncStorage() {
     AsyncStorage.getItem("featureItems").then(fi => {
