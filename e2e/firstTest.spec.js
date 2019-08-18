@@ -12,6 +12,7 @@ describe("tests", () => {
       .toBeVisible()
       .withTimeout(20000);
     await expect(element(by.label("PTA Welcome (Back) Coffee"))).toBeVisible();
+    await element(by.id("Calendar")).tap();
     //await element(by.id("safeguardnav")).tap();
   });
 
