@@ -329,47 +329,6 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
     });
   });
 
-  // const cutoff = now - 100000; //CUT_OFF_TIME;
-  const cutoffOvernight = now - 1000000; //CUT_OFF_TIME;
-  beacons = await admin
-    .firestore()
-    .collection("sais_edu_sg")
-    .doc("beacon")
-    .collection("beacons")
-    .where("timestamp", "<", cutoffOvernight)
-    .where("state", "==", "Entered")
-    .limit(100);
-
-  let query2 = beacons.get().then(snapshot => {
-    if (snapshot.empty) {
-      console.log("No matching Entered beacons to expire.");
-      return;
-    }
-
-    snapshot.forEach(doc => {
-      child = doc.data();
-      if (i < 100) {
-        i++;
-        update = {
-          campus: child.campus,
-          lastSeen: Date.now(),
-          timestamp: null,
-          state: "Not Present",
-          mac: doc.id,
-          rssi: child.rssi,
-        };
-
-        admin
-          .firestore()
-          .collection("sais_edu_sg")
-          .doc("beacon")
-          .collection("beacons")
-          .doc(doc.id)
-          .update(update);
-      }
-    });
-  });
-
   res.status(200).send(response);
 });
 
@@ -381,13 +340,16 @@ exports.beaconPingHistory = functions.firestore
     const beacon = context.params.beaconID;
     var oldState = "";
     var oldCampus = "";
+    var oldLocation = "";
 
     if (undefined !== oldValue) {
       oldState = oldValue.state;
       oldCampus = oldValue.campus;
+      oldLocation = oldValue.location;
     }
     const newState = newValue.state;
     const newCampus = newValue.campus;
+    const newLocation = newValue.location;
 
     if (newState !== oldState) {
       const xdate = moment()
@@ -398,8 +360,10 @@ exports.beaconPingHistory = functions.firestore
       var dataDict = {
         oldState: oldState,
         oldCampus: oldCampus,
+        oldLocation: oldLocation,
         state: newState,
         campus: newCampus,
+        location: newLocation,
         timestamp: Date.now(),
       };
 
@@ -482,6 +446,7 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
   res.status(200).send(req.body);
 });
 
+//firebase deploy --only functions:registerBeacon
 exports.registerBeacon = functions.https.onRequest((req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
 
@@ -509,19 +474,18 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     var personState = "";
     var dataDict = "";
     var beaconUpdates = [];
-
+    var count = 0;
+    var gateway = "";
+    var location = "";
     //  try {
 
     beacons.forEach(snapshot => {
+      count++;
       if (snapshot.type == "Gateway") {
         dataDict = setGateway(snapshot);
-        admin
-          .firestore()
-          .collection("sais_edu_sg")
-          .doc("beacon")
-          .collection("gateways")
-          .doc(snapshot.mac)
-          .update(dataDict);
+        personState = dataDict.state;
+        location = dataDict.location;
+        gateway = dataDict.mac;
       } else {
         if (beaconUpdates.indexOf(snapshot.mac) == -1) {
           beaconUpdates.push(snapshot.mac);
@@ -540,9 +504,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   objLocation = {},
                   objFirstSeen = {};
                 beacon = doc.data();
-                personState = dataDict.state;
-                location = dataDict.location;
-                gateway = dataDict.mac;
 
                 var ibeaconUuidOld = beacon.ibeaconUuid === undefined ? "" : beacon.ibeaconUuid;
                 var ibeaconMajorOld = beacon.ibeaconMajor === undefined ? 0 : beacon.ibeaconMajor;
@@ -617,6 +578,45 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
         }
       }
     });
+
+    var hitCount = {
+      //campus: personCampus,
+      pingCount: count,
+    };
+
+    const gatewayUpdate = { ...dataDict, ...hitCount };
+
+    admin
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("gateways")
+      .doc(gateway)
+      .update(gatewayUpdate);
+
+    var dataDictGatewayHistory = {
+      mac: gateway,
+      count: count,
+      timestamp: Date.now(),
+      location: location,
+    };
+
+    const xdate = moment()
+      .add(8, "hours")
+      .format("YYYYMMDD");
+
+    admin
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("gatewayHistory")
+      .doc(xdate)
+      .collection(gateway)
+      .doc(Date.now().toString())
+      .set(dataDictGatewayHistory);
+
+    console.log("Mac: ", gateway, " Count: ", count, " -- Location: ", location);
+
     // } catch (e) {
     //   console.log("catch error body:", req.body);
     //   console.error(e.message);
@@ -656,33 +656,33 @@ function setGateway(snapshot) {
       location = "Woodleigh Parent Helpdesk";
       break;
     case "AC233FC039A7":
-      location = "Woodleigh TBA 1";
+      location = "Washington Level 1 - Lift Lobby";
       break;
     case "AC233FC03A44":
-      location = "Woodleigh TBA 2";
+      location = "Franklin PickUp Dropoff";
       break;
     case "AC233FC039B1":
-      location = "Woodleigh TBA 3";
+      location = "Franklin Rear Undercover Walkway";
       break;
     case "AC233FC039CA":
-      location = "Woodleigh TBA 4";
+      location = "Franklin Front Undercover Walkway";
       break;
     case "AC233FC039BB":
-      location = "Woodleigh TBA 5";
+      location = "Admissions Elevator";
       break;
     case "AC233FC039B8":
-      location = "Woodleigh TBA 6";
+      location = "Lincoln Pickup Dropoff";
       break;
     case "AC233FC03E1F":
-      location = "Woodleigh - Gate 1 II";
+      location = "Woodleigh Gate 1";
       state = "Perimeter";
       break;
     case "AC233FC03E00":
-      location = "Woodleigh - Gate 1 II";
+      location = "Woodleigh - Gate 2";
       state = "Perimeter";
       break;
     case "AC233FC03E46":
-      location = "Woodleigh Parent Helpdesk II";
+      location = "Woodleigh Security Hub";
       break;
     case "AC233FC03EAC":
       location = "ELV - Tower B, Level 1 lift lobby";
