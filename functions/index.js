@@ -333,41 +333,75 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   res.status(200).send(response);
 });
 
+// firebase deploy --only functions:beaconPingHistory
 exports.beaconPingHistory = functions.firestore
   .document("sais_edu_sg/beacon/beacons/{beaconID}")
   .onWrite(async (change, context) => {
     const newValue = change.after.data();
     const oldValue = change.before.data();
     const beacon = context.params.beaconID;
+    var recordHistoryRecord = false;
     var oldState = "";
     var oldCampus = "";
     var oldLocation = "";
+    var oldGateway = "";
 
     if (undefined !== oldValue) {
       oldState = oldValue.state;
       oldCampus = oldValue.campus;
       oldLocation = oldValue.location;
+      oldGateway = oldValue.gatewayMostRecent;
     }
     const newState = newValue.state;
     const newCampus = newValue.campus;
     const newLocation = newValue.location;
+    const newGateway = newValue.gatewayMostRecent;
+
+    const xdate = moment()
+      .add(8, "hours")
+      .format("YYYYMMDD");
+
+    const timestamp = Date.now();
+
+    console.log("oldValue.gateway-AC233FC03E46 = ", oldValue["gateway-AC233FC03E46"]);
+    console.log("newValue.gateway-AC233FC03E46 = ", newValue["gateway-AC233FC03E46"]);
 
     if (newState !== oldState) {
-      const xdate = moment()
-        .add(8, "hours")
-        .format("YYYYMMDD");
-      const timestamp = Date.now();
-
       var dataDict = {
         oldState: oldState,
         oldCampus: oldCampus,
         oldLocation: oldLocation,
+        oldGateway: oldGateway,
         state: newState,
         campus: newCampus,
         location: newLocation,
         timestamp: Date.now(),
+        gateway: newGateway,
+        reason: "state",
       };
+      recordHistoryRecord = true;
+    } else if (newLocation !== oldLocation) {
+      console.log(oldValue["gateway-" + newGateway], Date.now() - 900000, beacon);
+      if (oldValue["gateway-" + newGateway] < Date.now() - 900000) {
+        var dataDict = {
+          oldState: oldState,
+          oldCampus: oldCampus,
+          oldLocation: oldLocation,
+          oldGateway: oldGateway,
+          state: newState,
+          campus: newCampus,
+          location: newLocation,
+          timestamp: Date.now(),
+          gateway: newGateway,
+          reason: "location",
+        };
+        recordHistoryRecord = true;
+      } else {
+        console.log("skipping history too soon", beacon);
+      }
+    }
 
+    if (recordHistoryRecord == true) {
       admin
         .firestore()
         .collection("sais_edu_sg")
@@ -377,6 +411,8 @@ exports.beaconPingHistory = functions.firestore
         .collection(beacon)
         .doc(timestamp.toString())
         .set(dataDict);
+
+      console.log("Record History = ", beacon, dataDict);
     }
   });
 
@@ -687,6 +723,12 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                 var rssi = snapshot.rssi === undefined ? 0 : snapshot.rssi;
 
                 var getwayMacdesc = "gateway-" + gateway;
+
+                if (beacon.gatewayMostRecent != gateway) {
+                  var gatewayPrevious = beacon.gatewayMostRecent;
+                } else {
+                  var gatewayPrevious = beacon.gatewayPrevious;
+                }
                 //master
                 var objAllUpdates = {
                   location: location,
@@ -700,6 +742,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   raw: raw,
                   mac: snapshot.mac,
                   gatewayMostRecent: gateway,
+                  gatewayPrevious: gatewayPrevious,
                   [getwayMacdesc]: Date.now(),
                   timestamp: Date.now(),
                   battery: battery,
@@ -727,6 +770,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   };
                 }
                 let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
+
+                console.log("dataDictUpdate=", dataDictUpdate);
 
                 admin
                   .firestore()
@@ -800,7 +845,7 @@ function setGateway(snapshot) {
 
   switch (snapshot.mac) {
     case "AC233FC03164":
-      location = "ELV - Gate 5";
+      location = "Gate 5";
       campus = "ELV";
       state = "Perimeter";
       break;
@@ -808,126 +853,99 @@ function setGateway(snapshot) {
       location = "Woodleigh - Gate 2";
       state = "Perimeter";
       campus = "Woodleigh";
-
       break;
     case "AC233FC039DB":
       location = "Smartcookies Office HQ";
       state = "Perimeter";
       campus = "Smartcookies HQ";
-
       break;
     case "AC233FC039C9":
       location = "Smartcookies Cove";
       state = "Perimeter";
       campus = "Smartcookies Cove";
-
       break;
     case "AC233FC039B2":
-      location = "ELV - Gate 4";
+      location = "Gate 4";
       state = "Perimeter";
       campus = "ELV";
-
       break;
     case "AC233FC039BE":
-      location = "Woodleigh Parent Helpdesk";
+      location = "Parent Helpdesk";
       campus = "Woodleigh";
-
       break;
     case "AC233FC039A7":
       location = "Washington Level 1 - Lift Lobby";
       campus = "Woodleigh";
-
       break;
     case "AC233FC03A44":
       location = "Franklin PickUp Dropoff";
       campus = "Woodleigh";
-
       break;
     case "AC233FC039B1":
       location = "Franklin Rear Undercover Walkway";
       campus = "Woodleigh";
-
       break;
     case "AC233FC039CA":
       location = "Franklin Front Undercover Walkway";
       campus = "Woodleigh";
-
       break;
     case "AC233FC039BB":
       location = "Admissions Elevator";
       campus = "Woodleigh";
-
       break;
     case "AC233FC03E60":
-      location = "Woodleigh TBA";
+      location = "TBA 1";
       campus = "Woodleigh";
-
       break;
     case "AC233FC03E96":
-      location = "Woodleigh TBA";
+      location = "TBA 2";
       campus = "Woodleigh";
-
       break;
     case "AC233FC03E9E":
-      location = "Woodleigh TBA";
+      location = "TBA 3";
       campus = "Woodleigh";
-
       break;
-
     case "AC233FC039B8":
       location = "Lincoln Pickup Dropoff";
       campus = "Woodleigh";
-
-      break;
-    case "AC233FC03E1F":
-      location = "Woodleigh Gate 1";
-      state = "Perimeter";
-      campus = "Woodleigh";
-
       break;
     case "AC233FC03E7F":
-      location = "Woodleigh TBA";
+      location = "TBA 4";
       campus = "Woodleigh";
-
-      state = "Perimeter";
       break;
     case "AC233FC03E00":
-      location = "Woodleigh - Gate 2";
+      location = "Gate 2";
       campus = "Woodleigh";
-
       state = "Perimeter";
       break;
     case "AC233FC03E46":
-      location = "Woodleigh Security Hub";
+      location = "Security Hub";
       campus = "Woodleigh";
-
       break;
     case "AC233FC03EAC":
-      location = "ELV - Tower B, Level 1 lift lobby";
+      location = "Tower B, Level 1 lift lobby";
       campus = "ELV";
       break;
     case "AC233FC03E77":
-      location = "ELV - Tower B, B1 lift lobby";
+      location = "Tower B, B1 lift lobby";
       campus = "ELV";
-
       break;
     case "AC233FC03E74":
-      location = "ELV - Pick up/Drop off point";
+      location = "Pick up/Drop off point";
       campus = "ELV";
-
       break;
     case "AC233FC03E85":
-      location = "ELV - Tower A, Level 1 lift lobby";
+      location = "Tower A, Level 1 lift lobby";
       campus = "ELV";
-
       break;
     case "AC233FC03EA8":
-      location = "ELV - Tower A, B1 lift lobby";
+      location = "Tower A, B1 lift lobby";
       campus = "ELV";
       break;
     case "AC233FC03E71":
       location = "Gate 1";
       campus = "Woodleigh";
+      state = "Perimeter";
       break;
 
     default:
