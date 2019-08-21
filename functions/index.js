@@ -278,6 +278,8 @@ exports.sendPushNotificationFromQueue = functions.firestore
   });
 
 // https://us-central1-calendar-app-57e88.cloudfunctions.net/deleteOldItems
+
+//  firebase deploy --only functions:deleteOldItems
 exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   var response = "";
   var i = 0;
@@ -294,7 +296,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
     .collection("sais_edu_sg")
     .doc("beacon")
     .collection("beacons")
-    .where("timestampPerimeter", "<", cutoff)
+    .where("timestampPerimeterCandidate", "<", cutoff)
     .where("stateCandidate", "==", "Perimeter")
     .limit(100);
 
@@ -312,8 +314,10 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
           var update = {
             campus: child.campus,
             lastSeen: Date.now(),
-            timestamp: null,
+            timestamp: child.timestampPerimeterCandidate,
             state: "Exited",
+            stateCandidate: "",
+            timestampPerimeterCandidate: "",
             mac: doc.id,
             rssi: child.rssi,
           };
@@ -366,7 +370,20 @@ exports.beaconPingHistory = functions.firestore
     console.log("oldValue.gateway-AC233FC03E46 = ", oldValue["gateway-AC233FC03E46"]);
     console.log("newValue.gateway-AC233FC03E46 = ", newValue["gateway-AC233FC03E46"]);
 
-    if (newState !== oldState) {
+    if ((newSate = "Exited")) {
+      var dataDict = {
+        oldState: oldState,
+        oldCampus: oldCampus,
+        oldLocation: oldLocation,
+        oldGateway: oldGateway,
+        state: newState,
+        campus: newCampus,
+        location: newLocation,
+        timestamp: Date.now(),
+        gateway: oldValue.timestampPerimeterCandidate,
+        reason: "exited",
+      };
+    } else if (newState !== oldState) {
       var dataDict = {
         oldState: oldState,
         oldCampus: oldCampus,
@@ -724,11 +741,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
 
                 var getwayMacdesc = "gateway-" + gateway;
 
-                if (beacon.gatewayMostRecent != gateway) {
-                  var gatewayPrevious = beacon.gatewayMostRecent;
-                } else {
-                  var gatewayPrevious = beacon.gatewayPrevious;
-                }
                 //master
                 var objAllUpdates = {
                   location: location,
@@ -742,7 +754,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   raw: raw,
                   mac: snapshot.mac,
                   gatewayMostRecent: gateway,
-                  gatewayPrevious: gatewayPrevious,
                   [getwayMacdesc]: Date.now(),
                   timestamp: Date.now(),
                   battery: battery,
@@ -767,6 +778,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   objLocation = {
                     state: "Entered",
                     timestampEntered: Date.now(),
+                    stateCandidate: "",
+                    timestampPerimeterCandidate: "",
                   };
                 }
                 let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
@@ -875,6 +888,10 @@ function setGateway(snapshot) {
       break;
     case "AC233FC039A7":
       location = "Washington Level 1 - Lift Lobby";
+      campus = "Woodleigh";
+      break;
+    case "AC233FC03EAB":
+      location = "TBA 5";
       campus = "Woodleigh";
       break;
     case "AC233FC03A44":
