@@ -116,7 +116,6 @@ export default class AttendeeDetailScreen extends Component {
       .get()
       .then(querySnapshot => {
         querySnapshot.docs.forEach(doc => {
-          console.log(doc.data());
           data.push(doc.data());
         });
       });
