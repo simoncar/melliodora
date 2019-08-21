@@ -3,6 +3,7 @@ const admin = require("firebase-admin");
 const fetch = require("node-fetch");
 const { Translate } = require("@google-cloud/translate");
 const computeCounts = require("./computeCounts.js");
+var GoogleSpreadsheet = require("google-spreadsheet");
 const _ = require("lodash");
 const cors = require("cors")({
   origin: true,
@@ -329,47 +330,6 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
     });
   });
 
-  // const cutoff = now - 100000; //CUT_OFF_TIME;
-  const cutoffOvernight = now - 1000000; //CUT_OFF_TIME;
-  beacons = await admin
-    .firestore()
-    .collection("sais_edu_sg")
-    .doc("beacon")
-    .collection("beacons")
-    .where("timestamp", "<", cutoffOvernight)
-    .where("state", "==", "Entered")
-    .limit(100);
-
-  let query2 = beacons.get().then(snapshot => {
-    if (snapshot.empty) {
-      console.log("No matching Entered beacons to expire.");
-      return;
-    }
-
-    snapshot.forEach(doc => {
-      child = doc.data();
-      if (i < 100) {
-        i++;
-        update = {
-          campus: child.campus,
-          lastSeen: Date.now(),
-          timestamp: null,
-          state: "Not Present",
-          mac: doc.id,
-          rssi: child.rssi,
-        };
-
-        admin
-          .firestore()
-          .collection("sais_edu_sg")
-          .doc("beacon")
-          .collection("beacons")
-          .doc(doc.id)
-          .update(update);
-      }
-    });
-  });
-
   res.status(200).send(response);
 });
 
@@ -381,13 +341,16 @@ exports.beaconPingHistory = functions.firestore
     const beacon = context.params.beaconID;
     var oldState = "";
     var oldCampus = "";
+    var oldLocation = "";
 
     if (undefined !== oldValue) {
       oldState = oldValue.state;
       oldCampus = oldValue.campus;
+      oldLocation = oldValue.location;
     }
     const newState = newValue.state;
     const newCampus = newValue.campus;
+    const newLocation = newValue.location;
 
     if (newState !== oldState) {
       const xdate = moment()
@@ -398,8 +361,10 @@ exports.beaconPingHistory = functions.firestore
       var dataDict = {
         oldState: oldState,
         oldCampus: oldCampus,
+        oldLocation: oldLocation,
         state: newState,
         campus: newCampus,
+        location: newLocation,
         timestamp: Date.now(),
       };
 
@@ -482,6 +447,170 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
   res.status(200).send(req.body);
 });
 
+exports.writeReport = functions.https.onRequest((req, res) => {
+  var async = require("async");
+  var doc = new GoogleSpreadsheet("19_fEifKOk22uLx-v49CDcMxdGPFObYoC_z3yzmnOBpU");
+  var sheet;
+  var dataDictUpdate = [];
+
+  console.log("start buildDailyReport");
+
+  async.series(
+    [
+      function setAuth(step) {
+        // see notes below for authentication instructions!
+        var creds = require("./Calendar App-915d5dbe4185.json");
+        doc.useServiceAccountAuth(creds, step);
+        console.log(step);
+      },
+      function getInfoAndWorksheets(step) {
+        doc.getInfo(function(err, info) {
+          console.log(err);
+
+          console.log("Loaded doc: " + info.title + " by " + info.author.email);
+          sheet = info.worksheets[0];
+          console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
+          step();
+        });
+      },
+
+      function loadData(step) {
+        admin
+          .firestore()
+          .collection("sais_edu_sg")
+          .doc("beacon")
+          .collection("beacons")
+          .orderBy("mac")
+          .get()
+          .then(async function(documentSnapshotArray) {
+            documentSnapshotArray.forEach(doc => {
+              item = doc.data();
+              dataDictUpdate.push({
+                item,
+              });
+            });
+            step();
+          });
+      },
+
+      function resizeSheetRigthSize(step) {
+        sheet.resize({ rowCount: dataDictUpdate.length + 1, colCount: 20 }, function(err) {
+          step();
+        }); //async
+      },
+
+      function workingWithCells(step) {
+        //dataDictUpdate = loadData(dataDictUpdate);
+
+        let rows = dataDictUpdate.length;
+        console.log("dataDictUpdate 333 =", rows);
+        console.log("11111");
+        var cols = 12;
+        console.log("AAAA");
+        sheet.getCells(
+          {
+            "min-row": 2,
+            "max-row": dataDictUpdate.length + 1,
+            "min-col": 1,
+            "max-col": cols,
+            "return-empty": true,
+          },
+          function(err, cells) {
+            console.log("BBB");
+
+            var startBlock = 0;
+            console.log("CCCC");
+
+            dataDictUpdate.forEach(doc => {
+              console.log("DDD");
+
+              for (var i = startBlock * cols; i < startBlock * cols + cols; i++) {
+                var cell = cells[i];
+                switch (cell.col) {
+                  case 1:
+                    cell.value = "" + doc.item.mac;
+                    break;
+                  case 2:
+                    cell.value = "" + doc.item.studentNo;
+                    break;
+                  case 3:
+                    cell.value = doc.item.firstName;
+                    break;
+                  case 4:
+                    cell.value = doc.item.lastName;
+                    break;
+                  case 5:
+                    cell.value = doc.item.email;
+                    break;
+                  case 6:
+                    break;
+                  case 7:
+                    break;
+                  case 8:
+                    cell.value = doc.item.state;
+                    break;
+                  case 9:
+                    cell.value = doc.item.grade;
+                    break;
+                  case 10:
+                    cell.value = doc.item.gradeTitle;
+                    break;
+                  case 11:
+                    cell.value = doc.item.class;
+                    break;
+                  case 12:
+                    cell.value = doc.item.campus;
+                    break;
+                }
+              }
+              console.log("EEE");
+
+              startBlock++;
+            });
+            console.log("FFF");
+
+            const batchSize = 500;
+            console.log("batchsize ");
+            const iterations = Math.ceil(rows / batchSize);
+            console.log("iterations =", iterations);
+            const cellsUpdatePerBatch = batchSize * cols;
+            for (let i = 1; i <= iterations; i++) {
+              const end = i * cellsUpdatePerBatch;
+              const start = (i - 1) * cellsUpdatePerBatch;
+              console.log(start, end);
+              sheet.bulkUpdateCells(cells.slice(start, end)); //async
+            }
+            step();
+          },
+        );
+      },
+    ],
+    function(err) {
+      if (err) {
+        console.log("Error: " + err);
+      }
+    },
+  );
+
+  console.log("done - buildDailyReport ");
+
+  var dataDict = {
+    source: "node function",
+    method: "buildDailyReport",
+    parameters: "",
+    results: "Build statistical reports",
+    timestamp: Date.now(),
+  };
+
+  admin
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("log")
+    .collection("logs")
+    .add(dataDict);
+});
+
+//firebase deploy --only functions:registerBeacon
 exports.registerBeacon = functions.https.onRequest((req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
 
@@ -509,19 +638,19 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     var personState = "";
     var dataDict = "";
     var beaconUpdates = [];
-
+    var count = 0;
+    var gateway = "";
+    var location = "";
     //  try {
 
     beacons.forEach(snapshot => {
+      count++;
       if (snapshot.type == "Gateway") {
         dataDict = setGateway(snapshot);
-        admin
-          .firestore()
-          .collection("sais_edu_sg")
-          .doc("beacon")
-          .collection("gateways")
-          .doc(snapshot.mac)
-          .update(dataDict);
+        personState = dataDict.state;
+        location = dataDict.location;
+        gateway = dataDict.mac;
+        campus = dataDict.campus;
       } else {
         if (beaconUpdates.indexOf(snapshot.mac) == -1) {
           beaconUpdates.push(snapshot.mac);
@@ -540,9 +669,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   objLocation = {},
                   objFirstSeen = {};
                 beacon = doc.data();
-                personState = dataDict.state;
-                location = dataDict.location;
-                gateway = dataDict.mac;
 
                 var ibeaconUuidOld = beacon.ibeaconUuid === undefined ? "" : beacon.ibeaconUuid;
                 var ibeaconMajorOld = beacon.ibeaconMajor === undefined ? 0 : beacon.ibeaconMajor;
@@ -564,6 +690,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                 //master
                 var objAllUpdates = {
                   location: location,
+                  campus: campus,
                   timestamp: Date.now(),
                   ibeaconUuid: ibeaconUuid,
                   ibeaconMajor: ibeaconMajor,
@@ -617,6 +744,45 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
         }
       }
     });
+
+    var hitCount = {
+      //campus: personCampus,
+      pingCount: count,
+    };
+
+    const gatewayUpdate = { ...dataDict, ...hitCount };
+
+    admin
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("gateways")
+      .doc(gateway)
+      .update(gatewayUpdate);
+
+    var dataDictGatewayHistory = {
+      mac: gateway,
+      count: count,
+      timestamp: Date.now(),
+      location: location,
+    };
+
+    const xdate = moment()
+      .add(8, "hours")
+      .format("YYYYMMDD");
+
+    admin
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("beacon")
+      .collection("gatewayHistory")
+      .doc(xdate)
+      .collection(gateway)
+      .doc(Date.now().toString())
+      .set(dataDictGatewayHistory);
+
+    console.log("Mac: ", gateway, " Count: ", count, " -- Location: ", location);
+
     // } catch (e) {
     //   console.log("catch error body:", req.body);
     //   console.error(e.message);
@@ -629,86 +795,150 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
 function setGateway(snapshot) {
   var state = "Entered";
   var location = "";
+  var campus = "";
   var personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
 
   switch (snapshot.mac) {
     case "AC233FC03164":
-      location = "Woodleigh - Gate 1";
+      location = "ELV - Gate 5";
+      campus = "ELV";
       state = "Perimeter";
       break;
     case "AC233FC031B8":
       location = "Woodleigh - Gate 2";
       state = "Perimeter";
+      campus = "Woodleigh";
+
       break;
     case "AC233FC039DB":
       location = "Smartcookies Office HQ";
       state = "Perimeter";
+      campus = "Smartcookies HQ";
+
       break;
     case "AC233FC039C9":
       location = "Smartcookies Cove";
       state = "Perimeter";
+      campus = "Smartcookies Cove";
+
       break;
     case "AC233FC039B2":
-      location = "ELV - Gate 1";
+      location = "ELV - Gate 4";
       state = "Perimeter";
+      campus = "ELV";
+
       break;
     case "AC233FC039BE":
       location = "Woodleigh Parent Helpdesk";
+      campus = "Woodleigh";
+
       break;
     case "AC233FC039A7":
-      location = "Woodleigh TBA 1";
+      location = "Washington Level 1 - Lift Lobby";
+      campus = "Woodleigh";
+
       break;
     case "AC233FC03A44":
-      location = "Woodleigh TBA 2";
+      location = "Franklin PickUp Dropoff";
+      campus = "Woodleigh";
+
       break;
     case "AC233FC039B1":
-      location = "Woodleigh TBA 3";
+      location = "Franklin Rear Undercover Walkway";
+      campus = "Woodleigh";
+
       break;
     case "AC233FC039CA":
-      location = "Woodleigh TBA 4";
+      location = "Franklin Front Undercover Walkway";
+      campus = "Woodleigh";
+
       break;
     case "AC233FC039BB":
-      location = "Woodleigh TBA 5";
+      location = "Admissions Elevator";
+      campus = "Woodleigh";
+
       break;
+    case "AC233FC03E60":
+      location = "Woodleigh TBA";
+      campus = "Woodleigh";
+
+      break;
+    case "AC233FC03E96":
+      location = "Woodleigh TBA";
+      campus = "Woodleigh";
+
+      break;
+    case "AC233FC03E9E":
+      location = "Woodleigh TBA";
+      campus = "Woodleigh";
+
+      break;
+
     case "AC233FC039B8":
-      location = "Woodleigh TBA 6";
+      location = "Lincoln Pickup Dropoff";
+      campus = "Woodleigh";
+
       break;
     case "AC233FC03E1F":
-      location = "Woodleigh - Gate 1 II";
+      location = "Woodleigh Gate 1";
+      state = "Perimeter";
+      campus = "Woodleigh";
+
+      break;
+    case "AC233FC03E7F":
+      location = "Woodleigh TBA";
+      campus = "Woodleigh";
+
       state = "Perimeter";
       break;
     case "AC233FC03E00":
-      location = "Woodleigh - Gate 1 II";
+      location = "Woodleigh - Gate 2";
+      campus = "Woodleigh";
+
       state = "Perimeter";
       break;
     case "AC233FC03E46":
-      location = "Woodleigh Parent Helpdesk II";
+      location = "Woodleigh Security Hub";
+      campus = "Woodleigh";
+
       break;
     case "AC233FC03EAC":
       location = "ELV - Tower B, Level 1 lift lobby";
+      campus = "ELV";
       break;
     case "AC233FC03E77":
       location = "ELV - Tower B, B1 lift lobby";
+      campus = "ELV";
+
       break;
     case "AC233FC03E74":
       location = "ELV - Pick up/Drop off point";
+      campus = "ELV";
+
       break;
     case "AC233FC03E85":
       location = "ELV - Tower A, Level 1 lift lobby";
+      campus = "ELV";
+
       break;
     case "AC233FC03EA8":
       location = "ELV - Tower A, B1 lift lobby";
+      campus = "ELV";
+      break;
+    case "AC233FC03E71":
+      location = "Gate 1";
+      campus = "Woodleigh";
       break;
 
     default:
       location = "Unknown - " + snapshot.mac;
-      state = "Perimeter";
   }
 
   var dataDict = {
     //campus: personCampus,
     timestamp: Date.now(),
     location: location,
+    campus: campus,
     state: state,
     mac: snapshot.mac,
     //picture: personPictureURL,

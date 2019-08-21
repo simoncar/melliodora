@@ -204,7 +204,7 @@ class HomeNav extends Component {
 
           <TouchableOpacity
             onPress={() => {
-              this._handleOpenWithLinking("https://smartcookies.io");
+              this._handleOpenWithLinking("https://www.smartcookies.io/stamford-app-faqs");
             }}
           >
             <Image source={require("../../../images/sais.edu.sg/SCLogo.png")} style={styles.sclogo} />
