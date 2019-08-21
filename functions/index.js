@@ -383,6 +383,9 @@ exports.beaconPingHistory = functions.firestore
         gateway: oldValue.timestampPerimeterCandidate,
         reason: "exited",
       };
+      recordHistoryRecord = true;
+    } else if (newState == "Not Present") {
+      recordHistoryRecord = false;
     } else if (newState !== oldState) {
       var dataDict = {
         oldState: oldState,
@@ -757,6 +760,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   [getwayMacdesc]: Date.now(),
                   timestamp: Date.now(),
                   battery: battery,
+                  pingCount: admin.firestore.FieldValue.increment(1),
                 };
 
                 //nuances
