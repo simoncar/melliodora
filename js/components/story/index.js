@@ -260,9 +260,7 @@ class Story extends Component {
               <Text> </Text>
               <Text> </Text>
               <Text selectable style={styles.eventTextAbbreviation}>
-                {getAbbreviations(
-                  this.props.navigation.getParam("summary") + " " + this.props.navigation.getParam("description"),
-                )}
+                {getAbbreviations(this.props.navigation.getParam("summary"))}
               </Text>
               <Text> </Text>
               <Text> </Text>

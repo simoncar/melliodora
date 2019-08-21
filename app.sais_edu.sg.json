@@ -1,0 +1,64 @@
+{
+    "name": "Stamford",
+    "displayName": "Stamford",
+    "expo": {
+        "version": "19.0.33",
+        "sdkVersion": "33.0.0",
+        "icon": "./resources/0001-sais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
+        "slug": "myStamford",
+        "name": "Stamford",
+        "description": "For SAIS parents, Singapore",
+        "extra": {
+            "instance": "0001-sais_edu_sg",
+            "amplitudeApiKey": "12cdb352da26116280b7c358a62ea788"
+        },
+        "splash": {
+            "image": "./resources/0001-sais_edu_sg/splash.png",
+            "backgroundColor": "#FFF"
+        },
+        "hooks": {
+            "postPublish": [
+                {
+                    "file": "sentry-expo/upload-sourcemaps",
+                    "config": {
+                        "organization": "mower-train-software",
+                        "project": "mystamford",
+                        "authToken": "92c8da52431846ca8f6fe52b9de0db28b039efc6463b4e56996c4a583a75dda1"
+                    }
+                }
+            ]
+        },
+        "notification": {
+            "icon": "./resources/0001-sais_edu_sg/icon.png",
+            "color": "#000000"
+        },
+        "orientation": "portrait",
+        "packagerOpts": {
+            "assetExts": [
+                "ttf"
+            ]
+        },
+        "ios": {
+            "bundleIdentifier": "com.softmowertrain.parent.mystamford",
+            "supportsTablet": true
+        },
+        "android": {
+            "package": "com.softmowertrain.parent.mystamford",
+            "versionCode": 19,
+            "permissions": [
+                "READ_CALENDAR",
+                "WRITE_CALENDAR"
+            ]
+        },
+        "androidStatusBarColor": "#AF3643",
+        "androidStatusBar": {
+            "barStyle": "dark-content",
+            "backgroundColor": "#AF3643"
+        },
+        "platforms": [
+            "android",
+            "ios",
+            "web"
+        ]
+    }
+}
