@@ -532,7 +532,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             .collection("beacons")
             .doc(snapshot.mac)
             .get()
-            .then(function(doc) {
+            .then(function (doc) {
               if (!doc.exists) {
                 //IGNORE
               } else {
@@ -741,3 +741,79 @@ function pickLatest(oldValue, potentialNewValue, fallback) {
   //console.log(oldValue, potentialNewValue, fallback, ret);
   return ret;
 }
+
+
+
+// On sign up.
+exports.processSignUp = functions.auth.user().onCreate(user => {
+  console.log("processSignUp", user);
+  return admin
+    .firestore()
+    .collection('users').doc(user.uid).set({
+      email: user.email,
+      uid: user.uid
+    });
+});
+
+// On Delete Acct.
+exports.processDeleteUserInAuth = functions.auth.user().onDelete(user => {
+  console.log("processDeleteUserInAuth", user);
+  return admin
+    .firestore()
+    .collection('users').doc(user.uid).delete();
+});
+
+
+// get all Accounts
+exports.getAccounts = functions.https.onRequest(async (req, res) => {
+  let acctData = []
+  function listAllUsers(nextPageToken) {
+    // List batch of users, 1000 at a time.
+    admin.auth().listUsers(1000, nextPageToken)
+      .then(function (listUsersResult) {
+        listUsersResult.users.forEach(function (userRecord) {
+          const { uid = "", email = "", customClaims = {}, providerData } = userRecord;
+          if (providerData.length > 0) {
+            acctData.push({ uid, email, customClaims, providerData });
+          }
+        });
+        if (listUsersResult.pageToken) {
+          // List next batch of users.
+          console.log('pageToken', listUsersResult.pageToken);
+          listAllUsers(listUsersResult.pageToken);
+        } else {
+          res.send(acctData);
+        }
+      })
+      .catch(function (error) {
+        console.log('Error listing users:', error);
+      });
+  }
+  // Start listing users from the beginning, 1000 at a time.
+  listAllUsers();
+  // admin.auth().listUsers(1000).then((userRecords) => {
+  //   console.log("pagetoken", userRecords.pageToken);
+  //   userRecords.users.forEach((user) => console.log(user.toJSON()));
+  //   res.end('Retrieved users list successfully.');
+  // }).catch((error) => console.log(error));
+});
+
+
+exports.updateUserClaims = functions.https.onRequest(async (req, res) => {
+
+  // console.log(req.body);
+  const { UID, claims } = req.body;
+  // console.log(UID, claims);
+
+  for (var key in claims) {
+
+    if (!claims[key] === true) {
+      delete claims[key]
+    }
+  }
+  res.send("Update claims received");
+
+  admin.auth().getUser(UID).then((user) => {
+    return admin.auth().setCustomUserClaims(user.uid, claims);
+  })
+});
