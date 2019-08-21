@@ -287,6 +287,17 @@ class Settings extends Component {
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
             <SettingsList.Item
               hasNavArrow={false}
+              icon={<Image style={styles.imageStyle} source={require("./images/about.png")} />}
+              title={"About this App"}
+              onPress={() => {
+                this.props.navigation.navigate("webportalURL", {
+                  url: "https://www.smartcookies.io/stamford-app-faqs",
+                  title: "About this App",
+                });
+              }}
+            />
+            <SettingsList.Item
+              hasNavArrow={false}
               icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
               title={I18n.t("logout")}
               onPress={() => this._logout()}
