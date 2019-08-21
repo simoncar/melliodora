@@ -14,7 +14,7 @@ function writeFile() {
   var sF = "";
   admin
     .firestore()
-    .collection("sais_edu_sg")
+    .collection(Constants.manifest.extra.instance)
     .doc("beacon")
     .collection("beacons")
     .get()
@@ -40,7 +40,7 @@ function bulkAllocateTestData(batchCount) {
   var ClassCode = "";
   admin
     .firestore()
-    .collection("sais_edu_sg")
+    .collection(Constants.manifest.extra.instance)
     .doc("beacon")
     .collection("beacons")
 
