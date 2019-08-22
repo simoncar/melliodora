@@ -370,9 +370,6 @@ exports.beaconPingHistory = functions.firestore
 
     const timestamp = Date.now();
 
-    console.log("oldValue.gateway-AC233FC03E46 = ", oldValue["gateway-AC233FC03E46"]);
-    console.log("newValue.gateway-AC233FC03E46 = ", newValue["gateway-AC233FC03E46"]);
-
     if (newState == "Exited") {
       var dataDict = {
         oldState: oldState,
@@ -382,8 +379,8 @@ exports.beaconPingHistory = functions.firestore
         state: newState,
         campus: newCampus,
         location: newLocation,
-        timestamp: Date.now(),
-        gateway: oldValue.timestampPerimeterCandidate,
+        timestamp: oldValue.timestampPerimeterCandidate,
+        gateway: newGateway,
         reason: "exited",
         oldrssi: oldRSSI,
         rssi: newRSSI,
@@ -408,8 +405,8 @@ exports.beaconPingHistory = functions.firestore
       };
       recordHistoryRecord = true;
     } else if (newLocation !== oldLocation) {
-      console.log(oldValue["gateway-" + newGateway], Date.now() - 900000, beacon);
-      if (oldValue["gateway-" + newGateway] < Date.now() - 900000) {
+      console.log(oldValue["gateway-" + newGateway], Date.now() - 900000, beacon, oldLocation, newLocation);
+      if (oldValue["gateway-" + newGateway] < Date.now() - 900000 || oldValue["gateway-" + newGateway] == undefined) {
         var dataDict = {
           oldState: oldState,
           oldCampus: oldCampus,
@@ -426,7 +423,7 @@ exports.beaconPingHistory = functions.firestore
         };
         recordHistoryRecord = true;
       } else {
-        console.log("skipping history too soon", beacon);
+        console.log("Skipped To SOON = ", beacon);
       }
     }
 
@@ -441,10 +438,13 @@ exports.beaconPingHistory = functions.firestore
         .doc(timestamp.toString())
         .set(dataDict);
 
-      console.log("Record History = ", beacon, dataDict);
+      console.log("RECORD HISTORY = ", beacon, dataDict);
+    } else {
+      console.log("Skipped Record History Overall = ", beacon);
     }
   });
 
+// firebase deploy --only functions:computeCounts
 exports.computeCounts = functions.https.onRequest(async (req, res) => {
   // This function is scheduled to run periodically
   //https://console.cloud.google.com/cloudscheduler?project=calendar-app-57e88&folder&organizationId&jobs-tablesize=50
@@ -454,6 +454,18 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
   var countEntered = 0;
   var countNotPresent = 0;
   var countOther = 0;
+
+  var countWoodleighPerimeter = 0;
+  var countWoodleighExited = 0;
+  var countWoodleighEntered = 0;
+  var countWoodleighNotPresent = 0;
+  var countWoodleighOther = 0;
+
+  var countELVPerimeter = 0;
+  var countELVExited = 0;
+  var countELVEntered = 0;
+  var countELVNotPresent = 0;
+  var countELVOther = 0;
 
   const xdate = moment()
     .add(8, "hours")
@@ -476,7 +488,7 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
             case "Not Present":
               countNotPresent++;
               break;
-            case "Perimeter":
+            case "Arriving":
               countPerimeter++;
               break;
             case "Entered":
@@ -488,6 +500,42 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
             default:
               countOther++;
           }
+          if (child.campus == "Woodleigh") {
+            switch (child.state) {
+              case "Not Present":
+                countWoodleighNotPresent++;
+                break;
+              case "Arriving":
+                countWoodleighPerimeter++;
+                break;
+              case "Entered":
+                countWoodleighEntered++;
+                break;
+              case "Exited":
+                countWoodleighExited++;
+                break;
+              default:
+                countWoodleighOther++;
+            }
+          }
+          if (child.campus == "ELV") {
+            switch (child.state) {
+              case "Not Present":
+                countELVNotPresent++;
+                break;
+              case "Arriving":
+                countELVPerimeter++;
+                break;
+              case "Entered":
+                countELVEntered++;
+                break;
+              case "Exited":
+                countELVExited++;
+                break;
+              default:
+                countELVOther++;
+            }
+          }
         });
       }
 
@@ -497,6 +545,19 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
         countEntered,
         countExited,
         countOther,
+
+        countWoodleighNotPresent,
+        countWoodleighPerimeter,
+        countWoodleighEntered,
+        countWoodleighExited,
+        countWoodleighOther,
+
+        countELVNotPresent,
+        countELVPerimeter,
+        countELVEntered,
+        countELVExited,
+        countELVOther,
+
         timestamp: Date.now(),
       };
 
