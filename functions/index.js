@@ -464,7 +464,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
         console.log(step);
       },
       function getInfoAndWorksheets(step) {
-        doc.getInfo(function(err, info) {
+        doc.getInfo(function (err, info) {
           console.log(err);
 
           console.log("Loaded doc: " + info.title + " by " + info.author.email);
@@ -482,7 +482,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
           .collection("beacons")
           .orderBy("mac")
           .get()
-          .then(async function(documentSnapshotArray) {
+          .then(async function (documentSnapshotArray) {
             documentSnapshotArray.forEach(doc => {
               item = doc.data();
               dataDictUpdate.push({
@@ -494,7 +494,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
       },
 
       function resizeSheetRigthSize(step) {
-        sheet.resize({ rowCount: dataDictUpdate.length + 1, colCount: 20 }, function(err) {
+        sheet.resize({ rowCount: dataDictUpdate.length + 1, colCount: 20 }, function (err) {
           step();
         }); //async
       },
@@ -515,7 +515,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
             "max-col": cols,
             "return-empty": true,
           },
-          function(err, cells) {
+          function (err, cells) {
             console.log("BBB");
 
             var startBlock = 0;
@@ -585,7 +585,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
         );
       },
     ],
-    function(err) {
+    function (err) {
       if (err) {
         console.log("Error: " + err);
       }
@@ -1021,29 +1021,117 @@ exports.getAccounts = functions.https.onRequest(async (req, res) => {
   }
   // Start listing users from the beginning, 1000 at a time.
   listAllUsers();
-  // admin.auth().listUsers(1000).then((userRecords) => {
-  //   console.log("pagetoken", userRecords.pageToken);
-  //   userRecords.users.forEach((user) => console.log(user.toJSON()));
-  //   res.end('Retrieved users list successfully.');
-  // }).catch((error) => console.log(error));
 });
 
 
-exports.updateUserClaims = functions.https.onRequest(async (req, res) => {
-
-  // console.log(req.body);
-  const { UID, claims } = req.body;
-  // console.log(UID, claims);
-
+updateUserClaims = async (UID, claims) => {
+  if (claims.constructor !== Object) return;
   for (var key in claims) {
 
     if (!claims[key] === true) {
       delete claims[key]
     }
   }
-  res.send("Update claims received");
+
 
   admin.auth().getUser(UID).then((user) => {
+    console.log("updating claims for", UID);
     return admin.auth().setCustomUserClaims(user.uid, claims);
-  })
+  });
+
+
+};
+
+exports.writeUserClaims = functions.https.onRequest((req, res) => {
+  console.log(req.body);
+  const { minRow, maxRow, minCol, maxCol } = req.body;
+  console.log({ minRow, maxRow, minCol, maxCol });
+
+  var async = require("async");
+  var doc = new GoogleSpreadsheet("1C5moaw7BEKMJYkVzhGQcUweAVXS_tozfjhZvKB2xIpw");
+  var sheet;
+  const claimKeys = [];
+  const claimColStart = 4;
+
+  console.log("start writeUserClaims");
+
+  async.series(
+    [
+      function setAuth(step) {
+        // see notes below for authentication instructions!
+        var creds = require("./Calendar App-915d5dbe4185.json");
+        doc.useServiceAccountAuth(creds, step);
+        console.log(step);
+      },
+      function getInfoAndWorksheets(step) {
+        doc.getInfo(function (err, info) {
+          // console.log("info", info);
+          sheet = info.worksheets[0];
+          console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
+          step();
+        });
+      },
+
+      function getClaimKeys(step) {
+        sheet.getCells(
+          {
+            "min-row": minRow - 1,
+            "max-row": minRow - 1,
+            "min-col": claimColStart,
+            "max-col": maxCol,
+            "return-empty": true
+          },
+          function (err, cells) {
+            for (let k = 0; k < cells.length; k++) {
+              const cell = cells[k]
+              if (cell.value) {
+                claimKeys.push(cell.value);
+              }
+            }
+            console.log("claimKeys", claimKeys);
+            step();
+          },
+        );
+      },
+      function workingWithCells(step) {
+        sheet.getCells(
+          {
+            "min-row": minRow,
+            "max-row": maxRow,
+            "min-col": minCol,
+            "max-col": maxCol,
+            "return-empty": true
+          },
+          function (err, cells) {
+            console.log("cells", cells);
+
+            for (var i = 0; i < cells.length; i = i + maxCol) {
+              let cell = cells[i];
+              const UID = cell.value;
+              console.log('Cell R' + cell.row + 'C' + cell.col + ' = ' + cell.value);
+
+              const claims = {};
+              for (let j = claimColStart; j <= maxCol; j++) {
+                cell = cells[i + j - 1];
+                const key = claimKeys[j - claimColStart];
+                claims[key] = cell.value === "TRUE";
+              }
+              console.log(UID, JSON.stringify(claims));
+              updateUserClaims(UID, claims);
+            }
+
+            res.send("Update Claims Completed");
+            step();
+          },
+        );
+      },
+    ],
+    function (err) {
+      if (err) {
+        console.log("Error: " + err);
+      }
+    },
+  );
+
+  console.log("done - writeUserClaims ");
 });
