@@ -321,6 +321,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
             mac: doc.id,
             rssi: child.rssi,
           };
+          console.log("EXITED : ", update, doc.id);
 
           admin
             .firestore()
@@ -590,7 +591,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
         console.log(step);
       },
       function getInfoAndWorksheets(step) {
-        doc.getInfo(function (err, info) {
+        doc.getInfo(function(err, info) {
           console.log(err);
 
           console.log("Loaded doc: " + info.title + " by " + info.author.email);
@@ -608,7 +609,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
           .collection("beacons")
           .orderBy("mac")
           .get()
-          .then(async function (documentSnapshotArray) {
+          .then(async function(documentSnapshotArray) {
             documentSnapshotArray.forEach(doc => {
               item = doc.data();
               dataDictUpdate.push({
@@ -620,7 +621,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
       },
 
       function resizeSheetRigthSize(step) {
-        sheet.resize({ rowCount: dataDictUpdate.length + 1, colCount: 20 }, function (err) {
+        sheet.resize({ rowCount: dataDictUpdate.length + 1, colCount: 20 }, function(err) {
           step();
         }); //async
       },
@@ -641,7 +642,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
             "max-col": cols,
             "return-empty": true,
           },
-          function (err, cells) {
+          function(err, cells) {
             console.log("BBB");
 
             var startBlock = 0;
@@ -711,7 +712,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
         );
       },
     ],
-    function (err) {
+    function(err) {
       if (err) {
         console.log("Error: " + err);
       }
@@ -740,6 +741,8 @@ exports.writeReport = functions.https.onRequest((req, res) => {
 exports.registerBeacon = functions.https.onRequest((req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
 
+  var now = Date.now();
+
   if (req.method === "PUT") {
     return res.status(403).send("Forbidden!");
   }
@@ -757,7 +760,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
       format = req.body.format;
     }
 
-    console.log("DATA:", req.body);
+    console.log(now, "DATA START:", req.body);
 
     var beacons = req.body;
     var campus = "";
@@ -787,7 +790,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             .collection("beacons")
             .doc(snapshot.mac)
             .get()
-            .then(function (doc) {
+            .then(function(doc) {
               if (!doc.exists) {
                 //IGNORE
               } else {
@@ -920,6 +923,8 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     //   console.error(e.message);
     // }
 
+    console.log(now, "DATA END:", req.body);
+
     res.status(200).send(req.body);
   });
 });
@@ -1010,7 +1015,7 @@ function setGateway(snapshot) {
       state = "Perimeter";
       break;
     case "AC233FC03E46":
-      location = "Security Hub";
+      location = "TBA 6";
       campus = "Woodleigh";
       break;
     case "AC233FC03EAC":
@@ -1081,16 +1086,16 @@ function pickLatest(oldValue, potentialNewValue, fallback) {
   return ret;
 }
 
-
-
 // On sign up.
 exports.processSignUp = functions.auth.user().onCreate(user => {
   console.log("processSignUp", user);
   return admin
     .firestore()
-    .collection('users').doc(user.uid).set({
+    .collection("users")
+    .doc(user.uid)
+    .set({
       email: user.email,
-      uid: user.uid
+      uid: user.uid,
     });
 });
 
@@ -1099,15 +1104,16 @@ exports.processDeleteUserInAuth = functions.auth.user().onDelete(user => {
   console.log("processDeleteUserInAuth", user);
   return admin
     .firestore()
-    .collection('users').doc(user.uid).delete();
+    .collection("users")
+    .doc(user.uid)
+    .delete();
 });
-
 
 // get all Accounts
 const getAccounts = async () => {
-  let acctData = []
+  let acctData = [];
   let listUsersResult = await admin.auth().listUsers(1000);
-  listUsersResult.users.forEach(function (userRecord) {
+  listUsersResult.users.forEach(function(userRecord) {
     const { uid = "", email = "", customClaims = {}, providerData } = userRecord;
     if (providerData.length > 0) {
       acctData.push({ uid, email, customClaims, providerData });
@@ -1115,7 +1121,7 @@ const getAccounts = async () => {
   });
   while (listUsersResult.pageToken) {
     listUsersResult = await admin.auth().listUsers(1000, listUsersResult.pageToken);
-    listUsersResult.users.forEach(function (userRecord) {
+    listUsersResult.users.forEach(function(userRecord) {
       const { uid = "", email = "", customClaims = {}, providerData } = userRecord;
       if (providerData.length > 0) {
         acctData.push({ uid, email, customClaims, providerData });
@@ -1124,10 +1130,9 @@ const getAccounts = async () => {
   }
   console.log("acctData", acctData);
   return acctData;
-}
+};
 
 exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
-
   const { minRow, maxRow, minCol, maxCol } = req.body;
   var async = require("async");
   var doc = new GoogleSpreadsheet("1lGYbmoyUn-BJgxR0DNrvSd-nYt4TE8cyjUoh7NR8VAo");
@@ -1136,7 +1141,6 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
 
   const claimKeys = [];
   const claimColStart = 4;
-
 
   console.log("start populateUserClaimMgmt");
 
@@ -1149,7 +1153,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
         console.log(step);
       },
       function getInfoAndWorksheets(step) {
-        doc.getInfo(function (err, info) {
+        doc.getInfo(function(err, info) {
           console.log(err);
 
           console.log("Loaded doc: " + info.title + " by " + info.author.email);
@@ -1167,7 +1171,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
       },
 
       function resizeSheetRigthSize(step) {
-        sheet.resize({ rowCount: dataDictUpdate.length + minRow, colCount: maxCol }, function (err) {
+        sheet.resize({ rowCount: dataDictUpdate.length + minRow, colCount: maxCol }, function(err) {
           step();
         }); //async
       },
@@ -1179,11 +1183,11 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
             "max-row": minRow - 1,
             "min-col": claimColStart,
             "max-col": maxCol,
-            "return-empty": true
+            "return-empty": true,
           },
-          function (err, cells) {
+          function(err, cells) {
             for (let k = 0; k < cells.length; k++) {
-              const cell = cells[k]
+              const cell = cells[k];
               if (cell.value) {
                 claimKeys.push(cell.value);
               }
@@ -1203,7 +1207,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
             "max-col": maxCol,
             "return-empty": true,
           },
-          function (err, cells) {
+          function(err, cells) {
             console.log("cells", cells);
             let rowDataIndex = 0;
             for (var i = 0; i < cells.length; i = i + maxCol) {
@@ -1231,25 +1235,21 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
         console.log("done - populateUserClaimMgmt ");
         res.send("done - populateUserClaimMgmt ");
         step();
-      }
+      },
     ],
-    function (err) {
+    function(err) {
       if (err) {
         console.log("Error: " + err);
       }
     },
   );
-
-
 });
-
 
 const updateUserClaims = async (UID, claims) => {
   if (claims.constructor !== Object) return;
   for (var key in claims) {
-
     if (!claims[key] === true) {
-      delete claims[key]
+      delete claims[key];
     }
   }
   const user = await admin.auth().getUser(UID);
@@ -1280,7 +1280,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
         console.log(step);
       },
       function getInfoAndWorksheets(step) {
-        doc.getInfo(function (err, info) {
+        doc.getInfo(function(err, info) {
           // console.log("info", info);
           sheet = info.worksheets[0];
           console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
@@ -1295,11 +1295,11 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
             "max-row": minRow - 1,
             "min-col": claimColStart,
             "max-col": maxCol,
-            "return-empty": true
+            "return-empty": true,
           },
-          function (err, cells) {
+          function(err, cells) {
             for (let k = 0; k < cells.length; k++) {
-              const cell = cells[k]
+              const cell = cells[k];
               if (cell.value) {
                 claimKeys.push(cell.value);
               }
@@ -1316,15 +1316,15 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
             "max-row": maxRow,
             "min-col": minCol,
             "max-col": maxCol,
-            "return-empty": true
+            "return-empty": true,
           },
-          async function (err, cells) {
+          async function(err, cells) {
             console.log("cells", cells);
 
             for (var i = 0; i < cells.length; i = i + maxCol) {
               let cell = cells[i];
               const UID = cell.value;
-              console.log('Cell R' + cell.row + 'C' + cell.col + ' = ' + cell.value);
+              console.log("Cell R" + cell.row + "C" + cell.col + " = " + cell.value);
 
               const claims = {};
               for (let j = claimColStart; j <= maxCol; j++) {
@@ -1342,7 +1342,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
         );
       },
     ],
-    function (err) {
+    function(err) {
       if (err) {
         console.log("Error: " + err);
       }
