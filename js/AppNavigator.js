@@ -20,15 +20,6 @@ import chat from "./components/chat";
 import push from "./components/story/push";
 import authPortal from "./components/webportalURL/authPortal";
 import WebportalURL from "./components/webportalURL";
-import beacon from "./components/beacon";
-import beaconHistory from "./components/beacon/beaconHistory";
-import AttendanceOverviewScreen from "./components/beacon/AttendanceOverviewScreen";
-import GradeListingScreen from "./components/beacon/GradeListingScreen";
-import ClassListingScreen from "./components/beacon/ClassListingScreen";
-import AttendeeListingScreen from "./components/beacon/AttendeeListingScreen";
-import AttendeeDetailScreen from "./components/beacon/AttendeeDetailScreen";
-import BookmarkScreen from "./components/beacon/BookmarkScreen";
-import BeaconSearch from "./components/beacon/BeaconSearch";
 import I18n from "./lib/i18n";
 
 let StackHome = createStackNavigator(
@@ -109,15 +100,6 @@ let StackOther = createStackNavigator(
     webportalURL: { screen: WebportalURL },
     selectLanguage: { screen: selectLanguage },
     adminPassword: { screen: adminPassword },
-    beacon: { screen: beacon },
-    AttendanceOverviewScreen: { screen: AttendanceOverviewScreen },
-    GradeListingScreen: { screen: GradeListingScreen },
-    ClassListingScreen: { screen: ClassListingScreen },
-    AttendeeListingScreen: { screen: AttendeeListingScreen },
-    beaconHistory: { screen: beaconHistory },
-    AttendeeDetailScreen: { screen: AttendeeDetailScreen },
-    BookmarkScreen: { screen: BookmarkScreen },
-    BeaconSearch: { screen: BeaconSearch },
   },
   {
     navigationOptions: {
