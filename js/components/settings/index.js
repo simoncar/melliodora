@@ -250,13 +250,6 @@ class Settings extends Component {
               onPress={() => this.props.navigation.navigate("adminPassword")}
             />
             {isAdmin(this.props.adminPassword) && <SettingsList.Header headerStyle={{ marginTop: 15 }} />}
-            {isAdmin(this.props.adminPassword) && (
-              <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require("./images/notifications.png")} />}
-                title={I18n.t("safeguarding")}
-                onPress={() => this.props.navigation.navigate("AttendanceOverviewScreen")}
-              />
-            )}
 
             {isAdmin(this.props.adminPassword) && (
               <SettingsList.Item
@@ -265,25 +258,7 @@ class Settings extends Component {
                 onPress={() => this.props.navigation.navigate("logs")}
               />
             )}
-            <SettingsList.Header headerStyle={{ marginTop: 15 }} />
 
-            {this.gradeSelector("Pre-Nursery", "Early Years", -4)}
-            {this.gradeSelector("Nursery", "Early Years", -3)}
-            {this.gradeSelector("Pre-K", "Early Years", -2)}
-            {this.gradeSelector("Kindergarten 1", "Early Years", -1)}
-            {this.gradeSelector("Kindergarten 2", "Lower Elem", 0)}
-            {this.gradeSelector("Grade 1", "Lower Elem", 1)}
-            {this.gradeSelector("Grade 2", "Lower Elem", 2)}
-            {this.gradeSelector("Grade 3", "Upper Elem", 3)}
-            {this.gradeSelector("Grade 4", "Upper Elem", 4)}
-            {this.gradeSelector("Grade 5", "Upper Elem", 5)}
-            {this.gradeSelector("Grade 6", "Middle School", 6)}
-            {this.gradeSelector("Grade 7", "Middle School", 7)}
-            {this.gradeSelector("Grade 8", "Middle School", 8)}
-            {this.gradeSelector("Grade 9", "High School", 9)}
-            {this.gradeSelector("Grade 10", "High School", 10)}
-            {this.gradeSelector("Grade 11", "High School", 11)}
-            {this.gradeSelector("Grade 12", "High School", 12)}
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
             <SettingsList.Item
               hasNavArrow={false}

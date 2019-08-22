@@ -152,47 +152,6 @@ class HomeNav extends Component {
 
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
-            {global.administrator && (
-              <TouchableOpacity
-                style={{ flexDirection: "row" }}
-                onPress={() => {
-                  this.props.navigation.navigate("AttendanceOverviewScreen");
-                }}
-              >
-                <View>
-                  <View
-                    style={{
-                      height: 60,
-                      backgroundColor: "white",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image
-                      style={{
-                        width: 36,
-                        height: 36,
-                        margin: 12,
-                        borderRadius: 18,
-                        borderWidth: StyleSheet.hairlineWidth,
-                        borderColor: "lightgray",
-                      }}
-                      source={require("../../../images/safeguarding_lockl.png")}
-                    />
-                    <Text style={styles.itemTitle}>{I18n.t("safeguarding")}</Text>
-                  </View>
-                  <View>
-                    <Image
-                      source={require("../../../images/safeguarding.png")}
-                      style={{ width, height: 200 }}
-                      resizeMode="contain"
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity>
-            )}
-
             <FlatList
               data={this.state.featureItems}
               keyExtractor={this.keyExtractor}
