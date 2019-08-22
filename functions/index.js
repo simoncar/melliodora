@@ -1042,7 +1042,5 @@ exports.processDeleteUserInAuth = functions.auth.user().onDelete(user => {
     .collection('users').doc(user.uid).delete();
 });
 
-
-module.exports = {
-  populateUserClaimMgmt, writeUserClaims
-}
+exports.populateUserClaimMgmt = populateUserClaimMgmt;
+exports.writeUserClaims = writeUserClaims;
