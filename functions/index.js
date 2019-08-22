@@ -1043,36 +1043,147 @@ exports.processDeleteUserInAuth = functions.auth.user().onDelete(user => {
 
 
 // get all Accounts
-exports.getAccounts = functions.https.onRequest(async (req, res) => {
+const getAccounts = async () => {
   let acctData = []
-  function listAllUsers(nextPageToken) {
-    // List batch of users, 1000 at a time.
-    admin.auth().listUsers(1000, nextPageToken)
-      .then(function (listUsersResult) {
-        listUsersResult.users.forEach(function (userRecord) {
-          const { uid = "", email = "", customClaims = {}, providerData } = userRecord;
-          if (providerData.length > 0) {
-            acctData.push({ uid, email, customClaims, providerData });
-          }
-        });
-        if (listUsersResult.pageToken) {
-          // List next batch of users.
-          console.log('pageToken', listUsersResult.pageToken);
-          listAllUsers(listUsersResult.pageToken);
-        } else {
-          res.send(acctData);
-        }
-      })
-      .catch(function (error) {
-        console.log('Error listing users:', error);
-      });
+  let listUsersResult = await admin.auth().listUsers(1000);
+  listUsersResult.users.forEach(function (userRecord) {
+    const { uid = "", email = "", customClaims = {}, providerData } = userRecord;
+    if (providerData.length > 0) {
+      acctData.push({ uid, email, customClaims, providerData });
+    }
+  });
+  while (listUsersResult.pageToken) {
+    listUsersResult = await admin.auth().listUsers(1000, listUsersResult.pageToken);
+    listUsersResult.users.forEach(function (userRecord) {
+      const { uid = "", email = "", customClaims = {}, providerData } = userRecord;
+      if (providerData.length > 0) {
+        acctData.push({ uid, email, customClaims, providerData });
+      }
+    });
   }
-  // Start listing users from the beginning, 1000 at a time.
-  listAllUsers();
+  console.log("acctData", acctData);
+  return acctData;
+}
+
+exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
+
+  const { minRow, maxRow, minCol, maxCol } = req.body;
+  var async = require("async");
+  var doc = new GoogleSpreadsheet("1lGYbmoyUn-BJgxR0DNrvSd-nYt4TE8cyjUoh7NR8VAo");
+  var sheet;
+  var dataDictUpdate = [];
+
+  const claimKeys = [];
+  const claimColStart = 4;
+
+
+  console.log("start populateUserClaimMgmt");
+
+  async.series(
+    [
+      function setAuth(step) {
+        // see notes below for authentication instructions!
+        var creds = require("./Calendar App-915d5dbe4185.json");
+        doc.useServiceAccountAuth(creds, step);
+        console.log(step);
+      },
+      function getInfoAndWorksheets(step) {
+        doc.getInfo(function (err, info) {
+          console.log(err);
+
+          console.log("Loaded doc: " + info.title + " by " + info.author.email);
+          sheet = info.worksheets[0];
+          console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
+          step();
+        });
+      },
+
+      function loadData(step) {
+        getAccounts().then(acctData => {
+          dataDictUpdate = acctData;
+          step();
+        });
+      },
+
+      function resizeSheetRigthSize(step) {
+        sheet.resize({ rowCount: dataDictUpdate.length + minRow, colCount: maxCol }, function (err) {
+          step();
+        }); //async
+      },
+
+      function getClaimKeys(step) {
+        sheet.getCells(
+          {
+            "min-row": minRow - 1,
+            "max-row": minRow - 1,
+            "min-col": claimColStart,
+            "max-col": maxCol,
+            "return-empty": true
+          },
+          function (err, cells) {
+            for (let k = 0; k < cells.length; k++) {
+              const cell = cells[k]
+              if (cell.value) {
+                claimKeys.push(cell.value);
+              }
+            }
+            console.log("claimKeys", claimKeys);
+            step();
+          },
+        );
+      },
+      function workingWithCells(step) {
+        let rows = dataDictUpdate.length;
+        sheet.getCells(
+          {
+            "min-row": minRow,
+            "max-row": rows + minRow,
+            "min-col": minCol,
+            "max-col": maxCol,
+            "return-empty": true,
+          },
+          function (err, cells) {
+            console.log("cells", cells);
+            let rowDataIndex = 0;
+            for (var i = 0; i < cells.length; i = i + maxCol) {
+              let rowData = dataDictUpdate[rowDataIndex];
+              if (!rowData) break;
+              console.log(rowDataIndex, "rowData", rowData);
+              cells[i].value = "" + rowData.uid;
+              cells[i + 1].value = "" + rowData.email;
+
+              // for (let j = claimColStart; j <= maxCol; j++) {
+              //   const cell = cells[i + j - 1];
+              //   const key = claimKeys[j - claimColStart];
+              //   const claim = rowData.customClaims[key];
+              //   if (claim) cell.value = claim;
+              // }
+
+              rowDataIndex++;
+            }
+            console.log("cells", cells);
+            sheet.bulkUpdateCells(cells, () => step());
+          },
+        );
+      },
+      function done(step) {
+        console.log("done - populateUserClaimMgmt ");
+        res.send("done - populateUserClaimMgmt ");
+        step();
+      }
+    ],
+    function (err) {
+      if (err) {
+        console.log("Error: " + err);
+      }
+    },
+  );
+
+
 });
 
 
-updateUserClaims = async (UID, claims) => {
+const updateUserClaims = async (UID, claims) => {
   if (claims.constructor !== Object) return;
   for (var key in claims) {
 
@@ -1080,14 +1191,10 @@ updateUserClaims = async (UID, claims) => {
       delete claims[key]
     }
   }
-
-
-  admin.auth().getUser(UID).then((user) => {
-    console.log("updating claims for", UID);
-    return admin.auth().setCustomUserClaims(user.uid, claims);
-  });
-
-
+  const user = await admin.auth().getUser(UID);
+  console.log("Update claims of", user.uid);
+  const claimsSet = await admin.auth().setCustomUserClaims(user.uid, claims);
+  return claimsSet;
 };
 
 exports.writeUserClaims = functions.https.onRequest((req, res) => {
@@ -1096,7 +1203,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
   console.log({ minRow, maxRow, minCol, maxCol });
 
   var async = require("async");
-  var doc = new GoogleSpreadsheet("1C5moaw7BEKMJYkVzhGQcUweAVXS_tozfjhZvKB2xIpw");
+  var doc = new GoogleSpreadsheet("1lGYbmoyUn-BJgxR0DNrvSd-nYt4TE8cyjUoh7NR8VAo");
   var sheet;
   const claimKeys = [];
   const claimColStart = 4;
@@ -1150,7 +1257,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
             "max-col": maxCol,
             "return-empty": true
           },
-          function (err, cells) {
+          async function (err, cells) {
             console.log("cells", cells);
 
             for (var i = 0; i < cells.length; i = i + maxCol) {
@@ -1165,7 +1272,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
                 claims[key] = cell.value === "TRUE";
               }
               console.log(UID, JSON.stringify(claims));
-              updateUserClaims(UID, claims);
+              await updateUserClaims(UID, claims);
             }
 
             res.send("Update Claims Completed");
