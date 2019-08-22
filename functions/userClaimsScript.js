@@ -1,5 +1,30 @@
+// ** Currently not in use
 // script is for https://docs.google.com/spreadsheets/d/1EysUcUI-0emDZeo24mGSlbXMwjBSGZeSNhswtPXv81o
 // It is copied here for source control only
+
+
+function getToken() {
+
+    const userName = Session.getActiveUser().getEmail();
+    const pwd = 'xyz' //For example get the password via a prompt. 
+    //This is NOT the password of the account authenticated with Google Sheet, but the password of the Firebase user. In this example, the emails are the same but they are different accounts. 
+
+    const verifyPasswordUrl = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw" //Replace with your Web API Key
+
+    const payload = JSON.stringify({ "email": userName, "password": pwd, "returnSecureToken": true });
+
+    const verifyPasswordResponse = UrlFetchApp.fetch(verifyPasswordUrl, {
+        method: 'post',
+        contentType: 'application/json',
+        muteHttpExceptions: true,
+        payload: payload
+    });
+
+    const token = JSON.parse(verifyPasswordResponse.getContentText()).idToken;
+    return token;
+
+}
+
 
 var ss = SpreadsheetApp.getActiveSpreadsheet();
 var sheet = ss.getSheets()[0];
