@@ -349,17 +349,20 @@ exports.beaconPingHistory = functions.firestore
     var oldCampus = "";
     var oldLocation = "";
     var oldGateway = "";
+    var oldRSSI = "";
 
     if (undefined !== oldValue) {
       oldState = oldValue.state;
       oldCampus = oldValue.campus;
       oldLocation = oldValue.location;
       oldGateway = oldValue.gatewayMostRecent;
+      oldRSSI = oldValue.rssi;
     }
     const newState = newValue.state;
     const newCampus = newValue.campus;
     const newLocation = newValue.location;
     const newGateway = newValue.gatewayMostRecent;
+    const newRSSI = newValue.rssi;
 
     const xdate = moment()
       .add(8, "hours")
@@ -370,7 +373,7 @@ exports.beaconPingHistory = functions.firestore
     console.log("oldValue.gateway-AC233FC03E46 = ", oldValue["gateway-AC233FC03E46"]);
     console.log("newValue.gateway-AC233FC03E46 = ", newValue["gateway-AC233FC03E46"]);
 
-    if ((newSate = "Exited")) {
+    if (newState == "Exited") {
       var dataDict = {
         oldState: oldState,
         oldCampus: oldCampus,
@@ -382,6 +385,8 @@ exports.beaconPingHistory = functions.firestore
         timestamp: Date.now(),
         gateway: oldValue.timestampPerimeterCandidate,
         reason: "exited",
+        oldrssi: oldRSSI,
+        rssi: newRSSI,
       };
       recordHistoryRecord = true;
     } else if (newState == "Not Present") {
@@ -398,6 +403,8 @@ exports.beaconPingHistory = functions.firestore
         timestamp: Date.now(),
         gateway: newGateway,
         reason: "state",
+        oldrssi: oldRSSI,
+        rssi: newRSSI,
       };
       recordHistoryRecord = true;
     } else if (newLocation !== oldLocation) {
@@ -414,6 +421,8 @@ exports.beaconPingHistory = functions.firestore
           timestamp: Date.now(),
           gateway: newGateway,
           reason: "location",
+          oldrssi: oldRSSI,
+          rssi: newRSSI,
         };
         recordHistoryRecord = true;
       } else {
