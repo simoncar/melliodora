@@ -3,11 +3,12 @@ const admin = require("firebase-admin");
 const fetch = require("node-fetch");
 const { Translate } = require("@google-cloud/translate");
 const computeCounts = require("./computeCounts.js");
-var GoogleSpreadsheet = require("google-spreadsheet");
+const GoogleSpreadsheet = require("google-spreadsheet");
 const _ = require("lodash");
 const cors = require("cors")({
   origin: true,
 });
+const { populateUserClaimMgmt, writeUserClaims } = require("./UserClaimsMgmt");
 
 admin.initializeApp();
 
@@ -1351,3 +1352,6 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
 
   console.log("done - writeUserClaims ");
 });
+
+exports.populateUserClaimMgmt = populateUserClaimMgmt;
+exports.writeUserClaims = writeUserClaims;
