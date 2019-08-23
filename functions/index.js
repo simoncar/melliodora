@@ -845,6 +845,38 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                     timestampFirstSeenToday: Date.now(),
                     state: "Arriving",
                   };
+
+                  var dataDict = {
+                    pushToken: "ExponentPushToken{lPaJFgBp_pmdxzYZkgaVL8}",
+                    text: snapshot.mac + " is arriving at " + campus,
+                    from: "Arrival",
+                    timestamp: Date.now(),
+                    sent: false,
+                  };
+
+                  let queueItem = admin
+                    .firestore()
+                    .collection("sais_edu_sg")
+                    .doc("push")
+                    .collection("queue")
+                    .add(dataDict);
+
+                  if (snapshot.mac == "AC233F29148A") {
+                    var dataDict = {
+                      pushToken: "ExponentPushToken{kEqGO5N5mwXVwTuVYg-afQ}",
+                      text: "Kayla is arriving at Woodleigh",
+                      from: "Arrival",
+                      timestamp: Date.now(),
+                      sent: false,
+                    };
+
+                    let queueItem = admin
+                      .firestore()
+                      .collection("sais_edu_sg")
+                      .doc("push")
+                      .collection("queue")
+                      .add(dataDict);
+                  }
                 }
 
                 if (personState == "Perimeter") {
