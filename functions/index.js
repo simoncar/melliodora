@@ -360,6 +360,7 @@ exports.beaconPingHistory = functions.firestore
       oldGateway = oldValue.gatewayMostRecent;
       oldRSSI = oldValue.rssi;
     }
+
     const newState = newValue.state;
     const newCampus = newValue.campus;
     const newLocation = newValue.location;
@@ -372,7 +373,8 @@ exports.beaconPingHistory = functions.firestore
 
     const timestamp = Date.now();
 
-    if (newState == "Exited") {
+    if (newState == "Exited" && oldState != "Exited") {
+      console.log("EXIT3BACKDATE=", oldValue.timestampPerimeterCandidate, oldValue, newValue);
       var dataDict = {
         oldState: oldState,
         oldCampus: oldCampus,
@@ -805,7 +807,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                 var ibeaconMinorOld = beacon.ibeaconMinor === undefined ? 0 : beacon.ibeaconMinor;
                 var ibeaconTxPowerOld = beacon.ibeaconTxPower === undefined ? 0 : beacon.ibeaconTxPower;
                 var rawOld = beacon.rawData === undefined ? "" : beacon.rawData;
-
                 var ibeaconUuid = snapshot.ibeaconUuid === undefined ? ibeaconUuidOld : snapshot.ibeaconUuid;
                 var ibeaconMajor = snapshot.ibeaconMajor === undefined ? ibeaconMajorOld : snapshot.ibeaconMajor;
                 var ibeaconMinor = snapshot.ibeaconMinor === undefined ? ibeaconMinorOld : snapshot.ibeaconMinor;
@@ -813,7 +814,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   snapshot.ibeaconTxPower === undefined ? ibeaconTxPowerOld : snapshot.ibeaconTxPower;
                 var raw = pickLatest(beacon.raw, snapshot.rawData, "");
                 var battery = 100;
-
                 var rssi = snapshot.rssi === undefined ? 0 : snapshot.rssi;
 
                 var getwayMacdesc = "gateway-" + gateway;
@@ -863,7 +863,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
 
                   if (snapshot.mac == "AC233F29148A") {
                     var dataDict = {
-                      pushToken: "ExponentPushToken{kEqGO5N5mwXVwTuVYg-afQ}",
+                      pushToken: "ExponentPushToken{vU0ZNfL6RQo5_JScermePb}",
                       text: "Kayla is arriving at Woodleigh",
                       from: "Arrival",
                       timestamp: Date.now(),
@@ -957,9 +957,9 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     // }
 
     console.log(now, "DATA END:", req.body);
-
-    res.status(200).send(req.body);
   });
+
+  res.status(200).send(req.body);
 });
 
 function setGateway(snapshot) {
@@ -967,6 +967,13 @@ function setGateway(snapshot) {
   var location = "";
   var campus = "";
   var personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+
+  //SSID:  geofence
+  //Passphrase: g3ofeNce$
+  //old IP: 172.16.92.27  //172.16.92.27
+  //172.16.92.27
+
+  //172.16.92.27
 
   switch (snapshot.mac) {
     case "AC233FC03164":
@@ -1001,46 +1008,57 @@ function setGateway(snapshot) {
     case "AC233FC039A7":
       location = "Washington Level 1 - Lift Lobby";
       campus = "Woodleigh";
+      ip = "172.16.92.13";
       break;
     case "AC233FC03EAB":
-      location = "TBA 5";
+      location = "Stairwell to Field near Bus Bay";
       campus = "Woodleigh";
+      ip = "172.16.92.27";
       break;
     case "AC233FC03A44":
       location = "Franklin PickUp Dropoff";
       campus = "Woodleigh";
+      state = "FYI Only";
+      ip = "172.16.88.47";
       break;
     case "AC233FC039B1":
       location = "Franklin Rear Undercover Walkway";
       campus = "Woodleigh";
+      ip = "172.16.88.49";
       break;
     case "AC233FC039CA":
       location = "Franklin Front Undercover Walkway";
       campus = "Woodleigh";
+      ip = "172.16.92.92";
       break;
     case "AC233FC039BB":
       location = "Admissions Elevator";
       campus = "Woodleigh";
+      ip == "172.16.88.66";
       break;
     case "AC233FC03E60":
-      location = "TBA 1";
+      location = "Jefferson Bleachers";
       campus = "Woodleigh";
+      ip = "172.16.91.130";
       break;
     case "AC233FC03E96":
-      location = "TBA 2";
+      location = "Washington Bus Bay Walkway near Transport Office";
       campus = "Woodleigh";
+      ip = "172.16.91.128";
       break;
     case "AC233FC03E9E":
       location = "TBA 3";
       campus = "Woodleigh";
       break;
     case "AC233FC039B8":
-      location = "Lincoln Pickup Dropoff";
+      location = "Adams Ground Floor Lifts outside Parent Cafe";
       campus = "Woodleigh";
+      ip = "172.16.92.100";
       break;
     case "AC233FC03E7F":
-      location = "TBA 4";
+      location = "Lincoln Lvl 1 Walkway by Pool";
       campus = "Woodleigh";
+      ip = "172.16.91.253";
       break;
     case "AC233FC03E00":
       location = "Gate 2";
@@ -1048,7 +1066,7 @@ function setGateway(snapshot) {
       state = "Perimeter";
       break;
     case "AC233FC03E46":
-      location = "TBA 6";
+      location = "Gate II Security Hub";
       campus = "Woodleigh";
       break;
     case "AC233FC03EAC":
@@ -1075,6 +1093,7 @@ function setGateway(snapshot) {
       location = "Gate 1";
       campus = "Woodleigh";
       state = "Perimeter";
+      ip = "172.16.93.97";
       break;
 
     default:
