@@ -966,6 +966,7 @@ function setGateway(snapshot) {
   var state = "Entered";
   var location = "";
   var campus = "";
+  var ip = "";
   var personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
 
   //SSID:  geofence
