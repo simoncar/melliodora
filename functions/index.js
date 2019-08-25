@@ -6,7 +6,7 @@ const computeCounts = require("./computeCounts.js");
 const GoogleSpreadsheet = require("google-spreadsheet");
 const _ = require("lodash");
 const cors = require("cors")({
-  origin: true,
+  origin: true
 });
 const { populateUserClaimMgmt, writeUserClaims } = require("./UserClaimsMgmt");
 
@@ -63,7 +63,7 @@ exports.translateFirestoreChat = functions.firestore
         textEN: resultsEN[0],
         textES: resultsES[0],
         detectedSourceLanguage: detectedSourceLanguage,
-        translated: true,
+        translated: true
       };
 
       admin
@@ -102,7 +102,7 @@ exports.translateFirestoreChat = functions.firestore
             text: messageInLanguage,
             from: chatroomTitle,
             timestamp: Date.now(),
-            sent: false,
+            sent: false
           };
 
           let queueItem = admin
@@ -187,7 +187,7 @@ exports.translateFirestoreStories = functions.firestore
         summaryZH: titleZH[0],
         summaryKO: titleKO[0],
         summaryFR: titleFR[0],
-        summaryES: titleES[0],
+        summaryES: titleES[0]
       };
       update = true;
     }
@@ -206,7 +206,7 @@ exports.translateFirestoreStories = functions.firestore
         descriptionFR: descriptionFR[0],
         descriptionES: descriptionES[0],
 
-        translated: true,
+        translated: true
       };
       update = true;
     }
@@ -242,14 +242,14 @@ exports.sendPushNotificationFromQueue = functions.firestore
       to: realToken,
       title: createdData.from,
       sound: "default",
-      body: createdData.text,
+      body: createdData.text
     });
 
     messages.push({
       to: "ExponentPushToken[lPaJFgBp_pmdxzYZkgaVL8]",
       title: createdData.from,
       sound: "default",
-      body: createdData.text,
+      body: createdData.text
     });
 
     console.log("Send Push 4 > ", messages);
@@ -268,9 +268,9 @@ exports.sendPushNotificationFromQueue = functions.firestore
           method: "POST",
           headers: {
             Accept: "application/json",
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
-          body: JSON.stringify(messages),
+          body: JSON.stringify(messages)
         });
       })
       .catch(reason => {
@@ -320,7 +320,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
             stateCandidate: "",
             timestampPerimeterCandidate: "",
             mac: doc.id,
-            rssi: child.rssi,
+            rssi: child.rssi
           };
           console.log("EXITED : ", update, doc.id);
 
@@ -387,7 +387,7 @@ exports.beaconPingHistory = functions.firestore
         gateway: newGateway,
         reason: "exited",
         oldrssi: oldRSSI,
-        rssi: newRSSI,
+        rssi: newRSSI
       };
       recordHistoryRecord = true;
     } else if (newState == "Not Present") {
@@ -405,7 +405,7 @@ exports.beaconPingHistory = functions.firestore
         gateway: newGateway,
         reason: "state",
         oldrssi: oldRSSI,
-        rssi: newRSSI,
+        rssi: newRSSI
       };
       recordHistoryRecord = true;
     } else if (newLocation !== oldLocation) {
@@ -423,7 +423,7 @@ exports.beaconPingHistory = functions.firestore
           gateway: newGateway,
           reason: "location",
           oldrssi: oldRSSI,
-          rssi: newRSSI,
+          rssi: newRSSI
         };
         recordHistoryRecord = true;
       } else {
@@ -562,7 +562,7 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
         countELVExited,
         countELVOther,
 
-        timestamp: Date.now(),
+        timestamp: Date.now()
       };
 
       admin
@@ -616,7 +616,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
             documentSnapshotArray.forEach(doc => {
               item = doc.data();
               dataDictUpdate.push({
-                item,
+                item
               });
             });
             step();
@@ -643,7 +643,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
             "max-row": dataDictUpdate.length + 1,
             "min-col": 1,
             "max-col": cols,
-            "return-empty": true,
+            "return-empty": true
           },
           function(err, cells) {
             console.log("BBB");
@@ -711,15 +711,15 @@ exports.writeReport = functions.https.onRequest((req, res) => {
               sheet.bulkUpdateCells(cells.slice(start, end)); //async
             }
             step();
-          },
+          }
         );
-      },
+      }
     ],
     function(err) {
       if (err) {
         console.log("Error: " + err);
       }
-    },
+    }
   );
 
   console.log("done - buildDailyReport ");
@@ -729,7 +729,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
     method: "buildDailyReport",
     parameters: "",
     results: "Build statistical reports",
-    timestamp: Date.now(),
+    timestamp: Date.now()
   };
 
   admin
@@ -779,10 +779,16 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
       count++;
       if (snapshot.type == "Gateway") {
         dataDict = setGateway(snapshot);
+
         personState = dataDict.state;
         location = dataDict.location;
         gateway = dataDict.mac;
         campus = dataDict.campus;
+
+        if ((gateway = "AC233FC039DB")) {
+          console.log("Bypass = AC233FC039DB");
+          return res.status(200).send(req.body);
+        }
       } else {
         if (beaconUpdates.indexOf(snapshot.mac) == -1) {
           beaconUpdates.push(snapshot.mac);
@@ -834,7 +840,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   [getwayMacdesc]: Date.now(),
                   timestamp: Date.now(),
                   battery: battery,
-                  pingCount: admin.firestore.FieldValue.increment(1),
+                  pingCount: admin.firestore.FieldValue.increment(1)
                 };
 
                 //nuances
@@ -843,7 +849,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   // first time today we are seeing this person
                   var objFirstSeen = {
                     timestampFirstSeenToday: Date.now(),
-                    state: "Arriving",
+                    state: "Arriving"
                   };
 
                   var dataDict = {
@@ -851,7 +857,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                     text: snapshot.mac + " is arriving at " + campus,
                     from: "Arrival",
                     timestamp: Date.now(),
-                    sent: false,
+                    sent: false
                   };
 
                   let queueItem = admin
@@ -867,7 +873,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                       text: "Kayla is arriving at Woodleigh",
                       from: "Arrival",
                       timestamp: Date.now(),
-                      sent: false,
+                      sent: false
                     };
 
                     let queueItem = admin
@@ -882,14 +888,14 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                 if (personState == "Perimeter") {
                   objLocation = {
                     stateCandidate: "Perimeter",
-                    timestampPerimeterCandidate: Date.now(),
+                    timestampPerimeterCandidate: Date.now()
                   };
                 } else {
                   objLocation = {
                     state: "Entered",
                     timestampEntered: Date.now(),
                     stateCandidate: "",
-                    timestampPerimeterCandidate: "",
+                    timestampPerimeterCandidate: ""
                   };
                 }
                 let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
@@ -915,7 +921,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
 
     var hitCount = {
       //campus: personCampus,
-      pingCount: count,
+      pingCount: count
     };
 
     const gatewayUpdate = { ...dataDict, ...hitCount };
@@ -932,7 +938,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
       mac: gateway,
       count: count,
       timestamp: Date.now(),
-      location: location,
+      location: location
     };
 
     const xdate = moment()
@@ -957,9 +963,9 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
     // }
 
     console.log(now, "DATA END:", req.body);
-  });
 
-  res.status(200).send(req.body);
+    return res.status(200).send(req.body);
+  });
 });
 
 function setGateway(snapshot) {
@@ -1111,7 +1117,7 @@ function setGateway(snapshot) {
     //picture: personPictureURL,
     //mac: snapshot.mac,
     gatewayFree: snapshot.gatewayFree,
-    gatewayLoad: snapshot.gatewayLoad,
+    gatewayLoad: snapshot.gatewayLoad
   };
 
   return dataDict;
@@ -1148,7 +1154,7 @@ exports.processSignUp = functions.auth.user().onCreate(user => {
     .doc(user.uid)
     .set({
       email: user.email,
-      uid: user.uid,
+      uid: user.uid
     });
 });
 
@@ -1236,7 +1242,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
             "max-row": minRow - 1,
             "min-col": claimColStart,
             "max-col": maxCol,
-            "return-empty": true,
+            "return-empty": true
           },
           function(err, cells) {
             for (let k = 0; k < cells.length; k++) {
@@ -1247,7 +1253,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
             }
             console.log("claimKeys", claimKeys);
             step();
-          },
+          }
         );
       },
       function workingWithCells(step) {
@@ -1258,7 +1264,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
             "max-row": rows + minRow,
             "min-col": minCol,
             "max-col": maxCol,
-            "return-empty": true,
+            "return-empty": true
           },
           function(err, cells) {
             console.log("cells", cells);
@@ -1281,20 +1287,20 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
             }
             console.log("cells", cells);
             sheet.bulkUpdateCells(cells, () => step());
-          },
+          }
         );
       },
       function done(step) {
         console.log("done - populateUserClaimMgmt ");
         res.send("done - populateUserClaimMgmt ");
         step();
-      },
+      }
     ],
     function(err) {
       if (err) {
         console.log("Error: " + err);
       }
-    },
+    }
   );
 });
 
@@ -1348,7 +1354,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
             "max-row": minRow - 1,
             "min-col": claimColStart,
             "max-col": maxCol,
-            "return-empty": true,
+            "return-empty": true
           },
           function(err, cells) {
             for (let k = 0; k < cells.length; k++) {
@@ -1359,7 +1365,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
             }
             console.log("claimKeys", claimKeys);
             step();
-          },
+          }
         );
       },
       function workingWithCells(step) {
@@ -1369,7 +1375,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
             "max-row": maxRow,
             "min-col": minCol,
             "max-col": maxCol,
-            "return-empty": true,
+            "return-empty": true
           },
           async function(err, cells) {
             console.log("cells", cells);
@@ -1391,15 +1397,15 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
 
             res.send("Update Claims Completed");
             step();
-          },
+          }
         );
-      },
+      }
     ],
     function(err) {
       if (err) {
         console.log("Error: " + err);
       }
-    },
+    }
   );
 
   console.log("done - writeUserClaims ");
