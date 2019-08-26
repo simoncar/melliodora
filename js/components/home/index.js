@@ -149,7 +149,6 @@ class HomeNav extends Component {
             <Text style={{ fontSize: 25, color: "white" }}>+</Text>
           </TouchableHighlight>
         )}
-        <Text style={{ color: 'black' }}>{Constants.manifest.extra.instance}</Text>
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
             <FlatList

@@ -54,7 +54,6 @@ class calendar1 extends Component {
 
   componentDidMount() {
     moment.updateLocale;
-
     this.calendarEvents = firebase
       .firestore()
       .collection(Constants.manifest.extra.instance)
