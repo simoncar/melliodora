@@ -11,6 +11,7 @@ import { formatTime, formatMonth } from "../global.js";
 import I18n from "../../lib/i18n";
 import moment from "moment";
 import "moment/min/locales";
+import Constants from "expo-constants";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
@@ -56,7 +57,7 @@ class calendar1 extends Component {
 
     this.calendarEvents = firebase
       .firestore()
-      .collection("sais_edu_sg")
+      .collection(Constants.manifest.extra.instance)
       .doc("calendar")
       .collection("calendarItems");
 

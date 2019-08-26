@@ -30,7 +30,8 @@
     "ios": "expo start --ios",
     "test": "jest",
     "starte2e": "RN_SRC_EXT='e2e.js,js' expo start",
-    "e2e": "detox test --configuration ios.sim --debug-synchronization 200"
+    "e2e": "detox test --configuration ios.sim --debug-synchronization 200",
+    "app": "cp apps/app.ais.json app.json && expo r -c"
   },
   "dependencies": {
     "@expo/react-native-action-sheet": "^3.0.3",

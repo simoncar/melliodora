@@ -11,6 +11,7 @@ import _ from "lodash";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import uuid from "uuid";
+import Constants from "expo-constants";
 
 @withMappedNavigationParams()
 class newStory extends Component {
@@ -70,7 +71,7 @@ class newStory extends Component {
 
   generateID() {
     let d = new Date().getTime();
-    let id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    let id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
       let r = (d + Math.random() * 16) % 16 | 0;
       d = Math.floor(d / 16);
       return (c == "x" ? r : (r & 0x3) | 0x8).toString(5);
@@ -114,21 +115,21 @@ class newStory extends Component {
     if (this.state._key == "") {
       var storyRef = firebase
         .firestore()
-        .collection("sais_edu_sg")
+        .collection(Constants.manifest.extra.instance)
         .doc("feature")
         .collection("feature articles")
         .add(storyDict);
 
       var storyRef = firebase
         .firestore()
-        .collection("sais_edu_sg")
+        .collection(Constants.manifest.extra.instance)
         .doc("feature")
         .collection("features")
         .add(storyDict);
     } else {
       var storyRef = firebase
         .firestore()
-        .collection("sais_edu_sg")
+        .collection(Constants.manifest.extra.instance)
         .doc("feature")
         .collection("feature articles")
         .doc(this.state._key);
@@ -137,7 +138,7 @@ class newStory extends Component {
 
       var storyRef = firebase
         .firestore()
-        .collection("sais_edu_sg")
+        .collection(Constants.manifest.extra.instance)
         .doc("feature")
         .collection("features")
         .doc(this.state._key);
@@ -196,10 +197,10 @@ class newStory extends Component {
       this.setState({ cameraIcon: "hour-glass" });
       const blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.onload = function() {
+        xhr.onload = function () {
           resolve(xhr.response);
         };
-        xhr.onerror = function(e) {
+        xhr.onerror = function (e) {
           reject(new TypeError("Network request failed"));
         };
         xhr.responseType = "blob";

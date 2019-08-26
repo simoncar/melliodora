@@ -92,7 +92,7 @@ class authPortal extends Component {
   };
 
   showMsg() {
-    if (Constants.manifest.extra.instance == "0001-sais_edu_sg") {
+    if (Constants.manifest.extra.instance == "sais_edu_sg") {
       this.setState({ showMsg: true }, () =>
         timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 5000),
       );
@@ -137,7 +137,7 @@ class authPortal extends Component {
   };
 
   componentWillMount() {
-    if (Constants.manifest.extra.instance == "0001-sais_edu_sg") {
+    if (Constants.manifest.extra.instance == "sais_edu_sg") {
       this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
 
       this.setState({ showMsg: true }, () =>
