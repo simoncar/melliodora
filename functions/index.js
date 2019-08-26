@@ -322,6 +322,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
             mac: doc.id,
             rssi: child.rssi,
           };
+          console.log("EXITED : ", update, doc.id);
 
           admin
             .firestore()
@@ -359,6 +360,7 @@ exports.beaconPingHistory = functions.firestore
       oldGateway = oldValue.gatewayMostRecent;
       oldRSSI = oldValue.rssi;
     }
+
     const newState = newValue.state;
     const newCampus = newValue.campus;
     const newLocation = newValue.location;
@@ -371,10 +373,8 @@ exports.beaconPingHistory = functions.firestore
 
     const timestamp = Date.now();
 
-    console.log("oldValue.gateway-AC233FC03E46 = ", oldValue["gateway-AC233FC03E46"]);
-    console.log("newValue.gateway-AC233FC03E46 = ", newValue["gateway-AC233FC03E46"]);
-
-    if (newState == "Exited") {
+    if (newState == "Exited" && oldState != "Exited") {
+      console.log("EXIT3BACKDATE=", oldValue.timestampPerimeterCandidate, oldValue, newValue);
       var dataDict = {
         oldState: oldState,
         oldCampus: oldCampus,
@@ -383,8 +383,8 @@ exports.beaconPingHistory = functions.firestore
         state: newState,
         campus: newCampus,
         location: newLocation,
-        timestamp: Date.now(),
-        gateway: oldValue.timestampPerimeterCandidate,
+        timestamp: oldValue.timestampPerimeterCandidate,
+        gateway: newGateway,
         reason: "exited",
         oldrssi: oldRSSI,
         rssi: newRSSI,
@@ -409,8 +409,8 @@ exports.beaconPingHistory = functions.firestore
       };
       recordHistoryRecord = true;
     } else if (newLocation !== oldLocation) {
-      console.log(oldValue["gateway-" + newGateway], Date.now() - 900000, beacon);
-      if (oldValue["gateway-" + newGateway] < Date.now() - 900000) {
+      console.log(oldValue["gateway-" + newGateway], Date.now() - 900000, beacon, oldLocation, newLocation);
+      if (oldValue["gateway-" + newGateway] < Date.now() - 900000 || oldValue["gateway-" + newGateway] == undefined) {
         var dataDict = {
           oldState: oldState,
           oldCampus: oldCampus,
@@ -427,7 +427,7 @@ exports.beaconPingHistory = functions.firestore
         };
         recordHistoryRecord = true;
       } else {
-        console.log("skipping history too soon", beacon);
+        console.log("Skipped To SOON = ", beacon);
       }
     }
 
@@ -442,10 +442,13 @@ exports.beaconPingHistory = functions.firestore
         .doc(timestamp.toString())
         .set(dataDict);
 
-      console.log("Record History = ", beacon, dataDict);
+      console.log("RECORD HISTORY = ", beacon, dataDict);
+    } else {
+      //console.log("Skipped Record History Overall = ", beacon);
     }
   });
 
+// firebase deploy --only functions:computeCounts
 exports.computeCounts = functions.https.onRequest(async (req, res) => {
   // This function is scheduled to run periodically
   //https://console.cloud.google.com/cloudscheduler?project=calendar-app-57e88&folder&organizationId&jobs-tablesize=50
@@ -455,6 +458,18 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
   var countEntered = 0;
   var countNotPresent = 0;
   var countOther = 0;
+
+  var countWoodleighPerimeter = 0;
+  var countWoodleighExited = 0;
+  var countWoodleighEntered = 0;
+  var countWoodleighNotPresent = 0;
+  var countWoodleighOther = 0;
+
+  var countELVPerimeter = 0;
+  var countELVExited = 0;
+  var countELVEntered = 0;
+  var countELVNotPresent = 0;
+  var countELVOther = 0;
 
   const xdate = moment()
     .add(8, "hours")
@@ -477,7 +492,7 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
             case "Not Present":
               countNotPresent++;
               break;
-            case "Perimeter":
+            case "Arriving":
               countPerimeter++;
               break;
             case "Entered":
@@ -489,6 +504,42 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
             default:
               countOther++;
           }
+          if (child.campus == "Woodleigh") {
+            switch (child.state) {
+              case "Not Present":
+                countWoodleighNotPresent++;
+                break;
+              case "Arriving":
+                countWoodleighPerimeter++;
+                break;
+              case "Entered":
+                countWoodleighEntered++;
+                break;
+              case "Exited":
+                countWoodleighExited++;
+                break;
+              default:
+                countWoodleighOther++;
+            }
+          }
+          if (child.campus == "ELV") {
+            switch (child.state) {
+              case "Not Present":
+                countELVNotPresent++;
+                break;
+              case "Arriving":
+                countELVPerimeter++;
+                break;
+              case "Entered":
+                countELVEntered++;
+                break;
+              case "Exited":
+                countELVExited++;
+                break;
+              default:
+                countELVOther++;
+            }
+          }
         });
       }
 
@@ -498,6 +549,19 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
         countEntered,
         countExited,
         countOther,
+
+        countWoodleighNotPresent,
+        countWoodleighPerimeter,
+        countWoodleighEntered,
+        countWoodleighExited,
+        countWoodleighOther,
+
+        countELVNotPresent,
+        countELVPerimeter,
+        countELVEntered,
+        countELVExited,
+        countELVOther,
+
         timestamp: Date.now(),
       };
 
@@ -680,6 +744,8 @@ exports.writeReport = functions.https.onRequest((req, res) => {
 exports.registerBeacon = functions.https.onRequest((req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
 
+  var now = Date.now();
+
   if (req.method === "PUT") {
     return res.status(403).send("Forbidden!");
   }
@@ -697,7 +763,7 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
       format = req.body.format;
     }
 
-    console.log("DATA:", req.body);
+    console.log(now, "DATA START:", req.body);
 
     var beacons = req.body;
     var campus = "";
@@ -713,10 +779,16 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
       count++;
       if (snapshot.type == "Gateway") {
         dataDict = setGateway(snapshot);
+
         personState = dataDict.state;
         location = dataDict.location;
         gateway = dataDict.mac;
         campus = dataDict.campus;
+
+        if (gateway == "AC233FC039DB") {
+          console.log("Bypass = AC233FC039DB");
+          return;
+        }
       } else {
         if (beaconUpdates.indexOf(snapshot.mac) == -1) {
           beaconUpdates.push(snapshot.mac);
@@ -741,7 +813,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                 var ibeaconMinorOld = beacon.ibeaconMinor === undefined ? 0 : beacon.ibeaconMinor;
                 var ibeaconTxPowerOld = beacon.ibeaconTxPower === undefined ? 0 : beacon.ibeaconTxPower;
                 var rawOld = beacon.rawData === undefined ? "" : beacon.rawData;
-
                 var ibeaconUuid = snapshot.ibeaconUuid === undefined ? ibeaconUuidOld : snapshot.ibeaconUuid;
                 var ibeaconMajor = snapshot.ibeaconMajor === undefined ? ibeaconMajorOld : snapshot.ibeaconMajor;
                 var ibeaconMinor = snapshot.ibeaconMinor === undefined ? ibeaconMinorOld : snapshot.ibeaconMinor;
@@ -749,7 +820,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   snapshot.ibeaconTxPower === undefined ? ibeaconTxPowerOld : snapshot.ibeaconTxPower;
                 var raw = pickLatest(beacon.raw, snapshot.rawData, "");
                 var battery = 100;
-
                 var rssi = snapshot.rssi === undefined ? 0 : snapshot.rssi;
 
                 var getwayMacdesc = "gateway-" + gateway;
@@ -781,6 +851,38 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                     timestampFirstSeenToday: Date.now(),
                     state: "Arriving",
                   };
+
+                  var dataDict = {
+                    pushToken: "ExponentPushToken{lPaJFgBp_pmdxzYZkgaVL8}",
+                    text: snapshot.mac + " is arriving at " + campus,
+                    from: "Arrival",
+                    timestamp: Date.now(),
+                    sent: false,
+                  };
+
+                  let queueItem = admin
+                    .firestore()
+                    .collection("sais_edu_sg")
+                    .doc("push")
+                    .collection("queue")
+                    .add(dataDict);
+
+                  if (snapshot.mac == "AC233F29148A") {
+                    var dataDict = {
+                      pushToken: "ExponentPushToken{vU0ZNfL6RQo5_JScermePb}",
+                      text: "Kayla is arriving at Woodleigh",
+                      from: "Arrival",
+                      timestamp: Date.now(),
+                      sent: false,
+                    };
+
+                    let queueItem = admin
+                      .firestore()
+                      .collection("sais_edu_sg")
+                      .doc("push")
+                      .collection("queue")
+                      .add(dataDict);
+                  }
                 }
 
                 if (personState == "Perimeter") {
@@ -797,8 +899,6 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                   };
                 }
                 let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
-
-                console.log("dataDictUpdate=", dataDictUpdate);
 
                 admin
                   .firestore()
@@ -832,35 +932,35 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
       .doc(gateway)
       .update(gatewayUpdate);
 
-    var dataDictGatewayHistory = {
-      mac: gateway,
-      count: count,
-      timestamp: Date.now(),
-      location: location,
-    };
+    // var dataDictGatewayHistory = {
+    //   mac: gateway,
+    //   count: count,
+    //   timestamp: Date.now(),
+    //   location: location,
+    // };
 
-    const xdate = moment()
-      .add(8, "hours")
-      .format("YYYYMMDD");
+    // const xdate = moment()
+    //   .add(8, "hours")
+    //   .format("YYYYMMDD");
 
-    admin
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("beacon")
-      .collection("gatewayHistory")
-      .doc(xdate)
-      .collection(gateway)
-      .doc(Date.now().toString())
-      .set(dataDictGatewayHistory);
+    // admin
+    //   .firestore()
+    //   .collection("sais_edu_sg")
+    //   .doc("beacon")
+    //   .collection("gatewayHistory")
+    //   .doc(xdate)
+    //   .collection(gateway)
+    //   .doc(Date.now().toString())
+    //   .set(dataDictGatewayHistory);
 
-    console.log("Mac: ", gateway, " Count: ", count, " -- Location: ", location);
+    // console.log("Mac: ", gateway, " Count: ", count, " -- Location: ", location);
 
     // } catch (e) {
     //   console.log("catch error body:", req.body);
     //   console.error(e.message);
     // }
 
-    res.status(200).send(req.body);
+    return res.status(200).send(req.body);
   });
 });
 
@@ -868,7 +968,15 @@ function setGateway(snapshot) {
   var state = "Entered";
   var location = "";
   var campus = "";
+  var ip = "";
   var personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
+
+  //SSID:  geofence
+  //Passphrase: g3ofeNce$
+  //old IP: 172.16.92.27  //172.16.92.27
+  //172.16.92.27
+
+  //172.16.92.27
 
   switch (snapshot.mac) {
     case "AC233FC03164":
@@ -903,46 +1011,57 @@ function setGateway(snapshot) {
     case "AC233FC039A7":
       location = "Washington Level 1 - Lift Lobby";
       campus = "Woodleigh";
+      ip = "172.16.92.13";
       break;
     case "AC233FC03EAB":
-      location = "TBA 5";
+      location = "Stairwell to Field near Bus Bay";
       campus = "Woodleigh";
+      ip = "172.16.92.27";
       break;
     case "AC233FC03A44":
       location = "Franklin PickUp Dropoff";
       campus = "Woodleigh";
+      state = "FYI Only";
+      ip = "172.16.88.47";
       break;
     case "AC233FC039B1":
       location = "Franklin Rear Undercover Walkway";
       campus = "Woodleigh";
+      ip = "172.16.88.49";
       break;
     case "AC233FC039CA":
       location = "Franklin Front Undercover Walkway";
       campus = "Woodleigh";
+      ip = "172.16.92.92";
       break;
     case "AC233FC039BB":
       location = "Admissions Elevator";
       campus = "Woodleigh";
+      ip == "172.16.88.66";
       break;
     case "AC233FC03E60":
-      location = "TBA 1";
+      location = "Jefferson Bleachers";
       campus = "Woodleigh";
+      ip = "172.16.91.130";
       break;
     case "AC233FC03E96":
-      location = "TBA 2";
+      location = "Washington Bus Bay Walkway near Transport Office";
       campus = "Woodleigh";
+      ip = "172.16.91.128";
       break;
     case "AC233FC03E9E":
       location = "TBA 3";
       campus = "Woodleigh";
       break;
     case "AC233FC039B8":
-      location = "Lincoln Pickup Dropoff";
+      location = "Adams Ground Floor Lifts outside Parent Cafe";
       campus = "Woodleigh";
+      ip = "172.16.92.100";
       break;
     case "AC233FC03E7F":
-      location = "TBA 4";
+      location = "Lincoln Lvl 1 Walkway by Pool";
       campus = "Woodleigh";
+      ip = "172.16.91.253";
       break;
     case "AC233FC03E00":
       location = "Gate 2";
@@ -950,7 +1069,7 @@ function setGateway(snapshot) {
       state = "Perimeter";
       break;
     case "AC233FC03E46":
-      location = "Security Hub";
+      location = "Gate II Security Hub";
       campus = "Woodleigh";
       break;
     case "AC233FC03EAC":
@@ -977,6 +1096,7 @@ function setGateway(snapshot) {
       location = "Gate 1";
       campus = "Woodleigh";
       state = "Perimeter";
+      ip = "172.16.93.97";
       break;
 
     default:
@@ -1021,16 +1141,16 @@ function pickLatest(oldValue, potentialNewValue, fallback) {
   return ret;
 }
 
-
-
 // On sign up.
 exports.processSignUp = functions.auth.user().onCreate(user => {
   console.log("processSignUp", user);
   return admin
     .firestore()
-    .collection('users').doc(user.uid).set({
+    .collection("users")
+    .doc(user.uid)
+    .set({
       email: user.email,
-      uid: user.uid
+      uid: user.uid,
     });
 });
 
@@ -1039,7 +1159,252 @@ exports.processDeleteUserInAuth = functions.auth.user().onDelete(user => {
   console.log("processDeleteUserInAuth", user);
   return admin
     .firestore()
-    .collection('users').doc(user.uid).delete();
+    .collection("users")
+    .doc(user.uid)
+    .delete();
+});
+
+// get all Accounts
+const getAccounts = async () => {
+  let acctData = [];
+  let listUsersResult = await admin.auth().listUsers(1000);
+  listUsersResult.users.forEach(function (userRecord) {
+    const { uid = "", email = "", customClaims = {}, providerData } = userRecord;
+    if (providerData.length > 0) {
+      acctData.push({ uid, email, customClaims, providerData });
+    }
+  });
+  while (listUsersResult.pageToken) {
+    listUsersResult = await admin.auth().listUsers(1000, listUsersResult.pageToken);
+    listUsersResult.users.forEach(function (userRecord) {
+      const { uid = "", email = "", customClaims = {}, providerData } = userRecord;
+      if (providerData.length > 0) {
+        acctData.push({ uid, email, customClaims, providerData });
+      }
+    });
+  }
+  console.log("acctData", acctData);
+  return acctData;
+};
+
+exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
+  const { minRow, maxRow, minCol, maxCol } = req.body;
+  var async = require("async");
+  var doc = new GoogleSpreadsheet("1lGYbmoyUn-BJgxR0DNrvSd-nYt4TE8cyjUoh7NR8VAo");
+  var sheet;
+  var dataDictUpdate = [];
+
+  const claimKeys = [];
+  const claimColStart = 4;
+
+  console.log("start populateUserClaimMgmt");
+
+  async.series(
+    [
+      function setAuth(step) {
+        // see notes below for authentication instructions!
+        var creds = require("./Calendar App-915d5dbe4185.json");
+        doc.useServiceAccountAuth(creds, step);
+        console.log(step);
+      },
+      function getInfoAndWorksheets(step) {
+        doc.getInfo(function (err, info) {
+          console.log(err);
+
+          console.log("Loaded doc: " + info.title + " by " + info.author.email);
+          sheet = info.worksheets[0];
+          console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
+          step();
+        });
+      },
+
+      function loadData(step) {
+        getAccounts().then(acctData => {
+          dataDictUpdate = acctData;
+          step();
+        });
+      },
+
+      function resizeSheetRigthSize(step) {
+        sheet.resize({ rowCount: dataDictUpdate.length + minRow, colCount: maxCol }, function (err) {
+          step();
+        }); //async
+      },
+
+      function getClaimKeys(step) {
+        sheet.getCells(
+          {
+            "min-row": minRow - 1,
+            "max-row": minRow - 1,
+            "min-col": claimColStart,
+            "max-col": maxCol,
+            "return-empty": true,
+          },
+          function (err, cells) {
+            for (let k = 0; k < cells.length; k++) {
+              const cell = cells[k];
+              if (cell.value) {
+                claimKeys.push(cell.value);
+              }
+            }
+            console.log("claimKeys", claimKeys);
+            step();
+          },
+        );
+      },
+      function workingWithCells(step) {
+        let rows = dataDictUpdate.length;
+        sheet.getCells(
+          {
+            "min-row": minRow,
+            "max-row": rows + minRow,
+            "min-col": minCol,
+            "max-col": maxCol,
+            "return-empty": true,
+          },
+          function (err, cells) {
+            console.log("cells", cells);
+            let rowDataIndex = 0;
+            for (var i = 0; i < cells.length; i = i + maxCol) {
+              let rowData = dataDictUpdate[rowDataIndex];
+              if (!rowData) break;
+              console.log(rowDataIndex, "rowData", rowData);
+              cells[i].value = "" + rowData.uid;
+              cells[i + 1].value = "" + rowData.email;
+
+              // for (let j = claimColStart; j <= maxCol; j++) {
+              //   const cell = cells[i + j - 1];
+              //   const key = claimKeys[j - claimColStart];
+              //   const claim = rowData.customClaims[key];
+              //   if (claim) cell.value = claim;
+              // }
+
+              rowDataIndex++;
+            }
+            console.log("cells", cells);
+            sheet.bulkUpdateCells(cells, () => step());
+          },
+        );
+      },
+      function done(step) {
+        console.log("done - populateUserClaimMgmt ");
+        res.send("done - populateUserClaimMgmt ");
+        step();
+      },
+    ],
+    function (err) {
+      if (err) {
+        console.log("Error: " + err);
+      }
+    },
+  );
+});
+
+const updateUserClaims = async (UID, claims) => {
+  if (claims.constructor !== Object) return;
+  for (var key in claims) {
+    if (!claims[key] === true) {
+      delete claims[key];
+    }
+  }
+  const user = await admin.auth().getUser(UID);
+  console.log("Update claims of", user.uid);
+  const claimsSet = await admin.auth().setCustomUserClaims(user.uid, claims);
+  return claimsSet;
+};
+
+exports.writeUserClaims = functions.https.onRequest((req, res) => {
+  console.log(req.body);
+  const { minRow, maxRow, minCol, maxCol } = req.body;
+  console.log({ minRow, maxRow, minCol, maxCol });
+
+  var async = require("async");
+  var doc = new GoogleSpreadsheet("1lGYbmoyUn-BJgxR0DNrvSd-nYt4TE8cyjUoh7NR8VAo");
+  var sheet;
+  const claimKeys = [];
+  const claimColStart = 4;
+
+  console.log("start writeUserClaims");
+
+  async.series(
+    [
+      function setAuth(step) {
+        // see notes below for authentication instructions!
+        var creds = require("./Calendar App-915d5dbe4185.json");
+        doc.useServiceAccountAuth(creds, step);
+        console.log(step);
+      },
+      function getInfoAndWorksheets(step) {
+        doc.getInfo(function (err, info) {
+          // console.log("info", info);
+          sheet = info.worksheets[0];
+          console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
+          step();
+        });
+      },
+
+      function getClaimKeys(step) {
+        sheet.getCells(
+          {
+            "min-row": minRow - 1,
+            "max-row": minRow - 1,
+            "min-col": claimColStart,
+            "max-col": maxCol,
+            "return-empty": true,
+          },
+          function (err, cells) {
+            for (let k = 0; k < cells.length; k++) {
+              const cell = cells[k];
+              if (cell.value) {
+                claimKeys.push(cell.value);
+              }
+            }
+            console.log("claimKeys", claimKeys);
+            step();
+          },
+        );
+      },
+      function workingWithCells(step) {
+        sheet.getCells(
+          {
+            "min-row": minRow,
+            "max-row": maxRow,
+            "min-col": minCol,
+            "max-col": maxCol,
+            "return-empty": true,
+          },
+          async function (err, cells) {
+            console.log("cells", cells);
+
+            for (var i = 0; i < cells.length; i = i + maxCol) {
+              let cell = cells[i];
+              const UID = cell.value;
+              console.log("Cell R" + cell.row + "C" + cell.col + " = " + cell.value);
+
+              const claims = {};
+              for (let j = claimColStart; j <= maxCol; j++) {
+                cell = cells[i + j - 1];
+                const key = claimKeys[j - claimColStart];
+                claims[key] = cell.value === "TRUE";
+              }
+              console.log(UID, JSON.stringify(claims));
+              await updateUserClaims(UID, claims);
+            }
+
+            res.send("Update Claims Completed");
+            step();
+          },
+        );
+      },
+    ],
+    function (err) {
+      if (err) {
+        console.log("Error: " + err);
+      }
+    },
+  );
+
+  console.log("done - writeUserClaims ");
 });
 
 exports.populateUserClaimMgmt = populateUserClaimMgmt;
