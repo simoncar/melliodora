@@ -8,6 +8,7 @@ import * as firebase from "firebase";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import _ from "lodash";
+import Constants from "expo-constants";
 
 @withMappedNavigationParams()
 class push extends Component {
@@ -79,7 +80,7 @@ class push extends Component {
 
     var storyRef = firebase
       .firestore()
-      .collection("sais_edu_sg")
+      .collection(Constants.manifest.extra.instance)
       .doc("push")
       .collection("message")
       .add(pushMessage);
