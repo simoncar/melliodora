@@ -17,7 +17,7 @@ const moment = require("moment");
 const translateX = new Translate();
 //const CUT_OFF_TIME = 2 * 60 * 60 * 1000;  - 2 hours
 // List of output languages.
-const LANGUAGES = ["es", "ko", "fr", "zh-CN", "ga", "it", "ja", "tl", "cy"];
+const LANGUAGES = ["es", "ko", "fr", "zh-CN", "ga", "it", "ja", "tl", "cy", "id"];
 const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
 
 // TODO: Port google app script to function
@@ -46,6 +46,7 @@ exports.translateFirestoreChat = functions.firestore
       var resultsKO = await translateX.translate(message, { to: "ko" });
       var resultsFR = await translateX.translate(message, { to: "fr" });
       var resultsES = await translateX.translate(message, { to: "es" });
+      var resultsID = await translateX.translate(message, { to: "id" });
 
       var detectedSourceLanguage = resultsJA[1].data.translations[0].detectedSourceLanguage;
 
@@ -62,6 +63,7 @@ exports.translateFirestoreChat = functions.firestore
         textFR: resultsFR[0],
         textEN: resultsEN[0],
         textES: resultsES[0],
+        textID: resultsID[0],
         detectedSourceLanguage: detectedSourceLanguage,
         translated: true,
       };
@@ -137,6 +139,9 @@ function getMessageInLanguage(message, language) {
     case "ja":
       return message.textJA;
       break;
+    case "id":
+      return message.textID;
+      break;
     default:
       return message.textEN;
   }
@@ -181,6 +186,7 @@ exports.translateFirestoreStories = functions.firestore
       var titleKO = await translateX.translate(title, { to: "ko" });
       var titleFR = await translateX.translate(title, { to: "fr" });
       var titleES = await translateX.translate(title, { to: "es" });
+      var titleID = await translateX.translate(title, { to: "id" });
       featureTitle = {
         summaryEN: title,
         summaryJA: titleJA[0],
@@ -188,6 +194,7 @@ exports.translateFirestoreStories = functions.firestore
         summaryKO: titleKO[0],
         summaryFR: titleFR[0],
         summaryES: titleES[0],
+        summaryID: titleID[0],
       };
       update = true;
     }
@@ -198,6 +205,7 @@ exports.translateFirestoreStories = functions.firestore
       var descriptionKO = await translateX.translate(description, { to: "ko" });
       var descriptionFR = await translateX.translate(description, { to: "fr" });
       var descriptionES = await translateX.translate(description, { to: "es" });
+      var descriptionID = await translateX.translate(description, { to: "id" });
       featureDesc = {
         descriptionEN: description,
         descriptionJA: descriptionJA[0],
@@ -205,6 +213,7 @@ exports.translateFirestoreStories = functions.firestore
         descriptionKO: descriptionKO[0],
         descriptionFR: descriptionFR[0],
         descriptionES: descriptionES[0],
+        descriptionID: descriptionID[0],
 
         translated: true,
       };
@@ -740,110 +749,73 @@ exports.writeReport = functions.https.onRequest((req, res) => {
     .add(dataDict);
 });
 
-//firebase deploy --only functions:registerBeacon
-exports.registerBeacon = functions.https.onRequest((req, res) => {
+//firebase deploy --only functions:registerBeaconV2
+exports.registerBeacon = functions.https.onRequest(async (req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
 
-  var now = Date.now();
+  console.log(Date.now(), "DATA START:", req.body);
 
-  if (req.method === "PUT") {
-    return res.status(403).send("Forbidden!");
-  }
+  const ipAddress = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  const headers = JSON.stringify(req.headers, null, 2);
+  // const message = util.format(
+  //   "<pre>Hello world!\n\nYour IP address: %s\n\nRequest headers: %s</pre>",
+  //   ipAddress,
+  //   headers,
+  // );
+  console.log(headers, ipAddress);
 
-  if (undefined == req.body.length) {
-    return res.status(403).send("Forbidden!");
-  }
-  if (req.body == "{}") {
-    return res.status(403).send("Forbidden!");
-  }
-
-  return cors(req, res, () => {
-    let format = req.query.format;
-    if (!format) {
-      format = req.body.format;
+  if (JSON.stringify(req.body).includes("POSTMAN")) {
+    var beacons = req.body.POSTMAN;
+  } else {
+    if (req.method === "PUT" || undefined == req.body.length || req.body == "{}") {
+      return res.status(403).send("Forbidden!");
     }
-
-    console.log(now, "DATA START:", req.body);
-
     var beacons = req.body;
-    var campus = "";
-    var personState = "";
-    var dataDict = "";
-    var beaconUpdates = [];
-    var count = 0;
-    var gateway = "";
-    var location = "";
-    //  try {
+  }
 
-    beacons.forEach(snapshot => {
-      count++;
-      if (snapshot.type == "Gateway") {
-        dataDict = setGateway(snapshot);
+  var dataDict = "";
+  var beaconUpdates = [];
+  var count = 0;
+  var gatewayDict = "";
 
-        personState = dataDict.state;
-        location = dataDict.location;
-        gateway = dataDict.mac;
-        campus = dataDict.campus;
+  for (const snapshot of beacons) {
+    if (snapshot.type == "Gateway") {
+      gatewayDict = setGateway(snapshot);
+    } else {
+      if (beaconUpdates.indexOf(snapshot.mac) == -1) {
+        beaconUpdates.push(snapshot.mac);
 
-        if (gateway == "AC233FC039DB") {
-          console.log("Bypass = AC233FC039DB");
-          return;
-        }
-      } else {
-        if (beaconUpdates.indexOf(snapshot.mac) == -1) {
-          beaconUpdates.push(snapshot.mac);
-          let beaconRef = admin
+        if (isSmartCookieBeacon(snapshot.mac)) {
+          await admin
             .firestore()
             .collection("sais_edu_sg")
             .doc("beacon")
             .collection("beacons")
             .doc(snapshot.mac)
             .get()
-            .then(function(doc) {
+            .then(async function(doc) {
               if (!doc.exists) {
-                //IGNORE
               } else {
+                count++;
                 var objAllUpdates = {},
                   objLocation = {},
                   objFirstSeen = {};
+
                 beacon = doc.data();
 
-                var ibeaconUuidOld = beacon.ibeaconUuid === undefined ? "" : beacon.ibeaconUuid;
-                var ibeaconMajorOld = beacon.ibeaconMajor === undefined ? 0 : beacon.ibeaconMajor;
-                var ibeaconMinorOld = beacon.ibeaconMinor === undefined ? 0 : beacon.ibeaconMinor;
-                var ibeaconTxPowerOld = beacon.ibeaconTxPower === undefined ? 0 : beacon.ibeaconTxPower;
-                var rawOld = beacon.rawData === undefined ? "" : beacon.rawData;
-                var ibeaconUuid = snapshot.ibeaconUuid === undefined ? ibeaconUuidOld : snapshot.ibeaconUuid;
-                var ibeaconMajor = snapshot.ibeaconMajor === undefined ? ibeaconMajorOld : snapshot.ibeaconMajor;
-                var ibeaconMinor = snapshot.ibeaconMinor === undefined ? ibeaconMinorOld : snapshot.ibeaconMinor;
-                var ibeaconTxPower =
-                  snapshot.ibeaconTxPower === undefined ? ibeaconTxPowerOld : snapshot.ibeaconTxPower;
-                var raw = pickLatest(beacon.raw, snapshot.rawData, "");
-                var battery = 100;
-                var rssi = snapshot.rssi === undefined ? 0 : snapshot.rssi;
-
-                var getwayMacdesc = "gateway-" + gateway;
-
-                //master
                 var objAllUpdates = {
-                  location: location,
-                  campus: campus,
+                  location: gatewayDict.location,
+                  campus: gatewayDict.campus,
                   timestamp: Date.now(),
-                  ibeaconUuid: ibeaconUuid,
-                  ibeaconMajor: ibeaconMajor,
-                  ibeaconMinor: ibeaconMinor,
-                  rssi: rssi,
-                  ibeaconTxPower: ibeaconTxPower,
-                  raw: raw,
+                  rssi: snapshot.rssi === undefined ? 0 : snapshot.rssi,
+                  raw: pickLatest(beacon.raw, snapshot.rawData, ""),
                   mac: snapshot.mac,
-                  gatewayMostRecent: gateway,
-                  [getwayMacdesc]: Date.now(),
+                  gatewayMostRecent: gatewayDict.mac,
+                  ["gateway-" + gatewayDict.mac]: Date.now(),
+                  ["gatewayDESC-" + gatewayDict.location]: Date.now(),
                   timestamp: Date.now(),
-                  battery: battery,
                   pingCount: admin.firestore.FieldValue.increment(1),
                 };
-
-                //nuances
 
                 if (beacon.state == "Not Present") {
                   // first time today we are seeing this person
@@ -852,40 +824,40 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                     state: "Arriving",
                   };
 
-                  var dataDict = {
-                    pushToken: "ExponentPushToken{lPaJFgBp_pmdxzYZkgaVL8}",
-                    text: snapshot.mac + " is arriving at " + campus,
-                    from: "Arrival",
-                    timestamp: Date.now(),
-                    sent: false,
-                  };
+                  // var dataDict = {
+                  //   pushToken: "ExponentPushToken{lPaJFgBp_pmdxzYZkgaVL8}",
+                  //   text: snapshot.mac + " is arriving at " + gatewayDict.campus,
+                  //   from: "Arrival",
+                  //   timestamp: Date.now(),
+                  //   sent: false,
+                  // };
 
-                  let queueItem = admin
-                    .firestore()
-                    .collection("sais_edu_sg")
-                    .doc("push")
-                    .collection("queue")
-                    .add(dataDict);
+                  // let queueItem = admin
+                  //   .firestore()
+                  //   .collection("sais_edu_sg")
+                  //   .doc("push")
+                  //   .collection("queue")
+                  //   .add(dataDict);
 
-                  if (snapshot.mac == "AC233F29148A") {
-                    var dataDict = {
-                      pushToken: "ExponentPushToken{vU0ZNfL6RQo5_JScermePb}",
-                      text: "Kayla is arriving at Woodleigh",
-                      from: "Arrival",
-                      timestamp: Date.now(),
-                      sent: false,
-                    };
+                  // if (snapshot.mac == "AC233F29148A") {
+                  //   var dataDict = {
+                  //     pushToken: "ExponentPushToken{vU0ZNfL6RQo5_JScermePb}",
+                  //     text: "Kayla is arriving at " + gatewayDict.campus,
+                  //     from: "Arrival",
+                  //     timestamp: Date.now(),
+                  //     sent: false,
+                  //   };
 
-                    let queueItem = admin
-                      .firestore()
-                      .collection("sais_edu_sg")
-                      .doc("push")
-                      .collection("queue")
-                      .add(dataDict);
-                  }
+                  //   let queueItem = admin
+                  //     .firestore()
+                  //     .collection("sais_edu_sg")
+                  //     .doc("push")
+                  //     .collection("queue")
+                  //     .add(dataDict);
+                  // }
                 }
 
-                if (personState == "Perimeter") {
+                if (gatewayDict.state == "Perimeter") {
                   objLocation = {
                     stateCandidate: "Perimeter",
                     timestampPerimeterCandidate: Date.now(),
@@ -900,13 +872,15 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
                 }
                 let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
 
-                admin
+                await admin
                   .firestore()
                   .collection("sais_edu_sg")
                   .doc("beacon")
                   .collection("beacons")
                   .doc(snapshot.mac)
                   .update(dataDictUpdate);
+
+                console.log("UPDATING BEACON ", snapshot.mac, dataDictUpdate);
               }
             })
 
@@ -915,68 +889,124 @@ exports.registerBeacon = functions.https.onRequest((req, res) => {
             });
         }
       }
-    });
+    }
+  }
 
-    var hitCount = {
-      //campus: personCampus,
-      pingCount: count,
-    };
+  var hitCount = {
+    //campus: personCampus,
+    pingCount: count,
+  };
 
-    const gatewayUpdate = { ...dataDict, ...hitCount };
+  const gatewayUpdate = { ...gatewayDict, ...hitCount };
 
-    admin
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("beacon")
-      .collection("gateways")
-      .doc(gateway)
-      .update(gatewayUpdate);
+  await admin
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("beacon")
+    .collection("gateways")
+    .doc(gatewayDict.mac)
+    .update(gatewayUpdate);
 
-    // var dataDictGatewayHistory = {
-    //   mac: gateway,
-    //   count: count,
-    //   timestamp: Date.now(),
-    //   location: location,
-    // };
+  console.log(Date.now(), "WRITING GATEWAY :", gatewayUpdate);
 
-    // const xdate = moment()
-    //   .add(8, "hours")
-    //   .format("YYYYMMDD");
+  // var dataDictGatewayHistory = {
+  //   mac: gateway,
+  //   count: count,
+  //   timestamp: Date.now(),
+  //   location: location,
+  // };
 
-    // admin
-    //   .firestore()
-    //   .collection("sais_edu_sg")
-    //   .doc("beacon")
-    //   .collection("gatewayHistory")
-    //   .doc(xdate)
-    //   .collection(gateway)
-    //   .doc(Date.now().toString())
-    //   .set(dataDictGatewayHistory);
+  // const xdate = moment()
+  //   .add(8, "hours")
+  //   .format("YYYYMMDD");
 
-    // console.log("Mac: ", gateway, " Count: ", count, " -- Location: ", location);
+  // admin
+  //   .firestore()
+  //   .collection("sais_edu_sg")
+  //   .doc("beacon")
+  //   .collection("gatewayHistory")
+  //   .doc(xdate)
+  //   .collection(gateway)
+  //   .doc(Date.now().toString())
+  //   .set(dataDictGatewayHistory);
 
-    // } catch (e) {
-    //   console.log("catch error body:", req.body);
-    //   console.error(e.message);
-    // }
+  // console.log("Mac: ", gateway, " Count: ", count, " -- Location: ", location);
 
-    return res.status(200).send(req.body);
-  });
+  // } catch (e) {
+  //   console.log("catch error body:", req.body);
+  //   console.error(e.message);
+  // }
+
+  console.log(Date.now(), "DATA END:", req.body);
+
+  return res.end();
 });
+
+exports.registerBeaconV3 = functions.https.onRequest(async (req, res) => {
+  // if (req.method === "PUT" || undefined == req.body.length || req.body == "{}") {
+  //   return res.status(403).send("Forbidden!");
+  // }
+  var body = [
+    { timestamp: "2019-08-26T06:29:52Z", type: "Gateway", mac: "AC233FC039DB", gatewayFree: 90, gatewayLoad: 1.6 },
+    { mac: "AC233F52B6EA", rssi: -75 },
+    { mac: "AC233F52B6F1", rssi: -58 },
+    { mac: "AC233F52B6F2", rssi: -66 },
+  ];
+
+  var count = 0;
+  console.log("AAAA");
+  var beacons = body;
+  console.log("BBBB");
+  var gatewayDict = [];
+
+  //beacons.forEach(async e => {
+  for (const e of beacons) {
+    if (e.type == "Gateway") {
+      gatewayDict = setGateway(e);
+      //return setGateway(e);
+      console.log("countA = ", count, e.mac, e.rssi);
+    } else {
+      count++;
+      console.log("countB = ", count, e.mac, e.rssi);
+
+      await admin
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("beacon")
+        .collection("beacons")
+        .doc(e.mac)
+        .get()
+        .then(function(doc) {
+          if (!doc.exists) {
+            //IGNORE
+            console.log("CCCCCC  Does not exist ", e.mac);
+          } else {
+            console.log("CCCCCC  Exists ", e.mac);
+          }
+        });
+    }
+  }
+  console.log("EEEEE");
+  console.log(Date.now(), "DATA END:", req.body);
+
+  return res.end();
+});
+
+function isSmartCookieBeacon(mac) {
+  if (mac.substring(0, 8) == "AC233F52") {
+    return true;
+  } else if (["C6AC131224FA", "D47352CD6A5E", "E7CB77E105E4", "EE9EEF0E959E"].indexOf(mac) > -1) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 function setGateway(snapshot) {
   var state = "Entered";
   var location = "";
   var campus = "";
   var ip = "";
-  var personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-
-  //SSID:  geofence
-  //Passphrase: g3ofeNce$
-  //old IP: 172.16.92.27  //172.16.92.27
-  //172.16.92.27
-
-  //172.16.92.27
 
   switch (snapshot.mac) {
     case "AC233FC03164":
@@ -1104,12 +1134,12 @@ function setGateway(snapshot) {
   }
 
   var dataDict = {
-    //campus: personCampus,
     timestamp: Date.now(),
     location: location,
     campus: campus,
     state: state,
     mac: snapshot.mac,
+    ip: ip,
     //picture: personPictureURL,
     //mac: snapshot.mac,
     gatewayFree: snapshot.gatewayFree,

@@ -117,6 +117,16 @@ export default class selectLanguage extends Component {
               icon={<MaterialCommunityIcons name="check" style={this._getStyle("es")} />}
             />
 
+            <SettingsList.Item
+              hasSwitch={false}
+              switchState={this.state.switchValue}
+              switchOnValueChange={this.onValueChange}
+              hasNavArrow={false}
+              title="bahasa Indonesia"
+              onPress={() => this._changeLanguage("id")}
+              icon={<MaterialCommunityIcons name="check" style={this._getStyle("id")} />}
+            />
+
             <Text style={styles.titleInfoStyle}>{I18n.t("languageChangeWarning")}</Text>
           </SettingsList>
         </View>
