@@ -638,90 +638,89 @@ exports.writeReport = functions.https.onRequest((req, res) => {
         }); //async
       },
 
-      function workingWithCells(step) {
+      async function workingWithCells(step) {
         //dataDictUpdate = loadData(dataDictUpdate);
 
         let rows = dataDictUpdate.length;
-        console.log("dataDictUpdate 333 =", rows);
-        console.log("11111");
         var cols = 12;
-        console.log("AAAA");
-        sheet.getCells(
-          {
-            "min-row": 2,
-            "max-row": dataDictUpdate.length + 1,
-            "min-col": 1,
-            "max-col": cols,
-            "return-empty": true,
-          },
-          function(err, cells) {
-            console.log("BBB");
 
-            var startBlock = 0;
-            console.log("CCCC");
+        const batchSize = 500;
+        const iterations = Math.ceil(rows / batchSize);
+        console.log("rows", rows);
+        console.log("iterations =", iterations);
+        for (let i = 1; i <= iterations; i++) {
+          let updateCells = new Promise(function(resolve, reject) {
+            const maxrow = i == iterations ? rows : i * batchSize;
+            const minrow = (i - 1) * batchSize;
+            sheet.getCells(
+              {
+                "min-row": 2 + minrow,
+                "max-row": maxrow + 1,
+                "min-col": 1,
+                "max-col": cols,
+                "return-empty": true,
+              },
+              function(err, cells) {
+                console.log("cells length", cells.length);
 
-            dataDictUpdate.forEach(doc => {
-              console.log("DDD");
+                let s = 0;
+                for (let j = minrow; j < maxrow; j++) {
+                  let doc = dataDictUpdate[j];
+                  for (let c = 0; c < cols; c++) {
+                    let cell = cells[s];
+                    s = s + 1;
 
-              for (var i = startBlock * cols; i < startBlock * cols + cols; i++) {
-                var cell = cells[i];
-                switch (cell.col) {
-                  case 1:
-                    cell.value = "" + doc.item.mac;
-                    break;
-                  case 2:
-                    cell.value = "" + doc.item.studentNo;
-                    break;
-                  case 3:
-                    cell.value = doc.item.firstName;
-                    break;
-                  case 4:
-                    cell.value = doc.item.lastName;
-                    break;
-                  case 5:
-                    cell.value = doc.item.email;
-                    break;
-                  case 6:
-                    break;
-                  case 7:
-                    break;
-                  case 8:
-                    cell.value = doc.item.state;
-                    break;
-                  case 9:
-                    cell.value = doc.item.grade;
-                    break;
-                  case 10:
-                    cell.value = doc.item.gradeTitle;
-                    break;
-                  case 11:
-                    cell.value = doc.item.class;
-                    break;
-                  case 12:
-                    cell.value = doc.item.campus;
-                    break;
-                }
-              }
-              console.log("EEE");
+                    if (!cell || !cell.col) break;
 
-              startBlock++;
-            });
-            console.log("FFF");
+                    switch (cell.col) {
+                      case 1:
+                        cell.value = "" + doc.item.mac;
+                        break;
+                      case 2:
+                        cell.value = "" + doc.item.studentNo;
+                        break;
+                      case 3:
+                        cell.value = doc.item.firstName;
+                        break;
+                      case 4:
+                        cell.value = doc.item.lastName;
+                        break;
+                      case 5:
+                        cell.value = doc.item.email;
+                        break;
+                      case 6:
+                        break;
+                      case 7:
+                        break;
+                      case 8:
+                        cell.value = doc.item.state;
+                        break;
+                      case 9:
+                        cell.value = doc.item.grade;
+                        break;
+                      case 10:
+                        cell.value = doc.item.gradeTitle;
+                        break;
+                      case 11:
+                        cell.value = doc.item.class;
+                        break;
+                      case 12:
+                        cell.value = doc.item.campus;
+                        break;
+                    } //end switch
+                  } // end c loop
+                } // end j loop
 
-            const batchSize = 500;
-            console.log("batchsize ");
-            const iterations = Math.ceil(rows / batchSize);
-            console.log("iterations =", iterations);
-            const cellsUpdatePerBatch = batchSize * cols;
-            for (let i = 1; i <= iterations; i++) {
-              const end = i * cellsUpdatePerBatch;
-              const start = (i - 1) * cellsUpdatePerBatch;
-              console.log(start, end);
-              sheet.bulkUpdateCells(cells.slice(start, end)); //async
-            }
-            step();
-          },
-        );
+                console.log("updating cells");
+                sheet.bulkUpdateCells(cells, () => resolve(1));
+              },
+            ); // end getCells
+          });
+
+          let updatingCells = await updateCells;
+          console.log("updatingCells", updatingCells, i);
+        }
+        res.send("done - buildDailyReport");
       },
     ],
     function(err) {
