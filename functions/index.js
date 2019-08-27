@@ -772,122 +772,115 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
     var beacons = req.body;
   }
 
-  var dataDict = "";
   var beaconUpdates = [];
   var count = 0;
   var gatewayDict = "";
+  var proceed = true;
 
   for (const snapshot of beacons) {
+    proceed = true;
     if (snapshot.type == "Gateway") {
       gatewayDict = setGateway(snapshot);
+      proceed = false;
+    }
+
+    if (beaconUpdates.indexOf(snapshot.mac) == -1) {
+      beaconUpdates.push(snapshot.mac);
     } else {
-      if (beaconUpdates.indexOf(snapshot.mac) == -1) {
-        beaconUpdates.push(snapshot.mac);
+      proceed = false;
+    }
 
-        if (isSmartCookieBeacon(snapshot.mac)) {
-          await admin
-            .firestore()
-            .collection("sais_edu_sg")
-            .doc("beacon")
-            .collection("beacons")
-            .doc(snapshot.mac)
-            .get()
-            .then(async function(doc) {
-              if (!doc.exists) {
-              } else {
-                count++;
-                var objAllUpdates = {},
-                  objLocation = {},
-                  objFirstSeen = {};
+    if (!isSmartCookieBeacon(snapshot.mac)) {
+      proceed = false;
+    }
 
-                beacon = doc.data();
+    if (proceed) {
+      await admin
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("beacon")
+        .collection("beacons")
+        .doc(snapshot.mac)
+        .get()
+        .then(async function(doc) {
+          if (!doc.exists) {
+          } else {
+            count++;
+            var objAllUpdates = {},
+              objLocation = {},
+              objFirstSeen = {};
 
-                var objAllUpdates = {
-                  location: gatewayDict.location,
-                  campus: gatewayDict.campus,
+            beacon = doc.data();
+
+            var objAllUpdates = {
+              location: gatewayDict.location,
+              campus: gatewayDict.campus,
+              timestamp: Date.now(),
+              rssi: snapshot.rssi === undefined ? 0 : snapshot.rssi,
+              raw: pickLatest(beacon.raw, snapshot.rawData, ""),
+              mac: snapshot.mac,
+              gatewayMostRecent: gatewayDict.mac,
+              ["gateway-" + gatewayDict.mac]: Date.now(),
+              ["gatewayDESC-" + gatewayDict.location]: Date.now(),
+              timestamp: Date.now(),
+              pingCount: admin.firestore.FieldValue.increment(1),
+            };
+
+            if (beacon.state == "Not Present") {
+              // first time today we are seeing this person
+              var objFirstSeen = {
+                timestampFirstSeenToday: Date.now(),
+                state: "Arriving",
+              };
+
+              if (snapshot.mac == "AC233F29148A") {
+                var dataDict = {
+                  pushToken: "ExponentPushToken{vU0ZNfL6RQo5_JScermePb}",
+                  text: "Kayla is arriving at " + gatewayDict.campus,
+                  from: "Arrival",
                   timestamp: Date.now(),
-                  rssi: snapshot.rssi === undefined ? 0 : snapshot.rssi,
-                  raw: pickLatest(beacon.raw, snapshot.rawData, ""),
-                  mac: snapshot.mac,
-                  gatewayMostRecent: gatewayDict.mac,
-                  ["gateway-" + gatewayDict.mac]: Date.now(),
-                  ["gatewayDESC-" + gatewayDict.location]: Date.now(),
-                  timestamp: Date.now(),
-                  pingCount: admin.firestore.FieldValue.increment(1),
+                  sent: false,
                 };
 
-                if (beacon.state == "Not Present") {
-                  // first time today we are seeing this person
-                  var objFirstSeen = {
-                    timestampFirstSeenToday: Date.now(),
-                    state: "Arriving",
-                  };
-
-                  // var dataDict = {
-                  //   pushToken: "ExponentPushToken{lPaJFgBp_pmdxzYZkgaVL8}",
-                  //   text: snapshot.mac + " is arriving at " + gatewayDict.campus,
-                  //   from: "Arrival",
-                  //   timestamp: Date.now(),
-                  //   sent: false,
-                  // };
-
-                  // let queueItem = admin
-                  //   .firestore()
-                  //   .collection("sais_edu_sg")
-                  //   .doc("push")
-                  //   .collection("queue")
-                  //   .add(dataDict);
-
-                  // if (snapshot.mac == "AC233F29148A") {
-                  //   var dataDict = {
-                  //     pushToken: "ExponentPushToken{vU0ZNfL6RQo5_JScermePb}",
-                  //     text: "Kayla is arriving at " + gatewayDict.campus,
-                  //     from: "Arrival",
-                  //     timestamp: Date.now(),
-                  //     sent: false,
-                  //   };
-
-                  //   let queueItem = admin
-                  //     .firestore()
-                  //     .collection("sais_edu_sg")
-                  //     .doc("push")
-                  //     .collection("queue")
-                  //     .add(dataDict);
-                  // }
-                }
-
-                if (gatewayDict.state == "Perimeter") {
-                  objLocation = {
-                    stateCandidate: "Perimeter",
-                    timestampPerimeterCandidate: Date.now(),
-                  };
-                } else {
-                  objLocation = {
-                    state: "Entered",
-                    timestampEntered: Date.now(),
-                    stateCandidate: "",
-                    timestampPerimeterCandidate: "",
-                  };
-                }
-                let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
-
-                await admin
+                let queueItem = admin
                   .firestore()
                   .collection("sais_edu_sg")
-                  .doc("beacon")
-                  .collection("beacons")
-                  .doc(snapshot.mac)
-                  .update(dataDictUpdate);
-
-                console.log("UPDATING BEACON ", snapshot.mac, dataDictUpdate);
+                  .doc("push")
+                  .collection("queue")
+                  .add(dataDict);
               }
-            })
+            }
 
-            .catch(err => {
-              console.log("Error getting document", err);
-            });
-        }
-      }
+            if (gatewayDict.state == "Perimeter") {
+              objLocation = {
+                stateCandidate: "Perimeter",
+                timestampPerimeterCandidate: Date.now(),
+              };
+            } else {
+              objLocation = {
+                state: "Entered",
+                timestampEntered: Date.now(),
+                stateCandidate: "",
+                timestampPerimeterCandidate: "",
+              };
+            }
+            let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
+
+            await admin
+              .firestore()
+              .collection("sais_edu_sg")
+              .doc("beacon")
+              .collection("beacons")
+              .doc(snapshot.mac)
+              .update(dataDictUpdate);
+
+            console.log("UPDATING BEACON ", snapshot.mac, dataDictUpdate);
+          }
+        })
+
+        .catch(err => {
+          console.log("Error getting document", err);
+        });
     }
   }
 
@@ -992,7 +985,7 @@ exports.registerBeaconV3 = functions.https.onRequest(async (req, res) => {
 });
 
 function isSmartCookieBeacon(mac) {
-  if (mac.substring(0, 8) == "AC233F52") {
+  if (mac.substring(0, 6) == "AC233F") {
     return true;
   } else if (["C6AC131224FA", "D47352CD6A5E", "E7CB77E105E4", "EE9EEF0E959E"].indexOf(mac) > -1) {
     return true;
