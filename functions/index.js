@@ -5,14 +5,13 @@ const { Translate } = require("@google-cloud/translate");
 const computeCounts = require("./computeCounts.js");
 const GoogleSpreadsheet = require("google-spreadsheet");
 const _ = require("lodash");
+const moment = require("moment");
 const cors = require("cors")({
   origin: true,
 });
 const { populateUserClaimMgmt, writeUserClaims } = require("./UserClaimsMgmt");
 
 admin.initializeApp();
-
-const moment = require("moment");
 
 const translateX = new Translate();
 //const CUT_OFF_TIME = 2 * 60 * 60 * 1000;  - 2 hours
@@ -375,12 +374,11 @@ exports.beaconPingHistory = functions.firestore
     const newLocation = newValue.location;
     const newGateway = newValue.gatewayMostRecent;
     const newRSSI = newValue.rssi;
+    const newTimestamp = newValue.timestamp;
 
     const xdate = moment()
       .add(8, "hours")
       .format("YYYYMMDD");
-
-    const timestamp = Date.now();
 
     if (newState == "Exited" && oldState != "Exited") {
       console.log("EXIT3BACKDATE=", oldValue.timestampPerimeterCandidate, oldValue, newValue);
@@ -410,7 +408,7 @@ exports.beaconPingHistory = functions.firestore
         state: newState,
         campus: newCampus,
         location: newLocation,
-        timestamp: Date.now(),
+        timestamp: newTimestamp,
         gateway: newGateway,
         reason: "state",
         oldrssi: oldRSSI,
@@ -418,8 +416,8 @@ exports.beaconPingHistory = functions.firestore
       };
       recordHistoryRecord = true;
     } else if (newLocation !== oldLocation) {
-      console.log(oldValue["gateway-" + newGateway], Date.now() - 900000, beacon, oldLocation, newLocation);
-      if (oldValue["gateway-" + newGateway] < Date.now() - 900000 || oldValue["gateway-" + newGateway] == undefined) {
+      console.log(oldValue["gateway-" + newGateway], newTimestamp - 900000, beacon, oldLocation, newLocation);
+      if (oldValue["gateway-" + newGateway] < newTimestamp - 900000 || oldValue["gateway-" + newGateway] == undefined) {
         var dataDict = {
           oldState: oldState,
           oldCampus: oldCampus,
@@ -428,7 +426,7 @@ exports.beaconPingHistory = functions.firestore
           state: newState,
           campus: newCampus,
           location: newLocation,
-          timestamp: Date.now(),
+          timestamp: newTimestamp,
           gateway: newGateway,
           reason: "location",
           oldrssi: oldRSSI,
@@ -448,7 +446,7 @@ exports.beaconPingHistory = functions.firestore
         .collection("beaconHistory")
         .doc(xdate)
         .collection(beacon)
-        .doc(timestamp.toString())
+        .doc(newTimestamp.toString())
         .set(dataDict);
 
       console.log("RECORD HISTORY = ", beacon, dataDict);
@@ -779,6 +777,7 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
 
   for (const snapshot of beacons) {
     proceed = true;
+
     if (snapshot.type == "Gateway") {
       gatewayDict = setGateway(snapshot);
       proceed = false;
@@ -815,21 +814,20 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
             var objAllUpdates = {
               location: gatewayDict.location,
               campus: gatewayDict.campus,
-              timestamp: Date.now(),
+              timestamp: gatewayDict.timestamp,
               rssi: snapshot.rssi === undefined ? 0 : snapshot.rssi,
               raw: pickLatest(beacon.raw, snapshot.rawData, ""),
               mac: snapshot.mac,
               gatewayMostRecent: gatewayDict.mac,
-              ["gateway-" + gatewayDict.mac]: Date.now(),
-              ["gatewayDESC-" + gatewayDict.location]: Date.now(),
-              timestamp: Date.now(),
+              ["gateway-" + gatewayDict.mac]: gatewayDict.timestamp,
+              ["gatewayDESC-" + gatewayDict.location]: gatewayDict.timestamp,
               pingCount: admin.firestore.FieldValue.increment(1),
             };
 
             if (beacon.state == "Not Present") {
               // first time today we are seeing this person
               var objFirstSeen = {
-                timestampFirstSeenToday: Date.now(),
+                timestampFirstSeenToday: gatewayDict.timestamp,
                 state: "Arriving",
               };
 
@@ -838,7 +836,7 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
                   pushToken: "ExponentPushToken{vU0ZNfL6RQo5_JScermePb}",
                   text: "Kayla is arriving at " + gatewayDict.campus,
                   from: "Arrival",
-                  timestamp: Date.now(),
+                  timestamp: gatewayDict.timestamp,
                   sent: false,
                 };
 
@@ -854,16 +852,17 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
             if (gatewayDict.state == "Perimeter") {
               objLocation = {
                 stateCandidate: "Perimeter",
-                timestampPerimeterCandidate: Date.now(),
+                timestampPerimeterCandidate: gatewayDict.timestamp,
               };
             } else {
               objLocation = {
                 state: "Entered",
-                timestampEntered: Date.now(),
+                timestampEntered: gatewayDict.timestamp,
                 stateCandidate: "",
                 timestampPerimeterCandidate: "",
               };
             }
+
             let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
 
             await admin
@@ -1126,7 +1125,7 @@ function setGateway(snapshot) {
   }
 
   var dataDict = {
-    timestamp: Date.now(),
+    timestamp: Date.parse(snapshot.timestamp),
     location: location,
     campus: campus,
     state: state,
