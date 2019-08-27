@@ -1,19 +1,19 @@
 {
-  "name": "Stamford",
-  "displayName": "Stamford",
+  "name": "AIS",
+  "displayName": "AIS",
   "expo": {
     "version": "19.0.33",
     "sdkVersion": "33.0.0",
-    "icon": "./resources/sais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
-    "slug": "myStamford",
-    "name": "Stamford",
-    "description": "For SAIS parents, Singapore",
+    "icon": "./resources/ais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
+    "slug": "myAIS",
+    "name": "AIS",
+    "description": "For AIS parents, Singapore",
     "extra": {
-      "instance": "sais_edu_sg",
+      "instance": "ais_edu_sg",
       "amplitudeApiKey": "12cdb352da26116280b7c358a62ea788"
     },
     "splash": {
-      "image": "./resources/sais_edu_sg/splash.png",
+      "image": "./resources/ais_edu_sg/BG-loading10.png",
       "backgroundColor": "#FFF"
     },
     "hooks": {
@@ -22,14 +22,14 @@
           "file": "sentry-expo/upload-sourcemaps",
           "config": {
             "organization": "mower-train-software",
-            "project": "mystamford",
+            "project": "myAIS",
             "authToken": "92c8da52431846ca8f6fe52b9de0db28b039efc6463b4e56996c4a583a75dda1"
           }
         }
       ]
     },
     "notification": {
-      "icon": "./resources/sais_edu_sg/icon.png",
+      "icon": "./resources/ais_edu_sg/icon.png",
       "color": "#000000"
     },
     "orientation": "portrait",
@@ -39,11 +39,11 @@
       ]
     },
     "ios": {
-      "bundleIdentifier": "com.softmowertrain.parent.mystamford",
+      "bundleIdentifier": "com.softmowertrain.parent.myais",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.softmowertrain.parent.mystamford",
+      "package": "com.softmowertrain.parent.myais",
       "versionCode": 19,
       "permissions": [
         "READ_CALENDAR",
