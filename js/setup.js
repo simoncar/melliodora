@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleProvider, Root } from "native-base";
-import { I18nManager, AsyncStorage } from "react-native";
+import { I18nManager, AsyncStorage, View, Text } from "react-native";
 import App from "./App";
 import I18n from "./lib/i18n";
 import variables from "../native-base-theme/variables/commonColor";
@@ -10,12 +10,14 @@ import * as Font from "expo-font";
 import _ from "lodash";
 import "@firebase/firestore";
 import Firebase from "./lib/firebase";
+import DomainSelection from "./DomainSelection";
 
 export default class Setup extends Component {
   constructor() {
     super();
     this.state = {
       isReady: false,
+      selectedDomain: ""
     };
   }
 
@@ -31,6 +33,55 @@ export default class Setup extends Component {
       MaterialIcons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
     });
+
+    AsyncStorage.getItem("domain").then(d => {
+      const domain = d || "";
+      global.domain = domain;
+      this.setState({ selectedDomain: domain, isReady: true });
+    });
+  }
+
+  setSelectedDomain = (d) => {
+    const domain = d || "";
+    AsyncStorage.setItem("domain", domain);
+    global.domain = domain;
+    this.setState({ selectedDomain: domain, isReady: true });
+  }
+
+  render() {
+    console.log("this.state.selectedDomain", this.state.selectedDomain, this.state.isReady);
+    if (!this.state.isReady) {
+      return <AppLoading />;
+    }
+
+    if (this.state.selectedDomain == "") {
+      console.log("entered sdsds");
+      return <DomainSelection setSelectedDomain={this.setSelectedDomain} />
+    }
+    return (
+      <SetupEnv />
+    );
+  }
+}
+
+
+
+
+
+class SetupEnv extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isReady: false,
+    };
+  }
+
+  async componentWillMount() {
+    try {
+      await Firebase.SetupUser();
+    } catch (e) {
+      console.log("firebase error", e.message);
+    }
 
     await AsyncStorage.getItem("language").then(language => {
       if (!_.isString(language)) {
