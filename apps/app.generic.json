@@ -8,9 +8,6 @@
     "slug": "mySchool",
     "name": "mySchool",
     "description": "For parents, Singapore",
-    "extra": {
-      "instance": ""
-    },
     "splash": {
       "image": "./resources/genericApp/splash.png",
       "backgroundColor": "#FFF"
