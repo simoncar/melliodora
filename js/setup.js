@@ -55,7 +55,6 @@ export default class Setup extends Component {
     }
 
     if (this.state.selectedDomain == "") {
-      console.log("entered sdsds");
       return <DomainSelection setSelectedDomain={this.setSelectedDomain} />
     }
     return (
