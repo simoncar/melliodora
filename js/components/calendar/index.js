@@ -210,6 +210,7 @@ class calendar1 extends Component {
                 <Text style={styles.agendaLocation}>
                   {formatMonth(item.date_start)} {item.location}{" "}
                 </Text>
+                {this.renderTime(item.time_start_pretty, item.time_end_pretty)}
 
                 <Text style={styles.text}>{item.summary}</Text>
 
@@ -299,6 +300,9 @@ class calendar1 extends Component {
         ret = "#64D4D2";
         break;
       case "yellow":
+        ret = "#8F63B8";
+        break;
+      case "purple":
         ret = "#8F63B8";
         break;
       case "red":

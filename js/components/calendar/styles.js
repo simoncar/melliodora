@@ -11,7 +11,7 @@ export default {
     paddingRight: 20,
 
     borderTopWidth: 1,
-    borderTopColor: "#ddd"
+    borderTopColor: "#ddd",
   },
 
   header: {
@@ -21,13 +21,13 @@ export default {
     ...ifIphoneX(
       {
         paddingTop: 0,
-        height: 80
+        height: 80,
       },
       {
         paddingTop: 0,
-        height: 60
-      }
-    )
+        height: 60,
+      },
+    ),
   },
 
   viewHeader: {
@@ -36,111 +36,111 @@ export default {
     justifyContent: "space-between",
     ...ifIphoneX(
       {
-        paddingTop: 30
+        paddingTop: 30,
       },
       {
-        paddingTop: 20
-      }
-    )
+        paddingTop: 20,
+      },
+    ),
   },
   calendarText: {
-    fontSize: 22
+    fontSize: 22,
   },
   calendarTextDisabled: {
     fontSize: 22,
-    color: "grey"
+    color: "grey",
   },
 
   selectCalendar: {
-    paddingTop: 0
+    paddingTop: 0,
   },
 
   calendarButton: {
     marginTop: 0,
     marginBottom: 20,
-    fontSize: 22
+    fontSize: 22,
   },
   eventTitle: {
     fontSize: 22,
     paddingBottom: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   headerIcons: {
     fontSize: 30,
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
   },
 
   roundedButton: {
     alignSelf: "center",
     alignItems: "center",
     borderRadius: 1,
-    height: 10
+    height: 10,
   },
 
   newsHeader: {
     color: "#444",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   newsLink: {
     color: "#666",
     fontSize: 12,
     alignSelf: "flex-start",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   newsTypeView: {
     borderBottomWidth: 1,
     borderBottomColor: "#666",
-    alignSelf: "flex-end"
+    alignSelf: "flex-end",
   },
   newsTypeText: {
     color: "#666",
     fontSize: 12,
     fontWeight: "bold",
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   newsPoster: {
     height: null,
     width: null,
     resizeMode: "cover",
     flex: 1,
-    position: "relative"
+    position: "relative",
   },
   newsPosterHeader: {
-    fontWeight: "900"
+    fontWeight: "900",
   },
   newsPosterLink: {
     opacity: 0.8,
     fontSize: 12,
     alignSelf: "flex-start",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   newsPosterTypeView: {
     borderBottomWidth: 1,
     borderBottomColor: "#666",
-    alignSelf: "flex-end"
+    alignSelf: "flex-end",
   },
   newsPosterTypeText: {
     opacity: 0.8,
     fontSize: 12,
     fontWeight: "bold",
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   timeIcon: {
     fontSize: 20,
     marginLeft: Platform.OS === "android" ? 15 : 0,
     paddingLeft: Platform.OS === "android" ? 0 : 20,
     paddingRight: 10,
-    marginTop: Platform.OS === "android" ? -1 : -3
+    marginTop: Platform.OS === "android" ? -1 : -3,
   },
   slide: {
     flex: 1,
     width: null,
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
   },
   swiperTextContent: {
     position: "absolute",
     bottom: -5,
-    padding: 20
+    padding: 20,
   },
   swiperDot: {
     backgroundColor: "rgba(0,0,0,.8)",
@@ -150,7 +150,7 @@ export default {
     marginLeft: 3,
     marginRight: 3,
     marginTop: 3,
-    marginBottom: 0
+    marginBottom: 0,
   },
   swiperActiveDot: {
     backgroundColor: "#fff",
@@ -160,34 +160,34 @@ export default {
     marginLeft: 3,
     marginRight: 3,
     marginTop: 3,
-    marginBottom: 0
+    marginBottom: 0,
   },
   swiperContentBox: {
     paddingTop: 20,
-    paddingBottom: 20
+    paddingBottom: 20,
   },
   container: {
     flex: 1,
     width: null,
-    height: null
+    height: null,
   },
   imageHeader: {
     height: 135,
     width: 225,
     resizeMode: "contain",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   logoHeader: {
     width: 20,
     height: 28,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   text: {
     fontSize: 18,
     color: "#000",
     marginBottom: 10,
-    paddingTop: 5
+    paddingTop: 5,
   },
   groupView: {
     borderRadius: 3,
@@ -197,18 +197,18 @@ export default {
     alignItems: "center",
     paddingLeft: 0,
     paddingRight: 0,
-    justifyContent: "center"
+    justifyContent: "center",
   },
   groupText: {
     fontSize: 16,
-    color: "white"
+    color: "white",
   },
   rowHeader: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignSelf: "stretch",
-    paddingTop: Platform.OS === "android" ? 0 : 0
+    paddingTop: Platform.OS === "android" ? 0 : 0,
   },
   agendaItem: {
     backgroundColor: "white",
@@ -218,7 +218,7 @@ export default {
     marginRight: 10,
     marginTop: 5,
     alignSelf: "stretch",
-    borderRightWidth: 5
+    borderRightWidth: 5,
   },
   agendaItemSystemMonth: {
     backgroundColor: "gray",
@@ -227,29 +227,32 @@ export default {
     padding: 10,
     marginRight: 10,
     marginTop: 10,
-    alignSelf: "stretch"
+    alignSelf: "stretch",
   },
   agendaDateSystemMonth: {
     color: "white",
     fontSize: 20,
     marginBottom: 0,
-    marginTop: 10
+    marginTop: 10,
   },
   emptyDate: {
     height: 15,
     flex: 1,
-    paddingTop: 30
+    paddingTop: 30,
   },
   agendaDate: {
     color: "gray",
     fontSize: 12,
-    marginBottom: 3
+    marginBottom: 3,
   },
   agendaLocation: {
     color: "gray",
     fontSize: 12,
     marginTop: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: "#666"
-  }
+  },
+  agendaTime: {
+    color: "gray",
+    fontSize: 12,
+    marginTop: 1,
+  },
 };
