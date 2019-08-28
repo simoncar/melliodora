@@ -95,6 +95,7 @@ class calendar1 extends Component {
             photo1: null,
             summaryMyLanguage: doc.data().summary,
             descriptionMyLanguage: doc.data().description,
+            color: doc.data().color,
           };
 
           if (undefined != this.state.items[strtime]) {
@@ -292,7 +293,7 @@ class calendar1 extends Component {
 
   formatBackground(color) {
     let ret = "#1DAEF2";
-
+    console.log(color);
     switch (color) {
       case "grey":
         ret = "#64D4D2";
