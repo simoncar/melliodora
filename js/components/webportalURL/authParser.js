@@ -67,7 +67,7 @@ export class AuthParser extends React.Component {
       console.log("firebase=", userDict);
       firebase
         .firestore()
-        .collection(Constants.manifest.extra.instance)
+        .collection(global.domain)
         .doc("user")
         .collection("usernames")
         .doc(global.uid)

@@ -41,7 +41,7 @@ class Firebase {
           global.uid = uid;
           await firebase
             .firestore()
-            .collection(Constants.manifest.extra.instance)
+            .collection(global.domain)
             .doc("user")
             .collection("usernames")
             .doc(uid)
@@ -111,7 +111,7 @@ class Firebase {
           try {
             firebase
               .firestore()
-              .collection(Constants.manifest.extra.instance)
+              .collection(global.domain)
               .doc("user")
               .collection("usernames")
               .doc(uid)
