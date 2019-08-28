@@ -11,13 +11,15 @@ const cors = require("cors")({
 });
 const { populateUserClaimMgmt, writeUserClaims } = require("./UserClaimsMgmt");
 
+const fooFunction = require("./calendarImport.js");
+
 admin.initializeApp();
 
 const translateX = new Translate();
 //const CUT_OFF_TIME = 2 * 60 * 60 * 1000;  - 2 hours
 // List of output languages.
 const LANGUAGES = ["es", "ko", "fr", "zh-CN", "ga", "it", "ja", "tl", "cy", "id"];
-const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
+const ONE_MINUTE = 60000;
 
 // TODO: Port google app script to function
 //  https://script.google.com/d/1fHtmEsrscPPql_nkxmkBhJw1pTbfHVPEc44QpY-P8WVcrVjlLDC4EWyS/edit?usp=drive_web
@@ -416,8 +418,11 @@ exports.beaconPingHistory = functions.firestore
       };
       recordHistoryRecord = true;
     } else if (newLocation !== oldLocation) {
-      console.log(oldValue["gateway-" + newGateway], newTimestamp - 900000, beacon, oldLocation, newLocation);
-      if (oldValue["gateway-" + newGateway] < newTimestamp - 900000 || oldValue["gateway-" + newGateway] == undefined) {
+      console.log(oldValue["gateway-" + newGateway], newTimestamp - ONE_MINUTE * 3, beacon, oldLocation, newLocation);
+      if (
+        oldValue["gateway-" + newGateway] < newTimestamp - ONE_MINUTE * 3 ||
+        oldValue["gateway-" + newGateway] == undefined
+      ) {
         var dataDict = {
           oldState: oldState,
           oldCampus: oldCampus,
@@ -434,7 +439,13 @@ exports.beaconPingHistory = functions.firestore
         };
         recordHistoryRecord = true;
       } else {
-        console.log("Skipped To SOON = ", beacon);
+        console.log(
+          "Skipped To SOON = ",
+          beacon,
+          oldValue["gateway-" + newGateway],
+          newTimestamp,
+          newTimestamp - ONE_MINUTE * 3,
+        );
       }
     }
 
@@ -746,20 +757,11 @@ exports.writeReport = functions.https.onRequest((req, res) => {
     .add(dataDict);
 });
 
-//firebase deploy --only functions:registerBeaconV2
+// firebase deploy --only functions:registerBeacon
 exports.registerBeacon = functions.https.onRequest(async (req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
 
   console.log(Date.now(), "DATA START:", req.body);
-
-  const ipAddress = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-  const headers = JSON.stringify(req.headers, null, 2);
-  // const message = util.format(
-  //   "<pre>Hello world!\n\nYour IP address: %s\n\nRequest headers: %s</pre>",
-  //   ipAddress,
-  //   headers,
-  // );
-  console.log(headers, ipAddress);
 
   if (JSON.stringify(req.body).includes("POSTMAN")) {
     var beacons = req.body.POSTMAN;
@@ -825,11 +827,17 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
             };
 
             if (beacon.state == "Not Present") {
-              // first time today we are seeing this person
-              var objFirstSeen = {
-                timestampFirstSeenToday: gatewayDict.timestamp,
-                state: "Arriving",
-              };
+              if (gatewayDict.state == "Perimeter") {
+                var objFirstSeen = {
+                  timestampFirstSeenToday: gatewayDict.timestamp,
+                  state: "Arriving",
+                };
+              } else {
+                var objFirstSeen = {
+                  timestampFirstSeenToday: gatewayDict.timestamp,
+                  state: "Entered",
+                };
+              }
 
               if (snapshot.mac == "AC233F29148A") {
                 var dataDict = {
@@ -933,52 +941,13 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
   return res.end();
 });
 
-exports.registerBeaconV3 = functions.https.onRequest(async (req, res) => {
+exports.updateCalendar = functions.https.onRequest(async (req, res) => {
   // if (req.method === "PUT" || undefined == req.body.length || req.body == "{}") {
   //   return res.status(403).send("Forbidden!");
   // }
-  var body = [
-    { timestamp: "2019-08-26T06:29:52Z", type: "Gateway", mac: "AC233FC039DB", gatewayFree: 90, gatewayLoad: 1.6 },
-    { mac: "AC233F52B6EA", rssi: -75 },
-    { mac: "AC233F52B6F1", rssi: -58 },
-    { mac: "AC233F52B6F2", rssi: -66 },
-  ];
 
-  var count = 0;
-  console.log("AAAA");
-  var beacons = body;
-  console.log("BBBB");
-  var gatewayDict = [];
-
-  //beacons.forEach(async e => {
-  for (const e of beacons) {
-    if (e.type == "Gateway") {
-      gatewayDict = setGateway(e);
-      //return setGateway(e);
-      console.log("countA = ", count, e.mac, e.rssi);
-    } else {
-      count++;
-      console.log("countB = ", count, e.mac, e.rssi);
-
-      await admin
-        .firestore()
-        .collection("sais_edu_sg")
-        .doc("beacon")
-        .collection("beacons")
-        .doc(e.mac)
-        .get()
-        .then(function(doc) {
-          if (!doc.exists) {
-            //IGNORE
-            console.log("CCCCCC  Does not exist ", e.mac);
-          } else {
-            console.log("CCCCCC  Exists ", e.mac);
-          }
-        });
-    }
-  }
-  console.log("EEEEE");
-  console.log(Date.now(), "DATA END:", req.body);
+  await fooFunction.importCalendarToFirestore(admin);
+  console.log("Calendar Import Complete");
 
   return res.end();
 });
@@ -1131,8 +1100,6 @@ function setGateway(snapshot) {
     state: state,
     mac: snapshot.mac,
     ip: ip,
-    //picture: personPictureURL,
-    //mac: snapshot.mac,
     gatewayFree: snapshot.gatewayFree,
     gatewayLoad: snapshot.gatewayLoad,
   };
@@ -1158,7 +1125,6 @@ function pickLatest(oldValue, potentialNewValue, fallback) {
   } else {
     ret = potentialNewValue;
   }
-  //console.log(oldValue, potentialNewValue, fallback, ret);
   return ret;
 }
 
