@@ -104,7 +104,7 @@ async function processCalendar(admin, myCalendarString, color) {
               .format("h:mm a"),
       };
     } else {
-      var singleDayEventWithTime = "";
+      var singleDayEventWithTime = { date_time_start: doc.dtstart.value };
     }
 
     for (i = 0; i < days; i++) {
