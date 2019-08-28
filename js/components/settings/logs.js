@@ -26,7 +26,7 @@ class logs extends Component {
 
     let logRef = firebase
       .firestore()
-      .collection(Constants.manifest.extra.instance)
+      .collection(global.domain)
       .doc("log")
       .collection("logs");
 

@@ -50,7 +50,7 @@ class HomeNav extends Component {
   componentWillMount() {
     this.ref = firebase
       .firestore()
-      .collection(Constants.manifest.extra.instance)
+      .collection(global.domain)
       .doc("feature")
       .collection("features")
       .orderBy("order");

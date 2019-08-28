@@ -44,7 +44,7 @@ class chatRooms extends Component {
 
     firebase
       .firestore()
-      .collection(Constants.manifest.extra.instance)
+      .collection(global.domain)
       .doc("chat")
       .collection("chatrooms")
       .get()

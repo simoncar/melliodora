@@ -80,7 +80,7 @@ class push extends Component {
 
     var storyRef = firebase
       .firestore()
-      .collection(Constants.manifest.extra.instance)
+      .collection(global.domain)
       .doc("push")
       .collection("message")
       .add(pushMessage);

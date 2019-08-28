@@ -115,21 +115,21 @@ class newStory extends Component {
     if (this.state._key == "") {
       var storyRef = firebase
         .firestore()
-        .collection(Constants.manifest.extra.instance)
+        .collection(global.domain)
         .doc("feature")
         .collection("feature articles")
         .add(storyDict);
 
       var storyRef = firebase
         .firestore()
-        .collection(Constants.manifest.extra.instance)
+        .collection(global.domain)
         .doc("feature")
         .collection("features")
         .add(storyDict);
     } else {
       var storyRef = firebase
         .firestore()
-        .collection(Constants.manifest.extra.instance)
+        .collection(global.domain)
         .doc("feature")
         .collection("feature articles")
         .doc(this.state._key);
@@ -138,7 +138,7 @@ class newStory extends Component {
 
       var storyRef = firebase
         .firestore()
-        .collection(Constants.manifest.extra.instance)
+        .collection(global.domain)
         .doc("feature")
         .collection("features")
         .doc(this.state._key);

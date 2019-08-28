@@ -11,6 +11,8 @@ import _ from "lodash";
 import "@firebase/firestore";
 import Firebase from "./lib/firebase";
 import DomainSelection from "./DomainSelection";
+import * as firebase from "firebase";
+
 
 export default class Setup extends Component {
   constructor() {
@@ -21,6 +23,32 @@ export default class Setup extends Component {
     };
   }
 
+  getDomains = () => new Promise(function (resolve, reject) {
+    firebase
+      .firestore()
+      .collection("domains")
+      .get()
+      .then(snapshot => {
+        console.log("snapshot");
+        if (snapshot.empty) {
+          console.log("No notifications");
+          return;
+        }
+
+        const domainsStore = [];
+        snapshot.forEach(doc => {
+          console.log(doc.data())
+          item = doc.data();
+          domainsStore.push(item);
+        });
+        resolve(domainsStore);
+      });
+  });
+
+  validateSelectedDomain = (selectedDomain, domains) => {
+    domainValues = domains.map(item => item.node);
+    return domainValues.indexOf(selectedDomain) > -1 ? true : false;
+  }
   async componentWillMount() {
     try {
       await Firebase.initialise();
@@ -33,16 +61,21 @@ export default class Setup extends Component {
       MaterialIcons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
     });
+    // this.domains = await this.getDomains;
+    // console.log(this.domains, "dd");
+
+
+
+    this.domains = await this.getDomains();
 
     AsyncStorage.getItem("domain").then(d => {
-      const domain = d || "";
-      global.domain = domain;
-      this.setState({ selectedDomain: domain, isReady: true });
+      this.setSelectedDomain(d);
     });
   }
 
   setSelectedDomain = (d) => {
     const domain = d || "";
+    if (!this.validateSelectedDomain(domain, this.domains)) return;
     AsyncStorage.setItem("domain", domain);
     global.domain = domain;
     this.setState({ selectedDomain: domain, isReady: true });

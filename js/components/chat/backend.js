@@ -74,7 +74,7 @@ export class Backend extends React.Component {
 
     this.ref = firebase
       .firestore()
-      .collection(Constants.manifest.extra.instance)
+      .collection(global.domain)
       .doc("chat")
       .collection("chatrooms")
       .doc(this.state.chatroom)
@@ -158,7 +158,7 @@ export class Backend extends React.Component {
 
         this.messageRef = firebase
           .firestore()
-          .collection(Constants.manifest.extra.instance)
+          .collection(global.domain)
           .doc("chat")
           .collection("chatrooms")
           .doc(this.state.chatroom)
@@ -193,7 +193,7 @@ export class Backend extends React.Component {
 
       firebase
         .firestore()
-        .collection(Constants.manifest.extra.instance)
+        .collection(global.domain)
         .doc("chat")
         .collection("chatrooms")
         .doc(this.state.chatroom)
@@ -211,7 +211,7 @@ export class Backend extends React.Component {
 
     firebase
       .firestore()
-      .collection(Constants.manifest.extra.instance)
+      .collection(global.domain)
       .doc("user")
       .collection("usernames")
       .doc(global.safeToken)
@@ -320,7 +320,7 @@ async function uploadImageAsync(message, chatroom, user) {
 
   firebase
     .firestore()
-    .collection(Constants.manifest.extra.instance)
+    .collection(global.domain)
     .doc("chat")
     .collection("chatrooms")
     .doc(chatroom)

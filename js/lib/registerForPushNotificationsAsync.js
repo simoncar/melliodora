@@ -47,7 +47,7 @@ async function registerForPushNotificationsAsync(user) {
 
     firebase
       .firestore()
-      .collection(Constants.manifest.extra.instance)
+      .collection(global.domain)
       .doc("user")
       .collection("usernames")
       .doc(uid)
