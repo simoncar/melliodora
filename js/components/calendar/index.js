@@ -60,7 +60,7 @@ class calendar1 extends Component {
       .doc("calendar")
       .collection("calendarItems");
 
-    this.loadFromAsyncStorage();
+    //this.loadFromAsyncStorage();
 
     this.listenLoadFromFirebase(this.calendarEvents);
   }
@@ -89,6 +89,8 @@ class calendar1 extends Component {
           if (!this.state.items[strtime]) {
             this.state.items[strtime] = [];
           }
+
+          console.log(doc.data().date_start, doc.data().summary);
 
           trans = {
             source: "calendar",
@@ -149,7 +151,7 @@ class calendar1 extends Component {
         const time = Date.now() + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
         const date = new Date();
-
+        console.log(strtime);
         if (!this.state.items[strtime]) {
           this.state.items[strtime] = [];
         }
@@ -294,7 +296,6 @@ class calendar1 extends Component {
 
   formatBackground(color) {
     let ret = "#1DAEF2";
-    console.log(color);
     switch (color) {
       case "grey":
         ret = "#64D4D2";
