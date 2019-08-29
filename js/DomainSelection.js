@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, Picker, SafeAreaView, StyleSheet, Button } from "react-native";
-import * as firebase from "firebase";
-import { AppLoading } from "expo";
+import { iOSUIKit, iOSColors } from 'react-native-typography'
 
 export default class DomainSelection extends Component {
   constructor() {
@@ -14,11 +13,9 @@ export default class DomainSelection extends Component {
 
 
   render() {
-
-    console.log("domains", this.props.domains);
     return (
       <SafeAreaView>
-        <Text style={{ textAlign: 'center', fontSize: 24, fontWeight: 'bold' }}>Select School: </Text>
+        <Text style={{ ...iOSUIKit.largeTitleEmphasized, color: iOSColors.gray, marginTop: 78, marginLeft: 12, marginBottom: 12 }}>Select School: </Text>
 
         <Picker
           style={styles.picker}
@@ -33,11 +30,10 @@ export default class DomainSelection extends Component {
               return <Picker.Item label={item.name} value={item.node} />
             })
           }
-          {/* <Picker.Item label="SAIS" value="sais_edu_sg" /> */}
         </Picker>
         <Button
-          title="Submit"
-          style={{ marginTop: 20 }}
+          title="Select"
+          style={{ marginTop: 26 }}
           onPress={() => this.props.setSelectedDomain(this.state.selectedDomain)}
         />
       </SafeAreaView>
@@ -50,9 +46,9 @@ const styles = StyleSheet.create({
     // flex: 1,
     width: "100%",
     height: 44,
-    marginBottom: 40
+    marginBottom: 60
   },
   pickerItem: {
-    height: 92
+    height: 100
   }
 })

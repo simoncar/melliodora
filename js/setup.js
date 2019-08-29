@@ -29,7 +29,6 @@ export default class Setup extends Component {
       .collection("domains")
       .get()
       .then(snapshot => {
-        console.log("snapshot");
         if (snapshot.empty) {
           console.log("No notifications");
           return;
@@ -37,7 +36,6 @@ export default class Setup extends Component {
 
         const domainsStore = [];
         snapshot.forEach(doc => {
-          console.log(doc.data())
           item = doc.data();
           domainsStore.push(item);
         });
@@ -61,10 +59,6 @@ export default class Setup extends Component {
       MaterialIcons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
     });
-    // this.domains = await this.getDomains;
-    // console.log(this.domains, "dd");
-
-
 
     this.domains = await this.getDomains();
 
