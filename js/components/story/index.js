@@ -29,9 +29,9 @@ class Story extends Component {
         "" +
         this.props.summaryMyLanguage +
         "\n" +
-        formatMonth(this.props.eventDate) +
+        formatMonth(this.props.date_start) +
         "\n" +
-        formatTime(this.props.eventStartTime, this.props.eventEndTime) +
+        formatTime(this.props.time_start_pretty, this.props.time_end_pretty) +
         " \n" +
         this.props.navigation.state.params.descriptionMyLanguage,
       title: this.props.summaryMyLanguage,
