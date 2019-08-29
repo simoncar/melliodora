@@ -60,7 +60,7 @@ class calendar1 extends Component {
       .doc("calendar")
       .collection("calendarItems");
 
-    this.loadFromAsyncStorage();
+    //this.loadFromAsyncStorage();
 
     this.listenLoadFromFirebase(this.calendarEvents);
   }
@@ -90,11 +90,14 @@ class calendar1 extends Component {
             this.state.items[strtime] = [];
           }
 
+          console.log(doc.data().date_start, doc.data().summary);
+
           trans = {
             source: "calendar",
             photo1: null,
             summaryMyLanguage: doc.data().summary,
             descriptionMyLanguage: doc.data().description,
+            color: doc.data().color,
           };
 
           if (undefined != this.state.items[strtime]) {
@@ -148,7 +151,7 @@ class calendar1 extends Component {
         const time = Date.now() + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
         const date = new Date();
-
+        console.log(strtime);
         if (!this.state.items[strtime]) {
           this.state.items[strtime] = [];
         }
@@ -209,6 +212,7 @@ class calendar1 extends Component {
                 <Text style={styles.agendaLocation}>
                   {formatMonth(item.date_start)} {item.location}{" "}
                 </Text>
+                {this.renderTime(item.time_start_pretty, item.time_end_pretty)}
 
                 <Text style={styles.text}>{item.summary}</Text>
 
@@ -292,12 +296,14 @@ class calendar1 extends Component {
 
   formatBackground(color) {
     let ret = "#1DAEF2";
-
     switch (color) {
       case "grey":
         ret = "#64D4D2";
         break;
       case "yellow":
+        ret = "#8F63B8";
+        break;
+      case "purple":
         ret = "#8F63B8";
         break;
       case "red":

@@ -52,6 +52,9 @@ export class Backend extends React.Component {
       case "ja":
         return message.textJA;
         break;
+      case "id":
+        return message.textID;
+        break;
       default:
         return message.textEN;
     }
@@ -102,6 +105,7 @@ export class Backend extends React.Component {
             textKO: message.textKO,
             textZH: message.textZH,
             textES: message.textES,
+            textID: message.textID,
 
             detectedSourceLanguage: message.detectedSourceLanguage,
             createdAt: new Date(message.timestamp),

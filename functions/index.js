@@ -5,20 +5,21 @@ const { Translate } = require("@google-cloud/translate");
 const computeCounts = require("./computeCounts.js");
 const GoogleSpreadsheet = require("google-spreadsheet");
 const _ = require("lodash");
+const moment = require("moment");
 const cors = require("cors")({
   origin: true,
 });
 const { populateUserClaimMgmt, writeUserClaims } = require("./UserClaimsMgmt");
 
-admin.initializeApp();
+const fooFunction = require("./calendarImport.js");
 
-const moment = require("moment");
+admin.initializeApp();
 
 const translateX = new Translate();
 //const CUT_OFF_TIME = 2 * 60 * 60 * 1000;  - 2 hours
 // List of output languages.
-const LANGUAGES = ["es", "ko", "fr", "zh-CN", "ga", "it", "ja", "tl", "cy"];
-const CUT_OFF_TIME = 2 * 60 * 60 * 1000; //  - 2 hours
+const LANGUAGES = ["es", "ko", "fr", "zh-CN", "ga", "it", "ja", "tl", "cy", "id"];
+const ONE_MINUTE = 60000;
 
 // TODO: Port google app script to function
 //  https://script.google.com/d/1fHtmEsrscPPql_nkxmkBhJw1pTbfHVPEc44QpY-P8WVcrVjlLDC4EWyS/edit?usp=drive_web
@@ -46,6 +47,7 @@ exports.translateFirestoreChat = functions.firestore
       var resultsKO = await translateX.translate(message, { to: "ko" });
       var resultsFR = await translateX.translate(message, { to: "fr" });
       var resultsES = await translateX.translate(message, { to: "es" });
+      var resultsID = await translateX.translate(message, { to: "id" });
 
       var detectedSourceLanguage = resultsJA[1].data.translations[0].detectedSourceLanguage;
 
@@ -62,6 +64,7 @@ exports.translateFirestoreChat = functions.firestore
         textFR: resultsFR[0],
         textEN: resultsEN[0],
         textES: resultsES[0],
+        textID: resultsID[0],
         detectedSourceLanguage: detectedSourceLanguage,
         translated: true,
       };
@@ -137,6 +140,9 @@ function getMessageInLanguage(message, language) {
     case "ja":
       return message.textJA;
       break;
+    case "id":
+      return message.textID;
+      break;
     default:
       return message.textEN;
   }
@@ -181,6 +187,7 @@ exports.translateFirestoreStories = functions.firestore
       var titleKO = await translateX.translate(title, { to: "ko" });
       var titleFR = await translateX.translate(title, { to: "fr" });
       var titleES = await translateX.translate(title, { to: "es" });
+      var titleID = await translateX.translate(title, { to: "id" });
       featureTitle = {
         summaryEN: title,
         summaryJA: titleJA[0],
@@ -188,6 +195,7 @@ exports.translateFirestoreStories = functions.firestore
         summaryKO: titleKO[0],
         summaryFR: titleFR[0],
         summaryES: titleES[0],
+        summaryID: titleID[0],
       };
       update = true;
     }
@@ -198,6 +206,7 @@ exports.translateFirestoreStories = functions.firestore
       var descriptionKO = await translateX.translate(description, { to: "ko" });
       var descriptionFR = await translateX.translate(description, { to: "fr" });
       var descriptionES = await translateX.translate(description, { to: "es" });
+      var descriptionID = await translateX.translate(description, { to: "id" });
       featureDesc = {
         descriptionEN: description,
         descriptionJA: descriptionJA[0],
@@ -205,6 +214,7 @@ exports.translateFirestoreStories = functions.firestore
         descriptionKO: descriptionKO[0],
         descriptionFR: descriptionFR[0],
         descriptionES: descriptionES[0],
+        descriptionID: descriptionID[0],
 
         translated: true,
       };
@@ -366,12 +376,11 @@ exports.beaconPingHistory = functions.firestore
     const newLocation = newValue.location;
     const newGateway = newValue.gatewayMostRecent;
     const newRSSI = newValue.rssi;
+    const newTimestamp = newValue.timestamp;
 
     const xdate = moment()
       .add(8, "hours")
       .format("YYYYMMDD");
-
-    const timestamp = Date.now();
 
     if (newState == "Exited" && oldState != "Exited") {
       console.log("EXIT3BACKDATE=", oldValue.timestampPerimeterCandidate, oldValue, newValue);
@@ -401,7 +410,7 @@ exports.beaconPingHistory = functions.firestore
         state: newState,
         campus: newCampus,
         location: newLocation,
-        timestamp: Date.now(),
+        timestamp: newTimestamp,
         gateway: newGateway,
         reason: "state",
         oldrssi: oldRSSI,
@@ -409,8 +418,11 @@ exports.beaconPingHistory = functions.firestore
       };
       recordHistoryRecord = true;
     } else if (newLocation !== oldLocation) {
-      console.log(oldValue["gateway-" + newGateway], Date.now() - 900000, beacon, oldLocation, newLocation);
-      if (oldValue["gateway-" + newGateway] < Date.now() - 900000 || oldValue["gateway-" + newGateway] == undefined) {
+      console.log(oldValue["gateway-" + newGateway], newTimestamp - ONE_MINUTE * 3, beacon, oldLocation, newLocation);
+      if (
+        oldValue["gateway-" + newGateway] < newTimestamp - ONE_MINUTE * 3 ||
+        oldValue["gateway-" + newGateway] == undefined
+      ) {
         var dataDict = {
           oldState: oldState,
           oldCampus: oldCampus,
@@ -419,7 +431,7 @@ exports.beaconPingHistory = functions.firestore
           state: newState,
           campus: newCampus,
           location: newLocation,
-          timestamp: Date.now(),
+          timestamp: newTimestamp,
           gateway: newGateway,
           reason: "location",
           oldrssi: oldRSSI,
@@ -427,7 +439,13 @@ exports.beaconPingHistory = functions.firestore
         };
         recordHistoryRecord = true;
       } else {
-        console.log("Skipped To SOON = ", beacon);
+        console.log(
+          "Skipped To SOON = ",
+          beacon,
+          oldValue["gateway-" + newGateway],
+          newTimestamp,
+          newTimestamp - ONE_MINUTE * 3,
+        );
       }
     }
 
@@ -439,7 +457,7 @@ exports.beaconPingHistory = functions.firestore
         .collection("beaconHistory")
         .doc(xdate)
         .collection(beacon)
-        .doc(timestamp.toString())
+        .doc(newTimestamp.toString())
         .set(dataDict);
 
       console.log("RECORD HISTORY = ", beacon, dataDict);
@@ -594,7 +612,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
         console.log(step);
       },
       function getInfoAndWorksheets(step) {
-        doc.getInfo(function (err, info) {
+        doc.getInfo(function(err, info) {
           console.log(err);
 
           console.log("Loaded doc: " + info.title + " by " + info.author.email);
@@ -612,7 +630,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
           .collection("beacons")
           .orderBy("mac")
           .get()
-          .then(async function (documentSnapshotArray) {
+          .then(async function(documentSnapshotArray) {
             documentSnapshotArray.forEach(doc => {
               item = doc.data();
               dataDictUpdate.push({
@@ -624,7 +642,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
       },
 
       function resizeSheetRigthSize(step) {
-        sheet.resize({ rowCount: dataDictUpdate.length + 1, colCount: 20 }, function (err) {
+        sheet.resize({ rowCount: dataDictUpdate.length + 1, colCount: 20 }, function(err) {
           step();
         }); //async
       },
@@ -637,12 +655,12 @@ exports.writeReport = functions.https.onRequest((req, res) => {
 
         const batchSize = 500;
         const iterations = Math.ceil(rows / batchSize);
-        console.log("rows", rows)
+        console.log("rows", rows);
         console.log("iterations =", iterations);
         for (let i = 1; i <= iterations; i++) {
-          let updateCells = new Promise(function (resolve, reject) {
-            const maxrow = (i == iterations) ? rows : (i * batchSize);
-            const minrow = (i - 1) * batchSize
+          let updateCells = new Promise(function(resolve, reject) {
+            const maxrow = i == iterations ? rows : i * batchSize;
+            const minrow = (i - 1) * batchSize;
             sheet.getCells(
               {
                 "min-row": 2 + minrow,
@@ -651,7 +669,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
                 "max-col": cols,
                 "return-empty": true,
               },
-              function (err, cells) {
+              function(err, cells) {
                 console.log("cells length", cells.length);
 
                 let s = 0;
@@ -699,7 +717,6 @@ exports.writeReport = functions.https.onRequest((req, res) => {
                         cell.value = doc.item.campus;
                         break;
                     } //end switch
-
                   } // end c loop
                 } // end j loop
 
@@ -713,9 +730,9 @@ exports.writeReport = functions.https.onRequest((req, res) => {
           console.log("updatingCells", updatingCells, i);
         }
         res.send("done - buildDailyReport");
-      }
+      },
     ],
-    function (err) {
+    function(err) {
       if (err) {
         console.log("Error: " + err);
       }
@@ -740,243 +757,216 @@ exports.writeReport = functions.https.onRequest((req, res) => {
     .add(dataDict);
 });
 
-//firebase deploy --only functions:registerBeacon
-exports.registerBeacon = functions.https.onRequest((req, res) => {
+// firebase deploy --only functions:registerBeacon
+exports.registerBeacon = functions.https.onRequest(async (req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
 
-  var now = Date.now();
+  console.log(Date.now(), "DATA START:", req.body);
 
-  if (req.method === "PUT") {
-    return res.status(403).send("Forbidden!");
+  if (JSON.stringify(req.body).includes("POSTMAN")) {
+    var beacons = req.body.POSTMAN;
+  } else {
+    if (req.method === "PUT" || undefined == req.body.length || req.body == "{}") {
+      return res.status(403).send("Forbidden!");
+    }
+    var beacons = req.body;
   }
 
-  if (undefined == req.body.length) {
-    return res.status(403).send("Forbidden!");
-  }
-  if (req.body == "{}") {
-    return res.status(403).send("Forbidden!");
-  }
+  var beaconUpdates = [];
+  var count = 0;
+  var gatewayDict = "";
+  var proceed = true;
 
-  return cors(req, res, () => {
-    let format = req.query.format;
-    if (!format) {
-      format = req.body.format;
+  for (const snapshot of beacons) {
+    proceed = true;
+
+    if (snapshot.type == "Gateway") {
+      gatewayDict = setGateway(snapshot);
+      proceed = false;
     }
 
-    console.log(now, "DATA START:", req.body);
+    if (beaconUpdates.indexOf(snapshot.mac) == -1) {
+      beaconUpdates.push(snapshot.mac);
+    } else {
+      proceed = false;
+    }
 
-    var beacons = req.body;
-    var campus = "";
-    var personState = "";
-    var dataDict = "";
-    var beaconUpdates = [];
-    var count = 0;
-    var gateway = "";
-    var location = "";
-    //  try {
+    if (!isSmartCookieBeacon(snapshot.mac)) {
+      proceed = false;
+    }
 
-    beacons.forEach(snapshot => {
-      count++;
-      if (snapshot.type == "Gateway") {
-        dataDict = setGateway(snapshot);
+    if (proceed) {
+      await admin
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("beacon")
+        .collection("beacons")
+        .doc(snapshot.mac)
+        .get()
+        .then(async function(doc) {
+          if (!doc.exists) {
+          } else {
+            count++;
+            var objAllUpdates = {},
+              objLocation = {},
+              objFirstSeen = {};
 
-        personState = dataDict.state;
-        location = dataDict.location;
-        gateway = dataDict.mac;
-        campus = dataDict.campus;
+            beacon = doc.data();
 
-        if (gateway == "AC233FC039DB") {
-          console.log("Bypass = AC233FC039DB");
-          return;
-        }
-      } else {
-        if (beaconUpdates.indexOf(snapshot.mac) == -1) {
-          beaconUpdates.push(snapshot.mac);
-          let beaconRef = admin
-            .firestore()
-            .collection("sais_edu_sg")
-            .doc("beacon")
-            .collection("beacons")
-            .doc(snapshot.mac)
-            .get()
-            .then(function (doc) {
-              if (!doc.exists) {
-                //IGNORE
+            var objAllUpdates = {
+              location: gatewayDict.location,
+              campus: gatewayDict.campus,
+              timestamp: gatewayDict.timestamp,
+              rssi: snapshot.rssi === undefined ? 0 : snapshot.rssi,
+              raw: pickLatest(beacon.raw, snapshot.rawData, ""),
+              mac: snapshot.mac,
+              gatewayMostRecent: gatewayDict.mac,
+              ["gateway-" + gatewayDict.mac]: gatewayDict.timestamp,
+              ["gatewayDESC-" + gatewayDict.location]: gatewayDict.timestamp,
+              pingCount: admin.firestore.FieldValue.increment(1),
+            };
+
+            if (beacon.state == "Not Present") {
+              if (gatewayDict.state == "Perimeter") {
+                var objFirstSeen = {
+                  timestampFirstSeenToday: gatewayDict.timestamp,
+                  state: "Arriving",
+                };
               } else {
-                var objAllUpdates = {},
-                  objLocation = {},
-                  objFirstSeen = {};
-                beacon = doc.data();
+                var objFirstSeen = {
+                  timestampFirstSeenToday: gatewayDict.timestamp,
+                  state: "Entered",
+                };
+              }
 
-                var ibeaconUuidOld = beacon.ibeaconUuid === undefined ? "" : beacon.ibeaconUuid;
-                var ibeaconMajorOld = beacon.ibeaconMajor === undefined ? 0 : beacon.ibeaconMajor;
-                var ibeaconMinorOld = beacon.ibeaconMinor === undefined ? 0 : beacon.ibeaconMinor;
-                var ibeaconTxPowerOld = beacon.ibeaconTxPower === undefined ? 0 : beacon.ibeaconTxPower;
-                var rawOld = beacon.rawData === undefined ? "" : beacon.rawData;
-                var ibeaconUuid = snapshot.ibeaconUuid === undefined ? ibeaconUuidOld : snapshot.ibeaconUuid;
-                var ibeaconMajor = snapshot.ibeaconMajor === undefined ? ibeaconMajorOld : snapshot.ibeaconMajor;
-                var ibeaconMinor = snapshot.ibeaconMinor === undefined ? ibeaconMinorOld : snapshot.ibeaconMinor;
-                var ibeaconTxPower =
-                  snapshot.ibeaconTxPower === undefined ? ibeaconTxPowerOld : snapshot.ibeaconTxPower;
-                var raw = pickLatest(beacon.raw, snapshot.rawData, "");
-                var battery = 100;
-                var rssi = snapshot.rssi === undefined ? 0 : snapshot.rssi;
-
-                var getwayMacdesc = "gateway-" + gateway;
-
-                //master
-                var objAllUpdates = {
-                  location: location,
-                  campus: campus,
-                  timestamp: Date.now(),
-                  ibeaconUuid: ibeaconUuid,
-                  ibeaconMajor: ibeaconMajor,
-                  ibeaconMinor: ibeaconMinor,
-                  rssi: rssi,
-                  ibeaconTxPower: ibeaconTxPower,
-                  raw: raw,
-                  mac: snapshot.mac,
-                  gatewayMostRecent: gateway,
-                  [getwayMacdesc]: Date.now(),
-                  timestamp: Date.now(),
-                  battery: battery,
-                  pingCount: admin.firestore.FieldValue.increment(1),
+              if (snapshot.mac == "AC233F29148A") {
+                var dataDict = {
+                  pushToken: "ExponentPushToken{vU0ZNfL6RQo5_JScermePb}",
+                  text: "Kayla is arriving at " + gatewayDict.campus,
+                  from: "Arrival",
+                  timestamp: gatewayDict.timestamp,
+                  sent: false,
                 };
 
-                //nuances
-
-                if (beacon.state == "Not Present") {
-                  // first time today we are seeing this person
-                  var objFirstSeen = {
-                    timestampFirstSeenToday: Date.now(),
-                    state: "Arriving",
-                  };
-
-                  var dataDict = {
-                    pushToken: "ExponentPushToken{lPaJFgBp_pmdxzYZkgaVL8}",
-                    text: snapshot.mac + " is arriving at " + campus,
-                    from: "Arrival",
-                    timestamp: Date.now(),
-                    sent: false,
-                  };
-
-                  let queueItem = admin
-                    .firestore()
-                    .collection("sais_edu_sg")
-                    .doc("push")
-                    .collection("queue")
-                    .add(dataDict);
-
-                  if (snapshot.mac == "AC233F29148A") {
-                    var dataDict = {
-                      pushToken: "ExponentPushToken{vU0ZNfL6RQo5_JScermePb}",
-                      text: "Kayla is arriving at Woodleigh",
-                      from: "Arrival",
-                      timestamp: Date.now(),
-                      sent: false,
-                    };
-
-                    let queueItem = admin
-                      .firestore()
-                      .collection("sais_edu_sg")
-                      .doc("push")
-                      .collection("queue")
-                      .add(dataDict);
-                  }
-                }
-
-                if (personState == "Perimeter") {
-                  objLocation = {
-                    stateCandidate: "Perimeter",
-                    timestampPerimeterCandidate: Date.now(),
-                  };
-                } else {
-                  objLocation = {
-                    state: "Entered",
-                    timestampEntered: Date.now(),
-                    stateCandidate: "",
-                    timestampPerimeterCandidate: "",
-                  };
-                }
-                let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
-
-                admin
+                let queueItem = admin
                   .firestore()
                   .collection("sais_edu_sg")
-                  .doc("beacon")
-                  .collection("beacons")
-                  .doc(snapshot.mac)
-                  .update(dataDictUpdate);
+                  .doc("push")
+                  .collection("queue")
+                  .add(dataDict);
               }
-            })
+            }
 
-            .catch(err => {
-              console.log("Error getting document", err);
-            });
-        }
-      }
-    });
+            if (gatewayDict.state == "Perimeter") {
+              objLocation = {
+                stateCandidate: "Perimeter",
+                timestampPerimeterCandidate: gatewayDict.timestamp,
+              };
+            } else {
+              objLocation = {
+                state: "Entered",
+                timestampEntered: gatewayDict.timestamp,
+                stateCandidate: "",
+                timestampPerimeterCandidate: "",
+              };
+            }
 
-    var hitCount = {
-      //campus: personCampus,
-      pingCount: count,
-    };
+            let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
 
-    const gatewayUpdate = { ...dataDict, ...hitCount };
+            await admin
+              .firestore()
+              .collection("sais_edu_sg")
+              .doc("beacon")
+              .collection("beacons")
+              .doc(snapshot.mac)
+              .update(dataDictUpdate);
 
-    admin
-      .firestore()
-      .collection("sais_edu_sg")
-      .doc("beacon")
-      .collection("gateways")
-      .doc(gateway)
-      .update(gatewayUpdate);
+            console.log("UPDATING BEACON ", snapshot.mac, dataDictUpdate);
+          }
+        })
 
-    // var dataDictGatewayHistory = {
-    //   mac: gateway,
-    //   count: count,
-    //   timestamp: Date.now(),
-    //   location: location,
-    // };
+        .catch(err => {
+          console.log("Error getting document", err);
+        });
+    }
+  }
 
-    // const xdate = moment()
-    //   .add(8, "hours")
-    //   .format("YYYYMMDD");
+  var hitCount = {
+    //campus: personCampus,
+    pingCount: count,
+  };
 
-    // admin
-    //   .firestore()
-    //   .collection("sais_edu_sg")
-    //   .doc("beacon")
-    //   .collection("gatewayHistory")
-    //   .doc(xdate)
-    //   .collection(gateway)
-    //   .doc(Date.now().toString())
-    //   .set(dataDictGatewayHistory);
+  const gatewayUpdate = { ...gatewayDict, ...hitCount };
 
-    // console.log("Mac: ", gateway, " Count: ", count, " -- Location: ", location);
+  await admin
+    .firestore()
+    .collection("sais_edu_sg")
+    .doc("beacon")
+    .collection("gateways")
+    .doc(gatewayDict.mac)
+    .update(gatewayUpdate);
 
-    // } catch (e) {
-    //   console.log("catch error body:", req.body);
-    //   console.error(e.message);
-    // }
+  console.log(Date.now(), "WRITING GATEWAY :", gatewayUpdate);
 
-    return res.status(200).send(req.body);
-  });
+  // var dataDictGatewayHistory = {
+  //   mac: gateway,
+  //   count: count,
+  //   timestamp: Date.now(),
+  //   location: location,
+  // };
+
+  // const xdate = moment()
+  //   .add(8, "hours")
+  //   .format("YYYYMMDD");
+
+  // admin
+  //   .firestore()
+  //   .collection("sais_edu_sg")
+  //   .doc("beacon")
+  //   .collection("gatewayHistory")
+  //   .doc(xdate)
+  //   .collection(gateway)
+  //   .doc(Date.now().toString())
+  //   .set(dataDictGatewayHistory);
+
+  // console.log("Mac: ", gateway, " Count: ", count, " -- Location: ", location);
+
+  // } catch (e) {
+  //   console.log("catch error body:", req.body);
+  //   console.error(e.message);
+  // }
+
+  console.log(Date.now(), "DATA END:", req.body);
+
+  return res.end();
 });
+
+exports.updateCalendar = functions.https.onRequest(async (req, res) => {
+  // if (req.method === "PUT" || undefined == req.body.length || req.body == "{}") {
+  //   return res.status(403).send("Forbidden!");
+  // }
+
+  await fooFunction.importCalendarToFirestore(admin);
+  console.log("Calendar Import Complete");
+
+  return res.end();
+});
+
+function isSmartCookieBeacon(mac) {
+  if (mac.substring(0, 6) == "AC233F") {
+    return true;
+  } else if (["C6AC131224FA", "D47352CD6A5E", "E7CB77E105E4", "EE9EEF0E959E"].indexOf(mac) > -1) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 function setGateway(snapshot) {
   var state = "Entered";
   var location = "";
   var campus = "";
   var ip = "";
-  var personPictureURL = "https://saispta.com/wp-content/uploads/2019/05/minew_G1.png";
-
-  //SSID:  geofence
-  //Passphrase: g3ofeNce$
-  //old IP: 172.16.92.27  //172.16.92.27
-  //172.16.92.27
-
-  //172.16.92.27
 
   switch (snapshot.mac) {
     case "AC233FC03164":
@@ -1104,14 +1094,12 @@ function setGateway(snapshot) {
   }
 
   var dataDict = {
-    //campus: personCampus,
-    timestamp: Date.now(),
+    timestamp: Date.parse(snapshot.timestamp),
     location: location,
     campus: campus,
     state: state,
     mac: snapshot.mac,
-    //picture: personPictureURL,
-    //mac: snapshot.mac,
+    ip: ip,
     gatewayFree: snapshot.gatewayFree,
     gatewayLoad: snapshot.gatewayLoad,
   };
@@ -1137,7 +1125,6 @@ function pickLatest(oldValue, potentialNewValue, fallback) {
   } else {
     ret = potentialNewValue;
   }
-  //console.log(oldValue, potentialNewValue, fallback, ret);
   return ret;
 }
 
@@ -1168,7 +1155,7 @@ exports.processDeleteUserInAuth = functions.auth.user().onDelete(user => {
 const getAccounts = async () => {
   let acctData = [];
   let listUsersResult = await admin.auth().listUsers(1000);
-  listUsersResult.users.forEach(function (userRecord) {
+  listUsersResult.users.forEach(function(userRecord) {
     const { uid = "", email = "", customClaims = {}, providerData } = userRecord;
     if (providerData.length > 0) {
       acctData.push({ uid, email, customClaims, providerData });
@@ -1176,7 +1163,7 @@ const getAccounts = async () => {
   });
   while (listUsersResult.pageToken) {
     listUsersResult = await admin.auth().listUsers(1000, listUsersResult.pageToken);
-    listUsersResult.users.forEach(function (userRecord) {
+    listUsersResult.users.forEach(function(userRecord) {
       const { uid = "", email = "", customClaims = {}, providerData } = userRecord;
       if (providerData.length > 0) {
         acctData.push({ uid, email, customClaims, providerData });
@@ -1208,7 +1195,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
         console.log(step);
       },
       function getInfoAndWorksheets(step) {
-        doc.getInfo(function (err, info) {
+        doc.getInfo(function(err, info) {
           console.log(err);
 
           console.log("Loaded doc: " + info.title + " by " + info.author.email);
@@ -1226,7 +1213,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
       },
 
       function resizeSheetRigthSize(step) {
-        sheet.resize({ rowCount: dataDictUpdate.length + minRow, colCount: maxCol }, function (err) {
+        sheet.resize({ rowCount: dataDictUpdate.length + minRow, colCount: maxCol }, function(err) {
           step();
         }); //async
       },
@@ -1240,7 +1227,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
             "max-col": maxCol,
             "return-empty": true,
           },
-          function (err, cells) {
+          function(err, cells) {
             for (let k = 0; k < cells.length; k++) {
               const cell = cells[k];
               if (cell.value) {
@@ -1262,7 +1249,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
             "max-col": maxCol,
             "return-empty": true,
           },
-          function (err, cells) {
+          function(err, cells) {
             console.log("cells", cells);
             let rowDataIndex = 0;
             for (var i = 0; i < cells.length; i = i + maxCol) {
@@ -1292,7 +1279,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
         step();
       },
     ],
-    function (err) {
+    function(err) {
       if (err) {
         console.log("Error: " + err);
       }
@@ -1335,7 +1322,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
         console.log(step);
       },
       function getInfoAndWorksheets(step) {
-        doc.getInfo(function (err, info) {
+        doc.getInfo(function(err, info) {
           // console.log("info", info);
           sheet = info.worksheets[0];
           console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
@@ -1352,7 +1339,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
             "max-col": maxCol,
             "return-empty": true,
           },
-          function (err, cells) {
+          function(err, cells) {
             for (let k = 0; k < cells.length; k++) {
               const cell = cells[k];
               if (cell.value) {
@@ -1373,7 +1360,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
             "max-col": maxCol,
             "return-empty": true,
           },
-          async function (err, cells) {
+          async function(err, cells) {
             console.log("cells", cells);
 
             for (var i = 0; i < cells.length; i = i + maxCol) {
@@ -1397,7 +1384,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
         );
       },
     ],
-    function (err) {
+    function(err) {
       if (err) {
         console.log("Error: " + err);
       }
