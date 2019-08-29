@@ -71,6 +71,7 @@ export default class Setup extends Component {
     AsyncStorage.getItem("domain").then(d => {
       this.setSelectedDomain(d);
     });
+    this.setState({ isReady: true });
   }
 
   setSelectedDomain = (d) => {
@@ -82,13 +83,13 @@ export default class Setup extends Component {
   }
 
   render() {
-    console.log("this.state.selectedDomain", this.state.selectedDomain, this.state.isReady);
+
     if (!this.state.isReady) {
       return <AppLoading />;
     }
 
     if (this.state.selectedDomain == "") {
-      return <DomainSelection setSelectedDomain={this.setSelectedDomain} />
+      return <DomainSelection setSelectedDomain={this.setSelectedDomain} domains={this.domains} />
     }
     return (
       <SetupEnv />

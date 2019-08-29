@@ -7,46 +7,15 @@ export default class DomainSelection extends Component {
   constructor() {
     super();
     this.state = {
-      isReady: false,
-      domains: []
+      selectedDomain: ""
     };
 
   }
 
-  componentDidMount() {
-    firebase
-      .firestore()
-      .collection("domains")
-      .get()
-      .then(snapshot => {
-        console.log("snapshot");
-        if (snapshot.empty) {
-          console.log("No notifications");
-          return;
-        }
-
-        const domainsStore = [];
-        snapshot.forEach(doc => {
-          console.log(doc.data())
-          item = doc.data();
-          domainsStore.push(item);
-        });
-        console.log("domainsStore", domainsStore);
-        this.setState({
-          isReady: true,
-          domains: domainsStore,
-          selectedDomain: domainsStore[1].node
-        });
-      });
-  }
-
 
   render() {
-    if (!this.state.isReady) {
-      console.log("....waiting....");
-      return <AppLoading />;
-    }
-    console.log("domains", this.state.domains);
+
+    console.log("domains", this.props.domains);
     return (
       <SafeAreaView>
         <Text style={{ textAlign: 'center', fontSize: 24, fontWeight: 'bold' }}>Select School: </Text>
@@ -60,7 +29,7 @@ export default class DomainSelection extends Component {
           }
         >
           {
-            this.state.domains.map(item => {
+            this.props.domains.map(item => {
               return <Picker.Item label={item.name} value={item.node} />
             })
           }
