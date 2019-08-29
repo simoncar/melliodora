@@ -5,8 +5,8 @@
     "version": "19.0.33",
     "sdkVersion": "33.0.0",
     "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
-    "slug": "mySchool",
-    "name": "mySchool",
+    "slug": "myCommunity",
+    "name": "myCommunity",
     "description": "For parents, Singapore",
     "extra": {
       "instance": ""
