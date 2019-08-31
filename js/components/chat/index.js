@@ -86,8 +86,6 @@ class chat extends Component {
   });
 
   componentDidMount() {
-    this.getPermissionAsync();
-
     this.props.navigation.setParams({
       _showActionSheet: this._showActionSheet,
     });
@@ -165,6 +163,8 @@ class chat extends Component {
   }
 
   _pickImage = async () => {
+    this.getPermissionAsync();
+
     var images = [];
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
