@@ -38,11 +38,12 @@ export default {
   },
   chatTitle: {
     marginTop: 7,
-    fontSize: 15,
+    fontSize: 16,
     backgroundColor: "white",
     color: "#000",
     marginLeft: 15,
     marginBottom: 5,
+    fontWeight: "bold",
   },
   chatTitleRight: {
     marginTop: 7,
