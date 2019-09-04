@@ -46,6 +46,7 @@ class chatRooms extends Component {
       .collection("sais_edu_sg")
       .doc("chat")
       .collection("chatrooms")
+      .where("type", "==", "public")
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
@@ -96,6 +97,7 @@ class chatRooms extends Component {
   }
 
   render() {
+    console.log(this.state.userChatrooms);
     return (
       <Container style={styles.container}>
         <Content style={{ paddingTop: 20 }}>

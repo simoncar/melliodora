@@ -58,6 +58,7 @@ class HomeNav extends Component {
 
   componentDidMount() {
     try {
+      // TODO: isOnline.
       this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
     } catch (e) {
       //console.error(e.message);
@@ -69,6 +70,8 @@ class HomeNav extends Component {
   onCollectionUpdate = querySnapshot => {
     var trans = {};
     var featureItems = [];
+
+
     querySnapshot.forEach(doc => {
       if (doc.data().translated == true) {
         trans = {
