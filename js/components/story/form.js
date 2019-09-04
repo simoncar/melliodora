@@ -23,6 +23,8 @@ class newStory extends Component {
     this.state = {
       notifyMeSwitch: false,
       visible: props.edit ? props.visible : false,
+      visibleMore: props.edit ? props.visibleMore : false,
+
       eventTitle: props.edit ? props.summary : "",
       eventDescription: props.edit ? props.description : "",
       location: props.edit && props.location !== undefined ? props.location : null,
@@ -35,7 +37,6 @@ class newStory extends Component {
       cameraIcon: "camera",
     };
 
-    this.generateID = this.generateID.bind(this);
     this.addStory = this.addStory.bind(this);
   }
 
@@ -68,17 +69,6 @@ class newStory extends Component {
     });
   }
 
-  generateID() {
-    let d = new Date().getTime();
-    let id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
-      let r = (d + Math.random() * 16) % 16 | 0;
-      d = Math.floor(d / 16);
-      return (c == "x" ? r : (r & 0x3) | 0x8).toString(5);
-    });
-
-    return id;
-  }
-
   setUid(value) {
     this.uid = value;
   }
@@ -101,6 +91,7 @@ class newStory extends Component {
     var storyDict = {
       summary: this.state.eventTitle,
       visible: this.state.visible,
+      visibleMore: this.state.visibleMore,
       description: this.state.eventDescription,
       photo1: this.state.photo1,
       date_start: this.state.eventDate !== undefined ? this.state.eventDate : null,
@@ -116,25 +107,9 @@ class newStory extends Component {
         .firestore()
         .collection("sais_edu_sg")
         .doc("feature")
-        .collection("feature articles")
-        .add(storyDict);
-
-      var storyRef = firebase
-        .firestore()
-        .collection("sais_edu_sg")
-        .doc("feature")
         .collection("features")
         .add(storyDict);
     } else {
-      var storyRef = firebase
-        .firestore()
-        .collection("sais_edu_sg")
-        .doc("feature")
-        .collection("feature articles")
-        .doc(this.state._key);
-
-      storyRef.set(storyDict, { merge: true });
-
       var storyRef = firebase
         .firestore()
         .collection("sais_edu_sg")
@@ -236,7 +211,7 @@ class newStory extends Component {
 
   render() {
     const { goBack } = this.props.navigation;
-    const order = this.state.order.toString();
+    const order = _.isNumber(this.state.order) ? this.state.order.toString() : 0;
     return (
       <Container style={{ backgroundColor: "#fff" }}>
         <Content showsVerticalScrollIndicator={false}>
@@ -250,14 +225,6 @@ class newStory extends Component {
                 paddingRight: 10,
               }}
             >
-              <View style={styles.switchContainer}>
-                <Text>Visible</Text>
-                <Switch
-                  onValueChange={value => this.setState({ visible: value })}
-                  style={styles.switch}
-                  value={this.state.visible}
-                />
-              </View>
               <TextInput
                 onChangeText={text => this.setState({ eventTitle: text })}
                 placeholder={"Title"}
@@ -316,14 +283,30 @@ class newStory extends Component {
                   flexDirection: "row",
                 }}
               >
-                <Text style={styles.eventTitle}>Order: </Text>
-                <TextInput
-                  onChangeText={text => this.setState({ order: text })}
-                  placeholder={"0"}
-                  style={styles.eventTitle}
-                  value={order}
-                  keyboardType="number-pad"
-                />
+                <View style={styles.switchContainer}>
+                  <Text style={styles.eventTitle}>Order: </Text>
+                  <TextInput
+                    onChangeText={text => this.setState({ order: text })}
+                    placeholder={"0"}
+                    style={styles.eventTitle}
+                    value={order}
+                    keyboardType="number-pad"
+                  />
+                  <Text style={styles.eventTitle}>Visibility: </Text>
+
+                  <Text>Home Screen</Text>
+                  <Switch
+                    onValueChange={value => this.setState({ visible: value })}
+                    style={styles.switch}
+                    value={this.state.visible}
+                  />
+                  <Text>More Screen</Text>
+                  <Switch
+                    onValueChange={value => this.setState({ visibleMore: value })}
+                    style={styles.switch}
+                    value={this.state.visibleMore}
+                  />
+                </View>
               </View>
 
               <TextInput
