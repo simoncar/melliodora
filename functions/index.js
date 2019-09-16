@@ -863,6 +863,8 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
                 stateCandidate: "Perimeter",
                 timestampPerimeterCandidate: gatewayDict.timestamp,
               };
+            } else if (gatewayDict.state == "FYI Only") {
+              objLocation = { state: "Entered", timestampEntered: gatewayDict.timestamp };
             } else {
               objLocation = {
                 state: "Entered",
