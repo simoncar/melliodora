@@ -2,7 +2,7 @@
   "name": "genericApp",
   "displayName": "genericApp",
   "expo": {
-    "version": "19.0.33",
+    "version": "1.0.0",
     "sdkVersion": "33.0.0",
     "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
     "slug": "myCommunity",
@@ -38,11 +38,11 @@
       ]
     },
     "ios": {
-      "bundleIdentifier": "com.softmowertrain.parent.genericapp",
+      "bundleIdentifier": "com.softmowertrain.parent.mycommunity",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.softmowertrain.parent.genericapp",
+      "package": "com.softmowertrain.parent.mycommunity",
       "versionCode": 19,
       "permissions": [
         "READ_CALENDAR",
