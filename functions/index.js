@@ -11,7 +11,7 @@ const cors = require("cors")({
 });
 const { populateUserClaimMgmt, writeUserClaims } = require("./UserClaimsMgmt");
 
-const fooFunction = require("./calendarImport.js");
+const importCalendar = require("./calendarImport.js");
 
 admin.initializeApp();
 
@@ -326,6 +326,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
             campus: child.campus,
             lastSeen: Date.now(),
             timestamp: child.timestampPerimeterCandidate,
+            timestampLastSeenToday: child.timestampPerimeterCandidate,
             state: "Exited",
             stateCandidate: "",
             timestampPerimeterCandidate: "",
@@ -946,7 +947,7 @@ exports.updateCalendar = functions.https.onRequest(async (req, res) => {
   //   return res.status(403).send("Forbidden!");
   // }
 
-  await fooFunction.importCalendarToFirestore(admin);
+  await importCalendar.importCalendarToFirestore(admin);
   console.log("Calendar Import Complete");
 
   return res.end();
