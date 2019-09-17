@@ -187,19 +187,43 @@ exports.createDomain = functions.https.onRequest((req, res) => {
               node: domainNode,
               nameAlias: domainNameAliasArr
             });
-
-            await admin
-              .firestore()
-              .collection("domains")
-              .doc(domainNode)
-              .set({
-                name: domainName,
-                node: domainNode,
-                nameAlias: domainNameAliasArr
-              })
-              .catch(function (error) {
-                console.error("Error adding document: ", error);
+            const domainRef = admin.firestore().collection("domains").doc(domainNode);
+            const domainExist = await domainRef.get()
+              .then(async (docSnapshot) => {
+                if (docSnapshot.exists) {
+                  return true;
+                } else {
+                  return false;
+                }
               });
+            console.log("domainExist", domainExist);
+            if (domainExist) {
+              await admin
+                .firestore()
+                .collection("domains")
+                .doc(domainNode)
+                .set({
+                  name: domainName,
+                  nameAlias: domainNameAliasArr
+                })
+                .catch(function (error) {
+                  console.error("Error adding document: ", error);
+                });
+            } else {
+              await admin
+                .firestore()
+                .collection("domains")
+                .doc(domainNode)
+                .set({
+                  name: domainName,
+                  node: domainNode,
+                  nameAlias: domainNameAliasArr
+                })
+                .catch(function (error) {
+                  console.error("Error adding document: ", error);
+                });
+            }
+
 
             res.send("Create Domain Completed");
             step();
