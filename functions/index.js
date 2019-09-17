@@ -294,9 +294,11 @@ exports.sendPushNotificationFromQueue = functions.firestore
 exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   var response = "";
   var i = 0;
-  var minutes = 1000 * 60;
   const now = Date.now();
-  const cutoff = now - minutes * 10; //CUT_OFF_TIME;
+
+  var ONE_MINUTE = 1000 * 60;
+  const cutoff = now - ONE_MINUTE * 10;
+
   const updates = [];
   var update = [];
   var child;
@@ -762,7 +764,7 @@ exports.writeReport = functions.https.onRequest((req, res) => {
 exports.registerBeacon = functions.https.onRequest(async (req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
 
-  console.log(Date.now(), "DATA START:", req.body);
+  console.log(Date.now(), "DATA:", req.body);
 
   if (JSON.stringify(req.body).includes("POSTMAN")) {
     var beacons = req.body.POSTMAN;
@@ -827,6 +829,22 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
               pingCount: admin.firestore.FieldValue.increment(1),
             };
 
+            //find cards that are left at the security hub
+            if (gatewayDict.location != beacon.location) {
+              //card moved to a new location (used to find card sitting lost for a very long time one place)
+              var objTransition = { transitionLatest: gatewayDict.timestamp };
+            } else {
+              var objTransition = "";
+              // have they been sitting here a really long time?
+              var ONE_MINUTE = 1000 * 60;
+              const now = Date.now();
+              const cutoff = now - ONE_MINUTE * 10;
+
+              if (beacon.transitionLatest < cutoff) {
+                console.log("LONG TIME SITTER @ SECURITY", snapshot.mac);
+              }
+            }
+
             if (beacon.state == "Not Present") {
               if (gatewayDict.state == "Perimeter") {
                 var objFirstSeen = {
@@ -874,7 +892,7 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
               };
             }
 
-            let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
+            let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen, ...objTransition };
 
             await admin
               .firestore()
@@ -889,7 +907,7 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
         })
 
         .catch(err => {
-          console.log("Error getting document", err);
+          console.error("Error:", err);
         });
     }
   }
@@ -938,8 +956,6 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
   //   console.log("catch error body:", req.body);
   //   console.error(e.message);
   // }
-
-  console.log(Date.now(), "DATA END:", req.body);
 
   return res.end();
 });
