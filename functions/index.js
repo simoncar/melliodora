@@ -1014,6 +1014,8 @@ function setGateway(snapshot) {
   var campus = "";
   var ip = "";
 
+  //  ** DO NOT PUT A / IN THE LOCATION NAME **
+
   switch (snapshot.mac) {
     case "AC233FC03164":
       location = "Gate 5";
@@ -1075,7 +1077,7 @@ function setGateway(snapshot) {
       campus = "Woodleigh";
       break;
     case "AC233FC039B8":
-      location = "Adams Ground Floor Lifts outside Parent Cafe";
+      location = "Adams Ground Floor Lifts";
       campus = "Woodleigh";
       ip = "172.16.92.100";
       break;
