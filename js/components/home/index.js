@@ -50,7 +50,7 @@ class HomeNav extends Component {
   componentWillMount() {
     this.ref = firebase
       .firestore()
-      .collection("sais_edu_sg")
+      .collection(global.domain)
       .doc("feature")
       .collection("features")
       .orderBy("order");
@@ -65,7 +65,7 @@ class HomeNav extends Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   onCollectionUpdate = querySnapshot => {
     var trans = {};
@@ -152,7 +152,6 @@ class HomeNav extends Component {
             <Text style={{ fontSize: 25, color: "white" }}>+</Text>
           </TouchableHighlight>
         )}
-
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
             <FlatList

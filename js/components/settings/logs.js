@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FlatList, Text, View } from "react-native";
 import firebase from "firebase";
+import Constants from "expo-constants";
 
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 
@@ -25,7 +26,7 @@ class logs extends Component {
 
     let logRef = firebase
       .firestore()
-      .collection("sais_edu_sg")
+      .collection(global.domain)
       .doc("log")
       .collection("logs");
 

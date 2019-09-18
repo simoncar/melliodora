@@ -11,6 +11,7 @@ import _ from "lodash";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import uuid from "uuid";
+import Constants from "expo-constants";
 
 @withMappedNavigationParams()
 class newStory extends Component {
@@ -105,14 +106,14 @@ class newStory extends Component {
     if (this.state._key == "") {
       var storyRef = firebase
         .firestore()
-        .collection("sais_edu_sg")
+        .collection(global.domain)
         .doc("feature")
         .collection("features")
         .add(storyDict);
     } else {
       var storyRef = firebase
         .firestore()
-        .collection("sais_edu_sg")
+        .collection(global.domain)
         .doc("feature")
         .collection("features")
         .doc(this.state._key);
@@ -171,10 +172,10 @@ class newStory extends Component {
       this.setState({ cameraIcon: "hour-glass" });
       const blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.onload = function() {
+        xhr.onload = function () {
           resolve(xhr.response);
         };
-        xhr.onerror = function(e) {
+        xhr.onerror = function (e) {
           reject(new TypeError("Network request failed"));
         };
         xhr.responseType = "blob";

@@ -2,6 +2,7 @@ import React from "react";
 import { AsyncStorage } from "react-native";
 import * as firebase from "firebase";
 import _ from "lodash";
+import Constants from "expo-constants";
 
 export class AuthParser extends React.Component {
   extractLoginUsername(res) {
@@ -53,7 +54,7 @@ export class AuthParser extends React.Component {
     return ret;
   }
 
-  saveDetails(name, email,guid, role) {
+  saveDetails(name, email, guid, role) {
     if (!_.isNil(global.uid) && name.length > 0 && email.length > 0) {
       var userDict = {
         name,
@@ -66,7 +67,7 @@ export class AuthParser extends React.Component {
       console.log("firebase=", userDict);
       firebase
         .firestore()
-        .collection("sais_edu_sg")
+        .collection(global.domain)
         .doc("user")
         .collection("usernames")
         .doc(global.uid)
