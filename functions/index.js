@@ -10,8 +10,8 @@ const cors = require("cors")({
   origin: true,
 });
 const { populateUserClaimMgmt, writeUserClaims } = require("./UserClaimsMgmt");
-
 const importCalendar = require("./calendarImport.js");
+const gatewayStats = require("./gatewayStats.js");
 
 admin.initializeApp();
 
@@ -29,7 +29,9 @@ const ONE_MINUTE = 60000;
 //  firebase deploy --only functions:translate
 // send the push notification
 
-// Translate an incoming message.
+//running locally
+//https://firebase.google.com/docs/functions/local-emulator
+//firebase serve
 
 //   firebase deploy --only functions:translateFirestoreChat
 exports.translateFirestoreChat = functions.firestore
@@ -842,6 +844,9 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
 
               if (beacon.transitionLatest < cutoff) {
                 console.log("LONG TIME SITTER @ SECURITY", snapshot.mac);
+                if (gatewayDict.location == "Gate II Security Hub") {
+                  var objTransition = { state: "Security" };
+                }
               }
             }
 
@@ -929,36 +934,58 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
 
   console.log(Date.now(), "WRITING GATEWAY :", gatewayUpdate);
 
-  // var dataDictGatewayHistory = {
-  //   mac: gateway,
-  //   count: count,
-  //   timestamp: Date.now(),
-  //   location: location,
-  // };
-
-  // const xdate = moment()
-  //   .add(8, "hours")
-  //   .format("YYYYMMDD");
-
-  // admin
-  //   .firestore()
-  //   .collection("sais_edu_sg")
-  //   .doc("beacon")
-  //   .collection("gatewayHistory")
-  //   .doc(xdate)
-  //   .collection(gateway)
-  //   .doc(Date.now().toString())
-  //   .set(dataDictGatewayHistory);
-
-  // console.log("Mac: ", gateway, " Count: ", count, " -- Location: ", location);
-
-  // } catch (e) {
-  //   console.log("catch error body:", req.body);
-  //   console.error(e.message);
-  // }
-
   return res.end();
 });
+
+exports.gatewayStatistics = functions.firestore
+  .document("sais_edu_sg/beacon/gateways/{gatewayID}")
+  .onWrite(async (snap, context) => {
+    if (_.isNil(snap.after.data())) {
+      console.log("delete event, exiting");
+      return; ///Exit when the data is deleted.
+    }
+
+    const newValue = snap.after.data();
+    const oldValue = snap.before.data();
+
+    if (newValue.statistics != oldValue.statistics) {
+      //record some statistics
+
+      var objCPU = {
+        [newValue.statistics]: newValue.gatewayLoad,
+      };
+
+      var objMemory = {
+        [newValue.statistics]: 100 - newValue.gatewayFree,
+      };
+
+      // /sais_edu_sg/beacon/gatewayHistory/20190917/AC233FC03E85/cpu
+
+      const xdate = moment()
+        .add(8, "hours")
+        .format("YYYYMMDD");
+
+      admin
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("beacon")
+        .collection("gatewayHistory")
+        .doc(xdate)
+        .collection(newValue.mac)
+        .doc("memory")
+        .set(objMemory, { merge: true });
+
+      admin
+        .firestore()
+        .collection("sais_edu_sg")
+        .doc("beacon")
+        .collection("gatewayHistory")
+        .doc(xdate)
+        .collection(newValue.mac)
+        .doc("cpu")
+        .set(objCPU, { merge: true });
+    }
+  });
 
 exports.updateCalendar = functions.https.onRequest(async (req, res) => {
   // if (req.method === "PUT" || undefined == req.body.length || req.body == "{}") {
@@ -992,21 +1019,6 @@ function setGateway(snapshot) {
       location = "Gate 5";
       campus = "ELV";
       state = "Perimeter";
-      break;
-    case "AC233FC031B8":
-      location = "Woodleigh - Gate 2";
-      state = "Perimeter";
-      campus = "Woodleigh";
-      break;
-    case "AC233FC039DB":
-      location = "Smartcookies Office HQ";
-      state = "Perimeter";
-      campus = "Smartcookies HQ";
-      break;
-    case "AC233FC039C9":
-      location = "Smartcookies Cove";
-      state = "Perimeter";
-      campus = "Smartcookies Cove";
       break;
     case "AC233FC039B2":
       location = "Gate 4";
@@ -1072,15 +1084,6 @@ function setGateway(snapshot) {
       campus = "Woodleigh";
       ip = "172.16.91.253";
       break;
-    case "AC233FC03E00":
-      location = "Gate 2";
-      campus = "Woodleigh";
-      state = "Perimeter";
-      break;
-    case "AC233FC03E46":
-      location = "Gate II Security Hub";
-      campus = "Woodleigh";
-      break;
     case "AC233FC03EAC":
       location = "Tower B, Level 1 lift lobby";
       campus = "ELV";
@@ -1090,7 +1093,7 @@ function setGateway(snapshot) {
       campus = "ELV";
       break;
     case "AC233FC03E74":
-      location = "Pick up/Drop off point";
+      location = "Pick up Drop off point";
       campus = "ELV";
       break;
     case "AC233FC03E85":
@@ -1107,10 +1110,17 @@ function setGateway(snapshot) {
       state = "Perimeter";
       ip = "172.16.93.97";
       break;
-
-    default:
-      location = "Unknown - " + snapshot.mac;
+    case "AC233FC03E46":
+      location = "Gate 2";
+      campus = "Woodleigh";
+      state = "Perimeter";
+      break;
   }
+
+  const hour =
+    moment()
+      .add(8, "hours")
+      .format("HH") + "00";
 
   var dataDict = {
     timestamp: Date.parse(snapshot.timestamp),
@@ -1121,6 +1131,7 @@ function setGateway(snapshot) {
     ip: ip,
     gatewayFree: snapshot.gatewayFree,
     gatewayLoad: snapshot.gatewayLoad,
+    statistics: hour,
   };
 
   return dataDict;
