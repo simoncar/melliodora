@@ -1040,7 +1040,7 @@ function setGateway(snapshot) {
       ip = "172.16.92.27";
       break;
     case "AC233FC03A44":
-      location = "Franklin PickUp Dropoff";
+      location = "PickUp DropOff Franklin ";
       campus = "Woodleigh";
       state = "FYI Only";
       ip = "172.16.88.47";
@@ -1093,7 +1093,7 @@ function setGateway(snapshot) {
       campus = "ELV";
       break;
     case "AC233FC03E74":
-      location = "Pick up Drop off point";
+      location = "PickUp DropOff";
       campus = "ELV";
       break;
     case "AC233FC03E85":
