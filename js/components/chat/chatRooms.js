@@ -7,6 +7,7 @@ import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
 import ChatroomItem from "./chatroomItem";
+import Constants from "expo-constants";
 
 var specialChatrooms = {};
 
@@ -43,7 +44,7 @@ class chatRooms extends Component {
 
     firebase
       .firestore()
-      .collection("sais_edu_sg")
+      .collection(global.domain)
       .doc("chat")
       .collection("chatrooms")
       .where("type", "==", "public")

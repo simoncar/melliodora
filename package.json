@@ -30,7 +30,8 @@
     "ios": "expo start --ios",
     "test": "jest",
     "starte2e": "RN_SRC_EXT='e2e.js,js' expo start",
-    "e2e": "detox test --configuration ios.sim --debug-synchronization 200"
+    "e2e": "detox test --configuration ios.sim --debug-synchronization 200",
+    "app": "cp apps/app.ais.json app.json && expo r -c"
   },
   "dependencies": {
     "@expo/react-native-action-sheet": "^3.0.3",
@@ -79,6 +80,7 @@
     "react-native-phone-call": "^1.0.9",
     "react-native-settings-list": "^1.8.0",
     "react-native-timer": "^1.3.6",
+    "react-native-typography": "^1.4.1",
     "react-native-walkthrough-tooltip": "^0.5.3",
     "react-native-webview": "~5.8.1",
     "react-navigation": "^3.11.1",

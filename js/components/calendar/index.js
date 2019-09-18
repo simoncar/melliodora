@@ -11,6 +11,7 @@ import { formatTime, formatMonth } from "../global.js";
 import I18n from "../../lib/i18n";
 import moment from "moment";
 import "moment/min/locales";
+import Constants from "expo-constants";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
@@ -53,10 +54,9 @@ class calendar1 extends Component {
 
   componentDidMount() {
     moment.updateLocale;
-
     this.calendarEvents = firebase
       .firestore()
-      .collection("sais_edu_sg")
+      .collection(global.domain)
       .doc("calendar")
       .collection("calendarItems");
 

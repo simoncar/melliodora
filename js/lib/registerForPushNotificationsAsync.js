@@ -47,7 +47,7 @@ async function registerForPushNotificationsAsync(user) {
 
     firebase
       .firestore()
-      .collection("sais_edu_sg")
+      .collection(global.domain)
       .doc("user")
       .collection("usernames")
       .doc(uid)

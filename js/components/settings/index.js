@@ -6,6 +6,7 @@ import I18n from "../../lib/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as firebase from "firebase";
 import { Updates } from "expo";
+import Constants from "expo-constants";
 
 class Settings extends Component {
   static navigationOptions = {
@@ -94,7 +95,7 @@ class Settings extends Component {
 
     firebase
       .firestore()
-      .collection("sais_edu_sg")
+      .collection(global.domain)
       .doc("user")
       .collection("usernames")
       .doc(uid)

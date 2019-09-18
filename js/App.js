@@ -5,7 +5,7 @@ import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
 
 class App extends Component {
-  componentWillMount() {}
+  componentWillMount() { }
 
   componentDidMount() {
     this._notificationSubscription = this._registerForPushNotifications();
@@ -15,7 +15,7 @@ class App extends Component {
     this._notificationSubscription && this._notificationSubscription.remove();
   }
 
-  _handleNotification = ({ origin, data }) => {};
+  _handleNotification = ({ origin, data }) => { };
 
   _registerForPushNotifications() {
     registerForPush.reg(global.name);
@@ -25,7 +25,7 @@ class App extends Component {
 
   render() {
     switch (Constants.manifest.extra.instance) {
-      case "0001-sais_edu_sg":
+      case "sais_edu_sg":
         global.switch_address =
           "Locations: \nFranklin Ground Floor (level 2), by Stamford Yard \nEarly Learning Village, Level 1\nHours: 8 am to 5 pm";
         global.switch_helpEmail = "pta.comms@sais.edu.sg";

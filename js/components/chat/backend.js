@@ -77,7 +77,7 @@ export class Backend extends React.Component {
 
     this.ref = firebase
       .firestore()
-      .collection("sais_edu_sg")
+      .collection(global.domain)
       .doc("chat")
       .collection("chatrooms")
       .doc(this.state.chatroom)
@@ -162,22 +162,13 @@ export class Backend extends React.Component {
 
         this.messageRef = firebase
           .firestore()
-          .collection("sais_edu_sg")
+          .collection(global.domain)
           .doc("chat")
           .collection("chatrooms")
           .doc(this.state.chatroom)
           .collection("messages")
           .add(messageDict);
       }
-    }
-    if (global.pushToken.length > 0) {
-      this.messageRef = firebase
-        .database()
-        .ref(`instance/${instID}/chat/chatroom/${this.state.chatroom}/notifications/${global.safeToken}`);
-      this.messageRef.update({
-        //mute: false,
-        pushToken: global.pushToken,
-      });
     }
   }
 
@@ -206,7 +197,7 @@ export class Backend extends React.Component {
 
       firebase
         .firestore()
-        .collection("sais_edu_sg")
+        .collection(global.domain)
         .doc("chat")
         .collection("chatrooms")
         .doc(this.state.chatroom)
@@ -224,7 +215,7 @@ export class Backend extends React.Component {
 
     firebase
       .firestore()
-      .collection("sais_edu_sg")
+      .collection(global.domain)
       .doc("user")
       .collection("usernames")
       .doc(global.safeToken)
@@ -272,10 +263,10 @@ async function uploadImageAsync(message, chatroom, user) {
 
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.onload = function() {
+    xhr.onload = function () {
       resolve(xhr.response);
     };
-    xhr.onerror = function(e) {
+    xhr.onerror = function (e) {
       reject(new TypeError("Network request failed"));
     };
     xhr.responseType = "blob";
@@ -333,7 +324,7 @@ async function uploadImageAsync(message, chatroom, user) {
 
   firebase
     .firestore()
-    .collection("sais_edu_sg")
+    .collection(global.domain)
     .doc("chat")
     .collection("chatrooms")
     .doc(chatroom)
