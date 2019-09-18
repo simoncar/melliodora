@@ -17,29 +17,29 @@ const tabBarIcon = name => ({ tintColor }) => (
   <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
+var todayItem = {};
+const todayDate = moment().format("YYYY-MM-DD");
+
 @withMappedNavigationParams()
 class calendar1 extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      items: {},
-    };
-
-    const todayDate = moment().format("YYYY-MM-DD");
     const todayDay = new moment().format("MMMM Do");
 
-    if (!this.state.items[todayDate]) {
-      this.state.items[todayDate] = [];
-    }
+    todayItem[todayDate] = [];
 
-    this.state.items[todayDate].push({
+    todayItem[todayDate].push({
       summary: I18n.t("today") + " " + todayDay,
       summaryMyLanguage: I18n.t("today") + " " + todayDay,
       icon: "md-radio-button-off",
       color: "yellow",
       title: todayDay,
     });
+
+    this.state = {
+      items: todayItem,
+    };
   }
 
   static navigationOptions = {
@@ -60,7 +60,7 @@ class calendar1 extends Component {
       .doc("calendar")
       .collection("calendarItems");
 
-    //this.loadFromAsyncStorage();
+    this.loadFromAsyncStorage();
 
     this.listenLoadFromFirebase(this.calendarEvents);
   }
@@ -73,24 +73,42 @@ class calendar1 extends Component {
     dataSnapshot2
       .get()
       .then(snapshot => {
-        const items2 = [];
+        var items2 = {};
+        var newItems = {};
         var trans = {};
-        this.loadItems();
+        // this.loadItems();
         var itemCount = 0;
         var strtime = 0;
+
+        for (let i = -15; i < 365; i++) {
+          const time = Date.now() + i * 24 * 60 * 60 * 1000;
+          const strtime2 = this.timeToString(time);
+          newItems[strtime2] = [];
+        }
+
+        items2 = newItems;
+        //items2 = this.state.items;
+        const todayDay = new moment().format("MMMM Do");
+
+        items2[todayDate].push({
+          summary: I18n.t("today") + " " + todayDay,
+          summaryMyLanguage: I18n.t("today") + " " + todayDay,
+          icon: "md-radio-button-off",
+          color: "yellow",
+          title: todayDay,
+        });
+
         snapshot.forEach(doc => {
           itemCount++;
-          items2.push(doc.data());
+          // items2.push(doc.data());
 
           //   console.log (snapshot)
           strtime = doc.data().date_start;
           strtime = strtime.substring(0, 10);
 
-          if (!this.state.items[strtime]) {
-            this.state.items[strtime] = [];
+          if (!items2[strtime]) {
+            items2[strtime] = [];
           }
-
-          console.log(doc.data().date_start, doc.data().summary);
 
           trans = {
             source: "calendar",
@@ -100,21 +118,29 @@ class calendar1 extends Component {
             color: doc.data().color,
           };
 
-          if (undefined != this.state.items[strtime]) {
-            this.state.items[strtime].push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
-          }
+          var event = { ...{ _key: doc.id }, ...doc.data(), ...trans };
+          // if (strtime == "2019-09-02") {
+          //if (undefined != items2[strtime]) {
+          items2[strtime].push(event);
+
+          //this.state.items[strtime].push(event);
+          // }
+          // }
         });
 
-        var items = JSON.parse(JSON.stringify(this.state.items));
+        console.log(items2);
+
         if (itemCount > 10) {
-          this._storeData(JSON.stringify(this.state.items));
+          this._storeData(JSON.stringify(items2));
         }
 
+        // this.state.items = ;
+
         this.setState({
-          items,
+          items: items2,
         });
 
-        this.loadItems();
+        //this.loadItems();
       })
       .catch(err => {
         console.log("Error getting documents", err);
@@ -124,15 +150,18 @@ class calendar1 extends Component {
   loadFromAsyncStorage() {
     AsyncStorage.getItem("calendarItems").then(fi => {
       var items = JSON.parse(fi);
+
       if (null != items) {
-        if (items.length > 0) {
-          this.setState({
-            items,
-            loading: false,
-          });
-          this.loadItems();
-        }
+        // if (items.length > 0) {
+        this.setState({
+          items,
+          loading: false,
+        });
+        //this.loadItems();
+        // }
       }
+
+      //console.log(items);
     });
   }
 
@@ -147,22 +176,23 @@ class calendar1 extends Component {
 
   loadItems(day) {
     setTimeout(() => {
+      const newItems = {};
+
       for (let i = -15; i < 365; i++) {
         const time = Date.now() + i * 24 * 60 * 60 * 1000;
         const strtime = this.timeToString(time);
-        const date = new Date();
-        console.log(strtime);
-        if (!this.state.items[strtime]) {
-          this.state.items[strtime] = [];
-        }
+        newItems[strtime] = [];
       }
 
-      const newItems = {};
-
-      Object.keys(this.state.items).forEach(key => {
-        newItems[key] = this.state.items[key];
-      });
+      // Object.keys(this.state.items).forEach(key => {
+      //   newItems[key] = this.state.items[key];
+      // });
+      // this.setState({
+      //   items: newItems,
+      // });
     }, 1000);
+
+    console.log("loadItems - loadItemsForMonth");
   }
 
   render() {
@@ -173,11 +203,14 @@ class calendar1 extends Component {
       <Container>
         <Agenda
           items={this.state.items}
-          loadItemsForMonth={this.loadItems.bind(this)}
+          // loadItemsForMonth={this.loadFromAsyncStorage.bind(this)}
           selected={date}
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
-          rowHasChanged={this.rowHasChanged.bind(this)}
+          //rowHasChanged={this.rowHasChanged.bind(this)}
+          rowHasChanged={(r1, r2) => {
+            return r1.summary !== r2.summary;
+          }}
           hideKnob={false}
           renderKnob={() => {
             return <Ionicons style={{ color: "#00adf5", fontSize: 30 }} name="ios-arrow-down" />;

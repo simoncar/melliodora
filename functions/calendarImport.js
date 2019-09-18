@@ -6,17 +6,26 @@ const fetch = require("node-fetch");
 var i = 0;
 
 exports.importCalendarToFirestore = async function(admin) {
-  console.log("Here we are today");
 
-  //const myCalendarString = fs.readFileSync("./test.ics", "utf-8");
+
+// https://mystamford.edu.sg/parent-dashboard/cal/688/1.ics?secret=5f3746529c14ec40b265e4143278e83c
 
   await clearCalendar(admin);
 
+  //a-day, b-day
   var myCalendarString = await fetch(
-    "https://mystamford.edu.sg/parent-dashboard/cal/688/1.ics?secret=5f3746529c14ec40b265e4143278e83c",
+    "https://calendar.google.com/calendar/ical/saisstudent.sg_s67q8ba2vds7omhs96jef3kjhg%40group.calendar.google.com/public/basic.ics",
+  ).then(res => res.text());
+
+  await processCalendar(admin, myCalendarString, "red");
+
+//events
+  var myCalendarString = await fetch(
+    "https://calendar.google.com/calendar/ical/saisstudent.sg_ffuma3kaadsjk7p9hvbdd49j50%40group.calendar.google.com/public/basic.ics",
   ).then(res => res.text());
 
   await processCalendar(admin, myCalendarString, "blue");
+
 
   myCalendarString = await fetch(
     "https://calendar.google.com/calendar/ical/smartcookies.io_eav9rqklnch2nkn2c8c54o57s8%40group.calendar.google.com/private-f39395a3ff51af2a4ea43b4278b30f8d/basic.ics",

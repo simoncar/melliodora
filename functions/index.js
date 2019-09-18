@@ -13,6 +13,8 @@ const { populateUserClaimMgmt, writeUserClaims } = require("./UserClaimsMgmt");
 const { populateDomainMgmt, createDomain, onCreateDomain, deleteDomain } = require("./DomainMgmt");
 
 const fooFunction = require("./calendarImport.js");
+const importCalendar = require("./calendarImport.js");
+const gatewayStats = require("./gatewayStats.js");
 
 admin.initializeApp();
 
@@ -30,7 +32,9 @@ const ONE_MINUTE = 60000;
 //  firebase deploy --only functions:translate
 // send the push notification
 
-// Translate an incoming message.
+//running locally
+//https://firebase.google.com/docs/functions/local-emulator
+//firebase serve
 
 //   firebase deploy --only functions:translateFirestoreChat
 exports.translateFirestoreChat = functions.firestore
@@ -295,9 +299,11 @@ exports.sendPushNotificationFromQueue = functions.firestore
 exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
     var response = "";
     var i = 0;
-    var minutes = 1000 * 60;
     const now = Date.now();
-    const cutoff = now - minutes * 10; //CUT_OFF_TIME;
+
+    var ONE_MINUTE = 1000 * 60;
+    const cutoff = now - ONE_MINUTE * 10;
+
     const updates = [];
     var update = [];
     var child;
@@ -327,6 +333,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
                         campus: child.campus,
                         lastSeen: Date.now(),
                         timestamp: child.timestampPerimeterCandidate,
+                        timestampLastSeenToday: child.timestampPerimeterCandidate,
                         state: "Exited",
                         stateCandidate: "",
                         timestampPerimeterCandidate: "",
@@ -343,87 +350,92 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
                         .doc(doc.id)
                         .update(update);
                 }
-            } //i
-        });
+
+                snapshot.forEach(doc => {
+                    child = doc.data();
+                    if (i < 100) {
+                        if (child.timestamp < cutoff) {
+                            i++;
+                            var update = {
+                                campus: child.campus,
+                                lastSeen: Date.now(),
+                                timestamp: child.timestampPerimeterCandidate,
+                                state: "Exited",
+                                stateCandidate: "",
+                                timestampPerimeterCandidate: "",
+                                mac: doc.id,
+                                rssi: child.rssi,
+                            };
+                            console.log("EXITED : ", update, doc.id);
+
+                            admin
+                                .firestore()
+                                .collection("sais_edu_sg")
+                                .doc("beacon")
+                                .collection("beacons")
+                                .doc(doc.id)
+                                .update(update);
+                        }
+                    } //i
+                });
+            });
+
+        res.status(200).send(response);
     });
 
-    res.status(200).send(response);
-});
+    // firebase deploy --only functions:beaconPingHistory
+    exports.beaconPingHistory = functions.firestore
+        .document("sais_edu_sg/beacon/beacons/{beaconID}")
+        .onWrite(async (change, context) => {
+            const newValue = change.after.data();
+            const oldValue = change.before.data();
+            const beacon = context.params.beaconID;
+            var recordHistoryRecord = false;
+            var oldState = "";
+            var oldCampus = "";
+            var oldLocation = "";
+            var oldGateway = "";
+            var oldRSSI = "";
 
-// firebase deploy --only functions:beaconPingHistory
-exports.beaconPingHistory = functions.firestore
-    .document("sais_edu_sg/beacon/beacons/{beaconID}")
-    .onWrite(async (change, context) => {
-        const newValue = change.after.data();
-        const oldValue = change.before.data();
-        const beacon = context.params.beaconID;
-        var recordHistoryRecord = false;
-        var oldState = "";
-        var oldCampus = "";
-        var oldLocation = "";
-        var oldGateway = "";
-        var oldRSSI = "";
+            if (undefined !== oldValue) {
+                oldState = oldValue.state;
+                oldCampus = oldValue.campus;
+                oldLocation = oldValue.location;
+                oldGateway = oldValue.gatewayMostRecent;
+                oldRSSI = oldValue.rssi;
+            }
 
-        if (undefined !== oldValue) {
-            oldState = oldValue.state;
-            oldCampus = oldValue.campus;
-            oldLocation = oldValue.location;
-            oldGateway = oldValue.gatewayMostRecent;
-            oldRSSI = oldValue.rssi;
-        }
+            const newState = newValue.state;
+            const newCampus = newValue.campus;
+            const newLocation = newValue.location;
+            const newGateway = newValue.gatewayMostRecent;
+            const newRSSI = newValue.rssi;
+            const newTimestamp = newValue.timestamp;
 
-        const newState = newValue.state;
-        const newCampus = newValue.campus;
-        const newLocation = newValue.location;
-        const newGateway = newValue.gatewayMostRecent;
-        const newRSSI = newValue.rssi;
-        const newTimestamp = newValue.timestamp;
+            const xdate = moment()
+                .add(8, "hours")
+                .format("YYYYMMDD");
 
-        const xdate = moment()
-            .add(8, "hours")
-            .format("YYYYMMDD");
-
-        if (newState == "Exited" && oldState != "Exited") {
-            console.log("EXIT3BACKDATE=", oldValue.timestampPerimeterCandidate, oldValue, newValue);
-            var dataDict = {
-                oldState: oldState,
-                oldCampus: oldCampus,
-                oldLocation: oldLocation,
-                oldGateway: oldGateway,
-                state: newState,
-                campus: newCampus,
-                location: newLocation,
-                timestamp: oldValue.timestampPerimeterCandidate,
-                gateway: newGateway,
-                reason: "exited",
-                oldrssi: oldRSSI,
-                rssi: newRSSI,
-            };
-            recordHistoryRecord = true;
-        } else if (newState == "Not Present") {
-            recordHistoryRecord = false;
-        } else if (newState !== oldState) {
-            var dataDict = {
-                oldState: oldState,
-                oldCampus: oldCampus,
-                oldLocation: oldLocation,
-                oldGateway: oldGateway,
-                state: newState,
-                campus: newCampus,
-                location: newLocation,
-                timestamp: newTimestamp,
-                gateway: newGateway,
-                reason: "state",
-                oldrssi: oldRSSI,
-                rssi: newRSSI,
-            };
-            recordHistoryRecord = true;
-        } else if (newLocation !== oldLocation) {
-            console.log(oldValue["gateway-" + newGateway], newTimestamp - ONE_MINUTE * 3, beacon, oldLocation, newLocation);
-            if (
-                oldValue["gateway-" + newGateway] < newTimestamp - ONE_MINUTE * 3 ||
-                oldValue["gateway-" + newGateway] == undefined
-            ) {
+            if (newState == "Exited" && oldState != "Exited") {
+                console.log("EXIT3BACKDATE=", oldValue.timestampPerimeterCandidate, oldValue, newValue);
+                var dataDict = {
+                    oldState: oldState,
+                    oldCampus: oldCampus,
+                    oldLocation: oldLocation,
+                    oldGateway: oldGateway,
+                    state: newState,
+                    campus: newCampus,
+                    location: newLocation,
+                    timestamp: oldValue.timestampPerimeterCandidate,
+                    gateway: newGateway,
+                    reason: "exited",
+                    oldrssi: oldRSSI,
+                    rssi: newRSSI,
+                };
+                recordHistoryRecord = true;
+            } else if (newState == "Not Present") {
+                recordHistoryRecord = false;
+            } else if (newState !== oldState) {
                 var dataDict = {
                     oldState: oldState,
                     oldCampus: oldCampus,
@@ -434,365 +446,363 @@ exports.beaconPingHistory = functions.firestore
                     location: newLocation,
                     timestamp: newTimestamp,
                     gateway: newGateway,
-                    reason: "location",
+                    reason: "state",
                     oldrssi: oldRSSI,
                     rssi: newRSSI,
                 };
                 recordHistoryRecord = true;
-            } else {
-                console.log(
-                    "Skipped To SOON = ",
-                    beacon,
-                    oldValue["gateway-" + newGateway],
-                    newTimestamp,
-                    newTimestamp - ONE_MINUTE * 3,
-                );
-            }
-        }
-
-        if (recordHistoryRecord == true) {
-            admin
-                .firestore()
-                .collection("sais_edu_sg")
-                .doc("beacon")
-                .collection("beaconHistory")
-                .doc(xdate)
-                .collection(beacon)
-                .doc(newTimestamp.toString())
-                .set(dataDict);
-
-            console.log("RECORD HISTORY = ", beacon, dataDict);
-        } else {
-            //console.log("Skipped Record History Overall = ", beacon);
-        }
-    });
-
-// firebase deploy --only functions:computeCounts
-exports.computeCounts = functions.https.onRequest(async (req, res) => {
-    // This function is scheduled to run periodically
-    //https://console.cloud.google.com/cloudscheduler?project=calendar-app-57e88&folder&organizationId&jobs-tablesize=50
-
-    var countPerimeter = 0;
-    var countExited = 0;
-    var countEntered = 0;
-    var countNotPresent = 0;
-    var countOther = 0;
-
-    var countWoodleighPerimeter = 0;
-    var countWoodleighExited = 0;
-    var countWoodleighEntered = 0;
-    var countWoodleighNotPresent = 0;
-    var countWoodleighOther = 0;
-
-    var countELVPerimeter = 0;
-    var countELVExited = 0;
-    var countELVEntered = 0;
-    var countELVNotPresent = 0;
-    var countELVOther = 0;
-
-    const xdate = moment()
-        .add(8, "hours")
-        .format("YYYYMMDD");
-
-    let ref = await admin
-        .firestore()
-        .collection("sais_edu_sg")
-        .doc("beacon")
-        .collection("beacons")
-        .get()
-        .then(snapshot => {
-            if (snapshot.empty) {
-                console.log("No matching Perimeter beacons to expire.");
-                return;
-            } else {
-                snapshot.forEach(doc => {
-                    child = doc.data();
-                    switch (child.state) {
-                        case "Not Present":
-                            countNotPresent++;
-                            break;
-                        case "Arriving":
-                            countPerimeter++;
-                            break;
-                        case "Entered":
-                            countEntered++;
-                            break;
-                        case "Exited":
-                            countExited++;
-                            break;
-                        default:
-                            countOther++;
-                    }
-                    if (child.campus == "Woodleigh") {
-                        switch (child.state) {
-                            case "Not Present":
-                                countWoodleighNotPresent++;
-                                break;
-                            case "Arriving":
-                                countWoodleighPerimeter++;
-                                break;
-                            case "Entered":
-                                countWoodleighEntered++;
-                                break;
-                            case "Exited":
-                                countWoodleighExited++;
-                                break;
-                            default:
-                                countWoodleighOther++;
-                        }
-                    }
-                    if (child.campus == "ELV") {
-                        switch (child.state) {
-                            case "Not Present":
-                                countELVNotPresent++;
-                                break;
-                            case "Arriving":
-                                countELVPerimeter++;
-                                break;
-                            case "Entered":
-                                countELVEntered++;
-                                break;
-                            case "Exited":
-                                countELVExited++;
-                                break;
-                            default:
-                                countELVOther++;
-                        }
-                    }
-                });
+            } else if (newLocation !== oldLocation) {
+                console.log(oldValue["gateway-" + newGateway], newTimestamp - ONE_MINUTE * 3, beacon, oldLocation, newLocation);
+                if (
+                    oldValue["gateway-" + newGateway] < newTimestamp - ONE_MINUTE * 3 ||
+                    oldValue["gateway-" + newGateway] == undefined
+                ) {
+                    var dataDict = {
+                        oldState: oldState,
+                        oldCampus: oldCampus,
+                        oldLocation: oldLocation,
+                        oldGateway: oldGateway,
+                        state: newState,
+                        campus: newCampus,
+                        location: newLocation,
+                        timestamp: newTimestamp,
+                        gateway: newGateway,
+                        reason: "location",
+                        oldrssi: oldRSSI,
+                        rssi: newRSSI,
+                    };
+                    recordHistoryRecord = true;
+                } else {
+                    console.log(
+                        "Skipped To SOON = ",
+                        beacon,
+                        oldValue["gateway-" + newGateway],
+                        newTimestamp,
+                        newTimestamp - ONE_MINUTE * 3,
+                    );
+                }
             }
 
-            var dataDict = {
-                countNotPresent,
-                countPerimeter,
-                countEntered,
-                countExited,
-                countOther,
-
-                countWoodleighNotPresent,
-                countWoodleighPerimeter,
-                countWoodleighEntered,
-                countWoodleighExited,
-                countWoodleighOther,
-
-                countELVNotPresent,
-                countELVPerimeter,
-                countELVEntered,
-                countELVExited,
-                countELVOther,
-
-                timestamp: Date.now(),
-            };
-
-            admin
-                .firestore()
-                .collection("sais_edu_sg")
-                .doc("beacon")
-                .collection("beaconHistory")
-                .doc(xdate)
-                .set(dataDict);
-        });
-
-    res.status(200).send(req.body);
-});
-
-exports.writeReport = functions.https.onRequest((req, res) => {
-    var async = require("async");
-    var doc = new GoogleSpreadsheet("19_fEifKOk22uLx-v49CDcMxdGPFObYoC_z3yzmnOBpU");
-    var sheet;
-    var dataDictUpdate = [];
-
-    console.log("start buildDailyReport");
-
-    async.series(
-        [
-            function setAuth(step) {
-                // see notes below for authentication instructions!
-                var creds = require("./Calendar App-915d5dbe4185.json");
-                doc.useServiceAccountAuth(creds, step);
-                console.log(step);
-            },
-            function getInfoAndWorksheets(step) {
-                doc.getInfo(function (err, info) {
-                    console.log(err);
-
-                    console.log("Loaded doc: " + info.title + " by " + info.author.email);
-                    sheet = info.worksheets[0];
-                    console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
-                    step();
-                });
-            },
-
-            function loadData(step) {
+            if (recordHistoryRecord == true) {
                 admin
                     .firestore()
                     .collection("sais_edu_sg")
                     .doc("beacon")
-                    .collection("beacons")
-                    .orderBy("mac")
-                    .get()
-                    .then(async function (documentSnapshotArray) {
-                        documentSnapshotArray.forEach(doc => {
-                            item = doc.data();
-                            dataDictUpdate.push({
-                                item,
-                            });
-                        });
+                    .collection("beaconHistory")
+                    .doc(xdate)
+                    .collection(beacon)
+                    .doc(newTimestamp.toString())
+                    .set(dataDict);
+
+                console.log("RECORD HISTORY = ", beacon, dataDict);
+            } else {
+                //console.log("Skipped Record History Overall = ", beacon);
+            }
+        });
+
+    // firebase deploy --only functions:computeCounts
+    exports.computeCounts = functions.https.onRequest(async (req, res) => {
+        // This function is scheduled to run periodically
+        //https://console.cloud.google.com/cloudscheduler?project=calendar-app-57e88&folder&organizationId&jobs-tablesize=50
+
+        var countPerimeter = 0;
+        var countExited = 0;
+        var countEntered = 0;
+        var countNotPresent = 0;
+        var countOther = 0;
+
+        var countWoodleighPerimeter = 0;
+        var countWoodleighExited = 0;
+        var countWoodleighEntered = 0;
+        var countWoodleighNotPresent = 0;
+        var countWoodleighOther = 0;
+
+        var countELVPerimeter = 0;
+        var countELVExited = 0;
+        var countELVEntered = 0;
+        var countELVNotPresent = 0;
+        var countELVOther = 0;
+
+        const xdate = moment()
+            .add(8, "hours")
+            .format("YYYYMMDD");
+
+        let ref = await admin
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("beacon")
+            .collection("beacons")
+            .get()
+            .then(snapshot => {
+                if (snapshot.empty) {
+                    console.log("No matching Perimeter beacons to expire.");
+                    return;
+                } else {
+                    snapshot.forEach(doc => {
+                        child = doc.data();
+                        switch (child.state) {
+                            case "Not Present":
+                                countNotPresent++;
+                                break;
+                            case "Arriving":
+                                countPerimeter++;
+                                break;
+                            case "Entered":
+                                countEntered++;
+                                break;
+                            case "Exited":
+                                countExited++;
+                                break;
+                            default:
+                                countOther++;
+                        }
+                        if (child.campus == "Woodleigh") {
+                            switch (child.state) {
+                                case "Not Present":
+                                    countWoodleighNotPresent++;
+                                    break;
+                                case "Arriving":
+                                    countWoodleighPerimeter++;
+                                    break;
+                                case "Entered":
+                                    countWoodleighEntered++;
+                                    break;
+                                case "Exited":
+                                    countWoodleighExited++;
+                                    break;
+                                default:
+                                    countWoodleighOther++;
+                            }
+                        }
+                        if (child.campus == "ELV") {
+                            switch (child.state) {
+                                case "Not Present":
+                                    countELVNotPresent++;
+                                    break;
+                                case "Arriving":
+                                    countELVPerimeter++;
+                                    break;
+                                case "Entered":
+                                    countELVEntered++;
+                                    break;
+                                case "Exited":
+                                    countELVExited++;
+                                    break;
+                                default:
+                                    countELVOther++;
+                            }
+                        }
+                    });
+                }
+
+                var dataDict = {
+                    countNotPresent,
+                    countPerimeter,
+                    countEntered,
+                    countExited,
+                    countOther,
+
+                    countWoodleighNotPresent,
+                    countWoodleighPerimeter,
+                    countWoodleighEntered,
+                    countWoodleighExited,
+                    countWoodleighOther,
+
+                    countELVNotPresent,
+                    countELVPerimeter,
+                    countELVEntered,
+                    countELVExited,
+                    countELVOther,
+
+                    timestamp: Date.now(),
+                };
+
+                admin
+                    .firestore()
+                    .collection("sais_edu_sg")
+                    .doc("beacon")
+                    .collection("beaconHistory")
+                    .doc(xdate)
+                    .set(dataDict);
+            });
+
+        res.status(200).send(req.body);
+    });
+
+    exports.writeReport = functions.https.onRequest((req, res) => {
+        var async = require("async");
+        var doc = new GoogleSpreadsheet("19_fEifKOk22uLx-v49CDcMxdGPFObYoC_z3yzmnOBpU");
+        var sheet;
+        var dataDictUpdate = [];
+
+        console.log("start buildDailyReport");
+
+        async.series(
+            [
+                function setAuth(step) {
+                    // see notes below for authentication instructions!
+                    var creds = require("./Calendar App-915d5dbe4185.json");
+                    doc.useServiceAccountAuth(creds, step);
+                    console.log(step);
+                },
+                function getInfoAndWorksheets(step) {
+                    doc.getInfo(function (err, info) {
+                        console.log(err);
+
+                        console.log("Loaded doc: " + info.title + " by " + info.author.email);
+                        sheet = info.worksheets[0];
+                        console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
                         step();
                     });
-            },
+                },
 
-            function resizeSheetRigthSize(step) {
-                sheet.resize({ rowCount: dataDictUpdate.length + 1, colCount: 20 }, function (err) {
-                    step();
-                }); //async
-            },
+                function loadData(step) {
+                    admin
+                        .firestore()
+                        .collection("sais_edu_sg")
+                        .doc("beacon")
+                        .collection("beacons")
+                        .orderBy("mac")
+                        .get()
+                        .then(async function (documentSnapshotArray) {
+                            documentSnapshotArray.forEach(doc => {
+                                item = doc.data();
+                                dataDictUpdate.push({
+                                    item,
+                                });
+                            });
+                            step();
+                        });
+                },
 
-            async function workingWithCells(step) {
-                //dataDictUpdate = loadData(dataDictUpdate);
+                function resizeSheetRigthSize(step) {
+                    sheet.resize({ rowCount: dataDictUpdate.length + 1, colCount: 20 }, function (err) {
+                        step();
+                    }); //async
+                },
 
-                let rows = dataDictUpdate.length;
-                var cols = 12;
+                async function workingWithCells(step) {
+                    //dataDictUpdate = loadData(dataDictUpdate);
 
-                const batchSize = 500;
-                const iterations = Math.ceil(rows / batchSize);
-                console.log("rows", rows);
-                console.log("iterations =", iterations);
-                for (let i = 1; i <= iterations; i++) {
-                    let updateCells = new Promise(function (resolve, reject) {
-                        const maxrow = i == iterations ? rows : i * batchSize;
-                        const minrow = (i - 1) * batchSize;
-                        sheet.getCells({
-                            "min-row": 2 + minrow,
-                            "max-row": maxrow + 1,
-                            "min-col": 1,
-                            "max-col": cols,
-                            "return-empty": true,
-                        },
-                            function (err, cells) {
-                                console.log("cells length", cells.length);
+                    let rows = dataDictUpdate.length;
+                    var cols = 12;
 
-                                let s = 0;
-                                for (let j = minrow; j < maxrow; j++) {
-                                    let doc = dataDictUpdate[j];
-                                    for (let c = 0; c < cols; c++) {
-                                        let cell = cells[s];
-                                        s = s + 1;
-
-                                        if (!cell || !cell.col) break;
-
-                                        switch (cell.col) {
-                                            case 1:
-                                                cell.value = "" + doc.item.mac;
-                                                break;
-                                            case 2:
-                                                cell.value = "" + doc.item.studentNo;
-                                                break;
-                                            case 3:
-                                                cell.value = doc.item.firstName;
-                                                break;
-                                            case 4:
-                                                cell.value = doc.item.lastName;
-                                                break;
-                                            case 5:
-                                                cell.value = doc.item.email;
-                                                break;
-                                            case 6:
-                                                break;
-                                            case 7:
-                                                break;
-                                            case 8:
-                                                cell.value = doc.item.state;
-                                                break;
-                                            case 9:
-                                                cell.value = doc.item.grade;
-                                                break;
-                                            case 10:
-                                                cell.value = doc.item.gradeTitle;
-                                                break;
-                                            case 11:
-                                                cell.value = doc.item.class;
-                                                break;
-                                            case 12:
-                                                cell.value = doc.item.campus;
-                                                break;
-                                        } //end switch
-                                    } // end c loop
-                                } // end j loop
-
-                                console.log("updating cells");
-                                sheet.bulkUpdateCells(cells, () => resolve(1));
+                    const batchSize = 500;
+                    const iterations = Math.ceil(rows / batchSize);
+                    console.log("rows", rows);
+                    console.log("iterations =", iterations);
+                    for (let i = 1; i <= iterations; i++) {
+                        let updateCells = new Promise(function (resolve, reject) {
+                            const maxrow = i == iterations ? rows : i * batchSize;
+                            const minrow = (i - 1) * batchSize;
+                            sheet.getCells({
+                                "min-row": 2 + minrow,
+                                "max-row": maxrow + 1,
+                                "min-col": 1,
+                                "max-col": cols,
+                                "return-empty": true,
                             },
-                        ); // end getCells
-                    });
+                                function (err, cells) {
+                                    console.log("cells length", cells.length);
 
-                    let updatingCells = await updateCells;
-                    console.log("updatingCells", updatingCells, i);
+                                    let s = 0;
+                                    for (let j = minrow; j < maxrow; j++) {
+                                        let doc = dataDictUpdate[j];
+                                        for (let c = 0; c < cols; c++) {
+                                            let cell = cells[s];
+                                            s = s + 1;
+
+                                            if (!cell || !cell.col) break;
+
+                                            switch (cell.col) {
+                                                case 1:
+                                                    cell.value = "" + doc.item.mac;
+                                                    break;
+                                                case 2:
+                                                    cell.value = "" + doc.item.studentNo;
+                                                    break;
+                                                case 3:
+                                                    cell.value = doc.item.firstName;
+                                                    break;
+                                                case 4:
+                                                    cell.value = doc.item.lastName;
+                                                    break;
+                                                case 5:
+                                                    cell.value = doc.item.email;
+                                                    break;
+                                                case 6:
+                                                    break;
+                                                case 7:
+                                                    break;
+                                                case 8:
+                                                    cell.value = doc.item.state;
+                                                    break;
+                                                case 9:
+                                                    cell.value = doc.item.grade;
+                                                    break;
+                                                case 10:
+                                                    cell.value = doc.item.gradeTitle;
+                                                    break;
+                                                case 11:
+                                                    cell.value = doc.item.class;
+                                                    break;
+                                                case 12:
+                                                    cell.value = doc.item.campus;
+                                                    break;
+                                            } //end switch
+                                        } // end c loop
+                                    } // end j loop
+
+                                    console.log("updating cells");
+                                    sheet.bulkUpdateCells(cells, () => resolve(1));
+                                },
+                            ); // end getCells
+                        });
+
+                        let updatingCells = await updateCells;
+                        console.log("updatingCells", updatingCells, i);
+                    }
+                    res.send("done - buildDailyReport");
+                },
+            ],
+            function (err) {
+                if (err) {
+                    console.log("Error: " + err);
                 }
-                res.send("done - buildDailyReport");
             },
-        ],
-        function (err) {
-            if (err) {
-                console.log("Error: " + err);
-            }
-        },
-    );
+        );
 
-    console.log("done - buildDailyReport ");
+        console.log(Date.now(), "DATA:", req.body);
 
-    var dataDict = {
-        source: "node function",
-        method: "buildDailyReport",
-        parameters: "",
-        results: "Build statistical reports",
-        timestamp: Date.now(),
-    };
+        var dataDict = {
+            source: "node function",
+            method: "buildDailyReport",
+            parameters: "",
+            results: "Build statistical reports",
+            timestamp: Date.now(),
+        };
 
-    admin
-        .firestore()
-        .collection("sais_edu_sg")
-        .doc("log")
-        .collection("logs")
-        .add(dataDict);
-});
+        admin
+            .firestore()
+            .collection("sais_edu_sg")
+            .doc("log")
+            .collection("logs")
+            .add(dataDict);
+    });
 
-// firebase deploy --only functions:registerBeacon
-exports.registerBeacon = functions.https.onRequest(async (req, res) => {
-    // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
+    // firebase deploy --only functions:registerBeacon
+    exports.registerBeacon = functions.https.onRequest(async (req, res) => {
+        // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
 
-    console.log(Date.now(), "DATA START:", req.body);
+        console.log(Date.now(), "DATA START:", req.body);
 
-    if (JSON.stringify(req.body).includes("POSTMAN")) {
-        var beacons = req.body.POSTMAN;
-    } else {
-        if (req.method === "PUT" || undefined == req.body.length || req.body == "{}") {
-            return res.status(403).send("Forbidden!");
-        }
-        var beacons = req.body;
-    }
-
-    var beaconUpdates = [];
-    var count = 0;
-    var gatewayDict = "";
-    var proceed = true;
-
-    for (const snapshot of beacons) {
-        proceed = true;
-
-        if (snapshot.type == "Gateway") {
-            gatewayDict = setGateway(snapshot);
-            proceed = false;
-        }
-
-        if (beaconUpdates.indexOf(snapshot.mac) == -1) {
-            beaconUpdates.push(snapshot.mac);
+        if (JSON.stringify(req.body).includes("POSTMAN")) {
+            var beacons = req.body.POSTMAN;
         } else {
-            proceed = false;
-        }
-
-        if (!isSmartCookieBeacon(snapshot.mac)) {
-            proceed = false;
+            if (req.method === "PUT" || undefined == req.body.length || req.body == "{}") {
+                return res.status(403).send("Forbidden!");
+            }
+            var beacons = req.body;
         }
 
         if (proceed) {
@@ -804,7 +814,8 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
                 .doc(snapshot.mac)
                 .get()
                 .then(async function (doc) {
-                    if (!doc.exists) { } else {
+                    if (!doc.exists) {
+                    } else {
                         count++;
                         var objAllUpdates = {},
                             objLocation = {},
@@ -825,6 +836,25 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
                             pingCount: admin.firestore.FieldValue.increment(1),
                         };
 
+                        //find cards that are left at the security hub
+                        if (gatewayDict.location != beacon.location) {
+                            //card moved to a new location (used to find card sitting lost for a very long time one place)
+                            var objTransition = { transitionLatest: gatewayDict.timestamp };
+                        } else {
+                            var objTransition = "";
+                            // have they been sitting here a really long time?
+                            var ONE_MINUTE = 1000 * 60;
+                            const now = Date.now();
+                            const cutoff = now - ONE_MINUTE * 10;
+
+                            if (beacon.transitionLatest < cutoff) {
+                                console.log("LONG TIME SITTER @ SECURITY", snapshot.mac);
+                                if (gatewayDict.location == "Gate II Security Hub") {
+                                    var objTransition = { state: "Security" };
+                                }
+                            }
+                        }
+
                         if (beacon.state == "Not Present") {
                             if (gatewayDict.state == "Perimeter") {
                                 var objFirstSeen = {
@@ -838,59 +868,52 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
                                 };
                             }
 
-                            if (snapshot.mac == "AC233F29148A") {
-                                var dataDict = {
-                                    pushToken: "ExponentPushToken{vU0ZNfL6RQo5_JScermePb}",
-                                    text: "Kayla is arriving at " + gatewayDict.campus,
-                                    from: "Arrival",
-                                    timestamp: gatewayDict.timestamp,
-                                    sent: false,
-                                };
+                            for (const snapshot of beacons) {
+                                proceed = true;
 
-                                let queueItem = admin
-                                    .firestore()
-                                    .collection("sais_edu_sg")
-                                    .doc("push")
-                                    .collection("queue")
-                                    .add(dataDict);
-                            }
-                        }
+                                if (snapshot.type == "Gateway") {
+                                    gatewayDict = setGateway(snapshot);
+                                    proceed = false;
+                                }
 
-                        if (gatewayDict.state == "Perimeter") {
-                            objLocation = {
-                                stateCandidate: "Perimeter",
-                                timestampPerimeterCandidate: gatewayDict.timestamp,
-                            };
-                        } else {
-                            objLocation = {
-                                state: "Entered",
-                                timestampEntered: gatewayDict.timestamp,
-                                stateCandidate: "",
-                                timestampPerimeterCandidate: "",
-                            };
-                        }
+                                if (gatewayDict.state == "Perimeter") {
+                                    objLocation = {
+                                        stateCandidate: "Perimeter",
+                                        timestampPerimeterCandidate: gatewayDict.timestamp,
+                                    };
+                                } else if (gatewayDict.state == "FYI Only") {
+                                    objLocation = { state: "Entered", timestampEntered: gatewayDict.timestamp };
+                                } else {
+                                    objLocation = {
+                                        state: "Entered",
+                                        timestampEntered: gatewayDict.timestamp,
+                                        stateCandidate: "",
+                                        timestampPerimeterCandidate: "",
+                                    };
+                                }
 
-                        let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen };
+                                let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen, ...objTransition };
 
-                        await admin
-                            .firestore()
-                            .collection("sais_edu_sg")
-                            .doc("beacon")
-                            .collection("beacons")
-                            .doc(snapshot.mac)
-                            .update(dataDictUpdate);
+                                if (proceed) {
+                                    await admin
+                                        .firestore()
+                                        .collection("sais_edu_sg")
+                                        .doc("beacon")
+                                        .collection("beacons")
+                                        .doc(snapshot.mac)
+                                        .update(dataDictUpdate);
 
-                        console.log("UPDATING BEACON ", snapshot.mac, dataDictUpdate);
-                    }
-                })
+                                    console.log("UPDATING BEACON ", snapshot.mac, dataDictUpdate);
+                                }
+                            })
 
                 .catch(err => {
-                    console.log("Error getting document", err);
+                    console.error("Error:", err);
                 });
         }
     }
 
-    var hitCount = {
+  var hitCount = {
         //campus: personCampus,
         pingCount: count,
     };
@@ -907,45 +930,65 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
 
     console.log(Date.now(), "WRITING GATEWAY :", gatewayUpdate);
 
-    // var dataDictGatewayHistory = {
-    //   mac: gateway,
-    //   count: count,
-    //   timestamp: Date.now(),
-    //   location: location,
-    // };
-
-    // const xdate = moment()
-    //   .add(8, "hours")
-    //   .format("YYYYMMDD");
-
-    // admin
-    //   .firestore()
-    //   .collection("sais_edu_sg")
-    //   .doc("beacon")
-    //   .collection("gatewayHistory")
-    //   .doc(xdate)
-    //   .collection(gateway)
-    //   .doc(Date.now().toString())
-    //   .set(dataDictGatewayHistory);
-
-    // console.log("Mac: ", gateway, " Count: ", count, " -- Location: ", location);
-
-    // } catch (e) {
-    //   console.log("catch error body:", req.body);
-    //   console.error(e.message);
-    // }
-
-    console.log(Date.now(), "DATA END:", req.body);
-
     return res.end();
 });
+
+exports.gatewayStatistics = functions.firestore
+    .document("sais_edu_sg/beacon/gateways/{gatewayID}")
+    .onWrite(async (snap, context) => {
+        if (_.isNil(snap.after.data())) {
+            console.log("delete event, exiting");
+            return; ///Exit when the data is deleted.
+        }
+
+        const newValue = snap.after.data();
+        const oldValue = snap.before.data();
+
+        if (newValue.statistics != oldValue.statistics) {
+            //record some statistics
+
+            var objCPU = {
+                [newValue.statistics]: newValue.gatewayLoad,
+            };
+
+            var objMemory = {
+                [newValue.statistics]: 100 - newValue.gatewayFree,
+            };
+
+            // /sais_edu_sg/beacon/gatewayHistory/20190917/AC233FC03E85/cpu
+
+            const xdate = moment()
+                .add(8, "hours")
+                .format("YYYYMMDD");
+
+            admin
+                .firestore()
+                .collection("sais_edu_sg")
+                .doc("beacon")
+                .collection("gatewayHistory")
+                .doc(xdate)
+                .collection(newValue.mac)
+                .doc("memory")
+                .set(objMemory, { merge: true });
+
+            admin
+                .firestore()
+                .collection("sais_edu_sg")
+                .doc("beacon")
+                .collection("gatewayHistory")
+                .doc(xdate)
+                .collection(newValue.mac)
+                .doc("cpu")
+                .set(objCPU, { merge: true });
+        }
+    });
 
 exports.updateCalendar = functions.https.onRequest(async (req, res) => {
     // if (req.method === "PUT" || undefined == req.body.length || req.body == "{}") {
     //   return res.status(403).send("Forbidden!");
     // }
 
-    await fooFunction.importCalendarToFirestore(admin);
+    await importCalendar.importCalendarToFirestore(admin);
     console.log("Calendar Import Complete");
 
     return res.end();
@@ -973,21 +1016,6 @@ function setGateway(snapshot) {
             campus = "ELV";
             state = "Perimeter";
             break;
-        case "AC233FC031B8":
-            location = "Woodleigh - Gate 2";
-            state = "Perimeter";
-            campus = "Woodleigh";
-            break;
-        case "AC233FC039DB":
-            location = "Smartcookies Office HQ";
-            state = "Perimeter";
-            campus = "Smartcookies HQ";
-            break;
-        case "AC233FC039C9":
-            location = "Smartcookies Cove";
-            state = "Perimeter";
-            campus = "Smartcookies Cove";
-            break;
         case "AC233FC039B2":
             location = "Gate 4";
             state = "Perimeter";
@@ -1008,7 +1036,7 @@ function setGateway(snapshot) {
             ip = "172.16.92.27";
             break;
         case "AC233FC03A44":
-            location = "Franklin PickUp Dropoff";
+            location = "PickUp DropOff Franklin ";
             campus = "Woodleigh";
             state = "FYI Only";
             ip = "172.16.88.47";
@@ -1052,15 +1080,6 @@ function setGateway(snapshot) {
             campus = "Woodleigh";
             ip = "172.16.91.253";
             break;
-        case "AC233FC03E00":
-            location = "Gate 2";
-            campus = "Woodleigh";
-            state = "Perimeter";
-            break;
-        case "AC233FC03E46":
-            location = "Gate II Security Hub";
-            campus = "Woodleigh";
-            break;
         case "AC233FC03EAC":
             location = "Tower B, Level 1 lift lobby";
             campus = "ELV";
@@ -1070,7 +1089,7 @@ function setGateway(snapshot) {
             campus = "ELV";
             break;
         case "AC233FC03E74":
-            location = "Pick up/Drop off point";
+            location = "PickUp DropOff";
             campus = "ELV";
             break;
         case "AC233FC03E85":
@@ -1087,10 +1106,17 @@ function setGateway(snapshot) {
             state = "Perimeter";
             ip = "172.16.93.97";
             break;
-
-        default:
-            location = "Unknown - " + snapshot.mac;
+        case "AC233FC03E46":
+            location = "Gate 2";
+            campus = "Woodleigh";
+            state = "Perimeter";
+            break;
     }
+
+    const hour =
+        moment()
+            .add(8, "hours")
+            .format("HH") + "00";
 
     var dataDict = {
         timestamp: Date.parse(snapshot.timestamp),
@@ -1101,6 +1127,7 @@ function setGateway(snapshot) {
         ip: ip,
         gatewayFree: snapshot.gatewayFree,
         gatewayLoad: snapshot.gatewayLoad,
+        statistics: hour,
     };
 
     return dataDict;
