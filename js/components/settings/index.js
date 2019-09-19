@@ -114,21 +114,14 @@ class Settings extends Component {
   }
 
   _logout() {
-    AsyncStorage.setItem("authenticated", "false").then(() => {
-      AsyncStorage.setItem("adminPassword", "").then(() => {
-        AsyncStorage.setItem("name", "").then(() => {
-          AsyncStorage.setItem("email", "").then(() => {
-            global.adminPassword = "";
-            global.name = "";
-            global.email = "";
-            global.authenticated = false;
 
-            Alert.alert("Restarting");
-            Updates.reloadFromCache();
-          });
-        });
-      });
+    AsyncStorage.clear().then(() => {
+      global = {};
+
+      Alert.alert("Restarting");
+      Updates.reloadFromCache();
     });
+
   }
 
   render() {

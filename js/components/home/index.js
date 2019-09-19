@@ -31,21 +31,27 @@ class HomeNav extends Component {
     this.state = {
       loading: true,
       featureItems: [],
+      domain: {}
     };
 
     this.loadFromAsyncStorage();
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    title: "Stamford",
-    headerTitleStyle: {
-      fontWeight: "bold",
-      fontSize: 28,
-    },
-    tabBarColor: "#111B4E",
-    tabBarIcon: tabBarIcon("home"),
-    headerBackTitle: null,
-  });
+  static navigationOptions = ({ navigation }) => {
+    const { params = {} } = navigation.state;
+    let title = "";
+    if (params.domain) title = params.domain["name"];
+    return {
+      title: title,
+      headerTitleStyle: {
+        fontWeight: "bold",
+        adjustsFontSizeToFit: true
+      },
+      tabBarColor: "#111B4E",
+      tabBarIcon: tabBarIcon("home"),
+      headerBackTitle: null,
+    }
+  };
 
   componentWillMount() {
     this.ref = firebase
@@ -114,8 +120,14 @@ class HomeNav extends Component {
   keyExtractor = item => item._key;
 
   loadFromAsyncStorage() {
-    AsyncStorage.getItem("featureItems").then(fi => {
-      var featureItems = JSON.parse(fi);
+    AsyncStorage.multiGet(["featureItems", "domain"], (err, stores) => {
+      const featureItems = JSON.parse(stores[0][1]);
+      const domain = JSON.parse(stores[1][1]);
+      console.log("domain", domain);
+
+      this.props.navigation.setParams({
+        domain
+      });
       this.setState({
         featureItems,
         loading: false,
@@ -161,7 +173,7 @@ class HomeNav extends Component {
             />
           </View>
 
-          <Image source={require("../../../images/sais.edu.sg/10yearLogo.png")} style={styles.tenYearLogo} />
+          {/* <Image source={require("../../../images/sais.edu.sg/10yearLogo.png")} style={styles.tenYearLogo} /> */}
 
           <TouchableOpacity
             onPress={() => {

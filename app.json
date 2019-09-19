@@ -2,9 +2,9 @@
   "name": "genericApp",
   "displayName": "genericApp",
   "expo": {
-    "version": "1.0.0",
+    "version": "1.0.2",
     "sdkVersion": "33.0.0",
-    "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
+    "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",
     "slug": "myCommunity",
     "name": "myCommunity",
     "description": "For parents, Singapore",
@@ -28,7 +28,7 @@
       ]
     },
     "notification": {
-      "icon": "./resources/genericApp/icon.png",
+      "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",
       "color": "#000000"
     },
     "orientation": "portrait",
