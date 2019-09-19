@@ -14,7 +14,7 @@ export default class DomainSelection extends Component {
   render() {
     return (
       <SafeAreaView>
-        <Text style={{ ...iOSUIKit.largeTitleEmphasized, color: iOSColors.gray, marginTop: 78, marginLeft: 12, marginBottom: 12 }}>Select School: </Text>
+        <Text style={{ ...iOSUIKit.largeTitleEmphasized, color: iOSColors.gray, marginTop: 78, marginLeft: 12, marginBottom: 12 }}>Select Community: </Text>
 
         <Picker
           style={styles.picker}

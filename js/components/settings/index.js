@@ -7,6 +7,15 @@ import { MaterialIcons } from "@expo/vector-icons";
 import * as firebase from "firebase";
 import { Updates } from "expo";
 import Constants from "expo-constants";
+import _ from "lodash";
+
+const icons = {
+  wifi: require("./images/wifi.png"),
+  contact: require("./images/contact.png"),
+  library: require("./images/library.png"),
+  map: require("./images/map.png"),
+  shop: require("./images/shop.png")
+};
 
 class Settings extends Component {
   static navigationOptions = {
@@ -24,16 +33,46 @@ class Settings extends Component {
     this.state = {
       loggedIn: false,
       language: "",
+      features: []
     };
   }
 
   componentWillMount() {
     this._retrieveLanguage();
     this._retrieveGradeSelectors();
+    this._retrieveFeatures();
   }
 
   componentDidMount() {
     console.log(this.state);
+  }
+
+  _retrieveFeatures = async () => {
+    try {
+
+      let data = []
+      firebase
+        .firestore()
+        .collection(global.domain)
+        .doc("config")
+        .collection("features")
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log("No Features");
+            return;
+          }
+          snapshot.forEach(doc => {
+            item = doc.data();
+            data.push(item);
+          });
+
+          this.setState({ features: data });
+        });
+
+    } catch (error) {
+      // Error retrieving data
+    }
   }
 
   _retrieveLanguage = async () => {
@@ -136,19 +175,35 @@ class Settings extends Component {
           <SettingsList borderColor="#c8c7cc" defaultItemSize={50}>
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
 
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
-              title={I18n.t("athletics")}
-              titleInfo=""
-              titleInfoStyle={styles.titleInfoStyle}
-              onPress={() =>
-                this.props.navigation.navigate("webportalURL", {
-                  url: "https://www.stamfordlionsathletics.com/",
-                  title: I18n.t("athletics"),
-                })
-              }
-            />
+            {
 
+              _.sortBy(this.state.features.filter(item => item.visible !== false), ['order'])
+                .map(el => {
+
+                  const navTitle = el.navTitle || el.title;
+                  const navProps = el.navURL ? {
+                    url: el.navURL,
+                    title: I18n.t(navTitle, { defaultValue: navTitle }),
+                  } : {};
+
+                  const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
+                  return (
+                    <SettingsList.Item
+                      icon={<Image style={styles.imageStyle} source={imgSource} />}
+                      title={I18n.t(el.title || "", { defaultValue: el.title || "" })}
+                      titleInfo={el.titleInfo || ""}
+                      titleInfoStyle={styles.titleInfoStyle}
+                      onPress={() =>
+                        this.props.navigation.navigate(el.navigate || "webportalURL", navProps)
+                      }
+                    />
+                  );
+                }
+
+                )
+            }
+
+            {/* 
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
               title="CCAs"
@@ -227,7 +282,7 @@ class Settings extends Component {
               onPress={() => {
                 this.props.navigation.navigate("library");
               }}
-            />
+            /> */}
 
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
             <SettingsList.Item
