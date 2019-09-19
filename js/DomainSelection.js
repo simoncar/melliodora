@@ -11,7 +11,6 @@ export default class DomainSelection extends Component {
 
   }
 
-
   render() {
     return (
       <SafeAreaView>
@@ -34,7 +33,7 @@ export default class DomainSelection extends Component {
         <Button
           title="Select"
           style={{ marginTop: 26 }}
-          onPress={() => this.props.setSelectedDomain(this.state.selectedDomain)}
+          onPress={() => this.props.setSelectedDomain(this.state.selectedDomain || this.props.domains[0].node)}
         />
       </SafeAreaView>
     );

@@ -43,9 +43,9 @@ export default class Setup extends Component {
       });
   });
 
-  validateSelectedDomain = (selectedDomain, domains) => {
-    domainValues = domains.map(item => item.node);
-    return domainValues.indexOf(selectedDomain) > -1 ? true : false;
+  getSelectedDomainData = (selectedDomain, domains) => {
+    const domainData = domains.filter(item => item.node == selectedDomain);
+    return domainData;
   }
   async componentWillMount() {
     try {
@@ -63,15 +63,17 @@ export default class Setup extends Component {
     this.domains = await this.getDomains();
 
     AsyncStorage.getItem("domain").then(d => {
-      this.setSelectedDomain(d);
+      const domain = JSON.parse(d);
+      this.setSelectedDomain(domain.node);
     });
     this.setState({ isReady: true });
   }
 
   setSelectedDomain = (d) => {
     const domain = d || "";
-    if (!this.validateSelectedDomain(domain, this.domains)) return;
-    AsyncStorage.setItem("domain", domain);
+    const domainDataArr = this.getSelectedDomainData(domain, this.domains)
+    if (domainDataArr.length < 1) return;
+    AsyncStorage.setItem("domain", JSON.stringify(domainDataArr[0]));
     global.domain = domain;
     this.setState({ selectedDomain: domain, isReady: true });
   }
