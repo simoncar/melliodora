@@ -10,8 +10,8 @@ const cors = require("cors")({
   origin: true,
 });
 const { populateUserClaimMgmt, writeUserClaims } = require("./UserClaimsMgmt");
+
 const importCalendar = require("./calendarImport.js");
-const gatewayStats = require("./gatewayStats.js");
 
 admin.initializeApp();
 
@@ -29,9 +29,7 @@ const ONE_MINUTE = 60000;
 //  firebase deploy --only functions:translate
 // send the push notification
 
-//running locally
-//https://firebase.google.com/docs/functions/local-emulator
-//firebase serve
+// Translate an incoming message.
 
 //   firebase deploy --only functions:translateFirestoreChat
 exports.translateFirestoreChat = functions.firestore
@@ -299,7 +297,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   const now = Date.now();
 
   var ONE_MINUTE = 1000 * 60;
-  const cutoff = now - ONE_MINUTE * 10;
+  const cutoff = now - ONE_MINUTE * 2;
 
   const updates = [];
   var update = [];
@@ -844,7 +842,7 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
 
               if (beacon.transitionLatest < cutoff) {
                 console.log("LONG TIME SITTER @ SECURITY", snapshot.mac);
-                if (gatewayDict.location == "Gate II Security Hub") {
+                if (gatewayDict.location == "Gate 2") {
                   var objTransition = { state: "Security" };
                 }
               }
@@ -1013,15 +1011,14 @@ function setGateway(snapshot) {
   var location = "";
   var campus = "";
   var ip = "";
-
   //  ** DO NOT PUT A / IN THE LOCATION NAME **
-
   switch (snapshot.mac) {
     case "AC233FC03164":
       location = "Gate 5";
       campus = "ELV";
       state = "Perimeter";
       break;
+
     case "AC233FC039B2":
       location = "Gate 4";
       state = "Perimeter";
@@ -1042,7 +1039,7 @@ function setGateway(snapshot) {
       ip = "172.16.92.27";
       break;
     case "AC233FC03A44":
-      location = "PickUp DropOff Franklin ";
+      location = "Franklin PickUp Dropoff";
       campus = "Woodleigh";
       state = "FYI Only";
       ip = "172.16.88.47";
@@ -1068,12 +1065,12 @@ function setGateway(snapshot) {
       ip = "172.16.91.130";
       break;
     case "AC233FC03E96":
-      location = "Washington Bus Bay Walkway near Transport Office";
+      location = "Washington Bus Bay Walkway";
       campus = "Woodleigh";
       ip = "172.16.91.128";
       break;
     case "AC233FC03E9E":
-      location = "TBA 3";
+      location = "Car Park Franklin Walkway";
       campus = "Woodleigh";
       break;
     case "AC233FC039B8":
@@ -1086,6 +1083,7 @@ function setGateway(snapshot) {
       campus = "Woodleigh";
       ip = "172.16.91.253";
       break;
+
     case "AC233FC03EAC":
       location = "Tower B, Level 1 lift lobby";
       campus = "ELV";
@@ -1117,6 +1115,8 @@ function setGateway(snapshot) {
       campus = "Woodleigh";
       state = "Perimeter";
       break;
+    default:
+      location = "Unknown - " + snapshot.mac;
   }
 
   const hour =
