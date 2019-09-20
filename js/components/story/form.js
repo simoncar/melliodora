@@ -12,6 +12,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import uuid from "uuid";
 import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
 
 @withMappedNavigationParams()
 class newStory extends Component {
@@ -39,6 +40,8 @@ class newStory extends Component {
     };
 
     this.addStory = this.addStory.bind(this);
+
+    this.getPermissionAsync();
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -69,6 +72,15 @@ class newStory extends Component {
       addStory: this.addStory,
     });
   }
+
+  getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  };
 
   setUid(value) {
     this.uid = value;

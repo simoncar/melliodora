@@ -26,7 +26,7 @@ class authPortal extends Component {
     if (_.isString(this.props.url)) {
       var url = this.props.url;
     } else {
-      var url = "https://mystamford.edu.sg/parent-dashboard";
+      var url = global.switch_portalURL;
     }
 
     this.state = {
@@ -243,7 +243,7 @@ export default class AppContainer extends React.Component {
           navigation.state.params._onOpenActionSheet();
         }}
       >
-        <Text style={{ fontSize: 28, fontWeight: "bold" }}>myStamford</Text>
+        <Text style={{ fontSize: 28, fontWeight: "bold" }}>{global.switch_portalName}</Text>
       </TouchableOpacity>
     ),
     headerRight: (
