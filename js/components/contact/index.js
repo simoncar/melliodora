@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import { View, Linking } from "react-native";
+import * as firebase from "firebase";
 import { Content, Text, Button } from "native-base";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Communications from "react-native-communications";
 import updateFirebase from "./../../lib/updateFirebase";
 import styles from "./styles";
+
+const contactIconType = {
+  call: "ios-call",
+  mail: "ios-mail",
+  location: "ios-pin"
+}
 
 class Anchor extends React.Component {
   _handlePress = () => {
@@ -36,7 +43,12 @@ export default class Contact extends Component {
         y: 0,
       },
       updateFirebaseText: "",
+      contactInfo: []
     };
+  }
+
+  componentWillMount() {
+    this._retrieveContactInfo();
   }
 
   _call() {
@@ -54,17 +66,81 @@ export default class Contact extends Component {
     Communications.email(global.switch_helpEmail, null, null, null, null);
   }
 
+  _retrieveContactInfo = () => {
+    try {
+      console.log("stated _retrieveContactInfo");
+      let data = []
+      firebase
+        .firestore()
+        .collection(global.domain)
+        .doc("config")
+        .collection("contactInfo")
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log("No Contact Info");
+            return;
+          }
+          snapshot.forEach(doc => {
+            item = doc.data();
+            data.push(item);
+          });
+          console.log("_retrieveContactInfo data", data);
+          this.setState({ contactInfo: data });
+        });
+
+    } catch (error) {
+      // Error retrieving data
+    }
+  }
+
   _updateFirebase() {
     updateFirebase();
     this.setState({ updateFirebaseText: "Another golf day booked!" });
   }
 
+
+  _renderSubTexts = (subTexts) => {
+    if (!subTexts) return;
+    return (subTexts.map(subitem =>
+      <Text style={styles.feedbackHead}>{subitem}</Text>
+    ));
+
+  }
   render() {
     return (
       <View style={styles.container}>
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.contentIconsContainer}>
             <Grid>
+
+              {
+                this.state.contactInfo.map(item => {
+
+                  return (
+                    <Row style={{ paddingTop: 20 }}>
+                      <Col style={{ width: 80 }}>
+                        <Button transparent style={styles.roundedButton} onPress={() => this._call()}>
+                          <Ionicons name={contactIconType[item.type]} style={{ fontSize: 30, width: 30, color: "#FFF" }} />
+                        </Button>
+                      </Col>
+                      <Col>
+                        <Text style={styles.feedbackHeader}>{item.headerText}</Text>
+                        {
+                          this._renderSubTexts(item.headerSubTexts)
+                        }
+                        {
+                          item.email &&
+                          <Anchor href={"mailto:" + item.email} title={item.email} />
+                        }
+                      </Col>
+                    </Row>
+
+                  )
+                })
+              }
+
+              {/*               
               <Row style={{ paddingTop: 20 }}>
                 <Col style={{ width: 80 }}>
                   <Button transparent style={styles.roundedButton} onPress={() => this._call()}>
@@ -155,8 +231,6 @@ export default class Contact extends Component {
                 </Col>
                 <Col>
                   <Text style={styles.feedbackHeader}>Middle School Office</Text>
-                  <Text style={styles.feedbackHead}>(Grade 6 - Grade 8)</Text>
-                  <Text style={styles.feedbackHead}>+65 6602 7181</Text>
                   <Anchor href="mailto:middleschool@sais.edu.sg" title="middleschool@sais.edu.sg" />
                 </Col>
               </Row>
@@ -173,7 +247,7 @@ export default class Contact extends Component {
                   <Text style={styles.feedbackHead}>+65 6602 7262</Text>
                   <Anchor href="mailto:highschool@sais.edu.sg" title="highschool@sais.edu.sg" />
                 </Col>
-              </Row>
+              </Row> */}
             </Grid>
           </View>
         </Content>
