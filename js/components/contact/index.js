@@ -107,6 +107,18 @@ export default class Contact extends Component {
     ));
 
   }
+
+  _contactBtnAction = (item) => {
+
+    if (item.type == "call" && item.phoneNumber) {
+      return () => Communications.phonecall(item.phoneNumber, true)
+    }
+
+    if (item.type == "mail" && item.email) {
+      return () => Communications.email([item.email], null, null, null, null)
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -120,7 +132,7 @@ export default class Contact extends Component {
                   return (
                     <Row style={{ paddingTop: 20 }}>
                       <Col style={{ width: 80 }}>
-                        <Button transparent style={styles.roundedButton} onPress={() => this._call()}>
+                        <Button transparent style={styles.roundedButton} onPress={this._contactBtnAction(item)}>
                           <Ionicons name={contactIconType[item.type]} style={{ fontSize: 30, width: 30, color: "#FFF" }} />
                         </Button>
                       </Col>
