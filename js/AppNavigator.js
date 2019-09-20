@@ -83,7 +83,7 @@ let StackWeb = createStackNavigator(
   },
   {
     navigationOptions: {
-      title: "myS",
+      title: "Connect",
       headerBackTitle: null,
       tabBarIcon: ({ focused, tintColor, horizontal }) => (
         <MaterialIcons name="web" size={horizontal ? 20 : 25} color={tintColor} />
