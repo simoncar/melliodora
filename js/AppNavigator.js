@@ -80,17 +80,19 @@ let StackChat = createStackNavigator(
 let StackWeb = createStackNavigator(
   {
     authPortal: { screen: authPortal },
-  },
-  {
-    navigationOptions: {
-      title: "Connect",
-      headerBackTitle: null,
-      tabBarIcon: ({ focused, tintColor, horizontal }) => (
-        <MaterialIcons name="web" size={horizontal ? 20 : 25} color={tintColor} />
-      ),
-    },
-  },
+  }
 );
+
+StackWeb.navigationOptions = ({ navigation }) => {
+  const title = global.switch_tab_portalName;
+  return {
+    title,
+    headerBackTitle: null,
+    tabBarIcon: ({ focused, tintColor, horizontal }) => (
+      <MaterialIcons name="web" size={horizontal ? 20 : 25} color={tintColor} />
+    )
+  };
+}
 
 let StackOther = createStackNavigator(
   {

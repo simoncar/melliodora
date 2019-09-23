@@ -85,6 +85,7 @@ export default class Setup extends Component {
         global.switch_helpEmail = "pta.comms@sais.edu.sg";
         global.switch_contactEmail = "help@sais.edu.sg";
         global.switch_portalName = "myStamford";
+        global.switch_tab_portalName = "myS";
         global.switch_portalURL =
           "https://mystamford.edu.sg/parent-dashboard";
         global.switch_call = "+65 6709 4800";
@@ -93,6 +94,7 @@ export default class Setup extends Component {
         global.switch_portalURL =
           "https://connect.ais.com.sg/login/login.aspx?prelogin=https%3a%2f%2fconnect.ais.com.sg%2f&kr=iSAMS:ParentPP";
         global.switch_portalName = "AIS Connect";
+        global.switch_tab_portalName = "Connect";
         break;
       case "0002-singaporepoloclub":
         global.switch_address = "Polo Club \nSingapore  00000";
@@ -158,6 +160,7 @@ class SetupEnv extends Component {
         }
       }
       I18n.locale = language;
+      I18n.fish = language;
       global.language = language;
     });
 
