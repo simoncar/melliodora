@@ -22,8 +22,8 @@ class campusMap extends Component {
             <Text style={styles.heading}>Woodleigh Campus</Text>
             <Text style={styles.text}>1 Woodleigh Lane, 357684</Text>
 
-            <Image source={require("../../../images/sais.edu.sg/map1.png")} style={styles.mapImage} />
-            <Image source={require("../../../images/sais.edu.sg/map2.png")} style={styles.mapImageLegend} />
+            <Image source={require("../../../images/sais_edu_sg/map1.png")} style={styles.mapImage} />
+            <Image source={require("../../../images/sais_edu_sg/map2.png")} style={styles.mapImageLegend} />
           </View>
 
           <View
@@ -37,8 +37,8 @@ class campusMap extends Component {
             <Text style={styles.text}>3 Chuan Lane (off Lorong Chuan)</Text>
             <Text style={styles.text2}>Singapore 554350</Text>
 
-            <Image source={require("../../../images/sais.edu.sg/map3.png")} style={styles.mapImageELV} />
-            <Image source={require("../../../images/sais.edu.sg/map4.png")} style={styles.mapImageLegendELV} />
+            <Image source={require("../../../images/sais_edu_sg/map3.png")} style={styles.mapImageELV} />
+            <Image source={require("../../../images/sais_edu_sg/map4.png")} style={styles.mapImageLegendELV} />
           </View>
         </Content>
       </Container>

@@ -24,6 +24,11 @@ const tabBarIcon = name => ({ tintColor }) => (
   <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
+const bottomLogo = {
+  sais_edu_sg: require("../../../images/sais_edu_sg/10yearLogo.png"),
+  ais_edu_sg: require("../../../images/ais_edu_sg/10yearLogo.png")
+}
+
 class HomeNav extends Component {
   constructor(props) {
     super(props);
@@ -152,7 +157,7 @@ class HomeNav extends Component {
     if (this.state.loading) {
       return null; // or render a loading icon
     }
-
+    console.log("global.domain", global.domain);
     return (
       <Container style={styles.container}>
         {global.administrator && (
@@ -173,15 +178,27 @@ class HomeNav extends Component {
             />
           </View>
 
-          {/* <Image source={require("../../../images/sais.edu.sg/10yearLogo.png")} style={styles.tenYearLogo} /> */}
+          <Image source={bottomLogo[global.domain]} style={styles.tenYearLogo} />
+          <View
 
-          <TouchableOpacity
-            onPress={() => {
-              this._handleOpenWithLinking("https://www.smartcookies.io/stamford-app-faqs");
-            }}
-          >
-            <Image source={require("../../../images/sais.edu.sg/SCLogo.png")} style={styles.sclogo} />
-          </TouchableOpacity>
+            style={{
+              marginTop: 100,
+              alignItems: "center"
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+                this._handleOpenWithLinking("https://www.smartcookies.io/stamford-app-faqs");
+              }}
+              style={{
+                width: 40,
+                height: 40,
+              }}
+            >
+              <Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
+            </TouchableOpacity>
+
+          </View>
+
 
           <View>
             <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
