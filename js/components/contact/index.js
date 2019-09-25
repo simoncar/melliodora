@@ -156,9 +156,7 @@ export default class Contact extends Component {
                       </Col>
                       <Col>
                         <Text style={styles.feedbackHeader}>{item.headerText}</Text>
-                        {
-                          this._renderSubTexts(item.headerSubTexts)
-                        }
+                        <Text style={styles.feedbackHead}>{typeof item.headerSubTexts == "object" ? item.headerSubTexts.join("\n") : item.headerSubTexts}</Text>
                         {
                           item.email &&
                           <Anchor href={"mailto:" + item.email} title={item.email} />

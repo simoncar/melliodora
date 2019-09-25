@@ -8,12 +8,17 @@ import {
   Animated,
   SafeAreaView,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableHighlight,
+  Modal,
+  Picker,
+  TextInput
 } from "react-native";
 import * as firebase from "firebase";
 import { Header } from 'react-navigation';
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "./styles";
+import RadioButton from './RadioButton';
 
 const contactIconType = {
   call: "ios-call",
@@ -21,16 +26,9 @@ const contactIconType = {
   location: "ios-pin"
 }
 
+const options = Object.keys(contactIconType)
+
 const navHeight = Header.HEIGHT;
-console.log("navHeight", navHeight);
-function getRandomColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
 
 function immutableMove(arr, from, to) {
   return arr.reduce((prev, current, idx, self) => {
@@ -51,6 +49,21 @@ function immutableMove(arr, from, to) {
     }
     return prev;
   }, []);
+}
+
+class Anchor extends React.Component {
+  _handlePress = () => {
+    Linking.openURL(this.props.href);
+    this.props.onPress && this.props.onPress();
+  };
+
+  render() {
+    return (
+      <Text style={styles.feedbackHead} onPress={this._handlePress}>
+        {this.props.title}
+      </Text>
+    );
+  }
 }
 
 export default class Admin extends React.Component {
@@ -78,7 +91,16 @@ export default class Admin extends React.Component {
   state = {
     dragging: false,
     draggingIdx: -1,
-    data: []
+    data: [],
+
+    modalVisible: false,
+    editIdx: -1,
+    editType: "",
+    editTypeAction: "",
+    editTitle: "",
+    editSubHeader: ""
+
+
   };
 
   point = new Animated.ValueXY();
@@ -229,7 +251,6 @@ export default class Admin extends React.Component {
           } else {
             console.log("No such contacts config");
           }
-
         });
 
     } catch (error) {
@@ -280,13 +301,27 @@ export default class Admin extends React.Component {
         </View>
         <View style={{ flex: 1, paddingLeft: 10 }}>
           <Text style={styles.feedbackHeader}>{item.headerText}</Text>
-          {
-            this._renderSubTexts(item.headerSubTexts)
-          }
+          <Text style={styles.feedbackHead}>{typeof item.headerSubTexts == "object" ? item.headerSubTexts.join("\n") : item.headerSubTexts}</Text>
           {
             item.email &&
             <Anchor href={"mailto:" + item.email} title={item.email} />
           }
+        </View>
+        <View style={{ alignItems: "center", justifyContent: "center", paddingHorizontal: 10 }}>
+          <TouchableHighlight
+            onPress={() => {
+              const subhead = typeof item.headerSubTexts == "object" ? item.headerSubTexts.join("\n") : item.headerSubTexts;
+              this.setState({
+                modalVisible: true,
+                editIdx: index,
+                editType: item.type,
+                editTypeAction: item.phoneNumber || item.email,
+                editTitle: item.headerText,
+                editSubHeader: subhead
+              });
+            }}>
+            <Text>Edit</Text>
+          </TouchableHighlight>
         </View>
         <View style={{ alignItems: "center", justifyContent: "center" }}>
           <View {...(noPanResponder ? {} : this._panResponder.panHandlers)}>
@@ -301,6 +336,63 @@ export default class Admin extends React.Component {
 
     return (
       <SafeAreaView style={styles.adminContainer}>
+
+        <Modal transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={this.closeModal}>
+          <View style={{
+            flex: 1,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <View
+              style={{
+                width: 300,
+                height: "70%",
+                backgroundColor: "white",
+                padding: 12
+              }}
+            >
+
+              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Select Type: </Text>
+              <View
+                style={{
+                  width: 90
+                }}
+              >
+                <RadioButton options={options} />
+              </View>
+
+              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Phone Number/Email: </Text>
+              <TextInput
+                onChangeText={text => this.setState({ editTypeAction: text })}
+                placeholder={"Phone Number/Email"}
+                value={this.state.editTypeAction}
+              />
+
+              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Title: </Text>
+              <TextInput
+                onChangeText={text => this.setState({ editTitle: text })}
+                placeholder={"Title"}
+                autoFocus
+                value={this.state.editTitle}
+              />
+
+              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>SubHeader Texts: </Text>
+              <TextInput
+                onChangeText={text => this.setState({ editSubHeader: text })}
+                placeholder={"Sub Texts"}
+                multiline
+                value={this.state.editSubHeader}
+              />
+
+              <Button title="Close" onPress={() => this.setState({ modalVisible: false })} />
+            </View>
+          </View>
+        </Modal>
+
+
         {dragging && (
           <Animated.View
             style={{
