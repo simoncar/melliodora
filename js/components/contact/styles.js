@@ -39,8 +39,8 @@ export default {
     paddingRight: 10
   },
   roundedButton: {
-    alignSelf: "center",
     alignItems: "center",
+    justifyContent: "center",
     borderRadius: 30,
     width: 60,
     height: 60,
@@ -137,5 +137,10 @@ export default {
       width: 0,
     },
     zIndex: 1,
+  },
+  adminContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
   }
 };
