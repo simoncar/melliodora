@@ -41,6 +41,10 @@ class authPortal extends Component {
       myText: "My Original Text",
       showMsg: false,
     };
+
+
+    this.actionOptions = global.switch_webportalActions ? global.switch_webportalActions.map(item => Object.keys(item)[0]) : [];
+    this.actionOptions.push("Cancel")
   }
   //this.props.chatroom
 
@@ -56,7 +60,7 @@ class authPortal extends Component {
   }
 
   _onOpenActionSheet = () => {
-    const options = ["Home", "Cafe Top-Up", "Events", "Forms", "PTA", "Logout", "Cancel"];
+    const options = this.actionOptions;
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 6;
 
@@ -67,26 +71,11 @@ class authPortal extends Component {
         destructiveButtonIndex,
       },
       buttonIndex => {
-        switch (buttonIndex) {
-          case 0:
-            this.setState({ url: "https://mystamford.edu.sg/parent-dashboard" });
-            break;
-          case 1:
-            this.setState({ url: "https://mystamford.edu.sg/cafe/cafe-online-ordering" });
-            break;
-          case 2:
-            this.setState({ url: "https://mystamford.edu.sg/events-1" });
-            break;
-          case 3:
-            this.setState({ url: "https://mystamford.edu.sg/forms-1" });
-            break;
-          case 4:
-            this.setState({ url: "https://mystamford.edu.sg/pta" });
-            break;
-          case 5:
-            this.setState({ url: "https://mystamford.edu.sg/logout" });
-            break;
-        }
+
+        const key = this.actionOptions[buttonIndex];
+        if (key == "Cancel") return;
+        const url = global.switch_webportalActions[buttonIndex][key]
+        this.setState({ url: url });
       },
     );
   };
