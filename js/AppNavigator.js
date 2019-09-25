@@ -7,6 +7,7 @@ import Calendar from "./components/calendar";
 import phoneCalendar from "./components/calendar/calendars";
 import Home from "./components/home";
 import Contact from "./components/contact";
+import ContactAdmin from "./components/contact/admin";
 import Settings from "./components/settings";
 import Library from "./components/settings/library";
 import Logs from "./components/settings/logs";
@@ -26,6 +27,7 @@ let StackHome = createStackNavigator(
   {
     homeNav: { screen: Home },
     contact: { screen: Contact },
+    contactAdmin: { screen: ContactAdmin },
     story: { screen: Story },
     push: { screen: push },
     campusMap: { screen: campusMap },

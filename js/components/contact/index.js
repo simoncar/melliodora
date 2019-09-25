@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Linking } from "react-native";
+import { View, Linking, TouchableHighlight } from "react-native";
 import * as firebase from "firebase";
 import { Content, Text, Button } from "native-base";
 import { Grid, Col, Row } from "react-native-easy-grid";
@@ -122,6 +122,17 @@ export default class Contact extends Component {
   render() {
     return (
       <View style={styles.container}>
+
+        {global.administrator && (
+          <TouchableHighlight
+            style={styles.adminButton}
+            underlayColor="#ff7043"
+            onPress={() => this.props.navigation.navigate("contactAdmin")}
+          >
+            <Text style={{ fontSize: 25, color: "white" }}>+</Text>
+          </TouchableHighlight>
+        )}
+
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.contentIconsContainer}>
             <Grid>
