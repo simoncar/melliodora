@@ -7,7 +7,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import * as firebase from "firebase";
 import { Updates } from "expo";
 import Constants from "expo-constants";
-import _ from "lodash";
 
 const icons = {
   wifi: require("./images/wifi.png"),
@@ -32,47 +31,19 @@ class Settings extends Component {
 
     this.state = {
       loggedIn: false,
-      language: "",
-      features: []
+      language: ""
     };
+
+    this.features = global.moreFeatures || [];
   }
 
   componentWillMount() {
     this._retrieveLanguage();
     this._retrieveGradeSelectors();
-    this._retrieveFeatures();
   }
 
   componentDidMount() {
     console.log(this.state);
-  }
-
-  _retrieveFeatures = async () => {
-    try {
-
-      let data = []
-      firebase
-        .firestore()
-        .collection(global.domain)
-        .doc("config")
-        .collection("features")
-        .get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log("No Features");
-            return;
-          }
-          snapshot.forEach(doc => {
-            item = doc.data();
-            data.push(item);
-          });
-
-          this.setState({ features: data });
-        });
-
-    } catch (error) {
-      // Error retrieving data
-    }
   }
 
   _retrieveLanguage = async () => {
@@ -177,7 +148,7 @@ class Settings extends Component {
 
             {
 
-              _.sortBy(this.state.features.filter(item => item.visible !== false), ['order'])
+              this.features.filter(item => item.visible !== false)
                 .map(el => {
 
                   const navTitle = el.navTitle || el.title;

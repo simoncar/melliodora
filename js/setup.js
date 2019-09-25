@@ -202,6 +202,36 @@ class SetupEnv extends Component {
     });
 
     this.setState({ isReady: true });
+    this._retrieveFeatures();
+  }
+
+  _retrieveFeatures = async () => {
+    try {
+
+      let data = []
+      firebase
+        .firestore()
+        .collection(global.domain)
+        .doc("config")
+        .collection("features")
+        .orderBy("order")
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log("No Features");
+            return;
+          }
+          snapshot.forEach(doc => {
+            item = doc.data();
+            data.push(item);
+          });
+
+          global.moreFeatures = data;
+        });
+
+    } catch (error) {
+      // Error retrieving data
+    }
   }
 
   render() {
