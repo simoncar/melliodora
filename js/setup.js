@@ -88,6 +88,15 @@ export default class Setup extends Component {
         global.switch_tab_portalName = "myS";
         global.switch_portalURL =
           "https://mystamford.edu.sg/parent-dashboard";
+        global.switch_webportalActions =
+          [
+            { "Home": "https://mystamford.edu.sg/parent-dashboard" },
+            { "Cafe Top-Up": "https://mystamford.edu.sg/cafe/cafe-online-ordering" },
+            { "Events": "https://mystamford.edu.sg/events-1" },
+            { "Forms": "https://mystamford.edu.sg/forms-1" },
+            { "PTA": "https://mystamford.edu.sg/pta" },
+            { "Logout": "https://mystamford.edu.sg/logout" }
+          ];
         global.switch_call = "+65 6709 4800";
         break;
       case "ais_edu_sg":
@@ -95,6 +104,15 @@ export default class Setup extends Component {
           "https://connect.ais.com.sg/login/login.aspx?prelogin=https%3a%2f%2fconnect.ais.com.sg%2f&kr=iSAMS:ParentPP";
         global.switch_portalName = "AIS Connect";
         global.switch_tab_portalName = "Connect";
+        global.switch_webportalActions =
+          [
+            { "Home": "" },
+            { "Cafe Top-Up": "" },
+            { "Events": "" },
+            { "Forms": "" },
+            { "PTA": "" },
+            { "Logout": "" }
+          ];
         break;
       case "0002-singaporepoloclub":
         global.switch_address = "Polo Club \nSingapore  00000";
