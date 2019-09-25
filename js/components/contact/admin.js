@@ -5,12 +5,21 @@ import {
   View,
   FlatList,
   PanResponder,
-  PanResponderInstance,
   Animated,
   SafeAreaView,
-  Button
+  Button,
+  TouchableOpacity
 } from "react-native";
+import * as firebase from "firebase";
 import { Header } from 'react-navigation';
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import styles from "./styles";
+
+const contactIconType = {
+  call: "ios-call",
+  mail: "ios-mail",
+  location: "ios-pin"
+}
 
 const navHeight = Header.HEIGHT;
 console.log("navHeight", navHeight);
@@ -44,16 +53,32 @@ function immutableMove(arr, from, to) {
   }, []);
 }
 
-const colorMap = {};
+export default class Admin extends React.Component {
 
-export default class App extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: "Edit Contacts",
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params.saveEditContacts();
+        }}
+      >
+        <Text style={{
+          color: "#037AFF",
+          alignSelf: "center",
+          fontSize: 17,
+          paddingBottom: 5,
+          paddingRight: 20,
+          fontWeight: "600",
+        }}>Save</Text>
+      </TouchableOpacity>
+    ),
+  });
+
   state = {
     dragging: false,
     draggingIdx: -1,
-    data: Array.from(Array(200), (_, i) => {
-      colorMap[i] = getRandomColor();
-      return i;
-    })
+    data: []
   };
 
   point = new Animated.ValueXY();
@@ -118,6 +143,22 @@ export default class App extends React.Component {
     });
   }
 
+  componentWillMount() {
+    this._retrieveContactInfo();
+    this.props.navigation.setParams({
+      saveEditContacts: this.saveEditContacts,
+    });
+  }
+
+  saveEditContacts = () => {
+    const docData = { contacts: this.state.data };
+    firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("config")
+      .set(docData)
+  }
+
   animateList = () => {
     if (!this.active) {
       return;
@@ -172,37 +213,101 @@ export default class App extends React.Component {
     this.setState({ dragging: false, draggingIdx: -1 });
   };
 
+
+  _retrieveContactInfo = () => {
+    try {
+      console.log("stated _retrieveContactInfo");
+      firebase
+        .firestore()
+        .collection(global.domain)
+        .doc("config")
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            const docData = doc.data();
+            this.setState({ data: docData.contacts });
+          } else {
+            console.log("No such contacts config");
+          }
+
+        });
+
+    } catch (error) {
+      // Error retrieving data
+    }
+  }
+
+  _flatListItemSeparator = () => {
+    return (
+      <View
+        style={{
+          alignSelf: "center",
+          height: 0.6,
+          width: "80%",
+          backgroundColor: "#000",
+        }}
+      />
+    );
+  }
+
+  _renderSubTexts = (subTexts) => {
+    if (!subTexts) return;
+    return (subTexts.map(subitem =>
+      <Text style={styles.feedbackHead}>{subitem}</Text>
+    ));
+
+  }
+
   render() {
     const { data, dragging, draggingIdx } = this.state;
 
     const renderItem = ({ item, index }, noPanResponder = false) => (
       <View
+
         onLayout={e => {
           this.rowHeight = e.nativeEvent.layout.height;
         }}
         style={{
-          padding: 16,
-          backgroundColor: colorMap[item],
+          padding: 20,
           flexDirection: "row",
           opacity: draggingIdx === index ? 0 : 1
         }}
       >
-        <View {...(noPanResponder ? {} : this._panResponder.panHandlers)}>
-          <Text style={{ fontSize: 28 }}>@</Text>
+        <View>
+          <View style={styles.roundedButton}>
+            <Ionicons name={contactIconType[item.type]} size={30} color="#FFF" />
+          </View>
         </View>
-        <Text style={{ fontSize: 22, textAlign: "center", flex: 1 }}>
-          {item}
-        </Text>
+        <View style={{ flex: 1, paddingLeft: 10 }}>
+          <Text style={styles.feedbackHeader}>{item.headerText}</Text>
+          {
+            this._renderSubTexts(item.headerSubTexts)
+          }
+          {
+            item.email &&
+            <Anchor href={"mailto:" + item.email} title={item.email} />
+          }
+        </View>
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <View {...(noPanResponder ? {} : this._panResponder.panHandlers)}>
+            {/* <Text style={{ fontSize: 28 }}>@</Text> */}
+            <Ionicons name="ios-move" size={28} />
+          </View>
+        </View>
+
+
       </View>
     );
 
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.adminContainer}>
         {dragging && (
           <Animated.View
             style={{
               position: "absolute",
-              backgroundColor: "black",
+              backgroundColor: "white",
+              borderWidth: 1,
+              borderColor: "grey",
               zIndex: 2,
               width: "100%",
               top: this.point.getLayout().top
@@ -211,32 +316,28 @@ export default class App extends React.Component {
             {renderItem({ item: data[draggingIdx], index: -1 }, true)}
           </Animated.View>
         )}
-        <FlatList
-          ref={this.flatList}
-          scrollEnabled={!dragging}
-          style={{ width: "100%" }}
-          data={data}
-          renderItem={renderItem}
-          onScroll={e => {
-            this.scrollOffset = e.nativeEvent.contentOffset.y;
-          }}
-          onLayout={e => {
-            this.flatlistTopOffset = e.nativeEvent.layout.y;
-            this.flatListHeight = e.nativeEvent.layout.height;
-          }}
-          scrollEventThrottle={16}
-          keyExtractor={item => "" + item}
-        />
+
+        <View style={{ height: "80%", width: "100%", borderColor: "black" }}>
+          <FlatList
+            ref={this.flatList}
+            ItemSeparatorComponent={this._flatListItemSeparator}
+            scrollEnabled={!dragging}
+            style={{ width: "100%" }}
+            data={data}
+            renderItem={renderItem}
+            onScroll={e => {
+              this.scrollOffset = e.nativeEvent.contentOffset.y;
+            }}
+            onLayout={e => {
+              this.flatlistTopOffset = e.nativeEvent.layout.y;
+              this.flatListHeight = e.nativeEvent.layout.height;
+            }}
+            scrollEventThrottle={16}
+            keyExtractor={item => "" + item}
+          />
+        </View>
+
       </SafeAreaView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
