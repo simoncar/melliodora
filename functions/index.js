@@ -9,7 +9,9 @@ const moment = require("moment");
 const cors = require("cors")({
   origin: true,
 });
+
 const { populateUserClaimMgmt, writeUserClaims } = require("./UserClaimsMgmt");
+const { populateDomainMgmt, createDomain, onCreateDomain, deleteDomain } = require("./DomainMgmt");
 
 const importCalendar = require("./calendarImport.js");
 
@@ -29,7 +31,8 @@ const ONE_MINUTE = 60000;
 //  firebase deploy --only functions:translate
 // send the push notification
 
-// Translate an incoming message.
+// Run locally:
+// firebase serve
 
 //   firebase deploy --only functions:translateFirestoreChat
 exports.translateFirestoreChat = functions.firestore
@@ -297,7 +300,7 @@ exports.deleteOldItems = functions.https.onRequest(async (req, res) => {
   const now = Date.now();
 
   var ONE_MINUTE = 1000 * 60;
-  const cutoff = now - ONE_MINUTE * 2;
+  const cutoff = now - ONE_MINUTE * 7;
 
   const updates = [];
   var update = [];
@@ -598,172 +601,10 @@ exports.computeCounts = functions.https.onRequest(async (req, res) => {
   res.status(200).send(req.body);
 });
 
-exports.writeReport = functions.https.onRequest((req, res) => {
-  var async = require("async");
-  var doc = new GoogleSpreadsheet("19_fEifKOk22uLx-v49CDcMxdGPFObYoC_z3yzmnOBpU");
-  var sheet;
-  var dataDictUpdate = [];
-
-  console.log("start buildDailyReport");
-
-  async.series(
-    [
-      function setAuth(step) {
-        // see notes below for authentication instructions!
-        var creds = require("./Calendar App-915d5dbe4185.json");
-        doc.useServiceAccountAuth(creds, step);
-        console.log(step);
-      },
-      function getInfoAndWorksheets(step) {
-        doc.getInfo(function(err, info) {
-          console.log(err);
-
-          console.log("Loaded doc: " + info.title + " by " + info.author.email);
-          sheet = info.worksheets[0];
-          console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
-          step();
-        });
-      },
-
-      function loadData(step) {
-        admin
-          .firestore()
-          .collection("sais_edu_sg")
-          .doc("beacon")
-          .collection("beacons")
-          .orderBy("mac")
-          .get()
-          .then(async function(documentSnapshotArray) {
-            documentSnapshotArray.forEach(doc => {
-              item = doc.data();
-              dataDictUpdate.push({
-                item,
-              });
-            });
-            step();
-          });
-      },
-
-      function resizeSheetRigthSize(step) {
-        sheet.resize({ rowCount: dataDictUpdate.length + 1, colCount: 20 }, function(err) {
-          step();
-        }); //async
-      },
-
-      async function workingWithCells(step) {
-        //dataDictUpdate = loadData(dataDictUpdate);
-
-        let rows = dataDictUpdate.length;
-        var cols = 12;
-
-        const batchSize = 500;
-        const iterations = Math.ceil(rows / batchSize);
-        console.log("rows", rows);
-        console.log("iterations =", iterations);
-        for (let i = 1; i <= iterations; i++) {
-          let updateCells = new Promise(function(resolve, reject) {
-            const maxrow = i == iterations ? rows : i * batchSize;
-            const minrow = (i - 1) * batchSize;
-            sheet.getCells(
-              {
-                "min-row": 2 + minrow,
-                "max-row": maxrow + 1,
-                "min-col": 1,
-                "max-col": cols,
-                "return-empty": true,
-              },
-              function(err, cells) {
-                console.log("cells length", cells.length);
-
-                let s = 0;
-                for (let j = minrow; j < maxrow; j++) {
-                  let doc = dataDictUpdate[j];
-                  for (let c = 0; c < cols; c++) {
-                    let cell = cells[s];
-                    s = s + 1;
-
-                    if (!cell || !cell.col) break;
-
-                    switch (cell.col) {
-                      case 1:
-                        cell.value = "" + doc.item.mac;
-                        break;
-                      case 2:
-                        cell.value = "" + doc.item.studentNo;
-                        break;
-                      case 3:
-                        cell.value = doc.item.firstName;
-                        break;
-                      case 4:
-                        cell.value = doc.item.lastName;
-                        break;
-                      case 5:
-                        cell.value = doc.item.email;
-                        break;
-                      case 6:
-                        break;
-                      case 7:
-                        break;
-                      case 8:
-                        cell.value = doc.item.state;
-                        break;
-                      case 9:
-                        cell.value = doc.item.grade;
-                        break;
-                      case 10:
-                        cell.value = doc.item.gradeTitle;
-                        break;
-                      case 11:
-                        cell.value = doc.item.class;
-                        break;
-                      case 12:
-                        cell.value = doc.item.campus;
-                        break;
-                    } //end switch
-                  } // end c loop
-                } // end j loop
-
-                console.log("updating cells");
-                sheet.bulkUpdateCells(cells, () => resolve(1));
-              },
-            ); // end getCells
-          });
-
-          let updatingCells = await updateCells;
-          console.log("updatingCells", updatingCells, i);
-        }
-        res.send("done - buildDailyReport");
-      },
-    ],
-    function(err) {
-      if (err) {
-        console.log("Error: " + err);
-      }
-    },
-  );
-
-  console.log("done - buildDailyReport ");
-
-  var dataDict = {
-    source: "node function",
-    method: "buildDailyReport",
-    parameters: "",
-    results: "Build statistical reports",
-    timestamp: Date.now(),
-  };
-
-  admin
-    .firestore()
-    .collection("sais_edu_sg")
-    .doc("log")
-    .collection("logs")
-    .add(dataDict);
-});
-
 // firebase deploy --only functions:registerBeacon
 exports.registerBeacon = functions.https.onRequest(async (req, res) => {
   // https://us-central1-calendar-app-57e88.cloudfunctions.net/registerBeacon
-
+  const now = Date.now();
   console.log(Date.now(), "DATA:", req.body);
 
   if (JSON.stringify(req.body).includes("POSTMAN")) {
@@ -837,9 +678,14 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
               var objTransition = "";
               // have they been sitting here a really long time?
               var ONE_MINUTE = 1000 * 60;
-              const now = Date.now();
-              const cutoff = now - ONE_MINUTE * 10;
 
+              const cutoff = now - ONE_MINUTE * 10;
+              if (beacon.state == "Security") {
+                //ignore Level 1 lift lobby (false alarms from here)
+                if (gatewayDict.location == "Washington Level 1 - Lift Lobby") {
+                  var objTransition = { state: "Security" };
+                }
+              }
               if (beacon.transitionLatest < cutoff) {
                 console.log("LONG TIME SITTER @ SECURITY", snapshot.mac);
                 if (gatewayDict.location == "Gate 2") {
@@ -887,12 +733,29 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
             } else if (gatewayDict.state == "FYI Only") {
               objLocation = { state: "Entered", timestampEntered: gatewayDict.timestamp };
             } else {
-              objLocation = {
-                state: "Entered",
-                timestampEntered: gatewayDict.timestamp,
-                stateCandidate: "",
-                timestampPerimeterCandidate: "",
-              };
+              if (beacon.stateCandidate == "Perimeter") {
+                //we are likely leaving
+                // ignore pings from other gateways that happen in the next few seconds
+                if (beacon.timestampPerimeterCandidate < now - ONE_MINUTE * 2) {
+                  objLocation = {
+                    state: "Entered",
+                    timestampEntered: gatewayDict.timestamp,
+                    stateCandidate: "",
+                    timestampPerimeterCandidate: "",
+                  };
+                } else {
+                  objLocation = {
+                    stateCandidate: "Perimeter",
+                  };
+                }
+              } else {
+                objLocation = {
+                  state: "Entered",
+                  timestampEntered: gatewayDict.timestamp,
+                  stateCandidate: "",
+                  timestampPerimeterCandidate: "",
+                };
+              }
             }
 
             let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen, ...objTransition };
@@ -1428,3 +1291,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
 
 exports.populateUserClaimMgmt = populateUserClaimMgmt;
 exports.writeUserClaims = writeUserClaims;
+exports.populateDomainMgmt = populateDomainMgmt;
+exports.createDomain = createDomain;
+exports.onCreateDomain = onCreateDomain;
+exports.deleteDomain = deleteDomain;
