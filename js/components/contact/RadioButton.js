@@ -3,13 +3,13 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default class RadioButtons extends Component {
     state = {
-        value: null,
+        value: this.props.selected,
     };
 
     render() {
         const { options } = this.props;
         const { value } = this.state;
-
+        const { selectFunc } = this.props;
         return (
             <View>
                 {options.map(item => {
@@ -21,7 +21,7 @@ export default class RadioButtons extends Component {
                                 onPress={() => {
                                     this.setState({
                                         value: item,
-                                    });
+                                    }, () => selectFunc(item));
                                 }}
                             >
                                 {value === item && <View style={styles.checkedCircle} />}

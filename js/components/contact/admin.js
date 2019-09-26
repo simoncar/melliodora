@@ -19,6 +19,7 @@ import { Header } from 'react-navigation';
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "./styles";
 import RadioButton from './RadioButton';
+import { Overlay } from 'react-native-elements';
 
 const contactIconType = {
   call: "ios-call",
@@ -73,7 +74,7 @@ export default class Admin extends React.Component {
     headerRight: (
       <TouchableOpacity
         onPress={() => {
-          navigation.state.params.saveEditContacts();
+          navigation.state.params.saveEditContacts(navigation.goBack);
         }}
       >
         <Text style={{
@@ -96,12 +97,54 @@ export default class Admin extends React.Component {
     modalVisible: false,
     editIdx: -1,
     editType: "",
-    editTypeAction: "",
+    editPhoneNumber: "",
+    editEmail: "",
     editTitle: "",
     editSubHeader: ""
-
-
   };
+
+  setEditType = t => this.setState({ editType: t });
+  resetEditFields = (callback) => this.setState({
+    editIdx: -1,
+    editType: "",
+    editPhoneNumber: "",
+    editEmail: "",
+    editTitle: "",
+    editSubHeader: ""
+  }, () => typeof callback === 'function' && callback());
+
+  updateData = (callback) => {
+    const { data, editIdx = -1, editType = "", editPhoneNumber = "", editEmail = "", editTitle = "", editSubHeader = "" } = this.state;
+
+    const updatedData = {
+      type: editType,
+      phoneNumber: editPhoneNumber,
+      email: editEmail,
+      headerText: editTitle,
+      headerSubTexts: editSubHeader
+    }
+
+    if (editIdx > -1) {
+      // update current contact info
+      data[editIdx] = updatedData
+      this.setState({ data }, () => typeof callback === 'function' && callback());
+    } else {
+      //add new contact info
+      data.push(updatedData);
+      this.setState({ data }, () => typeof callback === 'function' && callback());
+    }
+
+  }
+
+  deleteData = (callback) => {
+    const { data, editIdx } = this.state;
+
+    if (editIdx > -1) {
+      data.splice(editIdx, 1);
+      this.setState({ data: data }, () => typeof callback === 'function' && callback());
+    }
+
+  }
 
   point = new Animated.ValueXY();
   currentY = 0;
@@ -172,13 +215,16 @@ export default class Admin extends React.Component {
     });
   }
 
-  saveEditContacts = () => {
+  saveEditContacts = (callback) => {
     const docData = { contacts: this.state.data };
     firebase
       .firestore()
       .collection(global.domain)
       .doc("config")
       .set(docData)
+      .then(() => {
+        typeof callback === 'function' && callback();
+      });
   }
 
   animateList = () => {
@@ -315,7 +361,8 @@ export default class Admin extends React.Component {
                 modalVisible: true,
                 editIdx: index,
                 editType: item.type,
-                editTypeAction: item.phoneNumber || item.email,
+                editPhoneNumber: item.phoneNumber,
+                editEmail: item.email,
                 editTitle: item.headerText,
                 editSubHeader: subhead
               });
@@ -337,60 +384,78 @@ export default class Admin extends React.Component {
     return (
       <SafeAreaView style={styles.adminContainer}>
 
-        <Modal transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={this.closeModal}>
-          <View style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
+
+        <Overlay
+          isVisible={this.state.modalVisible}
+          windowBackgroundColor="rgba(0, 0, 0, .85)"
+          height="auto"
+        >
+          <View>
+            <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Order: {this.state.editIdx > -1 ? this.state.editIdx + 1 : this.state.data.length + 1} </Text>
+            <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Select Type: {this.state.editType}</Text>
             <View
               style={{
-                width: 300,
-                height: "70%",
-                backgroundColor: "white",
-                padding: 12
+                width: 90,
+                marginTop: 8,
               }}
             >
+              <RadioButton options={options} selected={this.state.editType} selectFunc={this.setEditType} />
+            </View>
 
-              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Select Type: </Text>
-              <View
-                style={{
-                  width: 90
-                }}
-              >
-                <RadioButton options={options} />
-              </View>
+            <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Phone Number (if type is call)</Text>
+            <TextInput
+              onChangeText={text => this.setState({ editPhoneNumber: text })}
+              placeholder={"Phone Number"}
+              value={this.state.editPhoneNumber}
+            />
 
-              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Phone Number/Email: </Text>
-              <TextInput
-                onChangeText={text => this.setState({ editTypeAction: text })}
-                placeholder={"Phone Number/Email"}
-                value={this.state.editTypeAction}
-              />
+            <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Email (if type is mail)</Text>
+            <TextInput
+              onChangeText={text => this.setState({ editEmail: text })}
+              placeholder={"Email"}
+              value={this.state.editEmail}
+            />
 
-              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Title: </Text>
-              <TextInput
-                onChangeText={text => this.setState({ editTitle: text })}
-                placeholder={"Title"}
-                autoFocus
-                value={this.state.editTitle}
-              />
+            <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Title: </Text>
+            <TextInput
+              onChangeText={text => this.setState({ editTitle: text })}
+              placeholder={"Title"}
+              autoFocus
+              value={this.state.editTitle}
+            />
 
-              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>SubHeader Texts: </Text>
-              <TextInput
-                onChangeText={text => this.setState({ editSubHeader: text })}
-                placeholder={"Sub Texts"}
-                multiline
-                value={this.state.editSubHeader}
-              />
+            <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>SubHeader Texts: </Text>
+            <TextInput
+              onChangeText={text => this.setState({ editSubHeader: text })}
+              placeholder={"Sub Texts"}
+              multiline
+              value={this.state.editSubHeader}
+            />
 
+
+            <View style={{ marginTop: 15 }}>
+              <Button title={this.state.editIdx > -1 ? "Update" : "Add"} onPress={() => this.updateData(() => this.setState({ modalVisible: false }))} />
+            </View>
+            <View style={{ marginTop: 20 }}>
+              <Button title="Delete" onPress={() => this.deleteData(() => this.setState({ modalVisible: false }))} />
+            </View>
+            <View style={{ marginTop: 20 }}>
               <Button title="Close" onPress={() => this.setState({ modalVisible: false })} />
             </View>
+
           </View>
-        </Modal>
+        </Overlay>
+
+        <TouchableHighlight
+          style={styles.adminButton}
+          underlayColor="#ff7043"
+          onPress={() => {
+            this.resetEditFields(() => this.setState({ modalVisible: true }));
+          }}
+        >
+          <Text style={{ fontSize: 25, color: "white" }}>+</Text>
+        </TouchableHighlight>
+
 
 
         {dragging && (
@@ -409,7 +474,7 @@ export default class Admin extends React.Component {
           </Animated.View>
         )}
 
-        <View style={{ height: "80%", width: "100%", borderColor: "black" }}>
+        <View style={{ height: "98%", width: "100%", borderColor: "black" }}>
           <FlatList
             ref={this.flatList}
             ItemSeparatorComponent={this._flatListItemSeparator}
