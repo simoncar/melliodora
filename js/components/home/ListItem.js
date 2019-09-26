@@ -17,8 +17,11 @@ class ListItem extends Component {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
+    console.log("summ:", this.props.item.item.summary);
+    const summary = getLanguageString(global.language, this.props.item.item, "summary");
+    console.log("summ2:", summary);
+    console.log("summ2:", global.language);
 
-    var summary = getLanguageString(global.language, this.props.item.item, "summary");
     const uri = this.props.item.item.photo1;
     return (
       <View style={styles.newsContentLine}>
@@ -48,8 +51,8 @@ class ListItem extends Component {
                 {...{ preview, uri }}
               />
 
-              {this.props.item.item.visible != true && <Text style={styles.itemTitle}>HIDDEN {summary}</Text>}
-              {this.props.item.item.visible == true && <Text style={styles.itemTitle}>{summary}</Text>}
+              {this.props.item.item.visible != true && <Text style={styles.itemTitle}>HIDDEN {summary || this.props.item.item.summary}</Text>}
+              {this.props.item.item.visible == true && <Text style={styles.itemTitle}>{summary || this.props.item.item.summary}</Text>}
 
               <TouchableOpacity
                 style={{ flexDirection: "row" }}
