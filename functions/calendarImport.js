@@ -6,38 +6,50 @@ const fetch = require("node-fetch");
 var i = 0;
 
 exports.importCalendarToFirestore = async function(admin) {
+  //mystamford.edu.sg/parent-dashboard/cal/688/1.ics?secret=5f3746529c14ec40b265e4143278e83c
 
-
-// https://mystamford.edu.sg/parent-dashboard/cal/688/1.ics?secret=5f3746529c14ec40b265e4143278e83c
-
-  await clearCalendar(admin);
+  https: await clearCalendar(admin, "sais_edu_sg");
 
   //a-day, b-day
   var myCalendarString = await fetch(
     "https://calendar.google.com/calendar/ical/saisstudent.sg_s67q8ba2vds7omhs96jef3kjhg%40group.calendar.google.com/public/basic.ics",
   ).then(res => res.text());
 
-  await processCalendar(admin, myCalendarString, "red");
+  await processCalendar(admin, myCalendarString, "red", "sais_edu_sg");
 
-//events
+  //events
   var myCalendarString = await fetch(
     "https://calendar.google.com/calendar/ical/saisstudent.sg_ffuma3kaadsjk7p9hvbdd49j50%40group.calendar.google.com/public/basic.ics",
   ).then(res => res.text());
 
-  await processCalendar(admin, myCalendarString, "blue");
-
+  await processCalendar(admin, myCalendarString, "blue", "sais_edu_sg");
 
   myCalendarString = await fetch(
     "https://calendar.google.com/calendar/ical/smartcookies.io_eav9rqklnch2nkn2c8c54o57s8%40group.calendar.google.com/private-f39395a3ff51af2a4ea43b4278b30f8d/basic.ics",
   ).then(res => res.text());
 
-  await processCalendar(admin, myCalendarString, "purple");
+  await processCalendar(admin, myCalendarString, "purple", "sais_edu_sg");
+
+  console.log("Clear calendar");
+  await clearCalendar(admin, "ais_edu_sg");
+
+  myCalendarString = await fetch(
+    "https://calendar.google.com/calendar/ical/smartcookies.io_g2fai3cplgqia62uvia4lhqtug%40group.calendar.google.com/public/basic.ics",
+  ).then(res => res.text());
+
+  await processCalendar(admin, myCalendarString, "purple", "ais_edu_sg");
+
+  myCalendarString = await fetch(
+    "https://connect.ais.com.sg/parent-dashboard/cal/175/1.ics?secret=48e52b0d3f7b3b4ca76cd496d6577bbf",
+  ).then(res => res.text());
+
+  await processCalendar(admin, myCalendarString, "blue", "ais_edu_sg");
 };
 
-async function clearCalendar(admin) {
+async function clearCalendar(admin, domain) {
   await admin
     .firestore()
-    .collection("sais_edu_sg")
+    .collection(domain)
     .doc("calendar")
     .collection("calendarItems")
     .get()
@@ -46,7 +58,7 @@ async function clearCalendar(admin) {
         userItem = doc.data();
         await admin
           .firestore()
-          .collection("sais_edu_sg")
+          .collection(domain)
           .doc("calendar")
           .collection("calendarItems")
           .doc(doc.id)
@@ -54,7 +66,7 @@ async function clearCalendar(admin) {
       }
     });
 }
-async function processCalendar(admin, myCalendarString, color) {
+async function processCalendar(admin, myCalendarString, color, domain) {
   //console.log(myCalendarString);
 
   const parsed = ical.parseString(myCalendarString);
@@ -129,7 +141,7 @@ async function processCalendar(admin, myCalendarString, color) {
 
       await admin
         .firestore()
-        .collection("sais_edu_sg")
+        .collection(domain)
         .doc("calendar")
         .collection("calendarItems")
         .add(fullEvent);
