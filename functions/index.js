@@ -14,6 +14,7 @@ const { populateUserClaimMgmt, writeUserClaims } = require("./UserClaimsMgmt");
 const { populateDomainMgmt, createDomain, onCreateDomain, deleteDomain } = require("./DomainMgmt");
 
 const importCalendar = require("./calendarImport.js");
+const importBeacon = require("./beaconDataProcessor.js");
 
 admin.initializeApp();
 
@@ -618,14 +619,14 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
 
   var beaconUpdates = [];
   var count = 0;
-  var gatewayDict = "";
+  var gateway = "";
   var proceed = true;
 
   for (const snapshot of beacons) {
     proceed = true;
 
     if (snapshot.type == "Gateway") {
-      gatewayDict = setGateway(snapshot);
+      gateway = setGateway(snapshot);
       proceed = false;
     }
 
@@ -651,114 +652,30 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
           if (!doc.exists) {
           } else {
             count++;
-            var objAllUpdates = {},
+            var objBeacon = {},
               objLocation = {},
               objFirstSeen = {};
 
             beacon = doc.data();
 
-            var objAllUpdates = {
-              location: gatewayDict.location,
-              campus: gatewayDict.campus,
-              timestamp: gatewayDict.timestamp,
+            var objBeacon = {
+              location: gateway.location,
+              campus: gateway.campus,
+              timestamp: gateway.timestamp,
               rssi: snapshot.rssi === undefined ? 0 : snapshot.rssi,
               raw: pickLatest(beacon.raw, snapshot.rawData, ""),
               mac: snapshot.mac,
-              gatewayMostRecent: gatewayDict.mac,
-              ["gateway-" + gatewayDict.mac]: gatewayDict.timestamp,
-              ["gatewayDESC-" + gatewayDict.location]: gatewayDict.timestamp,
+              gatewayMostRecent: gateway.mac,
+              ["gateway-" + gateway.mac]: gateway.timestamp,
+              ["gatewayDESC-" + gateway.location]: gateway.timestamp,
               pingCount: admin.firestore.FieldValue.increment(1),
             };
 
-            //find cards that are left at the security hub
-            if (gatewayDict.location != beacon.location) {
-              //card moved to a new location (used to find card sitting lost for a very long time one place)
-              var objTransition = { transitionLatest: gatewayDict.timestamp };
-            } else {
-              var objTransition = "";
-              // have they been sitting here a really long time?
-              var ONE_MINUTE = 1000 * 60;
+            var objTransition = importBeacon.cardsAtSecurity(beacon, gateway);
+            var objFirstSeen = importBeacon.firstSeen(beacon, gateway, admin);
+            var objLocation = importBeacon.location(beacon, gateway);
 
-              const cutoff = now - ONE_MINUTE * 10;
-              if (beacon.state == "Security") {
-                //ignore Level 1 lift lobby (false alarms from here)
-                if (gatewayDict.location == "Washington Level 1 - Lift Lobby") {
-                  var objTransition = { state: "Security" };
-                }
-              }
-              if (beacon.transitionLatest < cutoff) {
-                console.log("LONG TIME SITTER @ SECURITY", snapshot.mac);
-                if (gatewayDict.location == "Gate 2") {
-                  var objTransition = { state: "Security" };
-                }
-              }
-            }
-
-            if (beacon.state == "Not Present") {
-              if (gatewayDict.state == "Perimeter") {
-                var objFirstSeen = {
-                  timestampFirstSeenToday: gatewayDict.timestamp,
-                  state: "Arriving",
-                };
-              } else {
-                var objFirstSeen = {
-                  timestampFirstSeenToday: gatewayDict.timestamp,
-                  state: "Entered",
-                };
-              }
-
-              if (snapshot.mac == "AC233F29148A") {
-                var dataDict = {
-                  pushToken: "ExponentPushToken{vU0ZNfL6RQo5_JScermePb}",
-                  text: "Kayla is arriving at " + gatewayDict.campus,
-                  from: "Arrival",
-                  timestamp: gatewayDict.timestamp,
-                  sent: false,
-                };
-
-                let queueItem = admin
-                  .firestore()
-                  .collection("sais_edu_sg")
-                  .doc("push")
-                  .collection("queue")
-                  .add(dataDict);
-              }
-            }
-
-            if (gatewayDict.state == "Perimeter") {
-              objLocation = {
-                stateCandidate: "Perimeter",
-                timestampPerimeterCandidate: gatewayDict.timestamp,
-              };
-            } else if (gatewayDict.state == "FYI Only") {
-              objLocation = { state: "Entered", timestampEntered: gatewayDict.timestamp };
-            } else {
-              if (beacon.stateCandidate == "Perimeter") {
-                //we are likely leaving
-                // ignore pings from other gateways that happen in the next few seconds
-                if (beacon.timestampPerimeterCandidate < now - ONE_MINUTE * 2) {
-                  objLocation = {
-                    state: "Entered",
-                    timestampEntered: gatewayDict.timestamp,
-                    stateCandidate: "",
-                    timestampPerimeterCandidate: "",
-                  };
-                } else {
-                  objLocation = {
-                    stateCandidate: "Perimeter",
-                  };
-                }
-              } else {
-                objLocation = {
-                  state: "Entered",
-                  timestampEntered: gatewayDict.timestamp,
-                  stateCandidate: "",
-                  timestampPerimeterCandidate: "",
-                };
-              }
-            }
-
-            let dataDictUpdate = { ...objAllUpdates, ...objLocation, ...objFirstSeen, ...objTransition };
+            let dataDictUpdate = { ...objBeacon, ...objLocation, ...objFirstSeen, ...objTransition };
 
             await admin
               .firestore()
@@ -783,14 +700,14 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
     pingCount: count,
   };
 
-  const gatewayUpdate = { ...gatewayDict, ...hitCount };
+  const gatewayUpdate = { ...gateway, ...hitCount };
 
   await admin
     .firestore()
     .collection("sais_edu_sg")
     .doc("beacon")
     .collection("gateways")
-    .doc(gatewayDict.mac)
+    .doc(gateway.mac)
     .update(gatewayUpdate);
 
   console.log(Date.now(), "WRITING GATEWAY :", gatewayUpdate);
