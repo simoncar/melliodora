@@ -155,6 +155,7 @@ export default class Admin extends React.Component {
   active = false;
   flatList = createRef();
   flatListHeight = 0;
+  itemsHeight = {};
 
   constructor(props) {
     super(props);
@@ -170,7 +171,7 @@ export default class Admin extends React.Component {
         // The gesture has started. Show visual feedback so the user knows
         // what is happening!
         // gestureState.d{x,y} will be set to zero now
-        const orginPoint = gestureState.y0 - navHeight
+        const orginPoint = gestureState.y0;
         this.currentIdx = this.yToIndex(orginPoint);
         this.currentY = gestureState.y0;
         Animated.event([{ y: this.point.y }])({
@@ -182,7 +183,7 @@ export default class Admin extends React.Component {
         });
       },
       onPanResponderMove: (evt, gestureState) => {
-        const currentY = gestureState.moveY - navHeight
+        const currentY = gestureState.moveY;
         this.currentY = currentY;
         Animated.event([{ y: this.point.y }])({ y: currentY });
         // The most recent move distance is gestureState.move{X,Y}
@@ -261,9 +262,24 @@ export default class Admin extends React.Component {
   };
 
   yToIndex = (y) => {
-    const value = Math.floor(
-      (this.scrollOffset + y - this.flatlistTopOffset) / this.rowHeight
-    );
+    // const value = Math.floor(
+    //   (this.scrollOffset + y - this.flatlistTopOffset) / this.rowHeight
+    // );
+
+    let value = -1;
+    console.log(this.flatlistTopOffset, "flatlistoffset");
+    const scroll_y = this.scrollOffset + y;
+    const listLength = this.state.data.length;
+    let accumulatedHeight = this.flatlistTopOffset;
+    for (let i = 0; i < listLength; i++) {
+      const itemHeight = this.itemsHeight[i]
+      const newAccumulatedHeight = accumulatedHeight + itemHeight;
+      if (scroll_y > accumulatedHeight && scroll_y < newAccumulatedHeight) {
+        value = i;
+        break;
+      }
+      accumulatedHeight = newAccumulatedHeight;
+    }
 
     if (value < 0) {
       return 0;
@@ -309,8 +325,8 @@ export default class Admin extends React.Component {
       <View
         style={{
           alignSelf: "center",
-          height: 0.6,
-          width: "80%",
+          height: 0.0,
+          width: "100%",
           backgroundColor: "#000",
         }}
       />
@@ -327,12 +343,13 @@ export default class Admin extends React.Component {
 
   render() {
     const { data, dragging, draggingIdx } = this.state;
-
+    console.log("this.itemsHeight", this.itemsHeight);
     const renderItem = ({ item, index }, noPanResponder = false) => (
       <View
 
         onLayout={e => {
           this.rowHeight = e.nativeEvent.layout.height;
+          this.itemsHeight[index] = e.nativeEvent.layout.height;
         }}
         style={{
           padding: 20,
@@ -486,7 +503,7 @@ export default class Admin extends React.Component {
               this.scrollOffset = e.nativeEvent.contentOffset.y;
             }}
             onLayout={e => {
-              this.flatlistTopOffset = e.nativeEvent.layout.y;
+              this.flatlistTopOffset = e.nativeEvent.layout.y + navHeight;
               this.flatListHeight = e.nativeEvent.layout.height;
             }}
             scrollEventThrottle={16}
