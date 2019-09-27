@@ -7,7 +7,7 @@ import Calendar from "./components/calendar";
 import phoneCalendar from "./components/calendar/calendars";
 import Home from "./components/home";
 import Contact from "./components/contact";
-import ContactAdmin from "./components/contact/Admin";
+import ContactAdmin from "./components/contact/ContactAdmin";
 import Settings from "./components/settings";
 import Library from "./components/settings/library";
 import Logs from "./components/settings/logs";
