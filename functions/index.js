@@ -153,9 +153,11 @@ function getMessageInLanguage(message, language) {
 }
 
 exports.translateFirestoreStories = functions.firestore
-  .document("sais_edu_sg/feature/features/{storyID}")
+  .document("{communityDomain}/feature/features/{storyID}")
   .onWrite(async (snap, context) => {
-    if (_.isNil(snap.after.data())) {
+    const communityDomain = context.params.communityDomain;
+    console.log("translateFirestoreStories for:", communityDomain);
+    if (_.isNil(snap.after.data()) || !communityDomain) {
       console.log("delete event, exiting");
       return; ///Exit when the data is deleted.
     }
@@ -232,7 +234,7 @@ exports.translateFirestoreStories = functions.firestore
     if (update) {
       await admin
         .firestore()
-        .collection("sais_edu_sg")
+        .collection(communityDomain)
         .doc("feature")
         .collection("features")
         .doc(id)
@@ -648,7 +650,7 @@ exports.registerBeacon = functions.https.onRequest(async (req, res) => {
         .collection("beacons")
         .doc(snapshot.mac)
         .get()
-        .then(async function(doc) {
+        .then(async function (doc) {
           if (!doc.exists) {
           } else {
             count++;
@@ -967,7 +969,7 @@ exports.processDeleteUserInAuth = functions.auth.user().onDelete(user => {
 const getAccounts = async () => {
   let acctData = [];
   let listUsersResult = await admin.auth().listUsers(1000);
-  listUsersResult.users.forEach(function(userRecord) {
+  listUsersResult.users.forEach(function (userRecord) {
     const { uid = "", email = "", customClaims = {}, providerData } = userRecord;
     if (providerData.length > 0) {
       acctData.push({ uid, email, customClaims, providerData });
@@ -975,7 +977,7 @@ const getAccounts = async () => {
   });
   while (listUsersResult.pageToken) {
     listUsersResult = await admin.auth().listUsers(1000, listUsersResult.pageToken);
-    listUsersResult.users.forEach(function(userRecord) {
+    listUsersResult.users.forEach(function (userRecord) {
       const { uid = "", email = "", customClaims = {}, providerData } = userRecord;
       if (providerData.length > 0) {
         acctData.push({ uid, email, customClaims, providerData });
@@ -1007,7 +1009,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
         console.log(step);
       },
       function getInfoAndWorksheets(step) {
-        doc.getInfo(function(err, info) {
+        doc.getInfo(function (err, info) {
           console.log(err);
 
           console.log("Loaded doc: " + info.title + " by " + info.author.email);
@@ -1025,7 +1027,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
       },
 
       function resizeSheetRigthSize(step) {
-        sheet.resize({ rowCount: dataDictUpdate.length + minRow, colCount: maxCol }, function(err) {
+        sheet.resize({ rowCount: dataDictUpdate.length + minRow, colCount: maxCol }, function (err) {
           step();
         }); //async
       },
@@ -1039,7 +1041,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
             "max-col": maxCol,
             "return-empty": true,
           },
-          function(err, cells) {
+          function (err, cells) {
             for (let k = 0; k < cells.length; k++) {
               const cell = cells[k];
               if (cell.value) {
@@ -1061,7 +1063,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
             "max-col": maxCol,
             "return-empty": true,
           },
-          function(err, cells) {
+          function (err, cells) {
             console.log("cells", cells);
             let rowDataIndex = 0;
             for (var i = 0; i < cells.length; i = i + maxCol) {
@@ -1091,7 +1093,7 @@ exports.populateUserClaimMgmt = functions.https.onRequest((req, res) => {
         step();
       },
     ],
-    function(err) {
+    function (err) {
       if (err) {
         console.log("Error: " + err);
       }
@@ -1134,7 +1136,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
         console.log(step);
       },
       function getInfoAndWorksheets(step) {
-        doc.getInfo(function(err, info) {
+        doc.getInfo(function (err, info) {
           // console.log("info", info);
           sheet = info.worksheets[0];
           console.log("sheet 1: " + sheet.title + " " + sheet.rowCount + "x" + sheet.colCount);
@@ -1151,7 +1153,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
             "max-col": maxCol,
             "return-empty": true,
           },
-          function(err, cells) {
+          function (err, cells) {
             for (let k = 0; k < cells.length; k++) {
               const cell = cells[k];
               if (cell.value) {
@@ -1172,7 +1174,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
             "max-col": maxCol,
             "return-empty": true,
           },
-          async function(err, cells) {
+          async function (err, cells) {
             console.log("cells", cells);
 
             for (var i = 0; i < cells.length; i = i + maxCol) {
@@ -1196,7 +1198,7 @@ exports.writeUserClaims = functions.https.onRequest((req, res) => {
         );
       },
     ],
-    function(err) {
+    function (err) {
       if (err) {
         console.log("Error: " + err);
       }

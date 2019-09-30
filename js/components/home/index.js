@@ -157,7 +157,7 @@ class HomeNav extends Component {
     if (this.state.loading) {
       return null; // or render a loading icon
     }
-    console.log("global.domain", global.domain);
+
     return (
       <Container style={styles.container}>
         {global.administrator && (
