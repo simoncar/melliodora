@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, FlatList } from 'react-native'
+import { Text, View, FlatList, Alert } from 'react-native'
 import firebase from "firebase";
 import ListItem from "./ListItem";
 import { getLanguageString } from "../global";
@@ -53,15 +53,12 @@ export default class FeatureMoreItems extends Component {
         };
       }
 
-      if (global.administrator != true && doc.data().visibleMore == false) {
-        //skip item
-      } else {
+      if (doc.data().visibleMore) {
         featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
       }
     });
 
     if (featureItems.length > 0) {
-      // this._storeData(JSON.stringify(featureItems));
       this.setState({
         featureItems,
       });
@@ -78,17 +75,23 @@ export default class FeatureMoreItems extends Component {
   _renderItem(item) {
     return <ListItem navigation={this.props.navigation} item={item} />;
   }
-
-  render() {
+  _listEmptyComponent = () => {
     return (
-      <View style={{ width: "100%" }}>
-        <FlatList
-          data={this.state.featureItems}
-          keyExtractor={this.keyExtractor}
-          renderItem={this._renderItem.bind(this)}
-          scrollEnabled={false}
-        />
+      <View>
       </View>
+    )
+  }
+  render() {
+    if (this.state.loading || !this.state.featureItems > 0) return <View></View>;
+    return (
+      <FlatList
+        data={this.state.featureItems}
+        keyExtractor={this.keyExtractor}
+        renderItem={this._renderItem.bind(this)}
+        scrollEnabled={false}
+        ListEmptyComponent={this._listEmptyComponent}
+      />
+
     )
   }
 }

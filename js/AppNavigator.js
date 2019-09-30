@@ -13,6 +13,7 @@ import Library from "./components/settings/library";
 import Logs from "./components/settings/logs";
 import adminPassword from "./components/settings/adminPassword";
 import selectLanguage from "./components/settings/language";
+import MoreAdmin from "./components/settings/MoreAdmin";
 import Story from "./components/story";
 import StoryForm from "./components/story/form";
 import campusMap from "./components/campusMap";
@@ -102,6 +103,7 @@ let StackOther = createStackNavigator(
     library: { screen: Library },
     logs: { screen: Logs },
     storyMore: { screen: Story },
+    moreAdmin: { screen: MoreAdmin },
     webportalURL: { screen: WebportalURL },
     selectLanguage: { screen: selectLanguage },
     adminPassword: { screen: adminPassword },
