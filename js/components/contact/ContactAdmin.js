@@ -440,9 +440,14 @@ export default class ContactAdmin extends React.Component {
             <View style={{ marginTop: 15 }}>
               <Button title={this.state.editIdx > -1 ? "Update" : "Add"} onPress={() => this.updateData(() => this.setState({ modalVisible: false }))} />
             </View>
-            <View style={{ marginTop: 20 }}>
-              <Button title="Delete" onPress={() => this.deleteData(() => this.setState({ modalVisible: false }))} />
-            </View>
+
+            {
+              this.state.editIdx > -1 &&
+              <View style={{ marginTop: 20 }}>
+                <Button title="Delete" onPress={() => this.deleteData(() => this.setState({ modalVisible: false }))} />
+              </View>
+            }
+
             <View style={{ marginTop: 20 }}>
               <Button title="Close" onPress={() => this.setState({ modalVisible: false })} />
             </View>
