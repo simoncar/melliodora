@@ -135,7 +135,7 @@ export default class Contact extends Component {
             underlayColor="#ff7043"
             onPress={() => this.props.navigation.navigate("contactAdmin")}
           >
-            <Text style={{ fontSize: 25, color: "white" }}>+</Text>
+            <Text style={{ color: "white" }}>Edit</Text>
           </TouchableHighlight>
         )}
 
