@@ -24,5 +24,18 @@ export default {
     flex: 1,
     width: null,
     height: null
+  },
+
+  newsContentLine: {
+    borderTopWidth: 1,
+    borderTopColor: "#ddd",
+  },
+  itemTitle: {
+    fontWeight: "bold",
+    flex: 1,
+    fontSize: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    color: "black",
   }
 };
