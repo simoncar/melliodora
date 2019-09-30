@@ -6,6 +6,7 @@ import I18n from "../../lib/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as firebase from "firebase";
 import { Updates } from "expo";
+import FeatureMoreItems from "./FeatureMoreItems";
 import Constants from "expo-constants";
 
 const icons = {
@@ -144,6 +145,7 @@ class Settings extends Component {
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
         <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
           <SettingsList borderColor="#c8c7cc" defaultItemSize={50}>
+            <FeatureMoreItems navigation={this.props.navigation} />
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
 
             {
@@ -173,87 +175,6 @@ class Settings extends Component {
 
                 )
             }
-
-            {/* 
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
-              title="CCAs"
-              titleInfo="After School"
-              titleInfoStyle={styles.titleInfoStyle}
-              onPress={() =>
-                this.props.navigation.navigate("authPortal", {
-                  url: "https://mystamford.edu.sg/co-curricular-activities-cca-1",
-                  title: "CCAs",
-                })
-              }
-            />
-
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/wifi.png")} />}
-              title="Camp Asia"
-              titleInfo="Holidays"
-              titleInfoStyle={styles.titleInfoStyle}
-              onPress={() =>
-                this.props.navigation.navigate("webportalURL", {
-                  url: "https://www.campasia.asia",
-                  title: "Camp Asia",
-                })
-              }
-            />
-
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/contact.png")} />}
-              title={I18n.t("contact")}
-              titleInfo=""
-              titleInfoStyle={styles.titleInfoStyle}
-              onPress={() => {
-                this.props.navigation.navigate("contact");
-              }}
-            />
-
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/shop.png")} />}
-              title={I18n.t("shop")}
-              titleInfo={I18n.t("pta")}
-              onPress={() =>
-                this.props.navigation.navigate("webportalURL", {
-                  url: "https://saispta.com/",
-                  title: "PTA " + I18n.t("shop"),
-                })
-              }
-            />
-
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/shop.png")} />}
-              title={I18n.t("uniforms")}
-              titleInfo="Lims Online Shop"
-              titleInfoStyle={styles.titleInfoStyle}
-              onPress={() =>
-                this.props.navigation.navigate("webportalURL", {
-                  url: "https://limsuniforms.com/pages/stamford-american-international-school",
-                  title: I18n.t("uniforms") + " - Lims Online Shop",
-                })
-              }
-            />
-
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/map.png")} />}
-              title={I18n.t("map")}
-              titleInfo=""
-              titleInfoStyle={styles.titleInfoStyle}
-              onPress={() => {
-                this.props.navigation.navigate("campusMap");
-              }}
-            />
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/library.png")} />}
-              title={I18n.t("library")}
-              titleInfo=""
-              titleInfoStyle={styles.titleInfoStyle}
-              onPress={() => {
-                this.props.navigation.navigate("library");
-              }}
-            /> */}
 
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
             <SettingsList.Item

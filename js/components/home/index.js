@@ -35,8 +35,7 @@ class HomeNav extends Component {
 
     this.state = {
       loading: true,
-      featureItems: [],
-      domain: {}
+      featureItems: []
     };
 
     this.loadFromAsyncStorage();

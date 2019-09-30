@@ -101,6 +101,7 @@ let StackOther = createStackNavigator(
     settings: { screen: Settings },
     library: { screen: Library },
     logs: { screen: Logs },
+    storyMore: { screen: Story },
     webportalURL: { screen: WebportalURL },
     selectLanguage: { screen: selectLanguage },
     adminPassword: { screen: adminPassword },
