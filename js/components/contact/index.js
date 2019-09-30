@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Linking } from "react-native";
+import { View, Linking, TouchableHighlight } from "react-native";
 import * as firebase from "firebase";
 import { Content, Text, Button } from "native-base";
 import { Grid, Col, Row } from "react-native-easy-grid";
@@ -49,6 +49,16 @@ export default class Contact extends Component {
 
   componentWillMount() {
     this._retrieveContactInfo();
+    this.willFocusSubscription = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this._retrieveContactInfo();
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    this.willFocusSubscription.remove();
   }
 
   _call() {
@@ -74,19 +84,15 @@ export default class Contact extends Component {
         .firestore()
         .collection(global.domain)
         .doc("config")
-        .collection("contactInfo")
         .get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log("No Contact Info");
-            return;
+        .then(doc => {
+          if (doc.exists) {
+            const docData = doc.data();
+            this.setState({ contactInfo: docData.contacts });
+          } else {
+            console.log("No such contacts config");
           }
-          snapshot.forEach(doc => {
-            item = doc.data();
-            data.push(item);
-          });
-          console.log("_retrieveContactInfo data", data);
-          this.setState({ contactInfo: data });
+
         });
 
     } catch (error) {
@@ -122,6 +128,17 @@ export default class Contact extends Component {
   render() {
     return (
       <View style={styles.container}>
+
+        {global.administrator && (
+          <TouchableHighlight
+            style={styles.adminButton}
+            underlayColor="#ff7043"
+            onPress={() => this.props.navigation.navigate("contactAdmin")}
+          >
+            <Text style={{ color: "white" }}>Edit</Text>
+          </TouchableHighlight>
+        )}
+
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.contentIconsContainer}>
             <Grid>
@@ -133,14 +150,13 @@ export default class Contact extends Component {
                     <Row style={{ paddingTop: 20 }}>
                       <Col style={{ width: 80 }}>
                         <Button transparent style={styles.roundedButton} onPress={this._contactBtnAction(item)}>
-                          <Ionicons name={contactIconType[item.type]} style={{ fontSize: 30, width: 30, color: "#FFF" }} />
+                          <Ionicons name={contactIconType[item.type]} size={30} color="#FFF" />
+
                         </Button>
                       </Col>
                       <Col>
                         <Text style={styles.feedbackHeader}>{item.headerText}</Text>
-                        {
-                          this._renderSubTexts(item.headerSubTexts)
-                        }
+                        <Text style={styles.feedbackHead}>{typeof item.headerSubTexts == "object" ? item.headerSubTexts.join("\n") : item.headerSubTexts}</Text>
                         {
                           item.email &&
                           <Anchor href={"mailto:" + item.email} title={item.email} />

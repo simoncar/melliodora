@@ -324,7 +324,7 @@ class chat extends Component {
   }
 
   render() {
-    if (!global.authenticated) {
+    if (!global.authenticated && global.domain != "ais_edu_sg") {
       const { goBack } = this.props.navigation;
       goBack(null);
       setTimeout(() => {

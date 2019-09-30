@@ -165,5 +165,5 @@ export function getLanguageString(language, object, field) {
 
   var fieldName = field + language.toUpperCase();
 
-  return object[fieldName];
+  return object[fieldName] || object[field];
 }

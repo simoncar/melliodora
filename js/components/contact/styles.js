@@ -39,8 +39,8 @@ export default {
     paddingRight: 10
   },
   roundedButton: {
-    alignSelf: "center",
     alignItems: "center",
+    justifyContent: "center",
     borderRadius: 30,
     width: 60,
     height: 60,
@@ -116,5 +116,31 @@ export default {
   forwardIcon: {
     alignSelf: "flex-end",
     paddingBottom: 5
+  },
+  adminButton: {
+    backgroundColor: "#ff5722",
+    borderColor: "#ff5722",
+    borderWidth: 1,
+    height: 50,
+    width: 50,
+    borderRadius: 50 / 2,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0,
+    },
+    zIndex: 1,
+  },
+  adminContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
   }
 };

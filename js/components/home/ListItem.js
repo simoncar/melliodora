@@ -17,8 +17,9 @@ class ListItem extends Component {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
+    const summary = getLanguageString(global.language, this.props.item.item, "summary");
 
-    var summary = getLanguageString(global.language, this.props.item.item, "summary");
+
     const uri = this.props.item.item.photo1;
     return (
       <View style={styles.newsContentLine}>
