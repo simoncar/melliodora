@@ -77,11 +77,9 @@ exports.firstSeen = function(beacon, gateway, admin) {
 };
 
 exports.location = function(beacon, gateway) {
-  const hour =
-    moment()
-      .add(8, "hours")
-      .format("HH") + "00";
-  console.log("HOUR = ", hour);
+  var hour = moment().add(8, "hours");
+  hour = parseInt(hour, 10);
+  console.log("HOUR = ", hour, beacon.mac);
 
   var objLocation = {};
 
@@ -100,9 +98,10 @@ exports.location = function(beacon, gateway) {
         stateCandidate: "",
         timestampPerimeterCandidate: "",
       };
-      console.log("Location Logic B = ", beacon.mac);
+      console.log("Location Logic B1 = ", beacon.mac);
     } else {
       //we are likely leaving
+      console.log("Location Logic B2 = ", beacon.mac);
       objLocation = {
         stateCandidate: "Perimeter",
       };
@@ -139,20 +138,20 @@ exports.location = function(beacon, gateway) {
         }
       } else {
         //midday leavers - need to look carefully at these and possibly send alerts
-        if (beacon.timestampPerimeterCandidate < Date.now() - ONE_MINUTE * 1) {
-          // dont record as entered for at least 2 minuts after a gate 1 ping in the afternoon
-          // give them time to leave
+        // if (beacon.timestampPerimeterCandidate < Date.now() - ONE_MINUTE * 1) {
+        // dont record as entered for at least 2 minuts after a gate 1 ping in the afternoon
+        // give them time to leave
 
-          objLocation = {
-            state: "Entered",
-            timestampEntered: gateway.timestamp,
-            stateCandidate: "",
-            timestampPerimeterCandidate: "",
-          };
-          console.log("Location Logic G = ", beacon.mac);
-        } else {
-          console.log("Location Logic H = ", beacon.mac);
-        }
+        objLocation = {
+          state: "Entered",
+          timestampEntered: gateway.timestamp,
+          stateCandidate: "",
+          timestampPerimeterCandidate: "",
+        };
+        console.log("Location Logic G = ", beacon.mac);
+        //  } else {
+        //   console.log("Location Logic H = ", beacon.mac);
+        //  }
       }
     }
   }
