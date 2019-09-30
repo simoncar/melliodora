@@ -208,25 +208,21 @@ class SetupEnv extends Component {
   _retrieveFeatures = async () => {
     try {
 
-      let data = []
+      global.moreFeatures = [];
+
       firebase
         .firestore()
         .collection(global.domain)
         .doc("config")
-        .collection("features")
-        .orderBy("order")
         .get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log("No Features");
-            return;
+        .then(doc => {
+          if (doc.exists) {
+            const docData = doc.data();
+            if (docData.moreListings)
+              global.moreFeatures = docData.moreListings;
+          } else {
+            console.log("No such contacts config");
           }
-          snapshot.forEach(doc => {
-            item = doc.data();
-            data.push(item);
-          });
-
-          global.moreFeatures = data;
         });
 
     } catch (error) {

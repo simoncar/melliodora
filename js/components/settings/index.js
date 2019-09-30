@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, StyleSheet, View, Alert, AsyncStorage } from "react-native";
+import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight } from "react-native";
 import SettingsList from "react-native-settings-list";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
@@ -32,19 +32,30 @@ class Settings extends Component {
 
     this.state = {
       loggedIn: false,
-      language: ""
+      language: "",
+      features: global.moreFeatures || []
     };
 
-    this.features = global.moreFeatures || [];
   }
 
   componentWillMount() {
     this._retrieveLanguage();
     this._retrieveGradeSelectors();
+
+    this.willFocusSubscription = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.setState({ features: global.moreFeatures || [] })
+      }
+    );
   }
 
   componentDidMount() {
     console.log(this.state);
+  }
+
+  componentWillUnmount() {
+    this.willFocusSubscription.remove();
   }
 
   _retrieveLanguage = async () => {
@@ -143,6 +154,18 @@ class Settings extends Component {
 
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
+
+
+        {global.administrator && (
+          <TouchableHighlight
+            style={styles.adminButton}
+            underlayColor="#ff7043"
+            onPress={() => this.props.navigation.navigate("moreAdmin", { moreFeatures: this.state.features })}
+          >
+            <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
+          </TouchableHighlight>
+        )}
+
         <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
           <SettingsList borderColor="#c8c7cc" defaultItemSize={50}>
             <FeatureMoreItems navigation={this.props.navigation} />
@@ -150,7 +173,7 @@ class Settings extends Component {
 
             {
 
-              this.features.filter(item => item.visible !== false)
+              this.state.features.filter(item => item.visible !== false)
                 .map(el => {
 
                   const navTitle = el.navTitle || el.title;
@@ -255,6 +278,27 @@ const styles = StyleSheet.create({
   titleInfoStyle: {
     fontSize: 16,
     color: "#8e8e93",
+  },
+  adminButton: {
+    backgroundColor: "#ff5722",
+    borderColor: "#ff5722",
+    borderWidth: 1,
+    height: 50,
+    width: 50,
+    borderRadius: 50 / 2,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0,
+    },
+    zIndex: 1,
   },
 });
 
