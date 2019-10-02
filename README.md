@@ -27,6 +27,6 @@ expo build:android --config apps/app.generic.json
 
 expo build:android --config apps/app.sais_edu_sg.json
 
-## Web
+## Web (This project not web ready yet)
 
 expo build:web --config apps/app.sais_edu_sg.json
