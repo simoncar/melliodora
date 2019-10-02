@@ -13,24 +13,24 @@ import {
   TextInput,
   Image,
   ScrollView,
-  Switch
+  Switch,
 } from "react-native";
 import * as firebase from "firebase";
-import { Header } from 'react-navigation';
+import { Header } from "react-navigation-stack";
 import { FontAwesome } from "@expo/vector-icons";
 import styles from "./styles";
-import RadioButton from '../common/RadioButton';
-import { Overlay } from 'react-native-elements';
+import RadioButton from "../common/RadioButton";
+import { Overlay } from "react-native-elements";
 
 const icons = {
   wifi: require("./images/wifi.png"),
   contact: require("./images/contact.png"),
   library: require("./images/library.png"),
   map: require("./images/map.png"),
-  shop: require("./images/shop.png")
+  shop: require("./images/shop.png"),
 };
 // radiobutton options
-const options = Object.keys(icons)
+const options = Object.keys(icons);
 
 const navHeight = Header.HEIGHT;
 
@@ -56,7 +56,6 @@ function immutableMove(arr, from, to) {
 }
 
 export default class ContactAdmin extends React.Component {
-
   static navigationOptions = ({ navigation }) => ({
     title: "Edit More",
     headerRight: (
@@ -65,14 +64,18 @@ export default class ContactAdmin extends React.Component {
           navigation.state.params.saveChanges(navigation.goBack);
         }}
       >
-        <Text style={{
-          color: "#037AFF",
-          alignSelf: "center",
-          fontSize: 17,
-          paddingBottom: 5,
-          paddingRight: 20,
-          fontWeight: "600",
-        }}>Save</Text>
+        <Text
+          style={{
+            color: "#037AFF",
+            alignSelf: "center",
+            fontSize: 17,
+            paddingBottom: 5,
+            paddingRight: 20,
+            fontWeight: "600",
+          }}
+        >
+          Save
+        </Text>
       </TouchableOpacity>
     ),
   });
@@ -88,51 +91,61 @@ export default class ContactAdmin extends React.Component {
     editIcon: "",
     editTitle: "",
     editTitleInfo: "",
-    editVisible: true
+    editVisible: true,
   };
 
   setEditIcon = t => this.setState({ editIcon: t });
-  resetEditFields = (callback) => this.setState({
-    editIdx: -1,
-    editNavURL: "",
-    editIcon: "",
-    editTitle: "",
-    editTitleInfo: "",
-    editVisible: true
-  }, () => typeof callback === 'function' && callback());
+  resetEditFields = callback =>
+    this.setState(
+      {
+        editIdx: -1,
+        editNavURL: "",
+        editIcon: "",
+        editTitle: "",
+        editTitleInfo: "",
+        editVisible: true,
+      },
+      () => typeof callback === "function" && callback(),
+    );
 
-  updateData = (callback) => {
-    const { data, editIdx = -1, editNavURL = "", editIcon = "", editTitle = "", editTitleInfo = "", editVisible = true } = this.state;
+  updateData = callback => {
+    const {
+      data,
+      editIdx = -1,
+      editNavURL = "",
+      editIcon = "",
+      editTitle = "",
+      editTitleInfo = "",
+      editVisible = true,
+    } = this.state;
 
     const updatedData = {
       icon: editIcon,
       navURL: editNavURL,
       title: editTitle,
       titleInfo: editTitleInfo,
-      visible: editVisible
-    }
+      visible: editVisible,
+    };
 
     if (editIdx > -1) {
       // update current contact info
-      data[editIdx] = updatedData
-      this.setState({ data }, () => typeof callback === 'function' && callback());
+      data[editIdx] = updatedData;
+      this.setState({ data }, () => typeof callback === "function" && callback());
     } else {
       //add new contact info
       data.push(updatedData);
-      this.setState({ data }, () => typeof callback === 'function' && callback());
+      this.setState({ data }, () => typeof callback === "function" && callback());
     }
+  };
 
-  }
-
-  deleteData = (callback) => {
+  deleteData = callback => {
     const { data, editIdx } = this.state;
 
     if (editIdx > -1) {
       data.splice(editIdx, 1);
-      this.setState({ data: data }, () => typeof callback === 'function' && callback());
+      this.setState({ data: data }, () => typeof callback === "function" && callback());
     }
-
-  }
+  };
 
   point = new Animated.ValueXY();
   currentY = 0;
@@ -163,9 +176,8 @@ export default class ContactAdmin extends React.Component {
         this.currentIdx = this.yToIndex(orginPoint);
         this.currentY = gestureState.y0;
 
-
         Animated.event([{ y: this.point.y }])({
-          y: orginPoint - (this.rowHeight / 2) - navHeight
+          y: orginPoint - this.rowHeight / 2 - navHeight,
         });
         this.active = true;
         this.setState({ dragging: true, draggingIdx: this.currentIdx }, () => {
@@ -175,7 +187,6 @@ export default class ContactAdmin extends React.Component {
       onPanResponderMove: (evt, gestureState) => {
         const currentY = gestureState.moveY;
         this.currentY = currentY;
-
 
         Animated.event([{ y: this.point.y }])({ y: currentY - navHeight * 1.5 });
         // The most recent move distance is gestureState.move{X,Y}
@@ -197,7 +208,7 @@ export default class ContactAdmin extends React.Component {
         // Returns whether this component should block native components from becoming the JS
         // responder. Returns true by default. Is currently only supported on android.
         return true;
-      }
+      },
     });
   }
 
@@ -207,7 +218,7 @@ export default class ContactAdmin extends React.Component {
     });
   }
 
-  saveChanges = (callback) => {
+  saveChanges = callback => {
     const docData = { moreListings: this.state.data };
     firebase
       .firestore()
@@ -216,9 +227,9 @@ export default class ContactAdmin extends React.Component {
       .set(docData, { merge: true })
       .then(() => {
         global.moreFeatures = this.state.data || [];
-        typeof callback === 'function' && callback();
+        typeof callback === "function" && callback();
       });
-  }
+  };
 
   animateList = () => {
     if (!this.active) {
@@ -230,12 +241,12 @@ export default class ContactAdmin extends React.Component {
       if (this.currentY + 100 > this.flatListHeight) {
         this.flatList.current.scrollToOffset({
           offset: this.scrollOffset + 10,
-          animated: false
+          animated: false,
         });
       } else if (this.currentY < 100) {
         this.flatList.current.scrollToOffset({
           offset: this.scrollOffset - 10,
-          animated: false
+          animated: false,
         });
       }
 
@@ -244,7 +255,7 @@ export default class ContactAdmin extends React.Component {
       if (this.currentIdx !== newIdx) {
         this.setState({
           data: immutableMove(this.state.data, this.currentIdx, newIdx),
-          draggingIdx: newIdx
+          draggingIdx: newIdx,
         });
         this.currentIdx = newIdx;
       }
@@ -253,7 +264,7 @@ export default class ContactAdmin extends React.Component {
     });
   };
 
-  yToIndex = (y) => {
+  yToIndex = y => {
     // const value = Math.floor(
     //   (this.scrollOffset + y - this.flatlistTopOffset) / this.rowHeight
     // );
@@ -263,7 +274,7 @@ export default class ContactAdmin extends React.Component {
     const listLength = this.state.data.length;
     let accumulatedHeight = this.flatlistTopOffset;
     for (let i = 0; i < listLength; i++) {
-      const itemHeight = this.itemsHeight[i]
+      const itemHeight = this.itemsHeight[i];
       const newAccumulatedHeight = accumulatedHeight + itemHeight;
       if (scroll_y > accumulatedHeight && scroll_y < newAccumulatedHeight) {
         value = i;
@@ -291,22 +302,21 @@ export default class ContactAdmin extends React.Component {
   render() {
     const { data, dragging, draggingIdx } = this.state;
 
-
-    console.log("data1", data)
+    console.log("data1", data);
     const renderItem = ({ item, index }, noPanResponder = false) => {
-
       const { navTitle, title, navURL, icon, titleInfo, navigate, visible = true } = item;
 
       const navigationTitle = navTitle || title;
-      const navProps = navURL ? {
-        url: navURL,
-        title: navigationTitle,
-      } : {};
+      const navProps = navURL
+        ? {
+            url: navURL,
+            title: navigationTitle,
+          }
+        : {};
 
       const imgSource = icon ? icons[icon] : icons["wifi"];
       return (
         <View
-
           onLayout={e => {
             this.rowHeight = e.nativeEvent.layout.height;
             this.itemsHeight[index] = e.nativeEvent.layout.height;
@@ -315,14 +325,17 @@ export default class ContactAdmin extends React.Component {
             padding: 20,
             flexDirection: "row",
             alignItems: "center",
-            opacity: draggingIdx === index ? 0 : 1
+            opacity: draggingIdx === index ? 0 : 1,
           }}
         >
-          <Image style={{
-            alignSelf: "center",
-            height: 30,
-            width: 30,
-          }} source={imgSource} />
+          <Image
+            style={{
+              alignSelf: "center",
+              height: 30,
+              width: 30,
+            }}
+            source={imgSource}
+          />
           <View style={{ paddingHorizontal: 12, flexDirection: "row", justifyContent: "space-between", flex: 1 }}>
             <Text>{title || ""}</Text>
             <Text style={{ color: "grey" }}>{titleInfo || ""}</Text>
@@ -338,9 +351,10 @@ export default class ContactAdmin extends React.Component {
                   editIcon: icon ? icon : "wifi",
                   editTitle: title,
                   editTitleInfo: titleInfo,
-                  editVisible: visible
+                  editVisible: visible,
                 });
-              }}>
+              }}
+            >
               <Text>Edit</Text>
             </TouchableHighlight>
           </View>
@@ -350,27 +364,26 @@ export default class ContactAdmin extends React.Component {
             </View>
           </View>
         </View>
-
       );
-    }
+    };
 
     return (
-      <SafeAreaView style={{
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-      }}>
-
-
-        <Overlay
-          isVisible={this.state.modalVisible}
-          windowBackgroundColor="rgba(0, 0, 0, .85)"
-          height="90%"
-        >
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: "#fff",
+          alignItems: "center",
+        }}
+      >
+        <Overlay isVisible={this.state.modalVisible} windowBackgroundColor="rgba(0, 0, 0, .85)" height="90%">
           <ScrollView>
             <View>
-              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Order: {this.state.editIdx > -1 ? this.state.editIdx + 1 : this.state.data.length + 1} </Text>
-              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Select Icon: {this.state.editIcon}</Text>
+              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>
+                Order: {this.state.editIdx > -1 ? this.state.editIdx + 1 : this.state.data.length + 1}{" "}
+              </Text>
+              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>
+                Select Icon: {this.state.editIcon}
+              </Text>
               <View
                 style={{
                   width: 180,
@@ -408,24 +421,26 @@ export default class ContactAdmin extends React.Component {
               />
 
               <View style={{ marginTop: 15 }}>
-                <Button title={this.state.editIdx > -1 ? "Update" : "Add"} onPress={() => this.updateData(() => this.setState({ modalVisible: false }))} />
+                <Button
+                  title={this.state.editIdx > -1 ? "Update" : "Add"}
+                  onPress={() => this.updateData(() => this.setState({ modalVisible: false }))}
+                />
               </View>
 
-              {
-                this.state.editIdx > -1 &&
+              {this.state.editIdx > -1 && (
                 <View style={{ marginTop: 20 }}>
-                  <Button title="Delete" onPress={() => this.deleteData(() => this.setState({ modalVisible: false }))} />
+                  <Button
+                    title="Delete"
+                    onPress={() => this.deleteData(() => this.setState({ modalVisible: false }))}
+                  />
                 </View>
-              }
+              )}
 
               <View style={{ marginTop: 20 }}>
                 <Button title="Close" onPress={() => this.setState({ modalVisible: false })} />
               </View>
-
             </View>
-
           </ScrollView>
-
         </Overlay>
 
         <TouchableHighlight
@@ -458,8 +473,6 @@ export default class ContactAdmin extends React.Component {
           <Text style={{ fontSize: 25, color: "white" }}>+</Text>
         </TouchableHighlight>
 
-
-
         {dragging && (
           <Animated.View
             style={{
@@ -469,7 +482,7 @@ export default class ContactAdmin extends React.Component {
               borderColor: "grey",
               zIndex: 2,
               width: "100%",
-              top: this.point.getLayout().top
+              top: this.point.getLayout().top,
             }}
           >
             {renderItem({ item: data[draggingIdx], index: -1 }, true)}
@@ -495,7 +508,6 @@ export default class ContactAdmin extends React.Component {
             keyExtractor={item => "" + item}
           />
         </View>
-
       </SafeAreaView>
     );
   }

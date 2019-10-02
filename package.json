@@ -83,8 +83,11 @@
     "react-native-typography": "^1.4.1",
     "react-native-walkthrough-tooltip": "^0.5.3",
     "react-native-webview": "~5.8.1",
-    "react-navigation": "^3.11.1",
+    "react-navigation": "^4.0.10",
+    "react-navigation-drawer": "^1.4.0",
     "react-navigation-props-mapper": "^1.0.1",
+    "react-navigation-stack": "^1.7.3",
+    "react-navigation-tabs": "^1.2.0",
     "sentry-expo": "^1.13.0",
     "tcomb-form-native": "^0.6.20",
     "use-global-hook": "^0.1.7"
