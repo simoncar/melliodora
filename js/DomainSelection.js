@@ -1,34 +1,40 @@
 import React, { Component } from "react";
 import { View, Text, Picker, SafeAreaView, StyleSheet, Button } from "react-native";
-import { iOSUIKit, iOSColors } from 'react-native-typography'
+import { iOSUIKit, iOSColors } from "react-native-typography";
 
 export default class DomainSelection extends Component {
   constructor() {
     super();
     this.state = {
-      selectedDomain: ""
+      selectedDomain: "",
     };
-
   }
 
   render() {
     return (
       <SafeAreaView>
-        <Text style={{ ...iOSUIKit.largeTitleEmphasized, color: iOSColors.gray, marginTop: 78, marginLeft: 12, marginBottom: 12 }}>Select Community: </Text>
+        <Text
+          style={{
+            ...iOSUIKit.largeTitleEmphasized,
+            color: iOSColors.gray,
+            marginTop: 78,
+            marginLeft: 12,
+            marginBottom: 12,
+            alignSelf: "center",
+          }}
+        >
+          Select{" "}
+        </Text>
 
         <Picker
           style={styles.picker}
           itemStyle={styles.pickerItem}
           selectedValue={this.state.selectedDomain}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({ selectedDomain: itemValue })
-          }
+          onValueChange={(itemValue, itemIndex) => this.setState({ selectedDomain: itemValue })}
         >
-          {
-            this.props.domains.map(item => {
-              return <Picker.Item label={item.name} value={item.node} />
-            })
-          }
+          {this.props.domains.map(item => {
+            return <Picker.Item label={item.name} value={item.node} />;
+          })}
         </Picker>
         <Button
           title="Select"
@@ -44,10 +50,10 @@ const styles = StyleSheet.create({
   picker: {
     // flex: 1,
     width: "100%",
-    height: 44,
-    marginBottom: 60
+    height: 300,
+    marginBottom: 30,
   },
   pickerItem: {
-    height: 100
-  }
-})
+    height: 300,
+  },
+});

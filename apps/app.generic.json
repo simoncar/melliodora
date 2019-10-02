@@ -2,12 +2,15 @@
   "name": "genericApp",
   "displayName": "genericApp",
   "expo": {
-    "version": "19.0.33",
+    "version": "1.0.2",
     "sdkVersion": "33.0.0",
-    "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
-    "slug": "mySchool",
-    "name": "mySchool",
+    "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",
+    "slug": "myCommunity",
+    "name": "myCommunity",
     "description": "For parents, Singapore",
+    "extra": {
+      "instance": ""
+    },
     "splash": {
       "image": "./resources/genericApp/splash.png",
       "backgroundColor": "#FFF"
@@ -25,7 +28,7 @@
       ]
     },
     "notification": {
-      "icon": "./resources/genericApp/icon.png",
+      "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",
       "color": "#000000"
     },
     "orientation": "portrait",
@@ -35,11 +38,11 @@
       ]
     },
     "ios": {
-      "bundleIdentifier": "com.softmowertrain.parent.genericapp",
+      "bundleIdentifier": "com.softmowertrain.parent.mycommunity",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.softmowertrain.parent.genericapp",
+      "package": "com.softmowertrain.parent.mycommunity",
       "versionCode": 19,
       "permissions": [
         "READ_CALENDAR",
