@@ -1,6 +1,9 @@
 import React from "react";
 
-import { createAppContainer, createStackNavigator, createBottomTabNavigator } from "react-navigation";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
+
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather } from "@expo/vector-icons";
 
 import Calendar from "./components/calendar";
@@ -80,11 +83,9 @@ let StackChat = createStackNavigator(
   },
 );
 
-let StackWeb = createStackNavigator(
-  {
-    authPortal: { screen: authPortal },
-  }
-);
+let StackWeb = createStackNavigator({
+  authPortal: { screen: authPortal },
+});
 
 StackWeb.navigationOptions = ({ navigation }) => {
   const title = global.switch_tab_portalName;
@@ -93,9 +94,9 @@ StackWeb.navigationOptions = ({ navigation }) => {
     headerBackTitle: null,
     tabBarIcon: ({ focused, tintColor, horizontal }) => (
       <MaterialIcons name="web" size={horizontal ? 20 : 25} color={tintColor} />
-    )
+    ),
   };
-}
+};
 
 let StackOther = createStackNavigator(
   {
