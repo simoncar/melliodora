@@ -7,8 +7,6 @@ import _ from "lodash";
 import uuid from "uuid";
 import { AsyncStorage } from "react-native";
 
-let instID = Constants.manifest.extra.instance;
-
 export class Backend extends React.Component {
   uid = "";
 
@@ -263,10 +261,10 @@ async function uploadImageAsync(message, chatroom, user) {
 
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
+    xhr.onload = function() {
       resolve(xhr.response);
     };
-    xhr.onerror = function (e) {
+    xhr.onerror = function(e) {
       reject(new TypeError("Network request failed"));
     };
     xhr.responseType = "blob";

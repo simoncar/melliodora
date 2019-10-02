@@ -28,6 +28,7 @@ export default class Setup extends Component {
       firebase
         .firestore()
         .collection("domains")
+        .orderBy("name")
         .get()
         .then(snapshot => {
           if (snapshot.empty) {
@@ -67,8 +68,9 @@ export default class Setup extends Component {
       const domain = JSON.parse(d);
 
       console.log("domain=", domain);
-
-      this.setSelectedDomain(domain.node);
+      if (!_.isNil(domain.node)) {
+        this.setSelectedDomain(domain.node);
+      }
     });
     this.setState({ isReady: true });
   }

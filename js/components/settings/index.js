@@ -14,7 +14,7 @@ const icons = {
   contact: require("./images/contact.png"),
   library: require("./images/library.png"),
   map: require("./images/map.png"),
-  shop: require("./images/shop.png")
+  shop: require("./images/shop.png"),
 };
 
 class Settings extends Component {
@@ -33,21 +33,17 @@ class Settings extends Component {
     this.state = {
       loggedIn: false,
       language: "",
-      features: global.moreFeatures || []
+      features: global.moreFeatures || [],
     };
-
   }
 
   componentWillMount() {
     this._retrieveLanguage();
     this._retrieveGradeSelectors();
 
-    this.willFocusSubscription = this.props.navigation.addListener(
-      'willFocus',
-      () => {
-        this.setState({ features: global.moreFeatures || [] })
-      }
-    );
+    this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
+      this.setState({ features: global.moreFeatures || [] });
+    });
   }
 
   componentDidMount() {
@@ -136,14 +132,12 @@ class Settings extends Component {
   }
 
   _logout() {
-
     AsyncStorage.clear().then(() => {
       global = {};
 
       Alert.alert("Restarting");
       Updates.reloadFromCache();
     });
-
   }
 
   render() {
@@ -154,8 +148,6 @@ class Settings extends Component {
 
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
-
-
         {global.administrator && (
           <TouchableHighlight
             style={styles.adminButton}
@@ -166,38 +158,32 @@ class Settings extends Component {
           </TouchableHighlight>
         )}
 
-        <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
+        <View style={{ backgroundColor: "#EFEFF4" }}>
+          <FeatureMoreItems navigation={this.props.navigation} />
+          <View style={{ backgroundColor: "#EFEFF4", marginTop: 15 }} />
           <SettingsList borderColor="#c8c7cc" defaultItemSize={50}>
-            <FeatureMoreItems navigation={this.props.navigation} />
-            <SettingsList.Header headerStyle={{ marginTop: 15 }} />
+            {this.state.features
+              .filter(item => item.visible !== false)
+              .map(el => {
+                const navTitle = el.navTitle || el.title;
+                const navProps = el.navURL
+                  ? {
+                      url: el.navURL,
+                      title: I18n.t(navTitle, { defaultValue: navTitle }),
+                    }
+                  : {};
 
-            {
-
-              this.state.features.filter(item => item.visible !== false)
-                .map(el => {
-
-                  const navTitle = el.navTitle || el.title;
-                  const navProps = el.navURL ? {
-                    url: el.navURL,
-                    title: I18n.t(navTitle, { defaultValue: navTitle }),
-                  } : {};
-
-                  const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
-                  return (
-                    <SettingsList.Item
-                      icon={<Image style={styles.imageStyle} source={imgSource} />}
-                      title={I18n.t(el.title || "", { defaultValue: el.title || "" })}
-                      titleInfo={el.titleInfo || ""}
-                      titleInfoStyle={styles.titleInfoStyle}
-                      onPress={() =>
-                        this.props.navigation.navigate(el.navigate || "webportalURL", navProps)
-                      }
-                    />
-                  );
-                }
-
-                )
-            }
+                const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
+                return (
+                  <SettingsList.Item
+                    icon={<Image style={styles.imageStyle} source={imgSource} />}
+                    title={I18n.t(el.title || "", { defaultValue: el.title || "" })}
+                    titleInfo={el.titleInfo || ""}
+                    titleInfoStyle={styles.titleInfoStyle}
+                    onPress={() => this.props.navigation.navigate(el.navigate || "webportalURL", navProps)}
+                  />
+                );
+              })}
 
             <SettingsList.Header headerStyle={{ marginTop: 15 }} />
             <SettingsList.Item
