@@ -12,41 +12,42 @@ import "@firebase/firestore";
 import Firebase from "./lib/firebase";
 import DomainSelection from "./DomainSelection";
 import * as firebase from "firebase";
-
+import Constants from "expo-constants";
 
 export default class Setup extends Component {
   constructor() {
     super();
     this.state = {
       isReady: false,
-      selectedDomain: ""
+      selectedDomain: "",
     };
   }
 
-  getDomains = () => new Promise(function (resolve, reject) {
-    firebase
-      .firestore()
-      .collection("domains")
-      .get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log("No notifications");
-          return;
-        }
+  getDomains = () =>
+    new Promise(function(resolve, reject) {
+      firebase
+        .firestore()
+        .collection("domains")
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log("No notifications");
+            return;
+          }
 
-        const domainsStore = [];
-        snapshot.forEach(doc => {
-          item = doc.data();
-          domainsStore.push(item);
+          const domainsStore = [];
+          snapshot.forEach(doc => {
+            item = doc.data();
+            domainsStore.push(item);
+          });
+          resolve(domainsStore);
         });
-        resolve(domainsStore);
-      });
-  });
+    });
 
   getSelectedDomainData = (selectedDomain, domains) => {
     const domainData = domains.filter(item => item.node == selectedDomain);
     return domainData;
-  }
+  };
   async componentWillMount() {
     try {
       await Firebase.initialise();
@@ -64,19 +65,22 @@ export default class Setup extends Component {
 
     AsyncStorage.getItem("domain").then(d => {
       const domain = JSON.parse(d);
+
+      console.log("domain=", domain);
+
       this.setSelectedDomain(domain.node);
     });
     this.setState({ isReady: true });
   }
 
-  setSelectedDomain = (d) => {
+  setSelectedDomain = d => {
     const domain = d || "";
-    const domainDataArr = this.getSelectedDomainData(domain, this.domains)
+    console.log("setSelectedDomain - d = ", d);
+    const domainDataArr = this.getSelectedDomainData(domain, this.domains);
     if (domainDataArr.length < 1) return;
     AsyncStorage.setItem("domain", JSON.stringify(domainDataArr[0]));
     global.domain = domain;
     this.setState({ selectedDomain: domain, isReady: true });
-
 
     switch (domain) {
       case "sais_edu_sg":
@@ -86,17 +90,15 @@ export default class Setup extends Component {
         global.switch_contactEmail = "help@sais.edu.sg";
         global.switch_portalName = "myStamford";
         global.switch_tab_portalName = "myS";
-        global.switch_portalURL =
-          "https://mystamford.edu.sg/parent-dashboard";
-        global.switch_webportalActions =
-          [
-            { "Home": "https://mystamford.edu.sg/parent-dashboard" },
-            { "Cafe Top-Up": "https://mystamford.edu.sg/cafe/cafe-online-ordering" },
-            { "Events": "https://mystamford.edu.sg/events-1" },
-            { "Forms": "https://mystamford.edu.sg/forms-1" },
-            { "PTA": "https://mystamford.edu.sg/pta" },
-            { "Logout": "https://mystamford.edu.sg/logout" }
-          ];
+        global.switch_portalURL = "https://mystamford.edu.sg/parent-dashboard";
+        global.switch_webportalActions = [
+          { Home: "https://mystamford.edu.sg/parent-dashboard" },
+          { "Cafe Top-Up": "https://mystamford.edu.sg/cafe/cafe-online-ordering" },
+          { Events: "https://mystamford.edu.sg/events-1" },
+          { Forms: "https://mystamford.edu.sg/forms-1" },
+          { PTA: "https://mystamford.edu.sg/pta" },
+          { Logout: "https://mystamford.edu.sg/logout" },
+        ];
         global.switch_call = "+65 6709 4800";
         break;
       case "ais_edu_sg":
@@ -104,15 +106,14 @@ export default class Setup extends Component {
           "https://connect.ais.com.sg/login/login.aspx?prelogin=https%3a%2f%2fconnect.ais.com.sg%2f&kr=iSAMS:ParentPP";
         global.switch_portalName = "AIS Connect";
         global.switch_tab_portalName = "Connect";
-        global.switch_webportalActions =
-          [
-            { "Home": "" },
-            { "Cafe Top-Up": "" },
-            { "Events": "" },
-            { "Forms": "" },
-            { "PTA": "" },
-            { "Logout": "" }
-          ];
+        global.switch_webportalActions = [
+          { Home: "" },
+          { "Cafe Top-Up": "" },
+          { Events: "" },
+          { Forms: "" },
+          { PTA: "" },
+          { Logout: "" },
+        ];
         break;
       case "0002-singaporepoloclub":
         global.switch_address = "Polo Club \nSingapore  00000";
@@ -125,26 +126,23 @@ export default class Setup extends Component {
       default:
         global.switch_address = "not specified -";
     }
-  }
+  };
 
   render() {
-
     if (!this.state.isReady) {
       return <AppLoading />;
     }
 
     if (this.state.selectedDomain == "") {
-      return <DomainSelection setSelectedDomain={this.setSelectedDomain} domains={this.domains} />
+      if (Constants.manifest.extra.instance == "") {
+        return <DomainSelection setSelectedDomain={this.setSelectedDomain} domains={this.domains} />;
+      } else {
+        this.setSelectedDomain(Constants.manifest.extra.instance);
+      }
     }
-    return (
-      <SetupEnv />
-    );
+    return <SetupEnv />;
   }
 }
-
-
-
-
 
 class SetupEnv extends Component {
   constructor() {
@@ -207,7 +205,6 @@ class SetupEnv extends Component {
 
   _retrieveFeatures = async () => {
     try {
-
       global.moreFeatures = [];
 
       firebase
@@ -218,17 +215,15 @@ class SetupEnv extends Component {
         .then(doc => {
           if (doc.exists) {
             const docData = doc.data();
-            if (docData.moreListings)
-              global.moreFeatures = docData.moreListings;
+            if (docData.moreListings) global.moreFeatures = docData.moreListings;
           } else {
             console.log("No such contacts config");
           }
         });
-
     } catch (error) {
       // Error retrieving data
     }
-  }
+  };
 
   render() {
     if (!this.state.isReady) {
