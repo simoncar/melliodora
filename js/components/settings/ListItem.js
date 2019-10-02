@@ -46,7 +46,7 @@ class ListItem extends Component {
               {...{ preview, uri }}
             />
 
-            {this.props.item.item.visible != true && <Text style={styles.itemTitle}>HIDDEN {summary}</Text>}
+            {this.props.item.item.visible != true && <Text style={styles.itemTitle}>{summary}</Text>}
             {this.props.item.item.visible == true && <Text style={styles.itemTitle}>{summary}</Text>}
             <TouchableOpacity
               style={{ flexDirection: "row" }}
