@@ -15,6 +15,14 @@ expo start --config apps/app.ais_edu_sg.json
 
 # Publish
 
+## App Store (iOS)
 
+expo build:ios --config apps/app.sais_edu_sg.json
 
+## Google Play (Android)
 
+expo build:android --config apps/app.sais_edu_sg.json
+
+## Web
+
+expo build:web --config apps/app.sais_edu_sg.json
