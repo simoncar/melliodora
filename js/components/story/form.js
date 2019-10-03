@@ -1,5 +1,16 @@
 import React, { Component } from "react";
-import { View, ImageBackground, Text, TextInput, TouchableOpacity, Switch } from "react-native";
+import {
+  View,
+  ImageBackground,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Switch,
+  StatusBar,
+  SafeAreaView,
+  Button,
+  LayoutAnimation,
+} from "react-native";
 import { Container, Content } from "native-base";
 import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
@@ -13,9 +24,10 @@ import * as ImageManipulator from "expo-image-manipulator";
 import uuid from "uuid";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
+import { createMaterialTopTabNavigator, MaterialTopTabBar } from "react-navigation-tabs";
 
 @withMappedNavigationParams()
-class newStory extends Component {
+class PageText extends Component {
   uid = "";
   storyRef = null;
 
@@ -26,7 +38,6 @@ class newStory extends Component {
       notifyMeSwitch: false,
       visible: props.edit ? props.visible : false,
       visibleMore: props.edit ? props.visibleMore : false,
-
       eventTitle: props.edit ? props.summary : "",
       eventDescription: props.edit ? props.description : "",
       location: props.edit && props.location !== undefined ? props.location : null,
@@ -45,6 +56,7 @@ class newStory extends Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
+    tabBarLabel: "Content",
     headerLeft: (
       <TouchableOpacity
         onPress={() => {
@@ -150,7 +162,6 @@ class newStory extends Component {
     }
 
     if (undefined !== uri && null !== uri && uri.length > 0) {
-      console.log("imageURI=", imageURI);
       return (
         <View>
           <ImageBackground style={styles.storyPhoto} source={{ uri: `${this.state.photo1}` }}>
@@ -184,10 +195,10 @@ class newStory extends Component {
       this.setState({ cameraIcon: "hour-glass" });
       const blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
+        xhr.onload = function() {
           resolve(xhr.response);
         };
-        xhr.onerror = function (e) {
+        xhr.onerror = function(e) {
           reject(new TypeError("Network request failed"));
         };
         xhr.responseType = "blob";
@@ -224,7 +235,7 @@ class newStory extends Component {
 
   render() {
     const { goBack } = this.props.navigation;
-    const order = _.isNumber(this.state.order) ? this.state.order.toString() : 0;
+
     return (
       <Container style={{ backgroundColor: "#fff" }}>
         <Content showsVerticalScrollIndicator={false}>
@@ -246,81 +257,12 @@ class newStory extends Component {
                 value={this.state.eventTitle}
               />
 
-              <Text>Date (optional)</Text>
-              <DatePicker
-                style={{ width: 200 }}
-                date={this.state.eventDate}
-                mode="date"
-                placeholder="Event Date"
-                format="YYYY-MM-DD"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                onDateChange={date => {
-                  this.setState({ eventDate: date });
-                }}
-              />
-              <Text>Time (optional)</Text>
-              <DatePicker
-                style={{ width: 200 }}
-                date={this.state.eventStartTime}
-                placeholder="Start Time"
-                mode="time"
-                format="HH:mm"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                minuteInterval={10}
-                onDateChange={time => {
-                  this.setState({ eventStartTime: time });
-                }}
-              />
-              <DatePicker
-                style={{ width: 200 }}
-                date={this.state.eventEndTime}
-                placeholder="End Time"
-                mode="time"
-                format="HH:mm"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                minuteInterval={10}
-                onDateChange={time => {
-                  this.setState({ eventEndTime: time });
-                }}
-              />
-              <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.clearDates()}>
-                <Text>Clear Dates</Text>
-              </TouchableOpacity>
-
               <View
                 style={{
                   paddingTop: 20,
                   flexDirection: "row",
                 }}
-              >
-                <View style={styles.switchContainer}>
-                  <Text style={styles.eventTitle}>Order: </Text>
-                  <TextInput
-                    onChangeText={text => this.setState({ order: text })}
-                    placeholder={"0"}
-                    style={styles.eventTitle}
-                    value={order}
-                    keyboardType="number-pad"
-                  />
-                  <Text style={styles.eventTitle}>Visibility: </Text>
-
-                  <Text>Home Screen</Text>
-                  <Switch
-                    onValueChange={value => this.setState({ visible: value })}
-                    style={styles.switch}
-                    value={this.state.visible}
-                  />
-                  <Text>More Screen</Text>
-                  <Switch
-                    onValueChange={value => this.setState({ visibleMore: value })}
-                    style={styles.switch}
-                    value={this.state.visibleMore}
-                  />
-                </View>
-              </View>
+              ></View>
 
               <TextInput
                 onChangeText={text => this.setState({ eventDescription: text })}
@@ -337,5 +279,195 @@ class newStory extends Component {
   }
 }
 
-//Connect everything
+class MaterialTopTabBarWrapper extends React.Component {
+  render() {
+    return (
+      <SafeAreaView
+        style={{ backgroundColor: "#000" }}
+        forceInset={{ top: "always", horizontal: "never", bottom: "never" }}
+      >
+        <MaterialTopTabBar {...this.props} />
+      </SafeAreaView>
+    );
+  }
+}
+
+@withMappedNavigationParams()
+class PageSettings extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      notifyMeSwitch: false,
+      visible: props.edit ? props.visible : false,
+      visibleMore: props.edit ? props.visibleMore : false,
+      eventTitle: props.edit ? props.summary : "",
+      location: props.edit && props.location !== undefined ? props.location : null,
+      photo1: props.edit && props.photo1 !== undefined ? props.photo1 : null,
+      eventDate: props.date_start,
+      eventStartTime: props.time_start_pretty,
+      eventEndTime: props.time_end_pretty,
+      order: props.edit ? props.order : 1,
+      _key: props.edit ? props._key : "",
+      cameraIcon: "camera",
+    };
+
+    //this.addStory = this.addStory.bind(this);
+
+    //this.getPermissionAsync();
+  }
+
+  static navigationOptions = {
+    tabBarLabel: "Settings",
+    tabBarIcon: ({ tintColor, focused, horizontal }) => (
+      <Ionicons name={focused ? "ios-people" : "ios-people"} size={horizontal ? 20 : 26} style={{ color: tintColor }} />
+    ),
+  };
+  render() {
+    const { navigation } = this.props;
+    const summary = this.props.summary;
+    const order = _.isNumber(this.state.order) ? this.state.order.toString() : 0;
+    return (
+      <SafeAreaView forceInset={{ horizontal: "always", top: "always" }}>
+        <Text>{summary}</Text>
+
+        <Text style={styles.eventTitle}>Order: </Text>
+        <TextInput
+          onChangeText={text => this.setState({ order: text })}
+          placeholder={"0"}
+          style={styles.eventTitle}
+          value={order}
+          keyboardType="number-pad"
+        />
+        <Text style={styles.eventTitle}>Visibility: </Text>
+
+        <Text>Home Screen</Text>
+        <Switch
+          onValueChange={value => this.setState({ visible: value })}
+          style={styles.switch}
+          value={this.state.visible}
+        />
+        <Text>More Screen</Text>
+        <Switch
+          onValueChange={value => this.setState({ visibleMore: value })}
+          style={styles.switch}
+          value={this.state.visibleMore}
+        />
+
+        <Text>Date (optional)</Text>
+        <DatePicker
+          style={{ width: 200 }}
+          date={this.state.eventDate}
+          mode="date"
+          placeholder="Event Date"
+          format="YYYY-MM-DD"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          onDateChange={date => {
+            this.setState({ eventDate: date });
+          }}
+        />
+        <Text>Time (optional)</Text>
+        <DatePicker
+          style={{ width: 200 }}
+          date={this.state.eventStartTime}
+          placeholder="Start Time"
+          mode="time"
+          format="HH:mm"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          minuteInterval={10}
+          onDateChange={time => {
+            this.setState({ eventStartTime: time });
+          }}
+        />
+        <DatePicker
+          style={{ width: 200 }}
+          date={this.state.eventEndTime}
+          placeholder="End Time"
+          mode="time"
+          format="HH:mm"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          minuteInterval={10}
+          onDateChange={time => {
+            this.setState({ eventEndTime: time });
+          }}
+        />
+        <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.clearDates()}>
+          <Text>Clear Dates</Text>
+        </TouchableOpacity>
+
+        <Button onPress={() => navigation.navigate("Home")} title="Go to home tab" />
+        <Button onPress={() => navigation.goBack(null)} title="Go back" />
+      </SafeAreaView>
+    );
+  }
+}
+
+const SimpleTabs = createMaterialTopTabNavigator(
+  {
+    pageText: PageText,
+    pageSettings: PageSettings,
+  },
+  {
+    tabBarComponent: MaterialTopTabBarWrapper,
+    tabBarOptions: {
+      style: {
+        backgroundColor: "#000",
+      },
+    },
+  },
+);
+
+class newStory extends React.Component {
+  static router = SimpleTabs.router;
+  componentWillUpdate() {
+    LayoutAnimation.easeInEaseOut();
+  }
+  render() {
+    const { navigation } = this.props;
+    const { routes, index } = navigation.state;
+    const activeRoute = routes[index];
+    let bottom = null;
+    if (activeRoute.routeName !== "Home") {
+      bottom = (
+        <View
+          style={{
+            height: 50,
+            borderTopWidth: 1,
+            backgroundColor: this.context === "light" ? "#000" : "#fff",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              Alert.alert("hello!");
+              //
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 20,
+                color: this.context === "light" ? "#fff" : "#000",
+                fontWeight: "bold",
+              }}
+            >
+              Save
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+    return (
+      <View style={{ flex: 1 }}>
+        <StatusBar barStyle="light-content" />
+        <SimpleTabs navigation={navigation} />
+        {bottom}
+      </View>
+    );
+  }
+}
+
 export default newStory;
