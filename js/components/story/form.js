@@ -53,6 +53,10 @@ class PageText extends Component {
     this.addStory = this.addStory.bind(this);
 
     this.getPermissionAsync();
+
+    this.props.navigation.setParams({
+      save: () => this.state
+    });
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -195,10 +199,10 @@ class PageText extends Component {
       this.setState({ cameraIcon: "hour-glass" });
       const blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.onload = function() {
+        xhr.onload = function () {
           resolve(xhr.response);
         };
-        xhr.onerror = function(e) {
+        xhr.onerror = function (e) {
           reject(new TypeError("Network request failed"));
         };
         xhr.responseType = "blob";
@@ -315,6 +319,10 @@ class PageSettings extends Component {
     //this.addStory = this.addStory.bind(this);
 
     //this.getPermissionAsync();
+
+    this.props.navigation.setParams({
+      save: () => this.state
+    });
   }
 
   static navigationOptions = {
@@ -429,6 +437,7 @@ class newStory extends React.Component {
     const { navigation } = this.props;
     const { routes, index } = navigation.state;
     const activeRoute = routes[index];
+
     let bottom = null;
     if (activeRoute.routeName !== "Home") {
       bottom = (
@@ -443,8 +452,23 @@ class newStory extends React.Component {
         >
           <TouchableOpacity
             onPress={() => {
-              Alert.alert("hello!");
-              //
+
+              let saveState = {};
+
+
+              if (_.has(routes[0], "params.save")) {
+                pageState = routes[0].params.save() || {};
+                saveState = { ...saveState, ...pageState }
+              }
+
+
+              if (_.has(routes[1], "params.save")) {
+                pageState = routes[1].params.save() || {};
+                saveState = { ...saveState, ...pageState }
+              }
+
+              console.log("sds", saveState);
+
             }}
           >
             <Text
