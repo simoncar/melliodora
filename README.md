@@ -21,6 +21,14 @@ yarn a
 
 # Publish
 
+expo publish --config apps/app.generic.json
+
+expo publish --config apps/app.sais_edu_sg.json
+
+expo publish --config apps/app.sais_edu_sg.json
+
+# Build (and Publish)
+
 ## App Store (iOS)
 
 expo build:android --config apps/app.generic.json
