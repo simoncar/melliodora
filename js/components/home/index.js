@@ -48,8 +48,7 @@ class HomeNav extends Component {
     return {
       title: title,
       headerTitleStyle: {
-        fontWeight: "bold",
-        adjustsFontSizeToFit: true
+        fontWeight: "bold"
       },
       tabBarColor: "#111B4E",
       tabBarIcon: tabBarIcon("home"),
