@@ -159,7 +159,7 @@ class Settings extends Component {
         )}
 
         <View style={{ backgroundColor: "#EFEFF4" }}>
-          <FeatureMoreItems navigation={this.props.navigation} />
+          <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
           <View style={{ backgroundColor: "#EFEFF4", marginTop: 15 }} />
           <SettingsList borderColor="#c8c7cc" defaultItemSize={50}>
             {this.state.features
@@ -204,8 +204,8 @@ class Settings extends Component {
             {isAdmin(this.props.adminPassword) && (
               <SettingsList.Item
                 icon={<Image style={styles.imageStyle} source={require("./images/memory.png")} />}
-                title={I18n.t("logs")}
-                onPress={() => this.props.navigation.navigate("logs")}
+                title={I18n.t("editor")}
+                onPress={() => this.props.navigation.navigate("Content")}
               />
             )}
 
@@ -228,6 +228,8 @@ class Settings extends Component {
               onPress={() => this._logout()}
             />
           </SettingsList>
+
+          <SettingsList.Header headerStyle={{ marginTop: 15 }} />
         </View>
       </View>
     );

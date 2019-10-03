@@ -36,5 +36,6 @@
   "languageChangeWarning": "App will restart after selecting a new language",
   "login": "Login",
   "logout": "Logout",
-  "uniforms": "Uniforms"
+  "uniforms": "Uniforms",
+  "editor": "Editor"
 }

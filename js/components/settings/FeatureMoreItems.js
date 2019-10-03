@@ -1,17 +1,18 @@
-import React, { Component } from 'react'
-import { Text, View, FlatList, Alert } from 'react-native'
+import React, { Component } from "react";
+import { Text, View, FlatList, Alert } from "react-native";
 import firebase from "firebase";
 import ListItem from "./ListItem";
 import { getLanguageString } from "../global";
+import { withMappedNavigationParams } from "react-navigation-props-mapper";
 
+@withMappedNavigationParams()
 export default class FeatureMoreItems extends Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
       loading: true,
-      featureItems: []
+      featureItems: [],
     };
   }
 
@@ -31,12 +32,13 @@ export default class FeatureMoreItems extends Component {
     } catch (e) {
       //console.error(e.message);
     }
+
+    console.log(this.props.show);
   }
 
   onCollectionUpdate = querySnapshot => {
     var trans = {};
     var featureItems = [];
-
 
     querySnapshot.forEach(doc => {
       if (doc.data().translated == true) {
@@ -52,8 +54,11 @@ export default class FeatureMoreItems extends Component {
           descriptionMyLanguage: doc.data().description,
         };
       }
-
-      if (doc.data().visibleMore) {
+      if (this.props.show == "visibleMore") {
+        if (doc.data().visibleMore) {
+          featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
+        }
+      } else {
         featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
       }
     });
@@ -76,11 +81,8 @@ export default class FeatureMoreItems extends Component {
     return <ListItem navigation={this.props.navigation} item={item} />;
   }
   _listEmptyComponent = () => {
-    return (
-      <View>
-      </View>
-    )
-  }
+    return <View></View>;
+  };
   render() {
     if (this.state.loading || !this.state.featureItems > 0) return <View></View>;
     return (
@@ -91,7 +93,6 @@ export default class FeatureMoreItems extends Component {
         scrollEnabled={false}
         ListEmptyComponent={this._listEmptyComponent}
       />
-
-    )
+    );
   }
 }
