@@ -430,65 +430,54 @@ const SimpleTabs = createMaterialTopTabNavigator(
 
 class newStory extends React.Component {
   static router = SimpleTabs.router;
+
+  static navigationOptions = ({ navigation }) => ({
+    tabBarLabel: "Content",
+    headerLeft: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
+        <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
+      </TouchableOpacity>
+    ),
+
+    headerTitle: <Text style={{ fontSize: 17, fontWeight: "600" }}>{I18n.t("edit")}</Text>,
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => {
+          const { routes } = navigation.state;
+          let saveState = {};
+
+
+          if (_.has(routes[0], "params.save")) {
+            pageState = routes[0].params.save() || {};
+            saveState = { ...saveState, ...pageState }
+          }
+
+
+          if (_.has(routes[1], "params.save")) {
+            pageState = routes[1].params.save() || {};
+            saveState = { ...saveState, ...pageState }
+          }
+
+          console.log("sds", saveState);
+        }}
+      >
+        <Text style={styles.chatHeading}>{I18n.t("save")}</Text>
+      </TouchableOpacity>
+    ),
+  });
+
   componentWillUpdate() {
     LayoutAnimation.easeInEaseOut();
   }
   render() {
     const { navigation } = this.props;
-    const { routes, index } = navigation.state;
-    const activeRoute = routes[index];
-
-    let bottom = null;
-    if (activeRoute.routeName !== "Home") {
-      bottom = (
-        <View
-          style={{
-            height: 50,
-            borderTopWidth: 1,
-            backgroundColor: this.context === "light" ? "#000" : "#fff",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => {
-
-              let saveState = {};
-
-
-              if (_.has(routes[0], "params.save")) {
-                pageState = routes[0].params.save() || {};
-                saveState = { ...saveState, ...pageState }
-              }
-
-
-              if (_.has(routes[1], "params.save")) {
-                pageState = routes[1].params.save() || {};
-                saveState = { ...saveState, ...pageState }
-              }
-
-              console.log("sds", saveState);
-
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 20,
-                color: this.context === "light" ? "#fff" : "#000",
-                fontWeight: "bold",
-              }}
-            >
-              Save
-            </Text>
-          </TouchableOpacity>
-        </View>
-      );
-    }
     return (
       <View style={{ flex: 1 }}>
-        <StatusBar barStyle="light-content" />
         <SimpleTabs navigation={navigation} />
-        {bottom}
       </View>
     );
   }
