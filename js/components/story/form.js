@@ -305,15 +305,14 @@ class PageSettings extends Component {
       notifyMeSwitch: false,
       visible: props.edit ? props.visible : false,
       visibleMore: props.edit ? props.visibleMore : false,
-      eventTitle: props.edit ? props.summary : "",
+
       location: props.edit && props.location !== undefined ? props.location : null,
-      photo1: props.edit && props.photo1 !== undefined ? props.photo1 : null,
+
       eventDate: props.date_start,
       eventStartTime: props.time_start_pretty,
       eventEndTime: props.time_end_pretty,
       order: props.edit ? props.order : 1,
-      _key: props.edit ? props._key : "",
-      cameraIcon: "camera",
+      _key: props.edit ? props._key : ""
     };
 
     //this.addStory = this.addStory.bind(this);
@@ -406,8 +405,8 @@ class PageSettings extends Component {
           <Text>Clear Dates</Text>
         </TouchableOpacity>
 
-        <Button onPress={() => navigation.navigate("Home")} title="Go to home tab" />
-        <Button onPress={() => navigation.goBack(null)} title="Go back" />
+        {/* <Button onPress={() => navigation.navigate("Home")} title="Go to home tab" />
+        <Button onPress={() => navigation.goBack(null)} title="Go back" /> */}
       </SafeAreaView>
     );
   }
@@ -462,7 +461,44 @@ class newStory extends React.Component {
             saveState = { ...saveState, ...pageState }
           }
 
-          console.log("sds", saveState);
+          const { eventTitle, visible, visibleMore, eventDescription, photo1, eventDate, eventStartTime, eventEndTime, order, _key } = saveState;
+
+          const storyDict = {
+            summary: eventTitle,
+            visible: visible || false,
+            visibleMore: visibleMore || false,
+            description: eventDescription,
+            photo1: photo1,
+            date_start: eventDate !== undefined ? eventDate : null,
+            time_start_pretty: eventStartTime !== undefined ? eventStartTime : null,
+            time_end_pretty: eventEndTime !== undefined ? eventEndTime : null,
+            order: order !== undefined ? Number(order) : 1,
+          };
+
+          if (_key == "") {
+            firebase
+              .firestore()
+              .collection(global.domain)
+              .doc("feature")
+              .collection("features")
+              .add(storyDict)
+              .then(() =>
+                navigation.goBack()
+              );
+          } else {
+            const storyRef = firebase
+              .firestore()
+              .collection(global.domain)
+              .doc("feature")
+              .collection("features")
+              .doc(_key);
+
+            storyRef.set(storyDict, { merge: true })
+              .then(() =>
+                navigation.goBack()
+              );
+          }
+
         }}
       >
         <Text style={styles.chatHeading}>{I18n.t("save")}</Text>
