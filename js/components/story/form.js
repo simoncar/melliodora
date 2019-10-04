@@ -50,8 +50,6 @@ class PageText extends Component {
       cameraIcon: "camera",
     };
 
-    this.addStory = this.addStory.bind(this);
-
     this.getPermissionAsync();
 
     this.props.navigation.setParams({
@@ -59,35 +57,6 @@ class PageText extends Component {
     });
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: "Content",
-    headerLeft: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}
-      >
-        <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
-      </TouchableOpacity>
-    ),
-
-    headerTitle: <Text style={{ fontSize: 17, fontWeight: "600" }}>{I18n.t("edit")}</Text>,
-    headerRight: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params.addStory();
-        }}
-      >
-        <Text style={styles.chatHeading}>{I18n.t("save")}</Text>
-      </TouchableOpacity>
-    ),
-  });
-
-  componentDidMount() {
-    this.props.navigation.setParams({
-      addStory: this.addStory,
-    });
-  }
 
   getPermissionAsync = async () => {
     if (Constants.platform.ios) {
@@ -108,53 +77,6 @@ class PageText extends Component {
 
   get timestamp() {
     return firebase.database.ServerValue.TIMESTAMP;
-  }
-
-  clearDates() {
-    this.setState({ eventDate: null });
-    this.setState({ eventStartTime: null });
-    this.setState({ eventEndTime: null });
-  }
-
-  addStory() {
-    var storyDict = {
-      summary: this.state.eventTitle,
-      visible: this.state.visible,
-      visibleMore: this.state.visibleMore,
-      description: this.state.eventDescription,
-      photo1: this.state.photo1,
-      date_start: this.state.eventDate !== undefined ? this.state.eventDate : null,
-      time_start_pretty: this.state.eventStartTime !== undefined ? this.state.eventStartTime : null,
-      time_end_pretty: this.state.eventEndTime !== undefined ? this.state.eventEndTime : null,
-      order: this.state.order !== undefined ? Number(this.state.order) : 1,
-    };
-
-    console.log(storyDict);
-
-    if (this.state._key == "") {
-      var storyRef = firebase
-        .firestore()
-        .collection(global.domain)
-        .doc("feature")
-        .collection("features")
-        .add(storyDict);
-    } else {
-      var storyRef = firebase
-        .firestore()
-        .collection(global.domain)
-        .doc("feature")
-        .collection("features")
-        .doc(this.state._key);
-
-      storyRef.set(storyDict, { merge: true });
-    }
-
-    const { goBack } = this.props.navigation;
-
-    goBack(null);
-    setTimeout(() => {
-      goBack(null);
-    }, 100);
   }
 
   _drawImage(imageURI) {
@@ -451,13 +373,13 @@ class newStory extends React.Component {
 
 
           if (_.has(routes[0], "params.save")) {
-            pageState = routes[0].params.save() || {};
+            const pageState = routes[0].params.save() || {};
             saveState = { ...saveState, ...pageState }
           }
 
 
           if (_.has(routes[1], "params.save")) {
-            pageState = routes[1].params.save() || {};
+            const pageState = routes[1].params.save() || {};
             saveState = { ...saveState, ...pageState }
           }
 
