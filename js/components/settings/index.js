@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight } from "react-native";
-import SettingsList from "react-native-settings-list";
+import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight, ScrollView } from "react-native";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -8,6 +7,7 @@ import * as firebase from "firebase";
 import { Updates } from "expo";
 import FeatureMoreItems from "./FeatureMoreItems";
 import Constants from "expo-constants";
+import SettingsListItem from "./SettingsListItem";
 
 const icons = {
   wifi: require("./images/wifi.png"),
@@ -84,19 +84,6 @@ class Settings extends Component {
     }
   }
 
-  gradeSelector(title, level, grade) {
-    return (
-      <SettingsList.Item
-        hasSwitch={true}
-        switchState={this.state[grade]}
-        switchOnValueChange={() => this._setGrade(grade)}
-        title={title}
-        titleInfo={level}
-        hasNavArrow={false}
-        icon={<MaterialIcons name="people" style={styles.imageStyleCheckOn} />}
-      />
-    );
-  }
 
   _setGrade(grade) {
     console.log(grade);
@@ -158,79 +145,80 @@ class Settings extends Component {
           </TouchableHighlight>
         )}
 
-        <View style={{ backgroundColor: "#EFEFF4" }}>
+        <ScrollView style={{ backgroundColor: "#EFEFF4" }}>
           <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
-          <View style={{ backgroundColor: "#EFEFF4", marginTop: 15 }} />
-          <SettingsList borderColor="#c8c7cc" defaultItemSize={50}>
-            {this.state.features
-              .filter(item => item.visible !== false)
-              .map(el => {
-                const navTitle = el.navTitle || el.title;
-                const navProps = el.navURL
-                  ? {
-                      url: el.navURL,
-                      title: I18n.t(navTitle, { defaultValue: navTitle }),
-                    }
-                  : {};
 
-                const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
-                return (
-                  <SettingsList.Item
-                    icon={<Image style={styles.imageStyle} source={imgSource} />}
-                    title={I18n.t(el.title || "", { defaultValue: el.title || "" })}
-                    titleInfo={el.titleInfo || ""}
-                    titleInfoStyle={styles.titleInfoStyle}
-                    onPress={() => this.props.navigation.navigate(el.navigate || "webportalURL", navProps)}
-                  />
-                );
-              })}
+          <Seperator />
+          {this.state.features
+            .filter(item => item.visible !== false)
+            .map(el => {
+              const navTitle = el.navTitle || el.title;
+              const navProps = el.navURL
+                ? {
+                  url: el.navURL,
+                  title: I18n.t(navTitle, { defaultValue: navTitle }),
+                }
+                : {};
 
-            <SettingsList.Header headerStyle={{ marginTop: 15 }} />
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/general.png")} />}
-              title={languageTitle}
-              titleInfo={this.state.language}
-              titleInfoStyle={styles.titleInfoStyle}
-              onPress={() => this.props.navigation.navigate("selectLanguage")}
+              const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
+              return (
+                <SettingsListItem
+                  icon={<Image style={styles.imageStyle} source={imgSource} />}
+                  title={I18n.t(el.title || "", { defaultValue: el.title || "" })}
+                  titleInfo={el.titleInfo || ""}
+                  titleInfoStyle={styles.titleInfoStyle}
+                  onPress={() => this.props.navigation.navigate(el.navigate || "webportalURL", navProps)}
+                />
+              );
+            })}
+
+          <Seperator />
+          <SettingsListItem
+            icon={<Image style={styles.imageStyle} source={require("./images/general.png")} />}
+            title={languageTitle}
+            titleInfo={this.state.language}
+            titleInfoStyle={styles.titleInfoStyle}
+            onPress={() => this.props.navigation.navigate("selectLanguage")}
+          />
+          <SettingsListItem
+            icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
+            hasNavArrow={true}
+            title={I18n.t("adminAccess")}
+            onPress={() => this.props.navigation.navigate("adminPassword")}
+          />
+          {isAdmin(this.props.adminPassword) && <Seperator />}
+
+          {isAdmin(this.props.adminPassword) && (
+            <SettingsListItem
+              icon={<Image style={styles.imageStyle} source={require("./images/memory.png")} />}
+              title={I18n.t("editor")}
+              onPress={() => this.props.navigation.navigate("Content")}
             />
-            <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
-              hasNavArrow={true}
-              title={I18n.t("adminAccess")}
-              onPress={() => this.props.navigation.navigate("adminPassword")}
-            />
-            {isAdmin(this.props.adminPassword) && <SettingsList.Header headerStyle={{ marginTop: 15 }} />}
+          )}
 
-            {isAdmin(this.props.adminPassword) && (
-              <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require("./images/memory.png")} />}
-                title={I18n.t("editor")}
-                onPress={() => this.props.navigation.navigate("Content")}
-              />
-            )}
+          <Seperator />
 
-            <SettingsList.Header headerStyle={{ marginTop: 15 }} />
-            <SettingsList.Item
-              hasNavArrow={false}
-              icon={<Image style={styles.imageStyle} source={require("./images/about.png")} />}
-              title={"About this App"}
-              onPress={() => {
-                this.props.navigation.navigate("webportalURL", {
-                  url: "https://www.smartcookies.io/stamford-app-faqs",
-                  title: "About this App",
-                });
-              }}
-            />
-            <SettingsList.Item
-              hasNavArrow={false}
-              icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
-              title={I18n.t("logout")}
-              onPress={() => this._logout()}
-            />
-          </SettingsList>
+          <SettingsListItem
+            hasNavArrow={false}
+            icon={<Image style={styles.imageStyle} source={require("./images/about.png")} />}
+            title={"About this App"}
+            onPress={() => {
+              this.props.navigation.navigate("webportalURL", {
+                url: "https://www.smartcookies.io/stamford-app-faqs",
+                title: "About this App",
+              });
+            }}
+          />
+          <SettingsListItem
+            hasNavArrow={false}
+            icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
+            title={I18n.t("logout")}
+            onPress={() => this._logout()}
+          />
+          <View style={{ marginTop: 30 }}></View>
 
-          <SettingsList.Header headerStyle={{ marginTop: 15 }} />
-        </View>
+
+        </ScrollView>
       </View>
     );
   }
@@ -289,5 +277,20 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 });
+
+class Seperator extends Component {
+  render() {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: "#CED0CE",
+          marginTop: 30
+        }}
+      />
+    )
+  }
+}
 
 module.exports = Settings;
