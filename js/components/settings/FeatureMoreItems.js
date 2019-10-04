@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, FlatList, Alert } from "react-native";
 import firebase from "firebase";
-import ListItem from "./ListItem";
+import ListItem from "./FeatureListItem";
 import { getLanguageString } from "../global";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 

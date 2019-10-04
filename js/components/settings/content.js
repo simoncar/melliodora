@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight } from "react-native";
-import SettingsList from "react-native-settings-list";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -37,11 +36,11 @@ export default class Content extends Component {
     };
   }
 
-  componentWillMount() {}
+  componentWillMount() { }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   _getStyle(language) {
     if (language == this.state.language) {
