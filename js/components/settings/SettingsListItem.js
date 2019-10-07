@@ -3,30 +3,9 @@ import { Text, View, TouchableHighlight, TextInput, Switch } from 'react-native'
 import { Feather } from '@expo/vector-icons';
 
 export default class SettingsListItem extends Component {
-  _itemEditableBlock(item, index, position) {
-
-    return ([
-      <Text
-        key={'itemTitle_' + index}
-        style={[
-          item.titleStyle ? item.titleStyle : this.props.defaultTitleStyle,
-          position === 'Bottom' ? null : styles.titleText
-        ]}>
-        {item.title}
-      </Text>,
-      item.isEditable ?
-        <TextInput
-          key={item.id}
-          style={item.editableTextStyle ? item.editableTextStyle : styles.editableText}
-          placeholder={item.placeholder}
-          onChangeText={(text) => item.onTextChange(text)}
-          value={item.value} />
-        : null
-    ])
-  }
 
   render() {
-    const { icon, onPress, key, title, titleInfoStyle, titleInfo, hasNavArrow = true } = this.props
+    const { icon, onPress, title, titleInfoStyle, titleInfo, hasNavArrow = true } = this.props;
     return (
       <TouchableHighlight onPress={onPress}>
         <View style={{ flexDirection: 'row', backgroundColor: "white", paddingVertical: 8, alignItems: "center", borderBottomColor: "#CED0CE", borderBottomWidth: 1 }}>

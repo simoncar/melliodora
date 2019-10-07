@@ -417,7 +417,7 @@ class newStory extends React.Component {
 
             storyRef.set(storyDict, { merge: true })
               .then(() =>
-                navigation.goBack()
+                navigation.popToTop()
               );
           }
 
