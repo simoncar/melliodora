@@ -151,7 +151,7 @@ class Settings extends Component {
           <Seperator />
           {this.state.features
             .filter(item => item.visible !== false)
-            .map(el => {
+            .map((el, idx) => {
               const navTitle = el.navTitle || el.title;
               const navProps = el.navURL
                 ? {
@@ -163,6 +163,7 @@ class Settings extends Component {
               const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
               return (
                 <SettingsListItem
+                  key={"feature" + idx}
                   icon={<Image style={styles.imageStyle} source={imgSource} />}
                   title={I18n.t(el.title || "", { defaultValue: el.title || "" })}
                   titleInfo={el.titleInfo || ""}
