@@ -2,16 +2,17 @@ import React, { Component } from "react";
 import { Image, View, TouchableOpacity, AsyncStorage } from "react-native";
 import { Container, Text } from "native-base";
 import * as firebase from "firebase";
-import { Grid, Col, Row } from "react-native-easy-grid";
+
 import { Agenda } from "react-native-calendars";
 import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons } from "@expo/vector-icons";
-import { formatTime, formatMonth } from "../global.js";
+
 import I18n from "../../lib/i18n";
 import moment from "moment";
 import "moment/min/locales";
 import Constants from "expo-constants";
+import CalendarItem from "./CalendarItem";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
@@ -42,7 +43,7 @@ class calendar1 extends Component {
     };
   }
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title: I18n.t("calendar"),
     headerTitleStyle: {
       fontWeight: "bold",
@@ -50,7 +51,32 @@ class calendar1 extends Component {
     },
     tabBarColor: "#c51162",
     tabBarIcon: tabBarIcon("ios-calendar", "green"),
-  };
+
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.push("searchCalendar");
+        }}
+      >
+        <View
+          style={{
+            color: "#48484A",
+            fontSize: 25,
+            marginRight: 10,
+          }}
+        >
+          <Ionicons
+            name="md-search"
+            style={{
+              color: "#48484A",
+              fontSize: 25,
+              marginRight: 10,
+            }}
+          />
+        </View>
+      </TouchableOpacity>
+    ),
+  });
 
   componentDidMount() {
     moment.updateLocale;
@@ -119,28 +145,16 @@ class calendar1 extends Component {
           };
 
           var event = { ...{ _key: doc.id }, ...doc.data(), ...trans };
-          // if (strtime == "2019-09-02") {
-          //if (undefined != items2[strtime]) {
           items2[strtime].push(event);
-
-          //this.state.items[strtime].push(event);
-          // }
-          // }
         });
-
-        console.log(items2);
 
         if (itemCount > 10) {
           this._storeData(JSON.stringify(items2));
         }
 
-        // this.state.items = ;
-
         this.setState({
           items: items2,
         });
-
-        //this.loadItems();
       })
       .catch(err => {
         console.log("Error getting documents", err);
@@ -152,16 +166,11 @@ class calendar1 extends Component {
       var items = JSON.parse(fi);
 
       if (null != items) {
-        // if (items.length > 0) {
         this.setState({
           items,
           loading: false,
         });
-        //this.loadItems();
-        // }
       }
-
-      //console.log(items);
     });
   }
 
@@ -191,8 +200,6 @@ class calendar1 extends Component {
       //   items: newItems,
       // });
     }, 1000);
-
-    console.log("loadItems - loadItemsForMonth");
   }
 
   render() {
@@ -225,63 +232,7 @@ class calendar1 extends Component {
   }
 
   renderItem(item) {
-    return (
-      <TouchableOpacity
-        style={{ flexDirection: "row" }}
-        onPress={() => this.props.navigation.navigate("storyCalendar", item)}
-      >
-        <View
-          style={[
-            styles.agendaItem,
-            {
-              height: item.height,
-              borderRightColor: this.formatBackground(item.color),
-            },
-          ]}
-        >
-          <Grid>
-            <Row>
-              <Col>
-                <Text style={styles.agendaLocation}>
-                  {formatMonth(item.date_start)} {item.location}{" "}
-                </Text>
-                {this.renderTime(item.time_start_pretty, item.time_end_pretty)}
-
-                <Text style={styles.text}>{item.summary}</Text>
-
-                {undefined !== item.group && item.group !== null && item.group.length > 0 && (
-                  <View style={styles.groupView}>
-                    <Text style={styles.groupText}>{item.group}</Text>
-                  </View>
-                )}
-              </Col>
-              <Col style={{ width: 60 }}>
-                <View
-                  style={{
-                    borderRadius: 30,
-                    backgroundColor: this.formatBackground(item.color),
-                    width: 45,
-                    height: 45,
-                    marginLeft: 10,
-                    marginTop: 5,
-                    alignItems: "center",
-                    paddingLeft: 0,
-                    paddingRight: 0,
-                    justifyContent: "center",
-                  }}
-                >
-                  <Ionicons style={{ color: "white", fontSize: 20 }} name={item.icon} />
-                  <View />
-                </View>
-              </Col>
-            </Row>
-            <Row>
-              <View>{this.renderImage(item.photo1)}</View>
-            </Row>
-          </Grid>
-        </View>
-      </TouchableOpacity>
-    );
+    return <CalendarItem navigation={this.props.navigation} item={item} />;
   }
 
   getIcon(eventDetails) {
@@ -298,24 +249,12 @@ class calendar1 extends Component {
     return ret;
   }
 
-  renderImage(calImage) {
-    if (undefined != calImage && calImage.length > 0) {
-      return <Image source={{ uri: calImage }} style={{ width: 300, height: 150 }} resizeMode="contain" />;
-    }
-  }
-
   renderEmptyDate(item) {
     return (
       <View style={{ height: 15, flex: 1, paddingTop: 30 }}>
         <Text style={{ color: "black" }} />
       </View>
     );
-  }
-
-  renderTime(start, end) {
-    if (undefined != start && start.length > 0) {
-      return <Text style={styles.agendaDate}>{formatTime(start, end)} </Text>;
-    }
   }
 
   rowHasChanged(r1, r2) {
@@ -325,37 +264,6 @@ class calendar1 extends Component {
   timeToString(time) {
     const date = new Date(time);
     return date.toISOString().split("T")[0];
-  }
-
-  formatBackground(color) {
-    let ret = "#1DAEF2";
-    switch (color) {
-      case "grey":
-        ret = "#64D4D2";
-        break;
-      case "yellow":
-        ret = "#8F63B8";
-        break;
-      case "purple":
-        ret = "#8F63B8";
-        break;
-      case "red":
-        ret = "#E63946";
-        break;
-      case "green":
-        ret = "#64D4D2";
-        break;
-      case "light blue":
-        ret = "white";
-        break;
-      case 5:
-        ret = "Friday";
-        break;
-      case 6:
-        ret = "Saturday";
-    }
-
-    return ret;
   }
 
   pad(n, width, z) {
