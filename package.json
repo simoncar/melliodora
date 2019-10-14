@@ -34,7 +34,7 @@
     "app": "cp apps/app.ais.json app.json && expo r -c",
     "g": "expo start --config apps/app.generic.json --ios",
     "s": "expo start --config apps/app.sais_edu_sg.json --ios",
-    "a": "expo start --config apps/app.ais_edu_sg.json --ios"
+    "a": "expo start --config apps/app.ais_edu.sg.json --ios"
   },
   "dependencies": {
     "@expo/react-native-action-sheet": "^3.2.0",
@@ -91,7 +91,7 @@
     "react-navigation-props-mapper": "^1.0.1",
     "react-navigation-stack": "^1.9.4",
     "react-navigation-tabs": "^1.2.0",
-    "sentry-expo": "^2.0.1",
+    "sentry-expo": "^1.13.0",
     "tcomb-form-native": "^0.6.20",
     "use-global-hook": "^0.1.11"
   },
