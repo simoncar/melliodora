@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { Container, Content, Text } from "native-base";
 import Constants from "expo-constants";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import firebase from "firebase";
 import { getLanguageString } from "../global";
 import I18n from "../../lib/i18n";
@@ -26,8 +26,8 @@ const tabBarIcon = name => ({ tintColor }) => (
 
 const bottomLogo = {
   sais_edu_sg: require("../../../images/sais_edu_sg/10yearLogo.png"),
-  ais_edu_sg: require("../../../images/ais_edu_sg/10yearLogo.png")
-}
+  ais_edu_sg: require("../../../images/ais_edu_sg/10yearLogo.png"),
+};
 
 class HomeNav extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class HomeNav extends Component {
 
     this.state = {
       loading: true,
-      featureItems: []
+      featureItems: [],
     };
 
     this.loadFromAsyncStorage();
@@ -48,12 +48,36 @@ class HomeNav extends Component {
     return {
       title: title,
       headerTitleStyle: {
-        fontWeight: "bold"
+        fontWeight: "bold",
       },
       tabBarColor: "#111B4E",
       tabBarIcon: tabBarIcon("home"),
       headerBackTitle: null,
-    }
+      headerRight: (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.push("searchCalendarHome");
+          }}
+        >
+          <View
+            style={{
+              color: "#48484A",
+              fontSize: 25,
+              marginRight: 10,
+            }}
+          >
+            <Ionicons
+              name="md-search"
+              style={{
+                color: "#48484A",
+                fontSize: 25,
+                marginRight: 10,
+              }}
+            />
+          </View>
+        </TouchableOpacity>
+      ),
+    };
   };
 
   componentWillMount() {
@@ -74,12 +98,11 @@ class HomeNav extends Component {
     }
   }
 
-  componentWillUnmount() { }
+  componentWillUnmount() {}
 
   onCollectionUpdate = querySnapshot => {
     var trans = {};
     var featureItems = [];
-
 
     querySnapshot.forEach(doc => {
       if (doc.data().translated == true) {
@@ -128,7 +151,7 @@ class HomeNav extends Component {
       console.log("domain", domain);
 
       this.props.navigation.setParams({
-        domain
+        domain,
       });
       this.setState({
         featureItems,
@@ -177,11 +200,11 @@ class HomeNav extends Component {
 
           <Image source={bottomLogo[global.domain]} style={styles.tenYearLogo} />
           <View
-
             style={{
               marginTop: 100,
-              alignItems: "center"
-            }}>
+              alignItems: "center",
+            }}
+          >
             <TouchableOpacity
               onPress={() => {
                 this._handleOpenWithLinking("https://www.smartcookies.io/stamford-app-faqs");
@@ -193,9 +216,7 @@ class HomeNav extends Component {
             >
               <Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
             </TouchableOpacity>
-
           </View>
-
 
           <View>
             <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
