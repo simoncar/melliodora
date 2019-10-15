@@ -91,7 +91,7 @@
     "react-navigation-props-mapper": "^1.0.1",
     "react-navigation-stack": "^1.9.4",
     "react-navigation-tabs": "^1.2.0",
-    "sentry-expo": "^1.13.0",
+    "sentry-expo": "^2.0.1",
     "tcomb-form-native": "^0.6.20",
     "use-global-hook": "^0.1.11"
   },
