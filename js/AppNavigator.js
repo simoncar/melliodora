@@ -39,6 +39,7 @@ let StackHome = createStackNavigator(
     campusMap: { screen: campusMap },
     storyForm: { screen: StoryForm },
     authPortalStory: { screen: authPortal },
+    searchCalendarHome: { screen: Search },
   },
   {
     navigationOptions: {
