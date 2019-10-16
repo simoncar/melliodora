@@ -1,13 +1,71 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
+import { Text, View, TouchableOpacity, Dimensions, StyleSheet, Alert } from "react-native";
 import styles from "./styles";
-import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
+import { Ionicons, SimpleLineIcons, AntDesign } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import { getLanguageString } from "../global";
+import firebase from "firebase";
 
 class ListItem extends Component {
   constructor(props) {
     super(props);
+  }
+
+  deleteStory = () => {
+    const storyID = this.props.item.item._key;
+    firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("feature")
+      .collection("features")
+      .doc(storyID)
+      .delete();
+  }
+
+  confirmDelete = () => {
+    Alert.alert(
+      'Confirm Delete Story',
+      this.props.item.item.summary + "?",
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        { text: 'OK', onPress: () => this.deleteStory() },
+      ],
+      { cancelable: true },
+    );
+  }
+
+  adminMode = () => {
+    if (this.props.editMode) {
+      return (
+        <TouchableOpacity
+          style={{ flexDirection: "row" }}
+          onPress={() =>
+            this.confirmDelete()
+          }
+        >
+          <AntDesign name="delete" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+        </TouchableOpacity>
+      );
+    }
+
+    return (
+      <TouchableOpacity
+        style={{ flexDirection: "row" }}
+        onPress={() => {
+          this.props.navigation.navigate("chat", {
+            chatroom: this.props.item.item._key,
+            title: summary,
+          });
+        }}
+      >
+        <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+      </TouchableOpacity>
+    );
+
+
   }
 
   render() {
@@ -46,20 +104,10 @@ class ListItem extends Component {
               {...{ preview, uri }}
             />
 
-            {this.props.item.item.visible != true && <Text style={styles.itemTitle}>{summary}</Text>}
+            {this.props.item.item.visible == false && <Text style={styles.itemTitle}>Hidden {summary}</Text>}
             {this.props.item.item.visible == true && <Text style={styles.itemTitle}>{summary}</Text>}
-            <TouchableOpacity
-              style={{ flexDirection: "row" }}
-              onPress={() => {
-                this.props.navigation.navigate("chat", {
-                  chatroom: this.props.item.item._key,
-                  title: summary,
-                });
-              }}
-            >
-              <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
-            </TouchableOpacity>
 
+            {this.adminMode()}
             <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
           </View>
         </TouchableOpacity>

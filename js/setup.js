@@ -24,7 +24,7 @@ export default class Setup extends Component {
   }
 
   getDomains = () =>
-    new Promise(function(resolve, reject) {
+    new Promise(function (resolve, reject) {
       firebase
         .firestore()
         .collection("domains")
@@ -108,6 +108,18 @@ export default class Setup extends Component {
           "https://connect.ais.com.sg/login/login.aspx?prelogin=https%3a%2f%2fconnect.ais.com.sg%2f&kr=iSAMS:ParentPP";
         global.switch_portalName = "AIS Connect";
         global.switch_tab_portalName = "Connect";
+        global.switch_webportalActions = [
+          { Home: "" },
+          { "Cafe Top-Up": "" },
+          { Events: "" },
+          { Forms: "" },
+          { PTA: "" },
+          { Logout: "" },
+        ];
+        break;
+      case "camp_asia":
+        global.switch_portalURL =
+          "https://www.campasia.asia/online-booking/login";
         global.switch_webportalActions = [
           { Home: "" },
           { "Cafe Top-Up": "" },

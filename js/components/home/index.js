@@ -98,7 +98,9 @@ class HomeNav extends Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
 
   onCollectionUpdate = querySnapshot => {
     var trans = {};

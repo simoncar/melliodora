@@ -173,7 +173,6 @@ class Settings extends Component {
               );
             })}
 
-          <Seperator />
           <SettingsListItem
             icon={<Image style={styles.imageStyle} source={require("./images/general.png")} />}
             title={languageTitle}

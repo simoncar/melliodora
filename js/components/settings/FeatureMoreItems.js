@@ -72,13 +72,16 @@ export default class FeatureMoreItems extends Component {
     this.setState({
       loading: false,
     });
-    this.unsubscribe();
   };
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
 
   keyExtractor = item => item._key;
 
   _renderItem(item) {
-    return <ListItem navigation={this.props.navigation} item={item} />;
+    return <ListItem navigation={this.props.navigation} item={item} editMode={this.props.editMode} />;
   }
   _listEmptyComponent = () => {
     return <View></View>;
