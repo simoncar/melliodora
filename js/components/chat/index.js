@@ -150,7 +150,7 @@ class chat extends Component {
     }, 2000); // simulating network
   }
 
-  onReceive(text) {}
+  onReceive(text) { }
 
   renderCustomActions(props) {
     return (
@@ -324,7 +324,7 @@ class chat extends Component {
   }
 
   render() {
-    if (!global.authenticated && global.domain != "ais_edu_sg") {
+    if (!global.authenticated && global.domain == "sais_edu_sg") {
       const { goBack } = this.props.navigation;
       goBack(null);
       setTimeout(() => {

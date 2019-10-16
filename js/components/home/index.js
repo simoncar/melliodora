@@ -113,7 +113,6 @@ class HomeNav extends Component {
     this.setState({
       loading: false,
     });
-    this.unsubscribe();
   };
 
   _handleOpenWithLinking = sURL => {
