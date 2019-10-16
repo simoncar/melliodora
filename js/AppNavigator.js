@@ -9,6 +9,7 @@ import { MaterialIcons, Ionicons, SimpleLineIcons, Feather } from "@expo/vector-
 import Calendar from "./components/calendar";
 import phoneCalendar from "./components/calendar/calendars";
 import Home from "./components/home";
+import Search from "./components/search";
 import Contact from "./components/contact";
 import ContactAdmin from "./components/contact/ContactAdmin";
 import Settings from "./components/settings";
@@ -38,6 +39,7 @@ let StackHome = createStackNavigator(
     campusMap: { screen: campusMap },
     storyForm: { screen: StoryForm },
     authPortalStory: { screen: authPortal },
+    searchCalendarHome: { screen: Search },
   },
   {
     navigationOptions: {
@@ -55,6 +57,7 @@ let StackCalendar = createStackNavigator(
     home: { screen: Calendar },
     phoneCalendar: { screen: phoneCalendar },
     storyCalendar: { screen: Story },
+    searchCalendar: { screen: Search },
   },
   {
     navigationOptions: {

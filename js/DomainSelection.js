@@ -33,7 +33,7 @@ export default class DomainSelection extends Component {
           onValueChange={(itemValue, itemIndex) => this.setState({ selectedDomain: itemValue })}
         >
           {this.props.domains.map(item => {
-            return <Picker.Item label={item.name} value={item.node} />;
+            return <Picker.Item label={item.name} value={item.node} key={item.node} />;
           })}
         </Picker>
         <Button
