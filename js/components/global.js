@@ -24,7 +24,6 @@ export function formatTime(starttime, endtime) {
   }
 
   ret = _.isNil(ret) ? "" : ret;
-  console.log(ret);
   return ret;
 }
 

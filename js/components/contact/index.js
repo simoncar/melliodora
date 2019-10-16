@@ -144,10 +144,10 @@ export default class Contact extends Component {
             <Grid>
 
               {
-                this.state.contactInfo.map(item => {
+                this.state.contactInfo.map((item, idx) => {
 
                   return (
-                    <Row style={{ paddingTop: 20 }}>
+                    <Row style={{ paddingTop: 20 }} key={idx}>
                       <Col style={{ width: 80 }}>
                         <Button transparent style={styles.roundedButton} onPress={this._contactBtnAction(item)}>
                           <Ionicons name={contactIconType[item.type]} size={30} color="#FFF" />
