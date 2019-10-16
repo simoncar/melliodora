@@ -64,7 +64,7 @@ export default class Content extends Component {
         )}
 
         <View style={{ backgroundColor: "#EFEFF4" }}>
-          <FeatureMoreItems navigation={this.props.navigation} show="all" />
+          <FeatureMoreItems navigation={this.props.navigation} show="all" editMode />
         </View>
       </View>
     );
