@@ -121,11 +121,10 @@ class HomeNav extends Component {
         };
       }
 
-      if (global.administrator != true && doc.data().visible == false) {
-        //skip item
-      } else {
+      if (!doc.data().visible == false) {
         featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
       }
+
     });
 
     if (featureItems.length > 0) {
@@ -200,7 +199,19 @@ class HomeNav extends Component {
             />
           </View>
 
-          <Image source={bottomLogo[global.domain]} style={styles.tenYearLogo} />
+          <View
+            style={{
+              marginTop: 70,
+              alignItems: "center",
+              width: "100%"
+            }}
+          >
+            <Image
+              style={styles.tenYearLogo}
+              source={bottomLogo[global.domain] || { uri: global.switch_homeLogoURI }}
+            />
+          </View>
+
           <View
             style={{
               marginTop: 100,
@@ -209,7 +220,7 @@ class HomeNav extends Component {
           >
             <TouchableOpacity
               onPress={() => {
-                this._handleOpenWithLinking("https://www.smartcookies.io/stamford-app-faqs");
+                this._handleOpenWithLinking("https://smartcookies.io/smart-community");
               }}
               style={{
                 width: 40,

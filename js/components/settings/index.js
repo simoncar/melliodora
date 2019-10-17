@@ -204,7 +204,7 @@ class Settings extends Component {
             title={"About this App"}
             onPress={() => {
               this.props.navigation.navigate("webportalURL", {
-                url: "https://www.smartcookies.io/stamford-app-faqs",
+                url: "https://smartcookies.io/smart-community",
                 title: "About this App",
               });
             }}
