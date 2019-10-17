@@ -216,7 +216,7 @@ class Story extends Component {
                 style={styles.eventText}
                 parse={[
                   {
-                    type: "url",
+                    pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*[-a-zA-Z0-9@:%_\+~#?&\/=])*/i,
                     style: styles.url,
                     onPress: this._handleOpenWithLinking,
                   },
