@@ -204,11 +204,9 @@ export default {
   },
 
   tenYearLogo: {
-    marginTop: 100,
-    height: 120,
-    resizeMode: 'contain',
-    borderTopWidth: 1,
-    alignSelf: "center",
+    height: 200,
+    width: "80%",
+    resizeMode: 'contain'
   },
   sclogo: {
     width: 40,

@@ -104,8 +104,7 @@ class ListItem extends Component {
               {...{ preview, uri }}
             />
 
-            {this.props.item.item.visible == false && <Text style={styles.itemTitle}>Hidden {summary}</Text>}
-            {this.props.item.item.visible == true && <Text style={styles.itemTitle}>{summary}</Text>}
+            <Text style={styles.itemTitle}>{summary}</Text>
 
             {this.adminMode()}
             <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
