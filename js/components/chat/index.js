@@ -85,6 +85,12 @@ class chat extends Component {
     ),
   });
 
+  componentWillMount() {
+    this.props.navigation.setParams({
+      refresh: this.refresh,
+    });
+  }
+
   componentDidMount() {
     this.props.navigation.setParams({
       _showActionSheet: this._showActionSheet,
@@ -290,6 +296,7 @@ class chat extends Component {
 
   refresh = ({ title }) => {
     console.log("nav refresh AAA ", title);
+    this.props.navigation.setParams({ title: title });
   };
 
   _showActionSheet(navigation) {
