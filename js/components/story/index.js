@@ -91,8 +91,9 @@ class Story extends Component {
     }
   }
 
+
   _drawIconChat(chatroom, title) {
-    if (_.isNil(chatroom)) {
+    if (_.isNil(chatroom) || this.props.showIconChat === false) {
       return;
     }
 
@@ -145,6 +146,10 @@ class Story extends Component {
   }
 
   _drawIconShare() {
+    if (this.props.showIconShare === false) {
+      return;
+    }
+
     return (
       <TouchableOpacity onPress={() => this._shareMessage()}>
         <Text style={styles.eventText}>
