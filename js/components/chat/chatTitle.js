@@ -48,7 +48,7 @@ export default class chatTitle extends Component {
     }
     console.log("ChatTitle go back");
     this.props.navigation.goBack(null);
-    //this.props.navigation.state.params.onGoBack({ title: this.state.chatroomTitle });
+    this.props.navigation.state.params.onGoBack({ title: this.state.chatroomTitle });
   }
 
   _hideChatroom() {
