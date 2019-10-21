@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TextInput, Text, TouchableOpacity } from "react-native";
 import * as firebase from "firebase";
+import { Button } from "react-native-elements";
+import { SimpleLineIcons, Entypo, MaterialIcons } from "@expo/vector-icons";
 
 export default class chatTitle extends Component {
   static navigationOptions = {
@@ -12,6 +14,7 @@ export default class chatTitle extends Component {
     super(props);
     this.state = {
       chatroomTitle: this.props.navigation.getParam("title"),
+      type: this.props.navigation.getParam("type"),
     };
   }
 
@@ -43,23 +46,59 @@ export default class chatTitle extends Component {
         .collection("chatrooms")
         .add(dict);
     }
+    console.log("ChatTitle go back");
+    this.props.navigation.goBack(null);
+    //this.props.navigation.state.params.onGoBack({ title: this.state.chatroomTitle });
+  }
+
+  _hideChatroom() {
+    var dict = {
+      visible: false,
+    };
+    console.log("hiding");
+    firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("chat")
+      .collection("chatrooms")
+      .doc(this.props.navigation.getParam("chatroom"))
+      .set(dict, { merge: true });
+  }
+
+  _closeHideButton() {
+    console.log(this.state.type);
+    if (this.state.type == "user") {
+      return (
+        <Button
+          icon={<MaterialIcons name="delete" size={25} color="white" />}
+          title="Close/Hide Chat Group"
+          style={styles.button}
+          onPress={() => this._hideChatroom()}
+        />
+      );
+    } else {
+      return;
+    }
   }
 
   render() {
     return (
       <View style={styles.padding}>
-        <Text style={styles.title}>Chatroom Subject:</Text>
-        <TextInput
-          style={styles.passwordField}
-          onChangeText={text => this._setChatroomTitle(text)}
-          autoCapitalize="none"
-          placeholder={this.state.chatroomTitle}
-          value={this.state.chatroomTitle}
-        />
+        <View style={{ flexDirection: "row" }}>
+          <View style={styles.subjectRow}>
+            <Text style={styles.title}>Subject:</Text>
+            <TextInput
+              style={styles.titleField}
+              onChangeText={text => this._setChatroomTitle(text)}
+              autoCapitalize="none"
+              placeholder={this.state.chatroomTitle}
+              value={this.state.chatroomTitle}
+            />
+          </View>
+        </View>
+        <Button title="Save" style={styles.button} onPress={() => this._saveChatroom()} />
 
-        <TouchableOpacity onPress={() => this._saveChatroom()}>
-          <Text style={styles.alertRestart}>Save</Text>
-        </TouchableOpacity>
+        {this._closeHideButton()}
       </View>
     );
   }
@@ -72,20 +111,23 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     color: "#8e8e93",
   },
+
+  subjectRow: {
+    flexDirection: "row",
+    flex: 1,
+  },
   title: {
-    paddingBottom: 16,
+    flex: 0,
+    fontSize: 22,
   },
-  alert: {
-    paddingTop: 16,
+  titleField: {
+    flex: 1,
+    paddingLeft: 20,
+    fontSize: 22,
   },
-  alertRestart: {
-    paddingTop: 16,
-    color: "red",
-  },
-  passwordField: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    paddingLeft: 10,
+
+  button: {
+    paddingTop: 20,
+    paddingBottom: 20,
   },
 });

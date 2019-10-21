@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { Text, Button } from "native-base";
-import { SimpleLineIcons, Entypo, Octicons } from "@expo/vector-icons";
+import { SimpleLineIcons, Entypo } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import styles from "./styles";
@@ -30,6 +30,7 @@ class ChatroomItem extends Component {
               contact: this.props.contact,
               url: this.props.url,
               language: this.props.language,
+              type: this.props.type,
             });
           }}
         >

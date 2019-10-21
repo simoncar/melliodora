@@ -46,7 +46,6 @@ class chatRooms extends Component {
       .collection(global.domain)
       .doc("chat")
       .collection("chatrooms")
-      .where("type", "==", "public")
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
@@ -55,10 +54,13 @@ class chatRooms extends Component {
         }
         snapshot.forEach(doc => {
           item = doc.data();
-          userChatrooms.push({
-            chatroom: doc.id,
-            title: doc.data().title,
-          });
+          if (doc.data().type == "public" || doc.data().type == "user") {
+            userChatrooms.push({
+              chatroom: doc.id,
+              title: doc.data().title,
+              type: doc.data().type,
+            });
+          }
         });
 
         AsyncStorage.setItem("userChatrooms", JSON.stringify(userChatrooms));
@@ -88,9 +90,7 @@ class chatRooms extends Component {
         navigation={this.props.navigation}
         chatroom={item.item.chatroom}
         title={item.item.title}
-        description={item.item.description}
-        contact={item.item.contact}
-        url={item.item.url}
+        type={item.item.type}
         item={item}
       />
     );
