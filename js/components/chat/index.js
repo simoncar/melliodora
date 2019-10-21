@@ -288,8 +288,12 @@ class chat extends Component {
     }
   };
 
+  refresh = ({ title }) => {
+    console.log("nav refresh AAA ", title);
+  };
+
   _showActionSheet(navigation) {
-    const BUTTONS = ["Edit Subject", "Mute Conversation", "Unmute Conversation", "Cancel"];
+    const BUTTONS = ["Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
     const CANCEL_INDEX = 3;
 
     ActionSheet.show(
@@ -304,10 +308,12 @@ class chat extends Component {
         switch (buttonIndex) {
           case 0:
             //edit subject
-            navigation.navigate("chatTitle", {
+            navigation.push("chatTitle", {
               title: navigation.getParam("title"),
               chatroom: navigation.getParam("chatroom"),
+              type: navigation.getParam("type"),
               edit: true,
+              onGoBack: this.refresh,
             });
           case 1:
             Backend.setMute(true);
