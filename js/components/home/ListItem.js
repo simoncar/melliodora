@@ -19,7 +19,7 @@ class ListItem extends Component {
     };
     const summary = getLanguageString(global.language, this.props.item.item, "summary");
 
-
+    const showIconChat = this.props.item.item.showIconChat === false ? false : true;
     const uri = this.props.item.item.photo1;
     return (
       <View style={styles.newsContentLine}>
@@ -61,7 +61,12 @@ class ListItem extends Component {
                   });
                 }}
               >
-                <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+                {
+                  showIconChat &&
+                  <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+                }
+
+
               </TouchableOpacity>
 
               <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
