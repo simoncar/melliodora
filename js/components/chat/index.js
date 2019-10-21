@@ -51,39 +51,7 @@ class chat extends Component {
     console.log("lodash = ", _.isBoolean(global.authenticated));
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    headerBackTitle: null,
-    headerLeft: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}
-      >
-        <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
-      </TouchableOpacity>
-    ),
 
-    headerTitle: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params._showActionSheet();
-        }}
-      >
-        <Text style={{ fontSize: 28, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
-      </TouchableOpacity>
-    ),
-    headerRight: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params._showActionSheet();
-        }}
-      >
-        <View style={styles.chatHeading}>
-          <Entypo name="cog" style={styles.chatHeading} />
-        </View>
-      </TouchableOpacity>
-    ),
-  });
 
   componentDidMount() {
     this.props.navigation.setParams({

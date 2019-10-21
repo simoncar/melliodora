@@ -9,6 +9,7 @@ import {
   Dimensions,
   AsyncStorage,
   Image,
+  Platform
 } from "react-native";
 import { Container, Content, Text } from "native-base";
 import Constants from "expo-constants";
@@ -47,11 +48,6 @@ class HomeNav extends Component {
     if (params.domain) title = params.domain["name"];
     return {
       title: title,
-      headerTitleStyle: {
-        fontWeight: "bold",
-      },
-      tabBarColor: "#111B4E",
-      tabBarIcon: tabBarIcon("home"),
       headerBackTitle: null,
       headerRight: (
         <TouchableOpacity
