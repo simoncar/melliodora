@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Button,
   LayoutAnimation,
+  Platform
 } from "react-native";
 import { Container, Content } from "native-base";
 import styles from "./styles";
@@ -364,7 +365,7 @@ class newStory extends React.Component {
       </TouchableOpacity>
     ),
 
-    headerTitle: <Text style={{ fontSize: 17, fontWeight: "600" }}>{I18n.t("edit")}</Text>,
+    headerTitle: <Text style={{ fontSize: 17, fontWeight: "600", fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Arial' }}>{I18n.t("edit")}</Text>,
     headerRight: (
       <TouchableOpacity
         onPress={() => {
@@ -423,7 +424,9 @@ class newStory extends React.Component {
 
         }}
       >
-        <Text style={styles.chatHeading}>{I18n.t("save")}</Text>
+        <Text style={[styles.chatHeading, { fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Arial' }]}>
+          {I18n.t("save")}
+        </Text>
       </TouchableOpacity>
     ),
   });
