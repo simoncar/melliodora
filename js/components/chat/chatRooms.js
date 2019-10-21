@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList, AsyncStorage } from "react-native";
+import { FlatList, AsyncStorage, Text, TouchableOpacity } from "react-native";
 import * as firebase from "firebase";
 import { Container, Content } from "native-base";
 import { SimpleLineIcons } from "@expo/vector-icons";
@@ -7,7 +7,6 @@ import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
 import ChatroomItem from "./chatroomItem";
-import Constants from "expo-constants";
 
 var specialChatrooms = {};
 
@@ -102,6 +101,15 @@ class chatRooms extends Component {
     return (
       <Container style={styles.container}>
         <Content style={{ paddingTop: 20 }}>
+          <TouchableOpacity
+            style={{ flexDirection: "row" }}
+            onPress={() => {
+              this.props.navigation.navigate("chatTitle", { edit: false, chatroom: "New Chatroom" });
+            }}
+          >
+            <Text>New Chatroom</Text>
+          </TouchableOpacity>
+
           <FlatList
             data={this.state.userChatrooms}
             renderItem={this._renderItem.bind(this)}

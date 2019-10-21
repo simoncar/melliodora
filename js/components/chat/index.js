@@ -66,7 +66,7 @@ class chat extends Component {
     headerTitle: (
       <TouchableOpacity
         onPress={() => {
-          navigation.state.params._showActionSheet();
+          navigation.state.params._showActionSheet(navigation);
         }}
       >
         <Text style={{ fontSize: 28, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
@@ -75,7 +75,7 @@ class chat extends Component {
     headerRight: (
       <TouchableOpacity
         onPress={() => {
-          navigation.state.params._showActionSheet();
+          navigation.state.params._showActionSheet(navigation);
         }}
       >
         <View style={styles.chatHeading}>
@@ -150,7 +150,7 @@ class chat extends Component {
     }, 2000); // simulating network
   }
 
-  onReceive(text) { }
+  onReceive(text) {}
 
   renderCustomActions(props) {
     return (
@@ -288,9 +288,9 @@ class chat extends Component {
     }
   };
 
-  _showActionSheet() {
-    const BUTTONS = ["Mute conversation", "Unmute conversation", "Cancel"];
-    const CANCEL_INDEX = 2;
+  _showActionSheet(navigation) {
+    const BUTTONS = ["Edit Subject", "Mute Conversation", "Unmute Conversation", "Cancel"];
+    const CANCEL_INDEX = 3;
 
     ActionSheet.show(
       {
@@ -303,9 +303,16 @@ class chat extends Component {
       buttonIndex => {
         switch (buttonIndex) {
           case 0:
+            //edit subject
+            navigation.navigate("chatTitle", {
+              title: navigation.getParam("title"),
+              chatroom: navigation.getParam("chatroom"),
+              edit: true,
+            });
+          case 1:
             Backend.setMute(true);
             break;
-          case 1:
+          case 2:
             Backend.setMute(false);
             break;
         }
