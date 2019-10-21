@@ -76,6 +76,7 @@ let StackCalendar = createStackNavigator(
       ),
     },
     defaultNavigationOptions: {
+      headerBackTitle: null,
       headerTitleStyle: {
         ...Platform.select({
           ios: { fontFamily: 'Arial', },
@@ -101,6 +102,7 @@ let StackChat = createStackNavigator(
       ),
     },
     defaultNavigationOptions: {
+      headerBackTitle: null,
       headerTitleStyle: {
         ...Platform.select({
           ios: { fontFamily: 'Arial', },
@@ -147,6 +149,7 @@ let StackOther = createStackNavigator(
       ),
     },
     defaultNavigationOptions: {
+      headerBackTitle: null,
       headerTitleStyle: {
         ...Platform.select({
           ios: { fontFamily: 'Arial', },

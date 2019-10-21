@@ -14,13 +14,7 @@ var specialChatrooms = {};
 @withMappedNavigationParams()
 class chatRooms extends Component {
   static navigationOptions = {
-    title: I18n.t("chat"),
-    headerTitleStyle: {
-      fontWeight: "bold",
-      fontSize: 28,
-    },
-    tabBarIcon: <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={"bubble"} color={"grey"} size={24} />,
-    headerBackTitle: null,
+    title: I18n.t("chat")
   };
 
   constructor(props) {

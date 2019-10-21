@@ -20,6 +20,11 @@ var localMessages = [];
 
 @withMappedNavigationParams()
 class chat extends Component {
+
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.title
+  });
+
   constructor(props) {
     super(props);
     this.state = {
