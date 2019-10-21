@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { FlatList, AsyncStorage, Text, TouchableOpacity } from "react-native";
+import { FlatList, View, AsyncStorage, Text, TouchableOpacity } from "react-native";
 import * as firebase from "firebase";
 import { Container, Content } from "native-base";
-import { SimpleLineIcons } from "@expo/vector-icons";
+import { SimpleLineIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
@@ -107,7 +107,11 @@ class chatRooms extends Component {
               this.props.navigation.navigate("chatTitle", { edit: false, chatroom: "New Chatroom" });
             }}
           >
-            <Text>New Chatroom</Text>
+            <View style={styles.rowView}>
+              <AntDesign style={styles.iconLeft} name="pluscircleo" />
+              <Text style={styles.chatTitle}>New Chat Group</Text>
+              <Entypo style={styles.iconRight} name="chevron-right" />
+            </View>
           </TouchableOpacity>
 
           <FlatList
