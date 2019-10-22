@@ -10,7 +10,8 @@ import {
   SafeAreaView,
   Button,
   LayoutAnimation,
-  Platform
+  Platform,
+  Alert
 } from "react-native";
 import { Container, Content } from "native-base";
 import styles from "./styles";
@@ -26,6 +27,7 @@ import uuid from "uuid";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { createMaterialTopTabNavigator, MaterialTopTabBar } from "react-navigation-tabs";
+import { AntDesign } from "@expo/vector-icons";
 
 @withMappedNavigationParams()
 class PageText extends Component {
@@ -431,72 +433,119 @@ class newStory extends React.Component {
 
     headerTitle: <Text style={{ fontSize: 17, fontWeight: "600", fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Arial' }}>{I18n.t("edit")}</Text>,
     headerRight: (
-      <TouchableOpacity
-        onPress={() => {
-          const { routes } = navigation.state;
-          let saveState = {};
+
+      <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+
+        {
+          navigation.state.params &&
+          <TouchableOpacity onPress={() => {
 
 
-          if (_.has(routes[0], "params.save")) {
-            const pageState = routes[0].params.save() || {};
-            saveState = { ...saveState, ...pageState }
-          }
+            Alert.alert(
+              'Confirm Delete Story',
+              navigation.state.params.summary + "?",
+              [
+                {
+                  text: 'Cancel',
+                  style: 'cancel',
+                },
+                {
+                  text: 'OK', onPress: () => {
+
+                    const _key = navigation.state.params._key;
+
+                    if (_key) {
+                      firebase
+                        .firestore()
+                        .collection(global.domain)
+                        .doc("feature")
+                        .collection("features")
+                        .doc(_key)
+                        .delete()
+                        .then(() =>
+                          navigation.popToTop()
+                        );
+                    }
+
+                  }
+                },
+              ],
+              { cancelable: true },
+            );
+
+          }}
+            style={{ marginRight: 12 }}>
+            <AntDesign name="delete" size={24} />
+          </TouchableOpacity>
+        }
+
+        <TouchableOpacity
+          onPress={() => {
+            const { routes } = navigation.state;
+            let saveState = {};
 
 
-          if (_.has(routes[1], "params.save")) {
-            const pageState = routes[1].params.save() || {};
-            saveState = { ...saveState, ...pageState }
-          }
+            if (_.has(routes[0], "params.save")) {
+              const pageState = routes[0].params.save() || {};
+              saveState = { ...saveState, ...pageState }
+            }
 
-          const { eventTitle, visible, visibleMore, eventDescription, photo1, eventDate, eventStartTime, eventEndTime, order, _key,
-            showIconChat,
-            showIconShare
-          } = saveState;
 
-          const storyDict = {
-            summary: eventTitle,
-            visible: visible || false,
-            visibleMore: visibleMore || false,
-            description: eventDescription,
-            photo1: photo1,
-            date_start: eventDate !== undefined ? eventDate : null,
-            time_start_pretty: eventStartTime !== undefined ? eventStartTime : null,
-            time_end_pretty: eventEndTime !== undefined ? eventEndTime : null,
-            order: order !== undefined ? Number(order) : 1,
-            showIconChat,
-            showIconShare
-          };
+            if (_.has(routes[1], "params.save")) {
+              const pageState = routes[1].params.save() || {};
+              saveState = { ...saveState, ...pageState }
+            }
 
-          if (_key == "") {
-            firebase
-              .firestore()
-              .collection(global.domain)
-              .doc("feature")
-              .collection("features")
-              .add(storyDict)
-              .then(() =>
-                navigation.goBack()
-              );
-          } else {
-            const storyRef = firebase
-              .firestore()
-              .collection(global.domain)
-              .doc("feature")
-              .collection("features")
-              .doc(_key);
+            const { eventTitle, visible, visibleMore, eventDescription, photo1, eventDate, eventStartTime, eventEndTime, order, _key,
+              showIconChat,
+              showIconShare
+            } = saveState;
 
-            storyRef.set(storyDict, { merge: true })
-              .then(() =>
-                navigation.popToTop()
-              );
-          }
+            const storyDict = {
+              summary: eventTitle,
+              visible: visible || false,
+              visibleMore: visibleMore || false,
+              description: eventDescription,
+              photo1: photo1,
+              date_start: eventDate !== undefined ? eventDate : null,
+              time_start_pretty: eventStartTime !== undefined ? eventStartTime : null,
+              time_end_pretty: eventEndTime !== undefined ? eventEndTime : null,
+              order: order !== undefined ? Number(order) : 1,
+              showIconChat,
+              showIconShare
+            };
 
-        }}
-      >
-        <Text style={[styles.chatHeading, { fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Arial' }]}>
-          {I18n.t("save")}
-        </Text>
-      </TouchableOpacity>
+            if (_key == "") {
+              firebase
+                .firestore()
+                .collection(global.domain)
+                .doc("feature")
+                .collection("features")
+                .add(storyDict)
+                .then(() =>
+                  navigation.goBack()
+                );
+            } else {
+              const storyRef = firebase
+                .firestore()
+                .collection(global.domain)
+                .doc("feature")
+                .collection("features")
+                .doc(_key);
+
+              storyRef.set(storyDict, { merge: true })
+                .then(() =>
+                  navigation.popToTop()
+                );
+            }
+
+          }}
+        >
+          <Text style={[styles.chatHeading, { fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Arial' }]}>
+            {I18n.t("save")}
+          </Text>
+        </TouchableOpacity>
+      </View>
     ),
   });
 
