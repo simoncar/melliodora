@@ -30,6 +30,22 @@ class chatRooms extends Component {
   }
 
   componentWillMount() {
+    this.buildChatroomList();
+  }
+
+  componentDidMount() {
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener("didFocus", () => {
+      // The screen is focused
+      // Call any action
+      console.log("chatRooms is focused");
+      this.buildChatroomList();
+    });
+  }
+
+  keyExtractor = item => item.chatroom;
+
+  buildChatroomList() {
     var userChatrooms = [];
 
     if (global.email == "christinathorsen@gmail.com") {
@@ -70,8 +86,6 @@ class chatRooms extends Component {
         });
       });
   }
-
-  keyExtractor = item => item.chatroom;
 
   loadFromAsyncStorage() {
     AsyncStorage.getItem("userChatrooms").then(fi => {
