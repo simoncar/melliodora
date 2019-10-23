@@ -23,6 +23,7 @@ import Story from "./components/story";
 import StoryForm from "./components/story/form";
 import campusMap from "./components/campusMap";
 import chatRooms from "./components/chat/chatRooms";
+import chatTitle from "./components/chat/chatTitle";
 import chat from "./components/chat";
 import push from "./components/story/push";
 import authPortal from "./components/webportalURL/authPortal";
@@ -90,6 +91,7 @@ let StackCalendar = createStackNavigator(
 let StackChat = createStackNavigator(
   {
     chatRooms: { screen: chatRooms },
+    chatTitle: { screen: chatTitle },
     chat: { screen: chat },
     selectLanguageChat: { screen: selectLanguage },
   },

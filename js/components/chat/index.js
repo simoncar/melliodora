@@ -58,6 +58,35 @@ class chat extends Component {
 
 
 
+    headerTitle: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._showActionSheet(navigation);
+        }}
+      >
+        <Text style={{ fontSize: 28, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
+      </TouchableOpacity>
+    ),
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._showActionSheet(navigation);
+        }}
+      >
+        <View style={styles.chatHeading}>
+          <Entypo name="cog" style={styles.chatHeading} />
+        </View>
+      </TouchableOpacity>
+    ),
+  });
+
+
+  componentWillMount() {
+    this.props.navigation.setParams({
+      refresh: this.refresh,
+    });
+  }
+
   componentDidMount() {
     this.props.navigation.setParams({
       _showActionSheet: this._showActionSheet,
@@ -123,7 +152,7 @@ class chat extends Component {
     }, 2000); // simulating network
   }
 
-  onReceive(text) { }
+  onReceive(text) {}
 
   renderCustomActions(props) {
     return (
@@ -261,9 +290,15 @@ class chat extends Component {
     }
   };
 
-  _showActionSheet() {
-    const BUTTONS = ["Mute conversation", "Unmute conversation", "Cancel"];
-    const CANCEL_INDEX = 2;
+  refresh = ({ title }) => {
+    console.log("nav refresh AAA ", title);
+    this.props.navigation.setParams({ title: title });
+    console.log("nav refresh BBB ", title);
+  };
+
+  _showActionSheet(navigation) {
+    const BUTTONS = ["Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
+    const CANCEL_INDEX = 3;
 
     ActionSheet.show(
       {
@@ -276,9 +311,18 @@ class chat extends Component {
       buttonIndex => {
         switch (buttonIndex) {
           case 0:
+            //edit subject
+            navigation.push("chatTitle", {
+              title: navigation.getParam("title"),
+              chatroom: navigation.getParam("chatroom"),
+              type: navigation.getParam("type"),
+              edit: true,
+              onGoBack: this.refresh,
+            });
+          case 1:
             Backend.setMute(true);
             break;
-          case 1:
+          case 2:
             Backend.setMute(false);
             break;
         }

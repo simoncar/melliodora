@@ -15,12 +15,31 @@ export default {
   iconRight: {
     fontSize: 25,
     color: "#999A9D",
+    marginRight: 15,
+    lineHeight: 60,
+  },
+  iconLeft: {
+    fontSize: 35,
+    color: "#999A9D",
+    margin: 12,
+  },
+  rowView: {
+    flexDirection: "row",
+    flex: 1,
+    height: 60,
+    backgroundColor: "white",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   url: {
     textDecorationLine: "underline",
     color: "blue",
   },
-
+  newsContentLine: {
+    borderTopWidth: 1,
+    borderTopColor: "#ddd",
+  },
   chatRow: {
     height: 50,
     backgroundColor: "white",
@@ -37,13 +56,12 @@ export default {
     fontSize: 24,
   },
   chatTitle: {
-    marginTop: 7,
-    fontSize: 16,
-    backgroundColor: "white",
-    color: "#000",
-    marginLeft: 15,
-    marginBottom: 5,
     fontWeight: "bold",
+    flex: 1,
+    fontSize: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    color: "black",
   },
   chatTitleRight: {
     marginTop: 7,
