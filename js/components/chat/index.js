@@ -20,9 +20,28 @@ var localMessages = [];
 
 @withMappedNavigationParams()
 class chat extends Component {
-
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.title
+    title: navigation.state.params.title,
+    headerTitle: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._showActionSheet(navigation);
+        }}
+      >
+        <Text style={{ fontSize: 28, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
+      </TouchableOpacity>
+    ),
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._showActionSheet(navigation);
+        }}
+      >
+        <View style={styles.chatHeading}>
+          <Entypo name="cog" style={styles.chatHeading} />
+        </View>
+      </TouchableOpacity>
+    ),
   });
 
   constructor(props) {
@@ -55,31 +74,6 @@ class chat extends Component {
     console.log("global.authenticated FROM chat", global.authenticated, global.name, global.email);
     console.log("lodash = ", _.isBoolean(global.authenticated));
   }
-
-
-
-    headerTitle: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params._showActionSheet(navigation);
-        }}
-      >
-        <Text style={{ fontSize: 28, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
-      </TouchableOpacity>
-    ),
-    headerRight: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params._showActionSheet(navigation);
-        }}
-      >
-        <View style={styles.chatHeading}>
-          <Entypo name="cog" style={styles.chatHeading} />
-        </View>
-      </TouchableOpacity>
-    ),
-  });
-
 
   componentWillMount() {
     this.props.navigation.setParams({

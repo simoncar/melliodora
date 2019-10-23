@@ -13,7 +13,6 @@ var specialChatrooms = {};
 @withMappedNavigationParams()
 class chatRooms extends Component {
   static navigationOptions = {
-
     title: I18n.t("chat"),
     headerTitleStyle: {
       fontWeight: "bold",
@@ -21,7 +20,6 @@ class chatRooms extends Component {
     },
     tabBarIcon: <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={"bubble"} color={"blue"} size={24} />,
     headerBackTitle: null,
-
   };
 
   constructor(props) {
@@ -145,7 +143,7 @@ class chatRooms extends Component {
             }}
           >
             <View style={styles.rowView}>
-              <AntDesign style={styles.iconLeft} name="pluscircleo" />
+              <AntDesign style={styles.iconLeftPlus} name="pluscircleo" />
               <Text style={styles.chatTitle}>New Chat Group</Text>
               <Entypo style={styles.iconRight} name="chevron-right" />
             </View>

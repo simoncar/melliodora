@@ -20,7 +20,12 @@ export default {
   },
   iconLeft: {
     fontSize: 35,
-    color: "#999A9D",
+    color: "green",
+    margin: 12,
+  },
+  iconLeftPlus: {
+    fontSize: 35,
+    color: "grey",
     margin: 12,
   },
   rowView: {
