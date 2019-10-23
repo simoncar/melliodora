@@ -10,7 +10,7 @@
     "description": "For AIS parents, Singapore",
     "extra": {
       "instance": "ais_edu_sg",
-      "amplitudeApiKey": "12cdb352da26116280b7c358a62ea788"
+      "amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78"
     },
     "splash": {
       "image": "./resources/ais_edu_sg/BG-loading10.png",

@@ -11,7 +11,6 @@ var release = Constants.manifest.revisionId || "UNVERSIONED";
 const events = {
   APP_STARTED: "APP_STARTED",
   PORTAL_LOGIN: "PORTAL_LOGIN",
-
   PAGE_CONTACT: "PAGE_CONTACT",
   PAGE_CALENDAR: "PAGE_CALENDAR",
   PAGE_CHAT: "PAGE_CHAT",
@@ -23,7 +22,7 @@ const events = {
   CALENDAR_EVENT_STORY: "CALENDAR_EVENT_STORY",
   ADD_TO_CALENDAR_SUCCESS: "ADD_TO_CALENDAR_SUCCESS",
   ADD_TO_CALENDAR_FAILED: "ADD_TO_CALENDAR_FAILED",
-  SHARE_STORY: "SHARE_STORY"
+  SHARE_STORY: "SHARE_STORY",
 };
 
 let isInitialized = false;
@@ -74,5 +73,5 @@ const track = (event: string, options: any = null) => {
 export default {
   events,
   track,
-  identify
+  identify,
 };

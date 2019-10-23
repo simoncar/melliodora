@@ -9,7 +9,7 @@ import {
   Dimensions,
   AsyncStorage,
   Image,
-  Platform
+  Platform,
 } from "react-native";
 import { Container, Content, Text } from "native-base";
 import Constants from "expo-constants";
@@ -19,6 +19,7 @@ import { getLanguageString } from "../global";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
 import ListItem from "./ListItem";
+import Analytics from "../../lib/analytics";
 
 const { width } = Dimensions.get("window");
 const tabBarIcon = name => ({ tintColor }) => (
@@ -77,6 +78,14 @@ class HomeNav extends Component {
   };
 
   componentWillMount() {
+    let trackingOpts = {
+      id: "some id",
+      emailOrUsername: "something else",
+    };
+
+    Analytics.identify("result.id", trackingOpts);
+    Analytics.track(Analytics.events.USER_LOGGED_IN, trackingOpts);
+
     this.ref = firebase
       .firestore()
       .collection(global.domain)
@@ -120,7 +129,6 @@ class HomeNav extends Component {
       if (!doc.data().visible == false) {
         featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
       }
-
     });
 
     if (featureItems.length > 0) {
@@ -199,7 +207,7 @@ class HomeNav extends Component {
             style={{
               marginTop: 70,
               alignItems: "center",
-              width: "100%"
+              width: "100%",
             }}
           >
             <Image

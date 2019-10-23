@@ -10,7 +10,7 @@
     "description": "For SAIS parents, Singapore",
     "extra": {
       "instance": "sais_edu_sg",
-      "amplitudeApiKey": "12cdb352da26116280b7c358a62ea788"
+      "amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78"
     },
     "splash": {
       "image": "./resources/sais_edu_sg/splash.png",
