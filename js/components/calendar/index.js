@@ -45,13 +45,6 @@ class calendar1 extends Component {
 
   static navigationOptions = ({ navigation }) => ({
     title: I18n.t("calendar"),
-    headerTitleStyle: {
-      fontWeight: "bold",
-      fontSize: 28,
-    },
-    tabBarColor: "#c51162",
-    tabBarIcon: tabBarIcon("ios-calendar", "green"),
-
     headerRight: (
       <TouchableOpacity
         onPress={() => {

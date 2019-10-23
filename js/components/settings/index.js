@@ -20,10 +20,6 @@ const icons = {
 class Settings extends Component {
   static navigationOptions = {
     title: I18n.t("more"),
-    headerTitleStyle: {
-      fontWeight: "bold",
-      fontSize: 28,
-    },
     headerBackTitle: null,
   };
 

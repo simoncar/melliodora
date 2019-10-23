@@ -10,13 +10,15 @@ import {
   SafeAreaView,
   Button,
   LayoutAnimation,
+  Platform,
+  Alert
 } from "react-native";
 import { Container, Content } from "native-base";
 import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
 import DatePicker from "react-native-datepicker";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, SimpleLineIcons, Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import _ from "lodash";
 import * as ImagePicker from "expo-image-picker";
@@ -25,6 +27,7 @@ import uuid from "uuid";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { createMaterialTopTabNavigator, MaterialTopTabBar } from "react-navigation-tabs";
+import { AntDesign } from "@expo/vector-icons";
 
 @withMappedNavigationParams()
 class PageText extends Component {
@@ -48,6 +51,8 @@ class PageText extends Component {
       order: props.edit ? props.order : 1,
       _key: props.edit ? props._key : "",
       cameraIcon: "camera",
+      showIconChat: props.showIconChat === false ? false : true,
+      showIconShare: props.showIconShare === false ? false : true
     };
 
     this.getPermissionAsync();
@@ -159,6 +164,45 @@ class PageText extends Component {
     }
   };
 
+  _drawIconChat(chatroom, title) {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          this.setState({ showIconChat: !this.state.showIconChat });
+        }}
+        style={{ padding: 8 }}
+      >
+        <SimpleLineIcons name="bubble" size={32} color={this.state.showIconChat ? "#222" : "#CCC"} />
+      </TouchableOpacity>
+    );
+  }
+
+  _drawIconCalendar(params) {
+
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          this.props.navigation.navigate("phoneCalendar", this.props.navigation.state.params);
+        }}
+        style={{ padding: 8 }}
+      >
+        <Ionicons name="ios-calendar" style={styles.eventIcon} />
+      </TouchableOpacity>
+    );
+
+  }
+
+  _drawIconShare() {
+    return (
+      <TouchableOpacity
+        onPress={() => this.setState({ showIconShare: !this.state.showIconShare })}
+        style={{ padding: 8 }}
+      >
+        <Feather name="share" size={32} color={this.state.showIconShare ? "#222" : "#CCC"} />
+      </TouchableOpacity>
+    );
+  }
+
   render() {
     const { goBack } = this.props.navigation;
 
@@ -167,6 +211,29 @@ class PageText extends Component {
         <Content showsVerticalScrollIndicator={false}>
           <View style={{ flex: 1, backgroundColor: "#fff" }}>
             {this._drawImage(this.state.photo1)}
+
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                flex: 1,
+                borderTopWidth: 1,
+                borderBottomWidth: 1,
+                borderTopColor: "#ddd",
+                borderBottomColor: "#ddd"
+              }}
+            >
+              <View>
+                <View style={{ padding: 3 }}>
+                  <Text style={{ fontSize: 10 }}>Toggle buttons below to show/Hide</Text>
+                </View>
+                <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                  {this._drawIconChat(this.props._key, this.props.summaryMyLanguage)}
+                  {this._drawIconShare()}
+                </View>
+              </View>
+
+            </View>
             <View
               style={{
                 flex: 1,
@@ -200,7 +267,7 @@ class PageText extends Component {
             </View>
           </View>
         </Content>
-      </Container>
+      </Container >
     );
   }
 }
@@ -364,67 +431,121 @@ class newStory extends React.Component {
       </TouchableOpacity>
     ),
 
-    headerTitle: <Text style={{ fontSize: 17, fontWeight: "600" }}>{I18n.t("edit")}</Text>,
+    headerTitle: <Text style={{ fontSize: 17, fontWeight: "600", fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Arial' }}>{I18n.t("edit")}</Text>,
     headerRight: (
-      <TouchableOpacity
-        onPress={() => {
-          const { routes } = navigation.state;
-          let saveState = {};
+
+      <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+
+        {
+          navigation.state.params &&
+          <TouchableOpacity onPress={() => {
 
 
-          if (_.has(routes[0], "params.save")) {
-            const pageState = routes[0].params.save() || {};
-            saveState = { ...saveState, ...pageState }
-          }
+            Alert.alert(
+              'Confirm Delete Story',
+              navigation.state.params.summary + "?",
+              [
+                {
+                  text: 'Cancel',
+                  style: 'cancel',
+                },
+                {
+                  text: 'OK', onPress: () => {
+
+                    const _key = navigation.state.params._key;
+
+                    if (_key) {
+                      firebase
+                        .firestore()
+                        .collection(global.domain)
+                        .doc("feature")
+                        .collection("features")
+                        .doc(_key)
+                        .delete()
+                        .then(() =>
+                          navigation.popToTop()
+                        );
+                    }
+
+                  }
+                },
+              ],
+              { cancelable: true },
+            );
+
+          }}
+            style={{ marginRight: 12 }}>
+            <AntDesign name="delete" size={24} />
+          </TouchableOpacity>
+        }
+
+        <TouchableOpacity
+          onPress={() => {
+            const { routes } = navigation.state;
+            let saveState = {};
 
 
-          if (_.has(routes[1], "params.save")) {
-            const pageState = routes[1].params.save() || {};
-            saveState = { ...saveState, ...pageState }
-          }
+            if (_.has(routes[0], "params.save")) {
+              const pageState = routes[0].params.save() || {};
+              saveState = { ...saveState, ...pageState }
+            }
 
-          const { eventTitle, visible, visibleMore, eventDescription, photo1, eventDate, eventStartTime, eventEndTime, order, _key } = saveState;
 
-          const storyDict = {
-            summary: eventTitle,
-            visible: visible || false,
-            visibleMore: visibleMore || false,
-            description: eventDescription,
-            photo1: photo1,
-            date_start: eventDate !== undefined ? eventDate : null,
-            time_start_pretty: eventStartTime !== undefined ? eventStartTime : null,
-            time_end_pretty: eventEndTime !== undefined ? eventEndTime : null,
-            order: order !== undefined ? Number(order) : 1,
-          };
+            if (_.has(routes[1], "params.save")) {
+              const pageState = routes[1].params.save() || {};
+              saveState = { ...saveState, ...pageState }
+            }
 
-          if (_key == "") {
-            firebase
-              .firestore()
-              .collection(global.domain)
-              .doc("feature")
-              .collection("features")
-              .add(storyDict)
-              .then(() =>
-                navigation.goBack()
-              );
-          } else {
-            const storyRef = firebase
-              .firestore()
-              .collection(global.domain)
-              .doc("feature")
-              .collection("features")
-              .doc(_key);
+            const { eventTitle, visible, visibleMore, eventDescription, photo1, eventDate, eventStartTime, eventEndTime, order, _key,
+              showIconChat,
+              showIconShare
+            } = saveState;
 
-            storyRef.set(storyDict, { merge: true })
-              .then(() =>
-                navigation.popToTop()
-              );
-          }
+            const storyDict = {
+              summary: eventTitle,
+              visible: visible || false,
+              visibleMore: visibleMore || false,
+              description: eventDescription,
+              photo1: photo1,
+              date_start: eventDate !== undefined ? eventDate : null,
+              time_start_pretty: eventStartTime !== undefined ? eventStartTime : null,
+              time_end_pretty: eventEndTime !== undefined ? eventEndTime : null,
+              order: order !== undefined ? Number(order) : 1,
+              showIconChat,
+              showIconShare
+            };
 
-        }}
-      >
-        <Text style={styles.chatHeading}>{I18n.t("save")}</Text>
-      </TouchableOpacity>
+            if (_key == "") {
+              firebase
+                .firestore()
+                .collection(global.domain)
+                .doc("feature")
+                .collection("features")
+                .add(storyDict)
+                .then(() =>
+                  navigation.goBack()
+                );
+            } else {
+              const storyRef = firebase
+                .firestore()
+                .collection(global.domain)
+                .doc("feature")
+                .collection("features")
+                .doc(_key);
+
+              storyRef.set(storyDict, { merge: true })
+                .then(() =>
+                  navigation.popToTop()
+                );
+            }
+
+          }}
+        >
+          <Text style={[styles.chatHeading, { fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Arial' }]}>
+            {I18n.t("save")}
+          </Text>
+        </TouchableOpacity>
+      </View>
     ),
   });
 

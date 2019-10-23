@@ -12,7 +12,7 @@ export default class DomainSelection extends Component {
 
   render() {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ backgroundColor: "#fff" }}>
         <Text
           style={{
             ...iOSUIKit.largeTitleEmphasized,

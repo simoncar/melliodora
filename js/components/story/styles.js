@@ -184,12 +184,7 @@ export default {
     paddingBottom: 20,
     fontWeight: "bold",
   },
-  eventText: {
-    color: "#222",
-    fontSize: 18,
-    paddingRight: 15,
-    paddingBottom: 15,
-  },
+
 
   eventTextSend: {
     color: "#222",
