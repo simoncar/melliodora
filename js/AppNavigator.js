@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Platform } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -48,7 +48,15 @@ let StackHome = createStackNavigator(
       headerBackTitle: null,
       tabBarIcon: ({ focused, tintColor, horizontal }) => (
         <Ionicons name="ios-home" size={horizontal ? 20 : 25} color={tintColor} />
-      ),
+      )
+    },
+    defaultNavigationOptions: {
+      headerTitleStyle: {
+        ...Platform.select({
+          ios: { fontFamily: 'Arial', },
+          android: { fontFamily: 'Roboto' },
+        })
+      },
     },
   },
 );
@@ -68,6 +76,15 @@ let StackCalendar = createStackNavigator(
         <Ionicons name="ios-calendar" size={horizontal ? 20 : 25} color={tintColor} />
       ),
     },
+    defaultNavigationOptions: {
+      headerBackTitle: null,
+      headerTitleStyle: {
+        ...Platform.select({
+          ios: { fontFamily: 'Arial', },
+          android: { fontFamily: 'Roboto' },
+        })
+      },
+    },
   },
 );
 
@@ -85,6 +102,15 @@ let StackChat = createStackNavigator(
       tabBarIcon: ({ focused, tintColor, horizontal }) => (
         <SimpleLineIcons name="bubble" size={horizontal ? 20 : 25} color={tintColor} />
       ),
+    },
+    defaultNavigationOptions: {
+      headerBackTitle: null,
+      headerTitleStyle: {
+        ...Platform.select({
+          ios: { fontFamily: 'Arial', },
+          android: { fontFamily: 'Roboto' },
+        })
+      },
     },
   },
 );
@@ -124,6 +150,15 @@ let StackOther = createStackNavigator(
         <Feather name="menu" size={horizontal ? 20 : 25} color={tintColor} />
       ),
     },
+    defaultNavigationOptions: {
+      headerBackTitle: null,
+      headerTitleStyle: {
+        ...Platform.select({
+          ios: { fontFamily: 'Arial', },
+          android: { fontFamily: 'Roboto' },
+        })
+      },
+    },
   },
 );
 
@@ -150,18 +185,7 @@ const MainScreenNavigator = createStackNavigator(
       screen: Tabs,
     },
 
-    authPortal: { screen: authPortal },
-
-    defaultNavigationOptions: () => ({
-      headerStyle: {
-        backgroundColor: "#f4511e",
-      },
-      headerBackTitle: null,
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        fontWeight: "bold",
-      },
-    }),
+    authPortal: { screen: authPortal }
   },
 
   {

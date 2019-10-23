@@ -20,6 +20,11 @@ var localMessages = [];
 
 @withMappedNavigationParams()
 class chat extends Component {
+
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.title
+  });
+
   constructor(props) {
     super(props);
     this.state = {
@@ -51,17 +56,7 @@ class chat extends Component {
     console.log("lodash = ", _.isBoolean(global.authenticated));
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    headerBackTitle: null,
-    headerLeft: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}
-      >
-        <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
-      </TouchableOpacity>
-    ),
+
 
     headerTitle: (
       <TouchableOpacity
@@ -84,6 +79,7 @@ class chat extends Component {
       </TouchableOpacity>
     ),
   });
+
 
   componentWillMount() {
     this.props.navigation.setParams({
