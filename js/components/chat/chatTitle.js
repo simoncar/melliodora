@@ -25,7 +25,7 @@ export default class chatTitle extends Component {
   _saveChatroom() {
     var dict = {
       title: this.state.chatroomTitle,
-      type: "public",
+      type: "user",
     };
 
     var edit = this.props.navigation.getParam("edit");
@@ -63,6 +63,16 @@ export default class chatTitle extends Component {
       .collection("chatrooms")
       .doc(this.props.navigation.getParam("chatroom"))
       .set(dict, { merge: true });
+
+    this.props.navigation.navigate("chatRooms");
+  }
+
+  _goback() {
+    const { goBack } = this.props.navigation;
+    setTimeout(function() {
+      goBack();
+    }, 1500);
+    goBack();
   }
 
   _closeHideButton() {
@@ -90,7 +100,8 @@ export default class chatTitle extends Component {
             <TextInput
               style={styles.titleField}
               onChangeText={text => this._setChatroomTitle(text)}
-              autoCapitalize="none"
+              autoCapitalize="words"
+              autoFocus={true}
               placeholder={this.state.chatroomTitle}
               value={this.state.chatroomTitle}
             />

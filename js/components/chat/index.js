@@ -297,6 +297,7 @@ class chat extends Component {
   refresh = ({ title }) => {
     console.log("nav refresh AAA ", title);
     this.props.navigation.setParams({ title: title });
+    console.log("nav refresh BBB ", title);
   };
 
   _showActionSheet(navigation) {

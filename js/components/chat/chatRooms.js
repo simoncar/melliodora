@@ -18,7 +18,7 @@ class chatRooms extends Component {
       fontWeight: "bold",
       fontSize: 28,
     },
-    tabBarIcon: <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={"bubble"} color={"grey"} size={24} />,
+    tabBarIcon: <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={"bubble"} color={"blue"} size={24} />,
     headerBackTitle: null,
   };
 
@@ -30,6 +30,10 @@ class chatRooms extends Component {
   }
 
   componentWillMount() {
+    this.props.navigation.setParams({
+      refresh: this.refresh,
+    });
+
     this.buildChatroomList();
   }
 
@@ -42,6 +46,16 @@ class chatRooms extends Component {
       this.buildChatroomList();
     });
   }
+
+  componentWillUnmount() {
+    // Remove the event listener
+    this.focusListener.remove();
+  }
+
+  refresh = ({ title }) => {
+    console.log("nav refresh BBBB ", title);
+    //this.props.navigation.setParams({ title: title });
+  };
 
   keyExtractor = item => item.chatroom;
 
@@ -62,6 +76,7 @@ class chatRooms extends Component {
       .collection(global.domain)
       .doc("chat")
       .collection("chatrooms")
+      .orderBy("title")
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
@@ -71,11 +86,13 @@ class chatRooms extends Component {
         snapshot.forEach(doc => {
           item = doc.data();
           if (doc.data().type == "public" || doc.data().type == "user") {
-            userChatrooms.push({
-              chatroom: doc.id,
-              title: doc.data().title,
-              type: doc.data().type,
-            });
+            if (doc.data().visible != false) {
+              userChatrooms.push({
+                chatroom: doc.id,
+                title: doc.data().title,
+                type: doc.data().type,
+              });
+            }
           }
         });
 
@@ -118,7 +135,11 @@ class chatRooms extends Component {
           <TouchableOpacity
             style={{ flexDirection: "row" }}
             onPress={() => {
-              this.props.navigation.navigate("chatTitle", { edit: false, chatroom: "New Chatroom" });
+              this.props.navigation.navigate("chatTitle", {
+                edit: false,
+                chatroom: "New Chatroom",
+                onGoBack: this.refresh,
+              });
             }}
           >
             <View style={styles.rowView}>
