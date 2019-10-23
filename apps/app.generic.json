@@ -9,7 +9,8 @@
     "name": "myCommunity",
     "description": "For parents, Singapore",
     "extra": {
-      "instance": ""
+      "instance": "",
+      "amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78"
     },
     "splash": {
       "image": "./resources/genericApp/splash.png",
