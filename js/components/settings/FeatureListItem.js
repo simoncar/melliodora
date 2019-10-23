@@ -20,32 +20,27 @@ class ListItem extends Component {
       .collection("features")
       .doc(storyID)
       .delete();
-  }
+  };
 
   confirmDelete = () => {
     Alert.alert(
-      'Confirm Delete Story',
+      "Confirm Delete Story",
       this.props.item.item.summary + "?",
       [
         {
-          text: 'Cancel',
-          style: 'cancel',
+          text: "Cancel",
+          style: "cancel",
         },
-        { text: 'OK', onPress: () => this.deleteStory() },
+        { text: "OK", onPress: () => this.deleteStory() },
       ],
       { cancelable: true },
     );
-  }
+  };
 
   adminMode = () => {
     if (this.props.editMode) {
       return (
-        <TouchableOpacity
-          style={{ flexDirection: "row" }}
-          onPress={() =>
-            this.confirmDelete()
-          }
-        >
+        <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.confirmDelete()}>
           <AntDesign name="delete" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
         </TouchableOpacity>
       );
@@ -64,9 +59,7 @@ class ListItem extends Component {
         <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
       </TouchableOpacity>
     );
-
-
-  }
+  };
 
   render() {
     const preview = {
@@ -74,10 +67,8 @@ class ListItem extends Component {
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const summary = getLanguageString(global.language, this.props.item.item, "summary");
-
     const uri = this.props.item.item.photo1;
 
-    console.log("this.props.item.item.visible == true", this.props.item.item.visible == true);
     return (
       <View style={styles.newsContentLine}>
         <TouchableOpacity onPress={() => this.props.navigation.navigate("storyMore", this.props.item.item)}>

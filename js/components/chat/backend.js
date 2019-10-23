@@ -10,7 +10,7 @@ import { AsyncStorage } from "react-native";
 export class Backend extends React.Component {
   uid = "";
 
-  messagesRef = null;
+  messageRef = null;
 
   constructor(props) {
     super(props);
@@ -221,8 +221,11 @@ export class Backend extends React.Component {
   }
 
   closeChat() {
-    if (this.messageRef) {
-      this.messageRef.off();
+    console.log("Unsubscribe 1");
+    if (this.unsubscribe) {
+      console.log("Unsubscribe 2");
+      this.unsubscribe();
+      console.log("Unsubscribe 3");
     }
   }
 }
