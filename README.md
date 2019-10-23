@@ -35,7 +35,7 @@ expo publish --config apps/app.generic.json
 
 expo publish --config apps/app.sais_edu_sg.json
 
-expo publish --config apps/app.sais_edu_sg.json
+expo publish --config apps/app.ais_edu_sg.json
 
 # Build (and Publish)
 
