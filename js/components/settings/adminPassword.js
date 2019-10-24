@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TextInput, Text, TouchableOpacity, AsyncStorage } from "react-native";
 import { Updates } from "expo";
+import Analytics from "../../lib/analytics";
 
 export default class adminPassword extends Component {
   static navigationOptions = {
@@ -17,6 +18,10 @@ export default class adminPassword extends Component {
     };
 
     this._retrieveAdminPassword();
+  }
+
+  componentDidMount() {
+    Analytics.track("Admin Password");
   }
 
   _retrieveAdminPassword = async () => {
@@ -38,6 +43,7 @@ export default class adminPassword extends Component {
     if (adminPassword == "cookies") {
       this.setState({ adminPasswordCorrect: "Password Correct!" });
       this.setState({ restartMessage: "Click to Restart in Admin Mode" });
+      Analytics.track("Admin Password", { entered: "Correct" });
 
       global.adminPassword = adminPassword;
       AsyncStorage.setItem("adminPassword", adminPassword);

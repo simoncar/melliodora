@@ -24,6 +24,11 @@ export default class selectLanguage extends Component {
   componentWillMount() {
     this._retrieveLanguage();
   }
+
+  componentDidMount() {
+    Analytics.track("Language");
+  }
+
   _retrieveLanguage = async () => {
     try {
       const value = await AsyncStorage.getItem("language");
@@ -40,7 +45,7 @@ export default class selectLanguage extends Component {
     this.setState({ language: language });
     AsyncStorage.setItem("language", language);
     global.language = language;
-
+    Analytics.track("Language", { set: language });
     Updates.reloadFromCache();
   }
   _getStyle(language) {

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet, AsyncStorage } from "react-native";
+import { View, FlatList, ActivityIndicator, StyleSheet, AsyncStorage } from "react-native";
 import { SearchBar } from "react-native-elements";
-import { AntDesign } from "@expo/vector-icons";
 import CalendarItem from "../calendar/CalendarItem";
+import Analytics from "../../lib/analytics";
 
 class Search extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -32,7 +32,9 @@ class Search extends Component {
     // });
 
     this.setState({ loading: true });
-    console.log("here");
+
+    Analytics.track("Search");
+
     this.loadFromAsyncStorage();
   }
 

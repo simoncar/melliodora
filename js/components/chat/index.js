@@ -15,6 +15,7 @@ import uuid from "uuid";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import _ from "lodash";
 import Backend from "./backend";
+import Analytics from "../../lib/analytics";
 
 var localMessages = [];
 
@@ -97,6 +98,8 @@ class chat extends Component {
         console.log("ignoring message");
       }
     });
+
+    Analytics.track("Chat", { chatroom: this.props.title });
   }
 
   onSend(messages = []) {
