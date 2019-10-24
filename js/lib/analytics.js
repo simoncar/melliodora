@@ -59,6 +59,8 @@ const identify = (id: ?string, options?: ?Object = null) => {
 
 const track = (event: string, options: any = null) => {
   maybeInitialize();
+
+  console.log("Amplitude: ", event, options);
   options = normalizeTrackingOptions(options);
 
   if (options) {
