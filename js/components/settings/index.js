@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   },
 
   titleInfoStyle: {
-    fontSize: 16,
+    fontSize: 18,
     color: "#8e8e93",
   },
   adminButton: {

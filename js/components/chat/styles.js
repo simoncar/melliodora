@@ -61,9 +61,8 @@ export default {
     fontSize: 24,
   },
   chatTitle: {
-    fontWeight: "bold",
     flex: 1,
-    fontSize: 16,
+    fontSize: 18,
     justifyContent: "center",
     alignItems: "center",
     color: "black",
