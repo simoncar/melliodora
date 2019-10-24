@@ -2,20 +2,28 @@
 
 Eucalyptus melliodora, commonly known as yellow box, is a medium-sized to occasionally tall eucalypt.
 
+# Code
+
+Analytics tracking on each key page
+
+`Analytics.track("Home", { details: "extra stuff here" });`
+
+
+
 
 # Run
 
-expo start --config apps/app.generic.json
+`expo start --config apps/app.generic.json`
 
 yarn g
 
 OR
 
-expo start --config apps/app.sais_edu_sg.json
+`expo start --config apps/app.sais_edu_sg.json`
 
 yarn s
 
-expo start --config apps/app.ais_edu_sg.json
+`expo start --config apps/app.ais_edu_sg.json`
 
 yarn a
 
