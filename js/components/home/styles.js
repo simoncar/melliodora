@@ -23,9 +23,8 @@ export default {
     fontSize: 20,
   },
   itemTitle: {
-    fontWeight: "bold",
     flex: 1,
-    fontSize: 16,
+    fontSize: 18,
     justifyContent: "center",
     alignItems: "center",
     color: "black",
