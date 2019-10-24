@@ -79,12 +79,11 @@ class HomeNav extends Component {
 
   componentWillMount() {
     let trackingOpts = {
-      id: "some id",
-      emailOrUsername: "something else",
+      id: "12345",
+      emailOrUsername: "simoncar@gmail.com",
     };
-
-    Analytics.identify("result.id", trackingOpts);
-    Analytics.track(Analytics.events.USER_LOGGED_IN, trackingOpts);
+    Analytics.identify("simon@smartcookies.io", trackingOpts);
+    Analytics.track(Analytics.events.APP_STARTED, trackingOpts);
 
     this.ref = firebase
       .firestore()
