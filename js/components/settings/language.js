@@ -4,6 +4,7 @@ import SettingsList from "react-native-settings-list";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Updates } from "expo";
 import I18n from "../../lib/i18n";
+import Analytics from "../../lib/analytics";
 
 export default class selectLanguage extends Component {
   constructor(props) {
@@ -45,7 +46,9 @@ export default class selectLanguage extends Component {
     this.setState({ language: language });
     AsyncStorage.setItem("language", language);
     global.language = language;
+
     Analytics.track("Language", { set: language });
+
     Updates.reloadFromCache();
   }
   _getStyle(language) {
