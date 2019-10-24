@@ -7,6 +7,7 @@ import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
 import ChatroomItem from "./chatroomItem";
+import Analytics from "../../lib/analytics";
 
 var specialChatrooms = {};
 
@@ -45,6 +46,8 @@ class chatRooms extends Component {
       console.log("chatRooms is focused");
       this.buildChatroomList();
     });
+
+    Analytics.track("Chatrooms");
   }
 
   componentWillUnmount() {

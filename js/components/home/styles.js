@@ -206,7 +206,7 @@ export default {
   tenYearLogo: {
     height: 200,
     width: "80%",
-    resizeMode: 'contain'
+    resizeMode: "contain",
   },
   sclogo: {
     width: 40,

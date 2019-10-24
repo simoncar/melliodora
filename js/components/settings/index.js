@@ -8,6 +8,7 @@ import { Updates } from "expo";
 import FeatureMoreItems from "./FeatureMoreItems";
 import Constants from "expo-constants";
 import SettingsListItem from "./SettingsListItem";
+import Analytics from "../../lib/analytics";
 
 const icons = {
   wifi: require("./images/wifi.png"),
@@ -43,7 +44,7 @@ class Settings extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state);
+    Analytics.track("More");
   }
 
   componentWillUnmount() {
@@ -79,7 +80,6 @@ class Settings extends Component {
       return styles.imageStyleCheckOff;
     }
   }
-
 
   _setGrade(grade) {
     console.log(grade);
@@ -117,6 +117,7 @@ class Settings extends Component {
   _logout() {
     AsyncStorage.clear().then(() => {
       global = {};
+      Analytics.track("Logout");
 
       Alert.alert("Restarting");
       Updates.reloadFromCache();
@@ -151,9 +152,9 @@ class Settings extends Component {
               const navTitle = el.navTitle || el.title;
               const navProps = el.navURL
                 ? {
-                  url: el.navURL,
-                  title: I18n.t(navTitle, { defaultValue: navTitle }),
-                }
+                    url: el.navURL,
+                    title: I18n.t(navTitle, { defaultValue: navTitle }),
+                  }
                 : {};
 
               const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
@@ -212,8 +213,6 @@ class Settings extends Component {
             onPress={() => this._logout()}
           />
           <View style={{ marginTop: 30 }}></View>
-
-
         </ScrollView>
       </View>
     );
@@ -282,10 +281,10 @@ class Seperator extends Component {
           height: 1,
           width: "100%",
           backgroundColor: "#CED0CE",
-          marginTop: 30
+          marginTop: 30,
         }}
       />
-    )
+    );
   }
 }
 

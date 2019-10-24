@@ -78,14 +78,6 @@ class HomeNav extends Component {
   };
 
   componentWillMount() {
-    let trackingOpts = {
-      id: "some id",
-      emailOrUsername: "something else",
-    };
-
-    Analytics.identify("result.id", trackingOpts);
-    Analytics.track(Analytics.events.USER_LOGGED_IN, trackingOpts);
-
     this.ref = firebase
       .firestore()
       .collection(global.domain)
@@ -95,6 +87,8 @@ class HomeNav extends Component {
   }
 
   componentDidMount() {
+    Analytics.track("Home", { details: "extra stuff here" });
+
     try {
       // TODO: isOnline.
       this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);

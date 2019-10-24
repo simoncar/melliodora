@@ -49,7 +49,6 @@ class ListItem extends Component {
                 {...{ preview, uri }}
               />
 
-              {this.props.item.item.visible != true && <Text style={styles.itemTitle}>HIDDEN {summary}</Text>}
               {this.props.item.item.visible == true && <Text style={styles.itemTitle}>{summary}</Text>}
 
               <TouchableOpacity
@@ -61,12 +60,9 @@ class ListItem extends Component {
                   });
                 }}
               >
-                {
-                  showIconChat &&
+                {showIconChat && (
                   <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
-                }
-
-
+                )}
               </TouchableOpacity>
 
               <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />

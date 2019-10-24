@@ -10,6 +10,7 @@ import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
 import AuthParser from "./authParser";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import _ from "lodash";
+import Analytics from "../../lib/analytics";
 
 const timer = require("react-native-timer");
 
@@ -42,9 +43,10 @@ class authPortal extends Component {
       showMsg: false,
     };
 
-
-    this.actionOptions = global.switch_webportalActions ? global.switch_webportalActions.map(item => Object.keys(item)[0]) : [];
-    this.actionOptions.push("Cancel")
+    this.actionOptions = global.switch_webportalActions
+      ? global.switch_webportalActions.map(item => Object.keys(item)[0])
+      : [];
+    this.actionOptions.push("Cancel");
   }
   //this.props.chatroom
 
@@ -57,6 +59,8 @@ class authPortal extends Component {
       _onOpenActionSheet: this._onOpenActionSheet,
       reload: this.reload,
     });
+
+    Analytics.track("Auth Portal", { url: this.props.url });
   }
 
   _onOpenActionSheet = () => {
@@ -71,10 +75,9 @@ class authPortal extends Component {
         destructiveButtonIndex,
       },
       buttonIndex => {
-
         const key = this.actionOptions[buttonIndex];
         if (key == "Cancel") return;
-        const url = global.switch_webportalActions[buttonIndex][key]
+        const url = global.switch_webportalActions[buttonIndex][key];
         this.setState({ url: url });
       },
     );

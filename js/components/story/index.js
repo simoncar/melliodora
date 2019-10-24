@@ -4,14 +4,11 @@ import { Container, Content, Text, Icon } from "native-base";
 import { Ionicons, Feather, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import ParsedText from "react-native-parsed-text";
-import Communications from "react-native-communications";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
-import call from "react-native-phone-call"; //TODO migration to communications
-import { Notifications } from "expo";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue, getLanguageString } from "../global.js";
 import _ from "lodash";
-import * as firebase from "firebase";
+import Analytics from "../../lib/analytics";
 
 @withMappedNavigationParams()
 class Story extends Component {
@@ -21,6 +18,10 @@ class Story extends Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    Analytics.track("Story", { story: this.props.summaryMyLanguage });
   }
 
   _shareMessage() {
@@ -90,7 +91,6 @@ class Story extends Component {
       );
     }
   }
-
 
   _drawIconChat(chatroom, title) {
     if (_.isNil(chatroom) || this.props.showIconChat === false) {

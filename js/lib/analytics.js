@@ -34,6 +34,24 @@ const initialize = () => {
   }
 
   Amplitude.initialize(apiKey);
+
+  let trackingOpts = {
+    uid: global.uid,
+    name: global.name,
+    email: global.email,
+  };
+
+  trackingOpts = normalizeTrackingOptions(trackingOpts);
+  console.log("identifyidentifyidentifyidentifyidentify");
+  if (trackingOpts.uid) {
+    Amplitude.setUserId(trackingOpts.uid);
+    if (trackingOpts) {
+      Amplitude.setUserProperties(trackingOpts);
+    }
+  } else {
+    Amplitude.clearUserProperties();
+  }
+
   isInitialized = true;
 };
 
@@ -43,22 +61,10 @@ const maybeInitialize = () => {
   }
 };
 
-const identify = (id: ?string, options?: ?Object = null) => {
-  maybeInitialize();
-  options = normalizeTrackingOptions(options);
-
-  if (id) {
-    Amplitude.setUserId(id);
-    if (options) {
-      Amplitude.setUserProperties(options);
-    }
-  } else {
-    Amplitude.clearUserProperties();
-  }
-};
-
 const track = (event: string, options: any = null) => {
   maybeInitialize();
+
+  console.log("Amplitude: ", event, options);
   options = normalizeTrackingOptions(options);
 
   if (options) {
@@ -73,5 +79,4 @@ const track = (event: string, options: any = null) => {
 export default {
   events,
   track,
-  identify,
 };
