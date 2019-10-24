@@ -13,6 +13,7 @@ import moment from "moment";
 import "moment/min/locales";
 import Constants from "expo-constants";
 import CalendarItem from "./CalendarItem";
+import Analytics from "../../lib/analytics";
 
 const tabBarIcon = name => ({ tintColor }) => (
   <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
@@ -82,6 +83,7 @@ class calendar1 extends Component {
     this.loadFromAsyncStorage();
 
     this.listenLoadFromFirebase(this.calendarEvents);
+    Analytics.track("Calendar");
   }
 
   componentWillUnmount() {

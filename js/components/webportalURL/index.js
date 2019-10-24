@@ -3,7 +3,7 @@ import { TextInput, TouchableOpacity, WebView, View } from "react-native";
 import { Container } from "native-base";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "./styles";
-
+import Analytics from "../../lib/analytics";
 var WEBVIEW_REF = "webview";
 
 class WebportalSports extends Component {
@@ -14,6 +14,10 @@ class WebportalSports extends Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    Analytics.track("Web Portal", { url: this.props.url });
   }
 
   state = {
