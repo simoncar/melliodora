@@ -78,13 +78,6 @@ class HomeNav extends Component {
   };
 
   componentWillMount() {
-    let trackingOpts = {
-      id: "12345",
-      emailOrUsername: "simoncar@gmail.com",
-    };
-    Analytics.identify("simon@smartcookies.io", trackingOpts);
-    Analytics.track(Analytics.events.APP_STARTED, trackingOpts);
-
     this.ref = firebase
       .firestore()
       .collection(global.domain)
@@ -94,6 +87,8 @@ class HomeNav extends Component {
   }
 
   componentDidMount() {
+    Analytics.track("Home", { details: "extra stuff here" });
+
     try {
       // TODO: isOnline.
       this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);

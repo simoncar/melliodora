@@ -7,12 +7,13 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Communications from "react-native-communications";
 import updateFirebase from "./../../lib/updateFirebase";
 import styles from "./styles";
+import Analytics from "../../lib/analytics";
 
 const contactIconType = {
   call: "ios-call",
   mail: "ios-mail",
-  location: "ios-pin"
-}
+  location: "ios-pin",
+};
 
 class Anchor extends React.Component {
   _handlePress = () => {
@@ -43,18 +44,19 @@ export default class Contact extends Component {
         y: 0,
       },
       updateFirebaseText: "",
-      contactInfo: []
+      contactInfo: [],
     };
   }
 
   componentWillMount() {
     this._retrieveContactInfo();
-    this.willFocusSubscription = this.props.navigation.addListener(
-      'willFocus',
-      () => {
-        this._retrieveContactInfo();
-      }
-    );
+    this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
+      this._retrieveContactInfo();
+    });
+  }
+
+  componentDidMount() {
+    Analytics.track("Contact");
   }
 
   componentWillUnmount() {
@@ -87,48 +89,39 @@ export default class Contact extends Component {
         .then(doc => {
           if (doc.exists) {
             const docData = doc.data();
-            if (docData.contacts)
-              this.setState({ contactInfo: docData.contacts });
+            if (docData.contacts) this.setState({ contactInfo: docData.contacts });
           } else {
             console.log("No such contacts config");
           }
-
         });
-
     } catch (error) {
       // Error retrieving data
     }
-  }
+  };
 
   _updateFirebase() {
     updateFirebase();
     this.setState({ updateFirebaseText: "Another golf day booked!" });
   }
 
-
-  _renderSubTexts = (subTexts) => {
+  _renderSubTexts = subTexts => {
     if (!subTexts) return;
-    return (subTexts.map(subitem =>
-      <Text style={styles.feedbackHead}>{subitem}</Text>
-    ));
+    return subTexts.map(subitem => <Text style={styles.feedbackHead}>{subitem}</Text>);
+  };
 
-  }
-
-  _contactBtnAction = (item) => {
-
+  _contactBtnAction = item => {
     if (item.type == "call" && item.phoneNumber) {
-      return () => Communications.phonecall(item.phoneNumber, true)
+      return () => Communications.phonecall(item.phoneNumber, true);
     }
 
     if (item.type == "mail" && item.email) {
-      return () => Communications.email([item.email], null, null, null, null)
+      return () => Communications.email([item.email], null, null, null, null);
     }
-  }
+  };
 
   render() {
     return (
       <View style={styles.container}>
-
         {global.administrator && (
           <TouchableHighlight
             style={styles.adminButton}
@@ -142,31 +135,24 @@ export default class Contact extends Component {
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.contentIconsContainer}>
             <Grid>
-
-              {
-                this.state.contactInfo.map((item, idx) => {
-
-                  return (
-                    <Row style={{ paddingTop: 20 }} key={idx}>
-                      <Col style={{ width: 80 }}>
-                        <Button transparent style={styles.roundedButton} onPress={this._contactBtnAction(item)}>
-                          <Ionicons name={contactIconType[item.type]} size={30} color="#FFF" />
-
-                        </Button>
-                      </Col>
-                      <Col>
-                        <Text style={styles.feedbackHeader}>{item.headerText}</Text>
-                        <Text style={styles.feedbackHead}>{typeof item.headerSubTexts == "object" ? item.headerSubTexts.join("\n") : item.headerSubTexts}</Text>
-                        {
-                          item.email &&
-                          <Anchor href={"mailto:" + item.email} title={item.email} />
-                        }
-                      </Col>
-                    </Row>
-
-                  )
-                })
-              }
+              {this.state.contactInfo.map((item, idx) => {
+                return (
+                  <Row style={{ paddingTop: 20 }} key={idx}>
+                    <Col style={{ width: 80 }}>
+                      <Button transparent style={styles.roundedButton} onPress={this._contactBtnAction(item)}>
+                        <Ionicons name={contactIconType[item.type]} size={30} color="#FFF" />
+                      </Button>
+                    </Col>
+                    <Col>
+                      <Text style={styles.feedbackHeader}>{item.headerText}</Text>
+                      <Text style={styles.feedbackHead}>
+                        {typeof item.headerSubTexts == "object" ? item.headerSubTexts.join("\n") : item.headerSubTexts}
+                      </Text>
+                      {item.email && <Anchor href={"mailto:" + item.email} title={item.email} />}
+                    </Col>
+                  </Row>
+                );
+              })}
             </Grid>
           </View>
         </Content>

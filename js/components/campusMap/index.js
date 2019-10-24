@@ -2,10 +2,15 @@ import React, { Component } from "react";
 import { Image, View } from "react-native";
 import { Container, Content, Text } from "native-base";
 import styles from "./styles";
+import Analytics from "../../lib/analytics";
 
 class campusMap extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    Analytics.track("Map");
   }
 
   render() {
