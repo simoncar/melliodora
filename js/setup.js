@@ -24,7 +24,7 @@ export default class Setup extends Component {
   }
 
   getDomains = () =>
-    new Promise(function (resolve, reject) {
+    new Promise(function(resolve, reject) {
       firebase
         .firestore()
         .collection("domains")
@@ -49,6 +49,7 @@ export default class Setup extends Component {
     const domainData = domains.filter(item => item.node == selectedDomain);
     return domainData;
   };
+
   async componentWillMount() {
     try {
       await Firebase.initialise();
@@ -68,7 +69,8 @@ export default class Setup extends Component {
       const domain = JSON.parse(d);
 
       console.log("domain=", domain);
-      if (!_.isNil(domain.node)) {
+
+      if (!_.isNil(domain)) {
         this.setSelectedDomain(domain.node);
       }
     });
@@ -118,8 +120,7 @@ export default class Setup extends Component {
         ];
         break;
       case "camp_asia":
-        global.switch_portalURL =
-          "https://www.campasia.asia/online-booking/login";
+        global.switch_portalURL = "https://www.campasia.asia/online-booking/login";
         global.switch_webportalActions = [
           { Home: "" },
           { "Cafe Top-Up": "" },
@@ -127,8 +128,9 @@ export default class Setup extends Component {
           { Forms: "" },
           { PTA: "" },
           { Logout: "" },
-        ]
-        global.switch_homeLogoURI = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/smartcommunity%2Fcommunitylogo%2FCA_ID_Reverse_new.png?alt=media&token=54fbd759-31f5-46bb-a73f-6424db99d5dd";
+        ];
+        global.switch_homeLogoURI =
+          "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/smartcommunity%2Fcommunitylogo%2FCA_ID_Reverse_new.png?alt=media&token=54fbd759-31f5-46bb-a73f-6424db99d5dd";
         break;
       case "0002-singaporepoloclub":
         global.switch_address = "Polo Club \nSingapore  00000";
