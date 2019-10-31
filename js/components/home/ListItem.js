@@ -18,7 +18,7 @@ class ListItem extends Component {
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const summary = getLanguageString(global.language, this.props.item.item, "summary");
-
+    console.log("summary = ", summary);
     const showIconChat = this.props.item.item.showIconChat === false ? false : true;
     const uri = this.props.item.item.photo1;
     return (
@@ -35,6 +35,7 @@ class ListItem extends Component {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
+                width,
               }}
             >
               <Image
@@ -48,9 +49,10 @@ class ListItem extends Component {
                 }}
                 {...{ preview, uri }}
               />
-
-              {this.props.item.item.visible == true && <Text style={styles.itemTitle}>{summary}</Text>}
-
+              <View>
+                <Text style={styles.itemTitle}>{summary}</Text>
+                <Text style={styles.itemCalendar}>{this.props.item.item.date_start}</Text>
+              </View>
               <TouchableOpacity
                 style={{ flexDirection: "row" }}
                 onPress={() => {
@@ -67,10 +69,11 @@ class ListItem extends Component {
 
               <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
             </View>
-
-            <View>
-              <Image style={{ width, height: 200 }} {...{ preview, uri }} />
-            </View>
+            {uri && (
+              <View>
+                <Image style={{ width, height: 200 }} {...{ preview, uri }} />
+              </View>
+            )}
           </View>
         </TouchableOpacity>
       </View>

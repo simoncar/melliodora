@@ -38,9 +38,10 @@ class HomeNav extends Component {
     this.state = {
       loading: true,
       featureItems: [],
+      calendarItems: [],
     };
 
-    this.loadFromAsyncStorage();
+    //this.loadFromAsyncStorage();
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -78,47 +79,71 @@ class HomeNav extends Component {
   };
 
   componentWillMount() {
-    this.ref = firebase
+    this.feature = firebase
       .firestore()
       .collection(global.domain)
       .doc("feature")
       .collection("features")
       .orderBy("order");
+
+    this.calendar = firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("calendar")
+      .collection("calendarItems")
+      // .orderBy("date_start");
+      .where("date_start", "==", "2019-10-31");
   }
 
   componentDidMount() {
-    Analytics.track("Home", { details: "extra stuff here" });
-
-    try {
-      // TODO: isOnline.
-      this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
-    } catch (e) {
-      //console.error(e.message);
-    }
+    Analytics.track("Home");
+    this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
+    this.unsubscribeCalendar = this.calendar.onSnapshot(this.onCalendarUpdate);
   }
 
   componentWillUnmount() {
-    this.unsubscribe();
+    this.unsubscribeFeature();
+    this.unsubscribeCalendar();
   }
+  onCalendarUpdate = querySnapshot => {
+    var calendarItems = [];
+    console.log("AAAAAAA");
+    querySnapshot.forEach(doc => {
+      console.log("BBBBBBB");
+      var trans = {
+        visible: true,
+        source: "calendar",
+        summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
+        summary: doc.data().summary,
+        summaryEN: doc.data().summary,
+        date_start: "2019-10-31",
+        color: "red",
+        showIconChat: false,
+        descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
+      };
 
-  onCollectionUpdate = querySnapshot => {
-    var trans = {};
+      calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
+      console.log("calendarItemsPush=", calendarItems);
+    });
+    if (calendarItems.length > 0) {
+      this.setState({
+        calendarItems,
+      });
+    }
+    this.setState({
+      loading: false,
+    });
+  };
+
+  onFeatureUpdate = querySnapshot => {
     var featureItems = [];
 
     querySnapshot.forEach(doc => {
-      if (doc.data().translated == true) {
-        trans = {
-          source: "feature",
-          summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
-          descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
-        };
-      } else {
-        trans = {
-          source: "feature",
-          summaryMyLanguage: doc.data().summary,
-          descriptionMyLanguage: doc.data().description,
-        };
-      }
+      var trans = {
+        source: "feature",
+        summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
+        descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
+      };
 
       if (!doc.data().visible == false) {
         featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
@@ -191,12 +216,17 @@ class HomeNav extends Component {
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
             <FlatList
+              data={this.state.calendarItems}
+              keyExtractor={this.keyExtractor}
+              renderItem={this._renderItem.bind(this)}
+            />
+
+            <FlatList
               data={this.state.featureItems}
               keyExtractor={this.keyExtractor}
               renderItem={this._renderItem.bind(this)}
             />
           </View>
-
           <View
             style={{
               marginTop: 70,
@@ -209,7 +239,6 @@ class HomeNav extends Component {
               source={bottomLogo[global.domain] || { uri: global.switch_homeLogoURI }}
             />
           </View>
-
           <View
             style={{
               marginTop: 100,
@@ -228,7 +257,6 @@ class HomeNav extends Component {
               <Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
             </TouchableOpacity>
           </View>
-
           <View>
             <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
             <Text style={styles.user}>{global.name}</Text>

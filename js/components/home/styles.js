@@ -29,6 +29,13 @@ export default {
     alignItems: "center",
     color: "black",
   },
+  itemCalendar: {
+    flex: 1,
+    fontSize: 14,
+    justifyContent: "center",
+    alignItems: "center",
+    color: "black",
+  },
   version: {
     backgroundColor: "white",
     color: "#666",
