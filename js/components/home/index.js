@@ -20,6 +20,7 @@ import I18n from "../../lib/i18n";
 import styles from "./styles";
 import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
+import moment from "moment";
 
 const { width } = Dimensions.get("window");
 const tabBarIcon = name => ({ tintColor }) => (
@@ -41,7 +42,7 @@ class HomeNav extends Component {
       calendarItems: [],
     };
 
-    //this.loadFromAsyncStorage();
+    this.loadFromAsyncStorage();
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -86,13 +87,15 @@ class HomeNav extends Component {
       .collection("features")
       .orderBy("order");
 
+    const todayDate = moment().format("YYYY-MM-DD");
+
     this.calendar = firebase
       .firestore()
       .collection(global.domain)
       .doc("calendar")
       .collection("calendarItems")
       // .orderBy("date_start");
-      .where("date_start", "==", "2019-10-31");
+      .where("date_start", "==", todayDate);
   }
 
   componentDidMount() {
@@ -107,23 +110,20 @@ class HomeNav extends Component {
   }
   onCalendarUpdate = querySnapshot => {
     var calendarItems = [];
-    console.log("AAAAAAA");
     querySnapshot.forEach(doc => {
-      console.log("BBBBBBB");
       var trans = {
         visible: true,
         source: "calendar",
         summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
         summary: doc.data().summary,
         summaryEN: doc.data().summary,
-        date_start: "2019-10-31",
+        date_start: doc.data().date_start,
         color: "red",
         showIconChat: false,
         descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
       };
 
       calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
-      console.log("calendarItemsPush=", calendarItems);
     });
     if (calendarItems.length > 0) {
       this.setState({
@@ -203,7 +203,7 @@ class HomeNav extends Component {
     }
 
     return (
-      <Container style={styles.container}>
+      <Container>
         {global.administrator && (
           <TouchableHighlight
             style={styles.addButton}
