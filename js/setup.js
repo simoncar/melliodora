@@ -65,15 +65,21 @@ export default class Setup extends Component {
 
     this.domains = await this.getDomains();
 
-    AsyncStorage.getItem("domain").then(d => {
-      const domain = JSON.parse(d);
+    console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
+    if (Constants.manifest.extra.instance) {
+      this.setSelectedDomain(Constants.manifest.extra.instance);
+    } else {
+      AsyncStorage.getItem("domain").then(d => {
+        const domain = JSON.parse(d);
 
-      console.log("domain=", domain);
 
-      if (!_.isNil(domain)) {
-        this.setSelectedDomain(domain.node);
-      }
-    });
+        console.log("domain=", domain);
+        if (domain && domain.node) {
+          this.setSelectedDomain(domain.node);
+        }
+      });
+    }
+
     this.setState({ isReady: true });
   }
 
@@ -85,7 +91,6 @@ export default class Setup extends Component {
     AsyncStorage.setItem("domain", JSON.stringify(domainDataArr[0]));
     global.domain = domain;
     this.setState({ selectedDomain: domain, isReady: true });
-
     switch (domain) {
       case "sais_edu_sg":
         global.switch_address =
@@ -146,16 +151,13 @@ export default class Setup extends Component {
   };
 
   render() {
+    console.log("Constants.manifest.extra.instance2", Constants.manifest.extra.instance);
     if (!this.state.isReady) {
       return <AppLoading />;
     }
 
-    if (this.state.selectedDomain == "") {
-      if (Constants.manifest.extra.instance == "") {
-        return <DomainSelection setSelectedDomain={this.setSelectedDomain} domains={this.domains} />;
-      } else {
-        this.setSelectedDomain(Constants.manifest.extra.instance);
-      }
+    if (!this.state.selectedDomain) {
+      return <DomainSelection setSelectedDomain={this.setSelectedDomain} domains={this.domains} />;
     }
     return <SetupEnv />;
   }
