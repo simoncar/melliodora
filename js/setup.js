@@ -82,7 +82,6 @@ export default class Setup extends Component {
     if (domainDataArr.length < 1) return;
     AsyncStorage.setItem("domain", JSON.stringify(domainDataArr[0]));
     global.domain = domain;
-    this.setState({ selectedDomain: domain, isReady: true });
 
     switch (domain) {
       case "sais_edu_sg":
@@ -147,7 +146,7 @@ export default class Setup extends Component {
     if (!this.state.isReady) {
       return <AppLoading />;
     }
-
+    console.log("Constants.manifest.extra.instance ", Constants.manifest.extra.instance);
     if (this.state.selectedDomain == "") {
       if (Constants.manifest.extra.instance == "") {
         return <DomainSelection setSelectedDomain={this.setSelectedDomain} domains={this.domains} />;
