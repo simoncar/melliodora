@@ -25,8 +25,12 @@ export default {
   itemTitle: {
     flex: 1,
     fontSize: 18,
-    justifyContent: "center",
-    alignItems: "center",
+    color: "black",
+    marginHorizontal: 6,
+  },
+  itemCalendar: {
+    flex: 1,
+    fontSize: 14,
     color: "black",
   },
   version: {
@@ -223,6 +227,17 @@ export default {
   newsContentLine: {
     borderTopWidth: 1,
     borderTopColor: "#ddd",
+  },
+
+  container: {
+    height: 50,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 0,
+  },
+  text: {
+    flex: 1,
+    marginHorizontal: 6,
   },
   newsContent: {
     flexDirection: "column",
