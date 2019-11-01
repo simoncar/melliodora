@@ -147,7 +147,7 @@ class authPortal extends Component {
   handleMessage(message) {
     var authName = AuthParser.extractLoginUsername(message.nativeEvent.data);
     var authEmail = AuthParser.extractLoginEmail(message.nativeEvent.data);
-    var authID = AuthParser.extractLoginID(message.nativeEvent.data);
+        var authID = AuthParser.extractLoginID(message.nativeEvent.data);
     var authRole = AuthParser.extractLoginRole(message.nativeEvent.data);
     AuthParser.saveDetails(authName, authEmail, authRole, authID);
   }
@@ -253,7 +253,7 @@ export default class AppContainer extends React.Component {
   render() {
     return (
       <ActionSheetProvider>
-        <ConnectedApp />
+               <ConnectedApp />
       </ActionSheetProvider>
     );
   }
