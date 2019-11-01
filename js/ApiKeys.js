@@ -1,6 +1,6 @@
 export default {
     FirebaseConfig: {
-        apiKey: `${{ secrets.FIREBASE_APIKEY }}`,
+        apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
         authDomain: "calendar-app-57e88.firebaseapp.com",
         databaseURL: "https://calendar-app-57e88.firebaseio.com",
         projectId: "calendar-app-57e88",
