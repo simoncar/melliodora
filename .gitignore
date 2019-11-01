@@ -57,24 +57,17 @@ fastlane/Preview.html
 fastlane/screenshots
 
 .expo/packager-info.json
-
 .expo/packager-info.json
-
 .expo/packager-info.json
-
 .expo/packager-info.json
 .tmp/
 .vscode/.react/debuggerWorker.js
 .vscode/launch.json
-functions/firebase-debug.log
 
-package-lock.json
-package-lock.json
+functions/firebase-debug.log
 functions/Calendar App-915d5dbe4185.json
 functions/package-lock.json
-functions/package-lock.json
-functions/package-lock.json
-package-lock.json
+
 *.lock
 firebase-debug.log
-firebase-debug.log
+
