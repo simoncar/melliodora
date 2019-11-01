@@ -38,6 +38,13 @@ https://github.com/meedan/i18n-translate-json
 
 ## then publish
 
+# Github actions now auto-deploy this application when you commit to master
+
+https://github.com/simoncar/melliodora/actions
+
+https://github.com/simoncar/melliodora/blob/master/.github/workflows/main.yml
+
+(if you add a new config file, update the main.yml above)
 
 `expo publish --config apps/app.generic.json`
 
