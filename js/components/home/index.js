@@ -20,6 +20,7 @@ import I18n from "../../lib/i18n";
 import styles from "./styles";
 import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
+import { NavigationEvents } from "react-navigation";
 import moment from "moment";
 
 const { width } = Dimensions.get("window");
@@ -91,14 +92,23 @@ class HomeNav extends Component {
   componentDidMount() {
     Analytics.track("Home");
     this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
-    this.loadCalendar();
+
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener("didFocus", () => {
+      // The screen is focused
+      // Call any action
+      console.log("home is focused");
+      this.loadCalendar();
+    });
   }
 
   componentWillUnmount() {
     this.unsubscribeFeature();
+    this.focusListener.remove();
   }
   loadCalendar() {
     const todayDate = moment().format("YYYY-MM-DD");
+    console.log("todayDate=", todayDate);
 
     var calendarItems = [];
     let calendar = firebase
