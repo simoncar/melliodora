@@ -1,6 +1,7 @@
 import Constants from "expo-constants";
 import _ from "lodash";
 const moment = require("moment");
+import "moment/min/locales";
 
 export function isValue(input) {
   if (undefined !== input && input !== null && input.length > 0) {
@@ -30,33 +31,17 @@ export function formatTime(starttime, endtime) {
 export function formatMonth(eventDate) {
   var ret = "";
 
-  var monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   if (eventDate === null && typeof eventDate === "object") {
     ret = "";
   } else {
     if (undefined != eventDate && eventDate.length > 1) {
-      var d = new Date(eventDate);
-
-      ret = moment(d).format("MMMM Do YYYY");
-      //var ret = monthNames[d.getMonth()] + " " + d.getDate();
+      ret = moment(eventDate).format("MMMM Do YYYY");
     } else {
       ret = "";
     }
   }
+
+  console.log("formatMonth=", eventDate, ret);
   return ret;
 }
 

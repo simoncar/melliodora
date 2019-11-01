@@ -19,7 +19,6 @@ class ListItem extends Component {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
-    console.log("source=", source);
     if (source == "calendar") {
       return (
         <Ionicons
@@ -77,6 +76,9 @@ class ListItem extends Component {
             paddingRight: 4,
             justifyContent: "space-between",
             alignItems: "center",
+            borderBottomWidth: 1,
+            borderBottomColor: "lightgray",
+            marginTop: 5,
           }}
         >
           <TouchableOpacity
