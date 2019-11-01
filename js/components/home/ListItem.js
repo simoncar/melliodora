@@ -76,7 +76,7 @@ class ListItem extends Component {
             paddingRight: 4,
             justifyContent: "space-between",
             alignItems: "center",
-            borderBottomWidth: 1,
+            borderBottomWidth: 0.5,
             borderBottomColor: "lightgray",
             marginTop: 5,
           }}
