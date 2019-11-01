@@ -86,54 +86,55 @@ class HomeNav extends Component {
       .doc("feature")
       .collection("features")
       .orderBy("order");
-
-    const todayDate = moment().format("YYYY-MM-DD");
-
-    this.calendar = firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("calendar")
-      .collection("calendarItems")
-      // .orderBy("date_start");
-      .where("date_start", "==", todayDate);
   }
 
   componentDidMount() {
     Analytics.track("Home");
     this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
-    this.unsubscribeCalendar = this.calendar.onSnapshot(this.onCalendarUpdate);
+    this.loadCalendar();
   }
 
   componentWillUnmount() {
     this.unsubscribeFeature();
-    this.unsubscribeCalendar();
   }
-  onCalendarUpdate = querySnapshot => {
-    var calendarItems = [];
-    querySnapshot.forEach(doc => {
-      var trans = {
-        visible: true,
-        source: "calendar",
-        summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
-        summary: doc.data().summary,
-        summaryEN: doc.data().summary,
-        date_start: doc.data().date_start,
-        color: "red",
-        showIconChat: false,
-        descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
-      };
+  loadCalendar() {
+    const todayDate = moment().format("YYYY-MM-DD");
 
-      calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
-    });
-    if (calendarItems.length > 0) {
-      this.setState({
-        calendarItems,
+    var calendarItems = [];
+    let calendar = firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("calendar")
+      .collection("calendarItems")
+      // .orderBy("date_start");
+      .where("date_start", "==", todayDate)
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          var trans = {
+            visible: true,
+            source: "calendar",
+            summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
+            summary: doc.data().summary,
+            summaryEN: doc.data().summary,
+            date_start: doc.data().date_start,
+            color: "red",
+            showIconChat: false,
+            descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
+          };
+
+          calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
+        });
+        if (calendarItems.length > 0) {
+          this.setState({
+            calendarItems,
+          });
+        }
+        this.setState({
+          loading: false,
+        });
       });
-    }
-    this.setState({
-      loading: false,
-    });
-  };
+  }
 
   onFeatureUpdate = querySnapshot => {
     var featureItems = [];
