@@ -17,7 +17,7 @@ jobs:
           envkey_SOME_API_KEY: "123456abcdef"
           envkey_SECRET_KEY: ${{ secrets.EXPO_CLI_USERNAME }}
           envkey_API_KEY: "aaaaa123456abcdef"
-          envkey_ANOTHER_CONFIG: "foo3333333bar"
+          envkey_ANOTHER_CONFIG: ${{ secrets.EXPO_CLI_USERNAME }}
           file_name: .env
       - uses: actions/setup-node@v1
         with:
