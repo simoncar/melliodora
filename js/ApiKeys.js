@@ -1,4 +1,4 @@
-import { FIREBASE_APIKEY, FIREBASE_MESSAGESENDERID } from "react-native-dotenv";
+import { FIREBASE_APIKEY } from "react-native-dotenv";
 
 export default {
   FirebaseConfig: {
@@ -7,6 +7,5 @@ export default {
     databaseURL: "https://calendar-app-57e88.firebaseio.com",
     projectId: "calendar-app-57e88",
     storageBucket: "calendar-app-57e88.appspot.com",
-    messagingSenderId: FIREBASE_MESSAGESENDERID,
   },
 };
