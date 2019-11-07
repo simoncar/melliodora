@@ -71,3 +71,4 @@ functions/package-lock.json
 *.lock
 firebase-debug.log
 
+.env

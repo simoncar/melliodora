@@ -16,6 +16,8 @@ jobs:
           envkey_DEBUG: false
           envkey_SOME_API_KEY: "123456abcdef"
           envkey_SECRET_KEY: ${{ secrets.EXPO_CLI_USERNAME }}
+          envkey_API_KEY: "aaaaa123456abcdef"
+          envkey_ANOTHER_CONFIG: "foo3333333bar"
           file_name: .env
       - uses: actions/setup-node@v1
         with:
@@ -26,3 +28,4 @@ jobs:
           expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
       - run: npm ci
+      - run: expo publish --config apps/app.generic.json
