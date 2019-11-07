@@ -7,9 +7,8 @@ Eucalyptus melliodora, commonly known as yellow box, is a medium-sized to occasi
 add a file name .env to your root directory
 
 FIREBASE_APIKEY=yourKeyHere
-FIREBASE_MESSAGESENDERID=yourSenderIDHere
 
-(we are using gitHub actions, so also add FIREBASE_APIKEY and FIREBASE_MESSAGESENDERID to your github secrets)
+(we are using gitHub actions, so also add FIREBASE_APIKEY to your github secrets)
 
 
 # Code
