@@ -13,11 +13,7 @@ jobs:
         run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
       - uses: SpicyPizza/create-envfile@v1
         with:
-          envkey_DEBUG: false
-          envkey_SOME_API_KEY: "123456abcdef"
-          envkey_SECRET_KEY: ${{ secrets.EXPO_CLI_USERNAME }}
-          envkey_API_KEY: "aaaaa123456abcdef"
-          envkey_ANOTHER_CONFIG: ${{ secrets.EXPO_CLI_USERNAME }}
+          envkey_FIREBASE_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
           file_name: .env
       - uses: actions/setup-node@v1
         with:
