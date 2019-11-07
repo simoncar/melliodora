@@ -25,3 +25,4 @@ jobs:
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
       - run: npm ci
       - run: expo publish --config apps/app.generic.json
+      - run: expo publish --config apps/app.sais_edu_sg.json
