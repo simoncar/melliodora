@@ -11,6 +11,12 @@ jobs:
       - uses: actions/checkout@v1
       - name: Setup kernel for react native, increase watchers
         run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+      - uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_DEBUG: false
+          envkey_SOME_API_KEY: "123456abcdef"
+          envkey_SECRET_KEY: ${{ secrets.EXPO_CLI_USERNAME }}
+          file_name: .env
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
@@ -20,5 +26,3 @@ jobs:
           expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
       - run: npm ci
-      - run: expo publish --config apps/app.generic.json
-      - run: expo publish --config apps/app.sais_edu_sg.json
