@@ -6,7 +6,6 @@ import * as Localization from "expo-localization";
 import Constants from "expo-constants";
 
 class Firebase {
-
   static async initialise() {
     try {
       if (!firebase.apps.length) {
@@ -16,7 +15,7 @@ class Firebase {
       await firebase
         .auth()
         .signInAnonymously()
-        .catch(function (error) {
+        .catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -26,13 +25,11 @@ class Firebase {
       console.log("catch error body:", e.message);
       //console.error(e.message);
     }
-
-
   }
 
   static async SetupUser() {
     try {
-      await firebase.auth().onAuthStateChanged(async function (user) {
+      await firebase.auth().onAuthStateChanged(async function(user) {
         if (user) {
           var uid = user.uid;
           console.log("Auth = ", uid);

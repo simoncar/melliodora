@@ -23,8 +23,6 @@ import Analytics from "../../lib/analytics";
 import { NavigationEvents } from "react-navigation";
 import moment from "moment";
 
-import { API_KEY, ANOTHER_CONFIG } from "react-native-dotenv";
-
 const { width } = Dimensions.get("window");
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
@@ -274,10 +272,6 @@ class HomeNav extends Component {
           </View>
           <View>
             <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
-            <Text style={styles.version}>
-              {API_KEY}
-              {ANOTHER_CONFIG}
-            </Text>
             <Text style={styles.user}>{global.name}</Text>
             <Text style={styles.user}>{global.email}</Text>
             <Text style={styles.user}>{global.uid}</Text>
