@@ -44,7 +44,7 @@
     "expo-font": "~5.0.1",
     "expo-image-manipulator": "~5.0.1",
     "expo-image-picker": "~5.0.2",
-    "expo-localization": "~5.0.1",
+    "expo-localization": "~7.0.0",
     "expo-permissions": "~5.0.1",
     "firebase": "^6.6.2",
     "hex-to-array-buffer": "^1.1.0",
