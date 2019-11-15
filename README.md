@@ -1,4 +1,4 @@
-# Mellidora app
+# Mellidora app.
 
 Eucalyptus melliodora, commonly known as yellow box, is a medium-sized to occasionally tall eucalypt.
 
