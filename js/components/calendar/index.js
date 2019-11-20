@@ -16,7 +16,12 @@ import CalendarItem from "./CalendarItem";
 import Analytics from "../../lib/analytics";
 
 const tabBarIcon = name => ({ tintColor }) => (
-  <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
+  <Ionicons
+    style={{ backgroundColor: "transparent" }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
 );
 
 var todayItem = {};
@@ -36,11 +41,11 @@ class calendar1 extends Component {
       summaryMyLanguage: I18n.t("today") + " " + todayDay,
       icon: "md-radio-button-off",
       color: "yellow",
-      title: todayDay,
+      title: todayDay
     });
 
     this.state = {
-      items: todayItem,
+      items: todayItem
     };
   }
 
@@ -56,7 +61,7 @@ class calendar1 extends Component {
           style={{
             color: "#48484A",
             fontSize: 25,
-            marginRight: 10,
+            marginRight: 10
           }}
         >
           <Ionicons
@@ -64,12 +69,12 @@ class calendar1 extends Component {
             style={{
               color: "#48484A",
               fontSize: 25,
-              marginRight: 10,
+              marginRight: 10
             }}
           />
         </View>
       </TouchableOpacity>
-    ),
+    )
   });
 
   componentDidMount() {
@@ -116,7 +121,7 @@ class calendar1 extends Component {
           summaryMyLanguage: I18n.t("today") + " " + todayDay,
           icon: "md-radio-button-off",
           color: "yellow",
-          title: todayDay,
+          title: todayDay
         });
 
         snapshot.forEach(doc => {
@@ -136,7 +141,7 @@ class calendar1 extends Component {
             photo1: null,
             summaryMyLanguage: doc.data().summary,
             descriptionMyLanguage: doc.data().description,
-            color: doc.data().color,
+            color: doc.data().color
           };
 
           var event = { ...{ _key: doc.id }, ...doc.data(), ...trans };
@@ -148,7 +153,7 @@ class calendar1 extends Component {
         }
 
         this.setState({
-          items: items2,
+          items: items2
         });
       })
       .catch(err => {
@@ -163,7 +168,7 @@ class calendar1 extends Component {
       if (null != items) {
         this.setState({
           items,
-          loading: false,
+          loading: false
         });
       }
     });
@@ -172,6 +177,7 @@ class calendar1 extends Component {
   _storeData = async calendarItems => {
     try {
       AsyncStorage.setItem("calendarItems", calendarItems);
+      console.log("Storing in async storage");
     } catch (error) {
       console.log(error);
       // Error saving data
@@ -215,10 +221,15 @@ class calendar1 extends Component {
           }}
           hideKnob={false}
           renderKnob={() => {
-            return <Ionicons style={{ color: "#00adf5", fontSize: 30 }} name="ios-arrow-down" />;
+            return (
+              <Ionicons
+                style={{ color: "#00adf5", fontSize: 30 }}
+                name="ios-arrow-down"
+              />
+            );
           }}
           theme={{
-            selectedDayBackgroundColor: "#00adf5",
+            selectedDayBackgroundColor: "#00adf5"
           }}
           style={{}}
         />
