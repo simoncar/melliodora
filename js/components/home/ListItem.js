@@ -59,6 +59,16 @@ class ListItem extends Component {
       return <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>{formatTime(start, end)} </Text>;
     }
   }
+
+  isURL(str) {
+    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return pattern.test(str);
+  }
   render() {
     const summary = getLanguageString(global.language, this.props.item.item, "summary");
     const showIconChat = this.props.item.item.showIconChat === false ? false : true;
@@ -68,6 +78,7 @@ class ListItem extends Component {
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const rightMargin = this.props.item.item.showIconChat === false ? 0 : 36;
+
     return (
       <View>
         <View
@@ -119,7 +130,7 @@ class ListItem extends Component {
           </TouchableOpacity>
         </View>
 
-        {uri && (
+        {this.isURL(uri) && (
           <TouchableOpacity
             style={{ flexDirection: "row" }}
             onPress={() => this.props.navigation.navigate("story", this.props.item.item)}
