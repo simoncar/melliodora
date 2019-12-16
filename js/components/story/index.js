@@ -285,7 +285,7 @@ class Story extends Component {
                 ]}
                 childrenProps={{ allowFontScaling: false }}
               >
-                {this.props.descriptionMyLanguage}
+                {this.props.descriptionMyLanguage.replace(/<\/?[^>]+(>|$)/g, "")}
               </ParsedText>
 
               {global.language != "en" && (
