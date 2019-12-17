@@ -24,4 +24,4 @@ jobs:
           expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
       - run: npm ci
-      - run: expo publish --config apps/app.sais_edu_sg.json
+      - run: expo publish --config apps/app.generic.json
