@@ -83,8 +83,7 @@ class ListItem extends Component {
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const rightMargin = this.props.item.item.showIconChat === false ? 0 : 36;
-    const excerpt = "" + this.props.item.item.excerpt.trim();
-    console.log("excerpt", { excerpt, id: this.props.item.item.id });
+    const excerpt = this.props.item.item.excerpt;
 
     return (
       <View
