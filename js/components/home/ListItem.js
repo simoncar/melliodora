@@ -83,17 +83,18 @@ class ListItem extends Component {
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const rightMargin = this.props.item.item.showIconChat === false ? 0 : 36;
-    const excerpt = this.props.item.item.excerpt;
+    const excerpt = "" + this.props.item.item.excerpt.trim();
+    console.log("excerpt", { excerpt, id: this.props.item.item.id });
 
     return (
       <View
         style={{
           backgroundColor: "#fff",
           shadowColor: "rgba(0,0,0, .4)",
-          shadowOffset: { height: 2, width: 2 },
+          shadowOffset: { height: 3, width: 0.5 },
           shadowOpacity: 0.8,
           shadowRadius: 1,
-          elevation: 4,
+          elevation: 2,
           marginBottom: 12,
           width: "98%",
           alignSelf: "center",
@@ -152,7 +153,7 @@ class ListItem extends Component {
           onPress={() => this.props.navigation.navigate("story", this.props.item.item)}
         >
           <View style={{ flexDirection: "column" }}>
-            {excerpt &&
+            {excerpt ?
               <Text
                 ellipsizeMode="clip"
                 style={{
@@ -161,9 +162,7 @@ class ListItem extends Component {
                   paddingVertical: 12,
                   paddingHorizontal: 8
                 }}
-              >
-                {summary}
-              </Text>
+              >{excerpt}</Text> : null
             }
             {this.isURL(uri) && (
               <Image style={{ height: 200 }} {...{ preview, uri }} />
