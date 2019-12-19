@@ -70,6 +70,10 @@ class ListItem extends Component {
       '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
     return pattern.test(str);
   }
+
+  renderExcerptImage(excerpt, uri) {
+
+  }
   render() {
     const summary = getLanguageString(global.language, this.props.item.item, "summary");
     const showIconChat = this.props.item.item.showIconChat === false ? false : true;
@@ -79,9 +83,23 @@ class ListItem extends Component {
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const rightMargin = this.props.item.item.showIconChat === false ? 0 : 36;
+    const excerpt = this.props.item.item.excerpt;
 
     return (
-      <View>
+      <View
+        style={{
+          backgroundColor: "#fff",
+          shadowColor: "rgba(0,0,0, .4)",
+          shadowOffset: { height: 2, width: 2 },
+          shadowOpacity: 0.8,
+          shadowRadius: 1,
+          elevation: 4,
+          marginBottom: 12,
+          width: "98%",
+          alignSelf: "center",
+          borderWidth: 1,
+          borderColor: "lightgray"
+        }}>
         <View
           style={{
             flexDirection: "row",
@@ -130,15 +148,29 @@ class ListItem extends Component {
             </View>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate("story", this.props.item.item)}
+        >
+          <View style={{ flexDirection: "column" }}>
+            {excerpt &&
+              <Text
+                ellipsizeMode="clip"
+                style={{
+                  fontSize: 14,
+                  color: "#262626",
+                  paddingVertical: 12,
+                  paddingHorizontal: 8
+                }}
+              >
+                {summary}
+              </Text>
+            }
+            {this.isURL(uri) && (
+              <Image style={{ height: 200 }} {...{ preview, uri }} />
+            )}
+          </View>
 
-        {this.isURL(uri) && (
-          <TouchableOpacity
-            style={{ flexDirection: "row" }}
-            onPress={() => this.props.navigation.navigate("story", this.props.item.item)}
-          >
-            <Image style={{ width, height: 200 }} {...{ preview, uri }} />
-          </TouchableOpacity>
-        )}
+        </TouchableOpacity>
       </View>
     );
   }

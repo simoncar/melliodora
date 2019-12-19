@@ -227,6 +227,7 @@ export default {
   newsContentLine: {
     borderTopWidth: 1,
     borderTopColor: "#ddd",
+    backgroundColor: "#f2f2f2",
   },
 
   container: {
