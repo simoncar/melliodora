@@ -29,6 +29,10 @@ import push from "./components/story/push";
 import authPortal from "./components/webportalURL/authPortal";
 import WebportalURL from "./components/webportalURL";
 import I18n from "./lib/i18n";
+import LoginScreen from "./components/auth/LoginScreen"
+import SignUpScreen from "./components/auth/SignUpScreen"
+import ForgotPasswordScreen from "./components/auth/ForgotPasswordScreen"
+import CameraApp from "./components/auth/CameraApp"
 
 let StackHome = createStackNavigator(
   {
@@ -141,6 +145,10 @@ let StackOther = createStackNavigator(
     webportalURL: { screen: WebportalURL },
     selectLanguage: { screen: selectLanguage },
     adminPassword: { screen: adminPassword },
+    login: { screen: LoginScreen },
+    signup: { screen: SignUpScreen },
+    forgetpassword: { screen: ForgotPasswordScreen },
+    CameraApp: { screen: CameraApp }
   },
   {
     navigationOptions: {

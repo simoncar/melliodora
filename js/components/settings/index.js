@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight, ScrollView } from "react-native";
+import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight, ScrollView, Text } from "react-native";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -143,6 +143,13 @@ class Settings extends Component {
         )}
 
         <ScrollView style={{ backgroundColor: "#EFEFF4" }}>
+          <SettingsListItem
+            hasNavArrow={false}
+            icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
+            title={I18n.t("Sign In", { defaultValue: "Sign In" })}
+            onPress={() => this.props.navigation.navigate("login")}
+          />
+
           <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
 
           <Seperator />
@@ -152,9 +159,9 @@ class Settings extends Component {
               const navTitle = el.navTitle || el.title;
               const navProps = el.navURL
                 ? {
-                    url: el.navURL,
-                    title: I18n.t(navTitle, { defaultValue: navTitle }),
-                  }
+                  url: el.navURL,
+                  title: I18n.t(navTitle, { defaultValue: navTitle }),
+                }
                 : {};
 
               const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
