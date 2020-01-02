@@ -9,6 +9,7 @@ import * as Permissions from "expo-permissions";
 import { Input } from "react-native-elements";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
+import * as ImagePicker from 'expo-image-picker';
 
 class SignUpScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -26,8 +27,12 @@ class SignUpScreen extends Component {
     type: Camera.Constants.Type.back
   };
 
-  async componentDidMount() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+  componentDidMount() {
+    this.getPermissionAsync();
+  }
+
+  getPermissionAsync = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
     this.setState({ hasCameraPermission: status === "granted" });
   }
 
@@ -43,69 +48,73 @@ class SignUpScreen extends Component {
   };
 
   handleSignUp = () => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate("Overview"))
-      .catch(error => this.setState({ errorMessage: error.message }));
+    this.saveProfilePic(this.state.profilePic);
+    // firebase
+    //   .auth()
+    //   .createUserWithEmailAndPassword(this.state.email, this.state.password)
+    //   .then(() => this.props.navigation.navigate("Overview"))
+    //   .catch(error => this.setState({ errorMessage: error.message }));
   };
 
-  async snapPhoto() {
-    var d = new Date();
-    const options = { quality: 1, base64: true, fixOrientation: true, exif: true };
-    await this.camera.takePictureAsync(options).then(async photo => {
-      const convertedImage = await new ImageManipulator.manipulateAsync(photo.uri, [{ resize: { height: 600 } }], {
-        compress: 0,
-      });
-      //photo.exif.Orientation = 1;
-      fileToUpload = convertedImage.uri;
+  setProfilePic = ({ profilePic }) => {
+    this.setState({ profilePic: profilePic });
+  }
 
-      console.log("fileToUpload", fileToUpload);
+  async saveProfilePic(imgURI) {
+    // const d = new Date();
+    fileToUpload = imgURI;
 
-      mime = "image/jpeg";
-      // this.setState({ cameraIcon: "hour-glass" });
+    console.log("fileToUpload", fileToUpload);
 
-      const blob = await new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
-          resolve(xhr.response);
-        };
-        xhr.onerror = function (e) {
-          reject(new TypeError("Network request failed"));
-        };
-        xhr.responseType = "blob";
-        xhr.open("GET", fileToUpload, true);
-        xhr.send(null);
-      });
+    mime = "image/jpeg";
+    // this.setState({ cameraIcon: "hour-glass" });
 
-      const ref = firebase
-        .storage()
-        .ref("smartcommunity/profile")
-        .child(uuid.v4());
-
-      const recordInfo = this.props.navigation.state.params.recordInfo;
-      const beaconExist = await checkBeaconExist(recordInfo.studentNo)
-      if (!beaconExist) {
-        //create record in beacon/beacons
-        await createBeacon(recordInfo.studentNo, recordInfo);
-      }
-
-      const snapshot = await ref
-        .put(blob, { contentType: mime })
-        .then(snapshot => {
-          return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
-        })
-        .then(downloadURL => {
-          console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
-          this.setState({ profilePic: downloadURL });
-        })
-        .catch(error => {
-          console.log(`Failed to upload file and get link - ${error}`);
-        });
-
-      blob.close();
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", fileToUpload, true);
+      xhr.send(null);
     });
 
+    const ref = firebase
+      .storage()
+      .ref("smartcommunity/profile")
+      .child(uuid.v4());
+
+    const snapshot = await ref
+      .put(blob, { contentType: mime })
+      .then(snapshot => snapshot.ref.getDownloadURL())
+      .then(downloadURL => {
+        console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
+        // this.setState({ profilePic: downloadURL });
+        this.goBack();
+      })
+      .catch(error => {
+        console.log(`Failed to upload file and get link - ${error}`);
+      });
+
+    blob.close();
+
+  }
+  _pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      this.setState({ profilePic: result.uri });
+    }
   }
 
   _onOpenActionSheet = () => {
@@ -124,8 +133,12 @@ class SignUpScreen extends Component {
         // Do something here depending on the button index selected
         switch (buttonIndex) {
           case 0:
-            // this.snapPhoto();
-            this.props.navigation.navigate("CameraApp");
+            this.props.navigation.push("CameraApp", {
+              onGoBack: this.setProfilePic
+            });
+            break;
+          case 1:
+            this._pickImage();
             break;
         }
       },
@@ -207,7 +220,7 @@ class SignUpScreen extends Component {
           inputContainerStyle={{ borderBottomWidth: 0 }}
         />
         <View>
-          <Text>Profile Picture</Text>
+          <Text>Profile Picture: </Text>
           <TouchableOpacity onPress={this._onOpenActionSheet}>
             {this.icon(this.state.profilePic)}
           </TouchableOpacity>
@@ -222,24 +235,6 @@ class SignUpScreen extends Component {
         <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>
           <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={this.handleSignUp}>
             <Text style={styles.TextStyle}>Sign Up</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.learnMore}
-            onPress={() => {
-              var url = "https://www.smartcookies.io/geofencing";
-              Linking.canOpenURL(url)
-                .then(supported => {
-                  if (supported) {
-                    return Linking.openURL(url);
-                  }
-                })
-                .catch(err => {
-                  console.error("An error occurred", err);
-                });
-            }}
-          >
-            <Text>Learn More</Text>
           </TouchableOpacity>
         </View>
       </View>
