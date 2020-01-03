@@ -48,12 +48,19 @@ class SignUpScreen extends Component {
   };
 
   handleSignUp = () => {
-    this.saveProfilePic(this.state.profilePic);
-    // firebase
-    //   .auth()
-    //   .createUserWithEmailAndPassword(this.state.email, this.state.password)
-    //   .then(() => this.props.navigation.navigate("Overview"))
-    //   .catch(error => this.setState({ errorMessage: error.message }));
+    this.saveProfilePic(this.state.profilePic)
+      .then(downloadURL => {
+        console.log("picurl", downloadURL)
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.state.email, this.state.password)
+          .then(userCredential => userCredential.user.updateProfile({
+            photoURL: downloadURL
+          }))
+          .then(() => this.props.navigation.popToTop())
+          .catch(error => this.setState({ errorMessage: error.message }));
+      });
+
   };
 
   setProfilePic = ({ profilePic }) => {
@@ -87,19 +94,11 @@ class SignUpScreen extends Component {
       .ref("smartcommunity/profile")
       .child(uuid.v4());
 
-    const snapshot = await ref
-      .put(blob, { contentType: mime })
-      .then(snapshot => snapshot.ref.getDownloadURL())
-      .then(downloadURL => {
-        console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
-        // this.setState({ profilePic: downloadURL });
-        this.goBack();
-      })
-      .catch(error => {
-        console.log(`Failed to upload file and get link - ${error}`);
-      });
+    const snapshot = await ref.put(blob, { contentType: mime });
+    const downloadURL = await snapshot.ref.getDownloadURL();
 
     blob.close();
+    return downloadURL;
 
   }
   _pickImage = async () => {
@@ -119,7 +118,7 @@ class SignUpScreen extends Component {
 
   _onOpenActionSheet = () => {
     // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
-    const options = ['Camera', 'Gallery', 'Clear', 'Cancel'];
+    const options = ['Take photo from camera', 'Select from gallery', 'Clear', 'Cancel'];
     const destructiveButtonIndex = options.length - 2;
     const cancelButtonIndex = options.length - 1;
 
