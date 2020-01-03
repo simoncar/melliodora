@@ -9,6 +9,7 @@ import * as Permissions from "expo-permissions";
 import { Input } from "react-native-elements";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
+import 'firebase/functions';
 import * as ImagePicker from 'expo-image-picker';
 
 class SignUpScreen extends Component {
@@ -54,9 +55,16 @@ class SignUpScreen extends Component {
         firebase
           .auth()
           .createUserWithEmailAndPassword(this.state.email, this.state.password)
-          .then(userCredential => userCredential.user.updateProfile({
-            photoURL: downloadURL
-          }))
+          .then(userCredential => {
+            userCredential.user.updateProfile({
+              photoURL: downloadURL
+            });
+          })
+          .then(() => {
+            const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
+            setUserClaim({ email: this.state.email, domain: global.domain })
+          })
+          .then(result => console.log(result))
           .then(() => this.props.navigation.popToTop())
           .catch(error => this.setState({ errorMessage: error.message }));
       });

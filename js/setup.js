@@ -24,7 +24,7 @@ export default class Setup extends Component {
   }
 
   getDomains = () =>
-    new Promise(function(resolve, reject) {
+    new Promise(function (resolve, reject) {
       firebase
         .firestore()
         .collection("domains")
@@ -173,7 +173,7 @@ class SetupEnv extends Component {
 
   async componentWillMount() {
     try {
-      await Firebase.SetupUser();
+      Firebase.SetupUser();
     } catch (e) {
       console.log("firebase error", e.message);
     }

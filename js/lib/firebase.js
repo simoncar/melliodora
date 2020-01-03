@@ -12,25 +12,35 @@ class Firebase {
         await firebase.initializeApp(ApiKeys.FirebaseConfig);
       }
 
-      await firebase
-        .auth()
-        .signInAnonymously()
-        .catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // ...
-        });
+      // await firebase
+      //   .auth()
+      //   .signInAnonymously()
+      //   .catch(function (error) {
+      //     // Handle Errors here.
+      //     var errorCode = error.code;
+      //     var errorMessage = error.message;
+      //     // ...
+      //   });
     } catch (e) {
       console.log("catch error body:", e.message);
       //console.error(e.message);
     }
   }
 
-  static async SetupUser() {
+  static SetupUser() {
     try {
-      await firebase.auth().onAuthStateChanged(async function(user) {
-        if (user) {
+      firebase.auth().onAuthStateChanged(async function (user) {
+        console.log("user112", user);
+        console.log("useruid", user.email);
+        if (user && !user.isAnonymous) {
+          user.getIdTokenResult()
+            .then((idTokenResult) => {
+              console.log("claims", idTokenResult.claims)
+              if (idTokenResult.claims[global.domain]) {
+                global.uid = user.email;
+              }
+            });
+        } else if (user) {
           var uid = user.uid;
           console.log("Auth = ", uid);
 

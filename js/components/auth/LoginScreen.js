@@ -17,7 +17,7 @@ export default class LoginScreen extends Component {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate("Overview"))
+      .then(() => this.props.navigation.popToTop())
       .catch(error => this.setState({ errorMessage: error.message }));
   };
 

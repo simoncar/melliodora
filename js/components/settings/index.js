@@ -28,7 +28,7 @@ class Settings extends Component {
     super(props);
 
     this.state = {
-      loggedIn: false,
+      user: null,
       language: "",
       features: global.moreFeatures || [],
     };
@@ -41,6 +41,18 @@ class Settings extends Component {
     this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
       this.setState({ features: global.moreFeatures || [] });
     });
+
+    // firebase.auth().onAuthStateChanged(user => {
+    //   if (user && !user.isAnonymous) {
+    //     user.getIdTokenResult()
+    //       .then((idTokenResult) => {
+    //         console.log("claims", idTokenResult.claims)
+    //         if (idTokenResult.claims[global.domain]) {
+    //           this.setState({ user: user });
+    //         }
+    //       });
+    //   }
+    // });
   }
 
   componentDidMount() {
@@ -73,46 +85,7 @@ class Settings extends Component {
     }
   };
 
-  _getStyle(language) {
-    if (language == this.state.language) {
-      return styles.imageStyleCheckOn;
-    } else {
-      return styles.imageStyleCheckOff;
-    }
-  }
 
-  _setGrade(grade) {
-    console.log(grade);
-    this.state[grade] = !this.state[grade];
-    this.setState({ [grade]: this.state[grade] });
-
-    var grades = this._getGrade();
-
-    AsyncStorage.setItem("gradeNotify", JSON.stringify(grades));
-
-    var userDict = {
-      gradeNotify: grades,
-    };
-
-    firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("user")
-      .collection("usernames")
-      .doc(uid)
-      .set(userDict, { merge: true });
-  }
-
-  _getGrade() {
-    var grades = [];
-    for (var i = -4; i < 13; i++) {
-      console.log("loop=", i, this.state[i]);
-      if (this.state[i] == true) {
-        grades.push(i);
-      }
-    }
-    return grades;
-  }
 
   _logout() {
     AsyncStorage.clear().then(() => {
@@ -122,6 +95,31 @@ class Settings extends Component {
       Alert.alert("Restarting");
       Updates.reloadFromCache();
     });
+  }
+
+  _renderUser() {
+    // const user = this.state.user;
+    // console.log("_renderUser", user);
+    if (global.uid) {
+      const email = global.uid;
+      return (
+        <SettingsListItem
+          hasNavArrow={false}
+          icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
+          title={email}
+          onPress={() => this.props.navigation.navigate("login")}
+        />
+      )
+    } else {
+      return (
+        <SettingsListItem
+          hasNavArrow={false}
+          icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
+          title={I18n.t("Sign In", { defaultValue: "Sign In" })}
+          onPress={() => this.props.navigation.navigate("login")}
+        />
+      )
+    }
   }
 
   render() {
@@ -143,12 +141,7 @@ class Settings extends Component {
         )}
 
         <ScrollView style={{ backgroundColor: "#EFEFF4" }}>
-          <SettingsListItem
-            hasNavArrow={false}
-            icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
-            title={I18n.t("Sign In", { defaultValue: "Sign In" })}
-            onPress={() => this.props.navigation.navigate("login")}
-          />
+          {this._renderUser()}
 
           <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
 
