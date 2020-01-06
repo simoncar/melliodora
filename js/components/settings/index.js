@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight, ScrollView, Text } from "react-native";
+import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight, ScrollView, Text, TouchableOpacity } from "react-native";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -97,18 +97,23 @@ class Settings extends Component {
     });
   }
 
+
   _renderUser() {
     // const user = this.state.user;
     // console.log("_renderUser", user);
     if (global.uid) {
       const email = global.uid;
       return (
-        <SettingsListItem
-          hasNavArrow={false}
-          icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
-          title={email}
-          onPress={() => this.props.navigation.navigate("login")}
-        />
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("UserProfile")}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.nameText} numberOfLines={1}>
+              Logged in as
+            </Text>
+            <Text style={styles.sectionContentText} numberOfLines={1}>
+              {email}
+            </Text>
+          </View>
+        </TouchableOpacity>
       )
     } else {
       return (
@@ -270,6 +275,20 @@ const styles = StyleSheet.create({
       width: 0,
     },
     zIndex: 1,
+  },
+  titleContainer: {
+    paddingHorizontal: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
+    backgroundColor: "#fdfdfd"
+  },
+  nameText: {
+    fontWeight: "600",
+    fontSize: 18
+  },
+  sectionContentText: {
+    color: "#808080",
+    fontSize: 14
   },
 });
 

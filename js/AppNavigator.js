@@ -29,10 +29,11 @@ import push from "./components/story/push";
 import authPortal from "./components/webportalURL/authPortal";
 import WebportalURL from "./components/webportalURL";
 import I18n from "./lib/i18n";
-import LoginScreen from "./components/auth/LoginScreen"
-import SignUpScreen from "./components/auth/SignUpScreen"
-import ForgotPasswordScreen from "./components/auth/ForgotPasswordScreen"
-import CameraApp from "./components/auth/CameraApp"
+import LoginScreen from "./components/auth/LoginScreen";
+import SignUpScreen from "./components/auth/SignUpScreen";
+import ForgotPasswordScreen from "./components/auth/ForgotPasswordScreen";
+import CameraApp from "./components/auth/CameraApp";
+import UserProfile from "./components/auth/UserProfile";
 
 let StackHome = createStackNavigator(
   {
@@ -148,7 +149,8 @@ let StackOther = createStackNavigator(
     login: { screen: LoginScreen },
     signup: { screen: SignUpScreen },
     forgetpassword: { screen: ForgotPasswordScreen },
-    CameraApp: { screen: CameraApp }
+    CameraApp: { screen: CameraApp },
+    UserProfile: { screen: UserProfile },
   },
   {
     navigationOptions: {
