@@ -5,24 +5,16 @@ import firebase from "firebase";
 
 export default class UserProfile extends Component {
   state = {
-    photoURL: "",
-    email: ""
+    user: null
   }
-  componentDidMount() {
-    const user = firebase.auth().currentUser;
-    var name, email, photoUrl, uid, emailVerified;
-
-    if (user != null) {
-      this.setState({
-        photoURL: user.photoURL,
-        email: user.email,
-      });
-    }
+  componentWillMount() {
+    const { user } = this.props.navigation.state.params;
+    this.setState({ user });
   }
 
   _renderProfilePic = () => {
     const width = 250;
-    const photoURL = this.state.photoURL;
+    const photoURL = this.state.user.photoURL;
     if (photoURL) {
       return (
         <View style={{ alignSelf: "center" }}>
@@ -55,7 +47,7 @@ export default class UserProfile extends Component {
               Email:
             </Text>
             <Text style={styles.sectionContentText} numberOfLines={1}>
-              {this.state.email}
+              {this.state.user.email}
             </Text>
           </View>
         </View>

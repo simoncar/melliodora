@@ -172,12 +172,6 @@ class SetupEnv extends Component {
   }
 
   async componentWillMount() {
-    try {
-      Firebase.SetupUser();
-    } catch (e) {
-      console.log("firebase error", e.message);
-    }
-
     await AsyncStorage.getItem("language").then(language => {
       if (!_.isString(language)) {
         language = "en";

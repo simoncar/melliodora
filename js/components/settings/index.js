@@ -9,6 +9,7 @@ import FeatureMoreItems from "./FeatureMoreItems";
 import Constants from "expo-constants";
 import SettingsListItem from "./SettingsListItem";
 import Analytics from "../../lib/analytics";
+import _ from "lodash";
 
 const icons = {
   wifi: require("./images/wifi.png"),
@@ -40,19 +41,9 @@ class Settings extends Component {
 
     this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
       this.setState({ features: global.moreFeatures || [] });
+      this._getUser();
     });
-
-    // firebase.auth().onAuthStateChanged(user => {
-    //   if (user && !user.isAnonymous) {
-    //     user.getIdTokenResult()
-    //       .then((idTokenResult) => {
-    //         console.log("claims", idTokenResult.claims)
-    //         if (idTokenResult.claims[global.domain]) {
-    //           this.setState({ user: user });
-    //         }
-    //       });
-    //   }
-    // });
+    this._getUser();
   }
 
   componentDidMount() {
@@ -61,6 +52,16 @@ class Settings extends Component {
 
   componentWillUnmount() {
     this.willFocusSubscription.remove();
+  }
+
+  _getUser() {
+    const user = firebase.auth().currentUser;
+
+    if (user) {
+      this.setState({ user: user });
+    } else {
+      // No user is signed in.
+    }
   }
 
   _retrieveLanguage = async () => {
@@ -99,12 +100,11 @@ class Settings extends Component {
 
 
   _renderUser() {
-    // const user = this.state.user;
-    // console.log("_renderUser", user);
-    if (global.uid) {
-      const email = global.uid;
+    const user = this.state.user;
+    if (_.has(user, "email") && user.email) {
+      const email = user.email;
       return (
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("UserProfile")}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("UserProfile", { user: user })}>
           <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>
               Logged in as
