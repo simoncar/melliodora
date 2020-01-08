@@ -25,7 +25,8 @@ class SignUpScreen extends Component {
     profilePic: "",
     errorMessage: null,
     hasCameraPermission: null,
-    type: Camera.Constants.Type.back
+    type: Camera.Constants.Type.back,
+    disableSignUp: false
   };
 
   componentDidMount() {
@@ -49,26 +50,32 @@ class SignUpScreen extends Component {
   };
 
   handleSignUp = () => {
-    this.saveProfilePic(this.state.profilePic)
-      .then(downloadURL => {
-        console.log("picurl", downloadURL)
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.state.email, this.state.password)
-          .then(userCredential => {
-            userCredential.user.updateProfile({
-              photoURL: downloadURL
-            });
-          })
-          .then(() => {
-            const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
-            setUserClaim({ email: this.state.email, domain: global.domain })
-          })
-          .then(result => console.log(result))
-          .then(() => this.props.navigation.popToTop())
-          .catch(error => this.setState({ errorMessage: error.message }));
-      });
-
+    try {
+      this.setState({ disableSignUp: true });
+      this.saveProfilePic(this.state.profilePic)
+        .then(downloadURL => {
+          console.log("picurl", downloadURL)
+          firebase
+            .auth()
+            .createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then(userCredential => {
+              userCredential.user.updateProfile({
+                photoURL: downloadURL
+              });
+            })
+            .then(() => {
+              const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
+              setUserClaim({ email: this.state.email, domain: global.domain })
+            })
+            .then(result => console.log(result))
+            .then(() => this.props.navigation.popToTop())
+        });
+    } catch (error) {
+      this.setState({
+        errorMessage: error.message,
+        disableSignUp: false
+      })
+    }
   };
 
   setProfilePic = ({ profilePic }) => {
@@ -240,7 +247,11 @@ class SignUpScreen extends Component {
           ></Camera>
         </View>
         <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>
-          <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={this.handleSignUp}>
+          <TouchableOpacity
+            style={styles.SubmitButtonStyle}
+            activeOpacity={0.5}
+            onPress={this.handleSignUp}
+            disabled={this.state.disableSignUp}>
             <Text style={styles.TextStyle}>Sign Up</Text>
           </TouchableOpacity>
         </View>

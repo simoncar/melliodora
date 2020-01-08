@@ -120,7 +120,7 @@ class Settings extends Component {
         <SettingsListItem
           hasNavArrow={false}
           icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
-          title={I18n.t("Sign In", { defaultValue: "Sign In" })}
+          title={I18n.t("Sign In / Sign Up", { defaultValue: "Sign In / Sign Up" })}
           onPress={() => this.props.navigation.navigate("login")}
         />
       )
