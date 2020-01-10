@@ -90,6 +90,7 @@ export default class Setup extends Component {
     if (domainDataArr.length < 1) return;
     AsyncStorage.setItem("domain", JSON.stringify(domainDataArr[0]));
     global.domain = domain;
+    Firebase.SetupUser();
     this.setState({ selectedDomain: domain, isReady: true });
     switch (domain) {
       case "sais_edu_sg":
