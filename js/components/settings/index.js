@@ -58,7 +58,13 @@ class Settings extends Component {
     const user = firebase.auth().currentUser;
 
     if (user) {
-      this.setState({ user: user });
+      user.getIdTokenResult()
+        .then((idTokenResult) => {
+          if (idTokenResult.claims[global.domain]) {
+            this.setState({ user: user });
+          }
+        });
+
     } else {
       // No user is signed in.
     }
