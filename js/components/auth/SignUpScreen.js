@@ -52,24 +52,26 @@ class SignUpScreen extends Component {
   handleSignUp = () => {
     try {
       this.setState({ disableSignUp: true });
-      this.saveProfilePic(this.state.profilePic)
-        .then(downloadURL => {
-          console.log("picurl", downloadURL)
-          firebase
-            .auth()
-            .createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(userCredential => {
-              userCredential.user.updateProfile({
-                photoURL: downloadURL
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(userCredential => {
+          if (this.state.profilePic) {
+            this.saveProfilePic(this.state.profilePic)
+              .then(downloadURL => {
+                userCredential.user.updateProfile({
+                  photoURL: downloadURL
+                });
               });
-            })
-            .then(() => {
-              const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
-              setUserClaim({ email: this.state.email, domain: global.domain })
-            })
-            .then(result => console.log(result))
-            .then(() => this.props.navigation.popToTop())
-        });
+          }
+        })
+        .then(() => {
+          const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
+          setUserClaim({ email: this.state.email, domain: global.domain })
+        })
+        .then(result => console.log(result))
+        .then(() => this.props.navigation.popToTop())
+
     } catch (error) {
       this.setState({
         errorMessage: error.message,
