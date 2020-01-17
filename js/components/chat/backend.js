@@ -205,21 +205,6 @@ export class Backend extends React.Component {
     }
   }
 
-  setLanguage(language) {
-    this.state.language = language;
-    var userDict = {
-      language: language,
-    };
-
-    firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("user")
-      .collection("usernames")
-      .doc(global.safeToken)
-      .update(userDict);
-  }
-
   closeChat() {
     console.log("Unsubscribe 1");
     if (this.unsubscribe) {
@@ -264,10 +249,10 @@ async function uploadImageAsync(message, chatroom, user) {
 
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.onload = function() {
+    xhr.onload = function () {
       resolve(xhr.response);
     };
-    xhr.onerror = function(e) {
+    xhr.onerror = function (e) {
       reject(new TypeError("Network request failed"));
     };
     xhr.responseType = "blob";

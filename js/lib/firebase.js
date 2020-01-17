@@ -36,7 +36,7 @@ class Firebase {
       });
   }
 
-  static async initUser(user) {
+  static async initUser(user, isAnonymous) {
     var uid = user.uid;
     console.log("Auth = ", uid);
 
@@ -109,6 +109,8 @@ class Firebase {
       phoneLocale: Localization.locale,
       version: version,
       lastLogin: Date.now(),
+      isAnonymous,
+      email: user.email
     };
     console.log("uid=", uid);
 
@@ -124,7 +126,8 @@ class Firebase {
   static SetupUser() {
     try {
       firebase.auth().onAuthStateChanged(async function (user) {
-        if (user && !user.isAnonymous) {
+        const isAnonymous = user.isAnonymous;
+        if (user && !isAnonymous) {
           console.log("global.domain node", global.domain);
           user.getIdTokenResult()
             .then((idTokenResult) => {
@@ -132,14 +135,14 @@ class Firebase {
               console.log("idTokenResult.claims[global.domain]", idTokenResult.claims[global.domain]);
               console.log("global.domain", global.domain);
               if (idTokenResult.claims[global.domain]) {
-                Firebase.initUser(user);
+                Firebase.initUser(user, isAnonymous);
               } else {
                 Firebase.signInAnonymously();
               }
             });
-        } else if (user && user.isAnonymous) {
+        } else if (user && isAnonymous) {
 
-          Firebase.initUser(user);
+          Firebase.initUser(user, isAnonymous);
         } else {
           Firebase.signInAnonymously();
         }

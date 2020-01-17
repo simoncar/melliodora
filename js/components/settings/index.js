@@ -154,6 +154,12 @@ class Settings extends Component {
         <ScrollView style={{ backgroundColor: "#EFEFF4" }}>
           {this._renderUser()}
 
+          <SettingsListItem
+            icon={<MaterialIcons name="search" style={{ fontSize: 25, color: "white" }} />}
+            title={"Search Users"}
+            onPress={() => this.props.navigation.navigate("UserSearch")}
+          />
+
           <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
 
           <Seperator />

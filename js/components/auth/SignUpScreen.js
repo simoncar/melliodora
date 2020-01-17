@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, TouchableOpacity, Linking, StyleSheet, View, TextInput, Button, Image } from "react-native";
+import { Text, TouchableOpacity, Linking, StyleSheet, View, TextInput, Button, Image, ScrollView } from "react-native";
 import { connectActionSheet } from '@expo/react-native-action-sheet';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import * as ImageManipulator from "expo-image-manipulator";
@@ -23,6 +23,9 @@ class SignUpScreen extends Component {
     password: "",
     confirmPassword: "",
     profilePic: "",
+    displayName: "",
+    firstName: "",
+    lastName: "",
     errorMessage: null,
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
@@ -60,8 +63,26 @@ class SignUpScreen extends Component {
             this.saveProfilePic(this.state.profilePic)
               .then(downloadURL => {
                 userCredential.user.updateProfile({
-                  photoURL: downloadURL
+                  photoURL: downloadURL,
+                  displayName: this.state.displayName
                 });
+
+                console.log("userCredential.user.uid", userCredential.user.uid)
+                const userDict = {
+                  photoURL: downloadURL,
+                  email: userCredential.user.email,
+                  uid: userCredential.user.uid,
+                  displayName: this.state.displayName,
+                  firstName: this.state.firstName,
+                  lastName: this.state.lastName
+                }
+                firebase
+                  .firestore()
+                  .collection(global.domain)
+                  .doc("user")
+                  .collection("registered")
+                  .doc(userCredential.user.uid)
+                  .set(userDict, { merge: true });
               });
           }
         })
@@ -208,55 +229,80 @@ class SignUpScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.errorMessage}</Text>
-        <Input
-          placeholder="Email Address"
-          onChangeText={text => this.setState({ email: text })}
-          value={this.state.email}
-          containerStyle={styles.containerStyle}
-          inputContainerStyle={{ borderBottomWidth: 0 }}
-          autoCapitalize="none"
-          keyboardType="email-address"
-          autoFocus={true}
-        />
-        <Input
-          placeholder="Password"
-          onChangeText={text => this.setState({ password: text })}
-          value={this.state.password}
-          containerStyle={styles.containerStyle}
-          secureTextEntry={true}
-          inputContainerStyle={{ borderBottomWidth: 0 }}
-        />
-        <Input
-          placeholder="Confirm Password"
-          onChangeText={text => this.checkConfirmPassword(text)}
-          value={this.state.confirmPassword}
-          containerStyle={styles.containerStyle}
-          secureTextEntry={true}
-          inputContainerStyle={{ borderBottomWidth: 0 }}
-        />
-        <View>
-          <Text>Profile Picture: </Text>
-          <TouchableOpacity onPress={this._onOpenActionSheet}>
-            {this.icon(this.state.profilePic)}
-          </TouchableOpacity>
-          <Camera
-            style={{ flex: 1 }}
-            type={this.state.type}
-            ref={ref => {
-              this.camera = ref;
-            }}
-          ></Camera>
-        </View>
-        <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>
-          <TouchableOpacity
-            style={styles.SubmitButtonStyle}
-            activeOpacity={0.5}
-            onPress={this.handleSignUp}
-            disabled={this.state.disableSignUp}>
-            <Text style={styles.TextStyle}>Sign Up</Text>
-          </TouchableOpacity>
-        </View>
+        <ScrollView>
+          <Text>{this.state.errorMessage}</Text>
+          <Input
+            placeholder="Email Address"
+            onChangeText={text => this.setState({ email: text })}
+            value={this.state.email}
+            containerStyle={styles.containerStyle}
+            inputContainerStyle={{ borderBottomWidth: 0 }}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            autoFocus={true}
+          />
+          <Input
+            placeholder="Password"
+            onChangeText={text => this.setState({ password: text })}
+            value={this.state.password}
+            containerStyle={styles.containerStyle}
+            secureTextEntry={true}
+            inputContainerStyle={{ borderBottomWidth: 0 }}
+          />
+          <Input
+            placeholder="Confirm Password"
+            onChangeText={text => this.checkConfirmPassword(text)}
+            value={this.state.confirmPassword}
+            containerStyle={styles.containerStyle}
+            secureTextEntry={true}
+            inputContainerStyle={{ borderBottomWidth: 0 }}
+          />
+          <View>
+            <Text>Profile Picture: </Text>
+            <TouchableOpacity onPress={this._onOpenActionSheet}>
+              {this.icon(this.state.profilePic)}
+            </TouchableOpacity>
+            <Camera
+              style={{ flex: 1 }}
+              type={this.state.type}
+              ref={ref => {
+                this.camera = ref;
+              }}
+            ></Camera>
+          </View>
+          <Input
+            placeholder="Display name"
+            onChangeText={text => this.setState({ displayName: text })}
+            value={this.state.displayName}
+            containerStyle={styles.containerStyle}
+            inputContainerStyle={{ borderBottomWidth: 0 }}
+          />
+          <Input
+            placeholder="First name"
+            onChangeText={text => this.setState({ firstName: text })}
+            value={this.state.firstName}
+            containerStyle={styles.containerStyle}
+            inputContainerStyle={{ borderBottomWidth: 0 }}
+            autoCapitalize="words"
+          />
+          <Input
+            placeholder="Last name"
+            onChangeText={text => this.setState({ lastName: text })}
+            value={this.state.lastName}
+            containerStyle={styles.containerStyle}
+            inputContainerStyle={{ borderBottomWidth: 0 }}
+            autoCapitalize="words"
+          />
+          <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>
+            <TouchableOpacity
+              style={styles.SubmitButtonStyle}
+              activeOpacity={0.5}
+              onPress={this.handleSignUp}
+              disabled={this.state.disableSignUp}>
+              <Text style={styles.TextStyle}>Sign Up</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     );
   }

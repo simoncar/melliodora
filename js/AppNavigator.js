@@ -34,6 +34,7 @@ import SignUpScreen from "./components/auth/SignUpScreen";
 import ForgotPasswordScreen from "./components/auth/ForgotPasswordScreen";
 import CameraApp from "./components/auth/CameraApp";
 import UserProfile from "./components/auth/UserProfile";
+import UserSearch from "./components/settings/Search";
 
 let StackHome = createStackNavigator(
   {
@@ -151,6 +152,7 @@ let StackOther = createStackNavigator(
     forgetpassword: { screen: ForgotPasswordScreen },
     CameraApp: { screen: CameraApp },
     UserProfile: { screen: UserProfile },
+    UserSearch: { screen: UserSearch }
   },
   {
     navigationOptions: {
