@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { View, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet, AsyncStorage, Text } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { AntDesign } from "@expo/vector-icons";
-import BeaconItem from "./BeaconItem";
 import { ListItem } from "react-native-elements";
 import * as firebase from "firebase";
 import _ from "lodash";

@@ -48,7 +48,7 @@ export default class UserProfile extends Component {
                 // justifyContent: "center",
                 // alignItems: "center",
               }}
-              resizeMode="stretch"
+              resizeMode="center"
               source={require('../../../images/safeguarding.png')}
             />
           </View>
