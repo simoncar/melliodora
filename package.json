@@ -58,7 +58,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-calendars": "^1.212.0",
     "react-native-camera-roll-picker": "^1.3.0",
-    "react-native-chart-kit": "^3.7.0",
+    "react-native-chart-kit": "^4.4.1",
     "react-native-communications": "^2.2.1",
     "react-native-datepicker": "^1.7.2",
     "react-native-easy-grid": "^0.2.2",
