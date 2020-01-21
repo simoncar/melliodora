@@ -59,6 +59,7 @@ class SignUpScreen extends Component {
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then(userCredential => {
+          console.log("userCredential.user.uid 1", userCredential.user.uid)
           if (this.state.profilePic) {
             this.saveProfilePic(this.state.profilePic)
               .then(downloadURL => {
@@ -83,7 +84,8 @@ class SignUpScreen extends Component {
                   .collection("registered")
                   .doc(userCredential.user.uid)
                   .set(userDict, { merge: true });
-              });
+              })
+              .catch(error => this.setState({ errorMessage: error.message, disableSignUp: false }));
           }
         })
         .then(() => {
@@ -92,6 +94,7 @@ class SignUpScreen extends Component {
         })
         .then(result => console.log(result))
         .then(() => this.props.navigation.popToTop())
+        .catch(error => this.setState({ errorMessage: error.message, disableSignUp: false }));
 
     } catch (error) {
       this.setState({
