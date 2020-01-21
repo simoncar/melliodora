@@ -59,7 +59,6 @@ class SignUpScreen extends Component {
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then(userCredential => {
-          console.log("userCredential.user.uid 1", userCredential.user.uid)
           if (this.state.profilePic) {
             this.saveProfilePic(this.state.profilePic)
               .then(downloadURL => {
