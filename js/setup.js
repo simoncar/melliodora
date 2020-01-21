@@ -13,6 +13,7 @@ import Firebase from "./lib/firebase";
 import DomainSelection from "./DomainSelection";
 import * as firebase from "firebase";
 import Constants from "expo-constants";
+import * as Localization from "expo-localization";
 
 export default class Setup extends Component {
   constructor() {
@@ -90,7 +91,6 @@ export default class Setup extends Component {
     if (domainDataArr.length < 1) return;
     AsyncStorage.setItem("domain", JSON.stringify(domainDataArr[0]));
     global.domain = domain;
-    Firebase.SetupUser();
     this.setState({ selectedDomain: domain, isReady: true });
     switch (domain) {
       case "sais_edu_sg":
@@ -153,14 +153,16 @@ export default class Setup extends Component {
 
   render() {
     console.log("Constants.manifest.extra.instance2", Constants.manifest.extra.instance);
+    console.log("check::", this.state.isReady, "selected", !this.state.selectedDomain, "g domain", global.domain, "domains", this.domains);
     if (!this.state.isReady) {
       return <AppLoading />;
     }
-
-    if (!this.state.selectedDomain) {
+    else if (!this.state.selectedDomain) {
       return <DomainSelection setSelectedDomain={this.setSelectedDomain} domains={this.domains} />;
+    } else {
+      return <SetupEnv />;
     }
-    return <SetupEnv />;
+
   }
 }
 
@@ -213,8 +215,148 @@ class SetupEnv extends Component {
       }
     });
 
-    this.setState({ isReady: true });
+    // this.setState({ isReady: true });
     this._retrieveFeatures();
+    this.SetupUser();
+  }
+
+  anonymouslySignIn = async () => {
+    console.log("signInAnonymously...")
+    await firebase
+      .auth()
+      .signInAnonymously()
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+      });
+  }
+
+  initUser = async (user, isAnonymous) => {
+    var uid = user.uid;
+    console.log("Auth = ", uid);
+
+    // store the auth as a valid user
+    global.uid = uid;
+    await firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("user")
+      .collection("usernames")
+      .doc(uid)
+      .get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log("No such document!");
+        } else {
+          var docData = doc.data();
+
+          if (_.isString(docData.name)) {
+            AsyncStorage.setItem("name", docData.name);
+            global.name = docData.name;
+          } else {
+            global.name = "";
+          }
+
+          if (_.isString(docData.email)) {
+            AsyncStorage.setItem("email", docData.email);
+            global.email = docData.email;
+          } else {
+            global.email = "";
+          }
+          if (_.isBoolean(docData.authenticated)) {
+            if (docData.authenticated) {
+              global.authenticated = true;
+            } else {
+            }
+          } else {
+            global.authenticated = false;
+          }
+
+          if (_.isArray(docData.gradeNotify)) {
+            for (var i = -4; i < 13; i++) {
+              if (_.isNumber(docData.gradeNotify[i])) {
+              }
+            }
+            AsyncStorage.setItem("gradeNotify", JSON.stringify(docData.gradeNotify));
+          }
+        }
+      });
+
+    var token = global.pushToken;
+
+    if (_.isNil(token)) {
+      token = "";
+    }
+    var safeToken = global.safeToken;
+
+    if (_.isNil(safeToken)) {
+      safeToken = "";
+    }
+
+    console.log("Auth2 = ", uid, global.authenticated, global.name, global.email);
+    var version = _.isNil(Constants.manifest.revisionId) ? "unknown" : Constants.manifest.revisionId;
+    var userDict = {
+      uid: uid,
+      token,
+      safeToken,
+      loginCount: firebase.firestore.FieldValue.increment(1),
+      languageSelected: global.language,
+      phoneLocale: Localization.locale,
+      version: version,
+      lastLogin: Date.now(),
+      isAnonymous,
+      email: user.email
+    };
+    console.log("uid=", uid);
+
+    firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("user")
+      .collection("usernames")
+      .doc(uid)
+      .set(userDict, { merge: true });
+
+    console.log("setting ready...");
+    this.setState({ isReady: true });
+  }
+
+  SetupUser = () => {
+    try {
+      console.log("SetupUser");
+      firebase.auth().onAuthStateChanged(user => {
+
+        if (!user) {
+          console.log("signing in");
+          this.anonymouslySignIn();
+        } else {
+          console.log("user found", JSON.stringify(user));
+          const isAnonymous = user.isAnonymous;
+          if (user && !isAnonymous) {
+            console.log("global.domain node", global.domain);
+            user.getIdTokenResult()
+              .then((idTokenResult) => {
+                console.log("claims", idTokenResult.claims)
+                console.log("idTokenResult.claims[global.domain]", idTokenResult.claims[global.domain]);
+                console.log("global.domain", global.domain);
+                if (idTokenResult.claims[global.domain]) {
+                  this.initUser(user, isAnonymous);
+                } else {
+                  this.signInAnonymously();
+                }
+              });
+          } else if (user && isAnonymous) {
+            console.log("annoy user");
+            this.initUser(user, isAnonymous);
+          }
+        }
+
+      });
+    } catch (e) {
+      console.log("catch error body:", e.message);
+    }
   }
 
   _retrieveFeatures = async () => {
