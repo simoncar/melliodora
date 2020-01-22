@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import firebase from "firebase";
-import { Ionicons } from "@expo/vector-icons";
-import I18n from "../../lib/i18n";
+import { MaterialIcons } from "@expo/vector-icons";
+
 
 
 export default class UserProfile extends Component {
@@ -27,11 +27,10 @@ export default class UserProfile extends Component {
               alignItems: "center"
             }}
           >
-            <Text>Edit </Text>
-            <Ionicons
-              name="ios-settings"
+            <MaterialIcons
+              name="done"
               style={{
-                color: "#48484A",
+                color: "red",
                 fontSize: 25,
                 marginRight: 10
               }}
@@ -48,29 +47,14 @@ export default class UserProfile extends Component {
   componentWillMount() {
     const { uid, user } = this.props.navigation.state.params;
     console.log("uid", uid);
-    if (user) {
-      this.setState({ user, uid });
-    } else if (uid) {
-      firebase
-        .firestore()
-        .collection(global.domain)
-        .doc("user")
-        .collection("registered")
-        .doc(uid)
-        .get()
-        .then(snapshot => {
-          const data = snapshot.data();
-          this.props.navigation.setParams({ uid: uid, user: data })
-          this.setState({ user: data });
-        });
-    }
 
+    this.setState({ ...user, uid });
   }
 
   _renderProfilePic = () => {
     const width = 180;
     const containerHeight = 200;
-    const photoURL = this.state.user.photoURL;
+    const photoURL = this.state.photoURL;
     if (photoURL) {
       return (
         <View style={{ height: containerHeight }}>
@@ -121,37 +105,45 @@ export default class UserProfile extends Component {
             <Text style={styles.nameText} numberOfLines={1}>
               Display Name:
             </Text>
-            <Text style={styles.sectionContentText} numberOfLines={1}>
-              {this.state.user.displayName}
-            </Text>
+            <TextInput
+              style={styles.sectionContentText}
+              onChangeText={(text) => this.setState({ displayName: text })}
+              value={this.state.displayName}
+            />
           </View>
 
           <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>
               Email:
             </Text>
-            <Text style={styles.sectionContentText} numberOfLines={1}>
-              {this.state.user.email}
-            </Text>
+            <TextInput
+              style={styles.sectionContentText}
+              onChangeText={(text) => this.setState({ email: text })}
+              value={this.state.email}
+            />
           </View>
 
           <View style={[styles.titleContainer, { flexDirection: "row" }]}>
             <View style={{ flex: 1 }}>
               <Text style={styles.nameText} numberOfLines={1}>
                 First Name:
-            </Text>
-              <Text style={styles.sectionContentText} numberOfLines={1}>
-                {this.state.user.firstName}
               </Text>
+              <TextInput
+                style={styles.sectionContentText}
+                onChangeText={(text) => this.setState({ firstName: text })}
+                value={this.state.firstName}
+              />
             </View>
 
             <View style={{ flex: 1 }}>
               <Text style={styles.nameText} numberOfLines={1}>
                 Last Name:
-            </Text>
-              <Text style={styles.sectionContentText} numberOfLines={1}>
-                {this.state.user.lastName}
               </Text>
+              <TextInput
+                style={styles.sectionContentText}
+                onChangeText={(text) => this.setState({ lastName: text })}
+                value={this.state.lastName}
+              />
             </View>
           </View>
 
@@ -176,6 +168,7 @@ const styles = StyleSheet.create({
   },
   sectionContentText: {
     color: "#808080",
-    fontSize: 14
+    fontSize: 14,
+    height: 40, borderColor: 'gray', borderBottomWidth: 1, width: "80%"
   },
 });

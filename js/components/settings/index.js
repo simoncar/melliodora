@@ -110,7 +110,7 @@ class Settings extends Component {
     if (_.has(user, "email") && user.email) {
       const email = user.email;
       return (
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("UserProfile", { user: user })}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("UserProfile", { uid: user.uid, permitEdit: true })}>
           <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>
               Logged in as
