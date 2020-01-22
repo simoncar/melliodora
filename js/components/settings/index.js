@@ -153,7 +153,7 @@ class Settings extends Component {
 
         <ScrollView style={{ backgroundColor: "#EFEFF4" }}>
           {this._renderUser()}
-
+          <Seperator />
           <SettingsListItem
             icon={<MaterialIcons name="search" style={{ fontSize: 25, color: "white" }} />}
             title={"Search Users"}
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingTop: 15,
     paddingBottom: 15,
-    backgroundColor: "#fdfdfd"
+    backgroundColor: "#ffffff80"
   },
   nameText: {
     fontWeight: "600",
