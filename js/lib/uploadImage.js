@@ -9,7 +9,7 @@ import { Camera } from "expo-camera";
 
 exports.getPermissionAsync = async () => {
   const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
-  this.setState({ hasCameraPermission: status === "granted" });
+  // this.setState({ hasCameraPermission: status === "granted" });
 }
 
 exports.saveProfilePic = async (imgURI) => {

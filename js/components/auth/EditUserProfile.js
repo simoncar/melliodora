@@ -7,15 +7,16 @@ import {
 } from "@expo/vector-icons";
 import { connectActionSheet } from '@expo/react-native-action-sheet';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
-import * as ImagePicker from 'expo-image-picker';
 import _ from "lodash";
 import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../../lib/uploadImage";
+import Loader from "../common/Loader";
+
 
 
 class UserProfile extends Component {
-  // state = {
-  //   user: {}
-  // }
+  state = {
+    loading: false
+  }
 
   componentWillMount() {
     const { uid, user } = this.props.navigation.state.params;
@@ -44,41 +45,53 @@ class UserProfile extends Component {
   }
 
   _updateProfile = async () => {
-    const diff = this.difference(this.state, this.originData);
+    this.setState({ loading: true });
 
-    const user = firebase.auth().currentUser;
+    try {
+      const modifiedObj = _.pick(this.state, Object.keys(this.originData));
+      const diff = this.difference(modifiedObj, this.originData);
 
-    if (user && user.uid === this.originData.uid && !_.isEmpty(diff)) {
-      const updateProfileObj = {};
-      if (diff.photoURL) {
-        console.log("updating profile picture..");
-        const downloadURL = await saveProfilePic(diff.photoURL);
+      const user = firebase.auth().currentUser;
 
-        //set auth photo info
-        updateProfileObj["photoURL"] = downloadURL;
+      if (user && user.uid === this.originData.uid && !_.isEmpty(diff)) {
+        const updateProfileObj = {};
+        if (diff.photoURL) {
+          console.log("updating profile picture..");
+          const downloadURL = await saveProfilePic(diff.photoURL);
 
-        //set firestore photo info 
-        diff["photoURL"] = downloadURL;
+          //set auth photo info
+          updateProfileObj["photoURL"] = downloadURL;
+
+          //set firestore photo info 
+          diff["photoURL"] = downloadURL;
+        }
+
+        //update displayname
+        if (diff.displayName) updateProfileObj["displayName"] = diff.displayName;
+
+        //update auth user info
+        if (!_.isEmpty(updateProfileObj)) user.updateProfile(updateProfileObj);
+
+        //update firestore user info
+        await firebase
+          .firestore()
+          .collection(global.domain)
+          .doc("user")
+          .collection("registered")
+          .doc(this.originData.uid)
+          .set(diff, { merge: true });
       }
 
-      //update displayname
-      if (diff.displayName) updateProfileObj["displayName"] = diff.displayName;
+      await this.setState({ loading: false });
+      this.props.navigation.popToTop();
 
-      //update auth user info
-      if (!_.isEmpty(updateProfileObj)) user.updateProfile(updateProfileObj);
-
-      //update firestore user info
-      firebase
-        .firestore()
-        .collection(global.domain)
-        .doc("user")
-        .collection("registered")
-        .doc(this.originData.uid)
-        .set(diff, { merge: true });
+    } catch (error) {
+      this.setState({
+        errorMessage: error.message,
+        loading: false
+      })
     }
 
-
-    this.props.navigation.popToTop();
   }
 
 
@@ -159,6 +172,11 @@ class UserProfile extends Component {
   render() {
     return (
       <View style={{ flexDirection: "column" }}>
+        <Loader
+          modalVisible={this.state.loading}
+          animationType="fade"
+        />
+        <Text>{this.state.errorMessage}</Text>
         {this._renderProfilePic()}
 
         <View style={styles.titleContainer}>

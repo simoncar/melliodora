@@ -153,7 +153,6 @@ export default class Setup extends Component {
 
   render() {
     console.log("Constants.manifest.extra.instance2", Constants.manifest.extra.instance);
-    console.log("check::", this.state.isReady, "selected", !this.state.selectedDomain, "g domain", global.domain, "domains", this.domains);
     if (!this.state.isReady) {
       return <AppLoading />;
     }
@@ -344,7 +343,8 @@ class SetupEnv extends Component {
                 if (idTokenResult.claims[global.domain]) {
                   this.initUser(user, isAnonymous);
                 } else {
-                  this.signInAnonymously();
+                  this.anonymouslySignIn();
+
                 }
               });
           } else if (user && isAnonymous) {

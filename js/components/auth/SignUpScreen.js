@@ -9,6 +9,7 @@ import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
 import 'firebase/functions';
 import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../../lib/uploadImage";
+import Loader from "../common/Loader";
 
 class SignUpScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -25,9 +26,7 @@ class SignUpScreen extends Component {
     firstName: "",
     lastName: "",
     errorMessage: null,
-    hasCameraPermission: null,
-    type: Camera.Constants.Type.back,
-    disableSignUp: false
+    loading: false
   };
 
   componentDidMount() {
@@ -46,7 +45,7 @@ class SignUpScreen extends Component {
 
   handleSignUp = () => {
     try {
-      this.setState({ disableSignUp: true });
+      this.setState({ loading: true });
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -76,7 +75,7 @@ class SignUpScreen extends Component {
                   .doc(userCredential.user.uid)
                   .set(userDict, { merge: true });
               })
-              .catch(error => this.setState({ errorMessage: error.message, disableSignUp: false }));
+              .catch(error => this.setState({ errorMessage: error.message, loading: false }));
           }
         })
         .then(() => {
@@ -85,12 +84,12 @@ class SignUpScreen extends Component {
         })
         .then(result => console.log(result))
         .then(() => this.props.navigation.popToTop())
-        .catch(error => this.setState({ errorMessage: error.message, disableSignUp: false }));
+        .catch(error => this.setState({ errorMessage: error.message, loading: false }));
 
     } catch (error) {
       this.setState({
         errorMessage: error.message,
-        disableSignUp: false
+        loading: false
       })
     }
   };
@@ -219,6 +218,10 @@ class SignUpScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Loader
+          modalVisible={this.state.loading}
+          animationType="fade"
+        />
         <ScrollView>
           <Text>{this.state.errorMessage}</Text>
           <Input
@@ -252,13 +255,6 @@ class SignUpScreen extends Component {
             <TouchableOpacity onPress={this._onOpenActionSheet}>
               {this.icon(this.state.profilePic)}
             </TouchableOpacity>
-            <Camera
-              style={{ flex: 1 }}
-              type={this.state.type}
-              ref={ref => {
-                this.camera = ref;
-              }}
-            ></Camera>
           </View>
           <Input
             placeholder="Display name"
@@ -287,8 +283,7 @@ class SignUpScreen extends Component {
             <TouchableOpacity
               style={styles.SubmitButtonStyle}
               activeOpacity={0.5}
-              onPress={this.handleSignUp}
-              disabled={this.state.disableSignUp}>
+              onPress={this.handleSignUp}>
               <Text style={styles.TextStyle}>Sign Up</Text>
             </TouchableOpacity>
           </View>
