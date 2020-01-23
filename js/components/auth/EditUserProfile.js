@@ -9,8 +9,7 @@ import { connectActionSheet } from '@expo/react-native-action-sheet';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import * as ImagePicker from 'expo-image-picker';
 import _ from "lodash";
-import uuid from "uuid";
-
+import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../../lib/uploadImage";
 
 
 class UserProfile extends Component {
@@ -53,7 +52,7 @@ class UserProfile extends Component {
       const updateProfileObj = {};
       if (diff.photoURL) {
         console.log("updating profile picture..");
-        const downloadURL = await this.saveProfilePic(diff.photoURL);
+        const downloadURL = await saveProfilePic(diff.photoURL);
 
         //set auth photo info
         updateProfileObj["photoURL"] = downloadURL;
@@ -82,49 +81,10 @@ class UserProfile extends Component {
     this.props.navigation.popToTop();
   }
 
-  async saveProfilePic(imgURI) {
-    // const d = new Date();
-    fileToUpload = imgURI;
 
-    console.log("fileToUpload", fileToUpload);
-
-    mime = "image/jpeg";
-    // this.setState({ cameraIcon: "hour-glass" });
-
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function (e) {
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", fileToUpload, true);
-      xhr.send(null);
-    });
-
-    const ref = firebase
-      .storage()
-      .ref("smartcommunity/profile")
-      .child(uuid.v4());
-
-    const snapshot = await ref.put(blob, { contentType: mime });
-    const downloadURL = await snapshot.ref.getDownloadURL();
-
-    blob.close();
-    return downloadURL;
-
-  }
 
   _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1
-    });
-
+    let result = await launchProfileImagePicker();
     console.log(result);
 
     if (!result.cancelled) {
@@ -137,6 +97,7 @@ class UserProfile extends Component {
   }
 
   _onOpenActionSheet = () => {
+    getPermissionAsync();
     const options = ['Take photo from camera', 'Select from gallery', 'Clear', 'Cancel'];
     const destructiveButtonIndex = options.length - 2;
     const cancelButtonIndex = options.length - 1;
@@ -197,53 +158,53 @@ class UserProfile extends Component {
   }
   render() {
     return (
-      <View>
-        <View style={{ flexDirection: "column" }}>
-          {this._renderProfilePic()}
-          <View style={styles.titleContainer}>
-            <Text style={styles.nameText} numberOfLines={1}>
-              Display Name:
+      <View style={{ flexDirection: "column" }}>
+        {this._renderProfilePic()}
+
+        <View style={styles.titleContainer}>
+          <Text style={styles.nameText} numberOfLines={1}>
+            Email:
             </Text>
+          <Text style={[styles.sectionContentText, { height: 18 }]} numberOfLines={1}>
+            {this.state.email}
+          </Text>
+        </View>
+
+        <View style={styles.titleContainer}>
+          <Text style={styles.nameText} numberOfLines={1}>
+            Display Name:
+            </Text>
+          <TextInput
+            style={styles.sectionContentText}
+            onChangeText={(text) => this.setState({ displayName: text })}
+            value={this.state.displayName}
+          />
+        </View>
+
+
+
+        <View style={[styles.titleContainer, { flexDirection: "row" }]}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.nameText} numberOfLines={1}>
+              First Name:
+              </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={(text) => this.setState({ displayName: text })}
-              value={this.state.displayName}
+              onChangeText={(text) => this.setState({ firstName: text })}
+              value={this.state.firstName}
             />
           </View>
 
-          <View style={styles.titleContainer}>
+          <View style={{ flex: 1 }}>
             <Text style={styles.nameText} numberOfLines={1}>
-              Email:
-            </Text>
-            <Text style={styles.sectionContentText} numberOfLines={1}>
-              {this.state.email}
-            </Text>
-          </View>
-
-          <View style={[styles.titleContainer, { flexDirection: "row" }]}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.nameText} numberOfLines={1}>
-                First Name:
+              Last Name:
               </Text>
-              <TextInput
-                style={styles.sectionContentText}
-                onChangeText={(text) => this.setState({ firstName: text })}
-                value={this.state.firstName}
-              />
-            </View>
-
-            <View style={{ flex: 1 }}>
-              <Text style={styles.nameText} numberOfLines={1}>
-                Last Name:
-              </Text>
-              <TextInput
-                style={styles.sectionContentText}
-                onChangeText={(text) => this.setState({ lastName: text })}
-                value={this.state.lastName}
-              />
-            </View>
+            <TextInput
+              style={styles.sectionContentText}
+              onChangeText={(text) => this.setState({ lastName: text })}
+              value={this.state.lastName}
+            />
           </View>
-
         </View>
 
       </View>
@@ -312,6 +273,6 @@ const styles = StyleSheet.create({
   sectionContentText: {
     color: "#808080",
     fontSize: 14,
-    height: 40, borderColor: 'gray', borderBottomWidth: 1, width: "80%"
+    height: 40, borderColor: '#100c08', borderBottomWidth: 1, width: "80%"
   },
 });

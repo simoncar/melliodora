@@ -114,47 +114,49 @@ export default class UserProfile extends Component {
   }
   render() {
     return (
-      <View>
-        <View style={{ flexDirection: "column" }}>
-          {this._renderProfilePic()}
-          <View style={styles.titleContainer}>
+      <View style={{ flexDirection: "column" }}>
+        {this._renderProfilePic()}
+
+
+        <View style={styles.titleContainer}>
+          <Text style={styles.nameText} numberOfLines={1}>
+            Email:
+            </Text>
+          <Text style={styles.sectionContentText} numberOfLines={1}>
+            {this.state.user.email}
+          </Text>
+        </View>
+
+
+        <View style={styles.titleContainer}>
+          <Text style={styles.nameText} numberOfLines={1}>
+            Display Name:
+            </Text>
+          <Text style={styles.sectionContentText} numberOfLines={1}>
+            {this.state.user.displayName}
+          </Text>
+        </View>
+
+
+
+        <View style={[styles.titleContainer, { flexDirection: "row" }]}>
+          <View style={{ flex: 1 }}>
             <Text style={styles.nameText} numberOfLines={1}>
-              Display Name:
+              First Name:
             </Text>
             <Text style={styles.sectionContentText} numberOfLines={1}>
-              {this.state.user.displayName}
+              {this.state.user.firstName}
             </Text>
           </View>
 
-          <View style={styles.titleContainer}>
+          <View style={{ flex: 1 }}>
             <Text style={styles.nameText} numberOfLines={1}>
-              Email:
+              Last Name:
             </Text>
             <Text style={styles.sectionContentText} numberOfLines={1}>
-              {this.state.user.email}
+              {this.state.user.lastName}
             </Text>
           </View>
-
-          <View style={[styles.titleContainer, { flexDirection: "row" }]}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.nameText} numberOfLines={1}>
-                First Name:
-            </Text>
-              <Text style={styles.sectionContentText} numberOfLines={1}>
-                {this.state.user.firstName}
-              </Text>
-            </View>
-
-            <View style={{ flex: 1 }}>
-              <Text style={styles.nameText} numberOfLines={1}>
-                Last Name:
-            </Text>
-              <Text style={styles.sectionContentText} numberOfLines={1}>
-                {this.state.user.lastName}
-              </Text>
-            </View>
-          </View>
-
         </View>
 
       </View>

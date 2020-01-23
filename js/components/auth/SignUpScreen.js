@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import { Text, TouchableOpacity, Linking, StyleSheet, View, TextInput, Button, Image, ScrollView } from "react-native";
 import { connectActionSheet } from '@expo/react-native-action-sheet';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
-import * as ImageManipulator from "expo-image-manipulator";
 import uuid from "uuid";
 import { Camera } from "expo-camera";
-import * as Permissions from "expo-permissions";
 import { Input } from "react-native-elements";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
 import 'firebase/functions';
-import * as ImagePicker from 'expo-image-picker';
+import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../../lib/uploadImage";
 
 class SignUpScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -33,12 +31,6 @@ class SignUpScreen extends Component {
   };
 
   componentDidMount() {
-    this.getPermissionAsync();
-  }
-
-  getPermissionAsync = async () => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
-    this.setState({ hasCameraPermission: status === "granted" });
   }
 
   checkConfirmPassword = text => {
@@ -60,7 +52,7 @@ class SignUpScreen extends Component {
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then(userCredential => {
           if (this.state.profilePic) {
-            this.saveProfilePic(this.state.profilePic)
+            saveProfilePic(this.state.profilePic)
               .then(downloadURL => {
                 userCredential.user.updateProfile({
                   photoURL: downloadURL,
@@ -142,12 +134,7 @@ class SignUpScreen extends Component {
 
   }
   _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1
-    });
+    let result = await launchProfileImagePicker();
 
     console.log(result);
 
@@ -157,6 +144,7 @@ class SignUpScreen extends Component {
   }
 
   _onOpenActionSheet = () => {
+    getPermissionAsync();
     // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
     const options = ['Take photo from camera', 'Select from gallery', 'Clear', 'Cancel'];
     const destructiveButtonIndex = options.length - 2;
