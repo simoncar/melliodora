@@ -304,4 +304,13 @@ export default {
     fontWeight: "bold",
     paddingTop: 0,
   },
+  homeMenuIcon: {
+    width: 50,
+    height: 50
+  },
+  homeMenuItemContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    marginRight: 8
+  }
 };

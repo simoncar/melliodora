@@ -227,51 +227,82 @@ class HomeNav extends Component {
           </TouchableHighlight>
         )}
         <Content showsVerticalScrollIndicator={false}>
-          <View style={styles.newsContentLine}>
-            <ScrollView horizontal={true} contentContainerStyle={{ paddingHorizontal: 12, paddingVertical: 12 }}>
-              <Ionicons
-                name="md-search"
-                size={32}
-                color="#48484A"
-              />
 
-              <Ionicons
-                name="md-search"
-                size={32}
-                color="#48484A"
-              />
+          {
+            global.domain === "ais_edu_sg" ?
+              <View style={styles.newsContentLine}>
+                <ScrollView
+                  horizontal={true}
+                  contentContainerStyle={{ paddingHorizontal: 12, paddingVertical: 8 }}
+                  style={{ backgroundColor: "white", marginVertical: 6 }}
+                >
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
 
-              <Ionicons
-                name="md-search"
-                size={32}
-                color="#48484A"
-              />
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
 
-              <Ionicons
-                name="md-search"
-                size={32}
-                color="#48484A"
-              />
 
-              <Ionicons
-                name="md-search"
-                size={32}
-                color="#48484A"
-              />
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
 
-              <Ionicons
-                name="md-search"
-                size={32}
-                color="#48484A"
-              />
 
-              <Ionicons
-                name="md-search"
-                size={32}
-                color="#48484A"
-              />
-            </ScrollView>
-          </View>
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
+
+
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
+
+
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
+
+
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
+
+
+                </ScrollView>
+              </View>
+              : null
+          }
+
           <View style={styles.newsContentLine}>
             <FlatList
               data={this.state.calendarItems}
