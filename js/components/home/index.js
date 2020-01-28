@@ -20,7 +20,7 @@ import I18n from "../../lib/i18n";
 import styles from "./styles";
 import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
-import { NavigationEvents } from "react-navigation";
+import { NavigationEvents, ScrollView } from "react-navigation";
 import moment from "moment";
 
 const { width } = Dimensions.get("window");
@@ -208,7 +208,7 @@ class HomeNav extends Component {
     return <ListItem navigation={this.props.navigation} item={item} />;
   }
 
-  env() {}
+  env() { }
 
   render() {
     if (this.state.loading) {
@@ -227,6 +227,51 @@ class HomeNav extends Component {
           </TouchableHighlight>
         )}
         <Content showsVerticalScrollIndicator={false}>
+          <View style={styles.newsContentLine}>
+            <ScrollView horizontal={true} contentContainerStyle={{ paddingHorizontal: 12, paddingVertical: 12 }}>
+              <Ionicons
+                name="md-search"
+                size={32}
+                color="#48484A"
+              />
+
+              <Ionicons
+                name="md-search"
+                size={32}
+                color="#48484A"
+              />
+
+              <Ionicons
+                name="md-search"
+                size={32}
+                color="#48484A"
+              />
+
+              <Ionicons
+                name="md-search"
+                size={32}
+                color="#48484A"
+              />
+
+              <Ionicons
+                name="md-search"
+                size={32}
+                color="#48484A"
+              />
+
+              <Ionicons
+                name="md-search"
+                size={32}
+                color="#48484A"
+              />
+
+              <Ionicons
+                name="md-search"
+                size={32}
+                color="#48484A"
+              />
+            </ScrollView>
+          </View>
           <View style={styles.newsContentLine}>
             <FlatList
               data={this.state.calendarItems}
