@@ -148,7 +148,7 @@ export default class Contact extends Component {
                       <Text style={styles.feedbackHead}>
                         {typeof item.headerSubTexts == "object" ? item.headerSubTexts.join("\n") : item.headerSubTexts}
                       </Text>
-                      {item.email && <Anchor href={"mailto:" + item.email} title={item.email} />}
+                      {item.email ? <Anchor href={"mailto:" + item.email} title={item.email} /> : null}
                     </Col>
                   </Row>
                 );

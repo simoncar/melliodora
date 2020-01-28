@@ -337,7 +337,7 @@ export default class ContactAdmin extends React.Component {
           <Text style={styles.feedbackHead}>
             {typeof item.headerSubTexts == "object" ? item.headerSubTexts.join("\n") : item.headerSubTexts}
           </Text>
-          {item.email && <Anchor href={"mailto:" + item.email} title={item.email} />}
+          {item.email ? <Anchor href={"mailto:" + item.email} title={item.email} /> : null}
         </View>
         <View style={{ alignItems: "center", justifyContent: "center", paddingHorizontal: 10 }}>
           <TouchableHighlight
@@ -370,10 +370,10 @@ export default class ContactAdmin extends React.Component {
       <SafeAreaView style={styles.adminContainer}>
         <Overlay isVisible={this.state.modalVisible} windowBackgroundColor="rgba(0, 0, 0, .85)" height="auto">
           <View>
-            <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>
+            <Text style={styles.contactText}>
               Order: {this.state.editIdx > -1 ? this.state.editIdx + 1 : this.state.data.length + 1}{" "}
             </Text>
-            <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>
+            <Text style={styles.contactText}>
               Select Icon: {this.state.editType}
             </Text>
             <View
@@ -385,21 +385,21 @@ export default class ContactAdmin extends React.Component {
               <RadioButton options={options} selected={this.state.editType} selectFunc={this.setEditType} />
             </View>
 
-            <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Phone Number (if type is call)</Text>
+            <Text style={styles.contactText}>Phone Number (if type is call)</Text>
             <TextInput
               onChangeText={text => this.setState({ editPhoneNumber: text })}
               placeholder={"Phone Number"}
               value={this.state.editPhoneNumber}
             />
 
-            <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Email (if type is mail)</Text>
+            <Text style={styles.contactText}>Email (if type is mail)</Text>
             <TextInput
               onChangeText={text => this.setState({ editEmail: text })}
               placeholder={"Email"}
               value={this.state.editEmail}
             />
 
-            <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Title: </Text>
+            <Text style={styles.contactText}>Title: </Text>
             <TextInput
               onChangeText={text => this.setState({ editTitle: text })}
               placeholder={"Title"}
@@ -407,7 +407,7 @@ export default class ContactAdmin extends React.Component {
               value={this.state.editTitle}
             />
 
-            <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>SubHeader Texts: </Text>
+            <Text style={styles.contactText}>SubHeader Texts: </Text>
             <TextInput
               onChangeText={text => this.setState({ editSubHeader: text })}
               placeholder={"Sub Texts"}

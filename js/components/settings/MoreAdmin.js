@@ -309,9 +309,9 @@ export default class ContactAdmin extends React.Component {
       const navigationTitle = navTitle || title;
       const navProps = navURL
         ? {
-            url: navURL,
-            title: navigationTitle,
-          }
+          url: navURL,
+          title: navigationTitle,
+        }
         : {};
 
       const imgSource = icon ? icons[icon] : icons["wifi"];
@@ -378,10 +378,10 @@ export default class ContactAdmin extends React.Component {
         <Overlay isVisible={this.state.modalVisible} windowBackgroundColor="rgba(0, 0, 0, .85)" height="90%">
           <ScrollView>
             <View>
-              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>
+              <Text style={styles.contactText}>
                 Order: {this.state.editIdx > -1 ? this.state.editIdx + 1 : this.state.data.length + 1}{" "}
               </Text>
-              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>
+              <Text style={styles.contactText}>
                 Select Icon: {this.state.editIcon}
               </Text>
               <View
@@ -393,28 +393,28 @@ export default class ContactAdmin extends React.Component {
                 <RadioButton options={options} selected={this.state.editIcon} selectFunc={this.setEditIcon} />
               </View>
 
-              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Title</Text>
+              <Text style={styles.contactText}>Title</Text>
               <TextInput
                 onChangeText={text => this.setState({ editTitle: text })}
                 placeholder={"Title"}
                 value={this.state.editTitle}
               />
 
-              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Title Info (Display on Right)</Text>
+              <Text style={styles.contactText}>Title Info (Display on Right)</Text>
               <TextInput
                 onChangeText={text => this.setState({ editTitleInfo: text })}
                 placeholder={"Title Info"}
                 value={this.state.editTitleInfo}
               />
 
-              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>URL</Text>
+              <Text style={styles.contactText}>URL</Text>
               <TextInput
                 onChangeText={text => this.setState({ editNavURL: text })}
                 placeholder={"URL"}
                 value={this.state.editNavURL}
               />
 
-              <Text style={{ marginTop: 12, marginBottm: 8, fontWeight: "bold" }}>Visible</Text>
+              <Text style={styles.contactText}>Visible</Text>
               <Switch
                 onValueChange={value => this.setState({ editVisible: value })}
                 value={this.state.editVisible == false ? false : true}

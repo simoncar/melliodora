@@ -142,5 +142,10 @@ export default {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+  },
+  contactText: {
+    marginTop: 12,
+    marginBottm: 8,
+    fontWeight: "bold"
   }
 };
