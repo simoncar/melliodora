@@ -15,16 +15,18 @@ import Loader from "../common/Loader";
 
 class UserProfile extends Component {
   state = {
-    loading: false
+    loading: false,
+    user: {}
   }
 
   componentWillMount() {
     const { uid, user } = this.props.navigation.state.params;
     console.log("uid", uid);
 
+    const currentUser = firebase.auth().currentUser;
     this.props.navigation.state.params._updateProfile = this._updateProfile;
-    this.originData = { ...user };
-    this.setState({ ...user, uid });
+    this.originData = { ...user, uid };
+    this.setState({ user: { ...user, uid, email: currentUser.email } });
   }
 
   /**
@@ -48,11 +50,11 @@ class UserProfile extends Component {
     this.setState({ loading: true });
 
     try {
-      const modifiedObj = _.pick(this.state, Object.keys(this.originData));
-      const diff = this.difference(modifiedObj, this.originData);
+      // const modifiedObj = _.pick(this.state.user, Object.keys(this.originData));
+      const diff = this.difference(this.state.user, this.originData);
 
       const user = firebase.auth().currentUser;
-
+      // console.log("this.originData.uid", this.originData.uid, diff, this.originData, this.state);
       if (user && user.uid === this.originData.uid && !_.isEmpty(diff)) {
         const updateProfileObj = {};
         if (diff.photoURL) {
@@ -78,7 +80,7 @@ class UserProfile extends Component {
           .collection(global.domain)
           .doc("user")
           .collection("registered")
-          .doc(this.originData.uid)
+          .doc(user.uid)
           .set(diff, { merge: true });
       }
 
@@ -101,12 +103,12 @@ class UserProfile extends Component {
     console.log(result);
 
     if (!result.cancelled) {
-      this.setState({ photoURL: result.uri });
+      this.setProfilePic({ profilePic: result.uri });
     }
   }
 
   setProfilePic = ({ profilePic }) => {
-    this.setState({ photoURL: profilePic });
+    this.setState(prevState => ({ user: { ...prevState.user, photoURL: profilePic } }));
   }
 
   _onOpenActionSheet = () => {
@@ -140,33 +142,33 @@ class UserProfile extends Component {
   _renderProfilePic = () => {
     const width = 180;
     const containerHeight = 200;
-    const photoURL = this.state.photoURL;
-    if (photoURL) {
-      return (
-        <View style={styles.titleContainer}>
-          <Text style={styles.nameText} numberOfLines={1}>
-            Profile Picture:
+    const photoURL = this.state.user.photoURL;
+
+    return (
+      <View style={styles.titleContainer}>
+        <Text style={styles.nameText} numberOfLines={1}>
+          Profile Picture:
           </Text>
 
-          <TouchableOpacity style={{ width }} onPress={this._onOpenActionSheet}>
-            <Image
-              style={[
-                {
-                  marginTop: 20,
-                  backgroundColor: "white",
-                  width: width,
-                  height: width,
-                  borderRadius: width / 2,
-                  borderWidth: 5,
-                  borderColor: "lightgray"
-                }
-              ]}
-              source={{ uri: photoURL }}
-            />
-          </TouchableOpacity>
-        </View>
-      )
-    }
+        <TouchableOpacity style={{ width }} onPress={this._onOpenActionSheet}>
+          <Image
+            style={[
+              {
+                marginTop: 20,
+                backgroundColor: "white",
+                width: width,
+                height: width,
+                borderRadius: width / 2,
+                borderWidth: 5,
+                borderColor: "lightgray"
+              }
+            ]}
+            source={photoURL ? { uri: photoURL } : null}
+          />
+        </TouchableOpacity>
+      </View>
+    )
+
 
   }
   render() {
@@ -184,7 +186,7 @@ class UserProfile extends Component {
             Email:
             </Text>
           <Text style={[styles.sectionContentText, { height: 18 }]} numberOfLines={1}>
-            {this.state.email}
+            {this.state.user.email}
           </Text>
         </View>
 
@@ -194,8 +196,8 @@ class UserProfile extends Component {
             </Text>
           <TextInput
             style={styles.sectionContentText}
-            onChangeText={(text) => this.setState({ displayName: text })}
-            value={this.state.displayName}
+            onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, displayName: text } }))}
+            value={this.state.user.displayName}
           />
         </View>
 
@@ -208,8 +210,8 @@ class UserProfile extends Component {
               </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={(text) => this.setState({ firstName: text })}
-              value={this.state.firstName}
+              onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, firstName: text } }))}
+              value={this.state.user.firstName}
             />
           </View>
 
@@ -219,8 +221,8 @@ class UserProfile extends Component {
               </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={(text) => this.setState({ lastName: text })}
-              value={this.state.lastName}
+              onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, lastName: text } }))}
+              value={this.state.user.lastName}
             />
           </View>
         </View>
