@@ -311,6 +311,7 @@ export default {
   homeMenuItemContainer: {
     flexDirection: "column",
     alignItems: "center",
-    marginRight: 8
-  }
+    marginRight: 15
+  },
+  homeMenuText: { color: "black", fontSize: 12, textAlign: "center" }
 };

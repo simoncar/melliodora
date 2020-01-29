@@ -233,6 +233,7 @@ class HomeNav extends Component {
               <View style={styles.newsContentLine}>
                 <ScrollView
                   horizontal={true}
+                  bounces={false}
                   contentContainerStyle={{ paddingHorizontal: 12, paddingVertical: 8 }}
                   style={{ backgroundColor: "white", marginVertical: 6 }}
                 >
@@ -263,7 +264,7 @@ class HomeNav extends Component {
                       style={styles.homeMenuIcon}
                       source={require('../../../resources/icons/_Design.jpeg')}
                     />
-                    <Text style={{ color: "black", fontSize: 12 }}>Design News</Text>
+                    <Text style={styles.homeMenuText}>Design{"\n"}News</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity
@@ -278,7 +279,7 @@ class HomeNav extends Component {
                       style={styles.homeMenuIcon}
                       source={require('../../../resources/icons/_Management.jpeg')}
                     />
-                    <Text style={{ color: "black", fontSize: 12 }}>Management News</Text>
+                    <Text style={styles.homeMenuText}>Management{"\n"}News</Text>
                   </TouchableOpacity>
 
 
@@ -294,7 +295,7 @@ class HomeNav extends Component {
                       style={styles.homeMenuIcon}
                       source={require('../../../resources/icons/_Planning.jpeg')}
                     />
-                    <Text style={{ color: "black", fontSize: 12 }}>Planning News</Text>
+                    <Text style={styles.homeMenuText}>Planning{"\n"}News</Text>
                   </TouchableOpacity>
 
 
@@ -310,7 +311,7 @@ class HomeNav extends Component {
                       style={styles.homeMenuIcon}
                       source={require('../../../resources/icons/_Directory.jpeg')}
                     />
-                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                    <Text style={styles.homeMenuText}>Directory</Text>
                   </TouchableOpacity>
 
 
@@ -327,7 +328,7 @@ class HomeNav extends Component {
                       style={styles.homeMenuIcon}
                       source={require('../../../resources/icons/_Associations.png')}
                     />
-                    <Text style={{ color: "black", fontSize: 12 }}>Member Associations</Text>
+                    <Text style={styles.homeMenuText}>Member{"\n"}Associations</Text>
                   </TouchableOpacity>
 
 
