@@ -20,7 +20,7 @@ import I18n from "../../lib/i18n";
 import styles from "./styles";
 import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
-import { NavigationEvents } from "react-navigation";
+import { NavigationEvents, ScrollView } from "react-navigation";
 import moment from "moment";
 
 const { width } = Dimensions.get("window");
@@ -208,7 +208,7 @@ class HomeNav extends Component {
     return <ListItem navigation={this.props.navigation} item={item} />;
   }
 
-  env() {}
+  env() { }
 
   render() {
     if (this.state.loading) {
@@ -227,6 +227,82 @@ class HomeNav extends Component {
           </TouchableHighlight>
         )}
         <Content showsVerticalScrollIndicator={false}>
+
+          {
+            global.domain === "ais_edu_sg" ?
+              <View style={styles.newsContentLine}>
+                <ScrollView
+                  horizontal={true}
+                  contentContainerStyle={{ paddingHorizontal: 12, paddingVertical: 8 }}
+                  style={{ backgroundColor: "white", marginVertical: 6 }}
+                >
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
+
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
+
+
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
+
+
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
+
+
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
+
+
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
+
+
+                  <View style={styles.homeMenuItemContainer}>
+                    <Image
+                      style={styles.homeMenuIcon}
+                      source={require('../../../resources/icons/shop.png')}
+                    />
+                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
+                  </View>
+
+
+                </ScrollView>
+              </View>
+              : null
+          }
+
           <View style={styles.newsContentLine}>
             <FlatList
               data={this.state.calendarItems}

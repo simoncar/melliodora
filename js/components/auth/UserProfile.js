@@ -59,6 +59,10 @@ export default class UserProfile extends Component {
         .doc(uid)
         .get()
         .then(snapshot => {
+
+          if (!snapshot.exists) {
+            return this.props.navigation.push("EditUserProfile", { ...this.props.navigation.state.params })
+          }
           const data = snapshot.data();
           this.props.navigation.setParams({ uid: uid, user: data })
           this.setState({ user: data });
