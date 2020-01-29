@@ -48,6 +48,7 @@ let StackHome = createStackNavigator(
     storyForm: { screen: StoryForm },
     authPortalStory: { screen: authPortal },
     searchCalendarHome: { screen: Search },
+    webportalURL: { screen: WebportalURL },
   },
   {
     navigationOptions: {

@@ -236,66 +236,100 @@ class HomeNav extends Component {
                   contentContainerStyle={{ paddingHorizontal: 12, paddingVertical: 8 }}
                   style={{ backgroundColor: "white", marginVertical: 6 }}
                 >
-                  <View style={styles.homeMenuItemContainer}>
+                  <TouchableOpacity
+                    style={styles.homeMenuItemContainer}
+                    onPress={() => {
+                      this.props.navigation.navigate("webportalURL", {
+                        url: "https://iflaapr.org/newsletters",
+                        title: "Newsletters",
+                      });
+                    }}>
                     <Image
                       style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/shop.png')}
+                      source={require('../../../resources/icons/news.png')}
                     />
-                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
-                  </View>
+                    <Text style={{ color: "black", fontSize: 12 }}>Newsletters</Text>
+                  </TouchableOpacity>
 
-                  <View style={styles.homeMenuItemContainer}>
+                  <TouchableOpacity
+                    style={styles.homeMenuItemContainer}
+                    onPress={() => {
+                      this.props.navigation.navigate("webportalURL", {
+                        url: "https://iflaapr.org/news/listing/design",
+                        title: "Design News",
+                      });
+                    }}>
                     <Image
                       style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/shop.png')}
+                      source={require('../../../resources/icons/_Design.jpeg')}
                     />
-                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
-                  </View>
+                    <Text style={{ color: "black", fontSize: 12 }}>Design News</Text>
+                  </TouchableOpacity>
 
-
-                  <View style={styles.homeMenuItemContainer}>
+                  <TouchableOpacity
+                    style={styles.homeMenuItemContainer}
+                    onPress={() => {
+                      this.props.navigation.navigate("webportalURL", {
+                        url: "https://iflaapr.org/news/listing/management",
+                        title: "Management News",
+                      });
+                    }}>
                     <Image
                       style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/shop.png')}
+                      source={require('../../../resources/icons/_Management.jpeg')}
                     />
-                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
-                  </View>
+                    <Text style={{ color: "black", fontSize: 12 }}>Management News</Text>
+                  </TouchableOpacity>
 
 
-                  <View style={styles.homeMenuItemContainer}>
+                  <TouchableOpacity
+                    style={styles.homeMenuItemContainer}
+                    onPress={() => {
+                      this.props.navigation.navigate("webportalURL", {
+                        url: "https://iflaapr.org/news/listing/planning",
+                        title: "Planning News",
+                      });
+                    }}>
                     <Image
                       style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/shop.png')}
+                      source={require('../../../resources/icons/_Planning.jpeg')}
                     />
-                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
-                  </View>
+                    <Text style={{ color: "black", fontSize: 12 }}>Planning News</Text>
+                  </TouchableOpacity>
 
 
-                  <View style={styles.homeMenuItemContainer}>
+                  <TouchableOpacity
+                    style={styles.homeMenuItemContainer}
+                    onPress={() => {
+                      this.props.navigation.navigate("webportalURL", {
+                        url: "https://iflaapr.org/membership-directory/corporate",
+                        title: "Directory",
+                      });
+                    }}>
                     <Image
                       style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/shop.png')}
+                      source={require('../../../resources/icons/_Directory.jpeg')}
                     />
                     <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
-                  </View>
+                  </TouchableOpacity>
 
 
-                  <View style={styles.homeMenuItemContainer}>
+                  <TouchableOpacity
+                    style={styles.homeMenuItemContainer}
+                  // onPress={() => {
+                  //   this.props.navigation.navigate("webportalURL", {
+                  //     url: "https://smartcookies.io/smart-community",
+                  //     title: "Member Associations",
+                  //   });
+                  // }}
+                  >
                     <Image
                       style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/shop.png')}
+                      source={require('../../../resources/icons/_Associations.png')}
                     />
-                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
-                  </View>
+                    <Text style={{ color: "black", fontSize: 12 }}>Member Associations</Text>
+                  </TouchableOpacity>
 
-
-                  <View style={styles.homeMenuItemContainer}>
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/shop.png')}
-                    />
-                    <Text style={{ color: "black", fontSize: 12 }}>Shop</Text>
-                  </View>
 
 
                 </ScrollView>
