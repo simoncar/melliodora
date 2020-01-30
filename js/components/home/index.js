@@ -30,7 +30,7 @@ const tabBarIcon = name => ({ tintColor }) => (
 
 const bottomLogo = {
   sais_edu_sg: require("../../../images/sais_edu_sg/10yearLogo.png"),
-  ais_edu_sg: require("../../../images/ais_edu_sg/10yearLogo.png"),
+  ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg"),
 };
 
 class HomeNav extends Component {
