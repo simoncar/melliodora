@@ -339,11 +339,16 @@ class HomeNav extends Component {
           }
 
           <View style={styles.newsContentLine}>
-            <FlatList
-              data={this.state.calendarItems}
-              keyExtractor={this.keyExtractor}
-              renderItem={this._renderItem.bind(this)}
-            />
+
+            {
+              global.domain !== "ais_edu_sg" ?
+                <FlatList
+                  data={this.state.calendarItems}
+                  keyExtractor={this.keyExtractor}
+                  renderItem={this._renderItem.bind(this)}
+                />
+                : null
+            }
 
             <FlatList
               data={this.state.featureItems}

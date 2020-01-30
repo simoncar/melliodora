@@ -3,6 +3,8 @@ import { Platform } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
+import BottomTabBar from "react-navigation-selective-tab-bar";
+import _ from "lodash";
 
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather } from "@expo/vector-icons";
 
@@ -176,7 +178,8 @@ let StackOther = createStackNavigator(
     },
   },
 );
-
+// console.log("global.domain", global.domain);
+// const webportal = global.domain == "sais_edu_sg" ? { webportal: StackWeb } : {}
 let Tabs = createBottomTabNavigator(
   {
     homeNav: StackHome,
@@ -191,6 +194,20 @@ let Tabs = createBottomTabNavigator(
     activeColor: "#1278F1",
     inactiveColor: "#5D6870",
     barStyle: { backgroundColor: "#F7F7F7" },
+    tabBarComponent: props => {
+      let display = ["homeNav", "home", "chatRooms", "webportal", "other"];
+      if (global.domain !== "sais_edu_sg") {
+        const removeTab = ["webportal"]
+        display = _.difference(display, removeTab);
+      }
+      console.log("global.domain3", global.domain);
+      return (
+        <BottomTabBar
+          {...props} // Required
+          display={display} // Required
+        />
+      );
+    }
   },
 );
 
