@@ -4,9 +4,6 @@
   "private": true,
   "devDependencies": {
     "@expo/webpack-config": "^0.7.4",
-    "detox": "~12.3.0",
-    "detox-expo-helpers": "^0.6.0",
-    "expo-detox-hook": "^1.0.10",
     "jest-expo": "^33.0.0",
     "metro-react-native-babel-preset": "^0.57.0",
     "react-native-dotenv": "^0.2.0"
