@@ -37,5 +37,19 @@
   "login": "Login",
   "logout": "Logout",
   "uniforms": "Uniforms",
-  "editor": "Editor"
+  "editor": "Editor",
+  "Newsletters": "Newsletters",
+  "Design": "Design News",
+  "Management": "Management News",
+  "Planning": "Planning News",
+  "News": "News",
+  "Directory": "Directory",
+  "Member": "Member",
+  "Associations": "Associations",
+  "Search Users": "Search Users",
+  "Sign In": "Sign In",
+  "Sign Up": "Sign Up",
+  "Logged in as": "Logged in as",
+  "About this App": "About this App"
+
 }

@@ -35,5 +35,20 @@
 	"pta": "Cumann Tuismitheoirí agus Múinteoirí",
 	"languageChangeWarning": "Atosóidh an feidhmchlár tar éis teanga nua a roghnú",
 	"login": "Logáil isteach",
-	"logout": "Logáil Amach"
+	"logout": "Logáil Amach",
+	"uniforms": "Éide",
+	"editor": "Eagarthóir",
+	"Newsletters": "Nuachtlitreacha",
+	"Design": "Nuacht Dearaidh",
+	"Management": "Nuacht Bainistíochta",
+	"Planning": "Nuacht Pleanála",
+	"News": "Nuacht",
+	"Directory": "Eolaire",
+	"Member": "Comhalta",
+	"Associations": "Cumainn",
+	"Search Users": "Úsáideoirí Cuardaigh",
+	"Sign In": "Sínigh isteach",
+	"Sign Up": "Clarú",
+	"Logged in as": "Logáilte isteach mar",
+	"About this App": "Maidir leis an App seo"
 }

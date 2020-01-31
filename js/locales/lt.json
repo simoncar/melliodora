@@ -35,5 +35,20 @@
 	"pta": "Tėvų mokytojų asociacija",
 	"languageChangeWarning": "Pasirinkus naują kalbą, programa bus paleista iš naujo",
 	"login": "Prisijungti",
-	"logout": "Atsijungti"
+	"logout": "Atsijungti",
+	"uniforms": "Uniformos",
+	"editor": "Redaktorius",
+	"Newsletters": "Informaciniai biuleteniai",
+	"Design": "Dizaino naujienos",
+	"Management": "Valdymo naujienos",
+	"Planning": "Planavimo naujienos",
+	"News": "žinios",
+	"Directory": "Katalogas",
+	"Member": "Narys",
+	"Associations": "Asociacijos",
+	"Search Users": "Ieškoti vartotojų",
+	"Sign In": "Prisijungti",
+	"Sign Up": "Registruotis",
+	"Logged in as": "prisijungęs kaip",
+	"About this App": "Apie šią programą"
 }

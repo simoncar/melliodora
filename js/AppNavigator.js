@@ -53,13 +53,6 @@ let StackHome = createStackNavigator(
     webportalURL: { screen: WebportalURL },
   },
   {
-    navigationOptions: {
-      title: I18n.t("home"),
-      headerBackTitle: null,
-      tabBarIcon: ({ focused, tintColor, horizontal }) => (
-        <Ionicons name="ios-home" size={horizontal ? 20 : 25} color={tintColor} />
-      )
-    },
     defaultNavigationOptions: {
       headerTitleStyle: {
         ...Platform.select({
@@ -70,6 +63,17 @@ let StackHome = createStackNavigator(
     },
   },
 );
+
+StackHome.navigationOptions = ({ navigation }) => {
+  return {
+    title: I18n.t("home"),
+    headerBackTitle: null,
+    tabBarIcon: ({ focused, tintColor, horizontal }) => (
+      <Ionicons name="ios-home" size={horizontal ? 20 : 25} color={tintColor} />
+    )
+  };
+};
+
 
 let StackCalendar = createStackNavigator(
   {
@@ -79,13 +83,6 @@ let StackCalendar = createStackNavigator(
     searchCalendar: { screen: Search },
   },
   {
-    navigationOptions: {
-      title: I18n.t("calendar"),
-      headerBackTitle: null,
-      tabBarIcon: ({ focused, tintColor, horizontal }) => (
-        <Ionicons name="ios-calendar" size={horizontal ? 20 : 25} color={tintColor} />
-      ),
-    },
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTitleStyle: {
@@ -98,6 +95,16 @@ let StackCalendar = createStackNavigator(
   },
 );
 
+StackCalendar.navigationOptions = ({ navigation }) => {
+  return {
+    title: I18n.t("calendar"),
+    headerBackTitle: null,
+    tabBarIcon: ({ focused, tintColor, horizontal }) => (
+      <Ionicons name="ios-calendar" size={horizontal ? 20 : 25} color={tintColor} />
+    ),
+  };
+};
+
 let StackChat = createStackNavigator(
   {
     chatRooms: { screen: chatRooms },
@@ -106,13 +113,6 @@ let StackChat = createStackNavigator(
     selectLanguageChat: { screen: selectLanguage },
   },
   {
-    navigationOptions: {
-      title: I18n.t("chat"),
-      headerBackTitle: null,
-      tabBarIcon: ({ focused, tintColor, horizontal }) => (
-        <SimpleLineIcons name="bubble" size={horizontal ? 20 : 25} color={tintColor} />
-      ),
-    },
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTitleStyle: {
@@ -124,6 +124,15 @@ let StackChat = createStackNavigator(
     },
   },
 );
+
+StackChat.navigationOptions = ({ navigation }) => {
+  return {
+    title: I18n.t("chat"),
+    tabBarIcon: ({ focused, tintColor, horizontal }) => (
+      <SimpleLineIcons name="bubble" size={horizontal ? 20 : 25} color={tintColor} />
+    ),
+  };
+};
 
 let StackWeb = createStackNavigator({
   authPortal: { screen: authPortal },
@@ -160,13 +169,6 @@ let StackOther = createStackNavigator(
     EditUserProfile: { screen: EditUserProfile },
   },
   {
-    navigationOptions: {
-      title: I18n.t("more"),
-      headerBackTitle: null,
-      tabBarIcon: ({ focused, tintColor, horizontal }) => (
-        <Feather name="menu" size={horizontal ? 20 : 25} color={tintColor} />
-      ),
-    },
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTitleStyle: {
@@ -178,6 +180,16 @@ let StackOther = createStackNavigator(
     },
   },
 );
+
+StackOther.navigationOptions = ({ navigation }) => {
+  return {
+    title: I18n.t("more"),
+    headerBackTitle: null,
+    tabBarIcon: ({ focused, tintColor, horizontal }) => (
+      <Feather name="menu" size={horizontal ? 20 : 25} color={tintColor} />
+    ),
+  };
+};
 // console.log("global.domain", global.domain);
 // const webportal = global.domain == "sais_edu_sg" ? { webportal: StackWeb } : {}
 let Tabs = createBottomTabNavigator(

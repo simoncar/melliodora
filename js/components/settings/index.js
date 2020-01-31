@@ -126,7 +126,7 @@ class Settings extends Component {
         <SettingsListItem
           hasNavArrow={false}
           icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
-          title={I18n.t("Sign In / Sign Up", { defaultValue: "Sign In / Sign Up" })}
+          title={I18n.t("Sign In") + "/" + I18n.t("Sign Up")}
           onPress={() => this.props.navigation.navigate("login")}
         />
       )
@@ -156,7 +156,7 @@ class Settings extends Component {
           <Seperator />
           <SettingsListItem
             icon={<MaterialIcons name="search" style={{ fontSize: 25, color: "white" }} />}
-            title={"Search Users"}
+            title={I18n.t("Search Users")}
             onPress={() => this.props.navigation.navigate("UserSearch")}
           />
 
@@ -215,7 +215,7 @@ class Settings extends Component {
           <SettingsListItem
             hasNavArrow={false}
             icon={<Image style={styles.imageStyle} source={require("./images/about.png")} />}
-            title={"About this App"}
+            title={I18n.t("About this App")}
             onPress={() => {
               this.props.navigation.navigate("webportalURL", {
                 url: "https://smartcookies.io/smart-community",

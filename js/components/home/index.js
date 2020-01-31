@@ -50,8 +50,18 @@ class HomeNav extends Component {
     const { params = {} } = navigation.state;
     let title = "";
     if (params.domain) title = params.domain["name"];
+
+    let headerTitle = null;
+    if (global.domain == "ais_edu_sg") {
+      headerTitle = (
+        <Image source={require('../../../images/ais_edu_sg/ifla-apr.jpeg')}
+          style={{ height: 39, resizeMode: "contain" }}
+        />
+      );
+    }
     return {
       title: title,
+      headerTitle: headerTitle,
       headerBackTitle: null,
       headerRight: (
         <TouchableOpacity
@@ -249,7 +259,9 @@ class HomeNav extends Component {
                       style={styles.homeMenuIcon}
                       source={require('../../../resources/icons/news.png')}
                     />
-                    <Text style={{ color: "black", fontSize: 12 }}>Newsletters</Text>
+                    <Text style={{ color: "black", fontSize: 12 }}>
+                      {I18n.t("Newsletters")}
+                    </Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity
@@ -264,7 +276,9 @@ class HomeNav extends Component {
                       style={styles.homeMenuIcon}
                       source={require('../../../resources/icons/_Design.jpeg')}
                     />
-                    <Text style={styles.homeMenuText}>Design{"\n"}News</Text>
+                    <Text style={styles.homeMenuText}>
+                      {I18n.t("Design") + "\n" + I18n.t("News")}
+                    </Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity
@@ -279,7 +293,9 @@ class HomeNav extends Component {
                       style={styles.homeMenuIcon}
                       source={require('../../../resources/icons/_Management.jpeg')}
                     />
-                    <Text style={styles.homeMenuText}>Management{"\n"}News</Text>
+                    <Text style={styles.homeMenuText}>
+                      {I18n.t("Management") + "\n" + I18n.t("News")}
+                    </Text>
                   </TouchableOpacity>
 
 
@@ -295,7 +311,9 @@ class HomeNav extends Component {
                       style={styles.homeMenuIcon}
                       source={require('../../../resources/icons/_Planning.jpeg')}
                     />
-                    <Text style={styles.homeMenuText}>Planning{"\n"}News</Text>
+                    <Text style={styles.homeMenuText}>
+                      {I18n.t("Planning") + "\n" + I18n.t("News")}
+                    </Text>
                   </TouchableOpacity>
 
 
@@ -311,7 +329,7 @@ class HomeNav extends Component {
                       style={styles.homeMenuIcon}
                       source={require('../../../resources/icons/_Directory.jpeg')}
                     />
-                    <Text style={styles.homeMenuText}>Directory</Text>
+                    <Text style={styles.homeMenuText}>{I18n.t("Directory")}</Text>
                   </TouchableOpacity>
 
 
@@ -328,7 +346,9 @@ class HomeNav extends Component {
                       style={styles.homeMenuIcon}
                       source={require('../../../resources/icons/_Associations.png')}
                     />
-                    <Text style={styles.homeMenuText}>Member{"\n"}Associations</Text>
+                    <Text style={styles.homeMenuText}>
+                      {I18n.t("Member") + "\n" + I18n.t("Associations")}
+                    </Text>
                   </TouchableOpacity>
 
 

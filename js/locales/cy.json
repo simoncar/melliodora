@@ -35,5 +35,20 @@
 	"pta": "Cymdeithas Rhieni ac Athrawon",
 	"languageChangeWarning": "Bydd App yn ailgychwyn ar ôl dewis iaith newydd",
 	"login": "Mewngofnodi",
-	"logout": "Allgofnodi"
+	"logout": "Allgofnodi",
+	"uniforms": "Gwisgoedd",
+	"editor": "Golygydd",
+	"Newsletters": "Cylchlythyrau",
+	"Design": "Newyddion Dylunio",
+	"Management": "Newyddion Rheoli",
+	"Planning": "Newyddion Cynllunio",
+	"News": "Newyddion",
+	"Directory": "Cyfeiriadur",
+	"Member": "Aelod",
+	"Associations": "Cymdeithasau",
+	"Search Users": "Chwilio Defnyddwyr",
+	"Sign In": "Mewngofnodi",
+	"Sign Up": "Cofrestru",
+	"Logged in as": "Mewngofnodi fel",
+	"About this App": "Ynglŷn â'r App hwn"
 }
