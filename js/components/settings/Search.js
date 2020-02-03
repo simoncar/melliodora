@@ -10,10 +10,10 @@ import _ from "lodash";
 
 class Search extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Search",
+    title: "User Profiles",
     headerBackTitle: null,
     headerRight: (
-      <TouchableOpacity onPress={navigation.getParam("updateSearchCache")}>
+      <TouchableOpacity onPress={() => navigation.state.params.reload()}>
         <View style={styles.navigationIcon}>
           <AntDesign name="reload1" style={styles.navigationIcon} />
         </View>
@@ -38,10 +38,14 @@ class Search extends Component {
 
   componentDidMount() {
 
+    // this.props.navigation.state.params.reload = this.loadData;
+
+    this.props.navigation.setParams({ reload: this.loadData })
     this.loadData();
   }
 
   loadData = () => {
+    this.setState({ loading: true })
     this._getUsers()
       .then(data => this.setState({ data: data, fullData: data, loading: false }));
   }
@@ -60,7 +64,6 @@ class Search extends Component {
 
       data.push(doc.data());
     });
-    console.log("data", data);
     return data;
   };
 
@@ -81,7 +84,7 @@ class Search extends Component {
     this.setState({
       value: text,
     });
-    console.log("text", text);
+
     const fullData = this.state.fullData;
 
     //reset when blank text
@@ -123,7 +126,8 @@ class Search extends Component {
   };
 
   _renderItem({ item, index }) {
-    const avatarTitle = item.displayName.slice(0, 2);
+
+    const avatarTitle = item.email.slice(0, 2);
     const fullName = item.firstName + " " + item.lastName;
     const avatar = item.photoURL
       ? { source: { uri: item.photoURL } }
@@ -135,15 +139,12 @@ class Search extends Component {
         <ListItem
           leftAvatar={{
             rounded: true,
-            ...avatar,
-            overlayContainerStyle: {
-              backgroundColor: "#fcfcfc"
-            }
+            ...avatar
           }}
           title={
             <View style={{ flex: 1, flexDirection: "row" }}>
               <Text style={{ flex: 1, fontSize: 16 }}>
-                {item.displayName || "No Name"}
+                {item.displayName || fullName || item.email}
               </Text>
             </View>
           }
@@ -160,7 +161,6 @@ class Search extends Component {
   }
 
   render() {
-    console.log({ data: this.state.data })
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>

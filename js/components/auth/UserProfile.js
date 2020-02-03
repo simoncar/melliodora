@@ -8,6 +8,7 @@ import I18n from "../../lib/i18n";
 export default class UserProfile extends Component {
   static navigationOptions = ({ navigation }) => ({
     // title: I18n.t("Edit", { defaultValue: "Edit" }),
+    title: "User Profile",
     headerRight: () => {
       const permitEdit = navigation.state.params.permitEdit;
 
@@ -117,6 +118,7 @@ export default class UserProfile extends Component {
 
   }
   render() {
+    console.log("this.state.user.interestGroups ", this.state.user.interestGroups);
     return (
       <View style={{ flexDirection: "column" }}>
         {this._renderProfilePic()}
@@ -163,6 +165,56 @@ export default class UserProfile extends Component {
           </View>
         </View>
 
+
+        <View style={styles.titleContainer}>
+          <Text style={styles.nameText} numberOfLines={1}>
+            Country:
+            </Text>
+          <Text style={styles.sectionContentText} numberOfLines={1}>
+            {this.state.user.country}
+          </Text>
+        </View>
+
+        <View style={styles.titleContainer}>
+          <Text style={styles.nameText} numberOfLines={1}>
+            Region:
+            </Text>
+          <Text style={styles.sectionContentText} numberOfLines={1}>
+            {this.state.user.region}
+          </Text>
+        </View>
+
+        <View style={styles.titleContainer}>
+          <Text style={styles.nameText} numberOfLines={1}>
+            Organization:
+            </Text>
+          <Text style={styles.sectionContentText} numberOfLines={1}>
+            {this.state.user.organization}
+          </Text>
+        </View>
+
+
+
+        <View style={styles.titleContainer}>
+          <Text style={styles.nameText} numberOfLines={1}>
+            Interest Group(s):
+            </Text>
+
+          {
+
+            (Array.isArray(this.state.user.interestGroups) && this.state.user.interestGroups.length) ?
+              this.state.user.interestGroups.map(grp => (
+                <Text style={styles.sectionContentText} numberOfLines={1}>
+                  {grp}
+                </Text>
+              ))
+              : (
+                <Text style={styles.sectionContentText} numberOfLines={1}>
+                  None
+                </Text>
+              )
+          }
+        </View>
       </View>
     )
   }
