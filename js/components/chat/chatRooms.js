@@ -8,6 +8,7 @@ import styles from "./styles";
 import I18n from "../../lib/i18n";
 import ChatroomItem from "./chatroomItem";
 import Analytics from "../../lib/analytics";
+import _ from "lodash";
 
 var specialChatrooms = {};
 
@@ -79,9 +80,9 @@ class chatRooms extends Component {
           console.log("No notifications");
           return;
         }
+        const userInterestGroupCheck = _.has(global, "userInfo.interestGroups") && Array.isArray(global.userInfo.interestGroups)
+        const userInterestGroups = userInterestGroupCheck ? global.userInfo.interestGroups : [];
 
-        const userInterestGroups = global.userInfo.interestGroups;
-        console.log("userInterestGroups", userInterestGroups);
         snapshot.forEach(doc => {
           const item = doc.data();
           if ((item.type == "public" || item.type == "user") && item.visible != false) {
