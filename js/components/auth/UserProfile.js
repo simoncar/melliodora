@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import firebase from "firebase";
 import { Ionicons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
@@ -120,102 +120,106 @@ export default class UserProfile extends Component {
   render() {
     console.log("this.state.user.interestGroups ", this.state.user.interestGroups);
     return (
-      <View style={{ flexDirection: "column" }}>
-        {this._renderProfilePic()}
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView ScrollView bounces={false}>
+
+          {this._renderProfilePic()}
 
 
-        <View style={styles.titleContainer}>
-          <Text style={styles.nameText} numberOfLines={1}>
-            Email:
-            </Text>
-          <Text style={styles.sectionContentText} numberOfLines={1}>
-            {this.state.user.email}
-          </Text>
-        </View>
-
-
-        <View style={styles.titleContainer}>
-          <Text style={styles.nameText} numberOfLines={1}>
-            Display Name:
-            </Text>
-          <Text style={styles.sectionContentText} numberOfLines={1}>
-            {this.state.user.displayName}
-          </Text>
-        </View>
-
-
-
-        <View style={[styles.titleContainer, { flexDirection: "row" }]}>
-          <View style={{ flex: 1 }}>
+          <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>
-              First Name:
+              Email:
             </Text>
             <Text style={styles.sectionContentText} numberOfLines={1}>
-              {this.state.user.firstName}
+              {this.state.user.email}
             </Text>
           </View>
 
-          <View style={{ flex: 1 }}>
+
+          <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>
-              Last Name:
+              Display Name:
             </Text>
             <Text style={styles.sectionContentText} numberOfLines={1}>
-              {this.state.user.lastName}
+              {this.state.user.displayName}
             </Text>
           </View>
-        </View>
 
 
-        <View style={styles.titleContainer}>
-          <Text style={styles.nameText} numberOfLines={1}>
-            Country:
+
+          <View style={[styles.titleContainer, { flexDirection: "row" }]}>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.nameText} numberOfLines={1}>
+                First Name:
             </Text>
-          <Text style={styles.sectionContentText} numberOfLines={1}>
-            {this.state.user.country}
-          </Text>
-        </View>
+              <Text style={styles.sectionContentText} numberOfLines={1}>
+                {this.state.user.firstName}
+              </Text>
+            </View>
 
-        <View style={styles.titleContainer}>
-          <Text style={styles.nameText} numberOfLines={1}>
-            Region:
+            <View style={{ flex: 1 }}>
+              <Text style={styles.nameText} numberOfLines={1}>
+                Last Name:
             </Text>
-          <Text style={styles.sectionContentText} numberOfLines={1}>
-            {this.state.user.region}
-          </Text>
-        </View>
+              <Text style={styles.sectionContentText} numberOfLines={1}>
+                {this.state.user.lastName}
+              </Text>
+            </View>
+          </View>
 
-        <View style={styles.titleContainer}>
-          <Text style={styles.nameText} numberOfLines={1}>
-            Organization:
+
+          <View style={styles.titleContainer}>
+            <Text style={styles.nameText} numberOfLines={1}>
+              Country:
             </Text>
-          <Text style={styles.sectionContentText} numberOfLines={1}>
-            {this.state.user.organization}
-          </Text>
-        </View>
+            <Text style={styles.sectionContentText} numberOfLines={1}>
+              {this.state.user.country}
+            </Text>
+          </View>
+
+          <View style={styles.titleContainer}>
+            <Text style={styles.nameText} numberOfLines={1}>
+              Region:
+            </Text>
+            <Text style={styles.sectionContentText} numberOfLines={1}>
+              {this.state.user.region}
+            </Text>
+          </View>
+
+          <View style={styles.titleContainer}>
+            <Text style={styles.nameText} numberOfLines={1}>
+              Organization:
+            </Text>
+            <Text style={styles.sectionContentText} numberOfLines={1}>
+              {this.state.user.organization}
+            </Text>
+          </View>
 
 
 
-        <View style={styles.titleContainer}>
-          <Text style={styles.nameText} numberOfLines={1}>
-            Interest Group(s):
+          <View style={styles.titleContainer}>
+            <Text style={styles.nameText} numberOfLines={1}>
+              Interest Group(s):
             </Text>
 
-          {
+            {
 
-            (Array.isArray(this.state.user.interestGroups) && this.state.user.interestGroups.length) ?
-              this.state.user.interestGroups.map(grp => (
-                <Text style={styles.sectionContentText} numberOfLines={1}>
-                  {grp}
+              (Array.isArray(this.state.user.interestGroups) && this.state.user.interestGroups.length) ?
+                this.state.user.interestGroups.map(grp => (
+                  <Text style={styles.sectionContentText} numberOfLines={1}>
+                    {grp}
+                  </Text>
+                ))
+                : (
+                  <Text style={styles.sectionContentText} numberOfLines={1}>
+                    None
                 </Text>
-              ))
-              : (
-                <Text style={styles.sectionContentText} numberOfLines={1}>
-                  None
-                </Text>
-              )
-          }
-        </View>
-      </View>
+                )
+            }
+          </View>
+
+        </ScrollView>
+      </SafeAreaView>
     )
   }
 }

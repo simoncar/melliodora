@@ -81,14 +81,23 @@ class chatRooms extends Component {
           console.log("No notifications");
           return;
         }
+
+        const userInterestGroups = global.userInfo.interestGroups;
+        // console.log("userInterestGroups", userInterestGroups);
         snapshot.forEach(doc => {
-          item = doc.data();
-          if (doc.data().type == "public" || doc.data().type == "user") {
-            if (doc.data().visible != false) {
+          const item = doc.data();
+          if ((item.type == "public" || item.type == "user") && item.visible != false) {
+            if (item.interestGroupOnly == true && (userInterestGroups && userInterestGroups.indexOf(item.title) > -1)) {
               userChatrooms.push({
                 chatroom: doc.id,
-                title: doc.data().title,
-                type: doc.data().type,
+                title: item.title,
+                type: item.type,
+              });
+            } else if (item.interestGroupOnly != true) {
+              userChatrooms.push({
+                chatroom: doc.id,
+                title: item.title,
+                type: item.type,
               });
             }
           }
@@ -126,7 +135,6 @@ class chatRooms extends Component {
   }
 
   render() {
-    console.log(this.state.userChatrooms);
     return (
       <Container style={styles.container}>
         <Content style={{ paddingTop: 20 }}>

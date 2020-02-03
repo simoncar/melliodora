@@ -232,13 +232,13 @@ class SetupEnv extends Component {
       });
   }
 
-  initUser = async (user, isAnonymous) => {
+  initUser = (user, isAnonymous) => {
     var uid = user.uid;
     console.log("Auth = ", uid);
 
     // store the auth as a valid user
     global.uid = uid;
-    await firebase
+    firebase
       .firestore()
       .collection(global.domain)
       .doc("user")
@@ -280,6 +280,27 @@ class SetupEnv extends Component {
             }
             AsyncStorage.setItem("gradeNotify", JSON.stringify(docData.gradeNotify));
           }
+        }
+      });
+
+
+    firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("user")
+      .collection("registered")
+      .doc(uid)
+      .get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log("No such document!");
+        } else {
+          const docData = doc.data();
+
+          global.userInfo = docData;
+
+          // AsyncStorage.setItem("gradeNotify", JSON.stringify(docData.gradeNotify));
+
         }
       });
 

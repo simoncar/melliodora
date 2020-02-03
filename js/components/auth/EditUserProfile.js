@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import firebase from "firebase";
 import {
   MaterialIcons,
@@ -173,61 +173,96 @@ class UserProfile extends Component {
   }
   render() {
     return (
-      <View style={{ flexDirection: "column" }}>
-        <Loader
-          modalVisible={this.state.loading}
-          animationType="fade"
-        />
-        <Text>{this.state.errorMessage}</Text>
-        {this._renderProfilePic()}
-
-        <View style={styles.titleContainer}>
-          <Text style={styles.nameText} numberOfLines={1}>
-            Email:
-            </Text>
-          <Text style={[styles.sectionContentText, { height: 18 }]} numberOfLines={1}>
-            {this.state.user.email}
-          </Text>
-        </View>
-
-        <View style={styles.titleContainer}>
-          <Text style={styles.nameText} numberOfLines={1}>
-            Display Name:
-            </Text>
-          <TextInput
-            style={styles.sectionContentText}
-            onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, displayName: text } }))}
-            value={this.state.user.displayName}
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#fdfdfd" }}>
+        <ScrollView bounces={false}>
+          <Loader
+            modalVisible={this.state.loading}
+            animationType="fade"
           />
-        </View>
+          <Text>{this.state.errorMessage}</Text>
+          {this._renderProfilePic()}
 
-
-
-        <View style={[styles.titleContainer, { flexDirection: "row" }]}>
-          <View style={{ flex: 1 }}>
+          <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>
-              First Name:
-              </Text>
+              Email:
+            </Text>
+            <Text style={[styles.sectionContentText, { height: 18 }]} numberOfLines={1}>
+              {this.state.user.email}
+            </Text>
+          </View>
+
+          <View style={styles.titleContainer}>
+            <Text style={styles.nameText} numberOfLines={1}>
+              Display Name:
+            </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, firstName: text } }))}
-              value={this.state.user.firstName}
+              onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, displayName: text } }))}
+              value={this.state.user.displayName}
             />
           </View>
 
-          <View style={{ flex: 1 }}>
-            <Text style={styles.nameText} numberOfLines={1}>
-              Last Name:
+
+
+          <View style={[styles.titleContainer, { flexDirection: "row" }]}>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.nameText} numberOfLines={1}>
+                First Name:
               </Text>
+              <TextInput
+                style={styles.sectionContentText}
+                onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, firstName: text } }))}
+                value={this.state.user.firstName}
+              />
+            </View>
+
+            <View style={{ flex: 1 }}>
+              <Text style={styles.nameText} numberOfLines={1}>
+                Last Name:
+              </Text>
+              <TextInput
+                style={styles.sectionContentText}
+                onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, lastName: text } }))}
+                value={this.state.user.lastName}
+              />
+            </View>
+          </View>
+
+          <View style={styles.titleContainer}>
+            <Text style={styles.nameText} numberOfLines={1}>
+              Country:
+            </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, lastName: text } }))}
-              value={this.state.user.lastName}
+              onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, country: text } }))}
+              value={this.state.user.country}
             />
           </View>
-        </View>
 
-      </View>
+          <View style={styles.titleContainer}>
+            <Text style={styles.nameText} numberOfLines={1}>
+              Region:
+            </Text>
+            <TextInput
+              style={styles.sectionContentText}
+              onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, region: text } }))}
+              value={this.state.user.region}
+            />
+          </View>
+
+          <View style={styles.titleContainer}>
+            <Text style={styles.nameText} numberOfLines={1}>
+              Organization:
+            </Text>
+            <TextInput
+              style={styles.sectionContentText}
+              onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, organization: text } }))}
+              value={this.state.user.organization}
+            />
+          </View>
+
+        </ScrollView>
+      </SafeAreaView>
     )
   }
 }
@@ -282,8 +317,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     paddingHorizontal: 15,
     paddingTop: 15,
-    paddingBottom: 15,
-    backgroundColor: "#fdfdfd"
+    paddingBottom: 15
   },
   nameText: {
     fontWeight: "600",

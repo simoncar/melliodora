@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, TextInput, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TextInput, Text, TouchableOpacity, Switch } from "react-native";
 import * as firebase from "firebase";
 import { Button } from "react-native-elements";
 import { SimpleLineIcons, Entypo, MaterialIcons } from "@expo/vector-icons";
@@ -15,6 +15,7 @@ export default class chatTitle extends Component {
     this.state = {
       chatroomTitle: this.props.navigation.getParam("title"),
       type: this.props.navigation.getParam("type"),
+      interestGroupOnly: this.props.navigation.getParam("interestGroupOnly") || false
     };
   }
 
@@ -26,6 +27,7 @@ export default class chatTitle extends Component {
     var dict = {
       title: this.state.chatroomTitle,
       type: "user",
+      interestGroupOnly: this.state.interestGroupOnly
     };
 
     var edit = this.props.navigation.getParam("edit");
@@ -69,7 +71,7 @@ export default class chatTitle extends Component {
 
   _goback() {
     const { goBack } = this.props.navigation;
-    setTimeout(function() {
+    setTimeout(function () {
       goBack();
     }, 1500);
     goBack();
@@ -94,7 +96,7 @@ export default class chatTitle extends Component {
   render() {
     return (
       <View style={styles.padding}>
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "column" }}>
           <View style={styles.subjectRow}>
             <Text style={styles.title}>Subject:</Text>
             <TextInput
@@ -105,6 +107,14 @@ export default class chatTitle extends Component {
               placeholder={this.state.chatroomTitle}
               value={this.state.chatroomTitle}
             />
+          </View>
+
+          <View style={styles.subjectRow}>
+            <Text style={styles.title}>Interest Group Only:</Text>
+            <Switch
+              style={{ marginLeft: 12 }}
+              onValueChange={(value) => this.setState({ interestGroupOnly: value })}
+              value={this.state.interestGroupOnly} />
           </View>
         </View>
         <Button title="Save" style={styles.button} onPress={() => this._saveChatroom()} />
@@ -124,8 +134,7 @@ const styles = StyleSheet.create({
   },
 
   subjectRow: {
-    flexDirection: "row",
-    flex: 1,
+    flexDirection: "row"
   },
   title: {
     flex: 0,
