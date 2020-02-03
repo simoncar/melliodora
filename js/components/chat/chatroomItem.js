@@ -31,6 +31,7 @@ class ChatroomItem extends Component {
               url: this.props.url,
               language: this.props.language,
               type: this.props.type,
+              interestGroupOnly: this.props.interestGroupOnly
             });
           }}
         >

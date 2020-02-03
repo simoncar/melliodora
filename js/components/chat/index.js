@@ -149,7 +149,7 @@ class chat extends Component {
     }, 2000); // simulating network
   }
 
-  onReceive(text) {}
+  onReceive(text) { }
 
   renderCustomActions(props) {
     return (
@@ -313,6 +313,7 @@ class chat extends Component {
               title: navigation.getParam("title"),
               chatroom: navigation.getParam("chatroom"),
               type: navigation.getParam("type"),
+              interestGroupOnly: navigation.getParam("interestGroupOnly"),
               edit: true,
               onGoBack: this.refresh,
             });

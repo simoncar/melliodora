@@ -29,8 +29,6 @@ class chatRooms extends Component {
     this.props.navigation.setParams({
       refresh: this.refresh,
     });
-
-    this.buildChatroomList();
   }
 
   componentDidMount() {
@@ -83,21 +81,19 @@ class chatRooms extends Component {
         }
 
         const userInterestGroups = global.userInfo.interestGroups;
-        // console.log("userInterestGroups", userInterestGroups);
+        console.log("userInterestGroups", userInterestGroups);
         snapshot.forEach(doc => {
           const item = doc.data();
           if ((item.type == "public" || item.type == "user") && item.visible != false) {
-            if (item.interestGroupOnly == true && (userInterestGroups && userInterestGroups.indexOf(item.title) > -1)) {
+            if (
+              (item.interestGroupOnly == true && (userInterestGroups && userInterestGroups.indexOf(item.title) > -1))
+              || (item.interestGroupOnly != true)
+            ) {
               userChatrooms.push({
                 chatroom: doc.id,
                 title: item.title,
                 type: item.type,
-              });
-            } else if (item.interestGroupOnly != true) {
-              userChatrooms.push({
-                chatroom: doc.id,
-                title: item.title,
-                type: item.type,
+                interestGroupOnly: item.interestGroupOnly
               });
             }
           }
@@ -107,6 +103,7 @@ class chatRooms extends Component {
 
         this.setState({
           userChatrooms,
+          loading: false
         });
       });
   }
@@ -122,13 +119,14 @@ class chatRooms extends Component {
     });
   }
 
-  _renderItem(item) {
+  _renderItem({ item }) {
     return (
       <ChatroomItem
         navigation={this.props.navigation}
-        chatroom={item.item.chatroom}
-        title={item.item.title}
-        type={item.item.type}
+        chatroom={item.chatroom}
+        title={item.title}
+        type={item.type}
+        interestGroupOnly={item.interestGroupOnly}
         item={item}
       />
     );
