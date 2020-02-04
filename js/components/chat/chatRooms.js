@@ -59,13 +59,13 @@ class chatRooms extends Component {
   buildChatroomList() {
     var userChatrooms = [];
 
-    if (global.email == "christinathorsen@gmail.com") {
-      specialChatrooms = {
-        chatroom: "sealysicochat",
-        title: "App Developers Chat",
-      };
-      userChatrooms.push(specialChatrooms);
-    }
+    // if (global.email == "christinathorsen@gmail.com") {
+    //   specialChatrooms = {
+    //     chatroom: "sealysicochat",
+    //     title: "App Developers Chat",
+    //   };
+    //   userChatrooms.push(specialChatrooms);
+    // }
     this.loadFromAsyncStorage();
 
     firebase
