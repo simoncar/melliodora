@@ -37,7 +37,7 @@ import ForgotPasswordScreen from "./components/auth/ForgotPasswordScreen";
 import CameraApp from "./components/auth/CameraApp";
 import UserProfile from "./components/auth/UserProfile";
 import EditUserProfile from "./components/auth/EditUserProfile";
-import UserSearch from "./components/settings/Search";
+import UserSearch from "./components/settings/UserSearch";
 
 let StackHome = createStackNavigator(
   {
