@@ -150,13 +150,15 @@ export class Backend extends React.Component {
           text: message[i].text,
           textLanguage: language,
           chatroom: this.state.chatroom,
-          chatroomTitle: this.state.title,
+          chatroomTitle: this.state.title ? this.state.title : this.state.chatroom,
           user: message[i].user,
           timestamp: Date.now(),
           system: false,
           pushToken: global.pushToken,
           uid: global.uid,
         };
+
+        console.log("messageDict", messageDict);
 
         this.messageRef = firebase
           .firestore()

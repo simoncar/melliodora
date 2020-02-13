@@ -73,7 +73,7 @@ class chatRooms extends Component {
       .collection(global.domain)
       .doc("chat")
       .collection("chatrooms")
-      .orderBy("title")
+      .where("type", "in", ["public", "user", "interestGroup", "private"])
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
@@ -85,19 +85,18 @@ class chatRooms extends Component {
 
         snapshot.forEach(doc => {
           const item = doc.data();
-          if ((item.type == "public" || item.type == "user") && item.visible != false) {
-            if (
-              (item.interestGroupOnly == true && (userInterestGroups && userInterestGroups.indexOf(item.title) > -1))
-              || (item.interestGroupOnly != true)
-            ) {
-              userChatrooms.push({
-                chatroom: doc.id,
-                title: item.title,
-                type: item.type,
-                interestGroupOnly: item.interestGroupOnly
-              });
-            }
+          if (
+            (item.type == "private" && item.members.indexOf(global.uid + "") > -1)
+            || (item.type == "interestGroup" && (userInterestGroups && userInterestGroups.indexOf(item.title) > -1))
+            || (item.type != "interestGroup")
+          ) {
+            userChatrooms.push({
+              chatroom: doc.id,
+              title: item.title,
+              type: item.type
+            });
           }
+
         });
 
         AsyncStorage.setItem("userChatrooms", JSON.stringify(userChatrooms));
@@ -127,7 +126,6 @@ class chatRooms extends Component {
         chatroom={item.chatroom}
         title={item.title}
         type={item.type}
-        interestGroupOnly={item.interestGroupOnly}
         item={item}
       />
     );

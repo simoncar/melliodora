@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import firebase from "firebase";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 
 
@@ -76,55 +76,121 @@ export default class UserProfile extends Component {
     const width = 180;
     const containerHeight = 200;
     const photoURL = this.state.user.photoURL;
-    if (photoURL) {
-      return (
-        <View style={{ height: containerHeight }}>
-          <View style={{ height: containerHeight / 2, backgroundColor: "grey" }}>
-            <Image
-              style={{
-                backgroundColor: "white",
-                width: "100%",
-                height: containerHeight / 2,
-                // margin: 12,
-                // borderRadius: width / 2,
-                // borderWidth: 5,
-                // borderColor: "lightgray",
-                // justifyContent: "center",
-                // alignItems: "center",
-              }}
-              resizeMode="center"
-              source={require('../../../images/safeguarding.png')}
-            />
-          </View>
-          <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center', zIndex: 2 }}>
-            <Image
-              style={{
-                backgroundColor: "white",
-                width: width,
-                height: width,
-                // margin: 12,
-                borderRadius: width / 2,
-                borderWidth: 5,
-                borderColor: "lightgray",
-                // justifyContent: "center",
-                // alignItems: "center",
-              }}
-              source={{ uri: photoURL }}
-            />
-          </View>
+
+    return (
+      <View style={{ height: containerHeight }}>
+        {/* <View style={{ height: containerHeight / 2, backgroundColor: "grey" }}>
+          <Image
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              height: containerHeight / 2
+            }}
+            resizeMode="center"
+            source={require('../../../images/safeguarding.png')}
+          />
+        </View> */}
+        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center', zIndex: 2, backgroundColor: "#fdfdfd" }}>
+          {
+            photoURL ?
+              <Image
+                style={{
+                  width: width,
+                  height: width,
+                  borderRadius: width / 2,
+                  borderWidth: 5,
+                  borderColor: "lightgray"
+                }}
+                source={{ uri: photoURL }}
+              /> :
+              <Ionicons
+                name="ios-person"
+                size={width * 0.85}
+                color="grey"
+                style={{
+                  width: width,
+                  height: width,
+                  margin: 12,
+                  borderRadius: width / 2,
+                  borderWidth: StyleSheet.hairlineWidth,
+                  borderColor: "lightgray",
+                  color: "#0075b7",
+                  textAlign: "center",
+                }}
+              />
+          }
         </View>
-      )
+      </View>
+    )
+  }
+
+  privateMessageUser = async (targetUID, sourcUID, targetName) => {
+
+    //only for new chat
+    const dict = {
+      type: "private",
+      title: targetName,
+      createdTimeStamp: firebase.firestore.Timestamp.now()
+    };
+
+
+    // const data = [];
+
+    let docID = "";
+    if (targetUID < sourcUID) {
+      docID = targetUID + "_" + sourcUID
+      dict["members"] = [targetUID, sourcUID]
+    } else {
+      docID = sourcUID + "_" + targetUID
+      dict["members"] = [sourcUID, targetUID]
     }
 
+    const navParams = {
+      chatroom: docID,
+      type: "private"
+    }
+
+    console.log("dict", dict);
+
+    const querySnapshot = await firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("chat")
+      .collection("chatrooms")
+      .doc(docID)
+      .get();
+
+    if (!querySnapshot.exists) {
+      navParams["title"] = dict.title;
+      await firebase
+        .firestore()
+        .collection(global.domain)
+        .doc("chat")
+        .collection("chatrooms")
+        .doc(docID)
+        .set(dict, { merge: true });
+    }
+
+    this.setState({ modalVisible: false })
+    this.props.navigation.pop();
+    this.props.navigation.navigate("chat", navParams);
   }
+
+
+
   render() {
-    console.log("this.state.user.interestGroups ", this.state.user.interestGroups);
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView ScrollView bounces={false}>
 
           {this._renderProfilePic()}
-
+          <View style={[styles.titleContainer, { flexDirection: "row", justifyContent: "flex-end" }]}>
+            <TouchableOpacity onPress={() => {
+              this.privateMessageUser(this.state.user.uid, global.uid, this.state.user.displayName || this.state.user.firstName + " " + this.state.user.lastName)
+            }}>
+              <MaterialIcons name="message" size={25} />
+            </TouchableOpacity>
+          </View>
 
           <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>
@@ -206,7 +272,7 @@ export default class UserProfile extends Component {
 
               (Array.isArray(this.state.user.interestGroups) && this.state.user.interestGroups.length) ?
                 this.state.user.interestGroups.map(grp => (
-                  <Text style={styles.sectionContentText} numberOfLines={1}>
+                  <Text style={styles.sectionContentText} numberOfLines={1} key={grp}>
                     {grp}
                   </Text>
                 ))

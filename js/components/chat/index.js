@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Text, View, Alert, TouchableOpacity, AsyncStorage, Linking } from "react-native";
+import { Text, View, Alert, TouchableOpacity, AsyncStorage, Linking, Modal, FlatList } from "react-native";
 import { ActionSheet, Container, Footer } from "native-base";
 import { GiftedChat, Bubble, SystemMessage, Time, Send } from "react-native-gifted-chat";
-import { MaterialIcons, Entypo } from "@expo/vector-icons";
+import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
@@ -16,6 +16,10 @@ import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import _ from "lodash";
 import Backend from "./backend";
 import Analytics from "../../lib/analytics";
+import * as firebase from "firebase";
+import { ListItem } from "react-native-elements";
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 var localMessages = [];
 
@@ -57,6 +61,8 @@ class chat extends Component {
       language: "",
       user: null,
       authenticated: false,
+      modalVisible: false,
+      chatroomUsers: []
     };
 
     this._isMounted = false;
@@ -64,10 +70,10 @@ class chat extends Component {
     this.parsePatterns = this.parsePatterns.bind(this);
     this.onReceive = this.onReceive.bind(this);
     this.renderCustomActions = this.renderCustomActions.bind(this);
-    this.renderBubble = this.renderBubble.bind(this);
     this.renderSystemMessage = this.renderSystemMessage.bind(this);
     this.renderFooter = this.renderFooter.bind(this);
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
+    this._showActionSheet = this._showActionSheet.bind(this);
 
     this._isAlright = null;
 
@@ -76,15 +82,11 @@ class chat extends Component {
     console.log("lodash = ", _.isBoolean(global.authenticated));
   }
 
-  componentWillMount() {
-    this.props.navigation.setParams({
-      refresh: this.refresh,
-    });
-  }
-
   componentDidMount() {
+    console.log("this.props.navigation", this.props.navigation.state);
     this.props.navigation.setParams({
       _showActionSheet: this._showActionSheet,
+      refresh: this.refresh,
     });
 
     Backend.setChatroom(this.props.chatroom, this.props.title);
@@ -99,7 +101,79 @@ class chat extends Component {
       }
     });
 
+    this.loadChatUsers();
+
     Analytics.track("Chat", { chatroom: this.props.title });
+  }
+  _getInterestGroupUsers = async () => {
+    const data = [];
+    const querySnapshot = await firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("user")
+      .collection("registered")
+      .where("interestGroups", "array-contains", this.props.title)
+      .limit(5000)
+      .get();
+
+    querySnapshot.docs.forEach(doc => {
+
+      data.push(doc.data());
+    });
+    return data;
+  };
+  loadChatUsers = () => {
+    if (this.props.type == "interestGroup") {
+      this._getInterestGroupUsers()
+        .then(data => this.setState({ chatroomUsers: data }));
+    }
+  }
+
+  _renderUsersItem({ item, index }) {
+
+    const avatarTitle = item.email.slice(0, 2);
+    const fullName = item.firstName + " " + item.lastName;
+    const avatar = item.photoURL
+      ? { source: { uri: item.photoURL } }
+      : { title: avatarTitle };
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          this.setState({ modalVisible: false });
+          this.props.navigation.navigate("UserProfile", { uid: item.uid, user: item })
+        }}
+      >
+        <ListItem
+          leftAvatar={{
+            rounded: true,
+            ...avatar
+          }}
+          title={
+            <View style={{ flex: 1, flexDirection: "row" }}>
+              <Text style={{ flex: 1, fontSize: 16 }}>
+                {item.displayName || fullName || item.email}
+              </Text>
+            </View>
+          }
+          chevron={true}
+
+          // rightElement={
+          //   <TouchableOpacity onPress={() => {
+          //     // console.log("item.uid", item.uid, global.uid)
+          //     this.privateMessageUser(item.uid, global.uid, fullName)
+          //   }}>
+          //     <MaterialIcons name="message" style={{ fontSize: 25 }} />
+          //   </TouchableOpacity>
+          // }
+          subtitle={
+            <View style={{ flex: 1, flexDirection: "column", paddingTop: 3 }}>
+              <Text style={{ color: "gray" }}>{fullName}</Text>
+              <Text style={{ color: "gray" }}>{item.email}</Text>
+            </View>
+          }
+        />
+      </TouchableOpacity>
+    )
   }
 
   onSend(messages = []) {
@@ -130,7 +204,7 @@ class chat extends Component {
   }
 
   avatarPress = props => {
-    Alert.alert(props.name);
+    Alert.alert(props.email);
   };
 
   onLoadEarlier() {
@@ -220,39 +294,6 @@ class chat extends Component {
     return null;
   }
 
-  renderBubble = props => {
-    const color = this.getColor(global.name);
-
-    var myimage = props.currentMessage.image;
-
-    if (props.currentMessage.image) {
-      return (
-        <Bubble
-          {...props}
-          wrapperStyle={{
-            left: {
-              backgroundColor: "white",
-            },
-            right: {
-              backgroundColor: "white",
-            },
-          }}
-        />
-      );
-    } else {
-      return (
-        <Bubble
-          {...props}
-          textStyle={{
-            right: {
-              color: "white",
-            },
-          }}
-        />
-      );
-    }
-  };
-
   getColor(username) {
     let sumChars = 0;
     for (let i = 0; i < 10; i++) {
@@ -294,7 +335,7 @@ class chat extends Component {
   };
 
   _showActionSheet(navigation) {
-    const BUTTONS = ["Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
+    const BUTTONS = ["Chatroom info", "Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
     const CANCEL_INDEX = 3;
 
     ActionSheet.show(
@@ -308,19 +349,22 @@ class chat extends Component {
       buttonIndex => {
         switch (buttonIndex) {
           case 0:
+            this.setState({ modalVisible: true });
+            break;
+          case 1:
             //edit subject
             navigation.push("chatTitle", {
               title: navigation.getParam("title"),
               chatroom: navigation.getParam("chatroom"),
               type: navigation.getParam("type"),
-              interestGroupOnly: navigation.getParam("interestGroupOnly"),
               edit: true,
               onGoBack: this.refresh,
             });
-          case 1:
-            Backend.setMute(true);
             break;
           case 2:
+            Backend.setMute(true);
+            break;
+          case 3:
             Backend.setMute(false);
             break;
         }
@@ -337,6 +381,17 @@ class chat extends Component {
       </Send>
     );
   }
+
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          backgroundColor: "#CED0CE",
+        }}
+      />
+    );
+  };
 
   render() {
     if (!global.authenticated && global.domain == "sais_edu_sg") {
@@ -355,9 +410,75 @@ class chat extends Component {
       );
     }
 
+    let userDetails = {}
+    if (!global.userInfo) {
+      userDetails = {
+        name: "Guest" + global.uid
+      }
+    } else {
+      userDetails = {
+        name: global.userInfo.firstName,
+        email: global.userInfo.email,
+        ...global.userInfo.photoURL && { avatar: global.userInfo.photoURL },
+      }
+    }
+
     return (
       <Container>
         <View>
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+            }}>
+            <View style={{ marginTop: 22, backgroundColor: "#f2f2f2", flex: 1 }}>
+              <LinearGradient
+                colors={['#4c669f', '#3b5998', '#192f6a']}
+                style={{
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  height: 100,
+                  padding: 12
+                }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({ modalVisible: false });
+                  }}
+                >
+                  <AntDesign size={32} color={"#f2f2f2"} name="closecircleo" />
+                </TouchableOpacity>
+
+                <Text style={{
+                  fontSize: 24,
+                  color: "#fff",
+                  fontWeight: "bold",
+                  textShadowOffset: { width: 1, height: 0.8 },
+                  textShadowRadius: 1,
+                  textShadowColor: "#000",
+                  fontWeight: "bold"
+                }}>{this.props.title}</Text>
+              </LinearGradient>
+
+
+
+              <View style={{ backgroundColor: "#fff", marginTop: 12 }}>
+                <Text style={{ padding: 12, fontSize: 18 }} >Chatroom users ({this.state.chatroomUsers.length})</Text>
+                {this.renderSeparator()}
+                <FlatList
+                  style={{ height: "70%" }}
+                  data={this.state.chatroomUsers}
+                  renderItem={this._renderUsersItem.bind(this)}
+                  keyExtractor={(_, idx) => "user" + idx}
+                  ItemSeparatorComponent={this.renderSeparator}
+                // ListHeaderComponent={this.renderSeparator}
+                />
+              </View>
+
+            </View>
+          </Modal>
+
           <TouchableOpacity
             onPress={() => {
               this.props.navigation.navigate("selectLanguageChat", {
@@ -379,27 +500,25 @@ class chat extends Component {
           onSend={this.onSend}
           user={{
             _id: global.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-            name: global.name,
-            email: global.email,
-            // avatar: 'https://www.sais.edu.sg/sites/all/themes/custom/saissg/favicon.ico',
+            ...userDetails
           }}
           renderActions={this.renderCustomActions}
           renderSystemMessage={this.renderSystemMessage}
           renderCustomView={this.renderCustomView}
           renderMessageImage={this.renderCustomImage}
           renderMessageVideo={this.renderCustomVideo}
-          renderBubble={this.renderBubble}
-          showUserAvatar
+          showUserAvatar={true}
           bottomOffset={0}
           onPressAvatar={this.avatarPress}
           alwaysShowSend={true}
           renderSend={this.renderSend}
           placeholder={I18n.t("typeMessage")}
           parsePatterns={this.parsePatterns}
+          renderUsernameOnMessage={true}
         />
 
         <Footer style={styles.footer} />
-      </Container>
+      </Container >
     );
   }
 }

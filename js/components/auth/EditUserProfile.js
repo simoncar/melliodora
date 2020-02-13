@@ -13,7 +13,7 @@ import Loader from "../common/Loader";
 
 
 
-class UserProfile extends Component {
+class EditUserProfile extends Component {
   state = {
     loading: false,
     user: {}
@@ -267,7 +267,7 @@ class UserProfile extends Component {
   }
 }
 
-const ConnectedApp = connectActionSheet(UserProfile);
+const ConnectedApp = connectActionSheet(EditUserProfile);
 
 export default class ActionSheetContainer extends Component {
   static navigationOptions = ({ navigation }) => ({

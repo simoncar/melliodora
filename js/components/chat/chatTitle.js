@@ -14,8 +14,7 @@ export default class chatTitle extends Component {
     super(props);
     this.state = {
       chatroomTitle: this.props.navigation.getParam("title"),
-      type: this.props.navigation.getParam("type"),
-      interestGroupOnly: this.props.navigation.getParam("interestGroupOnly") || false
+      type: this.props.navigation.getParam("type")
     };
   }
 
@@ -26,8 +25,7 @@ export default class chatTitle extends Component {
   _saveChatroom() {
     var dict = {
       title: this.state.chatroomTitle,
-      type: "user",
-      interestGroupOnly: this.state.interestGroupOnly
+      type: this.state.interestGroupOnly ? "interestGroup" : "user"
     };
 
     var edit = this.props.navigation.getParam("edit");

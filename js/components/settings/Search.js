@@ -178,7 +178,7 @@ class Search extends Component {
         <FlatList
           data={this.state.data}
           renderItem={this._renderItem.bind(this)}
-          keyExtractor={(_, idx) => "search" + idx}
+          keyExtractor={(_, index) => "search" + index}
           ItemSeparatorComponent={this.renderSeparator}
           ListHeaderComponent={this.renderHeader}
         />
