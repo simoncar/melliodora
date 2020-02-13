@@ -85,6 +85,8 @@ class chatRooms extends Component {
 
         snapshot.forEach(doc => {
           const item = doc.data();
+
+          if (item.visible == false) return;
           if (
             (item.type == "private" && item.members.indexOf(global.uid + "") > -1)
             || (item.type == "interestGroup" && (userInterestGroups && userInterestGroups.indexOf(item.title) > -1))

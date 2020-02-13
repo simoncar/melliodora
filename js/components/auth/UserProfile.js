@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, TouchableHighlight } from 'react-native';
 import firebase from "firebase";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
@@ -48,6 +48,8 @@ export default class UserProfile extends Component {
   }
   componentWillMount() {
     const { uid, user } = this.props.navigation.state.params;
+
+    this.showChat = uid != global.uid;
     console.log("uid", uid);
     if (user) {
       this.setState({ user, uid });
@@ -73,8 +75,8 @@ export default class UserProfile extends Component {
   }
 
   _renderProfilePic = () => {
-    const width = 180;
-    const containerHeight = 200;
+    const width = 128;
+    const containerHeight = 150;
     const photoURL = this.state.user.photoURL;
 
     return (
@@ -110,7 +112,6 @@ export default class UserProfile extends Component {
                 style={{
                   width: width,
                   height: width,
-                  margin: 12,
                   borderRadius: width / 2,
                   borderWidth: StyleSheet.hairlineWidth,
                   borderColor: "lightgray",
@@ -184,13 +185,52 @@ export default class UserProfile extends Component {
         <ScrollView ScrollView bounces={false}>
 
           {this._renderProfilePic()}
-          <View style={[styles.titleContainer, { flexDirection: "row", justifyContent: "flex-end" }]}>
-            <TouchableOpacity onPress={() => {
-              this.privateMessageUser(this.state.user.uid, global.uid, this.state.user.displayName || this.state.user.firstName + " " + this.state.user.lastName)
-            }}>
-              <MaterialIcons name="message" size={25} />
-            </TouchableOpacity>
-          </View>
+          {
+            this.showChat ?
+              <View style={[styles.titleContainer, { flexDirection: "row", justifyContent: "center" }]}>
+
+                <TouchableOpacity style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                  <View
+                    style={{
+                      backgroundColor: "#4CAF50",
+                      height: 50,
+                      width: 50,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: 50 / 2,
+                      shadowColor: "#000000",
+                      shadowOpacity: 0.8,
+                      shadowRadius: 2,
+                      shadowOffset: {
+                        height: 1,
+                        width: 0,
+                      }
+                    }}
+                    underlayColor="#ff7043"
+                    onPress={() => {
+                      this.privateMessageUser(this.state.user.uid, global.uid, this.state.user.displayName || this.state.user.firstName + " " + this.state.user.lastName)
+                    }}
+                  >
+                    <MaterialIcons name="message" size={25} color={"white"} />
+                  </View>
+                  <Text style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    fontSize: 12,
+                    marginTop: 4,
+                    color: "#808080"
+                  }}>
+                    Private{"\n"}Message
+              </Text>
+                </TouchableOpacity>
+
+              </View>
+              : null
+          }
 
           <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>

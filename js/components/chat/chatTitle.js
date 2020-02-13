@@ -77,7 +77,7 @@ export default class chatTitle extends Component {
 
   _closeHideButton() {
     console.log(this.state.type);
-    if (this.state.type == "user") {
+    if (["user", "private", "interestGroup"].indexOf(this.state.type) > -1) {
       return (
         <Button
           icon={<MaterialIcons name="delete" size={25} color="white" />}
