@@ -87,10 +87,12 @@ class chatRooms extends Component {
           const item = doc.data();
 
           if (item.visible == false) return;
+
+          console.log()
           if (
             (item.type == "private" && item.members.indexOf(global.uid + "") > -1)
             || (item.type == "interestGroup" && (userInterestGroups && userInterestGroups.indexOf(item.title) > -1))
-            || (item.type != "interestGroup")
+            || (["users", "public"].indexOf(item.type) > -1)
           ) {
             userChatrooms.push({
               chatroom: doc.id,
