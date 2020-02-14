@@ -36,6 +36,7 @@ class Settings extends Component {
   }
 
   componentWillMount() {
+    this._retrieveFeatures();
     this._retrieveLanguage();
     this._retrieveGradeSelectors();
 
@@ -45,6 +46,43 @@ class Settings extends Component {
     });
     this._getUser();
   }
+
+  _retrieveFeatures = async () => {
+    try {
+
+      const d = await AsyncStorage.getItem("moreFeatures")
+      const features = JSON.parse(d);
+
+      this.setState({ features: features || [] });
+
+
+      console.log("retrivin features");
+      if (!global.moreFeatures) {
+        const doc = await firebase
+          .firestore()
+          .collection(global.domain)
+          .doc("config")
+          .get();
+
+        if (doc.exists) {
+          const docData = doc.data();
+          if (docData.moreListings) {
+            global.moreFeatures = docData.moreListings;
+            AsyncStorage.setItem("moreFeatures", JSON.stringify(docData.moreListings));
+            this.setState({ features: docData.moreListings });
+          }
+        } else {
+          console.log("No such contacts config");
+          global.moreFeatures = [];
+          this.setState({ features: [] });
+        }
+      }
+
+
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
 
   componentDidMount() {
     Analytics.track("More");

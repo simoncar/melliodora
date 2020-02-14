@@ -215,7 +215,6 @@ class SetupEnv extends Component {
     });
 
     // this.setState({ isReady: true });
-    this._retrieveFeatures();
     this.SetupUser();
   }
 
@@ -379,28 +378,6 @@ class SetupEnv extends Component {
       console.log("catch error body:", e.message);
     }
   }
-
-  _retrieveFeatures = async () => {
-    try {
-      global.moreFeatures = [];
-
-      firebase
-        .firestore()
-        .collection(global.domain)
-        .doc("config")
-        .get()
-        .then(doc => {
-          if (doc.exists) {
-            const docData = doc.data();
-            if (docData.moreListings) global.moreFeatures = docData.moreListings;
-          } else {
-            console.log("No such contacts config");
-          }
-        });
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
 
   render() {
     if (!this.state.isReady) {
