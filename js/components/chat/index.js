@@ -89,6 +89,20 @@ class chat extends Component {
       refresh: this.refresh,
     });
 
+    this.ref = firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("chat")
+      .collection("chatrooms")
+      .doc(this.props.chatroom);
+
+    this.unsubscribe = this.ref.onSnapshot(doc => {
+      const item = doc.data();
+      this.props.navigation.setParams({
+        title: item.title
+      });
+    });
+
     Backend.setChatroom(this.props.chatroom, this.props.title);
     Backend.setMute(null);
     Backend.loadMessages(global.language, message => {

@@ -172,6 +172,8 @@ export default class UserProfile extends Component {
         .set(dict, { merge: true });
     }
 
+    console.log("sdsd");
+
     this.setState({ modalVisible: false })
     this.props.navigation.pop();
     this.props.navigation.navigate("chat", navParams);
@@ -189,10 +191,16 @@ export default class UserProfile extends Component {
             this.showChat ?
               <View style={[styles.titleContainer, { flexDirection: "row", justifyContent: "center" }]}>
 
-                <TouchableOpacity style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}>
+                <TouchableOpacity
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+
+                  onPress={() => {
+                    this.privateMessageUser(this.state.user.uid, global.uid, this.state.user.displayName || this.state.user.firstName + " " + this.state.user.lastName)
+                  }}
+                >
                   <View
                     style={{
                       backgroundColor: "#4CAF50",
@@ -200,18 +208,14 @@ export default class UserProfile extends Component {
                       width: 50,
                       alignItems: "center",
                       justifyContent: "center",
-                      borderRadius: 50 / 2,
+                      borderTopLeftRadius: 50 / 2,
                       shadowColor: "#000000",
                       shadowOpacity: 0.8,
                       shadowRadius: 2,
                       shadowOffset: {
                         height: 1,
-                        width: 0,
+                        width: 1,
                       }
-                    }}
-                    underlayColor="#ff7043"
-                    onPress={() => {
-                      this.privateMessageUser(this.state.user.uid, global.uid, this.state.user.displayName || this.state.user.firstName + " " + this.state.user.lastName)
                     }}
                   >
                     <MaterialIcons name="message" size={25} color={"white"} />
