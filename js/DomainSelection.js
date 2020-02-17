@@ -155,7 +155,14 @@ export default class DomainSelection extends Component {
 
 
         <View
-          style={{ borderRadius: 25, borderWidth: 1, margin: 12, borderColor: "#e5e6eb", backgroundColor: "#f8f8fa", height: 340, zIndex: 1 }}
+          style={{
+            borderTopLeftRadius: 25, borderTopRightRadius: 25, borderWidth: 1, margin: 12, borderColor: "#e5e6eb", backgroundColor: "#f8f8fa", height: 340, zIndex: 1,
+            shadowColor: "rgba(0,0,0, .4)",
+            shadowOffset: { width: 1, height: 1 },
+            shadowOpacity: 0.8,
+            shadowRadius: 1,
+            elevation: 5
+          }}
         >
           <FlatList
             style={{ overflow: "hidden" }}
@@ -209,7 +216,8 @@ const styles = StyleSheet.create({
   searchContainer: {
     backgroundColor: "#fff",
     borderWidth: 0,
-    borderRadius: 25,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
     borderBottomColor: 'transparent',
     borderTopColor: 'transparent',
     overflow: "hidden",
