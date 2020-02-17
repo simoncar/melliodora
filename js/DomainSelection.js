@@ -113,6 +113,7 @@ export default class DomainSelection extends Component {
           selected ?
             <Animated.View style={{
               position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "#96ceb4",
+              zIndex: -2,
               width: this.selectedBGWidth.interpolate({
                 inputRange: [0, 1],
                 outputRange: [0, this.highlightwidth]
@@ -152,15 +153,24 @@ export default class DomainSelection extends Component {
           Select Community
         </Text>
 
-        <FlatList
-          style={{ borderRadius: 25, borderWidth: 1, margin: 12, borderColor: "#e5e6eb", backgroundColor: "#f8f8fa", height: 340, }}
-          data={this.state.domains}
-          renderItem={this.renderItem}
-          keyExtractor={(_, idx) => "domain" + idx}
-          ItemSeparatorComponent={this.renderSeparator}
-          ListHeaderComponent={this.renderHeader}
-          bounces={false}
-        />
+
+        <View
+          style={{ borderRadius: 25, borderWidth: 1, margin: 12, borderColor: "#e5e6eb", backgroundColor: "#f8f8fa", height: 340, zIndex: 1 }}
+        >
+          <FlatList
+            style={{ overflow: "hidden" }}
+            data={this.state.domains}
+            renderItem={this.renderItem}
+            keyExtractor={(_, idx) => "domain" + idx}
+            ItemSeparatorComponent={this.renderSeparator}
+            ListHeaderComponent={this.renderHeader}
+            bounces={false}
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponentStyle={{ overflow: "hidden" }}
+            stickyHeaderIndices={[0]}
+          />
+        </View>
+
         <Button
           title="Select"
           style={{ marginTop: 26 }}
@@ -178,28 +188,31 @@ export default class DomainSelection extends Component {
 }
 
 const styles = StyleSheet.create({
-  picker: {
-    // flex: 1,
-    width: "100%",
-    height: 300,
-    marginBottom: 30,
-  },
   item: {
     padding: 12,
+    zIndex: -1,
+    overflow: "hidden"
   },
   title: {
     fontSize: 14,
     color: "#222",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    overflow: "hidden",
+    zIndex: -1
   },
   subtitle: {
     fontSize: 11,
-    color: "#70757a"
+    color: "#70757a",
+    overflow: "hidden",
+    zIndex: -1
   },
   searchContainer: {
     backgroundColor: "#fff",
     borderWidth: 0,
+    borderRadius: 25,
     borderBottomColor: 'transparent',
-    borderTopColor: 'transparent'
+    borderTopColor: 'transparent',
+    overflow: "hidden",
+    zIndex: -1
   }
 });

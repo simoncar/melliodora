@@ -246,6 +246,7 @@ class HomeNav extends Component {
                   bounces={false}
                   contentContainerStyle={{ paddingHorizontal: 12, paddingVertical: 8 }}
                   style={{ backgroundColor: "white", marginVertical: 6 }}
+                  showsHorizontalScrollIndicator={false}
                 >
                   <TouchableOpacity
                     style={styles.homeMenuItemContainer}

@@ -98,7 +98,9 @@ class ListItem extends Component {
           width: "98%",
           alignSelf: "center",
           borderWidth: 1,
-          borderColor: "lightgray"
+          borderColor: "lightgray",
+          borderTopLeftRadius: 25,
+          borderTopRightRadius: 25
         }}>
         <View
           style={{
@@ -121,7 +123,7 @@ class ListItem extends Component {
               <View>
                 <Text
                   numberOfLines={2}
-                  ellipsizeMode="clip"
+                  ellipsizeMode="tail"
                   style={{
                     width: width - 120 - rightMargin,
                     justifyContent: "center",
@@ -141,10 +143,10 @@ class ListItem extends Component {
             </View>
             <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", alignItems: "center" }}>
               {showIconChat && (
-                <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+                <SimpleLineIcons name="bubble" size={25} color="black" style={{ marginRight: 8 }} />
               )}
 
-              <Ionicons name="ios-more" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
+              <Ionicons name="ios-more" size={25} color="black" style={{ marginRight: 8 }} />
             </View>
           </TouchableOpacity>
         </View>

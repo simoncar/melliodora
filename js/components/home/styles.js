@@ -225,8 +225,6 @@ export default {
     borderTopColor: "#ddd",
   },
   newsContentLine: {
-    borderTopWidth: 1,
-    borderTopColor: "#ddd",
     backgroundColor: "#f2f2f2",
   },
 
