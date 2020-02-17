@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Picker, SafeAreaView, StyleSheet, Button, FlatList, TouchableOpacity, Animated, Easing, TouchableHighlight } from "react-native";
+import { View, Text, Picker, SafeAreaView, StyleSheet, Button, FlatList, TouchableOpacity, Animated, Easing, TouchableHighlight, Alert } from "react-native";
 import { iOSUIKit, iOSColors } from "react-native-typography";
 import _ from "lodash";
 import { SearchBar } from "react-native-elements";
@@ -45,7 +45,8 @@ export default class DomainSelection extends Component {
 
   searchFilterFunction = text => {
     this.setState({
-      searchTerm: text,
+      selectedDomain: null,
+      searchTerm: text
     });
 
     const allDomains = this.state.allDomains;
@@ -75,7 +76,7 @@ export default class DomainSelection extends Component {
   renderHeader = () => {
     return (
       <SearchBar
-        placeholder={this.state.loadingMessage}
+        placeholder="Search Community"
         // ref={search => (this.search = search)}
         lightTheme
         round
@@ -163,7 +164,13 @@ export default class DomainSelection extends Component {
         <Button
           title="Select"
           style={{ marginTop: 26 }}
-          onPress={() => this.props.setSelectedDomain(this.state.selectedDomain || this.props.domains[0].node)}
+          onPress={() => {
+            if (!this.state.selectedDomain) {
+              Alert.alert('Please select a community');
+            } else {
+              this.props.setSelectedDomain(this.state.selectedDomain || this.props.domains[0].node)
+            }
+          }}
         />
       </SafeAreaView>
     );
