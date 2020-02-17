@@ -87,17 +87,14 @@ class chatRooms extends Component {
           const item = doc.data();
 
           if (item.visible == false) return;
-
-          console.log()
           if (
             (item.type == "private" && item.members.indexOf(global.uid + "") > -1)
             || (item.type == "interestGroup" && (userInterestGroups && userInterestGroups.indexOf(item.title) > -1))
             || (["users", "public"].indexOf(item.type) > -1)
           ) {
             userChatrooms.push({
-              chatroom: doc.id,
-              title: item.title,
-              type: item.type
+              ...item,
+              chatroom: doc.id
             });
           }
 
@@ -126,11 +123,8 @@ class chatRooms extends Component {
   _renderItem({ item }) {
     return (
       <ChatroomItem
+        {...item}
         navigation={this.props.navigation}
-        chatroom={item.chatroom}
-        title={item.title}
-        type={item.type}
-        item={item}
       />
     );
   }

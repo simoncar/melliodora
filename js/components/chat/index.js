@@ -19,6 +19,8 @@ import Analytics from "../../lib/analytics";
 import * as firebase from "firebase";
 import { ListItem } from "react-native-elements";
 import { LinearGradient } from 'expo-linear-gradient';
+import SettingsListItem from "../settings/SettingsListItem";
+
 
 
 var localMessages = [];
@@ -136,11 +138,34 @@ class chat extends Component {
     });
     return data;
   };
+
+
+  _getPrivateChatUsers = async (members) => {
+    const data = [];
+    const querySnapshot = await firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("user")
+      .collection("registered")
+      .where("uid", "in", members)
+      .get();
+
+    querySnapshot.docs.forEach(doc => {
+
+      data.push(doc.data());
+    });
+    return data;
+  };
+
   loadChatUsers = () => {
     if (this.props.type == "interestGroup") {
       this._getInterestGroupUsers()
         .then(data => this.setState({ chatroomUsers: data }));
+    } else if (this.props.type == "private") {
+      this._getPrivateChatUsers(this.props.members)
+        .then(data => this.setState({ chatroomUsers: data }));
     }
+
   }
 
   _renderUsersItem({ item, index }) {
@@ -356,7 +381,6 @@ class chat extends Component {
       {
         options: BUTTONS,
         cancelButtonIndex: CANCEL_INDEX,
-        // destructiveButtonIndex: DESTRUCTIVE_INDEX,
         title: "Options",
       },
 
@@ -366,7 +390,6 @@ class chat extends Component {
             this.setState({ modalVisible: true });
             break;
           case 1:
-            //edit subject
             navigation.push("chatTitle", {
               title: navigation.getParam("title"),
               chatroom: navigation.getParam("chatroom"),
@@ -444,9 +467,7 @@ class chat extends Component {
             animationType="slide"
             transparent={false}
             visible={this.state.modalVisible}
-            onRequestClose={() => {
-              Alert.alert('Modal has been closed.');
-            }}>
+          >
             <View style={{ marginTop: 22, backgroundColor: "#f2f2f2", flex: 1 }}>
               <LinearGradient
                 colors={['#4c669f', '#3b5998', '#192f6a']}
@@ -480,14 +501,27 @@ class chat extends Component {
               <View style={{ backgroundColor: "#fff", marginTop: 12 }}>
                 <Text style={{ padding: 12, fontSize: 18 }} >Chatroom users ({this.state.chatroomUsers.length})</Text>
                 {this.renderSeparator()}
-                <FlatList
-                  style={{ height: "70%" }}
-                  data={this.state.chatroomUsers}
-                  renderItem={this._renderUsersItem.bind(this)}
-                  keyExtractor={(_, idx) => "user" + idx}
-                  ItemSeparatorComponent={this.renderSeparator}
-                // ListHeaderComponent={this.renderSeparator}
-                />
+
+                {
+                  ["users", "public"].indexOf(this.props.type) > -1 ?
+                    <SettingsListItem
+                      title={"All Users"}
+                      onPress={() => {
+                        this.setState({ modalVisible: false });
+                        this.props.navigation.navigate("UserSearch");
+                      }}
+                    />
+                    :
+                    <FlatList
+                      style={{ height: "70%" }}
+                      data={this.state.chatroomUsers}
+                      renderItem={this._renderUsersItem.bind(this)}
+                      keyExtractor={(_, idx) => "user" + idx}
+                      ItemSeparatorComponent={this.renderSeparator}
+                    // ListHeaderComponent={this.renderSeparator}
+                    />
+                }
+
               </View>
 
             </View>

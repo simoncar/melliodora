@@ -19,6 +19,7 @@ class ChatroomItem extends Component {
   }
 
   render() {
+    console.log("this.props.members", this.props);
     return (
       <View style={styles.newsContentLine}>
         <TouchableOpacity
@@ -30,7 +31,8 @@ class ChatroomItem extends Component {
               contact: this.props.contact,
               url: this.props.url,
               language: this.props.language,
-              type: this.props.type
+              type: this.props.type,
+              members: this.props.members
             });
           }}
         >
