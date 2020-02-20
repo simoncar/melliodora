@@ -34,6 +34,7 @@
     "expo": "^35.0.0",
     "expo-analytics-amplitude": "~7.0.0",
     "expo-asset-utils": "^1.1.1",
+    "expo-blur": "^8.0.0",
     "expo-camera": "~7.0.0",
     "expo-constants": "~7.0.0",
     "expo-file-system": "~7.0.0",
