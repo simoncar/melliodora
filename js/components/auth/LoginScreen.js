@@ -6,10 +6,10 @@ import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
 
 export default class LoginScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: "Login",
-    headerBackTitle: null,
-  });
+
+  static navigationOptions = {
+    header: null,
+  };
 
   state = { email: "", password: "", errorMessage: null };
   handleLogin = () => {

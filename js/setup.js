@@ -10,6 +10,7 @@ import * as Font from "expo-font";
 import _ from "lodash";
 import "@firebase/firestore";
 import Firebase from "./lib/firebase";
+import AuthStackNavigator from "./AuthStackNavigator";
 import DomainSelection from "./DomainSelection";
 import * as firebase from "firebase";
 import Constants from "expo-constants";
@@ -157,7 +158,13 @@ export default class Setup extends Component {
       return <AppLoading />;
     }
     else if (!this.state.selectedDomain) {
-      return <DomainSelection setSelectedDomain={this.setSelectedDomain} domains={this.domains} />;
+      return <AuthStackNavigator
+        screenProps={{
+          handler: () => { sds: "sds" },
+          domains: this.domains,
+          setSelectedDomain: this.setSelectedDomain
+        }}
+      />
     } else {
       return <SetupEnv />;
     }

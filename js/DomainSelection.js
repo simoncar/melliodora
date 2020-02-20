@@ -179,7 +179,7 @@ export default class DomainSelection extends Component {
         </View>
 
         <Button
-          title="Select"
+          title="Confirm"
           style={{ marginTop: 26 }}
           onPress={() => {
             if (!this.state.selectedDomain) {
@@ -189,6 +189,15 @@ export default class DomainSelection extends Component {
             }
           }}
         />
+
+
+        <TouchableOpacity
+          style={styles.SubmitButtonStyle}
+          activeOpacity={0.5}
+          onPress={() => this.props.navigation.navigate("Register")}
+        >
+          <Text style={styles.TextStyle}>Sign Up</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
@@ -222,5 +231,9 @@ const styles = StyleSheet.create({
     borderTopColor: 'transparent',
     overflow: "hidden",
     zIndex: -1
-  }
+  },
+  TextStyle: {
+    color: "#636366",
+    textAlign: "center",
+  },
 });
