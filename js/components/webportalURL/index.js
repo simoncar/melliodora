@@ -9,7 +9,7 @@ var WEBVIEW_REF = "webview";
 class WebportalSports extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.getParam("title"),
-    headerBackTitle: null,
+    headerBackTitle: null
   });
 
   constructor(props) {
@@ -17,7 +17,7 @@ class WebportalSports extends Component {
   }
 
   componentDidMount() {
-    Analytics.track("Web Portal", { url: this.props.url });
+    Analytics.track("Web Portal", { url: this.state.url });
   }
 
   state = {
@@ -27,7 +27,7 @@ class WebportalSports extends Component {
     forwardButtonEnabled: false,
     loading: true,
     cookies: {},
-    webViewUrl: "",
+    webViewUrl: ""
   };
 
   onNavigationStateChange = navState => {
@@ -48,7 +48,10 @@ class WebportalSports extends Component {
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>
-              <TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
+              <TouchableOpacity
+                disabled={!this.state.canGoBack}
+                onPress={this.onBack.bind(this)}
+              >
                 <Ionicons style={styles.navIcon} name="ios-arrow-back" />
               </TouchableOpacity>
 
@@ -65,13 +68,7 @@ class WebportalSports extends Component {
             </View>
 
             <WebView
-              source={{ uri: this.state.url }}
-              javaScriptEnabled={true}
-              automaticallyAdjustContentInsets={false}
-              onNavigationStateChange={this.onNavigationStateChange.bind(this)}
-              domStorageEnabled={true}
-              startInLoadingState={true}
-              ref={WEBVIEW_REF}
+              source={{ uri: "https://github.com/facebook/react-native" }}
             />
           </View>
         </View>
