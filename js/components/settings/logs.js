@@ -21,7 +21,7 @@ class logs extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     var logs = [];
 
     let logRef = firebase

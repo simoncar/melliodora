@@ -16,17 +16,15 @@ export default class FeatureMoreItems extends Component {
     };
   }
 
-  componentWillMount() {
-    this.ref = firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("feature")
-      .collection("features")
-      .orderBy("order");
-  }
-
   componentDidMount() {
     try {
+
+      this.ref = firebase
+        .firestore()
+        .collection(global.domain)
+        .doc("feature")
+        .collection("features")
+        .orderBy("order");
       // TODO: isOnline.
       this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
     } catch (e) {

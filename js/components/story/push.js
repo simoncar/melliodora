@@ -46,7 +46,7 @@ class push extends Component {
     ),
   });
 
-  componentWillMount() {
+  componentDidMount() {
     var initialText = this.props.summary;
 
     if (_.isString(this.props.description)) {
@@ -56,9 +56,7 @@ class push extends Component {
     var initialDate = this.state.start_date;
 
     this.setState({ initialText: initialText });
-  }
 
-  componentDidMount() {
     this.props.navigation.setParams({
       pushSend: this.pushSend,
     });

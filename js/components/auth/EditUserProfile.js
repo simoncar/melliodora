@@ -19,7 +19,7 @@ class EditUserProfile extends Component {
     user: {}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { uid, user } = this.props.navigation.state.params;
     console.log("uid", uid);
 

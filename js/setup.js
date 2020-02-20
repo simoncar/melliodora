@@ -51,7 +51,7 @@ export default class Setup extends Component {
     return domainData;
   };
 
-  async componentWillMount() {
+  async componentDidMount() {
     try {
       await Firebase.initialise();
     } catch (e) {
@@ -173,7 +173,7 @@ class SetupEnv extends Component {
     };
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     await AsyncStorage.getItem("language").then(language => {
       if (!_.isString(language)) {
         language = "en";

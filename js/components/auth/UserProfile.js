@@ -46,7 +46,7 @@ export default class UserProfile extends Component {
   state = {
     user: {}
   }
-  componentWillMount() {
+  componentDidMount() {
     const { uid, user } = this.props.navigation.state.params;
 
     this.showChat = uid != global.uid;

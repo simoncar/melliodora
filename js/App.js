@@ -6,7 +6,6 @@ import registerForPush from "./lib/registerForPushNotificationsAsync";
 import Analytics from "./lib/analytics";
 
 class App extends Component {
-  componentWillMount() {}
 
   componentDidMount() {
     this._notificationSubscription = this._registerForPushNotifications();
@@ -17,7 +16,7 @@ class App extends Component {
     this._notificationSubscription && this._notificationSubscription.remove();
   }
 
-  _handleNotification = ({ origin, data }) => {};
+  _handleNotification = ({ origin, data }) => { };
 
   _registerForPushNotifications() {
     registerForPush.reg(global.name);

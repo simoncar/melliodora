@@ -26,13 +26,11 @@ class chatRooms extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.navigation.setParams({
       refresh: this.refresh,
     });
-  }
 
-  componentDidMount() {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener("didFocus", () => {
       // The screen is focused

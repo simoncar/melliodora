@@ -55,6 +55,14 @@ class authPortal extends Component {
   }
 
   componentDidMount() {
+    if (Constants.manifest.extra.instance == "sais_edu_sg") {
+      this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
+
+      this.setState({ showMsg: true }, () =>
+        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000),
+      );
+    }
+
     this.props.navigation.setParams({
       _onOpenActionSheet: this._onOpenActionSheet,
       reload: this.reload,
@@ -128,16 +136,6 @@ class authPortal extends Component {
     this.webref.reload();
   };
 
-  componentWillMount() {
-    if (Constants.manifest.extra.instance == "sais_edu_sg") {
-      this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
-
-      this.setState({ showMsg: true }, () =>
-        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000),
-      );
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.visible) {
       this.setState({ visible: true });
@@ -147,7 +145,7 @@ class authPortal extends Component {
   handleMessage(message) {
     var authName = AuthParser.extractLoginUsername(message.nativeEvent.data);
     var authEmail = AuthParser.extractLoginEmail(message.nativeEvent.data);
-        var authID = AuthParser.extractLoginID(message.nativeEvent.data);
+    var authID = AuthParser.extractLoginID(message.nativeEvent.data);
     var authRole = AuthParser.extractLoginRole(message.nativeEvent.data);
     AuthParser.saveDetails(authName, authEmail, authRole, authID);
   }
@@ -253,7 +251,7 @@ export default class AppContainer extends React.Component {
   render() {
     return (
       <ActionSheetProvider>
-               <ConnectedApp />
+        <ConnectedApp />
       </ActionSheetProvider>
     );
   }

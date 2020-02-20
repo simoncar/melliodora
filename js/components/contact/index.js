@@ -48,14 +48,11 @@ export default class Contact extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this._retrieveContactInfo();
     this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
       this._retrieveContactInfo();
     });
-  }
-
-  componentDidMount() {
     Analytics.track("Contact");
   }
 

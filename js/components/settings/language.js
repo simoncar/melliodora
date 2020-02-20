@@ -22,11 +22,9 @@ export default class selectLanguage extends Component {
     headerBackTitle: null,
   };
 
-  componentWillMount() {
-    this._retrieveLanguage();
-  }
 
   componentDidMount() {
+    this._retrieveLanguage();
     Analytics.track("Language");
   }
 

@@ -222,7 +222,7 @@ export default class ContactAdmin extends React.Component {
     });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.navigation.setParams({
       saveEditContacts: this.saveEditContacts,
     });

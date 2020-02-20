@@ -90,16 +90,14 @@ class HomeNav extends Component {
     };
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.feature = firebase
       .firestore()
       .collection(global.domain)
       .doc("feature")
       .collection("features")
       .orderBy("order");
-  }
 
-  componentDidMount() {
     Analytics.track("Home");
     this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
 
