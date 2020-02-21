@@ -69,6 +69,13 @@ https://github.com/simoncar/melliodora/blob/master/.github/workflows/main.yml
 
 `expo build:ios --config apps/app.sais_edu_sg.json`
 
+## upload
+
+`expo upload:ios --config apps/app.generic.json`
+
+`expo upload:ios --config apps/app.sais_edu_sg.json`
+
+
 ## Google Play (Android)
 
 `expo build:android --config apps/app.generic.json`
