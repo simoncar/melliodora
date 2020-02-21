@@ -65,7 +65,7 @@ https://github.com/simoncar/melliodora/blob/master/.github/workflows/main.yml
 
 ## App Store (iOS)
 
-`expo build:android --config apps/app.generic.json`
+`expo build:ios --config apps/app.generic.json`
 
 `expo build:ios --config apps/app.sais_edu_sg.json`
 
