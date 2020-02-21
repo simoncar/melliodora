@@ -171,7 +171,8 @@ class HomeNav extends Component {
   }
 
   loadCalendar() {
-    const todayDate = moment().format("YYYY-MM-DD");
+    //const todayDate = moment().format("YYYY-MM-DD");
+    const todayDate = "2020-02-19";
 
     var calendarItems = [];
     let calendar = firebase
@@ -284,7 +285,15 @@ class HomeNav extends Component {
   };
 
   _renderItem(item) {
-    return <ListItem navigation={this.props.navigation} item={item} />;
+    return (
+      <ListItem navigation={this.props.navigation} item={item} card={true} />
+    );
+  }
+
+  _renderItemNoCard(item) {
+    return (
+      <ListItem navigation={this.props.navigation} item={item} card={false} />
+    );
   }
   _renderBalance() {
     // return (
@@ -438,13 +447,13 @@ class HomeNav extends Component {
 
           <View style={styles.newsContentLine}>
             {this._renderBalance()}
-            {global.domain !== "ais_edu_sg" ? (
+            <View style={styles.card}>
               <FlatList
                 data={this.state.calendarItems}
                 keyExtractor={this.keyExtractor}
-                renderItem={this._renderItem.bind(this)}
+                renderItem={this._renderItemNoCard.bind(this)}
               />
-            ) : null}
+            </View>
 
             <FlatList
               data={this.state.featureItems}
