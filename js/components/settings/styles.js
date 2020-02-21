@@ -7,28 +7,28 @@ export default {
     width: Dimensions.get("window").width,
     paddingLeft: 15,
     paddingRight: 15,
-    marginLeft: Platform.OS === "ios" ? undefined : -30,
+    marginLeft: Platform.OS === "ios" ? undefined : -30
   },
   rowHeader: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignSelf: "stretch",
-    paddingTop: Platform.OS === "android" ? 0 : 0,
+    paddingTop: Platform.OS === "android" ? 0 : 0
   },
   btnHeader: {
-    alignSelf: "center",
+    alignSelf: "center"
   },
 
   newsContentLine: {
     borderTopWidth: 1,
-    borderTopColor: "#ddd",
+    borderTopColor: "#ddd"
   },
   itemTitle: {
     flex: 1,
     fontSize: 18,
     justifyContent: "center",
     alignItems: "center",
-    color: "black",
-  },
+    color: "black"
+  }
 };

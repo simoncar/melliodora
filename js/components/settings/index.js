@@ -1,5 +1,15 @@
 import React, { Component } from "react";
-import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight, ScrollView, Text, TouchableOpacity } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  View,
+  Alert,
+  AsyncStorage,
+  TouchableHighlight,
+  ScrollView,
+  Text,
+  TouchableOpacity
+} from "react-native";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -16,13 +26,13 @@ const icons = {
   contact: require("./images/contact.png"),
   library: require("./images/library.png"),
   map: require("./images/map.png"),
-  shop: require("./images/shop.png"),
+  shop: require("./images/shop.png")
 };
 
 class Settings extends Component {
   static navigationOptions = {
     title: I18n.t("more"),
-    headerBackTitle: null,
+    headerBackTitle: null
   };
 
   constructor(props) {
@@ -31,18 +41,16 @@ class Settings extends Component {
     this.state = {
       user: null,
       language: "",
-      features: global.moreFeatures || [],
+      features: global.moreFeatures || []
     };
   }
 
   _retrieveFeatures = async () => {
     try {
-
-      const d = await AsyncStorage.getItem("moreFeatures")
+      const d = await AsyncStorage.getItem("moreFeatures");
       const features = JSON.parse(d);
 
       this.setState({ features: features || [] });
-
 
       console.log("retrivin features");
       if (!global.moreFeatures) {
@@ -56,7 +64,10 @@ class Settings extends Component {
           const docData = doc.data();
           if (docData.moreListings) {
             global.moreFeatures = docData.moreListings;
-            AsyncStorage.setItem("moreFeatures", JSON.stringify(docData.moreListings));
+            AsyncStorage.setItem(
+              "moreFeatures",
+              JSON.stringify(docData.moreListings)
+            );
             this.setState({ features: docData.moreListings });
           }
         } else {
@@ -65,8 +76,6 @@ class Settings extends Component {
           this.setState({ features: [] });
         }
       }
-
-
     } catch (error) {
       // Error retrieving data
     }
@@ -77,10 +86,13 @@ class Settings extends Component {
     this._retrieveLanguage();
     this._retrieveGradeSelectors();
 
-    this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
-      this.setState({ features: global.moreFeatures || [] });
-      this._getUser();
-    });
+    this.willFocusSubscription = this.props.navigation.addListener(
+      "willFocus",
+      () => {
+        this.setState({ features: global.moreFeatures || [] });
+        this._getUser();
+      }
+    );
     this._getUser();
     Analytics.track("More");
   }
@@ -93,13 +105,11 @@ class Settings extends Component {
     const user = firebase.auth().currentUser;
 
     if (user) {
-      user.getIdTokenResult()
-        .then((idTokenResult) => {
-          if (idTokenResult.claims[global.domain]) {
-            this.setState({ user: user });
-          }
-        });
-
+      user.getIdTokenResult().then(idTokenResult => {
+        if (idTokenResult.claims[global.domain]) {
+          this.setState({ user: user });
+        }
+      });
     } else {
       // No user is signed in.
     }
@@ -127,8 +137,6 @@ class Settings extends Component {
     }
   };
 
-
-
   _logout() {
     AsyncStorage.clear().then(() => {
       global = {};
@@ -139,13 +147,19 @@ class Settings extends Component {
     });
   }
 
-
   _renderUser() {
     const user = this.state.user;
     if (_.has(user, "email") && user.email) {
       const email = user.email;
       return (
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("UserProfile", { uid: user.uid, permitEdit: true })}>
+        <TouchableOpacity
+          onPress={() =>
+            this.props.navigation.navigate("UserProfile", {
+              uid: user.uid,
+              permitEdit: true
+            })
+          }
+        >
           <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>
               Logged in as
@@ -155,16 +169,21 @@ class Settings extends Component {
             </Text>
           </View>
         </TouchableOpacity>
-      )
+      );
     } else {
       return (
         <SettingsListItem
           hasNavArrow={false}
-          icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
+          icon={
+            <Image
+              style={styles.imageStyle}
+              source={require("./images/dnd.png")}
+            />
+          }
           title={I18n.t("Sign In") + "/" + I18n.t("Sign Up")}
           onPress={() => this.props.navigation.navigate("login")}
         />
-      )
+      );
     }
   }
 
@@ -180,9 +199,16 @@ class Settings extends Component {
           <TouchableHighlight
             style={styles.adminButton}
             underlayColor="#ff7043"
-            onPress={() => this.props.navigation.navigate("moreAdmin", { moreFeatures: this.state.features })}
+            onPress={() =>
+              this.props.navigation.navigate("moreAdmin", {
+                moreFeatures: this.state.features
+              })
+            }
           >
-            <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
+            <MaterialIcons
+              name="edit"
+              style={{ fontSize: 25, color: "white" }}
+            />
           </TouchableHighlight>
         )}
 
@@ -190,12 +216,20 @@ class Settings extends Component {
           {this._renderUser()}
           <Seperator />
           <SettingsListItem
-            icon={<MaterialIcons name="search" style={{ fontSize: 25, color: "white" }} />}
+            icon={
+              <MaterialIcons
+                name="search"
+                style={{ fontSize: 25, color: "white" }}
+              />
+            }
             title={I18n.t("Search Users")}
             onPress={() => this.props.navigation.navigate("UserSearch")}
           />
 
-          <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
+          <FeatureMoreItems
+            navigation={this.props.navigation}
+            show="visibleMore"
+          />
 
           <Seperator />
           {this.state.features
@@ -204,9 +238,9 @@ class Settings extends Component {
               const navTitle = el.navTitle || el.title;
               const navProps = el.navURL
                 ? {
-                  url: el.navURL,
-                  title: I18n.t(navTitle, { defaultValue: navTitle }),
-                }
+                    url: el.navURL,
+                    title: I18n.t(navTitle, { defaultValue: navTitle })
+                  }
                 : {};
 
               const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
@@ -214,23 +248,38 @@ class Settings extends Component {
                 <SettingsListItem
                   key={"feature" + idx}
                   icon={<Image style={styles.imageStyle} source={imgSource} />}
-                  title={I18n.t(el.title || "", { defaultValue: el.title || "" })}
+                  title={I18n.t(el.title || "", {
+                    defaultValue: el.title || ""
+                  })}
                   titleInfo={el.titleInfo || ""}
-                  titleInfoStyle={styles.titleInfoStyle}
-                  onPress={() => this.props.navigation.navigate(el.navigate || "webportalURL", navProps)}
+                  onPress={() =>
+                    this.props.navigation.navigate(
+                      el.navigate || "webportalURL",
+                      navProps
+                    )
+                  }
                 />
               );
             })}
 
           <SettingsListItem
-            icon={<Image style={styles.imageStyle} source={require("./images/general.png")} />}
+            icon={
+              <Image
+                style={styles.imageStyle}
+                source={require("./images/general.png")}
+              />
+            }
             title={languageTitle}
             titleInfo={this.state.language}
-            titleInfoStyle={styles.titleInfoStyle}
             onPress={() => this.props.navigation.navigate("selectLanguage")}
           />
           <SettingsListItem
-            icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
+            icon={
+              <Image
+                style={styles.imageStyle}
+                source={require("./images/airplane.png")}
+              />
+            }
             hasNavArrow={true}
             title={I18n.t("adminAccess")}
             onPress={() => this.props.navigation.navigate("adminPassword")}
@@ -239,7 +288,12 @@ class Settings extends Component {
 
           {isAdmin(this.props.adminPassword) && (
             <SettingsListItem
-              icon={<Image style={styles.imageStyle} source={require("./images/memory.png")} />}
+              icon={
+                <Image
+                  style={styles.imageStyle}
+                  source={require("./images/memory.png")}
+                />
+              }
               title={I18n.t("editor")}
               onPress={() => this.props.navigation.navigate("Content")}
             />
@@ -249,18 +303,28 @@ class Settings extends Component {
 
           <SettingsListItem
             hasNavArrow={false}
-            icon={<Image style={styles.imageStyle} source={require("./images/about.png")} />}
+            icon={
+              <Image
+                style={styles.imageStyle}
+                source={require("./images/about.png")}
+              />
+            }
             title={I18n.t("About this App")}
             onPress={() => {
               this.props.navigation.navigate("webportalURL", {
                 url: "https://smartcookies.io/smart-community",
-                title: "About this App",
+                title: "About this App"
               });
             }}
           />
           <SettingsListItem
             hasNavArrow={false}
-            icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
+            icon={
+              <Image
+                style={styles.imageStyle}
+                source={require("./images/dnd.png")}
+              />
+            }
             title={I18n.t("logout")}
             onPress={() => this._logout()}
           />
@@ -279,7 +343,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     alignSelf: "center",
     height: 30,
-    width: 30,
+    width: 30
   },
   imageStyleCheckOn: {
     marginLeft: 15,
@@ -287,7 +351,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    color: "#007AFF",
+    color: "#007AFF"
   },
   imageStyleCheckOff: {
     marginLeft: 15,
@@ -295,12 +359,12 @@ const styles = StyleSheet.create({
     height: 30,
     fontSize: 30,
     width: 30,
-    color: "#FFF",
+    color: "#FFF"
   },
 
   titleInfoStyle: {
     fontSize: 18,
-    color: "#8e8e93",
+    color: "#8e8e93"
   },
   adminButton: {
     backgroundColor: "#ff5722",
@@ -319,9 +383,9 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOffset: {
       height: 1,
-      width: 0,
+      width: 0
     },
-    zIndex: 1,
+    zIndex: 1
   },
   titleContainer: {
     paddingHorizontal: 15,
@@ -336,7 +400,7 @@ const styles = StyleSheet.create({
   sectionContentText: {
     color: "#808080",
     fontSize: 14
-  },
+  }
 });
 
 class Seperator extends Component {
@@ -347,7 +411,7 @@ class Seperator extends Component {
           height: 1,
           width: "100%",
           backgroundColor: "#CED0CE",
-          marginTop: 30,
+          marginTop: 30
         }}
       />
     );
