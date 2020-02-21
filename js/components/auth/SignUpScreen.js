@@ -59,21 +59,35 @@ class SignUpScreen extends Component {
                 });
 
                 console.log("userCredential.user.uid", userCredential.user.uid)
+
+                const communityJoined = global.domain ? [global.domain] : [];
                 const userDict = {
                   photoURL: downloadURL,
                   email: userCredential.user.email,
                   uid: userCredential.user.uid,
                   displayName: this.state.displayName,
                   firstName: this.state.firstName,
-                  lastName: this.state.lastName
+                  lastName: this.state.lastName,
                 }
+
+                // create global registerd user
                 firebase
                   .firestore()
-                  .collection(global.domain)
-                  .doc("user")
-                  .collection("registered")
+                  .collection("registeredUsers")
                   .doc(userCredential.user.uid)
-                  .set(userDict, { merge: true });
+                  .set({ ...userDict, communityJoined }, { merge: true });
+
+                // create domain specific user
+                if (global.domain) {
+                  firebase
+                    .firestore()
+                    .collection(global.domain)
+                    .doc("user")
+                    .collection("registered")
+                    .doc(userCredential.user.uid)
+                    .set(userDict, { merge: true });
+                }
+
               })
               .catch(error => this.setState({ errorMessage: error.message, loading: false }));
           }

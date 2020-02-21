@@ -7,18 +7,23 @@ import firebase from "firebase";
 
 export default class LoginScreen extends Component {
 
-  static navigationOptions = {
-    header: null,
-  };
-
   state = { email: "", password: "", errorMessage: null };
-  handleLogin = () => {
-    const { email, password } = this.state;
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.popToTop())
-      .catch(error => this.setState({ errorMessage: error.message }));
+  handleLogin = async () => {
+
+    try {
+      const { email, password } = this.state;
+      await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password);
+      if (global.domain) {
+        this.props.navigation.popToTop();
+      } else {
+        this.props.navigation.push("welcome screen");
+      }
+
+    } catch (error) {
+      this.setState({ errorMessage: error.message });
+    }
   };
 
 

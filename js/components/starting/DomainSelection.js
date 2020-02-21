@@ -17,6 +17,7 @@ export default class DomainSelection extends Component {
   }
 
   componentDidMount() {
+    console.log("this.props", this.props);
     this.setState({ domains: this.props.domains, allDomains: this.props.domains })
   }
 
@@ -191,13 +192,13 @@ export default class DomainSelection extends Component {
         />
 
 
-        <TouchableOpacity
-          style={styles.SubmitButtonStyle}
-          activeOpacity={0.5}
-          onPress={() => this.props.navigation.navigate("Register")}
-        >
-          <Text style={styles.TextStyle}>Sign Up</Text>
-        </TouchableOpacity>
+        <Button
+          title="Create Community"
+          style={{ marginTop: 26 }}
+          onPress={() => {
+            this.props.navigation.push("preWelcome")
+          }}
+        />
       </SafeAreaView>
     );
   }

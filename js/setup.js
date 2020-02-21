@@ -11,7 +11,6 @@ import _ from "lodash";
 import "@firebase/firestore";
 import Firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
-import DomainSelection from "./DomainSelection";
 import * as firebase from "firebase";
 import Constants from "expo-constants";
 import * as Localization from "expo-localization";
@@ -160,7 +159,6 @@ export default class Setup extends Component {
     else if (!this.state.selectedDomain) {
       return <AuthStackNavigator
         screenProps={{
-          handler: () => { sds: "sds" },
           domains: this.domains,
           setSelectedDomain: this.setSelectedDomain
         }}
