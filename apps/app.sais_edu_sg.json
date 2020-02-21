@@ -2,8 +2,8 @@
   "name": "Stamford",
   "displayName": "Stamford",
   "expo": {
-    "version": "19.1.33",
-    "sdkVersion": "33.0.0",
+    "version": "20.0.36",
+    "sdkVersion": "36.0.0",
     "icon": "./resources/sais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
     "slug": "myStamford",
     "name": "Stamford",
@@ -44,7 +44,7 @@
     },
     "android": {
       "package": "com.softmowertrain.parent.mystamford",
-      "versionCode": 19,
+      "versionCode": 20,
       "permissions": [
         "READ_CALENDAR",
         "WRITE_CALENDAR"

@@ -4,10 +4,10 @@ import {
   Animated,
   TextInput,
   TouchableOpacity,
-  WebView,
   View,
   Text
 } from "react-native";
+import { WebView } from "react-native-webview";
 import { Container } from "native-base";
 import {
   connectActionSheet,
@@ -74,7 +74,12 @@ class authPortal extends Component {
       this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
 
       this.setState({ showMsg: true }, () =>
-        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000),
+        timer.setTimeout(
+          this,
+          "hideMsg",
+          () => this.setState({ showMsg: false }),
+          10000
+        )
       );
     }
 
