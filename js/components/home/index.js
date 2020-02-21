@@ -287,13 +287,13 @@ class HomeNav extends Component {
     return <ListItem navigation={this.props.navigation} item={item} />;
   }
   _renderBalance() {
-    return (
-      <FlatList
-        data={this.state.balanceItems}
-        keyExtractor={this.keyExtractor}
-        renderItem={this._renderItem.bind(this)}
-      />
-    );
+    // return (
+    //   // <FlatList
+    //   //   data={this.state.balanceItems}
+    //   //   keyExtractor={this.keyExtractor}
+    //   //   renderItem={this._renderItem.bind(this)}
+    //   // />
+    // );
   }
 
   env() {}
