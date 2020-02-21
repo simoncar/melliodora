@@ -5,11 +5,8 @@ import {
   Linking,
   TouchableOpacity,
   TouchableHighlight,
-  StyleSheet,
-  Dimensions,
   AsyncStorage,
-  Image,
-  Platform,
+  Image
 } from "react-native";
 import { Container, Content, Text } from "native-base";
 import Constants from "expo-constants";
@@ -20,17 +17,21 @@ import I18n from "../../lib/i18n";
 import styles from "./styles";
 import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
-import { NavigationEvents, ScrollView } from "react-navigation";
+import { ScrollView } from "react-navigation";
 import moment from "moment";
 
-const { width } = Dimensions.get("window");
 const tabBarIcon = name => ({ tintColor }) => (
-  <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
+  <MaterialIcons
+    style={{ backgroundColor: "transparent" }}
+    name={name}
+    color={tintColor}
+    size={24}
+  />
 );
 
 const bottomLogo = {
   sais_edu_sg: require("../../../images/sais_edu_sg/10yearLogo.png"),
-  ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg"),
+  ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg")
 };
 
 class HomeNav extends Component {
@@ -41,6 +42,7 @@ class HomeNav extends Component {
       loading: true,
       featureItems: [],
       calendarItems: [],
+      balanceItems: []
     };
 
     this.loadFromAsyncStorage();
@@ -54,7 +56,8 @@ class HomeNav extends Component {
     let headerTitle = null;
     if (global.domain == "ais_edu_sg") {
       headerTitle = (
-        <Image source={require('../../../images/ais_edu_sg/ifla-apr.jpeg')}
+        <Image
+          source={require("../../../images/ais_edu_sg/ifla-apr.jpeg")}
           style={{ height: 39, resizeMode: "contain" }}
         />
       );
@@ -63,6 +66,7 @@ class HomeNav extends Component {
       title: title,
       headerTitle: headerTitle,
       headerBackTitle: null,
+
       headerRight: (
         <TouchableOpacity
           onPress={() => {
@@ -73,7 +77,7 @@ class HomeNav extends Component {
             style={{
               color: "#48484A",
               fontSize: 25,
-              marginRight: 10,
+              marginRight: 10
             }}
           >
             <Ionicons
@@ -81,12 +85,12 @@ class HomeNav extends Component {
               style={{
                 color: "#48484A",
                 fontSize: 25,
-                marginRight: 10,
+                marginRight: 10
               }}
             />
           </View>
         </TouchableOpacity>
-      ),
+      )
     };
   };
 
@@ -106,6 +110,7 @@ class HomeNav extends Component {
       // The screen is focused
       // Call any action
       console.log("home is focused");
+      this.loadBalance();
       this.loadCalendar();
     });
   }
@@ -114,9 +119,59 @@ class HomeNav extends Component {
     this.unsubscribeFeature();
     this.focusListener.remove();
   }
+
+  loadBalance() {
+    var balanceItems = [];
+
+    let balance = firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("user")
+      .collection("usernames")
+      .doc("Rh9hEJmOyLR12WfflrLCCvvpIWD2")
+      .get()
+
+      .then(snapshot => {
+        if (!snapshot.exists) {
+          return;
+        }
+        const data = snapshot.data();
+        //.push({ campusBalance: data.campusBalance });
+
+        var trans = {
+          visible: true,
+          source: "balance",
+          summaryMyLanguage: "AAA",
+          summary: data.campusBalance,
+          summaryEN: "$" + data.campusBalance.toFixed(2),
+          color: "red",
+          showIconChat: false,
+          location: "Cafeteria Account Balance"
+        };
+
+        console.log(data.guid); //DB:iSAMSparents:48879-2
+        var familyId = data.guid.substring(
+          data.guid.indexOf("iSAMSparents:") + 13,
+          data.guid.indexOf("-")
+        );
+
+        console.log(familyId);
+
+        balanceItems.push({ ...{ _key: snapshot.id }, ...data, ...trans });
+        if (balanceItems.length > 0) {
+          this.setState({
+            balanceItems
+          });
+        }
+      });
+
+    // this.setState({
+    //   loading: false
+    // });
+  }
+
   loadCalendar() {
     const todayDate = moment().format("YYYY-MM-DD");
-    console.log("todayDate=", todayDate);
 
     var calendarItems = [];
     let calendar = firebase
@@ -132,24 +187,32 @@ class HomeNav extends Component {
           var trans = {
             visible: true,
             source: "calendar",
-            summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
+            summaryMyLanguage: getLanguageString(
+              global.language,
+              doc.data(),
+              "summary"
+            ),
             summary: doc.data().summary,
             summaryEN: doc.data().summary,
             date_start: doc.data().date_start,
             color: "red",
             showIconChat: false,
-            descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
+            descriptionMyLanguage: getLanguageString(
+              global.language,
+              doc.data(),
+              "description"
+            )
           };
 
           calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
         });
         if (calendarItems.length > 0) {
           this.setState({
-            calendarItems,
+            calendarItems
           });
         }
         this.setState({
-          loading: false,
+          loading: false
         });
       });
   }
@@ -160,8 +223,16 @@ class HomeNav extends Component {
     querySnapshot.forEach(doc => {
       var trans = {
         source: "feature",
-        summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
-        descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
+        summaryMyLanguage: getLanguageString(
+          global.language,
+          doc.data(),
+          "summary"
+        ),
+        descriptionMyLanguage: getLanguageString(
+          global.language,
+          doc.data(),
+          "description"
+        )
       };
 
       if (!doc.data().visible == false) {
@@ -172,12 +243,12 @@ class HomeNav extends Component {
     if (featureItems.length > 0) {
       this._storeData(JSON.stringify(featureItems));
       this.setState({
-        featureItems,
+        featureItems
       });
     }
 
     this.setState({
-      loading: false,
+      loading: false
     });
   };
 
@@ -194,11 +265,11 @@ class HomeNav extends Component {
       console.log("domain", domain);
 
       this.props.navigation.setParams({
-        domain,
+        domain
       });
       this.setState({
         featureItems,
-        loading: false,
+        loading: false
       });
     });
   }
@@ -215,8 +286,17 @@ class HomeNav extends Component {
   _renderItem(item) {
     return <ListItem navigation={this.props.navigation} item={item} />;
   }
+  _renderBalance() {
+    // return (
+    //   // <FlatList
+    //   //   data={this.state.balanceItems}
+    //   //   keyExtractor={this.keyExtractor}
+    //   //   renderItem={this._renderItem.bind(this)}
+    //   // />
+    // );
+  }
 
-  env() { }
+  env() {}
 
   render() {
     if (this.state.loading) {
@@ -235,139 +315,136 @@ class HomeNav extends Component {
           </TouchableHighlight>
         )}
         <Content showsVerticalScrollIndicator={false}>
-
-          {
-            global.domain === "ais_edu_sg" ?
-              <View style={styles.newsContentLine}>
-                <ScrollView
-                  horizontal={true}
-                  bounces={false}
-                  contentContainerStyle={{ paddingHorizontal: 12, paddingVertical: 8 }}
-                  style={{ backgroundColor: "white", marginVertical: 6 }}
-                  showsHorizontalScrollIndicator={false}
+          {global.domain === "ais_edu_sg" ? (
+            <View style={styles.newsContentLine}>
+              <ScrollView
+                horizontal={true}
+                bounces={false}
+                contentContainerStyle={{
+                  paddingHorizontal: 12,
+                  paddingVertical: 8
+                }}
+                style={{ backgroundColor: "white", marginVertical: 6 }}
+                showsHorizontalScrollIndicator={false}
+              >
+                <TouchableOpacity
+                  style={styles.homeMenuItemContainer}
+                  onPress={() => {
+                    this.props.navigation.navigate("webportalURL", {
+                      url: "https://iflaapr.org/newsletters",
+                      title: "Newsletters"
+                    });
+                  }}
                 >
-                  <TouchableOpacity
-                    style={styles.homeMenuItemContainer}
-                    onPress={() => {
-                      this.props.navigation.navigate("webportalURL", {
-                        url: "https://iflaapr.org/newsletters",
-                        title: "Newsletters",
-                      });
-                    }}>
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/news.png')}
-                    />
-                    <Text style={{ color: "black", fontSize: 12 }}>
-                      {I18n.t("Newsletters")}
-                    </Text>
-                  </TouchableOpacity>
+                  <Image
+                    style={styles.homeMenuIcon}
+                    source={require("../../../resources/icons/news.png")}
+                  />
+                  <Text style={{ color: "black", fontSize: 12 }}>
+                    {I18n.t("Newsletters")}
+                  </Text>
+                </TouchableOpacity>
 
-                  <TouchableOpacity
-                    style={styles.homeMenuItemContainer}
-                    onPress={() => {
-                      this.props.navigation.navigate("webportalURL", {
-                        url: "https://iflaapr.org/news/listing/design",
-                        title: "Design News",
-                      });
-                    }}>
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/_Design.jpeg')}
-                    />
-                    <Text style={styles.homeMenuText}>
-                      {I18n.t("Design") + "\n" + I18n.t("News")}
-                    </Text>
-                  </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.homeMenuItemContainer}
+                  onPress={() => {
+                    this.props.navigation.navigate("webportalURL", {
+                      url: "https://iflaapr.org/news/listing/design",
+                      title: "Design News"
+                    });
+                  }}
+                >
+                  <Image
+                    style={styles.homeMenuIcon}
+                    source={require("../../../resources/icons/_Design.jpeg")}
+                  />
+                  <Text style={styles.homeMenuText}>
+                    {I18n.t("Design") + "\n" + I18n.t("News")}
+                  </Text>
+                </TouchableOpacity>
 
-                  <TouchableOpacity
-                    style={styles.homeMenuItemContainer}
-                    onPress={() => {
-                      this.props.navigation.navigate("webportalURL", {
-                        url: "https://iflaapr.org/news/listing/management",
-                        title: "Management News",
-                      });
-                    }}>
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/_Management.jpeg')}
-                    />
-                    <Text style={styles.homeMenuText}>
-                      {I18n.t("Management") + "\n" + I18n.t("News")}
-                    </Text>
-                  </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.homeMenuItemContainer}
+                  onPress={() => {
+                    this.props.navigation.navigate("webportalURL", {
+                      url: "https://iflaapr.org/news/listing/management",
+                      title: "Management News"
+                    });
+                  }}
+                >
+                  <Image
+                    style={styles.homeMenuIcon}
+                    source={require("../../../resources/icons/_Management.jpeg")}
+                  />
+                  <Text style={styles.homeMenuText}>
+                    {I18n.t("Management") + "\n" + I18n.t("News")}
+                  </Text>
+                </TouchableOpacity>
 
+                <TouchableOpacity
+                  style={styles.homeMenuItemContainer}
+                  onPress={() => {
+                    this.props.navigation.navigate("webportalURL", {
+                      url: "https://iflaapr.org/news/listing/planning",
+                      title: "Planning News"
+                    });
+                  }}
+                >
+                  <Image
+                    style={styles.homeMenuIcon}
+                    source={require("../../../resources/icons/_Planning.jpeg")}
+                  />
+                  <Text style={styles.homeMenuText}>
+                    {I18n.t("Planning") + "\n" + I18n.t("News")}
+                  </Text>
+                </TouchableOpacity>
 
-                  <TouchableOpacity
-                    style={styles.homeMenuItemContainer}
-                    onPress={() => {
-                      this.props.navigation.navigate("webportalURL", {
-                        url: "https://iflaapr.org/news/listing/planning",
-                        title: "Planning News",
-                      });
-                    }}>
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/_Planning.jpeg')}
-                    />
-                    <Text style={styles.homeMenuText}>
-                      {I18n.t("Planning") + "\n" + I18n.t("News")}
-                    </Text>
-                  </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.homeMenuItemContainer}
+                  onPress={() => {
+                    this.props.navigation.navigate("webportalURL", {
+                      url: "https://iflaapr.org/membership-directory/corporate",
+                      title: "Directory"
+                    });
+                  }}
+                >
+                  <Image
+                    style={styles.homeMenuIcon}
+                    source={require("../../../resources/icons/_Directory.jpeg")}
+                  />
+                  <Text style={styles.homeMenuText}>{I18n.t("Directory")}</Text>
+                </TouchableOpacity>
 
-
-                  <TouchableOpacity
-                    style={styles.homeMenuItemContainer}
-                    onPress={() => {
-                      this.props.navigation.navigate("webportalURL", {
-                        url: "https://iflaapr.org/membership-directory/corporate",
-                        title: "Directory",
-                      });
-                    }}>
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/_Directory.jpeg')}
-                    />
-                    <Text style={styles.homeMenuText}>{I18n.t("Directory")}</Text>
-                  </TouchableOpacity>
-
-
-                  <TouchableOpacity
-                    style={styles.homeMenuItemContainer}
+                <TouchableOpacity
+                  style={styles.homeMenuItemContainer}
                   // onPress={() => {
                   //   this.props.navigation.navigate("webportalURL", {
                   //     url: "https://smartcookies.io/smart-community",
                   //     title: "Member Associations",
                   //   });
                   // }}
-                  >
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/_Associations.png')}
-                    />
-                    <Text style={styles.homeMenuText}>
-                      {I18n.t("Member") + "\n" + I18n.t("Associations")}
-                    </Text>
-                  </TouchableOpacity>
-
-
-
-                </ScrollView>
-              </View>
-              : null
-          }
+                >
+                  <Image
+                    style={styles.homeMenuIcon}
+                    source={require("../../../resources/icons/_Associations.png")}
+                  />
+                  <Text style={styles.homeMenuText}>
+                    {I18n.t("Member") + "\n" + I18n.t("Associations")}
+                  </Text>
+                </TouchableOpacity>
+              </ScrollView>
+            </View>
+          ) : null}
 
           <View style={styles.newsContentLine}>
-
-            {
-              global.domain !== "ais_edu_sg" ?
-                <FlatList
-                  data={this.state.calendarItems}
-                  keyExtractor={this.keyExtractor}
-                  renderItem={this._renderItem.bind(this)}
-                />
-                : null
-            }
+            {this._renderBalance()}
+            {global.domain !== "ais_edu_sg" ? (
+              <FlatList
+                data={this.state.calendarItems}
+                keyExtractor={this.keyExtractor}
+                renderItem={this._renderItem.bind(this)}
+              />
+            ) : null}
 
             <FlatList
               data={this.state.featureItems}
@@ -379,30 +456,37 @@ class HomeNav extends Component {
             style={{
               marginTop: 70,
               alignItems: "center",
-              width: "100%",
+              width: "100%"
             }}
           >
             <Image
               style={styles.tenYearLogo}
-              source={bottomLogo[global.domain] || { uri: global.switch_homeLogoURI }}
+              source={
+                bottomLogo[global.domain] || { uri: global.switch_homeLogoURI }
+              }
             />
           </View>
           <View
             style={{
               marginTop: 100,
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <TouchableOpacity
               onPress={() => {
-                this._handleOpenWithLinking("https://smartcookies.io/smart-community");
+                this._handleOpenWithLinking(
+                  "https://smartcookies.io/smart-community"
+                );
               }}
               style={{
                 width: 40,
-                height: 40,
+                height: 40
               }}
             >
-              <Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
+              <Image
+                source={require("../../../images/sais_edu_sg/SCLogo.png")}
+                style={styles.sclogo}
+              />
             </TouchableOpacity>
           </View>
           <View>
