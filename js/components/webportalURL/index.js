@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { TextInput, TouchableOpacity, WebView, View } from "react-native";
+import { TextInput, TouchableOpacity, View } from "react-native";
 import { Container } from "native-base";
+import { WebView } from "react-native-webview";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "./styles";
 import Analytics from "../../lib/analytics";
@@ -17,7 +18,7 @@ class WebportalSports extends Component {
   }
 
   componentDidMount() {
-    Analytics.track("Web Portal", { url: this.state.url });
+    Analytics.track("Web Portal", { url: this.props.url });
   }
 
   state = {
@@ -68,7 +69,13 @@ class WebportalSports extends Component {
             </View>
 
             <WebView
-              source={{ uri: "https://github.com/facebook/react-native" }}
+              source={{ uri: this.state.url }}
+              javaScriptEnabled={true}
+              automaticallyAdjustContentInsets={false}
+              onNavigationStateChange={this.onNavigationStateChange.bind(this)}
+              domStorageEnabled={true}
+              startInLoadingState={true}
+              ref={WEBVIEW_REF}
             />
           </View>
         </View>
