@@ -78,9 +78,10 @@ https://github.com/simoncar/melliodora/blob/master/.github/workflows/main.yml
 
 ## Google Play (Android)
 
-`expo build:android --config apps/app.generic.json`
+`expo build:android -t app-bundle --config apps/app.generic.json`
 
-`expo build:android --config apps/app.sais_edu_sg.json`
+`expo build:android -t app-bundle --config apps/app.sais_edu_sg.json`
+
 
 ## Web (This project not web ready yet)
 
