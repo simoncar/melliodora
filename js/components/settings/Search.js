@@ -34,8 +34,6 @@ class Search extends Component {
   }
   keyExtractor = item => item._key;
 
-  componentWillMount() { }
-
   componentDidMount() {
 
     // this.props.navigation.state.params.reload = this.loadData;

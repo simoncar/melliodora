@@ -70,6 +70,14 @@ class authPortal extends Component {
   }
 
   componentDidMount() {
+    if (Constants.manifest.extra.instance == "sais_edu_sg") {
+      this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
+
+      this.setState({ showMsg: true }, () =>
+        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000),
+      );
+    }
+
     this.props.navigation.setParams({
       _onOpenActionSheet: this._onOpenActionSheet,
       reload: this.reload
@@ -152,21 +160,6 @@ class authPortal extends Component {
   reload = () => {
     this.webref.reload();
   };
-
-  componentWillMount() {
-    if (Constants.manifest.extra.instance == "sais_edu_sg") {
-      this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
-
-      this.setState({ showMsg: true }, () =>
-        timer.setTimeout(
-          this,
-          "hideMsg",
-          () => this.setState({ showMsg: false }),
-          10000
-        )
-      );
-    }
-  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.visible) {

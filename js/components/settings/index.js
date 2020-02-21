@@ -35,18 +35,6 @@ class Settings extends Component {
     };
   }
 
-  componentWillMount() {
-    this._retrieveFeatures();
-    this._retrieveLanguage();
-    this._retrieveGradeSelectors();
-
-    this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
-      this.setState({ features: global.moreFeatures || [] });
-      this._getUser();
-    });
-    this._getUser();
-  }
-
   _retrieveFeatures = async () => {
     try {
 
@@ -85,6 +73,15 @@ class Settings extends Component {
   };
 
   componentDidMount() {
+    this._retrieveFeatures();
+    this._retrieveLanguage();
+    this._retrieveGradeSelectors();
+
+    this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
+      this.setState({ features: global.moreFeatures || [] });
+      this._getUser();
+    });
+    this._getUser();
     Analytics.track("More");
   }
 

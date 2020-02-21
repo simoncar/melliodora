@@ -36,12 +36,6 @@ export default class Content extends Component {
     };
   }
 
-  componentWillMount() { }
-
-  componentDidMount() { }
-
-  componentWillUnmount() { }
-
   _getStyle(language) {
     if (language == this.state.language) {
       return styles.imageStyleCheckOn;

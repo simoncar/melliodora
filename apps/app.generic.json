@@ -3,7 +3,7 @@
   "displayName": "genericApp",
   "expo": {
     "version": "1.0.2",
-    "sdkVersion": "33.0.0",
+    "sdkVersion": "36.0.0",
     "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",
     "slug": "myCommunity",
     "name": "myCommunity",

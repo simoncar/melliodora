@@ -63,7 +63,7 @@ class WebportalAuth extends Component {
     this.refs[WEBVIEW_REF].goBack();
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
   }
 
@@ -185,14 +185,14 @@ class WebportalAuth extends Component {
 
     console.log(
       "https://mystamford.edu.sg/login/api/webgettoken?app=SAISPTA&successURL=https://saispta.com/app/Authentication.php?linkingUri=" +
-        Constants.linkingUri +
-        "&failURL=https://saispta.com/app/fail"
+      Constants.linkingUri +
+      "&failURL=https://saispta.com/app/fail",
     );
 
     let result = await WebBrowser.openBrowserAsync(
       "https://mystamford.edu.sg/login/login.aspx?prelogin=https%3a%2f%2fmystamford.edu.sg%2flogin%2fapi%2fwebgettoken%3fapp%3dSAISPTA%26successURL%3dhttps%3a%2f%2fsaispta.com%2fapp%2fAuthentication.php%3flinkingUri%3d" +
-        Constants.linkingUri +
-        "%26failURL%3dhttps%3a%2f%2fsaispta.com%2fapp%2ffail"
+      Constants.linkingUri +
+      "%26failURL%3dhttps%3a%2f%2fsaispta.com%2fapp%2ffail",
     );
 
     this._removeLinkingListener();
