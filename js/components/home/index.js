@@ -317,7 +317,7 @@ class HomeNav extends Component {
         <Content showsVerticalScrollIndicator={false}>
           {global.domain === "ais_edu_sg" ? (
             <View style={styles.newsContentLine}>
-              <ScrollView
+              {/* <ScrollView
                 horizontal={true}
                 bounces={false}
                 contentContainerStyle={{
@@ -326,113 +326,113 @@ class HomeNav extends Component {
                 }}
                 style={{ backgroundColor: "white", marginVertical: 6 }}
                 showsHorizontalScrollIndicator={false}
+              > */}
+              <TouchableOpacity
+                style={styles.homeMenuItemContainer}
+                onPress={() => {
+                  this.props.navigation.navigate("webportalURL", {
+                    url: "https://iflaapr.org/newsletters",
+                    title: "Newsletters"
+                  });
+                }}
               >
-                <TouchableOpacity
-                  style={styles.homeMenuItemContainer}
-                  onPress={() => {
-                    this.props.navigation.navigate("webportalURL", {
-                      url: "https://iflaapr.org/newsletters",
-                      title: "Newsletters"
-                    });
-                  }}
-                >
-                  <Image
-                    style={styles.homeMenuIcon}
-                    source={require("../../../resources/icons/news.png")}
-                  />
-                  <Text style={{ color: "black", fontSize: 12 }}>
-                    {I18n.t("Newsletters")}
-                  </Text>
-                </TouchableOpacity>
+                <Image
+                  style={styles.homeMenuIcon}
+                  source={require("../../../resources/icons/news.png")}
+                />
+                <Text style={{ color: "black", fontSize: 12 }}>
+                  {I18n.t("Newsletters")}
+                </Text>
+              </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={styles.homeMenuItemContainer}
-                  onPress={() => {
-                    this.props.navigation.navigate("webportalURL", {
-                      url: "https://iflaapr.org/news/listing/design",
-                      title: "Design News"
-                    });
-                  }}
-                >
-                  <Image
-                    style={styles.homeMenuIcon}
-                    source={require("../../../resources/icons/_Design.jpeg")}
-                  />
-                  <Text style={styles.homeMenuText}>
-                    {I18n.t("Design") + "\n" + I18n.t("News")}
-                  </Text>
-                </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.homeMenuItemContainer}
+                onPress={() => {
+                  this.props.navigation.navigate("webportalURL", {
+                    url: "https://iflaapr.org/news/listing/design",
+                    title: "Design News"
+                  });
+                }}
+              >
+                <Image
+                  style={styles.homeMenuIcon}
+                  source={require("../../../resources/icons/_Design.jpeg")}
+                />
+                <Text style={styles.homeMenuText}>
+                  {I18n.t("Design") + "\n" + I18n.t("News")}
+                </Text>
+              </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={styles.homeMenuItemContainer}
-                  onPress={() => {
-                    this.props.navigation.navigate("webportalURL", {
-                      url: "https://iflaapr.org/news/listing/management",
-                      title: "Management News"
-                    });
-                  }}
-                >
-                  <Image
-                    style={styles.homeMenuIcon}
-                    source={require("../../../resources/icons/_Management.jpeg")}
-                  />
-                  <Text style={styles.homeMenuText}>
-                    {I18n.t("Management") + "\n" + I18n.t("News")}
-                  </Text>
-                </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.homeMenuItemContainer}
+                onPress={() => {
+                  this.props.navigation.navigate("webportalURL", {
+                    url: "https://iflaapr.org/news/listing/management",
+                    title: "Management News"
+                  });
+                }}
+              >
+                <Image
+                  style={styles.homeMenuIcon}
+                  source={require("../../../resources/icons/_Management.jpeg")}
+                />
+                <Text style={styles.homeMenuText}>
+                  {I18n.t("Management") + "\n" + I18n.t("News")}
+                </Text>
+              </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={styles.homeMenuItemContainer}
-                  onPress={() => {
-                    this.props.navigation.navigate("webportalURL", {
-                      url: "https://iflaapr.org/news/listing/planning",
-                      title: "Planning News"
-                    });
-                  }}
-                >
-                  <Image
-                    style={styles.homeMenuIcon}
-                    source={require("../../../resources/icons/_Planning.jpeg")}
-                  />
-                  <Text style={styles.homeMenuText}>
-                    {I18n.t("Planning") + "\n" + I18n.t("News")}
-                  </Text>
-                </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.homeMenuItemContainer}
+                onPress={() => {
+                  this.props.navigation.navigate("webportalURL", {
+                    url: "https://iflaapr.org/news/listing/planning",
+                    title: "Planning News"
+                  });
+                }}
+              >
+                <Image
+                  style={styles.homeMenuIcon}
+                  source={require("../../../resources/icons/_Planning.jpeg")}
+                />
+                <Text style={styles.homeMenuText}>
+                  {I18n.t("Planning") + "\n" + I18n.t("News")}
+                </Text>
+              </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={styles.homeMenuItemContainer}
-                  onPress={() => {
-                    this.props.navigation.navigate("webportalURL", {
-                      url: "https://iflaapr.org/membership-directory/corporate",
-                      title: "Directory"
-                    });
-                  }}
-                >
-                  <Image
-                    style={styles.homeMenuIcon}
-                    source={require("../../../resources/icons/_Directory.jpeg")}
-                  />
-                  <Text style={styles.homeMenuText}>{I18n.t("Directory")}</Text>
-                </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.homeMenuItemContainer}
+                onPress={() => {
+                  this.props.navigation.navigate("webportalURL", {
+                    url: "https://iflaapr.org/membership-directory/corporate",
+                    title: "Directory"
+                  });
+                }}
+              >
+                <Image
+                  style={styles.homeMenuIcon}
+                  source={require("../../../resources/icons/_Directory.jpeg")}
+                />
+                <Text style={styles.homeMenuText}>{I18n.t("Directory")}</Text>
+              </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={styles.homeMenuItemContainer}
-                  // onPress={() => {
-                  //   this.props.navigation.navigate("webportalURL", {
-                  //     url: "https://smartcookies.io/smart-community",
-                  //     title: "Member Associations",
-                  //   });
-                  // }}
-                >
-                  <Image
-                    style={styles.homeMenuIcon}
-                    source={require("../../../resources/icons/_Associations.png")}
-                  />
-                  <Text style={styles.homeMenuText}>
-                    {I18n.t("Member") + "\n" + I18n.t("Associations")}
-                  </Text>
-                </TouchableOpacity>
-              </ScrollView>
+              <TouchableOpacity
+                style={styles.homeMenuItemContainer}
+                // onPress={() => {
+                //   this.props.navigation.navigate("webportalURL", {
+                //     url: "https://smartcookies.io/smart-community",
+                //     title: "Member Associations",
+                //   });
+                // }}
+              >
+                <Image
+                  style={styles.homeMenuIcon}
+                  source={require("../../../resources/icons/_Associations.png")}
+                />
+                <Text style={styles.homeMenuText}>
+                  {I18n.t("Member") + "\n" + I18n.t("Associations")}
+                </Text>
+              </TouchableOpacity>
+              {/* </ScrollView> */}
             </View>
           ) : null}
 
