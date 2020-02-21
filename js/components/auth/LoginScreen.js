@@ -18,7 +18,7 @@ export default class LoginScreen extends Component {
       if (global.domain) {
         this.props.navigation.popToTop();
       } else {
-        this.props.navigation.push("welcome screen");
+        this.props.navigation.push("welcomeScreen");
       }
 
     } catch (error) {

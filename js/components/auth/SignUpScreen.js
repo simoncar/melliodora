@@ -58,8 +58,6 @@ class SignUpScreen extends Component {
                   displayName: this.state.displayName
                 });
 
-                console.log("userCredential.user.uid", userCredential.user.uid)
-
                 const communityJoined = global.domain ? [global.domain] : [];
                 const userDict = {
                   photoURL: downloadURL,

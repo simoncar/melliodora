@@ -20,10 +20,14 @@ class EditUserProfile extends Component {
   }
 
   componentDidMount() {
-    const { uid, user } = this.props.navigation.state.params;
-    console.log("uid", uid);
+    const { uid, user, email } = this.props.navigation.state.params;
+    console.log("uid", uid, email);
 
     const currentUser = firebase.auth().currentUser;
+    if (currentUser.uid != uid || currentUser.isAnonymous) {
+      console.log("different user edit profiel!!!");
+      return this.props.navigation.pop();
+    }
     this.props.navigation.state.params._updateProfile = this._updateProfile;
     this.originData = { ...user, uid };
     this.setState({ user: { ...user, uid, email: currentUser.email } });

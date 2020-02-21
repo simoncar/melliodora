@@ -6,6 +6,7 @@ import DomainSelection from "./components/starting/DomainSelection";
 import LoginScreen from "./components/auth/LoginScreen";
 import SignUpScreen from "./components/auth/SignUpScreen";
 import PreWelcomeScreen from "./components/starting/PreWelcomeScreen";
+import WelcomeScreen from "./components/starting/WelcomeScreen";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -16,7 +17,6 @@ const AuthStack = createStackNavigator(
   {
     DomainSelection: {
       screen: screenProps => {
-        console.log("this.props2", screenProps)
         return <DomainSelection domains={screenProps.screenProps.domains} setSelectedDomain={screenProps.screenProps.setSelectedDomain} navigation={screenProps.navigation} />
       },
       navigationOptions: {
@@ -26,6 +26,7 @@ const AuthStack = createStackNavigator(
     preWelcome: PreWelcomeScreen,
     login: LoginScreen,
     signup: SignUpScreen,
+    welcomeScreen: WelcomeScreen
 
   },
   config  ,

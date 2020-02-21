@@ -17,7 +17,6 @@ export default class DomainSelection extends Component {
   }
 
   componentDidMount() {
-    console.log("this.props", this.props);
     this.setState({ domains: this.props.domains, allDomains: this.props.domains })
   }
 
