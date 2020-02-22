@@ -10,7 +10,9 @@ class LogItem extends Component {
   }
 
   render() {
-    var timestamp = moment(this.props.item.item.logItem.timestamp).format("LLL");
+    var timestamp = moment(this.props.item.item.logItem.timestamp).format(
+      "LLL"
+    );
 
     return (
       <View style={styles.chatRow}>
@@ -19,11 +21,19 @@ class LogItem extends Component {
             <Col>
               <View>
                 <Text style={styles.title}>{timestamp}</Text>
-                <Text style={styles.detail}>{this.props.item.item.logItem.method}</Text>
-                <Text style={styles.detail}>{this.props.item.item.logItem.results}</Text>
-                <Text style={styles.detail}>{this.props.item.item.logItem.source}</Text>
+                <Text style={styles.detail}>
+                  {this.props.item.item.logItem.method}
+                </Text>
+                <Text style={styles.detail}>
+                  {this.props.item.item.logItem.results}
+                </Text>
+                <Text style={styles.detail}>
+                  {this.props.item.item.logItem.source}
+                </Text>
                 <Text style={styles.detail}>{this.props.item.item._key}</Text>
-                <Text style={styles.detail}>{this.props.item.item.logItem.parameters}</Text>
+                <Text style={styles.detail}>
+                  {this.props.item.item.logItem.parameters}
+                </Text>
               </View>
             </Col>
           </Row>
@@ -41,14 +51,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     color: "black",
     marginLeft: 15,
-    paddingBottom: 5,
+    paddingBottom: 5
   },
 
   detail: {
     fontSize: 14,
     marginLeft: 15,
-    paddingBottom: 5,
-  },
+    paddingBottom: 5
+  }
 });
 
-module.exports = LogItem;
+export default LogItem;
