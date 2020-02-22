@@ -418,4 +418,4 @@ class Seperator extends Component {
   }
 }
 
-module.exports = Settings;
+export default Settings;

@@ -171,8 +171,8 @@ class HomeNav extends Component {
   }
 
   loadCalendar() {
-    //const todayDate = moment().format("YYYY-MM-DD");
-    const todayDate = "2020-02-19";
+    const todayDate = moment().format("YYYY-MM-DD");
+    //const todayDate = "2020-02-19";
 
     var calendarItems = [];
     let calendar = firebase
