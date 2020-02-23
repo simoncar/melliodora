@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleProvider, Root } from "native-base";
-import { I18nManager, AsyncStorage, View, Text } from "react-native";
+import { I18nManager, View, Text } from "react-native";
+import { AsyncStorage } from "react-native";
 import App from "./App";
 import I18n from "./lib/i18n";
 import variables from "../native-base-theme/variables/commonColor";
@@ -20,12 +21,12 @@ export default class Setup extends Component {
     super();
     this.state = {
       isReady: false,
-      selectedDomain: "",
+      selectedDomain: ""
     };
   }
 
   getDomains = () =>
-    new Promise(function (resolve, reject) {
+    new Promise(function(resolve, reject) {
       firebase
         .firestore()
         .collection("domains")
@@ -61,18 +62,20 @@ export default class Setup extends Component {
     Font.loadAsync({
       "Material Icons": require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       MaterialIcons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
-      Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
+      Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf")
     });
 
     this.domains = await this.getDomains();
 
-    console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
+    console.log(
+      "Constants.manifest.extra.instance",
+      Constants.manifest.extra.instance
+    );
     if (Constants.manifest.extra.instance) {
       this.setSelectedDomain(Constants.manifest.extra.instance);
     } else {
       AsyncStorage.getItem("domain").then(d => {
         const domain = JSON.parse(d);
-
 
         console.log("domain=", domain);
         if (domain && domain.node) {
@@ -103,11 +106,13 @@ export default class Setup extends Component {
         global.switch_portalURL = "https://mystamford.edu.sg/parent-dashboard";
         global.switch_webportalActions = [
           { Home: "https://mystamford.edu.sg/parent-dashboard" },
-          { "Cafe Top-Up": "https://mystamford.edu.sg/cafe/cafe-online-ordering" },
+          {
+            "Cafe Top-Up": "https://mystamford.edu.sg/cafe/cafe-online-ordering"
+          },
           { Events: "https://mystamford.edu.sg/events-1" },
           { Forms: "https://mystamford.edu.sg/forms-1" },
           { PTA: "https://mystamford.edu.sg/pta" },
-          { Logout: "https://mystamford.edu.sg/logout" },
+          { Logout: "https://mystamford.edu.sg/logout" }
         ];
         global.switch_call = "+65 6709 4800";
         break;
@@ -122,18 +127,19 @@ export default class Setup extends Component {
           { Events: "" },
           { Forms: "" },
           { PTA: "" },
-          { Logout: "" },
+          { Logout: "" }
         ];
         break;
       case "camp_asia":
-        global.switch_portalURL = "https://www.campasia.asia/online-booking/login";
+        global.switch_portalURL =
+          "https://www.campasia.asia/online-booking/login";
         global.switch_webportalActions = [
           { Home: "" },
           { "Cafe Top-Up": "" },
           { Events: "" },
           { Forms: "" },
           { PTA: "" },
-          { Logout: "" },
+          { Logout: "" }
         ];
         global.switch_homeLogoURI =
           "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/smartcommunity%2Fcommunitylogo%2FCA_ID_Reverse_new.png?alt=media&token=54fbd759-31f5-46bb-a73f-6424db99d5dd";
@@ -152,16 +158,22 @@ export default class Setup extends Component {
   };
 
   render() {
-    console.log("Constants.manifest.extra.instance2", Constants.manifest.extra.instance);
+    console.log(
+      "Constants.manifest.extra.instance2",
+      Constants.manifest.extra.instance
+    );
     if (!this.state.isReady) {
       return <AppLoading />;
-    }
-    else if (!this.state.selectedDomain) {
-      return <DomainSelection setSelectedDomain={this.setSelectedDomain} domains={this.domains} />;
+    } else if (!this.state.selectedDomain) {
+      return (
+        <DomainSelection
+          setSelectedDomain={this.setSelectedDomain}
+          domains={this.domains}
+        />
+      );
     } else {
       return <SetupEnv />;
     }
-
   }
 }
 
@@ -169,7 +181,7 @@ class SetupEnv extends Component {
   constructor() {
     super();
     this.state = {
-      isReady: false,
+      isReady: false
     };
   }
 
@@ -219,17 +231,17 @@ class SetupEnv extends Component {
   }
 
   anonymouslySignIn = async () => {
-    console.log("signInAnonymously...")
+    console.log("signInAnonymously...");
     await firebase
       .auth()
       .signInAnonymously()
-      .catch(function (error) {
+      .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
       });
-  }
+  };
 
   initUser = (user, isAnonymous) => {
     var uid = user.uid;
@@ -277,11 +289,13 @@ class SetupEnv extends Component {
               if (_.isNumber(docData.gradeNotify[i])) {
               }
             }
-            AsyncStorage.setItem("gradeNotify", JSON.stringify(docData.gradeNotify));
+            AsyncStorage.setItem(
+              "gradeNotify",
+              JSON.stringify(docData.gradeNotify)
+            );
           }
         }
       });
-
 
     firebase
       .firestore()
@@ -299,7 +313,6 @@ class SetupEnv extends Component {
           global.userInfo = docData;
 
           // AsyncStorage.setItem("gradeNotify", JSON.stringify(docData.gradeNotify));
-
         }
       });
 
@@ -314,8 +327,16 @@ class SetupEnv extends Component {
       safeToken = "";
     }
 
-    console.log("Auth2 = ", uid, global.authenticated, global.name, global.email);
-    var version = _.isNil(Constants.manifest.revisionId) ? "unknown" : Constants.manifest.revisionId;
+    console.log(
+      "Auth2 = ",
+      uid,
+      global.authenticated,
+      global.name,
+      global.email
+    );
+    var version = _.isNil(Constants.manifest.revisionId)
+      ? "unknown"
+      : Constants.manifest.revisionId;
     var userDict = {
       uid: uid,
       token,
@@ -340,13 +361,12 @@ class SetupEnv extends Component {
 
     console.log("setting ready...");
     this.setState({ isReady: true });
-  }
+  };
 
   SetupUser = () => {
     try {
       console.log("SetupUser");
       firebase.auth().onAuthStateChanged(user => {
-
         if (!user) {
           console.log("signing in");
           this.anonymouslySignIn();
@@ -355,29 +375,29 @@ class SetupEnv extends Component {
           const isAnonymous = user.isAnonymous;
           if (user && !isAnonymous) {
             console.log("global.domain node", global.domain);
-            user.getIdTokenResult()
-              .then((idTokenResult) => {
-                console.log("claims", idTokenResult.claims)
-                console.log("idTokenResult.claims[global.domain]", idTokenResult.claims[global.domain]);
-                console.log("global.domain", global.domain);
-                if (idTokenResult.claims[global.domain]) {
-                  this.initUser(user, isAnonymous);
-                } else {
-                  this.anonymouslySignIn();
-
-                }
-              });
+            user.getIdTokenResult().then(idTokenResult => {
+              console.log("claims", idTokenResult.claims);
+              console.log(
+                "idTokenResult.claims[global.domain]",
+                idTokenResult.claims[global.domain]
+              );
+              console.log("global.domain", global.domain);
+              if (idTokenResult.claims[global.domain]) {
+                this.initUser(user, isAnonymous);
+              } else {
+                this.anonymouslySignIn();
+              }
+            });
           } else if (user && isAnonymous) {
             console.log("annoy user");
             this.initUser(user, isAnonymous);
           }
         }
-
       });
     } catch (e) {
       console.log("catch error body:", e.message);
     }
-  }
+  };
 
   render() {
     if (!this.state.isReady) {

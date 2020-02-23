@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { FlatList, View, AsyncStorage, Text, TouchableOpacity } from "react-native";
+import {
+  FlatList,
+  View,
+  AsyncStorage,
+  Text,
+  TouchableOpacity
+} from "react-native";
 import * as firebase from "firebase";
 import { Container, Content } from "native-base";
 import { SimpleLineIcons, Entypo, AntDesign } from "@expo/vector-icons";
@@ -16,19 +22,26 @@ var specialChatrooms = {};
 class chatRooms extends Component {
   static navigationOptions = {
     title: I18n.t("chat"),
-    tabBarIcon: <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={"bubble"} color={"blue"} size={24} />
+    tabBarIcon: (
+      <SimpleLineIcons
+        style={{ backgroundColor: "transparent" }}
+        name={"bubble"}
+        color={"blue"}
+        size={24}
+      />
+    )
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      userChatrooms: {},
+      userChatrooms: {}
     };
   }
 
   componentDidMount() {
     this.props.navigation.setParams({
-      refresh: this.refresh,
+      refresh: this.refresh
     });
 
     const { navigation } = this.props;
@@ -78,24 +91,30 @@ class chatRooms extends Component {
           console.log("No notifications");
           return;
         }
-        const userInterestGroupCheck = _.has(global, "userInfo.interestGroups") && Array.isArray(global.userInfo.interestGroups)
-        const userInterestGroups = userInterestGroupCheck ? global.userInfo.interestGroups : [];
+        const userInterestGroupCheck =
+          _.has(global, "userInfo.interestGroups") &&
+          Array.isArray(global.userInfo.interestGroups);
+        const userInterestGroups = userInterestGroupCheck
+          ? global.userInfo.interestGroups
+          : [];
 
         snapshot.forEach(doc => {
           const item = doc.data();
 
           if (item.visible == false) return;
           if (
-            (item.type == "private" && item.members.indexOf(global.uid + "") > -1)
-            || (item.type == "interestGroup" && (userInterestGroups && userInterestGroups.indexOf(item.title) > -1))
-            || (["users", "public"].indexOf(item.type) > -1)
+            (item.type == "private" &&
+              item.members.indexOf(global.uid + "") > -1) ||
+            (item.type == "interestGroup" &&
+              userInterestGroups &&
+              userInterestGroups.indexOf(item.title) > -1) ||
+            ["users", "public"].indexOf(item.type) > -1
           ) {
             userChatrooms.push({
               ...item,
               chatroom: doc.id
             });
           }
-
         });
 
         AsyncStorage.setItem("userChatrooms", JSON.stringify(userChatrooms));
@@ -113,31 +132,26 @@ class chatRooms extends Component {
 
       this.setState({
         userChatrooms,
-        loading: false,
+        loading: false
       });
     });
   }
 
   _renderItem({ item }) {
-    return (
-      <ChatroomItem
-        {...item}
-        navigation={this.props.navigation}
-      />
-    );
+    return <ChatroomItem {...item} navigation={this.props.navigation} />;
   }
 
   render() {
     return (
       <Container style={styles.container}>
-        <Content style={{ paddingTop: 20 }}>
+        <View>
           <TouchableOpacity
             style={{ flexDirection: "row" }}
             onPress={() => {
               this.props.navigation.navigate("chatTitle", {
                 edit: false,
                 chatroom: "New Chatroom",
-                onGoBack: this.refresh,
+                onGoBack: this.refresh
               });
             }}
           >
@@ -153,7 +167,7 @@ class chatRooms extends Component {
             renderItem={this._renderItem.bind(this)}
             keyExtractor={this.keyExtractor}
           />
-        </Content>
+        </View>
       </Container>
     );
   }

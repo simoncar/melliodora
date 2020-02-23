@@ -1,7 +1,17 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet
+} from "react-native";
 import styles from "./styles";
-import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  SimpleLineIcons,
+  MaterialCommunityIcons
+} from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import { getLanguageString } from "../global";
 import { formatTime, formatMonth } from "../global.js";
@@ -17,7 +27,7 @@ class ListItem extends Component {
     const uri = this.props.item.item.photo1;
     const preview = {
       uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
     if (source == "calendar") {
       return (
@@ -28,11 +38,29 @@ class ListItem extends Component {
             width: 36,
             height: 36,
             margin: 12,
-            borderRadius: 18,
+            borderRadius: 5,
             borderWidth: 0,
             borderColor: "lightgray",
             color: "#0075b7",
             textAlign: "center",
+            textAlignVertical: "top"
+          }}
+        />
+      );
+    } else if (source == "balance") {
+      return (
+        <MaterialCommunityIcons
+          name="currency-usd"
+          size={35}
+          style={{
+            width: 36,
+            height: 36,
+            margin: 12,
+            borderRadius: 18,
+            borderWidth: 0,
+            borderColor: "lightgray",
+            color: "#0075b7",
+            textAlign: "center"
           }}
         />
       );
@@ -47,130 +75,170 @@ class ListItem extends Component {
             borderWidth: StyleSheet.hairlineWidth,
             borderColor: "lightgray",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "center"
           }}
           {...{ preview, uri }}
         />
       );
     }
   }
-  renderTime(start, end) {
-    if (undefined != start && start.length > 0) {
-      return <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>{formatTime(start, end)} </Text>;
+  renderTime(start, end, source) {
+    if (source == "calendar") {
+      if (undefined != start && start.length > 0) {
+        return (
+          <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>
+            {formatTime(start, end)}{" "}
+          </Text>
+        );
+      }
+    }
+  }
+
+  renderLocation(location) {
+    if (undefined != location && location.length > 0) {
+      return (
+        <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>
+          {location}
+        </Text>
+      );
+    }
+  }
+
+  renderDate(date_start) {
+    if (undefined != date_start && date_start.length > 0) {
+      return (
+        <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>
+          {formatMonth(date_start)}
+        </Text>
+      );
     }
   }
 
   isURL(str) {
     if (!str) return false;
-    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-      '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    var pattern = new RegExp(
+      "^(https?:\\/\\/)?" + // protocol
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    ); // fragment locator
     return pattern.test(str);
   }
 
-  renderExcerptImage(excerpt, uri) {
-
-  }
+  renderExcerptImage(excerpt, uri) {}
   render() {
-    const summary = getLanguageString(global.language, this.props.item.item, "summary");
-    const showIconChat = this.props.item.item.showIconChat === false ? false : true;
+    const summary = getLanguageString(
+      global.language,
+      this.props.item.item,
+
+      "summary"
+    );
+    const showIconChat =
+      this.props.item.item.showIconChat === false ? false : true;
     const uri = this.props.item.item.photo1;
+    const card = this.props.card === false ? false : true;
     const preview = {
       uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
-    const rightMargin = this.props.item.item.showIconChat === false ? 0 : 36;
+
     const excerpt = this.props.item.item.excerpt;
 
     return (
-      <View
-        style={{
-          backgroundColor: "#fff",
-          shadowColor: "rgba(0,0,0, .4)",
-          shadowOffset: { height: 3, width: 0.5 },
-          shadowOpacity: 0.8,
-          shadowRadius: 1,
-          elevation: 2,
-          marginBottom: 12,
-          width: "98%",
-          alignSelf: "center",
-          borderWidth: 1,
-          borderColor: "lightgray",
-          borderTopLeftRadius: 25,
-          borderTopRightRadius: 25
-        }}>
-        <View
-          style={{
-            flexDirection: "row",
-            paddingRight: 4,
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderBottomWidth: 0.5,
-            borderBottomColor: "lightgray",
-            marginTop: 5,
-          }}
-        >
-          <TouchableOpacity
-            style={{ flexDirection: "row" }}
-            onPress={() => this.props.navigation.navigate("story", this.props.item.item)}
+      <View>
+        <View style={card && styles.card}>
+          <View
+            style={{
+              flexDirection: "row",
+              paddingRight: 4,
+              justifyContent: "space-between",
+              alignItems: "center",
+              borderBottomWidth: 0.1,
+              borderBottomColor: "lightgray",
+              marginTop: 5
+            }}
           >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              {this.icon(this.props.item.item.source)}
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() =>
+                this.props.navigation.navigate("story", this.props.item.item)
+              }
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                {this.icon(this.props.item.item.source)}
 
-              <View>
+                <View>
+                  <Text
+                    numberOfLines={2}
+                    ellipsizeMode="tail"
+                    style={styles.cardTitle}
+                  >
+                    {summary}
+                  </Text>
+                  {this.renderLocation(this.props.item.item.location)}
+
+                  {this.renderDate(this.props.item.item.date_start)}
+                  {this.renderTime(
+                    this.props.item.item.time_start_pretty,
+                    this.props.item.item.time_end_pretty,
+                    this.props.item.item.source
+                  )}
+                </View>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  alignItems: "center"
+                }}
+              >
+                {showIconChat && (
+                  <SimpleLineIcons
+                    name="bubble"
+                    size={25}
+                    color="black"
+                    style={{ marginRight: 8 }}
+                  />
+                )}
+
+                <Ionicons
+                  name="ios-more"
+                  size={25}
+                  color="black"
+                  style={{ marginRight: 8 }}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            onPress={() =>
+              this.props.navigation.navigate("story", this.props.item.item)
+            }
+          >
+            <View style={{ flexDirection: "column" }}>
+              {excerpt ? (
                 <Text
-                  numberOfLines={2}
-                  ellipsizeMode="tail"
+                  ellipsizeMode="clip"
                   style={{
-                    width: width - 120 - rightMargin,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    fontSize: 18,
+                    fontSize: 14,
                     color: "#262626",
-                    fontWeight: "500",
+                    paddingVertical: 12,
+                    paddingHorizontal: 8
                   }}
                 >
-                  {summary}
+                  {excerpt}
                 </Text>
-                <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>
-                  {formatMonth(this.props.item.item.date_start)} {this.props.item.item.location}{" "}
-                </Text>
-                {this.renderTime(this.props.item.item.time_start_pretty, this.props.item.item.time_end_pretty)}
-              </View>
-            </View>
-            <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", alignItems: "center" }}>
-              {showIconChat && (
-                <SimpleLineIcons name="bubble" size={25} color="black" style={{ marginRight: 8 }} />
+              ) : null}
+              {this.isURL(uri) && (
+                <Image style={{ height: 200 }} {...{ preview, uri }} />
               )}
-
-              <Ionicons name="ios-more" size={25} color="black" style={{ marginRight: 8 }} />
             </View>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("story", this.props.item.item)}
-        >
-          <View style={{ flexDirection: "column" }}>
-            {excerpt ?
-              <Text
-                ellipsizeMode="clip"
-                style={{
-                  fontSize: 14,
-                  color: "#262626",
-                  paddingVertical: 12,
-                  paddingHorizontal: 8
-                }}
-              >{excerpt}</Text> : null
-            }
-            {this.isURL(uri) && (
-              <Image style={{ height: 200 }} {...{ preview, uri }} />
-            )}
-          </View>
-
-        </TouchableOpacity>
       </View>
     );
   }

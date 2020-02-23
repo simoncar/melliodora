@@ -36,7 +36,6 @@ export function formatMonth(eventDate) {
   } else {
     if (undefined != eventDate && eventDate.length > 1) {
       ret = moment(eventDate, "YYYY-MM-DD").format("MMMM Do YYYY");
-      console.log("FORMAT MONTH = ", eventDate, ret);
     } else {
       ret = "";
     }

@@ -2,7 +2,7 @@
   "name": "genericApp",
   "displayName": "genericApp",
   "expo": {
-    "version": "1.0.3",
+    "version": "20.0.36",
     "sdkVersion": "36.0.0",
     "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",
     "slug": "myCommunity",
@@ -44,7 +44,7 @@
     },
     "android": {
       "package": "com.softmowertrain.parent.mycommunity",
-      "versionCode": 19,
+      "versionCode": 20,
       "permissions": [
         "READ_CALENDAR",
         "WRITE_CALENDAR"
