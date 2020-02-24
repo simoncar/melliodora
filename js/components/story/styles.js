@@ -186,7 +186,8 @@ export default {
   },
   eventText: {
     color: "#222",
-    fontSize: 18
+    fontSize: 18,
+    marginRight: 10
   },
 
   eventTextSend: {
@@ -398,8 +399,7 @@ export default {
   },
   modalContentBox: {
     borderBottomWidth: 1,
-    borderBottomColor:
-      Platform.OS === "android" ? "#fff" : "rgba(255,255,255,0.5)"
+    borderBottomColor: Platform.OS === "android" ? "#fff" : "rgba(255,255,255,0.5)"
   },
   modalSmallText: {
     alignSelf: "flex-start",

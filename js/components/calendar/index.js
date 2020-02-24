@@ -11,17 +11,11 @@ import { Ionicons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import moment from "moment";
 import "moment/min/locales";
-import Constants from "expo-constants";
 import CalendarItem from "./CalendarItem";
 import Analytics from "../../lib/analytics";
 
 const tabBarIcon = name => ({ tintColor }) => (
-  <Ionicons
-    style={{ backgroundColor: "transparent" }}
-    name={name}
-    color={tintColor}
-    size={24}
-  />
+  <Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
 var todayItem = {};
@@ -55,15 +49,13 @@ class calendar1 extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.push("searchCalendar");
-        }}
-      >
+        }}>
         <View
           style={{
             color: "#48484A",
             fontSize: 25,
             marginRight: 10
-          }}
-        >
+          }}>
           <Ionicons
             name="md-search"
             style={{
@@ -221,12 +213,7 @@ class calendar1 extends Component {
           }}
           hideKnob={false}
           renderKnob={() => {
-            return (
-              <Ionicons
-                style={{ color: "#00adf5", fontSize: 30 }}
-                name="ios-arrow-down"
-              />
-            );
+            return <Ionicons style={{ color: "#00adf5", fontSize: 30 }} name="ios-arrow-down" />;
           }}
           theme={{
             selectedDayBackgroundColor: "#00adf5"

@@ -1,32 +1,12 @@
 import React, { Component } from "react";
-import {
-  Linking,
-  View,
-  TouchableOpacity,
-  TouchableHighlight,
-  Platform,
-  Share
-} from "react-native";
-import { Container, Content, Text, Icon } from "native-base";
-import {
-  Ionicons,
-  Feather,
-  MaterialIcons,
-  SimpleLineIcons,
-  MaterialCommunityIcons
-} from "@expo/vector-icons";
+import { Linking, View, TouchableOpacity, TouchableHighlight, Share } from "react-native";
+import { Container, Content, Text } from "native-base";
+import { Ionicons, Feather, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import ParsedText from "react-native-parsed-text";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
-import {
-  formatTime,
-  formatMonth,
-  getAbbreviations,
-  isAdmin,
-  isValue,
-  getLanguageString
-} from "../global.js";
+import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../global.js";
 import _ from "lodash";
 import Analytics from "../../lib/analytics";
 
@@ -124,8 +104,7 @@ class Story extends Component {
             chatroom: chatroom,
             title: title
           });
-        }}
-      >
+        }}>
         <Text style={styles.eventText}>
           <SimpleLineIcons name="bubble" style={styles.eventIcon} />{" "}
         </Text>
@@ -138,17 +117,10 @@ class Story extends Component {
       return (
         <TouchableOpacity
           onPress={() => {
-            this.props.navigation.navigate(
-              "push",
-              this.props.navigation.state.params
-            );
-          }}
-        >
+            this.props.navigation.navigate("push", this.props.navigation.state.params);
+          }}>
           <Text style={styles.eventTextSend}>
-            <MaterialCommunityIcons
-              name="send-lock"
-              style={styles.eventIconSendLock}
-            />{" "}
+            <MaterialCommunityIcons name="send-lock" style={styles.eventIconSendLock} />{" "}
           </Text>
         </TouchableOpacity>
       );
@@ -156,16 +128,12 @@ class Story extends Component {
   }
 
   _drawIconCalendar(params) {
-    if (isValue(params.eventDate)) {
+    if (isValue(params.date_start)) {
       return (
         <TouchableOpacity
           onPress={() => {
-            this.props.navigation.navigate(
-              "phoneCalendar",
-              this.props.navigation.state.params
-            );
-          }}
-        >
+            this.props.navigation.navigate("phoneCalendar", this.props.navigation.state.params);
+          }}>
           <Text style={styles.eventText}>
             <Ionicons name="ios-calendar" style={styles.eventIcon} />
           </Text>
@@ -182,7 +150,7 @@ class Story extends Component {
     return (
       <TouchableOpacity onPress={() => this._shareMessage()}>
         <Text style={styles.eventText}>
-          <Feather name="share" style={styles.eventIcon} />
+          <Ionicons name="ios-share-alt" style={styles.eventIcon} />
         </Text>
       </TouchableOpacity>
     );
@@ -200,12 +168,8 @@ class Story extends Component {
                 ...{ edit: true },
                 ...this.props.navigation.state.params
               })
-            }
-          >
-            <MaterialIcons
-              name="edit"
-              style={{ fontSize: 25, color: "white" }}
-            />
+            }>
+            <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
           </TouchableHighlight>
         )}
 
@@ -223,8 +187,7 @@ class Story extends Component {
               flex: 1,
               borderTopWidth: 1,
               borderTopColor: "#ddd"
-            }}
-          >
+            }}>
             {this._drawIconChat(this.props._key, this.props.summaryMyLanguage)}
             {this._drawIconCalendar(this.props.navigation.state.params)}
             {this._drawIconShare()}
@@ -282,8 +245,7 @@ class Story extends Component {
                   { pattern: /433333332/, style: styles.magicNumber },
                   { pattern: /#(\w+)/, style: styles.hashTag }
                 ]}
-                childrenProps={{ allowFontScaling: false }}
-              >
+                childrenProps={{ allowFontScaling: false }}>
                 {this.props.descriptionMyLanguage}
               </ParsedText>
 
