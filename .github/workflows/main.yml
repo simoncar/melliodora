@@ -1,4 +1,4 @@
-name: Expo Publish Melliodora
+name: Expo Publish Melliodora 2
 on:
   push:
     branches:
