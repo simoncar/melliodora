@@ -15,10 +15,10 @@ export default class LoginScreen extends Component {
       await firebase
         .auth()
         .signInWithEmailAndPassword(email, password);
-      if (global.domain) {
-        this.props.navigation.popToTop();
+      if (!global.domain || this.props.navigation.state.param.toWelcomeScreen) {
+        this.props.navigation.navigate("welcomeScreen");
       } else {
-        this.props.navigation.push("welcomeScreen");
+        this.props.navigation.popToTop();
       }
 
     } catch (error) {

@@ -94,8 +94,14 @@ class SignUpScreen extends Component {
           const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
           setUserClaim({ email: this.state.email, domain: global.domain })
         })
-        .then(result => console.log(result))
-        .then(() => this.props.navigation.popToTop())
+        .then(result => this.setState({ loading: false }))
+        .then(() => {
+          if (this.props.navigation.state.params.toWelcomeScreen) {
+            this.props.navigation.navigate("welcomeScreen")
+          } else {
+            this.props.navigation.popToTop()
+          }
+        })
         .catch(error => this.setState({ errorMessage: error.message, loading: false }));
 
     } catch (error) {

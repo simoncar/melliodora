@@ -10,6 +10,7 @@ import {
   AsyncStorage,
   Image,
   Platform,
+  ScrollView
 } from "react-native";
 import { Container, Content, Text } from "native-base";
 import Constants from "expo-constants";
@@ -20,7 +21,7 @@ import I18n from "../../lib/i18n";
 import styles from "./styles";
 import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
-import { NavigationEvents, ScrollView } from "react-navigation";
+// import { NavigationEvents, ScrollView } from "react-navigation";
 import moment from "moment";
 
 const { width } = Dimensions.get("window");

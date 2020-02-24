@@ -237,6 +237,14 @@ const MainScreenNavigator = createStackNavigator(
   },
 );
 
+// const defaultGetStateForAction = MainScreenNavigator.router.getStateForAction;
+
+// MainScreenNavigator.router.getStateForAction = (action, state) => {
+//   console.log("action", action);
+//   console.log("state", state);
+//   return defaultGetStateForAction(action, state);
+// };
+
 const RootStack = createStackNavigator({
   mode: "modal",
   headerMode: "none",

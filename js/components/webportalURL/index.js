@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { TextInput, TouchableOpacity, WebView, View } from "react-native";
+import { TextInput, TouchableOpacity, View } from "react-native";
+import { WebView } from 'react-native-webview';
 import { Container } from "native-base";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "./styles";

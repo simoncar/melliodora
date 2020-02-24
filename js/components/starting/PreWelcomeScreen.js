@@ -18,7 +18,7 @@ export default class PreWelcomeScreen extends Component {
           title="Login"
           // style={{ marginTop: 26 }}
           onPress={() => {
-            this.props.navigation.push("login")
+            this.props.navigation.push("login", { toWelcomeScreen: true })
           }}
         />
 
@@ -26,7 +26,7 @@ export default class PreWelcomeScreen extends Component {
           title="Register"
           // style={{ marginTop: 500 }}
           onPress={() => {
-            this.props.navigation.push("signup")
+            this.props.navigation.push("signup", { toWelcomeScreen: true })
           }}
         />
       </View>
