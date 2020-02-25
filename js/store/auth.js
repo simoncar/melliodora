@@ -9,6 +9,7 @@ export const setUserInfo = userInfo => ({
 
 const initialState = {
     user: false,
+    userInfo: {}
 };
 
 // REDUCER
@@ -17,7 +18,7 @@ export default (state = initialState, action) => {
         case SET_USER_INFO:
             return {
                 ...state,
-                userInfo: action.userInfo,
+                userInfo: { ...state.userInfo, ...action.userInfo },
             };
         default:
             return state;

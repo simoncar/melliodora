@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 class WelcomeScreen extends Component {
 
   componentDidMount() {
+    console.log("authhh", this.props.auth);
     const currentUser = firebase.auth().currentUser;
     if (!currentUser || currentUser.isAnonymous) {
       return this.props.navigation.pop();
@@ -20,9 +21,11 @@ class WelcomeScreen extends Component {
     console.log("this.props", this.props)
   }
   render() {
+
+    const firstName = this.props.auth.userInfo.firstName;
     return (
       <View style={styles.container}>
-        {/* <Text style={{ fontSize: 32 }} Welcome {this.stat}></Text> */}
+        <Text style={{ fontSize: 32 }}> Welcome {firstName}</Text>
         <TouchableOpacity
           style={styles.SubmitButtonStyle}
           activeOpacity={0.5}
@@ -70,5 +73,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   communityCreate: state.communityCreate,
+  auth: state.auth
 });
 export default connect(mapStateToProps)(WelcomeScreen);

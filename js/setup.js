@@ -17,6 +17,7 @@ import * as Localization from "expo-localization";
 import { connect } from 'react-redux';
 import CommunityCreateScreen from "./CommunityCreateScreen";
 import { retrieveFeatures } from "./store/settings";
+import { setUserInfo } from "./store/auth";
 
 class Setup extends Component {
   constructor() {
@@ -135,30 +136,29 @@ class Setup extends Component {
     try {
       console.log("SetupUser");
       firebase.auth().onAuthStateChanged(user => {
-
+        console.log("user", user);
         if (!user) {
           console.log("signing in");
           this.anonymouslySignIn();
         } else {
           console.log("user found", JSON.stringify(user));
           const isAnonymous = user.isAnonymous;
-          if (user && !isAnonymous && this.state.selectedDomain) {
+          if (user) { //&& this.state.selectedDomain
             console.log("global.domain node", global.domain);
-            user.getIdTokenResult()
-              .then((idTokenResult) => {
-                console.log("claims", idTokenResult.claims)
-                console.log("idTokenResult.claims[global.domain]", idTokenResult.claims[global.domain]);
-                console.log("global.domain", global.domain);
-                if (idTokenResult.claims[global.domain]) {
-                  this.initUser(user, isAnonymous);
-                } else {
-                  this.anonymouslySignIn();
-
-                }
-              });
-          } else if (user && isAnonymous) {
-            console.log("annoy user");
             this.initUser(user, isAnonymous);
+
+            // user.getIdTokenResult()
+            //   .then((idTokenResult) => {
+            //     console.log("claims", idTokenResult.claims)
+            //     console.log("idTokenResult.claims[global.domain]", idTokenResult.claims[global.domain]);
+            //     console.log("global.domain", global.domain);
+            //   if (idTokenResult.claims[global.domain]) {
+            //     this.initUser(user, isAnonymous);
+            //   } else {
+            //     this.anonymouslySignIn();
+
+            //   }
+            // });
           }
         }
 
@@ -187,57 +187,58 @@ class Setup extends Component {
 
     // store the auth as a valid user
     global.uid = uid;
-    firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("user")
-      .collection("usernames")
-      .doc(uid)
-      .get()
-      .then(doc => {
-        if (!doc.exists) {
-          console.log("No such document!");
-        } else {
-          var docData = doc.data();
 
-          if (_.isString(docData.name)) {
-            AsyncStorage.setItem("name", docData.name);
-            global.name = docData.name;
+    if (global.domain == "sais_edu_sg") {
+      firebase
+        .firestore()
+        .collection(global.domain)
+        .doc("user")
+        .collection("usernames")
+        .doc(uid)
+        .get()
+        .then(doc => {
+          if (!doc.exists) {
+            console.log("No such document!");
           } else {
-            global.name = "";
-          }
+            var docData = doc.data();
 
-          if (_.isString(docData.email)) {
-            AsyncStorage.setItem("email", docData.email);
-            global.email = docData.email;
-          } else {
-            global.email = "";
-          }
-          if (_.isBoolean(docData.authenticated)) {
-            if (docData.authenticated) {
-              global.authenticated = true;
+            if (_.isString(docData.name)) {
+              AsyncStorage.setItem("name", docData.name);
+              global.name = docData.name;
             } else {
+              global.name = "";
             }
-          } else {
-            global.authenticated = false;
-          }
 
-          if (_.isArray(docData.gradeNotify)) {
-            for (var i = -4; i < 13; i++) {
-              if (_.isNumber(docData.gradeNotify[i])) {
-              }
+            if (_.isString(docData.email)) {
+              AsyncStorage.setItem("email", docData.email);
+              global.email = docData.email;
+            } else {
+              global.email = "";
             }
-            AsyncStorage.setItem("gradeNotify", JSON.stringify(docData.gradeNotify));
+            if (_.isBoolean(docData.authenticated)) {
+              if (docData.authenticated) {
+                global.authenticated = true;
+              } else {
+              }
+            } else {
+              global.authenticated = false;
+            }
+
+            if (_.isArray(docData.gradeNotify)) {
+              for (var i = -4; i < 13; i++) {
+                if (_.isNumber(docData.gradeNotify[i])) {
+                }
+              }
+              AsyncStorage.setItem("gradeNotify", JSON.stringify(docData.gradeNotify));
+            }
           }
-        }
-      });
+        });
+    }
 
 
     firebase
       .firestore()
-      .collection(global.domain)
-      .doc("user")
-      .collection("registered")
+      .collection("registeredUsers")
       .doc(uid)
       .get()
       .then(doc => {
@@ -247,6 +248,8 @@ class Setup extends Component {
           const docData = doc.data();
 
           global.userInfo = docData;
+
+          this.props.dispatch(setUserInfo(docData));
 
           // AsyncStorage.setItem("gradeNotify", JSON.stringify(docData.gradeNotify));
 
@@ -267,7 +270,6 @@ class Setup extends Component {
     console.log("Auth2 = ", uid, global.authenticated, global.name, global.email);
     var version = _.isNil(Constants.manifest.revisionId) ? "unknown" : Constants.manifest.revisionId;
     var userDict = {
-      uid: uid,
       token,
       safeToken,
       loginCount: firebase.firestore.FieldValue.increment(1),
@@ -275,16 +277,13 @@ class Setup extends Component {
       phoneLocale: Localization.locale,
       version: version,
       lastLogin: Date.now(),
-      isAnonymous,
-      email: user.email
+      isAnonymous
     };
     console.log("uid=", uid);
 
     firebase
       .firestore()
-      .collection(global.domain)
-      .doc("user")
-      .collection("usernames")
+      .collection("registeredUsers")
       .doc(uid)
       .set(userDict, { merge: true });
 

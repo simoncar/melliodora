@@ -5,6 +5,7 @@ import { AsyncStorage } from 'react-native';
 
 import communityCreation from './communityCreation';
 import settings from './settings';
+import auth from './auth';
 
 const rootPersistConfig = {
     key: 'root',
@@ -14,7 +15,8 @@ const rootPersistConfig = {
 
 const rootReducer = combineReducers({
     communityCreation,
-    settings
+    settings,
+    auth
 });
 
 export default persistReducer(rootPersistConfig, rootReducer);
