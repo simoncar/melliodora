@@ -5,6 +5,7 @@ import * as Calendar from "expo-calendar";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
+import Analytics from "../../lib/analytics";
 import moment from "moment";
 
 import styles from "./styles";
@@ -89,6 +90,9 @@ class CalendarRow extends Component {
 
     try {
       console.log("newEvent:", newEvent);
+
+      Analytics.track("Calendar Add", { story: this.props.summaryMyLanguage });
+
       await Calendar.createEventAsync(phoneCalendarID, newEvent);
 
       this._findEvents(phoneCalendarID);

@@ -187,7 +187,13 @@ export default {
   eventText: {
     color: "#222",
     fontSize: 18,
-    marginRight: 10
+    marginRight: 20
+  },
+  eventTextTime: {
+    color: "#222",
+    fontSize: 18,
+    marginRight: 20,
+    marginBottom: 10
   },
 
   eventTextSend: {

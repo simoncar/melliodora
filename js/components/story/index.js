@@ -22,6 +22,8 @@ class Story extends Component {
 
   componentDidMount() {
     Analytics.track("Story", { story: this.props.summaryMyLanguage });
+
+    console.log(this.props.navigation.state.params.descriptionMyLanguage);
   }
 
   _shareMessage() {
@@ -205,11 +207,8 @@ class Story extends Component {
               </Text>
 
               {isValue(this.props.navigation.getParam("time_start_pretty")) && (
-                <Text selectable style={styles.eventText}>
-                  {formatTime(
-                    this.props.navigation.getParam("time_start_pretty"),
-                    this.props.navigation.getParam("time_end_pretty")
-                  )}
+                <Text selectable style={styles.eventTextTime}>
+                  {formatTime(this.props.navigation.getParam("time_start_pretty"), this.props.navigation.getParam("time_end_pretty"))}
                 </Text>
               )}
 
@@ -242,6 +241,7 @@ class Story extends Component {
                     onPress: this.handleNamePress,
                     renderText: this.renderText
                   },
+
                   { pattern: /433333332/, style: styles.magicNumber },
                   { pattern: /#(\w+)/, style: styles.hashTag }
                 ]}
