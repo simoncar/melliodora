@@ -35,6 +35,7 @@
     "expo-analytics-amplitude": "~8.0.0",
     "expo-asset-utils": "^1.1.1",
     "expo-blur": "~8.0.0",
+    "expo-calendar": "^8.0.0",
     "expo-camera": "~8.0.0",
     "expo-constants": "~8.0.0",
     "expo-file-system": "~8.0.0",

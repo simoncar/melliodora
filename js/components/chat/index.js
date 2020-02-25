@@ -32,7 +32,9 @@ class chat extends Component {
         onPress={() => {
           navigation.state.params._showActionSheet(navigation);
         }}>
+
         <Text style={{ fontSize: 17, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
+
       </TouchableOpacity>
     ),
     headerRight: (
@@ -97,7 +99,7 @@ class chat extends Component {
     this.unsubscribe = this.ref.onSnapshot(doc => {
       const item = doc.data();
       this.props.navigation.setParams({
-        title: item.title
+        title: this.props.title
       });
     });
 
