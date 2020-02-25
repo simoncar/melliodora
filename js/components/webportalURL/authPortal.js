@@ -1,19 +1,9 @@
 import React, { Component } from "react";
 import Constants from "expo-constants";
-import {
-  Animated,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Text
-} from "react-native";
+import { Animated, TextInput, TouchableOpacity, View, Text } from "react-native";
 import { WebView } from "react-native-webview";
 import { Container } from "native-base";
-import {
-  connectActionSheet,
-  ActionSheetProvider,
-  ActionSheetOptions
-} from "@expo/react-native-action-sheet";
+import { connectActionSheet, ActionSheetProvider, ActionSheetOptions } from "@expo/react-native-action-sheet";
 import { withNavigation } from "react-navigation";
 import styles from "./styles";
 import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
@@ -25,12 +15,7 @@ import Analytics from "../../lib/analytics";
 const timer = require("react-native-timer");
 
 const tabBarIcon = name => ({ tintColor }) => (
-  <MaterialIcons
-    style={{ backgroundColor: "transparent" }}
-    name={name}
-    color={tintColor}
-    size={24}
-  />
+  <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
 @withMappedNavigationParams()
@@ -58,9 +43,7 @@ class authPortal extends Component {
       showMsg: false
     };
 
-    this.actionOptions = global.switch_webportalActions
-      ? global.switch_webportalActions.map(item => Object.keys(item)[0])
-      : [];
+    this.actionOptions = global.switch_webportalActions ? global.switch_webportalActions.map(item => Object.keys(item)[0]) : [];
     this.actionOptions.push("Cancel");
   }
   //this.props.chatroom
@@ -73,14 +56,7 @@ class authPortal extends Component {
     if (Constants.manifest.extra.instance == "sais_edu_sg") {
       this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
 
-      this.setState({ showMsg: true }, () =>
-        timer.setTimeout(
-          this,
-          "hideMsg",
-          () => this.setState({ showMsg: false }),
-          10000
-        )
-      );
+      this.setState({ showMsg: true }, () => timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000));
     }
 
     this.props.navigation.setParams({
@@ -113,28 +89,19 @@ class authPortal extends Component {
 
   showMsg() {
     if (Constants.manifest.extra.instance == "sais_edu_sg") {
-      this.setState({ showMsg: true }, () =>
-        timer.setTimeout(
-          this,
-          "hideMsg",
-          () => this.setState({ showMsg: false }),
-          5000
-        )
-      );
+      this.setState({ showMsg: true }, () => timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 5000));
     }
   }
 
   onNavigationStateChange = navState => {
     console.log(navState.url);
     if (
-      navState.url.substring(0, 42) !=
-        "https://mystamford.edu.sg/login/login.aspx" &&
+      navState.url.substring(0, 42) != "https://mystamford.edu.sg/login/login.aspx" &&
       navState.url.substring(0, 25) == "https://mystamford.edu.sg" &&
       global.authenticated != true
     ) {
       setTimeout(() => {
-        var jsCode =
-          "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML);";
+        var jsCode = "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML);";
         this.webref.injectJavaScript(jsCode);
       }, 5000);
       this.setState({ canGoBack: false });
@@ -142,10 +109,7 @@ class authPortal extends Component {
       this.setState({ canGoBack: navState.canGoBack });
     }
 
-    if (
-      navState.url.substring(0, 42) ==
-      "https://mystamford.edu.sg/login/login.aspx"
-    ) {
+    if (navState.url.substring(0, 42) == "https://mystamford.edu.sg/login/login.aspx") {
       if (!navState.url.includes("&kr=iSAMS:ParentPP")) {
         if (navState.url.includes("&kr=ActiveDirectoryKeyRing")) {
           //do overrule - they are staff
@@ -181,33 +145,18 @@ class authPortal extends Component {
   }
 
   _onLoadEnd() {
-    if (
-      this.state.url.substring(0, 42) ==
-      "https://mystamford.edu.sg/login/login.aspx"
-    ) {
+    if (this.state.url.substring(0, 42) == "https://mystamford.edu.sg/login/login.aspx") {
       setTimeout(() => {
-        var jsCode =
-          "document.getElementsByClassName('ff-login-personalised-background')[0].style.display = 'none';";
-        jsCode =
-          jsCode +
-          "document.getElementById('username').value='" +
-          global.email +
-          "';true;";
+        var jsCode = "document.getElementsByClassName('ff-login-personalised-background')[0].style.display = 'none';";
+        jsCode = jsCode + "document.getElementById('username').value='" + global.email + "';true;";
         this.webref.injectJavaScript(jsCode);
       }, 500);
     } else {
       setTimeout(() => {
-        var jsCodeNoLogo =
-          "document.getElementById('userbar-react-component').style.display = 'none';";
-        jsCodeNoLogo =
-          jsCodeNoLogo +
-          "document.getElementsByClassName('school-logo')[0].style.display = 'none';";
-        jsCodeNoLogo =
-          jsCodeNoLogo +
-          "document.getElementById('school-header').style.margin = '0px';";
-        jsCodeNoLogo =
-          jsCodeNoLogo +
-          "document.getElementsByClassName('search-container')[0].style.display = 'none';";
+        var jsCodeNoLogo = "document.getElementById('userbar-react-component').style.display = 'none';";
+        jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('school-logo')[0].style.display = 'none';";
+        jsCodeNoLogo = jsCodeNoLogo + "document.getElementById('school-header').style.margin = '0px';";
+        jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('search-container')[0].style.display = 'none';";
 
         this.webref.injectJavaScript(jsCodeNoLogo);
       }, 700);
@@ -222,10 +171,7 @@ class authPortal extends Component {
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>
-              <TouchableOpacity
-                disabled={!this.state.canGoBack}
-                onPress={this.onBack.bind(this)}
-              >
+              <TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
                 <Ionicons style={styles.navIcon} name="ios-arrow-back" />
               </TouchableOpacity>
 
@@ -269,8 +215,7 @@ export default class AppContainer extends React.Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params.reload();
-        }}
-      >
+        }}>
         <Ionicons name="md-refresh" style={styles.Leftheading} />
       </TouchableOpacity>
     ),
@@ -279,19 +224,15 @@ export default class AppContainer extends React.Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params._onOpenActionSheet();
-        }}
-      >
-        <Text style={{ fontSize: 28, fontWeight: "bold" }}>
-          {global.switch_portalName}
-        </Text>
+        }}>
+        <Text>{global.switch_portalName}</Text>
       </TouchableOpacity>
     ),
     headerRight: (
       <TouchableOpacity
         onPress={() => {
           navigation.state.params._onOpenActionSheet();
-        }}
-      >
+        }}>
         <View style={styles.chatHeading}>
           <Ionicons name="ios-bookmarks" style={styles.heading} />
         </View>
