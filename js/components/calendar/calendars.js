@@ -5,6 +5,7 @@ import * as Calendar from "expo-calendar";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
+import moment from "moment";
 
 import styles from "./styles";
 
@@ -57,8 +58,6 @@ class CalendarRow extends Component {
     email,
     url
   ) => {
-    const timeInOneHour = new Date(eventDate);
-    timeInOneHour.setHours(timeInOneHour.getHours() + 1);
     var newEvent = {};
 
     if (eventStartTime == null) {
@@ -72,12 +71,17 @@ class CalendarRow extends Component {
         timeZone: "Asia/Singapore"
       };
     } else {
+      console.log("FFFFF:", moment(eventStartTime, ["h:mm A"]).format("HH:mm"));
+
+      var dtStart = moment(eventDate + "T" + moment(eventStartTime + " GMT+0800 (+08)", ["h:mm A"]).format("HH:mm"));
+      var dtEnd = moment(eventDate + "T" + moment(eventEndTime + " GMT+0800 (+08)", ["h:mm A"]).format("HH:mm"));
+
       newEvent = {
         allDay: false,
         title: eventTitle,
         location: location,
-        startDate: new Date(eventDate + "T" + eventStartTime + "+08:00"),
-        endDate: new Date(eventDate + "T" + eventEndTime + "+08:00"),
+        startDate: new Date(dtStart),
+        endDate: new Date(dtEnd),
         notes: eventDescription,
         timeZone: "Asia/Singapore"
       };
@@ -119,6 +123,8 @@ class CalendarRow extends Component {
       url
     } = this.props;
 
+    console.log("props:", this.props);
+
     const calendarTypeName = calendar.entityType === Calendar.EntityTypes.REMINDER ? "Reminders" : "Events";
     return (
       <View style={styles.selectCalendar}>
@@ -141,14 +147,8 @@ class CalendarRow extends Component {
                 url
               )
             }>
-            <Ionicons name="ios-calendar" />
-            <Text style={styles.calendarText}> {calendar.title}</Text>
-          </Button>
-        )}
-        {calendar.allowsModifications == false && (
-          <Button transparent style={styles.calendarButton}>
-            <Ionicons style={styles.calendarTextDisabled} name="ios-alert" />
-            <Text style={styles.calendarTextDisabled}> {calendar.title} (read only)</Text>
+            <Ionicons name="ios-calendar" style={styles.calendarText} />
+            <Text style={styles.calendarText}> {calendar.title} </Text>
           </Button>
         )}
       </View>
@@ -187,6 +187,7 @@ class phoneCalendar extends Component {
   };
 
   render() {
+    console.log("RRRRRR=", this.props.time_end_pretty);
     if (this.state.calendars.length) {
       return (
         <Container style={{ backgroundColor: "#fff" }}>
@@ -194,7 +195,7 @@ class phoneCalendar extends Component {
             <View>
               <View style={styles.newsContent}>
                 <Text selectable={true} style={styles.eventTitle}>
-                  Select Calendar for {this.props.eventTitle}
+                  Add to Calendar
                 </Text>
               </View>
 
