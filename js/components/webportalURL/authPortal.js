@@ -225,7 +225,7 @@ export default class AppContainer extends React.Component {
         onPress={() => {
           navigation.state.params._onOpenActionSheet();
         }}>
-        <Text>{global.switch_portalName}</Text>
+        <Text style={{ fontSize: 17, fontWeight: "bold" }}>{global.switch_portalName}</Text>
       </TouchableOpacity>
     ),
     headerRight: (
