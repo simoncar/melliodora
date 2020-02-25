@@ -6,7 +6,9 @@
     "@expo/webpack-config": "^0.7.4",
     "jest-expo": "^36.0.0",
     "metro-react-native-babel-preset": "^0.57.0",
-    "react-native-dotenv": "^0.2.0"
+    "react-native-dotenv": "^0.2.0",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6"
   },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -81,6 +83,10 @@
     "react-navigation-selective-tab-bar": "^1.0.3",
     "react-navigation-stack": "^1.9.4",
     "react-navigation-tabs": "^1.2.0",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
     "sentry-expo": "~2.0.0",
     "tcomb-form-native": "^0.6.20",
     "use-global-hook": "^0.1.11"

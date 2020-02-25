@@ -14,8 +14,10 @@ import AuthStackNavigator from "./AuthStackNavigator";
 import * as firebase from "firebase";
 import Constants from "expo-constants";
 import * as Localization from "expo-localization";
+import { connect } from 'react-redux';
+import CommunityCreateScreen from "./CommunityCreateScreen";
 
-export default class Setup extends Component {
+class Setup extends Component {
   constructor() {
     super();
     this.state = {
@@ -81,104 +83,7 @@ export default class Setup extends Component {
       });
     }
 
-    this.setState({ isReady: true });
-  }
 
-  setSelectedDomain = d => {
-    const domain = d || "";
-    console.log("setSelectedDomain - d = ", d);
-    const domainDataArr = this.getSelectedDomainData(domain, this.domains);
-    if (domainDataArr.length < 1) return;
-    AsyncStorage.setItem("domain", JSON.stringify(domainDataArr[0]));
-    global.domain = domain;
-    this.setState({ selectedDomain: domain, isReady: true });
-    switch (domain) {
-      case "sais_edu_sg":
-        global.switch_address =
-          "Locations: \nFranklin Ground Floor (level 2), by Stamford Yard \nEarly Learning Village, Level 1\nHours: 8 am to 5 pm";
-        global.switch_helpEmail = "pta.comms@sais.edu.sg";
-        global.switch_contactEmail = "help@sais.edu.sg";
-        global.switch_portalName = "myStamford";
-        global.switch_tab_portalName = "myS";
-        global.switch_portalURL = "https://mystamford.edu.sg/parent-dashboard";
-        global.switch_webportalActions = [
-          { Home: "https://mystamford.edu.sg/parent-dashboard" },
-          { "Cafe Top-Up": "https://mystamford.edu.sg/cafe/cafe-online-ordering" },
-          { Events: "https://mystamford.edu.sg/events-1" },
-          { Forms: "https://mystamford.edu.sg/forms-1" },
-          { PTA: "https://mystamford.edu.sg/pta" },
-          { Logout: "https://mystamford.edu.sg/logout" },
-        ];
-        global.switch_call = "+65 6709 4800";
-        break;
-      case "ais_edu_sg":
-        global.switch_portalURL =
-          "https://connect.ais.com.sg/login/login.aspx?prelogin=https%3a%2f%2fconnect.ais.com.sg%2f&kr=iSAMS:ParentPP";
-        global.switch_portalName = "AIS Connect";
-        global.switch_tab_portalName = "Connect";
-        global.switch_webportalActions = [
-          { Home: "" },
-          { "Cafe Top-Up": "" },
-          { Events: "" },
-          { Forms: "" },
-          { PTA: "" },
-          { Logout: "" },
-        ];
-        break;
-      case "camp_asia":
-        global.switch_portalURL = "https://www.campasia.asia/online-booking/login";
-        global.switch_webportalActions = [
-          { Home: "" },
-          { "Cafe Top-Up": "" },
-          { Events: "" },
-          { Forms: "" },
-          { PTA: "" },
-          { Logout: "" },
-        ];
-        global.switch_homeLogoURI =
-          "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/smartcommunity%2Fcommunitylogo%2FCA_ID_Reverse_new.png?alt=media&token=54fbd759-31f5-46bb-a73f-6424db99d5dd";
-        break;
-      case "0002-singaporepoloclub":
-        global.switch_address = "Polo Club \nSingapore  00000";
-        global.switch_helpEmail = "simoncar+spc@gmail.com";
-        global.switch_contactEmail = "test@test.com";
-        global.switch_portalName = "Polo Contacts";
-        global.switch_portalURL = "https://polocontacts.com/";
-        global.switch_call = "+65 0000 0000";
-        break;
-      default:
-        global.switch_address = "not specified -";
-    }
-  };
-
-  render() {
-    console.log("Constants.manifest.extra.instance2", Constants.manifest.extra.instance);
-    if (!this.state.isReady) {
-      return <AppLoading />;
-    }
-    else if (!this.state.selectedDomain) {
-      return <AuthStackNavigator
-        screenProps={{
-          domains: this.domains,
-          setSelectedDomain: this.setSelectedDomain
-        }}
-      />
-    } else {
-      return <SetupEnv />;
-    }
-
-  }
-}
-
-class SetupEnv extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isReady: false,
-    };
-  }
-
-  async componentDidMount() {
     await AsyncStorage.getItem("language").then(language => {
       if (!_.isString(language)) {
         language = "en";
@@ -220,7 +125,46 @@ class SetupEnv extends Component {
     });
 
     // this.setState({ isReady: true });
-    this.SetupUser();
+    this.setupUser();
+
+    this.setState({ isReady: true });
+  }
+
+  setupUser = () => {
+    try {
+      console.log("SetupUser");
+      firebase.auth().onAuthStateChanged(user => {
+
+        if (!user) {
+          console.log("signing in");
+          this.anonymouslySignIn();
+        } else {
+          console.log("user found", JSON.stringify(user));
+          const isAnonymous = user.isAnonymous;
+          if (user && !isAnonymous && this.state.selectedDomain) {
+            console.log("global.domain node", global.domain);
+            user.getIdTokenResult()
+              .then((idTokenResult) => {
+                console.log("claims", idTokenResult.claims)
+                console.log("idTokenResult.claims[global.domain]", idTokenResult.claims[global.domain]);
+                console.log("global.domain", global.domain);
+                if (idTokenResult.claims[global.domain]) {
+                  this.initUser(user, isAnonymous);
+                } else {
+                  this.anonymouslySignIn();
+
+                }
+              });
+          } else if (user && isAnonymous) {
+            console.log("annoy user");
+            this.initUser(user, isAnonymous);
+          }
+        }
+
+      });
+    } catch (e) {
+      console.log("catch error body:", e.message);
+    }
   }
 
   anonymouslySignIn = async () => {
@@ -347,55 +291,96 @@ class SetupEnv extends Component {
     this.setState({ isReady: true });
   }
 
-  SetupUser = () => {
-    try {
-      console.log("SetupUser");
-      firebase.auth().onAuthStateChanged(user => {
-
-        if (!user) {
-          console.log("signing in");
-          this.anonymouslySignIn();
-        } else {
-          console.log("user found", JSON.stringify(user));
-          const isAnonymous = user.isAnonymous;
-          if (user && !isAnonymous) {
-            console.log("global.domain node", global.domain);
-            user.getIdTokenResult()
-              .then((idTokenResult) => {
-                console.log("claims", idTokenResult.claims)
-                console.log("idTokenResult.claims[global.domain]", idTokenResult.claims[global.domain]);
-                console.log("global.domain", global.domain);
-                if (idTokenResult.claims[global.domain]) {
-                  this.initUser(user, isAnonymous);
-                } else {
-                  this.anonymouslySignIn();
-
-                }
-              });
-          } else if (user && isAnonymous) {
-            console.log("annoy user");
-            this.initUser(user, isAnonymous);
-          }
-        }
-
-      });
-    } catch (e) {
-      console.log("catch error body:", e.message);
+  setSelectedDomain = d => {
+    const domain = d || "";
+    console.log("setSelectedDomain - d = ", d);
+    const domainDataArr = this.getSelectedDomainData(domain, this.domains);
+    if (domainDataArr.length < 1) return;
+    AsyncStorage.setItem("domain", JSON.stringify(domainDataArr[0]));
+    global.domain = domain;
+    this.setState({ selectedDomain: domain, isReady: true });
+    switch (domain) {
+      case "sais_edu_sg":
+        global.switch_address =
+          "Locations: \nFranklin Ground Floor (level 2), by Stamford Yard \nEarly Learning Village, Level 1\nHours: 8 am to 5 pm";
+        global.switch_helpEmail = "pta.comms@sais.edu.sg";
+        global.switch_contactEmail = "help@sais.edu.sg";
+        global.switch_portalName = "myStamford";
+        global.switch_tab_portalName = "myS";
+        global.switch_portalURL = "https://mystamford.edu.sg/parent-dashboard";
+        global.switch_webportalActions = [
+          { Home: "https://mystamford.edu.sg/parent-dashboard" },
+          { "Cafe Top-Up": "https://mystamford.edu.sg/cafe/cafe-online-ordering" },
+          { Events: "https://mystamford.edu.sg/events-1" },
+          { Forms: "https://mystamford.edu.sg/forms-1" },
+          { PTA: "https://mystamford.edu.sg/pta" },
+          { Logout: "https://mystamford.edu.sg/logout" },
+        ];
+        global.switch_call = "+65 6709 4800";
+        break;
+      case "ais_edu_sg":
+        global.switch_portalURL =
+          "https://connect.ais.com.sg/login/login.aspx?prelogin=https%3a%2f%2fconnect.ais.com.sg%2f&kr=iSAMS:ParentPP";
+        global.switch_portalName = "AIS Connect";
+        global.switch_tab_portalName = "Connect";
+        global.switch_webportalActions = [
+          { Home: "" },
+          { "Cafe Top-Up": "" },
+          { Events: "" },
+          { Forms: "" },
+          { PTA: "" },
+          { Logout: "" },
+        ];
+        break;
+      case "camp_asia":
+        global.switch_portalURL = "https://www.campasia.asia/online-booking/login";
+        global.switch_webportalActions = [
+          { Home: "" },
+          { "Cafe Top-Up": "" },
+          { Events: "" },
+          { Forms: "" },
+          { PTA: "" },
+          { Logout: "" },
+        ];
+        global.switch_homeLogoURI =
+          "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/smartcommunity%2Fcommunitylogo%2FCA_ID_Reverse_new.png?alt=media&token=54fbd759-31f5-46bb-a73f-6424db99d5dd";
+        break;
+      case "0002-singaporepoloclub":
+        global.switch_address = "Polo Club \nSingapore  00000";
+        global.switch_helpEmail = "simoncar+spc@gmail.com";
+        global.switch_contactEmail = "test@test.com";
+        global.switch_portalName = "Polo Contacts";
+        global.switch_portalURL = "https://polocontacts.com/";
+        global.switch_call = "+65 0000 0000";
+        break;
+      default:
+        global.switch_address = "not specified -";
     }
-  }
+  };
 
   render() {
+    console.log("Constants.manifest.extra.instance2", Constants.manifest.extra.instance);
+    console.log("this.props.communityCreate", this.props)
     if (!this.state.isReady) {
-      console.log("....waiting....");
       return <AppLoading />;
+    } else if (this.props.CommunityCreation.communityCreate) {
+      return <CommunityCreateScreen />
     }
-    console.log("....running....");
-    return (
-      <StyleProvider style={getTheme(variables)}>
-        <Root>
-          <App />
-        </Root>
-      </StyleProvider>
-    );
+    else if (!this.state.selectedDomain) {
+      return <AuthStackNavigator
+        screenProps={{
+          domains: this.domains,
+          setSelectedDomain: this.setSelectedDomain
+        }}
+      />
+    } else {
+      return <App />;
+    }
+
   }
 }
+
+const mapStateToProps = state => ({
+  CommunityCreation: state.CommunityCreation,
+});
+export default connect(mapStateToProps)(Setup);

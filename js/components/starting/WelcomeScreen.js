@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import firebase from "firebase";
 import DomainSelection from "./DomainSelection";
+import { setCommunityCreate } from '../../store/communityCreation';
+import { connect } from 'react-redux';
 
-export default class WelcomeScreen extends Component {
+class WelcomeScreen extends Component {
 
   componentDidMount() {
     const currentUser = firebase.auth().currentUser;
@@ -15,16 +17,16 @@ export default class WelcomeScreen extends Component {
     console.log({ uid, email });
 
     //get user details from firestore
-
+    console.log("this.props", this.props)
   }
   render() {
     return (
       <View style={styles.container}>
-
+        {/* <Text style={{ fontSize: 32 }} Welcome {this.stat}></Text> */}
         <TouchableOpacity
           style={styles.SubmitButtonStyle}
           activeOpacity={0.5}
-          onPress={this.handleSignUp}>
+          onPress={() => this.props.dispatch(setCommunityCreate(true))}>
           <Text style={[styles.TextStyle, { fontSize: 32 }]}>Create Community</Text>
         </TouchableOpacity>
         <DomainSelection />
@@ -65,3 +67,8 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
 });
+
+const mapStateToProps = state => ({
+  communityCreate: state.communityCreate,
+});
+export default connect(mapStateToProps)(WelcomeScreen);

@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import Setup from "./js/setup";
 import Constants from "expo-constants";
 //import Sentry from "sentry-expo";
 import _ from "lodash";
+
+import { store, persistor } from './js/store/store';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 //Sentry.config("https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405").install();
 
@@ -27,9 +32,28 @@ export default class App extends Component {
   constructor(props) {
     super(props);
   }
-
+  renderLoading = () => (
+    <View style={styles.container}>
+      <ActivityIndicator size="large" />
+    </View>
+  );
   render() {
     //console.disableYellowBox = true;
-    return <Setup />;
+    return (
+      <Provider store={store}>
+        <PersistGate persistor={persistor} loading={this.renderLoading()}>
+          <Setup />
+        </PersistGate>
+      </Provider>
+    )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
