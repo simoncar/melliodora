@@ -10,6 +10,9 @@ import Constants from "expo-constants";
 import SettingsListItem from "./SettingsListItem";
 import Analytics from "../../lib/analytics";
 import _ from "lodash";
+import { retrieveFeatures } from "../../store/settings";
+import { connect } from 'react-redux';
+
 
 const icons = {
   wifi: require("./images/wifi.png"),
@@ -30,55 +33,15 @@ class Settings extends Component {
 
     this.state = {
       user: null,
-      language: "",
-      features: global.moreFeatures || [],
+      language: ""
     };
   }
 
-  _retrieveFeatures = async () => {
-    try {
-
-      const d = await AsyncStorage.getItem("moreFeatures")
-      const features = JSON.parse(d);
-
-      this.setState({ features: features || [] });
-
-
-      console.log("retrivin features");
-      if (!global.moreFeatures) {
-        const doc = await firebase
-          .firestore()
-          .collection(global.domain)
-          .doc("config")
-          .get();
-
-        if (doc.exists) {
-          const docData = doc.data();
-          if (docData.moreListings) {
-            global.moreFeatures = docData.moreListings;
-            AsyncStorage.setItem("moreFeatures", JSON.stringify(docData.moreListings));
-            this.setState({ features: docData.moreListings });
-          }
-        } else {
-          console.log("No such contacts config");
-          global.moreFeatures = [];
-          this.setState({ features: [] });
-        }
-      }
-
-
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
-
   componentDidMount() {
-    this._retrieveFeatures();
     this._retrieveLanguage();
     this._retrieveGradeSelectors();
 
     this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
-      this.setState({ features: global.moreFeatures || [] });
       this._getUser();
     });
     this._getUser();
@@ -198,7 +161,7 @@ class Settings extends Component {
           <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
 
           <Seperator />
-          {this.state.features
+          {this.props.settings.features
             .filter(item => item.visible !== false)
             .map((el, idx) => {
               const navTitle = el.navTitle || el.title;
@@ -354,4 +317,7 @@ class Seperator extends Component {
   }
 }
 
-module.exports = Settings;
+const mapStateToProps = state => ({
+  settings: state.settings,
+});
+export default connect(mapStateToProps)(Settings);

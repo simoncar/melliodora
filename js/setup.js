@@ -299,6 +299,9 @@ class Setup extends Component {
     AsyncStorage.setItem("domain", JSON.stringify(domainDataArr[0]));
     global.domain = domain;
     this.setState({ selectedDomain: domain, isReady: true });
+
+    retrieveFeatures();
+
     switch (domain) {
       case "sais_edu_sg":
         global.switch_address =
@@ -360,10 +363,9 @@ class Setup extends Component {
 
   render() {
     console.log("Constants.manifest.extra.instance2", Constants.manifest.extra.instance);
-    console.log("this.props.communityCreate", this.props)
     if (!this.state.isReady) {
       return <AppLoading />;
-    } else if (this.props.CommunityCreation.communityCreate) {
+    } else if (this.props.communityCreation.communityCreate) {
       return <CommunityCreateScreen />
     }
     else if (!this.state.selectedDomain) {
@@ -381,6 +383,6 @@ class Setup extends Component {
 }
 
 const mapStateToProps = state => ({
-  CommunityCreation: state.CommunityCreation,
+  communityCreation: state.communityCreation,
 });
 export default connect(mapStateToProps)(Setup);

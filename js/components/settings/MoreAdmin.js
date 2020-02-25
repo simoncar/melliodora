@@ -21,6 +21,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import styles from "./styles";
 import RadioButton from "../common/RadioButton";
 import { Overlay } from "react-native-elements";
+import { saveFeatureChanges } from "../../store/settings";
+import { connect } from 'react-redux';
 
 const icons = {
   wifi: require("./images/wifi.png"),
@@ -55,7 +57,7 @@ function immutableMove(arr, from, to) {
   }, []);
 }
 
-export default class ContactAdmin extends React.Component {
+class ContactAdmin extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Edit More",
     headerRight: (
@@ -83,7 +85,7 @@ export default class ContactAdmin extends React.Component {
   state = {
     dragging: false,
     draggingIdx: -1,
-    data: this.props.navigation.getParam("moreFeatures") || [],
+    data: this.props.settings.features || [],
     modalVisible: false,
 
     editIdx: -1,
@@ -219,16 +221,10 @@ export default class ContactAdmin extends React.Component {
   }
 
   saveChanges = callback => {
-    const docData = { moreListings: this.state.data };
-    firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("config")
-      .set(docData, { merge: true })
-      .then(() => {
-        global.moreFeatures = this.state.data || [];
-        typeof callback === "function" && callback();
-      });
+
+    this.props.dispatch(saveFeatureChanges(this.state.data))
+
+    typeof callback === "function" && callback();
   };
 
   animateList = () => {
@@ -512,3 +508,9 @@ export default class ContactAdmin extends React.Component {
     );
   }
 }
+
+
+const mapStateToProps = state => ({
+  settings: state.settings,
+});
+export default connect(mapStateToProps)(ContactAdmin);
