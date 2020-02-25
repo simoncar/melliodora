@@ -16,6 +16,7 @@ import Constants from "expo-constants";
 import * as Localization from "expo-localization";
 import { connect } from 'react-redux';
 import CommunityCreateScreen from "./CommunityCreateScreen";
+import { retrieveFeatures } from "./store/settings";
 
 class Setup extends Component {
   constructor() {

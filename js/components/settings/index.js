@@ -10,7 +10,7 @@ import Constants from "expo-constants";
 import SettingsListItem from "./SettingsListItem";
 import Analytics from "../../lib/analytics";
 import _ from "lodash";
-import { retrieveFeatures } from "../../store/settings";
+
 import { connect } from 'react-redux';
 
 
