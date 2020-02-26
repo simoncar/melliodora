@@ -13,11 +13,11 @@ Sentry.init({
 // Node modules check latest
 // npm-check
 
-// export const setTagsContext = (ctx: "env-simulator") => {
-//   Sentry.setTagsContext({
-//     environment: ctx.environment,
-//   });
-// };
+export const setTagsContext = (ctx: "env-simulator") => {
+  Sentry.setTagsContext({
+    environment: ctx.environment
+  });
+};
 
 Sentry.captureMessage("App started V" + Constants.manifest.version);
 
