@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
   Switch,
-  StatusBar,
   SafeAreaView,
   Button,
   LayoutAnimation,
@@ -62,7 +61,6 @@ class PageText extends Component {
     });
   }
 
-
   getPermissionAsync = async () => {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -110,7 +108,7 @@ class PageText extends Component {
   _pickImage = async () => {
     var d = new Date();
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images
     });
 
     if (!result.cancelled) {
@@ -118,7 +116,7 @@ class PageText extends Component {
       //this._images = images;
 
       const convertedImage = await new ImageManipulator.manipulateAsync(result.uri, [{ resize: { height: 1000 } }], {
-        compress: 0,
+        compress: 0
       });
 
       fileToUpload = convertedImage.uri;
@@ -126,10 +124,10 @@ class PageText extends Component {
       this.setState({ cameraIcon: "hour-glass" });
       const blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
+        xhr.onload = function() {
           resolve(xhr.response);
         };
-        xhr.onerror = function (e) {
+        xhr.onerror = function(e) {
           reject(new TypeError("Network request failed"));
         };
         xhr.responseType = "blob";
@@ -170,34 +168,27 @@ class PageText extends Component {
         onPress={() => {
           this.setState({ showIconChat: !this.state.showIconChat });
         }}
-        style={{ padding: 8 }}
-      >
+        style={{ padding: 8 }}>
         <SimpleLineIcons name="bubble" size={32} color={this.state.showIconChat ? "#222" : "#CCC"} />
       </TouchableOpacity>
     );
   }
 
   _drawIconCalendar(params) {
-
     return (
       <TouchableOpacity
         onPress={() => {
           this.props.navigation.navigate("phoneCalendar", this.props.navigation.state.params);
         }}
-        style={{ padding: 8 }}
-      >
+        style={{ padding: 8 }}>
         <Ionicons name="ios-calendar" style={styles.eventIcon} />
       </TouchableOpacity>
     );
-
   }
 
   _drawIconShare() {
     return (
-      <TouchableOpacity
-        onPress={() => this.setState({ showIconShare: !this.state.showIconShare })}
-        style={{ padding: 8 }}
-      >
+      <TouchableOpacity onPress={() => this.setState({ showIconShare: !this.state.showIconShare })} style={{ padding: 8 }}>
         <Feather name="share" size={32} color={this.state.showIconShare ? "#222" : "#CCC"} />
       </TouchableOpacity>
     );
@@ -221,8 +212,7 @@ class PageText extends Component {
                 borderBottomWidth: 1,
                 borderTopColor: "#ddd",
                 borderBottomColor: "#ddd"
-              }}
-            >
+              }}>
               <View>
                 <View style={{ padding: 3 }}>
                   <Text style={{ fontSize: 10 }}>Toggle buttons below to show/Hide</Text>
@@ -232,16 +222,14 @@ class PageText extends Component {
                   {this._drawIconShare()}
                 </View>
               </View>
-
             </View>
             <View
               style={{
                 flex: 1,
                 paddingTop: 20,
                 paddingLeft: 10,
-                paddingRight: 10,
-              }}
-            >
+                paddingRight: 10
+              }}>
               <TextInput
                 onChangeText={text => this.setState({ eventTitle: text })}
                 placeholder={"Title"}
@@ -253,9 +241,8 @@ class PageText extends Component {
               <View
                 style={{
                   paddingTop: 20,
-                  flexDirection: "row",
-                }}
-              ></View>
+                  flexDirection: "row"
+                }}></View>
 
               <TextInput
                 onChangeText={text => this.setState({ eventDescription: text })}
@@ -267,7 +254,7 @@ class PageText extends Component {
             </View>
           </View>
         </Content>
-      </Container >
+      </Container>
     );
   }
 }
@@ -275,10 +262,7 @@ class PageText extends Component {
 class MaterialTopTabBarWrapper extends React.Component {
   render() {
     return (
-      <SafeAreaView
-        style={{ backgroundColor: "#000" }}
-        forceInset={{ top: "always", horizontal: "never", bottom: "never" }}
-      >
+      <SafeAreaView style={{ backgroundColor: "#000" }} forceInset={{ top: "always", horizontal: "never", bottom: "never" }}>
         <MaterialTopTabBar {...this.props} />
       </SafeAreaView>
     );
@@ -317,7 +301,7 @@ class PageSettings extends Component {
     tabBarLabel: "Settings",
     tabBarIcon: ({ tintColor, focused, horizontal }) => (
       <Ionicons name={focused ? "ios-people" : "ios-people"} size={horizontal ? 20 : 26} style={{ color: tintColor }} />
-    ),
+    )
   };
   render() {
     const { navigation } = this.props;
@@ -338,17 +322,9 @@ class PageSettings extends Component {
         <Text style={styles.eventTitle}>Visibility: </Text>
 
         <Text>Home Screen</Text>
-        <Switch
-          onValueChange={value => this.setState({ visible: value })}
-          style={styles.switch}
-          value={this.state.visible}
-        />
+        <Switch onValueChange={value => this.setState({ visible: value })} style={styles.switch} value={this.state.visible} />
         <Text>More Screen</Text>
-        <Switch
-          onValueChange={value => this.setState({ visibleMore: value })}
-          style={styles.switch}
-          value={this.state.visibleMore}
-        />
+        <Switch onValueChange={value => this.setState({ visibleMore: value })} style={styles.switch} value={this.state.visibleMore} />
 
         <Text>Date (optional)</Text>
         <DatePicker
@@ -404,16 +380,16 @@ class PageSettings extends Component {
 const SimpleTabs = createMaterialTopTabNavigator(
   {
     pageText: PageText,
-    pageSettings: PageSettings,
+    pageSettings: PageSettings
   },
   {
     tabBarComponent: MaterialTopTabBarWrapper,
     tabBarOptions: {
       style: {
-        backgroundColor: "#000",
-      },
-    },
-  },
+        backgroundColor: "#000"
+      }
+    }
+  }
 );
 
 class newStory extends React.Component {
@@ -425,78 +401,79 @@ class newStory extends React.Component {
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
-        }}
-      >
+        }}>
         <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
       </TouchableOpacity>
     ),
 
-    headerTitle: <Text style={{ fontSize: 17, fontWeight: "600", fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Arial' }}>{I18n.t("edit")}</Text>,
+    headerTitle: (
+      <Text style={{ fontSize: 17, fontWeight: "600", fontFamily: Platform.OS === "android" ? "Roboto" : "Arial" }}>{I18n.t("edit")}</Text>
+    ),
     headerRight: (
-
       <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+        {navigation.state.params && (
+          <TouchableOpacity
+            onPress={() => {
+              Alert.alert(
+                "Confirm Delete Story",
+                navigation.state.params.summary + "?",
+                [
+                  {
+                    text: "Cancel",
+                    style: "cancel"
+                  },
+                  {
+                    text: "OK",
+                    onPress: () => {
+                      const _key = navigation.state.params._key;
 
-        {
-          navigation.state.params &&
-          <TouchableOpacity onPress={() => {
-
-
-            Alert.alert(
-              'Confirm Delete Story',
-              navigation.state.params.summary + "?",
-              [
-                {
-                  text: 'Cancel',
-                  style: 'cancel',
-                },
-                {
-                  text: 'OK', onPress: () => {
-
-                    const _key = navigation.state.params._key;
-
-                    if (_key) {
-                      firebase
-                        .firestore()
-                        .collection(global.domain)
-                        .doc("feature")
-                        .collection("features")
-                        .doc(_key)
-                        .delete()
-                        .then(() =>
-                          navigation.popToTop()
-                        );
+                      if (_key) {
+                        firebase
+                          .firestore()
+                          .collection(global.domain)
+                          .doc("feature")
+                          .collection("features")
+                          .doc(_key)
+                          .delete()
+                          .then(() => navigation.popToTop());
+                      }
                     }
-
                   }
-                },
-              ],
-              { cancelable: true },
-            );
-
-          }}
+                ],
+                { cancelable: true }
+              );
+            }}
             style={{ marginRight: 12 }}>
             <AntDesign name="delete" size={24} />
           </TouchableOpacity>
-        }
+        )}
 
         <TouchableOpacity
           onPress={() => {
             const { routes } = navigation.state;
             let saveState = {};
 
-
             if (_.has(routes[0], "params.save")) {
               const pageState = routes[0].params.save() || {};
-              saveState = { ...saveState, ...pageState }
+              saveState = { ...saveState, ...pageState };
             }
-
 
             if (_.has(routes[1], "params.save")) {
               const pageState = routes[1].params.save() || {};
-              saveState = { ...saveState, ...pageState }
+              saveState = { ...saveState, ...pageState };
             }
 
-            const { eventTitle, visible, visibleMore, eventDescription, photo1, eventDate, eventStartTime, eventEndTime, order, _key,
+            const {
+              eventTitle,
+              visible,
+              visibleMore,
+              eventDescription,
+              photo1,
+              eventDate,
+              eventStartTime,
+              eventEndTime,
+              order,
+              _key,
               showIconChat,
               showIconShare
             } = saveState;
@@ -522,9 +499,7 @@ class newStory extends React.Component {
                 .doc("feature")
                 .collection("features")
                 .add(storyDict)
-                .then(() =>
-                  navigation.goBack()
-                );
+                .then(() => navigation.goBack());
             } else {
               const storyRef = firebase
                 .firestore()
@@ -533,20 +508,13 @@ class newStory extends React.Component {
                 .collection("features")
                 .doc(_key);
 
-              storyRef.set(storyDict, { merge: true })
-                .then(() =>
-                  navigation.popToTop()
-                );
+              storyRef.set(storyDict, { merge: true }).then(() => navigation.popToTop());
             }
-
-          }}
-        >
-          <Text style={[styles.chatHeading, { fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Arial' }]}>
-            {I18n.t("save")}
-          </Text>
+          }}>
+          <Text style={[styles.chatHeading, { fontFamily: Platform.OS === "android" ? "Roboto" : "Arial" }]}>{I18n.t("save")}</Text>
         </TouchableOpacity>
       </View>
-    ),
+    )
   });
 
   componentWillUpdate() {
