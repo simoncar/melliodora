@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, View, Image, Dimensions, Alert, Text, TextInput, TouchableOpacity, Switch } from "react-native";
 import { Container, Content } from "native-base";
 import styles from "./styles";
-import SettingsList from "react-native-settings-list";
+import SettingsListItem from "../settings/SettingsListItem";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
@@ -17,7 +17,7 @@ class push extends Component {
 
     this.state = {
       initialText: "",
-      _key: props._key,
+      _key: props._key
     };
 
     this.pushSend = this.pushSend.bind(this);
@@ -28,8 +28,7 @@ class push extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
-        }}
-      >
+        }}>
         <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
       </TouchableOpacity>
     ),
@@ -39,11 +38,10 @@ class push extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params.pushSend();
-        }}
-      >
+        }}>
         <Text style={styles.chatHeading}>{I18n.t("send")}</Text>
       </TouchableOpacity>
-    ),
+    )
   });
 
   componentDidMount() {
@@ -58,7 +56,7 @@ class push extends Component {
     this.setState({ initialText: initialText });
 
     this.props.navigation.setParams({
-      pushSend: this.pushSend,
+      pushSend: this.pushSend
     });
   }
 
@@ -71,7 +69,7 @@ class push extends Component {
       grade: grades,
       image: "",
       state: "pending",
-      timestamp: Date.now(),
+      timestamp: Date.now()
     };
 
     console.log("push =", pushMessage);
@@ -136,9 +134,8 @@ class push extends Component {
                 flex: 1,
                 paddingTop: 20,
                 paddingLeft: 10,
-                paddingRight: 10,
-              }}
-            >
+                paddingRight: 10
+              }}>
               <TextInput
                 onChangeText={text => this.setState({ initialText: text })}
                 placeholder={"Description"}

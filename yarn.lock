@@ -11248,14 +11248,6 @@ react-native-safe-area-view@^0.14.8:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   integrity sha512-kSyAt0AeVU6N7ZonfV6dP6iZF8B7Bce+tk3eujXhzBGsLg0VSLnU7uE9VqJF0xdQrHR91ZjGgVMieo/8df9KTA==
 
-react-native-settings-list@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/react-native-settings-list/-/react-native-settings-list-1.8.0.tgz#89089546e84e6fdf3b9e421fe870f0c2626868da"
-  integrity sha1-iQiVRuhOb987nkIf6HDwwmJoaNo=
-  dependencies:
-    create-react-class "^15.6.2"
-    prop-types "^15.5.10"
-
 react-native-status-bar-height@^2.2.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.3.1.tgz#b92ce9112c2367290847ac11284d9d84a6330169"
@@ -11306,10 +11298,10 @@ react-native-walkthrough-tooltip@^0.5.3:
   dependencies:
     prop-types "^15.6.1"
 
-react-native-web@^0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.12.1.tgz#9402a70fe4ebdd3b77ea5f387fa2f6c74fc4e3f7"
-  integrity sha512-CWhkGips1PPQn+AO+sfqJE6aBoG5v9dsMmhV9YEX0uo4fyHk369IE6eI5tBEgpSn3NPq6NnPk2mmnzLACyma1Q==
+react-native-web@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.12.2.tgz#d0fe8739d222f412decc4f1de2e12f25e91e2f56"
+  integrity sha512-0YLDjwIm5LjQDOPUUregtuEBexH7oQph6x9FSAyzCM52QmM82TfrYRXXSwzI2eSdT1OzM2BTfP3zxmEL+coyhg==
   dependencies:
     array-find-index "^1.0.2"
     create-react-class "^15.6.2"
