@@ -32,9 +32,7 @@ class chat extends Component {
         onPress={() => {
           navigation.state.params._showActionSheet(navigation);
         }}>
-
         <Text style={{ fontSize: 17, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
-
       </TouchableOpacity>
     ),
     headerRight: (

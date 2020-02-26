@@ -1,11 +1,13 @@
-import { Component } from "react";
+import React from "react";
 import * as firebase from "firebase";
+
 import * as ImageManipulator from "expo-image-manipulator";
+import Constants from "expo-constants";
 import _ from "lodash";
 import uuid from "uuid";
 import { AsyncStorage } from "react-native";
 
-class Backend extends Component {
+export class Backend extends React.Component {
   uid = "";
 
   messageRef = null;
@@ -127,7 +129,7 @@ class Backend extends Component {
     return (firebase.auth().currentUser || {}).uid;
   }
 
-  set uid(value) {
+  setUid(value) {
     this.uid = value;
   }
 
@@ -323,4 +325,4 @@ async function uploadImageAsync(message, chatroom, user) {
   return;
 }
 
-export default Backend;
+export default new Backend();
