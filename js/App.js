@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Platform, StatusBar, View, StyleSheet } from "react-native";
 import { Notifications } from "expo";
-import Constants from "expo-constants";
+
 import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
 import Analytics from "./lib/analytics";
