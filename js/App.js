@@ -27,7 +27,7 @@ class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {Platform.OS === "ios" && <StatusBar barStyle="default" />}
+        {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
         <AppNavigator {...this.props}></AppNavigator>
       </View>
     );
