@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleProvider, Root } from "native-base";
-import { I18nManager, StatusBar, Text } from "react-native";
+import { I18nManager, Text } from "react-native";
 import { AsyncStorage } from "react-native";
 import App from "./App";
 import I18n from "./lib/i18n";
@@ -368,7 +368,6 @@ class SetupEnv extends Component {
     return (
       <StyleProvider style={getTheme(variables)}>
         <Root>
-          {Platform.OS === "ios" && <StatusBar barStyle="default" />}
           <App />
         </Root>
       </StyleProvider>
