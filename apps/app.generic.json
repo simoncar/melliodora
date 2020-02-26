@@ -10,7 +10,8 @@
     "description": "For parents, Singapore",
     "extra": {
       "instance": "",
-      "amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78"
+      "amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78",
+      "sentryDSN": "https://1c19403969544e1096b7563d3fa87591@sentry.io/2998517"
     },
     "splash": {
       "image": "./resources/genericApp/splash.png",

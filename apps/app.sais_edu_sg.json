@@ -10,7 +10,8 @@
     "description": "For SAIS parents, Singapore",
     "extra": {
       "instance": "sais_edu_sg",
-      "amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78"
+      "amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78",
+      "sentryDSN": "https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405"
     },
     "splash": {
       "image": "./resources/sais_edu_sg/splash.png",

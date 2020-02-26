@@ -5,7 +5,7 @@ import Constants from "expo-constants";
 import _ from "lodash";
 
 Sentry.init({
-  dsn: "https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405",
+  dsn: Constants.manifest.extra.sentryDSN,
   enableInExpoDevelopment: true,
   debug: true
 });
@@ -19,8 +19,9 @@ export const setTagsContext = (ctx: "env-simulator") => {
   });
 };
 
-Sentry.captureMessage("App started V" + Constants.manifest.version);
-
+if (Constants.isDevice) {
+  Sentry.captureMessage("App started V" + Constants.manifest.version);
+}
 export default class App extends Component {
   constructor(props) {
     super(props);

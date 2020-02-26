@@ -16,19 +16,15 @@ class CalendarItem extends Component {
   render() {
     const item = this.props.item;
     return (
-      <TouchableOpacity
-        style={{ flexDirection: "row" }}
-        onPress={() => this.props.navigation.navigate("storyCalendar", item)}
-      >
+      <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.props.navigation.navigate("storyCalendar", item)}>
         <View
           style={[
             styles.agendaItem,
             {
               height: item.height,
-              borderRightColor: this.formatBackground(item.color),
-            },
-          ]}
-        >
+              borderRightColor: this.formatBackground(item.color)
+            }
+          ]}>
           <Grid>
             <Row>
               <Col>
@@ -57,9 +53,8 @@ class CalendarItem extends Component {
                     alignItems: "center",
                     paddingLeft: 0,
                     paddingRight: 0,
-                    justifyContent: "center",
-                  }}
-                >
+                    justifyContent: "center"
+                  }}>
                   <Ionicons style={{ color: "white", fontSize: 20 }} name={item.icon} />
                   <View />
                 </View>
