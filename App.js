@@ -19,8 +19,9 @@ export const setTagsContext = (ctx: "env-simulator") => {
   });
 };
 
-Sentry.captureMessage("App started V" + Constants.manifest.version);
-
+if (Constants.isDevice) {
+  Sentry.captureMessage("App started V" + Constants.manifest.version);
+}
 export default class App extends Component {
   constructor(props) {
     super(props);
