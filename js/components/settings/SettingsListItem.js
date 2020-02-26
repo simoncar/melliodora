@@ -1,14 +1,21 @@
-import React, { Component } from 'react'
-import { Text, View, TouchableHighlight, TextInput, Switch } from 'react-native'
-import { Feather } from '@expo/vector-icons';
+import React, { Component } from "react";
+import { Text, View, TouchableHighlight, TextInput, Switch } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
 export default class SettingsListItem extends Component {
-
   render() {
     const { icon, onPress, title, titleInfoStyle, titleInfo, hasNavArrow = true } = this.props;
     return (
       <TouchableHighlight onPress={onPress}>
-        <View style={{ flexDirection: 'row', backgroundColor: "white", paddingVertical: 8, alignItems: "center", borderBottomColor: "#CED0CE", borderBottomWidth: 1 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            backgroundColor: "white",
+            paddingVertical: 8,
+            alignItems: "center",
+            borderBottomColor: "#CED0CE",
+            borderBottomWidth: 1
+          }}>
           {icon}
           <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 8 }}>
             <View>
@@ -18,18 +25,11 @@ export default class SettingsListItem extends Component {
             <View>
               <Text style={[titleInfoStyle, { color: "grey" }]}>{titleInfo || ""}</Text>
             </View>
-
           </View>
 
-          <View style={{ marginHorizontal: 8 }}>
-            {
-              hasNavArrow &&
-              <Feather name="chevron-right" size={22} color="grey" />
-            }
-          </View>
-
+          <View style={{ marginHorizontal: 8 }}>{hasNavArrow && <Feather name="chevron-right" size={22} color="grey" />}</View>
         </View>
       </TouchableHighlight>
-    )
+    );
   }
 }

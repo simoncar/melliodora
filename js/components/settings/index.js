@@ -1,22 +1,11 @@
 import React, { Component } from "react";
-import {
-  Image,
-  StyleSheet,
-  View,
-  Alert,
-  AsyncStorage,
-  TouchableHighlight,
-  ScrollView,
-  Text,
-  TouchableOpacity
-} from "react-native";
+import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight, ScrollView, Text, TouchableOpacity } from "react-native";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as firebase from "firebase";
 import { Updates } from "expo";
 import FeatureMoreItems from "./FeatureMoreItems";
-import Constants from "expo-constants";
 import SettingsListItem from "./SettingsListItem";
 import Analytics from "../../lib/analytics";
 import _ from "lodash";
@@ -64,10 +53,7 @@ class Settings extends Component {
           const docData = doc.data();
           if (docData.moreListings) {
             global.moreFeatures = docData.moreListings;
-            AsyncStorage.setItem(
-              "moreFeatures",
-              JSON.stringify(docData.moreListings)
-            );
+            AsyncStorage.setItem("moreFeatures", JSON.stringify(docData.moreListings));
             this.setState({ features: docData.moreListings });
           }
         } else {
@@ -86,13 +72,10 @@ class Settings extends Component {
     this._retrieveLanguage();
     this._retrieveGradeSelectors();
 
-    this.willFocusSubscription = this.props.navigation.addListener(
-      "willFocus",
-      () => {
-        this.setState({ features: global.moreFeatures || [] });
-        this._getUser();
-      }
-    );
+    this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
+      this.setState({ features: global.moreFeatures || [] });
+      this._getUser();
+    });
     this._getUser();
     Analytics.track("More");
   }
@@ -158,8 +141,7 @@ class Settings extends Component {
               uid: user.uid,
               permitEdit: true
             })
-          }
-        >
+          }>
           <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>
               Logged in as
@@ -174,12 +156,7 @@ class Settings extends Component {
       return (
         <SettingsListItem
           hasNavArrow={false}
-          icon={
-            <Image
-              style={styles.imageStyle}
-              source={require("./images/dnd.png")}
-            />
-          }
+          icon={<MaterialCommunityIcons name="account-plus" style={styles.imageStyleIcon} />}
           title={I18n.t("Sign In") + "/" + I18n.t("Sign Up")}
           onPress={() => this.props.navigation.navigate("login")}
         />
@@ -203,12 +180,8 @@ class Settings extends Component {
               this.props.navigation.navigate("moreAdmin", {
                 moreFeatures: this.state.features
               })
-            }
-          >
-            <MaterialIcons
-              name="edit"
-              style={{ fontSize: 25, color: "white" }}
-            />
+            }>
+            <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
           </TouchableHighlight>
         )}
 
@@ -216,20 +189,12 @@ class Settings extends Component {
           {this._renderUser()}
           <Seperator />
           <SettingsListItem
-            icon={
-              <MaterialIcons
-                name="search"
-                style={{ fontSize: 25, color: "white" }}
-              />
-            }
+            icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
             title={I18n.t("Search Users")}
             onPress={() => this.props.navigation.navigate("UserSearch")}
           />
 
-          <FeatureMoreItems
-            navigation={this.props.navigation}
-            show="visibleMore"
-          />
+          <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
 
           <Seperator />
           {this.state.features
@@ -252,34 +217,19 @@ class Settings extends Component {
                     defaultValue: el.title || ""
                   })}
                   titleInfo={el.titleInfo || ""}
-                  onPress={() =>
-                    this.props.navigation.navigate(
-                      el.navigate || "webportalURL",
-                      navProps
-                    )
-                  }
+                  onPress={() => this.props.navigation.navigate(el.navigate || "webportalURL", navProps)}
                 />
               );
             })}
 
           <SettingsListItem
-            icon={
-              <Image
-                style={styles.imageStyle}
-                source={require("./images/general.png")}
-              />
-            }
+            icon={<FontAwesome name="language" style={styles.imageStyleIcon} />}
             title={languageTitle}
             titleInfo={this.state.language}
             onPress={() => this.props.navigation.navigate("selectLanguage")}
           />
           <SettingsListItem
-            icon={
-              <Image
-                style={styles.imageStyle}
-                source={require("./images/airplane.png")}
-              />
-            }
+            icon={<FontAwesome name="lock" style={styles.imageStyleIcon} />}
             hasNavArrow={true}
             title={I18n.t("adminAccess")}
             onPress={() => this.props.navigation.navigate("adminPassword")}
@@ -288,12 +238,7 @@ class Settings extends Component {
 
           {isAdmin(this.props.adminPassword) && (
             <SettingsListItem
-              icon={
-                <Image
-                  style={styles.imageStyle}
-                  source={require("./images/memory.png")}
-                />
-              }
+              icon={<FontAwesome name="edit" style={styles.imageStyleIcon} />}
               title={I18n.t("editor")}
               onPress={() => this.props.navigation.navigate("Content")}
             />
@@ -303,12 +248,7 @@ class Settings extends Component {
 
           <SettingsListItem
             hasNavArrow={false}
-            icon={
-              <Image
-                style={styles.imageStyle}
-                source={require("./images/about.png")}
-              />
-            }
+            icon={<MaterialIcons name="info-outline" style={styles.imageStyleIcon} />}
             title={I18n.t("About this App")}
             onPress={() => {
               this.props.navigation.navigate("webportalURL", {
@@ -319,12 +259,7 @@ class Settings extends Component {
           />
           <SettingsListItem
             hasNavArrow={false}
-            icon={
-              <Image
-                style={styles.imageStyle}
-                source={require("./images/dnd.png")}
-              />
-            }
+            icon={<SimpleLineIcons name="logout" style={styles.imageStyleIcon} />}
             title={I18n.t("logout")}
             onPress={() => this._logout()}
           />
@@ -344,6 +279,13 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 30,
     width: 30
+  },
+  imageStyleIcon: {
+    marginLeft: 15,
+    alignSelf: "center",
+    width: 30,
+    fontSize: 25,
+    textAlign: "center"
   },
   imageStyleCheckOn: {
     marginLeft: 15,
