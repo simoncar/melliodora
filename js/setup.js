@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleProvider, Root } from "native-base";
-import { I18nManager, View, Text } from "react-native";
+import { I18nManager, StatusBar, Text } from "react-native";
 import { AsyncStorage } from "react-native";
 import App from "./App";
 import I18n from "./lib/i18n";
@@ -67,10 +67,7 @@ export default class Setup extends Component {
 
     this.domains = await this.getDomains();
 
-    console.log(
-      "Constants.manifest.extra.instance",
-      Constants.manifest.extra.instance
-    );
+    console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
     if (Constants.manifest.extra.instance) {
       this.setSelectedDomain(Constants.manifest.extra.instance);
     } else {
@@ -121,26 +118,11 @@ export default class Setup extends Component {
           "https://connect.ais.com.sg/login/login.aspx?prelogin=https%3a%2f%2fconnect.ais.com.sg%2f&kr=iSAMS:ParentPP";
         global.switch_portalName = "AIS Connect";
         global.switch_tab_portalName = "Connect";
-        global.switch_webportalActions = [
-          { Home: "" },
-          { "Cafe Top-Up": "" },
-          { Events: "" },
-          { Forms: "" },
-          { PTA: "" },
-          { Logout: "" }
-        ];
+        global.switch_webportalActions = [{ Home: "" }, { "Cafe Top-Up": "" }, { Events: "" }, { Forms: "" }, { PTA: "" }, { Logout: "" }];
         break;
       case "camp_asia":
-        global.switch_portalURL =
-          "https://www.campasia.asia/online-booking/login";
-        global.switch_webportalActions = [
-          { Home: "" },
-          { "Cafe Top-Up": "" },
-          { Events: "" },
-          { Forms: "" },
-          { PTA: "" },
-          { Logout: "" }
-        ];
+        global.switch_portalURL = "https://www.campasia.asia/online-booking/login";
+        global.switch_webportalActions = [{ Home: "" }, { "Cafe Top-Up": "" }, { Events: "" }, { Forms: "" }, { PTA: "" }, { Logout: "" }];
         global.switch_homeLogoURI =
           "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/smartcommunity%2Fcommunitylogo%2FCA_ID_Reverse_new.png?alt=media&token=54fbd759-31f5-46bb-a73f-6424db99d5dd";
         break;
@@ -158,19 +140,11 @@ export default class Setup extends Component {
   };
 
   render() {
-    console.log(
-      "Constants.manifest.extra.instance2",
-      Constants.manifest.extra.instance
-    );
+    console.log("Constants.manifest.extra.instance2", Constants.manifest.extra.instance);
     if (!this.state.isReady) {
       return <AppLoading />;
     } else if (!this.state.selectedDomain) {
-      return (
-        <DomainSelection
-          setSelectedDomain={this.setSelectedDomain}
-          domains={this.domains}
-        />
-      );
+      return <DomainSelection setSelectedDomain={this.setSelectedDomain} domains={this.domains} />;
     } else {
       return <SetupEnv />;
     }
@@ -289,10 +263,7 @@ class SetupEnv extends Component {
               if (_.isNumber(docData.gradeNotify[i])) {
               }
             }
-            AsyncStorage.setItem(
-              "gradeNotify",
-              JSON.stringify(docData.gradeNotify)
-            );
+            AsyncStorage.setItem("gradeNotify", JSON.stringify(docData.gradeNotify));
           }
         }
       });
@@ -327,16 +298,8 @@ class SetupEnv extends Component {
       safeToken = "";
     }
 
-    console.log(
-      "Auth2 = ",
-      uid,
-      global.authenticated,
-      global.name,
-      global.email
-    );
-    var version = _.isNil(Constants.manifest.revisionId)
-      ? "unknown"
-      : Constants.manifest.revisionId;
+    console.log("Auth2 = ", uid, global.authenticated, global.name, global.email);
+    var version = _.isNil(Constants.manifest.revisionId) ? "unknown" : Constants.manifest.revisionId;
     var userDict = {
       uid: uid,
       token,
@@ -377,10 +340,7 @@ class SetupEnv extends Component {
             console.log("global.domain node", global.domain);
             user.getIdTokenResult().then(idTokenResult => {
               console.log("claims", idTokenResult.claims);
-              console.log(
-                "idTokenResult.claims[global.domain]",
-                idTokenResult.claims[global.domain]
-              );
+              console.log("idTokenResult.claims[global.domain]", idTokenResult.claims[global.domain]);
               console.log("global.domain", global.domain);
               if (idTokenResult.claims[global.domain]) {
                 this.initUser(user, isAnonymous);
@@ -408,6 +368,7 @@ class SetupEnv extends Component {
     return (
       <StyleProvider style={getTheme(variables)}>
         <Root>
+          {Platform.OS === "ios" && <StatusBar barStyle="default" />}
           <App />
         </Root>
       </StyleProvider>
