@@ -82,5 +82,8 @@
     },
     "test-runner": "jest",
     "specs": ""
+  },
+  "jest": {
+    "preset": "jest-expo/universal"
   }
 }
