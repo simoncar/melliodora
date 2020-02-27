@@ -4,6 +4,7 @@ const { Platform, Dimensions } = React;
 
 const deviceWidth = Dimensions.get("window").width;
 const primary = require("../../themes/variable").brandPrimary;
+import stylesGlobal from "../../themes/globalTheme";
 
 export default {
   container: {
@@ -63,7 +64,7 @@ export default {
     width: deviceWidth - 120,
     justifyContent: "center",
     alignItems: "center",
-    fontSize: 17,
+    fontSize: stylesGlobal.headingFontSize,
     color: "#262626",
     fontWeight: "500"
   },

@@ -7,6 +7,7 @@ const primary = require("../../themes/variable").brandPrimary;
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+import stylesGlobal from "../../themes/globalTheme";
 
 export default {
   header: {
@@ -180,25 +181,25 @@ export default {
   },
   eventTitle: {
     color: "#222",
-    fontSize: 22,
+    fontSize: stylesGlobal.headingFontSize,
     paddingBottom: 20,
     fontWeight: "bold"
   },
   eventText: {
     color: "#222",
-    fontSize: 18,
+    fontSize: stylesGlobal.bodyFontSize,
     marginRight: 20
   },
   eventTextTime: {
     color: "#222",
-    fontSize: 18,
+    fontSize: stylesGlobal.bodyFontSize,
     marginRight: 20,
     marginBottom: 10
   },
 
   eventTextSend: {
     color: "#222",
-    fontSize: 18,
+    fontSize: stylesGlobal.bodyFontSize,
     paddingRight: 10,
     paddingLeft: 15,
     paddingBottom: 15
@@ -222,19 +223,19 @@ export default {
 
   photoURL: {
     color: "#222",
-    fontSize: 18,
+    fontSize: stylesGlobal.bodyFontSize,
     paddingRight: 25,
     paddingBottom: 25
   },
   englishFallback: {
     color: "grey",
-    fontSize: 18,
+    fontSize: stylesGlobal.bodyFontSize,
     paddingBottom: 10,
     paddingTop: 30
   },
   eventTextAbbreviation: {
     color: "grey",
-    fontSize: 18,
+    fontSize: stylesGlobal.bodyFontSize,
     paddingBottom: 10
   },
   url: {
@@ -271,7 +272,7 @@ export default {
   },
   eventPhone: {
     color: "#222",
-    fontSize: 18,
+    fontSize: stylesGlobal.bodyFontSize,
     marginLeft: 200,
     paddingLeft: 200
   },
