@@ -63,7 +63,7 @@ export default {
     width: deviceWidth - 120,
     justifyContent: "center",
     alignItems: "center",
-    fontSize: 18,
+    fontSize: 17,
     color: "#262626",
     fontWeight: "500"
   },
