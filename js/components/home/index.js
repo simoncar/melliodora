@@ -262,6 +262,16 @@ class HomeNav extends Component {
     // );
   }
 
+  _renderToday() {
+    if (this.state.calendarItems.length > 0) {
+      return (
+        <View style={styles.card}>
+          <FlatList data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard.bind(this)} />
+        </View>
+      );
+    }
+  }
+
   env() {}
 
   render() {
@@ -366,9 +376,7 @@ class HomeNav extends Component {
 
           <View style={styles.newsContentLine}>
             {this._renderBalance()}
-            <View style={styles.card}>
-              <FlatList data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard.bind(this)} />
-            </View>
+            {this._renderToday()}
 
             <FlatList data={this.state.featureItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem.bind(this)} />
           </View>
