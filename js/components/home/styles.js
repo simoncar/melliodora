@@ -4,6 +4,7 @@ const { Platform, Dimensions } = React;
 
 const deviceWidth = Dimensions.get("window").width;
 const primary = require("../../themes/variable").brandPrimary;
+import stylesGlobal from "../../themes/globalTheme";
 
 export default {
   container: {
@@ -63,10 +64,19 @@ export default {
     width: deviceWidth - 120,
     justifyContent: "center",
     alignItems: "center",
-    fontSize: 18,
+    fontSize: stylesGlobal.headingFontSize,
     color: "#262626",
     fontWeight: "500"
   },
+  cardLocation: {
+    width: deviceWidth - 120,
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 12,
+    color: "gray",
+    fontWeight: "500"
+  },
+
   user: {
     backgroundColor: "white",
     color: "#666",

@@ -1,17 +1,7 @@
 import React, { Component } from "react";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet
-} from "react-native";
+import { Text, View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import styles from "./styles";
-import {
-  Ionicons,
-  SimpleLineIcons,
-  MaterialCommunityIcons
-} from "@expo/vector-icons";
+import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import { getLanguageString } from "../global";
 import { formatTime, formatMonth } from "../global.js";
@@ -85,11 +75,7 @@ class ListItem extends Component {
   renderTime(start, end, source) {
     if (source == "calendar") {
       if (undefined != start && start.length > 0) {
-        return (
-          <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>
-            {formatTime(start, end)}{" "}
-          </Text>
-        );
+        return <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>{formatTime(start, end)} </Text>;
       }
     }
   }
@@ -97,7 +83,7 @@ class ListItem extends Component {
   renderLocation(location) {
     if (undefined != location && location.length > 0) {
       return (
-        <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>
+        <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardLocation}>
           {location}
         </Text>
       );
@@ -106,11 +92,7 @@ class ListItem extends Component {
 
   renderDate(date_start) {
     if (undefined != date_start && date_start.length > 0) {
-      return (
-        <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>
-          {formatMonth(date_start)}
-        </Text>
-      );
+      return <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>{formatMonth(date_start)}</Text>;
     }
   }
 
@@ -136,8 +118,7 @@ class ListItem extends Component {
 
       "summary"
     );
-    const showIconChat =
-      this.props.item.item.showIconChat === false ? false : true;
+    const showIconChat = this.props.item.item.showIconChat === false ? false : true;
     const uri = this.props.item.item.photo1;
     const card = this.props.card === false ? false : true;
     const preview = {
@@ -159,23 +140,15 @@ class ListItem extends Component {
               borderBottomWidth: 0.1,
               borderBottomColor: "lightgray",
               marginTop: 5
-            }}
-          >
+            }}>
             <TouchableOpacity
               style={{ flexDirection: "row" }}
-              onPress={() =>
-                this.props.navigation.navigate("story", this.props.item.item)
-              }
-            >
+              onPress={() => this.props.navigation.navigate("story", this.props.item.item)}>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 {this.icon(this.props.item.item.source)}
 
                 <View>
-                  <Text
-                    numberOfLines={2}
-                    ellipsizeMode="tail"
-                    style={styles.cardTitle}
-                  >
+                  <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardTitle}>
                     {summary}
                   </Text>
                   {this.renderLocation(this.props.item.item.location)}
@@ -194,31 +167,14 @@ class ListItem extends Component {
                   flexDirection: "row",
                   justifyContent: "flex-end",
                   alignItems: "center"
-                }}
-              >
-                {showIconChat && (
-                  <SimpleLineIcons
-                    name="bubble"
-                    size={25}
-                    color="black"
-                    style={{ marginRight: 8 }}
-                  />
-                )}
+                }}>
+                {showIconChat && <SimpleLineIcons name="bubble" size={25} color="black" style={{ marginRight: 8 }} />}
 
-                <Ionicons
-                  name="ios-more"
-                  size={25}
-                  color="black"
-                  style={{ marginRight: 8 }}
-                />
+                <Ionicons name="ios-more" size={25} color="black" style={{ marginRight: 8 }} />
               </View>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate("story", this.props.item.item)
-            }
-          >
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("story", this.props.item.item)}>
             <View style={{ flexDirection: "column" }}>
               {excerpt ? (
                 <Text
@@ -228,14 +184,11 @@ class ListItem extends Component {
                     color: "#262626",
                     paddingVertical: 12,
                     paddingHorizontal: 8
-                  }}
-                >
+                  }}>
                   {excerpt}
                 </Text>
               ) : null}
-              {this.isURL(uri) && (
-                <Image style={{ height: 200 }} {...{ preview, uri }} />
-              )}
+              {this.isURL(uri) && <Image style={{ height: 200 }} {...{ preview, uri }} />}
             </View>
           </TouchableOpacity>
         </View>
