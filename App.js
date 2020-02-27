@@ -1,21 +1,27 @@
 import React, { Component } from "react";
 import Setup from "./js/setup";
-import * as Sentry from "sentry-expo";
+//import * as Sentry from "sentry-expo";
 import Constants from "expo-constants";
 import _ from "lodash";
+
+// Sentry.init({
+//   dsn: Constants.manifest.extra.sentryDSN,
+//   enableInExpoDevelopment: true,
+//   debug: true
+// });
 
 // Node modules check latest
 // npm-check
 
-if (Constants.isDevice) {
-  Sentry.init({
-    dsn: Constants.manifest.extra.sentryDSN,
-    enableInExpoDevelopment: true,
-    debug: true
-  });
+// export const setTagsContext = (ctx: "env-simulator") => {
+//   Sentry.setTagsContext({
+//     environment: ctx.environment
+//   });
+// };
 
-  Sentry.captureMessage("App started V" + Constants.manifest.version);
-}
+// if (Constants.isDevice) {
+//   Sentry.captureMessage("App started V" + Constants.manifest.version);
+// }
 export default class App extends Component {
   constructor(props) {
     super(props);
