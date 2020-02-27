@@ -140,6 +140,7 @@ export default class Setup extends Component {
   };
 
   render() {
+    console.log("Constants.manifest.extra.instance2", Constants.manifest.extra.instance);
     if (!this.state.isReady) {
       return <AppLoading />;
     } else if (!this.state.selectedDomain) {
