@@ -76,5 +76,6 @@
     "react-navigation-stack": "^1.9.4",
     "react-navigation-tabs": "^1.2.0",
     "sentry-expo": "^2.0.1"
+
   }
 }
