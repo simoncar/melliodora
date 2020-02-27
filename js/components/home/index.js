@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FlatList, View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image } from "react-native";
 import { Container, Content, Text } from "native-base";
 import Constants from "expo-constants";
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
 import { getLanguageString } from "../global";
 import I18n from "../../lib/i18n";
@@ -49,6 +49,28 @@ class HomeNav extends Component {
       headerTitle: headerTitle,
       headerBackTitle: null,
 
+      headerLeft: (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.push("selectLanguage");
+          }}>
+          <View
+            style={{
+              color: "#48484A",
+              fontSize: 25,
+              marginLeft: 10
+            }}>
+            <FontAwesome
+              name="language"
+              style={{
+                color: "#48484A",
+                fontSize: 25,
+                marginLeft: 10
+              }}
+            />
+          </View>
+        </TouchableOpacity>
+      ),
       headerRight: (
         <TouchableOpacity
           onPress={() => {
