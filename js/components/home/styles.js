@@ -68,6 +68,15 @@ export default {
     color: "#262626",
     fontWeight: "500"
   },
+  cardLocation: {
+    width: deviceWidth - 120,
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 12,
+    color: "gray",
+    fontWeight: "500"
+  },
+
   user: {
     backgroundColor: "white",
     color: "#666",
