@@ -330,7 +330,7 @@ class HomeNav extends Component {
                     });
                   }}>
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/news.png")} />
-                  <Text style={{ color: "black", fontSize: 12 }}>{I18n.t("Newsletters")}</Text>
+                  <Text style={{ color: "black", fontSize: 12 }}>{I18n.t("newsletters")}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -342,7 +342,7 @@ class HomeNav extends Component {
                     });
                   }}>
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Design.jpeg")} />
-                  <Text style={styles.homeMenuText}>{I18n.t("Design") + "\n" + I18n.t("News")}</Text>
+                  <Text style={styles.homeMenuText}>{I18n.t("design") + "\n" + I18n.t("design")}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -354,7 +354,7 @@ class HomeNav extends Component {
                     });
                   }}>
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Management.jpeg")} />
-                  <Text style={styles.homeMenuText}>{I18n.t("Management") + "\n" + I18n.t("News")}</Text>
+                  <Text style={styles.homeMenuText}>{I18n.t("management") + "\n" + I18n.t("news")}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -366,7 +366,7 @@ class HomeNav extends Component {
                     });
                   }}>
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Planning.jpeg")} />
-                  <Text style={styles.homeMenuText}>{I18n.t("Planning") + "\n" + I18n.t("News")}</Text>
+                  <Text style={styles.homeMenuText}>{I18n.t("planning") + "\n" + I18n.t("news")}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -378,7 +378,7 @@ class HomeNav extends Component {
                     });
                   }}>
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Directory.jpeg")} />
-                  <Text style={styles.homeMenuText}>{I18n.t("Directory")}</Text>
+                  <Text style={styles.homeMenuText}>{I18n.t("directory")}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -391,7 +391,7 @@ class HomeNav extends Component {
                   // }}
                 >
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Associations.png")} />
-                  <Text style={styles.homeMenuText}>{I18n.t("Member") + "\n" + I18n.t("Associations")}</Text>
+                  <Text style={styles.homeMenuText}>{I18n.t("member") + "\n" + I18n.t("associations")}</Text>
                 </TouchableOpacity>
               </ScrollView>
             </View>
