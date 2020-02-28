@@ -159,13 +159,13 @@ export default {
     paddingBottom: 5,
     borderBottomWidth: 1,
     borderBottomColor: "#666",
-    color: "#FFF",
+    color: "grey",
     fontSize: 14
   },
   topbar: {
     alignItems: "center",
     height: 30,
-    backgroundColor: "grey"
+    backgroundColor: "white"
   },
 
   chat: {
