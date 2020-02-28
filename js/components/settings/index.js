@@ -144,7 +144,7 @@ class Settings extends Component {
           }>
           <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>
-              Logged in as
+              {I18n.t("loggedInAs")}
             </Text>
             <Text style={styles.sectionContentText} numberOfLines={1}>
               {email}
@@ -157,7 +157,7 @@ class Settings extends Component {
         <SettingsListItem
           hasNavArrow={false}
           icon={<MaterialCommunityIcons name="account-plus" style={styles.imageStyleIcon} />}
-          title={I18n.t("Sign In") + "/" + I18n.t("Sign Up")}
+          title={I18n.t("signIn") + "/" + I18n.t("signUp")}
           onPress={() => this.props.navigation.navigate("login")}
         />
       );
@@ -190,7 +190,7 @@ class Settings extends Component {
           <Seperator />
           <SettingsListItem
             icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
-            title={I18n.t("Search Users")}
+            title={I18n.t("searchUsers")}
             onPress={() => this.props.navigation.navigate("UserSearch")}
           />
 
@@ -249,11 +249,11 @@ class Settings extends Component {
           <SettingsListItem
             hasNavArrow={false}
             icon={<MaterialIcons name="info-outline" style={styles.imageStyleIcon} />}
-            title={I18n.t("About this App")}
+            title={I18n.t("aboutThisApp")}
             onPress={() => {
               this.props.navigation.navigate("webportalURL", {
                 url: "https://smartcookies.io/smart-community",
-                title: "About this App"
+                title: I18n.t("aboutThisApp")
               });
             }}
           />
