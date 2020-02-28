@@ -187,10 +187,9 @@ class Settings extends Component {
 
         <ScrollView style={{ backgroundColor: "#EFEFF4" }}>
           {this._renderUser()}
-          <Seperator />
           <SettingsListItem
             icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
-            title={I18n.t("search")}
+            title={I18n.t("searchUsers")}
             onPress={() => this.props.navigation.navigate("UserSearch")}
           />
 
@@ -221,7 +220,7 @@ class Settings extends Component {
                 />
               );
             })}
-
+          <Seperator />
           <SettingsListItem
             icon={<FontAwesome name="language" style={styles.imageStyleIcon} />}
             title={languageTitle}
@@ -234,7 +233,6 @@ class Settings extends Component {
             title={I18n.t("adminAccess")}
             onPress={() => this.props.navigation.navigate("adminPassword")}
           />
-          {isAdmin(this.props.adminPassword) && <Seperator />}
 
           {isAdmin(this.props.adminPassword) && (
             <SettingsListItem
@@ -243,8 +241,6 @@ class Settings extends Component {
               onPress={() => this.props.navigation.navigate("Content")}
             />
           )}
-
-          <Seperator />
 
           <SettingsListItem
             hasNavArrow={false}
