@@ -72,7 +72,8 @@ class chatRooms extends Component {
       .collection(global.domain)
       .doc("chat")
       .collection("chatrooms")
-      .where("type", "in", ["public", "user", "interestGroup", "private"])
+
+      .orderBy("title")
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
