@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, FlatList, Alert } from "react-native";
+import { View, FlatList } from "react-native";
 import firebase from "firebase";
 import ListItem from "./FeatureListItem";
 import { getLanguageString } from "../global";
@@ -12,13 +12,12 @@ export default class FeatureMoreItems extends Component {
 
     this.state = {
       loading: true,
-      featureItems: [],
+      featureItems: []
     };
   }
 
   componentDidMount() {
     try {
-
       this.ref = firebase
         .firestore()
         .collection(global.domain)
@@ -43,13 +42,13 @@ export default class FeatureMoreItems extends Component {
         trans = {
           source: "feature",
           summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
-          descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
+          descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description")
         };
       } else {
         trans = {
           source: "feature",
           summaryMyLanguage: doc.data().summary,
-          descriptionMyLanguage: doc.data().description,
+          descriptionMyLanguage: doc.data().description
         };
       }
       if (this.props.show == "visibleMore") {
@@ -63,12 +62,12 @@ export default class FeatureMoreItems extends Component {
 
     if (featureItems.length > 0) {
       this.setState({
-        featureItems,
+        featureItems
       });
     }
 
     this.setState({
-      loading: false,
+      loading: false
     });
   };
 
