@@ -190,7 +190,7 @@ class Settings extends Component {
           <Seperator />
           <SettingsListItem
             icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
-            title={I18n.t("searchUsers")}
+            title={I18n.t("search")}
             onPress={() => this.props.navigation.navigate("UserSearch")}
           />
 

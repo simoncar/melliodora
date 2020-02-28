@@ -46,6 +46,7 @@
 	"directory": "hakemisto",
 	"member": "Jäsen",
 	"associations": "yhdistykset",
+	"search": "Hae",
 	"searchUsers": "Etsi käyttäjiä",
 	"signIn": "Kirjaudu sisään",
 	"signUp": "Kirjaudu",

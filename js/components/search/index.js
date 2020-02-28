@@ -3,10 +3,11 @@ import { View, FlatList, ActivityIndicator, StyleSheet, AsyncStorage } from "rea
 import { SearchBar } from "react-native-elements";
 import CalendarItem from "../calendar/CalendarItem";
 import Analytics from "../../lib/analytics";
+import I18n from "../../lib/i18n";
 
 class Search extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Search"
+    title: I18n.t("search")
   });
 
   constructor(props) {
@@ -14,7 +15,7 @@ class Search extends Component {
 
     this.state = {
       loading: true,
-      loadingMessage: "Search...",
+      loadingMessage: I18n.t("search") + "...",
       data: [],
       fullData: [],
       error: null

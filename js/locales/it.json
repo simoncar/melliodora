@@ -46,6 +46,7 @@
 	"directory": "elenco",
 	"member": "Membro",
 	"associations": "associazioni",
+	"search": "Ricerca",
 	"searchUsers": "Cerca utenti",
 	"signIn": "Registrati",
 	"signUp": "Iscriviti",
