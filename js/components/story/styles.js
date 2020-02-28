@@ -53,6 +53,20 @@ export default {
   switchContainer: {
     alignSelf: "flex-end"
   },
+  containerStyle: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#d2d2d2",
+    backgroundColor: "#ffffff",
+    marginVertical: 8
+  },
+
+  container: {
+    backgroundColor: "#f2f2f2",
+    flex: 1,
+    padding: 10
+  },
+
   chatHeadingLeft: {
     color: "#037AFF",
     alignSelf: "center",

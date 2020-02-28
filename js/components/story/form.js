@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   Switch,
   SafeAreaView,
-  Button,
+  ScrollView,
   LayoutAnimation,
   Platform,
   Alert
 } from "react-native";
+import { Input } from "react-native-elements";
 import { Container, Content } from "native-base";
 import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
@@ -198,9 +199,9 @@ class PageText extends Component {
     const { goBack } = this.props.navigation;
 
     return (
-      <Container style={{ backgroundColor: "#fff" }}>
-        <Content showsVerticalScrollIndicator={false}>
-          <View style={{ flex: 1, backgroundColor: "#fff" }}>
+      <Container style={{ backgroundColor: "#f2f2f2" }}>
+        <Content showsVerticalScrollIndicator={true}>
+          <View style={{ flex: 1, backgroundColor: "#f2f2f2" }}>
             {this._drawImage(this.state.photo1)}
 
             <View
@@ -230,11 +231,12 @@ class PageText extends Component {
                 paddingLeft: 10,
                 paddingRight: 10
               }}>
-              <TextInput
+              <Input
                 onChangeText={text => this.setState({ eventTitle: text })}
-                placeholder={"Title"}
-                autoFocus
-                style={[styles.eventTitle]}
+                placeholder="Title"
+                autoFocus={true}
+                inputContainerStyle={{ borderBottomWidth: 0 }}
+                containerStyle={styles.containerStyle}
                 value={this.state.eventTitle}
               />
 
@@ -244,11 +246,12 @@ class PageText extends Component {
                   flexDirection: "row"
                 }}></View>
 
-              <TextInput
+              <Input
                 onChangeText={text => this.setState({ eventDescription: text })}
-                placeholder={"Description"}
+                placeholder="Description"
                 multiline
-                style={[styles.eventText]}
+                inputContainerStyle={{ borderBottomWidth: 0 }}
+                containerStyle={styles.containerStyle}
                 value={this.state.eventDescription}
               />
             </View>
@@ -308,71 +311,82 @@ class PageSettings extends Component {
     const summary = this.props.summary;
     const order = _.isNumber(this.state.order) ? this.state.order.toString() : 0;
     return (
-      <SafeAreaView forceInset={{ horizontal: "always", top: "always" }}>
-        <Text>{summary}</Text>
+      <View style={styles.containerSettings}>
+        <ScrollView>
+          <View
+            style={{
+              flex: 1,
+              paddingTop: 20,
+              paddingLeft: 10,
+              paddingRight: 10
+            }}>
+            <Text style={styles.eventTitle}>Order: </Text>
+            <Input
+              onChangeText={text => this.setState({ order: text })}
+              placeholder="0"
+              style={styles.eventTitle}
+              value={order}
+              keyboardType="number-pad"
+              inputContainerStyle={{ borderBottomWidth: 0 }}
+              containerStyle={styles.containerStyle}
+              {...{ width: 30 }}
+            />
+            <Text style={styles.eventTitle}>Visibility: </Text>
 
-        <Text style={styles.eventTitle}>Order: </Text>
-        <TextInput
-          onChangeText={text => this.setState({ order: text })}
-          placeholder={"0"}
-          style={styles.eventTitle}
-          value={order}
-          keyboardType="number-pad"
-        />
-        <Text style={styles.eventTitle}>Visibility: </Text>
+            <Text>Home Screen</Text>
+            <Switch onValueChange={value => this.setState({ visible: value })} style={styles.switch} value={this.state.visible} />
+            <Text>More Screen</Text>
+            <Switch onValueChange={value => this.setState({ visibleMore: value })} style={styles.switch} value={this.state.visibleMore} />
 
-        <Text>Home Screen</Text>
-        <Switch onValueChange={value => this.setState({ visible: value })} style={styles.switch} value={this.state.visible} />
-        <Text>More Screen</Text>
-        <Switch onValueChange={value => this.setState({ visibleMore: value })} style={styles.switch} value={this.state.visibleMore} />
+            <Text>Date (optional)</Text>
+            <DatePicker
+              style={{ width: 200 }}
+              date={this.state.eventDate}
+              mode="date"
+              placeholder="Event Date"
+              format="YYYY-MM-DD"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              onDateChange={date => {
+                this.setState({ eventDate: date });
+              }}
+            />
+            <Text>Time (optional)</Text>
+            <DatePicker
+              style={{ width: 200 }}
+              date={this.state.eventStartTime}
+              placeholder="Start Time"
+              mode="time"
+              format="HH:mm"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              minuteInterval={10}
+              onDateChange={time => {
+                this.setState({ eventStartTime: time });
+              }}
+            />
+            <DatePicker
+              style={{ width: 200 }}
+              date={this.state.eventEndTime}
+              placeholder="End Time"
+              mode="time"
+              format="HH:mm"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              minuteInterval={10}
+              onDateChange={time => {
+                this.setState({ eventEndTime: time });
+              }}
+            />
+            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.clearDates()}>
+              <Text>Clear Dates</Text>
+            </TouchableOpacity>
 
-        <Text>Date (optional)</Text>
-        <DatePicker
-          style={{ width: 200 }}
-          date={this.state.eventDate}
-          mode="date"
-          placeholder="Event Date"
-          format="YYYY-MM-DD"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          onDateChange={date => {
-            this.setState({ eventDate: date });
-          }}
-        />
-        <Text>Time (optional)</Text>
-        <DatePicker
-          style={{ width: 200 }}
-          date={this.state.eventStartTime}
-          placeholder="Start Time"
-          mode="time"
-          format="HH:mm"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          minuteInterval={10}
-          onDateChange={time => {
-            this.setState({ eventStartTime: time });
-          }}
-        />
-        <DatePicker
-          style={{ width: 200 }}
-          date={this.state.eventEndTime}
-          placeholder="End Time"
-          mode="time"
-          format="HH:mm"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          minuteInterval={10}
-          onDateChange={time => {
-            this.setState({ eventEndTime: time });
-          }}
-        />
-        <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.clearDates()}>
-          <Text>Clear Dates</Text>
-        </TouchableOpacity>
-
-        {/* <Button onPress={() => navigation.navigate("Home")} title="Go to home tab" />
+            {/* <Button onPress={() => navigation.navigate("Home")} title="Go to home tab" />
         <Button onPress={() => navigation.goBack(null)} title="Go back" /> */}
-      </SafeAreaView>
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }
