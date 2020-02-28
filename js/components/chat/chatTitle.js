@@ -7,7 +7,7 @@ import { SimpleLineIcons, Entypo, MaterialIcons } from "@expo/vector-icons";
 export default class chatTitle extends Component {
   static navigationOptions = {
     title: "Edit",
-    headerBackTitle: null,
+    headerBackTitle: null
   };
 
   constructor(props) {
@@ -25,7 +25,8 @@ export default class chatTitle extends Component {
   _saveChatroom() {
     var dict = {
       title: this.state.chatroomTitle,
-      type: this.state.interestGroupOnly ? "interestGroup" : "user"
+      // type: this.state.interestGroupOnly ? "interestGroup" : "user"
+      type: "public"
     };
 
     var edit = this.props.navigation.getParam("edit");
@@ -53,7 +54,7 @@ export default class chatTitle extends Component {
 
   _hideChatroom() {
     var dict = {
-      visible: false,
+      visible: false
     };
     console.log("hiding");
     firebase
@@ -69,7 +70,7 @@ export default class chatTitle extends Component {
 
   _goback() {
     const { goBack } = this.props.navigation;
-    setTimeout(function () {
+    setTimeout(function() {
       goBack();
     }, 1500);
     goBack();
@@ -107,13 +108,13 @@ export default class chatTitle extends Component {
             />
           </View>
 
-          <View style={styles.subjectRow}>
+          {/* <View style={styles.subjectRow}>
             <Text style={styles.title}>Interest Group Only:</Text>
             <Switch
               style={{ marginLeft: 12 }}
               onValueChange={(value) => this.setState({ interestGroupOnly: value })}
               value={this.state.interestGroupOnly} />
-          </View>
+          </View> */}
         </View>
         <Button title="Save" style={styles.button} onPress={() => this._saveChatroom()} />
 
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingLeft: 20,
     paddingRight: 20,
-    color: "#8e8e93",
+    color: "#8e8e93"
   },
 
   subjectRow: {
@@ -136,16 +137,16 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 0,
-    fontSize: 22,
+    fontSize: 22
   },
   titleField: {
     flex: 1,
     paddingLeft: 20,
-    fontSize: 22,
+    fontSize: 22
   },
 
   button: {
     paddingTop: 20,
-    paddingBottom: 20,
-  },
+    paddingBottom: 20
+  }
 });

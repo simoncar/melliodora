@@ -6,11 +6,7 @@ import Analytics from "../../lib/analytics";
 
 class Search extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Search",
-    headerTitleStyle: {
-      fontWeight: "bold",
-      fontSize: 17
-    }
+    title: "Search"
   });
 
   constructor(props) {

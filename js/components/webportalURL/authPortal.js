@@ -11,7 +11,7 @@ import AuthParser from "./authParser";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import _ from "lodash";
 import Analytics from "../../lib/analytics";
-
+import stylesGlobal from "../../themes/globalTheme";
 const timer = require("react-native-timer");
 
 const tabBarIcon = name => ({ tintColor }) => (
@@ -225,7 +225,7 @@ export default class AppContainer extends React.Component {
         onPress={() => {
           navigation.state.params._onOpenActionSheet();
         }}>
-        <Text style={{ fontSize: 17, fontWeight: "bold" }}>{global.switch_portalName}</Text>
+        <Text style={{ fontSize: stylesGlobal.navbarFontSize, fontWeight: "bold" }}>{global.switch_portalName}</Text>
       </TouchableOpacity>
     ),
     headerRight: (

@@ -28,6 +28,7 @@ const header1 = "#00c497"; // header
 // var header5 = "#34495E";
 
 module.exports = {
+  navbarFontSize: 20,
   headingFontSize: 17,
   bodyFontSize: 15
 

@@ -7,6 +7,7 @@ import firebase from "firebase";
 import { getLanguageString } from "../global";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
+
 import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
 import { ScrollView } from "react-navigation";

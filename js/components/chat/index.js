@@ -20,6 +20,7 @@ import * as firebase from "firebase";
 import { ListItem } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
 import SettingsListItem from "../settings/SettingsListItem";
+import stylesGlobal from "../../themes/globalTheme";
 
 var localMessages = [];
 
@@ -32,7 +33,7 @@ class chat extends Component {
         onPress={() => {
           navigation.state.params._showActionSheet(navigation);
         }}>
-        <Text style={{ fontSize: 17, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
+        <Text style={{ fontSize: stylesGlobal.navbarFontSize, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
       </TouchableOpacity>
     ),
     headerRight: (

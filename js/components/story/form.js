@@ -406,9 +406,8 @@ class newStory extends React.Component {
       </TouchableOpacity>
     ),
 
-    headerTitle: (
-      <Text style={{ fontSize: 17, fontWeight: "600", fontFamily: Platform.OS === "android" ? "Roboto" : "Arial" }}>{I18n.t("edit")}</Text>
-    ),
+    headerTitle: I18n.t("edit"),
+
     headerRight: (
       <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
         {navigation.state.params && (

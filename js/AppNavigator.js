@@ -38,6 +38,7 @@ import CameraApp from "./components/auth/CameraApp";
 import UserProfile from "./components/auth/UserProfile";
 import EditUserProfile from "./components/auth/EditUserProfile";
 import UserSearch from "./components/settings/UserSearch";
+import stylesGlobal from "./themes/globalTheme";
 
 let StackHome = createStackNavigator(
   {
@@ -50,58 +51,55 @@ let StackHome = createStackNavigator(
     storyForm: { screen: StoryForm },
     authPortalStory: { screen: authPortal },
     searchCalendarHome: { screen: Search },
-    webportalURL: { screen: WebportalURL },
+    webportalURL: { screen: WebportalURL }
   },
   {
     defaultNavigationOptions: {
       headerTitleStyle: {
         ...Platform.select({
-          ios: { fontFamily: 'Arial', },
-          android: { fontFamily: 'Roboto' },
-        })
-      },
-    },
-  },
+          ios: { fontFamily: "Arial" },
+          android: { fontFamily: "Roboto" }
+        }),
+        fontSize: stylesGlobal.navbarFontSize
+      }
+    }
+  }
 );
 
 StackHome.navigationOptions = ({ navigation }) => {
   return {
     title: I18n.t("home"),
     headerBackTitle: null,
-    tabBarIcon: ({ focused, tintColor, horizontal }) => (
-      <Ionicons name="ios-home" size={horizontal ? 20 : 25} color={tintColor} />
-    )
+    tabBarIcon: ({ focused, tintColor, horizontal }) => <Ionicons name="ios-home" size={horizontal ? 20 : 25} color={tintColor} />
   };
 };
-
 
 let StackCalendar = createStackNavigator(
   {
     home: { screen: Calendar },
     phoneCalendar: { screen: phoneCalendar },
     storyCalendar: { screen: Story },
-    searchCalendar: { screen: Search },
+    searchCalendar: { screen: Search }
   },
   {
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTitleStyle: {
         ...Platform.select({
-          ios: { fontFamily: 'Arial', },
-          android: { fontFamily: 'Roboto' },
-        })
-      },
-    },
-  },
+          ios: { fontFamily: "Arial" },
+          android: { fontFamily: "Roboto" }
+        }),
+        fontSize: stylesGlobal.navbarFontSize
+      }
+    }
+  }
 );
 
 StackCalendar.navigationOptions = ({ navigation }) => {
   return {
     title: I18n.t("calendar"),
     headerBackTitle: null,
-    tabBarIcon: ({ focused, tintColor, horizontal }) => (
-      <Ionicons name="ios-calendar" size={horizontal ? 20 : 25} color={tintColor} />
-    ),
+    tabBarIcon: ({ focused, tintColor, horizontal }) => <Ionicons name="ios-calendar" size={horizontal ? 20 : 25} color={tintColor} />
   };
 };
 
@@ -110,32 +108,31 @@ let StackChat = createStackNavigator(
     chatRooms: { screen: chatRooms },
     chatTitle: { screen: chatTitle },
     chat: { screen: chat },
-    selectLanguageChat: { screen: selectLanguage },
+    selectLanguageChat: { screen: selectLanguage }
   },
   {
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTitleStyle: {
         ...Platform.select({
-          ios: { fontFamily: 'Arial', },
-          android: { fontFamily: 'Roboto' },
-        })
-      },
-    },
-  },
+          ios: { fontFamily: "Arial" },
+          android: { fontFamily: "Roboto" }
+        }),
+        fontSize: stylesGlobal.navbarFontSize
+      }
+    }
+  }
 );
 
 StackChat.navigationOptions = ({ navigation }) => {
   return {
     title: I18n.t("chat"),
-    tabBarIcon: ({ focused, tintColor, horizontal }) => (
-      <SimpleLineIcons name="bubble" size={horizontal ? 20 : 25} color={tintColor} />
-    ),
+    tabBarIcon: ({ focused, tintColor, horizontal }) => <SimpleLineIcons name="bubble" size={horizontal ? 20 : 25} color={tintColor} />
   };
 };
 
 let StackWeb = createStackNavigator({
-  authPortal: { screen: authPortal },
+  authPortal: { screen: authPortal }
 });
 
 StackWeb.navigationOptions = ({ navigation }) => {
@@ -143,9 +140,7 @@ StackWeb.navigationOptions = ({ navigation }) => {
   return {
     title,
     headerBackTitle: null,
-    tabBarIcon: ({ focused, tintColor, horizontal }) => (
-      <MaterialIcons name="web" size={horizontal ? 20 : 25} color={tintColor} />
-    ),
+    tabBarIcon: ({ focused, tintColor, horizontal }) => <MaterialIcons name="web" size={horizontal ? 20 : 25} color={tintColor} />
   };
 };
 
@@ -166,28 +161,27 @@ let StackOther = createStackNavigator(
     CameraApp: { screen: CameraApp },
     UserProfile: { screen: UserProfile },
     UserSearch: { screen: UserSearch },
-    EditUserProfile: { screen: EditUserProfile },
+    EditUserProfile: { screen: EditUserProfile }
   },
   {
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTitleStyle: {
         ...Platform.select({
-          ios: { fontFamily: 'Arial', },
-          android: { fontFamily: 'Roboto' },
-        })
-      },
-    },
-  },
+          ios: { fontFamily: "Arial" },
+          android: { fontFamily: "Roboto" }
+        }),
+        fontSize: stylesGlobal.navbarFontSize
+      }
+    }
+  }
 );
 
 StackOther.navigationOptions = ({ navigation }) => {
   return {
     title: I18n.t("more"),
     headerBackTitle: null,
-    tabBarIcon: ({ focused, tintColor, horizontal }) => (
-      <Feather name="menu" size={horizontal ? 20 : 25} color={tintColor} />
-    ),
+    tabBarIcon: ({ focused, tintColor, horizontal }) => <Feather name="menu" size={horizontal ? 20 : 25} color={tintColor} />
   };
 };
 // console.log("global.domain", global.domain);
@@ -198,7 +192,7 @@ let Tabs = createBottomTabNavigator(
     home: StackCalendar,
     chatRooms: StackChat,
     webportal: StackWeb,
-    other: StackOther,
+    other: StackOther
   },
   {
     shifting: false,
@@ -209,7 +203,7 @@ let Tabs = createBottomTabNavigator(
     tabBarComponent: props => {
       let display = ["homeNav", "home", "chatRooms", "webportal", "other"];
       if (global.domain !== "sais_edu_sg") {
-        const removeTab = ["webportal"]
+        const removeTab = ["webportal"];
         display = _.difference(display, removeTab);
       }
       console.log("global.domain3", global.domain);
@@ -220,26 +214,26 @@ let Tabs = createBottomTabNavigator(
         />
       );
     }
-  },
+  }
 );
 
 const MainScreenNavigator = createStackNavigator(
   {
     Tab: {
-      screen: Tabs,
+      screen: Tabs
     },
 
     authPortal: { screen: authPortal }
   },
 
   {
-    headerMode: "none",
-  },
+    headerMode: "none"
+  }
 );
 
 const RootStack = createStackNavigator({
   mode: "modal",
-  headerMode: "none",
+  headerMode: "none"
 });
 
 export default createAppContainer(MainScreenNavigator);

@@ -13,17 +13,14 @@ const icons = {
   contact: require("./images/contact.png"),
   library: require("./images/library.png"),
   map: require("./images/map.png"),
-  shop: require("./images/shop.png"),
+  shop: require("./images/shop.png")
 };
 
 export default class Content extends Component {
   static navigationOptions = {
     title: I18n.t("editor"),
-    headerTitleStyle: {
-      fontWeight: "bold",
-      fontSize: 28,
-    },
-    headerBackTitle: null,
+
+    headerBackTitle: null
   };
 
   constructor(props) {
@@ -32,7 +29,7 @@ export default class Content extends Component {
     this.state = {
       loggedIn: false,
       language: "",
-      features: global.moreFeatures || [],
+      features: global.moreFeatures || []
     };
   }
 
@@ -51,8 +48,7 @@ export default class Content extends Component {
           <TouchableHighlight
             style={styles.adminButton}
             underlayColor="#ff7043"
-            onPress={() => this.props.navigation.navigate("moreAdmin", { moreFeatures: this.state.features })}
-          >
+            onPress={() => this.props.navigation.navigate("moreAdmin", { moreFeatures: this.state.features })}>
             <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
           </TouchableHighlight>
         )}
@@ -73,7 +69,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     alignSelf: "center",
     height: 30,
-    width: 30,
+    width: 30
   },
   imageStyleCheckOn: {
     marginLeft: 15,
@@ -81,7 +77,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    color: "#007AFF",
+    color: "#007AFF"
   },
   imageStyleCheckOff: {
     marginLeft: 15,
@@ -89,12 +85,12 @@ const styles = StyleSheet.create({
     height: 30,
     fontSize: 30,
     width: 30,
-    color: "#FFF",
+    color: "#FFF"
   },
 
   titleInfoStyle: {
     fontSize: 16,
-    color: "#8e8e93",
+    color: "#8e8e93"
   },
   adminButton: {
     backgroundColor: "#ff5722",
@@ -113,8 +109,8 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOffset: {
       height: 1,
-      width: 0,
+      width: 0
     },
-    zIndex: 1,
-  },
+    zIndex: 1
+  }
 });
