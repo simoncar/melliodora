@@ -17,7 +17,6 @@ class ChatroomItem extends Component {
   }
 
   render() {
-    console.log("this.props.members", this.props);
     return (
       <View style={styles.newsContentLine}>
         <TouchableOpacity

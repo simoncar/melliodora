@@ -164,11 +164,20 @@ class Settings extends Component {
     }
   }
 
+  separator(i) {
+    if (i > 0) {
+      console.log("separator = ", i);
+      return <Seperator />;
+    }
+  }
+
   render() {
     var languageTitle = "Language";
     if (I18n.t("language") != "Language") {
       languageTitle = "Language " + I18n.t("language");
     }
+
+    var i = 0;
 
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
@@ -194,11 +203,11 @@ class Settings extends Component {
           />
 
           <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
-
           <Seperator />
           {this.state.features
             .filter(item => item.visible !== false)
             .map((el, idx) => {
+              i++;
               const navTitle = el.navTitle || el.title;
               const navProps = el.navURL
                 ? {
@@ -220,7 +229,9 @@ class Settings extends Component {
                 />
               );
             })}
-          <Seperator />
+
+          {this.separator(i)}
+
           <SettingsListItem
             icon={<FontAwesome name="language" style={styles.imageStyleIcon} />}
             title={languageTitle}
