@@ -39,8 +39,8 @@ class PageText extends Component {
 
     this.state = {
       notifyMeSwitch: false,
-      visible: props.edit ? props.visible : false,
-      visibleMore: props.edit ? props.visibleMore : false,
+      visible: props.edit ? props.visible : true,
+      visibleMore: props.edit ? props.visibleMore : true,
       eventTitle: props.edit ? props.summary : "",
       eventDescription: props.edit ? props.description : "",
       location: props.edit && props.location !== undefined ? props.location : null,
@@ -281,8 +281,8 @@ class PageSettings extends Component {
 
     this.state = {
       notifyMeSwitch: false,
-      visible: props.edit ? props.visible : false,
-      visibleMore: props.edit ? props.visibleMore : false,
+      visible: props.edit ? props.visible : true,
+      visibleMore: props.edit ? props.visibleMore : true,
 
       location: props.edit && props.location !== undefined ? props.location : null,
 
@@ -346,7 +346,6 @@ class PageSettings extends Component {
                     keyboardType="number-pad"
                     inputContainerStyle={{ borderBottomWidth: 0 }}
                     containerStyle={styles.containerStyleOrder}
-                    {...{ width: 10 }}
                   />
                 </View>
               </View>
@@ -581,9 +580,8 @@ class newStory extends React.Component {
 
             const storyDict = {
               summary: eventTitle,
-              visible: visible || false,
-              visibleMore: visibleMore || false,
-              description: eventDescription,
+              visible: visible || true,
+              visibleMore: visibleMore || true,
               photo1: photo1,
               date_start: eventDate !== undefined ? eventDate : null,
               time_start_pretty: eventStartTime !== undefined ? eventStartTime : null,

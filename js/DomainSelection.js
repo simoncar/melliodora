@@ -1,9 +1,21 @@
 import React, { Component } from "react";
-import { View, Text, Picker, SafeAreaView, StyleSheet, Button, FlatList, TouchableOpacity, Animated, Easing, TouchableHighlight, Alert } from "react-native";
+import {
+  View,
+  Text,
+  Picker,
+  SafeAreaView,
+  StyleSheet,
+  Button,
+  FlatList,
+  TouchableOpacity,
+  Animated,
+  Easing,
+  TouchableHighlight,
+  Alert
+} from "react-native";
 import { iOSUIKit, iOSColors } from "react-native-typography";
 import _ from "lodash";
 import { SearchBar } from "react-native-elements";
-
 
 export default class DomainSelection extends Component {
   constructor() {
@@ -17,7 +29,7 @@ export default class DomainSelection extends Component {
   }
 
   componentDidMount() {
-    this.setState({ domains: this.props.domains, allDomains: this.props.domains })
+    this.setState({ domains: this.props.domains, allDomains: this.props.domains });
   }
 
   renderSeparator = () => {
@@ -25,7 +37,7 @@ export default class DomainSelection extends Component {
       <View
         style={{
           height: 1,
-          backgroundColor: "#CED0CE",
+          backgroundColor: "#CED0CE"
         }}
       />
     );
@@ -33,15 +45,15 @@ export default class DomainSelection extends Component {
 
   animateHighlightSelected = () => {
     this.selectedBGWidth.setValue(0);
-    Animated.timing(
-      this.selectedBGWidth,
-      {
-        toValue: 1,
-        duration: 300,
-        easing: Easing.in(Easing.quad)
-      }
-    ).start();
-  }
+    Animated.timing(this.selectedBGWidth, {
+      toValue: 1,
+      duration: 300,
+      easing: Easing.in(Easing.quad)
+    }).start(() => {
+      console.log("Animation DONE");
+      this.props.setSelectedDomain(this.state.selectedDomain || this.props.domains[0].node);
+    });
+  };
 
   searchFilterFunction = text => {
     this.setState({
@@ -60,17 +72,14 @@ export default class DomainSelection extends Component {
     }
     const textToSearch = text.toUpperCase();
     const filteredData = allDomains.filter(dataItem => {
-      const searchObject = _.pick(dataItem, ['name', 'node']);
+      const searchObject = _.pick(dataItem, ["name", "node"]);
 
-      return Object.values(searchObject).some(item =>
-        item.toUpperCase().includes(textToSearch)
-      )
+      return Object.values(searchObject).some(item => item.toUpperCase().includes(textToSearch));
     });
 
     this.setState({
-      domains: filteredData,
+      domains: filteredData
     });
-
   };
 
   renderHeader = () => {
@@ -94,30 +103,31 @@ export default class DomainSelection extends Component {
     const { name, node } = item;
     const selected = this.state.selectedDomain == node;
     return (
-      <TouchableOpacity style={styles.item}
-        onLayout={
-          (event) => {
-            if (this.highlightwidth == 0) {
-              this.highlightwidth = event.nativeEvent.layout.width;
-            }
+      <TouchableOpacity
+        style={styles.item}
+        onLayout={event => {
+          if (this.highlightwidth == 0) {
+            this.highlightwidth = event.nativeEvent.layout.width;
           }
-        }
-        onPress={
-          () => {
-            this.setState({ selectedDomain: node });
-            this.animateHighlightSelected();
-          }
-        }>
-
-        {
-          selected ?
-            <Animated.View style={{
-              position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "#96ceb4",
+        }}
+        onPress={() => {
+          this.setState({ selectedDomain: node });
+          this.animateHighlightSelected();
+        }}>
+        {selected ? (
+          <Animated.View
+            style={{
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              backgroundColor: "#96ceb4",
               zIndex: -2,
               width: this.selectedBGWidth.interpolate({
                 inputRange: [0, 1],
                 outputRange: [0, this.highlightwidth]
-              }),
+              })
               // transform: [
               //   {
               //     translateX: this.selectedBGWidth.interpolate({
@@ -127,17 +137,15 @@ export default class DomainSelection extends Component {
               //   }
               // ]
             }}></Animated.View>
-            : null
-        }
+        ) : null}
 
         <Text style={styles.title}>{name}</Text>
         <Text style={styles.subtitle}>{node}</Text>
       </TouchableOpacity>
     );
-  }
+  };
 
   render() {
-
     return (
       <SafeAreaView style={{ backgroundColor: "#fff", flexDirection: "column" }}>
         <Text
@@ -147,23 +155,26 @@ export default class DomainSelection extends Component {
             marginTop: 58,
             marginLeft: 12,
             marginBottom: 12,
-            alignSelf: "center",
-          }}
-        >
+            alignSelf: "center"
+          }}>
           Select Community
         </Text>
 
-
         <View
           style={{
-            borderTopLeftRadius: 25, borderTopRightRadius: 25, borderWidth: 1, margin: 12, borderColor: "#e5e6eb", backgroundColor: "#f8f8fa", height: 340, zIndex: 1,
+            borderTopLeftRadius: 25,
+            borderTopRightRadius: 25,
+            borderWidth: 1,
+            margin: 12,
+            borderColor: "#e5e6eb",
+            backgroundColor: "#f8f8fa",
+            zIndex: 1,
             shadowColor: "rgba(0,0,0, .4)",
             shadowOffset: { width: 1, height: 1 },
             shadowOpacity: 0.8,
             shadowRadius: 1,
             elevation: 5
-          }}
-        >
+          }}>
           <FlatList
             style={{ overflow: "hidden" }}
             data={this.state.domains}
@@ -177,18 +188,6 @@ export default class DomainSelection extends Component {
             stickyHeaderIndices={[0]}
           />
         </View>
-
-        <Button
-          title="Select"
-          style={{ marginTop: 26 }}
-          onPress={() => {
-            if (!this.state.selectedDomain) {
-              Alert.alert('Please select a community');
-            } else {
-              this.props.setSelectedDomain(this.state.selectedDomain || this.props.domains[0].node)
-            }
-          }}
-        />
       </SafeAreaView>
     );
   }
@@ -218,8 +217,8 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    borderBottomColor: 'transparent',
-    borderTopColor: 'transparent',
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent",
     overflow: "hidden",
     zIndex: -1
   }
