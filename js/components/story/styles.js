@@ -60,6 +60,22 @@ export default {
     backgroundColor: "#ffffff",
     marginVertical: 8
   },
+  containerStyleOrder: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#d2d2d2",
+    backgroundColor: "#ffffff",
+    marginVertical: 8,
+    width: 50
+  },
+  containerStyleDate: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#d2d2d2",
+    backgroundColor: "#ffffff",
+    marginVertical: 8,
+    width: 200
+  },
 
   container: {
     backgroundColor: "#f2f2f2",
@@ -196,9 +212,27 @@ export default {
   eventTitle: {
     color: "#222",
     fontSize: stylesGlobal.headingFontSize,
-    paddingBottom: 20,
+    paddingTop: 15,
+    paddingBottom: 10,
     fontWeight: "bold"
   },
+
+  settingsItem: {
+    flexDirection: "row",
+    backgroundColor: "white",
+    paddingVertical: 8,
+    alignItems: "center",
+    borderBottomColor: "#CED0CE",
+    borderBottomWidth: 1
+  },
+  settingsItemNoLine: {
+    flexDirection: "row",
+    backgroundColor: "white",
+    alignItems: "center",
+    borderBottomColor: "#CED0CE",
+    borderBottomWidth: 0
+  },
+  settingsLeft: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 8 },
   eventText: {
     color: "#222",
     fontSize: stylesGlobal.bodyFontSize,
