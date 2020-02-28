@@ -582,6 +582,7 @@ class newStory extends React.Component {
               summary: eventTitle,
               visible: visible || true,
               visibleMore: visibleMore || true,
+              description: eventDescription,
               photo1: photo1,
               date_start: eventDate !== undefined ? eventDate : null,
               time_start_pretty: eventStartTime !== undefined ? eventStartTime : null,
