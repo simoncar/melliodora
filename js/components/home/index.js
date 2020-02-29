@@ -13,6 +13,10 @@ import Analytics from "../../lib/analytics";
 import { ScrollView } from "react-navigation";
 import moment from "moment";
 
+import DemoData from "../../lib/demoData";
+
+const demo = DemoData;
+
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
@@ -97,7 +101,11 @@ class HomeNav extends Component {
     };
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    if (domain == "oakforest_international_edu") {
+      await demo.setupDemoData();
+    }
+
     this.feature = firebase
       .firestore()
       .collection(global.domain)

@@ -11,7 +11,9 @@ import * as Font from "expo-font";
 import _ from "lodash";
 import "@firebase/firestore";
 import Firebase from "./lib/firebase";
+
 import DomainSelection from "./DomainSelection";
+
 import * as firebase from "firebase";
 import Constants from "expo-constants";
 import * as Localization from "expo-localization";
@@ -91,6 +93,7 @@ export default class Setup extends Component {
     if (domainDataArr.length < 1) return;
     AsyncStorage.setItem("domain", JSON.stringify(domainDataArr[0]));
     global.domain = domain;
+
     this.setState({ selectedDomain: domain, isReady: true });
     switch (domain) {
       case "sais_edu_sg":
