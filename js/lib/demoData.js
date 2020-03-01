@@ -26,7 +26,8 @@ class DemoData {
       icon: "ios-basketball",
       location: "Sports Field",
       summary: "Games and Play on the Sports Day",
-      description: "",
+      description:
+        "School Sports Days are a great way to celebrate the end of term/year or just have a fun day out of the classroom. Qualified and experienced coaches will lead students through a variety of sports that they would not normally have access to. \n\nSports include:\n- Gymnastics\n- Futsal\n- Volleyball\n- Floorball\n- Hockey\n- European Handball\n- Cricket\n- Basketball\n- Table Tennis\n",
       demo: true,
       photo1:
         "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2F86cc1d9d-13e6-4b32-8f97-31dba4ed569f?alt=media&token=06f19ce9-8b41-49e8-8628-992fdfbfe1bd"
