@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList, View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image } from "react-native";
+import { FlatList, View, Linking, TouchableOpacity, Dimensions, TouchableHighlight, AsyncStorage, Image } from "react-native";
 import { Container, Content, Text } from "native-base";
 import Constants from "expo-constants";
 import { MaterialIcons, Ionicons, FontAwesome } from "@expo/vector-icons";
@@ -7,6 +7,7 @@ import firebase from "firebase";
 import { getLanguageString } from "../global";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
+import * as Progress from "react-native-progress";
 
 import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
@@ -209,12 +210,10 @@ class HomeNav extends Component {
         });
         if (calendarItems.length > 0) {
           this.setState({
-            calendarItems
+            calendarItems,
+            loading: false
           });
         }
-        this.setState({
-          loading: false
-        });
       });
   }
 
@@ -240,9 +239,9 @@ class HomeNav extends Component {
       });
     }
 
-    this.setState({
-      loading: false
-    });
+    // this.setState({
+    //   loading: false
+    // });
   };
 
   _handleOpenWithLinking = sURL => {
@@ -261,8 +260,7 @@ class HomeNav extends Component {
         domain
       });
       this.setState({
-        featureItems,
-        loading: false
+        featureItems
       });
     });
   }
@@ -306,10 +304,6 @@ class HomeNav extends Component {
   env() {}
 
   render() {
-    if (this.state.loading) {
-      return null; // or render a loading icon
-    }
-
     return (
       <Container>
         {global.administrator && (
@@ -318,6 +312,10 @@ class HomeNav extends Component {
           </TouchableHighlight>
         )}
         <Content showsVerticalScrollIndicator={false}>
+          {this.state.loading && (
+            <Progress.Bar indeterminate={true} borderRadius={0} width={Dimensions.get("window").width} borderWidth={0} />
+          )}
+
           {global.domain === "ais_edu_sg" ? (
             <View style={styles.newsContentLine}>
               <ScrollView
