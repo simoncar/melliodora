@@ -1,0 +1,68 @@
+{
+    "name": "genericApp",
+    "displayName": "genericApp",
+    "expo": {
+        "version": "20.0.36",
+        "sdkVersion": "36.0.0",
+        "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",
+        "slug": "myCommunity",
+        "name": "myCommunity",
+        "description": "For parents, Singapore",
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "extra": {
+            "instance": "",
+            "amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78",
+            "sentryDSN": "https://1c19403969544e1096b7563d3fa87591@sentry.io/2998517"
+        },
+        "splash": {
+            "image": "./resources/genericApp/splash.png",
+            "backgroundColor": "#FFF"
+        },
+        "hooks": {
+            "postPublish": [
+                {
+                    "file": "sentry-expo/upload-sourcemaps",
+                    "config": {
+                        "organization": "mower-train-software",
+                        "project": "mycommunity",
+                        "authToken": "92c8da52431846ca8f6fe52b9de0db28b039efc6463b4e56996c4a583a75dda1"
+                    }
+                }
+            ]
+        },
+        "notification": {
+            "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",
+            "color": "#000000"
+        },
+        "orientation": "portrait",
+        "packagerOpts": {
+            "assetExts": [
+                "ttf"
+            ]
+        },
+        "ios": {
+            "bundleIdentifier": "com.softmowertrain.parent.mycommunity",
+            "supportsTablet": true
+        },
+        "android": {
+            "package": "com.softmowertrain.parent.mycommunity",
+            "versionCode": 20,
+            "permissions": [
+                "READ_CALENDAR",
+                "WRITE_CALENDAR"
+            ]
+        },
+        "androidStatusBarColor": "#AF3643",
+        "androidStatusBar": {
+            "barStyle": "dark-content",
+            "backgroundColor": "#AF3643"
+        },
+        "platforms": [
+            "android",
+            "ios",
+            "web"
+        ]
+    }
+}
