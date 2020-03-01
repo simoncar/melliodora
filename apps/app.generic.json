@@ -8,6 +8,9 @@
     "slug": "myCommunity",
     "name": "myCommunity",
     "description": "For parents, Singapore",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
     "extra": {
       "instance": "",
       "amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78",
