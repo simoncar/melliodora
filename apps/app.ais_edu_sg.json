@@ -8,6 +8,9 @@
     "slug": "myAIS",
     "name": "AIS",
     "description": "For AIS parents, Singapore",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
     "extra": {
       "instance": "ais_edu_sg",
       "amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78",
