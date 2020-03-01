@@ -282,7 +282,7 @@ class HomeNav extends Component {
     return <ListItem navigation={this.props.navigation} item={item} card={false} />;
   }
   _renderBalance() {
-    return <FlatList data={this.state.balanceItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem.bind(this)} />;
+    //   return <FlatList data={this.state.balanceItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem.bind(this)} />;
   }
 
   _renderToday() {
@@ -306,7 +306,7 @@ class HomeNav extends Component {
           </TouchableHighlight>
         )}
         <Content showsVerticalScrollIndicator={false}>
-          {!this.state.loading && (
+          {this.state.loading && (
             <Progress.Bar indeterminate={true} borderRadius={0} width={Dimensions.get("window").width} borderWidth={0} />
           )}
 
