@@ -6,7 +6,7 @@ import { MaterialIcons, FontAwesome, SimpleLineIcons, MaterialCommunityIcons } f
 import * as firebase from "firebase";
 import { Updates } from "expo";
 import FeatureMoreItems from "./FeatureMoreItems";
-import SettingsListItem from "./SettingsListItem";
+import { SettingsListItem, Separator } from "./SettingsListItem";
 import Analytics from "../../lib/analytics";
 import _ from "lodash";
 
@@ -167,7 +167,7 @@ class Settings extends Component {
   separator(i) {
     if (i > 0) {
       console.log("separator = ", i);
-      return <Seperator />;
+      return <Separator />;
     }
   }
 
@@ -204,7 +204,7 @@ class Settings extends Component {
 
           <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
 
-          <Seperator />
+          <Separator />
           {this.state.features
             .filter(item => item.visible !== false)
             .map((el, idx) => {
@@ -352,20 +352,5 @@ const styles = StyleSheet.create({
     fontSize: 14
   }
 });
-
-class Seperator extends Component {
-  render() {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "100%",
-          backgroundColor: "#CED0CE",
-          marginTop: 30
-        }}
-      />
-    );
-  }
-}
 
 export default Settings;

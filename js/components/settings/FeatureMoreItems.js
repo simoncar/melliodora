@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { View, FlatList } from "react-native";
+import { Image } from "react-native-expo-image-cache";
+
 import firebase from "firebase";
 import ListItem from "./FeatureListItem";
 import { getLanguageString } from "../global";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
+import { SettingsListItem, Separator } from "./SettingsListItem";
 
 @withMappedNavigationParams()
 export default class FeatureMoreItems extends Component {
@@ -78,7 +81,39 @@ export default class FeatureMoreItems extends Component {
   keyExtractor = item => item._key;
 
   _renderItem(item) {
-    return <ListItem navigation={this.props.navigation} item={item} editMode={this.props.editMode} />;
+    const preview = {
+      uri:
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
+    };
+    const uri = item.item.photo1;
+
+    if (!(this.props.show == "visibleMore")) {
+      return <ListItem navigation={this.props.navigation} item={item} editMode={this.props.editMode} />;
+    } else {
+      return (
+        <SettingsListItem
+          key={"feature2" + item.item._key}
+          title={item.item.summaryMyLanguage}
+          icon={
+            <Image
+              style={{
+                marginLeft: 15,
+                alignSelf: "center",
+                width: 30,
+                textAlign: "center",
+
+                height: 30,
+                borderRadius: 18,
+                borderWidth: 0.1,
+                borderColor: "lightgray"
+              }}
+              {...{ preview, uri }}
+            />
+          }
+          onPress={() => this.props.navigation.navigate("storyMore", item.item)}
+        />
+      );
+    }
   }
   _listEmptyComponent = () => {
     return <View></View>;
@@ -86,13 +121,17 @@ export default class FeatureMoreItems extends Component {
   render() {
     if (this.state.loading || !this.state.featureItems > 0) return <View></View>;
     return (
-      <FlatList
-        data={this.state.featureItems}
-        keyExtractor={this.keyExtractor}
-        renderItem={this._renderItem.bind(this)}
-        scrollEnabled={false}
-        ListEmptyComponent={this._listEmptyComponent}
-      />
+      <View>
+        <Separator />
+
+        <FlatList
+          data={this.state.featureItems}
+          keyExtractor={this.keyExtractor}
+          renderItem={this._renderItem.bind(this)}
+          scrollEnabled={false}
+          ListEmptyComponent={this._listEmptyComponent}
+        />
+      </View>
     );
   }
 }

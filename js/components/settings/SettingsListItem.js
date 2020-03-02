@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Text, View, TouchableHighlight, TextInput, Switch } from "react-native";
+import { Text, View, TouchableHighlight } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-export default class SettingsListItem extends Component {
+export const SettingsListItem = class SettingsListItem extends Component {
   render() {
     const { icon, onPress, title, titleInfoStyle, titleInfo, hasNavArrow = true } = this.props;
     return (
@@ -32,4 +32,19 @@ export default class SettingsListItem extends Component {
       </TouchableHighlight>
     );
   }
-}
+};
+
+export const Separator = class Separator extends Component {
+  render() {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: "#CED0CE",
+          marginTop: 30
+        }}
+      />
+    );
+  }
+};
