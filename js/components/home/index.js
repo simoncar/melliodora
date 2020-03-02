@@ -137,7 +137,7 @@ class HomeNav extends Component {
 
     let balance = firebase
       .firestore()
-      .collection(global.domain)
+      .collection("sais_edu_sg")
       .doc("user")
       .collection("usernames")
       .doc("Rh9hEJmOyLR12WfflrLCCvvpIWD2")
@@ -285,7 +285,9 @@ class HomeNav extends Component {
     return <ListItem navigation={this.props.navigation} item={item} card={false} />;
   }
   _renderBalance() {
-    //   return <FlatList data={this.state.balanceItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem.bind(this)} />;
+    if (global.domain === "oakforest_international_edu") {
+      return <FlatList data={this.state.balanceItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem.bind(this)} />;
+    }
   }
 
   _renderToday() {

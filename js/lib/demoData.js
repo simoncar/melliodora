@@ -25,7 +25,7 @@ class DemoData {
       dtstamp: "2020222222211111",
       icon: "ios-basketball",
       location: "Sports Field",
-      summary: "Games and Play on the Sports Day",
+      summary: "Sports Day",
       description:
         "School Sports Days are a great way to celebrate the end of term/year or just have a fun day out of the classroom. Qualified and experienced coaches will lead students through a variety of sports that they would not normally have access to. \n\nSports include:\n- Gymnastics\n- Futsal\n- Volleyball\n- Floorball\n- Hockey\n- European Handball\n- Cricket\n- Basketball\n- Table Tennis\n",
       demo: true,
