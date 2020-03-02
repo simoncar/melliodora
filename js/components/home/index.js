@@ -108,7 +108,7 @@ class HomeNav extends Component {
       await demo.setupDemoData();
     }
 
-    systemHero.logToCalendar("AppStarts-" & global.domain, "Startup Count", global.domain);
+    systemHero.logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain);
 
     this.feature = firebase
       .firestore()
