@@ -206,9 +206,10 @@ class HomeNav extends Component {
             date_start: doc.data().date_start,
             color: "red",
             showIconChat: false,
-            descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description")
+            descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
+            number: doc.data().number
           };
-
+          console.log("DDDDDD-", doc.data(), doc.data().summary);
           calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
         });
         if (calendarItems.length > 0) {
