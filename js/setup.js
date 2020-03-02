@@ -16,15 +16,17 @@ import Constants from "expo-constants";
 import * as Localization from "expo-localization";
 import { connect } from 'react-redux';
 import CommunityCreateScreen from "./CommunityCreateScreen";
+
+//redux
 import { retrieveFeatures } from "./store/settings";
 import { setUserInfo, actionCheckAdmin, setIsAdmin } from "./store/auth";
+import { actionSetSelectedCommunity } from "./store/community";
 
 class Setup extends Component {
   constructor() {
     super();
     this.state = {
-      isReady: false,
-      selectedDomain: "",
+      isReady: false
     };
   }
 
@@ -73,16 +75,6 @@ class Setup extends Component {
     console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
     if (Constants.manifest.extra.instance) {
       this.setSelectedDomain(Constants.manifest.extra.instance);
-    } else {
-      AsyncStorage.getItem("domain").then(d => {
-        const domain = JSON.parse(d);
-
-
-        console.log("domain=", domain);
-        if (domain && domain.node) {
-          this.setSelectedDomain(domain.node);
-        }
-      });
     }
 
 
@@ -138,30 +130,13 @@ class Setup extends Component {
       firebase.auth().onAuthStateChanged(user => {
         console.log("user", user);
         if (!user) {
-          console.log("signing in");
           this.anonymouslySignIn();
         } else {
-          console.log("user found", JSON.stringify(user));
           const isAnonymous = user.isAnonymous;
-          if (user) { //&& this.state.selectedDomain
-            console.log("global.domain node", global.domain);
+          if (user) {
             this.initUser(user, isAnonymous);
-
-            // user.getIdTokenResult()
-            //   .then((idTokenResult) => {
-            //     console.log("claims", idTokenResult.claims)
-            //     console.log("idTokenResult.claims[global.domain]", idTokenResult.claims[global.domain]);
-            //     console.log("global.domain", global.domain);
-            //   if (idTokenResult.claims[global.domain]) {
-            //     this.initUser(user, isAnonymous);
-            //   } else {
-            //     this.anonymouslySignIn();
-
-            //   }
-            // });
           }
         }
-
       });
     } catch (e) {
       console.log("catch error body:", e.message);
@@ -296,9 +271,10 @@ class Setup extends Component {
     console.log("setSelectedDomain - d = ", d);
     const domainDataArr = this.getSelectedDomainData(domain, this.domains);
     if (domainDataArr.length < 1) return;
-    AsyncStorage.setItem("domain", JSON.stringify(domainDataArr[0]));
     global.domain = domain;
-    this.setState({ selectedDomain: domain, isReady: true });
+
+    this.props.dispatch(actionSetSelectedCommunity(domainDataArr[0]));
+    this.setState({ isReady: true });
 
     retrieveFeatures();
 
@@ -363,12 +339,14 @@ class Setup extends Component {
 
   render() {
     console.log("Constants.manifest.extra.instance2", Constants.manifest.extra.instance);
+    console.log("setup", this.props);
+    const selectedDomain = this.props.community.selectedCommunity.node;
     if (!this.state.isReady) {
       return <AppLoading />;
     } else if (this.props.communityCreation.communityCreate) {
       return <CommunityCreateScreen />
     }
-    else if (!this.state.selectedDomain) {
+    else if (!selectedDomain) {
       return <AuthStackNavigator
         screenProps={{
           domains: this.domains,
@@ -376,9 +354,8 @@ class Setup extends Component {
         }}
       />
     } else {
-      //checkAdmin
-
-      this.props.dispatch(actionCheckAdmin(this.state.selectedDomain));
+      // check if user is admin
+      this.props.dispatch(actionCheckAdmin(selectedDomain));
       return <App />;
     }
 
@@ -387,5 +364,6 @@ class Setup extends Component {
 
 const mapStateToProps = state => ({
   communityCreation: state.communityCreation,
+  community: state.community
 });
 export default connect(mapStateToProps)(Setup);

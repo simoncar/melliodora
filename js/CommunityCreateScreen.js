@@ -3,6 +3,8 @@ import { Text, View, TextInput, StyleSheet, SafeAreaView, ScrollView, TouchableO
 import { connect } from 'react-redux';
 import firebase from "firebase";
 import Loader from "./components/common/Loader";
+import { actionSetSelectedCommunity } from "./store/community";
+import { setCommunityCreate } from "./store/communityCreation";
 
 
 
@@ -58,6 +60,9 @@ class CommunityCreateScreen extends Component {
                 const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
                 const result = await setUserClaim({ email: this.props.auth.userInfo.email, claim: "ADMIN_" + node })
                 console.log("set claim result", result);
+                global.domain = node;
+                this.props.dispatch(actionSetSelectedCommunity(dict));
+                this.props.dispatch(setCommunityCreate(false))
             }
             this.setState({ loading: false });
         } catch (error) {

@@ -53,7 +53,7 @@ class HomeNav extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params = {} } = navigation.state;
     let title = "";
-    if (params.domain) title = params.domain["name"];
+    if (params.title) title = params.title;
 
     let headerTitle = null;
     if (global.domain == "ais_edu_sg") {
@@ -95,6 +95,12 @@ class HomeNav extends Component {
   };
 
   componentDidMount() {
+    this.props.navigation.setParams({
+      title: this.props.community.selectedCommunity.name
+    });
+
+    global.domain = this.props.community.selectedCommunity.node || global.domain;
+
     this.feature = firebase
       .firestore()
       .collection(global.domain)
@@ -204,14 +210,8 @@ class HomeNav extends Component {
     //check if user is admin
   }
   loadFromAsyncStorage() {
-    AsyncStorage.multiGet(["featureItems", "domain"], (err, stores) => {
+    AsyncStorage.multiGet(["featureItems"], (err, stores) => {
       const featureItems = JSON.parse(stores[0][1]);
-      const domain = JSON.parse(stores[1][1]);
-      console.log("domain", domain);
-
-      this.props.navigation.setParams({
-        domain,
-      });
       this.setState({
         featureItems,
         loading: false,
@@ -435,6 +435,7 @@ class HomeNav extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  community: state.community
 });
 export default connect(mapStateToProps)(HomeNav);
