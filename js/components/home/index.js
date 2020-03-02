@@ -108,7 +108,7 @@ class HomeNav extends Component {
       await demo.setupDemoData();
     }
 
-    await systemHero.logToCalendar("AppStarts-" & global.domain, "Startup Count", global.domain);
+    systemHero.logToCalendar("AppStarts-" & global.domain, "Startup Count", global.domain);
 
     this.feature = firebase
       .firestore()
@@ -217,6 +217,7 @@ class HomeNav extends Component {
             loading: false
           });
         }
+        console.log("finished loading calendar");
         this.setState({
           loading: false
         });
