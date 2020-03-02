@@ -10,6 +10,7 @@ import Constants from "expo-constants";
 import SettingsListItem from "./SettingsListItem";
 import Analytics from "../../lib/analytics";
 import _ from "lodash";
+import { actionRetrieveFeatures } from "../../store/settings";
 
 import { connect } from 'react-redux';
 
@@ -46,7 +47,7 @@ class Settings extends Component {
     });
     this._getUser();
 
-    this.props.dispatch({ type: 'RETRIEVE_FEATURES' });
+    this.props.dispatch(actionRetrieveFeatures());
     Analytics.track("More");
   }
 

@@ -9,6 +9,10 @@ export const setFeatures = features => ({
     features,
 });
 
+export const actionRetrieveFeatures = () => ({
+    type: RETRIEVE_FEATURES
+});
+
 export const retrieveFeatures = async () => {
     try {
         console.log("retrivin features2");
@@ -23,7 +27,6 @@ export const retrieveFeatures = async () => {
             const docData = doc.data();
             if (docData.moreListings) {
                 return docData.moreListings;
-                // dispatch(setFeatures(docData.moreListings))
             }
         }
         return [];
