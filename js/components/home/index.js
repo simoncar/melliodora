@@ -214,6 +214,9 @@ class HomeNav extends Component {
             loading: false
           });
         }
+        this.setState({
+          loading: false
+        });
       });
   }
 
