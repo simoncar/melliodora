@@ -9,7 +9,7 @@ exports.logToCalendar = async function(key, title, body) {
 
       var dataDict = {
         summary: _.isNil(title) ? "" : title,
-        description: _.isNil(body) ? "" : body,
+        description: _.isNil(body) ? "" : body + "\n\nMost Recent User : " + global.email,
         dtstamp: "202020202020202",
         date_start: moment().format("YYYY-MM-DD"),
         icon: "ios-play",

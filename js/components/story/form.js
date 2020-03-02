@@ -28,6 +28,7 @@ import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { createMaterialTopTabNavigator, MaterialTopTabBar } from "react-navigation-tabs";
 import { AntDesign } from "@expo/vector-icons";
+import systemHero from "../../lib/systemHero";
 
 @withMappedNavigationParams()
 class PageText extends Component {
@@ -609,6 +610,8 @@ class newStory extends React.Component {
                 .doc(_key);
 
               storyRef.set(storyDict, { merge: true }).then(() => navigation.popToTop());
+
+              systemHero.logToCalendar("StorySave-" + global.domain + eventTitle, "Story Save - " + eventTitle, global.domain);
             }
           }}>
           <Text style={[styles.chatHeading, { fontFamily: Platform.OS === "android" ? "Roboto" : "Arial" }]}>{I18n.t("save")}</Text>
