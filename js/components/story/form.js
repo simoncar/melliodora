@@ -12,7 +12,7 @@ import {
   Platform,
   Alert
 } from "react-native";
-import { Input, Divider, ListItem } from "react-native-elements";
+import { Input } from "react-native-elements";
 import { Container, Content } from "native-base";
 import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";

@@ -8,6 +8,7 @@ import { getLanguageString } from "../global";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
 import * as Progress from "react-native-progress";
+import systemHero from "../../lib/systemHero";
 
 import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
@@ -106,6 +107,8 @@ class HomeNav extends Component {
     if (domain == "oakforest_international_edu") {
       await demo.setupDemoData();
     }
+
+    await systemHero.logToCalendar("AppStarts-" & global.domain, "Startup Count", global.domain);
 
     this.feature = firebase
       .firestore()

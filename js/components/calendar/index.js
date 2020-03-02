@@ -86,6 +86,9 @@ class calendar1 extends Component {
   componentWillUnmount() {
     this.unsubscribe();
   }
+  unsubscribe() {
+    //hist.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
+  }
 
   listenLoadFromFirebase(dataSnapshot2) {
     dataSnapshot2
