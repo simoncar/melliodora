@@ -49,45 +49,44 @@ class SignUpScreen extends Component {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(userCredential => {
+        .then(async userCredential => {
+
+          let downloadURL = "";
           if (this.state.profilePic) {
-            saveProfilePic(this.state.profilePic)
-              .then(downloadURL => {
-                userCredential.user.updateProfile({
-                  photoURL: downloadURL,
-                  displayName: this.state.displayName
-                });
+            downloadURL = await saveProfilePic(this.state.profilePic)
+            userCredential.user.updateProfile({
+              photoURL: downloadURL,
+              displayName: this.state.displayName
+            });
+          }
+          const communityJoined = global.domain ? [global.domain] : [];
 
-                const communityJoined = global.domain ? [global.domain] : [];
-                const userDict = {
-                  photoURL: downloadURL,
-                  email: userCredential.user.email,
-                  uid: userCredential.user.uid,
-                  displayName: this.state.displayName,
-                  firstName: this.state.firstName,
-                  lastName: this.state.lastName,
-                }
+          const photoURLObj = downloadURL ? { photoURL: downloadURL } : {};
+          const userDict = {
+            ...photoURLObj,
+            email: userCredential.user.email,
+            uid: userCredential.user.uid,
+            displayName: this.state.displayName,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+          }
 
-                // create global registerd user
-                firebase
-                  .firestore()
-                  .collection("registeredUsers")
-                  .doc(userCredential.user.uid)
-                  .set({ ...userDict, communityJoined }, { merge: true });
+          // create global registerd user
+          firebase
+            .firestore()
+            .collection("registeredUsers")
+            .doc(userCredential.user.uid)
+            .set({ ...userDict, communityJoined }, { merge: true });
 
-                // create domain specific user
-                if (global.domain) {
-                  firebase
-                    .firestore()
-                    .collection(global.domain)
-                    .doc("user")
-                    .collection("registered")
-                    .doc(userCredential.user.uid)
-                    .set(userDict, { merge: true });
-                }
-
-              })
-              .catch(error => this.setState({ errorMessage: error.message, loading: false }));
+          // create domain specific user
+          if (global.domain) {
+            firebase
+              .firestore()
+              .collection(global.domain)
+              .doc("user")
+              .collection("registered")
+              .doc(userCredential.user.uid)
+              .set(userDict, { merge: true });
           }
         })
         .then(() => {
@@ -102,7 +101,10 @@ class SignUpScreen extends Component {
             this.props.navigation.popToTop()
           }
         })
-        .catch(error => this.setState({ errorMessage: error.message, loading: false }));
+        .catch(error => {
+          this.navigation.pop();
+          this.setState({ errorMessage: error.message, loading: false })
+        });
 
     } catch (error) {
       this.setState({

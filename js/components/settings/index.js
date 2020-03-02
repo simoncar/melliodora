@@ -45,6 +45,8 @@ class Settings extends Component {
       this._getUser();
     });
     this._getUser();
+
+    this.props.dispatch({ type: 'RETRIEVE_FEATURES' });
     Analytics.track("More");
   }
 

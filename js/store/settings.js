@@ -1,13 +1,15 @@
 import * as firebase from "firebase";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
 export const SET_FEATURES = 'SET_FEATURES';
+export const RETRIEVE_FEATURES = 'RETRIEVE_FEATURES';
 
 export const setFeatures = features => ({
     type: SET_FEATURES,
     features,
 });
 
-export const retrieveFeatures = () => async dispatch => {
+export const retrieveFeatures = async () => {
     try {
         console.log("retrivin features2");
 
@@ -20,9 +22,11 @@ export const retrieveFeatures = () => async dispatch => {
         if (doc.exists) {
             const docData = doc.data();
             if (docData.moreListings) {
-                dispatch(setFeatures(docData.moreListings))
+                return docData.moreListings;
+                // dispatch(setFeatures(docData.moreListings))
             }
         }
+        return [];
 
     } catch (error) {
         // Error retrieving data
@@ -43,6 +47,22 @@ export const saveFeatureChanges = (changedFeatures) => dispatch => {
     } catch (error) {
         // Error retrieving data
     }
+}
+
+// worker Saga: will be fired on USER_FETCH_REQUESTED actions
+function* WORKER_retrieveFeatures() {
+    try {
+        // do api call
+        const data = yield call(retrieveFeatures);
+        yield put(setFeatures(data));
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+//  Watcher
+export function* settingsSaga() {
+    yield takeLatest(RETRIEVE_FEATURES, WORKER_retrieveFeatures);
 }
 
 const initialState = {

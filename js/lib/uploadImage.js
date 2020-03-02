@@ -13,6 +13,7 @@ exports.getPermissionAsync = async () => {
 }
 
 exports.saveProfilePic = async (imgURI) => {
+  if (!imgURI) return "";
   // const d = new Date();
   fileToUpload = imgURI;
 
