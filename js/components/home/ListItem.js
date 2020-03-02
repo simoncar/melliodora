@@ -13,13 +13,38 @@ class ListItem extends Component {
     super(props);
   }
 
-  icon(source) {
+  icon(source, number) {
     const uri = this.props.item.item.photo1;
     const preview = {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
-    if (source == "calendar") {
+
+    if (this.props.item.item.number >= 0) {
+      return (
+        <View
+          style={{
+            borderRadius: 30,
+            backgroundColor: "#1daef2",
+            width: 36,
+            height: 36,
+            margin: 12,
+            alignItems: "center",
+            paddingLeft: 0,
+            paddingRight: 0,
+            justifyContent: "center"
+          }}>
+          <Text
+            size={35}
+            style={{
+              color: "white",
+              fontSize: 20
+            }}>
+            {this.props.item.item.number}
+          </Text>
+        </View>
+      );
+    } else if (source == "calendar") {
       return (
         <Ionicons
           name="ios-calendar"
@@ -145,7 +170,7 @@ class ListItem extends Component {
               style={{ flexDirection: "row" }}
               onPress={() => this.props.navigation.navigate("story", this.props.item.item)}>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-                {this.icon(this.props.item.item.source)}
+                {this.icon(this.props.item.item.source, this.props.item.item.number)}
 
                 <View>
                   <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardTitle}>
