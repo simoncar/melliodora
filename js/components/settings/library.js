@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image } from "react-native";
-import SettingsListItem from "../settings/SettingsListItem";
+import { SettingsListItem } from "../settings/SettingsListItem";
 
 export default class Library extends Component {
   static navigationOptions = {

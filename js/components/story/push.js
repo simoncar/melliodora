@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, Dimensions, Alert, Text, TextInput, TouchableOpacity, Switch } from "react-native";
+import { StyleSheet, View, Image, Dimensions, Alert, Text, TouchableOpacity, Switch } from "react-native";
 import { Container, Content } from "native-base";
 import styles from "./styles";
-import SettingsListItem from "../settings/SettingsListItem";
+import { SettingsListItem } from "../settings/SettingsListItem";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import _ from "lodash";
-import Constants from "expo-constants";
+import { Input } from "react-native-elements";
 
 @withMappedNavigationParams()
 class push extends Component {
@@ -126,9 +126,9 @@ class push extends Component {
 
   render() {
     return (
-      <Container style={{ backgroundColor: "#fff" }}>
+      <Container style={{ backgroundColor: "#f2f2f2" }}>
         <Content showsVerticalScrollIndicator={false}>
-          <View style={{ flex: 1, backgroundColor: "#fff" }}>
+          <View style={{ flex: 1, backgroundColor: "#f2f2f2" }}>
             <View
               style={{
                 flex: 1,
@@ -136,11 +136,11 @@ class push extends Component {
                 paddingLeft: 10,
                 paddingRight: 10
               }}>
-              <TextInput
+              <Input
                 onChangeText={text => this.setState({ initialText: text })}
                 placeholder={"Description"}
                 multiline
-                style={[styles.eventText]}
+                containerStyle={styles.containerStyle}
                 value={this.state.initialText}
               />
             </View>

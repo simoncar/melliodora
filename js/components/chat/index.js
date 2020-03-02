@@ -19,7 +19,7 @@ import Analytics from "../../lib/analytics";
 import * as firebase from "firebase";
 import { ListItem } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
-import SettingsListItem from "../settings/SettingsListItem";
+import { SettingsListItem } from "../settings/SettingsListItem";
 import stylesGlobal from "../../themes/globalTheme";
 
 var localMessages = [];
