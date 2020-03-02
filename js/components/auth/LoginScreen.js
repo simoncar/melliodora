@@ -4,6 +4,7 @@ import { Text, StyleSheet, View, TextInput, Button, SafeAreaView } from "react-n
 import { Input } from "react-native-elements";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
+import _ from "lodash";
 
 export default class LoginScreen extends Component {
 
@@ -15,7 +16,7 @@ export default class LoginScreen extends Component {
       await firebase
         .auth()
         .signInWithEmailAndPassword(email, password);
-      if (!global.domain || this.props.navigation.state.param.toWelcomeScreen) {
+      if (!global.domain || _.has(this.props, "navigation.state.param.toWelcomeScreen")) {
         this.props.navigation.navigate("welcomeScreen");
       } else {
         this.props.navigation.popToTop();
@@ -29,7 +30,7 @@ export default class LoginScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Text>{this.state.errorMessage}</Text>
 
         <TextInput
@@ -64,7 +65,7 @@ export default class LoginScreen extends Component {
         <View style={{ marginTop: 20 }}>
           <Button title="Sign Up" onPress={() => this.props.navigation.navigate("signup")} testID="forgotpasswordnavigate" />
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }

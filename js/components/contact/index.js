@@ -8,6 +8,7 @@ import Communications from "react-native-communications";
 import updateFirebase from "./../../lib/updateFirebase";
 import styles from "./styles";
 import Analytics from "../../lib/analytics";
+import { connect } from 'react-redux';
 
 const contactIconType = {
   call: "ios-call",
@@ -30,7 +31,7 @@ class Anchor extends React.Component {
   }
 }
 
-export default class Contact extends Component {
+class Contact extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerBackTitle: null,
     title: "Contacts",
@@ -119,7 +120,7 @@ export default class Contact extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {global.administrator && (
+        {(global.administrator || this.props.auth.isAdmin) && (
           <TouchableHighlight
             style={styles.adminButton}
             underlayColor="#ff7043"
@@ -157,3 +158,8 @@ export default class Contact extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps)(Contact);

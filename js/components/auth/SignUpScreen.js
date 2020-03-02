@@ -89,10 +89,10 @@ class SignUpScreen extends Component {
               .set(userDict, { merge: true });
           }
         })
-        .then(() => {
-          const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
-          setUserClaim({ email: this.state.email, domain: global.domain })
-        })
+        // .then(() => {
+        //   const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
+        //   setUserClaim({ email: this.state.email, domain: global.domain })
+        // })
         .then(result => this.setState({ loading: false }))
         .then(() => {
           if (this.props.navigation.state.params.toWelcomeScreen) {

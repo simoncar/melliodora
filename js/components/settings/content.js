@@ -7,6 +7,8 @@ import * as firebase from "firebase";
 import { Updates } from "expo";
 import FeatureMoreItems from "./FeatureMoreItems";
 import Constants from "expo-constants";
+import { connect } from 'react-redux';
+
 
 const icons = {
   wifi: require("./images/wifi.png"),
@@ -16,7 +18,7 @@ const icons = {
   shop: require("./images/shop.png"),
 };
 
-export default class Content extends Component {
+class Content extends Component {
   static navigationOptions = {
     title: I18n.t("editor"),
     headerTitleStyle: {
@@ -47,7 +49,7 @@ export default class Content extends Component {
   render() {
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
-        {global.administrator && (
+        {(global.administrator || this.props.auth.isAdmin) && (
           <TouchableHighlight
             style={styles.adminButton}
             underlayColor="#ff7043"
@@ -67,6 +69,12 @@ export default class Content extends Component {
     this.setState({ toggleAuthView: !this.state.toggleAuthView });
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps)(Content);
+
 
 const styles = StyleSheet.create({
   imageStyle: {

@@ -17,7 +17,7 @@ import * as Localization from "expo-localization";
 import { connect } from 'react-redux';
 import CommunityCreateScreen from "./CommunityCreateScreen";
 import { retrieveFeatures } from "./store/settings";
-import { setUserInfo } from "./store/auth";
+import { setUserInfo, actionCheckAdmin, setIsAdmin } from "./store/auth";
 
 class Setup extends Component {
   constructor() {
@@ -122,7 +122,7 @@ class Setup extends Component {
       global.adminPassword = adminPassword;
       console.log("adminPassword=", adminPassword);
       if (adminPassword == "cookies") {
-        global.administrator = true;
+        this.props.dispatch(setIsAdmin(true));
       }
     });
 
@@ -376,6 +376,9 @@ class Setup extends Component {
         }}
       />
     } else {
+      //checkAdmin
+
+      this.props.dispatch(actionCheckAdmin(this.state.selectedDomain));
       return <App />;
     }
 

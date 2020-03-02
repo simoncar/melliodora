@@ -23,6 +23,9 @@ import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
 // import { NavigationEvents, ScrollView } from "react-navigation";
 import moment from "moment";
+import { setUserInfo } from "../../store/auth";
+import { connect } from 'react-redux';
+
 
 const { width } = Dimensions.get("window");
 const tabBarIcon = name => ({ tintColor }) => (
@@ -188,6 +191,18 @@ class HomeNav extends Component {
 
   keyExtractor = item => item._key;
 
+  setupUser = () => {
+    const { communityJoined } = this.props.auth.userInfo;
+    if (Array.isArray(communityJoined) && communityJoined.indexOf(global.domain) < 0) {
+      const userInfo = {
+        ...this.props.auth.userInfo,
+        communityJoined: [...communityJoined, global.domain]
+      };
+      this.props.dispatch(setUserInfo(userInfo, true))
+    }
+
+    //check if user is admin
+  }
   loadFromAsyncStorage() {
     AsyncStorage.multiGet(["featureItems", "domain"], (err, stores) => {
       const featureItems = JSON.parse(stores[0][1]);
@@ -226,7 +241,7 @@ class HomeNav extends Component {
 
     return (
       <Container>
-        {global.administrator && (
+        {(global.administrator || this.props.auth.isAdmin) && (
           <TouchableHighlight
             style={styles.addButton}
             underlayColor="#ff7043"
@@ -419,4 +434,7 @@ class HomeNav extends Component {
   }
 }
 
-export default HomeNav;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps)(HomeNav);

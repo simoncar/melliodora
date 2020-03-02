@@ -17,7 +17,7 @@ class CommunityCreateScreen extends Component {
         loading: false
     }
 
-    _handleCommunityCreation = () => {
+    _handleCommunityCreation = async () => {
         try {
             this.setState({ loading: true });
             let {
@@ -43,13 +43,23 @@ class CommunityCreateScreen extends Component {
                 language
             };
 
-            firebase
+            const communityRef = firebase
                 .firestore()
                 .collection("domains")
-                .doc(node)
-                .set(dict)
-                .then(() => this.setState({ loading: false }))
+                .doc(node);
 
+            const doc = await communityRef.get();
+
+            if (doc.exists) {
+                throw new Error("Community name already existed");
+            } else {
+                await communityRef.set(dict);
+
+                const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
+                const result = await setUserClaim({ email: this.props.auth.userInfo.email, claim: "ADMIN_" + node })
+                console.log("set claim result", result);
+            }
+            this.setState({ loading: false });
         } catch (error) {
             this.setState({
                 errorMessage: error.message,
@@ -58,6 +68,7 @@ class CommunityCreateScreen extends Component {
         }
     };
     render() {
+        console.log("this.props", this.props);
         return (
             <SafeAreaView style={{ marginTop: 30 }}>
                 <Loader
@@ -139,6 +150,7 @@ class CommunityCreateScreen extends Component {
 
 const mapStateToProps = state => ({
     communityCreate: state.communityCreate,
+    auth: state.auth
 });
 export default connect(mapStateToProps)(CommunityCreateScreen);
 

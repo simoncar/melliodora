@@ -11,7 +11,6 @@ import SettingsListItem from "./SettingsListItem";
 import Analytics from "../../lib/analytics";
 import _ from "lodash";
 import { actionRetrieveFeatures } from "../../store/settings";
-
 import { connect } from 'react-redux';
 
 
@@ -142,7 +141,7 @@ class Settings extends Component {
 
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
-        {global.administrator && (
+        {(global.administrator || this.props.auth.isAdmin) && (
           <TouchableHighlight
             style={styles.adminButton}
             underlayColor="#ff7043"
@@ -322,5 +321,6 @@ class Seperator extends Component {
 
 const mapStateToProps = state => ({
   settings: state.settings,
+  auth: state.auth
 });
 export default connect(mapStateToProps)(Settings);
