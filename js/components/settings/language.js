@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, AsyncStorage } from "react-native";
-import SettingsListItem from "../settings/SettingsListItem";
+import { SettingsListItem } from "../settings/SettingsListItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Updates } from "expo";
 import I18n from "../../lib/i18n";
@@ -57,7 +57,6 @@ export default class selectLanguage extends Component {
   }
 
   render() {
-    var bgColor = "#DCE3F4";
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
         <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
