@@ -55,7 +55,8 @@ class CalendarItem extends Component {
                     paddingRight: 0,
                     justifyContent: "center"
                   }}>
-                  <Ionicons style={{ color: "white", fontSize: 20 }} name={item.icon} />
+                  {undefined !== item.number && item.number > 0 && <Text style={{ color: "white", fontSize: 20 }}>{item.number}</Text>}
+                  {undefined == item.number && <Ionicons style={{ color: "white", fontSize: 20 }} name={item.icon} />}
                   <View />
                 </View>
               </Col>
