@@ -57,14 +57,6 @@ class chatRooms extends Component {
   buildChatroomList() {
     var userChatrooms = [];
 
-    // if (global.email == "christinathorsen@gmail.com") {
-    //   specialChatrooms = {
-    //     chatroom: "sealysicochat",
-    //     title: "App Developers Chat",
-    //   };
-    //   userChatrooms.push(specialChatrooms);
-    // }
-    this.loadFromAsyncStorage();
 
     firebase
       .firestore()
@@ -98,24 +90,11 @@ class chatRooms extends Component {
 
         });
 
-        AsyncStorage.setItem("userChatrooms", JSON.stringify(userChatrooms));
-
         this.setState({
           userChatrooms,
           loading: false
         });
       });
-  }
-
-  loadFromAsyncStorage() {
-    AsyncStorage.getItem("userChatrooms").then(fi => {
-      var userChatrooms = JSON.parse(fi);
-
-      this.setState({
-        userChatrooms,
-        loading: false,
-      });
-    });
   }
 
   _renderItem({ item }) {

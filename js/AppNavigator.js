@@ -190,8 +190,8 @@ StackOther.navigationOptions = ({ navigation }) => {
     ),
   };
 };
-// console.log("global.domain", global.domain);
-// const webportal = global.domain == "sais_edu_sg" ? { webportal: StackWeb } : {}
+
+
 let Tabs = createBottomTabNavigator(
   {
     homeNav: StackHome,
@@ -212,7 +212,7 @@ let Tabs = createBottomTabNavigator(
         const removeTab = ["webportal"]
         display = _.difference(display, removeTab);
       }
-      console.log("global.domain3", global.domain);
+
       return (
         <BottomTabBar
           {...props} // Required

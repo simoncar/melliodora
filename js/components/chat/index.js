@@ -32,7 +32,7 @@ class chat extends Component {
     headerTitle: (
       <TouchableOpacity
         onPress={() => {
-          navigation.state.params._showActionSheet(navigation);
+          navigation.state.params._showActionSheet();
         }}
       >
         <Text style={{ fontSize: 28, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
@@ -41,7 +41,7 @@ class chat extends Component {
     headerRight: (
       <TouchableOpacity
         onPress={() => {
-          navigation.state.params._showActionSheet(navigation);
+          navigation.state.params._showActionSheet();
         }}
       >
         <View style={styles.chatHeading}>
@@ -373,9 +373,9 @@ class chat extends Component {
     console.log("nav refresh BBB ", title);
   };
 
-  _showActionSheet(navigation) {
+  _showActionSheet() {
     const BUTTONS = ["Chatroom info", "Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
-    const CANCEL_INDEX = 3;
+    const CANCEL_INDEX = 4;
 
     ActionSheet.show(
       {
@@ -391,11 +391,11 @@ class chat extends Component {
             break;
           case 1:
             navigation.push("chatTitle", {
-              title: navigation.getParam("title"),
-              chatroom: navigation.getParam("chatroom"),
-              type: navigation.getParam("type"),
-              edit: true,
-              onGoBack: this.refresh,
+              // title: navigation.getParam("title"),
+              // chatroom: navigation.getParam("chatroom"),
+              // type: navigation.getParam("type"),
+              // edit: true,
+              // onGoBack: this.refresh,
             });
             break;
           case 2:

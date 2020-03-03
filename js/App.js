@@ -19,6 +19,7 @@ class App extends Component {
   _handleNotification = ({ origin, data }) => { };
 
   _registerForPushNotifications() {
+    console.log("global.name", global.name);
     registerForPush.reg(global.name);
 
     this._notificationSubscription = Notifications.addListener(this._handleNotification);
