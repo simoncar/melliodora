@@ -20,36 +20,14 @@ import * as firebase from "firebase";
 import { ListItem } from "react-native-elements";
 import { LinearGradient } from 'expo-linear-gradient';
 import SettingsListItem from "../settings/SettingsListItem";
-
+import { connectActionSheet } from '@expo/react-native-action-sheet';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 
 
 var localMessages = [];
 
 @withMappedNavigationParams()
 class chat extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.title,
-    headerTitle: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params._showActionSheet();
-        }}
-      >
-        <Text style={{ fontSize: 28, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
-      </TouchableOpacity>
-    ),
-    headerRight: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params._showActionSheet();
-        }}
-      >
-        <View style={styles.chatHeading}>
-          <Entypo name="cog" style={styles.chatHeading} />
-        </View>
-      </TouchableOpacity>
-    ),
-  });
 
   constructor(props) {
     super(props);
@@ -75,9 +53,6 @@ class chat extends Component {
     this.renderSystemMessage = this.renderSystemMessage.bind(this);
     this.renderFooter = this.renderFooter.bind(this);
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
-    this._showActionSheet = this._showActionSheet.bind(this);
-
-    this._isAlright = null;
 
     localMessages = [];
     console.log("global.authenticated FROM chat", global.authenticated, global.name, global.email);
@@ -373,17 +348,20 @@ class chat extends Component {
     console.log("nav refresh BBB ", title);
   };
 
-  _showActionSheet() {
-    const BUTTONS = ["Chatroom info", "Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
-    const CANCEL_INDEX = 4;
 
-    ActionSheet.show(
+
+  _showActionSheet = () => {
+
+
+    const options = ["Chatroom info", "Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
+
+    const cancelButtonIndex = options.length - 1;
+
+    this.props.showActionSheetWithOptions(
       {
-        options: BUTTONS,
-        cancelButtonIndex: CANCEL_INDEX,
-        title: "Options",
+        options,
+        cancelButtonIndex
       },
-
       buttonIndex => {
         switch (buttonIndex) {
           case 0:
@@ -391,11 +369,11 @@ class chat extends Component {
             break;
           case 1:
             navigation.push("chatTitle", {
-              // title: navigation.getParam("title"),
-              // chatroom: navigation.getParam("chatroom"),
-              // type: navigation.getParam("type"),
-              // edit: true,
-              // onGoBack: this.refresh,
+              title: this.props.navigation.getParam("title"),
+              chatroom: this.props.navigation.getParam("chatroom"),
+              type: this.props.navigation.getParam("type"),
+              edit: true,
+              onGoBack: this.refresh,
             });
             break;
           case 2:
@@ -407,6 +385,40 @@ class chat extends Component {
         }
       },
     );
+
+    // const BUTTONS = ["Chatroom info", "Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
+    // const CANCEL_INDEX = 4;
+
+    // ActionSheet.show(
+    //   {
+    //     options: BUTTONS,
+    //     cancelButtonIndex: CANCEL_INDEX,
+    //     title: "Options",
+    //   },
+
+    //   buttonIndex => {
+    //     switch (buttonIndex) {
+    //       case 0:
+    //         this.setState({ modalVisible: true });
+    //         break;
+    //       case 1:
+    //         navigation.push("chatTitle", {
+    //           // title: navigation.getParam("title"),
+    //           // chatroom: navigation.getParam("chatroom"),
+    //           // type: navigation.getParam("type"),
+    //           // edit: true,
+    //           // onGoBack: this.refresh,
+    //         });
+    //         break;
+    //       case 2:
+    //         Backend.setMute(true);
+    //         break;
+    //       case 3:
+    //         Backend.setMute(false);
+    //         break;
+    //     }
+    //   },
+    // );
   }
 
   renderSend(props) {
@@ -571,4 +583,38 @@ class chat extends Component {
   }
 }
 
-export default chat;
+const ConnectedApp = connectActionSheet(chat);
+
+export default class ActionSheetContainer extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.title,
+    headerTitle: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._showActionSheet();
+        }}
+      >
+        <Text style={{ fontSize: 28, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
+      </TouchableOpacity>
+    ),
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._showActionSheet();
+        }}
+      >
+        <View style={styles.chatHeading}>
+          <Entypo name="cog" style={styles.chatHeading} />
+        </View>
+      </TouchableOpacity>
+    ),
+  });
+
+  render() {
+    return (
+      <ActionSheetProvider>
+        <ConnectedApp navigation={this.props.navigation} />
+      </ActionSheetProvider>
+    )
+  }
+}
