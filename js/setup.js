@@ -25,9 +25,6 @@ import { actionSetSelectedCommunity } from "./store/community";
 class Setup extends Component {
   constructor() {
     super();
-    this.state = {
-      isReady: false
-    };
   }
 
   getDomains = () =>
@@ -117,7 +114,6 @@ class Setup extends Component {
         this.props.dispatch(setIsAdmin(true));
       }
     });
-    console.log("isreadying");
     this.setupUser();
   }
 
@@ -201,7 +197,6 @@ class Setup extends Component {
           console.log("doc", docData);
           global.userInfo = docData;
           this.props.dispatch(setUserInfo(docData));
-          this.setState({ isReady: true });
         }
       });
   }
@@ -281,7 +276,6 @@ class Setup extends Component {
       />
     } else {
       // check if user is admin
-      // this.props.dispatch(actionCheckAdmin(selectedDomain.node));
       return <App />;
     }
 
