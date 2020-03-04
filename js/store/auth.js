@@ -1,11 +1,17 @@
 import firebase from "firebase";
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
+import _ from "lodash";
+import Constants from "expo-constants";
+import * as Localization from "expo-localization";
 
 
 // ACTIONS
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const CHECK_ADMIN = 'CHECK_ADMIN';
 export const SET_IS_ADMIN = 'SET_IS_ADMIN';
+export const SETUP_AUTH = "SETUP_AUTH";
+export const ANONYMOUSLY_SIGN_IN = "ANONYMOUSLY_SIGN_IN";
+export const INIT_USER = "INIT_USER"
 
 export const setUserInfo = (userInfo, updateDB = false) => {
     if (updateDB) {
@@ -31,9 +37,28 @@ export const setIsAdmin = (isAdmin) => ({
     isAdmin
 })
 
+export const setupAuth = () => ({
+    type: SETUP_AUTH
+})
+export const actionSignInAnonymously = () => ({
+    type: ANONYMOUSLY_SIGN_IN
+})
+
+export const actionInitUser = (user, isAnonymous) => ({
+    type: INIT_USER,
+    user,
+    isAnonymous
+})
+
 
 const getCurrentUserClaims = () => {
     return firebase.auth().currentUser.getIdTokenResult();
+}
+
+anonymouslySignIn = () => {
+    return firebase
+        .auth()
+        .signInAnonymously();
 }
 
 // worker Saga
@@ -54,9 +79,77 @@ function* WORKER_checkAdmin(action) {
     }
 }
 
+function* WORKER_anonymouslySignIn(action) {
+    try {
+        yield call(anonymouslySignIn);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function* WORKER_initUser(action) {
+    try {
+        const { user, isAnonymous } = action;
+
+        const uid = user.uid;
+        console.log("Auth = ", uid);
+
+        // store the auth as a valid user
+        global.uid = uid;
+
+        var token = global.pushToken;
+
+        if (_.isNil(token)) {
+            token = "";
+        }
+        var safeToken = global.safeToken;
+
+        if (_.isNil(safeToken)) {
+            safeToken = "";
+        }
+
+        var version = _.isNil(Constants.manifest.revisionId) ? "unknown" : Constants.manifest.revisionId;
+        var userDict = {
+            token,
+            safeToken,
+            loginCount: firebase.firestore.FieldValue.increment(1),
+            languageSelected: global.language,
+            phoneLocale: Localization.locale,
+            version: version,
+            lastLogin: Date.now(),
+            isAnonymous
+        };
+
+        yield call(() => firebase
+            .firestore()
+            .collection("users")
+            .doc(uid)
+            .set(userDict, { merge: true }));
+
+        const doc = yield call(() => firebase
+            .firestore()
+            .collection("users")
+            .doc(uid)
+            .get());
+
+        if (!doc.exists) {
+            console.log("No such document!");
+        } else {
+            const docData = doc.data();
+
+            global.userInfo = docData;
+            yield put(setUserInfo(docData));
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 //  Watcher
 export function* authSaga() {
     yield takeLatest(CHECK_ADMIN, WORKER_checkAdmin);
+    yield takeLatest(ANONYMOUSLY_SIGN_IN, WORKER_anonymouslySignIn);
+    yield takeLatest(INIT_USER, WORKER_initUser);
 }
 
 const initialState = {

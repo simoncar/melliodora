@@ -19,7 +19,7 @@ import CommunityCreateScreen from "./CommunityCreateScreen";
 
 //redux
 import { retrieveFeatures } from "./store/settings";
-import { setUserInfo, actionCheckAdmin, setIsAdmin } from "./store/auth";
+import { actionSignInAnonymously, actionInitUser, setIsAdmin } from "./store/auth";
 import { actionSetSelectedCommunity } from "./store/community";
 
 class Setup extends Component {
@@ -122,10 +122,11 @@ class Setup extends Component {
       console.log("SetupUser");
       firebase.auth().onAuthStateChanged(user => {
         if (!user) {
-          this.anonymouslySignIn();
+          this.props.dispatch(actionSignInAnonymously());
+
         } else {
           const isAnonymous = user.isAnonymous;
-          this.initUser(user, isAnonymous);
+          this.props.dispatch(actionInitUser(user, isAnonymous));
         }
       });
     } catch (e) {
@@ -133,73 +134,7 @@ class Setup extends Component {
     }
   }
 
-  anonymouslySignIn = () => {
-    console.log("signInAnonymously...")
-    firebase
-      .auth()
-      .signInAnonymously()
-      .catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-      });
-  }
 
-  initUser = (user, isAnonymous) => {
-    var uid = user.uid;
-    console.log("Auth = ", uid);
-
-    // store the auth as a valid user
-    global.uid = uid;
-
-    var token = global.pushToken;
-
-    if (_.isNil(token)) {
-      token = "";
-    }
-    var safeToken = global.safeToken;
-
-    if (_.isNil(safeToken)) {
-      safeToken = "";
-    }
-
-    console.log("Auth2 = ", uid, global.authenticated, global.name, global.email);
-    var version = _.isNil(Constants.manifest.revisionId) ? "unknown" : Constants.manifest.revisionId;
-    var userDict = {
-      token,
-      safeToken,
-      loginCount: firebase.firestore.FieldValue.increment(1),
-      languageSelected: global.language,
-      phoneLocale: Localization.locale,
-      version: version,
-      lastLogin: Date.now(),
-      isAnonymous
-    };
-    console.log("uid=", uid);
-
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(uid)
-      .set(userDict, { merge: true })
-      .then(() =>
-        firebase
-          .firestore()
-          .collection("users")
-          .doc(uid)
-          .get()
-      ).then(doc => {
-        if (!doc.exists) {
-          console.log("No such document!");
-        } else {
-          const docData = doc.data();
-          console.log("doc", docData);
-          global.userInfo = docData;
-          this.props.dispatch(setUserInfo(docData));
-        }
-      });
-  }
 
 
   setSelectedDomain = d => {
