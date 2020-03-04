@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import { StyleProvider, Root } from "native-base";
 import { I18nManager, AsyncStorage, View, Text } from "react-native";
 import App from "./App";
 import I18n from "./lib/i18n";
-import variables from "../native-base-theme/variables/commonColor";
-import getTheme from "../native-base-theme/components";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import _ from "lodash";
@@ -13,7 +10,6 @@ import Firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
 import * as firebase from "firebase";
 import Constants from "expo-constants";
-import * as Localization from "expo-localization";
 import { connect } from 'react-redux';
 import CommunityCreateScreen from "./CommunityCreateScreen";
 
@@ -102,11 +98,7 @@ class Setup extends Component {
     await AsyncStorage.getItem("name").then(name => {
       global.name = _.isString(name) ? name : "";
     });
-    await AsyncStorage.getItem("authenticated").then(authenticatedString => {
-      var authenticated = authenticatedString == "true";
-      global.authenticated = authenticated;
-      console.log("authenticated=", authenticated);
-    });
+
     await AsyncStorage.getItem("adminPassword").then(adminPassword => {
       global.adminPassword = adminPassword;
       console.log("adminPassword=", adminPassword);

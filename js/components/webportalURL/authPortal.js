@@ -103,8 +103,7 @@ class authPortal extends Component {
     console.log(navState.url);
     if (
       navState.url.substring(0, 42) != "https://mystamford.edu.sg/login/login.aspx" &&
-      navState.url.substring(0, 25) == "https://mystamford.edu.sg" &&
-      global.authenticated != true
+      navState.url.substring(0, 25) == "https://mystamford.edu.sg"
     ) {
       setTimeout(() => {
         var jsCode = "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML);";

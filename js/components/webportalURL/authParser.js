@@ -77,7 +77,6 @@ export class AuthParser extends React.Component {
       AsyncStorage.setItem("email", email);
       AsyncStorage.setItem("authenticated", "true");
 
-      global.authenticated = true;
 
       console.log("Saving details: ", global.uid, name, email);
     }
