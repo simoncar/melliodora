@@ -74,7 +74,7 @@ class SignUpScreen extends Component {
           // create global registerd user
           firebase
             .firestore()
-            .collection("registeredUsers")
+            .collection("users")
             .doc(userCredential.user.uid)
             .set({ ...userDict, communityJoined }, { merge: true });
 

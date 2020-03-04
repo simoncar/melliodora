@@ -91,8 +91,7 @@ export default class DomainSelection extends Component {
   };
 
   renderItem = ({ item }) => {
-    const { name, node } = item;
-    const selected = this.state.selectedDomain == node;
+    const selected = this.state.selectedDomain == item;
     return (
       <TouchableOpacity style={styles.item}
         onLayout={
@@ -104,7 +103,7 @@ export default class DomainSelection extends Component {
         }
         onPress={
           () => {
-            this.setState({ selectedDomain: node });
+            this.setState({ selectedDomain: item });
             this.animateHighlightSelected();
           }
         }>
@@ -130,8 +129,8 @@ export default class DomainSelection extends Component {
             : null
         }
 
-        <Text style={styles.title}>{name}</Text>
-        <Text style={styles.subtitle}>{node}</Text>
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.subtitle}>{item.node}</Text>
       </TouchableOpacity>
     );
   }
@@ -185,7 +184,8 @@ export default class DomainSelection extends Component {
             if (!this.state.selectedDomain) {
               Alert.alert('Please select a community');
             } else {
-              this.props.setSelectedDomain(this.state.selectedDomain || this.props.domains[0].node)
+              console.log("button presed");
+              this.props.setSelectedDomain(this.state.selectedDomain)
             }
           }}
         />

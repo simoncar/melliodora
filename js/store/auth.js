@@ -11,7 +11,7 @@ export const setUserInfo = (userInfo, updateDB = false) => {
     if (updateDB) {
         firebase
             .firestore()
-            .collection("registeredUsers")
+            .collection("users")
             .doc(userInfo.uid)
             .set(userInfo, { merge: true });
     }

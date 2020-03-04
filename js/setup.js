@@ -117,25 +117,19 @@ class Setup extends Component {
         this.props.dispatch(setIsAdmin(true));
       }
     });
-
-    // this.setState({ isReady: true });
+    console.log("isreadying");
     this.setupUser();
-
-    this.setState({ isReady: true });
   }
 
   setupUser = () => {
     try {
       console.log("SetupUser");
       firebase.auth().onAuthStateChanged(user => {
-        console.log("user", user);
         if (!user) {
           this.anonymouslySignIn();
         } else {
           const isAnonymous = user.isAnonymous;
-          if (user) {
-            this.initUser(user, isAnonymous);
-          }
+          this.initUser(user, isAnonymous);
         }
       });
     } catch (e) {
@@ -143,9 +137,9 @@ class Setup extends Component {
     }
   }
 
-  anonymouslySignIn = async () => {
+  anonymouslySignIn = () => {
     console.log("signInAnonymously...")
-    await firebase
+    firebase
       .auth()
       .signInAnonymously()
       .catch(function (error) {
@@ -162,20 +156,6 @@ class Setup extends Component {
 
     // store the auth as a valid user
     global.uid = uid;
-    firebase
-      .firestore()
-      .collection("registeredUsers")
-      .doc(uid)
-      .get()
-      .then(doc => {
-        if (!doc.exists) {
-          console.log("No such document!");
-        } else {
-          const docData = doc.data();
-          global.userInfo = docData;
-          this.props.dispatch(setUserInfo(docData));
-        }
-      });
 
     var token = global.pushToken;
 
@@ -204,23 +184,37 @@ class Setup extends Component {
 
     firebase
       .firestore()
-      .collection("registeredUsers")
+      .collection("users")
       .doc(uid)
-      .set(userDict, { merge: true });
-
-    console.log("setting ready...");
-    this.setState({ isReady: true });
+      .set(userDict, { merge: true })
+      .then(() =>
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(uid)
+          .get()
+      ).then(doc => {
+        if (!doc.exists) {
+          console.log("No such document!");
+        } else {
+          const docData = doc.data();
+          console.log("doc", docData);
+          global.userInfo = docData;
+          this.props.dispatch(setUserInfo(docData));
+          this.setState({ isReady: true });
+        }
+      });
   }
 
+
   setSelectedDomain = d => {
-    const domain = d || "";
+    const domain = d || {};
     console.log("setSelectedDomain - d = ", d);
-    const domainDataArr = this.getSelectedDomainData(domain, this.domains);
-    if (domainDataArr.length < 1) return;
+    // const domainDataArr = this.getSelectedDomainData(domain, this.domains);
+    // if (domainDataArr.length < 1) return;
     global.domain = domain;
 
-    this.props.dispatch(actionSetSelectedCommunity(domainDataArr[0]));
-    this.setState({ isReady: true });
+    this.props.dispatch(actionSetSelectedCommunity(d));
 
     switch (domain) {
       case "sais_edu_sg":
@@ -270,13 +264,15 @@ class Setup extends Component {
 
   render() {
     console.log("Constants.manifest.extra.instance2", Constants.manifest.extra.instance);
-    const selectedDomain = this.props.community.selectedCommunity.node;
-    if (!this.state.isReady) {
+    const selectedDomain = this.props.community.selectedCommunity;
+
+    console.log("selectedDomain2222", selectedDomain)
+    if (!this.props.auth.userInfo || _.isEmpty(this.props.auth.userInfo)) {
       return <AppLoading />;
     } else if (this.props.communityCreation.communityCreate) {
       return <CommunityCreateScreen />
     }
-    else if (!selectedDomain) {
+    else if (_.isEmpty(this.props.community.selectedCommunity)) {
       return <AuthStackNavigator
         screenProps={{
           domains: this.domains,
@@ -285,7 +281,7 @@ class Setup extends Component {
       />
     } else {
       // check if user is admin
-      this.props.dispatch(actionCheckAdmin(selectedDomain));
+      // this.props.dispatch(actionCheckAdmin(selectedDomain.node));
       return <App />;
     }
 
@@ -294,6 +290,7 @@ class Setup extends Component {
 
 const mapStateToProps = state => ({
   communityCreation: state.communityCreation,
-  community: state.community
+  community: state.community,
+  auth: state.auth
 });
 export default connect(mapStateToProps)(Setup);
