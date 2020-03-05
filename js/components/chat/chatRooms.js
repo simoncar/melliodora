@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList, View, AsyncStorage, Text, TouchableOpacity } from "react-native";
+import { FlatList, View, AsyncStorage, Text, TouchableOpacity, TouchableHighlight } from "react-native";
 import * as firebase from "firebase";
 import { Container, Content } from "native-base";
 import { SimpleLineIcons, Entypo, AntDesign } from "@expo/vector-icons";
@@ -120,31 +120,65 @@ class chatRooms extends Component {
   }
 
   _renderItem({ item }) {
-    return <ChatroomItem {...item} navigation={this.props.navigation} />;
+    return <ChatroomItem {...item} navigation={this.props.navigation} card={true} />;
+  }
+  _renderItemNoCard({ item }) {
+    return <ChatroomItem {...item} navigation={this.props.navigation} card={false} />;
   }
 
   render() {
+    const card = this.props.card === false ? false : true;
     return (
-      <Container style={styles.container}>
-        <View>
-          <TouchableOpacity
-            style={{ flexDirection: "row" }}
-            onPress={() => {
-              this.props.navigation.navigate("chatTitle", {
-                edit: false,
-                chatroom: "New Chatroom",
-                onGoBack: this.refresh
-              });
-            }}>
-            <View style={styles.rowView}>
-              <AntDesign style={styles.iconLeftPlus} name="pluscircleo" />
-              <Text style={styles.chatTitle}>New Chat Group</Text>
-              <Entypo style={styles.iconRight} name="chevron-right" />
+      <Container style={styles.homeContainer}>
+        <TouchableHighlight
+          style={styles.addButton}
+          underlayColor="#ff7043"
+          onPress={() => {
+            this.props.navigation.navigate("chatTitle", {
+              edit: false,
+              chatroom: "New Chatroom",
+              onGoBack: this.refresh
+            });
+          }}>
+          <Text style={{ fontSize: 25, color: "white" }}>+</Text>
+        </TouchableHighlight>
+        <Content showsVerticalScrollIndicator={false}>
+          <View style={styles.newsContentLine}>
+            <View>
+              <View style={card && styles.card}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    paddingRight: 4,
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    borderBottomWidth: 0.1,
+                    borderBottomColor: "lightgray",
+                    marginTop: 5
+                  }}>
+                  <TouchableOpacity
+                    style={{ flexDirection: "row" }}
+                    onPress={() => {
+                      this.props.navigation.navigate("chatTitle", {
+                        edit: false,
+                        chatroom: "New Chatroom",
+                        onGoBack: this.refresh
+                      });
+                    }}>
+                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                      <AntDesign style={styles.iconLeftPlus} name="pluscircleo" />
+                      <Text style={styles.chatTitle}>New Chat Group</Text>
+                      <Entypo style={styles.iconRight} name="chevron-right" />
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={styles.card}>
+                <FlatList data={this.state.userChatrooms} renderItem={this._renderItemNoCard.bind(this)} keyExtractor={this.keyExtractor} />
+              </View>
             </View>
-          </TouchableOpacity>
-
-          <FlatList data={this.state.userChatrooms} renderItem={this._renderItem.bind(this)} keyExtractor={this.keyExtractor} />
-        </View>
+          </View>
+        </Content>
       </Container>
     );
   }

@@ -29,6 +29,42 @@ export default {
     color: "grey",
     margin: 12
   },
+  card: {
+    backgroundColor: "#fff",
+    shadowColor: "rgba(0,0,0, .4)",
+    shadowOffset: { height: 1, width: 0.5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 0.5,
+    elevation: 1,
+    marginBottom: 12,
+    width: "98%",
+    alignSelf: "center",
+    borderWidth: 1,
+    borderColor: "lightgray",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15
+  },
+  addButton: {
+    backgroundColor: "#ff5722",
+    borderColor: "#ff5722",
+    borderWidth: 1,
+    height: 50,
+    width: 50,
+    borderRadius: 50 / 2,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    },
+    zIndex: 1
+  },
   rowView: {
     flexDirection: "row",
     flex: 1,
@@ -43,8 +79,8 @@ export default {
     color: "blue"
   },
   newsContentLine: {
-    borderTopWidth: 1,
-    borderTopColor: "#ddd"
+    backgroundColor: "#f2f2f2",
+    paddingTop: 10
   },
   chatRow: {
     height: 50,
@@ -187,6 +223,9 @@ export default {
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 10
+  },
+  homeContainer: {
+    backgroundColor: "#f2f2f2"
   },
   footerText: {
     fontSize: 14,

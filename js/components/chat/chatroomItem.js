@@ -17,27 +17,40 @@ class ChatroomItem extends Component {
   }
 
   render() {
+    const card = this.props.card === false ? false : true;
     return (
-      <View style={styles.newsContentLine}>
-        <TouchableOpacity
-          onPress={() => {
-            this.props.navigation.navigate("chat", {
-              chatroom: this.props.chatroom,
-              title: this.props.title,
-              description: this.props.description,
-              contact: this.props.contact,
-              url: this.props.url,
-              language: this.props.language,
-              type: this.props.type,
-              members: this.props.members
-            });
+      <View style={card && styles.card}>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingRight: 4,
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderBottomWidth: 0.1,
+            borderBottomColor: "lightgray",
+            marginTop: 5
           }}>
-          <View style={styles.rowView}>
-            <SimpleLineIcons style={styles.iconLeft} name="bubbles" />
-            <Text style={styles.chatTitle}>{this.props.title}</Text>
-            <Entypo style={styles.iconRight} name="chevron-right" />
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={{ flexDirection: "row" }}
+            onPress={() => {
+              this.props.navigation.navigate("chat", {
+                chatroom: this.props.chatroom,
+                title: this.props.title,
+                description: this.props.description,
+                contact: this.props.contact,
+                url: this.props.url,
+                language: this.props.language,
+                type: this.props.type,
+                members: this.props.members
+              });
+            }}>
+            <View style={styles.rowView}>
+              <SimpleLineIcons style={styles.iconLeft} name="bubbles" />
+              <Text style={styles.chatTitle}>{this.props.title}</Text>
+              <Entypo style={styles.iconRight} name="chevron-right" />
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
