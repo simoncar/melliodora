@@ -124,7 +124,6 @@ class HomeNav extends Component {
     this.focusListener = navigation.addListener("didFocus", () => {
       // The screen is focused
       // Call any action
-      console.log("home is focused");
       this.loadBalance();
       this.loadCalendar();
     });
@@ -164,10 +163,7 @@ class HomeNav extends Component {
           location: "Cafeteria Account Balance"
         };
 
-        console.log(data.guid); //DB:iSAMSparents:48879-2
         var familyId = data.guid.substring(data.guid.indexOf("iSAMSparents:") + 13, data.guid.indexOf("-"));
-
-        console.log(familyId);
 
         balanceItems.push({ ...{ _key: snapshot.id }, ...data, ...trans });
         if (balanceItems.length > 0) {
@@ -209,7 +205,6 @@ class HomeNav extends Component {
             descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
             number: doc.data().number
           };
-          console.log("DDDDDD-", doc.data(), doc.data().summary);
           calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
         });
         if (calendarItems.length > 0) {
@@ -218,7 +213,6 @@ class HomeNav extends Component {
             loading: false
           });
         }
-        console.log("finished loading calendar");
         this.setState({
           loading: false
         });
@@ -262,7 +256,6 @@ class HomeNav extends Component {
     AsyncStorage.multiGet(["featureItems", "domain"], (err, stores) => {
       const featureItems = JSON.parse(stores[0][1]);
       const domain = JSON.parse(stores[1][1]);
-      console.log("domain", domain);
 
       this.props.navigation.setParams({
         domain

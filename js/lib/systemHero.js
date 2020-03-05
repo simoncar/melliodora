@@ -25,10 +25,7 @@ exports.logToCalendar = async function(key, title, body) {
         .collection("calendarItems")
         .doc(moment().format("YYYYMMDD") + "-" + key)
         .set(dataDict, { merge: true });
-      console.log("LOGGING COMPLETE AAA");
     });
-
-    console.log("LOGGING COMPLETE BBB");
 
     const result = await p;
     return result;

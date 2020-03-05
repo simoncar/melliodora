@@ -55,7 +55,7 @@ class CalendarItem extends Component {
                     paddingRight: 0,
                     justifyContent: "center"
                   }}>
-                  {undefined !== item.number && item.number > 0 && <Text style={{ color: "white", fontSize: 20 }}>{item.number}</Text>}
+                  {undefined !== item.number && item.number > 0 && <Text style={{ color: "white", fontSize: 16 }}>{item.number}</Text>}
                   {undefined == item.number && <Ionicons style={{ color: "white", fontSize: 20 }} name={item.icon} />}
                   <View />
                 </View>
@@ -80,7 +80,6 @@ class CalendarItem extends Component {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
-    console.log("IMAGE = ", calImage);
     if (undefined != calImage && calImage.length > 0) {
       return <Image {...{ preview, uri }} style={{ width: 300, height: 150 }} resizeMode="contain" />;
     }

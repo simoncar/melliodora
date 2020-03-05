@@ -72,8 +72,6 @@ class CalendarRow extends Component {
         timeZone: "Asia/Singapore"
       };
     } else {
-      console.log("FFFFF:", moment(eventStartTime, ["h:mm A"]).format("HH:mm"));
-
       var dtStart = moment(eventDate + "T" + moment(eventStartTime + " GMT+0800 (+08)", ["h:mm A"]).format("HH:mm"));
       var dtEnd = moment(eventDate + "T" + moment(eventEndTime + " GMT+0800 (+08)", ["h:mm A"]).format("HH:mm"));
 
@@ -89,8 +87,6 @@ class CalendarRow extends Component {
     }
 
     try {
-      console.log("newEvent:", newEvent);
-
       Analytics.track("Calendar Add", { story: this.props.summaryMyLanguage });
 
       await Calendar.createEventAsync(phoneCalendarID, newEvent);
@@ -126,8 +122,6 @@ class CalendarRow extends Component {
       email,
       url
     } = this.props;
-
-    console.log("props:", this.props);
 
     const calendarTypeName = calendar.entityType === Calendar.EntityTypes.REMINDER ? "Reminders" : "Events";
     return (
@@ -191,7 +185,6 @@ class phoneCalendar extends Component {
   };
 
   render() {
-    console.log("RRRRRR=", this.props.time_end_pretty);
     if (this.state.calendars.length) {
       return (
         <Container style={{ backgroundColor: "#fff" }}>

@@ -38,7 +38,7 @@ class ListItem extends Component {
             size={35}
             style={{
               color: "white",
-              fontSize: 20
+              fontSize: 14
             }}>
             {this.props.item.item.number}
           </Text>

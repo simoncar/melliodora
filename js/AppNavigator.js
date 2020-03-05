@@ -206,7 +206,6 @@ let Tabs = createBottomTabNavigator(
         const removeTab = ["webportal"];
         display = _.difference(display, removeTab);
       }
-      console.log("global.domain3", global.domain);
       return (
         <BottomTabBar
           {...props} // Required

@@ -21,7 +21,8 @@
     "g": "expo start --config apps/app.generic.json --ios",
     "s": "expo start --config apps/app.sais_edu_sg.json --ios",
     "a": "expo start --config apps/app.ais_edu_sg.json --ios",
-    "t": "expo start --config apps/app.smartcookies_team_hero.json --ios"
+    "t": "expo start --config apps/app.smartcookies_team_hero.json --ios",
+    "modules": "rm -rf node_modules && yarn install && yarn g"
   },
   "dependencies": {
     "@expo/react-native-action-sheet": "^3.5.0",
