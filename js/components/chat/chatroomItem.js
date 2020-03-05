@@ -18,6 +18,7 @@ class ChatroomItem extends Component {
 
   render() {
     const card = this.props.card === false ? false : true;
+    const mostRecentMessage = this.props.mostRecentMessage;
     return (
       <View style={card && styles.card}>
         <View
@@ -46,7 +47,13 @@ class ChatroomItem extends Component {
             }}>
             <View style={styles.rowView}>
               <SimpleLineIcons style={styles.iconLeft} name="bubbles" />
-              <Text style={styles.chatTitle}>{this.props.title}</Text>
+              <View>
+                <Text style={styles.cardTitle}>{this.props.title}</Text>
+                <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardLocation}>
+                  {mostRecentMessage}
+                </Text>
+              </View>
+
               <Entypo style={styles.iconRight} name="chevron-right" />
             </View>
           </TouchableOpacity>

@@ -1,5 +1,7 @@
 const React = require("react-native");
+const { Platform, Dimensions } = React;
 import stylesGlobal from "../../themes/globalTheme";
+const deviceWidth = Dimensions.get("window").width;
 
 export default {
   header: {
@@ -29,6 +31,7 @@ export default {
     color: "grey",
     margin: 12
   },
+
   card: {
     backgroundColor: "#fff",
     shadowColor: "rgba(0,0,0, .4)",
@@ -97,12 +100,21 @@ export default {
     marginTop: 100,
     fontSize: 24
   },
-  chatTitle: {
-    flex: 1,
-    fontSize: stylesGlobal.headingFontSize,
+
+  cardTitle: {
+    width: deviceWidth - 120,
     justifyContent: "center",
     alignItems: "center",
-    color: "black"
+    fontSize: stylesGlobal.headingFontSize,
+    color: "#262626"
+  },
+  cardLocation: {
+    width: deviceWidth - 120,
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 12,
+    color: "gray",
+    fontWeight: "500"
   },
   chatTitleRight: {
     marginTop: 7,

@@ -167,14 +167,28 @@ class chatRooms extends Component {
                     }}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                       <AntDesign style={styles.iconLeftPlus} name="pluscircleo" />
-                      <Text style={styles.chatTitle}>New Chat Group</Text>
+                      <Text style={styles.cardTitle}>New Chat Group</Text>
                       <Entypo style={styles.iconRight} name="chevron-right" />
                     </View>
                   </TouchableOpacity>
                 </View>
               </View>
               <View style={styles.card}>
-                <FlatList data={this.state.userChatrooms} renderItem={this._renderItemNoCard.bind(this)} keyExtractor={this.keyExtractor} />
+                <View
+                  style={{
+                    flexDirection: "row",
+                    paddingRight: 4,
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    borderBottomWidth: 0.1,
+                    borderBottomColor: "lightgray"
+                  }}>
+                  <FlatList
+                    data={this.state.userChatrooms}
+                    renderItem={this._renderItemNoCard.bind(this)}
+                    keyExtractor={this.keyExtractor}
+                  />
+                </View>
               </View>
             </View>
           </View>
