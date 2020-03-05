@@ -3,6 +3,7 @@ import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
 export const SET_FEATURES = 'SET_FEATURES';
 export const RETRIEVE_FEATURES = 'RETRIEVE_FEATURES';
+export const SAVE_FEATURE_CHANGES = 'SAVE_FEATURE_CHANGES';
 
 export const setFeatures = features => ({
     type: SET_FEATURES,
@@ -12,6 +13,10 @@ export const setFeatures = features => ({
 export const actionRetrieveFeatures = () => ({
     type: RETRIEVE_FEATURES
 });
+
+export const saveFeatureChanges = () => ({
+    type: SAVE_FEATURE_CHANGES
+})
 
 export const retrieveFeatures = async () => {
     try {
@@ -36,16 +41,16 @@ export const retrieveFeatures = async () => {
     }
 };
 
-export const saveFeatureChanges = (changedFeatures) => dispatch => {
+function* WORKER_saveFeatureChanges() {
     try {
         console.log("exectuing saveFeatureChanges")
         const docData = { moreListings: changedFeatures };
-        firebase
+        yield call(() => firebase
             .firestore()
             .collection(global.domain)
             .doc("config")
-            .set(docData, { merge: true });
-        dispatch(setFeatures(changedFeatures));
+            .set(docData, { merge: true }));
+        yield put(setFeatures(changedFeatures));
 
     } catch (error) {
         // Error retrieving data
@@ -66,6 +71,7 @@ function* WORKER_retrieveFeatures() {
 //  Watcher
 export function* settingsSaga() {
     yield takeLatest(RETRIEVE_FEATURES, WORKER_retrieveFeatures);
+    yield takeLatest(SAVE_FEATURE_CHANGES, WORKER_saveFeatureChanges);
 }
 
 const initialState = {

@@ -3,21 +3,35 @@ import { View, Text, Picker, SafeAreaView, StyleSheet, Button, FlatList, Touchab
 import { iOSUIKit, iOSColors } from "react-native-typography";
 import _ from "lodash";
 import { SearchBar } from "react-native-elements";
-
-
-export default class DomainSelection extends Component {
+import { connect } from 'react-redux';
+import { actionGetCommunities, actionProcessSelectedCommunity } from "../../store/community";
+class DomainSelection extends Component {
   constructor() {
     super();
     this.selectedBGWidth = new Animated.Value(0);
     this.highlightwidth = 0;
     this.state = {
       selectedDomain: "",
-      domains: []
+      domains: [],
+      allDomains: []
     };
   }
 
   componentDidMount() {
-    this.setState({ domains: this.props.domains, allDomains: this.props.domains })
+    const { communities } = this.props.community
+    if (communities.length > 0) {
+      this.setState({ domains: communities, allDomains: communities })
+    } else {
+      this.props.dispatch(actionGetCommunities());
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+
+    const { communities } = this.props.community;
+    if (prevState.allDomains.length < 1 && communities !== prevProps.community.communities) {
+      this.setState({ domains: communities, allDomains: communities })
+    }
   }
 
   renderSeparator = () => {
@@ -185,7 +199,7 @@ export default class DomainSelection extends Component {
               Alert.alert('Please select a community');
             } else {
               console.log("button presed");
-              this.props.setSelectedDomain(this.state.selectedDomain)
+              this.props.dispatch(actionProcessSelectedCommunity(this.state.selectedDomain));
             }
           }}
         />
@@ -237,3 +251,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+const mapStateToProps = state => ({
+  community: state.community,
+});
+export default connect(mapStateToProps)(DomainSelection);

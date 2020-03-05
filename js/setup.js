@@ -14,9 +14,7 @@ import { connect } from 'react-redux';
 import CommunityCreateScreen from "./CommunityCreateScreen";
 
 //redux
-import { retrieveFeatures } from "./store/settings";
 import { actionSignInAnonymously, actionInitUser, setIsAdmin } from "./store/auth";
-import { actionSetSelectedCommunity } from "./store/community";
 
 class Setup extends Component {
   constructor() {
@@ -24,34 +22,7 @@ class Setup extends Component {
   }
   state = {
     loading: true,
-    domains: []
   }
-  getDomains = () =>
-    new Promise(function (resolve, reject) {
-      firebase
-        .firestore()
-        .collection("domains")
-        .orderBy("name")
-        .get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log("No notifications");
-            return;
-          }
-
-          const domainsStore = [];
-          snapshot.forEach(doc => {
-            item = doc.data();
-            domainsStore.push(item);
-          });
-          resolve(domainsStore);
-        });
-    });
-
-  getSelectedDomainData = (selectedDomain, domains) => {
-    const domainData = domains.filter(item => item.node == selectedDomain);
-    return domainData;
-  };
 
   async componentDidMount() {
     try {
@@ -65,9 +36,6 @@ class Setup extends Component {
       MaterialIcons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
     });
-
-    const domains = await this.getDomains();
-    this.setState({ domains: domains });
 
     console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
     if (Constants.manifest.extra.instance) {
@@ -100,9 +68,6 @@ class Setup extends Component {
     const name = await AsyncStorage.getItem("name");
     global.name = _.isString(name) ? name : "";
 
-
-
-
     this.setState({ loading: false });
     this.setupUser();
 
@@ -127,63 +92,6 @@ class Setup extends Component {
   }
 
 
-
-
-  setSelectedDomain = d => {
-    const domain = d || {};
-    console.log("setSelectedDomain - d = ", d);
-    // const domainDataArr = this.getSelectedDomainData(domain, this.domains);
-    // if (domainDataArr.length < 1) return;
-    global.domain = domain;
-
-    this.props.dispatch(actionSetSelectedCommunity(d));
-
-    switch (domain) {
-      case "sais_edu_sg":
-        global.switch_portalName = "myStamford";
-        global.switch_tab_portalName = "myS";
-        global.switch_portalURL = "https://mystamford.edu.sg/parent-dashboard";
-        global.switch_webportalActions = [
-          { Home: "https://mystamford.edu.sg/parent-dashboard" },
-          { "Cafe Top-Up": "https://mystamford.edu.sg/cafe/cafe-online-ordering" },
-          { Events: "https://mystamford.edu.sg/events-1" },
-          { Forms: "https://mystamford.edu.sg/forms-1" },
-          { PTA: "https://mystamford.edu.sg/pta" },
-          { Logout: "https://mystamford.edu.sg/logout" },
-        ];
-        global.switch_call = "+65 6709 4800";
-        break;
-      case "ais_edu_sg":
-        global.switch_portalURL =
-          "https://connect.ais.com.sg/login/login.aspx?prelogin=https%3a%2f%2fconnect.ais.com.sg%2f&kr=iSAMS:ParentPP";
-        global.switch_portalName = "AIS Connect";
-        global.switch_tab_portalName = "Connect";
-        global.switch_webportalActions = [
-          { Home: "" },
-          { "Cafe Top-Up": "" },
-          { Events: "" },
-          { Forms: "" },
-          { PTA: "" },
-          { Logout: "" },
-        ];
-        break;
-      case "camp_asia":
-        global.switch_portalURL = "https://www.campasia.asia/online-booking/login";
-        global.switch_webportalActions = [
-          { Home: "" },
-          { "Cafe Top-Up": "" },
-          { Events: "" },
-          { Forms: "" },
-          { PTA: "" },
-          { Logout: "" },
-        ];
-        global.switch_homeLogoURI =
-          "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/smartcommunity%2Fcommunitylogo%2FCA_ID_Reverse_new.png?alt=media&token=54fbd759-31f5-46bb-a73f-6424db99d5dd";
-        break;
-      default:
-    }
-  };
-
   render() {
 
     if (this.state.loading || !this.props.auth.userInfo || _.isEmpty(this.props.auth.userInfo)) {
@@ -192,12 +100,7 @@ class Setup extends Component {
       return <CommunityCreateScreen />
     }
     else if (_.isEmpty(this.props.community.selectedCommunity)) {
-      return <AuthStackNavigator
-        screenProps={{
-          domains: this.state.domains,
-          setSelectedDomain: this.setSelectedDomain
-        }}
-      />
+      return <AuthStackNavigator />
     } else {
       // check if user is admin
       return <App />;

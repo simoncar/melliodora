@@ -15,14 +15,7 @@ const config = Platform.select({
 
 const AuthStack = createStackNavigator(
   {
-    DomainSelection: {
-      screen: screenProps => {
-        return <DomainSelection domains={screenProps.screenProps.domains} setSelectedDomain={screenProps.screenProps.setSelectedDomain} navigation={screenProps.navigation} />
-      },
-      navigationOptions: {
-        header: null
-      },
-    },
+    DomainSelection: DomainSelection,
     preWelcome: PreWelcomeScreen,
     login: LoginScreen,
     signup: SignUpScreen,
