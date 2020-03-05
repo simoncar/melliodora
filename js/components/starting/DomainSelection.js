@@ -16,6 +16,9 @@ class DomainSelection extends Component {
       allDomains: []
     };
   }
+  static navigationOptions = {
+    header: null,
+  };
 
 
 
