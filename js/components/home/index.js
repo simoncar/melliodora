@@ -406,36 +406,38 @@ class HomeNav extends Component {
 
             <FlatList data={this.state.featureItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem.bind(this)} />
           </View>
-          <View
-            style={{
-              marginTop: 70,
-              alignItems: "center",
-              width: "100%"
-            }}>
-            <Image style={styles.tenYearLogo} source={bottomLogo[global.domain] || { uri: global.switch_homeLogoURI }} />
-          </View>
-          <View
-            style={{
-              marginTop: 100,
-              alignItems: "center"
-            }}>
-            <TouchableOpacity
-              onPress={() => {
-                this._handleOpenWithLinking("https://smartcookies.io/smart-community");
-              }}
+          <View style={styles.card}>
+            <View
               style={{
-                width: 40,
-                height: 40
+                marginTop: 70,
+                alignItems: "center",
+                width: "100%"
               }}>
-              <Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
-            </TouchableOpacity>
-          </View>
-          <View>
-            <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
-            <Text style={styles.user}>{global.name}</Text>
-            <Text style={styles.user}>{global.email}</Text>
-            <Text style={styles.user}>{global.uid}</Text>
-            <Text style={styles.user}>{global.language}</Text>
+              <Image style={styles.tenYearLogo} source={bottomLogo[global.domain] || { uri: global.switch_homeLogoURI }} />
+            </View>
+            <View
+              style={{
+                marginTop: 100,
+                alignItems: "center"
+              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  this._handleOpenWithLinking("https://smartcookies.io/smart-community");
+                }}
+                style={{
+                  width: 40,
+                  height: 40
+                }}>
+                <Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
+              </TouchableOpacity>
+            </View>
+            <View>
+              <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
+              <Text style={styles.user}>{global.name}</Text>
+              <Text style={styles.user}>{global.email}</Text>
+              <Text style={styles.user}>{global.uid}</Text>
+              <Text style={styles.user}>{global.language}</Text>
+            </View>
           </View>
         </Content>
       </Container>
