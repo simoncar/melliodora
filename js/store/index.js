@@ -11,13 +11,19 @@ import community from './community';
 const rootPersistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ["settings", "community"]
+    whitelist: ["settings", "community", "auth"]
+}
+
+const authPersistConfig = {
+    key: 'auth',
+    storage: AsyncStorage,
+    whitelist: ["adminPassword"]
 }
 
 const rootReducer = combineReducers({
     communityCreation,
     settings,
-    auth,
+    auth: persistReducer(authPersistConfig, auth),
     community
 });
 

@@ -92,7 +92,6 @@ class Setup extends Component {
       }
     }
     I18n.locale = language;
-    I18n.fish = language;
     global.language = language;
 
     const email = await AsyncStorage.getItem("email")
@@ -102,12 +101,7 @@ class Setup extends Component {
     global.name = _.isString(name) ? name : "";
 
 
-    const adminPassword = await AsyncStorage.getItem("adminPassword")
-    global.adminPassword = adminPassword;
-    console.log("adminPassword=", adminPassword);
-    if (adminPassword == "cookies") {
-      this.props.dispatch(setIsAdmin(true));
-    }
+
 
     this.setState({ loading: false });
     this.setupUser();

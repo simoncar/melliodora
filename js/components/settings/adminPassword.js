@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import { StyleSheet, View, TextInput, Text, TouchableOpacity, AsyncStorage } from "react-native";
 import { Updates } from "expo";
 import Analytics from "../../lib/analytics";
+import { connect } from 'react-redux';
+import { setAdminPass } from '../../store/auth';
 
-export default class adminPassword extends Component {
+class adminPassword extends Component {
   static navigationOptions = {
     title: "Admin Password",
     headerBackTitle: null,
@@ -26,7 +28,7 @@ export default class adminPassword extends Component {
 
   _retrieveAdminPassword = async () => {
     try {
-      const value = await AsyncStorage.getItem("adminPassword");
+      const value = this.props.auth.adminPassword;
       if (value !== null) {
         if (value == "cookies") {
           this.setState({ adminPasswordCorrect: "Password Correct!" });
@@ -46,11 +48,14 @@ export default class adminPassword extends Component {
       Analytics.track("Admin Password", { entered: "Correct" });
 
       global.adminPassword = adminPassword;
-      AsyncStorage.setItem("adminPassword", adminPassword);
+
+      this.props.dispatch(setAdminPass(adminPassword));
+
     } else {
       this.setState({ adminPasswordCorrect: "" });
     }
   }
+
 
   render() {
     return (
@@ -101,3 +106,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
 });
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps)(adminPassword);
