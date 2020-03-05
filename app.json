@@ -6,6 +6,7 @@
         "sdkVersion": "36.0.0",
         "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",
         "slug": "myCommunity",
+        "owner": "simoncar",
         "name": "myCommunity",
         "description": "For parents, Singapore",
         "updates": {

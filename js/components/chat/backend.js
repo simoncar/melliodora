@@ -21,7 +21,7 @@ export class Backend extends React.Component {
   }
 
   setUid(value) {
-    this.uid = value;
+    //this.uid = value;
   }
 
   aagetUid() {
@@ -127,6 +127,10 @@ export class Backend extends React.Component {
 
   get uid() {
     return (firebase.auth().currentUser || {}).uid;
+  }
+
+  set uid(uid) {
+    return;
   }
 
   setUid(value) {
