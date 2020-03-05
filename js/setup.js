@@ -75,7 +75,7 @@ class Setup extends Component {
     }
 
 
-    const language = await AsyncStorage.getItem("language");
+    let language = await AsyncStorage.getItem("language");
     if (!_.isString(language)) {
       language = "en";
       AsyncStorage.setItem("language", language);
