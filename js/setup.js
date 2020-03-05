@@ -69,14 +69,12 @@ export default class Setup extends Component {
 
     this.domains = await this.getDomains();
 
-    console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
     if (Constants.manifest.extra.instance) {
       this.setSelectedDomain(Constants.manifest.extra.instance);
     } else {
       AsyncStorage.getItem("domain").then(d => {
         const domain = JSON.parse(d);
 
-        console.log("domain=", domain);
         if (domain && domain.node) {
           this.setSelectedDomain(domain.node);
         }
@@ -88,7 +86,6 @@ export default class Setup extends Component {
 
   setSelectedDomain = d => {
     const domain = d || "";
-    console.log("setSelectedDomain - d = ", d);
     const domainDataArr = this.getSelectedDomainData(domain, this.domains);
     if (domainDataArr.length < 1) return;
     AsyncStorage.setItem("domain", JSON.stringify(domainDataArr[0]));
