@@ -22,7 +22,10 @@ class Setup extends Component {
   constructor() {
     super();
   }
-
+  state = {
+    loading: true,
+    domains: []
+  }
   getDomains = () =>
     new Promise(function (resolve, reject) {
       firebase
@@ -63,7 +66,8 @@ class Setup extends Component {
       Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
     });
 
-    this.domains = await this.getDomains();
+    const domains = await this.getDomains();
+    this.setState({ domains: domains });
 
     console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
     if (Constants.manifest.extra.instance) {
@@ -71,42 +75,43 @@ class Setup extends Component {
     }
 
 
-    await AsyncStorage.getItem("language").then(language => {
-      if (!_.isString(language)) {
-        language = "en";
-        AsyncStorage.setItem("language", language);
+    const language = await AsyncStorage.getItem("language");
+    if (!_.isString(language)) {
+      language = "en";
+      AsyncStorage.setItem("language", language);
+    }
+    if (language === "ar") {
+      I18nManager.forceRTL(true);
+      if (!I18nManager.isRTL) {
+        Updates.reloadFromCache();
       }
-      if (language === "ar") {
-        I18nManager.forceRTL(true);
-        if (!I18nManager.isRTL) {
-          Updates.reloadFromCache();
-        }
-      } else {
-        I18nManager.forceRTL(false);
-        if (I18nManager.isRTL) {
-          Updates.reloadFromCache();
-        }
+    } else {
+      I18nManager.forceRTL(false);
+      if (I18nManager.isRTL) {
+        Updates.reloadFromCache();
       }
-      I18n.locale = language;
-      I18n.fish = language;
-      global.language = language;
-    });
+    }
+    I18n.locale = language;
+    I18n.fish = language;
+    global.language = language;
 
-    await AsyncStorage.getItem("email").then(email => {
-      global.email = _.isString(email) ? email : "";
-    });
-    await AsyncStorage.getItem("name").then(name => {
-      global.name = _.isString(name) ? name : "";
-    });
+    const email = await AsyncStorage.getItem("email")
+    global.email = _.isString(email) ? email : "";
 
-    await AsyncStorage.getItem("adminPassword").then(adminPassword => {
-      global.adminPassword = adminPassword;
-      console.log("adminPassword=", adminPassword);
-      if (adminPassword == "cookies") {
-        this.props.dispatch(setIsAdmin(true));
-      }
-    });
+    const name = await AsyncStorage.getItem("name");
+    global.name = _.isString(name) ? name : "";
+
+
+    const adminPassword = await AsyncStorage.getItem("adminPassword")
+    global.adminPassword = adminPassword;
+    console.log("adminPassword=", adminPassword);
+    if (adminPassword == "cookies") {
+      this.props.dispatch(setIsAdmin(true));
+    }
+
+    this.setState({ loading: false });
     this.setupUser();
+
   }
 
   setupUser = () => {
@@ -185,11 +190,8 @@ class Setup extends Component {
   };
 
   render() {
-    console.log("Constants.manifest.extra.instance2", Constants.manifest.extra.instance);
-    const selectedDomain = this.props.community.selectedCommunity;
 
-    console.log("selectedDomain2222", selectedDomain)
-    if (!this.props.auth.userInfo || _.isEmpty(this.props.auth.userInfo)) {
+    if (this.state.loading || !this.props.auth.userInfo || _.isEmpty(this.props.auth.userInfo)) {
       return <AppLoading />;
     } else if (this.props.communityCreation.communityCreate) {
       return <CommunityCreateScreen />
@@ -197,7 +199,7 @@ class Setup extends Component {
     else if (_.isEmpty(this.props.community.selectedCommunity)) {
       return <AuthStackNavigator
         screenProps={{
-          domains: this.domains,
+          domains: this.state.domains,
           setSelectedDomain: this.setSelectedDomain
         }}
       />
