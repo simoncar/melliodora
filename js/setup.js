@@ -110,8 +110,9 @@ class Setup extends Component {
 
   setupUser = () => {
     try {
-      console.log("SetupUser");
+
       firebase.auth().onAuthStateChanged(user => {
+        console.log("SetupUser", user);
         if (!user) {
           this.props.dispatch(actionSignInAnonymously());
 

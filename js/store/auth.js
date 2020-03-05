@@ -81,9 +81,12 @@ function* WORKER_checkAdmin(action) {
         const community = action.community;
         console.log("WORKER_checkAdmin", community);
 
-        const { claims } = yield call(getCurrentUserClaims);
+        // const { claims } = yield call(getCurrentUserClaims);
+        const adminUIDs = yield select(state => state.community.selectedCommunity.admins)
+        const userUID = yield select(state => state.auth.userInfo.uid);
 
-        if (claims["ADMIN_" + community]) {
+
+        if (Array.isArray(adminUIDs) && adminUIDs.indexOf(userUID) > -1) {
             yield put(setIsAdmin(true));
         } else {
             yield put(setIsAdmin(false));

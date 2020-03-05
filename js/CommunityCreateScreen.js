@@ -42,7 +42,8 @@ class CommunityCreateScreen extends Component {
                 kind,
                 users,
                 region,
-                language
+                language,
+                admins: [this.props.auth.userInfo.uid]
             };
 
             const communityRef = firebase
@@ -56,10 +57,6 @@ class CommunityCreateScreen extends Component {
                 throw new Error("Community name already existed");
             } else {
                 await communityRef.set(dict);
-
-                const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
-                const result = await setUserClaim({ email: this.props.auth.userInfo.email, claim: "ADMIN_" + node })
-                console.log("set claim result", result);
                 global.domain = node;
                 this.props.dispatch(actionSetSelectedCommunity(dict));
                 this.props.dispatch(setCommunityCreate(false))
@@ -154,7 +151,6 @@ class CommunityCreateScreen extends Component {
 
 
 const mapStateToProps = state => ({
-    communityCreate: state.communityCreate,
     auth: state.auth
 });
 export default connect(mapStateToProps)(CommunityCreateScreen);
