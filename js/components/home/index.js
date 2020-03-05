@@ -302,7 +302,7 @@ class HomeNav extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.homeContainer}>
         {global.administrator && (
           <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => this.props.navigation.navigate("storyForm")}>
             <Text style={{ fontSize: 25, color: "white" }}>+</Text>

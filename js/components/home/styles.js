@@ -261,6 +261,9 @@ export default {
     backgroundColor: "#f2f2f2",
     paddingTop: 10
   },
+  homeContainer: {
+    backgroundColor: "#f2f2f2"
+  },
 
   container: {
     height: 50,
