@@ -96,8 +96,6 @@ class Setup extends Component {
 
     if (this.state.loading || !this.props.auth.userInfo || _.isEmpty(this.props.auth.userInfo)) {
       return <AppLoading />;
-    } else if (this.props.communityCreation.communityCreate) {
-      return <CommunityCreateScreen />
     }
     else if (_.isEmpty(this.props.community.selectedCommunity)) {
       return <AuthStackNavigator />

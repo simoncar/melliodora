@@ -17,6 +17,8 @@ class DomainSelection extends Component {
     };
   }
 
+
+
   componentDidMount() {
     const { communities } = this.props.community
     if (communities.length > 0) {
@@ -152,7 +154,7 @@ class DomainSelection extends Component {
   render() {
 
     return (
-      <SafeAreaView style={{ backgroundColor: "#fff", flexDirection: "column" }}>
+      <SafeAreaView style={{ flexDirection: "column" }}>
         <Text
           style={{
             ...iOSUIKit.largeTitleEmphasized,
@@ -204,14 +206,18 @@ class DomainSelection extends Component {
           }}
         />
 
-
-        <Button
-          title="Create Community"
-          style={{ marginTop: 26 }}
-          onPress={() => {
-            this.props.navigation.push("preWelcome")
-          }}
-        />
+        {
+          this.props.showCreateCommunity === false ?
+            null
+            :
+            <Button
+              title="Create Community"
+              style={{ marginTop: 26 }}
+              onPress={() => {
+                this.props.navigation.push("preWelcome")
+              }}
+            />
+        }
       </SafeAreaView>
     );
   }

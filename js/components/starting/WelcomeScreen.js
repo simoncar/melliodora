@@ -32,7 +32,7 @@ class WelcomeScreen extends Component {
           onPress={() => this.props.dispatch(setCommunityCreate(true))}>
           <Text style={[styles.TextStyle, { fontSize: 32 }]}>Create Community</Text>
         </TouchableOpacity>
-        <DomainSelection />
+        <DomainSelection showCreateCommunity={false} />
       </View>
     )
   }
