@@ -42,7 +42,7 @@ export default class Setup extends Component {
 
           const domainsStore = [];
           snapshot.forEach(doc => {
-            item = doc.data();
+            var item = doc.data();
             domainsStore.push(item);
           });
           resolve(domainsStore);
