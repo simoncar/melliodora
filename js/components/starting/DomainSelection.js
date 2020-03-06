@@ -69,10 +69,7 @@ class DomainSelection extends Component {
       toValue: 1,
       duration: 300,
       easing: Easing.in(Easing.quad)
-    }).start(() => {
-      console.log("Animation DONE");
-      this.props.setSelectedDomain(this.state.selectedDomain || this.props.domains[0].node);
-    });
+    }).start();
   };
 
   searchFilterFunction = text => {
