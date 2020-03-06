@@ -173,7 +173,6 @@ class Settings extends Component {
 
           <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
 
-          <Seperator />
           {this.props.settings.features
             .filter(item => item.visible !== false)
             .map((el, idx) => {

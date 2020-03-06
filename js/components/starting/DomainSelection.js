@@ -189,7 +189,8 @@ class DomainSelection extends Component {
             shadowOffset: { width: 1, height: 1 },
             shadowOpacity: 0.8,
             shadowRadius: 1,
-            elevation: 5
+            elevation: 5,
+            height: 340
           }}>
           <FlatList
             style={{ overflow: "hidden" }}
