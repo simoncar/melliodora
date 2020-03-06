@@ -11,7 +11,7 @@ import AuthParser from "./authParser";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import _ from "lodash";
 import Analytics from "../../lib/analytics";
-
+import stylesGlobal from "../../themes/globalTheme";
 const timer = require("react-native-timer");
 
 const tabBarIcon = name => ({ tintColor }) => (
@@ -40,12 +40,10 @@ class authPortal extends Component {
       webViewUrl: "",
       visible: this.props.visible,
       myText: "My Original Text",
-      showMsg: false,
+      showMsg: false
     };
 
-    this.actionOptions = global.switch_webportalActions
-      ? global.switch_webportalActions.map(item => Object.keys(item)[0])
-      : [];
+    this.actionOptions = global.switch_webportalActions ? global.switch_webportalActions.map(item => Object.keys(item)[0]) : [];
     this.actionOptions.push("Cancel");
   }
   //this.props.chatroom
@@ -58,14 +56,12 @@ class authPortal extends Component {
     if (Constants.manifest.extra.instance == "sais_edu_sg") {
       this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
 
-      this.setState({ showMsg: true }, () =>
-        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000),
-      );
+      this.setState({ showMsg: true }, () => timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000));
     }
 
     this.props.navigation.setParams({
       _onOpenActionSheet: this._onOpenActionSheet,
-      reload: this.reload,
+      reload: this.reload
     });
 
     Analytics.track("Auth Portal", { url: this.props.url });
@@ -80,22 +76,20 @@ class authPortal extends Component {
       {
         options,
         cancelButtonIndex,
-        destructiveButtonIndex,
+        destructiveButtonIndex
       },
       buttonIndex => {
         const key = this.actionOptions[buttonIndex];
         if (key == "Cancel") return;
         const url = global.switch_webportalActions[buttonIndex][key];
         this.setState({ url: url });
-      },
+      }
     );
   };
 
   showMsg() {
     if (Constants.manifest.extra.instance == "sais_edu_sg") {
-      this.setState({ showMsg: true }, () =>
-        timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 5000),
-      );
+      this.setState({ showMsg: true }, () => timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 5000));
     }
   }
 
@@ -220,8 +214,7 @@ export default class AppContainer extends React.Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params.reload();
-        }}
-      >
+        }}>
         <Ionicons name="md-refresh" style={styles.Leftheading} />
       </TouchableOpacity>
     ),
@@ -230,22 +223,20 @@ export default class AppContainer extends React.Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params._onOpenActionSheet();
-        }}
-      >
-        <Text style={{ fontSize: 28, fontWeight: "bold" }}>{global.switch_portalName}</Text>
+        }}>
+        <Text style={{ fontSize: stylesGlobal.navbarFontSize, fontWeight: "bold" }}>{global.switch_portalName}</Text>
       </TouchableOpacity>
     ),
     headerRight: (
       <TouchableOpacity
         onPress={() => {
           navigation.state.params._onOpenActionSheet();
-        }}
-      >
+        }}>
         <View style={styles.chatHeading}>
           <Ionicons name="ios-bookmarks" style={styles.heading} />
         </View>
       </TouchableOpacity>
-    ),
+    )
   });
   render() {
     return (

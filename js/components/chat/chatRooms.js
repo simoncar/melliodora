@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { FlatList, View, AsyncStorage, Text, TouchableOpacity } from "react-native";
+import { FlatList, View, AsyncStorage, Text, TouchableOpacity, TouchableHighlight } from "react-native";
 import * as firebase from "firebase";
 import { Container, Content } from "native-base";
 import { SimpleLineIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
+
 import I18n from "../../lib/i18n";
 import ChatroomItem from "./chatroomItem";
 import Analytics from "../../lib/analytics";
@@ -22,13 +23,13 @@ class chatRooms extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userChatrooms: {},
+      userChatrooms: {}
     };
   }
 
   componentDidMount() {
     this.props.navigation.setParams({
-      refresh: this.refresh,
+      refresh: this.refresh
     });
 
     const { navigation } = this.props;
@@ -63,14 +64,15 @@ class chatRooms extends Component {
       .collection(global.domain)
       .doc("chat")
       .collection("chatrooms")
-      .where("type", "in", ["public", "user", "interestGroup", "private"])
+
+      .orderBy("title")
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
           console.log("No notifications");
           return;
         }
-        const userInterestGroupCheck = _.has(global, "userInfo.interestGroups") && Array.isArray(global.userInfo.interestGroups)
+        const userInterestGroupCheck = _.has(global, "userInfo.interestGroups") && Array.isArray(global.userInfo.interestGroups);
         const userInterestGroups = userInterestGroupCheck ? global.userInfo.interestGroups : [];
 
         snapshot.forEach(doc => {
@@ -78,16 +80,15 @@ class chatRooms extends Component {
 
           if (item.visible == false) return;
           if (
-            (item.type == "private" && item.members.indexOf(global.uid + "") > -1)
-            || (item.type == "interestGroup" && (userInterestGroups && userInterestGroups.indexOf(item.title) > -1))
-            || (["users", "public"].indexOf(item.type) > -1)
+            (item.type == "private" && item.members.indexOf(global.uid + "") > -1) ||
+            (item.type == "interestGroup" && userInterestGroups && userInterestGroups.indexOf(item.title) > -1) ||
+            ["users", "public"].indexOf(item.type) > -1
           ) {
             userChatrooms.push({
               ...item,
               chatroom: doc.id
             });
           }
-
         });
 
         this.setState({
@@ -97,41 +98,90 @@ class chatRooms extends Component {
       });
   }
 
+  loadFromAsyncStorage() {
+    AsyncStorage.getItem("userChatrooms").then(fi => {
+      var userChatrooms = JSON.parse(fi);
+
+      this.setState({
+        userChatrooms,
+        loading: false
+      });
+    });
+  }
+
   _renderItem({ item }) {
-    return (
-      <ChatroomItem
-        {...item}
-        navigation={this.props.navigation}
-      />
-    );
+    return <ChatroomItem {...item} navigation={this.props.navigation} card={true} />;
+  }
+  _renderItemNoCard({ item }) {
+    return <ChatroomItem {...item} navigation={this.props.navigation} card={false} />;
   }
 
   render() {
+    const card = this.props.card === false ? false : true;
     return (
-      <Container style={styles.container}>
-        <Content style={{ paddingTop: 20 }}>
-          <TouchableOpacity
-            style={{ flexDirection: "row" }}
-            onPress={() => {
-              this.props.navigation.navigate("chatTitle", {
-                edit: false,
-                chatroom: "New Chatroom",
-                onGoBack: this.refresh,
-              });
-            }}
-          >
-            <View style={styles.rowView}>
-              <AntDesign style={styles.iconLeftPlus} name="pluscircleo" />
-              <Text style={styles.chatTitle}>New Chat Group</Text>
-              <Entypo style={styles.iconRight} name="chevron-right" />
+      <Container style={styles.homeContainer}>
+        <TouchableHighlight
+          style={styles.addButton}
+          underlayColor="#ff7043"
+          onPress={() => {
+            this.props.navigation.navigate("chatTitle", {
+              edit: false,
+              chatroom: "New Chatroom",
+              onGoBack: this.refresh
+            });
+          }}>
+          <Text style={{ fontSize: 25, color: "white" }}>+</Text>
+        </TouchableHighlight>
+        <Content showsVerticalScrollIndicator={false}>
+          <View style={styles.newsContentLine}>
+            <View>
+              <View style={card && styles.card}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    paddingRight: 4,
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    borderBottomWidth: 0.1,
+                    borderBottomColor: "lightgray",
+                    marginTop: 5
+                  }}>
+                  <TouchableOpacity
+                    style={{ flexDirection: "row" }}
+                    onPress={() => {
+                      this.props.navigation.navigate("chatTitle", {
+                        edit: false,
+                        chatroom: "New Chatroom",
+                        onGoBack: this.refresh
+                      });
+                    }}>
+                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                      <AntDesign style={styles.iconLeftPlus} name="pluscircleo" />
+                      <Text style={styles.cardTitle}>New Chat Group</Text>
+                      <Entypo style={styles.iconRight} name="chevron-right" />
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={styles.card}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    paddingRight: 4,
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    borderBottomWidth: 0.1,
+                    borderBottomColor: "lightgray"
+                  }}>
+                  <FlatList
+                    data={this.state.userChatrooms}
+                    renderItem={this._renderItemNoCard.bind(this)}
+                    keyExtractor={this.keyExtractor}
+                  />
+                </View>
+              </View>
             </View>
-          </TouchableOpacity>
-
-          <FlatList
-            data={this.state.userChatrooms}
-            renderItem={this._renderItem.bind(this)}
-            keyExtractor={this.keyExtractor}
-          />
+          </View>
         </Content>
       </Container>
     );

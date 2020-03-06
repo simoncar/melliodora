@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import { Alert, ScrollView, Text, View } from "react-native";
 import { Container, Content, Button } from "native-base";
-import { Calendar } from "expo";
-import * as Permissions from "expo-permissions";
+import * as Calendar from "expo-calendar";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
+import Analytics from "../../lib/analytics";
+import moment from "moment";
 
 import styles from "./styles";
 
 @withMappedNavigationParams()
 class CalendarRow extends Component {
   static navigationOptions = {
-    title: "Calendars",
+    title: "Calendars"
   };
 
   _selectCalendar(
@@ -26,7 +27,7 @@ class CalendarRow extends Component {
     eventImage,
     phone,
     email,
-    url,
+    url
   ) {
     const { goBack } = this.props.navigation;
     this._addEvent(
@@ -40,7 +41,7 @@ class CalendarRow extends Component {
       eventImage,
       phone,
       email,
-      url,
+      url
     );
     goBack(null);
   }
@@ -56,11 +57,8 @@ class CalendarRow extends Component {
     eventImage,
     phone,
     email,
-    url,
+    url
   ) => {
-    const timeInOneHour = new Date(eventDate);
-    timeInOneHour.setHours(timeInOneHour.getHours() + 1);
-    //console.log("datestring = " + eventDate + 'T' + eventStartTime +'+08:00')
     var newEvent = {};
 
     if (eventStartTime == null) {
@@ -71,26 +69,31 @@ class CalendarRow extends Component {
         startDate: new Date(eventDate),
         endDate: new Date(eventDate),
         notes: eventDescription,
-        timeZone: "Asia/Singapore",
+        timeZone: "Asia/Singapore"
       };
     } else {
+      var dtStart = moment(eventDate + "T" + moment(eventStartTime + " GMT+0800 (+08)", ["h:mm A"]).format("HH:mm"));
+      var dtEnd = moment(eventDate + "T" + moment(eventEndTime + " GMT+0800 (+08)", ["h:mm A"]).format("HH:mm"));
+
       newEvent = {
         allDay: false,
         title: eventTitle,
         location: location,
-        startDate: new Date(eventDate + "T" + eventStartTime + "+08:00"),
-        endDate: new Date(eventDate + "T" + eventEndTime + "+08:00"),
+        startDate: new Date(dtStart),
+        endDate: new Date(dtEnd),
         notes: eventDescription,
-        timeZone: "Asia/Singapore",
+        timeZone: "Asia/Singapore"
       };
     }
 
     try {
+      Analytics.track("Calendar Add", { story: this.props.summaryMyLanguage });
+
       await Calendar.createEventAsync(phoneCalendarID, newEvent);
 
       this._findEvents(phoneCalendarID);
     } catch (e) {
-      Alert.alert("Event not saved successfully", e.message);
+      Alert.alert("Event not saved", e.message);
     }
   };
 
@@ -117,15 +120,10 @@ class CalendarRow extends Component {
       eventImage,
       phone,
       email,
-      url,
+      url
     } = this.props;
 
-    console.log(this.props);
-
     const calendarTypeName = calendar.entityType === Calendar.EntityTypes.REMINDER ? "Reminders" : "Events";
-
-    console.log("ttttt" + eventTitle + "  ------   " + eventDescription);
-    //&& calendar.entityType == "event"
     return (
       <View style={styles.selectCalendar}>
         {calendar.allowsModifications == true && (
@@ -144,18 +142,11 @@ class CalendarRow extends Component {
                 eventImage,
                 phone,
                 email,
-                url,
+                url
               )
-            }
-          >
-            <Ionicons name="ios-calendar" />
-            <Text style={styles.calendarText}> {calendar.title}</Text>
-          </Button>
-        )}
-        {calendar.allowsModifications == false && (
-          <Button transparent style={styles.calendarButton}>
-            <Ionicons style={styles.calendarTextDisabled} name="ios-alert" />
-            <Text style={styles.calendarTextDisabled}> {calendar.title} (read only)</Text>
+            }>
+            <Ionicons name="ios-calendar" style={styles.calendarText} />
+            <Text style={styles.calendarText}> {calendar.title} </Text>
           </Button>
         )}
       </View>
@@ -166,7 +157,7 @@ class CalendarRow extends Component {
 @withMappedNavigationParams()
 class phoneCalendar extends Component {
   static navigationOptions = {
-    title: I18n.t("calendar"),
+    title: I18n.t("calendar")
   };
 
   constructor(props) {
@@ -181,25 +172,15 @@ class phoneCalendar extends Component {
     activeCalendarId: null,
     activeCalendarEvents: [],
     showAddNewEventForm: false,
-    editingEvent: null,
-  };
-
-  _askForCalendarPermissions = async () => {
-    const response = await Permissions.askAsync("calendar");
-    const granted = response.status === "granted";
-    this.setState({
-      haveCalendarPermissions: granted,
-    });
-    return granted;
+    editingEvent: null
   };
 
   _findCalendars = async () => {
-    const calendarGranted = await this._askForCalendarPermissions();
-    //const reminderGranted = await this._askForReminderPermissions();
-    if (calendarGranted) {
-      const eventCalendars = await Calendar.getCalendarsAsync();
+    const { status } = await Calendar.requestCalendarPermissionsAsync();
 
-      this.setState({ calendars: [...eventCalendars] });
+    if (status === "granted") {
+      const calendars = await Calendar.getCalendarsAsync();
+      this.setState({ calendars: [...calendars] });
     }
   };
 
@@ -211,7 +192,7 @@ class phoneCalendar extends Component {
             <View>
               <View style={styles.newsContent}>
                 <Text selectable={true} style={styles.eventTitle}>
-                  Select Calendar for {this.props.eventTitle}
+                  Add to Calendar
                 </Text>
               </View>
 
@@ -220,11 +201,11 @@ class phoneCalendar extends Component {
                   <CalendarRow
                     navigation={this.props.navigation}
                     calendar={calendar}
-                    eventTitle={this.props.eventTitle}
-                    eventDescription={this.props.eventDescription}
-                    eventDate={this.props.eventDate}
-                    eventStartTime={this.props.eventStartTime}
-                    eventEndTime={this.props.eventEndTime}
+                    eventTitle={this.props.summaryMyLanguage}
+                    eventDescription={this.props.descriptionMyLanguage}
+                    eventDate={this.props.date_start}
+                    eventStartTime={this.props.time_start_pretty}
+                    eventEndTime={this.props.time_end_pretty}
                     location={this.props.location}
                     eventImage={this.props.eventImage}
                     phone={this.props.phone}

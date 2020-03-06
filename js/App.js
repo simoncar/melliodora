@@ -1,12 +1,12 @@
 import React, { Component } from "react";
+import { Platform, StatusBar, View, StyleSheet } from "react-native";
 import { Notifications } from "expo";
-import Constants from "expo-constants";
+
 import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
 import Analytics from "./lib/analytics";
 
 class App extends Component {
-
   componentDidMount() {
     this._notificationSubscription = this._registerForPushNotifications();
     Analytics.track("App Started");
@@ -16,7 +16,7 @@ class App extends Component {
     this._notificationSubscription && this._notificationSubscription.remove();
   }
 
-  _handleNotification = ({ origin, data }) => { };
+  _handleNotification = ({ origin, data }) => {};
 
   _registerForPushNotifications() {
     console.log("global.name", global.name);
@@ -26,8 +26,19 @@ class App extends Component {
   }
 
   render() {
-    return <AppNavigator {...this.props} />;
+    return (
+      <View style={styles.container}>
+        {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
+        <AppNavigator {...this.props}></AppNavigator>
+      </View>
+    );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff"
+  }
+});
 
 export default App;

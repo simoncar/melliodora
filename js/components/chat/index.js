@@ -22,12 +22,33 @@ import { LinearGradient } from 'expo-linear-gradient';
 import SettingsListItem from "../settings/SettingsListItem";
 import { connectActionSheet } from '@expo/react-native-action-sheet';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
-
+import stylesGlobal from "../../themes/globalTheme";
 
 var localMessages = [];
 
 @withMappedNavigationParams()
 class chat extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.title,
+    headerTitle: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._showActionSheet(navigation);
+        }}>
+        <Text style={{ fontSize: stylesGlobal.navbarFontSize, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
+      </TouchableOpacity>
+    ),
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.state.params._showActionSheet(navigation);
+        }}>
+        <View style={styles.chatHeading}>
+          <Entypo name="cog" style={styles.chatHeading} />
+        </View>
+      </TouchableOpacity>
+    )
+  });
 
   constructor(props) {
     super(props);
@@ -63,7 +84,7 @@ class chat extends Component {
     console.log("this.props.navigation", this.props.navigation.state);
     this.props.navigation.setParams({
       _showActionSheet: this._showActionSheet,
-      refresh: this.refresh,
+      refresh: this.refresh
     });
 
     this.ref = firebase
@@ -76,7 +97,7 @@ class chat extends Component {
     this.unsubscribe = this.ref.onSnapshot(doc => {
       const item = doc.data();
       this.props.navigation.setParams({
-        title: item.title
+        title: this.props.title
       });
     });
 
@@ -85,7 +106,7 @@ class chat extends Component {
     Backend.loadMessages(global.language, message => {
       if (!localMessages.includes(message._id)) {
         this.setState(previousState => ({
-          messages: GiftedChat.append(previousState.messages, message),
+          messages: GiftedChat.append(previousState.messages, message)
         }));
       } else {
         console.log("ignoring message");
@@ -108,14 +129,12 @@ class chat extends Component {
       .get();
 
     querySnapshot.docs.forEach(doc => {
-
       data.push(doc.data());
     });
     return data;
   };
 
-
-  _getPrivateChatUsers = async (members) => {
+  _getPrivateChatUsers = async members => {
     const data = [];
     const querySnapshot = await firebase
       .firestore()
@@ -126,7 +145,6 @@ class chat extends Component {
       .get();
 
     querySnapshot.docs.forEach(doc => {
-
       data.push(doc.data());
     });
     return data;
@@ -134,29 +152,22 @@ class chat extends Component {
 
   loadChatUsers = () => {
     if (this.props.type == "interestGroup") {
-      this._getInterestGroupUsers()
-        .then(data => this.setState({ chatroomUsers: data }));
+      this._getInterestGroupUsers().then(data => this.setState({ chatroomUsers: data }));
     } else if (this.props.type == "private") {
-      this._getPrivateChatUsers(this.props.members)
-        .then(data => this.setState({ chatroomUsers: data }));
+      this._getPrivateChatUsers(this.props.members).then(data => this.setState({ chatroomUsers: data }));
     }
-
-  }
+  };
 
   _renderUsersItem({ item, index }) {
-
     const avatarTitle = item.email.slice(0, 2);
     const fullName = item.firstName + " " + item.lastName;
-    const avatar = item.photoURL
-      ? { source: { uri: item.photoURL } }
-      : { title: avatarTitle };
+    const avatar = item.photoURL ? { source: { uri: item.photoURL } } : { title: avatarTitle };
     return (
       <TouchableOpacity
         onPress={() => {
           this.setState({ modalVisible: false });
-          this.props.navigation.navigate("UserProfile", { uid: item.uid, user: item })
-        }}
-      >
+          this.props.navigation.navigate("UserProfile", { uid: item.uid, user: item });
+        }}>
         <ListItem
           leftAvatar={{
             rounded: true,
@@ -164,13 +175,10 @@ class chat extends Component {
           }}
           title={
             <View style={{ flex: 1, flexDirection: "row" }}>
-              <Text style={{ flex: 1, fontSize: 16 }}>
-                {item.displayName || fullName || item.email}
-              </Text>
+              <Text style={{ flex: 1, fontSize: 16 }}>{item.displayName || fullName || item.email}</Text>
             </View>
           }
           chevron={true}
-
           // rightElement={
           //   <TouchableOpacity onPress={() => {
           //     // console.log("item.uid", item.uid, global.uid)
@@ -187,7 +195,7 @@ class chat extends Component {
           }
         />
       </TouchableOpacity>
-    )
+    );
   }
 
   onSend(messages = []) {
@@ -196,7 +204,7 @@ class chat extends Component {
     }
 
     this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
+      messages: GiftedChat.append(previousState.messages, messages)
     }));
 
     localMessages.push(messages[0]._id);
@@ -223,7 +231,7 @@ class chat extends Component {
 
   onLoadEarlier() {
     this.setState(previousState => ({
-      isLoadingEarlier: true,
+      isLoadingEarlier: true
     }));
 
     setTimeout(() => {
@@ -254,7 +262,7 @@ class chat extends Component {
 
     var images = [];
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images
     });
 
     if (!result.cancelled) {
@@ -263,8 +271,8 @@ class chat extends Component {
         filename: result.uri,
         user: {
           _id: global.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-          name: global.name,
-        },
+          name: global.name
+        }
       };
 
       this.onSend(images);
@@ -276,10 +284,10 @@ class chat extends Component {
       <SystemMessage
         {...props}
         containerStyle={{
-          marginBottom: 15,
+          marginBottom: 15
         }}
         textStyle={{
-          fontSize: 14,
+          fontSize: 14
         }}
       />
     );
@@ -321,7 +329,7 @@ class chat extends Component {
       "#bdb7ab", // wisteria
       "#d9dddc", // alizarin
       "#b9bbb6", // turquoise
-      "#808588", // midnight blue
+      "#808588" // midnight blue
     ];
     return colors[sumChars % colors.length];
   }
@@ -337,7 +345,7 @@ class chat extends Component {
       Linking.openURL(sURL);
     } else {
       this.props.navigation.navigate("authPortalStory", {
-        url: sURL,
+        url: sURL
       });
     }
   };
@@ -373,7 +381,7 @@ class chat extends Component {
               chatroom: this.props.navigation.getParam("chatroom"),
               type: this.props.navigation.getParam("type"),
               edit: true,
-              onGoBack: this.refresh,
+              onGoBack: this.refresh
             });
             break;
           case 2:
@@ -383,7 +391,7 @@ class chat extends Component {
             Backend.setMute(false);
             break;
         }
-      },
+      }
     );
 
     // const BUTTONS = ["Chatroom info", "Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
@@ -436,7 +444,7 @@ class chat extends Component {
       <View
         style={{
           height: 1,
-          backgroundColor: "#CED0CE",
+          backgroundColor: "#CED0CE"
         }}
       />
     );
@@ -459,30 +467,26 @@ class chat extends Component {
       );
     }
 
-    let userDetails = {}
+    let userDetails = {};
     if (!global.userInfo) {
       userDetails = {
         name: "Guest" + global.uid
-      }
+      };
     } else {
       userDetails = {
         name: global.userInfo.firstName,
         email: global.userInfo.email,
-        ...global.userInfo.photoURL && { avatar: global.userInfo.photoURL },
-      }
+        ...(global.userInfo.photoURL && { avatar: global.userInfo.photoURL })
+      };
     }
 
     return (
       <Container>
         <View>
-          <Modal
-            animationType="slide"
-            transparent={false}
-            visible={this.state.modalVisible}
-          >
+          <Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
             <View style={{ marginTop: 22, backgroundColor: "#f2f2f2", flex: 1 }}>
               <LinearGradient
-                colors={['#4c669f', '#3b5998', '#192f6a']}
+                colors={["#4c669f", "#3b5998", "#192f6a"]}
                 style={{
                   flexDirection: "column",
                   justifyContent: "space-between",
@@ -492,38 +496,37 @@ class chat extends Component {
                 <TouchableOpacity
                   onPress={() => {
                     this.setState({ modalVisible: false });
-                  }}
-                >
+                  }}>
                   <AntDesign size={32} color={"#f2f2f2"} name="closecircleo" />
                 </TouchableOpacity>
 
-                <Text style={{
-                  fontSize: 24,
-                  color: "#fff",
-                  fontWeight: "bold",
-                  textShadowOffset: { width: 1, height: 0.8 },
-                  textShadowRadius: 1,
-                  textShadowColor: "#000",
-                  fontWeight: "bold"
-                }}>{this.props.title}</Text>
+                <Text
+                  style={{
+                    fontSize: 24,
+                    color: "#fff",
+                    fontWeight: "bold",
+                    textShadowOffset: { width: 1, height: 0.8 },
+                    textShadowRadius: 1,
+                    textShadowColor: "#000",
+                    fontWeight: "bold"
+                  }}>
+                  {this.props.title}
+                </Text>
               </LinearGradient>
 
-
-
               <View style={{ backgroundColor: "#fff", marginTop: 12 }}>
-                <Text style={{ padding: 12, fontSize: 18 }} >Chatroom users ({this.state.chatroomUsers.length})</Text>
+                <Text style={{ padding: 12, fontSize: 18 }}>Chatroom users ({this.state.chatroomUsers.length})</Text>
                 {this.renderSeparator()}
 
-                {
-                  ["users", "public"].indexOf(this.props.type) > -1 ?
-                    <SettingsListItem
-                      title={"All Users"}
-                      onPress={() => {
-                        this.setState({ modalVisible: false });
-                        this.props.navigation.navigate("UserSearch");
-                      }}
-                    />
-                    :
+                {["users", "public"].indexOf(this.props.type) > -1 ? (
+                  <SettingsListItem
+                    title={"All Users"}
+                    onPress={() => {
+                      this.setState({ modalVisible: false });
+                      this.props.navigation.navigate("UserSearch");
+                    }}
+                  />
+                ) : (
                     <FlatList
                       style={{ height: "70%" }}
                       data={this.state.chatroomUsers}
@@ -532,10 +535,8 @@ class chat extends Component {
                       ItemSeparatorComponent={this.renderSeparator}
                     // ListHeaderComponent={this.renderSeparator}
                     />
-                }
-
+                  )}
               </View>
-
             </View>
           </Modal>
 
@@ -545,10 +546,9 @@ class chat extends Component {
                 chatroom: this.props.title,
                 description: this.props.description,
                 contact: this.props.contact,
-                url: this.props.url,
+                url: this.props.url
               });
-            }}
-          >
+            }}>
             <View style={styles.topbar}>
               <Text style={styles.chatBanner}>{I18n.t("translationsGoogle")}</Text>
             </View>
@@ -578,7 +578,7 @@ class chat extends Component {
         />
 
         <Footer style={styles.footer} />
-      </Container >
+      </Container>
     );
   }
 }

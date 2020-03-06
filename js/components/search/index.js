@@ -3,14 +3,11 @@ import { View, FlatList, ActivityIndicator, StyleSheet, AsyncStorage } from "rea
 import { SearchBar } from "react-native-elements";
 import CalendarItem from "../calendar/CalendarItem";
 import Analytics from "../../lib/analytics";
+import I18n from "../../lib/i18n";
 
 class Search extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Search",
-    headerTitleStyle: {
-      fontWeight: "bold",
-      fontSize: 28,
-    },
+    title: I18n.t("search")
   });
 
   constructor(props) {
@@ -18,10 +15,10 @@ class Search extends Component {
 
     this.state = {
       loading: true,
-      loadingMessage: "Search...",
+      loadingMessage: I18n.t("search") + "...",
       data: [],
       fullData: [],
-      error: null,
+      error: null
     };
   }
   keyExtractor = item => item._key;
@@ -49,7 +46,7 @@ class Search extends Component {
     this.setState({
       data: data,
       fullData: data,
-      loading: false,
+      loading: false
     });
     console.log("callback here ");
     this.search.focus();
@@ -74,7 +71,7 @@ class Search extends Component {
         this.setState({
           data: events,
           fullData: events,
-          loading: false,
+          loading: false
         });
         this.search.focus();
         //  }
@@ -101,7 +98,7 @@ class Search extends Component {
           height: 1,
           width: "86%",
           backgroundColor: "#CED0CE",
-          marginLeft: "14%",
+          marginLeft: "14%"
         }}
       />
     );
@@ -109,7 +106,7 @@ class Search extends Component {
 
   searchFilterFunction = text => {
     this.setState({
-      value: text,
+      value: text
     });
     if (this.state.fullData != null) {
       const newData = this.state.fullData.filter(item => {
@@ -119,7 +116,7 @@ class Search extends Component {
         return itemData.indexOf(textData) > -1;
       });
       this.setState({
-        data: newData,
+        data: newData
       });
     }
   };
@@ -151,7 +148,7 @@ class Search extends Component {
           <ActivityIndicator
             size="large"
             style={{
-              margin: 40,
+              margin: 40
             }}
           />
         </View>
@@ -174,16 +171,16 @@ class Search extends Component {
 // Styles
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   searchContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: "#fff"
   },
   navigationIcon: {
     color: "#48484A",
     fontSize: 25,
-    marginRight: 10,
-  },
+    marginRight: 10
+  }
 });
 
 export default Search;

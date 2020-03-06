@@ -2,15 +2,19 @@
   "name": "AIS",
   "displayName": "AIS",
   "expo": {
-    "version": "19.0.33",
-    "sdkVersion": "33.0.0",
+    "version": "20.0.36",
+    "sdkVersion": "36.0.0",
     "icon": "./resources/ais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
     "slug": "myAIS",
     "name": "AIS",
     "description": "For AIS parents, Singapore",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
     "extra": {
       "instance": "ais_edu_sg",
-      "amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78"
+      "amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78",
+      "sentryDSN": "https://1c19403969544e1096b7563d3fa87591@sentry.io/2998517"
     },
     "splash": {
       "image": "./resources/ais_edu_sg/BG-loading10.png",
@@ -44,7 +48,7 @@
     },
     "android": {
       "package": "com.softmowertrain.parent.myais",
-      "versionCode": 19,
+      "versionCode": 20,
       "permissions": [
         "READ_CALENDAR",
         "WRITE_CALENDAR"

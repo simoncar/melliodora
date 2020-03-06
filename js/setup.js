@@ -34,7 +34,7 @@ class Setup extends Component {
     Font.loadAsync({
       "Material Icons": require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       MaterialIcons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
-      Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
+      Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf")
     });
 
     console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
@@ -89,7 +89,7 @@ class Setup extends Component {
     } catch (e) {
       console.log("catch error body:", e.message);
     }
-  }
+  };
 
 
   render() {

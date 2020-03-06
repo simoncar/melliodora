@@ -7,7 +7,7 @@ import { getLanguageString } from "../global";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import { formatTime, formatMonth } from "../global.js";
 const { width } = Dimensions.get("window");
-
+import _ from "lodash";
 class CalendarItem extends Component {
   constructor(props) {
     super(props);
@@ -16,19 +16,15 @@ class CalendarItem extends Component {
   render() {
     const item = this.props.item;
     return (
-      <TouchableOpacity
-        style={{ flexDirection: "row" }}
-        onPress={() => this.props.navigation.navigate("storyCalendar", item)}
-      >
+      <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.props.navigation.navigate("storyCalendar", item)}>
         <View
           style={[
             styles.agendaItem,
             {
               height: item.height,
-              borderRightColor: this.formatBackground(item.color),
-            },
-          ]}
-        >
+              borderRightColor: this.formatBackground(item.color)
+            }
+          ]}>
           <Grid>
             <Row>
               <Col>
@@ -57,10 +53,10 @@ class CalendarItem extends Component {
                     alignItems: "center",
                     paddingLeft: 0,
                     paddingRight: 0,
-                    justifyContent: "center",
-                  }}
-                >
-                  <Ionicons style={{ color: "white", fontSize: 20 }} name={item.icon} />
+                    justifyContent: "center"
+                  }}>
+                  {undefined !== item.number && item.number > 0 && <Text style={{ color: "white", fontSize: 16 }}>{item.number}</Text>}
+                  {undefined == item.number && <Ionicons style={{ color: "white", fontSize: 20 }} name={item.icon} />}
                   <View />
                 </View>
               </Col>
@@ -74,10 +70,21 @@ class CalendarItem extends Component {
     );
   }
   renderImage(calImage) {
+    if (_.isNil(calImage)) {
+      var uri =
+        "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fxdesk-calendar-980x470-20181016.jpg.pagespeed.ic.BdAsh-Nj_6.jpg?alt=media&token=697fef73-e77d-46de-83f5-a45540694274";
+    } else {
+      var uri = calImage;
+    }
+    const preview = {
+      uri:
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
+    };
     if (undefined != calImage && calImage.length > 0) {
-      return <Image source={{ uri: calImage }} style={{ width: 300, height: 150 }} resizeMode="contain" />;
+      return <Image {...{ preview, uri }} style={{ width: 300, height: 150 }} resizeMode="contain" />;
     }
   }
+
   renderTime(start, end) {
     if (undefined != start && start.length > 0) {
       return <Text style={styles.agendaDate}>{formatTime(start, end)} </Text>;

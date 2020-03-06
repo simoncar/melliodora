@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import { Text, TouchableOpacity, Linking, StyleSheet, View, TextInput, Button, Image, ScrollView } from "react-native";
-import { connectActionSheet } from '@expo/react-native-action-sheet';
-import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import { connectActionSheet } from "@expo/react-native-action-sheet";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import uuid from "uuid";
-import { Camera } from "expo-camera";
 import { Input } from "react-native-elements";
-import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import firebase from "firebase";
-import 'firebase/functions';
+import "firebase/functions";
 import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../../lib/uploadImage";
 import Loader from "../common/Loader";
 
 class SignUpScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Sign Up",
-    headerBackTitle: null,
+    headerBackTitle: null
   });
 
   state = {
@@ -29,8 +28,7 @@ class SignUpScreen extends Component {
     loading: false
   };
 
-  componentDidMount() {
-  }
+  componentDidMount() { }
 
   checkConfirmPassword = text => {
     this.setState({ confirmPassword: text }, () => {
@@ -110,13 +108,13 @@ class SignUpScreen extends Component {
       this.setState({
         errorMessage: error.message,
         loading: false
-      })
+      });
     }
   };
 
   setProfilePic = ({ profilePic }) => {
     this.setState({ profilePic: profilePic });
-  }
+  };
 
   async saveProfilePic(imgURI) {
     // const d = new Date();
@@ -150,7 +148,6 @@ class SignUpScreen extends Component {
 
     blob.close();
     return downloadURL;
-
   }
   _pickImage = async () => {
     let result = await launchProfileImagePicker();
@@ -160,12 +157,12 @@ class SignUpScreen extends Component {
     if (!result.cancelled) {
       this.setState({ profilePic: result.uri });
     }
-  }
+  };
 
   _onOpenActionSheet = () => {
     getPermissionAsync();
     // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
-    const options = ['Take photo from camera', 'Select from gallery', 'Clear', 'Cancel'];
+    const options = ["Take photo from camera", "Select from gallery", "Clear", "Cancel"];
     const destructiveButtonIndex = options.length - 2;
     const cancelButtonIndex = options.length - 1;
 
@@ -173,7 +170,7 @@ class SignUpScreen extends Component {
       {
         options,
         cancelButtonIndex,
-        destructiveButtonIndex,
+        destructiveButtonIndex
       },
       buttonIndex => {
         // Do something here depending on the button index selected
@@ -187,7 +184,7 @@ class SignUpScreen extends Component {
             this._pickImage();
             break;
         }
-      },
+      }
     );
   };
 
@@ -212,7 +209,7 @@ class SignUpScreen extends Component {
             borderWidth: StyleSheet.hairlineWidth,
             borderColor: "lightgray",
             color: "#0075b7",
-            textAlign: "center",
+            textAlign: "center"
           }}
         />
       );
@@ -227,7 +224,7 @@ class SignUpScreen extends Component {
             borderWidth: StyleSheet.hairlineWidth,
             borderColor: "lightgray",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "center"
           }}
           source={{ uri: source }}
         />
@@ -238,10 +235,7 @@ class SignUpScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Loader
-          modalVisible={this.state.loading}
-          animationType="fade"
-        />
+        <Loader modalVisible={this.state.loading} animationType="fade" />
         <ScrollView>
           <Text>{this.state.errorMessage}</Text>
           <Input
@@ -272,9 +266,7 @@ class SignUpScreen extends Component {
           />
           <View>
             <Text>Profile Picture: </Text>
-            <TouchableOpacity onPress={this._onOpenActionSheet}>
-              {this.icon(this.state.profilePic)}
-            </TouchableOpacity>
+            <TouchableOpacity onPress={this._onOpenActionSheet}>{this.icon(this.state.profilePic)}</TouchableOpacity>
           </View>
           <Input
             placeholder="Display name"
@@ -300,10 +292,7 @@ class SignUpScreen extends Component {
             autoCapitalize="words"
           />
           <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>
-            <TouchableOpacity
-              style={styles.SubmitButtonStyle}
-              activeOpacity={0.5}
-              onPress={this.handleSignUp}>
+            <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={this.handleSignUp}>
               <Text style={styles.TextStyle}>Sign Up</Text>
             </TouchableOpacity>
           </View>
@@ -321,16 +310,15 @@ export default class ActionSheetContainer extends Component {
       <ActionSheetProvider>
         <ConnectedApp navigation={this.props.navigation} />
       </ActionSheetProvider>
-    )
+    );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#f2f2f2",
     flex: 1,
-    padding: 10,
+    padding: 10
   },
 
   containerStyle: {
@@ -338,7 +326,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "#d2d2d2",
     backgroundColor: "#ffffff",
-    marginVertical: 8,
+    marginVertical: 8
   },
 
   learnMore: {},
@@ -354,6 +342,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 1,
     elevation: 4,
-    marginBottom: 30,
-  },
+    marginBottom: 30
+  }
 });

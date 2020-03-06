@@ -1,23 +1,18 @@
-import React, { Component } from 'react';
-import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import React, { Component } from "react";
+import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import firebase from "firebase";
-import {
-  MaterialIcons,
-  Ionicons
-} from "@expo/vector-icons";
-import { connectActionSheet } from '@expo/react-native-action-sheet';
-import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { connectActionSheet } from "@expo/react-native-action-sheet";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import _ from "lodash";
 import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../../lib/uploadImage";
 import Loader from "../common/Loader";
-
-
 
 class EditUserProfile extends Component {
   state = {
     loading: false,
     user: {}
-  }
+  };
 
   componentDidMount() {
     const { uid, user, email } = this.props.navigation.state.params;
@@ -34,21 +29,21 @@ class EditUserProfile extends Component {
   }
 
   /**
- * Deep diff between two object, using lodash
- * @param  {Object} object Object compared
- * @param  {Object} base   Object to compare with
- * @return {Object}        Return a new object who represent the diff
- */
+   * Deep diff between two object, using lodash
+   * @param  {Object} object Object compared
+   * @param  {Object} base   Object to compare with
+   * @return {Object}        Return a new object who represent the diff
+   */
   difference = (object, base) => {
     function changes(object, base) {
       return _.transform(object, function (result, value, key) {
         if (!_.isEqual(value, base[key])) {
-          result[key] = (_.isObject(value) && _.isObject(base[key])) ? changes(value, base[key]) : value;
+          result[key] = _.isObject(value) && _.isObject(base[key]) ? changes(value, base[key]) : value;
         }
       });
     }
     return changes(object, base);
-  }
+  };
 
   _updateProfile = async () => {
     this.setState({ loading: true });
@@ -68,7 +63,7 @@ class EditUserProfile extends Component {
           //set auth photo info
           updateProfileObj["photoURL"] = downloadURL;
 
-          //set firestore photo info 
+          //set firestore photo info
           diff["photoURL"] = downloadURL;
         }
 
@@ -90,17 +85,13 @@ class EditUserProfile extends Component {
 
       await this.setState({ loading: false });
       this.props.navigation.popToTop();
-
     } catch (error) {
       this.setState({
         errorMessage: error.message,
         loading: false
-      })
+      });
     }
-
-  }
-
-
+  };
 
   _pickImage = async () => {
     let result = await launchProfileImagePicker();
@@ -109,15 +100,15 @@ class EditUserProfile extends Component {
     if (!result.cancelled) {
       this.setProfilePic({ profilePic: result.uri });
     }
-  }
+  };
 
   setProfilePic = ({ profilePic }) => {
     this.setState(prevState => ({ user: { ...prevState.user, photoURL: profilePic } }));
-  }
+  };
 
   _onOpenActionSheet = () => {
     getPermissionAsync();
-    const options = ['Take photo from camera', 'Select from gallery', 'Clear', 'Cancel'];
+    const options = ["Take photo from camera", "Select from gallery", "Clear", "Cancel"];
     const destructiveButtonIndex = options.length - 2;
     const cancelButtonIndex = options.length - 1;
 
@@ -125,7 +116,7 @@ class EditUserProfile extends Component {
       {
         options,
         cancelButtonIndex,
-        destructiveButtonIndex,
+        destructiveButtonIndex
       },
       buttonIndex => {
         // Do something here depending on the button index selected
@@ -139,7 +130,7 @@ class EditUserProfile extends Component {
             this._pickImage();
             break;
         }
-      },
+      }
     );
   };
 
@@ -152,7 +143,7 @@ class EditUserProfile extends Component {
       <View style={styles.titleContainer}>
         <Text style={styles.nameText} numberOfLines={1}>
           Profile Picture:
-          </Text>
+        </Text>
 
         <TouchableOpacity style={{ width }} onPress={this._onOpenActionSheet}>
           <Image
@@ -171,18 +162,13 @@ class EditUserProfile extends Component {
           />
         </TouchableOpacity>
       </View>
-    )
-
-
-  }
+    );
+  };
   render() {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fdfdfd" }}>
         <ScrollView bounces={false}>
-          <Loader
-            modalVisible={this.state.loading}
-            animationType="fade"
-          />
+          <Loader modalVisible={this.state.loading} animationType="fade" />
           <Text>{this.state.errorMessage}</Text>
           {this._renderProfilePic()}
 
@@ -201,12 +187,10 @@ class EditUserProfile extends Component {
             </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, displayName: text } }))}
+              onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, displayName: text } }))}
               value={this.state.user.displayName}
             />
           </View>
-
-
 
           <View style={[styles.titleContainer, { flexDirection: "row" }]}>
             <View style={{ flex: 1 }}>
@@ -215,7 +199,7 @@ class EditUserProfile extends Component {
               </Text>
               <TextInput
                 style={styles.sectionContentText}
-                onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, firstName: text } }))}
+                onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, firstName: text } }))}
                 value={this.state.user.firstName}
               />
             </View>
@@ -226,7 +210,7 @@ class EditUserProfile extends Component {
               </Text>
               <TextInput
                 style={styles.sectionContentText}
-                onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, lastName: text } }))}
+                onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, lastName: text } }))}
                 value={this.state.user.lastName}
               />
             </View>
@@ -238,7 +222,7 @@ class EditUserProfile extends Component {
             </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, country: text } }))}
+              onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, country: text } }))}
               value={this.state.user.country}
             />
           </View>
@@ -249,7 +233,7 @@ class EditUserProfile extends Component {
             </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, region: text } }))}
+              onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, region: text } }))}
               value={this.state.user.region}
             />
           </View>
@@ -260,14 +244,13 @@ class EditUserProfile extends Component {
             </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={(text) => this.setState(prevState => ({ user: { ...prevState.user, organization: text } }))}
+              onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, organization: text } }))}
               value={this.state.user.organization}
             />
           </View>
-
         </ScrollView>
       </SafeAreaView>
-    )
+    );
   }
 }
 
@@ -281,9 +264,7 @@ export default class ActionSheetContainer extends Component {
 
       if (!permitEdit) return;
       return (
-        <TouchableOpacity
-          onPress={() => navigation.state.params._updateProfile()}
-        >
+        <TouchableOpacity onPress={() => navigation.state.params._updateProfile()}>
           <View
             style={{
               color: "#48484A",
@@ -291,8 +272,7 @@ export default class ActionSheetContainer extends Component {
               marginRight: 10,
               flexDirection: "row",
               alignItems: "center"
-            }}
-          >
+            }}>
             <Text style={{ color: "red" }}>Save </Text>
             <MaterialIcons
               name="done"
@@ -304,7 +284,7 @@ export default class ActionSheetContainer extends Component {
             />
           </View>
         </TouchableOpacity>
-      )
+      );
     }
   });
 
@@ -313,7 +293,7 @@ export default class ActionSheetContainer extends Component {
       <ActionSheetProvider>
         <ConnectedApp navigation={this.props.navigation} />
       </ActionSheetProvider>
-    )
+    );
   }
 }
 
@@ -331,6 +311,9 @@ const styles = StyleSheet.create({
   sectionContentText: {
     color: "#808080",
     fontSize: 14,
-    height: 40, borderColor: '#100c08', borderBottomWidth: 1, width: "80%"
-  },
+    height: 40,
+    borderColor: "#100c08",
+    borderBottomWidth: 1,
+    width: "80%"
+  }
 });

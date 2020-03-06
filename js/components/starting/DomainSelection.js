@@ -1,5 +1,18 @@
 import React, { Component } from "react";
-import { View, Text, Picker, SafeAreaView, StyleSheet, Button, FlatList, TouchableOpacity, Animated, Easing, TouchableHighlight, Alert } from "react-native";
+import {
+  View,
+  Text,
+  Picker,
+  SafeAreaView,
+  StyleSheet,
+  Button,
+  FlatList,
+  TouchableOpacity,
+  Animated,
+  Easing,
+  TouchableHighlight,
+  Alert
+} from "react-native";
 import { iOSUIKit, iOSColors } from "react-native-typography";
 import _ from "lodash";
 import { SearchBar } from "react-native-elements";
@@ -44,7 +57,7 @@ class DomainSelection extends Component {
       <View
         style={{
           height: 1,
-          backgroundColor: "#CED0CE",
+          backgroundColor: "#CED0CE"
         }}
       />
     );
@@ -52,15 +65,15 @@ class DomainSelection extends Component {
 
   animateHighlightSelected = () => {
     this.selectedBGWidth.setValue(0);
-    Animated.timing(
-      this.selectedBGWidth,
-      {
-        toValue: 1,
-        duration: 300,
-        easing: Easing.in(Easing.quad)
-      }
-    ).start();
-  }
+    Animated.timing(this.selectedBGWidth, {
+      toValue: 1,
+      duration: 300,
+      easing: Easing.in(Easing.quad)
+    }).start(() => {
+      console.log("Animation DONE");
+      this.props.setSelectedDomain(this.state.selectedDomain || this.props.domains[0].node);
+    });
+  };
 
   searchFilterFunction = text => {
     this.setState({
@@ -79,17 +92,14 @@ class DomainSelection extends Component {
     }
     const textToSearch = text.toUpperCase();
     const filteredData = allDomains.filter(dataItem => {
-      const searchObject = _.pick(dataItem, ['name', 'node']);
+      const searchObject = _.pick(dataItem, ["name", "node"]);
 
-      return Object.values(searchObject).some(item =>
-        item.toUpperCase().includes(textToSearch)
-      )
+      return Object.values(searchObject).some(item => item.toUpperCase().includes(textToSearch));
     });
 
     this.setState({
-      domains: filteredData,
+      domains: filteredData
     });
-
   };
 
   renderHeader = () => {
@@ -125,37 +135,33 @@ class DomainSelection extends Component {
             this.setState({ selectedDomain: item });
             this.animateHighlightSelected();
           }
-        }>
-
-        {
-          selected ?
-            <Animated.View style={{
-              position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "#96ceb4",
-              zIndex: -2,
-              width: this.selectedBGWidth.interpolate({
-                inputRange: [0, 1],
-                outputRange: [0, this.highlightwidth]
-              }),
-              // transform: [
-              //   {
-              //     translateX: this.selectedBGWidth.interpolate({
-              //       inputRange: [0, 1],
-              //       outputRange: [-1000, 0]
-              //     })
-              //   }
-              // ]
-            }}></Animated.View>
-            : null
         }
+      >
+        {
+          selected ? (
+            <Animated.View
+              style={{
+                position: "absolute",
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                backgroundColor: "#96ceb4",
+                zIndex: -2,
+                width: this.selectedBGWidth.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, this.highlightwidth]
+                })
+              }}></Animated.View >
+          ) : null}
 
         <Text style={styles.title}>{item.name}</Text>
         <Text style={styles.subtitle}>{item.node}</Text>
-      </TouchableOpacity>
+      </TouchableOpacity >
     );
-  }
+  };
 
   render() {
-
     return (
       <SafeAreaView style={{ flexDirection: "column" }}>
         <Text
@@ -165,23 +171,26 @@ class DomainSelection extends Component {
             marginTop: 58,
             marginLeft: 12,
             marginBottom: 12,
-            alignSelf: "center",
-          }}
-        >
+            alignSelf: "center"
+          }}>
           Select Community
         </Text>
 
-
         <View
           style={{
-            borderTopLeftRadius: 25, borderTopRightRadius: 25, borderWidth: 1, margin: 12, borderColor: "#e5e6eb", backgroundColor: "#f8f8fa", height: 340, zIndex: 1,
+            borderTopLeftRadius: 25,
+            borderTopRightRadius: 25,
+            borderWidth: 1,
+            margin: 12,
+            borderColor: "#e5e6eb",
+            backgroundColor: "#f8f8fa",
+            zIndex: 1,
             shadowColor: "rgba(0,0,0, .4)",
             shadowOffset: { width: 1, height: 1 },
             shadowOpacity: 0.8,
             shadowRadius: 1,
             elevation: 5
-          }}
-        >
+          }}>
           <FlatList
             style={{ overflow: "hidden" }}
             data={this.state.domains}
@@ -250,8 +259,8 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    borderBottomColor: 'transparent',
-    borderTopColor: 'transparent',
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent",
     overflow: "hidden",
     zIndex: -1
   },

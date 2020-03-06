@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image } from "react-native";
-import SettingsList from "react-native-settings-list";
+import { SettingsListItem } from "../settings/SettingsListItem";
 
 export default class Library extends Component {
   static navigationOptions = {
     title: "Library",
-    headerBackTitle: null,
+    headerBackTitle: null
   };
 
   constructor(props) {
@@ -27,7 +27,7 @@ export default class Library extends Component {
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
                   url: "https://sais.follettdestiny.com/common/welcome.jsp?context=saas18_8400395",
-                  title: "Library",
+                  title: "Library"
                 })
               }
             />
@@ -39,7 +39,7 @@ export default class Library extends Component {
               onPress={() =>
                 this.props.navigation.navigate("authPortal", {
                   url: "https://mystamford.edu.sg/library",
-                  title: "Library",
+                  title: "Library"
                 })
               }
             />
@@ -54,7 +54,7 @@ export default class Library extends Component {
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
                   url: "https://www.pebblego.com/choose",
-                  title: "Pebble Go",
+                  title: "Pebble Go"
                 })
               }
             />
@@ -67,7 +67,7 @@ export default class Library extends Component {
               onPress={() =>
                 this.props.navigation.navigate("webportalURL", {
                   url: "http://www.tumblebooks.com/library/auto_login.asp?U=saiss&P=books",
-                  title: "Tubble Books",
+                  title: "Tubble Books"
                 })
               }
             />
@@ -81,7 +81,7 @@ export default class Library extends Component {
                 this.props.navigation.navigate("webportalURL", {
                   url:
                     "https://sais.follettdestiny.com/cataloging/servlet/presentbooklistform.do?listID=10728306&context=saas18_8400395&site=100",
-                  title: "1000 eBooks",
+                  title: "1000 eBooks"
                 })
               }
             />
@@ -95,7 +95,7 @@ export default class Library extends Component {
                 this.props.navigation.navigate("webportalURL", {
                   url:
                     "http://galeapps.galegroup.com/apps/auth/sgsais?cause=http%3A%2F%2Ffind.galegroup.com%2Fmenu%2Fstart%3FuserGroupName%3Dsgsais%26prod%3DGVRL%26finalAuth%3Dtrue",
-                  title: "password = book",
+                  title: "password = book"
                 })
               }
             />
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     alignSelf: "center",
     height: 30,
-    width: 30,
+    width: 30
   },
   imageStyleCheckOn: {
     marginLeft: 15,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    color: "#007AFF",
+    color: "#007AFF"
   },
   imageStyleCheckOff: {
     marginLeft: 15,
@@ -133,11 +133,11 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    color: "#FFF",
+    color: "#FFF"
   },
 
   titleInfoStyle: {
     fontSize: 16,
-    color: "#8e8e93",
-  },
+    color: "#8e8e93"
+  }
 });

@@ -5,8 +5,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { ListItem } from "react-native-elements";
 import * as firebase from "firebase";
 import _ from "lodash";
-
-
+import I18n from "../../lib/i18n";
 
 class UserSearch extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -18,7 +17,7 @@ class UserSearch extends Component {
           <AntDesign name="reload1" style={styles.navigationIcon} />
         </View>
       </TouchableOpacity>
-    ),
+    )
   });
 
   constructor(props) {
@@ -26,27 +25,25 @@ class UserSearch extends Component {
 
     this.state = {
       loading: true,
-      loadingMessage: "Search...",
+      loadingMessage: I18n.t("search") + "...",
       data: [],
       fullData: [],
-      error: null,
+      error: null
     };
   }
   keyExtractor = item => item._key;
 
   componentDidMount() {
-
     // this.props.navigation.state.params.reload = this.loadData;
 
-    this.props.navigation.setParams({ reload: this.loadData })
+    this.props.navigation.setParams({ reload: this.loadData });
     this.loadData();
   }
 
   loadData = () => {
-    this.setState({ loading: true })
-    this._getUsers()
-      .then(data => this.setState({ data: data, fullData: data, loading: false }));
-  }
+    this.setState({ loading: true });
+    this._getUsers().then(data => this.setState({ data: data, fullData: data, loading: false }));
+  };
 
   _getUsers = async () => {
     var data = [];
@@ -59,20 +56,17 @@ class UserSearch extends Component {
       .get();
 
     querySnapshot.docs.forEach(doc => {
-
       data.push(doc.data());
     });
     return data;
   };
-
-
 
   renderSeparator = () => {
     return (
       <View
         style={{
           height: 1,
-          backgroundColor: "#CED0CE",
+          backgroundColor: "#CED0CE"
         }}
       />
     );
@@ -80,7 +74,7 @@ class UserSearch extends Component {
 
   searchFilterFunction = text => {
     this.setState({
-      value: text,
+      value: text
     });
 
     const fullData = this.state.fullData;
@@ -94,17 +88,14 @@ class UserSearch extends Component {
     }
     const textToSearch = text.toUpperCase();
     const filteredData = fullData.filter(dataItem => {
-      const searchObject = _.pick(dataItem, ['email', 'displayName', 'firstName', 'lastName']);
+      const searchObject = _.pick(dataItem, ["email", "displayName", "firstName", "lastName"]);
 
-      return Object.values(searchObject).some(item =>
-        item.toUpperCase().includes(textToSearch)
-      )
+      return Object.values(searchObject).some(item => item.toUpperCase().includes(textToSearch));
     });
 
     this.setState({
-      data: filteredData,
+      data: filteredData
     });
-
   };
 
   renderHeader = () => {
@@ -124,16 +115,11 @@ class UserSearch extends Component {
   };
 
   _renderItem({ item, index }) {
-
     const avatarTitle = item.email.slice(0, 2);
     const fullName = item.firstName + " " + item.lastName;
-    const avatar = item.photoURL
-      ? { source: { uri: item.photoURL } }
-      : { title: avatarTitle };
+    const avatar = item.photoURL ? { source: { uri: item.photoURL } } : { title: avatarTitle };
     return (
-      <TouchableOpacity
-        onPress={() => this.props.navigation.navigate("UserProfile", { uid: item.uid, user: item })}
-      >
+      <TouchableOpacity onPress={() => this.props.navigation.navigate("UserProfile", { uid: item.uid, user: item })}>
         <ListItem
           leftAvatar={{
             rounded: true,
@@ -141,9 +127,7 @@ class UserSearch extends Component {
           }}
           title={
             <View style={{ flex: 1, flexDirection: "row" }}>
-              <Text style={{ flex: 1, fontSize: 16 }}>
-                {item.displayName || fullName || item.email}
-              </Text>
+              <Text style={{ flex: 1, fontSize: 16 }}>{item.displayName || fullName || item.email}</Text>
             </View>
           }
           chevron={true}
@@ -155,7 +139,7 @@ class UserSearch extends Component {
           }
         />
       </TouchableOpacity>
-    )
+    );
   }
 
   render() {
@@ -165,7 +149,7 @@ class UserSearch extends Component {
           <ActivityIndicator
             size="large"
             style={{
-              margin: 40,
+              margin: 40
             }}
           />
         </View>
@@ -188,16 +172,16 @@ class UserSearch extends Component {
 // Styles
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   searchContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: "#fff"
   },
   navigationIcon: {
     color: "#48484A",
     fontSize: 25,
-    marginRight: 10,
-  },
+    marginRight: 10
+  }
 });
 
 export default UserSearch;

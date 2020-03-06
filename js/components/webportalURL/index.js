@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
-import { WebView } from 'react-native-webview';
 import { Container } from "native-base";
+import { WebView } from "react-native-webview";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "./styles";
 import Analytics from "../../lib/analytics";
@@ -10,7 +10,7 @@ var WEBVIEW_REF = "webview";
 class WebportalSports extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.getParam("title"),
-    headerBackTitle: null,
+    headerBackTitle: null
   });
 
   constructor(props) {
@@ -28,7 +28,7 @@ class WebportalSports extends Component {
     forwardButtonEnabled: false,
     loading: true,
     cookies: {},
-    webViewUrl: "",
+    webViewUrl: ""
   };
 
   onNavigationStateChange = navState => {
@@ -49,7 +49,10 @@ class WebportalSports extends Component {
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>
-              <TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
+              <TouchableOpacity
+                disabled={!this.state.canGoBack}
+                onPress={this.onBack.bind(this)}
+              >
                 <Ionicons style={styles.navIcon} name="ios-arrow-back" />
               </TouchableOpacity>
 

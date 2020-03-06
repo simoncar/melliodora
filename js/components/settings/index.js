@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight, ScrollView, Text, TouchableOpacity } from "react-native";
 import { isAdmin } from "../global";
 import I18n from "../../lib/i18n";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as firebase from "firebase";
 import { Updates } from "expo";
 import FeatureMoreItems from "./FeatureMoreItems";
-import Constants from "expo-constants";
-import SettingsListItem from "./SettingsListItem";
+import { SettingsListItem, Separator } from "./SettingsListItem";
 import Analytics from "../../lib/analytics";
 import _ from "lodash";
 import { actionRetrieveFeatures } from "../../store/settings";
@@ -19,13 +18,13 @@ const icons = {
   contact: require("./images/contact.png"),
   library: require("./images/library.png"),
   map: require("./images/map.png"),
-  shop: require("./images/shop.png"),
+  shop: require("./images/shop.png")
 };
 
 class Settings extends Component {
   static navigationOptions = {
     title: I18n.t("more"),
-    headerBackTitle: null,
+    headerBackTitle: null
   };
 
   constructor(props) {
@@ -58,13 +57,11 @@ class Settings extends Component {
     const user = firebase.auth().currentUser;
 
     if (user) {
-      user.getIdTokenResult()
-        .then((idTokenResult) => {
-          if (idTokenResult.claims[global.domain]) {
-            this.setState({ user: user });
-          }
-        });
-
+      user.getIdTokenResult().then(idTokenResult => {
+        if (idTokenResult.claims[global.domain]) {
+          this.setState({ user: user });
+        }
+      });
     } else {
       // No user is signed in.
     }
@@ -92,8 +89,6 @@ class Settings extends Component {
     }
   };
 
-
-
   _logout() {
     AsyncStorage.clear().then(() => {
       global = {};
@@ -104,32 +99,44 @@ class Settings extends Component {
     });
   }
 
-
   _renderUser() {
     const user = this.state.user;
     if (_.has(user, "email") && user.email) {
       const email = user.email;
       return (
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("UserProfile", { uid: user.uid, permitEdit: true })}>
+        <TouchableOpacity
+          onPress={() =>
+            this.props.navigation.navigate("UserProfile", {
+              uid: user.uid,
+              permitEdit: true
+            })
+          }>
           <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>
-              Logged in as
+              {I18n.t("loggedInAs")}
             </Text>
             <Text style={styles.sectionContentText} numberOfLines={1}>
               {email}
             </Text>
           </View>
         </TouchableOpacity>
-      )
+      );
     } else {
       return (
         <SettingsListItem
           hasNavArrow={false}
-          icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
-          title={I18n.t("Sign In") + "/" + I18n.t("Sign Up")}
+          icon={<MaterialCommunityIcons name="account-plus" style={styles.imageStyleIcon} />}
+          title={I18n.t("signIn") + "/" + I18n.t("signUp")}
           onPress={() => this.props.navigation.navigate("login")}
         />
-      )
+      );
+    }
+  }
+
+  separator(i) {
+    if (i > 0) {
+      console.log("separator = ", i);
+      return <Separator />;
     }
   }
 
@@ -139,24 +146,28 @@ class Settings extends Component {
       languageTitle = "Language " + I18n.t("language");
     }
 
+    var i = 0;
+
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
         {(global.administrator || this.props.auth.isAdmin) && (
           <TouchableHighlight
             style={styles.adminButton}
             underlayColor="#ff7043"
-            onPress={() => this.props.navigation.navigate("moreAdmin", { moreFeatures: this.state.features })}
-          >
+            onPress={() =>
+              this.props.navigation.navigate("moreAdmin", {
+                moreFeatures: this.state.features
+              })
+            }>
             <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
           </TouchableHighlight>
         )}
 
         <ScrollView style={{ backgroundColor: "#EFEFF4" }}>
           {this._renderUser()}
-          <Seperator />
           <SettingsListItem
-            icon={<MaterialIcons name="search" style={{ fontSize: 25, color: "white" }} />}
-            title={I18n.t("Search Users")}
+            icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
+            title={I18n.t("searchUsers")}
             onPress={() => this.props.navigation.navigate("UserSearch")}
           />
 
@@ -166,11 +177,12 @@ class Settings extends Component {
           {this.props.settings.features
             .filter(item => item.visible !== false)
             .map((el, idx) => {
+              i++;
               const navTitle = el.navTitle || el.title;
               const navProps = el.navURL
                 ? {
                   url: el.navURL,
-                  title: I18n.t(navTitle, { defaultValue: navTitle }),
+                  title: I18n.t(navTitle, { defaultValue: navTitle })
                 }
                 : {};
 
@@ -179,53 +191,52 @@ class Settings extends Component {
                 <SettingsListItem
                   key={"feature" + idx}
                   icon={<Image style={styles.imageStyle} source={imgSource} />}
-                  title={I18n.t(el.title || "", { defaultValue: el.title || "" })}
+                  title={I18n.t(el.title || "", {
+                    defaultValue: el.title || ""
+                  })}
                   titleInfo={el.titleInfo || ""}
-                  titleInfoStyle={styles.titleInfoStyle}
                   onPress={() => this.props.navigation.navigate(el.navigate || "webportalURL", navProps)}
                 />
               );
             })}
 
+          {this.separator(i)}
+
           <SettingsListItem
-            icon={<Image style={styles.imageStyle} source={require("./images/general.png")} />}
+            icon={<FontAwesome name="language" style={styles.imageStyleIcon} />}
             title={languageTitle}
             titleInfo={this.state.language}
-            titleInfoStyle={styles.titleInfoStyle}
             onPress={() => this.props.navigation.navigate("selectLanguage")}
           />
           <SettingsListItem
-            icon={<Image style={styles.imageStyle} source={require("./images/airplane.png")} />}
+            icon={<FontAwesome name="lock" style={styles.imageStyleIcon} />}
             hasNavArrow={true}
             title={I18n.t("adminAccess")}
             onPress={() => this.props.navigation.navigate("adminPassword")}
           />
-          {isAdmin(this.props.adminPassword) && <Seperator />}
 
           {isAdmin(this.props.adminPassword) && (
             <SettingsListItem
-              icon={<Image style={styles.imageStyle} source={require("./images/memory.png")} />}
+              icon={<FontAwesome name="edit" style={styles.imageStyleIcon} />}
               title={I18n.t("editor")}
               onPress={() => this.props.navigation.navigate("Content")}
             />
           )}
 
-          <Seperator />
-
           <SettingsListItem
             hasNavArrow={false}
-            icon={<Image style={styles.imageStyle} source={require("./images/about.png")} />}
-            title={I18n.t("About this App")}
+            icon={<MaterialIcons name="info-outline" style={styles.imageStyleIcon} />}
+            title={I18n.t("aboutThisApp")}
             onPress={() => {
               this.props.navigation.navigate("webportalURL", {
                 url: "https://smartcookies.io/smart-community",
-                title: "About this App",
+                title: I18n.t("aboutThisApp")
               });
             }}
           />
           <SettingsListItem
             hasNavArrow={false}
-            icon={<Image style={styles.imageStyle} source={require("./images/dnd.png")} />}
+            icon={<SimpleLineIcons name="logout" style={styles.imageStyleIcon} />}
             title={I18n.t("logout")}
             onPress={() => this._logout()}
           />
@@ -244,7 +255,14 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     alignSelf: "center",
     height: 30,
+    width: 30
+  },
+  imageStyleIcon: {
+    marginLeft: 15,
+    alignSelf: "center",
     width: 30,
+    fontSize: 25,
+    textAlign: "center"
   },
   imageStyleCheckOn: {
     marginLeft: 15,
@@ -252,7 +270,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    color: "#007AFF",
+    color: "#007AFF"
   },
   imageStyleCheckOff: {
     marginLeft: 15,
@@ -260,12 +278,12 @@ const styles = StyleSheet.create({
     height: 30,
     fontSize: 30,
     width: 30,
-    color: "#FFF",
+    color: "#FFF"
   },
 
   titleInfoStyle: {
     fontSize: 18,
-    color: "#8e8e93",
+    color: "#8e8e93"
   },
   adminButton: {
     backgroundColor: "#ff5722",
@@ -284,9 +302,9 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOffset: {
       height: 1,
-      width: 0,
+      width: 0
     },
-    zIndex: 1,
+    zIndex: 1
   },
   titleContainer: {
     paddingHorizontal: 15,
@@ -301,23 +319,8 @@ const styles = StyleSheet.create({
   sectionContentText: {
     color: "#808080",
     fontSize: 14
-  },
-});
-
-class Seperator extends Component {
-  render() {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "100%",
-          backgroundColor: "#CED0CE",
-          marginTop: 30,
-        }}
-      />
-    );
   }
-}
+});
 
 const mapStateToProps = state => ({
   settings: state.settings,

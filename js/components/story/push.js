@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, Dimensions, Alert, Text, TextInput, TouchableOpacity, Switch } from "react-native";
+import { StyleSheet, View, Image, Dimensions, Alert, Text, TouchableOpacity, Switch } from "react-native";
 import { Container, Content } from "native-base";
 import styles from "./styles";
-import SettingsList from "react-native-settings-list";
+import { SettingsListItem } from "../settings/SettingsListItem";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import _ from "lodash";
-import Constants from "expo-constants";
+import { Input } from "react-native-elements";
 
 @withMappedNavigationParams()
 class push extends Component {
@@ -17,7 +17,7 @@ class push extends Component {
 
     this.state = {
       initialText: "",
-      _key: props._key,
+      _key: props._key
     };
 
     this.pushSend = this.pushSend.bind(this);
@@ -28,8 +28,7 @@ class push extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
-        }}
-      >
+        }}>
         <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
       </TouchableOpacity>
     ),
@@ -39,11 +38,10 @@ class push extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params.pushSend();
-        }}
-      >
+        }}>
         <Text style={styles.chatHeading}>{I18n.t("send")}</Text>
       </TouchableOpacity>
-    ),
+    )
   });
 
   componentDidMount() {
@@ -58,7 +56,7 @@ class push extends Component {
     this.setState({ initialText: initialText });
 
     this.props.navigation.setParams({
-      pushSend: this.pushSend,
+      pushSend: this.pushSend
     });
   }
 
@@ -71,7 +69,7 @@ class push extends Component {
       grade: grades,
       image: "",
       state: "pending",
-      timestamp: Date.now(),
+      timestamp: Date.now()
     };
 
     console.log("push =", pushMessage);
@@ -99,7 +97,7 @@ class push extends Component {
 
   gradeSelector(title, level, grade) {
     return (
-      <SettingsList.Item
+      <SettingsListItem
         hasSwitch={true}
         switchState={this.state[grade]}
         switchOnValueChange={() => this._setGrade(grade)}
@@ -128,48 +126,23 @@ class push extends Component {
 
   render() {
     return (
-      <Container style={{ backgroundColor: "#fff" }}>
+      <Container style={{ backgroundColor: "#f2f2f2" }}>
         <Content showsVerticalScrollIndicator={false}>
-          <View style={{ flex: 1, backgroundColor: "#fff" }}>
+          <View style={{ flex: 1, backgroundColor: "#f2f2f2" }}>
             <View
               style={{
                 flex: 1,
                 paddingTop: 20,
                 paddingLeft: 10,
-                paddingRight: 10,
-              }}
-            >
-              <TextInput
+                paddingRight: 10
+              }}>
+              <Input
                 onChangeText={text => this.setState({ initialText: text })}
                 placeholder={"Description"}
                 multiline
-                style={[styles.eventText]}
+                containerStyle={styles.containerStyle}
                 value={this.state.initialText}
               />
-            </View>
-
-            <View>
-              <SettingsList borderColor="#c8c7cc" defaultItemSize={50}>
-                <SettingsList.Header headerStyle={{ marginTop: 15 }} />
-
-                {this.gradeSelector("Pre-Nursery", "Early Years", -4)}
-                {this.gradeSelector("Nursery", "Early Years", -3)}
-                {this.gradeSelector("Pre-K", "Early Years", -2)}
-                {this.gradeSelector("Kindergarten 1", "Early Years", -1)}
-                {this.gradeSelector("Kindergarten 2", "Lower Elem", 0)}
-                {this.gradeSelector("Grade 1", "Lower Elem", 1)}
-                {this.gradeSelector("Grade 2", "Lower Elem", 2)}
-                {this.gradeSelector("Grade 3", "Upper Elem", 3)}
-                {this.gradeSelector("Grade 4", "Upper Elem", 4)}
-                {this.gradeSelector("Grade 5", "Upper Elem", 5)}
-                {this.gradeSelector("Grade 6", "Middle School", 6)}
-                {this.gradeSelector("Grade 7", "Middle School", 7)}
-                {this.gradeSelector("Grade 8", "Middle School", 8)}
-                {this.gradeSelector("Grade 9", "High School", 9)}
-                {this.gradeSelector("Grade 10", "High School", 10)}
-                {this.gradeSelector("Grade 11", "High School", 11)}
-                {this.gradeSelector("Grade 12", "High School", 12)}
-              </SettingsList>
             </View>
           </View>
         </Content>

@@ -4,11 +4,13 @@ import { Updates } from "expo";
 import Analytics from "../../lib/analytics";
 import { connect } from 'react-redux';
 import { setAdminPass } from '../../store/auth';
+import { Input } from "react-native-elements";
+import I18n from "../../lib/i18n";
 
 class adminPassword extends Component {
   static navigationOptions = {
     title: "Admin Password",
-    headerBackTitle: null,
+    headerBackTitle: null
   };
 
   constructor(props) {
@@ -16,7 +18,7 @@ class adminPassword extends Component {
     this.state = {
       adminPassword: "enter password",
       adminPasswordCorrect: "",
-      restartMessage: "",
+      restartMessage: ""
     };
 
     this._retrieveAdminPassword();
@@ -55,22 +57,32 @@ class adminPassword extends Component {
       this.setState({ adminPasswordCorrect: "" });
     }
   }
+  _saveButton() {
+    if (this.state.adminPassword == "cookies") {
+      return (
+        <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => Updates.reloadFromCache()}>
+          <Text style={styles.TextStyle}>{I18n.t("save")}</Text>
+        </TouchableOpacity>
+      );
+    }
+  }
 
 
   render() {
     return (
-      <View style={styles.padding}>
-        <Text style={styles.title}>Enter the Admin Password:</Text>
-        <TextInput
+      <View style={styles.container}>
+        <Input
           style={styles.passwordField}
           onChangeText={text => this._setAdminPassword(text)}
+          placeholder="Password"
+          containerStyle={styles.containerStyle}
+          inputContainerStyle={{ borderBottomWidth: 0 }}
           autoCapitalize="none"
+          autoFocus={true}
         />
         <Text style={styles.alert}>{this.state.adminPasswordCorrect}</Text>
 
-        <TouchableOpacity onPress={() => Updates.reloadFromCache()}>
-          <Text style={styles.alertRestart}>{this.state.restartMessage}</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>{this._saveButton()}</View>
       </View>
     );
   }
@@ -83,28 +95,48 @@ class adminPassword extends Component {
 }
 
 const styles = StyleSheet.create({
-  padding: {
-    paddingTop: 16,
-    paddingLeft: 20,
-    paddingRight: 20,
-    color: "#8e8e93",
+  container: {
+    backgroundColor: "#f2f2f2",
+    flex: 1,
+    padding: 10
   },
   title: {
-    paddingBottom: 16,
+    paddingBottom: 16
   },
   alert: {
-    paddingTop: 16,
+    paddingTop: 16
   },
   alertRestart: {
     paddingTop: 16,
-    color: "red",
+    color: "red"
   },
   passwordField: {
     height: 40,
     borderColor: "gray",
     borderWidth: 1,
-    paddingLeft: 10,
+    paddingLeft: 10
   },
+  containerStyle: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#d2d2d2",
+    backgroundColor: "#ffffff",
+    marginVertical: 8
+  },
+  SubmitButtonStyle: {
+    backgroundColor: "#fff",
+    height: 50,
+    width: 250,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "rgba(0,0,0, .4)",
+    shadowOffset: { height: 2, width: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 1,
+    elevation: 4,
+    marginBottom: 30
+  }
 });
 
 const mapStateToProps = state => ({

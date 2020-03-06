@@ -6,13 +6,13 @@ import {
   TextInput,
   TouchableOpacity,
   Switch,
-  StatusBar,
   SafeAreaView,
-  Button,
+  ScrollView,
   LayoutAnimation,
   Platform,
   Alert
 } from "react-native";
+import { Input } from "react-native-elements";
 import { Container, Content } from "native-base";
 import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
@@ -28,6 +28,7 @@ import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { createMaterialTopTabNavigator, MaterialTopTabBar } from "react-navigation-tabs";
 import { AntDesign } from "@expo/vector-icons";
+import systemHero from "../../lib/systemHero";
 
 @withMappedNavigationParams()
 class PageText extends Component {
@@ -39,8 +40,8 @@ class PageText extends Component {
 
     this.state = {
       notifyMeSwitch: false,
-      visible: props.edit ? props.visible : false,
-      visibleMore: props.edit ? props.visibleMore : false,
+      visible: props.edit ? props.visible : true,
+      visibleMore: props.edit ? props.visibleMore : true,
       eventTitle: props.edit ? props.summary : "",
       eventDescription: props.edit ? props.description : "",
       location: props.edit && props.location !== undefined ? props.location : null,
@@ -62,7 +63,6 @@ class PageText extends Component {
     });
   }
 
-
   getPermissionAsync = async () => {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -79,6 +79,8 @@ class PageText extends Component {
   get uid() {
     return (firebase.auth().currentUser || {}).uid;
   }
+
+  set uid(uid) {}
 
   get timestamp() {
     return firebase.database.ServerValue.TIMESTAMP;
@@ -110,7 +112,7 @@ class PageText extends Component {
   _pickImage = async () => {
     var d = new Date();
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images
     });
 
     if (!result.cancelled) {
@@ -118,7 +120,7 @@ class PageText extends Component {
       //this._images = images;
 
       const convertedImage = await new ImageManipulator.manipulateAsync(result.uri, [{ resize: { height: 1000 } }], {
-        compress: 0,
+        compress: 0
       });
 
       fileToUpload = convertedImage.uri;
@@ -126,10 +128,10 @@ class PageText extends Component {
       this.setState({ cameraIcon: "hour-glass" });
       const blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
+        xhr.onload = function() {
           resolve(xhr.response);
         };
-        xhr.onerror = function (e) {
+        xhr.onerror = function(e) {
           reject(new TypeError("Network request failed"));
         };
         xhr.responseType = "blob";
@@ -170,34 +172,27 @@ class PageText extends Component {
         onPress={() => {
           this.setState({ showIconChat: !this.state.showIconChat });
         }}
-        style={{ padding: 8 }}
-      >
+        style={{ padding: 8 }}>
         <SimpleLineIcons name="bubble" size={32} color={this.state.showIconChat ? "#222" : "#CCC"} />
       </TouchableOpacity>
     );
   }
 
   _drawIconCalendar(params) {
-
     return (
       <TouchableOpacity
         onPress={() => {
           this.props.navigation.navigate("phoneCalendar", this.props.navigation.state.params);
         }}
-        style={{ padding: 8 }}
-      >
+        style={{ padding: 8 }}>
         <Ionicons name="ios-calendar" style={styles.eventIcon} />
       </TouchableOpacity>
     );
-
   }
 
   _drawIconShare() {
     return (
-      <TouchableOpacity
-        onPress={() => this.setState({ showIconShare: !this.state.showIconShare })}
-        style={{ padding: 8 }}
-      >
+      <TouchableOpacity onPress={() => this.setState({ showIconShare: !this.state.showIconShare })} style={{ padding: 8 }}>
         <Feather name="share" size={32} color={this.state.showIconShare ? "#222" : "#CCC"} />
       </TouchableOpacity>
     );
@@ -207,9 +202,9 @@ class PageText extends Component {
     const { goBack } = this.props.navigation;
 
     return (
-      <Container style={{ backgroundColor: "#fff" }}>
-        <Content showsVerticalScrollIndicator={false}>
-          <View style={{ flex: 1, backgroundColor: "#fff" }}>
+      <Container style={{ backgroundColor: "#f2f2f2" }}>
+        <Content showsVerticalScrollIndicator={true}>
+          <View style={{ flex: 1, backgroundColor: "#f2f2f2" }}>
             {this._drawImage(this.state.photo1)}
 
             <View
@@ -221,8 +216,7 @@ class PageText extends Component {
                 borderBottomWidth: 1,
                 borderTopColor: "#ddd",
                 borderBottomColor: "#ddd"
-              }}
-            >
+              }}>
               <View>
                 <View style={{ padding: 3 }}>
                   <Text style={{ fontSize: 10 }}>Toggle buttons below to show/Hide</Text>
@@ -232,42 +226,41 @@ class PageText extends Component {
                   {this._drawIconShare()}
                 </View>
               </View>
-
             </View>
             <View
               style={{
                 flex: 1,
                 paddingTop: 20,
                 paddingLeft: 10,
-                paddingRight: 10,
-              }}
-            >
-              <TextInput
+                paddingRight: 10
+              }}>
+              <Input
                 onChangeText={text => this.setState({ eventTitle: text })}
-                placeholder={"Title"}
-                autoFocus
-                style={[styles.eventTitle]}
+                placeholder="Title"
+                autoFocus={true}
+                inputContainerStyle={{ borderBottomWidth: 0 }}
+                containerStyle={styles.containerStyle}
                 value={this.state.eventTitle}
               />
 
               <View
                 style={{
                   paddingTop: 20,
-                  flexDirection: "row",
-                }}
-              ></View>
+                  flexDirection: "row"
+                }}></View>
 
-              <TextInput
+              <Input
                 onChangeText={text => this.setState({ eventDescription: text })}
-                placeholder={"Description"}
+                placeholder="Description"
                 multiline
-                style={[styles.eventText]}
+                inputContainerStyle={{ borderBottomWidth: 0 }}
+                containerStyle={styles.containerStyle}
                 value={this.state.eventDescription}
               />
             </View>
           </View>
         </Content>
-      </Container >
+      </Container>
     );
   }
 }
@@ -275,10 +268,7 @@ class PageText extends Component {
 class MaterialTopTabBarWrapper extends React.Component {
   render() {
     return (
-      <SafeAreaView
-        style={{ backgroundColor: "#000" }}
-        forceInset={{ top: "always", horizontal: "never", bottom: "never" }}
-      >
+      <SafeAreaView style={{ backgroundColor: "#000" }} forceInset={{ top: "always", horizontal: "never", bottom: "never" }}>
         <MaterialTopTabBar {...this.props} />
       </SafeAreaView>
     );
@@ -292,8 +282,8 @@ class PageSettings extends Component {
 
     this.state = {
       notifyMeSwitch: false,
-      visible: props.edit ? props.visible : false,
-      visibleMore: props.edit ? props.visibleMore : false,
+      visible: props.edit ? props.visible : true,
+      visibleMore: props.edit ? props.visibleMore : true,
 
       location: props.edit && props.location !== undefined ? props.location : null,
 
@@ -317,86 +307,174 @@ class PageSettings extends Component {
     tabBarLabel: "Settings",
     tabBarIcon: ({ tintColor, focused, horizontal }) => (
       <Ionicons name={focused ? "ios-people" : "ios-people"} size={horizontal ? 20 : 26} style={{ color: tintColor }} />
-    ),
+    )
   };
+
+  clearDates() {
+    console.log("Clear dates");
+    this.setState({ eventDate: null });
+    this.setState({ eventStartTime: null });
+    this.setState({ eventEndTime: null });
+  }
+
   render() {
     const { navigation } = this.props;
     const summary = this.props.summary;
     const order = _.isNumber(this.state.order) ? this.state.order.toString() : 0;
     return (
-      <SafeAreaView forceInset={{ horizontal: "always", top: "always" }}>
-        <Text>{summary}</Text>
+      <View style={styles.containerSettings}>
+        <ScrollView>
+          <View
+            style={{
+              flex: 1,
+              paddingTop: 20,
+              paddingLeft: 10,
+              paddingRight: 10
+            }}>
+            <View style={styles.settingsItem}>
+              {/* {icon} */}
+              <View style={styles.settingsLeft}>
+                <View>
+                  <Text>Order on Page</Text>
+                </View>
 
-        <Text style={styles.eventTitle}>Order: </Text>
-        <TextInput
-          onChangeText={text => this.setState({ order: text })}
-          placeholder={"0"}
-          style={styles.eventTitle}
-          value={order}
-          keyboardType="number-pad"
-        />
-        <Text style={styles.eventTitle}>Visibility: </Text>
+                <View>
+                  <Input
+                    onChangeText={text => this.setState({ order: text })}
+                    placeholder="0"
+                    style={styles.eventTitle}
+                    value={order}
+                    keyboardType="number-pad"
+                    inputContainerStyle={{ borderBottomWidth: 0 }}
+                    containerStyle={styles.containerStyleOrder}
+                  />
+                </View>
+              </View>
+            </View>
 
-        <Text>Home Screen</Text>
-        <Switch
-          onValueChange={value => this.setState({ visible: value })}
-          style={styles.switch}
-          value={this.state.visible}
-        />
-        <Text>More Screen</Text>
-        <Switch
-          onValueChange={value => this.setState({ visibleMore: value })}
-          style={styles.switch}
-          value={this.state.visibleMore}
-        />
+            <View style={styles.settingsItem}>
+              {/* {icon} */}
+              <View style={styles.settingsLeft}>
+                <View>
+                  <Text>Home Screen</Text>
+                </View>
 
-        <Text>Date (optional)</Text>
-        <DatePicker
-          style={{ width: 200 }}
-          date={this.state.eventDate}
-          mode="date"
-          placeholder="Event Date"
-          format="YYYY-MM-DD"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          onDateChange={date => {
-            this.setState({ eventDate: date });
-          }}
-        />
-        <Text>Time (optional)</Text>
-        <DatePicker
-          style={{ width: 200 }}
-          date={this.state.eventStartTime}
-          placeholder="Start Time"
-          mode="time"
-          format="HH:mm"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          minuteInterval={10}
-          onDateChange={time => {
-            this.setState({ eventStartTime: time });
-          }}
-        />
-        <DatePicker
-          style={{ width: 200 }}
-          date={this.state.eventEndTime}
-          placeholder="End Time"
-          mode="time"
-          format="HH:mm"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          minuteInterval={10}
-          onDateChange={time => {
-            this.setState({ eventEndTime: time });
-          }}
-        />
-        <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.clearDates()}>
-          <Text>Clear Dates</Text>
-        </TouchableOpacity>
+                <View>
+                  <Switch onValueChange={value => this.setState({ visible: value })} style={styles.switch} value={this.state.visible} />
+                </View>
+              </View>
+            </View>
 
-        {/* <Button onPress={() => navigation.navigate("Home")} title="Go to home tab" />
+            <View style={styles.settingsItem}>
+              {/* {icon} */}
+              <View style={styles.settingsLeft}>
+                <View>
+                  <Text>More Screen</Text>
+                </View>
+
+                <View>
+                  <Switch
+                    onValueChange={value => this.setState({ visibleMore: value })}
+                    style={styles.switch}
+                    value={this.state.visibleMore}
+                  />
+                </View>
+              </View>
+            </View>
+            <Text style={styles.eventTitle}>Dates:</Text>
+            <View style={styles.settingsItemNoLine}>
+              <View style={styles.settingsLeft}>
+                <View>
+                  <Text>Date (optional)</Text>
+                </View>
+
+                <View>
+                  <DatePicker
+                    style={styles.containerStyleDate}
+                    customStyles={{ dateInput: { borderWidth: 0 } }}
+                    date={this.state.eventDate}
+                    mode="date"
+                    placeholder="Event Date"
+                    format="YYYY-MM-DD"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    onDateChange={date => {
+                      this.setState({ eventDate: date });
+                    }}
+                  />
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.settingsItemNoLine}>
+              <View style={styles.settingsLeft}>
+                <View>
+                  <Text>Time Start</Text>
+                </View>
+
+                <View>
+                  <DatePicker
+                    style={styles.containerStyleDate}
+                    customStyles={{ dateInput: { borderWidth: 0 } }}
+                    date={this.state.eventStartTime}
+                    placeholder="Start Time"
+                    mode="time"
+                    format="HH:mm"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    minuteInterval={10}
+                    onDateChange={time => {
+                      this.setState({ eventStartTime: time });
+                    }}
+                  />
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.settingsItemNoLine}>
+              <View style={styles.settingsLeft}>
+                <View>
+                  <Text>Time End</Text>
+                </View>
+
+                <View>
+                  <DatePicker
+                    style={styles.containerStyleDate}
+                    customStyles={{ dateInput: { borderWidth: 0 } }}
+                    date={this.state.eventEndTime}
+                    placeholder="End Time"
+                    mode="time"
+                    format="HH:mm"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    minuteInterval={10}
+                    onDateChange={time => {
+                      this.setState({ eventEndTime: time });
+                    }}
+                  />
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.settingsItemNoLine}>
+              <View style={styles.settingsLeft}>
+                <View>
+                  <Text></Text>
+                </View>
+
+                <View>
+                  <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.clearDates()}>
+                    <Text>Clear Dates</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+
+            {/* <Button onPress={() => navigation.navigate("Home")} title="Go to home tab" />
         <Button onPress={() => navigation.goBack(null)} title="Go back" /> */}
-      </SafeAreaView>
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }
@@ -404,16 +482,16 @@ class PageSettings extends Component {
 const SimpleTabs = createMaterialTopTabNavigator(
   {
     pageText: PageText,
-    pageSettings: PageSettings,
+    pageSettings: PageSettings
   },
   {
     tabBarComponent: MaterialTopTabBarWrapper,
     tabBarOptions: {
       style: {
-        backgroundColor: "#000",
-      },
-    },
-  },
+        backgroundColor: "#000"
+      }
+    }
+  }
 );
 
 class newStory extends React.Component {
@@ -425,86 +503,86 @@ class newStory extends React.Component {
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
-        }}
-      >
+        }}>
         <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
       </TouchableOpacity>
     ),
 
-    headerTitle: <Text style={{ fontSize: 17, fontWeight: "600", fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Arial' }}>{I18n.t("edit")}</Text>,
+    headerTitle: I18n.t("edit"),
+
     headerRight: (
-
       <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+        {navigation.state.params && (
+          <TouchableOpacity
+            onPress={() => {
+              Alert.alert(
+                "Confirm Delete Story",
+                navigation.state.params.summary + "?",
+                [
+                  {
+                    text: "Cancel",
+                    style: "cancel"
+                  },
+                  {
+                    text: "OK",
+                    onPress: () => {
+                      const _key = navigation.state.params._key;
 
-        {
-          navigation.state.params &&
-          <TouchableOpacity onPress={() => {
-
-
-            Alert.alert(
-              'Confirm Delete Story',
-              navigation.state.params.summary + "?",
-              [
-                {
-                  text: 'Cancel',
-                  style: 'cancel',
-                },
-                {
-                  text: 'OK', onPress: () => {
-
-                    const _key = navigation.state.params._key;
-
-                    if (_key) {
-                      firebase
-                        .firestore()
-                        .collection(global.domain)
-                        .doc("feature")
-                        .collection("features")
-                        .doc(_key)
-                        .delete()
-                        .then(() =>
-                          navigation.popToTop()
-                        );
+                      if (_key) {
+                        firebase
+                          .firestore()
+                          .collection(global.domain)
+                          .doc("feature")
+                          .collection("features")
+                          .doc(_key)
+                          .delete()
+                          .then(() => navigation.popToTop());
+                      }
                     }
-
                   }
-                },
-              ],
-              { cancelable: true },
-            );
-
-          }}
+                ],
+                { cancelable: true }
+              );
+            }}
             style={{ marginRight: 12 }}>
             <AntDesign name="delete" size={24} />
           </TouchableOpacity>
-        }
+        )}
 
         <TouchableOpacity
           onPress={() => {
             const { routes } = navigation.state;
             let saveState = {};
 
-
             if (_.has(routes[0], "params.save")) {
               const pageState = routes[0].params.save() || {};
-              saveState = { ...saveState, ...pageState }
+              saveState = { ...saveState, ...pageState };
             }
-
 
             if (_.has(routes[1], "params.save")) {
               const pageState = routes[1].params.save() || {};
-              saveState = { ...saveState, ...pageState }
+              saveState = { ...saveState, ...pageState };
             }
 
-            const { eventTitle, visible, visibleMore, eventDescription, photo1, eventDate, eventStartTime, eventEndTime, order, _key,
+            const {
+              eventTitle,
+              visible,
+              visibleMore,
+              eventDescription,
+              photo1,
+              eventDate,
+              eventStartTime,
+              eventEndTime,
+              order,
+              _key,
               showIconChat,
               showIconShare
             } = saveState;
 
             const storyDict = {
               summary: eventTitle,
-              visible: visible || false,
-              visibleMore: visibleMore || false,
+              visible: visible || true,
+              visibleMore: visibleMore || true,
               description: eventDescription,
               photo1: photo1,
               date_start: eventDate !== undefined ? eventDate : null,
@@ -522,9 +600,7 @@ class newStory extends React.Component {
                 .doc("feature")
                 .collection("features")
                 .add(storyDict)
-                .then(() =>
-                  navigation.goBack()
-                );
+                .then(() => navigation.goBack());
             } else {
               const storyRef = firebase
                 .firestore()
@@ -533,25 +609,17 @@ class newStory extends React.Component {
                 .collection("features")
                 .doc(_key);
 
-              storyRef.set(storyDict, { merge: true })
-                .then(() =>
-                  navigation.popToTop()
-                );
-            }
+              storyRef.set(storyDict, { merge: true }).then(() => navigation.popToTop());
 
-          }}
-        >
-          <Text style={[styles.chatHeading, { fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Arial' }]}>
-            {I18n.t("save")}
-          </Text>
+              systemHero.logToCalendar("StorySave-" + global.domain + eventTitle, "Story Save - " + eventTitle, global.domain);
+            }
+          }}>
+          <Text style={[styles.chatHeading, { fontFamily: Platform.OS === "android" ? "Roboto" : "Arial" }]}>{I18n.t("save")}</Text>
         </TouchableOpacity>
       </View>
-    ),
+    )
   });
 
-  componentWillUpdate() {
-    LayoutAnimation.easeInEaseOut();
-  }
   render() {
     const { navigation } = this.props;
     return (

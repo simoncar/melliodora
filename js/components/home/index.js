@@ -14,27 +14,32 @@ import {
 } from "react-native";
 import { Container, Content, Text } from "native-base";
 import Constants from "expo-constants";
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
 import { getLanguageString } from "../global";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
+import * as Progress from "react-native-progress";
+import systemHero from "../../lib/systemHero";
+
 import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
-// import { NavigationEvents, ScrollView } from "react-navigation";
 import moment from "moment";
 import { setUserInfo, actionCheckAdmin } from "../../store/auth";
 import { connect } from 'react-redux';
 
 
-const { width } = Dimensions.get("window");
+import DemoData from "../../lib/demoData";
+
+const demo = DemoData;
+
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
 const bottomLogo = {
   sais_edu_sg: require("../../../images/sais_edu_sg/10yearLogo.png"),
-  ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg"),
+  ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg")
 };
 
 class HomeNav extends Component {
@@ -45,6 +50,7 @@ class HomeNav extends Component {
       loading: true,
       featureItems: [],
       calendarItems: [],
+      balanceItems: []
     };
 
     this.loadFromAsyncStorage();
@@ -57,40 +63,57 @@ class HomeNav extends Component {
 
     let headerTitle = null;
     if (global.domain == "ais_edu_sg") {
-      headerTitle = (
-        <Image source={require('../../../images/ais_edu_sg/ifla-apr.jpeg')}
-          style={{ height: 39, resizeMode: "contain" }}
-        />
-      );
+      headerTitle = <Image source={require("../../../images/ais_edu_sg/ifla-apr.jpeg")} style={{ height: 39, resizeMode: "contain" }} />;
     }
     return {
       title: title,
       headerTitle: headerTitle,
       headerBackTitle: null,
-      headerRight: (
+
+      headerLeft: (
         <TouchableOpacity
           onPress={() => {
-            navigation.push("searchCalendarHome");
-          }}
-        >
+            navigation.push("selectLanguage");
+          }}>
           <View
             style={{
               color: "#48484A",
               fontSize: 25,
-              marginRight: 10,
-            }}
-          >
-            <Ionicons
-              name="md-search"
+              marginLeft: 10
+            }}>
+            <FontAwesome
+              name="language"
               style={{
                 color: "#48484A",
                 fontSize: 25,
-                marginRight: 10,
+                marginLeft: 10
               }}
             />
           </View>
         </TouchableOpacity>
       ),
+      headerRight: (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.push("searchCalendarHome");
+          }}>
+          <View
+            style={{
+              color: "#48484A",
+              fontSize: 25,
+              marginRight: 10
+            }}>
+            <Ionicons
+              name="md-search"
+              style={{
+                color: "#48484A",
+                fontSize: 25,
+                marginRight: 10
+              }}
+            />
+          </View>
+        </TouchableOpacity>
+      )
     };
   };
 
@@ -102,6 +125,12 @@ class HomeNav extends Component {
     this.props.dispatch(actionCheckAdmin(this.props.community.selectedCommunity.node));
 
     global.domain = this.props.community.selectedCommunity.node || global.domain;
+
+    if (domain == "oakforest_international_edu") {
+      demo.setupDemoData();
+    }
+
+    systemHero.logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain);
 
     this.feature = firebase
       .firestore()
@@ -117,7 +146,7 @@ class HomeNav extends Component {
     this.focusListener = navigation.addListener("didFocus", () => {
       // The screen is focused
       // Call any action
-      console.log("home is focused");
+      this.loadBalance();
       this.loadCalendar();
     });
   }
@@ -126,9 +155,54 @@ class HomeNav extends Component {
     this.unsubscribeFeature();
     this.focusListener.remove();
   }
+
+  loadBalance() {
+    var balanceItems = [];
+
+    let balance = firebase
+      .firestore()
+      .collection("sais_edu_sg")
+      .doc("user")
+      .collection("usernames")
+      .doc("Rh9hEJmOyLR12WfflrLCCvvpIWD2")
+      .get()
+
+      .then(snapshot => {
+        if (!snapshot.exists) {
+          return;
+        }
+        const data = snapshot.data();
+        //.push({ campusBalance: data.campusBalance });
+
+        var trans = {
+          visible: true,
+          source: "balance",
+          summaryMyLanguage: "AAA",
+          summary: data.campusBalance,
+          summaryEN: "$" + data.campusBalance.toFixed(2),
+          color: "red",
+          showIconChat: false,
+          location: "Cafeteria Account Balance"
+        };
+
+        var familyId = data.guid.substring(data.guid.indexOf("iSAMSparents:") + 13, data.guid.indexOf("-"));
+
+        balanceItems.push({ ...{ _key: snapshot.id }, ...data, ...trans });
+        if (balanceItems.length > 0) {
+          this.setState({
+            balanceItems
+          });
+        }
+      });
+
+    // this.setState({
+    //   loading: false
+    // });
+  }
+
   loadCalendar() {
     const todayDate = moment().format("YYYY-MM-DD");
-    console.log("todayDate=", todayDate);
+    //const todayDate = "2020-02-19";
 
     var calendarItems = [];
     let calendar = firebase
@@ -151,17 +225,18 @@ class HomeNav extends Component {
             color: "red",
             showIconChat: false,
             descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
+            number: doc.data().number
           };
-
           calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
         });
         if (calendarItems.length > 0) {
           this.setState({
             calendarItems,
+            loading: false
           });
         }
         this.setState({
-          loading: false,
+          loading: false
         });
       });
   }
@@ -173,7 +248,7 @@ class HomeNav extends Component {
       var trans = {
         source: "feature",
         summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
-        descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
+        descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description")
       };
 
       if (!doc.data().visible == false) {
@@ -184,13 +259,13 @@ class HomeNav extends Component {
     if (featureItems.length > 0) {
       this._storeData(JSON.stringify(featureItems));
       this.setState({
-        featureItems,
+        featureItems
       });
     }
 
-    this.setState({
-      loading: false,
-    });
+    // this.setState({
+    //   loading: false
+    // });
   };
 
   _handleOpenWithLinking = sURL => {
@@ -215,8 +290,7 @@ class HomeNav extends Component {
     AsyncStorage.multiGet(["featureItems"], (err, stores) => {
       const featureItems = JSON.parse(stores[0][1]);
       this.setState({
-        featureItems,
-        loading: false,
+        featureItems
       });
     });
   }
@@ -231,16 +305,31 @@ class HomeNav extends Component {
   };
 
   _renderItem(item) {
-    return <ListItem navigation={this.props.navigation} item={item} />;
+    return <ListItem navigation={this.props.navigation} item={item} card={true} />;
+  }
+
+  _renderItemNoCard(item) {
+    return <ListItem navigation={this.props.navigation} item={item} card={false} />;
+  }
+  _renderBalance() {
+    if (global.domain === "oakforest_international_edu") {
+      return <FlatList data={this.state.balanceItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem.bind(this)} />;
+    }
+  }
+
+  _renderToday() {
+    if (this.state.calendarItems.length > 0) {
+      return (
+        <View style={styles.card}>
+          <FlatList data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard.bind(this)} />
+        </View>
+      );
+    }
   }
 
   env() { }
 
   render() {
-    if (this.state.loading) {
-      return null; // or render a loading icon
-    }
-
     return (
       <Container>
         {(global.administrator || this.props.auth.isAdmin) && (
@@ -253,182 +342,135 @@ class HomeNav extends Component {
           </TouchableHighlight>
         )}
         <Content showsVerticalScrollIndicator={false}>
+          {this.state.loading && (
+            <Progress.Bar indeterminate={true} borderRadius={0} width={Dimensions.get("window").width} borderWidth={0} />
+          )}
 
-          {
-            global.domain === "ais_edu_sg" ?
-              <View style={styles.newsContentLine}>
-                <ScrollView
-                  horizontal={true}
-                  bounces={false}
-                  contentContainerStyle={{ paddingHorizontal: 12, paddingVertical: 8 }}
-                  style={{ backgroundColor: "white", marginVertical: 6 }}
-                  showsHorizontalScrollIndicator={false}
+          {global.domain === "ais_edu_sg" ? (
+            <View style={styles.newsContentLine}>
+              <ScrollView
+                horizontal={true}
+                bounces={false}
+                contentContainerStyle={{
+                  paddingHorizontal: 12,
+                  paddingVertical: 8
+                }}
+                style={{ backgroundColor: "white", marginVertical: 6 }}
+                showsHorizontalScrollIndicator={false}>
+                <TouchableOpacity
+                  style={styles.homeMenuItemContainer}
+                  onPress={() => {
+                    this.props.navigation.navigate("webportalURL", {
+                      url: "https://iflaapr.org/newsletters",
+                      title: "Newsletters"
+                    });
+                  }}>
+                  <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/news.png")} />
+                  <Text style={{ color: "black", fontSize: 12 }}>{I18n.t("newsletters")}</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.homeMenuItemContainer}
+                  onPress={() => {
+                    this.props.navigation.navigate("webportalURL", {
+                      url: "https://iflaapr.org/news/listing/design",
+                      title: "Design News"
+                    });
+                  }}>
+                  <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Design.jpeg")} />
+                  <Text style={styles.homeMenuText}>{I18n.t("design") + "\n" + I18n.t("design")}</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.homeMenuItemContainer}
+                  onPress={() => {
+                    this.props.navigation.navigate("webportalURL", {
+                      url: "https://iflaapr.org/news/listing/management",
+                      title: "Management News"
+                    });
+                  }}>
+                  <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Management.jpeg")} />
+                  <Text style={styles.homeMenuText}>{I18n.t("management") + "\n" + I18n.t("news")}</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.homeMenuItemContainer}
+                  onPress={() => {
+                    this.props.navigation.navigate("webportalURL", {
+                      url: "https://iflaapr.org/news/listing/planning",
+                      title: "Planning News"
+                    });
+                  }}>
+                  <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Planning.jpeg")} />
+                  <Text style={styles.homeMenuText}>{I18n.t("planning") + "\n" + I18n.t("news")}</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.homeMenuItemContainer}
+                  onPress={() => {
+                    this.props.navigation.navigate("webportalURL", {
+                      url: "https://iflaapr.org/membership-directory/corporate",
+                      title: "Directory"
+                    });
+                  }}>
+                  <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Directory.jpeg")} />
+                  <Text style={styles.homeMenuText}>{I18n.t("directory")}</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.homeMenuItemContainer}
+                // onPress={() => {
+                //   this.props.navigation.navigate("webportalURL", {
+                //     url: "https://smartcookies.io/smart-community",
+                //     title: "Member Associations",
+                //   });
+                // }}
                 >
-                  <TouchableOpacity
-                    style={styles.homeMenuItemContainer}
-                    onPress={() => {
-                      this.props.navigation.navigate("webportalURL", {
-                        url: "https://iflaapr.org/newsletters",
-                        title: "Newsletters",
-                      });
-                    }}>
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/news.png')}
-                    />
-                    <Text style={{ color: "black", fontSize: 12 }}>
-                      {I18n.t("Newsletters")}
-                    </Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    style={styles.homeMenuItemContainer}
-                    onPress={() => {
-                      this.props.navigation.navigate("webportalURL", {
-                        url: "https://iflaapr.org/news/listing/design",
-                        title: "Design News",
-                      });
-                    }}>
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/_Design.jpeg')}
-                    />
-                    <Text style={styles.homeMenuText}>
-                      {I18n.t("Design") + "\n" + I18n.t("News")}
-                    </Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    style={styles.homeMenuItemContainer}
-                    onPress={() => {
-                      this.props.navigation.navigate("webportalURL", {
-                        url: "https://iflaapr.org/news/listing/management",
-                        title: "Management News",
-                      });
-                    }}>
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/_Management.jpeg')}
-                    />
-                    <Text style={styles.homeMenuText}>
-                      {I18n.t("Management") + "\n" + I18n.t("News")}
-                    </Text>
-                  </TouchableOpacity>
-
-
-                  <TouchableOpacity
-                    style={styles.homeMenuItemContainer}
-                    onPress={() => {
-                      this.props.navigation.navigate("webportalURL", {
-                        url: "https://iflaapr.org/news/listing/planning",
-                        title: "Planning News",
-                      });
-                    }}>
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/_Planning.jpeg')}
-                    />
-                    <Text style={styles.homeMenuText}>
-                      {I18n.t("Planning") + "\n" + I18n.t("News")}
-                    </Text>
-                  </TouchableOpacity>
-
-
-                  <TouchableOpacity
-                    style={styles.homeMenuItemContainer}
-                    onPress={() => {
-                      this.props.navigation.navigate("webportalURL", {
-                        url: "https://iflaapr.org/membership-directory/corporate",
-                        title: "Directory",
-                      });
-                    }}>
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/_Directory.jpeg')}
-                    />
-                    <Text style={styles.homeMenuText}>{I18n.t("Directory")}</Text>
-                  </TouchableOpacity>
-
-
-                  <TouchableOpacity
-                    style={styles.homeMenuItemContainer}
-                  // onPress={() => {
-                  //   this.props.navigation.navigate("webportalURL", {
-                  //     url: "https://smartcookies.io/smart-community",
-                  //     title: "Member Associations",
-                  //   });
-                  // }}
-                  >
-                    <Image
-                      style={styles.homeMenuIcon}
-                      source={require('../../../resources/icons/_Associations.png')}
-                    />
-                    <Text style={styles.homeMenuText}>
-                      {I18n.t("Member") + "\n" + I18n.t("Associations")}
-                    </Text>
-                  </TouchableOpacity>
-
-
-
-                </ScrollView>
-              </View>
-              : null
-          }
+                  <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Associations.png")} />
+                  <Text style={styles.homeMenuText}>{I18n.t("member") + "\n" + I18n.t("associations")}</Text>
+                </TouchableOpacity>
+              </ScrollView>
+            </View>
+          ) : null}
 
           <View style={styles.newsContentLine}>
+            {this._renderBalance()}
+            {this._renderToday()}
 
-            {
-              global.domain !== "ais_edu_sg" ?
-                <FlatList
-                  data={this.state.calendarItems}
-                  keyExtractor={this.keyExtractor}
-                  renderItem={this._renderItem.bind(this)}
-                />
-                : null
-            }
-
-            <FlatList
-              data={this.state.featureItems}
-              keyExtractor={this.keyExtractor}
-              renderItem={this._renderItem.bind(this)}
-            />
+            <FlatList data={this.state.featureItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem.bind(this)} />
           </View>
-          <View
-            style={{
-              marginTop: 70,
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
-            <Image
-              style={styles.tenYearLogo}
-              source={bottomLogo[global.domain] || { uri: global.switch_homeLogoURI }}
-            />
-          </View>
-          <View
-            style={{
-              marginTop: 100,
-              alignItems: "center",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                this._handleOpenWithLinking("https://smartcookies.io/smart-community");
-              }}
+          <View style={styles.card}>
+            <View
               style={{
-                width: 40,
-                height: 40,
-              }}
-            >
-              <Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
-            </TouchableOpacity>
-          </View>
-          <View>
-            <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
-            <Text style={styles.user}>{global.name}</Text>
-            <Text style={styles.user}>{global.email}</Text>
-            <Text style={styles.user}>{global.uid}</Text>
-            <Text style={styles.user}>{global.language}</Text>
+                marginTop: 70,
+                alignItems: "center",
+                width: "100%"
+              }}>
+              <Image style={styles.tenYearLogo} source={bottomLogo[global.domain] || { uri: global.switch_homeLogoURI }} />
+            </View>
+            <View
+              style={{
+                marginTop: 100,
+                alignItems: "center"
+              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  this._handleOpenWithLinking("https://smartcookies.io/smart-community");
+                }}
+                style={{
+                  width: 40,
+                  height: 40
+                }}>
+                <Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
+              </TouchableOpacity>
+            </View>
+            <View>
+              <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
+              <Text style={styles.user}>{global.name}</Text>
+              <Text style={styles.user}>{global.email}</Text>
+              <Text style={styles.user}>{global.uid}</Text>
+              <Text style={styles.user}>{global.language}</Text>
+            </View>
           </View>
         </Content>
       </Container>

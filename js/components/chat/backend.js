@@ -16,12 +16,12 @@ export class Backend extends React.Component {
     super(props);
     this.state = {
       chatroom: "",
-      language: "",
+      language: ""
     };
   }
 
   setUid(value) {
-    this.uid = value;
+    //this.uid = value;
   }
 
   aagetUid() {
@@ -112,13 +112,13 @@ export class Backend extends React.Component {
             user: {
               _id: message.user._id,
               name: message.user.name,
-              email: message.user.email,
+              email: message.user.email
             },
             uid: message.uid,
             image: message.image,
             video: message.video,
             system: message.system,
-            quickReplies: message.quickReplies,
+            quickReplies: message.quickReplies
           });
         }
       });
@@ -127,6 +127,14 @@ export class Backend extends React.Component {
 
   get uid() {
     return (firebase.auth().currentUser || {}).uid;
+  }
+
+  set uid(uid) {
+    return;
+  }
+
+  setUid(value) {
+    this.uid = value;
   }
 
   get timestamp() {
@@ -155,7 +163,7 @@ export class Backend extends React.Component {
           timestamp: Date.now(),
           system: false,
           pushToken: global.pushToken,
-          uid: global.uid,
+          uid: global.uid
         };
 
         console.log("messageDict", messageDict);
@@ -182,7 +190,7 @@ export class Backend extends React.Component {
           uid: global.uid,
           language: global.language,
           email: global.email,
-          name: global.name,
+          name: global.name
         };
       } else {
         var messageDict = {
@@ -191,7 +199,7 @@ export class Backend extends React.Component {
           uid: global.uid,
           language: global.language,
           email: global.email,
-          name: global.name,
+          name: global.name
         };
       }
 
@@ -240,7 +248,7 @@ async function uploadImageAsync(message, chatroom, user) {
   fileType = fileType.toUpperCase();
   if (fileType == "JPG" || fileType == "HEIC" || fileType == "PNG") {
     const convertedImage = await new ImageManipulator.manipulateAsync(message.image, [{ resize: { height: 1000 } }], {
-      compress: 0,
+      compress: 0
     });
     fileToUpload = convertedImage.uri;
     mime = "image/jpeg";
@@ -251,10 +259,10 @@ async function uploadImageAsync(message, chatroom, user) {
 
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
+    xhr.onload = function() {
       resolve(xhr.response);
     };
-    xhr.onerror = function (e) {
+    xhr.onerror = function(e) {
       reject(new TypeError("Network request failed"));
     };
     xhr.responseType = "blob";
@@ -295,7 +303,7 @@ async function uploadImageAsync(message, chatroom, user) {
       user: user,
       timestamp: Date.now(),
       system: false,
-      pushToken: global.pushToken,
+      pushToken: global.pushToken
     };
   } else {
     var messageDict = {
@@ -306,7 +314,7 @@ async function uploadImageAsync(message, chatroom, user) {
       user: user,
       timestamp: Date.now(),
       system: false,
-      pushToken: global.pushToken,
+      pushToken: global.pushToken
     };
   }
 

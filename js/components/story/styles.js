@@ -7,6 +7,7 @@ const primary = require("../../themes/variable").brandPrimary;
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+import stylesGlobal from "../../themes/globalTheme";
 
 export default {
   header: {
@@ -52,6 +53,36 @@ export default {
   switchContainer: {
     alignSelf: "flex-end"
   },
+  containerStyle: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#d2d2d2",
+    backgroundColor: "#ffffff",
+    marginVertical: 8
+  },
+  containerStyleOrder: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#d2d2d2",
+    backgroundColor: "#ffffff",
+    marginVertical: 8,
+    width: 50
+  },
+  containerStyleDate: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#d2d2d2",
+    backgroundColor: "#ffffff",
+    marginVertical: 8,
+    width: 200
+  },
+
+  container: {
+    backgroundColor: "#f2f2f2",
+    flex: 1,
+    padding: 10
+  },
+
   chatHeadingLeft: {
     color: "#037AFF",
     alignSelf: "center",
@@ -180,18 +211,43 @@ export default {
   },
   eventTitle: {
     color: "#222",
-    fontSize: 22,
-    paddingBottom: 20,
+    fontSize: stylesGlobal.headingFontSize,
+    paddingTop: 15,
+    paddingBottom: 10,
     fontWeight: "bold"
   },
+
+  settingsItem: {
+    flexDirection: "row",
+    backgroundColor: "white",
+    paddingVertical: 8,
+    alignItems: "center",
+    borderBottomColor: "#CED0CE",
+    borderBottomWidth: 1
+  },
+  settingsItemNoLine: {
+    flexDirection: "row",
+    backgroundColor: "white",
+    alignItems: "center",
+    borderBottomColor: "#CED0CE",
+    borderBottomWidth: 0
+  },
+  settingsLeft: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 8 },
   eventText: {
     color: "#222",
-    fontSize: 18
+    fontSize: stylesGlobal.bodyFontSize,
+    marginRight: 20
+  },
+  eventTextTime: {
+    color: "#222",
+    fontSize: stylesGlobal.bodyFontSize,
+    marginRight: 20,
+    marginBottom: 10
   },
 
   eventTextSend: {
     color: "#222",
-    fontSize: 18,
+    fontSize: stylesGlobal.bodyFontSize,
     paddingRight: 10,
     paddingLeft: 15,
     paddingBottom: 15
@@ -215,19 +271,19 @@ export default {
 
   photoURL: {
     color: "#222",
-    fontSize: 18,
+    fontSize: stylesGlobal.bodyFontSize,
     paddingRight: 25,
     paddingBottom: 25
   },
   englishFallback: {
     color: "grey",
-    fontSize: 18,
+    fontSize: stylesGlobal.bodyFontSize,
     paddingBottom: 10,
     paddingTop: 30
   },
   eventTextAbbreviation: {
     color: "grey",
-    fontSize: 18,
+    fontSize: stylesGlobal.bodyFontSize,
     paddingBottom: 10
   },
   url: {
@@ -264,7 +320,7 @@ export default {
   },
   eventPhone: {
     color: "#222",
-    fontSize: 18,
+    fontSize: stylesGlobal.bodyFontSize,
     marginLeft: 200,
     paddingLeft: 200
   },
@@ -398,8 +454,7 @@ export default {
   },
   modalContentBox: {
     borderBottomWidth: 1,
-    borderBottomColor:
-      Platform.OS === "android" ? "#fff" : "rgba(255,255,255,0.5)"
+    borderBottomColor: Platform.OS === "android" ? "#fff" : "rgba(255,255,255,0.5)"
   },
   modalSmallText: {
     alignSelf: "flex-start",

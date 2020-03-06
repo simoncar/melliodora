@@ -1,13 +1,11 @@
 import firebase from "firebase";
 import uuid from "uuid";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 
-
-
-exports.getPermissionAsync = async () => {
+export async function getPermissionAsync() {
   const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
   // this.setState({ hasCameraPermission: status === "granted" });
 }
@@ -47,7 +45,7 @@ exports.saveProfilePic = async (imgURI) => {
   return downloadURL;
 }
 
-exports.launchProfileImagePicker = async () => {
+export async function launchProfileImagePicker() {
   return await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.All,
     allowsEditing: true,

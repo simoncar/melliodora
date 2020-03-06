@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { StyleSheet, View, TextInput, Text, TouchableOpacity, Switch } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import * as firebase from "firebase";
-import { Button } from "react-native-elements";
-import { SimpleLineIcons, Entypo, MaterialIcons } from "@expo/vector-icons";
+import { Button, Input } from "react-native-elements";
+import { MaterialIcons } from "@expo/vector-icons";
+import I18n from "../../lib/i18n";
 
 export default class chatTitle extends Component {
   static navigationOptions = {
     title: "Edit",
-    headerBackTitle: null,
+    headerBackTitle: null
   };
 
   constructor(props) {
@@ -25,7 +26,8 @@ export default class chatTitle extends Component {
   _saveChatroom() {
     var dict = {
       title: this.state.chatroomTitle,
-      type: this.state.interestGroupOnly ? "interestGroup" : "user"
+      // type: this.state.interestGroupOnly ? "interestGroup" : "user"
+      type: "public"
     };
 
     var edit = this.props.navigation.getParam("edit");
@@ -53,7 +55,7 @@ export default class chatTitle extends Component {
 
   _hideChatroom() {
     var dict = {
-      visible: false,
+      visible: false
     };
     console.log("hiding");
     firebase
@@ -69,7 +71,7 @@ export default class chatTitle extends Component {
 
   _goback() {
     const { goBack } = this.props.navigation;
-    setTimeout(function () {
+    setTimeout(function() {
       goBack();
     }, 1500);
     goBack();
@@ -93,30 +95,30 @@ export default class chatTitle extends Component {
 
   render() {
     return (
-      <View style={styles.padding}>
-        <View style={{ flexDirection: "column" }}>
-          <View style={styles.subjectRow}>
-            <Text style={styles.title}>Subject:</Text>
-            <TextInput
-              style={styles.titleField}
-              onChangeText={text => this._setChatroomTitle(text)}
-              autoCapitalize="words"
-              autoFocus={true}
-              placeholder={this.state.chatroomTitle}
-              value={this.state.chatroomTitle}
-            />
-          </View>
+      <View style={styles.container}>
+        <Input
+          style={styles.titleField}
+          onChangeText={text => this._setChatroomTitle(text)}
+          autoCapitalize="words"
+          autoFocus={true}
+          inputContainerStyle={{ borderBottomWidth: 0 }}
+          containerStyle={styles.containerStyle}
+          placeholder={this.state.chatroomTitle}
+          value={this.state.chatroomTitle}
+        />
 
-          <View style={styles.subjectRow}>
+        {/* <View style={styles.subjectRow}>
             <Text style={styles.title}>Interest Group Only:</Text>
             <Switch
               style={{ marginLeft: 12 }}
               onValueChange={(value) => this.setState({ interestGroupOnly: value })}
               value={this.state.interestGroupOnly} />
-          </View>
+          </View> */}
+        <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>
+          <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => this._saveChatroom()}>
+            <Text style={styles.TextStyle}>{I18n.t("save")}</Text>
+          </TouchableOpacity>
         </View>
-        <Button title="Save" style={styles.button} onPress={() => this._saveChatroom()} />
-
         {this._closeHideButton()}
       </View>
     );
@@ -124,28 +126,47 @@ export default class chatTitle extends Component {
 }
 
 const styles = StyleSheet.create({
-  padding: {
-    paddingTop: 16,
-    paddingLeft: 20,
-    paddingRight: 20,
-    color: "#8e8e93",
+  container: {
+    backgroundColor: "#f2f2f2",
+    flex: 1,
+    padding: 10
   },
-
+  containerStyle: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#d2d2d2",
+    backgroundColor: "#ffffff",
+    marginVertical: 8
+  },
+  SubmitButtonStyle: {
+    backgroundColor: "#fff",
+    height: 50,
+    width: 250,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "rgba(0,0,0, .4)",
+    shadowOffset: { height: 2, width: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 1,
+    elevation: 4,
+    marginBottom: 30
+  },
   subjectRow: {
     flexDirection: "row"
   },
   title: {
-    flex: 0,
-    fontSize: 22,
+    paddingBottom: 1
   },
   titleField: {
-    flex: 1,
-    paddingLeft: 20,
-    fontSize: 22,
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 0,
+    paddingLeft: 10
   },
 
   button: {
     paddingTop: 20,
-    paddingBottom: 20,
-  },
+    paddingBottom: 20
+  }
 });

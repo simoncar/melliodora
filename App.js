@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import Setup from "./js/setup";
+import * as Sentry from "sentry-expo";
 import Constants from "expo-constants";
-//import Sentry from "sentry-expo";
 import _ from "lodash";
 
 import { store, persistor } from './js/store/store';
@@ -20,14 +20,15 @@ import { PersistGate } from 'redux-persist/integration/react';
 // Node modules check latest
 // npm-check
 
-// export const setTagsContext = (ctx: "env-simulator") => {
-//   Sentry.setTagsContext({
-//     environment: ctx.environment,
-//   });
-// };
+if (Constants.isDevice) {
+  Sentry.init({
+    dsn: Constants.manifest.extra.sentryDSN,
+    enableInExpoDevelopment: true,
+    debug: true
+  });
 
-//Sentry.captureMessage("App started V" + Constants.manifest.version);
-
+  Sentry.captureMessage("App started V" + Constants.manifest.version);
+}
 export default class App extends Component {
   constructor(props) {
     super(props);

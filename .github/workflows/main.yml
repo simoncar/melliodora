@@ -1,4 +1,4 @@
-name: Expo Publish Melliodora
+name: Expo Publish Melliodora 3
 on:
   push:
     branches:
@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Setup kernel for react native, increase watchers
-        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
       - uses: SpicyPizza/create-envfile@v1
         with:
           envkey_FIREBASE_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
@@ -18,10 +16,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - uses: expo/expo-github-action@v4
+      - uses: expo/expo-github-action@v5
         with:
           expo-version: 3.x
           expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
-      - run: npm ci
+          expo-cache: true
+      - run: yarn install
       - run: expo publish --config apps/app.generic.json
+      - run: expo publish --config apps/app.sais_edu_sg.json
