@@ -10,19 +10,20 @@ import Firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
 import * as firebase from "firebase";
 import Constants from "expo-constants";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import CommunityCreateScreen from "./CommunityCreateScreen";
 
 //redux
 import { actionSignInAnonymously, actionInitUser, setIsAdmin } from "./store/auth";
+import { actionSetSelectedCommunity } from "./store/community";
 
 class Setup extends Component {
   constructor() {
     super();
   }
   state = {
-    loading: true,
-  }
+    loading: true
+  };
 
   async componentDidMount() {
     try {
@@ -39,9 +40,8 @@ class Setup extends Component {
 
     console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
     if (Constants.manifest.extra.instance) {
-      this.setSelectedDomain(Constants.manifest.extra.instance);
+      // this.setSelectedDomain(Constants.manifest.extra.instance);
     }
-
 
     let language = await AsyncStorage.getItem("language");
     if (!_.isString(language)) {
@@ -62,7 +62,7 @@ class Setup extends Component {
     I18n.locale = language;
     global.language = language;
 
-    const email = await AsyncStorage.getItem("email")
+    const email = await AsyncStorage.getItem("email");
     global.email = _.isString(email) ? email : "";
 
     const name = await AsyncStorage.getItem("name");
@@ -71,16 +71,24 @@ class Setup extends Component {
     this.setState({ loading: false });
     this.setupUser();
 
+    if (Constants.manifest.extra.instance == "sais_edu_sg") {
+      console.log("domain passed in app.json");
+      const dict = {
+        name: Constants.manifest.extra.instance,
+        node: Constants.manifest.extra.instance,
+        admins: [this.props.auth.userInfo.uid]
+      };
+
+      this.props.dispatch(actionSetSelectedCommunity(dict));
+    }
   }
 
   setupUser = () => {
     try {
-
       firebase.auth().onAuthStateChanged(user => {
         console.log("SetupUser", user);
         if (!user) {
           this.props.dispatch(actionSignInAnonymously());
-
         } else {
           const isAnonymous = user.isAnonymous;
           this.props.dispatch(actionInitUser(user, isAnonymous));
@@ -91,19 +99,17 @@ class Setup extends Component {
     }
   };
 
-
   render() {
-
     if (this.state.loading || !this.props.auth.userInfo || _.isEmpty(this.props.auth.userInfo)) {
       return <AppLoading />;
-    }
-    else if (_.isEmpty(this.props.community.selectedCommunity)) {
-      return <AuthStackNavigator />
+    } else if (_.isEmpty(this.props.community.selectedCommunity) || this.props.community.selectedCommunity.node.length == 0) {
+      console.log("AuthStackNavigator");
+      return <AuthStackNavigator />;
     } else {
+      console.log("App");
       // check if user is admin
       return <App />;
     }
-
   }
 }
 

@@ -26,8 +26,7 @@ import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
 import moment from "moment";
 import { setUserInfo, actionCheckAdmin } from "../../store/auth";
-import { connect } from 'react-redux';
-
+import { connect } from "react-redux";
 
 import DemoData from "../../lib/demoData";
 
@@ -129,6 +128,8 @@ class HomeNav extends Component {
     if (domain == "oakforest_international_edu") {
       demo.setupDemoData();
     }
+
+    console.log("HomeNav - domain", global.domain);
 
     systemHero.logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain);
 
@@ -281,11 +282,11 @@ class HomeNav extends Component {
         ...this.props.auth.userInfo,
         communityJoined: [...communityJoined, global.domain]
       };
-      this.props.dispatch(setUserInfo(userInfo, true))
+      this.props.dispatch(setUserInfo(userInfo, true));
     }
 
     //check if user is admin
-  }
+  };
   loadFromAsyncStorage() {
     AsyncStorage.multiGet(["featureItems"], (err, stores) => {
       const featureItems = JSON.parse(stores[0][1]);
@@ -327,17 +328,13 @@ class HomeNav extends Component {
     }
   }
 
-  env() { }
+  env() {}
 
   render() {
     return (
       <Container>
         {(global.administrator || this.props.auth.isAdmin) && (
-          <TouchableHighlight
-            style={styles.addButton}
-            underlayColor="#ff7043"
-            onPress={() => this.props.navigation.navigate("storyForm")}
-          >
+          <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => this.props.navigation.navigate("storyForm")}>
             <Text style={{ fontSize: 25, color: "white" }}>+</Text>
           </TouchableHighlight>
         )}
@@ -419,12 +416,12 @@ class HomeNav extends Component {
 
                 <TouchableOpacity
                   style={styles.homeMenuItemContainer}
-                // onPress={() => {
-                //   this.props.navigation.navigate("webportalURL", {
-                //     url: "https://smartcookies.io/smart-community",
-                //     title: "Member Associations",
-                //   });
-                // }}
+                  // onPress={() => {
+                  //   this.props.navigation.navigate("webportalURL", {
+                  //     url: "https://smartcookies.io/smart-community",
+                  //     title: "Member Associations",
+                  //   });
+                  // }}
                 >
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Associations.png")} />
                   <Text style={styles.homeMenuText}>{I18n.t("member") + "\n" + I18n.t("associations")}</Text>
