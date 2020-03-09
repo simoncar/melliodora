@@ -189,17 +189,14 @@ class DomainSelection extends Component {
             elevation: 5,
             height: 340
           }}>
+          {this.renderHeader()}
           <FlatList
-            style={{ overflow: "hidden" }}
             data={this.state.domains}
             renderItem={this.renderItem}
             keyExtractor={(_, idx) => "domain" + idx}
             ItemSeparatorComponent={this.renderSeparator}
-            ListHeaderComponent={this.renderHeader}
             bounces={false}
             showsVerticalScrollIndicator={false}
-            ListHeaderComponentStyle={{ overflow: "hidden" }}
-            stickyHeaderIndices={[0]}
           />
         </View>
 
