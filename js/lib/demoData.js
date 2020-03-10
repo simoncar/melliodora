@@ -198,7 +198,6 @@ class DemoData {
     };
 
     for (var i = 0; i < cal.length; i++) {
-      console.log(cal[i]);
       firebase
         .firestore()
         .collection("oakforest_international_edu")

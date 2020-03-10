@@ -11,9 +11,8 @@ class Firebase {
       if (!firebase.apps.length) {
         await firebase.initializeApp(ApiKeys.FirebaseConfig);
       }
-
     } catch (e) {
-      console.log("catch error body:", e.message);
+      console.log("firebase catch error:", e.message);
       //console.error(e.message);
     }
   }

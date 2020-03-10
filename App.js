@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 import Setup from "./js/setup";
 import * as Sentry from "sentry-expo";
 import Constants from "expo-constants";
 import _ from "lodash";
 
-import { store, persistor } from './js/store/store';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from "./js/store/store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 //Sentry.config("https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405").install();
 
@@ -39,22 +39,22 @@ export default class App extends Component {
     </View>
   );
   render() {
-    //console.disableYellowBox = true;
+    console.disableYellowBox = true;
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={this.renderLoading()}>
           <Setup />
         </PersistGate>
       </Provider>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });

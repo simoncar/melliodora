@@ -171,7 +171,6 @@ class calendar1 extends Component {
   _storeData = async calendarItems => {
     try {
       AsyncStorage.setItem("calendarItems", calendarItems);
-      console.log("Storing in async storage");
     } catch (error) {
       console.log(error);
       // Error saving data
@@ -227,7 +226,6 @@ class calendar1 extends Component {
   }
 
   renderItem(item) {
-    console.log(item);
     return <CalendarItem navigation={this.props.navigation} item={item} />;
   }
 
