@@ -9,9 +9,9 @@ import "@firebase/firestore";
 import Firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
 import * as firebase from "firebase";
-import Constants from "expo-constants";
-import { connect } from "react-redux";
-import CommunityCreateScreen from "./CommunityCreateScreen";
+
+import { connect } from 'react-redux';
+
 
 //redux
 import { actionSignInAnonymously, actionInitUser, setIsAdmin } from "./store/auth";
@@ -38,10 +38,6 @@ class Setup extends Component {
       Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf")
     });
 
-    console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
-    if (Constants.manifest.extra.instance) {
-      // this.setSelectedDomain(Constants.manifest.extra.instance);
-    }
 
     let language = await AsyncStorage.getItem("language");
     if (!_.isString(language)) {

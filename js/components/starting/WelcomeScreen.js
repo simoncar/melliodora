@@ -6,20 +6,6 @@ import { setCommunityCreate } from '../../store/communityCreation';
 import { connect } from 'react-redux';
 
 class WelcomeScreen extends Component {
-
-  componentDidMount() {
-    console.log("authhh", this.props.auth);
-    const currentUser = firebase.auth().currentUser;
-    if (!currentUser || currentUser.isAnonymous) {
-      return this.props.navigation.pop();
-    }
-
-    const { uid, email } = currentUser;
-    console.log({ uid, email });
-
-    //get user details from firestore
-    console.log("this.props", this.props)
-  }
   render() {
 
     const firstName = this.props.auth.userInfo.firstName;
@@ -29,7 +15,7 @@ class WelcomeScreen extends Component {
         <TouchableOpacity
           style={styles.SubmitButtonStyle}
           activeOpacity={0.5}
-          onPress={() => this.props.dispatch(setCommunityCreate(true))}>
+          onPress={() => this.props.navigation.push("communityCreateScreen")}>
           <Text style={[styles.TextStyle, { fontSize: 32 }]}>Create Community</Text>
         </TouchableOpacity>
         <DomainSelection showCreateCommunity={false} />

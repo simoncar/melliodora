@@ -2,17 +2,16 @@ import React, { Component } from 'react'
 import { Text, View, TextInput, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux';
 import firebase from "firebase";
-import Loader from "./components/common/Loader";
-import { actionSetSelectedCommunity } from "./store/community";
-import { setCommunityCreate } from "./store/communityCreation";
-
+import Loader from "../common/Loader";
+import { actionSetSelectedCommunity } from "../../store/community";
+import { setCommunityCreate } from "../../store/communityCreation";
 
 
 class CommunityCreateScreen extends Component {
     state = {
         communityName: "",
         kind: "",
-        users: 0,
+        users: "",
         region: "",
         language: "",
         errorMessage: null,
@@ -59,7 +58,6 @@ class CommunityCreateScreen extends Component {
                 await communityRef.set(dict);
                 global.domain = node;
                 this.props.dispatch(actionSetSelectedCommunity(dict));
-                this.props.dispatch(setCommunityCreate(false))
             }
             this.setState({ loading: false });
         } catch (error) {

@@ -7,6 +7,7 @@ import LoginScreen from "./components/auth/LoginScreen";
 import SignUpScreen from "./components/auth/SignUpScreen";
 import PreWelcomeScreen from "./components/starting/PreWelcomeScreen";
 import WelcomeScreen from "./components/starting/WelcomeScreen";
+import CommunityCreateScreen from "./components/starting/CommunityCreateScreen"
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -19,8 +20,8 @@ const AuthStack = createStackNavigator(
     preWelcome: PreWelcomeScreen,
     login: LoginScreen,
     signup: SignUpScreen,
-    welcomeScreen: WelcomeScreen
-
+    welcomeScreen: WelcomeScreen,
+    communityCreateScreen: CommunityCreateScreen
   },
   config  ,
 );
