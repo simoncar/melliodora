@@ -33,16 +33,12 @@ import DemoData from "../../lib/demoData";
 
 const demo = DemoData;
 
-const tabBarIcon = name => ({ tintColor }) => (
-  <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
-);
-
 const bottomLogo = {
   sais_edu_sg: require("../../../images/sais_edu_sg/10yearLogo.png"),
   ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg")
 };
 
-class HomeNav extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
 
@@ -482,4 +478,4 @@ const mapStateToProps = state => ({
   auth: state.auth,
   community: state.community
 });
-export default connect(mapStateToProps)(HomeNav);
+export default connect(mapStateToProps)(Home);

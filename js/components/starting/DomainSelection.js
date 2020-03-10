@@ -16,6 +16,9 @@ import {
 import { iOSUIKit, iOSColors } from "react-native-typography";
 import _ from "lodash";
 import { SearchBar } from "react-native-elements";
+import Constants from "expo-constants";
+import firebase from "firebase";
+
 import { connect } from 'react-redux';
 import { actionGetCommunities, actionProcessSelectedCommunity } from "../../store/community";
 class DomainSelection extends Component {
@@ -36,6 +39,33 @@ class DomainSelection extends Component {
 
 
   componentDidMount() {
+
+
+    console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
+    if (Constants.manifest.extra.instance) {
+      const node = Constants.manifest.extra.instance;
+      firebase
+        .firestore()
+        .collection("domains")
+        .where("node", "==", node)
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log("No matching node.");
+            return;
+          }
+
+          snapshot.forEach(doc => {
+            const data = doc.data();
+            console.log("data22222", data);
+            this.props.dispatch(actionProcessSelectedCommunity(data));
+            return;
+          });
+        });
+      return;
+    }
+
+
     const { communities } = this.props.community
     if (communities.length > 0) {
       this.setState({ domains: communities, allDomains: communities })
