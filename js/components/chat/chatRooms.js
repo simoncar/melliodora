@@ -10,6 +10,9 @@ import I18n from "../../lib/i18n";
 import ChatroomItem from "./chatroomItem";
 import Analytics from "../../lib/analytics";
 import _ from "lodash";
+import { buildChatroomList } from "../../store/community";
+import { connect } from 'react-redux';
+
 
 var specialChatrooms = {};
 
@@ -37,7 +40,7 @@ class chatRooms extends Component {
       // The screen is focused
       // Call any action
       console.log("chatRooms is focused");
-      this.buildChatroomList();
+      this.props.dispatch(buildChatroomList());
     });
 
     Analytics.track("Chatrooms");
@@ -54,60 +57,6 @@ class chatRooms extends Component {
   };
 
   keyExtractor = item => item.chatroom;
-
-  buildChatroomList() {
-    var userChatrooms = [];
-
-
-    firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("chat")
-      .collection("chatrooms")
-
-      .orderBy("title")
-      .get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log("No notifications");
-          return;
-        }
-        const userInterestGroupCheck = _.has(global, "userInfo.interestGroups") && Array.isArray(global.userInfo.interestGroups);
-        const userInterestGroups = userInterestGroupCheck ? global.userInfo.interestGroups : [];
-
-        snapshot.forEach(doc => {
-          const item = doc.data();
-
-          if (item.visible == false) return;
-          if (
-            (item.type == "private" && item.members.indexOf(global.uid + "") > -1) ||
-            (item.type == "interestGroup" && userInterestGroups && userInterestGroups.indexOf(item.title) > -1) ||
-            ["users", "public"].indexOf(item.type) > -1
-          ) {
-            userChatrooms.push({
-              ...item,
-              chatroom: doc.id
-            });
-          }
-        });
-
-        this.setState({
-          userChatrooms,
-          loading: false
-        });
-      });
-  }
-
-  loadFromAsyncStorage() {
-    AsyncStorage.getItem("userChatrooms").then(fi => {
-      var userChatrooms = JSON.parse(fi);
-
-      this.setState({
-        userChatrooms,
-        loading: false
-      });
-    });
-  }
 
   _renderItem({ item }) {
     return <ChatroomItem {...item} navigation={this.props.navigation} card={true} />;
@@ -174,7 +123,7 @@ class chatRooms extends Component {
                     borderBottomColor: "lightgray"
                   }}>
                   <FlatList
-                    data={this.state.userChatrooms}
+                    data={this.props.community.userChatrooms}
                     renderItem={this._renderItemNoCard.bind(this)}
                     keyExtractor={this.keyExtractor}
                   />
@@ -188,4 +137,7 @@ class chatRooms extends Component {
   }
 }
 
-export default chatRooms;
+const mapStateToProps = state => ({
+  community: state.community
+});
+export default connect(mapStateToProps)(chatRooms);

@@ -193,9 +193,6 @@ function* selectorChangeSaga(selector, saga) {
     while (true) {
         const action = yield take()
         const next = yield select(selector)
-
-        console.log("rehydrated1", next, previous)
-
         if (next !== previous) {
 
             yield* saga(next, previous)

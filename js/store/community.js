@@ -1,5 +1,6 @@
 import * as firebase from "firebase";
 import { call, put, takeEvery, takeLatest, select } from "redux-saga/effects";
+import _ from "lodash";
 
 export const PROCESS_SELECTED_COMMUNITY = 'PROCESS_SELECTED_COMMUNITY';
 export const SET_SELECTED_COMMUNITY = 'SET_SELECTED_COMMUNITY';
@@ -7,6 +8,8 @@ export const GET_COMMUNITIES = 'GET_COMMUNITIES';
 export const SET_COMMUNITIES = 'SET_COMMUNITIES';
 export const GET_COMMUNITY_DETAILS = "GET_COMMUNITY_DETAILS"
 export const SET_INVALID_COMMUNITY = "SET_INVALID_COMMUNITY";
+export const SET_USER_CHATROOMS = "SET_USER_CHATROOMS";
+export const BUILD_CHATROOM_LIST = "BUILD_CHATROOM_LIST";
 
 export const processSelectedCommunity = selectedCommunity => ({
     type: PROCESS_SELECTED_COMMUNITY,
@@ -36,6 +39,17 @@ export const setInvalidCommunity = invalidCommunity => ({
     type: SET_INVALID_COMMUNITY,
     invalidCommunity
 });
+
+export const setUserChatrooms = userChatrooms => ({
+    type: SET_USER_CHATROOMS,
+    userChatrooms
+});
+
+export const buildChatroomList = () => ({
+    type: BUILD_CHATROOM_LIST
+});
+
+
 
 function* WORKER_processSelectedCommunity(action) {
 
@@ -148,18 +162,57 @@ function* WORKER_getCommunityDetails(action) {
         }
     }
 }
+
+function* WORKER_buildChatroomList(action) {
+    var userChatrooms = [];
+    const communityDomain = yield select(state => state.community.selectedCommunity.node);
+    const snapshot = yield call(() => firebase
+        .firestore()
+        .collection(communityDomain)
+        .doc("chat")
+        .collection("chatrooms")
+
+        .orderBy("title")
+        .get());
+
+    if (snapshot.empty) {
+        console.log("chatrooms");
+        return;
+    }
+    const userInterestGroupCheck = _.has(global, "userInfo.interestGroups") && Array.isArray(global.userInfo.interestGroups);
+    const userInterestGroups = userInterestGroupCheck ? global.userInfo.interestGroups : [];
+
+    snapshot.forEach(doc => {
+        const item = doc.data();
+
+        if (item.visible == false) return;
+        if (
+            (item.type == "private" && item.members.indexOf(global.uid + "") > -1) ||
+            (item.type == "interestGroup" && userInterestGroups && userInterestGroups.indexOf(item.title) > -1) ||
+            ["users", "public"].indexOf(item.type) > -1
+        ) {
+            userChatrooms.push({
+                ...item,
+                chatroom: doc.id
+            });
+        }
+    });
+    yield put(setUserChatrooms(userChatrooms));
+
+}
 export function* communitySaga() {
     yield takeLatest(GET_COMMUNITIES, WORKER_getCommunities);
     yield takeLatest(PROCESS_SELECTED_COMMUNITY, WORKER_processSelectedCommunity);
+    yield takeLatest(BUILD_CHATROOM_LIST, WORKER_buildChatroomList);
     yield takeLatest(GET_COMMUNITY_DETAILS, WORKER_getCommunityDetails);
-
 }
 
 const initialState = {
     selectedCommunity: {},
     communities: [],
     invalidCommunity: false,
-    calendarItems: null
+    calendarItems: null,
+    userChatrooms: []
 };
 
 export default (state = initialState, action) => {
@@ -178,6 +231,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 invalidCommunity: action.invalidCommunity
+            };
+        case SET_USER_CHATROOMS:
+            return {
+                ...state,
+                userChatrooms: action.userChatrooms
             };
         default:
             return state;
