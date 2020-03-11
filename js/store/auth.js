@@ -12,6 +12,7 @@ export const SET_ADMIN_PASS = "SET_ADMIN_PASS";
 export const SETUP_AUTH = "SETUP_AUTH";
 export const ANONYMOUSLY_SIGN_IN = "ANONYMOUSLY_SIGN_IN";
 export const INIT_USER = "INIT_USER";
+export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE";
 
 // Action Creators
 export const setUserInfo = (userInfo, updateDB = false) => {
@@ -46,22 +47,26 @@ export const setAdminPass = adminPassword => ({
 export const setupAuth = () => ({
     type: SETUP_AUTH
 })
-export const actionSignInAnonymously = () => ({
+export const signInAnonymously = () => ({
     type: ANONYMOUSLY_SIGN_IN
 })
 
-export const actionInitUser = (user, isAnonymous) => ({
+export const initUser = (user, isAnonymous) => ({
     type: INIT_USER,
     user,
     isAnonymous
 })
 
+export const changeLanguage = language => ({
+    type: CHANGE_LANGUAGE,
+    language
+})
 
 const getCurrentUserClaims = () => {
     return firebase.auth().currentUser.getIdTokenResult();
 }
 
-anonymouslySignIn = () => {
+_anonymouslySignIn = () => {
     return firebase
         .auth()
         .signInAnonymously();
@@ -98,7 +103,7 @@ function* WORKER_checkAdmin(action) {
 
 function* WORKER_anonymouslySignIn(action) {
     try {
-        yield call(anonymouslySignIn);
+        yield call(_anonymouslySignIn);
     } catch (e) {
         console.log(e);
     }
@@ -125,12 +130,14 @@ function* WORKER_initUser(action) {
             safeToken = "";
         }
 
+        const language = yield select(state => state.auth.language);
+
         var version = _.isNil(Constants.manifest.revisionId) ? "unknown" : Constants.manifest.revisionId;
         var userDict = {
             token,
             safeToken,
             loginCount: firebase.firestore.FieldValue.increment(1),
-            languageSelected: global.language,
+            languageSelected: language,
             phoneLocale: Localization.locale,
             version: version,
             lastLogin: Date.now(),
@@ -173,7 +180,8 @@ const initialState = {
     user: false,
     userInfo: {},
     isAdmin: false,
-    adminPassword: ""
+    adminPassword: "",
+    language: "en"
 };
 
 // REDUCER
@@ -193,6 +201,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 adminPassword: action.adminPassword,
+            };
+        case CHANGE_LANGUAGE:
+            return {
+                ...state,
+                language: action.language,
             };
         default:
             return state;

@@ -7,9 +7,10 @@ import ListItem from "./FeatureListItem";
 import { getLanguageString } from "../global";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { SettingsListItem, Separator } from "./SettingsListItem";
+import { connect } from 'react-redux';
 
 @withMappedNavigationParams()
-export default class FeatureMoreItems extends Component {
+class FeatureMoreItems extends Component {
   constructor(props) {
     super(props);
 
@@ -44,8 +45,8 @@ export default class FeatureMoreItems extends Component {
       if (doc.data().translated == true) {
         trans = {
           source: "feature",
-          summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
-          descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description")
+          summaryMyLanguage: getLanguageString(this.props.language, doc.data(), "summary"),
+          descriptionMyLanguage: getLanguageString(this.props.language, doc.data(), "description")
         };
       } else {
         trans = {
@@ -80,20 +81,20 @@ export default class FeatureMoreItems extends Component {
 
   keyExtractor = item => item._key;
 
-  _renderItem(item) {
+  _renderItem({ item }) {
     const preview = {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
-    const uri = item.item.photo1;
+    const uri = item.photo1;
 
     if (!(this.props.show == "visibleMore")) {
-      return <ListItem navigation={this.props.navigation} item={item} editMode={this.props.editMode} />;
+      return <ListItem navigation={this.props.navigation} item={item} editMode={this.props.editMode} language={this.props.language} />;
     } else {
       return (
         <SettingsListItem
-          key={"feature2" + item.item._key}
-          title={item.item.summaryMyLanguage}
+          key={"feature2" + item._key}
+          title={item.summaryMyLanguage}
           icon={
             <Image
               style={{
@@ -110,7 +111,7 @@ export default class FeatureMoreItems extends Component {
               {...{ preview, uri }}
             />
           }
-          onPress={() => this.props.navigation.navigate("storyMore", item.item)}
+          onPress={() => this.props.navigation.navigate("storyMore", item)}
         />
       );
     }
@@ -135,3 +136,9 @@ export default class FeatureMoreItems extends Component {
     );
   }
 }
+
+
+const mapStateToProps = state => ({
+  language: state.auth.language
+});
+export default connect(mapStateToProps)(FeatureMoreItems);

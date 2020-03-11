@@ -31,13 +31,11 @@ class Settings extends Component {
     super(props);
 
     this.state = {
-      user: null,
-      language: ""
+      user: null
     };
   }
 
   componentDidMount() {
-    this._retrieveLanguage();
     this._retrieveGradeSelectors();
 
     this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
@@ -66,18 +64,6 @@ class Settings extends Component {
       // No user is signed in.
     }
   }
-
-  _retrieveLanguage = async () => {
-    try {
-      const value = await AsyncStorage.getItem("language");
-      if (value !== null) {
-        // We have data!!
-        this.setState({ language: value });
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
 
   _retrieveGradeSelectors = async () => {
     var value = await AsyncStorage.getItem("gradeNotify");
@@ -141,10 +127,6 @@ class Settings extends Component {
   }
 
   render() {
-    var languageTitle = "Language";
-    if (I18n.t("language") != "Language") {
-      languageTitle = "Language " + I18n.t("language");
-    }
 
     var i = 0;
 
@@ -203,8 +185,8 @@ class Settings extends Component {
 
           <SettingsListItem
             icon={<FontAwesome name="language" style={styles.imageStyleIcon} />}
-            title={languageTitle}
-            titleInfo={this.state.language}
+            title={"Language"}
+            titleInfo={this.props.auth.language}
             onPress={() => this.props.navigation.navigate("selectLanguage")}
           />
           <SettingsListItem

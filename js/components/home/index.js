@@ -114,6 +114,8 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    this.language = this.props.auth.language;
+
     this.props.navigation.setParams({
       title: this.props.community.selectedCommunity.name
     });
@@ -214,13 +216,13 @@ class Home extends Component {
           var trans = {
             visible: true,
             source: "calendar",
-            summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
+            summaryMyLanguage: getLanguageString(this.language, doc.data(), "summary"),
             summary: doc.data().summary,
             summaryEN: doc.data().summary,
             date_start: doc.data().date_start,
             color: "red",
             showIconChat: false,
-            descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description"),
+            descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description"),
             number: doc.data().number
           };
           calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
@@ -243,8 +245,8 @@ class Home extends Component {
     querySnapshot.forEach(doc => {
       var trans = {
         source: "feature",
-        summaryMyLanguage: getLanguageString(global.language, doc.data(), "summary"),
-        descriptionMyLanguage: getLanguageString(global.language, doc.data(), "description")
+        summaryMyLanguage: getLanguageString(this.language, doc.data(), "summary"),
+        descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description")
       };
 
       if (!doc.data().visible == false) {
@@ -300,12 +302,12 @@ class Home extends Component {
     }
   };
 
-  _renderItem(item) {
-    return <ListItem navigation={this.props.navigation} item={item} card={true} />;
+  _renderItem({ item }) {
+    return <ListItem navigation={this.props.navigation} item={item} card={true} language={this.language} />;
   }
 
-  _renderItemNoCard(item) {
-    return <ListItem navigation={this.props.navigation} item={item} card={false} />;
+  _renderItemNoCard({ item }) {
+    return <ListItem navigation={this.props.navigation} item={item} card={false} language={this.language} />;
   }
   _renderBalance() {
     if (global.domain === "oakforest_international_edu") {
@@ -465,7 +467,7 @@ class Home extends Component {
               <Text style={styles.user}>{global.name}</Text>
               <Text style={styles.user}>{global.email}</Text>
               <Text style={styles.user}>{global.uid}</Text>
-              <Text style={styles.user}>{global.language}</Text>
+              <Text style={styles.user}>{this.language}</Text>
             </View>
           </View>
         </Content>

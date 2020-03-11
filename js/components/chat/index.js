@@ -20,8 +20,7 @@ import * as firebase from "firebase";
 import { ListItem } from "react-native-elements";
 import { LinearGradient } from 'expo-linear-gradient';
 import SettingsListItem from "../settings/SettingsListItem";
-import { connectActionSheet } from '@expo/react-native-action-sheet';
-import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import { connectActionSheet, ActionSheetProvider } from '@expo/react-native-action-sheet';
 import stylesGlobal from "../../themes/globalTheme";
 
 var localMessages = [];
@@ -62,7 +61,7 @@ class chat extends Component {
       language: "",
       user: null,
       authenticated: false,
-      modalVisible: false,
+      modalVisible: true,
       chatroomUsers: []
     };
 
@@ -101,9 +100,10 @@ class chat extends Component {
       });
     });
 
+    Backend.setLanguage("en");
     Backend.setChatroom(this.props.chatroom, this.props.title);
     Backend.setMute(null);
-    Backend.loadMessages(global.language, message => {
+    Backend.loadMessages(message => {
       if (!localMessages.includes(message._id)) {
         this.setState(previousState => ({
           messages: GiftedChat.append(previousState.messages, message)
@@ -393,40 +393,6 @@ class chat extends Component {
         }
       }
     );
-
-    // const BUTTONS = ["Chatroom info", "Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
-    // const CANCEL_INDEX = 4;
-
-    // ActionSheet.show(
-    //   {
-    //     options: BUTTONS,
-    //     cancelButtonIndex: CANCEL_INDEX,
-    //     title: "Options",
-    //   },
-
-    //   buttonIndex => {
-    //     switch (buttonIndex) {
-    //       case 0:
-    //         this.setState({ modalVisible: true });
-    //         break;
-    //       case 1:
-    //         navigation.push("chatTitle", {
-    //           // title: navigation.getParam("title"),
-    //           // chatroom: navigation.getParam("chatroom"),
-    //           // type: navigation.getParam("type"),
-    //           // edit: true,
-    //           // onGoBack: this.refresh,
-    //         });
-    //         break;
-    //       case 2:
-    //         Backend.setMute(true);
-    //         break;
-    //       case 3:
-    //         Backend.setMute(false);
-    //         break;
-    //     }
-    //   },
-    // );
   }
 
   renderSend(props) {

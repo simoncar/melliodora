@@ -5,8 +5,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Updates } from "expo";
 import I18n from "../../lib/i18n";
 import Analytics from "../../lib/analytics";
+import { connect } from 'react-redux';
+import { changeLanguage } from "../../store/auth";
 
-export default class selectLanguage extends Component {
+class selectLanguage extends Component {
   constructor(props) {
     super(props);
     this.onValueChange = this.onValueChange.bind(this);
@@ -29,7 +31,7 @@ export default class selectLanguage extends Component {
 
   _retrieveLanguage = async () => {
     try {
-      const value = await AsyncStorage.getItem("language");
+      const value = this.props.auth.language;
       if (value !== null) {
         // We have data!!
         this.setState({ language: value });
@@ -41,8 +43,8 @@ export default class selectLanguage extends Component {
 
   _changeLanguage(language) {
     this.setState({ language: language });
-    AsyncStorage.setItem("language", language);
-    global.language = language;
+
+    this.dispatch(changeLanguage(language))
 
     Analytics.track("Language", { set: language });
 
@@ -174,3 +176,8 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   }
 });
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps)(selectLanguage);

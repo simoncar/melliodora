@@ -24,6 +24,10 @@ export class Backend extends React.Component {
     //this.uid = value;
   }
 
+  setLanguage(language) {
+    this.language = language;
+  }
+
   aagetUid() {
     return this.uid;
   }
@@ -57,22 +61,7 @@ export class Backend extends React.Component {
         return message.textEN;
     }
   }
-
-  _retrieveLanguage = async () => {
-    try {
-      const value = await AsyncStorage.getItem("language");
-      if (value !== null) {
-        this.setState({ language: value });
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
-
-  loadMessages = async (language1, callback) => {
-    const language = await AsyncStorage.getItem("language");
-    global.language = language;
-
+  loadMessages = async (callback) => {
     this.ref = firebase
       .firestore()
       .collection(global.domain)
@@ -88,10 +77,10 @@ export class Backend extends React.Component {
         if (change.type === "added") {
           const message = change.doc.data();
 
-          if (message.textLanguage == language) {
+          if (message.textLanguage == this.language) {
             var mesageText = message.text;
           } else {
-            var mesageText = this.getLanguageMessage(message, language);
+            var mesageText = this.getLanguageMessage(message, this.language);
           }
           callback({
             _id: message._id,
@@ -188,7 +177,7 @@ export class Backend extends React.Component {
           pushToken: global.pushToken,
           timestamp: Date.now(),
           uid: global.uid,
-          language: global.language,
+          language: this.language,
           email: global.email,
           name: global.name
         };
@@ -197,7 +186,7 @@ export class Backend extends React.Component {
           pushToken: global.pushToken,
           timestamp: Date.now(),
           uid: global.uid,
-          language: global.language,
+          language: this.language,
           email: global.email,
           name: global.name
         };
@@ -259,10 +248,10 @@ async function uploadImageAsync(message, chatroom, user) {
 
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.onload = function() {
+    xhr.onload = function () {
       resolve(xhr.response);
     };
-    xhr.onerror = function(e) {
+    xhr.onerror = function (e) {
       reject(new TypeError("Network request failed"));
     };
     xhr.responseType = "blob";

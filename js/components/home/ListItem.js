@@ -14,13 +14,13 @@ class ListItem extends Component {
   }
 
   icon(source, number) {
-    const uri = this.props.item.item.photo1;
+    const uri = this.props.item.photo1;
     const preview = {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
 
-    if (this.props.item.item.number >= 0) {
+    if (this.props.item.number >= 0) {
       return (
         <View
           style={{
@@ -40,7 +40,7 @@ class ListItem extends Component {
               color: "white",
               fontSize: 14
             }}>
-            {this.props.item.item.number}
+            {this.props.item.number}
           </Text>
         </View>
       );
@@ -129,29 +129,29 @@ class ListItem extends Component {
       "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
       "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
       "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-        "(\\#[-a-z\\d_]*)?$",
+      "(\\#[-a-z\\d_]*)?$",
       "i"
     ); // fragment locator
     return pattern.test(str);
   }
 
-  renderExcerptImage(excerpt, uri) {}
+  renderExcerptImage(excerpt, uri) { }
   render() {
     const summary = getLanguageString(
-      global.language,
-      this.props.item.item,
+      this.props.language,
+      this.props.item,
 
       "summary"
     );
-    const showIconChat = this.props.item.item.showIconChat === false ? false : true;
-    const uri = this.props.item.item.photo1;
+    const showIconChat = this.props.item.showIconChat === false ? false : true;
+    const uri = this.props.item.photo1;
     const card = this.props.card === false ? false : true;
     const preview = {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
 
-    const excerpt = this.props.item.item.excerpt;
+    const excerpt = this.props.item.excerpt;
 
     return (
       <View>
@@ -168,21 +168,21 @@ class ListItem extends Component {
             }}>
             <TouchableOpacity
               style={{ flexDirection: "row" }}
-              onPress={() => this.props.navigation.navigate("story", this.props.item.item)}>
+              onPress={() => this.props.navigation.navigate("story", this.props.item)}>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-                {this.icon(this.props.item.item.source, this.props.item.item.number)}
+                {this.icon(this.props.item.source, this.props.item.number)}
 
                 <View>
                   <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardTitle}>
                     {summary}
                   </Text>
-                  {this.renderLocation(this.props.item.item.location)}
+                  {this.renderLocation(this.props.item.location)}
 
-                  {this.renderDate(this.props.item.item.date_start)}
+                  {this.renderDate(this.props.item.date_start)}
                   {this.renderTime(
-                    this.props.item.item.time_start_pretty,
-                    this.props.item.item.time_end_pretty,
-                    this.props.item.item.source
+                    this.props.item.time_start_pretty,
+                    this.props.item.time_end_pretty,
+                    this.props.item.source
                   )}
                 </View>
               </View>
@@ -199,7 +199,7 @@ class ListItem extends Component {
               </View>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("story", this.props.item.item)}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("story", this.props.item)}>
             <View style={{ flexDirection: "column" }}>
               {excerpt ? (
                 <Text

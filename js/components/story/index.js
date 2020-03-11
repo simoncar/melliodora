@@ -9,6 +9,7 @@ import styles from "./styles";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../global.js";
 import _ from "lodash";
 import Analytics from "../../lib/analytics";
+import { connect } from 'react-redux';
 
 @withMappedNavigationParams()
 class Story extends Component {
@@ -249,7 +250,7 @@ class Story extends Component {
                 {this.props.descriptionMyLanguage}
               </ParsedText>
 
-              {global.language != "en" && (
+              {this.props.auth.language != "en" && (
                 <Text selectable style={styles.englishFallback}>
                   {"\n\n"}
                   {this.props.description}
@@ -279,4 +280,7 @@ class Story extends Component {
   }
 }
 
-export default Story;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps)(Story);

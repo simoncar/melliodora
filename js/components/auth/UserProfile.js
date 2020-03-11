@@ -3,9 +3,9 @@ import { Text, View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollVi
 import firebase from "firebase";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
+import { connect } from 'react-redux';
 
-
-export default class UserProfile extends Component {
+class UserProfile extends Component {
   static navigationOptions = ({ navigation }) => ({
     // title: I18n.t("Edit", { defaultValue: "Edit" }),
     title: "User Profile",
@@ -152,10 +152,10 @@ export default class UserProfile extends Component {
     }
 
     console.log("dict", dict);
-
+    const communityDomain = this.props.community.selectedCommunity.node;
     const querySnapshot = await firebase
       .firestore()
-      .collection(global.domain)
+      .collection(communityDomain)
       .doc("chat")
       .collection("chatrooms")
       .doc(docID)
@@ -165,21 +165,17 @@ export default class UserProfile extends Component {
       navParams["title"] = dict.title;
       await firebase
         .firestore()
-        .collection(global.domain)
+        .collection(communityDomain)
         .doc("chat")
         .collection("chatrooms")
         .doc(docID)
         .set(dict, { merge: true });
     }
 
-    console.log("sdsd");
-
     this.setState({ modalVisible: false })
     this.props.navigation.pop();
     this.props.navigation.navigate("chat", navParams);
   }
-
-
 
   render() {
     return (
@@ -323,7 +319,7 @@ export default class UserProfile extends Component {
                 : (
                   <Text style={styles.sectionContentText} numberOfLines={1}>
                     None
-                </Text>
+                  </Text>
                 )
             }
           </View>
@@ -333,6 +329,10 @@ export default class UserProfile extends Component {
     )
   }
 }
+const mapStateToProps = state => ({
+  community: state.community
+});
+export default connect(mapStateToProps)(UserProfile);
 
 const styles = StyleSheet.create({
   titleContainer: {

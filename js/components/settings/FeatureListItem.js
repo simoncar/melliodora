@@ -6,13 +6,13 @@ import { Image } from "react-native-expo-image-cache";
 import { getLanguageString } from "../global";
 import firebase from "firebase";
 
-class ListItem extends Component {
+class FeatureListItem extends Component {
   constructor(props) {
     super(props);
   }
 
   deleteStory = () => {
-    const storyID = this.props.item.item._key;
+    const storyID = this.props.item._key;
     firebase
       .firestore()
       .collection(global.domain)
@@ -25,7 +25,7 @@ class ListItem extends Component {
   confirmDelete = () => {
     Alert.alert(
       "Confirm Delete Story",
-      this.props.item.item.summary + "?",
+      this.props.item.summary + "?",
       [
         {
           text: "Cancel",
@@ -51,7 +51,7 @@ class ListItem extends Component {
         style={{ flexDirection: "row" }}
         onPress={() => {
           this.props.navigation.navigate("chat", {
-            chatroom: this.props.item.item._key,
+            chatroom: this.props.item._key,
             title: summary,
           });
         }}
@@ -66,12 +66,12 @@ class ListItem extends Component {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
-    const summary = getLanguageString(global.language, this.props.item.item, "summary");
-    const uri = this.props.item.item.photo1;
+    const summary = getLanguageString(this.props.language, this.props.item, "summary");
+    const uri = this.props.item.photo1;
 
     return (
       <View style={styles.newsContentLine}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("storyMore", this.props.item.item)}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("storyMore", this.props.item)}>
           <View
             style={{
               flexDirection: "row",
@@ -105,4 +105,4 @@ class ListItem extends Component {
     );
   }
 }
-export default ListItem;
+export default FeatureListItem;

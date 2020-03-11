@@ -13,7 +13,7 @@ import Constants from "expo-constants";
 import { connect } from 'react-redux';
 
 //redux
-import { actionSignInAnonymously, actionInitUser } from "./store/auth";
+import { signInAnonymously, initUser } from "./store/auth";
 
 class Setup extends Component {
   constructor() {
@@ -38,11 +38,7 @@ class Setup extends Component {
 
 
 
-    let language = await AsyncStorage.getItem("language");
-    if (!_.isString(language)) {
-      language = "en";
-      AsyncStorage.setItem("language", language);
-    }
+    let language = this.props.auth.language;
     if (language === "ar") {
       I18nManager.forceRTL(true);
       if (!I18nManager.isRTL) {
@@ -55,7 +51,6 @@ class Setup extends Component {
       }
     }
     I18n.locale = language;
-    global.language = language;
 
     const email = await AsyncStorage.getItem("email")
     global.email = _.isString(email) ? email : "";
@@ -74,11 +69,11 @@ class Setup extends Component {
       firebase.auth().onAuthStateChanged(user => {
         console.log("SetupUser", user);
         if (!user) {
-          this.props.dispatch(actionSignInAnonymously());
+          this.props.dispatch(signInAnonymously());
 
         } else {
           const isAnonymous = user.isAnonymous;
-          this.props.dispatch(actionInitUser(user, isAnonymous));
+          this.props.dispatch(initUser(user, isAnonymous));
         }
       });
     } catch (e) {
