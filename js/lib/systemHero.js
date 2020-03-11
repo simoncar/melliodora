@@ -30,6 +30,6 @@ exports.logToCalendar = async function(key, title, body) {
     const result = await p;
     return result;
   } catch (err) {
-    console.log("sytsem hero error", err);
+    console.log("system hero error", err);
   }
 };
