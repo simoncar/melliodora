@@ -6,7 +6,6 @@ import I18n from "../../lib/i18n";
 import Analytics from "../../lib/analytics";
 import { connect } from 'react-redux';
 import { changeLanguage } from "../../store/auth";
-import { lang } from "moment";
 
 class selectLanguage extends Component {
   constructor(props) {
@@ -57,77 +56,77 @@ class selectLanguage extends Component {
   render() {
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
-        <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
-          <SettingsListItem
-            hasSwitch={false}
-            switchState={this.state.switchValue}
-            switchOnValueChange={this.onValueChange}
-            hasNavArrow={false}
-            title="English"
-            onPress={() => this._changeLanguage("en")}
-            icon={<MaterialCommunityIcons name="check" style={this._getStyle("en")} />}
-          />
-          <SettingsListItem
-            hasSwitch={false}
-            switchState={this.state.switchValue}
-            switchOnValueChange={this.onValueChange}
-            hasNavArrow={false}
-            title="中文(简体)"
-            onPress={() => this._changeLanguage("zh")}
-            icon={<MaterialCommunityIcons name="check" style={this._getStyle("zh")} />}
-          />
-          <SettingsListItem
-            hasSwitch={false}
-            switchState={this.state.switchValue}
-            switchOnValueChange={this.onValueChange}
-            hasNavArrow={false}
-            title="日本語"
-            onPress={() => this._changeLanguage("ja")}
-            icon={<MaterialCommunityIcons name="check" style={this._getStyle("ja")} />}
-          />
 
-          <SettingsListItem
-            hasSwitch={false}
-            switchState={this.state.switchValue}
-            switchOnValueChange={this.onValueChange}
-            hasNavArrow={false}
-            title="Français"
-            onPress={() => this._changeLanguage("fr")}
-            icon={<MaterialCommunityIcons name="check" style={this._getStyle("fr")} />}
-          />
+        <SettingsListItem
+          hasSwitch={false}
+          switchState={this.state.switchValue}
+          switchOnValueChange={this.onValueChange}
+          hasNavArrow={false}
+          title="English"
+          onPress={() => this._changeLanguage("en")}
+          icon={<MaterialCommunityIcons name="check" style={this._getStyle("en")} />}
+        />
+        <SettingsListItem
+          hasSwitch={false}
+          switchState={this.state.switchValue}
+          switchOnValueChange={this.onValueChange}
+          hasNavArrow={false}
+          title="中文(简体)"
+          onPress={() => this._changeLanguage("zh")}
+          icon={<MaterialCommunityIcons name="check" style={this._getStyle("zh")} />}
+        />
+        <SettingsListItem
+          hasSwitch={false}
+          switchState={this.state.switchValue}
+          switchOnValueChange={this.onValueChange}
+          hasNavArrow={false}
+          title="日本語"
+          onPress={() => this._changeLanguage("ja")}
+          icon={<MaterialCommunityIcons name="check" style={this._getStyle("ja")} />}
+        />
 
-          <SettingsListItem
-            hasSwitch={false}
-            switchState={this.state.switchValue}
-            switchOnValueChange={this.onValueChange}
-            hasNavArrow={false}
-            title="한국어"
-            onPress={() => this._changeLanguage("ko")}
-            icon={<MaterialCommunityIcons name="check" style={this._getStyle("ko")} />}
-          />
+        <SettingsListItem
+          hasSwitch={false}
+          switchState={this.state.switchValue}
+          switchOnValueChange={this.onValueChange}
+          hasNavArrow={false}
+          title="Français"
+          onPress={() => this._changeLanguage("fr")}
+          icon={<MaterialCommunityIcons name="check" style={this._getStyle("fr")} />}
+        />
 
-          <SettingsListItem
-            hasSwitch={false}
-            switchState={this.state.switchValue}
-            switchOnValueChange={this.onValueChange}
-            hasNavArrow={false}
-            title="Español"
-            onPress={() => this._changeLanguage("es")}
-            icon={<MaterialCommunityIcons name="check" style={this._getStyle("es")} />}
-          />
+        <SettingsListItem
+          hasSwitch={false}
+          switchState={this.state.switchValue}
+          switchOnValueChange={this.onValueChange}
+          hasNavArrow={false}
+          title="한국어"
+          onPress={() => this._changeLanguage("ko")}
+          icon={<MaterialCommunityIcons name="check" style={this._getStyle("ko")} />}
+        />
 
-          <SettingsListItem
-            hasSwitch={false}
-            switchState={this.state.switchValue}
-            switchOnValueChange={this.onValueChange}
-            hasNavArrow={false}
-            title="bahasa Indonesia"
-            onPress={() => this._changeLanguage("id")}
-            icon={<MaterialCommunityIcons name="check" style={this._getStyle("id")} />}
-          />
+        <SettingsListItem
+          hasSwitch={false}
+          switchState={this.state.switchValue}
+          switchOnValueChange={this.onValueChange}
+          hasNavArrow={false}
+          title="Español"
+          onPress={() => this._changeLanguage("es")}
+          icon={<MaterialCommunityIcons name="check" style={this._getStyle("es")} />}
+        />
 
-          <Text style={styles.titleInfoStyle}>{I18n.t("languageChangeWarning")}</Text>
-        </View>
+        <SettingsListItem
+          hasSwitch={false}
+          switchState={this.state.switchValue}
+          switchOnValueChange={this.onValueChange}
+          hasNavArrow={false}
+          title="bahasa Indonesia"
+          onPress={() => this._changeLanguage("id")}
+          icon={<MaterialCommunityIcons name="check" style={this._getStyle("id")} />}
+        />
+
+        <Text style={styles.titleInfoStyle}>{I18n.t("languageChangeWarning")}</Text>
+
       </View>
     );
   }

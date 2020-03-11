@@ -222,7 +222,7 @@ const initialState = {
     userInfo: {},
     isAdmin: false,
     adminPassword: "",
-    language: null
+    language: "en"
 };
 
 // REDUCER
