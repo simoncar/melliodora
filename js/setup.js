@@ -9,10 +9,11 @@ import "@firebase/firestore";
 import Firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
 import * as firebase from "firebase";
+import Constants from "expo-constants";
 import { connect } from 'react-redux';
 
 //redux
-import { actionSignInAnonymously, actionInitUser, setIsAdmin } from "./store/auth";
+import { actionSignInAnonymously, actionInitUser } from "./store/auth";
 
 class Setup extends Component {
   constructor() {
@@ -91,7 +92,7 @@ class Setup extends Component {
     if (this.state.loading || !this.props.auth.userInfo || _.isEmpty(this.props.auth.userInfo)) {
       return <AppLoading />;
     }
-    else if (_.isEmpty(this.props.community.selectedCommunity)) {
+    else if (_.isEmpty(this.props.community.selectedCommunity) && !Constants.manifest.extra.instance) {
       return <AuthStackNavigator />
     } else {
       // check if user is admin

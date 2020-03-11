@@ -5,18 +5,28 @@ import { Notifications } from "expo";
 import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
 import Analytics from "./lib/analytics";
+import Constants from "expo-constants";
+import { connect } from 'react-redux';
+import { getCommunityDetails } from "./store/community";
 
 class App extends Component {
   componentDidMount() {
     this._notificationSubscription = this._registerForPushNotifications();
     Analytics.track("App Started");
+
+    //check if community selected is valid
+    console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
+
+    const node = Constants.manifest.extra.instance || this.props.community.selectedCommunity.node;
+    this.props.dispatch(getCommunityDetails(node));
+
   }
 
   componentWillUnmount() {
     this._notificationSubscription && this._notificationSubscription.remove();
   }
 
-  _handleNotification = ({ origin, data }) => {};
+  _handleNotification = ({ origin, data }) => { };
 
   _registerForPushNotifications() {
     console.log("global.name", global.name);
@@ -41,4 +51,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default App;
+const mapStateToProps = state => ({
+  community: state.community,
+});
+export default connect(mapStateToProps)(App);

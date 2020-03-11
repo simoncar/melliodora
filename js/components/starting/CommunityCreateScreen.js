@@ -3,9 +3,7 @@ import { Text, View, TextInput, StyleSheet, SafeAreaView, ScrollView, TouchableO
 import { connect } from 'react-redux';
 import firebase from "firebase";
 import Loader from "../common/Loader";
-import { actionSetSelectedCommunity } from "../../store/community";
-import { setCommunityCreate } from "../../store/communityCreation";
-
+import { setSelectedCommunity } from "../../store/community";
 
 class CommunityCreateScreen extends Component {
     state = {
@@ -57,7 +55,7 @@ class CommunityCreateScreen extends Component {
             } else {
                 await communityRef.set(dict);
                 global.domain = node;
-                this.props.dispatch(actionSetSelectedCommunity(dict));
+                this.props.dispatch(setSelectedCommunity(dict));
             }
             this.setState({ loading: false });
         } catch (error) {

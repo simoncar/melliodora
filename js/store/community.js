@@ -1,29 +1,40 @@
 import * as firebase from "firebase";
-import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest, select } from "redux-saga/effects";
 
 export const PROCESS_SELECTED_COMMUNITY = 'PROCESS_SELECTED_COMMUNITY';
 export const SET_SELECTED_COMMUNITY = 'SET_SELECTED_COMMUNITY';
 export const GET_COMMUNITIES = 'GET_COMMUNITIES';
 export const SET_COMMUNITIES = 'SET_COMMUNITIES';
+export const GET_COMMUNITY_DETAILS = "GET_COMMUNITY_DETAILS"
+export const SET_INVALID_COMMUNITY = "SET_INVALID_COMMUNITY";
 
-
-export const actionProcessSelectedCommunity = selectedCommunity => ({
+export const processSelectedCommunity = selectedCommunity => ({
     type: PROCESS_SELECTED_COMMUNITY,
     selectedCommunity,
 });
 
-export const actionSetSelectedCommunity = selectedCommunity => ({
+export const setSelectedCommunity = selectedCommunity => ({
     type: SET_SELECTED_COMMUNITY,
     selectedCommunity,
 });
 
-export const actionGetCommunities = () => ({
+export const getCommunities = () => ({
     type: GET_COMMUNITIES
 });
 
 export const setCommunities = communities => ({
     type: SET_COMMUNITIES,
     communities
+});
+
+export const getCommunityDetails = node => ({
+    type: GET_COMMUNITY_DETAILS,
+    node
+});
+
+export const setInvalidCommunity = invalidCommunity => ({
+    type: SET_INVALID_COMMUNITY,
+    invalidCommunity
 });
 
 function* WORKER_processSelectedCommunity(action) {
@@ -80,7 +91,7 @@ function* WORKER_processSelectedCommunity(action) {
         default:
     }
 
-    yield put(actionSetSelectedCommunity(community));
+    yield put(setSelectedCommunity(community));
 }
 
 function* WORKER_getCommunities() {
@@ -102,15 +113,52 @@ function* WORKER_getCommunities() {
 
     yield put(setCommunities(domainsStore));
 }
+
+function* WORKER_getCommunityDetails(action) {
+    const node = action.node;
+    const communities = yield select(state => state.community.communities);
+    if (!communities || communities.length == 0) {
+        const snapshot = yield call(() => firebase
+            .firestore()
+            .collection("domains")
+            .where("node", "==", node)
+            .get());
+        if (snapshot.empty) {
+            console.log("No matching node.");
+            //invalid 
+            yield put(processSelectedCommunity({}));
+            yield put(setInvalidCommunity(true));
+        } else {
+            let data = null;
+            snapshot.forEach(doc => {
+                data = doc.data();
+            });
+            yield put(processSelectedCommunity(data));
+            yield put(setInvalidCommunity(false));
+        }
+    } else {
+        const selectedCommunityArr = communities.filter(item => item.node === node);
+        if (selectedCommunityArr.length > 0) {
+            const selectedCommunity = selectedCommunityArr[0];
+            yield put(processSelectedCommunity(selectedCommunity));
+            yield put(setInvalidCommunity(false));
+        } else {
+            yield put(processSelectedCommunity({}));
+            yield put(setInvalidCommunity(true));
+        }
+    }
+}
 export function* communitySaga() {
     yield takeLatest(GET_COMMUNITIES, WORKER_getCommunities);
     yield takeLatest(PROCESS_SELECTED_COMMUNITY, WORKER_processSelectedCommunity);
+    yield takeLatest(GET_COMMUNITY_DETAILS, WORKER_getCommunityDetails);
 
 }
 
 const initialState = {
     selectedCommunity: {},
-    communities: []
+    communities: [],
+    invalidCommunity: false
 };
 
 export default (state = initialState, action) => {
@@ -124,6 +172,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 communities: action.communities
+            };
+        case SET_INVALID_COMMUNITY:
+            return {
+                ...state,
+                invalidCommunity: action.invalidCommunity
             };
         default:
             return state;
