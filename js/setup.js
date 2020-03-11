@@ -36,8 +36,6 @@ class Setup extends Component {
       Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf")
     });
 
-
-
     let language = this.props.auth.language;
     if (language === "ar") {
       I18nManager.forceRTL(true);
@@ -51,12 +49,6 @@ class Setup extends Component {
       }
     }
     I18n.locale = language;
-
-    const email = await AsyncStorage.getItem("email")
-    global.email = _.isString(email) ? email : "";
-
-    const name = await AsyncStorage.getItem("name");
-    global.name = _.isString(name) ? name : "";
 
     this.setState({ loading: false });
     this.setupUser();

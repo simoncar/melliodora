@@ -86,9 +86,6 @@ class calendar1 extends Component {
   componentWillUnmount() {
     this.unsubscribe();
   }
-  unsubscribe() {
-    //hist.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
-  }
 
   listenLoadFromFirebase(dataSnapshot2) {
     dataSnapshot2
@@ -158,7 +155,7 @@ class calendar1 extends Component {
   loadFromAsyncStorage() {
     AsyncStorage.getItem("calendarItems").then(fi => {
       var items = JSON.parse(fi);
-
+      console.log("items2222", items);
       if (null != items) {
         this.setState({
           items,

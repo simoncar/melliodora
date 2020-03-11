@@ -158,7 +158,8 @@ export function* communitySaga() {
 const initialState = {
     selectedCommunity: {},
     communities: [],
-    invalidCommunity: false
+    invalidCommunity: false,
+    calendarItems: null
 };
 
 export default (state = initialState, action) => {

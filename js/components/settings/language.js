@@ -6,6 +6,7 @@ import I18n from "../../lib/i18n";
 import Analytics from "../../lib/analytics";
 import { connect } from 'react-redux';
 import { changeLanguage } from "../../store/auth";
+import { lang } from "moment";
 
 class selectLanguage extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class selectLanguage extends Component {
   };
 
   _changeLanguage(language) {
+    console.log("_changeLanguage", language);
     this.setState({ language: language });
     this.props.dispatch(changeLanguage(language))
   }

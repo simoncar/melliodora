@@ -1,10 +1,11 @@
 import firebase from "firebase";
-import { call, put, takeEvery, takeLatest, select } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest, select, take, fork, spawn } from "redux-saga/effects";
 import _ from "lodash";
 import Constants from "expo-constants";
 import * as Localization from "expo-localization";
 import Analytics from "../lib/analytics";
 import { Updates } from "expo";
+import { REHYDRATE } from 'redux-persist'
 
 
 // ACTIONS
@@ -179,17 +180,41 @@ function* WORKER_initUser(action) {
 }
 function* WORKER_changeLanguage(action) {
     const language = action.language;
+    yield call(() => Analytics.track("Language", { set: language }));
     yield put(setLanguage(language));
-    Analytics.track("Language", { set: language });
+}
 
+function* reloadApp(next, previous) {
+    // console.log("i cant believe it222", next, previous)
     Updates.reloadFromCache();
 }
+function* selectorChangeSaga(selector, saga) {
+    let previous = yield select(selector)
+    while (true) {
+        const action = yield take()
+        const next = yield select(selector)
+
+        console.log("rehydrated1", next, previous)
+
+        if (next !== previous) {
+
+            yield* saga(next, previous)
+            previous = next
+        }
+    }
+}
+
+const languageState = state => state.auth.language
 //  Watcher
 export function* authSaga() {
     yield takeLatest(CHECK_ADMIN, WORKER_checkAdmin);
     yield takeLatest(ANONYMOUSLY_SIGN_IN, WORKER_anonymouslySignIn);
     yield takeLatest(INIT_USER, WORKER_initUser);
     yield takeLatest(CHANGE_LANGUAGE, WORKER_changeLanguage);
+    yield takeLatest(REHYDRATE, selectorChangeSaga, languageState, reloadApp);
+
+
+    // yield spawn();
 }
 
 const initialState = {
@@ -197,7 +222,7 @@ const initialState = {
     userInfo: {},
     isAdmin: false,
     adminPassword: "",
-    language: "en"
+    language: null
 };
 
 // REDUCER
