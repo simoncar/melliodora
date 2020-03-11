@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, AsyncStorage } from "react-native";
 import { SettingsListItem } from "../settings/SettingsListItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Updates } from "expo";
 import I18n from "../../lib/i18n";
 import Analytics from "../../lib/analytics";
 import { connect } from 'react-redux';
@@ -43,12 +42,7 @@ class selectLanguage extends Component {
 
   _changeLanguage(language) {
     this.setState({ language: language });
-
     this.props.dispatch(changeLanguage(language))
-
-    Analytics.track("Language", { set: language });
-
-    Updates.reloadFromCache();
   }
   _getStyle(language) {
     if (language == this.state.language) {

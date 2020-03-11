@@ -3,6 +3,9 @@ import { call, put, takeEvery, takeLatest, select } from "redux-saga/effects";
 import _ from "lodash";
 import Constants from "expo-constants";
 import * as Localization from "expo-localization";
+import Analytics from "../lib/analytics";
+import { Updates } from "expo";
+
 
 // ACTIONS
 export const SET_USER_INFO = 'SET_USER_INFO';
@@ -13,6 +16,7 @@ export const SETUP_AUTH = "SETUP_AUTH";
 export const ANONYMOUSLY_SIGN_IN = "ANONYMOUSLY_SIGN_IN";
 export const INIT_USER = "INIT_USER";
 export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE";
+export const SET_LANGUAGE = "SET_LANGUAGE";
 
 // Action Creators
 export const setUserInfo = (userInfo, updateDB = false) => {
@@ -59,6 +63,11 @@ export const initUser = (user, isAnonymous) => ({
 
 export const changeLanguage = language => ({
     type: CHANGE_LANGUAGE,
+    language
+})
+
+export const setLanguage = language => ({
+    type: SET_LANGUAGE,
     language
 })
 
@@ -168,12 +177,19 @@ function* WORKER_initUser(action) {
         console.log(e);
     }
 }
+function* WORKER_changeLanguage(action) {
+    const language = action.language;
+    yield put(setLanguage(language));
+    Analytics.track("Language", { set: language });
 
+    Updates.reloadFromCache();
+}
 //  Watcher
 export function* authSaga() {
     yield takeLatest(CHECK_ADMIN, WORKER_checkAdmin);
     yield takeLatest(ANONYMOUSLY_SIGN_IN, WORKER_anonymouslySignIn);
     yield takeLatest(INIT_USER, WORKER_initUser);
+    yield takeLatest(CHANGE_LANGUAGE, WORKER_changeLanguage);
 }
 
 const initialState = {
@@ -202,7 +218,7 @@ export default (state = initialState, action) => {
                 ...state,
                 adminPassword: action.adminPassword,
             };
-        case CHANGE_LANGUAGE:
+        case SET_LANGUAGE:
             return {
                 ...state,
                 language: action.language,
