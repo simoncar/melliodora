@@ -44,7 +44,7 @@ class selectLanguage extends Component {
   _changeLanguage(language) {
     this.setState({ language: language });
 
-    this.dispatch(changeLanguage(language))
+    this.props.dispatch(changeLanguage(language))
 
     Analytics.track("Language", { set: language });
 

@@ -17,7 +17,7 @@ const rootPersistConfig = {
 const authPersistConfig = {
     key: 'auth',
     storage: AsyncStorage,
-    whitelist: ["adminPassword"]
+    whitelist: ["adminPassword", "language"]
 }
 
 const rootReducer = combineReducers({
