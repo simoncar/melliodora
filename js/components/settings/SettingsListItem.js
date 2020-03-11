@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, TouchableHighlight } from "react-native";
 import { Feather } from "@expo/vector-icons";
-export default class SettingsListItem extends Component {
+export const SettingsListItem = class SettingsListItem extends Component {
   render() {
     const { icon, onPress, title, titleInfoStyle, titleInfo, hasNavArrow = true } = this.props;
     return (

@@ -22,6 +22,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import SettingsListItem from "../settings/SettingsListItem";
 import { connectActionSheet, ActionSheetProvider } from '@expo/react-native-action-sheet';
 import stylesGlobal from "../../themes/globalTheme";
+import { connect } from 'react-redux';
+import { compose } from 'redux'
 
 var localMessages = [];
 
@@ -58,10 +60,9 @@ class chat extends Component {
       isLoadingEarlier: false,
       step: 0,
       muteState: false,
-      language: "",
       user: null,
       authenticated: false,
-      modalVisible: true,
+      modalVisible: false,
       chatroomUsers: []
     };
 
@@ -100,7 +101,7 @@ class chat extends Component {
       });
     });
 
-    Backend.setLanguage("en");
+    Backend.setLanguage(this.props.auth.language);
     Backend.setChatroom(this.props.chatroom, this.props.title);
     Backend.setMute(null);
     Backend.loadMessages(message => {
@@ -549,7 +550,17 @@ class chat extends Component {
   }
 }
 
-const ConnectedApp = connectActionSheet(chat);
+
+
+const mapStateToProps = state => ({
+  communityCreation: state.communityCreation,
+  community: state.community,
+  auth: state.auth
+});
+const ConnectedApp = compose(
+  connectActionSheet,
+  connect(mapStateToProps),
+)(chat);
 
 export default class ActionSheetContainer extends Component {
   static navigationOptions = ({ navigation }) => ({

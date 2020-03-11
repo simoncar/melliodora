@@ -145,84 +145,82 @@ class Settings extends Component {
           </TouchableHighlight>
         )}
 
-        <ScrollView style={{ backgroundColor: "#EFEFF4" }}>
-          {this._renderUser()}
+        {this._renderUser()}
+        <SettingsListItem
+          icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
+          title={I18n.t("searchUsers")}
+          onPress={() => this.props.navigation.navigate("UserSearch")}
+        />
+
+        <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
+
+        {this.props.settings.features
+          .filter(item => item.visible !== false)
+          .map((el, idx) => {
+            i++;
+            const navTitle = el.navTitle || el.title;
+            const navProps = el.navURL
+              ? {
+                url: el.navURL,
+                title: I18n.t(navTitle, { defaultValue: navTitle })
+              }
+              : {};
+
+            const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
+            return (
+              <SettingsListItem
+                key={"feature" + idx}
+                icon={<Image style={styles.imageStyle} source={imgSource} />}
+                title={I18n.t(el.title || "", {
+                  defaultValue: el.title || ""
+                })}
+                titleInfo={el.titleInfo || ""}
+                onPress={() => this.props.navigation.navigate(el.navigate || "webportalURL", navProps)}
+              />
+            );
+          })}
+
+        {this.separator(i)}
+
+        <SettingsListItem
+          icon={<FontAwesome name="language" style={styles.imageStyleIcon} />}
+          title={"Language"}
+          titleInfo={this.props.auth.language}
+          onPress={() => this.props.navigation.navigate("selectLanguage")}
+        />
+        <SettingsListItem
+          icon={<FontAwesome name="lock" style={styles.imageStyleIcon} />}
+          hasNavArrow={true}
+          title={I18n.t("adminAccess")}
+          onPress={() => this.props.navigation.navigate("adminPassword")}
+        />
+
+        {isAdmin(this.props.adminPassword) && (
           <SettingsListItem
-            icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
-            title={I18n.t("searchUsers")}
-            onPress={() => this.props.navigation.navigate("UserSearch")}
+            icon={<FontAwesome name="edit" style={styles.imageStyleIcon} />}
+            title={I18n.t("editor")}
+            onPress={() => this.props.navigation.navigate("Content")}
           />
+        )}
 
-          <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
+        <SettingsListItem
+          hasNavArrow={false}
+          icon={<MaterialIcons name="info-outline" style={styles.imageStyleIcon} />}
+          title={I18n.t("aboutThisApp")}
+          onPress={() => {
+            this.props.navigation.navigate("webportalURL", {
+              url: "https://smartcookies.io/smart-community",
+              title: I18n.t("aboutThisApp")
+            });
+          }}
+        />
+        <SettingsListItem
+          hasNavArrow={false}
+          icon={<SimpleLineIcons name="logout" style={styles.imageStyleIcon} />}
+          title={I18n.t("logout")}
+          onPress={() => this._logout()}
+        />
 
-          {this.props.settings.features
-            .filter(item => item.visible !== false)
-            .map((el, idx) => {
-              i++;
-              const navTitle = el.navTitle || el.title;
-              const navProps = el.navURL
-                ? {
-                  url: el.navURL,
-                  title: I18n.t(navTitle, { defaultValue: navTitle })
-                }
-                : {};
-
-              const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
-              return (
-                <SettingsListItem
-                  key={"feature" + idx}
-                  icon={<Image style={styles.imageStyle} source={imgSource} />}
-                  title={I18n.t(el.title || "", {
-                    defaultValue: el.title || ""
-                  })}
-                  titleInfo={el.titleInfo || ""}
-                  onPress={() => this.props.navigation.navigate(el.navigate || "webportalURL", navProps)}
-                />
-              );
-            })}
-
-          {this.separator(i)}
-
-          <SettingsListItem
-            icon={<FontAwesome name="language" style={styles.imageStyleIcon} />}
-            title={"Language"}
-            titleInfo={this.props.auth.language}
-            onPress={() => this.props.navigation.navigate("selectLanguage")}
-          />
-          <SettingsListItem
-            icon={<FontAwesome name="lock" style={styles.imageStyleIcon} />}
-            hasNavArrow={true}
-            title={I18n.t("adminAccess")}
-            onPress={() => this.props.navigation.navigate("adminPassword")}
-          />
-
-          {isAdmin(this.props.adminPassword) && (
-            <SettingsListItem
-              icon={<FontAwesome name="edit" style={styles.imageStyleIcon} />}
-              title={I18n.t("editor")}
-              onPress={() => this.props.navigation.navigate("Content")}
-            />
-          )}
-
-          <SettingsListItem
-            hasNavArrow={false}
-            icon={<MaterialIcons name="info-outline" style={styles.imageStyleIcon} />}
-            title={I18n.t("aboutThisApp")}
-            onPress={() => {
-              this.props.navigation.navigate("webportalURL", {
-                url: "https://smartcookies.io/smart-community",
-                title: I18n.t("aboutThisApp")
-              });
-            }}
-          />
-          <SettingsListItem
-            hasNavArrow={false}
-            icon={<SimpleLineIcons name="logout" style={styles.imageStyleIcon} />}
-            title={I18n.t("logout")}
-            onPress={() => this._logout()}
-          />
-          <View style={{ marginTop: 30 }}></View>
-        </ScrollView>
       </View>
     );
   }
