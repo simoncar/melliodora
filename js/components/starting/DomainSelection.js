@@ -19,8 +19,13 @@ import { SearchBar } from "react-native-elements";
 import { connect } from 'react-redux';
 import { getCommunities, processSelectedCommunity } from "../../store/community";
 class DomainSelection extends Component {
-  constructor() {
-    super();
+  static navigationOptions = {
+    header: null,
+  };
+
+
+  constructor(props) {
+    super(props);
     this.selectedBGWidth = new Animated.Value(0);
     this.highlightwidth = 0;
     this.state = {
@@ -28,26 +33,22 @@ class DomainSelection extends Component {
       domains: [],
       allDomains: []
     };
+
+    props.dispatch(getCommunities());
   }
-  static navigationOptions = {
-    header: null,
-  };
-
-
 
   componentDidMount() {
+
     const { communities } = this.props.community
     if (communities.length > 0) {
       this.setState({ domains: communities, allDomains: communities })
-    } else {
-      this.props.dispatch(getCommunities());
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
 
     const { communities } = this.props.community;
-    if (prevState.allDomains.length < 1 && communities !== prevProps.community.communities) {
+    if (communities !== prevProps.community.communities) {
       this.setState({ domains: communities, allDomains: communities })
     }
   }

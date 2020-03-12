@@ -128,7 +128,7 @@ class Home extends Component {
       demo.setupDemoData();
     }
 
-    systemHero.logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain);
+    systemHero.logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain, this.props.auth.userInfo.email || "");
 
     this.feature = firebase
       .firestore()

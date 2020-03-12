@@ -29,6 +29,8 @@ import * as Permissions from "expo-permissions";
 import { createMaterialTopTabNavigator, MaterialTopTabBar } from "react-navigation-tabs";
 import { AntDesign } from "@expo/vector-icons";
 import systemHero from "../../lib/systemHero";
+import { connect } from 'react-redux';
+
 
 @withMappedNavigationParams()
 class PageText extends Component {
@@ -80,7 +82,7 @@ class PageText extends Component {
     return (firebase.auth().currentUser || {}).uid;
   }
 
-  set uid(uid) {}
+  set uid(uid) { }
 
   get timestamp() {
     return firebase.database.ServerValue.TIMESTAMP;
@@ -128,10 +130,10 @@ class PageText extends Component {
       this.setState({ cameraIcon: "hour-glass" });
       const blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.onload = function() {
+        xhr.onload = function () {
           resolve(xhr.response);
         };
-        xhr.onerror = function(e) {
+        xhr.onerror = function (e) {
           reject(new TypeError("Network request failed"));
         };
         xhr.responseType = "blob";
@@ -611,7 +613,7 @@ class newStory extends React.Component {
 
               storyRef.set(storyDict, { merge: true }).then(() => navigation.popToTop());
 
-              systemHero.logToCalendar("StorySave-" + global.domain + eventTitle, "Story Save - " + eventTitle, global.domain);
+              systemHero.logToCalendar("StorySave-" + global.domain + eventTitle, "Story Save - " + eventTitle, global.domain, this.props.auth.userInfo.email || "");
             }
           }}>
           <Text style={[styles.chatHeading, { fontFamily: Platform.OS === "android" ? "Roboto" : "Arial" }]}>{I18n.t("save")}</Text>
@@ -630,4 +632,8 @@ class newStory extends React.Component {
   }
 }
 
-export default newStory;
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps)(newStory);

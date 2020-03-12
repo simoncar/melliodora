@@ -55,7 +55,7 @@ class CommunityCreateScreen extends Component {
             } else {
                 await communityRef.set(dict);
                 global.domain = node;
-                this.props.dispatch(setSelectedCommunity(dict));
+                this.props.dispatch(setSelectedCommunity(dict, true));
             }
             this.setState({ loading: false });
         } catch (error) {

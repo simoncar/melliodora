@@ -2,14 +2,14 @@ import firebase from "firebase";
 import _ from "lodash";
 import moment from "moment";
 
-exports.logToCalendar = async function(key, title, body) {
+exports.logToCalendar = async function (key, title, body, email = "") {
   try {
-    const p = new Promise(function(resolve, reject) {
+    const p = new Promise(function (resolve, reject) {
       const timestamp = firebase.firestore.Timestamp.now();
 
       var dataDict = {
         summary: _.isNil(title) ? "" : title,
-        description: _.isNil(body) ? "" : body + "\n\nMost Recent User : " + global.email,
+        description: _.isNil(body) ? "" : body + "\n\nMost Recent User : " + email,
         dtstamp: "202020202020202",
         date_start: moment().format("YYYY-MM-DD"),
         icon: "ios-play",
