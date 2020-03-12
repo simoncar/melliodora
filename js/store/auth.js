@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import { call, put, takeEvery, takeLatest, select, take, fork, spawn } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest, select, take, fork, spawn, delay } from "redux-saga/effects";
 import _ from "lodash";
 import Constants from "expo-constants";
 import * as Localization from "expo-localization";
@@ -185,7 +185,7 @@ function* WORKER_changeLanguage(action) {
 }
 
 function* reloadApp(next, previous) {
-    // console.log("i cant believe it222", next, previous)
+    yield delay(1000)
     Updates.reloadFromCache();
 }
 function* selectorChangeSaga(selector, saga) {

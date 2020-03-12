@@ -1,10 +1,8 @@
 {
+  "urlRandomness": "x5-z9n",
   "hostType": "lan",
   "lanType": "ip",
   "dev": true,
-  "strict": false,
   "minify": false,
-  "urlType": "exp",
-  "urlRandomness": "iv-kc3",
   "https": false
 }
