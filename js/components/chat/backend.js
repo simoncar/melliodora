@@ -62,6 +62,8 @@ export class Backend extends React.Component {
     }
   }
   loadMessages = async (callback) => {
+
+    console.log("loadMessages", global.domain, this.state.chatroom);
     this.ref = firebase
       .firestore()
       .collection(global.domain)
@@ -134,8 +136,8 @@ export class Backend extends React.Component {
     if (undefined === global.pushToken) {
       global.pushToken = "";
     }
-    if (!_.isString(language)) {
-      language = "en";
+    if (!_.isString(this.language)) {
+      this.language = "en";
     }
 
     for (let i = 0; i < message.length; i++) {
@@ -145,7 +147,7 @@ export class Backend extends React.Component {
         var messageDict = {
           _id: message[i]._id,
           text: message[i].text,
-          textLanguage: language,
+          textLanguage: this.language,
           chatroom: this.state.chatroom,
           chatroomTitle: this.state.title ? this.state.title : this.state.chatroom,
           user: message[i].user,
@@ -177,18 +179,14 @@ export class Backend extends React.Component {
           pushToken: global.pushToken,
           timestamp: Date.now(),
           uid: global.uid,
-          language: this.language,
-          email: global.email,
-          name: global.name
+          language: this.language
         };
       } else {
         var messageDict = {
           pushToken: global.pushToken,
           timestamp: Date.now(),
           uid: global.uid,
-          language: this.language,
-          email: global.email,
-          name: global.name
+          language: this.language
         };
       }
 

@@ -27,7 +27,6 @@ import { compose } from 'redux'
 
 var localMessages = [];
 
-@withMappedNavigationParams()
 class chat extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.title,
@@ -76,8 +75,10 @@ class chat extends Component {
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
 
     localMessages = [];
-    console.log("global.authenticated FROM chat", global.authenticated, global.name, global.email);
-    console.log("lodash = ", _.isBoolean(global.authenticated));
+
+    this.communityDomain = this.props.community.selectedCommunity.node;
+    console.log("this.this.communityDomain", this.communityDomain)
+    this.userInfo = this.props.auth.userInfo;
   }
 
   componentDidMount() {
@@ -87,22 +88,25 @@ class chat extends Component {
       refresh: this.refresh
     });
 
+    this.chatroom = this.props.navigation.getParam("chatroom");
+    this.title = this.props.navigation.getParam("title");
+
     this.ref = firebase
       .firestore()
-      .collection(global.domain)
+      .collection(this.communityDomain)
       .doc("chat")
       .collection("chatrooms")
-      .doc(this.props.chatroom);
+      .doc(this.chatroom);
 
     this.unsubscribe = this.ref.onSnapshot(doc => {
       const item = doc.data();
       this.props.navigation.setParams({
-        title: this.props.title
+        title: this.title
       });
     });
 
     Backend.setLanguage(this.props.auth.language);
-    Backend.setChatroom(this.props.chatroom, this.props.title);
+    Backend.setChatroom(this.chatroom, this.title);
     Backend.setMute(null);
     Backend.loadMessages(message => {
       if (!localMessages.includes(message._id)) {
@@ -114,7 +118,7 @@ class chat extends Component {
       }
     });
 
-    this.loadChatUsers();
+    // this.loadChatUsers();
 
     Analytics.track("Chat", { chatroom: this.props.title });
   }
@@ -122,7 +126,7 @@ class chat extends Component {
     const data = [];
     const querySnapshot = await firebase
       .firestore()
-      .collection(global.domain)
+      .collection(this.communityDomain)
       .doc("user")
       .collection("registered")
       .where("interestGroups", "array-contains", this.props.title)
@@ -139,7 +143,7 @@ class chat extends Component {
     const data = [];
     const querySnapshot = await firebase
       .firestore()
-      .collection(global.domain)
+      .collection(this.communityDomain)
       .doc("user")
       .collection("registered")
       .where("uid", "in", members)
@@ -271,8 +275,8 @@ class chat extends Component {
         image: result.uri,
         filename: result.uri,
         user: {
-          _id: global.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-          name: global.name
+          _id: this.userInfo.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+          name: this.userInfo.firstName
         }
       };
 
@@ -418,7 +422,7 @@ class chat extends Component {
   };
 
   render() {
-    if (!global.authenticated && global.domain == "sais_edu_sg") {
+    if (this.communityDomain == "sais_edu_sg") {
       const { goBack } = this.props.navigation;
       goBack(null);
       setTimeout(() => {
@@ -435,22 +439,22 @@ class chat extends Component {
     }
 
     let userDetails = {};
-    if (!global.userInfo) {
+    if (this.userInfo.isAnonymous) {
       userDetails = {
-        name: "Guest" + global.uid
+        name: "Guest" + this.userInfo.uid
       };
     } else {
       userDetails = {
-        name: global.userInfo.firstName,
-        email: global.userInfo.email,
-        ...(global.userInfo.photoURL && { avatar: global.userInfo.photoURL })
+        name: this.userInfo.firstName,
+        email: this.userInfo.email,
+        ...(this.userInfo.photoURL && { avatar: this.userInfo.photoURL })
       };
     }
 
     return (
       <Container>
         <View>
-          <Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
+          {/* <Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
             <View style={{ marginTop: 22, backgroundColor: "#f2f2f2", flex: 1 }}>
               <LinearGradient
                 colors={["#4c669f", "#3b5998", "#192f6a"]}
@@ -486,13 +490,14 @@ class chat extends Component {
                 {this.renderSeparator()}
 
                 {["users", "public"].indexOf(this.props.type) > -1 ? (
-                  <SettingsListItem
-                    title={"All Users"}
-                    onPress={() => {
-                      this.setState({ modalVisible: false });
-                      this.props.navigation.navigate("UserSearch");
-                    }}
-                  />
+                  // <SettingsListItem
+                  //   title={"All Users"}
+                  //   onPress={() => {
+                  //     this.setState({ modalVisible: false });
+                  //     this.props.navigation.navigate("UserSearch");
+                  //   }}
+                  // />
+                  null
                 ) : (
                     <FlatList
                       style={{ height: "70%" }}
@@ -505,14 +510,14 @@ class chat extends Component {
                   )}
               </View>
             </View>
-          </Modal>
+          </Modal> */}
 
           <TouchableOpacity
             onPress={() => {
               this.props.navigation.navigate("selectLanguageChat", {
                 chatroom: this.props.title,
-                description: this.props.description,
-                contact: this.props.contact,
+                // description: this.props.description,
+                // contact: this.props.contact,
                 url: this.props.url
               });
             }}>
@@ -526,7 +531,7 @@ class chat extends Component {
           messages={this.state.messages}
           onSend={this.onSend}
           user={{
-            _id: global.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+            _id: this.userInfo.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
             ...userDetails
           }}
           renderActions={this.renderCustomActions}
