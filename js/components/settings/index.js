@@ -39,9 +39,7 @@ class Settings extends Component {
     this._retrieveGradeSelectors();
 
     this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
-      this._getUser();
     });
-    this._getUser();
 
     this.props.dispatch(actionRetrieveFeatures());
     Analytics.track("More");
@@ -49,20 +47,6 @@ class Settings extends Component {
 
   componentWillUnmount() {
     this.willFocusSubscription.remove();
-  }
-
-  _getUser() {
-    const user = firebase.auth().currentUser;
-
-    if (user) {
-      user.getIdTokenResult().then(idTokenResult => {
-        if (idTokenResult.claims[global.domain]) {
-          this.setState({ user: user });
-        }
-      });
-    } else {
-      // No user is signed in.
-    }
   }
 
   _retrieveGradeSelectors = async () => {
@@ -86,7 +70,7 @@ class Settings extends Component {
   }
 
   _renderUser() {
-    const user = this.state.user;
+    const user = this.props.auth.userInfo;
     if (_.has(user, "email") && user.email) {
       const email = user.email;
       return (

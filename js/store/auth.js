@@ -34,9 +34,8 @@ export const setUserInfo = (userInfo, updateDB = false) => {
     })
 };
 
-export const checkAdmin = (community) => ({
-    type: CHECK_ADMIN,
-    community
+export const checkAdmin = () => ({
+    type: CHECK_ADMIN
 });
 
 export const setIsAdmin = (isAdmin) => ({
@@ -93,9 +92,6 @@ function* WORKER_checkAdmin(action) {
             return;
         }
 
-        const community = action.community;
-        console.log("WORKER_checkAdmin", community);
-
         // const { claims } = yield call(getCurrentUserClaims);
         const adminUIDs = yield select(state => state.community.selectedCommunity.admins)
         const userUID = yield select(state => state.auth.userInfo.uid);
@@ -114,6 +110,7 @@ function* WORKER_checkAdmin(action) {
 function* WORKER_anonymouslySignIn(action) {
     try {
         yield call(_anonymouslySignIn);
+        yield put(checkAdmin());
     } catch (e) {
         console.log(e);
     }
@@ -174,6 +171,8 @@ function* WORKER_initUser(action) {
             global.userInfo = docData;
             yield put(setUserInfo(docData));
         }
+
+        yield put(checkAdmin());
     } catch (e) {
         console.log(e);
     }
