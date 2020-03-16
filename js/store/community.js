@@ -1,6 +1,7 @@
 import * as firebase from "firebase";
 import { call, put, takeEvery, takeLatest, select } from "redux-saga/effects";
 import _ from "lodash";
+import { checkAdmin } from "./auth";
 
 export const PROCESS_SELECTED_COMMUNITY = 'PROCESS_SELECTED_COMMUNITY';
 export const SET_SELECTED_COMMUNITY = 'SET_SELECTED_COMMUNITY';
@@ -11,15 +12,15 @@ export const SET_INVALID_COMMUNITY = "SET_INVALID_COMMUNITY";
 export const SET_USER_CHATROOMS = "SET_USER_CHATROOMS";
 export const BUILD_CHATROOM_LIST = "BUILD_CHATROOM_LIST";
 
+// ALWAYS USE THIS TO SET THE COMMUNITY
 export const processSelectedCommunity = selectedCommunity => ({
     type: PROCESS_SELECTED_COMMUNITY,
     selectedCommunity,
 });
 
-export const setSelectedCommunity = (selectedCommunity, newCommunity = false) => ({
+export const setSelectedCommunity = (selectedCommunity) => ({
     type: SET_SELECTED_COMMUNITY,
-    selectedCommunity,
-    newCommunity
+    selectedCommunity
 });
 
 export const getCommunities = () => ({
@@ -55,7 +56,6 @@ export const buildChatroomList = () => ({
 function* WORKER_processSelectedCommunity(action) {
 
     let community = action.selectedCommunity
-    const newCommunity = action.newCommunity;
 
     console.log("WORKER_processSelectedCommunity", community)
     community = community || {};
@@ -108,6 +108,7 @@ function* WORKER_processSelectedCommunity(action) {
     }
 
     yield put(setSelectedCommunity(community));
+    yield put(checkAdmin());
 }
 
 function* WORKER_getCommunities() {

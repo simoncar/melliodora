@@ -25,7 +25,7 @@ import systemHero from "../../lib/systemHero";
 import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
 import moment from "moment";
-import { setUserInfo, actionCheckAdmin } from "../../store/auth";
+import { setUserInfo } from "../../store/auth";
 import { connect } from 'react-redux';
 
 
@@ -120,7 +120,7 @@ class Home extends Component {
       title: this.props.community.selectedCommunity.name
     });
 
-    this.props.dispatch(actionCheckAdmin(this.props.community.selectedCommunity.node));
+
 
     global.domain = this.props.community.selectedCommunity.node || global.domain;
 

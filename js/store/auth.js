@@ -34,7 +34,7 @@ export const setUserInfo = (userInfo, updateDB = false) => {
     })
 };
 
-export const actionCheckAdmin = (community) => ({
+export const checkAdmin = (community) => ({
     type: CHECK_ADMIN,
     community
 });

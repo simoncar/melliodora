@@ -3,7 +3,7 @@ import { Text, View, TextInput, StyleSheet, SafeAreaView, ScrollView, TouchableO
 import { connect } from 'react-redux';
 import firebase from "firebase";
 import Loader from "../common/Loader";
-import { setSelectedCommunity } from "../../store/community";
+import { processSelectedCommunity } from "../../store/community";
 
 class CommunityCreateScreen extends Component {
     state = {
@@ -55,7 +55,7 @@ class CommunityCreateScreen extends Component {
             } else {
                 await communityRef.set(dict);
                 global.domain = node;
-                this.props.dispatch(setSelectedCommunity(dict, true));
+                this.props.dispatch(processSelectedCommunity(dict));
             }
             this.setState({ loading: false });
         } catch (error) {
