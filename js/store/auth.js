@@ -181,23 +181,20 @@ function* WORKER_changeLanguage(action) {
     const language = action.language;
     yield call(() => Analytics.track("Language", { set: language }));
     yield put(setLanguage(language));
-}
 
-function* reloadApp(next, previous) {
-    yield delay(1000)
-    Updates.reloadFromCache();
-}
-function* selectorChangeSaga(selector, saga) {
-    let previous = yield select(selector)
+
     while (true) {
-        const action = yield take()
-        const next = yield select(selector)
-        if (next !== previous) {
-
-            yield* saga(next, previous)
-            previous = next
+        const next = yield select(languageState);
+        if (next === language) {
+            yield reloadApp();
+            break;
         }
     }
+}
+
+function* reloadApp() {
+    yield delay(1000)
+    Updates.reloadFromCache();
 }
 
 const languageState = state => state.auth.language
@@ -207,7 +204,7 @@ export function* authSaga() {
     yield takeLatest(ANONYMOUSLY_SIGN_IN, WORKER_anonymouslySignIn);
     yield takeLatest(INIT_USER, WORKER_initUser);
     yield takeLatest(CHANGE_LANGUAGE, WORKER_changeLanguage);
-    yield takeLatest(REHYDRATE, selectorChangeSaga, languageState, reloadApp);
+    // yield takeLatest(REHYDRATE, selectorChangeSaga, languageState, reloadApp);
 
 
     // yield spawn();
