@@ -8,17 +8,18 @@ import { withNavigation } from "react-navigation";
 import styles from "./styles";
 import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
 import AuthParser from "./authParser";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import _ from "lodash";
 import Analytics from "../../lib/analytics";
 import stylesGlobal from "../../themes/globalTheme";
+import { connect } from 'react-redux';
+import { compose } from 'redux'
+
 const timer = require("react-native-timer");
 
 const tabBarIcon = name => ({ tintColor }) => (
   <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
-@withMappedNavigationParams()
 class authPortal extends Component {
   constructor(props) {
     super(props);
@@ -147,7 +148,7 @@ class authPortal extends Component {
     if (this.state.url.substring(0, 42) == "https://mystamford.edu.sg/login/login.aspx") {
       setTimeout(() => {
         var jsCode = "document.getElementsByClassName('ff-login-personalised-background')[0].style.display = 'none';";
-        jsCode = jsCode + "document.getElementById('username').value='" + global.email + "';true;";
+        jsCode = jsCode + "document.getElementById('username').value='" + this.props.auth.userInfo.email || "" + "';true;";
         this.webref.injectJavaScript(jsCode);
       }, 500);
     } else {
@@ -205,7 +206,13 @@ class authPortal extends Component {
   }
 }
 
-const ConnectedApp = connectActionSheet(withNavigation(authPortal));
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+const ConnectedApp = compose(
+  connectActionSheet,
+  connect(mapStateToProps),
+)(authPortal);
 
 export default class AppContainer extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -241,8 +248,9 @@ export default class AppContainer extends React.Component {
   render() {
     return (
       <ActionSheetProvider>
-        <ConnectedApp />
+        <ConnectedApp navigation={this.props.navigation} />
       </ActionSheetProvider>
     );
   }
 }
+

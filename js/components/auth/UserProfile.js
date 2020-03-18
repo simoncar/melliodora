@@ -56,7 +56,7 @@ class UserProfile extends Component {
     } else if (uid) {
       firebase
         .firestore()
-        .collection(global.domain)
+        .collection(this.props.community.selectedCommunity.node)
         .doc("user")
         .collection("registered")
         .doc(uid)

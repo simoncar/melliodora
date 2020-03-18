@@ -11,6 +11,8 @@ import AuthStackNavigator from "./AuthStackNavigator";
 import * as firebase from "firebase";
 import Constants from "expo-constants";
 import { connect } from 'react-redux';
+import { getCommunityDetails } from "./store/community";
+
 
 //redux
 import { signInAnonymously, initUser } from "./store/auth";
@@ -29,6 +31,10 @@ class Setup extends Component {
         .then(() => this.props.dispatch({ type: "FIREBASE_READY" }));
     } catch (e) {
       console.log("firebase error", e.message);
+    }
+    if (Constants.manifest.extra.instance) {
+      const node = Constants.manifest.extra.instance;
+      this.props.dispatch(getCommunityDetails(node));
     }
 
     Font.loadAsync({
@@ -59,7 +65,7 @@ class Setup extends Component {
     if (this.state.loading || !this.props.auth.userInfo || _.isEmpty(this.props.auth.userInfo)) {
       return <AppLoading />;
     }
-    else if (_.isEmpty(this.props.community.selectedCommunity) && !Constants.manifest.extra.instance) {
+    else if (_.isEmpty(this.props.community.selectedCommunity)) {
       return <AuthStackNavigator />
     } else {
       // check if user is admin

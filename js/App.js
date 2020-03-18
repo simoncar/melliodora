@@ -13,13 +13,6 @@ class App extends Component {
   componentDidMount() {
     this._notificationSubscription = this._registerForPushNotifications();
     Analytics.track("App Started");
-
-    //check if community selected is valid
-    console.log("Constants.manifest.extra.instance", Constants.manifest.extra.instance);
-
-    const node = Constants.manifest.extra.instance || this.props.community.selectedCommunity.node;
-    this.props.dispatch(getCommunityDetails(node));
-
   }
 
   componentWillUnmount() {
