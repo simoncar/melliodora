@@ -8,6 +8,9 @@ import settings from './settings';
 import auth from './auth';
 import community from './community';
 
+export const FIREBASE_READY = "FIREBASE_READY";
+
+
 const rootPersistConfig = {
     key: 'root',
     storage: AsyncStorage,

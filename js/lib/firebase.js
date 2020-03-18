@@ -6,15 +6,22 @@ import * as Localization from "expo-localization";
 import Constants from "expo-constants";
 
 class Firebase {
-  static async initialise() {
-    try {
-      if (!firebase.apps.length) {
-        await firebase.initializeApp(ApiKeys.FirebaseConfig);
+  static initialise() {
+
+    return new Promise(function (resolve, reject) {
+      try {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(ApiKeys.FirebaseConfig);
+          resolve(1);
+        } else {
+          resolve(1);
+        }
+      } catch (e) {
+        console.log("firebase catch error:", e.message);
+        //console.error(e.message);
       }
-    } catch (e) {
-      console.log("firebase catch error:", e.message);
-      //console.error(e.message);
-    }
+    });
+
   }
 }
 

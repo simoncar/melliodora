@@ -5,32 +5,46 @@ import { Input } from "react-native-elements";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
 import _ from "lodash";
+import { connect } from 'react-redux';
+import Loader from "../common/Loader";
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
 
-  state = { email: "", password: "", errorMessage: null };
+  state = { email: "", password: "", errorMessage: null, loading: false };
   handleLogin = async () => {
 
     try {
+      this.setState({ loading: true });
+
       const { email, password } = this.state;
       await firebase
         .auth()
         .signInWithEmailAndPassword(email, password);
+
+    } catch (error) {
+      this.setState({ errorMessage: error.message, loading: false });
+    }
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+
+    const { userInfo } = this.props.auth;
+    if (userInfo !== prevProps.auth.userInfo && !_.isEmpty(userInfo)) {
+      this.setState({ loading: false });
       if (!global.domain || _.has(this.props, "navigation.state.param.toWelcomeScreen")) {
         this.props.navigation.navigate("welcomeScreen");
       } else {
         this.props.navigation.popToTop();
       }
-
-    } catch (error) {
-      this.setState({ errorMessage: error.message });
     }
-  };
+  }
 
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
+
+        <Loader modalVisible={this.state.loading} animationType="fade" />
         <Text>{this.state.errorMessage}</Text>
 
         <TextInput
@@ -89,3 +103,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
 });
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps)(LoginScreen);

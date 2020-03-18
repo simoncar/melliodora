@@ -1,5 +1,6 @@
 import firebase from "firebase";
-import { call, put, takeEvery, takeLatest, select, take, fork, spawn, delay } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest, select, take, fork, spawn, delay, takeLeading } from "redux-saga/effects";
+import { eventChannel } from "redux-saga";
 import _ from "lodash";
 import Constants from "expo-constants";
 import * as Localization from "expo-localization";
@@ -107,6 +108,38 @@ function* WORKER_checkAdmin(action) {
     }
 }
 
+function* WORKER_authListener() {
+
+    // #1
+    const channel = new eventChannel(emiter => {
+        const listener = firebase.auth().onAuthStateChanged(user => {
+            console.log("SetupUser", user);
+            if (!user) {
+                emiter({ data: { noUser: true } });
+            } else {
+                const isAnonymous = user.isAnonymous;
+                emiter({ data: { user, isAnonymous } });
+            }
+        });
+
+        // #2
+        return () => {
+            listener.off();
+        };
+    });
+
+    // #3
+    while (true) {
+        const { data } = yield take(channel);
+        if (data.noUser) {
+            yield put(signInAnonymously());
+        } else {
+            const { user, isAnonymous } = data;
+            yield put(initUser(user, isAnonymous));
+        }
+    }
+}
+
 function* WORKER_anonymouslySignIn(action) {
     try {
         yield call(_anonymouslySignIn);
@@ -204,6 +237,7 @@ export function* authSaga() {
     yield takeLatest(ANONYMOUSLY_SIGN_IN, WORKER_anonymouslySignIn);
     yield takeLatest(INIT_USER, WORKER_initUser);
     yield takeLatest(CHANGE_LANGUAGE, WORKER_changeLanguage);
+    yield takeLeading("FIREBASE_READY", WORKER_authListener);
     // yield takeLatest(REHYDRATE, selectorChangeSaga, languageState, reloadApp);
 
 

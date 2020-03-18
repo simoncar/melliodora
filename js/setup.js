@@ -23,9 +23,10 @@ class Setup extends Component {
     loading: true,
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     try {
-      await Firebase.initialise();
+      Firebase.initialise()
+        .then(() => this.props.dispatch({ type: "FIREBASE_READY" }));
     } catch (e) {
       console.log("firebase error", e.message);
     }
@@ -51,28 +52,7 @@ class Setup extends Component {
     I18n.locale = language;
 
     this.setState({ loading: false });
-    this.setupUser();
-
   }
-
-  setupUser = () => {
-    try {
-
-      firebase.auth().onAuthStateChanged(user => {
-        console.log("SetupUser", user);
-        if (!user) {
-          this.props.dispatch(signInAnonymously());
-
-        } else {
-          const isAnonymous = user.isAnonymous;
-          this.props.dispatch(initUser(user, isAnonymous));
-        }
-      });
-    } catch (e) {
-      console.log("catch error body:", e.message);
-    }
-  };
-
 
   render() {
 
