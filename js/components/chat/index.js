@@ -19,7 +19,7 @@ import Analytics from "../../lib/analytics";
 import * as firebase from "firebase";
 import { ListItem } from "react-native-elements";
 import { LinearGradient } from 'expo-linear-gradient';
-import SettingsListItem from "../settings/SettingsListItem";
+import { SettingsListItem } from "../settings/SettingsListItem";
 import { connectActionSheet, ActionSheetProvider } from '@expo/react-native-action-sheet';
 import stylesGlobal from "../../themes/globalTheme";
 import { connect } from 'react-redux';
@@ -454,7 +454,7 @@ class chat extends Component {
     return (
       <Container>
         <View>
-          {/* <Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
+          <Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
             <View style={{ marginTop: 22, backgroundColor: "#f2f2f2", flex: 1 }}>
               <LinearGradient
                 colors={["#4c669f", "#3b5998", "#192f6a"]}
@@ -489,15 +489,14 @@ class chat extends Component {
                 <Text style={{ padding: 12, fontSize: 18 }}>Chatroom users ({this.state.chatroomUsers.length})</Text>
                 {this.renderSeparator()}
 
-                {["users", "public"].indexOf(this.props.type) > -1 ? (
-                  // <SettingsListItem
-                  //   title={"All Users"}
-                  //   onPress={() => {
-                  //     this.setState({ modalVisible: false });
-                  //     this.props.navigation.navigate("UserSearch");
-                  //   }}
-                  // />
-                  null
+                {["users", "public"].indexOf(this.props.navigation.getParam("type")) > -1 ? (
+                  <SettingsListItem
+                    title={"All Users"}
+                    onPress={() => {
+                      this.setState({ modalVisible: false });
+                      this.props.navigation.navigate("UserSearch");
+                    }}
+                  />
                 ) : (
                     <FlatList
                       style={{ height: "70%" }}
@@ -510,7 +509,7 @@ class chat extends Component {
                   )}
               </View>
             </View>
-          </Modal> */}
+          </Modal>
 
           <TouchableOpacity
             onPress={() => {
