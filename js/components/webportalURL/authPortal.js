@@ -13,6 +13,7 @@ import Analytics from "../../lib/analytics";
 import stylesGlobal from "../../themes/globalTheme";
 import { connect } from 'react-redux';
 import { compose } from 'redux'
+import { saveDetails } from "../../store/authPortal";
 
 const timer = require("react-native-timer");
 
@@ -141,14 +142,14 @@ class authPortal extends Component {
     var authEmail = AuthParser.extractLoginEmail(message.nativeEvent.data);
     var authID = AuthParser.extractLoginID(message.nativeEvent.data);
     var authRole = AuthParser.extractLoginRole(message.nativeEvent.data);
-    AuthParser.saveDetails(authName, authEmail, authRole, authID);
+    this.props.dispatch(saveDetails(authName, authEmail, authRole, authID));
   }
 
   _onLoadEnd() {
     if (this.state.url.substring(0, 42) == "https://mystamford.edu.sg/login/login.aspx") {
       setTimeout(() => {
         var jsCode = "document.getElementsByClassName('ff-login-personalised-background')[0].style.display = 'none';";
-        jsCode = jsCode + "document.getElementById('username').value='" + this.props.auth.userInfo.email || "" + "';true;";
+        jsCode = jsCode + "document.getElementById('username').value='" + this.props.authPortal.authEmail || "" + "';true;";
         this.webref.injectJavaScript(jsCode);
       }, 500);
     } else {
@@ -196,7 +197,7 @@ class authPortal extends Component {
               ref={r => (this.webref = r)}
               keyboardDisplayRequiresUserAction={true}
               sharedCookiesEnabled={true}
-              onMessage={this.handleMessage}
+              onMessage={this.handleMessage.bind(this)}
               onLoadEnd={this._onLoadEnd.bind(this)}
             />
           </View>

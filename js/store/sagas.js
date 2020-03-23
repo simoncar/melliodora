@@ -3,6 +3,7 @@ import { all, take } from "redux-saga/effects";
 import { settingsSaga } from "./settings";
 import { authSaga } from "./auth";
 import { communitySaga } from "./community"
+import { authPortalSaga } from "./authPortal"
 import { REHYDRATE } from 'redux-persist'
 
 export default function* rootSaga() {
@@ -12,6 +13,7 @@ export default function* rootSaga() {
     yield all([
         settingsSaga(),
         authSaga(),
-        communitySaga()
+        communitySaga(),
+        authPortalSaga()
     ])
 }

@@ -238,10 +238,6 @@ export function* authSaga() {
     yield takeLatest(INIT_USER, WORKER_initUser);
     yield takeLatest(CHANGE_LANGUAGE, WORKER_changeLanguage);
     yield takeLeading("FIREBASE_READY", WORKER_authListener);
-    // yield takeLatest(REHYDRATE, selectorChangeSaga, languageState, reloadApp);
-
-
-    // yield spawn();
 }
 
 const initialState = {
