@@ -67,6 +67,8 @@ function* WORKER_saveDetails(action) {
 
             yield put(setAuthName(name));
             yield put(setAuthEmail(email));
+            yield put(setAuthID(guid));
+            yield put(setAuthRole(role));
         }
 
     } catch (e) {

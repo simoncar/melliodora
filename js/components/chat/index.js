@@ -422,7 +422,7 @@ class chat extends Component {
   };
 
   render() {
-    if (this.communityDomain == "sais_edu_sg") {
+    if (this.communityDomain == "sais_edu_sg" && !this.props.authPortal.authEmail) {
       const { goBack } = this.props.navigation;
       goBack(null);
       setTimeout(() => {
@@ -559,7 +559,8 @@ class chat extends Component {
 const mapStateToProps = state => ({
   communityCreation: state.communityCreation,
   community: state.community,
-  auth: state.auth
+  auth: state.auth,
+  authPortal: state.authPortal
 });
 const ConnectedApp = compose(
   connectActionSheet,

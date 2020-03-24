@@ -208,7 +208,8 @@ class authPortal extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  authPortal: state.authPortal
 });
 const ConnectedApp = compose(
   connectActionSheet,
