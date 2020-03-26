@@ -61,7 +61,8 @@ function* WORKER_saveFeatureChanges() {
 function* WORKER_retrieveFeatures() {
     try {
         // do api call
-        const data = yield call(retrieveFeatures);
+        let data = yield call(retrieveFeatures);
+        data = data ? data : [];
         yield put(setFeatures(data));
     } catch (e) {
         console.log(e);

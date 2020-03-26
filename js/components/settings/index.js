@@ -41,7 +41,7 @@ class Settings extends Component {
     this.willFocusSubscription = this.props.navigation.addListener("willFocus", () => {
     });
 
-    this.props.dispatch(actionRetrieveFeatures());
+    // this.props.dispatch(actionRetrieveFeatures());
     Analytics.track("More");
   }
 
@@ -113,7 +113,7 @@ class Settings extends Component {
   render() {
 
     var i = 0;
-
+    const features = this.props.settings.features ? this.props.settings.features : [];
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
         {(global.administrator || this.props.auth.isAdmin) && (
@@ -138,7 +138,7 @@ class Settings extends Component {
 
         <FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
 
-        {this.props.settings.features
+        {features
           .filter(item => item.visible !== false)
           .map((el, idx) => {
             i++;

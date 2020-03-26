@@ -44,7 +44,6 @@ function* WORKER_saveDetails(action) {
         const { name, email, guid, role } = action;
         const uid = yield select(state => state.auth.userInfo.uid);
         const domain = yield select(state => state.community.selectedCommunity.node);
-        console.log("WORKER_saveDetails222", uid, domain, name, email);
 
         if (!_.isNil(uid) && name.length > 0 && email.length > 0) {
             var userDict = {
