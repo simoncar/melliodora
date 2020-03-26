@@ -100,7 +100,7 @@ class SignUpScreen extends Component {
           }
         })
         .catch(error => {
-          this.navigation.pop();
+          this.props.navigation.popToTop();
           this.setState({ errorMessage: error.message, loading: false })
         });
 

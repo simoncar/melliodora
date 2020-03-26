@@ -144,13 +144,17 @@ export class Backend extends React.Component {
       if (undefined != message[i].image && message[i].image.length > 0) {
         var uploadUrl = uploadImageAsync(message[i], this.state.chatroom, message[i].user);
       } else {
+
+        let user = message[i].user;
+        user.name = user.name ? user.name : "";
+        user.id = user.id ? user.id : "";
         var messageDict = {
           _id: message[i]._id,
           text: message[i].text,
           textLanguage: this.language,
           chatroom: this.state.chatroom,
           chatroomTitle: this.state.title ? this.state.title : this.state.chatroom,
-          user: message[i].user,
+          user: user,
           timestamp: Date.now(),
           system: false,
           pushToken: global.pushToken,
