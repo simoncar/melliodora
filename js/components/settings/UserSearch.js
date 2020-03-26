@@ -56,7 +56,9 @@ class UserSearch extends Component {
       .get();
 
     querySnapshot.docs.forEach(doc => {
-      data.push(doc.data());
+      let docData = doc.data();
+      docData = { ...docData, uid: docData.uid || doc.id };
+      data.push(docData);
     });
     return data;
   };
@@ -115,6 +117,7 @@ class UserSearch extends Component {
   };
 
   _renderItem({ item, index }) {
+    console.log("item2222", item);
     const avatarTitle = item.email.slice(0, 2);
     const fullName = item.firstName + " " + item.lastName;
     const avatar = item.photoURL ? { source: { uri: item.photoURL } } : { title: avatarTitle };
