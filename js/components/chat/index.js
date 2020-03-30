@@ -109,16 +109,14 @@ class chat extends Component {
     Backend.setChatroom(this.chatroom, this.title);
     Backend.setMute(null);
     Backend.loadMessages(message => {
-      if (!localMessages.includes(message._id)) {
-        this.setState(previousState => ({
-          messages: GiftedChat.append(previousState.messages, message)
-        }));
-      } else {
-        console.log("ignoring message");
-      }
+
+      this.setState(previousState => ({
+        messages: GiftedChat.append(previousState.messages, message)
+      }));
+
     });
 
-    // this.loadChatUsers();
+    this.loadChatUsers();
 
     Analytics.track("Chat", { chatroom: this.props.title });
   }

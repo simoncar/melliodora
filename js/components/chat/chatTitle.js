@@ -14,8 +14,9 @@ export default class chatTitle extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chatroomTitle: this.props.navigation.getParam("title"),
-      type: this.props.navigation.getParam("type")
+      chatroomTitle: this.props.navigation.getParam("title") || "",
+      type: this.props.navigation.getParam("type"),
+      errorMsg: ""
     };
   }
 
@@ -23,34 +24,44 @@ export default class chatTitle extends Component {
     this.setState({ chatroomTitle: title });
   }
 
-  _saveChatroom() {
-    var dict = {
-      title: this.state.chatroomTitle,
-      // type: this.state.interestGroupOnly ? "interestGroup" : "user"
-      type: "public"
-    };
+  async _saveChatroom() {
+    try {
+      const chatroomTitle = this.state.chatroomTitle.trim();
+      const regexPattern = new RegExp("[a-zA-Z0-9\s]+$");
+      if (chatroomTitle.length < 1 || !regexPattern.test(this.state.chatroomTitle)) {
+        throw new Error("Invalid Characters");
+      }
+      var dict = {
+        title: chatroomTitle,
+        // type: this.state.interestGroupOnly ? "interestGroup" : "user"
+        type: "public"
+      };
 
-    var edit = this.props.navigation.getParam("edit");
+      var edit = this.props.navigation.getParam("edit");
 
-    if (edit == true) {
-      firebase
-        .firestore()
-        .collection(global.domain)
-        .doc("chat")
-        .collection("chatrooms")
-        .doc(this.props.navigation.getParam("chatroom"))
-        .set(dict, { merge: true });
-    } else {
-      firebase
-        .firestore()
-        .collection(global.domain)
-        .doc("chat")
-        .collection("chatrooms")
-        .add(dict);
+      if (edit == true) {
+        await firebase
+          .firestore()
+          .collection(global.domain)
+          .doc("chat")
+          .collection("chatrooms")
+          .doc(this.props.navigation.getParam("chatroom"))
+          .set(dict, { merge: true });
+      } else {
+        await firebase
+          .firestore()
+          .collection(global.domain)
+          .doc("chat")
+          .collection("chatrooms")
+          .add(dict);
+      }
+      console.log("ChatTitle go back");
+      this.props.navigation.goBack(null);
+      this.props.navigation.state.params.onGoBack({ title: this.state.chatroomTitle });
+    } catch (err) {
+      this.setState({ errorMsg: err.message });
     }
-    console.log("ChatTitle go back");
-    this.props.navigation.goBack(null);
-    this.props.navigation.state.params.onGoBack({ title: this.state.chatroomTitle });
+
   }
 
   _hideChatroom() {
@@ -71,7 +82,7 @@ export default class chatTitle extends Component {
 
   _goback() {
     const { goBack } = this.props.navigation;
-    setTimeout(function() {
+    setTimeout(function () {
       goBack();
     }, 1500);
     goBack();
@@ -96,6 +107,7 @@ export default class chatTitle extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text>{this.state.errorMsg}</Text>
         <Input
           style={styles.titleField}
           onChangeText={text => this._setChatroomTitle(text)}

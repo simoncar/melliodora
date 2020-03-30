@@ -62,7 +62,7 @@ class Setup extends Component {
 
   render() {
 
-    if (this.state.loading || !this.props.auth.userInfo || _.isEmpty(this.props.auth.userInfo)) {
+    if (this.state.loading || !this.props.auth.userInfo || _.isEmpty(this.props.auth.userInfo) || (_.isEmpty(this.props.community.selectedCommunity) && Constants.manifest.extra.instance)) {
       return <AppLoading />;
     }
     else if (_.isEmpty(this.props.community.selectedCommunity)) {
