@@ -379,7 +379,7 @@ class chat extends Component {
             this.setState({ modalVisible: true });
             break;
           case 1:
-            navigation.push("chatTitle", {
+            this.props.navigation.push("chatTitle", {
               title: this.props.navigation.getParam("title"),
               chatroom: this.props.navigation.getParam("chatroom"),
               type: this.props.navigation.getParam("type"),
