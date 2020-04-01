@@ -58,11 +58,10 @@ export default {
     alignSelf: "center",
     borderWidth: 1,
     borderColor: "lightgray",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15
+    borderRadius: 15
   },
   cardTitle: {
-    width: deviceWidth - 120,
+    width: deviceWidth - 150,
     justifyContent: "center",
     alignItems: "center",
     fontSize: stylesGlobal.headingFontSize,
@@ -70,7 +69,7 @@ export default {
     fontWeight: "500"
   },
   cardLocation: {
-    width: deviceWidth - 120,
+    width: deviceWidth - 150,
     justifyContent: "center",
     alignItems: "center",
     fontSize: 12,

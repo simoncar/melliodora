@@ -56,7 +56,7 @@ class ListItem extends Component {
             borderRadius: 5,
             borderWidth: 0,
             borderColor: "lightgray",
-            color: "#0075b7",
+            color: "lightgray",
             textAlign: "center",
             textAlignVertical: "top"
           }}
@@ -154,69 +154,67 @@ class ListItem extends Component {
     const excerpt = this.props.item.excerpt;
 
     return (
-      <View>
-        <View style={card && styles.card}>
-          <View
-            style={{
-              flexDirection: "row",
-              paddingRight: 4,
-              justifyContent: "space-between",
-              alignItems: "center",
-              borderBottomWidth: 0.1,
-              borderBottomColor: "lightgray",
-              marginTop: 5
-            }}>
-            <TouchableOpacity
-              style={{ flexDirection: "row" }}
-              onPress={() => this.props.navigation.navigate("story", this.props.item)}>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                {this.icon(this.props.item.source, this.props.item.number)}
+      <View style={card && styles.card}>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingRight: 4,
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderBottomWidth: 0.1,
+            borderBottomColor: "lightgray",
+            marginTop: 5
+          }}>
+          <TouchableOpacity
+            style={{ flexDirection: "row" }}
+            onPress={() => this.props.navigation.navigate("story", this.props.item)}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              {this.icon(this.props.item.source, this.props.item.number)}
 
-                <View>
-                  <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardTitle}>
-                    {summary}
-                  </Text>
-                  {this.renderLocation(this.props.item.location)}
-
-                  {this.renderDate(this.props.item.date_start)}
-                  {this.renderTime(
-                    this.props.item.time_start_pretty,
-                    this.props.item.time_end_pretty,
-                    this.props.item.source
-                  )}
-                </View>
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
-                  alignItems: "center"
-                }}>
-                {showIconChat && <SimpleLineIcons name="bubble" size={25} color="black" style={{ marginRight: 8 }} />}
-
-                <Ionicons name="ios-more" size={25} color="black" style={{ marginRight: 8 }} />
-              </View>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("story", this.props.item)}>
-            <View style={{ flexDirection: "column" }}>
-              {excerpt ? (
-                <Text
-                  ellipsizeMode="clip"
-                  style={{
-                    fontSize: 14,
-                    color: "#262626",
-                    paddingVertical: 12,
-                    paddingHorizontal: 8
-                  }}>
-                  {excerpt}
+              <View>
+                <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardTitle}>
+                  {summary}
                 </Text>
-              ) : null}
-              {this.isURL(uri) && <Image style={{ height: 200 }} {...{ preview, uri }} />}
+                {this.renderLocation(this.props.item.location)}
+
+                {this.renderDate(this.props.item.date_start)}
+                {this.renderTime(
+                  this.props.item.time_start_pretty,
+                  this.props.item.time_end_pretty,
+                  this.props.item.source
+                )}
+              </View>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                alignItems: "center"
+              }}>
+              {showIconChat && <SimpleLineIcons name="bubble" size={25} color="black" style={{ marginRight: 8 }} />}
+
+              <Ionicons name="ios-more" size={25} color="black" style={{ marginRight: 8 }} />
             </View>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("story", this.props.item)}>
+          <View style={{ flexDirection: "column" }}>
+            {excerpt ? (
+              <Text
+                ellipsizeMode="clip"
+                style={{
+                  fontSize: 14,
+                  color: "#262626",
+                  paddingVertical: 12,
+                  paddingHorizontal: 8
+                }}>
+                {excerpt}
+              </Text>
+            ) : null}
+            {this.isURL(uri) && <Image style={{ height: 200, borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }} {...{ preview, uri }} />}
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
