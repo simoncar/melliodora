@@ -38,10 +38,11 @@ class Setup extends Component {
     }
 
     Font.loadAsync({
+      SegoeUI: require("../resources/segoe-ui.ttf"),
       "Material Icons": require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       MaterialIcons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
       Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf")
-    });
+    }).then(() => this.setState({ loading: false }));
 
     let language = this.props.auth.language;
     if (language === "ar") {
@@ -56,8 +57,6 @@ class Setup extends Component {
       }
     }
     I18n.locale = language;
-
-    this.setState({ loading: false });
   }
 
   render() {
