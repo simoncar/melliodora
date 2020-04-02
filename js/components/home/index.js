@@ -302,16 +302,16 @@ class Home extends Component {
     }
   };
 
-  _renderItem({ item }) {
-    return <ListItem navigation={this.props.navigation} item={item} card={true} language={this.language} />;
+  _renderItem = ({ item }, cardStyle) => {
+    return <ListItem navigation={this.props.navigation} item={item} card={true} language={this.language} cardStyle={cardStyle} />;
   }
 
-  _renderItemNoCard({ item }) {
+  _renderItemNoCard = ({ item }) => {
     return <ListItem navigation={this.props.navigation} item={item} card={false} language={this.language} />;
   }
   _renderBalance() {
     if (global.domain === "oakforest_international_edu") {
-      return <FlatList data={this.state.balanceItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem.bind(this)} />;
+      return <FlatList data={this.state.balanceItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem} />;
     }
   }
 
@@ -319,7 +319,7 @@ class Home extends Component {
     if (this.state.calendarItems.length > 0) {
       return (
         <View style={styles.card}>
-          <FlatList data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard.bind(this)} />
+          <FlatList data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard} />
         </View>
       );
     }
@@ -435,7 +435,7 @@ class Home extends Component {
             {this._renderBalance()}
             {this._renderToday()}
 
-            <FlatList data={this.state.featureItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem.bind(this)} />
+            <FlatList data={this.state.featureItems} keyExtractor={this.keyExtractor} renderItem={(item) => this._renderItem(item, { borderWidth: 0 })} />
           </View>
           <View style={styles.card}>
             <View

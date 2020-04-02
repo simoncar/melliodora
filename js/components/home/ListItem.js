@@ -154,7 +154,7 @@ class ListItem extends Component {
     const excerpt = this.props.item.excerpt;
 
     return (
-      <View style={card && styles.card}>
+      <View style={card && [styles.card, this.props.cardStyle]}>
         <View
           style={{
             flexDirection: "row",
