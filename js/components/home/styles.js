@@ -35,7 +35,6 @@ export default {
     color: "black"
   },
   version: {
-    fontFamily: 'SegoeUI',
     backgroundColor: "white",
     color: "#666",
     alignSelf: "center",
@@ -78,7 +77,6 @@ export default {
   },
 
   user: {
-    fontFamily: 'SegoeUI',
     backgroundColor: "white",
     color: "#666",
     alignSelf: "center",
