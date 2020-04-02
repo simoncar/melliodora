@@ -29,7 +29,7 @@ const header1 = "#00c497"; // header
 
 module.exports = {
   navbarFontSize: 20,
-  headingFontSize: 17,
+  headingFontSize: 16,
   bodyFontSize: 15
 
   //   brandSecondary: secondary.hex().toString(),
