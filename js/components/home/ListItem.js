@@ -65,7 +65,7 @@ class ListItem extends Component {
     } else if (source == "balance") {
       return (
         <MaterialCommunityIcons
-          name="currency-usd"
+          name="cash-multiple"
           size={35}
           style={{
             width: 36,
@@ -74,7 +74,7 @@ class ListItem extends Component {
             borderRadius: 18,
             borderWidth: 0,
             borderColor: "lightgray",
-            color: "#0075b7",
+            color: "lightgray",
             textAlign: "center"
           }}
         />
