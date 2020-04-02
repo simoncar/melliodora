@@ -61,6 +61,9 @@ let StackHome = createStackNavigator(
           android: { fontFamily: "Roboto" }
         }),
         fontSize: stylesGlobal.navbarFontSize
+      },
+      headerStyle: {
+        borderBottomWidth: 0,
       }
     }
   }
@@ -90,6 +93,9 @@ let StackCalendar = createStackNavigator(
           android: { fontFamily: "Roboto" }
         }),
         fontSize: stylesGlobal.navbarFontSize
+      },
+      headerStyle: {
+        borderBottomWidth: 0,
       }
     }
   }
@@ -119,6 +125,9 @@ let StackChat = createStackNavigator(
           android: { fontFamily: "Roboto" }
         }),
         fontSize: stylesGlobal.navbarFontSize
+      },
+      headerStyle: {
+        borderBottomWidth: 0,
       }
     }
   }
@@ -140,7 +149,10 @@ StackWeb.navigationOptions = ({ navigation }) => {
   return {
     title,
     headerBackTitle: null,
-    tabBarIcon: ({ focused, tintColor, horizontal }) => <MaterialIcons name="web" size={horizontal ? 20 : 25} color={tintColor} />
+    tabBarIcon: ({ focused, tintColor, horizontal }) => <MaterialIcons name="web" size={horizontal ? 20 : 25} color={tintColor} />,
+    headerStyle: {
+      borderBottomWidth: 0,
+    }
   };
 };
 
@@ -172,6 +184,9 @@ let StackOther = createStackNavigator(
           android: { fontFamily: "Roboto" }
         }),
         fontSize: stylesGlobal.navbarFontSize
+      },
+      headerStyle: {
+        borderBottomWidth: 0,
       }
     }
   }
