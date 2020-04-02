@@ -12,10 +12,9 @@ import * as firebase from "firebase";
 import Constants from "expo-constants";
 import { connect } from 'react-redux';
 import { getCommunityDetails } from "./store/community";
-
-
-//redux
-import { signInAnonymously, initUser } from "./store/auth";
+import { StyleProvider, Root } from "native-base";
+import variables from "../native-base-theme/variables/commonColor";
+import getTheme from "../native-base-theme/components";
 
 class Setup extends Component {
   constructor() {
@@ -68,7 +67,13 @@ class Setup extends Component {
       return <AuthStackNavigator />
     } else {
       // check if user is admin
-      return <App />;
+      return (
+        <StyleProvider style={getTheme(variables)}>
+          <Root>
+            <App />
+          </Root>
+        </StyleProvider>
+      );
     }
 
   }

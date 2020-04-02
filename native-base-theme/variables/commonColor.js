@@ -273,5 +273,7 @@ export default {
   deviceHeight,
 
   // New Variable
-  inputGroupRoundedBorderRadius: 30
+  inputGroupRoundedBorderRadius: 30,
+
+  fontFamily: platform === "ios" ? "SegoeUI" : "SegoeUI"
 };
