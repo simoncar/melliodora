@@ -96,7 +96,7 @@ class Settings extends Component {
         <SettingsListItem
           hasNavArrow={false}
           icon={<MaterialCommunityIcons name="account-plus" style={styles.imageStyleIcon} />}
-          title={I18n.t("signIn") + "/" + I18n.t("signUp")}
+          title={I18n.t("signIn") + " / " + I18n.t("signUp")}
           onPress={() => this.props.navigation.navigate("login")}
         />
       );
@@ -128,7 +128,7 @@ class Settings extends Component {
             <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
           </TouchableHighlight>
         )}
-
+        <Text></Text>
         {this._renderUser()}
         <SettingsListItem
           icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
@@ -225,7 +225,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     width: 30,
     fontSize: 25,
-    textAlign: "center"
+    textAlign: "center",
+    color: "lightgray"
   },
   imageStyleCheckOn: {
     marginLeft: 15,
