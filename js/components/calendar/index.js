@@ -211,13 +211,16 @@ class calendar1 extends Component {
           }}
           hideKnob={false}
           renderKnob={() => {
-            return <Ionicons style={{ color: "#00adf5", fontSize: 30 }} name="ios-arrow-down" />;
+            return <Ionicons style={{ color: "lightgray", fontSize: 30 }} name="ios-arrow-down" />;
           }}
           theme={{
             selectedDayBackgroundColor: "black",
             dotColor: 'black',
-            selectedDotColor: 'white'
-
+            selectedDotColor: 'white',
+            agendaDayTextColor: 'gray',
+            agendaDayNumColor: 'gray',
+            agendaTodayColor: 'black',
+            agendaTodayFontWeight: 'bold'
           }}
           style={{}}
         />

@@ -218,7 +218,7 @@ export default {
     marginRight: 10,
     marginTop: 5,
     alignSelf: "stretch",
-    borderRightWidth: 5,
+    borderRightWidth: 10,
   },
   agendaItemSystemMonth: {
     backgroundColor: "gray",
