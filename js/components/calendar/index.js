@@ -214,7 +214,10 @@ class calendar1 extends Component {
             return <Ionicons style={{ color: "#00adf5", fontSize: 30 }} name="ios-arrow-down" />;
           }}
           theme={{
-            selectedDayBackgroundColor: "#00adf5"
+            selectedDayBackgroundColor: "black",
+            dotColor: 'black',
+            selectedDotColor: 'white'
+
           }}
           style={{}}
         />
