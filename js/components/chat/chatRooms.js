@@ -71,7 +71,6 @@ class chatRooms extends Component {
       <Container style={styles.homeContainer}>
         <TouchableHighlight
           style={styles.addButton}
-          underlayColor="#ff7043"
           onPress={() => {
             this.props.navigation.navigate("chatTitle", {
               edit: false,

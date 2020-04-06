@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     width: 30,
     fontSize: 25,
     textAlign: "center",
-    color: "lightgray"
+    color: "#999999"
   },
   imageStyleCheckOn: {
     marginLeft: 15,

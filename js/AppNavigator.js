@@ -56,7 +56,8 @@ let StackHome = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerTitleStyle: {
-        fontSize: stylesGlobal.navbarFontSize
+        fontSize: stylesGlobal.navbarFontSize,
+        color: "#111111"
       },
       headerStyle: {
         borderBottomWidth: 0,
@@ -84,7 +85,8 @@ let StackCalendar = createStackNavigator(
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTitleStyle: {
-        fontSize: stylesGlobal.navbarFontSize
+        fontSize: stylesGlobal.navbarFontSize,
+        color: "#111111"
       },
       headerStyle: {
         borderBottomWidth: 0,
@@ -112,7 +114,8 @@ let StackChat = createStackNavigator(
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTitleStyle: {
-        fontSize: stylesGlobal.navbarFontSize
+        fontSize: stylesGlobal.navbarFontSize,
+        color: "#111111"
       },
       headerStyle: {
         borderBottomWidth: 0,
@@ -139,7 +142,7 @@ StackWeb.navigationOptions = ({ navigation }) => {
     headerBackTitle: null,
     tabBarIcon: ({ focused, tintColor, horizontal }) => <MaterialIcons name="web" size={horizontal ? 20 : 25} color={tintColor} />,
     headerStyle: {
-      borderBottomWidth: 0,
+      borderBottomWidth: 0
     }
   };
 };
@@ -167,7 +170,8 @@ let StackOther = createStackNavigator(
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTitleStyle: {
-        fontSize: stylesGlobal.navbarFontSize
+        fontSize: stylesGlobal.navbarFontSize,
+        color: "#111111"
       },
       headerStyle: {
         borderBottomWidth: 0,
@@ -196,9 +200,17 @@ let Tabs = createBottomTabNavigator(
   {
     shifting: false,
     labeled: true,
-    activeColor: "#1278F1",
-    inactiveColor: "#5D6870",
-    barStyle: { backgroundColor: "#F7F7F7" },
+    activeColor: "#111111",
+    inactiveColor: "#7777777",
+    tabBarOptions: {
+      activeTintColor: '#111111',
+      inactiveTintColor: '#777777',
+      style: {
+        borderTopWidth: 0,
+        borderTopColor: 'transparent'
+      },
+    },
+
     tabBarComponent: props => {
       let display = ["homeNav", "home", "chatRooms", "webportal", "other"];
       if (global.domain !== "sais_edu_sg") {

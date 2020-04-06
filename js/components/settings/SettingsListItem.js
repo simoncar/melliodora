@@ -18,15 +18,15 @@ export const SettingsListItem = class SettingsListItem extends Component {
           {icon}
           <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 8 }}>
             <View>
-              <Text style={[titleInfoStyle, { color: "black" }]}>{title || ""}</Text>
+              <Text style={[titleInfoStyle, { color: "#333333" }]}>{title || ""}</Text>
             </View>
 
             <View>
-              <Text style={[titleInfoStyle, { color: "grey" }]}>{titleInfo || ""}</Text>
+              <Text style={[titleInfoStyle, { color: "#777777" }]}>{titleInfo || ""}</Text>
             </View>
           </View>
 
-          <View style={{ marginHorizontal: 8 }}>{hasNavArrow && <Feather name="chevron-right" size={22} color="grey" />}</View>
+          <View style={{ marginHorizontal: 8 }}>{hasNavArrow && <Feather name="chevron-right" size={22} color="#777777" />}</View>
         </View>
       </TouchableHighlight>
     );

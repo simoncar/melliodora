@@ -64,7 +64,7 @@ export default {
     justifyContent: "center",
     alignItems: "center",
     fontSize: stylesGlobal.headingFontSize,
-    color: "#262626",
+    color: "#111111",
     fontWeight: "500"
   },
   cardLocation: {
@@ -72,7 +72,7 @@ export default {
     justifyContent: "center",
     alignItems: "center",
     fontSize: 12,
-    color: "gray",
+    color: "#555555",
     fontWeight: "500"
   },
 

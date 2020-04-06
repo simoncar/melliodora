@@ -17,7 +17,7 @@ export default {
   },
   iconRight: {
     fontSize: 25,
-    color: "#999A9D",
+    color: "#777777",
     marginRight: 15,
     lineHeight: 60
   },
@@ -28,7 +28,7 @@ export default {
   },
   iconLeftPlus: {
     fontSize: 35,
-    color: "grey",
+    color: "#999999",
     margin: 12
   },
 
@@ -48,8 +48,7 @@ export default {
     borderTopRightRadius: 15
   },
   addButton: {
-    backgroundColor: "#ff5722",
-    borderColor: "#ff5722",
+    backgroundColor: "#111111",
     borderWidth: 1,
     height: 50,
     width: 50,
@@ -59,13 +58,6 @@ export default {
     position: "absolute",
     bottom: 20,
     right: 20,
-    shadowColor: "#000000",
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 0
-    },
     zIndex: 1
   },
   rowView: {
@@ -106,14 +98,14 @@ export default {
     justifyContent: "center",
     alignItems: "center",
     fontSize: stylesGlobal.headingFontSize,
-    color: "#262626"
+    color: "#111111"
   },
   cardLocation: {
     width: deviceWidth - 120,
     justifyContent: "center",
     alignItems: "center",
     fontSize: 12,
-    color: "gray",
+    color: "#555555",
     fontWeight: "500"
   },
   chatTitleRight: {

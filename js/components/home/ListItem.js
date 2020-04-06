@@ -55,8 +55,8 @@ class ListItem extends Component {
             margin: 12,
             borderRadius: 5,
             borderWidth: 0,
-            borderColor: "lightgray",
-            color: "lightgray",
+            borderColor: "#999999",
+            color: "#999999",
             textAlign: "center",
             textAlignVertical: "top"
           }}
@@ -73,8 +73,8 @@ class ListItem extends Component {
             margin: 12,
             borderRadius: 18,
             borderWidth: 0,
-            borderColor: "lightgray",
-            color: "lightgray",
+            borderColor: "#999999",
+            color: "#999999",
             textAlign: "center"
           }}
         />
@@ -100,7 +100,7 @@ class ListItem extends Component {
   renderTime(start, end, source) {
     if (source == "calendar") {
       if (undefined != start && start.length > 0) {
-        return <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>{formatTime(start, end)} </Text>;
+        return <Text style={{ color: "#777777", fontSize: 12, marginBottom: 3 }}>{formatTime(start, end)} </Text>;
       }
     }
   }
@@ -117,7 +117,7 @@ class ListItem extends Component {
 
   renderDate(date_start) {
     if (undefined != date_start && date_start.length > 0) {
-      return <Text style={{ color: "gray", fontSize: 12, marginBottom: 3 }}>{formatMonth(date_start)}</Text>;
+      return <Text style={{ color: "#777777", fontSize: 12, marginBottom: 3 }}>{formatMonth(date_start)}</Text>;
     }
   }
 
@@ -192,9 +192,9 @@ class ListItem extends Component {
                 justifyContent: "flex-end",
                 alignItems: "center"
               }}>
-              {showIconChat && <SimpleLineIcons name="bubble" size={25} color="black" style={{ marginRight: 8 }} />}
+              {showIconChat && <SimpleLineIcons name="bubble" size={25} color="#111111" style={{ marginRight: 8 }} />}
 
-              <Ionicons name="ios-more" size={25} color="black" style={{ marginRight: 8 }} />
+              <Ionicons name="ios-more" size={25} color="#333333" style={{ marginRight: 8 }} />
             </View>
           </TouchableOpacity>
         </View>
@@ -205,7 +205,7 @@ class ListItem extends Component {
                 ellipsizeMode="clip"
                 style={{
                   fontSize: 14,
-                  color: "#262626",
+                  color: "#777777",
                   paddingVertical: 12,
                   paddingHorizontal: 8
                 }}>
