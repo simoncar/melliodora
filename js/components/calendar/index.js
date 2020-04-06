@@ -220,7 +220,8 @@ class calendar1 extends Component {
             agendaDayTextColor: 'gray',
             agendaDayNumColor: 'gray',
             agendaTodayColor: 'black',
-            agendaTodayFontWeight: 'bold'
+            agendaTodayFontWeight: 'bold',
+            todayTextColor: 'black',
           }}
           style={{}}
         />

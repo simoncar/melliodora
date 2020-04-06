@@ -125,7 +125,6 @@ export default {
     fontWeight: "400",
     lineHeight: 22,
     fontSize: 16,
-    fontFamily: "Helvetica Neue",
     height: 25 + 32,
     padding: 16,
     paddingLeft: 0
@@ -133,7 +132,6 @@ export default {
   quote: {
     fontSize: 17,
     lineHeight: 38,
-    fontFamily: "Helvetica Neue",
     color: "#333333",
     padding: 16,
     paddingLeft: 0,

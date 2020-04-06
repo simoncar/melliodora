@@ -616,7 +616,7 @@ class newStory extends React.Component {
               systemHero.logToCalendar("StorySave-" + global.domain + eventTitle, "Story Save - " + eventTitle, global.domain, this.props.auth.userInfo.email || "");
             }
           }}>
-          <Text style={[styles.chatHeading, { fontFamily: Platform.OS === "android" ? "Roboto" : "Arial" }]}>{I18n.t("save")}</Text>
+          <Text style={[styles.chatHeading]}>{I18n.t("save")}</Text>
         </TouchableOpacity>
       </View>
     )

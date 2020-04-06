@@ -108,7 +108,7 @@ export default {
   brandSidebar: "#252932",
 
   // Font
-  fontFamily: "Roboto",
+  fontFamily: platform === "ios" ? "SegoeUI" : "SegoeUI",
   fontSizeBase: 15,
 
   get fontSizeH1() {
@@ -243,7 +243,7 @@ export default {
   noteFontSize: 14,
 
   // Title
-  titleFontfamily: platform === "ios" ? "Roboto" : "Roboto_medium",
+  titleFontfamily: platform === "ios" ? "SegoeUI" : "SegoeUI",
   titleFontSize: 19,
   subTitleFontSize: 14,
   subtitleColor: "#FFF",

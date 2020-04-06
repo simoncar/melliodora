@@ -56,10 +56,6 @@ let StackHome = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerTitleStyle: {
-        ...Platform.select({
-          ios: { fontFamily: "Arial" },
-          android: { fontFamily: "Roboto" }
-        }),
         fontSize: stylesGlobal.navbarFontSize
       },
       headerStyle: {
@@ -88,10 +84,6 @@ let StackCalendar = createStackNavigator(
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTitleStyle: {
-        ...Platform.select({
-          ios: { fontFamily: "Arial" },
-          android: { fontFamily: "Roboto" }
-        }),
         fontSize: stylesGlobal.navbarFontSize
       },
       headerStyle: {
@@ -120,10 +112,6 @@ let StackChat = createStackNavigator(
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTitleStyle: {
-        ...Platform.select({
-          ios: { fontFamily: "Arial" },
-          android: { fontFamily: "Roboto" }
-        }),
         fontSize: stylesGlobal.navbarFontSize
       },
       headerStyle: {
@@ -179,10 +167,6 @@ let StackOther = createStackNavigator(
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTitleStyle: {
-        ...Platform.select({
-          ios: { fontFamily: "Arial" },
-          android: { fontFamily: "Roboto" }
-        }),
         fontSize: stylesGlobal.navbarFontSize
       },
       headerStyle: {

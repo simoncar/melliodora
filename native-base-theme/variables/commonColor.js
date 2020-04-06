@@ -110,7 +110,7 @@ export default {
   brandSidebar: "#252932",
 
   // Font
-  fontFamily: platform === "ios" ? "System" : "Roboto",
+  fontFamily: platform === "ios" ? "SegoeUI" : "SegoeUI",
   fontSizeBase: 15,
 
   get fontSizeH1() {
@@ -245,7 +245,7 @@ export default {
   noteFontSize: 14,
 
   // Title
-  titleFontfamily: platform === "ios" ? "System" : "Roboto_medium",
+  titleFontfamily: platform === "ios" ? "SegoeUI" : "SegoeUI",
   titleFontSize: platform === "ios" ? 17 : 19,
   subTitleFontSize: platform === "ios" ? 12 : 14,
   subtitleColor: "#FFF",
@@ -273,7 +273,5 @@ export default {
   deviceHeight,
 
   // New Variable
-  inputGroupRoundedBorderRadius: 30,
-
-  fontFamily: platform === "ios" ? "SegoeUI" : "SegoeUI"
+  inputGroupRoundedBorderRadius: 30
 };
