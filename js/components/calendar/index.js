@@ -35,7 +35,8 @@ class calendar1 extends Component {
       summaryMyLanguage: I18n.t("today") + " " + todayDay,
       icon: "md-radio-button-off",
       color: "yellow",
-      title: todayDay
+      title: todayDay,
+      marginBottom: 25
     });
 
     this.state = {

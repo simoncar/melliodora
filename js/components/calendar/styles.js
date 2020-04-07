@@ -188,6 +188,7 @@ export default {
     color: "#000",
     marginBottom: 10,
     paddingTop: 5,
+    fontWeight: 'bold'
   },
   groupView: {
     borderRadius: 3,

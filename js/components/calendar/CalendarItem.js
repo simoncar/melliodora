@@ -16,7 +16,7 @@ class CalendarItem extends Component {
   render() {
     const item = this.props.item;
     return (
-      <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.props.navigation.navigate("storyCalendar", item)}>
+      <TouchableOpacity style={{ flexDirection: "row", marginBottom: 12 }} onPress={() => this.props.navigation.navigate("storyCalendar", item)}>
         <View
           style={[
             styles.agendaItem,
