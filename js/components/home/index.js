@@ -336,7 +336,8 @@ class Home extends Component {
             underlayColor="#ff7043"
             onPress={() => this.props.navigation.navigate("storyForm")}
           >
-            <Text style={{ fontSize: 25, color: "white" }}>+</Text>
+            <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "23%", top: "-10%" }}>+</Text>
+
           </TouchableHighlight>
         )}
         <Content showsVerticalScrollIndicator={false}>

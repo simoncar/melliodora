@@ -254,7 +254,7 @@ class chat extends Component {
     return (
       <TouchableOpacity style={styles.photoContainer} onPress={this._pickImage}>
         <View>
-          <Entypo name="camera" style={{ fontSize: 25, color: "#0284FF" }} />
+          <Entypo name="camera" style={{ fontSize: 25, color: "#777777" }} />
         </View>
       </TouchableOpacity>
     );
@@ -402,7 +402,7 @@ class chat extends Component {
     return (
       <Send {...props}>
         <View style={{ marginRight: 10, marginBottom: 10 }}>
-          <MaterialIcons name="send" style={{ fontSize: 25, color: "#0284FF" }} />
+          <MaterialIcons name="send" style={{ fontSize: 25, color: "#777777" }} />
         </View>
       </Send>
     );
@@ -544,6 +544,7 @@ class chat extends Component {
           placeholder={I18n.t("typeMessage")}
           parsePatterns={this.parsePatterns}
           renderUsernameOnMessage={true}
+          textInputStyle={{ color: "#555555" }}
         />
 
         <Footer style={styles.footer} />

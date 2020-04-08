@@ -27,8 +27,6 @@ class ChatroomItem extends Component {
             paddingRight: 4,
             justifyContent: "space-between",
             alignItems: "center",
-            borderBottomWidth: 0.1,
-            borderBottomColor: "lightgray",
             marginTop: 5
           }}>
           <TouchableOpacity
@@ -49,6 +47,7 @@ class ChatroomItem extends Component {
               <SimpleLineIcons style={styles.iconLeft} name="bubbles" />
               <View>
                 <Text style={styles.cardTitle}>{this.props.title}</Text>
+                <Text ></Text>
                 <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardLocation}>
                   {mostRecentMessage}
                 </Text>

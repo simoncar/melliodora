@@ -23,7 +23,7 @@ export default {
   },
   iconLeft: {
     fontSize: 35,
-    color: "green",
+    color: "#999999",
     margin: 12
   },
   iconLeftPlus: {
@@ -34,18 +34,11 @@ export default {
 
   card: {
     backgroundColor: "#fff",
-    shadowColor: "rgba(0,0,0, .4)",
-    shadowOffset: { height: 1, width: 0.5 },
-    shadowOpacity: 0.2,
-    shadowRadius: 0.5,
     elevation: 1,
     marginBottom: 12,
     width: "98%",
     alignSelf: "center",
-    borderWidth: 1,
-    borderColor: "lightgray",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15
+    borderRadius: 15,
   },
   addButton: {
     backgroundColor: "#111111",
@@ -53,8 +46,7 @@ export default {
     height: 50,
     width: 50,
     borderRadius: 50 / 2,
-    alignItems: "center",
-    justifyContent: "center",
+
     position: "absolute",
     bottom: 20,
     right: 20,

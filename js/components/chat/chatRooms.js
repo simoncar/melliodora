@@ -78,7 +78,7 @@ class chatRooms extends Component {
               onGoBack: this.refresh
             });
           }}>
-          <Text style={{ fontSize: 25, color: "white" }}>+</Text>
+          <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "23%", top: "-10%" }}>+</Text>
         </TouchableHighlight>
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
@@ -90,8 +90,8 @@ class chatRooms extends Component {
                     paddingRight: 4,
                     justifyContent: "space-between",
                     alignItems: "center",
-                    borderBottomWidth: 0.1,
-                    borderBottomColor: "lightgray",
+
+
                     marginTop: 5
                   }}>
                   <TouchableOpacity
@@ -111,23 +111,16 @@ class chatRooms extends Component {
                   </TouchableOpacity>
                 </View>
               </View>
-              <View style={styles.card}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    paddingRight: 4,
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    borderBottomWidth: 0.1,
-                    borderBottomColor: "lightgray"
-                  }}>
-                  <FlatList
-                    data={this.props.community.userChatrooms}
-                    renderItem={this._renderItemNoCard.bind(this)}
-                    keyExtractor={this.keyExtractor}
-                  />
-                </View>
-              </View>
+
+
+              <FlatList
+                style={styles.card}
+                data={this.props.community.userChatrooms}
+                renderItem={this._renderItemNoCard.bind(this)}
+                keyExtractor={this.keyExtractor}
+              />
+
+
             </View>
           </View>
         </Content>

@@ -435,13 +435,14 @@ export default class ContactAdmin extends React.Component {
         </Overlay>
 
         <TouchableHighlight
-          style={styles.adminButton}
+          style={styles.addButton}
           underlayColor="#ff7043"
           onPress={() => {
             this.resetEditFields(() => this.setState({ modalVisible: true }));
           }}
         >
-          <Text style={{ fontSize: 25, color: "white" }}>+</Text>
+          <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "23%", top: "-10%" }}>+</Text>
+
         </TouchableHighlight>
 
         {dragging && (

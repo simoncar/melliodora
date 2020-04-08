@@ -113,7 +113,7 @@ class DomainSelection extends Component {
           placeholder="Search Community"
           placeholderTextColor="#555555"
         />
-        <Ionicons style={{ flexShrink: 1, padding: 2, marginLeft: 12, marginRight: 12 }} name="ios-search" size={32} color="#999999" />
+        <Ionicons style={{ flexShrink: 1, padding: 2, marginLeft: 12, marginRight: 12 }} name="ios-search" size={32} color="#777777" />
       </View>
 
       // <SearchBar
@@ -189,7 +189,7 @@ class DomainSelection extends Component {
           <Ionicons style={{ flexShrink: 1 }} name="ios-add-circle" size={44} color="#999999" />
 
           <Text style={[styles.TextStyle, { fontSize: 24, paddingHorizontal: 12, flex: 1, textAlign: "left" }]}>Create Community</Text>
-          <Ionicons style={{ flexShrink: 1 }} name="ios-arrow-forward" size={32} color="#999999" />
+          <Ionicons style={{ flexShrink: 1 }} name="ios-arrow-forward" size={32} color="#777777" />
 
         </TouchableOpacity>
 
@@ -244,7 +244,7 @@ class DomainSelection extends Component {
           }
         }}
 
-          style={{ height: 55, borderRadius: 15, backgroundColor: '#111111', flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 12 }}>
+          style={{ height: 55, borderRadius: 15, backgroundColor: '#777777', flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 12 }}>
           <Text style={{ color: "white", fontSize: 22 }}>Confirm</Text>
         </TouchableOpacity>
       </SafeAreaView>
