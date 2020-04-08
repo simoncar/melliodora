@@ -6,19 +6,24 @@ import { setCommunityCreate } from '../../store/communityCreation';
 import { connect } from 'react-redux';
 
 class WelcomeScreen extends Component {
-  render() {
+  static navigationOptions = ({ navigation }) => {
+    const firstname = navigation.getParam("firstName");
+    return ({
+      title: "Welcome " + firstname,
+    })
+  };
 
+  componentDidMount() {
     const firstName = this.props.auth.userInfo.firstName;
+    if (firstName) {
+      this.props.navigation.setParams({ firstName });
+    }
+  }
+  render() {
     return (
       <View style={styles.container}>
-        <Text style={{ fontSize: 32 }}> Welcome {firstName}</Text>
-        <TouchableOpacity
-          style={styles.SubmitButtonStyle}
-          activeOpacity={0.5}
-          onPress={() => this.props.navigation.push("communityCreateScreen")}>
-          <Text style={[styles.TextStyle, { fontSize: 32 }]}>Create Community</Text>
-        </TouchableOpacity>
-        <DomainSelection showCreateCommunity={false} />
+
+        <DomainSelection showCreateCommunity={false} navigation={this.props.navigation} />
       </View>
     )
   }

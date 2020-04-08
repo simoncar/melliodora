@@ -29,7 +29,7 @@ class LoginScreen extends Component {
   componentDidUpdate(prevProps, prevState) {
 
     const { userInfo } = this.props.auth;
-    if (userInfo !== prevProps.auth.userInfo && !_.isEmpty(userInfo)) {
+    if (this.state.loading && userInfo.email == this.state.email && !_.isEmpty(userInfo)) {
       this.setState({ loading: false });
       if (!global.domain || _.has(this.props, "navigation.state.param.toWelcomeScreen")) {
         this.props.navigation.navigate("welcomeScreen");

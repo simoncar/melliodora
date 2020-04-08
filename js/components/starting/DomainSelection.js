@@ -11,11 +11,14 @@ import {
   Animated,
   Easing,
   TouchableHighlight,
-  Alert
+  Alert,
+  TextInput
 } from "react-native";
 import { iOSUIKit, iOSColors } from "react-native-typography";
 import _ from "lodash";
 import { SearchBar } from "react-native-elements";
+import { MaterialIcons, Ionicons, SimpleLineIcons, Feather } from "@expo/vector-icons";
+
 import { connect } from 'react-redux';
 import { getCommunities, processSelectedCommunity } from "../../store/community";
 class DomainSelection extends Component {
@@ -102,18 +105,29 @@ class DomainSelection extends Component {
 
   renderHeader = () => {
     return (
-      <SearchBar
-        placeholder="Search Community"
-        // ref={search => (this.search = search)}
-        lightTheme
-        round
-        onChangeText={text => this.searchFilterFunction(text)}
-        autoCorrect={false}
-        value={this.state.searchTerm}
-        containerStyle={styles.searchContainer}
-        inputContainerStyle={styles.searchContainer}
-        autoCapitalize="none"
-      />
+      <View style={{ height: 55, borderRadius: 10, borderColor: '#111111', borderWidth: 2, flexDirection: "row", alignItems: "center" }}>
+        <TextInput
+          style={{ flex: 1, fontSize: 22, paddingLeft: 5 }}
+          onChangeText={text => this.searchFilterFunction(text)}
+          value={this.state.searchTerm}
+          placeholder="Search Community"
+          placeholderTextColor="#555555"
+        />
+        <Ionicons style={{ flexShrink: 1, padding: 2, marginLeft: 12, marginRight: 12 }} name="ios-search" size={32} color="#999999" />
+      </View>
+
+      // <SearchBar
+      //   placeholder="Search Community"
+      //   // ref={search => (this.search = search)}
+      //   lightTheme
+      //   round
+      //   onChangeText={text => this.searchFilterFunction(text)}
+      //   autoCorrect={false}
+      //   value={this.state.searchTerm}
+      //   containerStyle={styles.searchContainer}
+      //   inputContainerStyle={styles.searchContainer}
+      //   autoCapitalize="none"
+      // />
     );
   };
 
@@ -160,8 +174,19 @@ class DomainSelection extends Component {
   };
 
   render() {
+    let onPressedCreateCommunity = () => this.props.navigation.push("preWelcome");
+    if (this.props.showCreateCommunity == false) {
+      onPressedCreateCommunity = () => this.props.navigation.push("communityCreateScreen");
+    }
     return (
       <SafeAreaView style={{ flexDirection: "column" }}>
+        <TouchableOpacity
+          style={styles.SubmitButtonStyle}
+          activeOpacity={0.5}
+          onPress={onPressedCreateCommunity}>
+          <Text style={[styles.TextStyle, { fontSize: 32 }]}>Create Community</Text>
+        </TouchableOpacity>
+
         <Text
           style={{
             ...iOSUIKit.largeTitleEmphasized,
@@ -174,31 +199,34 @@ class DomainSelection extends Component {
           Select Community
         </Text>
 
-        <View
-          style={{
-            borderTopLeftRadius: 25,
-            borderTopRightRadius: 25,
-            borderWidth: 1,
-            margin: 12,
-            borderColor: "#e5e6eb",
-            backgroundColor: "#f8f8fa",
-            zIndex: 1,
-            shadowColor: "rgba(0,0,0, .4)",
-            shadowOffset: { width: 1, height: 1 },
-            shadowOpacity: 0.8,
-            shadowRadius: 1,
-            elevation: 5,
-            height: 340
-          }}>
+        <View style={{ margin: 12 }}>
           {this.renderHeader()}
-          <FlatList
-            data={this.state.domains}
-            renderItem={this.renderItem}
-            keyExtractor={(_, idx) => "domain" + idx}
-            ItemSeparatorComponent={this.renderSeparator}
-            bounces={false}
-            showsVerticalScrollIndicator={false}
-          />
+          <View
+            style={{
+              borderTopLeftRadius: 5,
+              borderTopRightRadius: 5,
+              borderWidth: 1,
+              borderColor: "#e5e6eb",
+              // backgroundColor: "#f8f8fa",
+              zIndex: 1,
+              shadowColor: "rgba(0,0,0, .4)",
+              shadowOffset: { width: 1, height: 1 },
+              shadowOpacity: 0.8,
+              shadowRadius: 1,
+              elevation: 5,
+              height: 340
+            }}>
+
+            <FlatList
+              data={this.state.domains}
+              renderItem={this.renderItem}
+              keyExtractor={(_, idx) => "domain" + idx}
+              ItemSeparatorComponent={this.renderSeparator}
+              bounces={false}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
+
         </View>
 
         <Button
@@ -214,18 +242,7 @@ class DomainSelection extends Component {
           }}
         />
 
-        {
-          this.props.showCreateCommunity === false ?
-            null
-            :
-            <Button
-              title="Create Community"
-              style={{ marginTop: 26 }}
-              onPress={() => {
-                this.props.navigation.push("preWelcome")
-              }}
-            />
-        }
+
       </SafeAreaView>
     );
   }
@@ -239,16 +256,19 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14,
-    color: "#222",
+    color: "#111111",
     fontWeight: "bold",
     overflow: "hidden",
-    zIndex: -1
+    zIndex: -1,
+    fontFamily: "SegoeUI",
   },
   subtitle: {
     fontSize: 11,
-    color: "#70757a",
+    color: "#555555",
     overflow: "hidden",
-    zIndex: -1
+    zIndex: -1,
+    fontFamily: "SegoeUI",
+
   },
   searchContainer: {
     backgroundColor: "#fff",
@@ -263,6 +283,20 @@ const styles = StyleSheet.create({
   TextStyle: {
     color: "#636366",
     textAlign: "center",
+  },
+  SubmitButtonStyle: {
+    marginTop: 20,
+    padding: 20,
+    backgroundColor: "#fff",
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "rgba(0,0,0, .4)",
+    shadowOffset: { height: 2, width: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 1,
+    elevation: 4,
+    marginBottom: 10,
   },
 });
 
