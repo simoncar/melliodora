@@ -29,15 +29,6 @@ var localMessages = [];
 
 class chat extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.title,
-    headerTitle: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params._showActionSheet(navigation);
-        }}>
-        <Text style={{ fontSize: stylesGlobal.navbarFontSize, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
-      </TouchableOpacity>
-    ),
     headerRight: (
       <TouchableOpacity
         onPress={() => {
@@ -569,15 +560,6 @@ const ConnectedApp = compose(
 export default class ActionSheetContainer extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.title,
-    headerTitle: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params._showActionSheet();
-        }}
-      >
-        <Text style={{ fontSize: 28, fontWeight: "bold" }}>{navigation.getParam("title")}</Text>
-      </TouchableOpacity>
-    ),
     headerRight: (
       <TouchableOpacity
         onPress={() => {
