@@ -105,7 +105,7 @@ class DomainSelection extends Component {
 
   renderHeader = () => {
     return (
-      <View style={{ height: 55, borderRadius: 10, borderColor: '#111111', borderWidth: 2, flexDirection: "row", alignItems: "center" }}>
+      <View style={{ height: 55, borderRadius: 10, borderColor: '#111111', borderWidth: 2, flexDirection: "row", alignItems: "center", backgroundColor: "#fff" }}>
         <TextInput
           style={{ flex: 1, fontSize: 22, paddingLeft: 5 }}
           onChangeText={text => this.searchFilterFunction(text)}
@@ -179,12 +179,18 @@ class DomainSelection extends Component {
       onPressedCreateCommunity = () => this.props.navigation.push("communityCreateScreen");
     }
     return (
-      <SafeAreaView style={{ flexDirection: "column" }}>
+      <SafeAreaView style={{ flexDirection: "column", flex: 1, backgroundColor: "#f2f2f2" }}>
+
+
         <TouchableOpacity
           style={styles.SubmitButtonStyle}
           activeOpacity={0.5}
           onPress={onPressedCreateCommunity}>
-          <Text style={[styles.TextStyle, { fontSize: 32 }]}>Create Community</Text>
+          <Ionicons style={{ flexShrink: 1 }} name="ios-add-circle" size={44} color="#999999" />
+
+          <Text style={[styles.TextStyle, { fontSize: 24, paddingHorizontal: 12, flex: 1, textAlign: "left" }]}>Create Community</Text>
+          <Ionicons style={{ flexShrink: 1 }} name="ios-arrow-forward" size={32} color="#999999" />
+
         </TouchableOpacity>
 
         <Text
@@ -229,20 +235,18 @@ class DomainSelection extends Component {
 
         </View>
 
-        <Button
-          title="Confirm"
-          style={{ marginTop: 26 }}
-          onPress={() => {
-            if (!this.state.selectedDomain) {
-              Alert.alert('Please select a community');
-            } else {
-              console.log("button presed");
-              this.props.dispatch(processSelectedCommunity(this.state.selectedDomain));
-            }
-          }}
-        />
+        <TouchableOpacity onPress={() => {
+          if (!this.state.selectedDomain) {
+            Alert.alert('Please select a community');
+          } else {
+            console.log("button presed");
+            this.props.dispatch(processSelectedCommunity(this.state.selectedDomain));
+          }
+        }}
 
-
+          style={{ height: 55, borderRadius: 15, backgroundColor: '#111111', flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 12 }}>
+          <Text style={{ color: "white", fontSize: 22 }}>Confirm</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
@@ -250,6 +254,7 @@ class DomainSelection extends Component {
 
 const styles = StyleSheet.create({
   item: {
+    backgroundColor: "#fff",
     padding: 12,
     zIndex: -1,
     overflow: "hidden"
@@ -281,22 +286,23 @@ const styles = StyleSheet.create({
     zIndex: -1
   },
   TextStyle: {
-    color: "#636366",
+    color: "#111111",
     textAlign: "center",
   },
   SubmitButtonStyle: {
-    marginTop: 20,
-    padding: 20,
+    flexDirection: "row",
+    margin: 12,
+    marginTop: 32,
+    padding: 15,
     backgroundColor: "#fff",
-    borderRadius: 25,
+    borderRadius: 10,
     alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "rgba(0,0,0, .4)",
-    shadowOffset: { height: 2, width: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 1,
-    elevation: 4,
-    marginBottom: 10,
+
+    // shadowColor: "rgba(0,0,0, .4)",
+    // shadowOffset: { height: 2, width: 2 },
+    // shadowOpacity: 0.8,
+    // shadowRadius: 1,
+    // elevation: 4,
   },
 });
 
