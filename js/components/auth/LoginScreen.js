@@ -7,8 +7,15 @@ import firebase from "firebase";
 import _ from "lodash";
 import { connect } from 'react-redux';
 import Loader from "../common/Loader";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 class LoginScreen extends Component {
+
+  static navigationOptions = ({ navigation }) => {
+    return ({
+      title: "Log In",
+    })
+  };
 
   state = { email: "", password: "", errorMessage: null, loading: false };
   handleLogin = async () => {
@@ -46,39 +53,83 @@ class LoginScreen extends Component {
 
         <Loader modalVisible={this.state.loading} animationType="fade" />
         <Text>{this.state.errorMessage}</Text>
+        <View style={styles.SectionStyle}>
 
-        <TextInput
-          placeholder="Email Address"
-          style={styles.containerStyle}
-          onChangeText={text => this.setState({ email: text })}
-          value={this.state.email}
-          autoCapitalize="none"
-          testID="email"
-          keyboardType="email-address"
-          autoFocus={true}
-        />
-
-        <TextInput
-          placeholder="Password"
-          style={styles.containerStyle}
-          onChangeText={text => this.setState({ password: text })}
-          value={this.state.password}
-          autoCapitalize="none"
-          secureTextEntry={true}
-          testID="password"
-        />
-
-        <View style={{ marginTop: 8 }}>
-          <Button title="Login" onPress={this.handleLogin} testID="loginsubmit" />
+          <Ionicons
+            name="ios-mail"
+            size={25}
+            color="grey"
+            style={styles.ImageStyle}
+          />
+          <TextInput
+            style={{ flex: 1, fontWeight: "bold" }}
+            placeholder="Email Address"
+            onChangeText={text => this.setState({ email: text })}
+            value={this.state.email}
+            autoCapitalize="none"
+            testID="email"
+            keyboardType="email-address"
+            autoFocus={true}
+            underlineColorAndroid="transparent"
+          />
+          <Ionicons
+            name="md-checkmark"
+            size={25}
+            color="grey"
+            style={styles.ImageStyle}
+          />
         </View>
 
-        <View style={{ marginTop: 20 }}>
-          <Button title="Forgot Password" onPress={() => this.props.navigation.navigate("forgetpassword")} testID="forgotpasswordnavigate" />
+
+        <View style={styles.SectionStyle}>
+
+          <Ionicons
+            name="ios-lock"
+            size={25}
+            color="grey"
+            style={styles.ImageStyle}
+          />
+          <TextInput
+            style={{ flex: 1, fontWeight: "bold" }}
+            placeholder="Password"
+            onChangeText={text => this.setState({ password: text })}
+            value={this.state.password}
+            autoCapitalize="none"
+            secureTextEntry={true}
+            testID="password"
+            underlineColorAndroid="transparent"
+          />
+          <Ionicons
+            name="ios-eye-off"
+            size={25}
+            color="grey"
+            style={styles.ImageStyle}
+          />
         </View>
 
-        <View style={{ marginTop: 20 }}>
-          <Button title="Sign Up" onPress={() => this.props.navigation.navigate("signup")} testID="forgotpasswordnavigate" />
+        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+          <TouchableOpacity style={{ marginVertical: 5, marginHorizontal: 10 }}
+            onPress={() => this.props.navigation.navigate("forgetpassword")}
+          >
+            <Text style={{
+              color: "#111111",
+              fontSize: 16
+            }}>Forgot password?</Text>
+          </TouchableOpacity>
         </View>
+
+        <TouchableOpacity
+          onPress={this.handleLogin}
+
+          style={{ height: 55, borderRadius: 15, backgroundColor: '#777777', flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 12 }}>
+          <Text style={{ color: "white", fontSize: 22 }}>Login</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate("signup")}
+          style={{ height: 55, borderRadius: 15, backgroundColor: '#777777', flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 12 }}>
+          <Text style={{ color: "white", fontSize: 22 }}>Register</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
@@ -102,7 +153,24 @@ const styles = StyleSheet.create({
     minHeight: 40,
     paddingHorizontal: 12,
   },
+
+  SectionStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomWidth: 2,
+    borderColor: '#000',
+    height: 40,
+    borderRadius: 5,
+    margin: 10
+  },
+
+  ImageStyle: {
+    padding: 5,
+    paddingHorizontal: 15
+  },
 });
+
 
 const mapStateToProps = state => ({
   auth: state.auth
