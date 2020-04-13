@@ -8,6 +8,7 @@ import _ from "lodash";
 import { connect } from 'react-redux';
 import Loader from "../common/Loader";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Svg, { Line, Text as SvgText } from 'react-native-svg';
 
 class LoginScreen extends Component {
 
@@ -124,6 +125,12 @@ class LoginScreen extends Component {
           style={{ height: 55, borderRadius: 15, backgroundColor: '#777777', flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 12 }}>
           <Text style={{ color: "white", fontSize: 22 }}>Login</Text>
         </TouchableOpacity>
+
+        <View style={{ height: 20, paddingHorizontal: 20, flexDirection: "row" }}>
+          <View style={{ height: 12, borderBottomColor: "black", borderBottomWidth: 1, flex: 1, borderBottomColor: "#777777" }}></View>
+          <Text style={{ marginHorizontal: 3, fontSize: 18, alignSelf: "center", color: "#777777" }}>or</Text>
+          <View style={{ height: 12, borderBottomColor: "black", borderBottomWidth: 1, flex: 1, borderBottomColor: "#777777" }}></View>
+        </View>
 
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate("signup")}
