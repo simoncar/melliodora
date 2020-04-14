@@ -188,7 +188,7 @@ class DomainSelection extends Component {
           onPress={onPressedCreateCommunity}>
           <Ionicons style={{ flexShrink: 1 }} name="ios-add-circle" size={44} color="#999999" />
 
-          <Text style={[styles.TextStyle, { fontSize: 24, paddingHorizontal: 12, flex: 1, textAlign: "left" }]}>Create Community</Text>
+          <Text style={[styles.TextStyle, { fontSize: 24, paddingHorizontal: 12, flex: 1, textAlign: "left", fontWeight: "500" }]}>Create Community</Text>
           <Ionicons style={{ flexShrink: 1 }} name="ios-arrow-forward" size={32} color="#777777" />
 
         </TouchableOpacity>
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
     padding: 15,
     backgroundColor: "#fff",
-    borderRadius: 10,
+    borderRadius: 13,
     alignItems: "center",
 
     // shadowColor: "rgba(0,0,0, .4)",

@@ -184,11 +184,12 @@ export default {
     alignSelf: "center",
   },
   text: {
-    fontSize: 18,
+    fontSize: 15,
     color: "#000",
     marginBottom: 10,
     paddingTop: 5,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'right'
   },
   groupView: {
     borderRadius: 3,

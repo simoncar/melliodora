@@ -64,7 +64,14 @@ class Setup extends Component {
       return <AppLoading />;
     }
     else if (_.isEmpty(this.props.community.selectedCommunity)) {
-      return <AuthStackNavigator />
+
+      return (
+        <StyleProvider style={getTheme(variables)}>
+          <Root>
+            <AuthStackNavigator />
+          </Root>
+        </StyleProvider>
+      );
     } else {
       // check if user is admin
       return (
