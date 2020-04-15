@@ -59,6 +59,7 @@ let StackHome = createStackNavigator(
         fontSize: stylesGlobal.navbarFontSize,
         color: "#111111"
       },
+      headerTintColor: '#111111',
       headerStyle: {
         borderBottomWidth: 0,
       }
@@ -88,6 +89,7 @@ let StackCalendar = createStackNavigator(
         fontSize: stylesGlobal.navbarFontSize,
         color: "#111111"
       },
+      headerTintColor: '#111111',
       headerStyle: {
         borderBottomWidth: 0,
       }
@@ -117,6 +119,7 @@ let StackChat = createStackNavigator(
         fontSize: stylesGlobal.navbarFontSize,
         color: "#111111"
       },
+      headerTintColor: '#111111',
       headerStyle: {
         borderBottomWidth: 0,
       }
@@ -141,6 +144,7 @@ StackWeb.navigationOptions = ({ navigation }) => {
     title,
     headerBackTitle: null,
     tabBarIcon: ({ focused, tintColor, horizontal }) => <MaterialIcons name="web" size={horizontal ? 20 : 25} color={tintColor} />,
+    headerTintColor: '#111111',
     headerStyle: {
       borderBottomWidth: 0
     }
@@ -173,6 +177,7 @@ let StackOther = createStackNavigator(
         fontSize: stylesGlobal.navbarFontSize,
         color: "#111111"
       },
+      headerTintColor: '#111111',
       headerStyle: {
         borderBottomWidth: 0,
       }
