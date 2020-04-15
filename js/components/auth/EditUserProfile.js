@@ -229,7 +229,9 @@ class EditUserProfile extends Component {
                 value={this.state.user.firstName}
               />
             </View>
+            <View style={{ width: 30 }}>
 
+            </View>
             <View style={{ flex: 1 }}>
               <Text style={styles.nameText} numberOfLines={1}>
                 Last Name:
@@ -352,6 +354,5 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: "#100c08",
     borderBottomWidth: 1,
-    width: "80%"
   }
 });
