@@ -135,21 +135,43 @@ class EditUserProfile extends Component {
   };
 
   _renderProfilePic = () => {
-    const width = 180;
+    const width = 120;
     const containerHeight = 200;
     const photoURL = this.state.user.photoURL;
 
     return (
-      <View style={styles.titleContainer}>
-        <Text style={styles.nameText} numberOfLines={1}>
-          Profile Picture:
-        </Text>
-
+      <View style={styles.profilePicContainer}>
         <TouchableOpacity style={{ width }} onPress={this._onOpenActionSheet}>
-          <Image
+
+          {
+            photoURL ?
+              <Image
+                style={{
+                  width: width,
+                  height: width,
+                  borderRadius: width / 2,
+                  borderWidth: 5,
+                  borderColor: "lightgray"
+                }}
+                source={{ uri: photoURL }}
+              /> :
+              <Ionicons
+                name="ios-person"
+                size={width * 0.85}
+                color="#999999"
+                style={{
+                  width: width,
+                  height: width,
+                  borderRadius: width / 2,
+                  borderWidth: StyleSheet.hairlineWidth,
+                  borderColor: "lightgray",
+                  textAlign: "center",
+                }}
+              />
+          }
+          {/* <Image
             style={[
               {
-                marginTop: 20,
                 backgroundColor: "white",
                 width: width,
                 height: width,
@@ -159,8 +181,12 @@ class EditUserProfile extends Component {
               }
             ]}
             source={photoURL ? { uri: photoURL } : null}
-          />
+          /> */}
         </TouchableOpacity>
+        <Text></Text>
+        <Text style={styles.profilePicText} numberOfLines={1}>
+          Add profile picture
+        </Text>
       </View>
     );
   };
@@ -259,6 +285,7 @@ const ConnectedApp = connectActionSheet(EditUserProfile);
 export default class ActionSheetContainer extends Component {
   static navigationOptions = ({ navigation }) => ({
     // title: I18n.t("Edit", { defaultValue: "Edit" }),
+    title: "Edit Profile",
     headerRight: () => {
       const permitEdit = navigation.state.params.permitEdit;
 
@@ -273,11 +300,11 @@ export default class ActionSheetContainer extends Component {
               flexDirection: "row",
               alignItems: "center"
             }}>
-            <Text style={{ color: "red" }}>Save </Text>
+            <Text style={{ color: "#777777" }}>Save </Text>
             <MaterialIcons
               name="done"
               style={{
-                color: "red",
+                color: "#777777",
                 fontSize: 25,
                 marginRight: 10
               }}
@@ -298,6 +325,17 @@ export default class ActionSheetContainer extends Component {
 }
 
 const styles = StyleSheet.create({
+  profilePicContainer: {
+    paddingHorizontal: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
+    alignItems: "center",
+  },
+  profilePicText: {
+    fontWeight: "600",
+    fontSize: 14,
+    color: "#777777"
+  },
   titleContainer: {
     paddingHorizontal: 15,
     paddingTop: 15,
@@ -305,11 +343,11 @@ const styles = StyleSheet.create({
   },
   nameText: {
     fontWeight: "600",
-    fontSize: 18,
-    color: "black"
+    fontSize: 10,
+    color: "#777777"
   },
   sectionContentText: {
-    color: "#808080",
+    color: "#111111",
     fontSize: 14,
     height: 40,
     borderColor: "#100c08",
