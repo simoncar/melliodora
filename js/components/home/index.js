@@ -10,7 +10,7 @@ import {
   AsyncStorage,
   Image,
   Platform,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { Container, Content, Text } from "native-base";
 import Constants from "expo-constants";
@@ -26,8 +26,7 @@ import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
 import moment from "moment";
 import { setUserInfo } from "../../store/auth";
-import { connect } from 'react-redux';
-
+import { connect } from "react-redux";
 
 import DemoData from "../../lib/demoData";
 
@@ -35,7 +34,7 @@ const demo = DemoData;
 
 const bottomLogo = {
   sais_edu_sg: require("../../../images/sais_edu_sg/10yearLogo.png"),
-  ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg")
+  ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg"),
 };
 
 class Home extends Component {
@@ -46,7 +45,7 @@ class Home extends Component {
       loading: true,
       featureItems: [],
       calendarItems: [],
-      balanceItems: []
+      balanceItems: [],
     };
 
     this.loadFromAsyncStorage();
@@ -75,14 +74,14 @@ class Home extends Component {
             style={{
               color: "#48484A",
               fontSize: 25,
-              marginLeft: 10
+              marginLeft: 10,
             }}>
             <FontAwesome
               name="language"
               style={{
                 color: "#48484A",
                 fontSize: 25,
-                marginLeft: 10
+                marginLeft: 10,
               }}
             />
           </View>
@@ -97,19 +96,19 @@ class Home extends Component {
             style={{
               color: "#48484A",
               fontSize: 25,
-              marginRight: 10
+              marginRight: 10,
             }}>
             <Ionicons
               name="md-search"
               style={{
                 color: "#48484A",
                 fontSize: 25,
-                marginRight: 10
+                marginRight: 10,
               }}
             />
           </View>
         </TouchableOpacity>
-      )
+      ),
     };
   };
 
@@ -117,10 +116,8 @@ class Home extends Component {
     this.language = this.props.auth.language;
 
     this.props.navigation.setParams({
-      title: this.props.community.selectedCommunity.name
+      title: this.props.community.selectedCommunity.name,
     });
-
-
 
     global.domain = this.props.community.selectedCommunity.node || global.domain;
 
@@ -130,12 +127,7 @@ class Home extends Component {
 
     systemHero.logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain, this.props.auth.userInfo.email || "");
 
-    this.feature = firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("feature")
-      .collection("features")
-      .orderBy("order");
+    this.feature = firebase.firestore().collection(global.domain).doc("feature").collection("features").orderBy("order");
 
     Analytics.track("Home");
     this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
@@ -165,7 +157,7 @@ class Home extends Component {
       .doc("Rh9hEJmOyLR12WfflrLCCvvpIWD2")
       .get()
 
-      .then(snapshot => {
+      .then((snapshot) => {
         if (!snapshot.exists) {
           return;
         }
@@ -175,12 +167,12 @@ class Home extends Component {
         var trans = {
           visible: true,
           source: "balance",
-          summaryMyLanguage: "AAA",
-          summary: data.campusBalance,
+          summaryMyLanguage: "$" + data.campusBalance.toFixed(2),
+          summary: "$" + data.campusBalance.toFixed(2),
           summaryEN: "$" + data.campusBalance.toFixed(2),
           color: "red",
           showIconChat: false,
-          location: "Cafeteria Account Balance"
+          location: "Cafeteria Account Balance",
         };
 
         var familyId = data.guid.substring(data.guid.indexOf("iSAMSparents:") + 13, data.guid.indexOf("-"));
@@ -188,7 +180,7 @@ class Home extends Component {
         balanceItems.push({ ...{ _key: snapshot.id }, ...data, ...trans });
         if (balanceItems.length > 0) {
           this.setState({
-            balanceItems
+            balanceItems,
           });
         }
       });
@@ -211,8 +203,9 @@ class Home extends Component {
       // .orderBy("date_start");
       .where("date_start", "==", todayDate)
       .get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          console.log("AAAA:", this.language, doc.data().summary, getLanguageString(this.language, doc.data(), "summaryX"));
           var trans = {
             visible: true,
             source: "calendar",
@@ -223,30 +216,30 @@ class Home extends Component {
             color: "red",
             showIconChat: false,
             descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description"),
-            number: doc.data().number
+            number: doc.data().number,
           };
           calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
         });
         if (calendarItems.length > 0) {
           this.setState({
             calendarItems,
-            loading: false
+            loading: false,
           });
         }
         this.setState({
-          loading: false
+          loading: false,
         });
       });
   }
 
-  onFeatureUpdate = querySnapshot => {
+  onFeatureUpdate = (querySnapshot) => {
     var featureItems = [];
 
-    querySnapshot.forEach(doc => {
+    querySnapshot.forEach((doc) => {
       var trans = {
         source: "feature",
         summaryMyLanguage: getLanguageString(this.language, doc.data(), "summary"),
-        descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description")
+        descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description"),
       };
 
       if (!doc.data().visible == false) {
@@ -257,7 +250,7 @@ class Home extends Component {
     if (featureItems.length > 0) {
       this._storeData(JSON.stringify(featureItems));
       this.setState({
-        featureItems
+        featureItems,
       });
     }
 
@@ -266,34 +259,34 @@ class Home extends Component {
     // });
   };
 
-  _handleOpenWithLinking = sURL => {
+  _handleOpenWithLinking = (sURL) => {
     Linking.openURL(sURL);
   };
 
-  keyExtractor = item => item._key;
+  keyExtractor = (item) => item._key;
 
   setupUser = () => {
     const { communityJoined } = this.props.auth.userInfo;
     if (Array.isArray(communityJoined) && communityJoined.indexOf(global.domain) < 0) {
       const userInfo = {
         ...this.props.auth.userInfo,
-        communityJoined: [...communityJoined, global.domain]
+        communityJoined: [...communityJoined, global.domain],
       };
-      this.props.dispatch(setUserInfo(userInfo, true))
+      this.props.dispatch(setUserInfo(userInfo, true));
     }
 
     //check if user is admin
-  }
+  };
   loadFromAsyncStorage() {
     AsyncStorage.multiGet(["featureItems"], (err, stores) => {
       const featureItems = JSON.parse(stores[0][1]);
       this.setState({
-        featureItems
+        featureItems,
       });
     });
   }
 
-  _storeData = async featureItems => {
+  _storeData = async (featureItems) => {
     try {
       AsyncStorage.setItem("featureItems", featureItems);
     } catch (error) {
@@ -304,11 +297,11 @@ class Home extends Component {
 
   _renderItem = ({ item }, cardStyle) => {
     return <ListItem navigation={this.props.navigation} item={item} card={true} language={this.language} cardStyle={cardStyle} />;
-  }
+  };
 
   _renderItemNoCard = ({ item }) => {
     return <ListItem navigation={this.props.navigation} item={item} card={false} language={this.language} />;
-  }
+  };
   _renderBalance() {
     if (global.domain === "oakforest_international_edu") {
       return <FlatList data={this.state.balanceItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem} />;
@@ -325,19 +318,14 @@ class Home extends Component {
     }
   }
 
-  env() { }
+  env() {}
 
   render() {
     return (
       <Container>
         {(global.administrator || this.props.auth.isAdmin) && (
-          <TouchableHighlight
-            style={styles.addButton}
-            underlayColor="#ff7043"
-            onPress={() => this.props.navigation.navigate("storyForm")}
-          >
+          <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => this.props.navigation.navigate("storyForm")}>
             <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "23%", top: "-10%" }}>+</Text>
-
           </TouchableHighlight>
         )}
         <Content showsVerticalScrollIndicator={false}>
@@ -352,7 +340,7 @@ class Home extends Component {
                 bounces={false}
                 contentContainerStyle={{
                   paddingHorizontal: 12,
-                  paddingVertical: 8
+                  paddingVertical: 8,
                 }}
                 style={{ backgroundColor: "white", marginVertical: 6 }}
                 showsHorizontalScrollIndicator={false}>
@@ -361,7 +349,7 @@ class Home extends Component {
                   onPress={() => {
                     this.props.navigation.navigate("webportalURL", {
                       url: "https://iflaapr.org/newsletters",
-                      title: "Newsletters"
+                      title: "Newsletters",
                     });
                   }}>
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/news.png")} />
@@ -373,7 +361,7 @@ class Home extends Component {
                   onPress={() => {
                     this.props.navigation.navigate("webportalURL", {
                       url: "https://iflaapr.org/news/listing/design",
-                      title: "Design News"
+                      title: "Design News",
                     });
                   }}>
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Design.jpeg")} />
@@ -385,7 +373,7 @@ class Home extends Component {
                   onPress={() => {
                     this.props.navigation.navigate("webportalURL", {
                       url: "https://iflaapr.org/news/listing/management",
-                      title: "Management News"
+                      title: "Management News",
                     });
                   }}>
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Management.jpeg")} />
@@ -397,7 +385,7 @@ class Home extends Component {
                   onPress={() => {
                     this.props.navigation.navigate("webportalURL", {
                       url: "https://iflaapr.org/news/listing/planning",
-                      title: "Planning News"
+                      title: "Planning News",
                     });
                   }}>
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Planning.jpeg")} />
@@ -409,7 +397,7 @@ class Home extends Component {
                   onPress={() => {
                     this.props.navigation.navigate("webportalURL", {
                       url: "https://iflaapr.org/membership-directory/corporate",
-                      title: "Directory"
+                      title: "Directory",
                     });
                   }}>
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Directory.jpeg")} />
@@ -418,12 +406,12 @@ class Home extends Component {
 
                 <TouchableOpacity
                   style={styles.homeMenuItemContainer}
-                // onPress={() => {
-                //   this.props.navigation.navigate("webportalURL", {
-                //     url: "https://smartcookies.io/smart-community",
-                //     title: "Member Associations",
-                //   });
-                // }}
+                  // onPress={() => {
+                  //   this.props.navigation.navigate("webportalURL", {
+                  //     url: "https://smartcookies.io/smart-community",
+                  //     title: "Member Associations",
+                  //   });
+                  // }}
                 >
                   <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Associations.png")} />
                   <Text style={styles.homeMenuText}>{I18n.t("member") + "\n" + I18n.t("associations")}</Text>
@@ -436,21 +424,25 @@ class Home extends Component {
             {this._renderBalance()}
             {this._renderToday()}
 
-            <FlatList data={this.state.featureItems} keyExtractor={this.keyExtractor} renderItem={(item) => this._renderItem(item, { borderWidth: 0 })} />
+            <FlatList
+              data={this.state.featureItems}
+              keyExtractor={this.keyExtractor}
+              renderItem={(item) => this._renderItem(item, { borderWidth: 0 })}
+            />
           </View>
           <View style={styles.card}>
             <View
               style={{
                 marginTop: 70,
                 alignItems: "center",
-                width: "100%"
+                width: "100%",
               }}>
               <Image style={styles.tenYearLogo} source={bottomLogo[global.domain] || { uri: global.switch_homeLogoURI }} />
             </View>
             <View
               style={{
                 marginTop: 100,
-                alignItems: "center"
+                alignItems: "center",
               }}>
               <TouchableOpacity
                 onPress={() => {
@@ -458,7 +450,7 @@ class Home extends Component {
                 }}
                 style={{
                   width: 40,
-                  height: 40
+                  height: 40,
                 }}>
                 <Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
               </TouchableOpacity>
@@ -477,8 +469,8 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  community: state.community
+  community: state.community,
 });
 export default connect(mapStateToProps)(Home);

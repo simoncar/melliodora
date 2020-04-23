@@ -22,7 +22,7 @@ import styles from "./styles";
 import RadioButton from "../common/RadioButton";
 import { Overlay } from "react-native-elements";
 import { saveFeatureChanges } from "../../store/settings";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 const icons = {
   wifi: require("./images/wifi.png"),
@@ -64,8 +64,7 @@ class ContactAdmin extends React.Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params.saveChanges(navigation.goBack);
-        }}
-      >
+        }}>
         <Text
           style={{
             color: "#037AFF",
@@ -74,8 +73,7 @@ class ContactAdmin extends React.Component {
             paddingBottom: 5,
             paddingRight: 20,
             fontWeight: "600",
-          }}
-        >
+          }}>
           Save
         </Text>
       </TouchableOpacity>
@@ -96,8 +94,8 @@ class ContactAdmin extends React.Component {
     editVisible: true,
   };
 
-  setEditIcon = t => this.setState({ editIcon: t });
-  resetEditFields = callback =>
+  setEditIcon = (t) => this.setState({ editIcon: t });
+  resetEditFields = (callback) =>
     this.setState(
       {
         editIdx: -1,
@@ -107,19 +105,11 @@ class ContactAdmin extends React.Component {
         editTitleInfo: "",
         editVisible: true,
       },
-      () => typeof callback === "function" && callback(),
+      () => typeof callback === "function" && callback()
     );
 
-  updateData = callback => {
-    const {
-      data,
-      editIdx = -1,
-      editNavURL = "",
-      editIcon = "",
-      editTitle = "",
-      editTitleInfo = "",
-      editVisible = true,
-    } = this.state;
+  updateData = (callback) => {
+    const { data, editIdx = -1, editNavURL = "", editIcon = "", editTitle = "", editTitleInfo = "", editVisible = true } = this.state;
 
     const updatedData = {
       icon: editIcon,
@@ -140,7 +130,7 @@ class ContactAdmin extends React.Component {
     }
   };
 
-  deleteData = callback => {
+  deleteData = (callback) => {
     const { data, editIdx } = this.state;
 
     if (editIdx > -1) {
@@ -220,9 +210,8 @@ class ContactAdmin extends React.Component {
     });
   }
 
-  saveChanges = callback => {
-
-    this.props.dispatch(saveFeatureChanges(this.state.data))
+  saveChanges = (callback) => {
+    this.props.dispatch(saveFeatureChanges(this.state.data));
 
     typeof callback === "function" && callback();
   };
@@ -260,7 +249,7 @@ class ContactAdmin extends React.Component {
     });
   };
 
-  yToIndex = y => {
+  yToIndex = (y) => {
     // const value = Math.floor(
     //   (this.scrollOffset + y - this.flatlistTopOffset) / this.rowHeight
     // );
@@ -298,22 +287,21 @@ class ContactAdmin extends React.Component {
   render() {
     const { data, dragging, draggingIdx } = this.state;
 
-    console.log("data1", data);
     const renderItem = ({ item, index }, noPanResponder = false) => {
       const { navTitle, title, navURL, icon, titleInfo, navigate, visible = true } = item;
 
       const navigationTitle = navTitle || title;
       const navProps = navURL
         ? {
-          url: navURL,
-          title: navigationTitle,
-        }
+            url: navURL,
+            title: navigationTitle,
+          }
         : {};
 
       const imgSource = icon ? icons[icon] : icons["wifi"];
       return (
         <View
-          onLayout={e => {
+          onLayout={(e) => {
             this.rowHeight = e.nativeEvent.layout.height;
             this.itemsHeight[index] = e.nativeEvent.layout.height;
           }}
@@ -322,8 +310,7 @@ class ContactAdmin extends React.Component {
             flexDirection: "row",
             alignItems: "center",
             opacity: draggingIdx === index ? 0 : 1,
-          }}
-        >
+          }}>
           <Image
             style={{
               alignSelf: "center",
@@ -349,8 +336,7 @@ class ContactAdmin extends React.Component {
                   editTitleInfo: titleInfo,
                   editVisible: visible,
                 });
-              }}
-            >
+              }}>
               <Text>Edit</Text>
             </TouchableHighlight>
           </View>
@@ -369,50 +355,38 @@ class ContactAdmin extends React.Component {
           flex: 1,
           backgroundColor: "#fff",
           alignItems: "center",
-        }}
-      >
+        }}>
         <Overlay isVisible={this.state.modalVisible} windowBackgroundColor="rgba(0, 0, 0, .85)" height="90%">
           <ScrollView>
             <View>
               <Text style={styles.contactText}>
                 Order: {this.state.editIdx > -1 ? this.state.editIdx + 1 : this.state.data.length + 1}{" "}
               </Text>
-              <Text style={styles.contactText}>
-                Select Icon: {this.state.editIcon}
-              </Text>
+              <Text style={styles.contactText}>Select Icon: {this.state.editIcon}</Text>
               <View
                 style={{
                   width: 180,
                   marginTop: 8,
-                }}
-              >
+                }}>
                 <RadioButton options={options} selected={this.state.editIcon} selectFunc={this.setEditIcon} />
               </View>
 
               <Text style={styles.contactText}>Title</Text>
-              <TextInput
-                onChangeText={text => this.setState({ editTitle: text })}
-                placeholder={"Title"}
-                value={this.state.editTitle}
-              />
+              <TextInput onChangeText={(text) => this.setState({ editTitle: text })} placeholder={"Title"} value={this.state.editTitle} />
 
               <Text style={styles.contactText}>Title Info (Display on Right)</Text>
               <TextInput
-                onChangeText={text => this.setState({ editTitleInfo: text })}
+                onChangeText={(text) => this.setState({ editTitleInfo: text })}
                 placeholder={"Title Info"}
                 value={this.state.editTitleInfo}
               />
 
               <Text style={styles.contactText}>URL</Text>
-              <TextInput
-                onChangeText={text => this.setState({ editNavURL: text })}
-                placeholder={"URL"}
-                value={this.state.editNavURL}
-              />
+              <TextInput onChangeText={(text) => this.setState({ editNavURL: text })} placeholder={"URL"} value={this.state.editNavURL} />
 
               <Text style={styles.contactText}>Visible</Text>
               <Switch
-                onValueChange={value => this.setState({ editVisible: value })}
+                onValueChange={(value) => this.setState({ editVisible: value })}
                 value={this.state.editVisible == false ? false : true}
               />
 
@@ -425,10 +399,7 @@ class ContactAdmin extends React.Component {
 
               {this.state.editIdx > -1 && (
                 <View style={{ marginTop: 20 }}>
-                  <Button
-                    title="Delete"
-                    onPress={() => this.deleteData(() => this.setState({ modalVisible: false }))}
-                  />
+                  <Button title="Delete" onPress={() => this.deleteData(() => this.setState({ modalVisible: false }))} />
                 </View>
               )}
 
@@ -444,10 +415,8 @@ class ContactAdmin extends React.Component {
           underlayColor="#ff7043"
           onPress={() => {
             this.resetEditFields(() => this.setState({ modalVisible: true }));
-          }}
-        >
+          }}>
           <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "23%", top: "-10%" }}>+</Text>
-
         </TouchableHighlight>
 
         {dragging && (
@@ -460,8 +429,7 @@ class ContactAdmin extends React.Component {
               zIndex: 2,
               width: "100%",
               top: this.point.getLayout().top,
-            }}
-          >
+            }}>
             {renderItem({ item: data[draggingIdx], index: -1 }, true)}
           </Animated.View>
         )}
@@ -474,15 +442,15 @@ class ContactAdmin extends React.Component {
             style={{ width: "100%" }}
             data={data}
             renderItem={renderItem}
-            onScroll={e => {
+            onScroll={(e) => {
               this.scrollOffset = e.nativeEvent.contentOffset.y;
             }}
-            onLayout={e => {
+            onLayout={(e) => {
               this.flatlistTopOffset = e.nativeEvent.layout.y + navHeight;
               this.flatListHeight = e.nativeEvent.layout.height;
             }}
             scrollEventThrottle={16}
-            keyExtractor={item => "" + item}
+            keyExtractor={(item) => "" + item}
           />
         </View>
       </SafeAreaView>
@@ -490,8 +458,7 @@ class ContactAdmin extends React.Component {
   }
 }
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   settings: state.settings,
 });
 export default connect(mapStateToProps)(ContactAdmin);

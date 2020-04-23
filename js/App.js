@@ -6,7 +6,7 @@ import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
 import Analytics from "./lib/analytics";
 import Constants from "expo-constants";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { getCommunityDetails } from "./store/community";
 
 class App extends Component {
@@ -19,10 +19,9 @@ class App extends Component {
     this._notificationSubscription && this._notificationSubscription.remove();
   }
 
-  _handleNotification = ({ origin, data }) => { };
+  _handleNotification = ({ origin, data }) => {};
 
   _registerForPushNotifications() {
-    console.log("global.name", global.name);
     registerForPush.reg(global.name);
 
     this._notificationSubscription = Notifications.addListener(this._handleNotification);
@@ -40,11 +39,11 @@ class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
-  }
+    backgroundColor: "#fff",
+  },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   community: state.community,
 });
 export default connect(mapStateToProps)(App);

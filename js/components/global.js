@@ -144,8 +144,7 @@ export function isAdmin(sPass) {
 }
 
 export function getLanguageString(language, object, field) {
-  // console.log("getLanguageString=", language);
   language = language ? language : "en";
   const fieldName = field + language.toUpperCase();
-  return object[fieldName];
+  return object[fieldName] || object[field];
 }

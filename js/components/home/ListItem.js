@@ -17,7 +17,7 @@ class ListItem extends Component {
     const uri = this.props.item.photo1;
     const preview = {
       uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
 
     if (this.props.item.number >= 0) {
@@ -32,13 +32,13 @@ class ListItem extends Component {
             alignItems: "center",
             paddingLeft: 0,
             paddingRight: 0,
-            justifyContent: "center"
+            justifyContent: "center",
           }}>
           <Text
             size={35}
             style={{
               color: "white",
-              fontSize: 14
+              fontSize: 14,
             }}>
             {this.props.item.number}
           </Text>
@@ -58,7 +58,7 @@ class ListItem extends Component {
             borderColor: "#999999",
             color: "#999999",
             textAlign: "center",
-            textAlignVertical: "top"
+            textAlignVertical: "top",
           }}
         />
       );
@@ -75,7 +75,7 @@ class ListItem extends Component {
             borderWidth: 0,
             borderColor: "#999999",
             color: "#999999",
-            textAlign: "center"
+            textAlign: "center",
           }}
         />
       );
@@ -90,7 +90,7 @@ class ListItem extends Component {
             borderWidth: StyleSheet.hairlineWidth,
             borderColor: "lightgray",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
           }}
           {...{ preview, uri }}
         />
@@ -129,13 +129,13 @@ class ListItem extends Component {
       "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
       "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
       "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$",
+        "(\\#[-a-z\\d_]*)?$",
       "i"
     ); // fragment locator
     return pattern.test(str);
   }
 
-  renderExcerptImage(excerpt, uri) { }
+  renderExcerptImage(excerpt, uri) {}
   render() {
     const summary = getLanguageString(
       this.props.language,
@@ -148,7 +148,7 @@ class ListItem extends Component {
     const card = this.props.card === false ? false : true;
     const preview = {
       uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
 
     const excerpt = this.props.item.excerpt;
@@ -163,26 +163,25 @@ class ListItem extends Component {
             alignItems: "center",
             borderBottomWidth: 0.1,
             borderBottomColor: "lightgray",
-            marginTop: 5
+            marginTop: 5,
           }}>
           <TouchableOpacity
             style={{ flexDirection: "row" }}
-            onPress={() => this.props.navigation.navigate("story", this.props.item)}>
+            onPress={() => {
+              console.log("CLICK:", this.props.item);
+              this.props.navigation.navigate("story", this.props.item);
+            }}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               {this.icon(this.props.item.source, this.props.item.number)}
 
               <View>
                 <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardTitle}>
-                  {summary}
+                  {this.props.item.summaryMyLanguage}
                 </Text>
                 {this.renderLocation(this.props.item.location)}
 
                 {this.renderDate(this.props.item.date_start)}
-                {this.renderTime(
-                  this.props.item.time_start_pretty,
-                  this.props.item.time_end_pretty,
-                  this.props.item.source
-                )}
+                {this.renderTime(this.props.item.time_start_pretty, this.props.item.time_end_pretty, this.props.item.source)}
               </View>
             </View>
             <View
@@ -190,7 +189,7 @@ class ListItem extends Component {
                 flex: 1,
                 flexDirection: "row",
                 justifyContent: "flex-end",
-                alignItems: "center"
+                alignItems: "center",
               }}>
               {showIconChat && <SimpleLineIcons name="bubble" size={25} color="#111111" style={{ marginRight: 8 }} />}
 
@@ -198,7 +197,11 @@ class ListItem extends Component {
             </View>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("story", this.props.item)}>
+        <TouchableOpacity
+          onPress={() => {
+            console.log("CLICK:", this.props.item);
+            this.props.navigation.navigate("story", this.props.item);
+          }}>
           <View style={{ flexDirection: "column" }}>
             {excerpt ? (
               <Text
@@ -207,12 +210,14 @@ class ListItem extends Component {
                   fontSize: 14,
                   color: "#777777",
                   paddingVertical: 12,
-                  paddingHorizontal: 8
+                  paddingHorizontal: 8,
                 }}>
                 {excerpt}
               </Text>
             ) : null}
-            {this.isURL(uri) && <Image style={{ height: 200, borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }} {...{ preview, uri }} />}
+            {this.isURL(uri) && (
+              <Image style={{ height: 200, borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }} {...{ preview, uri }} />
+            )}
           </View>
         </TouchableOpacity>
       </View>
