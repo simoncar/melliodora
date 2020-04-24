@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, AsyncStorage } from "react-native";
+import { StyleSheet, View, AsyncStorage } from "react-native";
 import { SettingsListItem } from "../settings/SettingsListItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
+import { Text } from "native-base";
 import Analytics from "../../lib/analytics";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { changeLanguage } from "../../store/auth";
 
 class selectLanguage extends Component {
@@ -14,13 +15,13 @@ class selectLanguage extends Component {
     this.state = {
       switchValue: false,
       loggedIn: false,
-      language: ""
+      language: "",
     };
   }
 
   static navigationOptions = {
     title: I18n.t("language"),
-    headerBackTitle: null
+    headerBackTitle: null,
   };
 
   componentDidMount() {
@@ -43,7 +44,7 @@ class selectLanguage extends Component {
   _changeLanguage(language) {
     console.log("_changeLanguage", language);
     this.setState({ language: language });
-    this.props.dispatch(changeLanguage(language))
+    this.props.dispatch(changeLanguage(language));
   }
   _getStyle(language) {
     if (language == this.state.language) {
@@ -56,7 +57,6 @@ class selectLanguage extends Component {
   render() {
     return (
       <View style={{ backgroundColor: "#EFEFF4", flex: 1 }}>
-
         <SettingsListItem
           hasSwitch={false}
           switchState={this.state.switchValue}
@@ -126,7 +126,6 @@ class selectLanguage extends Component {
         />
 
         <Text style={styles.titleInfoStyle}>{I18n.t("languageChangeWarning")}</Text>
-
       </View>
     );
   }
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     alignSelf: "center",
     height: 30,
-    width: 30
+    width: 30,
   },
   imageStyleCheckOn: {
     marginLeft: 15,
@@ -151,7 +150,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    color: "#007AFF"
+    color: "#007AFF",
   },
   imageStyleCheckOff: {
     marginLeft: 15,
@@ -159,7 +158,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     fontSize: 30,
-    color: "#FFF"
+    color: "#FFF",
   },
 
   titleInfoStyle: {
@@ -168,11 +167,11 @@ const styles = StyleSheet.create({
     color: "#8e8e93",
 
     marginLeft: 10,
-    alignSelf: "center"
-  }
+    alignSelf: "center",
+  },
 });
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 export default connect(mapStateToProps)(selectLanguage);

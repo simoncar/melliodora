@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Linking, Platform, StyleSheet, TouchableOpacity, ViewPropTypes, Text } from "react-native";
+import { Linking, Platform, StyleSheet, TouchableOpacity, ViewPropTypes } from "react-native";
 import { MapView } from "expo";
+import { Text } from "native-base";
 
 export default class CustomView extends React.Component {
   render() {
@@ -15,16 +16,15 @@ export default class CustomView extends React.Component {
               android: `http://maps.google.com/?q=${this.props.currentMessage.location.latitude},${this.props.currentMessage.location.longitude}`,
             });
             Linking.canOpenURL(url)
-              .then(supported => {
+              .then((supported) => {
                 if (supported) {
                   return Linking.openURL(url);
                 }
               })
-              .catch(err => {
+              .catch((err) => {
                 //console.error("An error occurred", err);
               });
-          }}
-        >
+          }}>
           <MapView
             style={[styles.mapView, this.props.mapViewStyle]}
             region={{

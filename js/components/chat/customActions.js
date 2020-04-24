@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, TouchableOpacity, View, ViewPropTypes, Text, SafeAreaView } from "react-native";
+import { StyleSheet, TouchableOpacity, View, ViewPropTypes, SafeAreaView } from "react-native";
 import Constants from "expo-constants";
+import { Text } from "native-base";
 import * as Permissions from "expo-permissions";
 import NavBar, { NavButton, NavButtonText, NavTitle } from "react-native-nav";
 import { Entypo } from "@expo/vector-icons";
@@ -60,7 +61,7 @@ export default class CustomActions extends React.Component {
         options,
         cancelButtonIndex,
       },
-      buttonIndex => {
+      (buttonIndex) => {
         switch (buttonIndex) {
           case 0:
             //_pickImage();
@@ -74,7 +75,7 @@ export default class CustomActions extends React.Component {
             break;
           default:
         }
-      },
+      }
     );
   }
 
@@ -101,33 +102,29 @@ export default class CustomActions extends React.Component {
             navBar: {
               backgroundColor: "#FFF",
             },
-          }}
-        >
+          }}>
           <NavButton
             onPress={() => {
               this.setModalVisiblePhoto(false);
-            }}
-          >
+            }}>
             <NavButtonText
               style={{
                 color: "#000",
-              }}
-            >
+              }}>
               {"Cancel"}
             </NavButtonText>
           </NavButton>
           <NavTitle
             style={{
               color: "#000",
-            }}
-          >
+            }}>
             {"Photos"}
           </NavTitle>
           <NavButton
             onPress={() => {
               this.setModalVisiblePhoto(false);
 
-              const images = this.getImages().map(image => {
+              const images = this.getImages().map((image) => {
                 // fires for every individual image
 
                 return {
@@ -139,13 +136,11 @@ export default class CustomActions extends React.Component {
 
               this.props.onSend(images);
               //this.handleAddPicture();
-            }}
-          >
+            }}>
             <NavButtonText
               style={{
                 color: "#000",
-              }}
-            >
+              }}>
               {"Send"}
             </NavButtonText>
           </NavButton>
@@ -165,33 +160,29 @@ export default class CustomActions extends React.Component {
             navBar: {
               backgroundColor: "#FFF",
             },
-          }}
-        >
+          }}>
           <NavButton
             onPress={() => {
               this.setModalVisibleVideo(false);
-            }}
-          >
+            }}>
             <NavButtonText
               style={{
                 color: "#000",
-              }}
-            >
+              }}>
               {"Cancel"}
             </NavButtonText>
           </NavButton>
           <NavTitle
             style={{
               color: "#000",
-            }}
-          >
+            }}>
             {"Videos"}
           </NavTitle>
           <NavButton
             onPress={() => {
               this.setModalVisibleVideo(false);
 
-              const images = this.getImages().map(image => {
+              const images = this.getImages().map((image) => {
                 // fires for every individual image
 
                 return {
@@ -203,13 +194,11 @@ export default class CustomActions extends React.Component {
 
               this.props.onSend(images);
               //this.handleAddPicture();
-            }}
-          >
+            }}>
             <NavButtonText
               style={{
                 color: "#000",
-              }}
-            >
+              }}>
               {"Send"}
             </NavButtonText>
           </NavButton>

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
 import firebase from "firebase";
 import Constants from "expo-constants";
+import { Text } from "native-base";
 
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 
@@ -24,23 +25,19 @@ class logs extends Component {
   componentDidMount() {
     var logs = [];
 
-    let logRef = firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("log")
-      .collection("logs");
+    let logRef = firebase.firestore().collection(global.domain).doc("log").collection("logs");
 
     let query = logRef
       .orderBy("timestamp", "desc")
       .limit(300)
       .get()
-      .then(snapshot => {
+      .then((snapshot) => {
         if (snapshot.empty) {
           console.log("No matching documents.");
           return;
         }
 
-        snapshot.forEach(doc => {
+        snapshot.forEach((doc) => {
           var logItem = doc.data();
           logs.push({
             logItem,
@@ -51,12 +48,12 @@ class logs extends Component {
           logs,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Error getting documents", err);
       });
   }
 
-  keyExtractor = item => item._key;
+  keyExtractor = (item) => item._key;
 
   _renderItem(item) {
     return <LogItem item={item} />;

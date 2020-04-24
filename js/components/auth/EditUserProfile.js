@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
+import { View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import firebase from "firebase";
+import { Text } from "native-base";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
@@ -11,7 +12,7 @@ import Loader from "../common/Loader";
 class EditUserProfile extends Component {
   state = {
     loading: false,
-    user: {}
+    user: {},
   };
 
   componentDidMount() {
@@ -74,13 +75,7 @@ class EditUserProfile extends Component {
         if (!_.isEmpty(updateProfileObj)) user.updateProfile(updateProfileObj);
 
         //update firestore user info
-        await firebase
-          .firestore()
-          .collection(global.domain)
-          .doc("user")
-          .collection("registered")
-          .doc(user.uid)
-          .set(diff, { merge: true });
+        await firebase.firestore().collection(global.domain).doc("user").collection("registered").doc(user.uid).set(diff, { merge: true });
       }
 
       await this.setState({ loading: false });
@@ -88,7 +83,7 @@ class EditUserProfile extends Component {
     } catch (error) {
       this.setState({
         errorMessage: error.message,
-        loading: false
+        loading: false,
       });
     }
   };
@@ -103,7 +98,7 @@ class EditUserProfile extends Component {
   };
 
   setProfilePic = ({ profilePic }) => {
-    this.setState(prevState => ({ user: { ...prevState.user, photoURL: profilePic } }));
+    this.setState((prevState) => ({ user: { ...prevState.user, photoURL: profilePic } }));
   };
 
   _onOpenActionSheet = () => {
@@ -116,14 +111,14 @@ class EditUserProfile extends Component {
       {
         options,
         cancelButtonIndex,
-        destructiveButtonIndex
+        destructiveButtonIndex,
       },
-      buttonIndex => {
+      (buttonIndex) => {
         // Do something here depending on the button index selected
         switch (buttonIndex) {
           case 0:
             this.props.navigation.push("CameraApp", {
-              onGoBack: this.setProfilePic
+              onGoBack: this.setProfilePic,
             });
             break;
           case 1:
@@ -142,33 +137,32 @@ class EditUserProfile extends Component {
     return (
       <View style={styles.profilePicContainer}>
         <TouchableOpacity style={{ width }} onPress={this._onOpenActionSheet}>
-
-          {
-            photoURL ?
-              <Image
-                style={{
-                  width: width,
-                  height: width,
-                  borderRadius: width / 2,
-                  borderWidth: 5,
-                  borderColor: "lightgray"
-                }}
-                source={{ uri: photoURL }}
-              /> :
-              <Ionicons
-                name="ios-person"
-                size={width * 0.85}
-                color="#999999"
-                style={{
-                  width: width,
-                  height: width,
-                  borderRadius: width / 2,
-                  borderWidth: StyleSheet.hairlineWidth,
-                  borderColor: "lightgray",
-                  textAlign: "center",
-                }}
-              />
-          }
+          {photoURL ? (
+            <Image
+              style={{
+                width: width,
+                height: width,
+                borderRadius: width / 2,
+                borderWidth: 5,
+                borderColor: "lightgray",
+              }}
+              source={{ uri: photoURL }}
+            />
+          ) : (
+            <Ionicons
+              name="ios-person"
+              size={width * 0.85}
+              color="#999999"
+              style={{
+                width: width,
+                height: width,
+                borderRadius: width / 2,
+                borderWidth: StyleSheet.hairlineWidth,
+                borderColor: "lightgray",
+                textAlign: "center",
+              }}
+            />
+          )}
           {/* <Image
             style={[
               {
@@ -213,7 +207,7 @@ class EditUserProfile extends Component {
             </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, displayName: text } }))}
+              onChangeText={(text) => this.setState((prevState) => ({ user: { ...prevState.user, displayName: text } }))}
               value={this.state.user.displayName}
             />
           </View>
@@ -225,20 +219,18 @@ class EditUserProfile extends Component {
               </Text>
               <TextInput
                 style={styles.sectionContentText}
-                onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, firstName: text } }))}
+                onChangeText={(text) => this.setState((prevState) => ({ user: { ...prevState.user, firstName: text } }))}
                 value={this.state.user.firstName}
               />
             </View>
-            <View style={{ width: 30 }}>
-
-            </View>
+            <View style={{ width: 30 }}></View>
             <View style={{ flex: 1 }}>
               <Text style={styles.nameText} numberOfLines={1}>
                 Last Name:
               </Text>
               <TextInput
                 style={styles.sectionContentText}
-                onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, lastName: text } }))}
+                onChangeText={(text) => this.setState((prevState) => ({ user: { ...prevState.user, lastName: text } }))}
                 value={this.state.user.lastName}
               />
             </View>
@@ -250,7 +242,7 @@ class EditUserProfile extends Component {
             </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, country: text } }))}
+              onChangeText={(text) => this.setState((prevState) => ({ user: { ...prevState.user, country: text } }))}
               value={this.state.user.country}
             />
           </View>
@@ -261,7 +253,7 @@ class EditUserProfile extends Component {
             </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, region: text } }))}
+              onChangeText={(text) => this.setState((prevState) => ({ user: { ...prevState.user, region: text } }))}
               value={this.state.user.region}
             />
           </View>
@@ -272,7 +264,7 @@ class EditUserProfile extends Component {
             </Text>
             <TextInput
               style={styles.sectionContentText}
-              onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, organization: text } }))}
+              onChangeText={(text) => this.setState((prevState) => ({ user: { ...prevState.user, organization: text } }))}
               value={this.state.user.organization}
             />
           </View>
@@ -300,7 +292,7 @@ export default class ActionSheetContainer extends Component {
               fontSize: 25,
               marginRight: 10,
               flexDirection: "row",
-              alignItems: "center"
+              alignItems: "center",
             }}>
             <Text style={{ color: "#777777" }}>Save </Text>
             <MaterialIcons
@@ -308,13 +300,13 @@ export default class ActionSheetContainer extends Component {
               style={{
                 color: "#777777",
                 fontSize: 25,
-                marginRight: 10
+                marginRight: 10,
               }}
             />
           </View>
         </TouchableOpacity>
       );
-    }
+    },
   });
 
   render() {
@@ -336,17 +328,17 @@ const styles = StyleSheet.create({
   profilePicText: {
     fontWeight: "600",
     fontSize: 14,
-    color: "#777777"
+    color: "#777777",
   },
   titleContainer: {
     paddingHorizontal: 15,
     paddingTop: 15,
-    paddingBottom: 15
+    paddingBottom: 15,
   },
   nameText: {
     fontWeight: "600",
     fontSize: 10,
-    color: "#777777"
+    color: "#777777",
   },
   sectionContentText: {
     color: "#111111",
@@ -354,5 +346,5 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: "#100c08",
     borderBottomWidth: 1,
-  }
+  },
 });

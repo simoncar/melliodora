@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Text, View, TextInput, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
+import { View, TextInput, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
+import { Text } from "native-base";
 import firebase from "firebase";
 import Loader from "../common/Loader";
 import { processSelectedCommunity } from "../../store/community";

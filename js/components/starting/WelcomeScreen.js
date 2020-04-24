@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { Component } from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+
 import firebase from "firebase";
 import DomainSelection from "./DomainSelection";
-import { setCommunityCreate } from '../../store/communityCreation';
-import { connect } from 'react-redux';
+import { setCommunityCreate } from "../../store/communityCreation";
+import { connect } from "react-redux";
 
 class WelcomeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     const firstname = navigation.getParam("firstName");
-    return ({
+    return {
       title: "Welcome " + firstname,
-    })
+    };
   };
 
   componentDidMount() {
@@ -22,10 +23,9 @@ class WelcomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-
         <DomainSelection showCreateCommunity={false} navigation={this.props.navigation} />
       </View>
-    )
+    );
   }
 }
 
@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   communityCreate: state.communityCreate,
-  auth: state.auth
+  auth: state.auth,
 });
 export default connect(mapStateToProps)(WelcomeScreen);

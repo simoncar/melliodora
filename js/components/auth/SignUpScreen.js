@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, TouchableOpacity, Linking, StyleSheet, View, TextInput, Button, Image, ScrollView } from "react-native";
+import { TouchableOpacity, Linking, StyleSheet, View, TextInput, Button, Image, ScrollView } from "react-native";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import uuid from "uuid";
@@ -7,13 +7,14 @@ import { Input } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import firebase from "firebase";
 import "firebase/functions";
+import { Text } from "native-base";
 import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../../lib/uploadImage";
 import Loader from "../common/Loader";
 
 class SignUpScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Sign Up",
-    headerBackTitle: null
+    headerBackTitle: null,
   });
 
   state = {
@@ -25,12 +26,12 @@ class SignUpScreen extends Component {
     firstName: "",
     lastName: "",
     errorMessage: null,
-    loading: false
+    loading: false,
   };
 
-  componentDidMount() { }
+  componentDidMount() {}
 
-  checkConfirmPassword = text => {
+  checkConfirmPassword = (text) => {
     this.setState({ confirmPassword: text }, () => {
       if (this.state.confirmPassword !== this.state.password) {
         const errorMsg = "Password don't match";
@@ -47,14 +48,13 @@ class SignUpScreen extends Component {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(async userCredential => {
-
+        .then(async (userCredential) => {
           let downloadURL = "";
           if (this.state.profilePic) {
-            downloadURL = await saveProfilePic(this.state.profilePic)
+            downloadURL = await saveProfilePic(this.state.profilePic);
             userCredential.user.updateProfile({
               photoURL: downloadURL,
-              displayName: this.state.displayName
+              displayName: this.state.displayName,
             });
           }
           const communityJoined = global.domain ? [global.domain] : [];
@@ -67,7 +67,7 @@ class SignUpScreen extends Component {
             displayName: this.state.displayName,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
-          }
+          };
 
           // create global registerd user
           firebase
@@ -91,23 +91,22 @@ class SignUpScreen extends Component {
         //   const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
         //   setUserClaim({ email: this.state.email, domain: global.domain })
         // })
-        .then(result => this.setState({ loading: false }))
+        .then((result) => this.setState({ loading: false }))
         .then(() => {
           if (this.props.navigation.state.params.toWelcomeScreen) {
-            this.props.navigation.navigate("welcomeScreen")
+            this.props.navigation.navigate("welcomeScreen");
           } else {
-            this.props.navigation.popToTop()
+            this.props.navigation.popToTop();
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.props.navigation.popToTop();
-          this.setState({ errorMessage: error.message, loading: false })
+          this.setState({ errorMessage: error.message, loading: false });
         });
-
     } catch (error) {
       this.setState({
         errorMessage: error.message,
-        loading: false
+        loading: false,
       });
     }
   };
@@ -138,10 +137,7 @@ class SignUpScreen extends Component {
       xhr.send(null);
     });
 
-    const ref = firebase
-      .storage()
-      .ref("smartcommunity/profile")
-      .child(uuid.v4());
+    const ref = firebase.storage().ref("smartcommunity/profile").child(uuid.v4());
 
     const snapshot = await ref.put(blob, { contentType: mime });
     const downloadURL = await snapshot.ref.getDownloadURL();
@@ -170,14 +166,14 @@ class SignUpScreen extends Component {
       {
         options,
         cancelButtonIndex,
-        destructiveButtonIndex
+        destructiveButtonIndex,
       },
-      buttonIndex => {
+      (buttonIndex) => {
         // Do something here depending on the button index selected
         switch (buttonIndex) {
           case 0:
             this.props.navigation.push("CameraApp", {
-              onGoBack: this.setProfilePic
+              onGoBack: this.setProfilePic,
             });
             break;
           case 1:
@@ -209,7 +205,7 @@ class SignUpScreen extends Component {
             borderWidth: StyleSheet.hairlineWidth,
             borderColor: "lightgray",
             color: "#0075b7",
-            textAlign: "center"
+            textAlign: "center",
           }}
         />
       );
@@ -224,7 +220,7 @@ class SignUpScreen extends Component {
             borderWidth: StyleSheet.hairlineWidth,
             borderColor: "lightgray",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
           }}
           source={{ uri: source }}
         />
@@ -240,7 +236,7 @@ class SignUpScreen extends Component {
           <Text>{this.state.errorMessage}</Text>
           <Input
             placeholder="Email Address"
-            onChangeText={text => this.setState({ email: text })}
+            onChangeText={(text) => this.setState({ email: text })}
             value={this.state.email}
             containerStyle={styles.containerStyle}
             inputContainerStyle={{ borderBottomWidth: 0 }}
@@ -250,7 +246,7 @@ class SignUpScreen extends Component {
           />
           <Input
             placeholder="Password"
-            onChangeText={text => this.setState({ password: text })}
+            onChangeText={(text) => this.setState({ password: text })}
             value={this.state.password}
             containerStyle={styles.containerStyle}
             secureTextEntry={true}
@@ -258,7 +254,7 @@ class SignUpScreen extends Component {
           />
           <Input
             placeholder="Confirm Password"
-            onChangeText={text => this.checkConfirmPassword(text)}
+            onChangeText={(text) => this.checkConfirmPassword(text)}
             value={this.state.confirmPassword}
             containerStyle={styles.containerStyle}
             secureTextEntry={true}
@@ -270,14 +266,14 @@ class SignUpScreen extends Component {
           </View>
           <Input
             placeholder="Display name"
-            onChangeText={text => this.setState({ displayName: text })}
+            onChangeText={(text) => this.setState({ displayName: text })}
             value={this.state.displayName}
             containerStyle={styles.containerStyle}
             inputContainerStyle={{ borderBottomWidth: 0 }}
           />
           <Input
             placeholder="First name"
-            onChangeText={text => this.setState({ firstName: text })}
+            onChangeText={(text) => this.setState({ firstName: text })}
             value={this.state.firstName}
             containerStyle={styles.containerStyle}
             inputContainerStyle={{ borderBottomWidth: 0 }}
@@ -285,7 +281,7 @@ class SignUpScreen extends Component {
           />
           <Input
             placeholder="Last name"
-            onChangeText={text => this.setState({ lastName: text })}
+            onChangeText={(text) => this.setState({ lastName: text })}
             value={this.state.lastName}
             containerStyle={styles.containerStyle}
             inputContainerStyle={{ borderBottomWidth: 0 }}
@@ -318,7 +314,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#f2f2f2",
     flex: 1,
-    padding: 10
+    padding: 10,
   },
 
   containerStyle: {
@@ -326,7 +322,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "#d2d2d2",
     backgroundColor: "#ffffff",
-    marginVertical: 8
+    marginVertical: 8,
   },
 
   learnMore: {},
@@ -342,6 +338,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 1,
     elevation: 4,
-    marginBottom: 30
-  }
+    marginBottom: 30,
+  },
 });

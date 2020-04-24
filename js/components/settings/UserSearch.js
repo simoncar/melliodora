@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet, AsyncStorage, Text } from "react-native";
+import { View, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet, AsyncStorage } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { AntDesign } from "@expo/vector-icons";
 import { ListItem } from "react-native-elements";
+import { Text } from "native-base";
 import * as firebase from "firebase";
 import _ from "lodash";
 import I18n from "../../lib/i18n";
@@ -17,7 +18,7 @@ class UserSearch extends Component {
           <AntDesign name="reload1" style={styles.navigationIcon} />
         </View>
       </TouchableOpacity>
-    )
+    ),
   });
 
   constructor(props) {
@@ -28,10 +29,10 @@ class UserSearch extends Component {
       loadingMessage: I18n.t("search") + "...",
       data: [],
       fullData: [],
-      error: null
+      error: null,
     };
   }
-  keyExtractor = item => item._key;
+  keyExtractor = (item) => item._key;
 
   componentDidMount() {
     // this.props.navigation.state.params.reload = this.loadData;
@@ -42,20 +43,14 @@ class UserSearch extends Component {
 
   loadData = () => {
     this.setState({ loading: true });
-    this._getUsers().then(data => this.setState({ data: data, fullData: data, loading: false }));
+    this._getUsers().then((data) => this.setState({ data: data, fullData: data, loading: false }));
   };
 
   _getUsers = async () => {
     var data = [];
-    var querySnapshot = await firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("user")
-      .collection("registered")
-      .limit(5000)
-      .get();
+    var querySnapshot = await firebase.firestore().collection(global.domain).doc("user").collection("registered").limit(5000).get();
 
-    querySnapshot.docs.forEach(doc => {
+    querySnapshot.docs.forEach((doc) => {
       let docData = doc.data();
       docData = { ...docData, uid: docData.uid || doc.id };
       data.push(docData);
@@ -68,15 +63,15 @@ class UserSearch extends Component {
       <View
         style={{
           height: 1,
-          backgroundColor: "#CED0CE"
+          backgroundColor: "#CED0CE",
         }}
       />
     );
   };
 
-  searchFilterFunction = text => {
+  searchFilterFunction = (text) => {
     this.setState({
-      value: text
+      value: text,
     });
 
     const fullData = this.state.fullData;
@@ -84,19 +79,19 @@ class UserSearch extends Component {
     //reset when blank text
     if (!text) {
       this.setState({
-        data: fullData
+        data: fullData,
       });
       return;
     }
     const textToSearch = text.toUpperCase();
-    const filteredData = fullData.filter(dataItem => {
+    const filteredData = fullData.filter((dataItem) => {
       const searchObject = _.pick(dataItem, ["email", "displayName", "firstName", "lastName"]);
 
-      return Object.values(searchObject).some(item => item.toUpperCase().includes(textToSearch));
+      return Object.values(searchObject).some((item) => item.toUpperCase().includes(textToSearch));
     });
 
     this.setState({
-      data: filteredData
+      data: filteredData,
     });
   };
 
@@ -107,7 +102,7 @@ class UserSearch extends Component {
         // ref={search => (this.search = search)}
         lightTheme
         round
-        onChangeText={text => this.searchFilterFunction(text)}
+        onChangeText={(text) => this.searchFilterFunction(text)}
         autoCorrect={false}
         value={this.state.value}
         containerStyle={styles.searchContainer}
@@ -126,7 +121,7 @@ class UserSearch extends Component {
         <ListItem
           leftAvatar={{
             rounded: true,
-            ...avatar
+            ...avatar,
           }}
           title={
             <View style={{ flex: 1, flexDirection: "row" }}>
@@ -152,7 +147,7 @@ class UserSearch extends Component {
           <ActivityIndicator
             size="large"
             style={{
-              margin: 40
+              margin: 40,
             }}
           />
         </View>
@@ -175,16 +170,16 @@ class UserSearch extends Component {
 // Styles
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   searchContainer: {
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
   navigationIcon: {
     color: "#48484A",
     fontSize: 25,
-    marginRight: 10
-  }
+    marginRight: 10,
+  },
 });
 
 export default UserSearch;

@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, Dimensions, StyleSheet, Alert } from "react-native";
+import { View, TouchableOpacity, Dimensions, StyleSheet, Alert } from "react-native";
 import styles from "./styles";
 import { Ionicons, SimpleLineIcons, AntDesign } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import { getLanguageString } from "../global";
 import firebase from "firebase";
+import { Text } from "native-base";
 
 class FeatureListItem extends Component {
   constructor(props) {
@@ -13,13 +14,7 @@ class FeatureListItem extends Component {
 
   deleteStory = () => {
     const storyID = this.props.item._key;
-    firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("feature")
-      .collection("features")
-      .doc(storyID)
-      .delete();
+    firebase.firestore().collection(global.domain).doc("feature").collection("features").doc(storyID).delete();
   };
 
   confirmDelete = () => {
@@ -33,7 +28,7 @@ class FeatureListItem extends Component {
         },
         { text: "OK", onPress: () => this.deleteStory() },
       ],
-      { cancelable: true },
+      { cancelable: true }
     );
   };
 
@@ -54,8 +49,7 @@ class FeatureListItem extends Component {
             chatroom: this.props.item._key,
             title: summary,
           });
-        }}
-      >
+        }}>
         <SimpleLineIcons name="bubble" size={30} color="black" style={{ lineHeight: 60, marginRight: 15 }} />
       </TouchableOpacity>
     );
@@ -81,8 +75,7 @@ class FeatureListItem extends Component {
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
-            }}
-          >
+            }}>
             <Image
               style={{
                 width: 36,

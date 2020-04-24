@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Constants from "expo-constants";
-import { Animated, TextInput, TouchableOpacity, View, Text } from "react-native";
+import { Animated, TextInput, TouchableOpacity, View } from "react-native";
 import { WebView } from "react-native-webview";
-import { Container } from "native-base";
+import { Container, Text } from "native-base";
 import { connectActionSheet, ActionSheetProvider, ActionSheetOptions } from "@expo/react-native-action-sheet";
 import { withNavigation } from "react-navigation";
 import styles from "./styles";
@@ -11,13 +11,13 @@ import AuthParser from "./authParser";
 import _ from "lodash";
 import Analytics from "../../lib/analytics";
 import stylesGlobal from "../../themes/globalTheme";
-import { connect } from 'react-redux';
-import { compose } from 'redux'
+import { connect } from "react-redux";
+import { compose } from "redux";
 import { saveDetails } from "../../store/authPortal";
 
 const timer = require("react-native-timer");
 
-const tabBarIcon = name => ({ tintColor }) => (
+const tabBarIcon = (name) => ({ tintColor }) => (
   <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />
 );
 
@@ -42,10 +42,10 @@ class authPortal extends Component {
       webViewUrl: "",
       visible: this.props.visible,
       myText: "My Original Text",
-      showMsg: false
+      showMsg: false,
     };
 
-    this.actionOptions = global.switch_webportalActions ? global.switch_webportalActions.map(item => Object.keys(item)[0]) : [];
+    this.actionOptions = global.switch_webportalActions ? global.switch_webportalActions.map((item) => Object.keys(item)[0]) : [];
     this.actionOptions.push("Cancel");
   }
   //this.props.chatroom
@@ -63,7 +63,7 @@ class authPortal extends Component {
 
     this.props.navigation.setParams({
       _onOpenActionSheet: this._onOpenActionSheet,
-      reload: this.reload
+      reload: this.reload,
     });
 
     Analytics.track("Auth Portal", { url: this.props.url });
@@ -78,9 +78,9 @@ class authPortal extends Component {
       {
         options,
         cancelButtonIndex,
-        destructiveButtonIndex
+        destructiveButtonIndex,
       },
-      buttonIndex => {
+      (buttonIndex) => {
         const key = this.actionOptions[buttonIndex];
         if (key == "Cancel") return;
         const url = global.switch_webportalActions[buttonIndex][key];
@@ -95,7 +95,7 @@ class authPortal extends Component {
     }
   }
 
-  onNavigationStateChange = navState => {
+  onNavigationStateChange = (navState) => {
     console.log(navState.url);
     if (
       navState.url.substring(0, 42) != "https://mystamford.edu.sg/login/login.aspx" &&
@@ -194,7 +194,7 @@ class authPortal extends Component {
               onNavigationStateChange={this.onNavigationStateChange.bind(this)}
               domStorageEnabled={true}
               startInLoadingState={true}
-              ref={r => (this.webref = r)}
+              ref={(r) => (this.webref = r)}
               keyboardDisplayRequiresUserAction={true}
               sharedCookiesEnabled={true}
               onMessage={this.handleMessage.bind(this)}
@@ -207,14 +207,11 @@ class authPortal extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  authPortal: state.authPortal
+  authPortal: state.authPortal,
 });
-const ConnectedApp = compose(
-  connectActionSheet,
-  connect(mapStateToProps),
-)(authPortal);
+const ConnectedApp = compose(connectActionSheet, connect(mapStateToProps))(authPortal);
 
 export default class AppContainer extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -245,7 +242,7 @@ export default class AppContainer extends React.Component {
           <Ionicons name="ios-bookmarks" style={styles.heading} />
         </View>
       </TouchableOpacity>
-    )
+    ),
   });
   render() {
     return (
@@ -255,4 +252,3 @@ export default class AppContainer extends React.Component {
     );
   }
 }
-

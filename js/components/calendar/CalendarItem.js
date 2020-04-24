@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import styles from "./styles";
+import { Text } from "native-base";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import { getLanguageString } from "../global";
@@ -16,23 +17,23 @@ class CalendarItem extends Component {
   render() {
     const item = this.props.item;
     return (
-      <TouchableOpacity style={{ flexDirection: "row", marginBottom: 12 }} onPress={() => this.props.navigation.navigate("storyCalendar", item)}>
+      <TouchableOpacity
+        style={{ flexDirection: "row", marginBottom: 12 }}
+        onPress={() => this.props.navigation.navigate("storyCalendar", item)}>
         <View
           style={[
             styles.agendaItem,
             {
               height: item.height,
-              borderRightColor: this.formatBackground(item.color)
-            }
+              borderRightColor: this.formatBackground(item.color),
+            },
           ]}>
           <Grid>
             <Row>
               <Col>
                 <View style={{ flex: 1, alignItems: "flex-end" }}>
                   <Text style={styles.text}>{item.summary}</Text>
-                  <Text style={styles.agendaLocation}>
-                    {item.location}{" "}
-                  </Text>
+                  <Text style={styles.agendaLocation}>{item.location} </Text>
                   {this.renderTime(item.time_start_pretty, item.time_end_pretty)}
                   {undefined !== item.group && item.group !== null && item.group.length > 0 && (
                     <View style={styles.groupView}>
@@ -40,14 +41,10 @@ class CalendarItem extends Component {
                     </View>
                   )}
                 </View>
-
               </Col>
             </Row>
             <Row>
-
-              <View style={{ flex: 1, alignItems: "flex-end" }}>
-                {this.renderImage(item.photo1)}
-              </View>
+              <View style={{ flex: 1, alignItems: "flex-end" }}>{this.renderImage(item.photo1)}</View>
             </Row>
           </Grid>
         </View>
@@ -63,7 +60,7 @@ class CalendarItem extends Component {
     }
     const preview = {
       uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     if (undefined != calImage && calImage.length > 0) {
       return <Image {...{ preview, uri }} style={{ width: 300, height: 150 }} resizeMode="contain" />;
