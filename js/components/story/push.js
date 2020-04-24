@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, Dimensions, Alert, Text, TouchableOpacity, Switch } from "react-native";
-import { Container, Content } from "native-base";
+import { StyleSheet, View, Image, Dimensions, Alert, TouchableOpacity, Switch } from "react-native";
+import { Container, Content, Text } from "native-base";
 import styles from "./styles";
 import { SettingsListItem } from "../settings/SettingsListItem";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
@@ -17,7 +17,7 @@ class push extends Component {
 
     this.state = {
       initialText: "",
-      _key: props._key
+      _key: props._key,
     };
 
     this.pushSend = this.pushSend.bind(this);
@@ -41,7 +41,7 @@ class push extends Component {
         }}>
         <Text style={styles.chatHeading}>{I18n.t("send")}</Text>
       </TouchableOpacity>
-    )
+    ),
   });
 
   componentDidMount() {
@@ -56,7 +56,7 @@ class push extends Component {
     this.setState({ initialText: initialText });
 
     this.props.navigation.setParams({
-      pushSend: this.pushSend
+      pushSend: this.pushSend,
     });
   }
 
@@ -69,17 +69,12 @@ class push extends Component {
       grade: grades,
       image: "",
       state: "pending",
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
 
     console.log("push =", pushMessage);
 
-    var storyRef = firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("push")
-      .collection("message")
-      .add(pushMessage);
+    var storyRef = firebase.firestore().collection(global.domain).doc("push").collection("message").add(pushMessage);
 
     Alert.alert("Push message sent");
 
@@ -134,10 +129,10 @@ class push extends Component {
                 flex: 1,
                 paddingTop: 20,
                 paddingLeft: 10,
-                paddingRight: 10
+                paddingRight: 10,
               }}>
               <Input
-                onChangeText={text => this.setState({ initialText: text })}
+                onChangeText={(text) => this.setState({ initialText: text })}
                 placeholder={"Description"}
                 multiline
                 containerStyle={styles.containerStyle}

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Alert, ScrollView, Text, View } from "react-native";
-import { Container, Content, Button } from "native-base";
+import { Alert, ScrollView, View } from "react-native";
+import { Container, Content, Button, Text } from "native-base";
 import * as Calendar from "expo-calendar";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,7 +13,7 @@ import styles from "./styles";
 @withMappedNavigationParams()
 class CalendarRow extends Component {
   static navigationOptions = {
-    title: "Calendars"
+    title: "Calendars",
   };
 
   _selectCalendar(
@@ -69,7 +69,7 @@ class CalendarRow extends Component {
         startDate: new Date(eventDate),
         endDate: new Date(eventDate),
         notes: eventDescription,
-        timeZone: "Asia/Singapore"
+        timeZone: "Asia/Singapore",
       };
     } else {
       var dtStart = moment(eventDate + "T" + moment(eventStartTime + " GMT+0800 (+08)", ["h:mm A"]).format("HH:mm"));
@@ -82,7 +82,7 @@ class CalendarRow extends Component {
         startDate: new Date(dtStart),
         endDate: new Date(dtEnd),
         notes: eventDescription,
-        timeZone: "Asia/Singapore"
+        timeZone: "Asia/Singapore",
       };
     }
 
@@ -97,7 +97,7 @@ class CalendarRow extends Component {
     }
   };
 
-  _findEvents = async id => {
+  _findEvents = async (id) => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     const tomorrow = new Date();
@@ -120,7 +120,7 @@ class CalendarRow extends Component {
       eventImage,
       phone,
       email,
-      url
+      url,
     } = this.props;
 
     const calendarTypeName = calendar.entityType === Calendar.EntityTypes.REMINDER ? "Reminders" : "Events";
@@ -157,7 +157,7 @@ class CalendarRow extends Component {
 @withMappedNavigationParams()
 class phoneCalendar extends Component {
   static navigationOptions = {
-    title: I18n.t("calendar")
+    title: I18n.t("calendar"),
   };
 
   constructor(props) {
@@ -172,7 +172,7 @@ class phoneCalendar extends Component {
     activeCalendarId: null,
     activeCalendarEvents: [],
     showAddNewEventForm: false,
-    editingEvent: null
+    editingEvent: null,
   };
 
   _findCalendars = async () => {
@@ -197,7 +197,7 @@ class phoneCalendar extends Component {
               </View>
 
               <ScrollView>
-                {this.state.calendars.map(calendar => (
+                {this.state.calendars.map((calendar) => (
                   <CalendarRow
                     navigation={this.props.navigation}
                     calendar={calendar}

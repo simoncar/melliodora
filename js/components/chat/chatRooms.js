@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { FlatList, View, AsyncStorage, Text, TouchableOpacity, TouchableHighlight } from "react-native";
+import { FlatList, View, AsyncStorage, TouchableOpacity, TouchableHighlight } from "react-native";
 import * as firebase from "firebase";
-import { Container, Content } from "native-base";
+import { Container, Content, Text } from "native-base";
 import { SimpleLineIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
@@ -11,8 +11,7 @@ import ChatroomItem from "./chatroomItem";
 import Analytics from "../../lib/analytics";
 import _ from "lodash";
 import { buildChatroomList } from "../../store/community";
-import { connect } from 'react-redux';
-
+import { connect } from "react-redux";
 
 var specialChatrooms = {};
 
@@ -20,19 +19,19 @@ var specialChatrooms = {};
 class chatRooms extends Component {
   static navigationOptions = {
     title: I18n.t("chat"),
-    tabBarIcon: <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={"bubble"} color={"blue"} size={24} />
+    tabBarIcon: <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={"bubble"} color={"blue"} size={24} />,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      userChatrooms: {}
+      userChatrooms: {},
     };
   }
 
   componentDidMount() {
     this.props.navigation.setParams({
-      refresh: this.refresh
+      refresh: this.refresh,
     });
 
     const { navigation } = this.props;
@@ -56,7 +55,7 @@ class chatRooms extends Component {
     //this.props.navigation.setParams({ title: title });
   };
 
-  keyExtractor = item => item.chatroom;
+  keyExtractor = (item) => item.chatroom;
 
   _renderItem({ item }) {
     return <ChatroomItem {...item} navigation={this.props.navigation} card={true} />;
@@ -75,7 +74,7 @@ class chatRooms extends Component {
             this.props.navigation.navigate("chatTitle", {
               edit: false,
               chatroom: "New Chatroom",
-              onGoBack: this.refresh
+              onGoBack: this.refresh,
             });
           }}>
           <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "23%", top: "-10%" }}>+</Text>
@@ -91,8 +90,7 @@ class chatRooms extends Component {
                     justifyContent: "space-between",
                     alignItems: "center",
 
-
-                    marginTop: 5
+                    marginTop: 5,
                   }}>
                   <TouchableOpacity
                     style={{ flexDirection: "row" }}
@@ -100,7 +98,7 @@ class chatRooms extends Component {
                       this.props.navigation.navigate("chatTitle", {
                         edit: false,
                         chatroom: "New Chatroom",
-                        onGoBack: this.refresh
+                        onGoBack: this.refresh,
                       });
                     }}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -112,15 +110,12 @@ class chatRooms extends Component {
                 </View>
               </View>
 
-
               <FlatList
                 style={styles.card}
                 data={this.props.community.userChatrooms}
                 renderItem={this._renderItemNoCard.bind(this)}
                 keyExtractor={this.keyExtractor}
               />
-
-
             </View>
           </View>
         </Content>
@@ -129,7 +124,7 @@ class chatRooms extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  community: state.community
+const mapStateToProps = (state) => ({
+  community: state.community,
 });
 export default connect(mapStateToProps)(chatRooms);

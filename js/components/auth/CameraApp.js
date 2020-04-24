@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View, Text, Dimensions, TouchableHighlight, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Dimensions, TouchableHighlight, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import * as firebase from "firebase";
 import { Entypo } from "@expo/vector-icons";
 import _ from "lodash";
+import { Text } from "native-base";
 import * as ImageManipulator from "expo-image-manipulator";
 import uuid from "uuid";
 import Constants from "expo-constants";
@@ -21,7 +22,7 @@ export default class CameraApp extends Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
-    cameraIcon: "camera"
+    cameraIcon: "camera",
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -29,8 +30,7 @@ export default class CameraApp extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
-        }}
-      >
+        }}>
         <Entypo name="chevron-left" style={styles.left} />
       </TouchableOpacity>
     ),
@@ -54,21 +54,18 @@ export default class CameraApp extends Component {
     return firebase.database.ServerValue.TIMESTAMP;
   }
 
-  uploadImage = async uri => {
+  uploadImage = async (uri) => {
     // const response = await fetch(uri);
     // console.log("response=", response);
     const blob = await uri.blob();
-    var ref = firebase
-      .storage()
-      .ref()
-      .child("my-image");
+    var ref = firebase.storage().ref().child("my-image");
     return ref.put(blob);
   };
 
   async snapPhoto() {
     var d = new Date();
     const options = { quality: 1, base64: true, fixOrientation: true, exif: true };
-    await this.camera.takePictureAsync(options).then(async photo => {
+    await this.camera.takePictureAsync(options).then(async (photo) => {
       const convertedImage = await new ImageManipulator.manipulateAsync(photo.uri, [{ resize: { height: 600 } }], {
         compress: 0,
       });
@@ -77,9 +74,7 @@ export default class CameraApp extends Component {
 
       this.setState({ profilePic: fileToUpload });
       this.goBack();
-
     });
-
   }
 
   goBack() {
@@ -105,10 +100,9 @@ export default class CameraApp extends Component {
           <Camera
             style={{ flex: 1 }}
             type={this.state.type}
-            ref={ref => {
+            ref={(ref) => {
               this.camera = ref;
-            }}
-          ></Camera>
+            }}></Camera>
         </View>
       );
     }

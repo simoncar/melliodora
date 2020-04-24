@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View, TextInput, Button, SafeAreaView, Alert } from "react-native";
-
+import { StyleSheet, View, TextInput, Button, SafeAreaView, Alert } from "react-native";
+import { Text } from "native-base";
 import { Input } from "react-native-elements";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
@@ -13,18 +13,17 @@ export default class ForgotPasswordScreen extends Component {
 
   state = { email: "", errorMessage: null };
 
-
   handleForgotPassword = () => {
     const { email } = this.state;
 
     const msg = Alert.alert("Forgot Password Submitted", "We'll email instructions on how to reset your password soon.", [
-      { text: "OK", onPress: () =>  this.props.navigation.popToTop()}
+      { text: "OK", onPress: () => this.props.navigation.popToTop() },
     ]);
     firebase
       .auth()
       .sendPasswordResetEmail(email)
       .then(() => msg)
-      .catch(error => this.setState({ errorMessage: error.message }));
+      .catch((error) => this.setState({ errorMessage: error.message }));
   };
 
   render() {
@@ -35,7 +34,7 @@ export default class ForgotPasswordScreen extends Component {
         <TextInput
           placeholder="Email Address"
           style={styles.containerStyle}
-          onChangeText={text => this.setState({ email: text })}
+          onChangeText={(text) => this.setState({ email: text })}
           value={this.state.email}
           autoCapitalize="none"
           testID="email"

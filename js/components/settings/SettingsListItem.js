@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Text, View, TouchableHighlight } from "react-native";
+import { View, TouchableHighlight } from "react-native";
+import { Text } from "native-base";
 import { Feather } from "@expo/vector-icons";
 export const SettingsListItem = class SettingsListItem extends Component {
   render() {
@@ -13,7 +14,7 @@ export const SettingsListItem = class SettingsListItem extends Component {
             paddingVertical: 8,
             alignItems: "center",
             borderBottomColor: "#CED0CE",
-            borderBottomWidth: 1
+            borderBottomWidth: 1,
           }}>
           {icon}
           <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 8 }}>
@@ -41,7 +42,7 @@ export const Separator = class Separator extends Component {
           height: 1,
           width: "100%",
           backgroundColor: "#CED0CE",
-          marginTop: 30
+          marginTop: 30,
         }}
       />
     );

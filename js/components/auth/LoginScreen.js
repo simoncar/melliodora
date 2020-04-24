@@ -1,41 +1,35 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View, TextInput, Button, SafeAreaView } from "react-native";
-
+import { StyleSheet, View, TextInput, Button, SafeAreaView } from "react-native";
+import { Text } from "native-base";
 import { Input } from "react-native-elements";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
 import _ from "lodash";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import Loader from "../common/Loader";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import Svg, { Line, Text as SvgText } from 'react-native-svg';
+import Svg, { Line, Text as SvgText } from "react-native-svg";
 
 class LoginScreen extends Component {
-
   static navigationOptions = ({ navigation }) => {
-    return ({
+    return {
       title: "Log In",
-    })
+    };
   };
 
   state = { email: "", password: "", errorMessage: null, loading: false };
   handleLogin = async () => {
-
     try {
       this.setState({ loading: true });
 
       const { email, password } = this.state;
-      await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password);
-
+      await firebase.auth().signInWithEmailAndPassword(email, password);
     } catch (error) {
       this.setState({ errorMessage: error.message, loading: false });
     }
   };
 
   componentDidUpdate(prevProps, prevState) {
-
     const { userInfo } = this.props.auth;
     if (this.state.loading && userInfo.email == this.state.email && !_.isEmpty(userInfo)) {
       this.setState({ loading: false });
@@ -47,25 +41,17 @@ class LoginScreen extends Component {
     }
   }
 
-
   render() {
     return (
       <SafeAreaView style={styles.container}>
-
         <Loader modalVisible={this.state.loading} animationType="fade" />
         <Text>{this.state.errorMessage}</Text>
         <View style={styles.SectionStyle}>
-
-          <Ionicons
-            name="ios-mail"
-            size={25}
-            color="grey"
-            style={styles.ImageStyle}
-          />
+          <Ionicons name="ios-mail" size={25} color="grey" style={styles.ImageStyle} />
           <TextInput
             style={{ flex: 1, fontWeight: "bold" }}
             placeholder="Email Address"
-            onChangeText={text => this.setState({ email: text })}
+            onChangeText={(text) => this.setState({ email: text })}
             value={this.state.email}
             autoCapitalize="none"
             testID="email"
@@ -73,56 +59,49 @@ class LoginScreen extends Component {
             autoFocus={true}
             underlineColorAndroid="transparent"
           />
-          <Ionicons
-            name="md-checkmark"
-            size={25}
-            color="grey"
-            style={styles.ImageStyle}
-          />
+          <Ionicons name="md-checkmark" size={25} color="grey" style={styles.ImageStyle} />
         </View>
 
-
         <View style={styles.SectionStyle}>
-
-          <Ionicons
-            name="ios-lock"
-            size={25}
-            color="grey"
-            style={styles.ImageStyle}
-          />
+          <Ionicons name="ios-lock" size={25} color="grey" style={styles.ImageStyle} />
           <TextInput
             style={{ flex: 1, fontWeight: "bold" }}
             placeholder="Password"
-            onChangeText={text => this.setState({ password: text })}
+            onChangeText={(text) => this.setState({ password: text })}
             value={this.state.password}
             autoCapitalize="none"
             secureTextEntry={true}
             testID="password"
             underlineColorAndroid="transparent"
           />
-          <Ionicons
-            name="ios-eye-off"
-            size={25}
-            color="grey"
-            style={styles.ImageStyle}
-          />
+          <Ionicons name="ios-eye-off" size={25} color="grey" style={styles.ImageStyle} />
         </View>
 
         <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-          <TouchableOpacity style={{ marginVertical: 5, marginHorizontal: 10 }}
-            onPress={() => this.props.navigation.navigate("forgetpassword")}
-          >
-            <Text style={{
-              color: "#111111",
-              fontSize: 16
-            }}>Forgot password?</Text>
+          <TouchableOpacity
+            style={{ marginVertical: 5, marginHorizontal: 10 }}
+            onPress={() => this.props.navigation.navigate("forgetpassword")}>
+            <Text
+              style={{
+                color: "#111111",
+                fontSize: 16,
+              }}>
+              Forgot password?
+            </Text>
           </TouchableOpacity>
         </View>
 
         <TouchableOpacity
           onPress={this.handleLogin}
-
-          style={{ height: 55, borderRadius: 15, backgroundColor: '#777777', flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 12 }}>
+          style={{
+            height: 55,
+            borderRadius: 15,
+            backgroundColor: "#777777",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            margin: 12,
+          }}>
           <Text style={{ color: "white", fontSize: 22 }}>Login</Text>
         </TouchableOpacity>
 
@@ -134,7 +113,15 @@ class LoginScreen extends Component {
 
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate("signup")}
-          style={{ height: 55, borderRadius: 15, backgroundColor: '#777777', flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 12 }}>
+          style={{
+            height: 55,
+            borderRadius: 15,
+            backgroundColor: "#777777",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            margin: 12,
+          }}>
           <Text style={{ color: "white", fontSize: 22 }}>Register</Text>
         </TouchableOpacity>
       </SafeAreaView>
@@ -162,24 +149,23 @@ const styles = StyleSheet.create({
   },
 
   SectionStyle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     borderBottomWidth: 2,
-    borderColor: '#000',
+    borderColor: "#000",
     height: 40,
     borderRadius: 5,
-    margin: 10
+    margin: 10,
   },
 
   ImageStyle: {
     padding: 5,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
   },
 });
 
-
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 export default connect(mapStateToProps)(LoginScreen);

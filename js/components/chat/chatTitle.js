@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { Text } from "native-base";
 import * as firebase from "firebase";
 import { Button, Input } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -8,7 +9,7 @@ import I18n from "../../lib/i18n";
 export default class chatTitle extends Component {
   static navigationOptions = {
     title: "Edit",
-    headerBackTitle: null
+    headerBackTitle: null,
   };
 
   constructor(props) {
@@ -16,7 +17,7 @@ export default class chatTitle extends Component {
     this.state = {
       chatroomTitle: this.props.navigation.getParam("title") || "",
       type: this.props.navigation.getParam("type"),
-      errorMsg: ""
+      errorMsg: "",
     };
   }
 
@@ -27,14 +28,14 @@ export default class chatTitle extends Component {
   async _saveChatroom() {
     try {
       const chatroomTitle = this.state.chatroomTitle.trim();
-      const regexPattern = new RegExp("[a-zA-Z0-9\s]+$");
+      const regexPattern = new RegExp("[a-zA-Z0-9s]+$");
       if (chatroomTitle.length < 1 || !regexPattern.test(this.state.chatroomTitle)) {
         throw new Error("Invalid Characters");
       }
       var dict = {
         title: chatroomTitle,
         // type: this.state.interestGroupOnly ? "interestGroup" : "user"
-        type: "public"
+        type: "public",
       };
 
       var edit = this.props.navigation.getParam("edit");
@@ -48,12 +49,7 @@ export default class chatTitle extends Component {
           .doc(this.props.navigation.getParam("chatroom"))
           .set(dict, { merge: true });
       } else {
-        await firebase
-          .firestore()
-          .collection(global.domain)
-          .doc("chat")
-          .collection("chatrooms")
-          .add(dict);
+        await firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").add(dict);
       }
       console.log("ChatTitle go back");
       this.props.navigation.goBack(null);
@@ -61,12 +57,11 @@ export default class chatTitle extends Component {
     } catch (err) {
       this.setState({ errorMsg: err.message });
     }
-
   }
 
   _hideChatroom() {
     var dict = {
-      visible: false
+      visible: false,
     };
     console.log("hiding");
     firebase
@@ -110,7 +105,7 @@ export default class chatTitle extends Component {
         <Text>{this.state.errorMsg}</Text>
         <Input
           style={styles.titleField}
-          onChangeText={text => this._setChatroomTitle(text)}
+          onChangeText={(text) => this._setChatroomTitle(text)}
           autoCapitalize="words"
           autoFocus={true}
           inputContainerStyle={{ borderBottomWidth: 0 }}
@@ -141,14 +136,14 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#f2f2f2",
     flex: 1,
-    padding: 10
+    padding: 10,
   },
   containerStyle: {
     borderWidth: 1,
     borderRadius: 10,
     borderColor: "#d2d2d2",
     backgroundColor: "#ffffff",
-    marginVertical: 8
+    marginVertical: 8,
   },
   SubmitButtonStyle: {
     backgroundColor: "#fff",
@@ -162,23 +157,23 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 1,
     elevation: 4,
-    marginBottom: 30
+    marginBottom: 30,
   },
   subjectRow: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
   title: {
-    paddingBottom: 1
+    paddingBottom: 1,
   },
   titleField: {
     height: 40,
     borderColor: "gray",
     borderWidth: 0,
-    paddingLeft: 10
+    paddingLeft: 10,
   },
 
   button: {
     paddingTop: 20,
-    paddingBottom: 20
-  }
+    paddingBottom: 20,
+  },
 });

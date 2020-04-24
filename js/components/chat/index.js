@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Text, View, Alert, TouchableOpacity, AsyncStorage, Linking, Modal, FlatList } from "react-native";
-import { ActionSheet, Container, Footer } from "native-base";
+import { View, Alert, TouchableOpacity, AsyncStorage, Linking, Modal, FlatList } from "react-native";
+import { ActionSheet, Container, Footer, Text } from "native-base";
 import { GiftedChat, Bubble, SystemMessage, Time, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
@@ -18,12 +18,12 @@ import Backend from "./backend";
 import Analytics from "../../lib/analytics";
 import * as firebase from "firebase";
 import { ListItem } from "react-native-elements";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from "expo-linear-gradient";
 import { SettingsListItem } from "../settings/SettingsListItem";
-import { connectActionSheet, ActionSheetProvider } from '@expo/react-native-action-sheet';
+import { connectActionSheet, ActionSheetProvider } from "@expo/react-native-action-sheet";
 import stylesGlobal from "../../themes/globalTheme";
-import { connect } from 'react-redux';
-import { compose } from 'redux'
+import { connect } from "react-redux";
+import { compose } from "redux";
 
 var localMessages = [];
 
@@ -38,7 +38,7 @@ class chat extends Component {
           <Entypo name="cog" style={styles.chatHeading} />
         </View>
       </TouchableOpacity>
-    )
+    ),
   });
 
   constructor(props) {
@@ -53,7 +53,7 @@ class chat extends Component {
       user: null,
       authenticated: false,
       modalVisible: false,
-      chatroomUsers: []
+      chatroomUsers: [],
     };
 
     this._isMounted = false;
@@ -68,7 +68,7 @@ class chat extends Component {
     localMessages = [];
 
     this.communityDomain = this.props.community.selectedCommunity.node;
-    console.log("this.this.communityDomain", this.communityDomain)
+    console.log("this.this.communityDomain", this.communityDomain);
     this.userInfo = this.props.auth.userInfo;
   }
 
@@ -76,35 +76,28 @@ class chat extends Component {
     console.log("this.props.navigation", this.props.navigation.state);
     this.props.navigation.setParams({
       _showActionSheet: this._showActionSheet,
-      refresh: this.refresh
+      refresh: this.refresh,
     });
 
     this.chatroom = this.props.navigation.getParam("chatroom");
     this.title = this.props.navigation.getParam("title");
 
-    this.ref = firebase
-      .firestore()
-      .collection(this.communityDomain)
-      .doc("chat")
-      .collection("chatrooms")
-      .doc(this.chatroom);
+    this.ref = firebase.firestore().collection(this.communityDomain).doc("chat").collection("chatrooms").doc(this.chatroom);
 
-    this.unsubscribe = this.ref.onSnapshot(doc => {
+    this.unsubscribe = this.ref.onSnapshot((doc) => {
       const item = doc.data();
       this.props.navigation.setParams({
-        title: this.title
+        title: this.title,
       });
     });
 
     Backend.setLanguage(this.props.auth.language);
     Backend.setChatroom(this.chatroom, this.title);
     Backend.setMute(null);
-    Backend.loadMessages(message => {
-
-      this.setState(previousState => ({
-        messages: GiftedChat.append(previousState.messages, message)
+    Backend.loadMessages((message) => {
+      this.setState((previousState) => ({
+        messages: GiftedChat.append(previousState.messages, message),
       }));
-
     });
 
     this.loadChatUsers();
@@ -122,13 +115,13 @@ class chat extends Component {
       .limit(5000)
       .get();
 
-    querySnapshot.docs.forEach(doc => {
+    querySnapshot.docs.forEach((doc) => {
       data.push(doc.data());
     });
     return data;
   };
 
-  _getPrivateChatUsers = async members => {
+  _getPrivateChatUsers = async (members) => {
     const data = [];
     const querySnapshot = await firebase
       .firestore()
@@ -138,7 +131,7 @@ class chat extends Component {
       .where("uid", "in", members)
       .get();
 
-    querySnapshot.docs.forEach(doc => {
+    querySnapshot.docs.forEach((doc) => {
       data.push(doc.data());
     });
     return data;
@@ -146,9 +139,9 @@ class chat extends Component {
 
   loadChatUsers = () => {
     if (this.props.type == "interestGroup") {
-      this._getInterestGroupUsers().then(data => this.setState({ chatroomUsers: data }));
+      this._getInterestGroupUsers().then((data) => this.setState({ chatroomUsers: data }));
     } else if (this.props.type == "private") {
-      this._getPrivateChatUsers(this.props.members).then(data => this.setState({ chatroomUsers: data }));
+      this._getPrivateChatUsers(this.props.members).then((data) => this.setState({ chatroomUsers: data }));
     }
   };
 
@@ -165,7 +158,7 @@ class chat extends Component {
         <ListItem
           leftAvatar={{
             rounded: true,
-            ...avatar
+            ...avatar,
           }}
           title={
             <View style={{ flex: 1, flexDirection: "row" }}>
@@ -197,8 +190,8 @@ class chat extends Component {
       messages[0]._id = uuid.v4();
     }
 
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages)
+    this.setState((previousState) => ({
+      messages: GiftedChat.append(previousState.messages, messages),
     }));
 
     localMessages.push(messages[0]._id);
@@ -219,13 +212,13 @@ class chat extends Component {
     Backend.closeChat();
   }
 
-  avatarPress = props => {
+  avatarPress = (props) => {
     Alert.alert(props.email);
   };
 
   onLoadEarlier() {
-    this.setState(previousState => ({
-      isLoadingEarlier: true
+    this.setState((previousState) => ({
+      isLoadingEarlier: true,
     }));
 
     setTimeout(() => {
@@ -239,7 +232,7 @@ class chat extends Component {
     }, 2000); // simulating network
   }
 
-  onReceive(text) { }
+  onReceive(text) {}
 
   renderCustomActions(props) {
     return (
@@ -256,7 +249,7 @@ class chat extends Component {
 
     var images = [];
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
     });
 
     if (!result.cancelled) {
@@ -265,8 +258,8 @@ class chat extends Component {
         filename: result.uri,
         user: {
           _id: this.userInfo.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-          name: this.userInfo.firstName
-        }
+          name: this.userInfo.firstName,
+        },
       };
 
       this.onSend(images);
@@ -278,10 +271,10 @@ class chat extends Component {
       <SystemMessage
         {...props}
         containerStyle={{
-          marginBottom: 15
+          marginBottom: 15,
         }}
         textStyle={{
-          fontSize: 14
+          fontSize: 14,
         }}
       />
     );
@@ -323,7 +316,7 @@ class chat extends Component {
       "#bdb7ab", // wisteria
       "#d9dddc", // alizarin
       "#b9bbb6", // turquoise
-      "#808588" // midnight blue
+      "#808588", // midnight blue
     ];
     return colors[sumChars % colors.length];
   }
@@ -332,14 +325,14 @@ class chat extends Component {
     return [{ type: "url", style: styles.url, onPress: this._handleOpenWithLinking }];
   }
 
-  _handleOpenWithLinking = sURL => {
+  _handleOpenWithLinking = (sURL) => {
     let ret;
 
     if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
       Linking.openURL(sURL);
     } else {
       this.props.navigation.navigate("authPortalStory", {
-        url: sURL
+        url: sURL,
       });
     }
   };
@@ -350,11 +343,7 @@ class chat extends Component {
     console.log("nav refresh BBB ", title);
   };
 
-
-
   _showActionSheet = () => {
-
-
     const options = ["Chatroom info", "Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
 
     const cancelButtonIndex = options.length - 1;
@@ -362,9 +351,9 @@ class chat extends Component {
     this.props.showActionSheetWithOptions(
       {
         options,
-        cancelButtonIndex
+        cancelButtonIndex,
       },
-      buttonIndex => {
+      (buttonIndex) => {
         switch (buttonIndex) {
           case 0:
             this.setState({ modalVisible: true });
@@ -375,7 +364,7 @@ class chat extends Component {
               chatroom: this.props.navigation.getParam("chatroom"),
               type: this.props.navigation.getParam("type"),
               edit: true,
-              onGoBack: this.refresh
+              onGoBack: this.refresh,
             });
             break;
           case 2:
@@ -387,7 +376,7 @@ class chat extends Component {
         }
       }
     );
-  }
+  };
 
   renderSend(props) {
     return (
@@ -404,7 +393,7 @@ class chat extends Component {
       <View
         style={{
           height: 1,
-          backgroundColor: "#CED0CE"
+          backgroundColor: "#CED0CE",
         }}
       />
     );
@@ -430,13 +419,13 @@ class chat extends Component {
     let userDetails = {};
     if (this.userInfo.isAnonymous) {
       userDetails = {
-        name: "Guest" + this.userInfo.uid
+        name: "Guest" + this.userInfo.uid,
       };
     } else {
       userDetails = {
         name: this.userInfo.firstName,
         email: this.userInfo.email,
-        ...(this.userInfo.photoURL && { avatar: this.userInfo.photoURL })
+        ...(this.userInfo.photoURL && { avatar: this.userInfo.photoURL }),
       };
     }
 
@@ -451,7 +440,7 @@ class chat extends Component {
                   flexDirection: "column",
                   justifyContent: "space-between",
                   height: 100,
-                  padding: 12
+                  padding: 12,
                 }}>
                 <TouchableOpacity
                   onPress={() => {
@@ -468,7 +457,7 @@ class chat extends Component {
                     textShadowOffset: { width: 1, height: 0.8 },
                     textShadowRadius: 1,
                     textShadowColor: "#000",
-                    fontWeight: "bold"
+                    fontWeight: "bold",
                   }}>
                   {this.props.title}
                 </Text>
@@ -487,15 +476,15 @@ class chat extends Component {
                     }}
                   />
                 ) : (
-                    <FlatList
-                      style={{ height: "70%" }}
-                      data={this.state.chatroomUsers}
-                      renderItem={this._renderUsersItem.bind(this)}
-                      keyExtractor={(_, idx) => "user" + idx}
-                      ItemSeparatorComponent={this.renderSeparator}
+                  <FlatList
+                    style={{ height: "70%" }}
+                    data={this.state.chatroomUsers}
+                    renderItem={this._renderUsersItem.bind(this)}
+                    keyExtractor={(_, idx) => "user" + idx}
+                    ItemSeparatorComponent={this.renderSeparator}
                     // ListHeaderComponent={this.renderSeparator}
-                    />
-                  )}
+                  />
+                )}
               </View>
             </View>
           </Modal>
@@ -506,7 +495,7 @@ class chat extends Component {
                 chatroom: this.props.title,
                 // description: this.props.description,
                 // contact: this.props.contact,
-                url: this.props.url
+                url: this.props.url,
               });
             }}>
             <View style={styles.topbar}>
@@ -520,7 +509,7 @@ class chat extends Component {
           onSend={this.onSend}
           user={{
             _id: this.userInfo.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-            ...userDetails
+            ...userDetails,
           }}
           renderActions={this.renderCustomActions}
           renderSystemMessage={this.renderSystemMessage}
@@ -544,18 +533,13 @@ class chat extends Component {
   }
 }
 
-
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   communityCreation: state.communityCreation,
   community: state.community,
   auth: state.auth,
-  authPortal: state.authPortal
+  authPortal: state.authPortal,
 });
-const ConnectedApp = compose(
-  connectActionSheet,
-  connect(mapStateToProps),
-)(chat);
+const ConnectedApp = compose(connectActionSheet, connect(mapStateToProps))(chat);
 
 export default class ActionSheetContainer extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -564,8 +548,7 @@ export default class ActionSheetContainer extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params._showActionSheet();
-        }}
-      >
+        }}>
         <View style={styles.chatHeading}>
           <Entypo name="cog" style={styles.chatHeading} />
         </View>
@@ -578,6 +561,6 @@ export default class ActionSheetContainer extends Component {
       <ActionSheetProvider>
         <ConnectedApp navigation={this.props.navigation} />
       </ActionSheetProvider>
-    )
+    );
   }
 }

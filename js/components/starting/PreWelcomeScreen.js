@@ -1,25 +1,29 @@
-import React, { Component } from 'react'
-import { Text, View, Image, Button, TouchableOpacity } from 'react-native'
-
-
+import React, { Component } from "react";
+import { View, Image, Button, TouchableOpacity } from "react-native";
+import { Text } from "native-base";
 
 export default class PreWelcomeScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
-
         <Image
           style={{ width: "100%", flex: 1, borderBottomWidth: 1, borderColor: "#f0f0f0" }}
           resizeMode="contain"
-          source={require('../../../resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png')}
+          source={require("../../../resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png")}
         />
-
 
         <View style={{ paddingBottom: 80, flexShrink: 1 }}>
           <TouchableOpacity
-            onPress={_ => this.props.navigation.push("login", { toWelcomeScreen: true })}
-
-            style={{ height: 55, borderRadius: 15, backgroundColor: '#777777', flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 12 }}>
+            onPress={(_) => this.props.navigation.push("login", { toWelcomeScreen: true })}
+            style={{
+              height: 55,
+              borderRadius: 15,
+              backgroundColor: "#777777",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: 12,
+            }}>
             <Text style={{ color: "white", fontSize: 22 }}>Login</Text>
           </TouchableOpacity>
 
@@ -30,14 +34,20 @@ export default class PreWelcomeScreen extends Component {
           </View>
 
           <TouchableOpacity
-            onPress={_ => this.props.navigation.push("signup", { toWelcomeScreen: true })}
-            style={{ height: 55, borderRadius: 15, backgroundColor: '#777777', flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 12 }}>
+            onPress={(_) => this.props.navigation.push("signup", { toWelcomeScreen: true })}
+            style={{
+              height: 55,
+              borderRadius: 15,
+              backgroundColor: "#777777",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: 12,
+            }}>
             <Text style={{ color: "white", fontSize: 22 }}>Register</Text>
           </TouchableOpacity>
         </View>
-
-
       </View>
-    )
+    );
   }
 }

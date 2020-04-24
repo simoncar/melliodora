@@ -8,7 +8,7 @@ import Communications from "react-native-communications";
 import updateFirebase from "./../../lib/updateFirebase";
 import styles from "./styles";
 import Analytics from "../../lib/analytics";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 const contactIconType = {
   call: "ios-call",
@@ -84,7 +84,7 @@ class Contact extends Component {
         .collection(global.domain)
         .doc("config")
         .get()
-        .then(doc => {
+        .then((doc) => {
           if (doc.exists) {
             const docData = doc.data();
             if (docData.contacts) this.setState({ contactInfo: docData.contacts });
@@ -102,12 +102,12 @@ class Contact extends Component {
     this.setState({ updateFirebaseText: "Another golf day booked!" });
   }
 
-  _renderSubTexts = subTexts => {
+  _renderSubTexts = (subTexts) => {
     if (!subTexts) return;
-    return subTexts.map(subitem => <Text style={styles.feedbackHead}>{subitem}</Text>);
+    return subTexts.map((subitem) => <Text style={styles.feedbackHead}>{subitem}</Text>);
   };
 
-  _contactBtnAction = item => {
+  _contactBtnAction = (item) => {
     if (item.type == "call" && item.phoneNumber) {
       return () => Communications.phonecall(item.phoneNumber, true);
     }
@@ -124,8 +124,7 @@ class Contact extends Component {
           <TouchableHighlight
             style={styles.adminButton}
             underlayColor="#ff7043"
-            onPress={() => this.props.navigation.navigate("contactAdmin", { contactInfo: this.state.contactInfo })}
-          >
+            onPress={() => this.props.navigation.navigate("contactAdmin", { contactInfo: this.state.contactInfo })}>
             <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
           </TouchableHighlight>
         )}
@@ -159,7 +158,7 @@ class Contact extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 export default connect(mapStateToProps)(Contact);

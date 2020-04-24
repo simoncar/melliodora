@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { I18nManager, AsyncStorage, View, Text } from "react-native";
+import { I18nManager } from "react-native";
 import App from "./App";
 import I18n from "./lib/i18n";
 import { AppLoading } from "expo";
