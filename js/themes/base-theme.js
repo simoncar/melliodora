@@ -15,7 +15,7 @@ export default {
   badgeColor: "#fff",
 
   // Button
-  btnFontFamily: Platform.OS === "ios" ? "HelveticaNeue" : "Roboto_medium",
+  btnFontFamily: Platform.OS === "ios" ? "SegoeUI" : "SegoeUI",
   btnDisabledBg: "#b5b5b5", //gray - dark
   btnDisabledClr: "#f1f1f1", //gray - light
 
@@ -50,9 +50,7 @@ export default {
     return this.inverseTextColor;
   },
   get btnTextSize() {
-    return Platform.OS === "ios"
-      ? this.fontSizeBase * 1.1
-      : this.fontSizeBase - 1;
+    return Platform.OS === "ios" ? this.fontSizeBase * 1.1 : this.fontSizeBase - 1;
   },
   get btnTextSizeLarge() {
     return this.fontSizeBase * 1.5;
@@ -91,7 +89,7 @@ export default {
   brandSecondary: secondary, // new style
 
   // Font
-  fontFamily: Platform.OS === "ios" ? "HelveticaNeue" : "Roboto",
+  fontFamily: Platform.OS === "ios" ? "SegoeUI" : "SegoeUI",
   fontSizeBase: 15,
 
   get fontSizeH1() {
@@ -122,9 +120,7 @@ export default {
   toolbarInverseBg: "#222",
   toolbarTextColor: Platform.OS === "ios" ? "green" : "blue",
   get statusBarColor() {
-    return color(this.toolbarDefaultBg)
-      .darken(0.2)
-      .hex();
+    return color(this.toolbarDefaultBg).darken(0.2).hex();
   },
 
   // Icon
@@ -178,9 +174,7 @@ export default {
   radioColor: "#7e7e7e",
 
   get radioSelectedColor() {
-    return color(this.radioColor)
-      .darken(0.2)
-      .hex();
+    return color(this.radioColor).darken(0.2).hex();
   },
 
   // Spinner
@@ -207,14 +201,12 @@ export default {
   contentPadding: 10,
 
   get darkenHeader() {
-    return color(this.tabBgColor)
-      .darken(0.03)
-      .hex();
+    return color(this.tabBgColor).darken(0.03).hex();
   },
 
   dropdownBg: "#000",
   dropdownLinkColor: "#414142",
   inputLineHeight: 24,
   jumbotronBg: "#C9C9CE",
-  jumbotronPadding: 30
+  jumbotronPadding: 30,
 };

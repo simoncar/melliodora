@@ -9,12 +9,12 @@ import styles from "./styles";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../global.js";
 import _ from "lodash";
 import Analytics from "../../lib/analytics";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 @withMappedNavigationParams()
 class Story extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam("summaryMyLanguage")
+    title: navigation.getParam("summaryMyLanguage"),
   });
 
   constructor(props) {
@@ -38,21 +38,21 @@ class Story extends Component {
         formatTime(this.props.time_start_pretty, this.props.time_end_pretty) +
         " \n" +
         this.props.navigation.state.params.descriptionMyLanguage,
-      title: this.props.summaryMyLanguage
+      title: this.props.summaryMyLanguage,
     })
 
       .then(this._showResult)
-      .catch(error => this.setState({ result: `error: ${error.message}` }));
+      .catch((error) => this.setState({ result: `error: ${error.message}` }));
   }
 
-  _handleOpenWithLinking = sURL => {
+  _handleOpenWithLinking = (sURL) => {
     let ret;
 
     if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
       Linking.openURL(sURL);
     } else {
       this.props.navigation.navigate("authPortalStory", {
-        url: sURL
+        url: sURL,
       });
     }
   };
@@ -83,7 +83,7 @@ class Story extends Component {
     }
     const preview = {
       uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
 
     if (undefined !== uri && null !== uri && uri.length > 0) {
@@ -105,7 +105,7 @@ class Story extends Component {
         onPress={() => {
           this.props.navigation.navigate("chat", {
             chatroom: chatroom,
-            title: title
+            title: title,
           });
         }}>
         <Text style={styles.eventText}>
@@ -169,7 +169,7 @@ class Story extends Component {
             onPress={() =>
               this.props.navigation.navigate("storyForm", {
                 ...{ edit: true },
-                ...this.props.navigation.state.params
+                ...this.props.navigation.state.params,
               })
             }>
             <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
@@ -189,7 +189,7 @@ class Story extends Component {
               paddingRight: 0,
               flex: 1,
               borderTopWidth: 1,
-              borderTopColor: "#ddd"
+              borderTopColor: "#ddd",
             }}>
             {this._drawIconChat(this.props._key, this.props.summaryMyLanguage)}
             {this._drawIconCalendar(this.props.navigation.state.params)}
@@ -214,37 +214,37 @@ class Story extends Component {
               )}
 
               <ParsedText
-                style={styles.eventText}
+                style={styles.eventTextBody}
                 parse={[
                   {
                     pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*[-a-zA-Z0-9@:%_\+~#?&\/=])*/i,
                     style: styles.url,
-                    onPress: this._handleOpenWithLinking
+                    onPress: this._handleOpenWithLinking,
                   },
                   {
                     type: "phone",
                     style: styles.phone,
-                    onPress: this._handlePhonePress
+                    onPress: this._handlePhonePress,
                   },
                   {
                     type: "email",
                     style: styles.email,
-                    onPress: this._handleEmailPress
+                    onPress: this._handleEmailPress,
                   },
                   {
                     pattern: /Bobbbbb|Davidfffff/,
                     style: styles.name,
-                    onPress: this.handleNamePress
+                    onPress: this.handleNamePress,
                   },
                   {
                     pattern: /\[(@[^:]+):([^\]]+)\]/i,
                     style: styles.username,
                     onPress: this.handleNamePress,
-                    renderText: this.renderText
+                    renderText: this.renderText,
                   },
 
                   { pattern: /433333332/, style: styles.magicNumber },
-                  { pattern: /#(\w+)/, style: styles.hashTag }
+                  { pattern: /#(\w+)/, style: styles.hashTag },
                 ]}
                 childrenProps={{ allowFontScaling: false }}>
                 {this.props.descriptionMyLanguage}
@@ -280,7 +280,7 @@ class Story extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 export default connect(mapStateToProps)(Story);
