@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@expo/react-native-action-sheet": "^3.5.0",
-    "@expo/vector-icons": "^10.0.0",
+    "@expo/vector-icons": "~10.0.6",
     "babel-preset-expo": "^8.1.0",
     "babel-runtime": "^6.26.0",
     "color": "^3.1.1",

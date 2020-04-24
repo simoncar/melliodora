@@ -24,7 +24,7 @@ export default {
   badgePadding: platform === "ios" ? 3 : 0,
 
   // Button
-  btnFontFamily: platform === "ios" ? "System" : "Roboto_medium",
+  btnFontFamily: platform === "ios" ? "SegoeUI" : "SegoeUI",
   btnDisabledBg: "#b5b5b5",
   btnDisabledClr: "#f1f1f1",
 
@@ -156,9 +156,7 @@ export default {
   iosStatusbar: "light-content",
   toolbarDefaultBorder: "#aaa",
   get statusBarColor() {
-    return color(this.toolbarDefaultBg)
-      .darken(0.2)
-      .hex();
+    return color(this.toolbarDefaultBg).darken(0.2).hex();
   },
 
   // Icon
@@ -225,9 +223,7 @@ export default {
   radioColor: "#7e7e7e",
 
   get radioSelectedColor() {
-    return color(this.radioColor)
-      .darken(0.2)
-      .hex();
+    return color(this.radioColor).darken(0.2).hex();
   },
 
   // Spinner
@@ -259,9 +255,7 @@ export default {
   contentPadding: 10,
 
   get darkenHeader() {
-    return color(this.toolbarDefaultBg)
-      .darken(0.03)
-      .hex();
+    return color(this.toolbarDefaultBg).darken(0.03).hex();
   },
 
   dropdownBg: "#000",
@@ -273,5 +267,5 @@ export default {
   deviceHeight,
 
   // New Variable
-  inputGroupRoundedBorderRadius: 30
+  inputGroupRoundedBorderRadius: 30,
 };

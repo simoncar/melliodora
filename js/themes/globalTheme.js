@@ -30,7 +30,8 @@ const header1 = "#00c497"; // header
 module.exports = {
   navbarFontSize: 20,
   headingFontSize: 15,
-  bodyFontSize: 15
+  bodyFontSize: 15,
+  fontFamily: "SegoeUI",
 
   //   brandSecondary: secondary.hex().toString(),
   //   brandInfo: info.hex().toString(),
