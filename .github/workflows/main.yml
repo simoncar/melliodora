@@ -2,7 +2,7 @@ name: Expo Publish Melliodora 3
 on:
   push:
     branches:
-      - master
+      - production
 jobs:
   publish:
     name: Install and publish
