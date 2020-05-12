@@ -72,7 +72,7 @@
     "react-native-web": "^0.11.7",
     "react-native-webview": "8.1.1",
     "react-navigation": "^4.0.10",
-    "react-navigation-props-mapper": "^1.0.1",
+    "react-navigation-props-mapper": "^1.0.4",
     "react-navigation-selective-tab-bar": "^1.0.3",
     "react-navigation-stack": "^1.9.4",
     "react-navigation-tabs": "^1.2.0",
