@@ -2,7 +2,6 @@
 #
 .DS_Store
 
-
 # Xcode
 #
 build/
@@ -62,10 +61,6 @@ fastlane/screenshots
 .tmp/
 .vscode/.react/debuggerWorker.js
 .vscode/launch.json
-
-functions/firebase-debug.log
-functions/Calendar App-915d5dbe4185.json
-functions/package-lock.json
 
 *.lock
 firebase-debug.log

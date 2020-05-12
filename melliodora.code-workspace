@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "peacock.color": "#430101",
+    "workbench.colorCustomizations": {
+      "titleBar.activeBackground": "#430101",
+      "titleBar.inactiveBackground": "#43010199",
+      "titleBar.activeForeground": "#e7e7e7",
+      "titleBar.inactiveForeground": "#e7e7e799",
+      "statusBar.background": "#430101",
+      "statusBarItem.hoverBackground": "#750202",
+      "statusBar.foreground": "#e7e7e7",
+      "tab.activeBorder": "#750202",
+      "statusBar.border": "#430101",
+      "titleBar.border": "#430101"
+    },
+    "peacock.affectTabActiveBorder": true,
+    "peacock.affectActivityBar": false
+  }
+}
