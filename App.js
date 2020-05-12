@@ -17,7 +17,6 @@ import { PersistGate } from "redux-persist/integration/react";
 //   debug: true,
 // });
 
-
 // Node modules check latest
 // npm-check
 
