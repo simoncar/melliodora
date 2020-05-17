@@ -37,31 +37,32 @@
     },
     "orientation": "portrait",
     "packagerOpts": {
-      "assetExts": [
-        "ttf"
-      ]
+      "assetExts": ["ttf"]
     },
     "ios": {
       "bundleIdentifier": "com.softmowertrain.parent.mystamford",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "package": "com.softmowertrain.parent.mystamford",
       "versionCode": 22,
-      "permissions": [
-        "READ_CALENDAR",
-        "WRITE_CALENDAR"
-      ]
+      "permissions": ["READ_CALENDAR", "WRITE_CALENDAR"],
+      "googleServicesFile": "./google-services.json"
     },
     "androidStatusBarColor": "#AF3643",
     "androidStatusBar": {
       "barStyle": "dark-content",
       "backgroundColor": "#AF3643"
     },
-    "platforms": [
-      "android",
-      "ios",
-      "web"
-    ]
+    "platforms": ["android", "ios", "web"],
+    "web": {
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
+          "measurementId": "G-0T769CEZVP"
+        }
+      }
+    }
   }
 }
