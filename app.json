@@ -42,12 +42,14 @@
     },
     "ios": {
       "bundleIdentifier": "com.softmowertrain.parent.mycommunity",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "package": "com.softmowertrain.parent.mycommunity",
       "versionCode": 21,
-      "permissions": ["READ_CALENDAR", "WRITE_CALENDAR"]
+      "permissions": ["READ_CALENDAR", "WRITE_CALENDAR"],
+      "googleServicesFile": "./google-services.json"
     },
     "androidStatusBarColor": "#AF3643",
     "androidStatusBar": {

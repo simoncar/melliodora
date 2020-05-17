@@ -1,7 +1,7 @@
 /**
  * @flow
  */
-
+import * as firebase from "../lib/firebase";
 //import * as Amplitude from "expo-analytics-amplitude";
 import * as Analytics from "expo-firebase-analytics";
 
@@ -75,7 +75,7 @@ const track = (event: string, options: any = null) => {
   //   Amplitude.logEvent(event);
   // }
 
-  Analytics.logEvent(event, {
+  Analytics.logEvent("test", {
     contentType: "text",
     itemId: "Expo rocks!",
     method: "facebook",
