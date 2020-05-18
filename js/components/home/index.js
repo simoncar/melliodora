@@ -58,7 +58,12 @@ class Home extends Component {
 
     let headerTitle = null;
     if (global.domain == "ais_edu_sg") {
-      headerTitle = <Image source={require("../../../images/ais_edu_sg/ifla-apr.jpeg")} style={{ height: 39, resizeMode: "contain" }} />;
+      headerTitle = (
+        <Image
+          source={require("../../../images/ais_edu_sg/ifla-apr.jpeg")}
+          style={{ height: 39, resizeMode: "contain" }}
+        />
+      );
     }
     return {
       title: title,
@@ -69,13 +74,15 @@ class Home extends Component {
         <TouchableOpacity
           onPress={() => {
             navigation.push("selectLanguage");
-          }}>
+          }}
+        >
           <View
             style={{
               color: "#48484A",
               fontSize: 25,
               marginLeft: 10,
-            }}>
+            }}
+          >
             <FontAwesome
               name="language"
               style={{
@@ -91,13 +98,15 @@ class Home extends Component {
         <TouchableOpacity
           onPress={() => {
             navigation.push("searchCalendarHome");
-          }}>
+          }}
+        >
           <View
             style={{
               color: "#48484A",
               fontSize: 25,
               marginRight: 10,
-            }}>
+            }}
+          >
             <Ionicons
               name="md-search"
               style={{
@@ -114,20 +123,31 @@ class Home extends Component {
 
   componentDidMount() {
     this.language = this.props.auth.language;
-
+    this.loadCalendar();
     this.props.navigation.setParams({
       title: this.props.community.selectedCommunity.name,
     });
 
-    global.domain = this.props.community.selectedCommunity.node || global.domain;
+    global.domain =
+      this.props.community.selectedCommunity.node || global.domain;
 
     if (domain == "oakforest_international_edu") {
       demo.setupDemoData();
     }
 
-    systemHero.logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain, this.props.auth.userInfo.email || "");
+    systemHero.logToCalendar(
+      "AppStarts-" + global.domain,
+      "Startup Count",
+      global.domain,
+      this.props.auth.userInfo.email || ""
+    );
 
-    this.feature = firebase.firestore().collection(global.domain).doc("feature").collection("features").orderBy("order");
+    this.feature = firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("feature")
+      .collection("features")
+      .orderBy("order");
 
     Analytics.track("Home");
     this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
@@ -175,7 +195,10 @@ class Home extends Component {
           location: "Cafeteria Account Balance",
         };
 
-        var familyId = data.guid.substring(data.guid.indexOf("iSAMSparents:") + 13, data.guid.indexOf("-"));
+        var familyId = data.guid.substring(
+          data.guid.indexOf("iSAMSparents:") + 13,
+          data.guid.indexOf("-")
+        );
 
         balanceItems.push({ ...{ _key: snapshot.id }, ...data, ...trans });
         if (balanceItems.length > 0) {
@@ -205,17 +228,30 @@ class Home extends Component {
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
-          console.log("AAAA:", this.language, doc.data().summary, getLanguageString(this.language, doc.data(), "summaryX"));
+          console.log(
+            "AAAA:",
+            this.language,
+            doc.data().summary,
+            getLanguageString(this.language, doc.data(), "summaryX")
+          );
           var trans = {
             visible: true,
             source: "calendar",
-            summaryMyLanguage: getLanguageString(this.language, doc.data(), "summary"),
+            summaryMyLanguage: getLanguageString(
+              this.language,
+              doc.data(),
+              "summary"
+            ),
             summary: doc.data().summary,
             summaryEN: doc.data().summary,
             date_start: doc.data().date_start,
             color: "red",
             showIconChat: false,
-            descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description"),
+            descriptionMyLanguage: getLanguageString(
+              this.language,
+              doc.data(),
+              "description"
+            ),
             number: doc.data().number,
           };
           calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
@@ -238,8 +274,16 @@ class Home extends Component {
     querySnapshot.forEach((doc) => {
       var trans = {
         source: "feature",
-        summaryMyLanguage: getLanguageString(this.language, doc.data(), "summary"),
-        descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description"),
+        summaryMyLanguage: getLanguageString(
+          this.language,
+          doc.data(),
+          "summary"
+        ),
+        descriptionMyLanguage: getLanguageString(
+          this.language,
+          doc.data(),
+          "description"
+        ),
       };
 
       if (!doc.data().visible == false) {
@@ -267,7 +311,10 @@ class Home extends Component {
 
   setupUser = () => {
     const { communityJoined } = this.props.auth.userInfo;
-    if (Array.isArray(communityJoined) && communityJoined.indexOf(global.domain) < 0) {
+    if (
+      Array.isArray(communityJoined) &&
+      communityJoined.indexOf(global.domain) < 0
+    ) {
       const userInfo = {
         ...this.props.auth.userInfo,
         communityJoined: [...communityJoined, global.domain],
@@ -296,15 +343,36 @@ class Home extends Component {
   };
 
   _renderItem = ({ item }, cardStyle) => {
-    return <ListItem navigation={this.props.navigation} item={item} card={true} language={this.language} cardStyle={cardStyle} />;
+    return (
+      <ListItem
+        navigation={this.props.navigation}
+        item={item}
+        card={true}
+        language={this.language}
+        cardStyle={cardStyle}
+      />
+    );
   };
 
   _renderItemNoCard = ({ item }) => {
-    return <ListItem navigation={this.props.navigation} item={item} card={false} language={this.language} />;
+    return (
+      <ListItem
+        navigation={this.props.navigation}
+        item={item}
+        card={false}
+        language={this.language}
+      />
+    );
   };
   _renderBalance() {
     if (global.domain === "oakforest_international_edu") {
-      return <FlatList data={this.state.balanceItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem} />;
+      return (
+        <FlatList
+          data={this.state.balanceItems}
+          keyExtractor={this.keyExtractor}
+          renderItem={this._renderItem}
+        />
+      );
     }
   }
 
@@ -312,7 +380,11 @@ class Home extends Component {
     if (this.state.calendarItems.length > 0) {
       return (
         <View style={styles.card}>
-          <FlatList data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard} />
+          <FlatList
+            data={this.state.calendarItems}
+            keyExtractor={this.keyExtractor}
+            renderItem={this._renderItemNoCard}
+          />
         </View>
       );
     }
@@ -324,13 +396,32 @@ class Home extends Component {
     return (
       <Container>
         {(global.administrator || this.props.auth.isAdmin) && (
-          <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => this.props.navigation.navigate("storyForm")}>
-            <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "23%", top: "-10%" }}>+</Text>
+          <TouchableHighlight
+            style={styles.addButton}
+            underlayColor="#ff7043"
+            onPress={() => this.props.navigation.navigate("storyForm")}
+          >
+            <Text
+              style={{
+                fontSize: 44,
+                color: "white",
+                position: "absolute",
+                left: "23%",
+                top: "-10%",
+              }}
+            >
+              +
+            </Text>
           </TouchableHighlight>
         )}
         <Content showsVerticalScrollIndicator={false}>
           {this.state.loading && (
-            <Progress.Bar indeterminate={true} borderRadius={0} width={Dimensions.get("window").width} borderWidth={0} />
+            <Progress.Bar
+              indeterminate={true}
+              borderRadius={0}
+              width={Dimensions.get("window").width}
+              borderWidth={0}
+            />
           )}
 
           {global.domain === "ais_edu_sg" ? (
@@ -343,7 +434,8 @@ class Home extends Component {
                   paddingVertical: 8,
                 }}
                 style={{ backgroundColor: "white", marginVertical: 6 }}
-                showsHorizontalScrollIndicator={false}>
+                showsHorizontalScrollIndicator={false}
+              >
                 <TouchableOpacity
                   style={styles.homeMenuItemContainer}
                   onPress={() => {
@@ -351,9 +443,15 @@ class Home extends Component {
                       url: "https://iflaapr.org/newsletters",
                       title: "Newsletters",
                     });
-                  }}>
-                  <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/news.png")} />
-                  <Text style={{ color: "black", fontSize: 12 }}>{I18n.t("newsletters")}</Text>
+                  }}
+                >
+                  <Image
+                    style={styles.homeMenuIcon}
+                    source={require("../../../resources/icons/news.png")}
+                  />
+                  <Text style={{ color: "black", fontSize: 12 }}>
+                    {I18n.t("newsletters")}
+                  </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -363,9 +461,15 @@ class Home extends Component {
                       url: "https://iflaapr.org/news/listing/design",
                       title: "Design News",
                     });
-                  }}>
-                  <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Design.jpeg")} />
-                  <Text style={styles.homeMenuText}>{I18n.t("design") + "\n" + I18n.t("design")}</Text>
+                  }}
+                >
+                  <Image
+                    style={styles.homeMenuIcon}
+                    source={require("../../../resources/icons/_Design.jpeg")}
+                  />
+                  <Text style={styles.homeMenuText}>
+                    {I18n.t("design") + "\n" + I18n.t("design")}
+                  </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -375,9 +479,15 @@ class Home extends Component {
                       url: "https://iflaapr.org/news/listing/management",
                       title: "Management News",
                     });
-                  }}>
-                  <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Management.jpeg")} />
-                  <Text style={styles.homeMenuText}>{I18n.t("management") + "\n" + I18n.t("news")}</Text>
+                  }}
+                >
+                  <Image
+                    style={styles.homeMenuIcon}
+                    source={require("../../../resources/icons/_Management.jpeg")}
+                  />
+                  <Text style={styles.homeMenuText}>
+                    {I18n.t("management") + "\n" + I18n.t("news")}
+                  </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -387,9 +497,15 @@ class Home extends Component {
                       url: "https://iflaapr.org/news/listing/planning",
                       title: "Planning News",
                     });
-                  }}>
-                  <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Planning.jpeg")} />
-                  <Text style={styles.homeMenuText}>{I18n.t("planning") + "\n" + I18n.t("news")}</Text>
+                  }}
+                >
+                  <Image
+                    style={styles.homeMenuIcon}
+                    source={require("../../../resources/icons/_Planning.jpeg")}
+                  />
+                  <Text style={styles.homeMenuText}>
+                    {I18n.t("planning") + "\n" + I18n.t("news")}
+                  </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -399,8 +515,12 @@ class Home extends Component {
                       url: "https://iflaapr.org/membership-directory/corporate",
                       title: "Directory",
                     });
-                  }}>
-                  <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Directory.jpeg")} />
+                  }}
+                >
+                  <Image
+                    style={styles.homeMenuIcon}
+                    source={require("../../../resources/icons/_Directory.jpeg")}
+                  />
                   <Text style={styles.homeMenuText}>{I18n.t("directory")}</Text>
                 </TouchableOpacity>
 
@@ -413,8 +533,13 @@ class Home extends Component {
                   //   });
                   // }}
                 >
-                  <Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Associations.png")} />
-                  <Text style={styles.homeMenuText}>{I18n.t("member") + "\n" + I18n.t("associations")}</Text>
+                  <Image
+                    style={styles.homeMenuIcon}
+                    source={require("../../../resources/icons/_Associations.png")}
+                  />
+                  <Text style={styles.homeMenuText}>
+                    {I18n.t("member") + "\n" + I18n.t("associations")}
+                  </Text>
                 </TouchableOpacity>
               </ScrollView>
             </View>
@@ -436,27 +561,44 @@ class Home extends Component {
                 marginTop: 70,
                 alignItems: "center",
                 width: "100%",
-              }}>
-              <Image style={styles.tenYearLogo} source={bottomLogo[global.domain] || { uri: global.switch_homeLogoURI }} />
+              }}
+            >
+              <Image
+                style={styles.tenYearLogo}
+                source={
+                  bottomLogo[global.domain] || {
+                    uri: global.switch_homeLogoURI,
+                  }
+                }
+              />
             </View>
             <View
               style={{
                 marginTop: 100,
                 alignItems: "center",
-              }}>
+              }}
+            >
               <TouchableOpacity
                 onPress={() => {
-                  this._handleOpenWithLinking("https://smartcookies.io/smart-community");
+                  this._handleOpenWithLinking(
+                    "https://smartcookies.io/smart-community"
+                  );
                 }}
                 style={{
                   width: 40,
                   height: 40,
-                }}>
-                <Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
+                }}
+              >
+                <Image
+                  source={require("../../../images/sais_edu_sg/SCLogo.png")}
+                  style={styles.sclogo}
+                />
               </TouchableOpacity>
             </View>
             <View>
-              <Text style={styles.version}>{Constants.manifest.revisionId}</Text>
+              <Text style={styles.version}>
+                {Constants.manifest.revisionId}
+              </Text>
               <Text style={styles.user}>{global.name}</Text>
               <Text style={styles.user}>{global.email}</Text>
               <Text style={styles.user}>{global.uid}</Text>
