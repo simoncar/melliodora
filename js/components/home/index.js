@@ -123,7 +123,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.language = this.props.auth.language;
-    this.loadCalendar();
+
     this.props.navigation.setParams({
       title: this.props.community.selectedCommunity.name,
     });
@@ -151,7 +151,7 @@ class Home extends Component {
 
     Analytics.track("Home");
     this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
-
+    this.loadCalendar();
     const { navigation } = this.props;
     this.focusListener = navigation.addListener("didFocus", () => {
       // The screen is focused
