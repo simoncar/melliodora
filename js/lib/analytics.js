@@ -2,9 +2,7 @@
  * @flow
  */
 
-//import * as Amplitude from "expo-analytics-amplitude";
-import * as Analytics from "expo-firebase-analytics";
-
+import * as Amplitude from "expo-analytics-amplitude";
 import Constants from "expo-constants";
 import { normalizeTrackingOptions } from "./analyticsUtil";
 
@@ -35,7 +33,7 @@ const initialize = () => {
     return;
   }
 
-  //Amplitude.initialize(apiKey);
+  Amplitude.initialize(apiKey);
 
   let trackingOpts = {
     uid: global.uid,
@@ -46,12 +44,12 @@ const initialize = () => {
   trackingOpts = normalizeTrackingOptions(trackingOpts);
   console.log("identifyidentifyidentifyidentifyidentify");
   if (trackingOpts.uid) {
-    //Amplitude.setUserId(trackingOpts.uid);
+    Amplitude.setUserId(trackingOpts.uid);
     if (trackingOpts) {
-      //Amplitude.setUserProperties(trackingOpts);
+      Amplitude.setUserProperties(trackingOpts);
     }
   } else {
-    // Amplitude.clearUserProperties();
+    Amplitude.clearUserProperties();
   }
 
   isInitialized = true;
@@ -59,27 +57,21 @@ const initialize = () => {
 
 const maybeInitialize = () => {
   if (apiKey && !isInitialized) {
-    //initialize();
+    initialize();
   }
 };
 
 const track = (event: string, options: any = null) => {
-  //maybeInitialize();
+  maybeInitialize();
 
   console.log("Amplitude: ", event, options);
   options = normalizeTrackingOptions(options);
 
-  // if (options) {
-  //   Amplitude.logEventWithProperties(event, options);
-  // } else {
-  //   Amplitude.logEvent(event);
-  // }
-
-  Analytics.logEvent(event, {
-    contentType: "text",
-    itemId: "Expo rocks!",
-    method: "facebook",
-  });
+  if (options) {
+    Amplitude.logEventWithProperties(event, options);
+  } else {
+    Amplitude.logEvent(event);
+  }
 
   //}
 };

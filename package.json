@@ -39,8 +39,6 @@
     "expo-camera": "~8.2.0",
     "expo-constants": "~9.0.0",
     "expo-file-system": "~8.1.0",
-    "expo-firebase-analytics": "~2.1.1",
-    "expo-firebase-core": "~1.0.0",
     "expo-font": "~8.1.0",
     "expo-image-manipulator": "~8.1.0",
     "expo-image-picker": "~8.1.0",
