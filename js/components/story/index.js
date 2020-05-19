@@ -4,41 +4,33 @@ import { Container, Content, Text } from "native-base";
 import { Ionicons, Feather, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import ParsedText from "react-native-parsed-text";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../global.js";
 import _ from "lodash";
 import Analytics from "../../lib/analytics";
 import { connect } from "react-redux";
 
-@withMappedNavigationParams()
 class Story extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam("summaryMyLanguage"),
-  });
-
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
-    Analytics.track("Story", { story: this.props.summaryMyLanguage });
-
-    console.log(this.props.navigation.state.params.descriptionMyLanguage);
+    // Analytics.track("Story", { story: this.props.route.params.summaryMyLanguage });
   }
 
   _shareMessage() {
     Share.share({
       message:
         "" +
-        this.props.summaryMyLanguage +
+        this.props.route.params.summaryMyLanguage +
         "\n" +
-        formatMonth(this.props.date_start) +
+        formatMonth(this.props.route.params.date_start) +
         "\n" +
-        formatTime(this.props.time_start_pretty, this.props.time_end_pretty) +
+        formatTime(this.props.route.params.time_start_pretty, this.props.route.params.time_end_pretty) +
         " \n" +
-        this.props.navigation.state.params.descriptionMyLanguage,
-      title: this.props.summaryMyLanguage,
+        this.props.route.params.descriptionMyLanguage,
+      title: this.props.route.params.summaryMyLanguage,
     })
 
       .then(this._showResult)
@@ -51,7 +43,7 @@ class Story extends Component {
     if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
       Linking.openURL(sURL);
     } else {
-      this.props.navigation.navigate("authPortalStory", {
+      this.props.route.params.navigation.navigate("authPortalStory", {
         url: sURL,
       });
     }
@@ -73,8 +65,6 @@ class Story extends Component {
   }
 
   _drawImage(imageURI) {
-    console.log("imageURI=", imageURI);
-
     if (_.isNil(imageURI)) {
       var uri =
         "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fxdesk-calendar-980x470-20181016.jpg.pagespeed.ic.BdAsh-Nj_6.jpg?alt=media&token=697fef73-e77d-46de-83f5-a45540694274";
@@ -82,8 +72,7 @@ class Story extends Component {
       var uri = imageURI;
     }
     const preview = {
-      uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+      uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
 
     if (undefined !== uri && null !== uri && uri.length > 0) {
@@ -96,18 +85,19 @@ class Story extends Component {
   }
 
   _drawIconChat(chatroom, title) {
-    if (_.isNil(chatroom) || this.props.showIconChat === false) {
+    if (_.isNil(chatroom) || this.props.route.params.showIconChat === false) {
       return;
     }
 
     return (
       <TouchableOpacity
         onPress={() => {
-          this.props.navigation.navigate("chat", {
+          this.props.route.params.navigation.navigate("chat", {
             chatroom: chatroom,
             title: title,
           });
-        }}>
+        }}
+      >
         <Text style={styles.eventText}>
           <SimpleLineIcons name="bubble" style={styles.eventIcon} />{" "}
         </Text>
@@ -116,12 +106,13 @@ class Story extends Component {
   }
 
   _drawIconSend(chatroom) {
-    if (isAdmin(this.props.adminPassword)) {
+    if (isAdmin(this.props.route.params.adminPassword)) {
       return (
         <TouchableOpacity
           onPress={() => {
-            this.props.navigation.navigate("push", this.props.navigation.state.params);
-          }}>
+            this.props.route.params.navigation.navigate("push", this.props.route.params);
+          }}
+        >
           <Text style={styles.eventTextSend}>
             <MaterialCommunityIcons name="send-lock" style={styles.eventIconSendLock} />{" "}
           </Text>
@@ -135,8 +126,9 @@ class Story extends Component {
       return (
         <TouchableOpacity
           onPress={() => {
-            this.props.navigation.navigate("phoneCalendar", this.props.navigation.state.params);
-          }}>
+            this.props.route.params.navigation.navigate("phoneCalendar", this.props.route.params);
+          }}
+        >
           <Text style={styles.eventText}>
             <Ionicons name="ios-calendar" style={styles.eventIcon} />
           </Text>
@@ -146,7 +138,7 @@ class Story extends Component {
   }
 
   _drawIconShare() {
-    if (this.props.showIconShare === false) {
+    if (this.props.route.params.showIconShare === false) {
       return;
     }
 
@@ -162,22 +154,23 @@ class Story extends Component {
   render() {
     return (
       <Container style={{ backgroundColor: "#fff" }}>
-        {isAdmin(this.props.adminPassword) && this.props.source == "feature" && (
+        {isAdmin(this.props.route.params.adminPassword) && this.props.route.params.source == "feature" && (
           <TouchableHighlight
             style={styles.addButton}
             underlayColor="#ff7043"
             onPress={() =>
-              this.props.navigation.navigate("storyForm", {
+              this.props.route.params.navigation.navigate("storyForm", {
                 ...{ edit: true },
-                ...this.props.navigation.state.params,
+                ...this.props.route.params,
               })
-            }>
+            }
+          >
             <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
           </TouchableHighlight>
         )}
 
         <Content showsVerticalScrollIndicator={false}>
-          {this._drawImage(this.props.navigation.getParam("photo1"))}
+          {this._drawImage(this.props.route.params.photo1)}
 
           <View
             style={{
@@ -190,26 +183,27 @@ class Story extends Component {
               flex: 1,
               borderTopWidth: 1,
               borderTopColor: "#ddd",
-            }}>
-            {this._drawIconChat(this.props._key, this.props.summaryMyLanguage)}
-            {this._drawIconCalendar(this.props.navigation.state.params)}
+            }}
+          >
+            {this._drawIconChat(this.props.route.params._key, this.props.route.params.summaryMyLanguage)}
+            {this._drawIconCalendar(this.props.route.params)}
             {this._drawIconShare()}
-            {this._drawIconSend(this.props.navigation.state.params)}
+            {this._drawIconSend(this.props.route.params)}
           </View>
 
           <View style={{ flex: 1 }}>
             <View style={styles.newsContent}>
               <Text selectable style={styles.eventTitle}>
-                {this.props.navigation.state.params.summaryMyLanguage}
+                {this.props.route.params.summaryMyLanguage}
               </Text>
 
               <Text selectable style={styles.eventText}>
-                {formatMonth(this.props.date_start)}
+                {formatMonth(this.props.route.params.date_start)}
               </Text>
 
-              {isValue(this.props.navigation.getParam("time_start_pretty")) && (
+              {isValue(this.props.route.params.time_start_pretty) && (
                 <Text selectable style={styles.eventTextTime}>
-                  {formatTime(this.props.navigation.getParam("time_start_pretty"), this.props.navigation.getParam("time_end_pretty"))}
+                  {formatTime(this.props.route.params.time_start_pretty, this.props.route.params.time_end_pretty)}
                 </Text>
               )}
 
@@ -246,24 +240,25 @@ class Story extends Component {
                   { pattern: /433333332/, style: styles.magicNumber },
                   { pattern: /#(\w+)/, style: styles.hashTag },
                 ]}
-                childrenProps={{ allowFontScaling: false }}>
-                {this.props.descriptionMyLanguage}
+                childrenProps={{ allowFontScaling: false }}
+              >
+                {this.props.route.params.descriptionMyLanguage}
               </ParsedText>
 
               {this.props.auth.language != "en" && (
                 <Text selectable style={styles.englishFallback}>
                   {"\n\n"}
-                  {this.props.description}
+                  {this.props.route.params.description}
                   {"\n\n"}
                 </Text>
               )}
               <Text selectable style={styles.englishFallback}>
-                {this.props.location}
+                {this.props.route.params.location}
               </Text>
               <Text> </Text>
               <Text> </Text>
               <Text selectable style={styles.eventTextAbbreviation}>
-                {getAbbreviations(this.props.navigation.getParam("summary"))}
+                {getAbbreviations(this.props.route.params.summary)}
               </Text>
               <Text> </Text>
               <Text> </Text>
