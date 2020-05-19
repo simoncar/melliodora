@@ -10,7 +10,7 @@ import {
   ScrollView,
   LayoutAnimation,
   Platform,
-  Alert
+  Alert,
 } from "react-native";
 import { Input } from "react-native-elements";
 import { Container, Content } from "native-base";
@@ -18,7 +18,13 @@ import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
 import DatePicker from "react-native-datepicker";
-import { Entypo, SimpleLineIcons, Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Entypo,
+  SimpleLineIcons,
+  Feather,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import _ from "lodash";
 import * as ImagePicker from "expo-image-picker";
@@ -26,11 +32,10 @@ import * as ImageManipulator from "expo-image-manipulator";
 import uuid from "uuid";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
-import { createMaterialTopTabNavigator, MaterialTopTabBar } from "react-navigation-tabs";
+//import { createMaterialTopTabNavigator, MaterialTopTabBar } from "react-navigation-tabs";
 import { AntDesign } from "@expo/vector-icons";
 import systemHero from "../../lib/systemHero";
-import { connect } from 'react-redux';
-
+import { connect } from "react-redux";
 
 @withMappedNavigationParams()
 class PageText extends Component {
@@ -46,7 +51,8 @@ class PageText extends Component {
       visibleMore: props.edit ? props.visibleMore : true,
       eventTitle: props.edit ? props.summary : "",
       eventDescription: props.edit ? props.description : "",
-      location: props.edit && props.location !== undefined ? props.location : null,
+      location:
+        props.edit && props.location !== undefined ? props.location : null,
       photo1: props.edit && props.photo1 !== undefined ? props.photo1 : null,
       eventDate: props.date_start,
       eventStartTime: props.time_start_pretty,
@@ -55,13 +61,13 @@ class PageText extends Component {
       _key: props.edit ? props._key : "",
       cameraIcon: "camera",
       showIconChat: props.showIconChat === false ? false : true,
-      showIconShare: props.showIconShare === false ? false : true
+      showIconShare: props.showIconShare === false ? false : true,
     };
 
     this.getPermissionAsync();
 
     this.props.navigation.setParams({
-      save: () => this.state
+      save: () => this.state,
     });
   }
 
@@ -82,7 +88,7 @@ class PageText extends Component {
     return (firebase.auth().currentUser || {}).uid;
   }
 
-  set uid(uid) { }
+  set uid(uid) {}
 
   get timestamp() {
     return firebase.database.ServerValue.TIMESTAMP;
@@ -99,10 +105,19 @@ class PageText extends Component {
     if (undefined !== uri && null !== uri && uri.length > 0) {
       return (
         <View>
-          <ImageBackground style={styles.storyPhoto} source={{ uri: `${this.state.photo1}` }}>
-            <TouchableOpacity style={styles.photoButton} onPress={this._pickImage}>
+          <ImageBackground
+            style={styles.storyPhoto}
+            source={{ uri: `${this.state.photo1}` }}
+          >
+            <TouchableOpacity
+              style={styles.photoButton}
+              onPress={this._pickImage}
+            >
               <View>
-                <Entypo name={this.state.cameraIcon} style={{ fontSize: 25, color: "white" }} />
+                <Entypo
+                  name={this.state.cameraIcon}
+                  style={{ fontSize: 25, color: "white" }}
+                />
               </View>
             </TouchableOpacity>
           </ImageBackground>
@@ -114,16 +129,20 @@ class PageText extends Component {
   _pickImage = async () => {
     var d = new Date();
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
     });
 
     if (!result.cancelled) {
       //this.setState({ image: result.uri });
       //this._images = images;
 
-      const convertedImage = await new ImageManipulator.manipulateAsync(result.uri, [{ resize: { height: 1000 } }], {
-        compress: 0
-      });
+      const convertedImage = await new ImageManipulator.manipulateAsync(
+        result.uri,
+        [{ resize: { height: 1000 } }],
+        {
+          compress: 0,
+        }
+      );
 
       fileToUpload = convertedImage.uri;
       mime = "image/jpeg";
@@ -143,21 +162,25 @@ class PageText extends Component {
 
       const ref = firebase
         .storage()
-        .ref("random/" + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2))
+        .ref(
+          "random/" + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2)
+        )
         .child(uuid.v4());
 
       const snapshot = await ref
         .put(blob, { contentType: mime })
-        .then(snapshot => {
+        .then((snapshot) => {
           return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
         })
-        .then(downloadURL => {
-          console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
+        .then((downloadURL) => {
+          console.log(
+            `Successfully uploaded file and got download link - ${downloadURL}`
+          );
           this.setState({ photo1: downloadURL });
           return downloadURL;
         })
 
-        .catch(error => {
+        .catch((error) => {
           // Use to signal error if something goes wrong.
           console.log(`Failed to upload file and get link - ${error}`);
         });
@@ -174,8 +197,13 @@ class PageText extends Component {
         onPress={() => {
           this.setState({ showIconChat: !this.state.showIconChat });
         }}
-        style={{ padding: 8 }}>
-        <SimpleLineIcons name="bubble" size={32} color={this.state.showIconChat ? "#222" : "#CCC"} />
+        style={{ padding: 8 }}
+      >
+        <SimpleLineIcons
+          name="bubble"
+          size={32}
+          color={this.state.showIconChat ? "#222" : "#CCC"}
+        />
       </TouchableOpacity>
     );
   }
@@ -184,9 +212,13 @@ class PageText extends Component {
     return (
       <TouchableOpacity
         onPress={() => {
-          this.props.navigation.navigate("phoneCalendar", this.props.navigation.state.params);
+          this.props.navigation.navigate(
+            "phoneCalendar",
+            this.props.navigation.state.params
+          );
         }}
-        style={{ padding: 8 }}>
+        style={{ padding: 8 }}
+      >
         <Ionicons name="ios-calendar" style={styles.eventIcon} />
       </TouchableOpacity>
     );
@@ -194,8 +226,17 @@ class PageText extends Component {
 
   _drawIconShare() {
     return (
-      <TouchableOpacity onPress={() => this.setState({ showIconShare: !this.state.showIconShare })} style={{ padding: 8 }}>
-        <Feather name="share" size={32} color={this.state.showIconShare ? "#222" : "#CCC"} />
+      <TouchableOpacity
+        onPress={() =>
+          this.setState({ showIconShare: !this.state.showIconShare })
+        }
+        style={{ padding: 8 }}
+      >
+        <Feather
+          name="share"
+          size={32}
+          color={this.state.showIconShare ? "#222" : "#CCC"}
+        />
       </TouchableOpacity>
     );
   }
@@ -217,14 +258,22 @@ class PageText extends Component {
                 borderTopWidth: 1,
                 borderBottomWidth: 1,
                 borderTopColor: "#ddd",
-                borderBottomColor: "#ddd"
-              }}>
+                borderBottomColor: "#ddd",
+              }}
+            >
               <View>
                 <View style={{ padding: 3 }}>
-                  <Text style={{ fontSize: 10 }}>Toggle buttons below to show/Hide</Text>
+                  <Text style={{ fontSize: 10 }}>
+                    Toggle buttons below to show/Hide
+                  </Text>
                 </View>
-                <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                  {this._drawIconChat(this.props._key, this.props.summaryMyLanguage)}
+                <View
+                  style={{ flexDirection: "row", justifyContent: "flex-end" }}
+                >
+                  {this._drawIconChat(
+                    this.props._key,
+                    this.props.summaryMyLanguage
+                  )}
                   {this._drawIconShare()}
                 </View>
               </View>
@@ -234,10 +283,11 @@ class PageText extends Component {
                 flex: 1,
                 paddingTop: 20,
                 paddingLeft: 10,
-                paddingRight: 10
-              }}>
+                paddingRight: 10,
+              }}
+            >
               <Input
-                onChangeText={text => this.setState({ eventTitle: text })}
+                onChangeText={(text) => this.setState({ eventTitle: text })}
                 placeholder="Title"
                 autoFocus={true}
                 inputContainerStyle={{ borderBottomWidth: 0 }}
@@ -248,11 +298,14 @@ class PageText extends Component {
               <View
                 style={{
                   paddingTop: 20,
-                  flexDirection: "row"
-                }}></View>
+                  flexDirection: "row",
+                }}
+              ></View>
 
               <Input
-                onChangeText={text => this.setState({ eventDescription: text })}
+                onChangeText={(text) =>
+                  this.setState({ eventDescription: text })
+                }
                 placeholder="Description"
                 multiline
                 inputContainerStyle={{ borderBottomWidth: 0 }}
@@ -270,7 +323,10 @@ class PageText extends Component {
 class MaterialTopTabBarWrapper extends React.Component {
   render() {
     return (
-      <SafeAreaView style={{ backgroundColor: "#000" }} forceInset={{ top: "always", horizontal: "never", bottom: "never" }}>
+      <SafeAreaView
+        style={{ backgroundColor: "#000" }}
+        forceInset={{ top: "always", horizontal: "never", bottom: "never" }}
+      >
         <MaterialTopTabBar {...this.props} />
       </SafeAreaView>
     );
@@ -287,13 +343,14 @@ class PageSettings extends Component {
       visible: props.edit ? props.visible : true,
       visibleMore: props.edit ? props.visibleMore : true,
 
-      location: props.edit && props.location !== undefined ? props.location : null,
+      location:
+        props.edit && props.location !== undefined ? props.location : null,
 
       eventDate: props.date_start,
       eventStartTime: props.time_start_pretty,
       eventEndTime: props.time_end_pretty,
       order: props.edit ? props.order : 1,
-      _key: props.edit ? props._key : ""
+      _key: props.edit ? props._key : "",
     };
 
     //this.addStory = this.addStory.bind(this);
@@ -301,15 +358,19 @@ class PageSettings extends Component {
     //this.getPermissionAsync();
 
     this.props.navigation.setParams({
-      save: () => this.state
+      save: () => this.state,
     });
   }
 
   static navigationOptions = {
     tabBarLabel: "Settings",
     tabBarIcon: ({ tintColor, focused, horizontal }) => (
-      <Ionicons name={focused ? "ios-people" : "ios-people"} size={horizontal ? 20 : 26} style={{ color: tintColor }} />
-    )
+      <Ionicons
+        name={focused ? "ios-people" : "ios-people"}
+        size={horizontal ? 20 : 26}
+        style={{ color: tintColor }}
+      />
+    ),
   };
 
   clearDates() {
@@ -322,7 +383,9 @@ class PageSettings extends Component {
   render() {
     const { navigation } = this.props;
     const summary = this.props.summary;
-    const order = _.isNumber(this.state.order) ? this.state.order.toString() : 0;
+    const order = _.isNumber(this.state.order)
+      ? this.state.order.toString()
+      : 0;
     return (
       <View style={styles.containerSettings}>
         <ScrollView>
@@ -331,8 +394,9 @@ class PageSettings extends Component {
               flex: 1,
               paddingTop: 20,
               paddingLeft: 10,
-              paddingRight: 10
-            }}>
+              paddingRight: 10,
+            }}
+          >
             <View style={styles.settingsItem}>
               {/* {icon} */}
               <View style={styles.settingsLeft}>
@@ -342,7 +406,7 @@ class PageSettings extends Component {
 
                 <View>
                   <Input
-                    onChangeText={text => this.setState({ order: text })}
+                    onChangeText={(text) => this.setState({ order: text })}
                     placeholder="0"
                     style={styles.eventTitle}
                     value={order}
@@ -362,7 +426,11 @@ class PageSettings extends Component {
                 </View>
 
                 <View>
-                  <Switch onValueChange={value => this.setState({ visible: value })} style={styles.switch} value={this.state.visible} />
+                  <Switch
+                    onValueChange={(value) => this.setState({ visible: value })}
+                    style={styles.switch}
+                    value={this.state.visible}
+                  />
                 </View>
               </View>
             </View>
@@ -376,7 +444,9 @@ class PageSettings extends Component {
 
                 <View>
                   <Switch
-                    onValueChange={value => this.setState({ visibleMore: value })}
+                    onValueChange={(value) =>
+                      this.setState({ visibleMore: value })
+                    }
                     style={styles.switch}
                     value={this.state.visibleMore}
                   />
@@ -400,7 +470,7 @@ class PageSettings extends Component {
                     format="YYYY-MM-DD"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
-                    onDateChange={date => {
+                    onDateChange={(date) => {
                       this.setState({ eventDate: date });
                     }}
                   />
@@ -425,7 +495,7 @@ class PageSettings extends Component {
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     minuteInterval={10}
-                    onDateChange={time => {
+                    onDateChange={(time) => {
                       this.setState({ eventStartTime: time });
                     }}
                   />
@@ -450,7 +520,7 @@ class PageSettings extends Component {
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     minuteInterval={10}
-                    onDateChange={time => {
+                    onDateChange={(time) => {
                       this.setState({ eventEndTime: time });
                     }}
                   />
@@ -465,7 +535,10 @@ class PageSettings extends Component {
                 </View>
 
                 <View>
-                  <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.clearDates()}>
+                  <TouchableOpacity
+                    style={{ flexDirection: "row" }}
+                    onPress={() => this.clearDates()}
+                  >
                     <Text>Clear Dates</Text>
                   </TouchableOpacity>
                 </View>
@@ -481,159 +554,167 @@ class PageSettings extends Component {
   }
 }
 
-const SimpleTabs = createMaterialTopTabNavigator(
-  {
-    pageText: PageText,
-    pageSettings: PageSettings
-  },
-  {
-    tabBarComponent: MaterialTopTabBarWrapper,
-    tabBarOptions: {
-      style: {
-        backgroundColor: "#000"
-      }
-    }
-  }
-);
+// const SimpleTabs = createMaterialTopTabNavigator(
+//   {
+//     pageText: PageText,
+//     pageSettings: PageSettings,
+//   },
+//   {
+//     tabBarComponent: MaterialTopTabBarWrapper,
+//     tabBarOptions: {
+//       style: {
+//         backgroundColor: "#000",
+//       },
+//     },
+//   }
+// );
 
 class newStory extends React.Component {
-  static router = SimpleTabs.router;
+  // static router = SimpleTabs.router;
 
-  static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: "Content",
-    headerLeft: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}>
-        <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
-      </TouchableOpacity>
-    ),
+  // static navigationOptions = ({ navigation }) => ({
+  //   tabBarLabel: "Content",
+  //   headerLeft: (
+  //     <TouchableOpacity
+  //       onPress={() => {
+  //         navigation.goBack();
+  //       }}
+  //     >
+  //       <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
+  //     </TouchableOpacity>
+  //   ),
 
-    headerTitle: I18n.t("edit"),
+  //   headerTitle: I18n.t("edit"),
 
-    headerRight: (
-      <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-        {navigation.state.params && (
-          <TouchableOpacity
-            onPress={() => {
-              Alert.alert(
-                "Confirm Delete Story",
-                navigation.state.params.summary + "?",
-                [
-                  {
-                    text: "Cancel",
-                    style: "cancel"
-                  },
-                  {
-                    text: "OK",
-                    onPress: () => {
-                      const _key = navigation.state.params._key;
+  //   headerRight: (
+  //     <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+  //       {navigation.state.params && (
+  //         <TouchableOpacity
+  //           onPress={() => {
+  //             Alert.alert(
+  //               "Confirm Delete Story",
+  //               navigation.state.params.summary + "?",
+  //               [
+  //                 {
+  //                   text: "Cancel",
+  //                   style: "cancel",
+  //                 },
+  //                 {
+  //                   text: "OK",
+  //                   onPress: () => {
+  //                     const _key = navigation.state.params._key;
 
-                      if (_key) {
-                        firebase
-                          .firestore()
-                          .collection(global.domain)
-                          .doc("feature")
-                          .collection("features")
-                          .doc(_key)
-                          .delete()
-                          .then(() => navigation.popToTop());
-                      }
-                    }
-                  }
-                ],
-                { cancelable: true }
-              );
-            }}
-            style={{ marginRight: 12 }}>
-            <AntDesign name="delete" size={24} />
-          </TouchableOpacity>
-        )}
+  //                     if (_key) {
+  //                       firebase
+  //                         .firestore()
+  //                         .collection(global.domain)
+  //                         .doc("feature")
+  //                         .collection("features")
+  //                         .doc(_key)
+  //                         .delete()
+  //                         .then(() => navigation.popToTop());
+  //                     }
+  //                   },
+  //                 },
+  //               ],
+  //               { cancelable: true }
+  //             );
+  //           }}
+  //           style={{ marginRight: 12 }}
+  //         >
+  //           <AntDesign name="delete" size={24} />
+  //         </TouchableOpacity>
+  //       )}
 
-        <TouchableOpacity
-          onPress={() => {
-            const { routes } = navigation.state;
-            let saveState = {};
+  //       <TouchableOpacity
+  //         onPress={() => {
+  //           const { routes } = navigation.state;
+  //           let saveState = {};
 
-            if (_.has(routes[0], "params.save")) {
-              const pageState = routes[0].params.save() || {};
-              saveState = { ...saveState, ...pageState };
-            }
+  //           if (_.has(routes[0], "params.save")) {
+  //             const pageState = routes[0].params.save() || {};
+  //             saveState = { ...saveState, ...pageState };
+  //           }
 
-            if (_.has(routes[1], "params.save")) {
-              const pageState = routes[1].params.save() || {};
-              saveState = { ...saveState, ...pageState };
-            }
+  //           if (_.has(routes[1], "params.save")) {
+  //             const pageState = routes[1].params.save() || {};
+  //             saveState = { ...saveState, ...pageState };
+  //           }
 
-            const {
-              eventTitle,
-              visible,
-              visibleMore,
-              eventDescription,
-              photo1,
-              eventDate,
-              eventStartTime,
-              eventEndTime,
-              order,
-              _key,
-              showIconChat,
-              showIconShare
-            } = saveState;
+  //           const {
+  //             eventTitle,
+  //             visible,
+  //             visibleMore,
+  //             eventDescription,
+  //             photo1,
+  //             eventDate,
+  //             eventStartTime,
+  //             eventEndTime,
+  //             order,
+  //             _key,
+  //             showIconChat,
+  //             showIconShare,
+  //           } = saveState;
 
-            const storyDict = {
-              summary: eventTitle,
-              visible: visible || true,
-              visibleMore: visibleMore || true,
-              description: eventDescription,
-              photo1: photo1,
-              date_start: eventDate !== undefined ? eventDate : null,
-              time_start_pretty: eventStartTime !== undefined ? eventStartTime : null,
-              time_end_pretty: eventEndTime !== undefined ? eventEndTime : null,
-              order: order !== undefined ? Number(order) : 1,
-              showIconChat,
-              showIconShare
-            };
+  //           const storyDict = {
+  //             summary: eventTitle,
+  //             visible: visible || true,
+  //             visibleMore: visibleMore || true,
+  //             description: eventDescription,
+  //             photo1: photo1,
+  //             date_start: eventDate !== undefined ? eventDate : null,
+  //             time_start_pretty:
+  //               eventStartTime !== undefined ? eventStartTime : null,
+  //             time_end_pretty: eventEndTime !== undefined ? eventEndTime : null,
+  //             order: order !== undefined ? Number(order) : 1,
+  //             showIconChat,
+  //             showIconShare,
+  //           };
 
-            if (_key == "") {
-              firebase
-                .firestore()
-                .collection(global.domain)
-                .doc("feature")
-                .collection("features")
-                .add(storyDict)
-                .then(() => navigation.goBack());
-            } else {
-              const storyRef = firebase
-                .firestore()
-                .collection(global.domain)
-                .doc("feature")
-                .collection("features")
-                .doc(_key);
+  //           if (_key == "") {
+  //             firebase
+  //               .firestore()
+  //               .collection(global.domain)
+  //               .doc("feature")
+  //               .collection("features")
+  //               .add(storyDict)
+  //               .then(() => navigation.goBack());
+  //           } else {
+  //             const storyRef = firebase
+  //               .firestore()
+  //               .collection(global.domain)
+  //               .doc("feature")
+  //               .collection("features")
+  //               .doc(_key);
 
-              storyRef.set(storyDict, { merge: true }).then(() => navigation.popToTop());
+  //             storyRef
+  //               .set(storyDict, { merge: true })
+  //               .then(() => navigation.popToTop());
 
-              systemHero.logToCalendar("StorySave-" + global.domain + eventTitle, "Story Save - " + eventTitle, global.domain, this.props.auth.userInfo.email || "");
-            }
-          }}>
-          <Text style={[styles.chatHeading]}>{I18n.t("save")}</Text>
-        </TouchableOpacity>
-      </View>
-    )
-  });
+  //             systemHero.logToCalendar(
+  //               "StorySave-" + global.domain + eventTitle,
+  //               "Story Save - " + eventTitle,
+  //               global.domain,
+  //               this.props.auth.userInfo.email || ""
+  //             );
+  //           }
+  //         }}
+  //       >
+  //         <Text style={[styles.chatHeading]}>{I18n.t("save")}</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   ),
+  // });
 
   render() {
     const { navigation } = this.props;
-    return (
-      <View style={{ flex: 1 }}>
-        <SimpleTabs navigation={navigation} />
-      </View>
-    );
+    // <SimpleTabs navigation={navigation} />
+
+    return <View style={{ flex: 1 }}></View>;
   }
 }
 
-
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 export default connect(mapStateToProps)(newStory);

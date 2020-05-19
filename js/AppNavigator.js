@@ -4,8 +4,8 @@ import { Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 //import { createStackNavigator } from "react-navigation-stack";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "react-navigation-tabs";
-import BottomTabBar from "react-navigation-selective-tab-bar";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import _ from "lodash";
 
 import {

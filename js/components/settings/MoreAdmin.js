@@ -16,7 +16,7 @@ import {
   Switch,
 } from "react-native";
 import * as firebase from "firebase";
-import { Header } from "react-navigation-stack";
+//import { Header } from "react-navigation-stack";
 import { FontAwesome } from "@expo/vector-icons";
 import styles from "./styles";
 import RadioButton from "../common/RadioButton";
@@ -34,7 +34,7 @@ const icons = {
 // radiobutton options
 const options = Object.keys(icons);
 
-const navHeight = Header.HEIGHT;
+const navHeight = 0; //Header.HEIGHT;
 
 function immutableMove(arr, from, to) {
   return arr.reduce((prev, current, idx, self) => {
@@ -64,7 +64,8 @@ class ContactAdmin extends React.Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params.saveChanges(navigation.goBack);
-        }}>
+        }}
+      >
         <Text
           style={{
             color: "#037AFF",
@@ -73,7 +74,8 @@ class ContactAdmin extends React.Component {
             paddingBottom: 5,
             paddingRight: 20,
             fontWeight: "600",
-          }}>
+          }}
+        >
           Save
         </Text>
       </TouchableOpacity>
@@ -109,7 +111,15 @@ class ContactAdmin extends React.Component {
     );
 
   updateData = (callback) => {
-    const { data, editIdx = -1, editNavURL = "", editIcon = "", editTitle = "", editTitleInfo = "", editVisible = true } = this.state;
+    const {
+      data,
+      editIdx = -1,
+      editNavURL = "",
+      editIcon = "",
+      editTitle = "",
+      editTitleInfo = "",
+      editVisible = true,
+    } = this.state;
 
     const updatedData = {
       icon: editIcon,
@@ -122,11 +132,17 @@ class ContactAdmin extends React.Component {
     if (editIdx > -1) {
       // update current contact info
       data[editIdx] = updatedData;
-      this.setState({ data }, () => typeof callback === "function" && callback());
+      this.setState(
+        { data },
+        () => typeof callback === "function" && callback()
+      );
     } else {
       //add new contact info
       data.push(updatedData);
-      this.setState({ data }, () => typeof callback === "function" && callback());
+      this.setState(
+        { data },
+        () => typeof callback === "function" && callback()
+      );
     }
   };
 
@@ -135,7 +151,10 @@ class ContactAdmin extends React.Component {
 
     if (editIdx > -1) {
       data.splice(editIdx, 1);
-      this.setState({ data: data }, () => typeof callback === "function" && callback());
+      this.setState(
+        { data: data },
+        () => typeof callback === "function" && callback()
+      );
     }
   };
 
@@ -180,7 +199,9 @@ class ContactAdmin extends React.Component {
         const currentY = gestureState.moveY;
         this.currentY = currentY;
 
-        Animated.event([{ y: this.point.y }])({ y: currentY - navHeight * 1.5 });
+        Animated.event([{ y: this.point.y }])({
+          y: currentY - navHeight * 1.5,
+        });
         // The most recent move distance is gestureState.move{X,Y}
         // The accumulated gesture distance since becoming responder is
         // gestureState.d{x,y}
@@ -288,7 +309,15 @@ class ContactAdmin extends React.Component {
     const { data, dragging, draggingIdx } = this.state;
 
     const renderItem = ({ item, index }, noPanResponder = false) => {
-      const { navTitle, title, navURL, icon, titleInfo, navigate, visible = true } = item;
+      const {
+        navTitle,
+        title,
+        navURL,
+        icon,
+        titleInfo,
+        navigate,
+        visible = true,
+      } = item;
 
       const navigationTitle = navTitle || title;
       const navProps = navURL
@@ -310,7 +339,8 @@ class ContactAdmin extends React.Component {
             flexDirection: "row",
             alignItems: "center",
             opacity: draggingIdx === index ? 0 : 1,
-          }}>
+          }}
+        >
           <Image
             style={{
               alignSelf: "center",
@@ -319,12 +349,25 @@ class ContactAdmin extends React.Component {
             }}
             source={imgSource}
           />
-          <View style={{ paddingHorizontal: 12, flexDirection: "row", justifyContent: "space-between", flex: 1 }}>
+          <View
+            style={{
+              paddingHorizontal: 12,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              flex: 1,
+            }}
+          >
             <Text>{title || ""}</Text>
             <Text style={{ color: "grey" }}>{titleInfo || ""}</Text>
           </View>
 
-          <View style={{ alignItems: "center", justifyContent: "center", paddingHorizontal: 10 }}>
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              paddingHorizontal: 10,
+            }}
+          >
             <TouchableHighlight
               onPress={() => {
                 this.setState({
@@ -336,7 +379,8 @@ class ContactAdmin extends React.Component {
                   editTitleInfo: titleInfo,
                   editVisible: visible,
                 });
-              }}>
+              }}
+            >
               <Text>Edit</Text>
             </TouchableHighlight>
           </View>
@@ -355,26 +399,47 @@ class ContactAdmin extends React.Component {
           flex: 1,
           backgroundColor: "#fff",
           alignItems: "center",
-        }}>
-        <Overlay isVisible={this.state.modalVisible} windowBackgroundColor="rgba(0, 0, 0, .85)" height="90%">
+        }}
+      >
+        <Overlay
+          isVisible={this.state.modalVisible}
+          windowBackgroundColor="rgba(0, 0, 0, .85)"
+          height="90%"
+        >
           <ScrollView>
             <View>
               <Text style={styles.contactText}>
-                Order: {this.state.editIdx > -1 ? this.state.editIdx + 1 : this.state.data.length + 1}{" "}
+                Order:{" "}
+                {this.state.editIdx > -1
+                  ? this.state.editIdx + 1
+                  : this.state.data.length + 1}{" "}
               </Text>
-              <Text style={styles.contactText}>Select Icon: {this.state.editIcon}</Text>
+              <Text style={styles.contactText}>
+                Select Icon: {this.state.editIcon}
+              </Text>
               <View
                 style={{
                   width: 180,
                   marginTop: 8,
-                }}>
-                <RadioButton options={options} selected={this.state.editIcon} selectFunc={this.setEditIcon} />
+                }}
+              >
+                <RadioButton
+                  options={options}
+                  selected={this.state.editIcon}
+                  selectFunc={this.setEditIcon}
+                />
               </View>
 
               <Text style={styles.contactText}>Title</Text>
-              <TextInput onChangeText={(text) => this.setState({ editTitle: text })} placeholder={"Title"} value={this.state.editTitle} />
+              <TextInput
+                onChangeText={(text) => this.setState({ editTitle: text })}
+                placeholder={"Title"}
+                value={this.state.editTitle}
+              />
 
-              <Text style={styles.contactText}>Title Info (Display on Right)</Text>
+              <Text style={styles.contactText}>
+                Title Info (Display on Right)
+              </Text>
               <TextInput
                 onChangeText={(text) => this.setState({ editTitleInfo: text })}
                 placeholder={"Title Info"}
@@ -382,7 +447,11 @@ class ContactAdmin extends React.Component {
               />
 
               <Text style={styles.contactText}>URL</Text>
-              <TextInput onChangeText={(text) => this.setState({ editNavURL: text })} placeholder={"URL"} value={this.state.editNavURL} />
+              <TextInput
+                onChangeText={(text) => this.setState({ editNavURL: text })}
+                placeholder={"URL"}
+                value={this.state.editNavURL}
+              />
 
               <Text style={styles.contactText}>Visible</Text>
               <Switch
@@ -393,18 +462,32 @@ class ContactAdmin extends React.Component {
               <View style={{ marginTop: 15 }}>
                 <Button
                   title={this.state.editIdx > -1 ? "Update" : "Add"}
-                  onPress={() => this.updateData(() => this.setState({ modalVisible: false }))}
+                  onPress={() =>
+                    this.updateData(() =>
+                      this.setState({ modalVisible: false })
+                    )
+                  }
                 />
               </View>
 
               {this.state.editIdx > -1 && (
                 <View style={{ marginTop: 20 }}>
-                  <Button title="Delete" onPress={() => this.deleteData(() => this.setState({ modalVisible: false }))} />
+                  <Button
+                    title="Delete"
+                    onPress={() =>
+                      this.deleteData(() =>
+                        this.setState({ modalVisible: false })
+                      )
+                    }
+                  />
                 </View>
               )}
 
               <View style={{ marginTop: 20 }}>
-                <Button title="Close" onPress={() => this.setState({ modalVisible: false })} />
+                <Button
+                  title="Close"
+                  onPress={() => this.setState({ modalVisible: false })}
+                />
               </View>
             </View>
           </ScrollView>
@@ -415,8 +498,19 @@ class ContactAdmin extends React.Component {
           underlayColor="#ff7043"
           onPress={() => {
             this.resetEditFields(() => this.setState({ modalVisible: true }));
-          }}>
-          <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "23%", top: "-10%" }}>+</Text>
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 44,
+              color: "white",
+              position: "absolute",
+              left: "23%",
+              top: "-10%",
+            }}
+          >
+            +
+          </Text>
         </TouchableHighlight>
 
         {dragging && (
@@ -429,7 +523,8 @@ class ContactAdmin extends React.Component {
               zIndex: 2,
               width: "100%",
               top: this.point.getLayout().top,
-            }}>
+            }}
+          >
             {renderItem({ item: data[draggingIdx], index: -1 }, true)}
           </Animated.View>
         )}
