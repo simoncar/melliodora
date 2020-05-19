@@ -8,12 +8,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import _ from "lodash";
 
-import {
-  MaterialIcons,
-  Ionicons,
-  SimpleLineIcons,
-  Feather,
-} from "@expo/vector-icons";
+import { MaterialIcons, Ionicons, SimpleLineIcons, Feather } from "@expo/vector-icons";
 
 import Calendar from "./components/calendar";
 import phoneCalendar from "./components/calendar/calendars";
@@ -89,16 +84,16 @@ const StackHome = createStackNavigator();
 function StackHomeNavigator() {
   return (
     <StackHome.Navigator>
-      <StackHome.Screen name="homeNav" component={Home} />
-      <StackHome.Screen name="contact" component={Contact} />
-      <StackHome.Screen name="contactAdmin" component={ContactAdmin} />
+      <StackHome.Screen name="homeNav" component={Home} options={{ title: I18n.t("home") }} />
+      <StackHome.Screen name="contact" component={Contact} options={{ title: I18n.t("contact") }} />
+      <StackHome.Screen name="contactAdmin" component={ContactAdmin} options={{ title: I18n.t("contact") }} />
       <StackHome.Screen name="story" component={Story} />
       <StackHome.Screen name="push" component={push} />
-      <StackHome.Screen name="campusMap" component={campusMap} />
+      <StackHome.Screen name="campusMap" component={campusMap} options={{ title: I18n.t("map") }} />
       <StackHome.Screen name="storyForm" component={StoryForm} />
-      <StackHome.Screen name="authPortalStory" component={authPortal} />
-      <StackHome.Screen name="searchCalendarHome" component={Search} />
-      <StackHome.Screen name="webportalURL" component={WebportalURL} />
+      <StackHome.Screen name="authPortalStory" component={authPortal} options={{ title: I18n.t("myS") }} />
+      <StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
+      <StackHome.Screen name="webportalURL" component={WebportalURL} options={{ title: I18n.t("myS") }} />
     </StackHome.Navigator>
   );
 }
@@ -144,10 +139,10 @@ const StackCalendar = createStackNavigator();
 function StackCalendarNavigator() {
   return (
     <StackCalendar.Navigator>
-      <StackCalendar.Screen name="home" component={Calendar} />
-      <StackCalendar.Screen name="phoneCalendar" component={phoneCalendar} />
+      <StackCalendar.Screen name="home" component={Calendar} options={{ title: I18n.t("calendar") }} />
+      <StackCalendar.Screen name="phoneCalendar" component={phoneCalendar} options={{ title: I18n.t("calendar") }} />
       <StackCalendar.Screen name="storyCalendar" component={Story} />
-      <StackCalendar.Screen name="searchCalendar" component={Search} />
+      <StackCalendar.Screen name="searchCalendar" component={Search} options={{ title: I18n.t("search") }} />
     </StackCalendar.Navigator>
   );
 }
@@ -278,8 +273,8 @@ const StackOther = createStackNavigator();
 function StackOtherNavigator() {
   return (
     <StackOther.Navigator>
-      <StackOther.Screen name="settings" component={Settings} />
-      <StackOther.Screen name="library" component={Library} />
+      <StackOther.Screen name="settings" component={Settings} options={{ title: I18n.t("more") }} />
+      <StackOther.Screen name="library" component={Library} options={{ title: I18n.t("library") }} />
       <StackOther.Screen name="logs" component={Logs} />
       <StackOther.Screen name="storyMore" component={Story} />
       <StackOther.Screen name="moreAdmin" component={MoreAdmin} />
@@ -289,10 +284,7 @@ function StackOtherNavigator() {
       <StackOther.Screen name="adminPassword" component={adminPassword} />
       <StackOther.Screen name="login" component={LoginScreen} />
       <StackOther.Screen name="signup" component={SignUpScreen} />
-      <StackOther.Screen
-        name="forgetpassword"
-        component={ForgotPasswordScreen}
-      />
+      <StackOther.Screen name="forgetpassword" component={ForgotPasswordScreen} />
       <StackOther.Screen name="CameraApp" component={CameraApp} />
       <StackOther.Screen name="UserProfile" component={UserProfile} />
       <StackOther.Screen name="UserSearch" component={UserSearch} />
@@ -357,9 +349,7 @@ function Tabs() {
           } else if (route.name === "calendar") {
             return <Ionicons name={"ios-list"} size={size} color={color} />;
           } else if (route.name === "chatRooms") {
-            return (
-              <SimpleLineIcons name={"bubble"} size={size} color={color} />
-            );
+            return <SimpleLineIcons name={"bubble"} size={size} color={color} />;
           } else if (route.name === "webportal") {
             return <MaterialIcons name={"web"} size={size} color={color} />;
           } else if (route.name === "other") {
@@ -372,31 +362,11 @@ function Tabs() {
         inactiveTintColor: "gray",
       }}
     >
-      <Tab.Screen
-        name="homeNav"
-        component={StackHomeNavigator}
-        options={{ title: I18n.t("home") }}
-      />
-      <Tab.Screen
-        name="home"
-        component={StackCalendarNavigator}
-        options={{ title: I18n.t("calendar") }}
-      />
-      <Tab.Screen
-        name="chatRooms"
-        component={StackChatNavigator}
-        options={{ title: I18n.t("chat") }}
-      />
-      <Tab.Screen
-        name="webportal"
-        component={StackWebNavigator}
-        options={{ title: I18n.t("myS") }}
-      />
-      <Tab.Screen
-        name="other"
-        component={StackOtherNavigator}
-        options={{ title: I18n.t("more") }}
-      />
+      <Tab.Screen name="homeNav" component={StackHomeNavigator} options={{ title: I18n.t("home") }} />
+      <Tab.Screen name="home" component={StackCalendarNavigator} options={{ title: I18n.t("calendar") }} />
+      <Tab.Screen name="chatRooms" component={StackChatNavigator} options={{ title: I18n.t("chat") }} />
+      <Tab.Screen name="webportal" component={StackWebNavigator} options={{ title: I18n.t("myS") }} />
+      <Tab.Screen name="other" component={StackOtherNavigator} options={{ title: I18n.t("more") }} />
     </Tab.Navigator>
   );
 }
