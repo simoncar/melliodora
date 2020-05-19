@@ -42,43 +42,6 @@ import EditUserProfile from "./components/auth/EditUserProfile";
 import UserSearch from "./components/settings/UserSearch";
 import stylesGlobal from "./themes/globalTheme";
 
-// let StackHome = createStackNavigator(
-//   {
-//     homeNav: { screen: Home },
-//     contact: { screen: Contact },
-//     contactAdmin: { screen: ContactAdmin },
-//     story: { screen: Story },
-//     push: { screen: push },
-//     campusMap: { screen: campusMap },
-//     storyForm: { screen: StoryForm },
-//     authPortalStory: { screen: authPortal },
-//     searchCalendarHome: { screen: Search },
-//     webportalURL: { screen: WebportalURL },
-//   },
-//   {
-//     defaultNavigationOptions: {
-//       headerTitleStyle: {
-//         fontSize: stylesGlobal.navbarFontSize,
-//         color: "#111111",
-//       },
-//       headerTintColor: "#111111",
-//       headerStyle: {
-//         borderBottomWidth: 0,
-//       },
-//     },
-//   }
-// );
-
-// StackHome.navigationOptions = ({ navigation }) => {
-//   return {
-//     title: I18n.t("home"),
-//     headerBackTitle: null,
-//     tabBarIcon: ({ focused, tintColor, horizontal }) => (
-//       <Ionicons name="ios-home" size={horizontal ? 20 : 25} color={tintColor} />
-//     ),
-//   };
-// };
-
 const StackHome = createStackNavigator();
 
 function StackHomeNavigator() {
@@ -88,7 +51,7 @@ function StackHomeNavigator() {
         name="homeNav"
         component={Home}
         options={({ navigation, route }) => ({
-          headerTitle: I18n.t("home"),
+          headerTitle: headerTitle(route),
           headerLeft: () => headerLeftLanguageSelector(navigation),
           headerRight: () => headerRightSearch(navigation),
         })}
@@ -108,42 +71,6 @@ function StackHomeNavigator() {
   );
 }
 
-// let StackCalendar = createStackNavigator(
-//   {
-//     home: { screen: Calendar },
-//     phoneCalendar: { screen: phoneCalendar },
-//     storyCalendar: { screen: Story },
-//     searchCalendar: { screen: Search },
-//   },
-//   {
-//     defaultNavigationOptions: {
-//       headerBackTitle: null,
-//       headerTitleStyle: {
-//         fontSize: stylesGlobal.navbarFontSize,
-//         color: "#111111",
-//       },
-//       headerTintColor: "#111111",
-//       headerStyle: {
-//         borderBottomWidth: 0,
-//       },
-//     },
-//   }
-// );
-
-// StackCalendar.navigationOptions = ({ navigation }) => {
-//   return {
-//     title: I18n.t("calendar"),
-//     headerBackTitle: null,
-//     tabBarIcon: ({ focused, tintColor, horizontal }) => (
-//       <Ionicons
-//         name="ios-calendar"
-//         size={horizontal ? 20 : 25}
-//         color={tintColor}
-//       />
-//     ),
-//   };
-// };
-
 const StackCalendar = createStackNavigator();
 
 function StackCalendarNavigator() {
@@ -156,41 +83,6 @@ function StackCalendarNavigator() {
     </StackCalendar.Navigator>
   );
 }
-
-// let StackChat = createStackNavigator(
-//   {
-//     chatRooms: { screen: chatRooms },
-//     chatTitle: { screen: chatTitle },
-//     chat: { screen: chat },
-//     selectLanguageChat: { screen: selectLanguage },
-//   },
-//   {
-//     defaultNavigationOptions: {
-//       headerBackTitle: null,
-//       headerTitleStyle: {
-//         fontSize: stylesGlobal.navbarFontSize,
-//         color: "#111111",
-//       },
-//       headerTintColor: "#111111",
-//       headerStyle: {
-//         borderBottomWidth: 0,
-//       },
-//     },
-//   }
-// );
-
-// StackChat.navigationOptions = ({ navigation }) => {
-//   return {
-//     title: I18n.t("chat"),
-//     tabBarIcon: ({ focused, tintColor, horizontal }) => (
-//       <SimpleLineIcons
-//         name="bubble"
-//         size={horizontal ? 20 : 25}
-//         color={tintColor}
-//       />
-//     ),
-//   };
-// };
 
 const StackChat = createStackNavigator();
 
@@ -205,25 +97,6 @@ function StackChatNavigator() {
   );
 }
 
-// let StackWeb = createStackNavigator({
-//   authPortal: { screen: authPortal },
-// });
-
-// StackWeb.navigationOptions = ({ navigation }) => {
-//   const title = global.switch_tab_portalName;
-//   return {
-//     title,
-//     headerBackTitle: null,
-//     tabBarIcon: ({ focused, tintColor, horizontal }) => (
-//       <MaterialIcons name="web" size={horizontal ? 20 : 25} color={tintColor} />
-//     ),
-//     headerTintColor: "#111111",
-//     headerStyle: {
-//       borderBottomWidth: 0,
-//     },
-//   };
-// };
-
 const StackWeb = createStackNavigator();
 
 function StackWebNavigator() {
@@ -233,50 +106,6 @@ function StackWebNavigator() {
     </StackWeb.Navigator>
   );
 }
-
-// let StackOther = createStackNavigator(
-//   {
-//     settings: { screen: Settings },
-//     library: { screen: Library },
-//     logs: { screen: Logs },
-//     storyMore: { screen: Story },
-//     moreAdmin: { screen: MoreAdmin },
-//     Content: { screen: Content },
-//     webportalURL: { screen: WebportalURL },
-//     selectLanguage: { screen: selectLanguage },
-//     adminPassword: { screen: adminPassword },
-//     login: { screen: LoginScreen },
-//     signup: { screen: SignUpScreen },
-//     forgetpassword: { screen: ForgotPasswordScreen },
-//     CameraApp: { screen: CameraApp },
-//     UserProfile: { screen: UserProfile },
-//     UserSearch: { screen: UserSearch },
-//     EditUserProfile: { screen: EditUserProfile },
-//   },
-//   {
-//     defaultNavigationOptions: {
-//       headerBackTitle: null,
-//       headerTitleStyle: {
-//         fontSize: stylesGlobal.navbarFontSize,
-//         color: "#111111",
-//       },
-//       headerTintColor: "#111111",
-//       headerStyle: {
-//         borderBottomWidth: 0,
-//       },
-//     },
-//   }
-// );
-
-// StackOther.navigationOptions = ({ navigation }) => {
-//   return {
-//     title: I18n.t("more"),
-//     headerBackTitle: null,
-//     tabBarIcon: ({ focused, tintColor, horizontal }) => (
-//       <Feather name="menu" size={horizontal ? 20 : 25} color={tintColor} />
-//     ),
-//   };
-// };
 
 const StackOther = createStackNavigator();
 
@@ -302,45 +131,6 @@ function StackOtherNavigator() {
     </StackOther.Navigator>
   );
 }
-
-// let Tabs = createBottomTabNavigator(
-//   {
-//     homeNav: StackHome,
-//     home: StackCalendar,
-//     chatRooms: StackChat,
-//     webportal: StackWeb,
-//     other: StackOther,
-//   },
-//   {
-//     shifting: false,
-//     labeled: true,
-//     activeColor: "#111111",
-//     inactiveColor: "#7777777",
-//     tabBarOptions: {
-//       activeTintColor: "#111111",
-//       inactiveTintColor: "#777777",
-//       style: {
-//         borderTopWidth: 0,
-//         borderTopColor: "transparent",
-//       },
-//     },
-
-//     tabBarComponent: (props) => {
-//       let display = ["homeNav", "home", "chatRooms", "webportal", "other"];
-//       if (global.domain !== "sais_edu_sg") {
-//         const removeTab = ["webportal"];
-//         display = _.difference(display, removeTab);
-//       }
-
-//       return (
-//         <BottomTabBar
-//           {...props} // Required
-//           display={display} // Required
-//         />
-//       );
-//     },
-//   }
-// );
 
 const Tab = createBottomTabNavigator();
 
@@ -381,20 +171,6 @@ function Tabs() {
   );
 }
 
-// const MainScreenNavigator = createStackNavigator(
-//   {
-//     Tab: {
-//       screen: Tabs,
-//     },
-
-//     authPortal: { screen: authPortal },
-//   },
-
-//   {
-//     headerMode: "none",
-//   }
-// );
-
 const MainScreen = createStackNavigator();
 
 export default function MainScreenNavigator() {
@@ -408,23 +184,7 @@ export default function MainScreenNavigator() {
   );
 }
 
-// const defaultGetStateForAction = MainScreenNavigator.router.getStateForAction;
-
-// MainScreenNavigator.router.getStateForAction = (action, state) => {
-//   console.log("action", action);
-//   console.log("state", state);
-//   return defaultGetStateForAction(action, state);
-// };
-
-// const RootStack = createStackNavigator({
-//   mode: "modal",
-//   headerMode: "none",
-// });
-
-//export default NavigationContainer(MainScreenNavigator);
-
 function headerLeftLanguageSelector(navigation) {
-  console.log(navigation);
   return (
     <TouchableOpacity
       onPress={() => {
@@ -452,7 +212,6 @@ function headerLeftLanguageSelector(navigation) {
 }
 
 function headerRightSearch(navigation) {
-  console.log(navigation);
   return (
     <TouchableOpacity
       onPress={() => {
@@ -477,4 +236,13 @@ function headerRightSearch(navigation) {
       </View>
     </TouchableOpacity>
   );
+}
+
+function headerTitle(route) {
+  // console.log("route:", route.params.title);
+  if (route.params == undefined) {
+    return "";
+  } else {
+    return route.params.title;
+  }
 }
