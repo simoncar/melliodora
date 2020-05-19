@@ -27,7 +27,9 @@ class Setup extends Component {
 
   componentDidMount() {
     try {
-      Firebase.initialise().then(() => this.props.dispatch({ type: "FIREBASE_READY" }));
+      Firebase.initialise().then(() =>
+        this.props.dispatch({ type: "FIREBASE_READY" })
+      );
     } catch (e) {
       console.log("firebase error", e.message);
     }
@@ -63,7 +65,8 @@ class Setup extends Component {
       this.state.loading ||
       !this.props.auth.userInfo ||
       _.isEmpty(this.props.auth.userInfo) ||
-      (_.isEmpty(this.props.community.selectedCommunity) && Constants.manifest.extra.instance)
+      (_.isEmpty(this.props.community.selectedCommunity) &&
+        Constants.manifest.extra.instance)
     ) {
       return <AppLoading />;
     } else if (_.isEmpty(this.props.community.selectedCommunity)) {

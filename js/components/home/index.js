@@ -123,7 +123,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.language = this.props.auth.language;
-    this.loadCalendar();
+
     this.props.navigation.setParams({
       title: this.props.community.selectedCommunity.name,
     });
@@ -150,6 +150,9 @@ class Home extends Component {
       .orderBy("order");
 
     Analytics.track("Home");
+
+    this.loadCalendar();
+
     this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
 
     const { navigation } = this.props;
