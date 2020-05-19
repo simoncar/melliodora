@@ -166,7 +166,7 @@ class Home extends Component {
 
   componentWillUnmount() {
     this.unsubscribeFeature();
-    this.focusListener.remove();
+    //this.focusListener.remove();
   }
 
   loadBalance() {

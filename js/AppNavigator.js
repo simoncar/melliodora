@@ -344,12 +344,59 @@ const Tab = createBottomTabNavigator();
 
 function Tabs() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="homeNav" component={StackHomeNavigator} />
-      <Tab.Screen name="home" component={StackCalendarNavigator} />
-      <Tab.Screen name="chatRooms" component={StackChatNavigator} />
-      <Tab.Screen name="webportal" component={StackWebNavigator} />
-      <Tab.Screen name="other" component={StackOtherNavigator} />
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName, iconLib;
+
+          if (route.name === "homeNav") {
+            iconName = "";
+            return <Ionicons name={"ios-home"} size={size} color={color} />;
+          } else if (route.name === "home") {
+            return <Ionicons name={"ios-calendar"} size={size} color={color} />;
+          } else if (route.name === "calendar") {
+            return <Ionicons name={"ios-list"} size={size} color={color} />;
+          } else if (route.name === "chatRooms") {
+            return (
+              <SimpleLineIcons name={"bubble"} size={size} color={color} />
+            );
+          } else if (route.name === "webportal") {
+            return <MaterialIcons name={"web"} size={size} color={color} />;
+          } else if (route.name === "other") {
+            return <Feather name={"menu"} size={size} color={color} />;
+          }
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: "black",
+        inactiveTintColor: "gray",
+      }}
+    >
+      <Tab.Screen
+        name="homeNav"
+        component={StackHomeNavigator}
+        options={{ title: I18n.t("home") }}
+      />
+      <Tab.Screen
+        name="home"
+        component={StackCalendarNavigator}
+        options={{ title: I18n.t("calendar") }}
+      />
+      <Tab.Screen
+        name="chatRooms"
+        component={StackChatNavigator}
+        options={{ title: I18n.t("chat") }}
+      />
+      <Tab.Screen
+        name="webportal"
+        component={StackWebNavigator}
+        options={{ title: I18n.t("myS") }}
+      />
+      <Tab.Screen
+        name="other"
+        component={StackOtherNavigator}
+        options={{ title: I18n.t("more") }}
+      />
     </Tab.Navigator>
   );
 }
