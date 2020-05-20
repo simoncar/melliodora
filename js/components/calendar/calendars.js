@@ -16,49 +16,13 @@ class CalendarRow extends Component {
     title: "Calendars",
   };
 
-  _selectCalendar(
-    calendar,
-    eventTitle,
-    eventDescription,
-    eventDate,
-    eventStartTime,
-    eventEndTime,
-    location,
-    eventImage,
-    phone,
-    email,
-    url
-  ) {
+  _selectCalendar(calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url) {
     const { goBack } = this.props.navigation;
-    this._addEvent(
-      calendar.id,
-      eventTitle,
-      eventDescription,
-      eventDate,
-      eventStartTime,
-      eventEndTime,
-      location,
-      eventImage,
-      phone,
-      email,
-      url
-    );
+    this._addEvent(calendar.id, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url);
     goBack(null);
   }
 
-  _addEvent = async (
-    phoneCalendarID,
-    eventTitle,
-    eventDescription,
-    eventDate,
-    eventStartTime,
-    eventEndTime,
-    location,
-    eventImage,
-    phone,
-    email,
-    url
-  ) => {
+  _addEvent = async (phoneCalendarID, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url) => {
     var newEvent = {};
 
     if (eventStartTime == null) {
@@ -109,19 +73,8 @@ class CalendarRow extends Component {
   };
 
   render() {
-    const {
-      calendar,
-      eventTitle,
-      eventDescription,
-      eventDate,
-      eventStartTime,
-      eventEndTime,
-      location,
-      eventImage,
-      phone,
-      email,
-      url,
-    } = this.props;
+    const { calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url } = this.props;
+
 
     const calendarTypeName = calendar.entityType === Calendar.EntityTypes.REMINDER ? "Reminders" : "Events";
     return (
@@ -130,21 +83,8 @@ class CalendarRow extends Component {
           <Button
             transparent
             style={styles.calendarButton}
-            onPress={() =>
-              this._selectCalendar(
-                calendar,
-                eventTitle,
-                eventDescription,
-                eventDate,
-                eventStartTime,
-                eventEndTime,
-                location,
-                eventImage,
-                phone,
-                email,
-                url
-              )
-            }>
+            onPress={() => this._selectCalendar(calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url)}
+          >
             <Ionicons name="ios-calendar" style={styles.calendarText} />
             <Text style={styles.calendarText}> {calendar.title} </Text>
           </Button>
@@ -154,7 +94,6 @@ class CalendarRow extends Component {
   }
 }
 
-@withMappedNavigationParams()
 class phoneCalendar extends Component {
   static navigationOptions = {
     title: I18n.t("calendar"),

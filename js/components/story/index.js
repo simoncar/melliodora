@@ -43,7 +43,7 @@ class Story extends Component {
     if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
       Linking.openURL(sURL);
     } else {
-      this.props.route.params.navigation.navigate("authPortalStory", {
+      this.props.navigation.navigate("authPortalStory", {
         url: sURL,
       });
     }
@@ -84,15 +84,31 @@ class Story extends Component {
     }
   }
 
+  _drawIconSend(chatroom) {
+    if (isAdmin(this.props.route.params.adminPassword)) {
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            this.props.route.params.summaryMyLanguage;
+            this.props.navigation.navigate("push", this.props.route.params);
+          }}
+        >
+          <Text style={styles.eventTextSend}>
+            <MaterialCommunityIcons name="send-lock" style={styles.eventIconSendLock} />{" "}
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+  }
+
   _drawIconChat(chatroom, title) {
     if (_.isNil(chatroom) || this.props.route.params.showIconChat === false) {
       return;
     }
-
     return (
       <TouchableOpacity
         onPress={() => {
-          this.props.route.params.navigation.navigate("chat", {
+          this.props.navigation.navigate("chat", {
             chatroom: chatroom,
             title: title,
           });
@@ -105,28 +121,12 @@ class Story extends Component {
     );
   }
 
-  _drawIconSend(chatroom) {
-    if (isAdmin(this.props.route.params.adminPassword)) {
-      return (
-        <TouchableOpacity
-          onPress={() => {
-            this.props.route.params.navigation.navigate("push", this.props.route.params);
-          }}
-        >
-          <Text style={styles.eventTextSend}>
-            <MaterialCommunityIcons name="send-lock" style={styles.eventIconSendLock} />{" "}
-          </Text>
-        </TouchableOpacity>
-      );
-    }
-  }
-
   _drawIconCalendar(params) {
     if (isValue(params.date_start)) {
       return (
         <TouchableOpacity
           onPress={() => {
-            this.props.route.params.navigation.navigate("phoneCalendar", this.props.route.params);
+            this.props.navigation.navigate("phoneCalendar", this.props.route.params);
           }}
         >
           <Text style={styles.eventText}>
@@ -159,7 +159,7 @@ class Story extends Component {
             style={styles.addButton}
             underlayColor="#ff7043"
             onPress={() =>
-              this.props.route.params.navigation.navigate("storyForm", {
+              this.props.navigation.navigate("storyForm", {
                 ...{ edit: true },
                 ...this.props.route.params,
               })

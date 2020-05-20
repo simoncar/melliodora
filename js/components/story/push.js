@@ -28,7 +28,8 @@ class push extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
-        }}>
+        }}
+      >
         <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
       </TouchableOpacity>
     ),
@@ -38,13 +39,15 @@ class push extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params.pushSend();
-        }}>
+        }}
+      >
         <Text style={styles.chatHeading}>{I18n.t("send")}</Text>
       </TouchableOpacity>
     ),
   });
 
   componentDidMount() {
+    console.log("SSS:", this.props);
     var initialText = this.props.summary;
 
     if (_.isString(this.props.description)) {
@@ -130,7 +133,8 @@ class push extends Component {
                 paddingTop: 20,
                 paddingLeft: 10,
                 paddingRight: 10,
-              }}>
+              }}
+            >
               <Input
                 onChangeText={(text) => this.setState({ initialText: text })}
                 placeholder={"Description"}

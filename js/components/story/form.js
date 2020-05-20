@@ -1,30 +1,12 @@
 import React, { Component } from "react";
-import {
-  View,
-  ImageBackground,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Switch,
-  SafeAreaView,
-  ScrollView,
-  LayoutAnimation,
-  Platform,
-  Alert,
-} from "react-native";
+import { View, ImageBackground, Text, TextInput, TouchableOpacity, Switch, SafeAreaView, ScrollView, LayoutAnimation, Platform, Alert } from "react-native";
 import { Input } from "react-native-elements";
 import { Container, Content } from "native-base";
 import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
 import DatePicker from "react-native-datepicker";
-import {
-  Entypo,
-  SimpleLineIcons,
-  Feather,
-  Ionicons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { Entypo, SimpleLineIcons, Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import _ from "lodash";
 import * as ImagePicker from "expo-image-picker";
@@ -37,7 +19,6 @@ import { AntDesign } from "@expo/vector-icons";
 import systemHero from "../../lib/systemHero";
 import { connect } from "react-redux";
 
-@withMappedNavigationParams()
 class PageText extends Component {
   uid = "";
   storyRef = null;
@@ -51,8 +32,7 @@ class PageText extends Component {
       visibleMore: props.edit ? props.visibleMore : true,
       eventTitle: props.edit ? props.summary : "",
       eventDescription: props.edit ? props.description : "",
-      location:
-        props.edit && props.location !== undefined ? props.location : null,
+      location: props.edit && props.location !== undefined ? props.location : null,
       photo1: props.edit && props.photo1 !== undefined ? props.photo1 : null,
       eventDate: props.date_start,
       eventStartTime: props.time_start_pretty,
@@ -105,19 +85,10 @@ class PageText extends Component {
     if (undefined !== uri && null !== uri && uri.length > 0) {
       return (
         <View>
-          <ImageBackground
-            style={styles.storyPhoto}
-            source={{ uri: `${this.state.photo1}` }}
-          >
-            <TouchableOpacity
-              style={styles.photoButton}
-              onPress={this._pickImage}
-            >
+          <ImageBackground style={styles.storyPhoto} source={{ uri: `${this.state.photo1}` }}>
+            <TouchableOpacity style={styles.photoButton} onPress={this._pickImage}>
               <View>
-                <Entypo
-                  name={this.state.cameraIcon}
-                  style={{ fontSize: 25, color: "white" }}
-                />
+                <Entypo name={this.state.cameraIcon} style={{ fontSize: 25, color: "white" }} />
               </View>
             </TouchableOpacity>
           </ImageBackground>
@@ -136,13 +107,9 @@ class PageText extends Component {
       //this.setState({ image: result.uri });
       //this._images = images;
 
-      const convertedImage = await new ImageManipulator.manipulateAsync(
-        result.uri,
-        [{ resize: { height: 1000 } }],
-        {
-          compress: 0,
-        }
-      );
+      const convertedImage = await new ImageManipulator.manipulateAsync(result.uri, [{ resize: { height: 1000 } }], {
+        compress: 0,
+      });
 
       fileToUpload = convertedImage.uri;
       mime = "image/jpeg";
@@ -162,9 +129,7 @@ class PageText extends Component {
 
       const ref = firebase
         .storage()
-        .ref(
-          "random/" + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2)
-        )
+        .ref("random/" + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2))
         .child(uuid.v4());
 
       const snapshot = await ref
@@ -173,9 +138,7 @@ class PageText extends Component {
           return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
         })
         .then((downloadURL) => {
-          console.log(
-            `Successfully uploaded file and got download link - ${downloadURL}`
-          );
+          console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
           this.setState({ photo1: downloadURL });
           return downloadURL;
         })
@@ -199,11 +162,7 @@ class PageText extends Component {
         }}
         style={{ padding: 8 }}
       >
-        <SimpleLineIcons
-          name="bubble"
-          size={32}
-          color={this.state.showIconChat ? "#222" : "#CCC"}
-        />
+        <SimpleLineIcons name="bubble" size={32} color={this.state.showIconChat ? "#222" : "#CCC"} />
       </TouchableOpacity>
     );
   }
@@ -212,10 +171,7 @@ class PageText extends Component {
     return (
       <TouchableOpacity
         onPress={() => {
-          this.props.navigation.navigate(
-            "phoneCalendar",
-            this.props.navigation.state.params
-          );
+          this.props.navigation.navigate("phoneCalendar", this.props.navigation.state.params);
         }}
         style={{ padding: 8 }}
       >
@@ -226,17 +182,8 @@ class PageText extends Component {
 
   _drawIconShare() {
     return (
-      <TouchableOpacity
-        onPress={() =>
-          this.setState({ showIconShare: !this.state.showIconShare })
-        }
-        style={{ padding: 8 }}
-      >
-        <Feather
-          name="share"
-          size={32}
-          color={this.state.showIconShare ? "#222" : "#CCC"}
-        />
+      <TouchableOpacity onPress={() => this.setState({ showIconShare: !this.state.showIconShare })} style={{ padding: 8 }}>
+        <Feather name="share" size={32} color={this.state.showIconShare ? "#222" : "#CCC"} />
       </TouchableOpacity>
     );
   }
@@ -263,17 +210,10 @@ class PageText extends Component {
             >
               <View>
                 <View style={{ padding: 3 }}>
-                  <Text style={{ fontSize: 10 }}>
-                    Toggle buttons below to show/Hide
-                  </Text>
+                  <Text style={{ fontSize: 10 }}>Toggle buttons below to show/Hide</Text>
                 </View>
-                <View
-                  style={{ flexDirection: "row", justifyContent: "flex-end" }}
-                >
-                  {this._drawIconChat(
-                    this.props._key,
-                    this.props.summaryMyLanguage
-                  )}
+                <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                  {this._drawIconChat(this.props._key, this.props.summaryMyLanguage)}
                   {this._drawIconShare()}
                 </View>
               </View>
@@ -303,9 +243,7 @@ class PageText extends Component {
               ></View>
 
               <Input
-                onChangeText={(text) =>
-                  this.setState({ eventDescription: text })
-                }
+                onChangeText={(text) => this.setState({ eventDescription: text })}
                 placeholder="Description"
                 multiline
                 inputContainerStyle={{ borderBottomWidth: 0 }}
@@ -323,10 +261,7 @@ class PageText extends Component {
 class MaterialTopTabBarWrapper extends React.Component {
   render() {
     return (
-      <SafeAreaView
-        style={{ backgroundColor: "#000" }}
-        forceInset={{ top: "always", horizontal: "never", bottom: "never" }}
-      >
+      <SafeAreaView style={{ backgroundColor: "#000" }} forceInset={{ top: "always", horizontal: "never", bottom: "never" }}>
         <MaterialTopTabBar {...this.props} />
       </SafeAreaView>
     );
@@ -343,8 +278,7 @@ class PageSettings extends Component {
       visible: props.edit ? props.visible : true,
       visibleMore: props.edit ? props.visibleMore : true,
 
-      location:
-        props.edit && props.location !== undefined ? props.location : null,
+      location: props.edit && props.location !== undefined ? props.location : null,
 
       eventDate: props.date_start,
       eventStartTime: props.time_start_pretty,
@@ -364,13 +298,7 @@ class PageSettings extends Component {
 
   static navigationOptions = {
     tabBarLabel: "Settings",
-    tabBarIcon: ({ tintColor, focused, horizontal }) => (
-      <Ionicons
-        name={focused ? "ios-people" : "ios-people"}
-        size={horizontal ? 20 : 26}
-        style={{ color: tintColor }}
-      />
-    ),
+    tabBarIcon: ({ tintColor, focused, horizontal }) => <Ionicons name={focused ? "ios-people" : "ios-people"} size={horizontal ? 20 : 26} style={{ color: tintColor }} />,
   };
 
   clearDates() {
@@ -383,9 +311,7 @@ class PageSettings extends Component {
   render() {
     const { navigation } = this.props;
     const summary = this.props.summary;
-    const order = _.isNumber(this.state.order)
-      ? this.state.order.toString()
-      : 0;
+    const order = _.isNumber(this.state.order) ? this.state.order.toString() : 0;
     return (
       <View style={styles.containerSettings}>
         <ScrollView>
@@ -426,11 +352,7 @@ class PageSettings extends Component {
                 </View>
 
                 <View>
-                  <Switch
-                    onValueChange={(value) => this.setState({ visible: value })}
-                    style={styles.switch}
-                    value={this.state.visible}
-                  />
+                  <Switch onValueChange={(value) => this.setState({ visible: value })} style={styles.switch} value={this.state.visible} />
                 </View>
               </View>
             </View>
@@ -443,13 +365,7 @@ class PageSettings extends Component {
                 </View>
 
                 <View>
-                  <Switch
-                    onValueChange={(value) =>
-                      this.setState({ visibleMore: value })
-                    }
-                    style={styles.switch}
-                    value={this.state.visibleMore}
-                  />
+                  <Switch onValueChange={(value) => this.setState({ visibleMore: value })} style={styles.switch} value={this.state.visibleMore} />
                 </View>
               </View>
             </View>
@@ -535,10 +451,7 @@ class PageSettings extends Component {
                 </View>
 
                 <View>
-                  <TouchableOpacity
-                    style={{ flexDirection: "row" }}
-                    onPress={() => this.clearDates()}
-                  >
+                  <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.clearDates()}>
                     <Text>Clear Dates</Text>
                   </TouchableOpacity>
                 </View>

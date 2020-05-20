@@ -38,9 +38,6 @@ class chat extends Component {
           <Entypo name="cog" style={styles.chatHeading} />
         </View>
       </TouchableOpacity>
-    ),
-  });
-
   constructor(props) {
     super(props);
     this.state = {
@@ -70,25 +67,21 @@ class chat extends Component {
     this.communityDomain = this.props.community.selectedCommunity.node;
     console.log("this.this.communityDomain", this.communityDomain);
     this.userInfo = this.props.auth.userInfo;
+
+    console.log("PROPS:", this.props);
   }
 
   componentDidMount() {
-    console.log("this.props.navigation", this.props.navigation.state);
-    this.props.navigation.setParams({
-      _showActionSheet: this._showActionSheet,
-      refresh: this.refresh,
-    });
+    const params = this.props.route.params;
+    console.log("ROUTE CHATROOM: ", params.chatroom);
 
-    this.chatroom = this.props.navigation.getParam("chatroom");
-    this.title = this.props.navigation.getParam("title");
+    this.chatroom = params.chatroom;
+    this.title = params.title;
 
     this.ref = firebase.firestore().collection(this.communityDomain).doc("chat").collection("chatrooms").doc(this.chatroom);
 
     this.unsubscribe = this.ref.onSnapshot((doc) => {
       const item = doc.data();
-      this.props.navigation.setParams({
-        title: this.title,
-      });
     });
 
     Backend.setLanguage(this.props.auth.language);
@@ -123,13 +116,7 @@ class chat extends Component {
 
   _getPrivateChatUsers = async (members) => {
     const data = [];
-    const querySnapshot = await firebase
-      .firestore()
-      .collection(this.communityDomain)
-      .doc("user")
-      .collection("registered")
-      .where("uid", "in", members)
-      .get();
+    const querySnapshot = await firebase.firestore().collection(this.communityDomain).doc("user").collection("registered").where("uid", "in", members).get();
 
     querySnapshot.docs.forEach((doc) => {
       data.push(doc.data());
@@ -154,7 +141,8 @@ class chat extends Component {
         onPress={() => {
           this.setState({ modalVisible: false });
           this.props.navigation.navigate("UserProfile", { uid: item.uid, user: item });
-        }}>
+        }}
+      >
         <ListItem
           leftAvatar={{
             rounded: true,
@@ -416,6 +404,11 @@ class chat extends Component {
       );
     }
 
+    this.props.navigation.setParams({
+      _showActionSheet: this._showActionSheet,
+      refresh: this.refresh,
+    });
+
     let userDetails = {};
     if (this.userInfo.isAnonymous) {
       userDetails = {
@@ -441,11 +434,13 @@ class chat extends Component {
                   justifyContent: "space-between",
                   height: 100,
                   padding: 12,
-                }}>
+                }}
+              >
                 <TouchableOpacity
                   onPress={() => {
                     this.setState({ modalVisible: false });
-                  }}>
+                  }}
+                >
                   <AntDesign size={32} color={"#f2f2f2"} name="closecircleo" />
                 </TouchableOpacity>
 
@@ -458,7 +453,8 @@ class chat extends Component {
                     textShadowRadius: 1,
                     textShadowColor: "#000",
                     fontWeight: "bold",
-                  }}>
+                  }}
+                >
                   {this.props.title}
                 </Text>
               </LinearGradient>
@@ -497,7 +493,8 @@ class chat extends Component {
                 // contact: this.props.contact,
                 url: this.props.url,
               });
-            }}>
+            }}
+          >
             <View style={styles.topbar}>
               <Text style={styles.chatBanner}>{I18n.t("translationsGoogle")}</Text>
             </View>
@@ -548,7 +545,8 @@ export default class ActionSheetContainer extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params._showActionSheet();
-        }}>
+        }}
+      >
         <View style={styles.chatHeading}>
           <Entypo name="cog" style={styles.chatHeading} />
         </View>
@@ -559,7 +557,7 @@ export default class ActionSheetContainer extends Component {
   render() {
     return (
       <ActionSheetProvider>
-        <ConnectedApp navigation={this.props.navigation} />
+        <ConnectedApp route={this.props.route} navigation={this.props.navigation} />
       </ActionSheetProvider>
     );
   }

@@ -59,14 +59,17 @@ function StackHomeNavigator() {
 
       <StackHome.Screen name="contact" component={Contact} options={{ title: I18n.t("contact") }} />
       <StackHome.Screen name="contactAdmin" component={ContactAdmin} options={{ title: I18n.t("contact") }} />
-      <StackHome.Screen name="story" component={Story} />
+      <StackHome.Screen name="story" component={Story} options={({ route }) => ({ title: route.params.summary })} />
       <StackHome.Screen name="push" component={push} />
+      <StackHome.Screen name="chat" component={chat} />
       <StackHome.Screen name="campusMap" component={campusMap} options={{ title: I18n.t("map") }} />
       <StackHome.Screen name="storyForm" component={StoryForm} />
       <StackHome.Screen name="authPortalStory" component={authPortal} options={{ title: I18n.t("myS") }} />
       <StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
       <StackHome.Screen name="webportalURL" component={WebportalURL} options={{ title: I18n.t("myS") }} />
       <StackHome.Screen name="selectLanguageHome" component={selectLanguage} options={{ title: I18n.t("language") }} />
+
+      <StackHome.Screen name="phoneCalendar" component={phoneCalendar} options={{ title: I18n.t("calendar") }} />
     </StackHome.Navigator>
   );
 }
@@ -78,8 +81,9 @@ function StackCalendarNavigator() {
     <StackCalendar.Navigator>
       <StackCalendar.Screen name="home" component={Calendar} options={{ title: I18n.t("calendar") }} />
       <StackCalendar.Screen name="phoneCalendar" component={phoneCalendar} options={{ title: I18n.t("calendar") }} />
-      <StackCalendar.Screen name="storyCalendar" component={Story} />
+      <StackCalendar.Screen name="storyCalendar" component={Story} options={({ route }) => ({ title: route.params.summary })} />
       <StackCalendar.Screen name="searchCalendar" component={Search} options={{ title: I18n.t("search") }} />
+      <StackCalendar.Screen name="chat" component={chat} />
     </StackCalendar.Navigator>
   );
 }
@@ -91,7 +95,7 @@ function StackChatNavigator() {
     <StackChat.Navigator>
       <StackChat.Screen name="chatRooms" component={chatRooms} options={{ title: I18n.t("chat") }} />
       <StackChat.Screen name="chatTitle" component={chatTitle} />
-      <StackChat.Screen name="chat" component={chat} />
+      <StackChat.Screen name="chatX" component={chat} />
       <StackChat.Screen name="selectLanguageChat" component={selectLanguage} options={{ title: I18n.t("language") }} />
     </StackChat.Navigator>
   );
