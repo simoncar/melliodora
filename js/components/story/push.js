@@ -3,14 +3,12 @@ import { StyleSheet, View, Image, Dimensions, Alert, TouchableOpacity, Switch } 
 import { Container, Content, Text } from "native-base";
 import styles from "./styles";
 import { SettingsListItem } from "../settings/SettingsListItem";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import _ from "lodash";
 import { Input } from "react-native-elements";
 
-@withMappedNavigationParams()
 class push extends Component {
   constructor(props) {
     super(props);

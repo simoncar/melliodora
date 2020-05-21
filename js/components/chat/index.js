@@ -30,14 +30,6 @@ var localMessages = [];
 class chat extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerRight: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params._showActionSheet(navigation);
-        }}>
-        <View style={styles.chatHeading}>
-          <Entypo name="cog" style={styles.chatHeading} />
-        </View>
-      </TouchableOpacity>
   // static navigationOptions = ({ navigation }) => ({
   //   headerRight: (
   //     <TouchableOpacity
@@ -400,7 +392,7 @@ class chat extends Component {
   render() {
     if (this.communityDomain == "sais_edu_sg" && !this.props.authPortal.authEmail) {
       const { goBack } = this.props.navigation;
-      
+
       goBack(null);
       setTimeout(() => {
         // Alert.alert(I18n.t("login"));
@@ -415,10 +407,10 @@ class chat extends Component {
       );
     }
 
-    this.props.navigation.setParams({
-      _showActionSheet: this._showActionSheet,
-      refresh: this.refresh,
-    });
+    //  this.props.navigation.setParams({
+    //    _showActionSheet: this._showActionSheet,
+    // //   refresh: this.refresh,
+    // });
 
     let userDetails = {};
     if (this.userInfo.isAnonymous) {

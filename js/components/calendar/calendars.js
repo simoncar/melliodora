@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Alert, ScrollView, View } from "react-native";
 import { Container, Content, Button, Text } from "native-base";
 import * as Calendar from "expo-calendar";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import Analytics from "../../lib/analytics";
@@ -10,7 +9,6 @@ import moment from "moment";
 
 import styles from "./styles";
 
-@withMappedNavigationParams()
 class CalendarRow extends Component {
   static navigationOptions = {
     title: "Calendars",

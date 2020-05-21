@@ -3,7 +3,6 @@ import { FlatList, View, AsyncStorage, TouchableOpacity, TouchableHighlight } fr
 import * as firebase from "firebase";
 import { Container, Content, Text } from "native-base";
 import { SimpleLineIcons, Entypo, AntDesign } from "@expo/vector-icons";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
 
 import I18n from "../../lib/i18n";
@@ -15,7 +14,6 @@ import { connect } from "react-redux";
 
 var specialChatrooms = {};
 
-@withMappedNavigationParams()
 class chatRooms extends Component {
   static navigationOptions = {
     title: I18n.t("chat"),

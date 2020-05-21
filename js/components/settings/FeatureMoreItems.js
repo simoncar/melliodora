@@ -5,11 +5,9 @@ import { Image } from "react-native-expo-image-cache";
 import firebase from "firebase";
 import ListItem from "./FeatureListItem";
 import { getLanguageString } from "../global";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { SettingsListItem, Separator } from "./SettingsListItem";
 import { connect } from 'react-redux';
 
-@withMappedNavigationParams()
 class FeatureMoreItems extends Component {
   constructor(props) {
     super(props);

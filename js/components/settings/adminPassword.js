@@ -73,13 +73,12 @@ class adminPassword extends Component {
         <Input
           style={styles.passwordField}
           onChangeText={(text) => this._setAdminPassword(text)}
-          placeholder="Password"
+          placeholder={I18n.t("password")}
           containerStyle={styles.containerStyle}
           inputContainerStyle={{ borderBottomWidth: 0 }}
           autoCapitalize="none"
           autoFocus={true}
         />
-        <Text style={styles.alert}>{this.state.adminPasswordCorrect}</Text>
 
         <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>{this._saveButton()}</View>
       </View>
@@ -104,6 +103,7 @@ const styles = StyleSheet.create({
   },
   alert: {
     paddingTop: 16,
+    color: "green",
   },
   alertRestart: {
     paddingTop: 16,
@@ -135,6 +135,9 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     elevation: 4,
     marginBottom: 30,
+  },
+  TextStyle: {
+    color: "green",
   },
 });
 

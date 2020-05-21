@@ -1,30 +1,11 @@
 import React, { Component } from "react";
-import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight } from "react-native";
-import { isAdmin } from "../global";
+import { StyleSheet, View,  TouchableHighlight } from "react-native";
 import I18n from "../../lib/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
-import * as firebase from "firebase";
-import { Updates } from "expo";
 import FeatureMoreItems from "./FeatureMoreItems";
-import Constants from "expo-constants";
 import { connect } from 'react-redux';
 
-
-const icons = {
-  wifi: require("./images/wifi.png"),
-  contact: require("./images/contact.png"),
-  library: require("./images/library.png"),
-  map: require("./images/map.png"),
-  shop: require("./images/shop.png")
-};
-
 class Content extends Component {
-  static navigationOptions = {
-    title: I18n.t("editor"),
-
-    headerBackTitle: null
-  };
-
   constructor(props) {
     super(props);
 
