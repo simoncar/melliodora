@@ -15,46 +15,9 @@ import uuid from "uuid";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 //import { createMaterialTopTabNavigator, MaterialTopTabBar } from "react-navigation-tabs";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { AntDesign } from "@expo/vector-icons";
 import systemHero from "../../lib/systemHero";
 import { connect } from "react-redux";
-
-const Tab = createMaterialTopTabNavigator();
-
-function MyTabs(props) {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="pageText" component={PageText} />
-      <Tab.Screen name="pageSettings" component={PageSettings} />
-    </Tab.Navigator>
-  );
-}
-
-// const SimpleTabs = createMaterialTopTabNavigator(
-//   {
-//     pageText: PageText,
-//     pageSettings: PageSettings
-//   },
-//   {
-//     tabBarComponent: MaterialTopTabBarWrapper,
-//     tabBarOptions: {
-//       style: {
-//         backgroundColor: "#000"
-//       }
-//     }
-//   }
-// );
-
-class MaterialTopTabBarWrapper extends React.Component {
-  render() {
-    return (
-      <SafeAreaView style={{ backgroundColor: "#000" }} forceInset={{ top: "always", horizontal: "never", bottom: "never" }}>
-        <MyTabs {...this.props} />
-      </SafeAreaView>
-    );
-  }
-}
 
 class PageText extends Component {
   uid = "";
@@ -295,6 +258,17 @@ class PageText extends Component {
   }
 }
 
+class MaterialTopTabBarWrapper extends React.Component {
+  render() {
+    return (
+      <SafeAreaView style={{ backgroundColor: "#000" }} forceInset={{ top: "always", horizontal: "never", bottom: "never" }}>
+        <MaterialTopTabBar {...this.props} />
+      </SafeAreaView>
+    );
+  }
+}
+
+@withMappedNavigationParams()
 class PageSettings extends Component {
   constructor(props) {
     super(props);
@@ -493,124 +467,163 @@ class PageSettings extends Component {
   }
 }
 
+// const SimpleTabs = createMaterialTopTabNavigator(
+//   {
+//     pageText: PageText,
+//     pageSettings: PageSettings,
+//   },
+//   {
+//     tabBarComponent: MaterialTopTabBarWrapper,
+//     tabBarOptions: {
+//       style: {
+//         backgroundColor: "#000",
+//       },
+//     },
+//   }
+// );
+
 class newStory extends React.Component {
-  static router = Tab.router;
+  // static router = SimpleTabs.router;
 
-  static navigationOptions = ({ navigation }) => ({
-    tabBarLabel: "Content",
-    headerLeft: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}
-      >
-        <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
-      </TouchableOpacity>
-    ),
+  // static navigationOptions = ({ navigation }) => ({
+  //   tabBarLabel: "Content",
+  //   headerLeft: (
+  //     <TouchableOpacity
+  //       onPress={() => {
+  //         navigation.goBack();
+  //       }}
+  //     >
+  //       <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
+  //     </TouchableOpacity>
+  //   ),
 
-    headerTitle: I18n.t("edit"),
+  //   headerTitle: I18n.t("edit"),
 
-    headerRight: (
-      <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-        {navigation.state.params && (
-          <TouchableOpacity
-            onPress={() => {
-              Alert.alert(
-                "Confirm Delete Story",
-                navigation.state.params.summary + "?",
-                [
-                  {
-                    text: "Cancel",
-                    style: "cancel",
-                  },
-                  {
-                    text: "OK",
-                    onPress: () => {
-                      const _key = navigation.state.params._key;
+  //   headerRight: (
+  //     <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+  //       {navigation.state.params && (
+  //         <TouchableOpacity
+  //           onPress={() => {
+  //             Alert.alert(
+  //               "Confirm Delete Story",
+  //               navigation.state.params.summary + "?",
+  //               [
+  //                 {
+  //                   text: "Cancel",
+  //                   style: "cancel",
+  //                 },
+  //                 {
+  //                   text: "OK",
+  //                   onPress: () => {
+  //                     const _key = navigation.state.params._key;
 
-                      if (_key) {
-                        firebase
-                          .firestore()
-                          .collection(global.domain)
-                          .doc("feature")
-                          .collection("features")
-                          .doc(_key)
-                          .delete()
-                          .then(() => navigation.popToTop());
-                      }
-                    },
-                  },
-                ],
-                { cancelable: true }
-              );
-            }}
-            style={{ marginRight: 12 }}
-          >
-            <AntDesign name="delete" size={24} />
-          </TouchableOpacity>
-        )}
+  //                     if (_key) {
+  //                       firebase
+  //                         .firestore()
+  //                         .collection(global.domain)
+  //                         .doc("feature")
+  //                         .collection("features")
+  //                         .doc(_key)
+  //                         .delete()
+  //                         .then(() => navigation.popToTop());
+  //                     }
+  //                   },
+  //                 },
+  //               ],
+  //               { cancelable: true }
+  //             );
+  //           }}
+  //           style={{ marginRight: 12 }}
+  //         >
+  //           <AntDesign name="delete" size={24} />
+  //         </TouchableOpacity>
+  //       )}
 
-        <TouchableOpacity
-          onPress={() => {
-            const { routes } = navigation.state;
-            let saveState = {};
+  //       <TouchableOpacity
+  //         onPress={() => {
+  //           const { routes } = navigation.state;
+  //           let saveState = {};
 
-            if (_.has(routes[0], "params.save")) {
-              const pageState = routes[0].params.save() || {};
-              saveState = { ...saveState, ...pageState };
-            }
+  //           if (_.has(routes[0], "params.save")) {
+  //             const pageState = routes[0].params.save() || {};
+  //             saveState = { ...saveState, ...pageState };
+  //           }
 
-            if (_.has(routes[1], "params.save")) {
-              const pageState = routes[1].params.save() || {};
-              saveState = { ...saveState, ...pageState };
-            }
+  //           if (_.has(routes[1], "params.save")) {
+  //             const pageState = routes[1].params.save() || {};
+  //             saveState = { ...saveState, ...pageState };
+  //           }
 
-            const { eventTitle, visible, visibleMore, eventDescription, photo1, eventDate, eventStartTime, eventEndTime, order, _key, showIconChat, showIconShare } = saveState;
+  //           const {
+  //             eventTitle,
+  //             visible,
+  //             visibleMore,
+  //             eventDescription,
+  //             photo1,
+  //             eventDate,
+  //             eventStartTime,
+  //             eventEndTime,
+  //             order,
+  //             _key,
+  //             showIconChat,
+  //             showIconShare,
+  //           } = saveState;
 
-            const storyDict = {
-              summary: eventTitle,
-              visible: visible || true,
-              visibleMore: visibleMore || true,
-              description: eventDescription,
-              photo1: photo1,
-              date_start: eventDate !== undefined ? eventDate : null,
-              time_start_pretty: eventStartTime !== undefined ? eventStartTime : null,
-              time_end_pretty: eventEndTime !== undefined ? eventEndTime : null,
-              order: order !== undefined ? Number(order) : 1,
-              showIconChat,
-              showIconShare,
-            };
+  //           const storyDict = {
+  //             summary: eventTitle,
+  //             visible: visible || true,
+  //             visibleMore: visibleMore || true,
+  //             description: eventDescription,
+  //             photo1: photo1,
+  //             date_start: eventDate !== undefined ? eventDate : null,
+  //             time_start_pretty:
+  //               eventStartTime !== undefined ? eventStartTime : null,
+  //             time_end_pretty: eventEndTime !== undefined ? eventEndTime : null,
+  //             order: order !== undefined ? Number(order) : 1,
+  //             showIconChat,
+  //             showIconShare,
+  //           };
 
-            if (_key == "") {
-              firebase
-                .firestore()
-                .collection(global.domain)
-                .doc("feature")
-                .collection("features")
-                .add(storyDict)
-                .then(() => navigation.goBack());
-            } else {
-              const storyRef = firebase.firestore().collection(global.domain).doc("feature").collection("features").doc(_key);
+  //           if (_key == "") {
+  //             firebase
+  //               .firestore()
+  //               .collection(global.domain)
+  //               .doc("feature")
+  //               .collection("features")
+  //               .add(storyDict)
+  //               .then(() => navigation.goBack());
+  //           } else {
+  //             const storyRef = firebase
+  //               .firestore()
+  //               .collection(global.domain)
+  //               .doc("feature")
+  //               .collection("features")
+  //               .doc(_key);
 
-              storyRef.set(storyDict, { merge: true }).then(() => navigation.popToTop());
+  //             storyRef
+  //               .set(storyDict, { merge: true })
+  //               .then(() => navigation.popToTop());
 
-              systemHero.logToCalendar("StorySave-" + global.domain + eventTitle, "Story Save - " + eventTitle, global.domain, this.props.auth.userInfo.email || "");
-            }
-          }}
-        >
-          <Text style={[styles.chatHeading]}>{I18n.t("save")}</Text>
-        </TouchableOpacity>
-      </View>
-    ),
-  });
+  //             systemHero.logToCalendar(
+  //               "StorySave-" + global.domain + eventTitle,
+  //               "Story Save - " + eventTitle,
+  //               global.domain,
+  //               this.props.auth.userInfo.email || ""
+  //             );
+  //           }
+  //         }}
+  //       >
+  //         <Text style={[styles.chatHeading]}>{I18n.t("save")}</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   ),
+  // });
 
   render() {
     const { navigation } = this.props;
-    return (
-      <View style={{ flex: 1 }}>
-        <MyTabs navigation={navigation} />
-      </View>
-    );
+    // <SimpleTabs navigation={navigation} />
+
+    return <View style={{ flex: 1 }}></View>;
   }
 }
 

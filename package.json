@@ -21,6 +21,7 @@
     "e2e": "detox test --configuration ios.sim --debug-synchronization 200",
     "app": "cp apps/app.ais.json app.json && expo r -c",
     "g": "expo start --config apps/app.generic.json --ios",
+    "goffline": "expo start --config apps/app.generic.json --ios --offline",
     "s": "expo start --config apps/app.sais_edu_sg.json --ios",
     "a": "expo start --config apps/app.ais_edu_sg.json --ios",
     "t": "expo start --config apps/app.smartcookies_team_hero.json --ios",
