@@ -12,7 +12,6 @@ import CustomVideo from "./customVideo";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
 import uuid from "uuid";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import _ from "lodash";
 import Backend from "./backend";
 import Analytics from "../../lib/analytics";
@@ -28,8 +27,6 @@ import { compose } from "redux";
 var localMessages = [];
 
 class chat extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerRight: (
   // static navigationOptions = ({ navigation }) => ({
   //   headerRight: (
   //     <TouchableOpacity
