@@ -159,8 +159,8 @@ class Story extends Component {
             style={styles.addButton}
             underlayColor="#ff7043"
             onPress={() =>
-              this.props.navigation.navigate("storyForm", {
-                ...{ edit: true },
+              this.props.navigation.navigate("Form", {
+                edit: true,
                 ...this.props.route.params,
               })
             }
@@ -278,4 +278,5 @@ class Story extends Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
+
 export default connect(mapStateToProps)(Story);

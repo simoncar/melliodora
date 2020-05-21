@@ -270,7 +270,7 @@ class Home extends Component {
     return (
       <Container>
         {(global.administrator || this.props.auth.isAdmin) && (
-          <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => this.props.navigation.navigate("storyForm")}>
+          <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => this.props.navigation.navigate("Form")}>
             <Text
               style={{
                 fontSize: 44,
