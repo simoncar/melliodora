@@ -38,6 +38,17 @@ class chat extends Component {
           <Entypo name="cog" style={styles.chatHeading} />
         </View>
       </TouchableOpacity>
+  // static navigationOptions = ({ navigation }) => ({
+  //   headerRight: (
+  //     <TouchableOpacity
+  //       onPress={() => {
+  //         navigation.state.params._showActionSheet(navigation);
+  //       }}>
+  //       <View style={styles.chatHeading}>
+  //         <Entypo name="cog" style={styles.chatHeading} />
+  //       </View>
+  //     </TouchableOpacity>
+
   constructor(props) {
     super(props);
     this.state = {
@@ -72,11 +83,10 @@ class chat extends Component {
   }
 
   componentDidMount() {
-    const params = this.props.route.params;
-    console.log("ROUTE CHATROOM: ", params.chatroom);
+    const { chatroom, title } = this.props.route.params;
 
-    this.chatroom = params.chatroom;
-    this.title = params.title;
+    this.chatroom = chatroom;
+    this.title = title;
 
     this.ref = firebase.firestore().collection(this.communityDomain).doc("chat").collection("chatrooms").doc(this.chatroom);
 
@@ -333,7 +343,7 @@ class chat extends Component {
 
   _showActionSheet = () => {
     const options = ["Chatroom info", "Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
-
+    const { chatroom, title, type } = this.props.route.params;
     const cancelButtonIndex = options.length - 1;
 
     this.props.showActionSheetWithOptions(
@@ -348,9 +358,9 @@ class chat extends Component {
             break;
           case 1:
             this.props.navigation.push("chatTitle", {
-              title: this.props.navigation.getParam("title"),
-              chatroom: this.props.navigation.getParam("chatroom"),
-              type: this.props.navigation.getParam("type"),
+              title: title,
+              chatroom: chatroom,
+              type: type,
               edit: true,
               onGoBack: this.refresh,
             });
@@ -390,6 +400,7 @@ class chat extends Component {
   render() {
     if (this.communityDomain == "sais_edu_sg" && !this.props.authPortal.authEmail) {
       const { goBack } = this.props.navigation;
+      
       goBack(null);
       setTimeout(() => {
         // Alert.alert(I18n.t("login"));
@@ -463,7 +474,7 @@ class chat extends Component {
                 <Text style={{ padding: 12, fontSize: 18 }}>Chatroom users ({this.state.chatroomUsers.length})</Text>
                 {this.renderSeparator()}
 
-                {["users", "public"].indexOf(this.props.navigation.getParam("type")) > -1 ? (
+                {["users", "public"].indexOf(this.props.route.params) > -1 ? (
                   <SettingsListItem
                     title={"All Users"}
                     onPress={() => {
