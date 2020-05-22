@@ -16,7 +16,7 @@ import * as Permissions from "expo-permissions";
 import { AntDesign } from "@expo/vector-icons";
 import systemHero from "../../lib/systemHero";
 import { connect } from "react-redux";
-import { drawIconChat } from "./formUtilities.js";
+import { IconChat, IconShare, OrderOnPage } from "./formUtilities";
 
 class Form extends Component {
   uid = "";
@@ -46,9 +46,32 @@ class Form extends Component {
       showIconShare: props.showIconShare === false ? false : true,
     };
 
+    this.handlerChat = this.handlerChat.bind(this);
+    this.handlerShare = this.handlerShare.bind(this);
+    this.handlerOrder = this.handlerOrder.bind(this);
+
     this.getPermissionAsync();
     this.props.navigation.setParams({
       save: () => this.state,
+    });
+  }
+
+  handlerChat(show) {
+    console.log("showIconChat:", show);
+    this.setState({
+      showIconChat: show,
+    });
+  }
+  handlerShare(show) {
+    console.log("showIconShare:", show);
+    this.setState({
+      showIconShare: show,
+    });
+  }
+  handlerOrder(order) {
+    console.log("order:", order);
+    this.setState({
+      order: order,
     });
   }
 
@@ -168,17 +191,8 @@ class Form extends Component {
     );
   }
 
-  _drawIconShare() {
-    return (
-      <TouchableOpacity onPress={() => this.setState({ showIconShare: !this.state.showIconShare })} style={{ padding: 8 }}>
-        <Feather name="share" size={32} color={this.state.showIconShare ? "#222" : "#CCC"} />
-      </TouchableOpacity>
-    );
-  }
-
   render() {
     const { goBack } = this.props.navigation;
-    console.log("SETTINGS PROPS: ", this.props);
 
     return (
       <Container style={{ backgroundColor: "#f2f2f2" }}>
@@ -192,10 +206,13 @@ class Form extends Component {
                   <Text style={{ fontSize: 10 }}>Toggle buttons below to show/Hide</Text>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                  {drawIconChat(this.props._key, this.props.summaryMyLanguage)}
-                  {this._drawIconShare()}
+                  <IconChat handler={this.handlerChat} showIconChat={this.state.showIconChat} />
+                  <IconShare handler={this.handlerShare} showIconShare={this.state.showIconShare} />
                 </View>
               </View>
+            </View>
+            <View>
+              <OrderOnPage handler={this.handlerOrder} order={this.state.order} />
             </View>
             <View style={{ flex: 1, paddingTop: 20, paddingLeft: 10, paddingRight: 10 }}>
               <Input

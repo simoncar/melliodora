@@ -173,23 +173,7 @@ class FormAdvanced extends Component {
           >
             <View style={styles.settingsItem}>
               {/* {icon} */}
-              <View style={styles.settingsLeft}>
-                <View>
-                  <Text>Order on Page</Text>
-                </View>
-
-                <View>
-                  <Input
-                    onChangeText={(text) => this.setState({ order: text })}
-                    placeholder="0"
-                    style={styles.eventTitle}
-                    value={order}
-                    keyboardType="number-pad"
-                    inputContainerStyle={{ borderBottomWidth: 0 }}
-                    containerStyle={styles.containerStyleOrder}
-                  />
-                </View>
-              </View>
+           
             </View>
 
             <View style={styles.settingsItem}>
