@@ -4,6 +4,7 @@ import { Entypo, SimpleLineIcons, Feather, Ionicons, MaterialCommunityIcons } fr
 import styles from "./styles";
 import { Input } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
 
 const IconChat = class IconChat extends Component {
   constructor(props) {
@@ -139,7 +140,7 @@ class EventDateTime extends Component {
       time_start_pretty: props.time_start_pretty,
       time_end_pretty: props.time_end_pretty,
       mode: "date",
-      show: true,
+      show: false,
     };
   }
 
@@ -171,15 +172,54 @@ class EventDateTime extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.eventTitle}>Dates:</Text>
+        <View style={styles.settingsItem}>
+          <Text style={styles.settingsLeft}>Date</Text>
+          <TouchableOpacity
+            onPress={() => {
+              if (!this.state.show == true) {
+                this.showDatepicker();
+              } else {
+                this.setState({ show: false });
+              }
+            }}
+          >
+            <Text>{moment(this.state.date_start).format("MMMM Do YYYY")}</Text>
+          </TouchableOpacity>
+          <Text> </Text>
+          <TouchableOpacity
+            onPress={() => {
+              if (!this.state.show == true) {
+                this.showTimepicker();
+              } else {
+                this.setState({ show: false });
+              }
+            }}
+          >
+            <Text>{moment(this.state.date_start).format("h:mm A")}</Text>
+          </TouchableOpacity>
+          <Text> - </Text>
+          <TouchableOpacity
+            onPress={() => {
+              if (!this.state.show == true) {
+                this.showTimepicker();
+              } else {
+                this.setState({ show: false });
+              }
+            }}
+          >
+            <Text>{moment(this.state.date_start).format("h:mm A")}</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              this.setState({ show: false, date_start: "" });
+            }}
+          >
+            <Text> XX</Text>
+          </TouchableOpacity>
+        </View>
 
         <View>
-          <View>
-            <Button onPress={this.showDatepicker} title="Show date picker!" />
-          </View>
-          <View>
-            <Button onPress={this.showTimepicker} title="Show time picker!" />
-          </View>
           {this.state.show && (
             <DateTimePicker
               testID="dateTimePicker"

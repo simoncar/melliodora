@@ -25,6 +25,7 @@ export default {
       }
     ),
   },
+  dateRow: { flex: 1, flexDirection: "row" },
   viewHeader: {
     flex: 1,
     flexDirection: "row",
