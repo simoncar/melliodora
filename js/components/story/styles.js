@@ -218,7 +218,6 @@ export default {
 
   settingsItem: {
     flexDirection: "row",
-    backgroundColor: "white",
     paddingVertical: 8,
     alignItems: "center",
     borderBottomColor: "#CED0CE",
@@ -231,7 +230,14 @@ export default {
     borderBottomColor: "#CED0CE",
     borderBottomWidth: 0,
   },
-  settingsLeft: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 8 },
+  settingsLeft: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 8,
+    fontSize: stylesGlobal.headingFontSize,
+  },
   eventText: {
     color: "#222",
     fontSize: stylesGlobal.bodyFontSize,

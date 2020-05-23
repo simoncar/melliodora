@@ -215,19 +215,25 @@ class Form extends Component {
     if (this.state.showAdvanced) {
       return (
         <View>
-          <IconChat handler={this.handlerChat} showIconChat={this.state.showIconChat} />
-          <IconShare handler={this.handlerShare} showIconShare={this.state.showIconShare} />
-          <OrderOnPage handler={this.handlerOrder} order={this.state.order} />
-          <ShowOnHomeScreen handler={this.handlerVisible} show={this.state.visible} />
-          <ShowOnMoreScreen handler={this.handlerVisibleMore} show={this.state.visibleMore} />
-          <EventDateTime
-            handler={this.handleEventDateTime}
-            date_start={this.state.date_start}
-            time_start_prety={this.state.time_start_pretty}
-            time_end_prety={this.state.time_end_pretty}
-            dateTimeStart={this.state.dateTimeStart}
-            dateTimeEnd={this.state.dateTimeEnd}
-          />
+          <View style={{ flex: 1, paddingTop: 20, paddingLeft: 10, paddingRight: 10 }}>
+            <View style={styles.containerStyle}>
+              <IconChat handler={this.handlerChat} showIconChat={this.state.showIconChat} />
+              <IconShare handler={this.handlerShare} showIconShare={this.state.showIconShare} />
+              <OrderOnPage handler={this.handlerOrder} order={this.state.order} />
+              <ShowOnHomeScreen handler={this.handlerVisible} show={this.state.visible} />
+              <ShowOnMoreScreen handler={this.handlerVisibleMore} show={this.state.visibleMore} />
+            </View>
+          </View>
+          <View style={{ flex: 1, paddingTop: 20, paddingLeft: 10, paddingRight: 10 }}>
+            <EventDateTime
+              handler={this.handleEventDateTime}
+              date_start={this.state.date_start}
+              time_start_prety={this.state.time_start_pretty}
+              time_end_prety={this.state.time_end_pretty}
+              dateTimeStart={this.state.dateTimeStart}
+              dateTimeEnd={this.state.dateTimeEnd}
+            />
+          </View>
         </View>
       );
     } else {
