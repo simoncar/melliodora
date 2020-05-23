@@ -7,7 +7,6 @@ import { Container, Content } from "native-base";
 import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
-import DatePicker from "react-native-datepicker";
 import { Entypo, SimpleLineIcons, Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import _ from "lodash";
@@ -176,120 +175,7 @@ class FormAdvanced extends Component {
            
             </View>
 
-            <View style={styles.settingsItem}>
-              {/* {icon} */}
-              <View style={styles.settingsLeft}>
-                <View>
-                  <Text>Home Screen</Text>
-                </View>
-
-                <View>
-                  <Switch onValueChange={(value) => this.setState({ visible: value })} style={styles.switch} value={this.state.visible} />
-                </View>
-              </View>
-            </View>
-
-            <View style={styles.settingsItem}>
-              {/* {icon} */}
-              <View style={styles.settingsLeft}>
-                <View>
-                  <Text>More Screen</Text>
-                </View>
-
-                <View>
-                  <Switch onValueChange={(value) => this.setState({ visibleMore: value })} style={styles.switch} value={this.state.visibleMore} />
-                </View>
-              </View>
-            </View>
-            <Text style={styles.eventTitle}>Dates:</Text>
-            <View style={styles.settingsItemNoLine}>
-              <View style={styles.settingsLeft}>
-                <View>
-                  <Text>Date (optional)</Text>
-                </View>
-
-                <View>
-                  <DatePicker
-                    style={styles.containerStyleDate}
-                    customStyles={{ dateInput: { borderWidth: 0 } }}
-                    date={this.state.eventDate}
-                    mode="date"
-                    placeholder="Event Date"
-                    format="YYYY-MM-DD"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    onDateChange={(date) => {
-                      this.setState({ eventDate: date });
-                    }}
-                  />
-                </View>
-              </View>
-            </View>
-
-            <View style={styles.settingsItemNoLine}>
-              <View style={styles.settingsLeft}>
-                <View>
-                  <Text>Time Start</Text>
-                </View>
-
-                <View>
-                  <DatePicker
-                    style={styles.containerStyleDate}
-                    customStyles={{ dateInput: { borderWidth: 0 } }}
-                    date={this.state.eventStartTime}
-                    placeholder="Start Time"
-                    mode="time"
-                    format="HH:mm"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    minuteInterval={10}
-                    onDateChange={(time) => {
-                      this.setState({ eventStartTime: time });
-                    }}
-                  />
-                </View>
-              </View>
-            </View>
-
-            <View style={styles.settingsItemNoLine}>
-              <View style={styles.settingsLeft}>
-                <View>
-                  <Text>Time End</Text>
-                </View>
-
-                <View>
-                  <DatePicker
-                    style={styles.containerStyleDate}
-                    customStyles={{ dateInput: { borderWidth: 0 } }}
-                    date={this.state.eventEndTime}
-                    placeholder="End Time"
-                    mode="time"
-                    format="HH:mm"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    minuteInterval={10}
-                    onDateChange={(time) => {
-                      this.setState({ eventEndTime: time });
-                    }}
-                  />
-                </View>
-              </View>
-            </View>
-
-            <View style={styles.settingsItemNoLine}>
-              <View style={styles.settingsLeft}>
-                <View>
-                  <Text></Text>
-                </View>
-
-                <View>
-                  <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.clearDates()}>
-                    <Text>Clear Dates</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-
+    
             {/* <Button onPress={() => navigation.navigate("Home")} title="Go to home tab" />
             <Button onPress={() => navigation.goBack(null)} title="Go back" /> */}
           </View>

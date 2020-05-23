@@ -5,7 +5,6 @@ import { Container, Content } from "native-base";
 import styles from "./styles";
 import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
-import DatePicker from "react-native-datepicker";
 import { Entypo, SimpleLineIcons, Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import _ from "lodash";
@@ -18,6 +17,7 @@ import * as Permissions from "expo-permissions";
 import { AntDesign } from "@expo/vector-icons";
 import systemHero from "../../lib/systemHero";
 import { connect } from "react-redux";
+
 
 class PageText extends Component {
   uid = "";
