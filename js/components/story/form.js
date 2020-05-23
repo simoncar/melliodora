@@ -225,6 +225,8 @@ class Form extends Component {
             date_start={this.state.date_start}
             time_start_prety={this.state.time_start_pretty}
             time_end_prety={this.state.time_end_pretty}
+            dateTimeStart={this.state.dateTimeStart}
+            dateTimeEnd={this.state.dateTimeEnd}
           />
         </View>
       );

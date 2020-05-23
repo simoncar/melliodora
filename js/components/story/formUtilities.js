@@ -136,8 +136,10 @@ class EventDateTime extends Component {
   constructor(props) {
     super(props);
 
+    console.log("props.dateTimeStart:", props.dateTimeStart, props.dateTimeEnd);
     this.state = {
-      date: new Date(),
+      dateTimeStart: props.dateTimeStart,
+      dateTimeEnd: props.dateTimeEnd,
 
       date_start: props.date_start,
       time_start_pretty: props.time_start_pretty,
@@ -157,24 +159,39 @@ class EventDateTime extends Component {
     });
   };
 
-  showMode = (currentMode) => {
-    console.log("showMode", currentMode);
+  showMode = (currentMode, startEnd) => {
+    console.log("showMode", currentMode, startEnd);
     this.setState({
       show: true,
       mode: currentMode,
+      startEnd: startEnd,
     });
+
+    if (startEnd == "start") {
+      this.setState({
+        controlDate: this.state.dateTimeStart,
+      });
+    } else {
+      this.setState({
+        controlDate: this.state.dateTimeEnd,
+      });
+    }
   };
 
   showDatepicker = () => {
-    this.showMode("date");
+    this.showMode("date", "start");
   };
 
-  showTimepicker = () => {
-    this.showMode("time");
+  showStartTimepicker = () => {
+    this.showMode("time", "start");
+  };
+  showEndTimepicker = () => {
+    this.showMode("time", "end");
   };
 
   render() {
     console.log("date:", this.state.date_start, _.isDate(this.state.date_start));
+
     return (
       <View style={{ flex: 1, paddingTop: 20, paddingLeft: 10, paddingRight: 10 }}>
         <View style={styles.containerStyle}>
@@ -189,31 +206,32 @@ class EventDateTime extends Component {
                 }
               }}
             >
-              <Text>{_.isDate(this.state.date_start) ? moment(this.state.date_start).format("MMMM Do YYYY") : "none"}</Text>
+              <Text>{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("MMMM Do YYYY") : "Start Date "}</Text>
             </TouchableOpacity>
             <Text> </Text>
+
             <TouchableOpacity
               onPress={() => {
                 if (!this.state.show == true) {
-                  this.showTimepicker();
+                  this.showStartTimepicker();
                 } else {
                   this.setState({ show: false });
                 }
               }}
             >
-              <Text>{moment(this.state.date_start).format("h:mm A")}</Text>
+           <Text>{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("h:mm a") : "Time"}</Text>
             </TouchableOpacity>
             <Text> - </Text>
             <TouchableOpacity
               onPress={() => {
                 if (!this.state.show == true) {
-                  this.showTimepicker();
+                  this.showEndTimepicker();
                 } else {
                   this.setState({ show: false });
                 }
               }}
             >
-              <Text>{moment(this.state.date_start).format("h:mm A")}</Text>
+             <Text>{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("h:mm a") : "End"}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -230,7 +248,7 @@ class EventDateTime extends Component {
               <DateTimePicker
                 testID="dateTimePicker"
                 timeZoneOffsetInMinutes={0}
-                value={_.isDate(this.state.date_start) ? this.state.date_start : new Date()}
+                value={_.isDate(this.state.controlDate) ? this.state.controlDate : new Date()}
                 mode={this.state.mode}
                 is24Hour={true}
                 display="default"
