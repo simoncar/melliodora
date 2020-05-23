@@ -153,9 +153,10 @@ class EventDateTime extends Component {
   onChange = (event, selectedDate) => {
     const currentDate = selectedDate || this.state.date_start;
     //setShow(Platform.OS === "ios");
-    console.log("update onChange", selectedDate);
+    console.log("ONCHANGEe", selectedDate);
     this.setState({
-      date_start: selectedDate,
+      dateTimeStart: selectedDate,
+      controlDate: selectedDate,
     });
   };
 
@@ -179,6 +180,11 @@ class EventDateTime extends Component {
   };
 
   showDatepicker = () => {
+    if (!_.isDate(this.state.dateTimeStart)) {
+      this.setState({
+        dateTimeStart: new Date(),
+      });
+    }
     this.showMode("date", "start");
   };
 
@@ -219,7 +225,7 @@ class EventDateTime extends Component {
                 }
               }}
             >
-           <Text>{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("h:mm a") : "Time"}</Text>
+              <Text>{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("h:mm a") : "Time"}</Text>
             </TouchableOpacity>
             <Text> - </Text>
             <TouchableOpacity
@@ -231,7 +237,7 @@ class EventDateTime extends Component {
                 }
               }}
             >
-             <Text>{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("h:mm a") : "End"}</Text>
+              <Text>{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("h:mm a") : "End"}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
