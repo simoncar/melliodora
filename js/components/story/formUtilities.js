@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { View, Button, Text, TouchableOpacity, Switch, SafeAreaView, ScrollView, LayoutAnimation, Platform, Alert, ImagePropTypes } from "react-native";
-import { Entypo, SimpleLineIcons, Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo, SimpleLineIcons, Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import styles from "./styles";
 import { Input } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
+import _ from "lodash";
 
 const IconChat = class IconChat extends Component {
   constructor(props) {
@@ -134,11 +135,14 @@ class ShowOnMoreScreen extends Component {
 class EventDateTime extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      date_start: new Date(),
       date: new Date(),
+
+      date_start: props.date_start,
       time_start_pretty: props.time_start_pretty,
       time_end_pretty: props.time_end_pretty,
+
       mode: "date",
       show: false,
     };
@@ -170,67 +174,70 @@ class EventDateTime extends Component {
   };
 
   render() {
+    console.log("date:", this.state.date_start, _.isDate(this.state.date_start));
     return (
-      <View>
-        <View style={styles.settingsItem}>
-          <Text style={styles.settingsLeft}>Date</Text>
-          <TouchableOpacity
-            onPress={() => {
-              if (!this.state.show == true) {
-                this.showDatepicker();
-              } else {
-                this.setState({ show: false });
-              }
-            }}
-          >
-            <Text>{moment(this.state.date_start).format("MMMM Do YYYY")}</Text>
-          </TouchableOpacity>
-          <Text> </Text>
-          <TouchableOpacity
-            onPress={() => {
-              if (!this.state.show == true) {
-                this.showTimepicker();
-              } else {
-                this.setState({ show: false });
-              }
-            }}
-          >
-            <Text>{moment(this.state.date_start).format("h:mm A")}</Text>
-          </TouchableOpacity>
-          <Text> - </Text>
-          <TouchableOpacity
-            onPress={() => {
-              if (!this.state.show == true) {
-                this.showTimepicker();
-              } else {
-                this.setState({ show: false });
-              }
-            }}
-          >
-            <Text>{moment(this.state.date_start).format("h:mm A")}</Text>
-          </TouchableOpacity>
+      <View style={{ flex: 1, paddingTop: 20, paddingLeft: 10, paddingRight: 10 }}>
+        <View style={styles.containerStyle}>
+          <View style={styles.settingsItem}>
+            <Text style={styles.settingsLeft}>Date</Text>
+            <TouchableOpacity
+              onPress={() => {
+                if (!this.state.show == true) {
+                  this.showDatepicker();
+                } else {
+                  this.setState({ show: false });
+                }
+              }}
+            >
+              <Text>{_.isDate(this.state.date_start) ? moment(this.state.date_start).format("MMMM Do YYYY") : "none"}</Text>
+            </TouchableOpacity>
+            <Text> </Text>
+            <TouchableOpacity
+              onPress={() => {
+                if (!this.state.show == true) {
+                  this.showTimepicker();
+                } else {
+                  this.setState({ show: false });
+                }
+              }}
+            >
+              <Text>{moment(this.state.date_start).format("h:mm A")}</Text>
+            </TouchableOpacity>
+            <Text> - </Text>
+            <TouchableOpacity
+              onPress={() => {
+                if (!this.state.show == true) {
+                  this.showTimepicker();
+                } else {
+                  this.setState({ show: false });
+                }
+              }}
+            >
+              <Text>{moment(this.state.date_start).format("h:mm A")}</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              this.setState({ show: false, date_start: "" });
-            }}
-          >
-            <Text> XX</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({ show: false, date_start: "" });
+              }}
+            >
+              <MaterialIcons name="clear" size={24} color="black" />
+            </TouchableOpacity>
+          </View>
 
-        <View>
-          {this.state.show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              timeZoneOffsetInMinutes={0}
-              value={this.state.date_start}
-              mode={this.state.mode}
-              is24Hour={true}
-              display="default"
-              onChange={this.onChange}
-            />
-          )}
+          <View>
+            {this.state.show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                timeZoneOffsetInMinutes={0}
+                value={_.isDate(this.state.date_start) ? this.state.date_start : new Date()}
+                mode={this.state.mode}
+                is24Hour={true}
+                display="default"
+                onChange={this.onChange}
+              />
+            )}
+          </View>
         </View>
       </View>
     );
