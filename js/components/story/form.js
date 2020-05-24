@@ -15,7 +15,7 @@ import * as Permissions from "expo-permissions";
 import { AntDesign } from "@expo/vector-icons";
 import systemHero from "../../lib/systemHero";
 import { connect } from "react-redux";
-import { IconChat, IconShare, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime } from "./formUtilities";
+import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime } from "./formUtilities";
 
 class Form extends Component {
   uid = "";
@@ -33,7 +33,6 @@ class Form extends Component {
       visible: props.edit ? props.visible : true,
       visibleMore: props.edit ? props.visibleMore : true,
       showIconChat: props.showIconChat === false ? false : true,
-      showIconShare: props.showIconShare === false ? false : true,
 
       date_start: props.date_start,
       time_start_pretty: props.time_start_pretty,
@@ -47,7 +46,6 @@ class Form extends Component {
     };
 
     this.handlerChat = this.handlerChat.bind(this);
-    this.handlerShare = this.handlerShare.bind(this);
     this.handlerOrder = this.handlerOrder.bind(this);
     this.handlerVisible = this.handlerVisible.bind(this);
     this.handlerVisibleMore = this.handlerVisibleMore.bind(this);
@@ -59,40 +57,20 @@ class Form extends Component {
   }
 
   handlerChat(show) {
-    console.log("showIconChat:", show);
-    this.setState({
-      showIconChat: show,
-    });
+    this.setState({ showIconChat: show });
   }
-  handlerShare(show) {
-    console.log("showIconShare:", show);
-    this.setState({
-      showIconShare: show,
-    });
-  }
+
   handlerOrder(order) {
-    console.log("order:", order);
-    this.setState({
-      order: order,
-    });
+    this.setState({ order: order });
   }
   handlerVisible(visible) {
-    console.log("visible:", visible);
-    this.setState({
-      visible: visible,
-    });
+    this.setState({ visible: visible });
   }
   handlerVisibleMore(visible) {
-    console.log("visibleMore:", visible);
-    this.setState({
-      visibleMore: visible,
-    });
+    this.setState({ visibleMore: visible });
   }
-  handleEventDateTime(date_time) {
-    console.log("date_time:", date_time);
-    this.setState({
-      date_start: date_time,
-    });
+  handleEventDateTime(dateTimeStart, dateTimeEnd) {
+    this.setState({ dateTimeStart: dateTimeStart, dateTimeEnd: dateTimeEnd });
   }
 
   getPermissionAsync = async () => {
@@ -218,7 +196,6 @@ class Form extends Component {
           <View style={{ flex: 1, paddingTop: 20, paddingLeft: 10, paddingRight: 10 }}>
             <View style={styles.containerStyle}>
               <IconChat handler={this.handlerChat} showIconChat={this.state.showIconChat} />
-              <IconShare handler={this.handlerShare} showIconShare={this.state.showIconShare} />
               <OrderOnPage handler={this.handlerOrder} order={this.state.order} />
               <ShowOnHomeScreen handler={this.handlerVisible} show={this.state.visible} />
               <ShowOnMoreScreen handler={this.handlerVisibleMore} show={this.state.visibleMore} />
@@ -348,7 +325,7 @@ class newStory extends React.Component {
               saveState = { ...saveState, ...pageState };
             }
 
-            const { summary, visible, visibleMore, description, photo1, eventDate, eventStartTime, eventEndTime, order, _key, showIconChat, showIconShare } = saveState;
+            const { summary, visible, visibleMore, description, photo1, eventDate, eventStartTime, eventEndTime, order, _key, showIconChat } = saveState;
 
             const storyDict = {
               summary: summary,
@@ -361,7 +338,6 @@ class newStory extends React.Component {
               time_end_pretty: eventEndTime !== undefined ? eventEndTime : null,
               order: order !== undefined ? Number(order) : 1,
               showIconChat,
-              showIconShare,
             };
 
             if (_key == "") {

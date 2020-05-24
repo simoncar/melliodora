@@ -138,10 +138,6 @@ class Story extends Component {
   }
 
   _drawIconShare() {
-    if (this.props.route.params.showIconShare === false) {
-      return;
-    }
-
     return (
       <TouchableOpacity onPress={() => this._shareMessage()}>
         <Text style={styles.eventText}>

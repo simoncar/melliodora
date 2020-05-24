@@ -33,32 +33,6 @@ const IconChat = class IconChat extends Component {
   }
 };
 
-const IconShare = class IconShare extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <View style={styles.settingsLeft}>
-        <View>
-          <Text>Allow Share</Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => {
-            {
-              this.props.handler(!this.props.showIconShare);
-            }
-          }}
-          style={{ padding: 8 }}
-        >
-          <Feather name="share" size={32} color={this.props.showIconShare ? "#222" : "#CCC"} />
-        </TouchableOpacity>
-      </View>
-    );
-  }
-};
-
 class OrderOnPage extends Component {
   constructor(props) {
     super(props);
@@ -136,22 +110,15 @@ class EventDateTime extends Component {
   constructor(props) {
     super(props);
 
-    console.log("props.dateTimeStart:", props.dateTimeStart, props.dateTimeEnd);
     this.state = {
       dateTimeStart: props.dateTimeStart,
       dateTimeEnd: props.dateTimeEnd,
-
-      date_start: props.date_start,
-      time_start_pretty: props.time_start_pretty,
-      time_end_pretty: props.time_end_pretty,
-
       mode: "date",
       show: false,
     };
   }
 
   onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || this.state.date_start;
     //setShow(Platform.OS === "ios");
     console.log("ONCHANGEe", selectedDate);
     if (this.state.startEnd == "end") {
@@ -168,7 +135,6 @@ class EventDateTime extends Component {
   };
 
   showMode = (currentMode, startEnd) => {
-    console.log("showMode", currentMode, startEnd);
     this.setState({
       show: true,
       mode: currentMode,
@@ -200,8 +166,6 @@ class EventDateTime extends Component {
   };
 
   render() {
-    console.log("date:", this.state.date_start, _.isDate(this.state.date_start));
-
     return (
       <View style={styles.containerStyle}>
         <View style={styles.settingsItem}>
@@ -270,4 +234,4 @@ class EventDateTime extends Component {
   }
 }
 
-export { IconChat, IconShare, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime };
+export { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime };
