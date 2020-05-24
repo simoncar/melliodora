@@ -7,32 +7,6 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import _ from "lodash";
 
-const IconChat = class IconChat extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <View style={styles.settingsLeft}>
-        <View>
-          <Text>Allow Chat</Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => {
-            {
-              this.props.handler(!this.props.showIconChat);
-            }
-          }}
-          style={{ padding: 8 }}
-        >
-          <SimpleLineIcons name="bubble" size={32} color={this.props.showIconChat ? "#222" : "#CCC"} />
-        </TouchableOpacity>
-      </View>
-    );
-  }
-};
-
 class OrderOnPage extends Component {
   constructor(props) {
     super(props);
@@ -59,6 +33,30 @@ class OrderOnPage extends Component {
     );
   }
 }
+
+const IconChat = class IconChat extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    console.log("PROP CHAT:", this.props.showIconChat);
+
+    return (
+      <View style={styles.settingsItem}>
+        <View style={styles.settingsLeft}>
+          <View>
+            <Text>Allow Chat</Text>
+          </View>
+
+          <View>
+            <Switch onValueChange={(value) => this.props.handler(!this.props.showIconChat)} style={styles.switch} value={this.props.showIconChat} />
+          </View>
+        </View>
+      </View>
+    );
+  }
+};
 
 class ShowOnHomeScreen extends Component {
   constructor(props) {

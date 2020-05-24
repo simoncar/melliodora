@@ -24,7 +24,7 @@ class Form extends Component {
   constructor(props) {
     super(props);
 
-    const { edit, summary, description, photo1 } = this.props.route.params;
+    const { edit, summary, description, photo1, visible, visibleMore, showIconChat, order } = this.props.route.params;
 
     this.state = {
       photo1: edit && photo1 !== undefined ? photo1 : null,
@@ -57,6 +57,7 @@ class Form extends Component {
   }
 
   handlerChat(show) {
+    console.log("CHAT:", show);
     this.setState({ showIconChat: show });
   }
 
@@ -196,9 +197,9 @@ class Form extends Component {
           <View style={{ flex: 1, paddingTop: 20, paddingLeft: 10, paddingRight: 10 }}>
             <View style={styles.containerStyle}>
               <IconChat handler={this.handlerChat} showIconChat={this.state.showIconChat} />
-              <OrderOnPage handler={this.handlerOrder} order={this.state.order} />
               <ShowOnHomeScreen handler={this.handlerVisible} show={this.state.visible} />
               <ShowOnMoreScreen handler={this.handlerVisibleMore} show={this.state.visibleMore} />
+              <OrderOnPage handler={this.handlerOrder} order={this.state.order} />
             </View>
           </View>
           <View style={{ flex: 1, paddingTop: 20, paddingLeft: 10, paddingRight: 10 }}>
