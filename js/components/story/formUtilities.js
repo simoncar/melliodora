@@ -40,8 +40,6 @@ const IconChat = class IconChat extends Component {
   }
 
   render() {
-    console.log("PROP CHAT:", this.props.showIconChat);
-
     return (
       <View style={styles.settingsItem}>
         <View style={styles.settingsLeft}>
