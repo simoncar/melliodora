@@ -154,10 +154,17 @@ class EventDateTime extends Component {
     const currentDate = selectedDate || this.state.date_start;
     //setShow(Platform.OS === "ios");
     console.log("ONCHANGEe", selectedDate);
-    this.setState({
-      dateTimeStart: selectedDate,
-      controlDate: selectedDate,
-    });
+    if (this.state.startEnd == "end") {
+      this.setState({
+        dateTimeEnd: selectedDate,
+        controlDate: selectedDate,
+      });
+    } else {
+      this.setState({
+        dateTimeStart: selectedDate,
+        controlDate: selectedDate,
+      });
+    }
   };
 
   showMode = (currentMode, startEnd) => {
@@ -169,40 +176,26 @@ class EventDateTime extends Component {
     });
 
     if (startEnd == "start") {
-      this.setState({
-        controlDate: this.state.dateTimeStart,
-      });
+      this.setState({ controlDate: this.state.dateTimeStart });
     } else {
-      this.setState({
-        controlDate: this.state.dateTimeEnd,
-      });
+      this.setState({ controlDate: this.state.dateTimeEnd });
     }
   };
 
   showDatepicker = () => {
-    if (!_.isDate(this.state.dateTimeStart)) {
-      this.setState({
-        dateTimeStart: new Date(),
-      });
-    }
+    if (!_.isDate(this.state.dateTimeStart)) this.setState({ dateTimeStart: new Date() });
+    if (!_.isDate(this.state.dateTimeEnd)) this.setState({ dateTimeEnd: new Date() });
+
     this.showMode("date", "start");
   };
 
   showStartTimepicker = () => {
-    if (!_.isDate(this.state.dateTimeStart)) {
-      this.setState({
-        dateTimeStart: new Date(),
-      });
-    }
+    if (!_.isDate(this.state.dateTimeStart)) this.setState({ dateTimeStart: new Date() });
     this.showMode("time", "start");
   };
 
   showEndTimepicker = () => {
-    if (!_.isDate(this.state.dateTimeEnd)) {
-      this.setState({
-        dateTimeStart: new Date(),
-      });
-    }
+    if (!_.isDate(this.state.dateTimeEnd)) this.setState({ dateTimeStart: new Date() });
     this.showMode("time", "end");
   };
 
@@ -247,12 +240,12 @@ class EventDateTime extends Component {
               }
             }}
           >
-            <Text>{_.isDate(this.state.dateTimeEnd) ? moment(this.state.dateTimeEnd.format("h:mm a")) : "End"}</Text>
+            <Text>{_.isDate(this.state.dateTimeEnd) ? moment(this.state.dateTimeEnd).format("h:mm a") : "End"}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => {
-              this.setState({ show: false, date_start: "" });
+              this.setState({ show: false, dateTimeStart: "", dateTimeEnd: "" });
             }}
           >
             <MaterialIcons name="clear" size={24} color="black" />
