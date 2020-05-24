@@ -81,8 +81,10 @@ class Form extends Component {
   save() {
     SaveData(this.state);
     // console.log("SAVE:", this.state);
-    const popAction = StackActions.pop(1);
-    this.props.navigation.dispatch(popAction);
+    console.log("state:", this.state);
+    // const popAction = StackActions.pop(1);
+    // this.props.navigation.dispatch(popAction);
+    this.props.navigation.navigate("story", this.state);
   }
 
   setUid(value) {
