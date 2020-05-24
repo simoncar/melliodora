@@ -195,13 +195,7 @@ function headerLeftLanguageSelector(navigation) {
         navigation.navigate("selectLanguageHome");
       }}
     >
-      <View
-        style={{
-          color: "#48484A",
-          fontSize: 25,
-          marginLeft: 10,
-        }}
-      >
+      <View style={{ color: "#48484A", fontSize: 25, marginLeft: 10 }}>
         <FontAwesome
           name="language"
           style={{

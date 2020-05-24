@@ -23,7 +23,7 @@ class OrderOnPage extends Component {
             onChangeText={(order) => this.props.handler(order)}
             placeholder="0"
             style={styles.eventTitle}
-            value={this.props.order}
+            value={this.props.order.toString()}
             keyboardType="number-pad"
             inputContainerStyle={{ borderBottomWidth: 0 }}
             containerStyle={styles.containerStyleOrder}

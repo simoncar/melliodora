@@ -16,6 +16,8 @@ import { AntDesign } from "@expo/vector-icons";
 import systemHero from "../../lib/systemHero";
 import { connect } from "react-redux";
 import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime } from "./formUtilities";
+import { SaveData } from "./formSave";
+import { StackActions } from "@react-navigation/native";
 
 class Form extends Component {
   uid = "";
@@ -44,20 +46,13 @@ class Form extends Component {
       showAdvanced: true,
       notifyMeSwitch: false,
     };
-    console.log(this.props);
     this.handlerChat = this.handlerChat.bind(this);
     this.handlerOrder = this.handlerOrder.bind(this);
     this.handlerVisible = this.handlerVisible.bind(this);
     this.handlerVisibleMore = this.handlerVisibleMore.bind(this);
-
-    this.getPermissionAsync();
-    this.props.navigation.setParams({
-      save: () => this.state,
-    });
   }
 
   handlerChat(show) {
-    console.log("CHAT:", show);
     this.setState({ showIconChat: show });
   }
 
@@ -84,7 +79,10 @@ class Form extends Component {
   };
 
   save() {
-    console.log("SAVE:", this.state);
+    SaveData(this.state);
+    // console.log("SAVE:", this.state);
+    const popAction = StackActions.pop(1);
+    this.props.navigation.dispatch(popAction);
   }
 
   setUid(value) {
@@ -181,23 +179,10 @@ class Form extends Component {
     }
   };
 
-  _drawIconCalendar(params) {
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          this.props.navigation.navigate("phoneCalendar", this.props.navigation.state.params);
-        }}
-        style={{ padding: 8 }}
-      >
-        <Ionicons name="ios-calendar" style={styles.eventIcon} />
-      </TouchableOpacity>
-    );
-  }
-
   render() {
     const { goBack } = this.props.navigation;
     this.props.navigation.setOptions({
-      headerRight: () => <Button onPress={() => this.save()} title="Save" />,
+      headerRight: () => <Button onPress={() => this.save()} title={I18n.t("save")} />,
     });
     return (
       <Container style={{ backgroundColor: "#f2f2f2" }}>

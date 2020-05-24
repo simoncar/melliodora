@@ -13,6 +13,21 @@ import { connect } from "react-redux";
 class Story extends Component {
   constructor(props) {
     super(props);
+
+    const { _key, summary, summaryMyLanguage, descriptionMyLanguage, description, photo1, visible, visibleMore, showIconChat, order } = this.props.route.params;
+
+    this.state = {
+      photo1: photo1 !== undefined ? photo1 : null,
+      summary: summary,
+      summaryMyLanguage: summaryMyLanguage,
+      descriptionMyLanguage: descriptionMyLanguage,
+      description: description,
+      visible: visible,
+      visibleMore: visibleMore,
+      showIconChat: showIconChat,
+      order: order,
+      _key: _key,
+    };
   }
 
   componentDidMount() {
@@ -23,14 +38,14 @@ class Story extends Component {
     Share.share({
       message:
         "" +
-        this.props.route.params.summaryMyLanguage +
+        this.state.summaryMyLanguage +
         "\n" +
         formatMonth(this.props.route.params.date_start) +
         "\n" +
         formatTime(this.props.route.params.time_start_pretty, this.props.route.params.time_end_pretty) +
         " \n" +
-        this.props.route.params.descriptionMyLanguage,
-      title: this.props.route.params.summaryMyLanguage,
+        this.state.r.descriptionMyLanguage,
+      title: this.state.summaryMyLanguage,
     })
 
       .then(this._showResult)
@@ -89,8 +104,8 @@ class Story extends Component {
       return (
         <TouchableOpacity
           onPress={() => {
-            this.props.route.params.summaryMyLanguage;
-            this.props.navigation.navigate("push", this.props.route.params);
+            this.state.summaryMyLanguage;
+            this.props.navigation.navigate("push", this.state);
           }}
         >
           <Text style={styles.eventTextSend}>
@@ -102,7 +117,7 @@ class Story extends Component {
   }
 
   _drawIconChat(chatroom, title) {
-    if (_.isNil(chatroom) || this.props.route.params.showIconChat === false) {
+    if (_.isNil(chatroom) || this.state.showIconChat === false) {
       return;
     }
     return (
@@ -126,7 +141,7 @@ class Story extends Component {
       return (
         <TouchableOpacity
           onPress={() => {
-            this.props.navigation.navigate("phoneCalendar", this.props.route.params);
+            this.props.navigation.navigate("phoneCalendar", this.state);
           }}
         >
           <Text style={styles.eventText}>
@@ -157,7 +172,7 @@ class Story extends Component {
             onPress={() =>
               this.props.navigation.navigate("Form", {
                 edit: true,
-                ...this.props.route.params,
+                ...this.state,
               })
             }
           >
@@ -166,7 +181,7 @@ class Story extends Component {
         )}
 
         <Content showsVerticalScrollIndicator={false}>
-          {this._drawImage(this.props.route.params.photo1)}
+          {this._drawImage(this.state.photo1)}
 
           <View
             style={{
@@ -181,16 +196,16 @@ class Story extends Component {
               borderTopColor: "#ddd",
             }}
           >
-            {this._drawIconChat(this.props.route.params._key, this.props.route.params.summaryMyLanguage)}
-            {this._drawIconCalendar(this.props.route.params)}
+            {this._drawIconChat(this.state._key, this.state.summaryMyLanguage)}
+            {this._drawIconCalendar(this.state)}
             {this._drawIconShare()}
-            {this._drawIconSend(this.props.route.params)}
+            {this._drawIconSend(this.state)}
           </View>
 
           <View style={{ flex: 1 }}>
             <View style={styles.newsContent}>
               <Text selectable style={styles.eventTitle}>
-                {this.props.route.params.summaryMyLanguage}
+                {this.state.summaryMyLanguage}
               </Text>
 
               <Text selectable style={styles.eventText}>
@@ -238,23 +253,23 @@ class Story extends Component {
                 ]}
                 childrenProps={{ allowFontScaling: false }}
               >
-                {this.props.route.params.descriptionMyLanguage}
+                {this.state.descriptionMyLanguage}
               </ParsedText>
 
               {this.props.auth.language != "en" && (
                 <Text selectable style={styles.englishFallback}>
                   {"\n\n"}
-                  {this.props.route.params.description}
+                  {this.state.description}
                   {"\n\n"}
                 </Text>
               )}
               <Text selectable style={styles.englishFallback}>
-                {this.props.route.params.location}
+                {this.state.location}
               </Text>
               <Text> </Text>
               <Text> </Text>
               <Text selectable style={styles.eventTextAbbreviation}>
-                {getAbbreviations(this.props.route.params.summary)}
+                {getAbbreviations(this.state.summary)}
               </Text>
               <Text> </Text>
               <Text> </Text>
