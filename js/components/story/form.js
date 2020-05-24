@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, ImageBackground, Text, TextInput, TouchableOpacity, Switch, SafeAreaView, ScrollView, LayoutAnimation, Platform, Alert } from "react-native";
+import { View, ImageBackground, Text, TextInput, TouchableOpacity, Button, SafeAreaView, ScrollView, LayoutAnimation, Platform, Alert } from "react-native";
 import { Input } from "react-native-elements";
 import { Container, Content } from "native-base";
 import styles from "./styles";
@@ -82,6 +82,10 @@ class Form extends Component {
       }
     }
   };
+
+  save() {
+    console.log("SAVE:", this.state);
+  }
 
   setUid(value) {
     this.uid = value;
@@ -192,7 +196,9 @@ class Form extends Component {
 
   render() {
     const { goBack } = this.props.navigation;
-
+    this.props.navigation.setOptions({
+      headerRight: () => <Button onPress={() => this.save()} title="Save" />,
+    });
     return (
       <Container style={{ backgroundColor: "#f2f2f2" }}>
         <Content showsVerticalScrollIndicator={true}>

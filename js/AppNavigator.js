@@ -25,7 +25,6 @@ import MoreAdmin from "./components/settings/MoreAdmin";
 import Content from "./components/settings/content";
 import Story from "./components/story";
 import Form from "./components/story/form";
-import FormAdvanced from "./components/story/formAdvanced";
 import campusMap from "./components/campusMap";
 import chatRooms from "./components/chat/chatRooms";
 import chatTitle from "./components/chat/chatTitle";
@@ -65,7 +64,6 @@ function StackHomeNavigator() {
       <StackHome.Screen name="chat" component={chat} />
       <StackHome.Screen name="campusMap" component={campusMap} options={{ title: I18n.t("map") }} />
       <StackHome.Screen name="Form" component={Form} />
-      <StackHome.Screen name="FormAdvanced" component={FormAdvanced} />
       <StackHome.Screen name="authPortalStory" component={authPortal} options={{ title: I18n.t("myS") }} />
       <StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
       <StackHome.Screen name="webportalURL" component={WebportalURL} options={{ title: I18n.t("myS") }} />
