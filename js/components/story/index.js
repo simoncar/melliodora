@@ -28,6 +28,8 @@ class Story extends Component {
       order: order,
       _key: _key,
     };
+
+    console.log("Story sotyr story:", this.props);
   }
 
   componentDidMount() {
@@ -161,9 +163,13 @@ class Story extends Component {
       </TouchableOpacity>
     );
   }
+  refreshFunction(newState) {
+    console.log("REFRESH REFRESH REFRESH REFRESH REFRESH REFRESH REFRESH");
+    console.log("NEW STARTE RENDER", newState);
+    //setState(newState);
+  }
 
   render() {
-    console.log("STORY RENDER");
     return (
       <Container style={{ backgroundColor: "#fff" }}>
         {isAdmin(this.props.route.params.adminPassword) && this.props.route.params.source == "feature" && (
@@ -174,6 +180,7 @@ class Story extends Component {
               this.props.navigation.navigate("Form", {
                 edit: true,
                 ...this.state,
+                refreshFunction: this.refreshFunction,
               })
             }
           >

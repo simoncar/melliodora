@@ -1,16 +1,15 @@
 import * as firebase from "firebase";
 
 function SaveData(dict) {
-  console.log("SAVED", dict);
   const { _key, summary, description, order, photo1, showIconChat, visible, visibleMore } = dict;
 
   const storyDict = {
     summary: summary || "Title",
     description: description || "Description",
     order: order !== undefined ? Number(order) : 1,
-    showIconChat: showIconChat ,
+    showIconChat: showIconChat,
     visible: visible,
-    visibleMore: visibleMore ,
+    visibleMore: visibleMore,
     translated: false,
   };
 
