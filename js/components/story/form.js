@@ -24,27 +24,27 @@ class Form extends Component {
   constructor(props) {
     super(props);
 
-    const { edit, summary, description, photo1, visible, visibleMore, showIconChat, order } = this.props.route.params;
+    const { edit, _key, summary, description, photo1, visible, visibleMore, showIconChat, order } = this.props.route.params;
 
     this.state = {
       photo1: edit && photo1 !== undefined ? photo1 : null,
       summary: edit ? summary : "",
       description: edit ? description : "",
-      visible: props.edit ? props.visible : true,
-      visibleMore: props.edit ? props.visibleMore : true,
-      showIconChat: props.showIconChat === false ? false : true,
+      visible: edit ? visible : true,
+      visibleMore: edit ? visibleMore : true,
+      showIconChat: edit ? showIconChat : true,
+      order: edit ? order : 1,
+      _key: edit ? _key : "",
 
       date_start: props.date_start,
       time_start_pretty: props.time_start_pretty,
       time_end_pretty: props.time_end_pretty,
-      order: props.edit ? props.order : 1,
 
-      _key: props.edit ? props._key : "",
       cameraIcon: "camera",
       showAdvanced: true,
       notifyMeSwitch: false,
     };
-
+    console.log(this.props);
     this.handlerChat = this.handlerChat.bind(this);
     this.handlerOrder = this.handlerOrder.bind(this);
     this.handlerVisible = this.handlerVisible.bind(this);
@@ -197,8 +197,8 @@ class Form extends Component {
           <View style={{ flex: 1, paddingTop: 20, paddingLeft: 10, paddingRight: 10 }}>
             <View style={styles.containerStyle}>
               <IconChat handler={this.handlerChat} showIconChat={this.state.showIconChat} />
-              <ShowOnHomeScreen handler={this.handlerVisible} show={this.state.visible} />
-              <ShowOnMoreScreen handler={this.handlerVisibleMore} show={this.state.visibleMore} />
+              <ShowOnHomeScreen handler={this.handlerVisible} visible={this.state.visible} />
+              <ShowOnMoreScreen handler={this.handlerVisibleMore} visibleMore={this.state.visibleMore} />
               <OrderOnPage handler={this.handlerOrder} order={this.state.order} />
             </View>
           </View>

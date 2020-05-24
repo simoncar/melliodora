@@ -89,14 +89,13 @@ class ShowOnMoreScreen extends Component {
   render() {
     return (
       <View style={styles.settingsItem}>
-        {/* {icon} */}
         <View style={styles.settingsLeft}>
           <View>
             <Text>More Screen</Text>
           </View>
 
           <View>
-            <Switch onValueChange={(value) => this.props.handler(value)} style={styles.switch} value={this.props.visible} />
+            <Switch onValueChange={(value) => this.props.handler(value)} style={styles.switch} value={this.props.visibleMore} />
           </View>
         </View>
       </View>

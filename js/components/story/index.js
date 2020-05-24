@@ -148,7 +148,6 @@ class Story extends Component {
   }
 
   render() {
-    console.log ("PARAMS;", this.props.route.params)
     return (
       <Container style={{ backgroundColor: "#fff" }}>
         {isAdmin(this.props.route.params.adminPassword) && this.props.route.params.source == "feature" && (
