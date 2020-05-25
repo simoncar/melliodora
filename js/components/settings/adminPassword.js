@@ -9,11 +9,6 @@ import I18n from "../../lib/i18n";
 import { Text } from "native-base";
 
 class adminPassword extends Component {
-  static navigationOptions = {
-    title: "Admin Password",
-    headerBackTitle: null,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -21,12 +16,11 @@ class adminPassword extends Component {
       adminPasswordCorrect: "",
       restartMessage: "",
     };
-
-    this._retrieveAdminPassword();
   }
 
   componentDidMount() {
     Analytics.track("Admin Password");
+    this._retrieveAdminPassword();
   }
 
   _retrieveAdminPassword = async () => {

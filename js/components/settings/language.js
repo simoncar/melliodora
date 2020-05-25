@@ -19,11 +19,6 @@ class selectLanguage extends Component {
     };
   }
 
-  static navigationOptions = {
-    title: I18n.t("language"),
-    headerBackTitle: null,
-  };
-
   componentDidMount() {
     this._retrieveLanguage();
     Analytics.track("Language");

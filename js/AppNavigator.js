@@ -123,8 +123,8 @@ function StackOtherNavigator() {
       <StackOther.Screen name="moreAdmin" component={MoreAdmin} />
       <StackOther.Screen name="Content" component={Content} />
       <StackOther.Screen name="webportalURL" component={WebportalURL} />
-      <StackOther.Screen name="selectLanguage" component={selectLanguage} />
-      <StackOther.Screen name="adminPassword" component={adminPassword} />
+      <StackOther.Screen name="selectLanguage" component={selectLanguage} options={{ title: I18n.t("language") }} />
+      <StackOther.Screen name="adminPassword" component={adminPassword} options={{ title: I18n.t("adminAccess") }} />
       <StackOther.Screen name="login" component={LoginScreen} />
       <StackOther.Screen name="signup" component={SignUpScreen} />
       <StackOther.Screen name="forgetpassword" component={ForgotPasswordScreen} />

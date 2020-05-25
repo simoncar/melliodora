@@ -10,9 +10,6 @@ import moment from "moment";
 import styles from "./styles";
 
 class CalendarRow extends Component {
-  static navigationOptions = {
-    title: "Calendars",
-  };
 
   _selectCalendar(calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url) {
     const { goBack } = this.props.navigation;
@@ -93,10 +90,7 @@ class CalendarRow extends Component {
 }
 
 class phoneCalendar extends Component {
-  static navigationOptions = {
-    title: I18n.t("calendar"),
-  };
-
+ 
   constructor(props) {
     super(props);
     this._findCalendars();

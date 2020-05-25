@@ -18,7 +18,6 @@ import { AntDesign } from "@expo/vector-icons";
 import systemHero from "../../lib/systemHero";
 import { connect } from "react-redux";
 
-
 class PageText extends Component {
   uid = "";
   storyRef = null;
@@ -268,7 +267,6 @@ class MaterialTopTabBarWrapper extends React.Component {
   }
 }
 
-@withMappedNavigationParams()
 class PageSettings extends Component {
   constructor(props) {
     super(props);
@@ -287,22 +285,12 @@ class PageSettings extends Component {
       _key: props.edit ? props._key : "",
     };
 
-    //this.addStory = this.addStory.bind(this);
-
-    //this.getPermissionAsync();
-
     this.props.navigation.setParams({
       save: () => this.state,
     });
   }
 
-  static navigationOptions = {
-    tabBarLabel: "Settings",
-    tabBarIcon: ({ tintColor, focused, horizontal }) => <Ionicons name={focused ? "ios-people" : "ios-people"} size={horizontal ? 20 : 26} style={{ color: tintColor }} />,
-  };
-
   clearDates() {
-    console.log("Clear dates");
     this.setState({ eventDate: null });
     this.setState({ eventStartTime: null });
     this.setState({ eventEndTime: null });

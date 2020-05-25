@@ -1,32 +1,13 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  Picker,
-  SafeAreaView,
-  StyleSheet,
-  Button,
-  FlatList,
-  TouchableOpacity,
-  Animated,
-  Easing,
-  TouchableHighlight,
-  Alert,
-  TextInput
-} from "react-native";
+import { View, Text, Picker, SafeAreaView, StyleSheet, Button, FlatList, TouchableOpacity, Animated, Easing, TouchableHighlight, Alert, TextInput } from "react-native";
 import { iOSUIKit, iOSColors } from "react-native-typography";
 import _ from "lodash";
 import { SearchBar } from "react-native-elements";
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather } from "@expo/vector-icons";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { getCommunities, processSelectedCommunity } from "../../store/community";
 class DomainSelection extends Component {
-  static navigationOptions = {
-    header: null,
-  };
-
-
   constructor(props) {
     super(props);
     this.selectedBGWidth = new Animated.Value(0);
@@ -34,25 +15,23 @@ class DomainSelection extends Component {
     this.state = {
       selectedDomain: "",
       domains: [],
-      allDomains: []
+      allDomains: [],
     };
 
     props.dispatch(getCommunities());
   }
 
   componentDidMount() {
-
-    const { communities } = this.props.community
+    const { communities } = this.props.community;
     if (communities.length > 0) {
-      this.setState({ domains: communities, allDomains: communities })
+      this.setState({ domains: communities, allDomains: communities });
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-
     const { communities } = this.props.community;
     if (communities !== prevProps.community.communities) {
-      this.setState({ domains: communities, allDomains: communities })
+      this.setState({ domains: communities, allDomains: communities });
     }
   }
 
@@ -61,7 +40,7 @@ class DomainSelection extends Component {
       <View
         style={{
           height: 1,
-          backgroundColor: "#CED0CE"
+          backgroundColor: "#CED0CE",
         }}
       />
     );
@@ -72,14 +51,14 @@ class DomainSelection extends Component {
     Animated.timing(this.selectedBGWidth, {
       toValue: 1,
       duration: 300,
-      easing: Easing.in(Easing.quad)
+      easing: Easing.in(Easing.quad),
     }).start();
   };
 
-  searchFilterFunction = text => {
+  searchFilterFunction = (text) => {
     this.setState({
       selectedDomain: null,
-      searchTerm: text
+      searchTerm: text,
     });
 
     const allDomains = this.state.allDomains;
@@ -87,28 +66,28 @@ class DomainSelection extends Component {
     //reset when blank text
     if (!text) {
       this.setState({
-        domains: allDomains
+        domains: allDomains,
       });
       return;
     }
     const textToSearch = text.toUpperCase();
-    const filteredData = allDomains.filter(dataItem => {
+    const filteredData = allDomains.filter((dataItem) => {
       const searchObject = _.pick(dataItem, ["name", "node"]);
 
-      return Object.values(searchObject).some(item => item.toUpperCase().includes(textToSearch));
+      return Object.values(searchObject).some((item) => item.toUpperCase().includes(textToSearch));
     });
 
     this.setState({
-      domains: filteredData
+      domains: filteredData,
     });
   };
 
   renderHeader = () => {
     return (
-      <View style={{ height: 55, borderRadius: 10, borderColor: '#111111', borderWidth: 2, flexDirection: "row", alignItems: "center", backgroundColor: "#fff" }}>
+      <View style={{ height: 55, borderRadius: 10, borderColor: "#111111", borderWidth: 2, flexDirection: "row", alignItems: "center", backgroundColor: "#fff" }}>
         <TextInput
           style={{ flex: 1, fontSize: 22, paddingLeft: 5 }}
-          onChangeText={text => this.searchFilterFunction(text)}
+          onChangeText={(text) => this.searchFilterFunction(text)}
           value={this.state.searchTerm}
           placeholder="Search Community"
           placeholderTextColor="#555555"
@@ -134,42 +113,39 @@ class DomainSelection extends Component {
   renderItem = ({ item }) => {
     const selected = this.state.selectedDomain == item;
     return (
-      <TouchableOpacity style={styles.item}
-        onLayout={
-          (event) => {
-            if (this.highlightwidth == 0) {
-              this.highlightwidth = event.nativeEvent.layout.width;
-            }
+      <TouchableOpacity
+        style={styles.item}
+        onLayout={(event) => {
+          if (this.highlightwidth == 0) {
+            this.highlightwidth = event.nativeEvent.layout.width;
           }
-        }
-        onPress={
-          () => {
-            this.setState({ selectedDomain: item });
-            this.animateHighlightSelected();
-          }
-        }
+        }}
+        onPress={() => {
+          this.setState({ selectedDomain: item });
+          this.animateHighlightSelected();
+        }}
       >
-        {
-          selected ? (
-            <Animated.View
-              style={{
-                position: "absolute",
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                backgroundColor: "#96ceb4",
-                zIndex: -2,
-                width: this.selectedBGWidth.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, this.highlightwidth]
-                })
-              }}></Animated.View >
-          ) : null}
+        {selected ? (
+          <Animated.View
+            style={{
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              backgroundColor: "#96ceb4",
+              zIndex: -2,
+              width: this.selectedBGWidth.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, this.highlightwidth],
+              }),
+            }}
+          ></Animated.View>
+        ) : null}
 
         <Text style={styles.title}>{item.name}</Text>
         <Text style={styles.subtitle}>{item.node}</Text>
-      </TouchableOpacity >
+      </TouchableOpacity>
     );
   };
 
@@ -180,17 +156,11 @@ class DomainSelection extends Component {
     }
     return (
       <SafeAreaView style={{ flexDirection: "column", flex: 1, backgroundColor: "#f2f2f2" }}>
-
-
-        <TouchableOpacity
-          style={styles.SubmitButtonStyle}
-          activeOpacity={0.5}
-          onPress={onPressedCreateCommunity}>
+        <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={onPressedCreateCommunity}>
           <Ionicons style={{ flexShrink: 1 }} name="ios-add-circle" size={44} color="#999999" />
 
           <Text style={[styles.TextStyle, { fontSize: 24, paddingHorizontal: 12, flex: 1, textAlign: "left", fontWeight: "500" }]}>Create Community</Text>
           <Ionicons style={{ flexShrink: 1 }} name="ios-arrow-forward" size={32} color="#777777" />
-
         </TouchableOpacity>
 
         <Text
@@ -200,8 +170,9 @@ class DomainSelection extends Component {
             marginTop: 58,
             marginLeft: 12,
             marginBottom: 12,
-            alignSelf: "center"
-          }}>
+            alignSelf: "center",
+          }}
+        >
           Select Community
         </Text>
 
@@ -220,9 +191,9 @@ class DomainSelection extends Component {
               shadowOpacity: 0.8,
               shadowRadius: 1,
               elevation: 5,
-              height: 340
-            }}>
-
+              height: 340,
+            }}
+          >
             <FlatList
               data={this.state.domains}
               renderItem={this.renderItem}
@@ -232,19 +203,19 @@ class DomainSelection extends Component {
               showsVerticalScrollIndicator={false}
             />
           </View>
-
         </View>
 
-        <TouchableOpacity onPress={() => {
-          if (!this.state.selectedDomain) {
-            Alert.alert('Please select a community');
-          } else {
-            console.log("button presed");
-            this.props.dispatch(processSelectedCommunity(this.state.selectedDomain));
-          }
-        }}
-
-          style={{ height: 55, borderRadius: 15, backgroundColor: '#777777', flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 12 }}>
+        <TouchableOpacity
+          onPress={() => {
+            if (!this.state.selectedDomain) {
+              Alert.alert("Please select a community");
+            } else {
+              console.log("button presed");
+              this.props.dispatch(processSelectedCommunity(this.state.selectedDomain));
+            }
+          }}
+          style={{ height: 55, borderRadius: 15, backgroundColor: "#777777", flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 12 }}
+        >
           <Text style={{ color: "white", fontSize: 22 }}>Confirm</Text>
         </TouchableOpacity>
       </SafeAreaView>
@@ -257,7 +228,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 12,
     zIndex: -1,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   title: {
     fontSize: 14,
@@ -273,7 +244,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     zIndex: -1,
     fontFamily: "SegoeUI",
-
   },
   searchContainer: {
     backgroundColor: "#fff",
@@ -283,7 +253,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "transparent",
     borderTopColor: "transparent",
     overflow: "hidden",
-    zIndex: -1
+    zIndex: -1,
   },
   TextStyle: {
     color: "#111111",
@@ -306,7 +276,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   community: state.community,
 });
 export default connect(mapStateToProps)(DomainSelection);

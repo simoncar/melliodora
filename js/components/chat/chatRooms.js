@@ -15,11 +15,6 @@ import { connect } from "react-redux";
 var specialChatrooms = {};
 
 class chatRooms extends Component {
-  static navigationOptions = {
-    title: I18n.t("chat"),
-    tabBarIcon: <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={"bubble"} color={"blue"} size={24} />,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -74,7 +69,8 @@ class chatRooms extends Component {
               chatroom: "New Chatroom",
               onGoBack: this.refresh,
             });
-          }}>
+          }}
+        >
           <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "23%", top: "-10%" }}>+</Text>
         </TouchableHighlight>
         <Content showsVerticalScrollIndicator={false}>
@@ -89,7 +85,8 @@ class chatRooms extends Component {
                     alignItems: "center",
 
                     marginTop: 5,
-                  }}>
+                  }}
+                >
                   <TouchableOpacity
                     style={{ flexDirection: "row" }}
                     onPress={() => {
@@ -98,7 +95,8 @@ class chatRooms extends Component {
                         chatroom: "New Chatroom",
                         onGoBack: this.refresh,
                       });
-                    }}>
+                    }}
+                  >
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                       <AntDesign style={styles.iconLeftPlus} name="pluscircleo" />
                       <Text style={styles.cardTitle}>New Chat Group</Text>
@@ -108,12 +106,7 @@ class chatRooms extends Component {
                 </View>
               </View>
 
-              <FlatList
-                style={styles.card}
-                data={this.props.community.userChatrooms}
-                renderItem={this._renderItemNoCard.bind(this)}
-                keyExtractor={this.keyExtractor}
-              />
+              <FlatList style={styles.card} data={this.props.community.userChatrooms} renderItem={this._renderItemNoCard.bind(this)} keyExtractor={this.keyExtractor} />
             </View>
           </View>
         </Content>

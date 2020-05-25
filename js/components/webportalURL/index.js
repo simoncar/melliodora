@@ -10,7 +10,7 @@ var WEBVIEW_REF = "webview";
 class WebportalSports extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.getParam("title"),
-    headerBackTitle: null
+    headerBackTitle: null,
   });
 
   constructor(props) {
@@ -22,16 +22,16 @@ class WebportalSports extends Component {
   }
 
   state = {
-    url: this.props.navigation.getParam("url"),
+    url: this.props.route.params.url,
     status: "No Page Loaded",
     backButtonEnabled: false,
     forwardButtonEnabled: false,
     loading: true,
     cookies: {},
-    webViewUrl: ""
+    webViewUrl: "",
   };
 
-  onNavigationStateChange = navState => {
+  onNavigationStateChange = (navState) => {
     this.setState({ url: navState.url });
   };
 
@@ -49,21 +49,11 @@ class WebportalSports extends Component {
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>
-              <TouchableOpacity
-                disabled={!this.state.canGoBack}
-                onPress={this.onBack.bind(this)}
-              >
+              <TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
                 <Ionicons style={styles.navIcon} name="ios-arrow-back" />
               </TouchableOpacity>
 
-              <TextInput
-                ref="pageURL"
-                value={this.state.url}
-                placeholderTextColor="#FFF"
-                style={styles.url}
-                autoCapitalize="none"
-                selectionColor="#FFF"
-              />
+              <TextInput ref="pageURL" value={this.state.url} placeholderTextColor="#FFF" style={styles.url} autoCapitalize="none" selectionColor="#FFF" />
 
               <Ionicons style={styles.navIcon} name="ios-arrow-forward" />
             </View>

@@ -7,11 +7,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 
 export default class chatTitle extends Component {
-  static navigationOptions = {
-    title: "Edit",
-    headerBackTitle: null,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -41,13 +36,7 @@ export default class chatTitle extends Component {
       var edit = this.props.navigation.getParam("edit");
 
       if (edit == true) {
-        await firebase
-          .firestore()
-          .collection(global.domain)
-          .doc("chat")
-          .collection("chatrooms")
-          .doc(this.props.navigation.getParam("chatroom"))
-          .set(dict, { merge: true });
+        await firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").doc(this.props.navigation.getParam("chatroom")).set(dict, { merge: true });
       } else {
         await firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").add(dict);
       }
@@ -64,13 +53,7 @@ export default class chatTitle extends Component {
       visible: false,
     };
     console.log("hiding");
-    firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("chat")
-      .collection("chatrooms")
-      .doc(this.props.navigation.getParam("chatroom"))
-      .set(dict, { merge: true });
+    firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").doc(this.props.navigation.getParam("chatroom")).set(dict, { merge: true });
 
     this.props.navigation.navigate("chatRooms");
   }
@@ -86,14 +69,7 @@ export default class chatTitle extends Component {
   _closeHideButton() {
     console.log(this.state.type);
     if (["user", "private", "interestGroup"].indexOf(this.state.type) > -1) {
-      return (
-        <Button
-          icon={<MaterialIcons name="delete" size={25} color="white" />}
-          title="Close/Hide Chat Group"
-          style={styles.button}
-          onPress={() => this._hideChatroom()}
-        />
-      );
+      return <Button icon={<MaterialIcons name="delete" size={25} color="white" />} title="Close/Hide Chat Group" style={styles.button} onPress={() => this._hideChatroom()} />;
     } else {
       return;
     }
