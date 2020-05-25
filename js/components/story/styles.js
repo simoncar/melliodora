@@ -39,6 +39,20 @@ export default {
       }
     ),
   },
+  SubmitButtonStyle: {
+    backgroundColor: "#fff",
+    height: 50,
+    width: 250,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "rgba(0,0,0, .4)",
+    shadowOffset: { height: 2, width: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 1,
+    elevation: 4,
+    marginBottom: 30,
+  },
   switchText: {
     flexDirection: "row",
     color: "#222",

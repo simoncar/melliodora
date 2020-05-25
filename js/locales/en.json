@@ -52,5 +52,6 @@
   "signUp": "Sign Up",
   "loggedInAs": "Logged in as",
   "aboutThisApp": "About this App",
-  "password": "Password"
+  "password": "Password",
+  "cancel": "Cancel"
 }

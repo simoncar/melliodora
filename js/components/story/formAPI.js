@@ -1,6 +1,6 @@
 import * as firebase from "firebase";
 
-function SaveData(dict) {
+function SaveFeature(dict) {
   const { _key, summary, description, order, photo1, showIconChat, visible, visibleMore } = dict;
 
   const storyDict = {
@@ -14,13 +14,8 @@ function SaveData(dict) {
   };
 
   if (_key == "") {
-    firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("feature")
-      .collection("features")
-      .add(storyDict)
-      .then(() => navigation.goBack());
+    firebase.firestore().collection(global.domain).doc("feature").collection("features").add(storyDict);
+    // .then(() => navigation.goBack());
   } else {
     const storyRef = firebase.firestore().collection(global.domain).doc("feature").collection("features").doc(_key);
 
@@ -30,6 +25,22 @@ function SaveData(dict) {
   return;
 }
 
+function DeleteFeature(_key, handler) {
+  if (_key) {
+    firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("feature")
+      .collection("features")
+      .doc(_key)
+      .delete()
+      .then(() => handler());
+  }
+
+  return;
+}
+
 module.exports = {
-  SaveData,
+  SaveFeature,
+  DeleteFeature,
 };

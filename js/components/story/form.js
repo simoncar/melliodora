@@ -16,7 +16,7 @@ import { AntDesign } from "@expo/vector-icons";
 import systemHero from "../../lib/systemHero";
 import { connect } from "react-redux";
 import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime } from "./formUtilities";
-import { SaveData } from "./formSave";
+import { SaveFeature, DeleteFeature } from "./formAPI";
 import { StackActions } from "@react-navigation/native";
 
 class Form extends Component {
@@ -84,11 +84,45 @@ class Form extends Component {
       refreshFunction(this.state);
     }
 
-    SaveData(this.state);
+    SaveFeature(this.state);
     // console.log("SAVE:", this.state);
     const popAction = StackActions.pop(2);
     this.props.navigation.dispatch(popAction);
     //this.props.navigation.navigate("story", this.state);
+  }
+
+  deleteHandler() {
+    const popAction = StackActions.pop(2);
+    this.props.navigation.dispatch(popAction);
+  }
+
+  deleteButton() {
+    const { _key, edit } = this.props.route.params;
+    if (edit) {
+      return (
+        <TouchableOpacity
+          style={styles.SubmitButtonStyle}
+          activeOpacity={0.5}
+          onPress={() => {
+            Alert.alert(
+              I18n.t("delete"),
+              "Are you sure?",
+              [
+                {
+                  text: I18n.t("cancel"),
+                  onPress: () => console.log("Cancel Pressed"),
+                  style: "cancel",
+                },
+                { text: I18n.t("delete"), onPress: () => DeleteFeature(_key, this.deleteHandler) },
+              ],
+              { cancelable: false }
+            );
+          }}
+        >
+          <Text style={styles.TextStyle}>{I18n.t("delete")}</Text>
+        </TouchableOpacity>
+      );
+    }
   }
 
   setUid(value) {
@@ -232,119 +266,12 @@ class Form extends Component {
                 value={this.state.description}
               />
             </View>
+            <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>{this.deleteButton()}</View>
           </View>
         </Content>
       </Container>
     );
   }
-}
-
-class newStory extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerLeft: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}
-      >
-        <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
-      </TouchableOpacity>
-    ),
-
-    headerTitle: I18n.t("edit"),
-
-    headerRight: (
-      <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-        {navigation.state.params && (
-          <TouchableOpacity
-            onPress={() => {
-              Alert.alert(
-                "Confirm Delete Story",
-                navigation.state.params.summary + "?",
-                [
-                  {
-                    text: "Cancel",
-                    style: "cancel",
-                  },
-                  {
-                    text: "OK",
-                    onPress: () => {
-                      const _key = navigation.state.params._key;
-
-                      if (_key) {
-                        firebase
-                          .firestore()
-                          .collection(global.domain)
-                          .doc("feature")
-                          .collection("features")
-                          .doc(_key)
-                          .delete()
-                          .then(() => navigation.popToTop());
-                      }
-                    },
-                  },
-                ],
-                { cancelable: true }
-              );
-            }}
-            style={{ marginRight: 12 }}
-          >
-            <AntDesign name="delete" size={24} />
-          </TouchableOpacity>
-        )}
-
-        <TouchableOpacity
-          onPress={() => {
-            const { routes } = navigation.state;
-            let saveState = {};
-
-            if (_.has(routes[0], "params.save")) {
-              const pageState = routes[0].params.save() || {};
-              saveState = { ...saveState, ...pageState };
-            }
-
-            if (_.has(routes[1], "params.save")) {
-              const pageState = routes[1].params.save() || {};
-              saveState = { ...saveState, ...pageState };
-            }
-
-            const { summary, visible, visibleMore, description, photo1, eventDate, eventStartTime, eventEndTime, order, _key, showIconChat } = saveState;
-
-            const storyDict = {
-              summary: summary,
-              visible: visible || true,
-              visibleMore: visibleMore || true,
-              description: description,
-              photo1: photo1,
-              date_start: eventDate !== undefined ? eventDate : null,
-              time_start_pretty: eventStartTime !== undefined ? eventStartTime : null,
-              time_end_pretty: eventEndTime !== undefined ? eventEndTime : null,
-              order: order !== undefined ? Number(order) : 1,
-              showIconChat,
-            };
-
-            if (_key == "") {
-              firebase
-                .firestore()
-                .collection(global.domain)
-                .doc("feature")
-                .collection("features")
-                .add(storyDict)
-                .then(() => navigation.goBack());
-            } else {
-              const storyRef = firebase.firestore().collection(global.domain).doc("feature").collection("features").doc(_key);
-
-              storyRef.set(storyDict, { merge: true }).then(() => navigation.popToTop());
-
-              systemHero.logToCalendar("StorySave-" + global.domain + summary, "Story Save - " + summary, global.domain, this.props.auth.userInfo.email || "");
-            }
-          }}
-        >
-          <Text style={[styles.chatHeading]}>{I18n.t("save")}</Text>
-        </TouchableOpacity>
-      </View>
-    ),
-  });
 }
 
 const mapStateToProps = (state) => ({
