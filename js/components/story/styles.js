@@ -172,9 +172,22 @@ export default {
   },
 
   storyPhoto: {
-    width: null,
+    width: "98%",
     height: 200,
     flex: 1,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    backgroundColor: "#fff",
+    shadowColor: "rgba(0,0,0, .4)",
+    shadowOffset: { height: 1, width: 0.5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 0.5,
+    elevation: 1,
+    marginBottom: 12,
+    width: "98%",
+    alignSelf: "center",
+    borderWidth: 1,
+    borderColor: "lightgray",
   },
 
   photoButton: {
