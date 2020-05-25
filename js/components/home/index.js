@@ -270,18 +270,14 @@ class Home extends Component {
     return (
       <Container>
         {(global.administrator || this.props.auth.isAdmin) && (
-          <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => this.props.navigation.navigate("Form")}>
-            <Text
-              style={{
-                fontSize: 44,
-                color: "white",
-                position: "absolute",
-                left: "23%",
-                top: "-10%",
-              }}
-            >
-              +
-            </Text>
+          <TouchableHighlight
+            style={styles.addButton}
+            underlayColor="#ff7043"
+            onPress={() => {
+              this.props.navigation.navigate("Form", { edit: false });
+            }}
+          >
+            <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "20%", top: "-20%" }}>+</Text>
           </TouchableHighlight>
         )}
         <Content showsVerticalScrollIndicator={false}>
@@ -294,6 +290,7 @@ class Home extends Component {
                 bounces={false}
                 contentContainerStyle={{
                   paddingHorizontal: 12,
+
                   paddingVertical: 8,
                 }}
                 style={{ backgroundColor: "white", marginVertical: 6 }}

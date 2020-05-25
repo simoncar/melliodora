@@ -79,8 +79,11 @@ class Form extends Component {
   };
 
   save() {
-    const refreshFunction = this.props.route.params.refreshFunction;
-    refreshFunction(this.state);
+    if (this.props.route.params.edit) {
+      const refreshFunction = this.props.route.params.refreshFunction;
+      refreshFunction(this.state);
+    }
+
     SaveData(this.state);
     // console.log("SAVE:", this.state);
     const popAction = StackActions.pop(2);

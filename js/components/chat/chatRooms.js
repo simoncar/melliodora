@@ -29,8 +29,6 @@ class chatRooms extends Component {
 
     const { navigation } = this.props;
     this.focusListener = navigation.addListener("didFocus", () => {
-      // The screen is focused
-      // Call any action
       console.log("chatRooms is focused");
       this.props.dispatch(buildChatroomList());
     });
@@ -40,7 +38,7 @@ class chatRooms extends Component {
 
   componentWillUnmount() {
     // Remove the event listener
-    this.focusListener.remove();
+    //this.focusListener.remove();
   }
 
   refresh = ({ title }) => {
@@ -63,6 +61,7 @@ class chatRooms extends Component {
       <Container style={styles.homeContainer}>
         <TouchableHighlight
           style={styles.addButton}
+          underlayColor="#ff7043"
           onPress={() => {
             this.props.navigation.navigate("chatTitle", {
               edit: false,
@@ -71,7 +70,17 @@ class chatRooms extends Component {
             });
           }}
         >
-          <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "23%", top: "-10%" }}>+</Text>
+          <Text
+            style={{
+              fontSize: 44,
+              color: "white",
+              position: "absolute",
+              left: "20%",
+              top: "-20%",
+            }}
+          >
+            +
+          </Text>
         </TouchableHighlight>
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
