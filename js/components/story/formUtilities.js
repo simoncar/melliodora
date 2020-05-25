@@ -201,27 +201,43 @@ class EventDateTime extends Component {
           >
             <Text>{_.isDate(this.state.dateTimeEnd) ? moment(this.state.dateTimeEnd).format("h:mm a") : "End"}</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              this.setState({ show: false, dateTimeStart: "", dateTimeEnd: "" });
-            }}
-          >
-            <MaterialIcons name="clear" size={24} color="black" />
-          </TouchableOpacity>
         </View>
 
         <View>
           {this.state.show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              timeZoneOffsetInMinutes={0}
-              value={_.isDate(this.state.controlDate) ? this.state.controlDate : new Date()}
-              mode={this.state.mode}
-              is24Hour={false}
-              display="default"
-              onChange={this.onChange}
-            />
+            <View>
+              <View style={styles.settingsItem}>
+                <View style={styles.settingsLeft}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.setState({ show: false, dateTimeStart: "", dateTimeEnd: "" });
+                    }}
+                  >
+                    <Text>Clear</Text>
+                  </TouchableOpacity>
+
+                  <View style={styles.settings}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        this.setState({ show: false });
+                      }}
+                    >
+                      <Text>Done</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+
+              <DateTimePicker
+                testID="dateTimePicker"
+                timeZoneOffsetInMinutes={0}
+                value={_.isDate(this.state.controlDate) ? this.state.controlDate : new Date()}
+                mode={this.state.mode}
+                is24Hour={false}
+                display="default"
+                onChange={this.onChange}
+              />
+            </View>
           )}
         </View>
       </View>

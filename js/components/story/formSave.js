@@ -25,10 +25,6 @@ function SaveData(dict) {
     const storyRef = firebase.firestore().collection(global.domain).doc("feature").collection("features").doc(_key);
 
     storyRef.set(storyDict, { merge: true });
-
-    //.then(() => navigation.popToTop());
-
-    //systemHero.logToCalendar("StorySave-" + global.domain + summary, "Story Save - " + summary, global.domain, this.props.auth.userInfo.email || "");
   }
 
   return;
