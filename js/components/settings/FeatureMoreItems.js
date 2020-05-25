@@ -25,8 +25,6 @@ class FeatureMoreItems extends Component {
     } catch (e) {
       console.error(e.message);
     }
-
-    console.log(this.props.show);
   }
 
   onCollectionUpdate = (querySnapshot) => {
@@ -78,8 +76,6 @@ class FeatureMoreItems extends Component {
       uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const uri = item.photo1;
-
-    console.log("ITEM:", item)
 
     if (!(this.props.show == "visibleMore")) {
       return <ListItem navigation={this.props.navigation} item={item} editMode={this.props.editMode} language={this.props.language} />;
