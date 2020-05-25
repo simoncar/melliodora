@@ -34,7 +34,7 @@ function DeleteFeature(_key, handler) {
       .collection("features")
       .doc(_key)
       .delete()
-      .then(() => handler());
+      .then(() => handler);
   }
 
   return;

@@ -91,9 +91,9 @@ class Form extends Component {
     //this.props.navigation.navigate("story", this.state);
   }
 
-  deleteHandler() {
+  deleteHandler(navigation) {
     const popAction = StackActions.pop(2);
-    this.props.navigation.dispatch(popAction);
+    navigation.dispatch(popAction);
   }
 
   deleteButton() {
@@ -113,7 +113,7 @@ class Form extends Component {
                   onPress: () => console.log("Cancel Pressed"),
                   style: "cancel",
                 },
-                { text: I18n.t("delete"), onPress: () => DeleteFeature(_key, this.deleteHandler) },
+                { text: I18n.t("delete"), onPress: () => DeleteFeature(_key, this.deleteHandler(this.props.navigation)) },
               ],
               { cancelable: false }
             );
@@ -140,17 +140,19 @@ class Form extends Component {
   }
 
   _drawImage(imageURI) {
+    console.log("imageURI:", imageURI);
     if (_.isNil(imageURI)) {
       var uri =
         "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fxdesk-calendar-980x470-20181016.jpg.pagespeed.ic.BdAsh-Nj_6.jpg?alt=media&token=697fef73-e77d-46de-83f5-a45540694274";
     } else {
       var uri = imageURI;
     }
+    console.log("uri:", uri);
 
     if (undefined !== uri && null !== uri && uri.length > 0) {
       return (
         <View>
-          <ImageBackground style={styles.storyPhoto} source={{ uri: `${this.state.photo1}` }}>
+          <ImageBackground style={styles.storyPhoto} source={{ uri: `${uri}` }}>
             <TouchableOpacity style={styles.photoButton} onPress={this._pickImage}>
               <View>
                 <Entypo name={this.state.cameraIcon} style={{ fontSize: 25, color: "white" }} />
