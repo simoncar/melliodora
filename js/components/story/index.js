@@ -4,11 +4,14 @@ import { Container, Content, Text } from "native-base";
 import { Ionicons, Feather, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import ParsedText from "react-native-parsed-text";
+import { useIsFocused } from "@react-navigation/native";
 import styles from "./styles";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../global.js";
 import _ from "lodash";
 import Analytics from "../../lib/analytics";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { myFunction } from "./myfunction";
 
 class Story extends Component {
   constructor(props) {
@@ -28,12 +31,24 @@ class Story extends Component {
       order: order,
       _key: _key,
     };
+    this.refreshFunction = this.refreshFunction.bind(this);
+  }
 
-    console.log("Story sotyr story:", this.props);
+  navigationSubscription() {
+    console.log("navigationSubscription");
   }
 
   componentDidMount() {
     // Analytics.track("Story", { story: this.props.route.params.summaryMyLanguage });
+
+    this._unsubscribe = this.props.navigation.addListener("focus", () => {
+      //console.log("Add LIstender FFFFFFFF FOCUS");
+      // this.setState({ summaryMyLanguage: "QQQQQQQ" });
+    });
+  }
+
+  componentWillUnmount() {
+    this._unsubscribe();
   }
 
   _shareMessage() {
@@ -119,9 +134,9 @@ class Story extends Component {
   }
 
   _drawIconChat(chatroom, title) {
-    if (_.isNil(chatroom) || this.state.showIconChat === false) {
-      return;
-    }
+    // if (_.isNil(chatroom) || this.state.showIconChat === false) {
+    //   return;
+    // }
     return (
       <TouchableOpacity
         onPress={() => {
@@ -131,9 +146,7 @@ class Story extends Component {
           });
         }}
       >
-        <Text style={styles.eventText}>
-          <SimpleLineIcons name="bubble" style={styles.eventIcon} />{" "}
-        </Text>
+        <Text style={styles.eventText}>{this.state.showIconChat && <SimpleLineIcons name="bubble" style={styles.eventIcon} />} </Text>
       </TouchableOpacity>
     );
   }
@@ -164,9 +177,7 @@ class Story extends Component {
     );
   }
   refreshFunction(newState) {
-    console.log("REFRESH REFRESH REFRESH REFRESH REFRESH REFRESH REFRESH");
-    console.log("NEW STARTE RENDER", newState);
-    //setState(newState);
+    this.setState({ newState, summaryMyLanguage: newState.summary, descriptionMyLanguage: newState.description });
   }
 
   render() {
@@ -176,13 +187,14 @@ class Story extends Component {
           <TouchableHighlight
             style={styles.addButton}
             underlayColor="#ff7043"
-            onPress={() =>
+            onPress={() => {
+              
               this.props.navigation.navigate("Form", {
                 edit: true,
                 ...this.state,
                 refreshFunction: this.refreshFunction,
-              })
-            }
+              });
+            }}
           >
             <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
           </TouchableHighlight>
@@ -299,3 +311,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Story);
+//export default compose(myFunction, connect(mapStateToProps)(Story));
