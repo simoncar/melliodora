@@ -119,7 +119,7 @@ function StackOtherNavigator() {
       <StackOther.Screen name="settings" component={Settings} options={{ title: I18n.t("more") }} />
       <StackOther.Screen name="library" component={Library} options={{ title: I18n.t("library") }} />
       <StackOther.Screen name="logs" component={Logs} />
-      <StackOther.Screen name="storyMore" component={Story} />
+      <StackOther.Screen name="storyMore" component={Story} options={({ route }) => ({ title: route.params.summary })} />
       <StackOther.Screen name="moreAdmin" component={MoreAdmin} />
       <StackOther.Screen name="Content" component={Content} />
       <StackOther.Screen name="webportalURL" component={WebportalURL} />

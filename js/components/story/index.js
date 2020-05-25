@@ -61,7 +61,7 @@ class Story extends Component {
         "\n" +
         formatTime(this.props.route.params.time_start_pretty, this.props.route.params.time_end_pretty) +
         " \n" +
-        this.state.r.descriptionMyLanguage,
+        this.state.descriptionMyLanguage,
       title: this.state.summaryMyLanguage,
     })
 
@@ -188,7 +188,6 @@ class Story extends Component {
             style={styles.addButton}
             underlayColor="#ff7043"
             onPress={() => {
-              
               this.props.navigation.navigate("Form", {
                 edit: true,
                 ...this.state,

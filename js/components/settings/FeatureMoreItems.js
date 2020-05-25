@@ -6,7 +6,7 @@ import firebase from "firebase";
 import ListItem from "./FeatureListItem";
 import { getLanguageString } from "../global";
 import { SettingsListItem, Separator } from "./SettingsListItem";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 class FeatureMoreItems extends Component {
   constructor(props) {
@@ -14,43 +14,37 @@ class FeatureMoreItems extends Component {
 
     this.state = {
       loading: true,
-      featureItems: []
+      featureItems: [],
     };
   }
 
   componentDidMount() {
     try {
-      this.ref = firebase
-        .firestore()
-        .collection(global.domain)
-        .doc("feature")
-        .collection("features")
-        .orderBy("order");
-      // TODO: isOnline.
+      this.ref = firebase.firestore().collection(global.domain).doc("feature").collection("features").orderBy("order");
       this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
     } catch (e) {
-      //console.error(e.message);
+      console.error(e.message);
     }
 
     console.log(this.props.show);
   }
 
-  onCollectionUpdate = querySnapshot => {
+  onCollectionUpdate = (querySnapshot) => {
     var trans = {};
     var featureItems = [];
 
-    querySnapshot.forEach(doc => {
+    querySnapshot.forEach((doc) => {
       if (doc.data().translated == true) {
         trans = {
           source: "feature",
           summaryMyLanguage: getLanguageString(this.props.language, doc.data(), "summary"),
-          descriptionMyLanguage: getLanguageString(this.props.language, doc.data(), "description")
+          descriptionMyLanguage: getLanguageString(this.props.language, doc.data(), "description"),
         };
       } else {
         trans = {
           source: "feature",
           summaryMyLanguage: doc.data().summary,
-          descriptionMyLanguage: doc.data().description
+          descriptionMyLanguage: doc.data().description,
         };
       }
       if (this.props.show == "visibleMore") {
@@ -64,12 +58,12 @@ class FeatureMoreItems extends Component {
 
     if (featureItems.length > 0) {
       this.setState({
-        featureItems
+        featureItems,
       });
     }
 
     this.setState({
-      loading: false
+      loading: false,
     });
   };
 
@@ -77,14 +71,15 @@ class FeatureMoreItems extends Component {
     this.unsubscribe();
   }
 
-  keyExtractor = item => item._key;
+  keyExtractor = (item) => item._key;
 
   _renderItem({ item }) {
     const preview = {
-      uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
+      uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
     const uri = item.photo1;
+
+    console.log("ITEM:", item)
 
     if (!(this.props.show == "visibleMore")) {
       return <ListItem navigation={this.props.navigation} item={item} editMode={this.props.editMode} language={this.props.language} />;
@@ -104,7 +99,7 @@ class FeatureMoreItems extends Component {
                 height: 30,
                 borderRadius: 18,
                 borderWidth: 0.1,
-                borderColor: "lightgray"
+                borderColor: "lightgray",
               }}
               {...{ preview, uri }}
             />
@@ -135,8 +130,7 @@ class FeatureMoreItems extends Component {
   }
 }
 
-
-const mapStateToProps = state => ({
-  language: state.auth.language
+const mapStateToProps = (state) => ({
+  language: state.auth.language,
 });
 export default connect(mapStateToProps)(FeatureMoreItems);
