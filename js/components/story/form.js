@@ -175,6 +175,13 @@ class Form extends Component {
       //this.setState({ image: result.uri });
       //this._images = images;
 
+      const preview = {
+        uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+      };
+
+      this.setState({ photo1: preview.uri });
+      this.setState({ cameraIcon: "hour-glass" });
+
       var fileToUpload = "";
       var mime = "";
 
@@ -184,7 +191,6 @@ class Form extends Component {
 
       fileToUpload = convertedImage.uri;
       mime = "image/jpeg";
-      this.setState({ cameraIcon: "hour-glass" });
       const blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.onload = function () {
