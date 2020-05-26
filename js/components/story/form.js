@@ -68,6 +68,10 @@ class Form extends Component {
   handleEventDateTime(dateTimeStart, dateTimeEnd) {
     console.log("HANDLER DATE:", dateTimeStart, dateTimeEnd);
     this.setState({ dateTimeStart: dateTimeStart, dateTimeEnd: dateTimeEnd });
+
+    //   <View style={{ flex: 1, paddingTop: 20, paddingLeft: 10, paddingRight: 10 }}>
+    //   <EventDateTime handler={this.handleEventDateTime} dateTimeStart={this.state.dateTimeStart} dateTimeEnd={this.state.dateTimeEnd} />
+    // </View>
   }
 
   getPermissionAsync = async () => {
@@ -171,6 +175,9 @@ class Form extends Component {
       //this.setState({ image: result.uri });
       //this._images = images;
 
+      var fileToUpload = "";
+      var mime = "";
+
       const convertedImage = await new ImageManipulator.manipulateAsync(result.uri, [{ resize: { height: 1000 } }], {
         compress: 0,
       });
@@ -238,9 +245,6 @@ class Form extends Component {
                     <ShowOnMoreScreen handler={this.handlerVisibleMore} visibleMore={this.state.visibleMore} />
                     <OrderOnPage handler={this.handlerOrder} order={this.state.order} />
                   </View>
-                </View>
-                <View style={{ flex: 1, paddingTop: 20, paddingLeft: 10, paddingRight: 10 }}>
-                  <EventDateTime handler={this.handleEventDateTime} dateTimeStart={this.state.dateTimeStart} dateTimeEnd={this.state.dateTimeEnd} />
                 </View>
               </View>
             </View>
