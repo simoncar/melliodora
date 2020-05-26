@@ -10,12 +10,14 @@ export default class chatTitle extends Component {
   constructor(props) {
     super(props);
 
-    const { chatroomTitle, type } = this.props.route.params;
+    const { chatroomTitle, chatroom, type, edit, onGoBack } = this.props.route.params;
 
     this.state = {
       chatroomTitle: chatroomTitle || "",
+      chatroom: chatroom,
       type: type,
       errorMsg: "",
+      edit: edit,
     };
   }
 
@@ -32,14 +34,11 @@ export default class chatTitle extends Component {
       }
       var dict = {
         title: chatroomTitle,
-        // type: this.state.interestGroupOnly ? "interestGroup" : "user"
         type: "public",
       };
 
-      var edit = this.props.navigation.getParam("edit");
-
-      if (edit == true) {
-        await firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").doc(this.props.navigation.getParam("chatroom")).set(dict, { merge: true });
+      if (this.state.edit == true) {
+        await firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").doc(this.state.chatroom).set(dict, { merge: true });
       } else {
         await firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").add(dict);
       }
@@ -81,7 +80,7 @@ export default class chatTitle extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.TextStyle} >{this.state.errorMsg}</Text>
+        <Text style={styles.TextStyle}>{this.state.errorMsg}</Text>
         <Input
           style={styles.titleField}
           onChangeText={(text) => this._setChatroomTitle(text)}
