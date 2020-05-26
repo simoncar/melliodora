@@ -94,7 +94,7 @@ function StackChatNavigator() {
   return (
     <StackChat.Navigator>
       <StackChat.Screen name="chatRooms" component={chatRooms} options={{ title: I18n.t("chat") }} />
-      <StackChat.Screen name="chatTitle" component={chatTitle} />
+      <StackChat.Screen name="chatTitle" component={chatTitle} options={({ route }) => ({ title: route.params.chatroom })} />
       <StackChat.Screen name="chatX" component={chat} />
       <StackChat.Screen name="selectLanguageChat" component={selectLanguage} options={{ title: I18n.t("language") }} />
     </StackChat.Navigator>

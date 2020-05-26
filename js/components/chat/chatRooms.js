@@ -42,7 +42,6 @@ class chatRooms extends Component {
   }
 
   refresh = ({ title }) => {
-    console.log("nav refresh BBBB ", title);
     //this.props.navigation.setParams({ title: title });
   };
 
@@ -70,32 +69,13 @@ class chatRooms extends Component {
             });
           }}
         >
-          <Text
-            style={{
-              fontSize: 44,
-              color: "white",
-              position: "absolute",
-              left: "20%",
-              top: "-20%",
-            }}
-          >
-            +
-          </Text>
+          <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "20%", top: "-20%" }}>+</Text>
         </TouchableHighlight>
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
             <View>
               <View style={card && styles.card}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    paddingRight: 4,
-                    justifyContent: "space-between",
-                    alignItems: "center",
-
-                    marginTop: 5,
-                  }}
-                >
+                <View style={{ flexDirection: "row", paddingRight: 4, justifyContent: "space-between", alignItems: "center", marginTop: 5 }}>
                   <TouchableOpacity
                     style={{ flexDirection: "row" }}
                     onPress={() => {

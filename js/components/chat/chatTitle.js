@@ -89,14 +89,7 @@ export default class chatTitle extends Component {
           placeholder={this.state.chatroomTitle}
           value={this.state.chatroomTitle}
         />
-
-        {/* <View style={styles.subjectRow}>
-            <Text style={styles.title}>Interest Group Only:</Text>
-            <Switch
-              style={{ marginLeft: 12 }}
-              onValueChange={(value) => this.setState({ interestGroupOnly: value })}
-              value={this.state.interestGroupOnly} />
-          </View> */}
+      
         <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>
           <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => this._saveChatroom()}>
             <Text style={styles.TextStyle}>{I18n.t("save")}</Text>
