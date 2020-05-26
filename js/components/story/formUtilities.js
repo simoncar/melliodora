@@ -114,7 +114,6 @@ class EventDateTime extends Component {
   }
 
   onChange = (event, selectedDate) => {
-    //setShow(Platform.OS === "ios");
     console.log("ONCHANGEe", selectedDate);
     if (this.state.startEnd == "end") {
       this.setState({
@@ -127,6 +126,7 @@ class EventDateTime extends Component {
         controlDate: selectedDate,
       });
     }
+    this.props.handler(this.state.dateTimeStart, this.state.dateTimeEnd);
   };
 
   showMode = (currentMode, startEnd) => {
@@ -167,11 +167,7 @@ class EventDateTime extends Component {
           <Text style={styles.settingsLeft}>Date</Text>
           <TouchableOpacity
             onPress={() => {
-              if (!this.state.show == true) {
-                this.showDatepicker();
-              } else {
-                this.setState({ show: false });
-              }
+              this.showDatepicker();
             }}
           >
             <Text>{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("MMMM Do YYYY") : "Start Date "}</Text>
@@ -180,11 +176,7 @@ class EventDateTime extends Component {
 
           <TouchableOpacity
             onPress={() => {
-              if (!this.state.show == true) {
-                this.showStartTimepicker();
-              } else {
-                this.setState({ show: false });
-              }
+              this.showStartTimepicker();
             }}
           >
             <Text>{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("h:mm a") : "Time"}</Text>
@@ -192,11 +184,7 @@ class EventDateTime extends Component {
           <Text> - </Text>
           <TouchableOpacity
             onPress={() => {
-              if (!this.state.show == true) {
-                this.showEndTimepicker();
-              } else {
-                this.setState({ show: false });
-              }
+              this.showEndTimepicker();
             }}
           >
             <Text>{_.isDate(this.state.dateTimeEnd) ? moment(this.state.dateTimeEnd).format("h:mm a") : "End"}</Text>

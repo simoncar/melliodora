@@ -12,7 +12,6 @@ import * as ImageManipulator from "expo-image-manipulator";
 import uuid from "uuid";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
-import { AntDesign } from "@expo/vector-icons";
 import systemHero from "../../lib/systemHero";
 import { connect } from "react-redux";
 import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime } from "./formUtilities";
@@ -50,6 +49,7 @@ class Form extends Component {
     this.handlerOrder = this.handlerOrder.bind(this);
     this.handlerVisible = this.handlerVisible.bind(this);
     this.handlerVisibleMore = this.handlerVisibleMore.bind(this);
+    this.handleEventDateTime = this.handleEventDateTime.bind(this);
   }
 
   handlerChat(show) {
@@ -66,6 +66,7 @@ class Form extends Component {
     this.setState({ visibleMore: visible });
   }
   handleEventDateTime(dateTimeStart, dateTimeEnd) {
+    console.log("HANDLER DATE:", dateTimeStart, dateTimeEnd);
     this.setState({ dateTimeStart: dateTimeStart, dateTimeEnd: dateTimeEnd });
   }
 
@@ -85,10 +86,8 @@ class Form extends Component {
     }
 
     SaveFeature(this.state);
-    // console.log("SAVE:", this.state);
     const popAction = StackActions.pop(2);
     this.props.navigation.dispatch(popAction);
-    //this.props.navigation.navigate("story", this.state);
   }
 
   deleteHandler(navigation) {
@@ -140,14 +139,12 @@ class Form extends Component {
   }
 
   _drawImage(imageURI) {
-    console.log("imageURI:", imageURI);
     if (_.isNil(imageURI)) {
       var uri =
         "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fxdesk-calendar-980x470-20181016.jpg.pagespeed.ic.BdAsh-Nj_6.jpg?alt=media&token=697fef73-e77d-46de-83f5-a45540694274";
     } else {
       var uri = imageURI;
     }
-    console.log("uri:", uri);
 
     if (undefined !== uri && null !== uri && uri.length > 0) {
       return (
