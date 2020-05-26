@@ -11,6 +11,7 @@ function SaveFeature(dict) {
     visible: visible,
     visibleMore: visibleMore,
     translated: false,
+    photo1: photo1,
   };
 
   if (_key == "") {
