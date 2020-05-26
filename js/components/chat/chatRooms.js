@@ -81,7 +81,7 @@ class chatRooms extends Component {
                     onPress={() => {
                       this.props.navigation.navigate("chatTitle", {
                         edit: false,
-                        chatroom: "New Chatroom",
+                        chatroomTitle: "New Chatroom",
                         onGoBack: this.refresh,
                       });
                     }}

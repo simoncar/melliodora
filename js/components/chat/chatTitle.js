@@ -9,9 +9,12 @@ import I18n from "../../lib/i18n";
 export default class chatTitle extends Component {
   constructor(props) {
     super(props);
+
+    const { chatroomTitle, type } = this.props.route.params;
+
     this.state = {
-      chatroomTitle: this.props.navigation.getParam("title") || "",
-      type: this.props.navigation.getParam("type"),
+      chatroomTitle: chatroomTitle || "",
+      type: type,
       errorMsg: "",
     };
   }
@@ -78,7 +81,7 @@ export default class chatTitle extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.errorMsg}</Text>
+        <Text style={styles.TextStyle} >{this.state.errorMsg}</Text>
         <Input
           style={styles.titleField}
           onChangeText={(text) => this._setChatroomTitle(text)}
@@ -89,7 +92,7 @@ export default class chatTitle extends Component {
           placeholder={this.state.chatroomTitle}
           value={this.state.chatroomTitle}
         />
-      
+
         <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>
           <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => this._saveChatroom()}>
             <Text style={styles.TextStyle}>{I18n.t("save")}</Text>
@@ -140,7 +143,10 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     paddingLeft: 10,
   },
-
+  TextStyle: {
+    fontWeight: "bold",
+    color: "#000",
+  },
   button: {
     paddingTop: 20,
     paddingBottom: 20,

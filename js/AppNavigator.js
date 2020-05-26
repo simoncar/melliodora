@@ -68,7 +68,6 @@ function StackHomeNavigator() {
       <StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
       <StackHome.Screen name="webportalURL" component={WebportalURL} options={{ title: I18n.t("myS") }} />
       <StackHome.Screen name="selectLanguageHome" component={selectLanguage} options={{ title: I18n.t("language") }} />
-
       <StackHome.Screen name="phoneCalendar" component={phoneCalendar} options={{ title: I18n.t("calendar") }} />
     </StackHome.Navigator>
   );
@@ -94,7 +93,7 @@ function StackChatNavigator() {
   return (
     <StackChat.Navigator>
       <StackChat.Screen name="chatRooms" component={chatRooms} options={{ title: I18n.t("chat") }} />
-      <StackChat.Screen name="chatTitle" component={chatTitle} options={({ route }) => ({ title: route.params.chatroom })} />
+      <StackChat.Screen name="chatTitle" component={chatTitle} options={({ route }) => ({ title: route.params.chatroomTitle })} />
       <StackChat.Screen name="chatX" component={chat} />
       <StackChat.Screen name="selectLanguageChat" component={selectLanguage} options={{ title: I18n.t("language") }} />
     </StackChat.Navigator>
