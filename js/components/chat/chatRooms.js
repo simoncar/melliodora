@@ -28,12 +28,78 @@ class chatRooms extends Component {
     });
 
     const { navigation } = this.props;
-    this.focusListener = navigation.addListener("didFocus", () => {
-      console.log("chatRooms is focused");
-      this.props.dispatch(buildChatroomList());
-    });
+    // this.focusListener = navigation.addListener("didFocus", () => {
+    //   console.log("chatRooms is focused");
+    //  this.props.dispatch(buildChatroomList());
+    this.buildChatroomList();
+    // });
 
     Analytics.track("Chatrooms");
+  }
+
+  buildChatroomList() {
+    var userChatrooms = [];
+
+    console.log("building chat room list");
+    // if (global.email == "christinathorsen@gmail.com") {
+    //   specialChatrooms = {
+    //     chatroom: "sealysicochat",
+    //     title: "App Developers Chat",
+    //   };
+    //   userChatrooms.push(specialChatrooms);
+    // }
+    this.loadFromAsyncStorage();
+
+    firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("chat")
+      .collection("chatrooms")
+
+      .orderBy("title")
+      .get()
+      .then((snapshot) => {
+        if (snapshot.empty) {
+          console.log("No notifications");
+          return;
+        }
+        const userInterestGroupCheck = _.has(global, "userInfo.interestGroups") && Array.isArray(global.userInfo.interestGroups);
+        const userInterestGroups = userInterestGroupCheck ? global.userInfo.interestGroups : [];
+
+        snapshot.forEach((doc) => {
+          const item = doc.data();
+
+          if (item.visible == false) return;
+          if (
+            (item.type == "private" && item.members.indexOf(global.uid + "") > -1) ||
+            (item.type == "interestGroup" && userInterestGroups && userInterestGroups.indexOf(item.title) > -1) ||
+            ["users", "public"].indexOf(item.type) > -1
+          ) {
+            userChatrooms.push({
+              ...item,
+              chatroom: doc.id,
+            });
+          }
+        });
+
+        AsyncStorage.setItem("userChatrooms", JSON.stringify(userChatrooms));
+
+        this.setState({
+          userChatrooms,
+          loading: false,
+        });
+      });
+  }
+
+  loadFromAsyncStorage() {
+    AsyncStorage.getItem("userChatrooms").then((fi) => {
+      var userChatrooms = JSON.parse(fi);
+
+      this.setState({
+        userChatrooms,
+        loading: false,
+      });
+    });
   }
 
   componentWillUnmount() {
@@ -95,7 +161,7 @@ class chatRooms extends Component {
                 </View>
               </View>
 
-              <FlatList style={styles.card} data={this.props.community.userChatrooms} renderItem={this._renderItemNoCard.bind(this)} keyExtractor={this.keyExtractor} />
+              <FlatList style={styles.card} data={this.state.userChatrooms} renderItem={this._renderItemNoCard.bind(this)} keyExtractor={this.keyExtractor} />
             </View>
           </View>
         </Content>
