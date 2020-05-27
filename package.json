@@ -68,7 +68,7 @@
     "react-native-elements": "^1.2.6",
     "react-native-expo-image-cache": "^4.0.8",
     "react-native-gesture-handler": "~1.6.0",
-    "react-native-gifted-chat": "^0.13.0",
+    "react-native-gifted-chat": "^0.16.1",
     "react-native-iphone-x-helper": "^1.2.1",
     "react-native-nav": "^2.0.2",
     "react-native-parsed-text": "https://github.com/EvanBacon/react-native-parsed-text.git",
