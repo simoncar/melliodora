@@ -34,7 +34,7 @@
 	"translationsGoogle": "Google Übersetzer",
 	"pta": "Eltern-Lehrer-Vereinigung",
 	"languageChangeWarning": "Die App wird nach Auswahl einer neuen Sprache neu gestartet",
-	"login": "Einloggen",
+	"login": "Anmeldung",
 	"logout": "Ausloggen",
 	"uniforms": "Uniformen",
 	"editor": "Editor",
@@ -48,8 +48,10 @@
 	"associations": "Verbände",
 	"search": "Suche",
 	"searchUsers": "Benutzer suchen",
-	"signIn": "Einloggen",
+	"signIn": "Anmelden",
 	"signUp": "Anmelden",
 	"loggedInAs": "Angemeldet als",
-	"aboutThisApp": "Über diese App"
+	"aboutThisApp": "Über diese App",
+	"password": "Passwort",
+	"cancel": "Stornieren"
 }

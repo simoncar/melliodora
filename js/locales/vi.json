@@ -44,12 +44,14 @@
 	"planning": "Lập kế hoạch",
 	"news": "Tin tức",
 	"directory": "Danh mục",
-	"member": "Thành viên",
+	"member": "Hội viên",
 	"associations": "Hiệp hội",
 	"search": "Tìm kiếm",
 	"searchUsers": "Tìm kiếm người dùng",
 	"signIn": "Đăng nhập",
 	"signUp": "Đăng ký",
 	"loggedInAs": "Đăng nhập như",
-	"aboutThisApp": "Về ứng dụng này"
+	"aboutThisApp": "Về ứng dụng này",
+	"password": "Mật khẩu",
+	"cancel": "Hủy bỏ"
 }

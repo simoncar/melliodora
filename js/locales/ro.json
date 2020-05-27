@@ -20,7 +20,7 @@
 	"version": "Versiune",
 	"typeMessage": "Scrie un mesaj...",
 	"photos": "Fotografii",
-	"save": "salva",
+	"save": "Salvați",
 	"saved": "salvată",
 	"message": "Mesaj",
 	"send": "Trimite",
@@ -51,5 +51,7 @@
 	"signIn": "Conectare",
 	"signUp": "Inscrie-te",
 	"loggedInAs": "Conectat ca",
-	"aboutThisApp": "Despre această aplicație"
+	"aboutThisApp": "Despre această aplicație",
+	"password": "Parola",
+	"cancel": "Anulare"
 }

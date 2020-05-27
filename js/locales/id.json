@@ -51,5 +51,7 @@
 	"signIn": "Masuk",
 	"signUp": "Daftar",
 	"loggedInAs": "masuk sebagai",
-	"aboutThisApp": "Tentang Aplikasi ini"
+	"aboutThisApp": "Tentang Aplikasi ini",
+	"password": "Kata sandi",
+	"cancel": "Membatalkan"
 }
