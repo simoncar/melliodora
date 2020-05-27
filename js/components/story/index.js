@@ -140,7 +140,7 @@ class Story extends Component {
     return (
       <TouchableOpacity
         onPress={() => {
-          this.props.navigation.navigate("chat", {
+          this.props.navigation.navigate("chatStory", {
             chatroom: chatroom,
             title: title,
           });
