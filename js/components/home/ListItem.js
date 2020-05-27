@@ -17,8 +17,7 @@ class ListItem extends Component {
   icon(source, number) {
     const uri = this.props.item.photo1;
     const preview = {
-      uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+      uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
 
     if (this.props.item.number >= 0) {
@@ -34,13 +33,15 @@ class ListItem extends Component {
             paddingLeft: 0,
             paddingRight: 0,
             justifyContent: "center",
-          }}>
+          }}
+        >
           <Text
             size={35}
             style={{
               color: "white",
               fontSize: 14,
-            }}>
+            }}
+          >
             {this.props.item.number}
           </Text>
         </View>
@@ -148,8 +149,7 @@ class ListItem extends Component {
     const uri = this.props.item.photo1;
     const card = this.props.card === false ? false : true;
     const preview = {
-      uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+      uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
 
     const excerpt = this.props.item.excerpt;
@@ -165,13 +165,14 @@ class ListItem extends Component {
             borderBottomWidth: 0.1,
             borderBottomColor: "lightgray",
             marginTop: 5,
-          }}>
+          }}
+        >
           <TouchableOpacity
             style={{ flexDirection: "row" }}
             onPress={() => {
-              console.log("CLICK:", this.props.item);
               this.props.navigation.navigate("story", this.props.item);
-            }}>
+            }}
+          >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               {this.icon(this.props.item.source, this.props.item.number)}
 
@@ -191,7 +192,8 @@ class ListItem extends Component {
                 flexDirection: "row",
                 justifyContent: "flex-end",
                 alignItems: "center",
-              }}>
+              }}
+            >
               {showIconChat && <SimpleLineIcons name="bubble" size={25} color="#111111" style={{ marginRight: 8 }} />}
 
               <Ionicons name="ios-more" size={25} color="#333333" style={{ marginRight: 8 }} />
@@ -200,9 +202,9 @@ class ListItem extends Component {
         </View>
         <TouchableOpacity
           onPress={() => {
-            console.log("CLICK:", this.props.item);
             this.props.navigation.navigate("story", this.props.item);
-          }}>
+          }}
+        >
           <View style={{ flexDirection: "column" }}>
             {excerpt ? (
               <Text
@@ -212,13 +214,12 @@ class ListItem extends Component {
                   color: "#777777",
                   paddingVertical: 12,
                   paddingHorizontal: 8,
-                }}>
+                }}
+              >
                 {excerpt}
               </Text>
             ) : null}
-            {this.isURL(uri) && (
-              <Image style={{ height: 200, borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }} {...{ preview, uri }} />
-            )}
+            {this.isURL(uri) && <Image style={{ height: 200, borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }} {...{ preview, uri }} />}
           </View>
         </TouchableOpacity>
       </View>

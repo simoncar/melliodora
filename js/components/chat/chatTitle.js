@@ -7,17 +7,17 @@ import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 
 export default class chatTitle extends Component {
-  static navigationOptions = {
-    title: "Edit",
-    headerBackTitle: null,
-  };
-
   constructor(props) {
     super(props);
+
+    const { chatroomTitle, chatroom, type, edit, onGoBack } = this.props.route.params;
+
     this.state = {
-      chatroomTitle: this.props.navigation.getParam("title") || "",
-      type: this.props.navigation.getParam("type"),
+      chatroomTitle: chatroomTitle || "",
+      chatroom: chatroom,
+      type: type,
       errorMsg: "",
+      edit: edit,
     };
   }
 
@@ -34,20 +34,11 @@ export default class chatTitle extends Component {
       }
       var dict = {
         title: chatroomTitle,
-        // type: this.state.interestGroupOnly ? "interestGroup" : "user"
         type: "public",
       };
 
-      var edit = this.props.navigation.getParam("edit");
-
-      if (edit == true) {
-        await firebase
-          .firestore()
-          .collection(global.domain)
-          .doc("chat")
-          .collection("chatrooms")
-          .doc(this.props.navigation.getParam("chatroom"))
-          .set(dict, { merge: true });
+      if (this.state.edit == true) {
+        await firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").doc(this.state.chatroom).set(dict, { merge: true });
       } else {
         await firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").add(dict);
       }
@@ -64,13 +55,7 @@ export default class chatTitle extends Component {
       visible: false,
     };
     console.log("hiding");
-    firebase
-      .firestore()
-      .collection(global.domain)
-      .doc("chat")
-      .collection("chatrooms")
-      .doc(this.props.navigation.getParam("chatroom"))
-      .set(dict, { merge: true });
+    firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").doc(this.props.navigation.getParam("chatroom")).set(dict, { merge: true });
 
     this.props.navigation.navigate("chatRooms");
   }
@@ -86,14 +71,7 @@ export default class chatTitle extends Component {
   _closeHideButton() {
     console.log(this.state.type);
     if (["user", "private", "interestGroup"].indexOf(this.state.type) > -1) {
-      return (
-        <Button
-          icon={<MaterialIcons name="delete" size={25} color="white" />}
-          title="Close/Hide Chat Group"
-          style={styles.button}
-          onPress={() => this._hideChatroom()}
-        />
-      );
+      return <Button icon={<MaterialIcons name="delete" size={25} color="white" />} title="Close/Hide Chat Group" style={styles.button} onPress={() => this._hideChatroom()} />;
     } else {
       return;
     }
@@ -102,7 +80,7 @@ export default class chatTitle extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.errorMsg}</Text>
+        <Text style={styles.TextStyle}>{this.state.errorMsg}</Text>
         <Input
           style={styles.titleField}
           onChangeText={(text) => this._setChatroomTitle(text)}
@@ -114,13 +92,6 @@ export default class chatTitle extends Component {
           value={this.state.chatroomTitle}
         />
 
-        {/* <View style={styles.subjectRow}>
-            <Text style={styles.title}>Interest Group Only:</Text>
-            <Switch
-              style={{ marginLeft: 12 }}
-              onValueChange={(value) => this.setState({ interestGroupOnly: value })}
-              value={this.state.interestGroupOnly} />
-          </View> */}
         <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>
           <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => this._saveChatroom()}>
             <Text style={styles.TextStyle}>{I18n.t("save")}</Text>
@@ -171,7 +142,10 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     paddingLeft: 10,
   },
-
+  TextStyle: {
+    fontWeight: "bold",
+    color: "#000",
+  },
   button: {
     paddingTop: 20,
     paddingBottom: 20,

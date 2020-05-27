@@ -3,7 +3,6 @@ import { FlatList, View, AsyncStorage, TouchableOpacity, TouchableHighlight } fr
 import * as firebase from "firebase";
 import { Container, Content, Text } from "native-base";
 import { SimpleLineIcons, Entypo, AntDesign } from "@expo/vector-icons";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import styles from "./styles";
 
 import I18n from "../../lib/i18n";
@@ -15,13 +14,7 @@ import { connect } from "react-redux";
 
 var specialChatrooms = {};
 
-@withMappedNavigationParams()
 class chatRooms extends Component {
-  static navigationOptions = {
-    title: I18n.t("chat"),
-    tabBarIcon: <SimpleLineIcons style={{ backgroundColor: "transparent" }} name={"bubble"} color={"blue"} size={24} />,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -35,23 +28,86 @@ class chatRooms extends Component {
     });
 
     const { navigation } = this.props;
-    this.focusListener = navigation.addListener("didFocus", () => {
-      // The screen is focused
-      // Call any action
-      console.log("chatRooms is focused");
-      this.props.dispatch(buildChatroomList());
-    });
+    // this.focusListener = navigation.addListener("didFocus", () => {
+    //   console.log("chatRooms is focused");
+    //  this.props.dispatch(buildChatroomList());
+    this.buildChatroomList();
+    // });
 
     Analytics.track("Chatrooms");
   }
 
+  buildChatroomList() {
+    var userChatrooms = [];
+
+    console.log("building chat room list");
+    // if (global.email == "christinathorsen@gmail.com") {
+    //   specialChatrooms = {
+    //     chatroom: "sealysicochat",
+    //     title: "App Developers Chat",
+    //   };
+    //   userChatrooms.push(specialChatrooms);
+    // }
+    this.loadFromAsyncStorage();
+
+    firebase
+      .firestore()
+      .collection(global.domain)
+      .doc("chat")
+      .collection("chatrooms")
+
+      .orderBy("title")
+      .get()
+      .then((snapshot) => {
+        if (snapshot.empty) {
+          console.log("No notifications");
+          return;
+        }
+        const userInterestGroupCheck = _.has(global, "userInfo.interestGroups") && Array.isArray(global.userInfo.interestGroups);
+        const userInterestGroups = userInterestGroupCheck ? global.userInfo.interestGroups : [];
+
+        snapshot.forEach((doc) => {
+          const item = doc.data();
+
+          if (item.visible == false) return;
+          if (
+            (item.type == "private" && item.members.indexOf(global.uid + "") > -1) ||
+            (item.type == "interestGroup" && userInterestGroups && userInterestGroups.indexOf(item.title) > -1) ||
+            ["users", "public"].indexOf(item.type) > -1
+          ) {
+            userChatrooms.push({
+              ...item,
+              chatroom: doc.id,
+            });
+          }
+        });
+
+        AsyncStorage.setItem("userChatrooms", JSON.stringify(userChatrooms));
+
+        this.setState({
+          userChatrooms,
+          loading: false,
+        });
+      });
+  }
+
+  loadFromAsyncStorage() {
+    AsyncStorage.getItem("userChatrooms").then((fi) => {
+      var userChatrooms = JSON.parse(fi);
+
+      this.setState({
+        userChatrooms,
+        loading: false,
+      });
+    });
+  }
+
   componentWillUnmount() {
     // Remove the event listener
-    this.focusListener.remove();
+    //this.focusListener.remove();
   }
 
   refresh = ({ title }) => {
-    console.log("nav refresh BBBB ", title);
     //this.props.navigation.setParams({ title: title });
   };
 
@@ -70,37 +126,32 @@ class chatRooms extends Component {
       <Container style={styles.homeContainer}>
         <TouchableHighlight
           style={styles.addButton}
+          underlayColor="#ff7043"
           onPress={() => {
             this.props.navigation.navigate("chatTitle", {
               edit: false,
               chatroom: "New Chatroom",
               onGoBack: this.refresh,
             });
-          }}>
-          <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "23%", top: "-10%" }}>+</Text>
+          }}
+        >
+          <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "20%", top: "-20%" }}>+</Text>
         </TouchableHighlight>
         <Content showsVerticalScrollIndicator={false}>
           <View style={styles.newsContentLine}>
             <View>
               <View style={card && styles.card}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    paddingRight: 4,
-                    justifyContent: "space-between",
-                    alignItems: "center",
-
-                    marginTop: 5,
-                  }}>
+                <View style={{ flexDirection: "row", paddingRight: 4, justifyContent: "space-between", alignItems: "center", marginTop: 5 }}>
                   <TouchableOpacity
                     style={{ flexDirection: "row" }}
                     onPress={() => {
                       this.props.navigation.navigate("chatTitle", {
                         edit: false,
-                        chatroom: "New Chatroom",
+                        chatroomTitle: "New Chatroom",
                         onGoBack: this.refresh,
                       });
-                    }}>
+                    }}
+                  >
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                       <AntDesign style={styles.iconLeftPlus} name="pluscircleo" />
                       <Text style={styles.cardTitle}>New Chat Group</Text>
@@ -110,12 +161,7 @@ class chatRooms extends Component {
                 </View>
               </View>
 
-              <FlatList
-                style={styles.card}
-                data={this.props.community.userChatrooms}
-                renderItem={this._renderItemNoCard.bind(this)}
-                keyExtractor={this.keyExtractor}
-              />
+              <FlatList style={styles.card} data={this.state.userChatrooms} renderItem={this._renderItemNoCard.bind(this)} keyExtractor={this.keyExtractor} />
             </View>
           </View>
         </Content>

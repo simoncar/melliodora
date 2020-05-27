@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { View, StyleSheet, ActivityIndicator, YellowBox } from "react-native";
 import Setup from "./js/setup";
 import * as Sentry from "sentry-expo";
 import Constants from "expo-constants";
@@ -17,7 +17,6 @@ import { PersistGate } from "redux-persist/integration/react";
 //   debug: true,
 // });
 
-
 // Node modules check latest
 // npm-check
 
@@ -25,7 +24,7 @@ if (Constants.isDevice) {
   Sentry.init({
     dsn: Constants.manifest.extra.sentryDSN,
     enableInExpoDevelopment: true,
-    debug: true
+    debug: true,
   });
 
   Sentry.captureMessage("App started V" + Constants.manifest.version);
@@ -41,6 +40,7 @@ export default class App extends Component {
   );
   render() {
     console.disableYellowBox = true;
+    YellowBox.ignoreWarnings(["Setting a timer"]);
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={this.renderLoading()}>
@@ -56,6 +56,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });

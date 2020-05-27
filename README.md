@@ -86,3 +86,8 @@ https://github.com/simoncar/melliodora/blob/master/.github/workflows/main.yml
 ## Web (This project not web ready yet)
 
 `expo build:web --config apps/app.sais_edu_sg.json`
+
+
+### Android Emulator
+
+emulator @Pixel_3a_XL_API_R -dns-server 8.8.8.8

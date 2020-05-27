@@ -1,12 +1,14 @@
 import React from "react";
-import { Platform } from "react-native";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import { createBottomTabNavigator } from "react-navigation-tabs";
-import BottomTabBar from "react-navigation-selective-tab-bar";
+import { TouchableOpacity, View, Text, Button } from "react-native";
+//import { createAppContainer } from "react-navigation";
+import { NavigationContainer } from "@react-navigation/native";
+//import { createStackNavigator } from "react-navigation-stack";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import _ from "lodash";
 
-import { MaterialIcons, Ionicons, SimpleLineIcons, Feather } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons, SimpleLineIcons, Feather, FontAwesome } from "@expo/vector-icons";
 
 import Calendar from "./components/calendar";
 import phoneCalendar from "./components/calendar/calendars";
@@ -22,7 +24,7 @@ import selectLanguage from "./components/settings/language";
 import MoreAdmin from "./components/settings/MoreAdmin";
 import Content from "./components/settings/content";
 import Story from "./components/story";
-import StoryForm from "./components/story/form";
+import Form from "./components/story/form";
 import campusMap from "./components/campusMap";
 import chatRooms from "./components/chat/chatRooms";
 import chatTitle from "./components/chat/chatTitle";
@@ -40,224 +42,205 @@ import EditUserProfile from "./components/auth/EditUserProfile";
 import UserSearch from "./components/settings/UserSearch";
 import stylesGlobal from "./themes/globalTheme";
 
-let StackHome = createStackNavigator(
-  {
-    homeNav: { screen: Home },
-    contact: { screen: Contact },
-    contactAdmin: { screen: ContactAdmin },
-    story: { screen: Story },
-    push: { screen: push },
-    campusMap: { screen: campusMap },
-    storyForm: { screen: StoryForm },
-    authPortalStory: { screen: authPortal },
-    searchCalendarHome: { screen: Search },
-    webportalURL: { screen: WebportalURL }
-  },
-  {
-    defaultNavigationOptions: {
-      headerTitleStyle: {
-        fontSize: stylesGlobal.navbarFontSize,
-        color: "#111111"
-      },
-      headerTintColor: '#111111',
-      headerStyle: {
-        borderBottomWidth: 0,
-      }
-    }
-  }
-);
+const StackHome = createStackNavigator();
 
-StackHome.navigationOptions = ({ navigation }) => {
-  return {
-    title: I18n.t("home"),
-    headerBackTitle: null,
-    tabBarIcon: ({ focused, tintColor, horizontal }) => <Ionicons name="ios-home" size={horizontal ? 20 : 25} color={tintColor} />
-  };
-};
+function StackHomeNavigator() {
+  return (
+    <StackHome.Navigator>
+      <StackHome.Screen
+        name="homeNav"
+        component={Home}
+        options={({ navigation, route }) => ({
+          headerTitle: headerTitle(route),
+          headerLeft: () => headerLeftLanguageSelector(navigation),
+          headerRight: () => headerRightSearch(navigation),
+        })}
+      />
 
-let StackCalendar = createStackNavigator(
-  {
-    home: { screen: Calendar },
-    phoneCalendar: { screen: phoneCalendar },
-    storyCalendar: { screen: Story },
-    searchCalendar: { screen: Search }
-  },
-  {
-    defaultNavigationOptions: {
-      headerBackTitle: null,
-      headerTitleStyle: {
-        fontSize: stylesGlobal.navbarFontSize,
-        color: "#111111"
-      },
-      headerTintColor: '#111111',
-      headerStyle: {
-        borderBottomWidth: 0,
-      }
-    }
-  }
-);
+      <StackHome.Screen name="contact" component={Contact} options={{ title: I18n.t("contact") }} />
+      <StackHome.Screen name="contactAdmin" component={ContactAdmin} options={{ title: I18n.t("contact") }} />
+      <StackHome.Screen name="story" component={Story} options={({ route }) => ({ title: route.params.summary })} />
+      <StackHome.Screen name="push" component={push} />
+      <StackHome.Screen name="chatStory" component={chat} options={({ route }) => ({ title: route.params.title })} />
+      <StackHome.Screen name="campusMap" component={campusMap} options={{ title: I18n.t("map") }} />
+      <StackHome.Screen name="Form" component={Form} />
+      <StackHome.Screen name="authPortalEmbed" component={authPortal} options={{ title: I18n.t("myS") }} />
+      <StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
+      <StackHome.Screen name="webportalURL" component={WebportalURL} options={{ title: I18n.t("myS") }} />
+      <StackHome.Screen name="selectLanguageHome" component={selectLanguage} options={{ title: I18n.t("language") }} />
+      <StackHome.Screen name="phoneCalendar" component={phoneCalendar} options={{ title: I18n.t("calendar") }} />
+      <StackChat.Screen name="selectLanguageChat" component={selectLanguage} options={{ title: I18n.t("language") }} />
+    </StackHome.Navigator>
+  );
+}
 
-StackCalendar.navigationOptions = ({ navigation }) => {
-  return {
-    title: I18n.t("calendar"),
-    headerBackTitle: null,
-    tabBarIcon: ({ focused, tintColor, horizontal }) => <Ionicons name="ios-calendar" size={horizontal ? 20 : 25} color={tintColor} />
-  };
-};
+const StackCalendar = createStackNavigator();
 
-let StackChat = createStackNavigator(
-  {
-    chatRooms: { screen: chatRooms },
-    chatTitle: { screen: chatTitle },
-    chat: { screen: chat },
-    selectLanguageChat: { screen: selectLanguage }
-  },
-  {
-    defaultNavigationOptions: {
-      headerBackTitle: null,
-      headerTitleStyle: {
-        fontSize: stylesGlobal.navbarFontSize,
-        color: "#111111"
-      },
-      headerTintColor: '#111111',
-      headerStyle: {
-        borderBottomWidth: 0,
-      }
-    }
-  }
-);
+function StackCalendarNavigator() {
+  return (
+    <StackCalendar.Navigator>
+      <StackCalendar.Screen name="home" component={Calendar} options={{ title: I18n.t("calendar") }} />
+      <StackCalendar.Screen name="phoneCalendar" component={phoneCalendar} options={{ title: I18n.t("calendar") }} />
+      <StackCalendar.Screen name="storyCalendar" component={Story} options={({ route }) => ({ title: route.params.summary })} />
+      <StackCalendar.Screen name="searchCalendar" component={Search} options={{ title: I18n.t("search") }} />
+      <StackCalendar.Screen name="chatCalendar" component={chat} options={({ route }) => ({ title: route.params.title })} />
+    </StackCalendar.Navigator>
+  );
+}
 
-StackChat.navigationOptions = ({ navigation }) => {
-  return {
-    title: I18n.t("chat"),
-    tabBarIcon: ({ focused, tintColor, horizontal }) => <SimpleLineIcons name="bubble" size={horizontal ? 20 : 25} color={tintColor} />
-  };
-};
+const StackChat = createStackNavigator();
 
-let StackWeb = createStackNavigator({
-  authPortal: { screen: authPortal }
-});
+function StackChatNavigator() {
+  return (
+    <StackChat.Navigator>
+      <StackChat.Screen name="chatRooms" component={chatRooms} options={{ title: I18n.t("chat") }} />
+      <StackChat.Screen name="chatTitle" component={chatTitle} options={({ route }) => ({ title: route.params.title })} />
+      <StackChat.Screen name="chat" component={chat} options={({ route }) => ({ title: route.params.title })} />
+      <StackChat.Screen name="selectLanguageChat" component={selectLanguage} options={{ title: I18n.t("language") }} />
+    </StackChat.Navigator>
+  );
+}
 
-StackWeb.navigationOptions = ({ navigation }) => {
-  const title = global.switch_tab_portalName;
-  return {
-    title,
-    headerBackTitle: null,
-    tabBarIcon: ({ focused, tintColor, horizontal }) => <MaterialIcons name="web" size={horizontal ? 20 : 25} color={tintColor} />,
-    headerTintColor: '#111111',
-    headerStyle: {
-      borderBottomWidth: 0
-    }
-  };
-};
+const StackWeb = createStackNavigator();
 
-let StackOther = createStackNavigator(
-  {
-    settings: { screen: Settings },
-    library: { screen: Library },
-    logs: { screen: Logs },
-    storyMore: { screen: Story },
-    moreAdmin: { screen: MoreAdmin },
-    Content: { screen: Content },
-    webportalURL: { screen: WebportalURL },
-    selectLanguage: { screen: selectLanguage },
-    adminPassword: { screen: adminPassword },
-    login: { screen: LoginScreen },
-    signup: { screen: SignUpScreen },
-    forgetpassword: { screen: ForgotPasswordScreen },
-    CameraApp: { screen: CameraApp },
-    UserProfile: { screen: UserProfile },
-    UserSearch: { screen: UserSearch },
-    EditUserProfile: { screen: EditUserProfile }
-  },
-  {
-    defaultNavigationOptions: {
-      headerBackTitle: null,
-      headerTitleStyle: {
-        fontSize: stylesGlobal.navbarFontSize,
-        color: "#111111"
-      },
-      headerTintColor: '#111111',
-      headerStyle: {
-        borderBottomWidth: 0,
-      }
-    }
-  }
-);
+function StackWebNavigator() {
+  return (
+    <StackWeb.Navigator>
+      <StackWeb.Screen name="authPortal" component={authPortal} options={{ url: "", title: "Portal" }} />
+    </StackWeb.Navigator>
+  );
+}
 
-StackOther.navigationOptions = ({ navigation }) => {
-  return {
-    title: I18n.t("more"),
-    headerBackTitle: null,
-    tabBarIcon: ({ focused, tintColor, horizontal }) => <Feather name="menu" size={horizontal ? 20 : 25} color={tintColor} />
-  };
-};
+const StackOther = createStackNavigator();
 
+function StackOtherNavigator() {
+  return (
+    <StackOther.Navigator>
+      <StackOther.Screen name="settings" component={Settings} options={{ title: I18n.t("more") }} />
+      <StackOther.Screen name="library" component={Library} options={{ title: I18n.t("library") }} />
+      <StackOther.Screen name="logs" component={Logs} />
+      <StackOther.Screen name="storyMore" component={Story} options={({ route }) => ({ title: route.params.summary })} />
+      <StackOther.Screen name="moreAdmin" component={MoreAdmin} />
+      <StackOther.Screen name="Content" component={Content} />
+      <StackOther.Screen name="webportalURL" component={WebportalURL} />
+      <StackOther.Screen name="selectLanguage" component={selectLanguage} options={{ title: I18n.t("language") }} />
+      <StackOther.Screen name="adminPassword" component={adminPassword} options={{ title: I18n.t("adminAccess") }} />
+      <StackOther.Screen name="login" component={LoginScreen} />
+      <StackOther.Screen name="signup" component={SignUpScreen} />
+      <StackOther.Screen name="forgetpassword" component={ForgotPasswordScreen} />
+      <StackOther.Screen name="CameraApp" component={CameraApp} />
+      <StackOther.Screen name="UserProfile" component={UserProfile} />
+      <StackOther.Screen name="UserSearch" component={UserSearch} />
+      <StackOther.Screen name="EditUserProfile" component={EditUserProfile} />
+    </StackOther.Navigator>
+  );
+}
 
-let Tabs = createBottomTabNavigator(
-  {
-    homeNav: StackHome,
-    home: StackCalendar,
-    chatRooms: StackChat,
-    webportal: StackWeb,
-    other: StackOther
-  },
-  {
-    shifting: false,
-    labeled: true,
-    activeColor: "#111111",
-    inactiveColor: "#7777777",
-    tabBarOptions: {
-      activeTintColor: '#111111',
-      inactiveTintColor: '#777777',
-      style: {
-        borderTopWidth: 0,
-        borderTopColor: 'transparent'
-      },
-    },
+const Tab = createBottomTabNavigator();
 
-    tabBarComponent: props => {
-      let display = ["homeNav", "home", "chatRooms", "webportal", "other"];
-      if (global.domain !== "sais_edu_sg") {
-        const removeTab = ["webportal"];
-        display = _.difference(display, removeTab);
-      }
+function Tabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName, iconLib;
 
-      return (
-        <BottomTabBar
-          {...props} // Required
-          display={display} // Required
+          if (route.name === "homeNav") {
+            iconName = "";
+            return <Ionicons name={"ios-home"} size={size} color={color} />;
+          } else if (route.name === "home") {
+            return <Ionicons name={"ios-calendar"} size={size} color={color} />;
+          } else if (route.name === "calendar") {
+            return <Ionicons name={"ios-list"} size={size} color={color} />;
+          } else if (route.name === "chatRooms") {
+            return <SimpleLineIcons name={"bubble"} size={size} color={color} />;
+          } else if (route.name === "webportal") {
+            return <MaterialIcons name={"web"} size={size} color={color} />;
+          } else if (route.name === "other") {
+            return <Feather name={"menu"} size={size} color={color} />;
+          }
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: "black",
+        inactiveTintColor: "gray",
+      }}
+    >
+      <Tab.Screen name="homeNav" component={StackHomeNavigator} options={{ title: I18n.t("home") }} />
+      <Tab.Screen name="home" component={StackCalendarNavigator} options={{ title: I18n.t("calendar") }} />
+      <Tab.Screen name="chatRooms" component={StackChatNavigator} options={{ title: I18n.t("chat") }} />
+      <Tab.Screen name="webportal" component={StackWebNavigator} options={{ title: I18n.t("myS") }} />
+      <Tab.Screen name="other" component={StackOtherNavigator} options={{ title: I18n.t("more") }} />
+    </Tab.Navigator>
+  );
+}
+
+const MainScreen = createStackNavigator();
+
+export default function MainScreenNavigator() {
+  return (
+    <NavigationContainer>
+      <MainScreen.Navigator headerMode="none">
+        <MainScreen.Screen name="Tab" component={Tabs} />
+        <MainScreen.Screen name="authPortal" component={authPortal} />
+      </MainScreen.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function headerLeftLanguageSelector(navigation) {
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("selectLanguageHome");
+      }}
+    >
+      <View style={{ color: "#48484A", fontSize: 25, marginLeft: 10 }}>
+        <FontAwesome
+          name="language"
+          style={{
+            color: "#48484A",
+            fontSize: 25,
+            marginLeft: 10,
+          }}
         />
-      );
-    }
+      </View>
+    </TouchableOpacity>
+  );
+}
+
+function headerRightSearch(navigation) {
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        navigation.push("searchCalendarHome");
+      }}
+    >
+      <View
+        style={{
+          color: "#48484A",
+          fontSize: 25,
+          marginRight: 10,
+        }}
+      >
+        <Ionicons
+          name="md-search"
+          style={{
+            color: "#48484A",
+            fontSize: 25,
+            marginRight: 10,
+          }}
+        />
+      </View>
+    </TouchableOpacity>
+  );
+}
+
+function headerTitle(route) {
+  // console.log("route:", route.params.title);
+  if (route.params == undefined) {
+    return "";
+  } else {
+    return route.params.title;
   }
-);
-
-const MainScreenNavigator = createStackNavigator(
-  {
-    Tab: {
-      screen: Tabs
-    },
-
-    authPortal: { screen: authPortal }
-  },
-
-  {
-    headerMode: "none"
-  }
-);
-
-// const defaultGetStateForAction = MainScreenNavigator.router.getStateForAction;
-
-// MainScreenNavigator.router.getStateForAction = (action, state) => {
-//   console.log("action", action);
-//   console.log("state", state);
-//   return defaultGetStateForAction(action, state);
-// };
-
-const RootStack = createStackNavigator({
-  mode: "modal",
-  headerMode: "none"
-});
-
-export default createAppContainer(MainScreenNavigator);
+}

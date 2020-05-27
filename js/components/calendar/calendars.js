@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Alert, ScrollView, View } from "react-native";
 import { Container, Content, Button, Text } from "native-base";
 import * as Calendar from "expo-calendar";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import Analytics from "../../lib/analytics";
@@ -10,55 +9,15 @@ import moment from "moment";
 
 import styles from "./styles";
 
-@withMappedNavigationParams()
 class CalendarRow extends Component {
-  static navigationOptions = {
-    title: "Calendars",
-  };
 
-  _selectCalendar(
-    calendar,
-    eventTitle,
-    eventDescription,
-    eventDate,
-    eventStartTime,
-    eventEndTime,
-    location,
-    eventImage,
-    phone,
-    email,
-    url
-  ) {
+  _selectCalendar(calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url) {
     const { goBack } = this.props.navigation;
-    this._addEvent(
-      calendar.id,
-      eventTitle,
-      eventDescription,
-      eventDate,
-      eventStartTime,
-      eventEndTime,
-      location,
-      eventImage,
-      phone,
-      email,
-      url
-    );
+    this._addEvent(calendar.id, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url);
     goBack(null);
   }
 
-  _addEvent = async (
-    phoneCalendarID,
-    eventTitle,
-    eventDescription,
-    eventDate,
-    eventStartTime,
-    eventEndTime,
-    location,
-    eventImage,
-    phone,
-    email,
-    url
-  ) => {
+  _addEvent = async (phoneCalendarID, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url) => {
     var newEvent = {};
 
     if (eventStartTime == null) {
@@ -109,19 +68,8 @@ class CalendarRow extends Component {
   };
 
   render() {
-    const {
-      calendar,
-      eventTitle,
-      eventDescription,
-      eventDate,
-      eventStartTime,
-      eventEndTime,
-      location,
-      eventImage,
-      phone,
-      email,
-      url,
-    } = this.props;
+    const { calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url } = this.props;
+
 
     const calendarTypeName = calendar.entityType === Calendar.EntityTypes.REMINDER ? "Reminders" : "Events";
     return (
@@ -130,21 +78,8 @@ class CalendarRow extends Component {
           <Button
             transparent
             style={styles.calendarButton}
-            onPress={() =>
-              this._selectCalendar(
-                calendar,
-                eventTitle,
-                eventDescription,
-                eventDate,
-                eventStartTime,
-                eventEndTime,
-                location,
-                eventImage,
-                phone,
-                email,
-                url
-              )
-            }>
+            onPress={() => this._selectCalendar(calendar, eventTitle, eventDescription, eventDate, eventStartTime, eventEndTime, location, eventImage, phone, email, url)}
+          >
             <Ionicons name="ios-calendar" style={styles.calendarText} />
             <Text style={styles.calendarText}> {calendar.title} </Text>
           </Button>
@@ -154,12 +89,8 @@ class CalendarRow extends Component {
   }
 }
 
-@withMappedNavigationParams()
 class phoneCalendar extends Component {
-  static navigationOptions = {
-    title: I18n.t("calendar"),
-  };
-
+ 
   constructor(props) {
     super(props);
     this._findCalendars();

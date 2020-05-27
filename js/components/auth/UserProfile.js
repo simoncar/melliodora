@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, TouchableHighlight } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+  TouchableHighlight,
+} from "react-native";
 import firebase from "firebase";
 import { Text } from "native-base";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -18,7 +26,8 @@ class UserProfile extends Component {
         <TouchableOpacity
           onPress={() => {
             navigation.push("EditUserProfile", { ...navigation.state.params });
-          }}>
+          }}
+        >
           <View
             style={{
               color: "#48484A",
@@ -26,7 +35,8 @@ class UserProfile extends Component {
               marginRight: 10,
               flexDirection: "row",
               alignItems: "center",
-            }}>
+            }}
+          >
             <Text>Edit </Text>
             <Ionicons
               name="ios-settings"
@@ -62,7 +72,9 @@ class UserProfile extends Component {
         .get()
         .then((snapshot) => {
           if (!snapshot.exists) {
-            return this.props.navigation.push("EditUserProfile", { ...this.props.navigation.state.params });
+            return this.props.navigation.push("EditUserProfile", {
+              ...this.props.navigation.state.params,
+            });
           }
           const data = snapshot.data();
           this.props.navigation.setParams({ uid: uid, user: data });
@@ -100,7 +112,8 @@ class UserProfile extends Component {
             alignItems: "center",
             zIndex: 2,
             backgroundColor: "#fdfdfd",
-          }}>
+          }}
+        >
           {photoURL ? (
             <Image
               style={{
@@ -159,11 +172,23 @@ class UserProfile extends Component {
 
     console.log("dict", dict);
     const communityDomain = this.props.community.selectedCommunity.node;
-    const querySnapshot = await firebase.firestore().collection(communityDomain).doc("chat").collection("chatrooms").doc(docID).get();
+    const querySnapshot = await firebase
+      .firestore()
+      .collection(communityDomain)
+      .doc("chat")
+      .collection("chatrooms")
+      .doc(docID)
+      .get();
 
     if (!querySnapshot.exists) {
       navParams["title"] = dict.title;
-      await firebase.firestore().collection(communityDomain).doc("chat").collection("chatrooms").doc(docID).set(dict, { merge: true });
+      await firebase
+        .firestore()
+        .collection(communityDomain)
+        .doc("chat")
+        .collection("chatrooms")
+        .doc(docID)
+        .set(dict, { merge: true });
     }
 
     this.setState({ modalVisible: false });
@@ -177,7 +202,12 @@ class UserProfile extends Component {
         <ScrollView ScrollView bounces={false}>
           {this._renderProfilePic()}
           {this.showChat ? (
-            <View style={[styles.titleContainer, { flexDirection: "row", justifyContent: "center" }]}>
+            <View
+              style={[
+                styles.titleContainer,
+                { flexDirection: "row", justifyContent: "center" },
+              ]}
+            >
               <TouchableOpacity
                 style={{
                   alignItems: "center",
@@ -187,9 +217,11 @@ class UserProfile extends Component {
                   this.privateMessageUser(
                     this.state.user.uid,
                     global.uid,
-                    this.state.user.displayName || this.state.user.firstName + " " + this.state.user.lastName
+                    this.state.user.displayName ||
+                      this.state.user.firstName + " " + this.state.user.lastName
                   );
-                }}>
+                }}
+              >
                 <View
                   style={{
                     backgroundColor: "#4CAF50",
@@ -205,7 +237,8 @@ class UserProfile extends Component {
                       height: 1,
                       width: 1,
                     },
-                  }}>
+                  }}
+                >
                   <MaterialIcons name="message" size={25} color={"white"} />
                 </View>
                 <Text
@@ -216,7 +249,8 @@ class UserProfile extends Component {
                     fontSize: 12,
                     marginTop: 4,
                     color: "#808080",
-                  }}>
+                  }}
+                >
                   Private{"\n"}Message
                 </Text>
               </TouchableOpacity>
@@ -293,9 +327,14 @@ class UserProfile extends Component {
               Interest Group(s):
             </Text>
 
-            {Array.isArray(this.state.user.interestGroups) && this.state.user.interestGroups.length ? (
+            {Array.isArray(this.state.user.interestGroups) &&
+            this.state.user.interestGroups.length ? (
               this.state.user.interestGroups.map((grp) => (
-                <Text style={styles.sectionContentText} numberOfLines={1} key={grp}>
+                <Text
+                  style={styles.sectionContentText}
+                  numberOfLines={1}
+                  key={grp}
+                >
                   {grp}
                 </Text>
               ))

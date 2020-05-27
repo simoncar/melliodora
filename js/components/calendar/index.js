@@ -5,7 +5,6 @@ import * as firebase from "firebase";
 
 import { Agenda } from "react-native-calendars";
 import styles from "./styles";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import { Ionicons } from "@expo/vector-icons";
 
 import I18n from "../../lib/i18n";
@@ -21,7 +20,6 @@ const tabBarIcon = name => ({ tintColor }) => (
 var todayItem = {};
 const todayDate = moment().format("YYYY-MM-DD");
 
-@withMappedNavigationParams()
 class calendar1 extends Component {
   constructor(props) {
     super(props);

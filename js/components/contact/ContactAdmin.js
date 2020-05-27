@@ -13,7 +13,7 @@ import {
   TextInput,
 } from "react-native";
 import * as firebase from "firebase";
-import { Header } from "react-navigation-stack";
+//import { Header } from "react-navigation-stack";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import styles from "./styles";
 import { Overlay } from "react-native-elements";
@@ -27,7 +27,7 @@ const contactIconType = {
 
 const options = Object.keys(contactIconType);
 
-const navHeight = Header.HEIGHT;
+const navHeight = 0; //Header.HEIGHT;
 
 function immutableMove(arr, from, to) {
   return arr.reduce((prev, current, idx, self) => {
@@ -104,8 +104,8 @@ export default class ContactAdmin extends React.Component {
     editSubHeader: "",
   };
 
-  setEditType = t => this.setState({ editType: t });
-  resetEditFields = callback =>
+  setEditType = (t) => this.setState({ editType: t });
+  resetEditFields = (callback) =>
     this.setState(
       {
         editIdx: -1,
@@ -115,10 +115,10 @@ export default class ContactAdmin extends React.Component {
         editTitle: "",
         editSubHeader: "",
       },
-      () => typeof callback === "function" && callback(),
+      () => typeof callback === "function" && callback()
     );
 
-  updateData = callback => {
+  updateData = (callback) => {
     const {
       data,
       editIdx = -1,
@@ -140,20 +140,29 @@ export default class ContactAdmin extends React.Component {
     if (editIdx > -1) {
       // update current contact info
       data[editIdx] = updatedData;
-      this.setState({ data }, () => typeof callback === "function" && callback());
+      this.setState(
+        { data },
+        () => typeof callback === "function" && callback()
+      );
     } else {
       //add new contact info
       data.push(updatedData);
-      this.setState({ data }, () => typeof callback === "function" && callback());
+      this.setState(
+        { data },
+        () => typeof callback === "function" && callback()
+      );
     }
   };
 
-  deleteData = callback => {
+  deleteData = (callback) => {
     const { data, editIdx } = this.state;
 
     if (editIdx > -1) {
       data.splice(editIdx, 1);
-      this.setState({ data: data }, () => typeof callback === "function" && callback());
+      this.setState(
+        { data: data },
+        () => typeof callback === "function" && callback()
+      );
     }
   };
 
@@ -228,7 +237,7 @@ export default class ContactAdmin extends React.Component {
     });
   }
 
-  saveEditContacts = callback => {
+  saveEditContacts = (callback) => {
     const docData = { contacts: this.state.data };
     firebase
       .firestore()
@@ -273,7 +282,7 @@ export default class ContactAdmin extends React.Component {
     });
   };
 
-  yToIndex = y => {
+  yToIndex = (y) => {
     // const value = Math.floor(
     //   (this.scrollOffset + y - this.flatlistTopOffset) / this.rowHeight
     // );
@@ -308,16 +317,18 @@ export default class ContactAdmin extends React.Component {
     this.setState({ dragging: false, draggingIdx: -1 });
   };
 
-  _renderSubTexts = subTexts => {
+  _renderSubTexts = (subTexts) => {
     if (!subTexts) return;
-    return subTexts.map(subitem => <Text style={styles.feedbackHead}>{subitem}</Text>);
+    return subTexts.map((subitem) => (
+      <Text style={styles.feedbackHead}>{subitem}</Text>
+    ));
   };
 
   render() {
     const { data, dragging, draggingIdx } = this.state;
     const renderItem = ({ item, index }, noPanResponder = false) => (
       <View
-        onLayout={e => {
+        onLayout={(e) => {
           this.rowHeight = e.nativeEvent.layout.height;
           this.itemsHeight[index] = e.nativeEvent.layout.height;
         }}
@@ -329,21 +340,37 @@ export default class ContactAdmin extends React.Component {
       >
         <View>
           <View style={styles.roundedButton}>
-            <Ionicons name={contactIconType[item.type]} size={30} color="#FFF" />
+            <Ionicons
+              name={contactIconType[item.type]}
+              size={30}
+              color="#FFF"
+            />
           </View>
         </View>
         <View style={{ flex: 1, paddingLeft: 10 }}>
           <Text style={styles.feedbackHeader}>{item.headerText}</Text>
           <Text style={styles.feedbackHead}>
-            {typeof item.headerSubTexts == "object" ? item.headerSubTexts.join("\n") : item.headerSubTexts}
+            {typeof item.headerSubTexts == "object"
+              ? item.headerSubTexts.join("\n")
+              : item.headerSubTexts}
           </Text>
-          {item.email ? <Anchor href={"mailto:" + item.email} title={item.email} /> : null}
+          {item.email ? (
+            <Anchor href={"mailto:" + item.email} title={item.email} />
+          ) : null}
         </View>
-        <View style={{ alignItems: "center", justifyContent: "center", paddingHorizontal: 10 }}>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            paddingHorizontal: 10,
+          }}
+        >
           <TouchableHighlight
             onPress={() => {
               const subhead =
-                typeof item.headerSubTexts == "object" ? item.headerSubTexts.join("\n") : item.headerSubTexts;
+                typeof item.headerSubTexts == "object"
+                  ? item.headerSubTexts.join("\n")
+                  : item.headerSubTexts;
               this.setState({
                 modalVisible: true,
                 editIdx: index,
@@ -368,10 +395,17 @@ export default class ContactAdmin extends React.Component {
 
     return (
       <SafeAreaView style={styles.adminContainer}>
-        <Overlay isVisible={this.state.modalVisible} windowBackgroundColor="rgba(0, 0, 0, .85)" height="auto">
+        <Overlay
+          isVisible={this.state.modalVisible}
+          windowBackgroundColor="rgba(0, 0, 0, .85)"
+          height="auto"
+        >
           <View>
             <Text style={styles.contactText}>
-              Order: {this.state.editIdx > -1 ? this.state.editIdx + 1 : this.state.data.length + 1}{" "}
+              Order:{" "}
+              {this.state.editIdx > -1
+                ? this.state.editIdx + 1
+                : this.state.data.length + 1}{" "}
             </Text>
             <Text style={styles.contactText}>
               Select Icon: {this.state.editType}
@@ -382,26 +416,32 @@ export default class ContactAdmin extends React.Component {
                 marginTop: 8,
               }}
             >
-              <RadioButton options={options} selected={this.state.editType} selectFunc={this.setEditType} />
+              <RadioButton
+                options={options}
+                selected={this.state.editType}
+                selectFunc={this.setEditType}
+              />
             </View>
 
-            <Text style={styles.contactText}>Phone Number (if type is call)</Text>
+            <Text style={styles.contactText}>
+              Phone Number (if type is call)
+            </Text>
             <TextInput
-              onChangeText={text => this.setState({ editPhoneNumber: text })}
+              onChangeText={(text) => this.setState({ editPhoneNumber: text })}
               placeholder={"Phone Number"}
               value={this.state.editPhoneNumber}
             />
 
             <Text style={styles.contactText}>Email (if type is mail)</Text>
             <TextInput
-              onChangeText={text => this.setState({ editEmail: text })}
+              onChangeText={(text) => this.setState({ editEmail: text })}
               placeholder={"Email"}
               value={this.state.editEmail}
             />
 
             <Text style={styles.contactText}>Title: </Text>
             <TextInput
-              onChangeText={text => this.setState({ editTitle: text })}
+              onChangeText={(text) => this.setState({ editTitle: text })}
               placeholder={"Title"}
               autoFocus
               value={this.state.editTitle}
@@ -409,7 +449,7 @@ export default class ContactAdmin extends React.Component {
 
             <Text style={styles.contactText}>SubHeader Texts: </Text>
             <TextInput
-              onChangeText={text => this.setState({ editSubHeader: text })}
+              onChangeText={(text) => this.setState({ editSubHeader: text })}
               placeholder={"Sub Texts"}
               multiline
               value={this.state.editSubHeader}
@@ -418,18 +458,30 @@ export default class ContactAdmin extends React.Component {
             <View style={{ marginTop: 15 }}>
               <Button
                 title={this.state.editIdx > -1 ? "Update" : "Add"}
-                onPress={() => this.updateData(() => this.setState({ modalVisible: false }))}
+                onPress={() =>
+                  this.updateData(() => this.setState({ modalVisible: false }))
+                }
               />
             </View>
 
             {this.state.editIdx > -1 && (
               <View style={{ marginTop: 20 }}>
-                <Button title="Delete" onPress={() => this.deleteData(() => this.setState({ modalVisible: false }))} />
+                <Button
+                  title="Delete"
+                  onPress={() =>
+                    this.deleteData(() =>
+                      this.setState({ modalVisible: false })
+                    )
+                  }
+                />
               </View>
             )}
 
             <View style={{ marginTop: 20 }}>
-              <Button title="Close" onPress={() => this.setState({ modalVisible: false })} />
+              <Button
+                title="Close"
+                onPress={() => this.setState({ modalVisible: false })}
+              />
             </View>
           </View>
         </Overlay>
@@ -441,8 +493,17 @@ export default class ContactAdmin extends React.Component {
             this.resetEditFields(() => this.setState({ modalVisible: true }));
           }}
         >
-          <Text style={{ fontSize: 44, color: "white", position: "absolute", left: "23%", top: "-10%" }}>+</Text>
-
+          <Text
+            style={{
+              fontSize: 44,
+              color: "white",
+              position: "absolute",
+              left: "23%",
+              top: "-10%",
+            }}
+          >
+            +
+          </Text>
         </TouchableHighlight>
 
         {dragging && (
@@ -469,15 +530,15 @@ export default class ContactAdmin extends React.Component {
             style={{ width: "100%" }}
             data={data}
             renderItem={renderItem}
-            onScroll={e => {
+            onScroll={(e) => {
               this.scrollOffset = e.nativeEvent.contentOffset.y;
             }}
-            onLayout={e => {
+            onLayout={(e) => {
               this.flatlistTopOffset = e.nativeEvent.layout.y + navHeight;
               this.flatListHeight = e.nativeEvent.layout.height;
             }}
             scrollEventThrottle={16}
-            keyExtractor={item => "" + item}
+            keyExtractor={(item) => "" + item}
           />
         </View>
       </SafeAreaView>
