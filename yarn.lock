@@ -10132,7 +10132,7 @@ react-native-parsed-text@EvanBacon/react-native-parsed-text:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-progress@^4.0.3:
+react-native-progress@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/react-native-progress/-/react-native-progress-4.1.2.tgz#ffb2264ddfeba409c730e36a9791bb7bbe07a00d"
   integrity sha512-sFHs6k6npWDOyvQoL2NeyOyHb+q1s8iOAOeyzoObN77zkxOAsgJt9FcSJLRq70Mw7qSGNJMFDqCgvYR1huYRwQ==
