@@ -318,7 +318,7 @@ class chat extends Component {
     if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
       Linking.openURL(sURL);
     } else {
-      this.props.navigation.navigate("authPortalStory", {
+      this.props.navigation.navigate("authPortalEmbed", {
         url: sURL,
       });
     }
@@ -393,7 +393,7 @@ class chat extends Component {
       goBack(null);
       setTimeout(() => {
         // Alert.alert(I18n.t("login"));
-        this.props.navigation.navigate("authPortal");
+        this.props.navigation.navigate("authPortalEmbed");
       }, 100);
 
       this.props.navigation.navigate("chatRooms");

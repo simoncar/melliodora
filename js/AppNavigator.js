@@ -64,7 +64,7 @@ function StackHomeNavigator() {
       <StackHome.Screen name="chatStory" component={chat} options={({ route }) => ({ title: route.params.title })} />
       <StackHome.Screen name="campusMap" component={campusMap} options={{ title: I18n.t("map") }} />
       <StackHome.Screen name="Form" component={Form} />
-      <StackHome.Screen name="authPortalStory" component={authPortal} options={{ title: I18n.t("myS") }} />
+      <StackHome.Screen name="authPortalEmbed" component={authPortal} options={{ title: I18n.t("myS") }} />
       <StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
       <StackHome.Screen name="webportalURL" component={WebportalURL} options={{ title: I18n.t("myS") }} />
       <StackHome.Screen name="selectLanguageHome" component={selectLanguage} options={{ title: I18n.t("language") }} />

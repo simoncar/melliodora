@@ -75,7 +75,7 @@ class Story extends Component {
     if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
       Linking.openURL(sURL);
     } else {
-      this.props.navigation.navigate("authPortalStory", {
+      this.props.navigation.navigate("authPortalEmbed", {
         url: sURL,
       });
     }
