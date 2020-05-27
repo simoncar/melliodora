@@ -3,11 +3,7 @@ import Constants from "expo-constants";
 import { Animated, TextInput, TouchableOpacity, View } from "react-native";
 import { WebView } from "react-native-webview";
 import { Container, Text } from "native-base";
-import {
-  connectActionSheet,
-  ActionSheetProvider,
-  ActionSheetOptions,
-} from "@expo/react-native-action-sheet";
+import { connectActionSheet, ActionSheetProvider, ActionSheetOptions } from "@expo/react-native-action-sheet";
 //import { withNavigation } from "react-navigation";
 import styles from "./styles";
 import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
@@ -21,25 +17,21 @@ import { saveDetails } from "../../store/authPortal";
 
 const timer = require("react-native-timer");
 
-const tabBarIcon = (name) => ({ tintColor }) => (
-  <MaterialIcons
-    style={{ backgroundColor: "transparent" }}
-    name={name}
-    color={tintColor}
-    size={24}
-  />
-);
+const tabBarIcon = (name) => ({ tintColor }) => <MaterialIcons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />;
 
 class authPortal extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props.url);
-    if (_.isString(this.props.url)) {
-      var url = this.props.url;
-    } else {
+    //console.log(this.props.route.params.url);
+
+    if (_.isNil(this.props.route.params && this.props.route.params.url)) {
       var url = global.switch_portalURL;
+    } else {
+      var url = this.props.route.params.url;
     }
+
+    console.log("PROPS: ", this.props);
 
     this.state = {
       url: url,
@@ -49,14 +41,11 @@ class authPortal extends Component {
       loading: true,
       cookies: {},
       webViewUrl: "",
-      visible: this.props.visible,
       myText: "My Original Text",
       showMsg: false,
     };
 
-    this.actionOptions = global.switch_webportalActions
-      ? global.switch_webportalActions.map((item) => Object.keys(item)[0])
-      : [];
+    this.actionOptions = global.switch_webportalActions ? global.switch_webportalActions.map((item) => Object.keys(item)[0]) : [];
     this.actionOptions.push("Cancel");
   }
   //this.props.chatroom
@@ -66,17 +55,10 @@ class authPortal extends Component {
   }
 
   componentDidMount() {
-    if (Constants.manifest.extra.instance == "sais_edu_sg") {
-      this._visibility = new Animated.Value(this.props.visible ? 1 : 0);
+    console.log("PROPS: ", this.props);
 
-      this.setState({ showMsg: true }, () =>
-        timer.setTimeout(
-          this,
-          "hideMsg",
-          () => this.setState({ showMsg: false }),
-          10000
-        )
-      );
+    if (Constants.manifest.extra.instance == "sais_edu_sg") {
+      this.setState({ showMsg: true }, () => timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000));
     }
 
     this.props.navigation.setParams({
@@ -84,7 +66,7 @@ class authPortal extends Component {
       reload: this.reload,
     });
 
-    Analytics.track("Auth Portal", { url: this.props.url });
+    //Analytics.track("Auth Portal", { url: this.props.route.params.url });
   }
 
   _onOpenActionSheet = () => {
@@ -109,27 +91,15 @@ class authPortal extends Component {
 
   showMsg() {
     if (Constants.manifest.extra.instance == "sais_edu_sg") {
-      this.setState({ showMsg: true }, () =>
-        timer.setTimeout(
-          this,
-          "hideMsg",
-          () => this.setState({ showMsg: false }),
-          5000
-        )
-      );
+      this.setState({ showMsg: true }, () => timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 5000));
     }
   }
 
   onNavigationStateChange = (navState) => {
     console.log(navState.url);
-    if (
-      navState.url.substring(0, 42) !=
-        "https://mystamford.edu.sg/login/login.aspx" &&
-      navState.url.substring(0, 25) == "https://mystamford.edu.sg"
-    ) {
+    if (navState.url.substring(0, 42) != "https://mystamford.edu.sg/login/login.aspx" && navState.url.substring(0, 25) == "https://mystamford.edu.sg") {
       setTimeout(() => {
-        var jsCode =
-          "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML);";
+        var jsCode = "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML);";
         this.webref.injectJavaScript(jsCode);
       }, 5000);
       this.setState({ canGoBack: false });
@@ -137,10 +107,7 @@ class authPortal extends Component {
       this.setState({ canGoBack: navState.canGoBack });
     }
 
-    if (
-      navState.url.substring(0, 42) ==
-      "https://mystamford.edu.sg/login/login.aspx"
-    ) {
+    if (navState.url.substring(0, 42) == "https://mystamford.edu.sg/login/login.aspx") {
       if (!navState.url.includes("&kr=iSAMS:ParentPP")) {
         if (navState.url.includes("&kr=ActiveDirectoryKeyRing")) {
           //do overrule - they are staff
@@ -161,12 +128,6 @@ class authPortal extends Component {
     this.webref.reload();
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.visible) {
-      this.setState({ visible: true });
-    }
-  }
-
   handleMessage(message) {
     var authName = AuthParser.extractLoginUsername(message.nativeEvent.data);
     var authEmail = AuthParser.extractLoginEmail(message.nativeEvent.data);
@@ -176,32 +137,18 @@ class authPortal extends Component {
   }
 
   _onLoadEnd() {
-    if (
-      this.state.url.substring(0, 42) ==
-      "https://mystamford.edu.sg/login/login.aspx"
-    ) {
+    if (this.state.url.substring(0, 42) == "https://mystamford.edu.sg/login/login.aspx") {
       setTimeout(() => {
-        var jsCode =
-          "document.getElementsByClassName('ff-login-personalised-background')[0].style.display = 'none';";
-        jsCode =
-          jsCode +
-            "document.getElementById('username').value='" +
-            this.props.authPortal.authEmail || "" + "';true;";
+        var jsCode = "document.getElementsByClassName('ff-login-personalised-background')[0].style.display = 'none';";
+        jsCode = jsCode + "document.getElementById('username').value='" + this.props.authPortal.authEmail || "" + "';true;";
         this.webref.injectJavaScript(jsCode);
       }, 500);
     } else {
       setTimeout(() => {
-        var jsCodeNoLogo =
-          "document.getElementById('userbar-react-component').style.display = 'none';";
-        jsCodeNoLogo =
-          jsCodeNoLogo +
-          "document.getElementsByClassName('school-logo')[0].style.display = 'none';";
-        jsCodeNoLogo =
-          jsCodeNoLogo +
-          "document.getElementById('school-header').style.margin = '0px';";
-        jsCodeNoLogo =
-          jsCodeNoLogo +
-          "document.getElementsByClassName('search-container')[0].style.display = 'none';";
+        var jsCodeNoLogo = "document.getElementById('userbar-react-component').style.display = 'none';";
+        jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('school-logo')[0].style.display = 'none';";
+        jsCodeNoLogo = jsCodeNoLogo + "document.getElementById('school-header').style.margin = '0px';";
+        jsCodeNoLogo = jsCodeNoLogo + "document.getElementsByClassName('search-container')[0].style.display = 'none';";
 
         this.webref.injectJavaScript(jsCodeNoLogo);
       }, 700);
@@ -216,22 +163,11 @@ class authPortal extends Component {
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <View style={styles.topbar}>
-              <TouchableOpacity
-                disabled={!this.state.canGoBack}
-                onPress={this.onBack.bind(this)}
-              >
+              <TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
                 <Ionicons style={styles.navIcon} name="ios-arrow-back" />
               </TouchableOpacity>
 
-              <TextInput
-                ref="pageURL"
-                value={this.state.url}
-                placeholderTextColor="#FFF"
-                style={styles.url}
-                autoCapitalize="none"
-                autoFocus={false}
-                selectionColor="#FFF"
-              />
+              <TextInput ref="pageURL" value={this.state.url} placeholderTextColor="#FFF" style={styles.url} autoCapitalize="none" autoFocus={false} selectionColor="#FFF" />
             </View>
 
             <WebView
@@ -258,10 +194,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   authPortal: state.authPortal,
 });
-const ConnectedApp = compose(
-  connectActionSheet,
-  connect(mapStateToProps)
-)(authPortal);
+const ConnectedApp = compose(connectActionSheet, connect(mapStateToProps))(authPortal);
 
 export default class AppContainer extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -282,11 +215,7 @@ export default class AppContainer extends React.Component {
           navigation.state.params._onOpenActionSheet();
         }}
       >
-        <Text
-          style={{ fontSize: stylesGlobal.navbarFontSize, fontWeight: "bold" }}
-        >
-          {global.switch_portalName}
-        </Text>
+        <Text style={{ fontSize: stylesGlobal.navbarFontSize, fontWeight: "bold" }}>{global.switch_portalName}</Text>
       </TouchableOpacity>
     ),
     headerRight: (
@@ -304,7 +233,7 @@ export default class AppContainer extends React.Component {
   render() {
     return (
       <ActionSheetProvider>
-        <ConnectedApp navigation={this.props.navigation} />
+        <ConnectedApp navigation={this.props.navigation} route={this.props.route} />
       </ActionSheetProvider>
     );
   }
