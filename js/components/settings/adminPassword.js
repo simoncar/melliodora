@@ -9,11 +9,6 @@ import I18n from "../../lib/i18n";
 import { Text } from "native-base";
 
 class adminPassword extends Component {
-  static navigationOptions = {
-    title: "Admin Password",
-    headerBackTitle: null,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -21,12 +16,11 @@ class adminPassword extends Component {
       adminPasswordCorrect: "",
       restartMessage: "",
     };
-
-    this._retrieveAdminPassword();
   }
 
   componentDidMount() {
     Analytics.track("Admin Password");
+    this._retrieveAdminPassword();
   }
 
   _retrieveAdminPassword = async () => {
@@ -73,13 +67,12 @@ class adminPassword extends Component {
         <Input
           style={styles.passwordField}
           onChangeText={(text) => this._setAdminPassword(text)}
-          placeholder="Password"
+          placeholder={I18n.t("password")}
           containerStyle={styles.containerStyle}
           inputContainerStyle={{ borderBottomWidth: 0 }}
           autoCapitalize="none"
           autoFocus={true}
         />
-        <Text style={styles.alert}>{this.state.adminPasswordCorrect}</Text>
 
         <View style={{ flexDirection: "column", alignItems: "center", marginTop: 12 }}>{this._saveButton()}</View>
       </View>
@@ -104,6 +97,7 @@ const styles = StyleSheet.create({
   },
   alert: {
     paddingTop: 16,
+    color: "green",
   },
   alertRestart: {
     paddingTop: 16,
@@ -135,6 +129,9 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     elevation: 4,
     marginBottom: 30,
+  },
+  TextStyle: {
+    color: "green",
   },
 });
 

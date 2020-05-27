@@ -25,6 +25,7 @@ export default {
       }
     ),
   },
+  dateRow: { flex: 1, flexDirection: "row" },
   viewHeader: {
     flex: 1,
     flexDirection: "row",
@@ -37,6 +38,20 @@ export default {
         paddingTop: 20,
       }
     ),
+  },
+  SubmitButtonStyle: {
+    backgroundColor: "#fff",
+    height: 50,
+    width: 250,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "rgba(0,0,0, .4)",
+    shadowOffset: { height: 2, width: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 1,
+    elevation: 4,
+    marginBottom: 30,
   },
   switchText: {
     flexDirection: "row",
@@ -171,9 +186,22 @@ export default {
   },
 
   storyPhoto: {
-    width: null,
+    width: "98%",
     height: 200,
     flex: 1,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    backgroundColor: "#fff",
+    shadowColor: "rgba(0,0,0, .4)",
+    shadowOffset: { height: 1, width: 0.5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 0.5,
+    elevation: 1,
+    marginBottom: 12,
+    width: "98%",
+    alignSelf: "center",
+    borderWidth: 1,
+    borderColor: "lightgray",
   },
 
   photoButton: {
@@ -217,7 +245,6 @@ export default {
 
   settingsItem: {
     flexDirection: "row",
-    backgroundColor: "white",
     paddingVertical: 8,
     alignItems: "center",
     borderBottomColor: "#CED0CE",
@@ -230,7 +257,14 @@ export default {
     borderBottomColor: "#CED0CE",
     borderBottomWidth: 0,
   },
-  settingsLeft: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 8 },
+  settingsLeft: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 8,
+    fontSize: stylesGlobal.headingFontSize,
+  },
   eventText: {
     color: "#222",
     fontSize: stylesGlobal.bodyFontSize,

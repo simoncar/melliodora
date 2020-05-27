@@ -12,7 +12,6 @@ import CustomVideo from "./customVideo";
 import styles from "./styles";
 import I18n from "../../lib/i18n";
 import uuid from "uuid";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import _ from "lodash";
 import Backend from "./backend";
 import Analytics from "../../lib/analytics";
@@ -28,18 +27,16 @@ import { compose } from "redux";
 var localMessages = [];
 
 class chat extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerRight: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params._showActionSheet(navigation);
-        }}>
-        <View style={styles.chatHeading}>
-          <Entypo name="cog" style={styles.chatHeading} />
-        </View>
-      </TouchableOpacity>
-    ),
-  });
+  // static navigationOptions = ({ navigation }) => ({
+  //   headerRight: (
+  //     <TouchableOpacity
+  //       onPress={() => {
+  //         navigation.state.params._showActionSheet(navigation);
+  //       }}>
+  //       <View style={styles.chatHeading}>
+  //         <Entypo name="cog" style={styles.chatHeading} />
+  //       </View>
+  //     </TouchableOpacity>
 
   constructor(props) {
     super(props);
@@ -70,25 +67,20 @@ class chat extends Component {
     this.communityDomain = this.props.community.selectedCommunity.node;
     console.log("this.this.communityDomain", this.communityDomain);
     this.userInfo = this.props.auth.userInfo;
+
+    console.log("PROPS:", this.props);
   }
 
   componentDidMount() {
-    console.log("this.props.navigation", this.props.navigation.state);
-    this.props.navigation.setParams({
-      _showActionSheet: this._showActionSheet,
-      refresh: this.refresh,
-    });
+    const { chatroom, title } = this.props.route.params;
 
-    this.chatroom = this.props.navigation.getParam("chatroom");
-    this.title = this.props.navigation.getParam("title");
+    this.chatroom = chatroom;
+    this.title = title;
 
     this.ref = firebase.firestore().collection(this.communityDomain).doc("chat").collection("chatrooms").doc(this.chatroom);
 
     this.unsubscribe = this.ref.onSnapshot((doc) => {
       const item = doc.data();
-      this.props.navigation.setParams({
-        title: this.title,
-      });
     });
 
     Backend.setLanguage(this.props.auth.language);
@@ -123,13 +115,7 @@ class chat extends Component {
 
   _getPrivateChatUsers = async (members) => {
     const data = [];
-    const querySnapshot = await firebase
-      .firestore()
-      .collection(this.communityDomain)
-      .doc("user")
-      .collection("registered")
-      .where("uid", "in", members)
-      .get();
+    const querySnapshot = await firebase.firestore().collection(this.communityDomain).doc("user").collection("registered").where("uid", "in", members).get();
 
     querySnapshot.docs.forEach((doc) => {
       data.push(doc.data());
@@ -154,7 +140,8 @@ class chat extends Component {
         onPress={() => {
           this.setState({ modalVisible: false });
           this.props.navigation.navigate("UserProfile", { uid: item.uid, user: item });
-        }}>
+        }}
+      >
         <ListItem
           leftAvatar={{
             rounded: true,
@@ -331,7 +318,7 @@ class chat extends Component {
     if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
       Linking.openURL(sURL);
     } else {
-      this.props.navigation.navigate("authPortalStory", {
+      this.props.navigation.navigate("authPortalEmbed", {
         url: sURL,
       });
     }
@@ -345,7 +332,7 @@ class chat extends Component {
 
   _showActionSheet = () => {
     const options = ["Chatroom info", "Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
-
+    const { chatroom, title, type } = this.props.route.params;
     const cancelButtonIndex = options.length - 1;
 
     this.props.showActionSheetWithOptions(
@@ -360,9 +347,9 @@ class chat extends Component {
             break;
           case 1:
             this.props.navigation.push("chatTitle", {
-              title: this.props.navigation.getParam("title"),
-              chatroom: this.props.navigation.getParam("chatroom"),
-              type: this.props.navigation.getParam("type"),
+              title: title,
+              chatroom: chatroom,
+              type: type,
               edit: true,
               onGoBack: this.refresh,
             });
@@ -402,10 +389,11 @@ class chat extends Component {
   render() {
     if (this.communityDomain == "sais_edu_sg" && !this.props.authPortal.authEmail) {
       const { goBack } = this.props.navigation;
+
       goBack(null);
       setTimeout(() => {
         // Alert.alert(I18n.t("login"));
-        this.props.navigation.navigate("authPortal");
+        this.props.navigation.navigate("authPortalEmbed");
       }, 100);
 
       this.props.navigation.navigate("chatRooms");
@@ -415,6 +403,11 @@ class chat extends Component {
         </View>
       );
     }
+
+    //  this.props.navigation.setParams({
+    //    _showActionSheet: this._showActionSheet,
+    // //   refresh: this.refresh,
+    // });
 
     let userDetails = {};
     if (this.userInfo.isAnonymous) {
@@ -441,11 +434,13 @@ class chat extends Component {
                   justifyContent: "space-between",
                   height: 100,
                   padding: 12,
-                }}>
+                }}
+              >
                 <TouchableOpacity
                   onPress={() => {
                     this.setState({ modalVisible: false });
-                  }}>
+                  }}
+                >
                   <AntDesign size={32} color={"#f2f2f2"} name="closecircleo" />
                 </TouchableOpacity>
 
@@ -458,7 +453,8 @@ class chat extends Component {
                     textShadowRadius: 1,
                     textShadowColor: "#000",
                     fontWeight: "bold",
-                  }}>
+                  }}
+                >
                   {this.props.title}
                 </Text>
               </LinearGradient>
@@ -467,7 +463,7 @@ class chat extends Component {
                 <Text style={{ padding: 12, fontSize: 18 }}>Chatroom users ({this.state.chatroomUsers.length})</Text>
                 {this.renderSeparator()}
 
-                {["users", "public"].indexOf(this.props.navigation.getParam("type")) > -1 ? (
+                {["users", "public"].indexOf(this.props.route.params) > -1 ? (
                   <SettingsListItem
                     title={"All Users"}
                     onPress={() => {
@@ -497,7 +493,8 @@ class chat extends Component {
                 // contact: this.props.contact,
                 url: this.props.url,
               });
-            }}>
+            }}
+          >
             <View style={styles.topbar}>
               <Text style={styles.chatBanner}>{I18n.t("translationsGoogle")}</Text>
             </View>
@@ -548,7 +545,8 @@ export default class ActionSheetContainer extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params._showActionSheet();
-        }}>
+        }}
+      >
         <View style={styles.chatHeading}>
           <Entypo name="cog" style={styles.chatHeading} />
         </View>
@@ -559,7 +557,7 @@ export default class ActionSheetContainer extends Component {
   render() {
     return (
       <ActionSheetProvider>
-        <ConnectedApp navigation={this.props.navigation} />
+        <ConnectedApp route={this.props.route} navigation={this.props.navigation} />
       </ActionSheetProvider>
     );
   }

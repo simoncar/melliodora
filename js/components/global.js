@@ -46,6 +46,9 @@ export function formatMonth(eventDate) {
 
 export function getAbbreviations(eventDetails) {
   var ret = "";
+  if (eventDetails == undefined) {
+    return ret;
+  }
 
   if (eventDetails.includes("UE")) {
     ret = ret + "\nUE - Upper Elementary (Grade 3 to Grade 5) ";

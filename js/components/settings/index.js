@@ -12,6 +12,7 @@ import _ from "lodash";
 import { actionRetrieveFeatures } from "../../store/settings";
 import { connect } from "react-redux";
 import { Text } from "native-base";
+import * as Linking from "expo-linking";
 
 const icons = {
   wifi: require("./images/wifi.png"),
@@ -22,11 +23,6 @@ const icons = {
 };
 
 class Settings extends Component {
-  static navigationOptions = {
-    title: I18n.t("more"),
-    headerBackTitle: null,
-  };
-
   constructor(props) {
     super(props);
 
@@ -79,7 +75,8 @@ class Settings extends Component {
               uid: user.uid,
               permitEdit: true,
             })
-          }>
+          }
+        >
           <View style={styles.titleContainer}>
             <Text style={styles.nameText} numberOfLines={1}>
               {I18n.t("loggedInAs")}
@@ -122,7 +119,8 @@ class Settings extends Component {
               this.props.navigation.navigate("moreAdmin", {
                 moreFeatures: this.state.features,
               })
-            }>
+            }
+          >
             <MaterialIcons name="edit" style={{ fontSize: 25, color: "white" }} />
           </TouchableHighlight>
         )}
@@ -178,11 +176,7 @@ class Settings extends Component {
         />
 
         {isAdmin(this.props.adminPassword) && (
-          <SettingsListItem
-            icon={<FontAwesome name="edit" style={styles.imageStyleIcon} />}
-            title={I18n.t("editor")}
-            onPress={() => this.props.navigation.navigate("Content")}
-          />
+          <SettingsListItem icon={<FontAwesome name="edit" style={styles.imageStyleIcon} />} title={I18n.t("editor")} onPress={() => this.props.navigation.navigate("Content")} />
         )}
 
         <SettingsListItem
@@ -190,18 +184,10 @@ class Settings extends Component {
           icon={<MaterialIcons name="info-outline" style={styles.imageStyleIcon} />}
           title={I18n.t("aboutThisApp")}
           onPress={() => {
-            this.props.navigation.navigate("webportalURL", {
-              url: "https://smartcookies.io/smart-community",
-              title: I18n.t("aboutThisApp"),
-            });
+            Linking.openURL("https://smartcookies.io/smart-community");
           }}
         />
-        <SettingsListItem
-          hasNavArrow={false}
-          icon={<SimpleLineIcons name="logout" style={styles.imageStyleIcon} />}
-          title={I18n.t("logout")}
-          onPress={() => this._logout()}
-        />
+        <SettingsListItem hasNavArrow={false} icon={<SimpleLineIcons name="logout" style={styles.imageStyleIcon} />} title={I18n.t("logout")} onPress={() => this._logout()} />
       </View>
     );
   }

@@ -4,11 +4,9 @@ import firebase from "firebase";
 import Constants from "expo-constants";
 import { Text } from "native-base";
 
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 
 const LogItem = require("./logItem");
 
-@withMappedNavigationParams()
 class logs extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Logs",

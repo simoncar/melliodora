@@ -24,7 +24,9 @@ class App extends Component {
   _registerForPushNotifications() {
     registerForPush.reg(global.name);
 
-    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+    this._notificationSubscription = Notifications.addListener(
+      this._handleNotification
+    );
   }
 
   render() {

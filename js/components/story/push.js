@@ -3,14 +3,12 @@ import { StyleSheet, View, Image, Dimensions, Alert, TouchableOpacity, Switch } 
 import { Container, Content, Text } from "native-base";
 import styles from "./styles";
 import { SettingsListItem } from "../settings/SettingsListItem";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
 import _ from "lodash";
 import { Input } from "react-native-elements";
 
-@withMappedNavigationParams()
 class push extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +26,8 @@ class push extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
-        }}>
+        }}
+      >
         <Entypo name="chevron-left" style={styles.chatHeadingLeft} />
       </TouchableOpacity>
     ),
@@ -38,13 +37,15 @@ class push extends Component {
       <TouchableOpacity
         onPress={() => {
           navigation.state.params.pushSend();
-        }}>
+        }}
+      >
         <Text style={styles.chatHeading}>{I18n.t("send")}</Text>
       </TouchableOpacity>
     ),
   });
 
   componentDidMount() {
+    console.log("SSS:", this.props);
     var initialText = this.props.summary;
 
     if (_.isString(this.props.description)) {
@@ -130,7 +131,8 @@ class push extends Component {
                 paddingTop: 20,
                 paddingLeft: 10,
                 paddingRight: 10,
-              }}>
+              }}
+            >
               <Input
                 onChangeText={(text) => this.setState({ initialText: text })}
                 placeholder={"Description"}
