@@ -23,7 +23,7 @@
 	"save": "Salve ",
 	"saved": "Salvou",
 	"message": "mensagem",
-	"send": "Mandar",
+	"send": "Enviar",
 	"edit": "Editar",
 	"delete": "Excluir",
 	"mute": "Mudo",
@@ -33,7 +33,7 @@
 	"shop": "fazer compras",
 	"translationsGoogle": "Google Tradutor",
 	"pta": "Associação de pais e mestres",
-	"languageChangeWarning": "O aplicativo será reiniciado após a seleção de um novo idioma",
+	"languageChangeWarning": "O aplicativo será reiniciado depois de selecionar um novo idioma",
 	"login": "Conecte-se",
 	"logout": "Sair",
 	"uniforms": "Uniformes",
@@ -51,5 +51,7 @@
 	"signIn": "Assinar em",
 	"signUp": "Inscrever-se",
 	"loggedInAs": "logado como",
-	"aboutThisApp": "Sobre este aplicativo"
+	"aboutThisApp": "Sobre este aplicativo",
+	"password": "Senha",
+	"cancel": "Cancelar"
 }

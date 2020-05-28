@@ -2,7 +2,7 @@ import firebase from "firebase";
 import _ from "lodash";
 import moment from "moment";
 
-exports.logToCalendar = async function (key, title, body, email = "") {
+export const logToCalendar = async (key, title, body, email = "") => {
   try {
     const p = new Promise(function (resolve, reject) {
       const timestamp = firebase.firestore.Timestamp.now();
@@ -15,7 +15,7 @@ exports.logToCalendar = async function (key, title, body, email = "") {
         icon: "ios-play",
         color: "blue",
         location: body,
-        number: firebase.firestore.FieldValue.increment(1)
+        number: firebase.firestore.FieldValue.increment(1),
       };
 
       firebase

@@ -51,5 +51,7 @@
 	"signIn": "Zaloguj się",
 	"signUp": "Zapisz się",
 	"loggedInAs": "zalogowany jako",
-	"aboutThisApp": "O tej aplikacji"
+	"aboutThisApp": "O tej aplikacji",
+	"password": "Hasło",
+	"cancel": "Anuluj"
 }

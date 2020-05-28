@@ -51,5 +51,7 @@
 	"signIn": "เข้าสู่ระบบ",
 	"signUp": "ลงชื่อ",
 	"loggedInAs": "เข้าสู่ระบบในฐานะ",
-	"aboutThisApp": "เกี่ยวกับแอพนี้"
+	"aboutThisApp": "เกี่ยวกับแอพนี้",
+	"password": "รหัสผ่าน",
+	"cancel": "ยกเลิก"
 }

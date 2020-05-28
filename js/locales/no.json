@@ -29,7 +29,7 @@
 	"mute": "Stum",
 	"logs": "Tømmerstokker",
 	"unmute": "Mikrofon",
-	"contact": "Ta kontakt med",
+	"contact": "Kontakt",
 	"shop": "Butikk",
 	"translationsGoogle": "Google Oversetter",
 	"pta": "Foreldrelærerforening",
@@ -51,5 +51,7 @@
 	"signIn": "Logg inn",
 	"signUp": "Melde deg på",
 	"loggedInAs": "logget inn som",
-	"aboutThisApp": "Om denne appen"
+	"aboutThisApp": "Om denne appen",
+	"password": "Passord",
+	"cancel": "Avbryt"
 }

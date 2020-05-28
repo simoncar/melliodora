@@ -51,5 +51,7 @@
 	"signIn": "Log ind",
 	"signUp": "Tilmelde",
 	"loggedInAs": "logget ind som",
-	"aboutThisApp": "Om denne app"
+	"aboutThisApp": "Om denne app",
+	"password": "Adgangskode",
+	"cancel": "Afbestille"
 }

@@ -32,7 +32,7 @@
 	"contact": "Kontakt",
 	"shop": "affär",
 	"translationsGoogle": "Google översätt",
-	"pta": "Förälderlärarförening",
+	"pta": "Föräldrarnas lärarförening",
 	"languageChangeWarning": "Appen startas om efter att du har valt ett nytt språk",
 	"login": "Logga in",
 	"logout": "Logga ut",
@@ -51,5 +51,7 @@
 	"signIn": "Logga in",
 	"signUp": "Bli Medlem",
 	"loggedInAs": "Inloggad som",
-	"aboutThisApp": "Om den här appen"
+	"aboutThisApp": "Om den här appen",
+	"password": "Lösenord",
+	"cancel": "Avbryt"
 }

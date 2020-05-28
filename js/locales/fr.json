@@ -20,7 +20,7 @@
 	"version": "Version",
 	"typeMessage": "Tapez un message ...",
 	"photos": "Photos",
-	"save": "sauvegarder",
+	"save": "sauver",
 	"saved": "Enregistré",
 	"message": "Message",
 	"send": "Envoyer",
@@ -30,7 +30,7 @@
 	"logs": "Journaux",
 	"unmute": "Activer le son",
 	"contact": "Contact",
-	"shop": "Magasin",
+	"shop": "Boutique",
 	"translationsGoogle": "Google Traduction",
 	"pta": "Association des parents d'élèves",
 	"languageChangeWarning": "L'application redémarrera après avoir sélectionné une nouvelle langue",
@@ -51,5 +51,7 @@
 	"signIn": "Se connecter",
 	"signUp": "S'inscrire",
 	"loggedInAs": "connecté en tant que",
-	"aboutThisApp": "À propos de cette appli"
+	"aboutThisApp": "À propos de cette appli",
+	"password": "Mot de passe",
+	"cancel": "Annuler"
 }
