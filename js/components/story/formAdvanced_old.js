@@ -16,7 +16,7 @@ import uuid from "uuid";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { AntDesign } from "@expo/vector-icons";
-import systemHero from "../../lib/systemHero";
+import { logToCalendar } from "../../lib/systemHero";
 import { connect } from "react-redux";
 
 class FormAdvanced extends Component {
@@ -145,7 +145,7 @@ class FormAdvanced extends Component {
 
               storyRef.set(storyDict, { merge: true }).then(() => navigation.popToTop());
 
-              systemHero.logToCalendar("StorySave-" + global.domain + eventTitle, "Story Save - " + eventTitle, global.domain, this.props.auth.userInfo.email || "");
+              logToCalendar("StorySave-" + global.domain + eventTitle, "Story Save - " + eventTitle, global.domain, this.props.auth.userInfo.email || "");
             }
           }}
         >
