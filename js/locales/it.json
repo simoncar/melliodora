@@ -51,5 +51,7 @@
 	"signIn": "Registrati",
 	"signUp": "Iscriviti",
 	"loggedInAs": "Collegato come",
-	"aboutThisApp": "Informazioni su questa app"
+	"aboutThisApp": "Informazioni su questa app",
+	"password": "Parola d'ordine",
+	"cancel": "Annulla"
 }

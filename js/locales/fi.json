@@ -51,5 +51,7 @@
 	"signIn": "Kirjaudu sisään",
 	"signUp": "Kirjaudu",
 	"loggedInAs": "Kirjautunut sisään nimellä",
-	"aboutThisApp": "Tietoja tästä sovelluksesta"
+	"aboutThisApp": "Tietoja tästä sovelluksesta",
+	"password": "Salasana",
+	"cancel": "Peruuttaa"
 }

@@ -51,5 +51,7 @@
 	"signIn": "Prisijungti",
 	"signUp": "Registruotis",
 	"loggedInAs": "prisijungęs kaip",
-	"aboutThisApp": "Apie šią programą"
+	"aboutThisApp": "Apie šią programą",
+	"password": "Slaptažodis",
+	"cancel": "Atšaukti"
 }

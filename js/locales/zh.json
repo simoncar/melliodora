@@ -20,7 +20,7 @@
 	"version": "版",
 	"typeMessage": "输入讯息...",
 	"photos": "相片",
-	"save": "保存",
+	"save": "救",
 	"saved": "已保存",
 	"message": "信息",
 	"send": "发送",
@@ -51,5 +51,7 @@
 	"signIn": "登入",
 	"signUp": "注册",
 	"loggedInAs": "登录为",
-	"aboutThisApp": "关于这个程序"
+	"aboutThisApp": "关于这个程序",
+	"password": "密码",
+	"cancel": "取消"
 }

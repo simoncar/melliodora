@@ -1,7 +1,7 @@
 {
 	"home": "Дом",
 	"calendar": "Календарь",
-	"today": "сегодня",
+	"today": "Cегодня",
 	"chat": "Чат",
 	"myS": "МЫС",
 	"more": "Больше",
@@ -31,7 +31,7 @@
 	"unmute": "Unmute",
 	"contact": "контакт",
 	"shop": "Магазин",
-	"translationsGoogle": "переводчик Google",
+	"translationsGoogle": "перевод от Гугла",
 	"pta": "Ассоциация родителей-учителей",
 	"languageChangeWarning": "Приложение перезагрузится после выбора нового языка",
 	"login": "Авторизоваться",
@@ -49,7 +49,9 @@
 	"search": "Поиск",
 	"searchUsers": "Поиск пользователей",
 	"signIn": "Войти в систему",
-	"signUp": "Зарегистрироваться",
+	"signUp": "Подписаться",
 	"loggedInAs": "Вы вошли как",
-	"aboutThisApp": "Об этом приложении"
+	"aboutThisApp": "Об этом приложении",
+	"password": "пароль",
+	"cancel": "Отмена"
 }

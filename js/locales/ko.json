@@ -51,5 +51,7 @@
 	"signIn": "로그인",
 	"signUp": "가입하기",
 	"loggedInAs": "로 로그인",
-	"aboutThisApp": "이 앱에 대하여"
+	"aboutThisApp": "이 앱에 대하여",
+	"password": "암호",
+	"cancel": "취소"
 }

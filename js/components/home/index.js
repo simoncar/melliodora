@@ -7,8 +7,7 @@ import firebase from "firebase";
 import { getLanguageString } from "../global";
 import I18n from "../../lib/i18n";
 import styles from "./styles";
-import * as Progress from "react-native-progress";
-import systemHero from "../../lib/systemHero";
+import { logToCalendar } from "../../lib/systemHero";
 
 import ListItem from "./ListItem";
 import Analytics from "../../lib/analytics";
@@ -68,7 +67,7 @@ class Home extends Component {
       demo.setupDemoData();
     }
 
-    systemHero.logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain, this.props.auth.userInfo.email || "");
+    logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain, this.props.auth.userInfo.email || "");
 
     this.feature = firebase.firestore().collection(global.domain).doc("feature").collection("features").orderBy("order");
 
@@ -281,8 +280,6 @@ class Home extends Component {
           </TouchableHighlight>
         )}
         <Content showsVerticalScrollIndicator={false}>
-          {this.state.loading && <Progress.Bar indeterminate={true} borderRadius={0} width={Dimensions.get("window").width} borderWidth={0} />}
-
           {global.domain === "ais_edu_sg" ? (
             <View style={styles.newsContentLine}>
               <ScrollView
