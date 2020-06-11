@@ -1,0 +1,20 @@
+name: CI
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: SpicyPizza/create-envfile@v1
+      with:
+          envkey_FIREBASE_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
+          file_name: .env
+    - name: Setup kernel for react native, increase watchers
+      run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+    - uses: actions/setup-node@v1
+      with:
+          node-version: 12.x
+    - name: Install modules
+      run: yarn
+    - name: Run tests
+      run: yarn ci
