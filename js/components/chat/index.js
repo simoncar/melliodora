@@ -27,16 +27,7 @@ import { compose } from "redux";
 var localMessages = [];
 
 class chat extends Component {
-  // static navigationOptions = ({ navigation }) => ({
-  //   headerRight: (
-  //     <TouchableOpacity
-  //       onPress={() => {
-  //         navigation.state.params._showActionSheet(navigation);
-  //       }}>
-  //       <View style={styles.chatHeading}>
-  //         <Entypo name="cog" style={styles.chatHeading} />
-  //       </View>
-  //     </TouchableOpacity>
+
 
   constructor(props) {
     super(props);
