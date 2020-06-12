@@ -10,11 +10,7 @@ import { formatTime, formatMonth, isURL } from "../global.js";
 class ListItem extends Component {
 	constructor(props) {
 		super(props);
-
-		console.log(this.props)
-
 	}
-
 
 	icon(source, photo1) {
 		if (source == "calendar") {
@@ -65,7 +61,7 @@ class ListItem extends Component {
 		const card = this.props.card === false ? false : true;
 		const { _key, photo1, excerpt, source, summaryMyLanguage, location, date_start, time_start_pretty, time_end_pretty } = this.props.item;
 
-		return <View style={card && [styles.card, this.props.cardStyle]}>
+		return (<View style={card && [styles.card, this.props.cardStyle]}>
 			<View style={styles.cardView}>
 				<TouchableOpacity style={styles.flexRow} onPress={() => {
 					this.props.navigation.navigate("story", this.props.item);
@@ -100,7 +96,10 @@ class ListItem extends Component {
 					{isURL(photo1) && <Image style={styles.storyPhoto} {...{ uri: photo1 }} />}
 				</View>
 			</TouchableOpacity>
-		</View>;
+
+		</View>
+
+		)
 	}
 }
 
