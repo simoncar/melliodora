@@ -1,11 +1,8 @@
 import React from "react";
 import * as firebase from "firebase";
-
 import * as ImageManipulator from "expo-image-manipulator";
-import Constants from "expo-constants";
 import _ from "lodash";
 import uuid from "uuid";
-import { AsyncStorage } from "react-native";
 
 export class Backend extends React.Component {
 	uid = "";
@@ -41,28 +38,21 @@ export class Backend extends React.Component {
 		switch (language) {
 			case "fr":
 				return message.textFR;
-				break;
 			case "ko":
 				return message.textKO;
-				break;
 			case "zh":
 				return message.textZH;
-				break;
 			case "es":
 				return message.textES;
-				break;
 			case "ja":
 				return message.textJA;
-				break;
 			case "id":
 				return message.textID;
-				break;
 			default:
 				return message.textEN;
 		}
 	}
 	loadMessages = async (callback) => {
-		console.log("loadMessages", global.domain, this.state.chatroom);
 		this.ref = firebase
 			.firestore()
 			.collection(global.domain)
