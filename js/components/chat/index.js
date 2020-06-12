@@ -242,21 +242,6 @@ class chat extends Component {
 		return null;
 	}
 
-	getColor(username) {
-		let sumChars = 0;
-		for (let i = 0; i < 10; i++) {
-			sumChars += 5;
-		}
-
-		const colors = ["#d6cfc7", // carrot
-			"#c7c6c1", // emerald
-			"#bebdb8", // peter  river
-			"#bdb7ab", // wisteria
-			"#d9dddc", // alizarin
-			"#b9bbb6", // turquoise
-			"#808588"];
-		return colors[sumChars % colors.length];
-	}
 
 	parsePatterns(linkStyle) {
 		return [{ type: "url", style: styles.url, onPress: this._handleOpenWithLinking }];
@@ -275,9 +260,7 @@ class chat extends Component {
 	};
 
 	refresh = ({ title }) => {
-		console.log("nav refresh AAA ", title);
 		this.props.navigation.setParams({ title: title });
-		console.log("nav refresh BBB ", title);
 	};
 
 	_showActionSheet = () => {
@@ -482,16 +465,10 @@ const styles = StyleSheet.create({
 		flex: 1,
 		marginTop: 22
 	},
-	a221aa081ac4611ea973dcfce83f911da: {
-		flexDirection: "column",
-		height: 100,
-		justifyContent: "space-between",
-		padding: 12
-	},
+	
 	a221aa082ac4611ea973dcfce83f911da: {
 		color: "#fff",
 		fontSize: 24,
-		fontWeight: "bold",
 		fontWeight: "bold",
 		textShadowColor: "#000",
 		textShadowOffset: {
