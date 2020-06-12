@@ -46,7 +46,7 @@ class Home extends Component {
 
 		global.domain = this.props.community.selectedCommunity.node || global.domain;
 
-		if (domain == "oakforest_international_edu") {
+		if (global.domain == "oakforest_international_edu") {
 			demo.setupDemoData();
 			this.loadBalance();
 		}
