@@ -18,8 +18,6 @@ import DemoData from "../../lib/demoData";
 
 const demo = DemoData;
 
-const primary = require("../../themes/variable").brandPrimary;
-
 const bottomLogo = {
 	sais_edu_sg: require("../../../images/sais_edu_sg/10yearLogo.png"),
 	ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg")

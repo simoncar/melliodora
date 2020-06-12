@@ -100,15 +100,18 @@
 		"sentry-expo": "^2.0.1",
 		"tcomb-form-native": "^0.6.20"
 	},
-	"detox": {
-		"configurations": {
-			"ios.sim": {
-				"binaryPath": "bin/Exponent.app",
-				"type": "ios.simulator",
-				"name": "iPhone 7"
-			}
-		},
-		"test-runner": "jest",
-		"specs": ""
+	"jest": {
+		"preset": "jest-expo",
+		"transformIgnorePatterns": [
+			"node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
+		],
+		"collectCoverage": true,
+		"collectCoverageFrom": [
+			"**/*.{js,jsx}",
+			"!**/coverage/**",
+			"!**/node_modules/**",
+			"!**/babel.config.js",
+			"!**/jest.setup.js"
+		]
 	}
 }
