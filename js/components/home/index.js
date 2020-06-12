@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { FlatList, View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image, ScrollView } from "react-native";
+
+import React, { Component, Dimensions } from "react";
+import { FlatList, View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image, ScrollView, StyleSheet } from "react-native";
 import { Container, Content, Text } from "native-base";
 import Constants from "expo-constants";
 import firebase from "firebase";
 import { getLanguageString } from "../global";
 import I18n from "../../lib/i18n";
-import styles from "./styles";
 import { logToCalendar } from "../../lib/systemHero";
 
 import ListItem from "./ListItem";
@@ -20,7 +20,7 @@ const demo = DemoData;
 
 const bottomLogo = {
 	sais_edu_sg: require("../../../images/sais_edu_sg/10yearLogo.png"),
-	ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg"),
+	ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg")
 };
 
 class Home extends Component {
@@ -31,39 +31,24 @@ class Home extends Component {
 			loading: true,
 			featureItems: [],
 			calendarItems: [],
-			balanceItems: [],
+			balanceItems: []
 		};
 
 		this.loadFromAsyncStorage();
 	}
 
-	static navigationOptions = ({ navigation }) => {
-		const { params = {} } = navigation.state;
-		let title = "";
-		if (params.title) title = params.title;
-
-		let headerTitle = null;
-		if (global.domain == "ais_edu_sg") {
-			headerTitle = <Image source={require("../../../images/ais_edu_sg/ifla-apr.jpeg")} style={{ height: 39, resizeMode: "contain" }} />;
-		}
-		return {
-			title: title,
-			headerTitle: headerTitle,
-			headerBackTitle: null,
-		};
-	};
-
 	componentDidMount() {
 		this.language = this.props.auth.language;
 
 		this.props.navigation.setParams({
-			title: this.props.community.selectedCommunity.name,
+			title: this.props.community.selectedCommunity.name
 		});
 
 		global.domain = this.props.community.selectedCommunity.node || global.domain;
 
-		if (domain == "oakforest_international_edu") {
+		if (global.domain == "oakforest_international_edu") {
 			demo.setupDemoData();
+			this.loadBalance();
 		}
 
 		logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain, this.props.auth.userInfo.email || "");
@@ -75,7 +60,7 @@ class Home extends Component {
 		this.loadCalendar();
 
 		this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
-		this.loadCalendar();
+
 		const { navigation } = this.props;
 		this.focusListener = navigation.addListener("didFocus", () => {
 			// The screen is focused
@@ -91,99 +76,97 @@ class Home extends Component {
 	}
 
 	loadBalance() {
-		var balanceItems = [];
 
-		let balance = firebase
-			.firestore()
-			.collection("sais_edu_sg")
-			.doc("user")
-			.collection("usernames")
-			.doc("Rh9hEJmOyLR12WfflrLCCvvpIWD2")
-			.get()
 
-			.then((snapshot) => {
-				if (!snapshot.exists) {
-					return;
-				}
-				const data = snapshot.data();
-				//.push({ campusBalance: data.campusBalance });
-
-				var trans = {
-					visible: true,
-					source: "balance",
-					summaryMyLanguage: "$" + data.campusBalance.toFixed(2),
-					summary: "$" + data.campusBalance.toFixed(2),
-					summaryEN: "$" + data.campusBalance.toFixed(2),
-					color: "red",
-					showIconChat: false,
-					location: "Cafeteria Account Balance",
-				};
-
-				var familyId = data.guid.substring(data.guid.indexOf("iSAMSparents:") + 13, data.guid.indexOf("-"));
-
-				balanceItems.push({ ...{ _key: snapshot.id }, ...data, ...trans });
-				if (balanceItems.length > 0) {
-					this.setState({
-						balanceItems,
-					});
-				}
-			});
-
-		// this.setState({
-		//   loading: false
-		// });
 	}
+
+	// loadBalance() {
+	// 	var balanceItems = [];
+
+	// 	let balance = firebase.firestore().collection("sais_edu_sg").doc("user").collection("usernames").doc("Rh9hEJmOyLR12WfflrLCCvvpIWD2").get().then(snapshot => {
+	// 		if (!snapshot.exists) {
+	// 			return;
+	// 		}
+	// 		const data = snapshot.data();
+	// 		//.push({ campusBalance: data.campusBalance });
+
+	// 		var trans = {
+	// 			visible: true,
+	// 			source: "balance",
+	// 			summaryMyLanguage: "$" + data.campusBalance.toFixed(2),
+	// 			summary: "$" + data.campusBalance.toFixed(2),
+	// 			summaryEN: "$" + data.campusBalance.toFixed(2),
+	// 			color: "red",
+	// 			showIconChat: false,
+	// 			location: "Cafeteria Account Balance"
+	// 		};
+
+	// 		var familyId = data.guid.substring(data.guid.indexOf("iSAMSparents:") + 13, data.guid.indexOf("-"));
+
+	// 		balanceItems.push({ ...{ _key: snapshot.id }, ...data, ...trans });
+	// 		if (balanceItems.length > 0) {
+	// 			this.setState({
+	// 				balanceItems
+	// 			});
+	// 		}
+	// 	});
+	// }
 
 	loadCalendar() {
 		const todayDate = moment().format("YYYY-MM-DD");
-		//const todayDate = "2020-02-19";
 
 		var calendarItems = [];
-		let calendar = firebase
-			.firestore()
-			.collection(global.domain)
-			.doc("calendar")
-			.collection("calendarItems")
-			// .orderBy("date_start");
-			.where("date_start", "==", todayDate)
-			.get()
-			.then((snapshot) => {
-				snapshot.forEach((doc) => {
-					console.log("AAAA:", this.language, doc.data().summary, getLanguageString(this.language, doc.data(), "summaryX"));
-					var trans = {
-						visible: true,
-						source: "calendar",
-						summaryMyLanguage: getLanguageString(this.language, doc.data(), "summary"),
-						summary: doc.data().summary,
-						summaryEN: doc.data().summary,
-						date_start: doc.data().date_start,
-						color: "red",
-						showIconChat: false,
-						descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description"),
-						number: doc.data().number,
-					};
-					calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
-				});
-				if (calendarItems.length > 0) {
-					this.setState({
-						calendarItems,
-						loading: false,
-					});
-				}
-				this.setState({
-					loading: false,
-				});
+		let calendar = firebase.firestore().collection(global.domain).doc("calendar").collection("calendarItems").where("date_start", "==", todayDate).get().then(snapshot => {
+			snapshot.forEach(doc => {
+				var trans = {
+					visible: true,
+					source: "calendar",
+					summaryMyLanguage: getLanguageString(this.language, doc.data(), "summary"),
+					summary: doc.data().summary,
+					summaryEN: doc.data().summary,
+					date_start: doc.data().date_start,
+					color: "red",
+					showIconChat: false,
+					descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description"),
+					number: doc.data().number
+				};
+				calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
 			});
+			if (calendarItems.length > 0) {
+				this.setState({
+					calendarItems,
+					loading: false
+				});
+			}
+			this.setState({
+				loading: false
+			});
+		});
+
+		var trans = {
+			visible: true,
+			source: "balance",
+			summaryMyLanguage: "$56.20",
+			summary: "$56.20",
+			summaryEN: "$56.20",
+			color: "red",
+			showIconChat: false,
+			location: "Cafeteria Account Balance"
+		};
+
+		this.setState({
+			balanceItems: trans
+		});
 	}
 
-	onFeatureUpdate = (querySnapshot) => {
+	onFeatureUpdate = querySnapshot => {
 		var featureItems = [];
 
-		querySnapshot.forEach((doc) => {
+		querySnapshot.forEach(doc => {
 			var trans = {
 				source: "feature",
 				summaryMyLanguage: getLanguageString(this.language, doc.data(), "summary"),
-				descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description"),
+				descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description")
 			};
 
 			if (!doc.data().visible == false) {
@@ -194,43 +177,37 @@ class Home extends Component {
 		if (featureItems.length > 0) {
 			this._storeData(JSON.stringify(featureItems));
 			this.setState({
-				featureItems,
+				featureItems
 			});
 		}
-
-		// this.setState({
-		//   loading: false
-		// });
 	};
 
-	_handleOpenWithLinking = (sURL) => {
+	_handleOpenWithLinking = sURL => {
 		Linking.openURL(sURL);
 	};
 
-	keyExtractor = (item) => item._key;
+	keyExtractor = item => item._key;
 
 	setupUser = () => {
 		const { communityJoined } = this.props.auth.userInfo;
 		if (Array.isArray(communityJoined) && communityJoined.indexOf(global.domain) < 0) {
 			const userInfo = {
 				...this.props.auth.userInfo,
-				communityJoined: [...communityJoined, global.domain],
+				communityJoined: [...communityJoined, global.domain]
 			};
 			this.props.dispatch(setUserInfo(userInfo, true));
 		}
-
-		//check if user is admin
 	};
 	loadFromAsyncStorage() {
 		AsyncStorage.multiGet(["featureItems"], (err, stores) => {
 			const featureItems = JSON.parse(stores[0][1]);
 			this.setState({
-				featureItems,
+				featureItems
 			});
 		});
 	}
 
-	_storeData = async (featureItems) => {
+	_storeData = async featureItems => {
 		try {
 			AsyncStorage.setItem("featureItems", featureItems);
 		} catch (error) {
@@ -240,6 +217,7 @@ class Home extends Component {
 	};
 
 	_renderItem = ({ item }, cardStyle) => {
+		console.log("render item:", item.source)
 		return <ListItem navigation={this.props.navigation} item={item} card={true} language={this.language} cardStyle={cardStyle} />;
 	};
 
@@ -248,188 +226,256 @@ class Home extends Component {
 	};
 	_renderBalance() {
 		if (global.domain === "oakforest_international_edu") {
-			return <FlatList data={this.state.balanceItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem} />;
+			return (
+				<ListItem navigation={this.props.navigation} item={this.state.balanceItems} card={true} language={this.language} />
+			)
 		}
 	}
 
 	_renderToday() {
 		if (this.state.calendarItems.length > 0) {
-			return (
-				<View style={styles.card}>
-					<FlatList data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard} />
-				</View>
-			);
+			return <View style={styles.card}>
+				<FlatList data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard} />
+			</View>;
 		}
 	}
 
 	env() { }
 
 	render() {
-		return (
-			<Container>
-				{(global.administrator || this.props.auth.isAdmin) && (
-					<TouchableHighlight
-						style={styles.addButton}
-						underlayColor="#ff7043"
-						onPress={() => {
-							this.props.navigation.navigate("Form", { edit: false });
-						}}
-					>
-						<Text style={{ fontSize: 44, color: "white", position: "absolute", left: "20%", top: "-20%" }}>+</Text>
-					</TouchableHighlight>
-				)}
-				<Content showsVerticalScrollIndicator={false}>
-					{global.domain === "ais_edu_sg" ? (
-						<View style={styles.newsContentLine}>
-							<ScrollView
-								horizontal={true}
-								bounces={false}
-								contentContainerStyle={{
-									paddingHorizontal: 12,
+		return <Container>
+			{(global.administrator || this.props.auth.isAdmin) && <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
+				this.props.navigation.navigate("Form", { edit: false });
+			}}>
+				<Text style={styles.adab8ac50ac6d11ea973dcfce83f911da}>+</Text>
+			</TouchableHighlight>}
+			<Content showsVerticalScrollIndicator={false}>
+				{global.domain === "ais_edu_sg" ? <View style={styles.newsContentLine}>
+					<ScrollView horizontal={true} bounces={false} contentContainerStyle={{
+						paddingHorizontal: 12,
+						paddingVertical: 8
+					}} style={styles.adab8ac51ac6d11ea973dcfce83f911da} showsHorizontalScrollIndicator={false}>
+						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
+							this.props.navigation.navigate("webportalURL", {
+								url: "https://iflaapr.org/newsletters",
+								title: "Newsletters"
+							});
+						}}>
+							<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/news.png")} />
+							<Text style={styles.adab8d360ac6d11ea973dcfce83f911da}>{I18n.t("newsletters")}</Text>
+						</TouchableOpacity>
 
-									paddingVertical: 8,
-								}}
-								style={{ backgroundColor: "white", marginVertical: 6 }}
-								showsHorizontalScrollIndicator={false}
-							>
-								<TouchableOpacity
-									style={styles.homeMenuItemContainer}
-									onPress={() => {
-										this.props.navigation.navigate("webportalURL", {
-											url: "https://iflaapr.org/newsletters",
-											title: "Newsletters",
-										});
-									}}
-								>
-									<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/news.png")} />
-									<Text style={{ color: "black", fontSize: 12 }}>{I18n.t("newsletters")}</Text>
-								</TouchableOpacity>
+						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
+							this.props.navigation.navigate("webportalURL", {
+								url: "https://iflaapr.org/news/listing/design",
+								title: "Design News"
+							});
+						}}>
+							<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Design.jpeg")} />
+							<Text style={styles.homeMenuText}>{I18n.t("design") + "\n" + I18n.t("design")}</Text>
+						</TouchableOpacity>
 
-								<TouchableOpacity
-									style={styles.homeMenuItemContainer}
-									onPress={() => {
-										this.props.navigation.navigate("webportalURL", {
-											url: "https://iflaapr.org/news/listing/design",
-											title: "Design News",
-										});
-									}}
-								>
-									<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Design.jpeg")} />
-									<Text style={styles.homeMenuText}>{I18n.t("design") + "\n" + I18n.t("design")}</Text>
-								</TouchableOpacity>
+						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
+							this.props.navigation.navigate("webportalURL", {
+								url: "https://iflaapr.org/news/listing/management",
+								title: "Management News"
+							});
+						}}>
+							<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Management.jpeg")} />
+							<Text style={styles.homeMenuText}>{I18n.t("management") + "\n" + I18n.t("news")}</Text>
+						</TouchableOpacity>
 
-								<TouchableOpacity
-									style={styles.homeMenuItemContainer}
-									onPress={() => {
-										this.props.navigation.navigate("webportalURL", {
-											url: "https://iflaapr.org/news/listing/management",
-											title: "Management News",
-										});
-									}}
-								>
-									<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Management.jpeg")} />
-									<Text style={styles.homeMenuText}>{I18n.t("management") + "\n" + I18n.t("news")}</Text>
-								</TouchableOpacity>
+						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
+							this.props.navigation.navigate("webportalURL", {
+								url: "https://iflaapr.org/news/listing/planning",
+								title: "Planning News"
+							});
+						}}>
+							<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Planning.jpeg")} />
+							<Text style={styles.homeMenuText}>{I18n.t("planning") + "\n" + I18n.t("news")}</Text>
+						</TouchableOpacity>
 
-								<TouchableOpacity
-									style={styles.homeMenuItemContainer}
-									onPress={() => {
-										this.props.navigation.navigate("webportalURL", {
-											url: "https://iflaapr.org/news/listing/planning",
-											title: "Planning News",
-										});
-									}}
-								>
-									<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Planning.jpeg")} />
-									<Text style={styles.homeMenuText}>{I18n.t("planning") + "\n" + I18n.t("news")}</Text>
-								</TouchableOpacity>
+						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
+							this.props.navigation.navigate("webportalURL", {
+								url: "https://iflaapr.org/membership-directory/corporate",
+								title: "Directory"
+							});
+						}}>
+							<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Directory.jpeg")} />
+							<Text style={styles.homeMenuText}>{I18n.t("directory")}</Text>
+						</TouchableOpacity>
 
-								<TouchableOpacity
-									style={styles.homeMenuItemContainer}
-									onPress={() => {
-										this.props.navigation.navigate("webportalURL", {
-											url: "https://iflaapr.org/membership-directory/corporate",
-											title: "Directory",
-										});
-									}}
-								>
-									<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Directory.jpeg")} />
-									<Text style={styles.homeMenuText}>{I18n.t("directory")}</Text>
-								</TouchableOpacity>
-
-								<TouchableOpacity
-									style={styles.homeMenuItemContainer}
-								// onPress={() => {
-								//   this.props.navigation.navigate("webportalURL", {
-								//     url: "https://smartcookies.io/smart-community",
-								//     title: "Member Associations",
-								//   });
-								// }}
-								>
-									<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Associations.png")} />
-									<Text style={styles.homeMenuText}>{I18n.t("member") + "\n" + I18n.t("associations")}</Text>
-								</TouchableOpacity>
-							</ScrollView>
-						</View>
-					) : null}
-
-					<View style={styles.newsContentLine}>
-						{this._renderBalance()}
-						{this._renderToday()}
-
-						<FlatList data={this.state.featureItems} keyExtractor={this.keyExtractor} renderItem={(item) => this._renderItem(item, { borderWidth: 0 })} />
-					</View>
-					<View style={styles.card}>
-						<View
-							style={{
-								marginTop: 70,
-								alignItems: "center",
-								width: "100%",
-							}}
+						<TouchableOpacity style={styles.homeMenuItemContainer}
+						// onPress={() => {
+						//   this.props.navigation.navigate("webportalURL", {
+						//     url: "https://smartcookies.io/smart-community",
+						//     title: "Member Associations",
+						//   });
+						// }}
 						>
-							<Image
-								style={styles.tenYearLogo}
-								source={
-									bottomLogo[global.domain] || {
-										uri: global.switch_homeLogoURI,
-									}
-								}
-							/>
-						</View>
-						<View
-							style={{
-								marginTop: 100,
-								alignItems: "center",
-							}}
-						>
-							<TouchableOpacity
-								onPress={() => {
-									this._handleOpenWithLinking("https://smartcookies.io/smart-community");
-								}}
-								style={{
-									width: 40,
-									height: 40,
-								}}
-							>
-								<Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
-							</TouchableOpacity>
-						</View>
-						<View>
-							<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
-							<Text style={styles.user}>{global.name}</Text>
-							<Text style={styles.user}>{global.email}</Text>
-							<Text style={styles.user}>{global.uid}</Text>
-							<Text style={styles.user}>{this.language}</Text>
-						</View>
+							<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Associations.png")} />
+							<Text style={styles.homeMenuText}>{I18n.t("member") + "\n" + I18n.t("associations")}</Text>
+						</TouchableOpacity>
+					</ScrollView>
+				</View> : null}
+
+				<View style={styles.newsContentLine}>
+					{this._renderBalance()}
+					{this._renderToday()}
+
+					<FlatList data={this.state.featureItems} keyExtractor={this.keyExtractor} renderItem={item => this._renderItem(item, { borderWidth: 0 })} />
+				</View>
+				<View style={styles.card}>
+					<View style={styles.adab8fa70ac6d11ea973dcfce83f911da}>
+						<Image style={styles.tenYearLogo} source={bottomLogo[global.domain] || {
+							uri: global.switch_homeLogoURI
+						}} />
 					</View>
-				</Content>
-			</Container>
-		);
+					<View style={styles.adab8fa71ac6d11ea973dcfce83f911da}>
+						<TouchableOpacity onPress={() => {
+							this._handleOpenWithLinking("https://smartcookies.io/smart-community");
+						}} style={styles.adab8fa72ac6d11ea973dcfce83f911da}>
+							<Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
+						</TouchableOpacity>
+					</View>
+					<View>
+						<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
+						<Text style={styles.user}>{global.name}</Text>
+						<Text style={styles.user}>{global.email}</Text>
+						<Text style={styles.user}>{global.uid}</Text>
+						<Text style={styles.user}>{this.language}</Text>
+					</View>
+				</View>
+			</Content>
+		</Container>;
 	}
 }
 
-const mapStateToProps = (state) => ({
+const styles = StyleSheet.create({
+	adab8ac50ac6d11ea973dcfce83f911da: {
+		color: "white",
+		fontSize: 44,
+		left: "20%",
+		position: "absolute",
+		top: "-20%"
+	},
+	adab8ac51ac6d11ea973dcfce83f911da: {
+		backgroundColor: "white",
+		marginVertical: 6
+	},
+	adab8d360ac6d11ea973dcfce83f911da: {
+		color: "black",
+		fontSize: 12
+	},
+	adab8fa70ac6d11ea973dcfce83f911da: {
+		alignItems: "center",
+		marginTop: 70,
+		width: "100%"
+	},
+	adab8fa71ac6d11ea973dcfce83f911da: {
+		alignItems: "center",
+		marginTop: 100
+	},
+	adab8fa72ac6d11ea973dcfce83f911da: {
+		height: 40,
+		width: 40
+	},
+	addButton: {
+		alignItems: "center",
+		backgroundColor: "#ff5722",
+		borderColor: "#ff5722",
+		borderRadius: 50 / 2,
+		borderWidth: 1,
+		bottom: 20,
+		height: 50,
+		justifyContent: "center",
+		position: "absolute",
+		right: 20,
+		shadowColor: "#000000",
+		shadowOffset: {
+			height: 1,
+			width: 0
+		},
+		shadowOpacity: 0.8,
+		shadowRadius: 2,
+		width: 50,
+		zIndex: 1
+	},
+	card: {
+		alignSelf: "center",
+		backgroundColor: "#fff",
+		borderColor: "lightgray",
+		borderRadius: 15,
+		borderWidth: 1,
+		elevation: 1,
+		marginBottom: 12,
+		shadowColor: "rgba(0,0,0, .4)",
+		shadowOffset: { height: 1, width: 0.5 },
+		shadowOpacity: 0.2,
+		shadowRadius: 0.5,
+		width: "98%"
+	},
+
+
+	homeMenuIcon: {
+		height: 50,
+		width: 50
+	},
+	homeMenuItemContainer: {
+		alignItems: "center",
+		flexDirection: "column",
+		marginRight: 15
+	},
+
+
+
+	homeMenuText: { color: "black", fontSize: 12, textAlign: "center" },
+	newsContentLine: {
+		backgroundColor: "#f2f2f2",
+		paddingTop: 10
+	},
+
+	sclogo: {
+		alignSelf: "center",
+		borderTopWidth: 1,
+		height: 40,
+		width: 40
+	},
+
+	tenYearLogo: {
+		height: 200,
+		resizeMode: "contain",
+		width: "80%"
+	},
+	user: {
+		alignSelf: "center",
+		backgroundColor: "white",
+		color: "#666",
+		flex: 1,
+		flexDirection: "column",
+		fontSize: 12,
+		paddingBottom: 0,
+		paddingTop: 0,
+		textAlign: "center"
+	},
+	version: {
+		alignSelf: "center",
+		backgroundColor: "white",
+		color: "#666",
+		flex: 1,
+		flexDirection: "column",
+		fontSize: 12,
+		paddingBottom: 20,
+		paddingTop: 0,
+		textAlign: "center"
+	}
+});
+
+
+
+const mapStateToProps = state => ({
 	auth: state.auth,
-	community: state.community,
+	community: state.community
 });
 export default connect(mapStateToProps)(Home);
+
