@@ -314,14 +314,14 @@ class chat extends Component {
 
 	renderSend(props) {
 		return <Send {...props}>
-			<View style={styles.a221a7970ac4611ea973dcfce83f911da}>
-				<MaterialIcons name="send" style={styles.a221a7971ac4611ea973dcfce83f911da} />
+			<View style={styles.sendView}>
+				<MaterialIcons name="send" style={styles.sendIcon} />
 			</View>
 		</Send>;
 	}
 
 	renderSeparator = () => {
-		return <View style={styles.a221a7972ac4611ea973dcfce83f911da} />;
+		return <View style={styles.separator} />;
 	};
 
 	render() {
@@ -330,7 +330,6 @@ class chat extends Component {
 
 			goBack(null);
 			setTimeout(() => {
-				// Alert.alert(I18n.t("login"));
 				this.props.navigation.navigate("authPortalEmbed");
 			}, 100);
 
@@ -357,17 +356,15 @@ class chat extends Component {
 			<View>
 				<Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
 					<View style={styles.a221aa080ac4611ea973dcfce83f911da}>
-						<LinearGradient colors={["#4c669f", "#3b5998", "#192f6a"]} style={styles.a221aa081ac4611ea973dcfce83f911da}>
-							<TouchableOpacity onPress={() => {
-								this.setState({ modalVisible: false });
-							}}>
-								<AntDesign size={32} color={"#f2f2f2"} name="closecircleo" />
-							</TouchableOpacity>
+						<TouchableOpacity onPress={() => {
+							this.setState({ modalVisible: false });
+						}}>
+							<AntDesign size={32} color={"#f2f2f2"} name="closecircleo" />
+						</TouchableOpacity>
 
-							<Text style={styles.a221aa082ac4611ea973dcfce83f911da}>
-								{this.props.title}
-							</Text>
-						</LinearGradient>
+						<Text style={styles.a221aa082ac4611ea973dcfce83f911da}>
+							{this.props.title}
+						</Text>
 
 						<View style={styles.a221aa083ac4611ea973dcfce83f911da}>
 							<Text style={styles.a221aa084ac4611ea973dcfce83f911da}>Chatroom users ({this.state.chatroomUsers.length})</Text>
@@ -386,8 +383,6 @@ class chat extends Component {
 				<TouchableOpacity onPress={() => {
 					this.props.navigation.navigate("selectLanguageChat", {
 						chatroom: this.props.title,
-						// description: this.props.description,
-						// contact: this.props.contact,
 						url: this.props.url
 					});
 				}}>
@@ -398,9 +393,21 @@ class chat extends Component {
 			</View>
 
 			<GiftedChat messages={this.state.messages} onSend={this.onSend} user={{
-				_id: this.userInfo.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+				_id: this.userInfo.uid,
 				...userDetails
-			}} renderActions={this.renderCustomActions} renderSystemMessage={this.renderSystemMessage} renderCustomView={this.renderCustomView} renderMessageImage={this.renderCustomImage} renderMessageVideo={this.renderCustomVideo} showUserAvatar={true} bottomOffset={0} onPressAvatar={this.avatarPress} alwaysShowSend={true} renderSend={this.renderSend} placeholder={I18n.t("typeMessage")} parsePatterns={this.parsePatterns} renderUsernameOnMessage={true} textInputStyle={{ color: "#555555" }} />
+			}} renderActions={this.renderCustomActions}
+				renderSystemMessage={this.renderSystemMessage}
+				renderCustomView={this.renderCustomView}
+				renderMessageImage={this.renderCustomImage}
+				renderMessageVideo={this.renderCustomVideo}
+				showUserAvatar={true} bottomOffset={0}
+				onPressAvatar={this.avatarPress}
+				alwaysShowSend={true}
+				renderSend={this.renderSend}
+				placeholder={I18n.t("typeMessage")}
+				parsePatterns={this.parsePatterns}
+				renderUsernameOnMessage={true}
+			/>
 
 			<Footer style={styles.footer} />
 		</Container>;
@@ -458,15 +465,15 @@ const styles = StyleSheet.create({
 		color: "#777777",
 		fontSize: 25
 	},
-	a221a7970ac4611ea973dcfce83f911da: {
+	sendView: {
 		marginBottom: 10,
 		marginRight: 10
 	},
-	a221a7971ac4611ea973dcfce83f911da: {
+	sendIcon: {
 		color: "#777777",
 		fontSize: 25
 	},
-	a221a7972ac4611ea973dcfce83f911da: {
+	separator: {
 		backgroundColor: "#CED0CE",
 		height: 1
 	},
