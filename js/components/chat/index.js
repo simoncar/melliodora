@@ -1,7 +1,8 @@
+
 import React, { Component } from "react";
-import { View, Alert, TouchableOpacity, AsyncStorage, Linking, Modal, FlatList } from "react-native";
-import { ActionSheet, Container, Footer, Text } from "native-base";
-import { GiftedChat, Bubble, SystemMessage, Time, Send } from "react-native-gifted-chat";
+import { View, Alert, TouchableOpacity, Linking, Modal, FlatList, StyleSheet, Dimensions } from "react-native";
+import { Container, Footer, Text } from "native-base";
+import { GiftedChat, SystemMessage, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
@@ -9,7 +10,6 @@ import Constants from "expo-constants";
 import CustomView from "./customView";
 import CustomImage from "./customImage";
 import CustomVideo from "./customVideo";
-import styles from "./styles";
 import I18n from "../../lib/i18n";
 import uuid from "uuid";
 import _ from "lodash";
@@ -20,545 +20,539 @@ import { ListItem } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
 import { SettingsListItem } from "../settings/SettingsListItem";
 import { connectActionSheet, ActionSheetProvider } from "@expo/react-native-action-sheet";
-import stylesGlobal from "../../themes/globalTheme";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import stylesGlobal from "../../themes/globalTheme";
 
 var localMessages = [];
+const deviceWidth = Dimensions.get("window").width;
 
 class chat extends Component {
-  // static navigationOptions = ({ navigation }) => ({
-  //   headerRight: (
-  //     <TouchableOpacity
-  //       onPress={() => {
-  //         navigation.state.params._showActionSheet(navigation);
-  //       }}>
-  //       <View style={styles.chatHeading}>
-  //         <Entypo name="cog" style={styles.chatHeading} />
-  //       </View>
-  //     </TouchableOpacity>
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: [],
-      loadEarlier: true,
-      typingText: null,
-      isLoadingEarlier: false,
-      step: 0,
-      muteState: false,
-      user: null,
-      authenticated: false,
-      modalVisible: false,
-      chatroomUsers: [],
-    };
+	constructor(props) {
+		super(props);
+		this.state = {
+			messages: [],
+			loadEarlier: true,
+			typingText: null,
+			isLoadingEarlier: false,
+			step: 0,
+			muteState: false,
+			user: null,
+			authenticated: false,
+			modalVisible: false,
+			chatroomUsers: []
+		};
 
-    this._isMounted = false;
-    this.onSend = this.onSend.bind(this);
-    this.parsePatterns = this.parsePatterns.bind(this);
-    this.onReceive = this.onReceive.bind(this);
-    this.renderCustomActions = this.renderCustomActions.bind(this);
-    this.renderSystemMessage = this.renderSystemMessage.bind(this);
-    this.renderFooter = this.renderFooter.bind(this);
-    this.onLoadEarlier = this.onLoadEarlier.bind(this);
+		this._isMounted = false;
+		this.onSend = this.onSend.bind(this);
+		this.parsePatterns = this.parsePatterns.bind(this);
+		this.onReceive = this.onReceive.bind(this);
+		this.renderCustomActions = this.renderCustomActions.bind(this);
+		this.renderSystemMessage = this.renderSystemMessage.bind(this);
+		this.renderFooter = this.renderFooter.bind(this);
+		this.onLoadEarlier = this.onLoadEarlier.bind(this);
 
-    localMessages = [];
+		localMessages = [];
 
-    this.communityDomain = this.props.community.selectedCommunity.node;
-    console.log("this.this.communityDomain", this.communityDomain);
-    this.userInfo = this.props.auth.userInfo;
+		this.communityDomain = this.props.community.selectedCommunity.node;
+		console.log("this.this.communityDomain", this.communityDomain);
+		this.userInfo = this.props.auth.userInfo;
 
-    console.log("PROPS:", this.props);
-  }
+		console.log("PROPS:", this.props);
+	}
 
-  componentDidMount() {
-    const { chatroom, title } = this.props.route.params;
+	componentDidMount() {
+		const { chatroom, title } = this.props.route.params;
 
-    this.chatroom = chatroom;
-    this.title = title;
+		this.chatroom = chatroom;
+		this.title = title;
 
-    this.ref = firebase.firestore().collection(this.communityDomain).doc("chat").collection("chatrooms").doc(this.chatroom);
+		this.ref = firebase.firestore().collection(this.communityDomain).doc("chat").collection("chatrooms").doc(this.chatroom);
 
-    this.unsubscribe = this.ref.onSnapshot((doc) => {
-      const item = doc.data();
-    });
+		this.unsubscribe = this.ref.onSnapshot(doc => {
+			const item = doc.data();
+		});
 
-    Backend.setLanguage(this.props.auth.language);
-    Backend.setChatroom(this.chatroom, this.title);
-    Backend.setMute(null);
-    Backend.loadMessages((message) => {
-      this.setState((previousState) => ({
-        messages: GiftedChat.append(previousState.messages, message),
-      }));
-    });
+		Backend.setLanguage(this.props.auth.language);
+		Backend.setChatroom(this.chatroom, this.title);
+		Backend.setMute(null);
+		Backend.loadMessages(message => {
+			if (!localMessages.includes(message._id)) {
 
-    this.loadChatUsers();
+				this.setState(previousState => ({
+					messages: GiftedChat.append(previousState.messages, message)
+				}))
 
-    Analytics.track("Chat", { chatroom: this.props.title });
-  }
-  _getInterestGroupUsers = async () => {
-    const data = [];
-    const querySnapshot = await firebase
-      .firestore()
-      .collection(this.communityDomain)
-      .doc("user")
-      .collection("registered")
-      .where("interestGroups", "array-contains", this.props.title)
-      .limit(5000)
-      .get();
+			} else {
+				console.log("ignoring message");
+			}
+		});
 
-    querySnapshot.docs.forEach((doc) => {
-      data.push(doc.data());
-    });
-    return data;
-  };
 
-  _getPrivateChatUsers = async (members) => {
-    const data = [];
-    const querySnapshot = await firebase.firestore().collection(this.communityDomain).doc("user").collection("registered").where("uid", "in", members).get();
 
-    querySnapshot.docs.forEach((doc) => {
-      data.push(doc.data());
-    });
-    return data;
-  };
 
-  loadChatUsers = () => {
-    if (this.props.type == "interestGroup") {
-      this._getInterestGroupUsers().then((data) => this.setState({ chatroomUsers: data }));
-    } else if (this.props.type == "private") {
-      this._getPrivateChatUsers(this.props.members).then((data) => this.setState({ chatroomUsers: data }));
-    }
-  };
+		this.loadChatUsers();
 
-  _renderUsersItem({ item, index }) {
-    const avatarTitle = item.email.slice(0, 2);
-    const fullName = item.firstName + " " + item.lastName;
-    const avatar = item.photoURL ? { source: { uri: item.photoURL } } : { title: avatarTitle };
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          this.setState({ modalVisible: false });
-          this.props.navigation.navigate("UserProfile", { uid: item.uid, user: item });
-        }}
-      >
-        <ListItem
-          leftAvatar={{
-            rounded: true,
-            ...avatar,
-          }}
-          title={
-            <View style={{ flex: 1, flexDirection: "row" }}>
-              <Text style={{ flex: 1, fontSize: 16 }}>{item.displayName || fullName || item.email}</Text>
-            </View>
-          }
-          chevron={true}
-          // rightElement={
-          //   <TouchableOpacity onPress={() => {
-          //     // console.log("item.uid", item.uid, global.uid)
-          //     this.privateMessageUser(item.uid, global.uid, fullName)
-          //   }}>
-          //     <MaterialIcons name="message" style={{ fontSize: 25 }} />
-          //   </TouchableOpacity>
-          // }
-          subtitle={
-            <View style={{ flex: 1, flexDirection: "column", paddingTop: 3 }}>
-              <Text style={{ color: "gray" }}>{fullName}</Text>
-              <Text style={{ color: "gray" }}>{item.email}</Text>
-            </View>
-          }
-        />
-      </TouchableOpacity>
-    );
-  }
+		Analytics.track("Chat", { chatroom: this.props.title });
+	}
+	_getInterestGroupUsers = async () => {
+		const data = [];
+		const querySnapshot = await firebase.firestore().collection(this.communityDomain).doc("user").collection("registered").where("interestGroups", "array-contains", this.props.title).limit(5000).get();
 
-  onSend(messages = []) {
-    if (messages[0]._id == undefined) {
-      messages[0]._id = uuid.v4();
-    }
+		querySnapshot.docs.forEach(doc => {
+			data.push(doc.data());
+		});
+		return data;
+	};
 
-    this.setState((previousState) => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }));
+	_getPrivateChatUsers = async members => {
+		const data = [];
+		const querySnapshot = await firebase.firestore().collection(this.communityDomain).doc("user").collection("registered").where("uid", "in", members).get();
 
-    localMessages.push(messages[0]._id);
-    Backend.SendMessage(messages);
-  }
+		querySnapshot.docs.forEach(doc => {
+			data.push(doc.data());
+		});
+		return data;
+	};
 
-  getPermissionAsync = async () => {
-    if (Constants.platform.ios) {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status !== "granted") {
-        alert("Sorry, we need camera roll permissions to make this work!");
-      }
-    }
-  };
+	loadChatUsers = () => {
+		if (this.props.type == "interestGroup") {
+			this._getInterestGroupUsers().then(data => this.setState({ chatroomUsers: data }));
+		} else if (this.props.type == "private") {
+			this._getPrivateChatUsers(this.props.members).then(data => this.setState({ chatroomUsers: data }));
+		}
+	};
 
-  componentWillUnmount() {
-    this._isMounted = false;
-    Backend.closeChat();
-  }
+	_renderUsersItem({ item, index }) {
+		const avatarTitle = item.email.slice(0, 2);
+		const fullName = item.firstName + " " + item.lastName;
+		const avatar = item.photoURL ? { source: { uri: item.photoURL } } : { title: avatarTitle };
+		return <TouchableOpacity onPress={() => {
+			this.setState({ modalVisible: false });
+			this.props.navigation.navigate("UserProfile", { uid: item.uid, user: item });
+		}}>
+			<ListItem leftAvatar={{
+				rounded: true,
+				...avatar
+			}} title={<View style={styles.a221a2b50ac4611ea973dcfce83f911da}>
+				<Text style={styles.a221a5260ac4611ea973dcfce83f911da}>{item.displayName || fullName || item.email}</Text>
+			</View>} chevron={true} subtitle={<View style={styles.a221a5261ac4611ea973dcfce83f911da}>
+				<Text style={styles.a221a5262ac4611ea973dcfce83f911da}>{fullName}</Text>
+				<Text style={styles.a221a5263ac4611ea973dcfce83f911da}>{item.email}</Text>
+			</View>} />
+		</TouchableOpacity>;
+	}
 
-  avatarPress = (props) => {
-    Alert.alert(props.email);
-  };
+	onSend(messages = []) {
+		if (messages[0]._id == undefined) {
+			messages[0]._id = uuid.v4();
+		}
 
-  onLoadEarlier() {
-    this.setState((previousState) => ({
-      isLoadingEarlier: true,
-    }));
+		this.setState(previousState => ({
+			messages: GiftedChat.append(previousState.messages, messages)
+		}));
 
-    setTimeout(() => {
-      // if (this._isMounted === true) {
-      //   this.setState(previousState => ({
-      //     messages: GiftedChat.prepend(previousState.messages, require("./old_messages.js")),
-      //     loadEarlier: false,
-      //     isLoadingEarlier: false,
-      //   }));
-      // }
-    }, 2000); // simulating network
-  }
+		localMessages.push(messages[0]._id);
+		Backend.SendMessage(messages);
+	}
 
-  onReceive(text) {}
+	getPermissionAsync = async () => {
+		if (Constants.platform.ios) {
+			const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+			if (status !== "granted") {
+				alert("Sorry, we need camera roll permissions to make this work!");
+			}
+		}
+	};
 
-  renderCustomActions(props) {
-    return (
-      <TouchableOpacity style={styles.photoContainer} onPress={this._pickImage}>
-        <View>
-          <Entypo name="camera" style={{ fontSize: 25, color: "#777777" }} />
-        </View>
-      </TouchableOpacity>
-    );
-  }
+	componentWillUnmount() {
+		this._isMounted = false;
+		Backend.closeChat();
+	}
 
-  _pickImage = async () => {
-    this.getPermissionAsync();
+	avatarPress = props => {
+		Alert.alert(props.email);
+	};
 
-    var images = [];
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    });
+	onLoadEarlier() {
+		this.setState(previousState => ({
+			isLoadingEarlier: true
+		}));
+	}
 
-    if (!result.cancelled) {
-      images[0] = {
-        image: result.uri,
-        filename: result.uri,
-        user: {
-          _id: this.userInfo.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-          name: this.userInfo.firstName,
-        },
-      };
+	onReceive(text) { }
 
-      this.onSend(images);
-    }
-  };
+	renderCustomActions(props) {
+		return <TouchableOpacity style={styles.photoContainer} onPress={this._pickImage}>
+			<View>
+				<Entypo name="camera" style={styles.a221a5264ac4611ea973dcfce83f911da} />
+			</View>
+		</TouchableOpacity>;
+	}
 
-  renderSystemMessage(props) {
-    return (
-      <SystemMessage
-        {...props}
-        containerStyle={{
-          marginBottom: 15,
-        }}
-        textStyle={{
-          fontSize: 14,
-        }}
-      />
-    );
-  }
+	_pickImage = async () => {
+		this.getPermissionAsync();
 
-  renderCustomView(props) {
-    return <CustomView {...props} />;
-  }
+		var images = [];
+		let result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Images
+		});
 
-  renderCustomImage(props) {
-    return <CustomImage {...props} />;
-  }
+		if (!result.cancelled) {
+			images[0] = {
+				image: result.uri,
+				filename: result.uri,
+				user: {
+					_id: this.userInfo.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+					name: this.userInfo.firstName
+				}
+			};
 
-  renderCustomVideo(props) {
-    return <CustomVideo {...props} />;
-  }
+			this.onSend(images);
+		}
+	};
 
-  renderFooter(props) {
-    if (this.state.typingText) {
-      return (
-        <View style={styles.footerContainer}>
-          <Text style={styles.footerText}>{this.state.typingText}</Text>
-        </View>
-      );
-    }
-    return null;
-  }
+	renderSystemMessage(props) {
+		return <SystemMessage {...props} containerStyle={{
+			marginBottom: 15
+		}} textStyle={{
+			fontSize: 14
+		}} />;
+	}
 
-  getColor(username) {
-    let sumChars = 0;
-    for (let i = 0; i < 10; i++) {
-      sumChars += 5;
-    }
+	renderCustomView(props) {
+		return <CustomView {...props} />;
+	}
 
-    const colors = [
-      "#d6cfc7", // carrot
-      "#c7c6c1", // emerald
-      "#bebdb8", // peter  river
-      "#bdb7ab", // wisteria
-      "#d9dddc", // alizarin
-      "#b9bbb6", // turquoise
-      "#808588", // midnight blue
-    ];
-    return colors[sumChars % colors.length];
-  }
+	renderCustomImage(props) {
+		return <CustomImage {...props} />;
+	}
 
-  parsePatterns(linkStyle) {
-    return [{ type: "url", style: styles.url, onPress: this._handleOpenWithLinking }];
-  }
+	renderCustomVideo(props) {
+		return <CustomVideo {...props} />;
+	}
 
-  _handleOpenWithLinking = (sURL) => {
-    let ret;
+	renderFooter(props) {
+		if (this.state.typingText) {
+			return <View style={styles.footerContainer}>
+				<Text style={styles.footerText}>{this.state.typingText}</Text>
+			</View>;
+		}
+		return null;
+	}
 
-    if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
-      Linking.openURL(sURL);
-    } else {
-      this.props.navigation.navigate("authPortalEmbed", {
-        url: sURL,
-      });
-    }
-  };
+	getColor(username) {
+		let sumChars = 0;
+		for (let i = 0; i < 10; i++) {
+			sumChars += 5;
+		}
 
-  refresh = ({ title }) => {
-    console.log("nav refresh AAA ", title);
-    this.props.navigation.setParams({ title: title });
-    console.log("nav refresh BBB ", title);
-  };
+		const colors = ["#d6cfc7", // carrot
+			"#c7c6c1", // emerald
+			"#bebdb8", // peter  river
+			"#bdb7ab", // wisteria
+			"#d9dddc", // alizarin
+			"#b9bbb6", // turquoise
+			"#808588"];
+		return colors[sumChars % colors.length];
+	}
 
-  _showActionSheet = () => {
-    const options = ["Chatroom info", "Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
-    const { chatroom, title, type } = this.props.route.params;
-    const cancelButtonIndex = options.length - 1;
+	parsePatterns(linkStyle) {
+		return [{ type: "url", style: styles.url, onPress: this._handleOpenWithLinking }];
+	}
 
-    this.props.showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex,
-      },
-      (buttonIndex) => {
-        switch (buttonIndex) {
-          case 0:
-            this.setState({ modalVisible: true });
-            break;
-          case 1:
-            this.props.navigation.push("chatTitle", {
-              title: title,
-              chatroom: chatroom,
-              type: type,
-              edit: true,
-              onGoBack: this.refresh,
-            });
-            break;
-          case 2:
-            Backend.setMute(true);
-            break;
-          case 3:
-            Backend.setMute(false);
-            break;
-        }
-      }
-    );
-  };
+	_handleOpenWithLinking = sURL => {
+		let ret;
 
-  renderSend(props) {
-    return (
-      <Send {...props}>
-        <View style={{ marginRight: 10, marginBottom: 10 }}>
-          <MaterialIcons name="send" style={{ fontSize: 25, color: "#777777" }} />
-        </View>
-      </Send>
-    );
-  }
+		if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
+			Linking.openURL(sURL);
+		} else {
+			this.props.navigation.navigate("authPortalEmbed", {
+				url: sURL
+			});
+		}
+	};
 
-  renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          backgroundColor: "#CED0CE",
-        }}
-      />
-    );
-  };
+	refresh = ({ title }) => {
+		console.log("nav refresh AAA ", title);
+		this.props.navigation.setParams({ title: title });
+		console.log("nav refresh BBB ", title);
+	};
 
-  render() {
-    if (this.communityDomain == "sais_edu_sg" && !this.props.authPortal.authEmail) {
-      const { goBack } = this.props.navigation;
+	_showActionSheet = () => {
+		const options = ["Chatroom info", "Edit Chatroom", "Mute Conversation", "Unmute Conversation", "Cancel"];
+		const { chatroom, title, type } = this.props.route.params;
+		const cancelButtonIndex = options.length - 1;
 
-      goBack(null);
-      setTimeout(() => {
-        // Alert.alert(I18n.t("login"));
-        this.props.navigation.navigate("authPortalEmbed");
-      }, 100);
+		this.props.showActionSheetWithOptions({
+			options,
+			cancelButtonIndex
+		}, buttonIndex => {
+			switch (buttonIndex) {
+				case 0:
+					this.setState({ modalVisible: true });
+					break;
+				case 1:
+					this.props.navigation.push("chatTitle", {
+						title: title,
+						chatroom: chatroom,
+						type: type,
+						edit: true,
+						onGoBack: this.refresh
+					});
+					break;
+				case 2:
+					Backend.setMute(true);
+					break;
+				case 3:
+					Backend.setMute(false);
+					break;
+			}
+		});
+	};
 
-      this.props.navigation.navigate("chatRooms");
-      return (
-        <View>
-          <Text>{I18n.t("login")}</Text>
-        </View>
-      );
-    }
+	renderSend(props) {
+		return <Send {...props}>
+			<View style={styles.a221a7970ac4611ea973dcfce83f911da}>
+				<MaterialIcons name="send" style={styles.a221a7971ac4611ea973dcfce83f911da} />
+			</View>
+		</Send>;
+	}
 
-    //  this.props.navigation.setParams({
-    //    _showActionSheet: this._showActionSheet,
-    // //   refresh: this.refresh,
-    // });
+	renderSeparator = () => {
+		return <View style={styles.a221a7972ac4611ea973dcfce83f911da} />;
+	};
 
-    let userDetails = {};
-    if (this.userInfo.isAnonymous) {
-      userDetails = {
-        name: "Guest" + this.userInfo.uid,
-      };
-    } else {
-      userDetails = {
-        name: this.userInfo.firstName,
-        email: this.userInfo.email,
-        ...(this.userInfo.photoURL && { avatar: this.userInfo.photoURL }),
-      };
-    }
+	render() {
+		if (this.communityDomain == "sais_edu_sg" && !this.props.authPortal.authEmail) {
+			const { goBack } = this.props.navigation;
 
-    return (
-      <Container>
-        <View>
-          <Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
-            <View style={{ marginTop: 22, backgroundColor: "#f2f2f2", flex: 1 }}>
-              <LinearGradient
-                colors={["#4c669f", "#3b5998", "#192f6a"]}
-                style={{
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  height: 100,
-                  padding: 12,
-                }}
-              >
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({ modalVisible: false });
-                  }}
-                >
-                  <AntDesign size={32} color={"#f2f2f2"} name="closecircleo" />
-                </TouchableOpacity>
+			goBack(null);
+			setTimeout(() => {
+				// Alert.alert(I18n.t("login"));
+				this.props.navigation.navigate("authPortalEmbed");
+			}, 100);
 
-                <Text
-                  style={{
-                    fontSize: 24,
-                    color: "#fff",
-                    fontWeight: "bold",
-                    textShadowOffset: { width: 1, height: 0.8 },
-                    textShadowRadius: 1,
-                    textShadowColor: "#000",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {this.props.title}
-                </Text>
-              </LinearGradient>
+			this.props.navigation.navigate("chatRooms");
+			return <View>
+				<Text>{I18n.t("login")}</Text>
+			</View>;
+		}
 
-              <View style={{ backgroundColor: "#fff", marginTop: 12 }}>
-                <Text style={{ padding: 12, fontSize: 18 }}>Chatroom users ({this.state.chatroomUsers.length})</Text>
-                {this.renderSeparator()}
+		let userDetails = {};
+		if (this.userInfo.isAnonymous) {
+			userDetails = {
+				name: "Guest " + this.userInfo.uid.substring(1, 4)
+			};
+		} else {
+			userDetails = {
+				name: this.userInfo.firstName,
+				email: this.userInfo.email,
+				...(this.userInfo.photoURL && { avatar: this.userInfo.photoURL })
+			};
+		}
 
-                {["users", "public"].indexOf(this.props.route.params) > -1 ? (
-                  <SettingsListItem
-                    title={"All Users"}
-                    onPress={() => {
-                      this.setState({ modalVisible: false });
-                      this.props.navigation.navigate("UserSearch");
-                    }}
-                  />
-                ) : (
-                  <FlatList
-                    style={{ height: "70%" }}
-                    data={this.state.chatroomUsers}
-                    renderItem={this._renderUsersItem.bind(this)}
-                    keyExtractor={(_, idx) => "user" + idx}
-                    ItemSeparatorComponent={this.renderSeparator}
-                    // ListHeaderComponent={this.renderSeparator}
-                  />
-                )}
-              </View>
-            </View>
-          </Modal>
+		return <Container>
+			<View>
+				<Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
+					<View style={styles.a221aa080ac4611ea973dcfce83f911da}>
+						<LinearGradient colors={["#4c669f", "#3b5998", "#192f6a"]} style={styles.a221aa081ac4611ea973dcfce83f911da}>
+							<TouchableOpacity onPress={() => {
+								this.setState({ modalVisible: false });
+							}}>
+								<AntDesign size={32} color={"#f2f2f2"} name="closecircleo" />
+							</TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate("selectLanguageChat", {
-                chatroom: this.props.title,
-                // description: this.props.description,
-                // contact: this.props.contact,
-                url: this.props.url,
-              });
-            }}
-          >
-            <View style={styles.topbar}>
-              <Text style={styles.chatBanner}>{I18n.t("translationsGoogle")}</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+							<Text style={styles.a221aa082ac4611ea973dcfce83f911da}>
+								{this.props.title}
+							</Text>
+						</LinearGradient>
 
-        <GiftedChat
-          messages={this.state.messages}
-          onSend={this.onSend}
-          user={{
-            _id: this.userInfo.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-            ...userDetails,
-          }}
-          renderActions={this.renderCustomActions}
-          renderSystemMessage={this.renderSystemMessage}
-          renderCustomView={this.renderCustomView}
-          renderMessageImage={this.renderCustomImage}
-          renderMessageVideo={this.renderCustomVideo}
-          showUserAvatar={true}
-          bottomOffset={0}
-          onPressAvatar={this.avatarPress}
-          alwaysShowSend={true}
-          renderSend={this.renderSend}
-          placeholder={I18n.t("typeMessage")}
-          parsePatterns={this.parsePatterns}
-          renderUsernameOnMessage={true}
-          textInputStyle={{ color: "#555555" }}
-        />
+						<View style={styles.a221aa083ac4611ea973dcfce83f911da}>
+							<Text style={styles.a221aa084ac4611ea973dcfce83f911da}>Chatroom users ({this.state.chatroomUsers.length})</Text>
+							{this.renderSeparator()}
 
-        <Footer style={styles.footer} />
-      </Container>
-    );
-  }
+							{["users", "public"].indexOf(this.props.route.params) > -1 ? <SettingsListItem title={"All Users"} onPress={() => {
+								this.setState({ modalVisible: false });
+								this.props.navigation.navigate("UserSearch");
+							}} /> : <FlatList style={styles.a221aa085ac4611ea973dcfce83f911da} data={this.state.chatroomUsers} renderItem={this._renderUsersItem.bind(this)} keyExtractor={(_, idx) => "user" + idx} ItemSeparatorComponent={this.renderSeparator}
+								// ListHeaderComponent={this.renderSeparator}
+								/>}
+						</View>
+					</View>
+				</Modal>
+
+				<TouchableOpacity onPress={() => {
+					this.props.navigation.navigate("selectLanguageChat", {
+						chatroom: this.props.title,
+						// description: this.props.description,
+						// contact: this.props.contact,
+						url: this.props.url
+					});
+				}}>
+					<View style={styles.topBar}>
+						<Text style={styles.chatBanner}>{I18n.t("translationsGoogle")}</Text>
+					</View>
+				</TouchableOpacity>
+			</View>
+
+			<GiftedChat messages={this.state.messages} onSend={this.onSend} user={{
+				_id: this.userInfo.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
+				...userDetails
+			}} renderActions={this.renderCustomActions} renderSystemMessage={this.renderSystemMessage} renderCustomView={this.renderCustomView} renderMessageImage={this.renderCustomImage} renderMessageVideo={this.renderCustomVideo} showUserAvatar={true} bottomOffset={0} onPressAvatar={this.avatarPress} alwaysShowSend={true} renderSend={this.renderSend} placeholder={I18n.t("typeMessage")} parsePatterns={this.parsePatterns} renderUsernameOnMessage={true} textInputStyle={{ color: "#555555" }} />
+
+			<Footer style={styles.footer} />
+		</Container>;
+	}
 }
 
-const mapStateToProps = (state) => ({
-  communityCreation: state.communityCreation,
-  community: state.community,
-  auth: state.auth,
-  authPortal: state.authPortal,
+const mapStateToProps = state => ({
+	communityCreation: state.communityCreation,
+	community: state.community,
+	auth: state.auth,
+	authPortal: state.authPortal
 });
 const ConnectedApp = compose(connectActionSheet, connect(mapStateToProps))(chat);
 
 export default class ActionSheetContainer extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.title,
-    headerRight: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params._showActionSheet();
-        }}
-      >
-        <View style={styles.chatHeading}>
-          <Entypo name="cog" style={styles.chatHeading} />
-        </View>
-      </TouchableOpacity>
-    ),
-  });
+	static navigationOptions = ({ navigation }) => ({
+		title: navigation.state.params.title,
+		headerRight: <TouchableOpacity onPress={() => {
+			navigation.state.params._showActionSheet();
+		}}>
+			<View style={styles.chatHeading}>
+				<Entypo name="cog" style={styles.chatHeading} />
+			</View>
+		</TouchableOpacity>
+	});
 
-  render() {
-    return (
-      <ActionSheetProvider>
-        <ConnectedApp route={this.props.route} navigation={this.props.navigation} />
-      </ActionSheetProvider>
-    );
-  }
+	render() {
+		return <ActionSheetProvider>
+			<ConnectedApp route={this.props.route} navigation={this.props.navigation} />
+		</ActionSheetProvider>;
+	}
 }
+
+const styles = StyleSheet.create({
+	a221a2b50ac4611ea973dcfce83f911da: {
+		flex: 1,
+		flexDirection: "row"
+	},
+	a221a5260ac4611ea973dcfce83f911da: {
+		flex: 1,
+		fontSize: 16
+	},
+	a221a5261ac4611ea973dcfce83f911da: {
+		flex: 1,
+		flexDirection: "column",
+		paddingTop: 3
+	},
+	a221a5262ac4611ea973dcfce83f911da: {
+		color: "gray"
+	},
+	a221a5263ac4611ea973dcfce83f911da: {
+		color: "gray"
+	},
+	a221a5264ac4611ea973dcfce83f911da: {
+		color: "#777777",
+		fontSize: 25
+	},
+	a221a7970ac4611ea973dcfce83f911da: {
+		marginBottom: 10,
+		marginRight: 10
+	},
+	a221a7971ac4611ea973dcfce83f911da: {
+		color: "#777777",
+		fontSize: 25
+	},
+	a221a7972ac4611ea973dcfce83f911da: {
+		backgroundColor: "#CED0CE",
+		height: 1
+	},
+	a221aa080ac4611ea973dcfce83f911da: {
+		backgroundColor: "#f2f2f2",
+		flex: 1,
+		marginTop: 22
+	},
+	a221aa081ac4611ea973dcfce83f911da: {
+		flexDirection: "column",
+		height: 100,
+		justifyContent: "space-between",
+		padding: 12
+	},
+	a221aa082ac4611ea973dcfce83f911da: {
+		color: "#fff",
+		fontSize: 24,
+		fontWeight: "bold",
+		fontWeight: "bold",
+		textShadowColor: "#000",
+		textShadowOffset: {
+			width: 1,
+			height: 0.8
+		},
+		textShadowRadius: 1
+	},
+	a221aa083ac4611ea973dcfce83f911da: {
+		backgroundColor: "#fff",
+		marginTop: 12
+	},
+	a221aa084ac4611ea973dcfce83f911da: {
+		fontSize: 18,
+		padding: 12
+	},
+	a221aa085ac4611ea973dcfce83f911da: {
+		height: "70%"
+	},
+
+	chatBanner: {
+		alignSelf: "center",
+		borderBottomColor: "#666",
+		borderBottomWidth: 1,
+		color: "grey",
+		fontSize: 14,
+		paddingBottom: 5,
+		paddingTop: 5,
+	},
+
+	chatHeading: {
+		alignSelf: "center",
+		color: "black",
+		flex: 1,
+		flexDirection: "row",
+		fontSize: 25,
+		paddingBottom: 5,
+		paddingRight: 10,
+	},
+
+	footer: {
+		height: 10,
+	},
+	footerContainer: {
+		marginBottom: 10,
+		marginLeft: 10,
+		marginRight: 10,
+		marginTop: 5,
+	},
+
+	footerText: {
+		color: "#000",
+		fontSize: 14,
+	},
+	photoContainer: {
+		height: 26,
+		marginBottom: 10,
+		marginLeft: 10,
+		width: 26,
+	},
+	topBar: {
+		alignItems: "center",
+		backgroundColor: "white",
+		height: 30,
+	},
+	url: {
+		color: "blue",
+		textDecorationLine: "underline",
+	},
+
+}); 

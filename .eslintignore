@@ -1,1 +1,3 @@
 js/packages/
+e2e/*
+__tests__/*
