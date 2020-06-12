@@ -18,8 +18,6 @@ import DemoData from "../../lib/demoData";
 
 const demo = DemoData;
 
-const primary = require("../../themes/variable").brandPrimary;
-
 const bottomLogo = {
 	sais_edu_sg: require("../../../images/sais_edu_sg/10yearLogo.png"),
 	ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg")
@@ -50,6 +48,7 @@ class Home extends Component {
 
 		if (domain == "oakforest_international_edu") {
 			demo.setupDemoData();
+			this.loadBalance();
 		}
 
 		logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain, this.props.auth.userInfo.email || "");
@@ -77,36 +76,41 @@ class Home extends Component {
 	}
 
 	loadBalance() {
-		var balanceItems = [];
 
-		let balance = firebase.firestore().collection("sais_edu_sg").doc("user").collection("usernames").doc("Rh9hEJmOyLR12WfflrLCCvvpIWD2").get().then(snapshot => {
-			if (!snapshot.exists) {
-				return;
-			}
-			const data = snapshot.data();
-			//.push({ campusBalance: data.campusBalance });
 
-			var trans = {
-				visible: true,
-				source: "balance",
-				summaryMyLanguage: "$" + data.campusBalance.toFixed(2),
-				summary: "$" + data.campusBalance.toFixed(2),
-				summaryEN: "$" + data.campusBalance.toFixed(2),
-				color: "red",
-				showIconChat: false,
-				location: "Cafeteria Account Balance"
-			};
-
-			var familyId = data.guid.substring(data.guid.indexOf("iSAMSparents:") + 13, data.guid.indexOf("-"));
-
-			balanceItems.push({ ...{ _key: snapshot.id }, ...data, ...trans });
-			if (balanceItems.length > 0) {
-				this.setState({
-					balanceItems
-				});
-			}
-		});
 	}
+
+	// loadBalance() {
+	// 	var balanceItems = [];
+
+	// 	let balance = firebase.firestore().collection("sais_edu_sg").doc("user").collection("usernames").doc("Rh9hEJmOyLR12WfflrLCCvvpIWD2").get().then(snapshot => {
+	// 		if (!snapshot.exists) {
+	// 			return;
+	// 		}
+	// 		const data = snapshot.data();
+	// 		//.push({ campusBalance: data.campusBalance });
+
+	// 		var trans = {
+	// 			visible: true,
+	// 			source: "balance",
+	// 			summaryMyLanguage: "$" + data.campusBalance.toFixed(2),
+	// 			summary: "$" + data.campusBalance.toFixed(2),
+	// 			summaryEN: "$" + data.campusBalance.toFixed(2),
+	// 			color: "red",
+	// 			showIconChat: false,
+	// 			location: "Cafeteria Account Balance"
+	// 		};
+
+	// 		var familyId = data.guid.substring(data.guid.indexOf("iSAMSparents:") + 13, data.guid.indexOf("-"));
+
+	// 		balanceItems.push({ ...{ _key: snapshot.id }, ...data, ...trans });
+	// 		if (balanceItems.length > 0) {
+	// 			this.setState({
+	// 				balanceItems
+	// 			});
+	// 		}
+	// 	});
+	// }
 
 	loadCalendar() {
 		const todayDate = moment().format("YYYY-MM-DD");
@@ -137,6 +141,21 @@ class Home extends Component {
 			this.setState({
 				loading: false
 			});
+		});
+
+		var trans = {
+			visible: true,
+			source: "balance",
+			summaryMyLanguage: "$56.20",
+			summary: "$56.20",
+			summaryEN: "$56.20",
+			color: "red",
+			showIconChat: false,
+			location: "Cafeteria Account Balance"
+		};
+
+		this.setState({
+			balanceItems: trans
 		});
 	}
 
@@ -198,6 +217,7 @@ class Home extends Component {
 	};
 
 	_renderItem = ({ item }, cardStyle) => {
+		console.log("render item:", item.source)
 		return <ListItem navigation={this.props.navigation} item={item} card={true} language={this.language} cardStyle={cardStyle} />;
 	};
 
@@ -206,7 +226,9 @@ class Home extends Component {
 	};
 	_renderBalance() {
 		if (global.domain === "oakforest_international_edu") {
-			return <FlatList data={this.state.balanceItems} keyExtractor={this.keyExtractor} renderItem={this._renderItem} />;
+			return (
+				<ListItem navigation={this.props.navigation} item={this.state.balanceItems} card={true} language={this.language} />
+			)
 		}
 	}
 
