@@ -2,7 +2,7 @@
 #
 .DS_Store
 web-build/
-
+coverage
 
 # Xcode
 

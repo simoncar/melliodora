@@ -17,6 +17,7 @@
 		"jest-fetch-mock": "^3.0.3",
 		"metro-react-native-babel-preset": "^0.59.0",
 		"react-native-dotenv": "^0.2.0",
+		"react-native-testing-library": "^2.1.0",
 		"redux-devtools-extension": "^2.13.8",
 		"redux-logger": "^3.0.6"
 	},
