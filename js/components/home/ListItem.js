@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
 		fontSize: stylesGlobal.headingFontSize,
 		fontWeight: "500",
 		justifyContent: "center",
+		width: 270
 	},
 	cardView: {
 		alignItems: "center",

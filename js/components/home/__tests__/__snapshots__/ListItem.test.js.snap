@@ -95,6 +95,7 @@ exports[`list item  with a photo 1`] = `
                   "fontSize": 18,
                   "fontWeight": "500",
                   "justifyContent": "center",
+                  "width": 270,
                 },
               ]
             }
@@ -310,6 +311,7 @@ exports[`list item of a calendar with date 1`] = `
                   "fontSize": 18,
                   "fontWeight": "500",
                   "justifyContent": "center",
+                  "width": 270,
                 },
               ]
             }
@@ -535,6 +537,7 @@ exports[`list item of a calendar with date and time 1`] = `
                   "fontSize": 18,
                   "fontWeight": "500",
                   "justifyContent": "center",
+                  "width": 270,
                 },
               ]
             }
@@ -731,6 +734,7 @@ exports[`show balance 1`] = `
                   "fontSize": 18,
                   "fontWeight": "500",
                   "justifyContent": "center",
+                  "width": 270,
                 },
               ]
             }
