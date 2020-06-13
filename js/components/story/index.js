@@ -66,7 +66,6 @@ class Story extends Component {
 	}
 
 	_handleOpenWithLinking = (sURL) => {
-		let ret;
 
 		if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
 			Linking.openURL(sURL);
@@ -130,9 +129,6 @@ class Story extends Component {
 	}
 
 	_drawIconChat(chatroom, title) {
-		// if (_.isNil(chatroom) || this.state.showIconChat === false) {
-		//   return;
-		// }
 		return (
 			<TouchableOpacity
 				onPress={() => {
