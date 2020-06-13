@@ -181,8 +181,12 @@ class EventDateTime extends Component {
 	};
 
 	showDatepicker = () => {
-		if (!_.isDate(this.state.dateTimeStart)) this.setState({ dateTimeStart: new Date() });
-		if (!_.isDate(this.state.dateTimeEnd)) this.setState({ dateTimeEnd: new Date() });
+		if (!_.isDate(this.state.dateTimeStart)) {
+			var selectedDate = new Date()
+			this.setState({ dateTimeStart: selectedDate });
+			this.props.handler(selectedDate, selectedDate, moment(selectedDate).format("YYYY-MM-DD"));
+		}
+		//if (!_.isDate(this.state.dateTimeEnd)) this.setState({ dateTimeEnd: new Date() });
 
 		this.showMode("date", "start");
 	};
