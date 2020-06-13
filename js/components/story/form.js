@@ -66,11 +66,13 @@ class Form extends Component {
 	handlerVisibleMore(visible) {
 		this.setState({ visibleMore: visible });
 	}
-	handleEventDateTime(dateTimeStart, dateTimeEnd) {
+	handleEventDateTime(dateTimeStart, dateTimeEnd, date_start) {
 		console.log("HANDLER DATE:", dateTimeStart, dateTimeEnd);
-		this.setState({ dateTimeStart: dateTimeStart, dateTimeEnd: dateTimeEnd });
-
-
+		this.setState({
+			dateTimeStart: dateTimeStart,
+			dateTimeEnd: dateTimeEnd,
+			date_start: date_start
+		});
 	}
 
 	getPermissionAsync = async () => {

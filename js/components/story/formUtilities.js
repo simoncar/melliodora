@@ -98,6 +98,7 @@ class EventDateTime extends Component {
 		super(props);
 
 		this.state = {
+			dateEvent: props.dateTimeStart,
 			dateTimeStart: props.dateTimeStart,
 			dateTimeEnd: props.dateTimeEnd,
 			mode: "date",
@@ -106,19 +107,59 @@ class EventDateTime extends Component {
 	}
 
 	onChange = (event, selectedDate) => {
-		console.log("ONCHANGEe", selectedDate);
-		if (this.state.startEnd == "end") {
-			this.setState({
-				dateTimeEnd: selectedDate,
-				controlDate: selectedDate
-			});
-		} else {
+		console.log("----");
+		console.log("ONCHANGEe", this.state.startEnd, selectedDate);
+
+		// if (this.state.dateTimeEnd != undefined) {
+		// 	//always force the 'date' of the endTime to the 'date' of the start time, regardless of the 'time'
+		// 	var dateEnd = moment(selectedDate).format("YYYY-MM-DD")
+		// 	var timeEnd = moment(this.state.dateTimeEnd).format("hh:mm")
+
+		// 	var timeAndDate = moment(dateEnd + ' ' + timeEnd);
+		// 	console.log("FORCE END DATE CHANGE", dateEnd, timeEnd, timeAndDate)
+		// 	this.setState({
+		// 		dateTimeEnd: timeAndDate,
+		// 	})
+		// }
+
+		if (this.state.startEnd == "start") {
+
+			// var dateStart = moment(selectedDate).format("YYYY-MM-DD")
+			// var timeEnd = "00:00"
+
+			// var timeAndDate = moment(dateStart + ' ' + timeEnd);
+
 			this.setState({
 				dateTimeStart: selectedDate,
 				controlDate: selectedDate
 			});
+
+			var date_start = ""
+
+			if (moment(selectedDate).isValid()) {
+				date_start = moment(selectedDate).format("YYYY-MM-DD")
+			} else {
+				date_start = ""
+			}
+			console.log("date_start:", date_start)
+
+
+			this.props.handler(selectedDate, selectedDate, date_start);
+		} else {
+			// //always force the 'date' of the endTime to the 'date' of the start time, regardless of the 'time'
+			// var dateEnd = moment(selectedDate).format("YYYY-MM-DD")
+			// var timeEnd = moment(selectedDate).format("hh:mm")
+
+			// var timeAndDate = moment(dateEnd + ' ' + timeEnd);
+			// console.log("END TIME AND DATE", dateEnd, timeEnd, timeAndDate)
+
+			// this.setState({
+			// 	dateTimeEnd: selectedDate,
+			// 	controlDate: selectedDate
+			// });
+			// this.props.handler(this.state.dateTimeStart, selectedDate);
 		}
-		this.props.handler(this.state.dateTimeStart, this.state.dateTimeEnd);
+
 	};
 
 	showMode = (currentMode, startEnd) => {
@@ -148,7 +189,7 @@ class EventDateTime extends Component {
 	};
 
 	showEndTimepicker = () => {
-		if (!_.isDate(this.state.dateTimeEnd)) this.setState({ dateTimeStart: new Date() });
+		if (!_.isDate(this.state.dateTimeEnd)) this.setState({ dateTimeEnd: new Date() });
 		this.showMode("time", "end");
 	};
 
@@ -166,7 +207,7 @@ class EventDateTime extends Component {
 								this.showDatepicker();
 							}}>
 								<Text>
-									{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("MMMM Do YYYY") : "Start Date "}
+									{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("MMMM Do YYYY") : "No Date"}
 								</Text>
 							</TouchableOpacity>
 						</View>
@@ -174,53 +215,59 @@ class EventDateTime extends Component {
 				</View>
 
 
-
-				<View style={styles.settingsItem}>
-					<View style={styles.settingsLeft}>
-						<View>
-							<Text>Time</Text>
-						</View>
-						<View style={styles.settingsRightTime}>
-							<TouchableOpacity onPress={() => {
-								this.showStartTimepicker();
-							}}>
-								<Text>
-									{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("h:mm a") : "Time"}
-								</Text>
-							</TouchableOpacity>
-							<Text> - </Text>
-							<TouchableOpacity onPress={() => {
-								this.showEndTimepicker();
-							}}>
-								<Text>
-									{_.isDate(this.state.dateTimeEnd) ? moment(this.state.dateTimeEnd).format("h:mm a") : "End"}
-								</Text>
-							</TouchableOpacity>
+				{(false) &&
+					<View style={styles.settingsItem}>
+						<View style={styles.settingsLeft}>
+							<View>
+								<Text>Time</Text>
+							</View>
+							<View style={styles.settingsRightTime}>
+								<TouchableOpacity onPress={() => {
+									this.showStartTimepicker();
+								}}>
+									<Text>
+										{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("h:mm a") : "Time"}
+									</Text>
+								</TouchableOpacity>
+								<Text> - </Text>
+								<TouchableOpacity onPress={() => {
+									this.showEndTimepicker();
+								}}>
+									<Text>
+										{_.isDate(this.state.dateTimeEnd) ? moment(this.state.dateTimeEnd).format("h:mm a") : "End"}
+									</Text>
+								</TouchableOpacity>
+							</View>
 						</View>
 					</View>
-				</View>
-
+				}
 				<View>
 					{this.state.show && <View>
 						<View style={styles.settingsItem}>
 							<View style={styles.settingsLeft}>
 								<TouchableOpacity onPress={() => {
-									this.setState({ show: false, dateTimeStart: "", dateTimeEnd: "" });
+									this.setState({ show: false, dateTimeStart: "", dateTimeEnd: "", date_start: "" });
+									this.props.handler(null, null, "");
 								}}>
-									<Text>Clear</Text>
+									<Text style={styles.blueButton}>Clear</Text>
 								</TouchableOpacity>
 
 								<View style={styles.settings}>
 									<TouchableOpacity onPress={() => {
 										this.setState({ show: false });
 									}}>
-										<Text>Done</Text>
+										<Text style={styles.blueButton}>Done</Text>
 									</TouchableOpacity>
 								</View>
 							</View>
 						</View>
 
-						<DateTimePicker testID="dateTimePicker" timeZoneOffsetInMinutes={0} value={_.isDate(this.state.controlDate) ? this.state.controlDate : new Date()} mode={this.state.mode} is24Hour={false} display="default" onChange={this.onChange} />
+						<DateTimePicker
+							testID="dateTimePicker"
+							value={_.isDate(this.state.controlDate) ? this.state.controlDate : new Date()} mode={this.state.mode}
+							is24Hour={false}
+							display="default"
+							onChange={this.onChange} />
 					</View>}
 				</View>
 			</View >)
@@ -229,8 +276,11 @@ class EventDateTime extends Component {
 
 const styles = StyleSheet.create({
 
+	blueButton: {
+		color: "blue",
+		fontSize: 20,
+	},
 	inputOrderOnPage: {
-
 		width: 50,
 	},
 	settingsItem: {
