@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-native-testing-library';
+import { render, fireEvent } from 'react-native-testing-library';
 
 import { Story } from '../index';
 
@@ -69,14 +69,16 @@ const itemCore = {
 	}
 }
 
-const itemURL = {
+const itemURLlinking = {
 
 	params: {
 		...itemCore.params,
-		"descriptionMyLanguage": "google https://google.com is a website",
+		"descriptionMyLanguage": "google https://google.com is a website mys https://mystamford.edu.sg/somepage is a website, test@smartcookies.io is an email and 444-555-6666 is a phone number",
 		"location": "At Google Campus"
 	}
 }
+
+
 
 const itemNoChat = {
 
@@ -86,11 +88,12 @@ const itemNoChat = {
 	}
 }
 
-const itemNoCalendar = {
+const itemNoCalendarNoImage = {
 
 	params: {
 		...itemCore.params,
 		"date_start": "",
+		"photo1": "",
 	}
 }
 
@@ -109,14 +112,21 @@ test('show story on screen', () => {
 	expect(queryByText("School cafe")).not.toBeNull();
 	expect(queryByText("While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.")).not.toBeNull();
 	expect(getByTestId('story.chatIcon')).not.toBeNull();
+
+	fireEvent.press(getByTestId('story.shareButton'));
+	fireEvent.press(getByTestId('story.chatIcon'));
+	fireEvent.press(getByTestId('story.calendarIcon'));
+	// expect(navigation.navigate).toHaveBeenCalled();
+	// expect(navigation.navigate).toHaveBeenCalledWith("Beacons", { beaconState: "Entered", enrolled: false });
+
 });
 
-test('show story with URL in content', () => {
+test('show story with URL in content to test linking', () => {
 	const navigation = { navigate: jest.fn() };
 
-	const { toJSON, queryByText, queryByTestId } = render(
+	const { toJSON, queryByText, getByTestId, queryByTestId } = render(
 		<Story
-			route={itemURL}
+			route={itemURLlinking}
 			auth={auth}
 			navigation={navigation} />
 	);
@@ -124,9 +134,15 @@ test('show story with URL in content', () => {
 	expect(toJSON()).toMatchSnapshot();
 	expect(queryByText("Yearbook")).not.toBeNull();
 	expect(queryByText("At Google Campus")).not.toBeNull();
-	expect(queryByText("google https://google.com is a website")).not.toBeNull();
-	expect(queryByTestId('story.calendarIcon')).not.toBeNull();
+	expect(queryByText("google https://google.com is a website mys https://mystamford.edu.sg/somepage is a website, test@smartcookies.io is an email and 444-555-6666 is a phone number")).not.toBeNull();
+
+	fireEvent.press(queryByText('https://google.com'));
+	fireEvent.press(queryByText('https://mystamford.edu.sg/somepage'));
+	fireEvent.press(queryByText('test@smartcookies.io'));
+	fireEvent.press(queryByText('444-555-6666'));
 });
+
+
 
 
 test('show story without chat', () => {
@@ -146,12 +162,12 @@ test('show story without chat', () => {
 });
 
 
-test('show story without calendar', () => {
+test('show story no calendar no image', () => {
 	const navigation = { navigate: jest.fn() };
 
 	const { toJSON, queryByTestId, queryByText } = render(
 		<Story
-			route={itemNoCalendar}
+			route={itemNoCalendarNoImage}
 			auth={auth}
 			navigation={navigation} />
 	);
@@ -161,6 +177,5 @@ test('show story without calendar', () => {
 	expect(queryByText("School cafe")).not.toBeNull();
 	expect(queryByTestId('story.calendarIcon')).toBeNull();
 });
-
 
 
