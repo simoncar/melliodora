@@ -36,7 +36,7 @@ const itemCore = {
 			"borderWidth": 0,
 		},
 		"_key": "dDbhWxL1hLyFhF6uReK6",
-		"date_start": null,
+		"date_start": "2020-11-30",
 		"description": "While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.",
 		"descriptionEN": "While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.",
 		"descriptionES": "Si bien su escuela puede ordenar libros adicionales para vender durante la distribución, no se reservará un anuario a su nombre. Para garantizar que reciba un libro, le recomendamos que compre antes de la fecha límite de pedido de su escuela.",
@@ -69,13 +69,28 @@ const itemCore = {
 	}
 }
 
-
 const itemURL = {
 
 	params: {
 		...itemCore.params,
 		"descriptionMyLanguage": "google https://google.com is a website",
 		"location": "At Google Campus"
+	}
+}
+
+const itemNoChat = {
+
+	params: {
+		...itemCore.params,
+		"showIconChat": false,
+	}
+}
+
+const itemNoCalendar = {
+
+	params: {
+		...itemCore.params,
+		"date_start": "",
 	}
 }
 
@@ -93,33 +108,59 @@ test('show story on screen', () => {
 	expect(queryByText("Yearbook")).not.toBeNull();
 	expect(queryByText("School cafe")).not.toBeNull();
 	expect(queryByText("While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.")).not.toBeNull();
-
-
-	expect(getByTestId('story.chatIcon').props).toEqual(
-		expect.objectContaining({
-			name: "bubble"
-		})
-	);
+	expect(getByTestId('story.chatIcon')).not.toBeNull();
 });
 
-test('show story on screen with URL in content', () => {
+test('show story with URL in content', () => {
 	const navigation = { navigate: jest.fn() };
 
-	const { toJSON, queryByText } = render(
+	const { toJSON, queryByText, queryByTestId } = render(
 		<Story
 			route={itemURL}
 			auth={auth}
 			navigation={navigation} />
 	);
 
+	expect(toJSON()).toMatchSnapshot();
 	expect(queryByText("Yearbook")).not.toBeNull();
 	expect(queryByText("At Google Campus")).not.toBeNull();
 	expect(queryByText("google https://google.com is a website")).not.toBeNull();
+	expect(queryByTestId('story.calendarIcon')).not.toBeNull();
 });
 
 
+test('show story without chat', () => {
+	const navigation = { navigate: jest.fn() };
+
+	const { toJSON, queryByTestId, queryByText } = render(
+		<Story
+			route={itemNoChat}
+			auth={auth}
+			navigation={navigation} />
+	);
+
+	expect(toJSON()).toMatchSnapshot();
+	expect(queryByText("Yearbook")).not.toBeNull();
+	expect(queryByText("School cafe")).not.toBeNull();
+	expect(queryByTestId('story.chatIcon')).toBeNull();
+});
 
 
+test('show story without calendar', () => {
+	const navigation = { navigate: jest.fn() };
+
+	const { toJSON, queryByTestId, queryByText } = render(
+		<Story
+			route={itemNoCalendar}
+			auth={auth}
+			navigation={navigation} />
+	);
+
+	expect(toJSON()).toMatchSnapshot();
+	expect(queryByText("Yearbook")).not.toBeNull();
+	expect(queryByText("School cafe")).not.toBeNull();
+	expect(queryByTestId('story.calendarIcon')).toBeNull();
+});
 
 
 

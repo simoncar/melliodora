@@ -105,14 +105,18 @@ export class Story extends Component {
 	}
 
 	_drawIconChat(chatroom, title) {
-		return <TouchableOpacity onPress={() => {
-			this.props.navigation.navigate("chatStory", {
-				chatroom: chatroom,
-				title: title
-			});
-		}}>
-			<Text testID="story.chatIcon" style={styles.eventText}>{this.state.showIconChat && <SimpleLineIcons  name="bubble" style={styles.eventIcon} />} </Text>
-		</TouchableOpacity>;
+		if (this.state.showIconChat == true) {
+			return <TouchableOpacity onPress={() => {
+				this.props.navigation.navigate("chatStory", {
+					chatroom: chatroom,
+					title: title
+				});
+			}}>
+				<Text testID="story.chatIcon" style={styles.eventText}>
+					<SimpleLineIcons name="bubble" style={styles.eventIcon} />
+				</Text>
+			</TouchableOpacity>;
+		}
 	}
 
 	_drawIconCalendar(params) {
@@ -120,7 +124,7 @@ export class Story extends Component {
 			return <TouchableOpacity onPress={() => {
 				this.props.navigation.navigate("phoneCalendar", this.state);
 			}}>
-				<Text style={styles.eventText}>
+				<Text testID="story.calendarIcon" style={styles.eventText}>
 					<Ionicons name="ios-calendar" style={styles.eventIcon} />
 				</Text>
 			</TouchableOpacity>;
