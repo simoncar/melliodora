@@ -18,81 +18,81 @@ import variables from "../native-base-theme/variables/commonColor";
 import getTheme from "../native-base-theme/components";
 
 class Setup extends Component {
-  constructor() {
-    super();
-  }
-  state = {
-    loading: true,
-  };
+	constructor() {
+		super();
+	}
+	state = {
+		loading: true,
+	};
 
-  componentDidMount() {
-    try {
-      Firebase.initialise().then(() =>
-        this.props.dispatch({ type: "FIREBASE_READY" })
-      );
-    } catch (e) {
-      console.log("firebase error", e.message);
-    }
-    if (Constants.manifest.extra.instance) {
-      const node = Constants.manifest.extra.instance;
-      this.props.dispatch(getCommunityDetails(node));
-    }
+	componentDidMount() {
+		try {
+			Firebase.initialise().then(() =>
+				this.props.dispatch({ type: "FIREBASE_READY" })
+			);
+		} catch (e) {
+			console.log("firebase error", e.message);
+		}
+		if (Constants.manifest.extra.instance) {
+			const node = Constants.manifest.extra.instance;
+			this.props.dispatch(getCommunityDetails(node));
+		}
 
-    Font.loadAsync({
-      SegoeUI: require("../resources/segoe-ui.ttf"),
-      "Material Icons": require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
-      MaterialIcons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
-      Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
-    }).then(() => this.setState({ loading: false }));
+		Font.loadAsync({
+			SegoeUI: require("../resources/segoe-ui.ttf"),
+			"Material Icons": require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
+			MaterialIcons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf"),
+			Ionicons: require("../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
+		}).then(() => this.setState({ loading: false }));
 
-    let language = this.props.auth.language;
-    if (language === "ar") {
-      I18nManager.forceRTL(true);
-      if (!I18nManager.isRTL) {
-        Updates.reloadFromCache();
-      }
-    } else {
-      I18nManager.forceRTL(false);
-      if (I18nManager.isRTL) {
-        Updates.reloadFromCache();
-      }
-    }
-    I18n.locale = language;
-  }
+		let language = this.props.auth.language;
+		if (language === "ar") {
+			I18nManager.forceRTL(true);
+			if (!I18nManager.isRTL) {
+				Updates.reloadFromCache();
+			}
+		} else {
+			I18nManager.forceRTL(false);
+			if (I18nManager.isRTL) {
+				Updates.reloadFromCache();
+			}
+		}
+		I18n.locale = language;
+	}
 
-  render() {
-    if (
-      this.state.loading ||
-      !this.props.auth.userInfo ||
-      _.isEmpty(this.props.auth.userInfo) ||
-      (_.isEmpty(this.props.community.selectedCommunity) &&
-        Constants.manifest.extra.instance)
-    ) {
-      return <AppLoading />;
-    } else if (_.isEmpty(this.props.community.selectedCommunity)) {
-      return (
-        <StyleProvider style={getTheme(variables)}>
-          <Root>
-            <AuthStackNavigator />
-          </Root>
-        </StyleProvider>
-      );
-    } else {
-      // check if user is admin
-      return (
-        <StyleProvider style={getTheme(variables)}>
-          <Root>
-            <App />
-          </Root>
-        </StyleProvider>
-      );
-    }
-  }
+	render() {
+		if (
+			this.state.loading ||
+			!this.props.auth.userInfo ||
+			_.isEmpty(this.props.auth.userInfo) ||
+			(_.isEmpty(this.props.community.selectedCommunity) &&
+				Constants.manifest.extra.instance)
+		) {
+			return <AppLoading />;
+		} else if (_.isEmpty(this.props.community.selectedCommunity)) {
+			return (
+				<StyleProvider style={getTheme(variables)}>
+					<Root>
+						<AuthStackNavigator />
+					</Root>
+				</StyleProvider>
+			);
+		} else {
+			// check if user is admin
+			return (
+				<StyleProvider style={getTheme(variables)}>
+					<Root>
+						<App />
+					</Root>
+				</StyleProvider>
+			);
+		}
+	}
 }
 
 const mapStateToProps = (state) => ({
-  communityCreation: state.communityCreation,
-  community: state.community,
-  auth: state.auth,
+	communityCreation: state.communityCreation,
+	community: state.community,
+	auth: state.auth,
 });
 export default connect(mapStateToProps)(Setup);
