@@ -15,8 +15,10 @@ export class Story extends Component {
 		super(props);
 
 
-		const { _key, summary, location, summaryMyLanguage, source, date_start, time_start_pretty, time_end_pretty, descriptionMyLanguage, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd } = this.props.route.params;
 
+
+		const { _key, summary, location, summaryMyLanguage, source, date_start, time_start_pretty, time_end_pretty, descriptionMyLanguage, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd } = this.props.route.params;
+	
 
 		this.state = {
 			photo1: photo1 !== undefined ? photo1 : null,
