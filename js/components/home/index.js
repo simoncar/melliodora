@@ -217,7 +217,6 @@ class Home extends Component {
 	};
 
 	_renderItem = ({ item }, cardStyle) => {
-		console.log("render item:", item.source)
 		return <ListItem navigation={this.props.navigation} item={item} card={true} language={this.language} cardStyle={cardStyle} />;
 	};
 
