@@ -113,8 +113,6 @@ class EventDateTime extends Component {
 	}
 
 	onChange = (event, selectedDate) => {
-		console.log("----");
-		console.log("ONCHANGEe", this.state.startEnd, selectedDate);
 
 		// if (this.state.dateTimeEnd != undefined) {
 		// 	//always force the 'date' of the endTime to the 'date' of the start time, regardless of the 'time'
