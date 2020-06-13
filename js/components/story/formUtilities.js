@@ -97,10 +97,16 @@ class EventDateTime extends Component {
 	constructor(props) {
 		super(props);
 
+		var timestamp = null
+		if (_.isObject(props.dateTimeStart)) {
+			if (_.isFunction(props.dateTimeStart.toDate)) {
+				timestamp = props.dateTimeStart.toDate()
+			}
+		}
+
 		this.state = {
-			dateEvent: props.dateTimeStart,
-			dateTimeStart: props.dateTimeStart,
-			dateTimeEnd: props.dateTimeEnd,
+			dateEvent: timestamp,
+			dateTimeStart: timestamp,
 			mode: "date",
 			show: false
 		};

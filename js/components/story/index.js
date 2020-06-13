@@ -14,7 +14,7 @@ class Story extends Component {
 	constructor(props) {
 		super(props);
 
-		const { _key, summary, summaryMyLanguage, source, date_start, time_start_pretty, time_end_pretty, descriptionMyLanguage, description, photo1, visible, visibleMore, showIconChat, order } = this.props.route.params;
+		const { _key, summary, summaryMyLanguage, source, date_start, time_start_pretty, time_end_pretty, descriptionMyLanguage, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd } = this.props.route.params;
 
 		console.log("TIME: ", date_start, time_start_pretty, time_end_pretty);
 
@@ -32,7 +32,9 @@ class Story extends Component {
 			date_start,
 			time_start_pretty,
 			time_end_pretty,
-			source
+			source,
+			dateTimeStart,
+			dateTimeEnd
 
 		};
 

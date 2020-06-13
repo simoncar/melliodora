@@ -26,7 +26,7 @@ class Form extends Component {
 	constructor(props) {
 		super(props);
 
-		const { edit, _key, summary, description, photo1, visible, visibleMore, showIconChat, order } = this.props.route.params;
+		const { edit, _key, summary, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params;
 
 		this.state = {
 			photo1: edit && photo1 !== undefined ? photo1 : null,
@@ -38,14 +38,19 @@ class Form extends Component {
 			order: edit ? order : 1,
 			_key: edit ? _key : "",
 
-			date_start: props.date_start,
-			time_start_pretty: props.time_start_pretty,
-			time_end_pretty: props.time_end_pretty,
+			date_start: date_start,
+			time_start_pretty: time_start_pretty,
+			time_end_pretty: time_end_pretty,
+
+			dateTimeStart: dateTimeStart,
+			dateTimeEnd: dateTimeEnd,
 
 			cameraIcon: "camera",
 			showAdvanced: true,
 			notifyMeSwitch: false
 		};
+
+
 		this.handlerChat = this.handlerChat.bind(this);
 		this.handlerOrder = this.handlerOrder.bind(this);
 		this.handlerVisible = this.handlerVisible.bind(this);
