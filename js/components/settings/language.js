@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, AsyncStorage } from "react-native";
+import { StyleSheet, View} from "react-native";
 import { SettingsListItem } from "../settings/SettingsListItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";
@@ -133,36 +133,31 @@ class selectLanguage extends Component {
 }
 
 const styles = StyleSheet.create({
-  imageStyle: {
-    marginLeft: 15,
+
+  imageStyleCheckOff: {
     alignSelf: "center",
+    color: "#FFF",
+    fontSize: 30,
     height: 30,
+    marginLeft: 15,
     width: 30,
   },
   imageStyleCheckOn: {
-    marginLeft: 15,
     alignSelf: "center",
-    height: 30,
-    width: 30,
-    fontSize: 30,
     color: "#007AFF",
-  },
-  imageStyleCheckOff: {
-    marginLeft: 15,
-    alignSelf: "center",
-    height: 30,
-    width: 30,
     fontSize: 30,
-    color: "#FFF",
+    height: 30,
+    marginLeft: 15,
+    width: 30,
   },
 
   titleInfoStyle: {
-    marginTop: 20,
-    fontSize: 16,
+    alignSelf: "center",
     color: "#8e8e93",
+    fontSize: 16,
 
     marginLeft: 10,
-    alignSelf: "center",
+    marginTop: 20,
   },
 });
 

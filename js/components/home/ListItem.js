@@ -22,11 +22,11 @@ class ListItem extends Component {
 		}
 	}
 	renderTime(start, end, source) {
-		if (source == "calendar") {
-			if (undefined != start && start.length > 0) {
-				return <Text style={styles.eventTime}>{formatTime(start, end)} </Text>;
-			}
+		//if (source == "calendar") {
+		if (undefined != start && start.length > 0) {
+			return <Text style={styles.eventTime}>{formatTime(start, end)} </Text>;
 		}
+		//}
 	}
 
 	renderLocation(location) {
@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
 		fontSize: stylesGlobal.headingFontSize,
 		fontWeight: "500",
 		justifyContent: "center",
+		width: 270
 	},
 	cardView: {
 		alignItems: "center",
