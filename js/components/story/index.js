@@ -14,11 +14,7 @@ export class Story extends Component {
 	constructor(props) {
 		super(props);
 
-
-
-
 		const { _key, summary, location, summaryMyLanguage, source, date_start, time_start_pretty, time_end_pretty, descriptionMyLanguage, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd } = this.props.route.params;
-	
 
 		this.state = {
 			photo1: photo1 !== undefined ? photo1 : null,
@@ -47,7 +43,7 @@ export class Story extends Component {
 		Share.share({
 			message: "" + this.state.summaryMyLanguage + "\n" + formatMonth(this.state.date_start) + "\n" + formatTime(this.state.time_start_pretty, this.state.time_end_pretty) + " \n" + this.state.descriptionMyLanguage,
 			title: this.state.summaryMyLanguage
-		}).then(this._showResult).catch(error => this.setState({ result: `error: ${error.message}` }));
+		}).catch(error => this.setState({ result: `error: ${error.message}` }));
 	}
 
 	_handleOpenWithLinking = sURL => {
@@ -65,19 +61,13 @@ export class Story extends Component {
 		Linking.openURL("mailto:" + email);
 	}
 
-	handlePhonePress(phone) {
+	_handlePhonePress(phone) {
 		Linking.openURL("tel:" + phone);
-	}
-
-	renderText(matchingString) {
-		const pattern = /\[(@[^:]+):([^\]]+)\]/i;
-		const match = matchingString.match(pattern);
-		return `^^${match[1]}^^`;
 	}
 
 	_drawImage(imageURI) {
 		var uri = ""
-		if (_.isNil(imageURI)) {
+		if (_.isNil(imageURI) || (imageURI == "")) {
 			uri = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fxdesk-calendar-980x470-20181016.jpg.pagespeed.ic.BdAsh-Nj_6.jpg?alt=media&token=697fef73-e77d-46de-83f5-a45540694274";
 		} else {
 			uri = imageURI;
@@ -134,12 +124,13 @@ export class Story extends Component {
 	}
 
 	_drawIconShare() {
-		return <TouchableOpacity onPress={() => this._shareMessage()}>
+		return <TouchableOpacity onPress={() => this._shareMessage()} testID="story.shareButton">
 			<Text style={styles.eventText}>
 				<Ionicons name="ios-share-alt" style={styles.eventIcon} />
 			</Text>
 		</TouchableOpacity>;
 	}
+	
 	refreshFunction(newState) {
 		this.setState({ newState, summaryMyLanguage: newState.summary, descriptionMyLanguage: newState.description });
 	}
@@ -186,19 +177,20 @@ export class Story extends Component {
 						</Text>}
 
 
-						<ParsedText style={styles.eventTextBody} parse={[{
-							pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*[-a-zA-Z0-9@:%_\+~#?&\/=])*/i,
-							style: styles.url,
-							onPress: this._handleOpenWithLinking
-						}, {
-							type: "phone",
-							style: styles.phone,
-							onPress: this._handlePhonePress
-						}, {
-							type: "email",
-							style: styles.email,
-							onPress: this._handleEmailPress
-						}, { pattern: /433333332/, style: styles.magicNumber }, { pattern: /#(\w+)/, style: styles.hashTag }]} childrenProps={{ allowFontScaling: false }}>
+						<ParsedText style={styles.eventTextBody} testID="story.parsedText"
+							parse={[{
+								pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*[-a-zA-Z0-9@:%_\+~#?&\/=])*/i,
+								style: styles.url,
+								onPress: this._handleOpenWithLinking
+							}, {
+								type: "phone",
+								style: styles.phone,
+								onPress: this._handlePhonePress
+							}, {
+								type: "email",
+								style: styles.email,
+								onPress: this._handleEmailPress
+							}, { pattern: /433333332/, style: styles.magicNumber }, { pattern: /#(\w+)/, style: styles.hashTag }]} childrenProps={{ allowFontScaling: false }}>
 							{this.state.descriptionMyLanguage}
 						</ParsedText>
 
