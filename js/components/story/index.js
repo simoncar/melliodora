@@ -17,7 +17,7 @@ class Story extends Component {
 	constructor(props) {
 		super(props);
 
-		const { _key, summary, summaryMyLanguage, descriptionMyLanguage, description, photo1, visible, visibleMore, showIconChat, order } = this.props.route.params;
+		const { _key, summary, summaryMyLanguage,date_start, time_start_pretty, time_end_pretty, descriptionMyLanguage, description, photo1, visible, visibleMore, showIconChat, order } = this.props.route.params;
 
 		this.state = {
 			photo1: photo1 !== undefined ? photo1 : null,
@@ -39,11 +39,7 @@ class Story extends Component {
 	}
 
 	componentDidMount() {
-		// Analytics.track("Story", { story: this.props.route.params.summaryMyLanguage });
-
 		this._unsubscribe = this.props.navigation.addListener("focus", () => {
-			//console.log("Add LIstender FFFFFFFF FOCUS");
-			// this.setState({ summaryMyLanguage: "QQQQQQQ" });
 		});
 	}
 
