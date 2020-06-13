@@ -191,6 +191,7 @@ exports[`show story on screen 1`] = `
                 },
               ]
             }
+            testID="story.chatIcon"
             uppercase={false}
           >
             <Text />

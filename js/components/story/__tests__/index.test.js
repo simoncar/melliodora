@@ -70,10 +70,19 @@ const itemCore = {
 }
 
 
+const itemURL = {
+
+	params: {
+		...itemCore.params,
+		"descriptionMyLanguage": "google https://google.com is a website",
+		"location": "At Google Campus"
+	}
+}
+
 test('show story on screen', () => {
 	const navigation = { navigate: jest.fn() };
 
-	const { toJSON, queryByText } = render(
+	const { toJSON, getByTestId, queryByText } = render(
 		<Story
 			route={itemCore}
 			auth={auth}
@@ -84,6 +93,33 @@ test('show story on screen', () => {
 	expect(queryByText("Yearbook")).not.toBeNull();
 	expect(queryByText("School cafe")).not.toBeNull();
 	expect(queryByText("While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.")).not.toBeNull();
+
+
+	expect(getByTestId('story.chatIcon').props).toEqual(
+		expect.objectContaining({
+			name: "bubble"
+		})
+	);
 });
+
+test('show story on screen with URL in content', () => {
+	const navigation = { navigate: jest.fn() };
+
+	const { toJSON, queryByText } = render(
+		<Story
+			route={itemURL}
+			auth={auth}
+			navigation={navigation} />
+	);
+
+	expect(queryByText("Yearbook")).not.toBeNull();
+	expect(queryByText("At Google Campus")).not.toBeNull();
+	expect(queryByText("google https://google.com is a website")).not.toBeNull();
+});
+
+
+
+
+
 
 

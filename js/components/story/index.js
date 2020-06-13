@@ -111,7 +111,7 @@ export class Story extends Component {
 				title: title
 			});
 		}}>
-			<Text style={styles.eventText}>{this.state.showIconChat && <SimpleLineIcons name="bubble" style={styles.eventIcon} />} </Text>
+			<Text testID="story.chatIcon" style={styles.eventText}>{this.state.showIconChat && <SimpleLineIcons  name="bubble" style={styles.eventIcon} />} </Text>
 		</TouchableOpacity>;
 	}
 
