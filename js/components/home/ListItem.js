@@ -22,11 +22,11 @@ class ListItem extends Component {
 		}
 	}
 	renderTime(start, end, source) {
-		if (source == "calendar") {
-			if (undefined != start && start.length > 0) {
-				return <Text style={styles.eventTime}>{formatTime(start, end)} </Text>;
-			}
+		//if (source == "calendar") {
+		if (undefined != start && start.length > 0) {
+			return <Text style={styles.eventTime}>{formatTime(start, end)} </Text>;
 		}
+		//}
 	}
 
 	renderLocation(location) {

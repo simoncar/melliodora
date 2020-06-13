@@ -1,4 +1,3 @@
-import Constants from "expo-constants";
 import _ from "lodash";
 const moment = require("moment");
 import "moment/min/locales";
@@ -22,14 +21,17 @@ export function isURL(str) {
 	return pattern.test(str);
 }
 
-export function formatTime(starttime, endtime) {
+export function formatTime(startTime, endTime) {
 	var ret = "";
 
-	if (starttime === null && typeof starttime === "object") {
+	if (startTime === null && typeof startTime === "object") {
 		ret = "";
 	} else {
-		if (undefined != starttime && starttime.length > 0) {
-			var ret = starttime + " - " + endtime;
+		if (undefined != startTime && startTime.length > 0) {
+			ret = startTime
+			if (undefined != endTime && endTime.length > 0) {
+				ret = ret + " - " + endTime;
+			}
 		} else {
 			ret = "";
 		}
