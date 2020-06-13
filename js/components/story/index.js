@@ -10,13 +10,13 @@ import _ from "lodash";
 import { connect } from "react-redux";
 import stylesGlobal from "../../themes/globalTheme";
 
-class Story extends Component {
+export class Story extends Component {
 	constructor(props) {
 		super(props);
 
-		const { _key, summary, summaryMyLanguage, source, date_start, time_start_pretty, time_end_pretty, descriptionMyLanguage, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd } = this.props.route.params;
 
-		console.log("TIME: ", date_start, time_start_pretty, time_end_pretty);
+		const { _key, summary, location, summaryMyLanguage, source, date_start, time_start_pretty, time_end_pretty, descriptionMyLanguage, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd } = this.props.route.params;
+
 
 		this.state = {
 			photo1: photo1 !== undefined ? photo1 : null,
@@ -34,25 +34,13 @@ class Story extends Component {
 			time_end_pretty,
 			source,
 			dateTimeStart,
-			dateTimeEnd
+			dateTimeEnd,
+			location
 
 		};
 
 		this.refreshFunction = this.refreshFunction.bind(this);
 	}
-
-	navigationSubscription() {
-		console.log("navigationSubscription");
-	}
-
-	componentDidMount() {
-		this._unsubscribe = this.props.navigation.addListener("focus", () => { });
-	}
-
-	componentWillUnmount() {
-		this._unsubscribe();
-	}
-
 	_shareMessage() {
 		Share.share({
 			message: "" + this.state.summaryMyLanguage + "\n" + formatMonth(this.state.date_start) + "\n" + formatTime(this.state.time_start_pretty, this.state.time_end_pretty) + " \n" + this.state.descriptionMyLanguage,
@@ -178,13 +166,19 @@ class Story extends Component {
 							{this.state.summaryMyLanguage}
 						</Text>
 
-						<Text selectable style={styles.eventText}>
+						{isValue(this.state.location) && <Text selectable style={styles.eventText}>
+							{this.state.location}
+						</Text>}
+
+						{isValue(this.state.date_start) && <Text selectable style={styles.eventText}>
 							{formatMonth(this.state.date_start)}
-						</Text>
+						</Text>}
+
 
 						{isValue(this.state.time_start_pretty) && <Text selectable style={styles.eventTextTime}>
 							{formatTime(this.state.time_start_pretty, this.state.time_end_pretty)}
 						</Text>}
+
 
 						<ParsedText style={styles.eventTextBody} parse={[{
 							pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*[-a-zA-Z0-9@:%_\+~#?&\/=])*/i,
@@ -207,9 +201,7 @@ class Story extends Component {
 							{this.state.description}
 							{"\n\n"}
 						</Text>}
-						<Text selectable style={styles.englishFallback}>
-							{this.state.location}
-						</Text>
+
 						<Text> </Text>
 						<Text> </Text>
 						<Text selectable style={styles.eventTextAbbreviation}>
