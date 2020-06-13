@@ -39,11 +39,7 @@ class Story extends Component {
 	}
 
 	componentDidMount() {
-		// Analytics.track("Story", { story: this.props.route.params.summaryMyLanguage });
-
 		this._unsubscribe = this.props.navigation.addListener("focus", () => {
-			//console.log("Add LIstender FFFFFFFF FOCUS");
-			// this.setState({ summaryMyLanguage: "QQQQQQQ" });
 		});
 	}
 
@@ -70,7 +66,6 @@ class Story extends Component {
 	}
 
 	_handleOpenWithLinking = (sURL) => {
-		let ret;
 
 		if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
 			Linking.openURL(sURL);
@@ -134,9 +129,6 @@ class Story extends Component {
 	}
 
 	_drawIconChat(chatroom, title) {
-		// if (_.isNil(chatroom) || this.state.showIconChat === false) {
-		//   return;
-		// }
 		return (
 			<TouchableOpacity
 				onPress={() => {
