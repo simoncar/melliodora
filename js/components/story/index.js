@@ -130,7 +130,7 @@ export class Story extends Component {
 			</Text>
 		</TouchableOpacity>;
 	}
-	
+
 	refreshFunction(newState) {
 		this.setState({ newState, summaryMyLanguage: newState.summary, descriptionMyLanguage: newState.description });
 	}
@@ -203,7 +203,7 @@ export class Story extends Component {
 						<Text> </Text>
 						<Text> </Text>
 						<Text selectable style={styles.eventTextAbbreviation}>
-							{getAbbreviations(this.state.summary)}
+							{getAbbreviations(this.state.summary,  global.domain )}
 						</Text>
 
 					</View>
