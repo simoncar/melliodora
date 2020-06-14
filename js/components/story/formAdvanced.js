@@ -3,7 +3,6 @@ import { View, ImageBackground, Text, TextInput, TouchableOpacity, Switch, SafeA
 import { Input } from "react-native-elements";
 import { Container, Content } from "native-base";
 import styles from "./styles";
-import { withMappedNavigationParams } from "react-navigation-props-mapper";
 import * as firebase from "firebase";
 import { Entypo, SimpleLineIcons, Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import I18n from "../../lib/i18n";

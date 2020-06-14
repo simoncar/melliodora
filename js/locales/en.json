@@ -53,5 +53,8 @@
 	"loggedInAs": "Logged in as",
 	"aboutThisApp": "About this App",
 	"password": "Password",
+	"welcome": "Welcome",
+	"forgetPassword": "Forget Password",
+	"create": "Create",
 	"cancel": "Cancel"
 }
