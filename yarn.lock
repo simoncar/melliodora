@@ -11849,10 +11849,10 @@ react-native-reanimated@~1.7.0:
   dependencies:
     fbjs "^1.0.0"
 
-react-native-safe-area-context@0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-0.7.3.tgz#ad6bd4abbabe195332c53810e4ce5851eb21aa2a"
-  integrity sha512-9Uqu1vlXPi+2cKW/CW6OnHxA76mWC4kF3wvlqzq4DY8hn37AeiXtLFs2WkxH4yXQRrnJdP6ivc65Lz+MqwRZAA==
+react-native-safe-area-context@3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.0.4.tgz#c37c5948cbe0ea0a2c08159f90e84d19fcceab19"
+  integrity sha512-Va/yoAJPMHdX4h5SfCbjRBjLpo09cJZvou2SU81Oh0wwAw3MmDAa7C/mpCllpEwWdeUxpQk9UjF2uSpjLRHi6w==
 
 react-native-screens@~2.2.0:
   version "2.2.0"
