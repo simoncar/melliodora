@@ -57,9 +57,11 @@ export function formatMonth(eventDate) {
 	return ret;
 }
 
-export function getAbbreviations(eventDetails) {
+export function getAbbreviations(eventDetails, domain) {
+
+
 	var ret = "";
-	if (eventDetails == undefined) {
+	if (eventDetails == undefined || domain != "sais_edu_sg") {
 		return ret;
 	}
 
