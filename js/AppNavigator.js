@@ -1,14 +1,13 @@
 import React from "react";
 import { TouchableOpacity, View, Text, Button } from "react-native";
-//import { createAppContainer } from "react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
-//import { createStackNavigator } from "react-navigation-stack";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import _ from "lodash";
 
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather, FontAwesome } from "@expo/vector-icons";
+import I18n from "./lib/i18n";
 
 import Calendar from "./components/calendar";
 import phoneCalendar from "./components/calendar/calendars";
@@ -32,7 +31,7 @@ import chat from "./components/chat";
 import push from "./components/story/push";
 import authPortal from "./components/webportalURL/authPortal";
 import WebportalURL from "./components/webportalURL";
-import I18n from "./lib/i18n";
+
 import LoginScreen from "./components/auth/LoginScreen";
 import SignUpScreen from "./components/auth/SignUpScreen";
 import ForgotPasswordScreen from "./components/auth/ForgotPasswordScreen";

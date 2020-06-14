@@ -99,6 +99,10 @@
 		"tcomb-form-native": "^0.6.20"
 	},
 	"jest": {
+		"verbose": true,
+		"setupFiles": [
+			"./mock.js"
+		],
 		"projects": [
 			{
 				"preset": "jest-expo/ios"
