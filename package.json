@@ -62,6 +62,7 @@
 		"expo-linking": "^1.0.1",
 		"expo-localization": "~8.1.0",
 		"expo-permissions": "~8.1.0",
+		"expo-screen-orientation": "~1.0.0",
 		"firebase": "7.9.0",
 		"i18n-js": "^3.7.0",
 		"lodash": "^4.17.15",
