@@ -93,7 +93,7 @@ class Settings extends Component {
 				const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
 				return <SettingsListItem key={"feature" + idx} icon={<Image style={styles.imageStyle} source={imgSource} />} title={I18n.t(el.title || "", {
 					defaultValue: el.title || ""
-				})} titleInfo={el.titleInfo || ""} onPress={() => this.props.navigation.navigate(el.navigate || "webportalURL", navProps)} />;
+				})} titleInfo={el.titleInfo || ""} onPress={() => this.props.navigation.navigate(el.navigate || "WebPortal", navProps)} />;
 			})}
 
 			{this.separator(i)}

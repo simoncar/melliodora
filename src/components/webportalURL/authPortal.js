@@ -22,15 +22,17 @@ class authPortal extends Component {
 	constructor(props) {
 		super(props);
 
-		//console.log(this.props.route.params.url);
+		var url
 
 		if (_.isNil(this.props.route.params && this.props.route.params.url)) {
-			var url = global.switch_portalURL;
+			console.log("A", url)
+			url = (undefined != global.switch_portalURL) ? global.switch_portalURL : "https://www.smartcookies.io";
 		} else {
-			var url = this.props.route.params.url;
+			console.log("B")
+
+			url = this.props.route.params.url
 		}
 
-		console.log("PROPS: ", this.props);
 
 		this.state = {
 			url: url,
@@ -46,6 +48,8 @@ class authPortal extends Component {
 
 		this.actionOptions = global.switch_webportalActions ? global.switch_webportalActions.map((item) => Object.keys(item)[0]) : [];
 		this.actionOptions.push("Cancel");
+
+		console.log("initial:", this.state.url, url, global.switch_portalURL)
 	}
 	//this.props.chatroom
 
@@ -54,7 +58,6 @@ class authPortal extends Component {
 	}
 
 	componentDidMount() {
-		console.log("PROPS: ", this.props);
 
 		if (Constants.manifest.extra.instance == "sais_edu_sg") {
 			this.setState({ showMsg: true }, () => timer.setTimeout(this, "hideMsg", () => this.setState({ showMsg: false }), 10000));
@@ -95,7 +98,6 @@ class authPortal extends Component {
 	}
 
 	onNavigationStateChange = (navState) => {
-		console.log(navState.url);
 		if (navState.url.substring(0, 42) != "https://mystamford.edu.sg/login/login.aspx" && navState.url.substring(0, 25) == "https://mystamford.edu.sg") {
 			setTimeout(() => {
 				var jsCode = "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML);";
@@ -117,6 +119,7 @@ class authPortal extends Component {
 			}
 		}
 		this.setState({ url: navState.url });
+		console.log(" navState.url:", navState.url, navState)
 	};
 
 	onBack() {
@@ -158,31 +161,29 @@ class authPortal extends Component {
 		const { visible, style, children, ...rest } = this.props;
 
 		return (
-			<View>
-				<View style={{ flex: 1 }}>
-					<View style={{ flex: 2 }}>
-						<View style={styles.topbar}>
-							<TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
-								<Ionicons style={styles.navIcon} name="ios-arrow-back" />
-							</TouchableOpacity>
+			<View style={{ flex: 1 }}>
+				<View style={{ flex: 2 }}>
+					<View style={styles.topbar}>
+						<TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
+							<Ionicons style={styles.navIcon} name="ios-arrow-back" />
+						</TouchableOpacity>
 
-							<TextInput ref="pageURL" value={this.state.url} placeholderTextColor="#FFF" style={styles.url} autoCapitalize="none" autoFocus={false} selectionColor="#FFF" />
-						</View>
-
-						<WebView
-							source={{ uri: this.state.url }}
-							javaScriptEnabled={true}
-							automaticallyAdjustContentInsets={false}
-							onNavigationStateChange={this.onNavigationStateChange.bind(this)}
-							domStorageEnabled={true}
-							startInLoadingState={true}
-							ref={(r) => (this.webref = r)}
-							keyboardDisplayRequiresUserAction={true}
-							sharedCookiesEnabled={true}
-							onMessage={this.handleMessage.bind(this)}
-							onLoadEnd={this._onLoadEnd.bind(this)}
-						/>
+						<TextInput ref="pageURL" value={this.state.url} placeholderTextColor="#FFF" style={styles.url} autoCapitalize="none" autoFocus={false} selectionColor="#FFF" />
 					</View>
+
+					<WebView
+						source={{ uri: this.state.url }}
+						javaScriptEnabled={true}
+						automaticallyAdjustContentInsets={false}
+						onNavigationStateChange={this.onNavigationStateChange.bind(this)}
+						domStorageEnabled={true}
+						startInLoadingState={true}
+						ref={(r) => (this.webref = r)}
+						keyboardDisplayRequiresUserAction={true}
+						sharedCookiesEnabled={true}
+						onMessage={this.handleMessage.bind(this)}
+						onLoadEnd={this._onLoadEnd.bind(this)}
+					/>
 				</View>
 			</View>
 		);
