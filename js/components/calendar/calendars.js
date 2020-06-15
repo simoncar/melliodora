@@ -1,14 +1,12 @@
 
 import React, { Component } from "react";
 import { Alert, ScrollView, View, StyleSheet } from "react-native";
-import { Container, Content, Button } from "native-base";
-import * as Calendar from "expo-calendar";
+import { Container, Content } from "native-base";
+import * as Calendar from 'expo-calendar';
 import { Ionicons } from "@expo/vector-icons";
-import I18n from "../../lib/i18n";
 import Analytics from "../../lib/analytics";
-import moment from "moment";
 
-import { SettingsListItem, Separator } from "../../components/settings/SettingsListItem";
+import { SettingsListItem } from "../../components/settings/SettingsListItem";
 import { Text } from "../../components/common/sComponent";
 
 class Calendars extends Component {
@@ -19,12 +17,16 @@ class Calendars extends Component {
 		this.state = {
 			haveCalendarPermissions: false,
 			haveReminderPermissions: false,
-			calendars: [],
+			calendars: this.props.calendars || [],
 			activeCalendarId: null,
 			activeCalendarEvents: [],
 			showAddNewEventForm: false,
 			editingEvent: null
 		};
+
+		if (this.props.calendars) {
+			this.state.calendars = this.props.calendars
+		}
 	}
 	componentDidMount() {
 		this._findCalendars();
@@ -38,6 +40,13 @@ class Calendars extends Component {
 			this.setState({ calendars: [...calendars] });
 		}
 	};
+
+	// async function getDefaultCalendarSource() {
+	// 	const calendars = await Calendar.getCalendarsAsync();
+	// 	const defaultCalendars = calendars.filter(each => each.source.name === 'Default');
+	// 	return defaultCalendars[0].source;
+	//   }
+
 
 	_addEvent = async phoneCalendarID => {
 
@@ -65,7 +74,6 @@ class Calendars extends Component {
 	};
 
 	render() {
-		console.log(this.state.calendars);
 		if (this.state.calendars.length) {
 
 			return <Container style={styles.container}>
@@ -83,9 +91,19 @@ class Calendars extends Component {
 					</View>
 				</Content>
 			</Container>;
+		} else {
+			return <Container style={styles.container}>
+				<Content showsVerticalScrollIndicator={false}>
+					<View>
+						<View style={styles.newsContent}>
+							<Text selectable={true} style={styles.eventTitle}>
+								No Calendars Available
+							  </Text>
+						</View>
+					</View>
+				</Content>
+			</Container>;
 		}
-
-		return <View />;
 	}
 }
 
