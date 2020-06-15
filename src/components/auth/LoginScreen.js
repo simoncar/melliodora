@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, TextInput, Button, SafeAreaView } from "react-native";
+import { StyleSheet, View, TextInput, SafeAreaView } from "react-native";
 import firebase from "firebase";
 import _ from "lodash";
 import { connect } from "react-redux";
@@ -7,6 +7,7 @@ import Loader from "../common/Loader";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Svg, { Line, Text as SvgText } from "react-native-svg";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import { Text } from "../common/sComponent"
 
 class LoginScreen extends Component {
 	static navigationOptions = ({ navigation }) => {

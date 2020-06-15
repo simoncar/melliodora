@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Image, Button, TouchableOpacity } from "react-native";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../components/common/sComponent"
 
 export default class PreWelcomeScreen extends Component {
 	render() {
@@ -9,7 +9,7 @@ export default class PreWelcomeScreen extends Component {
 				<Image
 					style={{ width: "100%", flex: 1, borderBottomWidth: 1, borderColor: "#f0f0f0" }}
 					resizeMode="contain"
-					source={require("../../../resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png")}
+					source={require("../../resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png")}
 				/>
 
 				<View style={{ paddingBottom: 80, flexShrink: 1 }}>

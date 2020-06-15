@@ -3,12 +3,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import I18n from "./lib/i18n";
 
-import DomainSelection from "./components/starting/DomainSelection";
+import DomainSelection from "./screens/DomainSelection";
 import LoginScreen from "./components/auth/LoginScreen";
 import SignUpScreen from "./components/auth/SignUpScreen";
-import PreWelcomeScreen from "./components/starting/PreWelcomeScreen";
-import WelcomeScreen from "./components/starting/WelcomeScreen";
-import CommunityCreateScreen from "./components/starting/CommunityCreateScreen"
+import PreWelcomeScreen from "./screens/PreWelcomeScreen";
+import WelcomeScreen from "./screens/Welcome";
+import CommunityCreateScreen from "./screens/CommunityCreateScreen"
 import ForgotPasswordScreen from "./components/auth/ForgotPasswordScreen";
 
 const Stack = createStackNavigator()
