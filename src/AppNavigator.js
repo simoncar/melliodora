@@ -39,7 +39,6 @@ import CameraApp from "./components/auth/CameraApp";
 import UserProfile from "./components/auth/UserProfile";
 import EditUserProfile from "./components/auth/EditUserProfile";
 import UserSearch from "./components/settings/UserSearch";
-import stylesGlobal from "./themes/globalTheme";
 
 const StackHome = createStackNavigator();
 

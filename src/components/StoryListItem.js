@@ -5,7 +5,6 @@ import { Text } from "./common/sComponent"
 
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
-import stylesGlobal from "../themes/globalTheme";
 
 
 import { formatTime, formatMonth, isURL } from "../lib/global.js";
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
 	cardTitle: {
 		alignItems: "center",
 		color: "#111111",
-		fontSize: stylesGlobal.headingFontSize,
+		fontSize: 16,
 		fontWeight: "500",
 		justifyContent: "center",
 		width: 270

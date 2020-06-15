@@ -174,7 +174,7 @@ exports[`show story no calendar no image 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -234,7 +234,7 @@ exports[`show story no calendar no image 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -297,7 +297,7 @@ exports[`show story no calendar no image 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 18,
+                  "fontSize": 16,
                   "fontWeight": "bold",
                   "paddingBottom": 10,
                   "paddingTop": 15,
@@ -316,7 +316,7 @@ exports[`show story no calendar no image 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -328,7 +328,7 @@ exports[`show story no calendar no image 1`] = `
             style={
               Object {
                 "color": "#222",
-                "fontSize": 15,
+                "fontSize": 16,
                 "marginRight": 20,
                 "marginTop": 15,
               }
@@ -341,7 +341,7 @@ exports[`show story no calendar no image 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "marginRight": 20,
                     "marginTop": 15,
                   },
@@ -385,7 +385,7 @@ exports[`show story no calendar no image 1`] = `
                 },
                 Object {
                   "color": "grey",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "paddingBottom": 100,
                 },
               ]
@@ -574,7 +574,7 @@ exports[`show story on screen 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -609,7 +609,7 @@ exports[`show story on screen 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -645,7 +645,7 @@ exports[`show story on screen 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -684,7 +684,7 @@ exports[`show story on screen 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 18,
+                  "fontSize": 16,
                   "fontWeight": "bold",
                   "paddingBottom": 10,
                   "paddingTop": 15,
@@ -703,7 +703,7 @@ exports[`show story on screen 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -720,7 +720,7 @@ exports[`show story on screen 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -732,7 +732,7 @@ exports[`show story on screen 1`] = `
             style={
               Object {
                 "color": "#222",
-                "fontSize": 15,
+                "fontSize": 16,
                 "marginRight": 20,
                 "marginTop": 15,
               }
@@ -745,7 +745,7 @@ exports[`show story on screen 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "marginRight": 20,
                     "marginTop": 15,
                   },
@@ -789,7 +789,7 @@ exports[`show story on screen 1`] = `
                 },
                 Object {
                   "color": "grey",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "paddingBottom": 100,
                 },
               ]
@@ -978,7 +978,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -1037,7 +1037,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -1097,7 +1097,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -1160,7 +1160,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 18,
+                  "fontSize": 16,
                   "fontWeight": "bold",
                   "paddingBottom": 10,
                   "paddingTop": 15,
@@ -1179,7 +1179,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -1196,7 +1196,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -1208,7 +1208,7 @@ exports[`show story with URL in content to test linking 1`] = `
             style={
               Object {
                 "color": "#222",
-                "fontSize": 15,
+                "fontSize": 16,
                 "marginRight": 20,
                 "marginTop": 15,
               }
@@ -1221,7 +1221,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "marginRight": 20,
                     "marginTop": 15,
                   },
@@ -1238,7 +1238,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "marginRight": 20,
                     "marginTop": 15,
                   },
@@ -1257,7 +1257,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "marginRight": 20,
                     "marginTop": 15,
                   },
@@ -1274,7 +1274,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "marginRight": 20,
                     "marginTop": 15,
                   },
@@ -1293,7 +1293,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "marginRight": 20,
                     "marginTop": 15,
                   },
@@ -1310,7 +1310,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "marginRight": 20,
                     "marginTop": 15,
                   },
@@ -1329,7 +1329,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "marginRight": 20,
                     "marginTop": 15,
                   },
@@ -1346,7 +1346,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "marginRight": 20,
                     "marginTop": 15,
                   },
@@ -1362,7 +1362,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "marginRight": 20,
                     "marginTop": 15,
                   },
@@ -1406,7 +1406,7 @@ exports[`show story with URL in content to test linking 1`] = `
                 },
                 Object {
                   "color": "grey",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "paddingBottom": 100,
                 },
               ]
@@ -1595,7 +1595,7 @@ exports[`show story without chat 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -1655,7 +1655,7 @@ exports[`show story without chat 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -1718,7 +1718,7 @@ exports[`show story without chat 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 18,
+                  "fontSize": 16,
                   "fontWeight": "bold",
                   "paddingBottom": 10,
                   "paddingTop": 15,
@@ -1737,7 +1737,7 @@ exports[`show story without chat 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -1754,7 +1754,7 @@ exports[`show story without chat 1`] = `
                 },
                 Object {
                   "color": "#222",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "marginRight": 20,
                 },
               ]
@@ -1766,7 +1766,7 @@ exports[`show story without chat 1`] = `
             style={
               Object {
                 "color": "#222",
-                "fontSize": 15,
+                "fontSize": 16,
                 "marginRight": 20,
                 "marginTop": 15,
               }
@@ -1779,7 +1779,7 @@ exports[`show story without chat 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "marginRight": 20,
                     "marginTop": 15,
                   },
@@ -1823,7 +1823,7 @@ exports[`show story without chat 1`] = `
                 },
                 Object {
                   "color": "grey",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "paddingBottom": 100,
                 },
               ]

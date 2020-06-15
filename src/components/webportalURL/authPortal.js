@@ -9,7 +9,6 @@ import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
 import AuthParser from "./authParser";
 import _ from "lodash";
 import Analytics from "../../lib/analytics";
-import stylesGlobal from "../../themes/globalTheme";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { saveDetails } from "../../store/authPortal";
@@ -215,7 +214,7 @@ export default class AppContainer extends React.Component {
 					navigation.state.params._onOpenActionSheet();
 				}}
 			>
-				<Text style={{ fontSize: stylesGlobal.navbarFontSize, fontWeight: "bold" }}>{global.switch_portalName}</Text>
+				<Text style={{ fontSize: 14, fontWeight: "bold" }}>{global.switch_portalName}</Text>
 			</TouchableOpacity>
 		),
 		headerRight: (

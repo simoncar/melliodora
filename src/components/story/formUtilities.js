@@ -6,7 +6,6 @@ import { Input } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import _ from "lodash";
-import stylesGlobal from "../../themes/globalTheme";
 
 
 class OrderOnPage extends Component {
@@ -304,7 +303,7 @@ const styles = StyleSheet.create({
 		justifyContent: "space-between",
 		alignItems: "center",
 		paddingHorizontal: 8,
-		fontSize: stylesGlobal.headingFontSize,
+		fontSize: 16,
 	},
 	settingsRightTime: {
 		flex: 1,

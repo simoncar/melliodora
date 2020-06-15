@@ -8,7 +8,6 @@ import ParsedText from "react-native-parsed-text";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global.js";
 import _ from "lodash";
 import { connect } from "react-redux";
-import stylesGlobal from "../themes/globalTheme";
 import { Text } from "../components/common/sComponent"
 
 export class Story extends Component {
@@ -268,7 +267,7 @@ const styles = StyleSheet.create({
 	},
 	englishFallback: {
 		color: "grey",
-		fontSize: stylesGlobal.bodyFontSize,
+		fontSize: 16,
 		paddingBottom: 10,
 		paddingTop: 30,
 	},
@@ -286,24 +285,24 @@ const styles = StyleSheet.create({
 	},
 	eventText: {
 		color: "#222",
-		fontSize: stylesGlobal.bodyFontSize,
+		fontSize: 16,
 		marginRight: 20,
 	},
 	eventTextAbbreviation: {
 		color: "grey",
-		fontSize: stylesGlobal.bodyFontSize,
+		fontSize: 16,
 		paddingBottom: 100,
 	},
 	eventTextBody: {
 		color: "#222",
-		fontSize: stylesGlobal.bodyFontSize,
+		fontSize: 16,
 		marginRight: 20,
 		marginTop: 15,
 	},
 
 	eventTextSend: {
 		color: "#222",
-		fontSize: stylesGlobal.bodyFontSize,
+		fontSize: 16,
 		paddingBottom: 15,
 		paddingLeft: 15,
 		paddingRight: 10,
@@ -311,13 +310,13 @@ const styles = StyleSheet.create({
 
 	eventTextTime: {
 		color: "#222",
-		fontSize: stylesGlobal.bodyFontSize,
+		fontSize: 16,
 		marginBottom: 10,
 		marginRight: 20,
 	},
 	eventTitle: {
 		color: "#222",
-		fontSize: stylesGlobal.headingFontSize,
+		fontSize: 16,
 		fontWeight: "bold",
 		paddingBottom: 10,
 		paddingTop: 15,
