@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
 import { WebView } from "react-native-webview";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import styles from "./styles";
-import Analytics from "../../lib/analytics";
+import styles from "../components/webportalURL/styles";
+import Analytics from "../lib/analytics";
 var WEBVIEW_REF = "webview";
 
 class WebportalSports extends Component {

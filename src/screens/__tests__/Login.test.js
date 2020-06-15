@@ -39,7 +39,7 @@ test('show login screen', () => {
 
 	expect(toJSON()).toMatchSnapshot();
 	expect(queryByText("Forgot password?")).not.toBeNull();
-	expect(queryByText("Register")).not.toBeNull();
+	expect(queryByText("Don't have an account?  Sign Up")).not.toBeNull();
 
 	expect(getByTestId('login.email').props).toEqual(
 		expect.objectContaining({

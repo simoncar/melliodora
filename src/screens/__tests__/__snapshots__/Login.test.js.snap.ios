@@ -140,14 +140,7 @@ exports[`show login screen 1`] = `
     />
     <Text />
   </View>
-  <View
-    style={
-      Object {
-        "flexDirection": "row",
-        "justifyContent": "flex-end",
-      }
-    }
-  >
+  <View>
     <RNGestureHandlerButton
       collapsable={false}
       onGestureEvent={[Function]}
@@ -168,8 +161,6 @@ exports[`show login screen 1`] = `
         accessible={true}
         style={
           Object {
-            "marginHorizontal": 10,
-            "marginVertical": 5,
             "opacity": 1,
           }
         }
@@ -183,6 +174,7 @@ exports[`show login screen 1`] = `
               Object {
                 "color": "#111111",
                 "fontSize": 16,
+                "marginLeft": 30,
               },
             ]
           }
@@ -240,53 +232,6 @@ exports[`show login screen 1`] = `
       </Text>
     </View>
   </RNGestureHandlerButton>
-  <View
-    style={
-      Object {
-        "flexDirection": "row",
-        "height": 20,
-        "paddingHorizontal": 20,
-      }
-    }
-  >
-    <View
-      style={
-        Object {
-          "borderBottomColor": "#777777",
-          "borderBottomWidth": 1,
-          "flex": 1,
-          "height": 12,
-        }
-      }
-    />
-    <Text
-      style={
-        Array [
-          Object {
-            "fontFamily": "SegoeUI",
-          },
-          Object {
-            "alignSelf": "center",
-            "color": "#777777",
-            "fontSize": 18,
-            "marginHorizontal": 3,
-          },
-        ]
-      }
-    >
-      or
-    </Text>
-    <View
-      style={
-        Object {
-          "borderBottomColor": "#777777",
-          "borderBottomWidth": 1,
-          "flex": 1,
-          "height": 12,
-        }
-      }
-    />
-  </View>
   <RNGestureHandlerButton
     collapsable={false}
     onGestureEvent={[Function]}
@@ -307,13 +252,6 @@ exports[`show login screen 1`] = `
       accessible={true}
       style={
         Object {
-          "alignItems": "center",
-          "backgroundColor": "#777777",
-          "borderRadius": 15,
-          "flexDirection": "row",
-          "height": 55,
-          "justifyContent": "center",
-          "margin": 12,
           "opacity": 1,
         }
       }
@@ -325,13 +263,14 @@ exports[`show login screen 1`] = `
               "fontFamily": "SegoeUI",
             },
             Object {
-              "color": "white",
-              "fontSize": 22,
+              "color": "#111111",
+              "fontSize": 16,
+              "marginLeft": 30,
             },
           ]
         }
       >
-        Register
+        Don't have an account?  Sign Up
       </Text>
     </View>
   </RNGestureHandlerButton>

@@ -30,7 +30,7 @@ import chatTitle from "./components/chat/chatTitle";
 import chat from "./components/chat";
 import push from "./screens/Push";
 import authPortal from "./components/webportalURL/authPortal";
-import WebportalURL from "./components/webportalURL";
+import WebportalURL from "./screens/WebPortal";
 
 import LoginScreen from "./screens/Login";
 import SignUpScreen from "./screens/SignUpScreen";
