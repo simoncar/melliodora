@@ -131,7 +131,7 @@ export class Story extends Component {
 	_drawIconCalendar(params) {
 		if (isValue(params.date_start)) {
 			return <TouchableOpacity onPress={() => {
-				this.props.navigation.navigate("phoneCalendar", this.state);
+				this.props.navigation.navigate("Calendars", this.state);
 			}}>
 				<Text testID="story.calendarIcon" style={styles.eventText}>
 					<Ionicons name="ios-calendar" style={styles.eventIcon} />

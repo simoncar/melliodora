@@ -13,9 +13,6 @@ import "firebase/firestore";
 import Constants from "expo-constants";
 import { connect } from "react-redux";
 import { getCommunityDetails } from "./store/community";
-import { StyleProvider, Root } from "native-base";
-import variables from "../native-base-theme/variables/commonColor";
-import getTheme from "../native-base-theme/components";
 
 class Setup extends Component {
 	constructor() {

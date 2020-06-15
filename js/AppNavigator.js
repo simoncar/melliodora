@@ -10,7 +10,7 @@ import { MaterialIcons, Ionicons, SimpleLineIcons, Feather, FontAwesome } from "
 import I18n from "./lib/i18n";
 
 import Calendar from "./components/calendar";
-import phoneCalendar from "./components/calendar/calendars";
+import Calendars from "./components/calendar/Calendars";
 import Home from "./components/home";
 import Search from "./components/search";
 import Contact from "./components/contact";
@@ -67,7 +67,7 @@ function StackHomeNavigator() {
 			<StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
 			<StackHome.Screen name="webportalURL" component={WebportalURL} options={{ title: I18n.t("myS") }} />
 			<StackHome.Screen name="selectLanguageHome" component={selectLanguage} options={{ title: I18n.t("language") }} />
-			<StackHome.Screen name="phoneCalendar" component={phoneCalendar} options={{ title: I18n.t("calendar") }} />
+			<StackHome.Screen name="Calendars" component={Calendars} options={{ title: I18n.t("calendar") }} />
 			<StackChat.Screen name="selectLanguageChat" component={selectLanguage} options={{ title: I18n.t("language") }} />
 		</StackHome.Navigator>
 	);
@@ -79,7 +79,7 @@ function StackCalendarNavigator() {
 	return (
 		<StackCalendar.Navigator>
 			<StackCalendar.Screen name="home" component={Calendar} options={{ title: I18n.t("calendar") }} />
-			<StackCalendar.Screen name="phoneCalendar" component={phoneCalendar} options={{ title: I18n.t("calendar") }} />
+			<StackCalendar.Screen name="Calendars" component={Calendars} options={{ title: I18n.t("calendar") }} />
 			<StackCalendar.Screen name="storyCalendar" component={Story} options={({ route }) => ({ title: route.params.summary })} />
 			<StackCalendar.Screen name="searchCalendar" component={Search} options={{ title: I18n.t("search") }} />
 			<StackCalendar.Screen name="chatCalendar" component={chat} options={({ route }) => ({ title: route.params.title })} />

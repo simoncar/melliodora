@@ -1,7 +1,7 @@
 // CustomText.js    
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Text as RNText } from "native-base"
+import { StyleSheet, Text as RNText } from 'react-native';
+
 
 export function Text(props) {
 	const { style, ...rest } = props;
@@ -12,8 +12,6 @@ export function Text(props) {
 		</RNText>
 	);
 }
-
-
 
 const styles = StyleSheet.create({
 	// ... add your default style here
