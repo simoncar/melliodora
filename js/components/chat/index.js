@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { View, Alert, TouchableOpacity, Linking, Modal, FlatList, StyleSheet, Dimensions } from "react-native";
-import { Container, Footer, Text } from "native-base";
+import { Container, Footer } from "native-base";
 import { GiftedChat, SystemMessage, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
@@ -17,15 +17,13 @@ import Backend from "./backend";
 import Analytics from "../../lib/analytics";
 import * as firebase from "firebase";
 import { ListItem } from "react-native-elements";
-import { LinearGradient } from "expo-linear-gradient";
 import { SettingsListItem } from "../settings/SettingsListItem";
 import { connectActionSheet, ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import stylesGlobal from "../../themes/globalTheme";
+import { Text } from "../../components/common/sComponent"
 
 var localMessages = [];
-const deviceWidth = Dimensions.get("window").width;
 
 class chat extends Component {
 
@@ -88,9 +86,6 @@ class chat extends Component {
 				console.log("ignoring message");
 			}
 		});
-
-
-
 
 		this.loadChatUsers();
 
@@ -248,7 +243,6 @@ class chat extends Component {
 	}
 
 	_handleOpenWithLinking = sURL => {
-		let ret;
 
 		if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
 			Linking.openURL(sURL);
@@ -465,7 +459,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		marginTop: 22
 	},
-	
+
 	a221aa082ac4611ea973dcfce83f911da: {
 		color: "#fff",
 		fontSize: 24,

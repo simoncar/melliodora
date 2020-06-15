@@ -85,9 +85,7 @@ exports[`list item  with a photo 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "alignItems": "center",
@@ -99,7 +97,6 @@ exports[`list item  with a photo 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             Yearbook
           </Text>
@@ -109,9 +106,7 @@ exports[`list item  with a photo 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "alignItems": "center",
@@ -122,7 +117,6 @@ exports[`list item  with a photo 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             School cafe
           </Text>
@@ -301,9 +295,7 @@ exports[`list item of a calendar with date 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "alignItems": "center",
@@ -315,7 +307,6 @@ exports[`list item of a calendar with date 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             Suzuki Showcase Concert
           </Text>
@@ -325,9 +316,7 @@ exports[`list item of a calendar with date 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "alignItems": "center",
@@ -338,7 +327,6 @@ exports[`list item of a calendar with date 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             Music Room
           </Text>
@@ -346,9 +334,7 @@ exports[`list item of a calendar with date 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#777777",
@@ -357,7 +343,6 @@ exports[`list item of a calendar with date 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             June 12th 2020
           </Text>
@@ -527,9 +512,7 @@ exports[`list item of a calendar with date and time 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "alignItems": "center",
@@ -541,7 +524,6 @@ exports[`list item of a calendar with date and time 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             Suzuki Showcase Concert
           </Text>
@@ -551,9 +533,7 @@ exports[`list item of a calendar with date and time 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "alignItems": "center",
@@ -564,7 +544,6 @@ exports[`list item of a calendar with date and time 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             Music Room
           </Text>
@@ -572,9 +551,7 @@ exports[`list item of a calendar with date and time 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#777777",
@@ -583,7 +560,6 @@ exports[`list item of a calendar with date and time 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             June 12th 2020
           </Text>
@@ -724,9 +700,7 @@ exports[`show balance 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "alignItems": "center",
@@ -738,7 +712,6 @@ exports[`show balance 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             $56.20
           </Text>
@@ -748,9 +721,7 @@ exports[`show balance 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "alignItems": "center",
@@ -761,7 +732,6 @@ exports[`show balance 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             Cafeteria Account Balance
           </Text>

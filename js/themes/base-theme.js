@@ -15,7 +15,6 @@ export default {
   badgeColor: "#fff",
 
   // Button
-  btnFontFamily: Platform.OS === "ios" ? "SegoeUI" : "SegoeUI",
   btnDisabledBg: "#b5b5b5", //gray - dark
   btnDisabledClr: "#f1f1f1", //gray - light
 
@@ -89,7 +88,6 @@ export default {
   brandSecondary: secondary, // new style
 
   // Font
-  fontFamily: Platform.OS === "ios" ? "SegoeUI" : "SegoeUI",
   fontSizeBase: 15,
 
   get fontSizeH1() {

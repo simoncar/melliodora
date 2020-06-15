@@ -3,6 +3,8 @@ import { render, fireEvent } from 'react-native-testing-library';
 
 import { Story } from '../index';
 
+jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+
 const auth = {
 	"_persist": {
 		"rehydrated": true,

@@ -7,7 +7,7 @@ exports[`show story no calendar no image 1`] = `
       Object {
         "backgroundColor": "#fff",
         "flex": 1,
-        "height": 1334,
+        "height": 1314,
       },
       Object {
         "backgroundColor": "#fff",
@@ -92,7 +92,7 @@ exports[`show story no calendar no image 1`] = `
           }
         >
           <Image
-            blurRadius={0}
+            blurRadius={0.5}
             onError={[Function]}
             source={
               Object {
@@ -117,28 +117,19 @@ exports[`show story no calendar no image 1`] = `
             transitionDuration={300}
             uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fxdesk-calendar-980x470-20181016.jpg.pagespeed.ic.BdAsh-Nj_6.jpg?alt=media&token=697fef73-e77d-46de-83f5-a45540694274"
           />
-          <ViewManagerAdapter_ExpoBlurView
-            proxiedProperties={
-              Object {
-                "intensity": 100,
-                "tint": "dark",
-              }
-            }
+          <View
             style={
-              Array [
-                Object {
-                  "borderBottomLeftRadius": 14,
-                  "borderBottomRightRadius": 14,
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-              ]
+              Object {
+                "backgroundColor": "black",
+                "borderBottomLeftRadius": 14,
+                "borderBottomRightRadius": 14,
+                "bottom": 0,
+                "left": 0,
+                "opacity": 0.5,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              }
             }
           />
         </View>
@@ -179,20 +170,16 @@ exports[`show story no calendar no image 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
             testID="story.chatIcon"
-            uppercase={false}
           >
             <Text
               allowFontScaling={false}
@@ -243,19 +230,15 @@ exports[`show story no calendar no image 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
-            uppercase={false}
           >
             <Text
               allowFontScaling={false}
@@ -310,9 +293,7 @@ exports[`show story no calendar no image 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
@@ -323,7 +304,6 @@ exports[`show story no calendar no image 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             Yearbook
           </Text>
@@ -332,19 +312,15 @@ exports[`show story no calendar no image 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
-            uppercase={false}
           >
             School cafe
           </Text>
@@ -352,7 +328,6 @@ exports[`show story no calendar no image 1`] = `
             style={
               Object {
                 "color": "#222",
-                "fontFamily": "SegoeUI",
                 "fontSize": 15,
                 "marginRight": 20,
                 "marginTop": 15,
@@ -366,7 +341,6 @@ exports[`show story no calendar no image 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontFamily": "SegoeUI",
                     "fontSize": 15,
                     "marginRight": 20,
                     "marginTop": 15,
@@ -380,25 +354,25 @@ exports[`show story no calendar no image 1`] = `
           </Text>
           <Text
             style={
-              Object {
-                "color": "#000",
-                "fontFamily": "System",
-                "fontSize": 16,
-              }
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
             }
-            uppercase={false}
           >
              
           </Text>
           <Text
             style={
-              Object {
-                "color": "#000",
-                "fontFamily": "System",
-                "fontSize": 16,
-              }
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
             }
-            uppercase={false}
           >
              
           </Text>
@@ -407,9 +381,7 @@ exports[`show story no calendar no image 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "grey",
@@ -418,7 +390,6 @@ exports[`show story no calendar no image 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             
           </Text>
@@ -436,7 +407,7 @@ exports[`show story on screen 1`] = `
       Object {
         "backgroundColor": "#fff",
         "flex": 1,
-        "height": 1334,
+        "height": 1314,
       },
       Object {
         "backgroundColor": "#fff",
@@ -521,7 +492,7 @@ exports[`show story on screen 1`] = `
           }
         >
           <Image
-            blurRadius={0}
+            blurRadius={0.5}
             onError={[Function]}
             source={
               Object {
@@ -546,28 +517,19 @@ exports[`show story on screen 1`] = `
             transitionDuration={300}
             uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f"
           />
-          <ViewManagerAdapter_ExpoBlurView
-            proxiedProperties={
-              Object {
-                "intensity": 100,
-                "tint": "dark",
-              }
-            }
+          <View
             style={
-              Array [
-                Object {
-                  "borderBottomLeftRadius": 14,
-                  "borderBottomRightRadius": 14,
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-              ]
+              Object {
+                "backgroundColor": "black",
+                "borderBottomLeftRadius": 14,
+                "borderBottomRightRadius": 14,
+                "bottom": 0,
+                "left": 0,
+                "opacity": 0.5,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              }
             }
           />
         </View>
@@ -608,20 +570,16 @@ exports[`show story on screen 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
             testID="story.chatIcon"
-            uppercase={false}
           >
             <Text />
           </Text>
@@ -647,20 +605,16 @@ exports[`show story on screen 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
             testID="story.calendarIcon"
-            uppercase={false}
           >
             <Text />
           </Text>
@@ -687,19 +641,15 @@ exports[`show story on screen 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
-            uppercase={false}
           >
             <Text />
           </Text>
@@ -730,9 +680,7 @@ exports[`show story on screen 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
@@ -743,7 +691,6 @@ exports[`show story on screen 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             Yearbook
           </Text>
@@ -752,19 +699,15 @@ exports[`show story on screen 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
-            uppercase={false}
           >
             School cafe
           </Text>
@@ -773,19 +716,15 @@ exports[`show story on screen 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
-            uppercase={false}
           >
             November 30th 2020
           </Text>
@@ -793,7 +732,6 @@ exports[`show story on screen 1`] = `
             style={
               Object {
                 "color": "#222",
-                "fontFamily": "SegoeUI",
                 "fontSize": 15,
                 "marginRight": 20,
                 "marginTop": 15,
@@ -807,7 +745,6 @@ exports[`show story on screen 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontFamily": "SegoeUI",
                     "fontSize": 15,
                     "marginRight": 20,
                     "marginTop": 15,
@@ -821,25 +758,25 @@ exports[`show story on screen 1`] = `
           </Text>
           <Text
             style={
-              Object {
-                "color": "#000",
-                "fontFamily": "System",
-                "fontSize": 16,
-              }
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
             }
-            uppercase={false}
           >
              
           </Text>
           <Text
             style={
-              Object {
-                "color": "#000",
-                "fontFamily": "System",
-                "fontSize": 16,
-              }
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
             }
-            uppercase={false}
           >
              
           </Text>
@@ -848,9 +785,7 @@ exports[`show story on screen 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "grey",
@@ -859,7 +794,6 @@ exports[`show story on screen 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             
           </Text>
@@ -877,7 +811,7 @@ exports[`show story with URL in content to test linking 1`] = `
       Object {
         "backgroundColor": "#fff",
         "flex": 1,
-        "height": 1334,
+        "height": 1314,
       },
       Object {
         "backgroundColor": "#fff",
@@ -962,7 +896,7 @@ exports[`show story with URL in content to test linking 1`] = `
           }
         >
           <Image
-            blurRadius={0}
+            blurRadius={0.5}
             onError={[Function]}
             source={
               Object {
@@ -987,28 +921,19 @@ exports[`show story with URL in content to test linking 1`] = `
             transitionDuration={300}
             uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f"
           />
-          <ViewManagerAdapter_ExpoBlurView
-            proxiedProperties={
-              Object {
-                "intensity": 100,
-                "tint": "dark",
-              }
-            }
+          <View
             style={
-              Array [
-                Object {
-                  "borderBottomLeftRadius": 14,
-                  "borderBottomRightRadius": 14,
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-              ]
+              Object {
+                "backgroundColor": "black",
+                "borderBottomLeftRadius": 14,
+                "borderBottomRightRadius": 14,
+                "bottom": 0,
+                "left": 0,
+                "opacity": 0.5,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              }
             }
           />
         </View>
@@ -1049,20 +974,16 @@ exports[`show story with URL in content to test linking 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
             testID="story.chatIcon"
-            uppercase={false}
           >
             <Text
               allowFontScaling={false}
@@ -1112,20 +1033,16 @@ exports[`show story with URL in content to test linking 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
             testID="story.calendarIcon"
-            uppercase={false}
           >
             <Text
               allowFontScaling={false}
@@ -1176,19 +1093,15 @@ exports[`show story with URL in content to test linking 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
-            uppercase={false}
           >
             <Text
               allowFontScaling={false}
@@ -1243,9 +1156,7 @@ exports[`show story with URL in content to test linking 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
@@ -1256,7 +1167,6 @@ exports[`show story with URL in content to test linking 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             Yearbook
           </Text>
@@ -1265,19 +1175,15 @@ exports[`show story with URL in content to test linking 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
-            uppercase={false}
           >
             At Google Campus
           </Text>
@@ -1286,19 +1192,15 @@ exports[`show story with URL in content to test linking 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
-            uppercase={false}
           >
             November 30th 2020
           </Text>
@@ -1306,7 +1208,6 @@ exports[`show story with URL in content to test linking 1`] = `
             style={
               Object {
                 "color": "#222",
-                "fontFamily": "SegoeUI",
                 "fontSize": 15,
                 "marginRight": 20,
                 "marginTop": 15,
@@ -1320,7 +1221,6 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontFamily": "SegoeUI",
                     "fontSize": 15,
                     "marginRight": 20,
                     "marginTop": 15,
@@ -1338,7 +1238,6 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontFamily": "SegoeUI",
                     "fontSize": 15,
                     "marginRight": 20,
                     "marginTop": 15,
@@ -1358,7 +1257,6 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontFamily": "SegoeUI",
                     "fontSize": 15,
                     "marginRight": 20,
                     "marginTop": 15,
@@ -1376,7 +1274,6 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontFamily": "SegoeUI",
                     "fontSize": 15,
                     "marginRight": 20,
                     "marginTop": 15,
@@ -1396,7 +1293,6 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontFamily": "SegoeUI",
                     "fontSize": 15,
                     "marginRight": 20,
                     "marginTop": 15,
@@ -1414,7 +1310,6 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontFamily": "SegoeUI",
                     "fontSize": 15,
                     "marginRight": 20,
                     "marginTop": 15,
@@ -1434,7 +1329,6 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontFamily": "SegoeUI",
                     "fontSize": 15,
                     "marginRight": 20,
                     "marginTop": 15,
@@ -1452,7 +1346,6 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontFamily": "SegoeUI",
                     "fontSize": 15,
                     "marginRight": 20,
                     "marginTop": 15,
@@ -1469,7 +1362,6 @@ exports[`show story with URL in content to test linking 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontFamily": "SegoeUI",
                     "fontSize": 15,
                     "marginRight": 20,
                     "marginTop": 15,
@@ -1483,25 +1375,25 @@ exports[`show story with URL in content to test linking 1`] = `
           </Text>
           <Text
             style={
-              Object {
-                "color": "#000",
-                "fontFamily": "System",
-                "fontSize": 16,
-              }
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
             }
-            uppercase={false}
           >
              
           </Text>
           <Text
             style={
-              Object {
-                "color": "#000",
-                "fontFamily": "System",
-                "fontSize": 16,
-              }
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
             }
-            uppercase={false}
           >
              
           </Text>
@@ -1510,9 +1402,7 @@ exports[`show story with URL in content to test linking 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "grey",
@@ -1521,7 +1411,6 @@ exports[`show story with URL in content to test linking 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             
           </Text>
@@ -1539,7 +1428,7 @@ exports[`show story without chat 1`] = `
       Object {
         "backgroundColor": "#fff",
         "flex": 1,
-        "height": 1334,
+        "height": 1314,
       },
       Object {
         "backgroundColor": "#fff",
@@ -1624,7 +1513,7 @@ exports[`show story without chat 1`] = `
           }
         >
           <Image
-            blurRadius={0}
+            blurRadius={0.5}
             onError={[Function]}
             source={
               Object {
@@ -1649,28 +1538,19 @@ exports[`show story without chat 1`] = `
             transitionDuration={300}
             uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f"
           />
-          <ViewManagerAdapter_ExpoBlurView
-            proxiedProperties={
-              Object {
-                "intensity": 100,
-                "tint": "dark",
-              }
-            }
+          <View
             style={
-              Array [
-                Object {
-                  "borderBottomLeftRadius": 14,
-                  "borderBottomRightRadius": 14,
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-              ]
+              Object {
+                "backgroundColor": "black",
+                "borderBottomLeftRadius": 14,
+                "borderBottomRightRadius": 14,
+                "bottom": 0,
+                "left": 0,
+                "opacity": 0.5,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              }
             }
           />
         </View>
@@ -1711,20 +1591,16 @@ exports[`show story without chat 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
             testID="story.calendarIcon"
-            uppercase={false}
           >
             <Text
               allowFontScaling={false}
@@ -1775,19 +1651,15 @@ exports[`show story without chat 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
-            uppercase={false}
           >
             <Text
               allowFontScaling={false}
@@ -1842,9 +1714,7 @@ exports[`show story without chat 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
@@ -1855,7 +1725,6 @@ exports[`show story without chat 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             Yearbook
           </Text>
@@ -1864,19 +1733,15 @@ exports[`show story without chat 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
-            uppercase={false}
           >
             School cafe
           </Text>
@@ -1885,19 +1750,15 @@ exports[`show story without chat 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "#222",
-                  "fontFamily": "SegoeUI",
                   "fontSize": 15,
                   "marginRight": 20,
                 },
               ]
             }
-            uppercase={false}
           >
             November 30th 2020
           </Text>
@@ -1905,7 +1766,6 @@ exports[`show story without chat 1`] = `
             style={
               Object {
                 "color": "#222",
-                "fontFamily": "SegoeUI",
                 "fontSize": 15,
                 "marginRight": 20,
                 "marginTop": 15,
@@ -1919,7 +1779,6 @@ exports[`show story without chat 1`] = `
                 Array [
                   Object {
                     "color": "#222",
-                    "fontFamily": "SegoeUI",
                     "fontSize": 15,
                     "marginRight": 20,
                     "marginTop": 15,
@@ -1933,25 +1792,25 @@ exports[`show story without chat 1`] = `
           </Text>
           <Text
             style={
-              Object {
-                "color": "#000",
-                "fontFamily": "System",
-                "fontSize": 16,
-              }
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
             }
-            uppercase={false}
           >
              
           </Text>
           <Text
             style={
-              Object {
-                "color": "#000",
-                "fontFamily": "System",
-                "fontSize": 16,
-              }
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
             }
-            uppercase={false}
           >
              
           </Text>
@@ -1960,9 +1819,7 @@ exports[`show story without chat 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#000",
-                  "fontFamily": "System",
-                  "fontSize": 16,
+                  "fontFamily": "SegoeUI",
                 },
                 Object {
                   "color": "grey",
@@ -1971,7 +1828,6 @@ exports[`show story without chat 1`] = `
                 },
               ]
             }
-            uppercase={false}
           >
             
           </Text>

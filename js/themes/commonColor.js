@@ -2,10 +2,12 @@ import color from "color";
 
 import { Platform, Dimensions, PixelRatio } from "react-native";
 
+const primary = require("./variable").brandPrimary;
+
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 const platform = Platform.OS;
-const platformStyle = "material";
+const platformStyle = undefined;
 
 export default {
   platformStyle,
@@ -22,18 +24,17 @@ export default {
   badgePadding: platform === "ios" ? 3 : 0,
 
   // Button
-  btnFontFamily: platform === "ios" ? "SegoeUI" : "SegoeUI",
   btnDisabledBg: "#b5b5b5",
   btnDisabledClr: "#f1f1f1",
 
   // CheckBox
-  CheckboxRadius: 0,
-  CheckboxBorderWidth: 2,
-  CheckboxPaddingLeft: 2,
+  CheckboxRadius: platform === "ios" ? 13 : 0,
+  CheckboxBorderWidth: platform === "ios" ? 1 : 2,
+  CheckboxPaddingLeft: platform === "ios" ? 4 : 2,
   CheckboxPaddingBottom: platform === "ios" ? 0 : 5,
-  CheckboxIconSize: platform === "ios" ? 18 : 14,
+  CheckboxIconSize: platform === "ios" ? 21 : 14,
   CheckboxIconMarginTop: platform === "ios" ? undefined : 1,
-  CheckboxFontSize: platform === "ios" ? 21 : 18,
+  CheckboxFontSize: platform === "ios" ? 23 / 0.9 : 18,
   DefaultFontSize: 17,
   checkboxBgColor: "#039BE5",
   checkboxSize: 20,
@@ -100,15 +101,14 @@ export default {
   cardDefaultBg: "#fff",
 
   // Color
-  brandPrimary: "#3F51B5",
-  brandInfo: "#3F57D3",
+  brandPrimary: primary,
+  brandInfo: "#62B1F6",
   brandSuccess: "#5cb85c",
   brandDanger: "#d9534f",
   brandWarning: "#f0ad4e",
   brandSidebar: "#252932",
 
   // Font
-  fontFamily: platform === "ios" ? "SegoeUI" : "SegoeUI",
   fontSizeBase: 15,
 
   get fontSizeH1() {
@@ -123,47 +123,45 @@ export default {
 
   // Footer
   footerHeight: 55,
-  footerDefaultBg: "#3F51B5",
+  footerDefaultBg: "#2874F0",
 
   // FooterTab
-  tabBarTextColor: "#b3c7f9",
+  tabBarTextColor: "#8bb3f4",
   tabBarTextSize: platform === "ios" ? 14 : 11,
-  activeTab: "#fff",
+  activeTab: platform === "ios" ? "#007aff" : "#fff",
   sTabBarActiveTextColor: "#007aff",
   tabBarActiveTextColor: "#fff",
-  tabActiveBgColor: undefined,
+  tabActiveBgColor: platform === "ios" ? "#1569f4" : undefined,
 
   // Tab
-  tabDefaultBg: "#3F51B5",
+  tabDefaultBg: "#2874F0",
   topTabBarTextColor: "#b3c7f9",
   topTabBarActiveTextColor: "#fff",
-  topTabActiveBgColor: undefined,
+  topTabActiveBgColor: platform === "ios" ? "#1569f4" : undefined,
   topTabBarBorderColor: "#fff",
   topTabBarActiveBorderColor: "#fff",
 
   // Header
   toolbarBtnColor: "#fff",
-  toolbarDefaultBg: "#3F51B5",
-  toolbarHeight: platform === "ios" ? 76 : 56,
+  toolbarDefaultBg: primary,
+  toolbarHeight: platform === "ios" ? 64 : 56,
   toolbarIconSize: platform === "ios" ? 20 : 22,
   toolbarSearchIconSize: platform === "ios" ? 20 : 23,
-  toolbarInputColor: "#fff",
+  toolbarInputColor: platform === "ios" ? "#CECDD2" : "#fff",
   searchBarHeight: platform === "ios" ? 30 : 40,
   toolbarInverseBg: "#222",
   toolbarTextColor: "#fff",
-  toolbarDefaultBorder: "#3F51B5",
   iosStatusbar: "light-content",
+  toolbarDefaultBorder: "#aaa",
   get statusBarColor() {
-    return color(this.toolbarDefaultBg)
-      .darken(0.2)
-      .hex();
+    return color(this.toolbarDefaultBg).darken(0.2).hex();
   },
 
   // Icon
 
   iconFontSize: platform === "ios" ? 30 : 28,
   iconMargin: 7,
-  iconHeaderSize: platform === "ios" ? 29 : 24,
+  iconHeaderSize: platform === "ios" ? 33 : 24,
 
   // InputGroup
   inputFontSize: 17,
@@ -198,7 +196,7 @@ export default {
   listBorderColor: "#c9c9c9",
   listDividerBg: "#f4f4f4",
   listItemHeight: 45,
-  listBtnUnderlayColor: "#DDD",
+  listBtnUnderlayColor: primary,
 
   // Card
   cardBorderColor: "#ccc",
@@ -223,9 +221,7 @@ export default {
   radioColor: "#7e7e7e",
 
   get radioSelectedColor() {
-    return color(this.radioColor)
-      .darken(0.2)
-      .hex();
+    return color(this.radioColor).darken(0.2).hex();
   },
 
   // Spinner
@@ -243,23 +239,20 @@ export default {
   noteFontSize: 14,
 
   // Title
-  titleFontfamily: platform === "ios" ? "SegoeUI" : "SegoeUI",
-  titleFontSize: 19,
-  subTitleFontSize: 14,
+  titleFontSize: platform === "ios" ? 17 : 19,
+  subTitleFontSize: platform === "ios" ? 12 : 14,
   subtitleColor: "#FFF",
 
   // New Variable
   titleFontColor: "#FFF",
 
   // Other
-  borderRadiusBase: 2,
+  borderRadiusBase: platform === "ios" ? 5 : 2,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
   contentPadding: 10,
 
   get darkenHeader() {
-    return color(this.tabBgColor)
-      .darken(0.03)
-      .hex();
+    return color(this.toolbarDefaultBg).darken(0.03).hex();
   },
 
   dropdownBg: "#000",
@@ -271,5 +264,5 @@ export default {
   deviceHeight,
 
   // New Variable
-  inputGroupRoundedBorderRadius: 30
+  inputGroupRoundedBorderRadius: 30,
 };

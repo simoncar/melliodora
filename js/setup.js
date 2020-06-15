@@ -13,9 +13,6 @@ import "firebase/firestore";
 import Constants from "expo-constants";
 import { connect } from "react-redux";
 import { getCommunityDetails } from "./store/community";
-import { StyleProvider, Root } from "native-base";
-import variables from "../native-base-theme/variables/commonColor";
-import getTheme from "../native-base-theme/components";
 
 class Setup extends Component {
 	constructor() {
@@ -71,20 +68,12 @@ class Setup extends Component {
 			return <AppLoading />;
 		} else if (_.isEmpty(this.props.community.selectedCommunity)) {
 			return (
-				<StyleProvider style={getTheme(variables)}>
-					<Root>
-						<AuthStackNavigator />
-					</Root>
-				</StyleProvider>
+				<AuthStackNavigator />
 			);
 		} else {
 			// check if user is admin
 			return (
-				<StyleProvider style={getTheme(variables)}>
-					<Root>
-						<App />
-					</Root>
-				</StyleProvider>
+				<App />
 			);
 		}
 	}
