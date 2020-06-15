@@ -1,14 +1,14 @@
 
 import React, { Component } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "./common/sComponent"
 
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
-import stylesGlobal from "../../themes/globalTheme";
+import stylesGlobal from "../themes/globalTheme";
 
 
-import { formatTime, formatMonth, isURL } from "../global.js";
+import { formatTime, formatMonth, isURL } from "../lib/global.js";
 
 class ListItem extends Component {
 	constructor(props) {

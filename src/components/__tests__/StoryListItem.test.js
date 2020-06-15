@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-native-testing-library';
 
-import ListItem from '../ListItem';
+import ListItem from '../StoryListItem';
 
 
 const itemCore = {

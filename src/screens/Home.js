@@ -4,24 +4,24 @@ import { FlatList, View, Linking, TouchableOpacity, TouchableHighlight, AsyncSto
 import { Container, Content } from "native-base";
 import Constants from "expo-constants";
 import firebase from "firebase";
-import { getLanguageString } from "../global";
-import I18n from "../../lib/i18n";
-import { logToCalendar } from "../../lib/systemHero";
+import { getLanguageString } from "../lib/global";
+import I18n from "../lib/i18n";
+import { logToCalendar } from "../lib/systemHero";
 
-import ListItem from "./ListItem";
-import Analytics from "../../lib/analytics";
+import ListItem from "../components/StoryListItem";
+import Analytics from "../lib/analytics";
 import moment from "moment";
-import { setUserInfo } from "../../store/auth";
+import { setUserInfo } from "../store/auth";
 import { connect } from "react-redux";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../components/common/sComponent"
 
-import DemoData from "../../lib/demoData";
+import DemoData from "../lib/demoData";
 
 const demo = DemoData;
 
 const bottomLogo = {
-	sais_edu_sg: require("../../../images/sais_edu_sg/10yearLogo.png"),
-	ais_edu_sg: require("../../../images/ais_edu_sg/ifla-apr.jpeg")
+	sais_edu_sg: require("../../images/sais_edu_sg/10yearLogo.png"),
+	ais_edu_sg: require("../../images/ais_edu_sg/ifla-apr.jpeg")
 };
 
 class Home extends Component {
@@ -292,7 +292,7 @@ class Home extends Component {
 								title: "Newsletters"
 							});
 						}}>
-							<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/news.png")} />
+							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/news.png")} />
 							<Text style={styles.adab8d360ac6d11ea973dcfce83f911da}>{I18n.t("newsletters")}</Text>
 						</TouchableOpacity>
 
@@ -302,7 +302,7 @@ class Home extends Component {
 								title: "Design News"
 							});
 						}}>
-							<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Design.jpeg")} />
+							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Design.jpeg")} />
 							<Text style={styles.homeMenuText}>{I18n.t("design") + "\n" + I18n.t("design")}</Text>
 						</TouchableOpacity>
 
@@ -312,7 +312,7 @@ class Home extends Component {
 								title: "Management News"
 							});
 						}}>
-							<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Management.jpeg")} />
+							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Management.jpeg")} />
 							<Text style={styles.homeMenuText}>{I18n.t("management") + "\n" + I18n.t("news")}</Text>
 						</TouchableOpacity>
 
@@ -322,7 +322,7 @@ class Home extends Component {
 								title: "Planning News"
 							});
 						}}>
-							<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Planning.jpeg")} />
+							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Planning.jpeg")} />
 							<Text style={styles.homeMenuText}>{I18n.t("planning") + "\n" + I18n.t("news")}</Text>
 						</TouchableOpacity>
 
@@ -332,7 +332,7 @@ class Home extends Component {
 								title: "Directory"
 							});
 						}}>
-							<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Directory.jpeg")} />
+							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Directory.jpeg")} />
 							<Text style={styles.homeMenuText}>{I18n.t("directory")}</Text>
 						</TouchableOpacity>
 
@@ -344,7 +344,7 @@ class Home extends Component {
 						//   });
 						// }}
 						>
-							<Image style={styles.homeMenuIcon} source={require("../../../resources/icons/_Associations.png")} />
+							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Associations.png")} />
 							<Text style={styles.homeMenuText}>{I18n.t("member") + "\n" + I18n.t("associations")}</Text>
 						</TouchableOpacity>
 					</ScrollView>
@@ -366,7 +366,7 @@ class Home extends Component {
 						<TouchableOpacity onPress={() => {
 							this._handleOpenWithLinking("https://smartcookies.io/smart-community");
 						}} style={styles.adab8fa72ac6d11ea973dcfce83f911da}>
-							<Image source={require("../../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
+							<Image source={require("../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
 						</TouchableOpacity>
 					</View>
 					<View>

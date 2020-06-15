@@ -1,0 +1,1875 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`show story no calendar no image 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
+        "height": 1334,
+      },
+      Object {
+        "backgroundColor": "#fff",
+      },
+    ]
+  }
+>
+  <RCTScrollView
+    automaticallyAdjustContentInsets={false}
+    contentContainerStyle={
+      Array [
+        Object {
+          "padding": undefined,
+        },
+        undefined,
+      ]
+    }
+    contentInset={
+      Object {
+        "bottom": 0,
+      }
+    }
+    enableAutomaticScroll={true}
+    enableOnAndroid={false}
+    enableResetScrollToCoords={true}
+    extraHeight={75}
+    extraScrollHeight={0}
+    getScrollResponder={[Function]}
+    handleOnScroll={[Function]}
+    keyboardDismissMode="interactive"
+    keyboardOpeningTime={250}
+    keyboardShouldPersistTaps="handled"
+    keyboardSpace={0}
+    onScroll={[Function]}
+    resetKeyboardSpace={[Function]}
+    resetScrollToCoords={
+      Object {
+        "x": 0,
+        "y": 0,
+      }
+    }
+    scrollEventThrottle={1}
+    scrollForExtraHeightOnAndroid={[Function]}
+    scrollIntoView={[Function]}
+    scrollToEnd={[Function]}
+    scrollToFocusedInput={[Function]}
+    scrollToPosition={[Function]}
+    showsVerticalScrollIndicator={false}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "flex": 1,
+      }
+    }
+    update={[Function]}
+    viewIsInsideTabBar={false}
+  >
+    <View>
+      <View>
+        <View
+          style={
+            Object {
+              "alignSelf": "center",
+              "backgroundColor": "#fff",
+              "borderBottomLeftRadius": 15,
+              "borderBottomRightRadius": 15,
+              "borderColor": "lightgray",
+              "borderWidth": 1,
+              "elevation": 1,
+              "flex": 1,
+              "height": 200,
+              "marginBottom": 12,
+              "shadowColor": "rgba(0,0,0, .4)",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 0.5,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 0.5,
+              "width": "98%",
+            }
+          }
+        >
+          <Image
+            blurRadius={0}
+            onError={[Function]}
+            source={
+              Object {
+                "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                },
+                Object {
+                  "borderBottomLeftRadius": 14,
+                  "borderBottomRightRadius": 14,
+                },
+              ]
+            }
+            transitionDuration={300}
+            uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fxdesk-calendar-980x470-20181016.jpg.pagespeed.ic.BdAsh-Nj_6.jpg?alt=media&token=697fef73-e77d-46de-83f5-a45540694274"
+          />
+          <ViewManagerAdapter_ExpoBlurView
+            proxiedProperties={
+              Object {
+                "intensity": 100,
+                "tint": "dark",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "borderBottomLeftRadius": 14,
+                  "borderBottomRightRadius": 14,
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "borderTopColor": "#ddd",
+            "borderTopWidth": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-end",
+            "padding": 5,
+            "paddingLeft": 10,
+            "paddingRight": 0,
+            "paddingTop": 10,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+            testID="story.chatIcon"
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 12,
+                  },
+                  Object {
+                    "color": "#222",
+                    "fontSize": 30,
+                    "marginRight": 200,
+                    "paddingRight": 200,
+                  },
+                  Object {
+                    "fontFamily": "simple-line-icons",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          testID="story.shareButton"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 12,
+                  },
+                  Object {
+                    "color": "#222",
+                    "fontSize": 30,
+                    "marginRight": 200,
+                    "paddingRight": 200,
+                  },
+                  Object {
+                    "fontFamily": "ionicons",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "borderTopColor": "#ddd",
+              "borderTopWidth": 1,
+              "flex": 1,
+              "flexDirection": "column",
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 20,
+            }
+          }
+        >
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "paddingBottom": 10,
+                  "paddingTop": 15,
+                },
+              ]
+            }
+          >
+            Yearbook
+          </Text>
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+          >
+            School cafe
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#222",
+                "fontSize": 15,
+                "marginRight": 20,
+                "marginTop": 15,
+              }
+            }
+            testID="story.parsedText"
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": "#222",
+                    "fontSize": 15,
+                    "marginRight": 20,
+                    "marginTop": 15,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
+            </Text>
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
+            }
+          >
+             
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
+            }
+          >
+             
+          </Text>
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "grey",
+                  "fontSize": 15,
+                  "paddingBottom": 100,
+                },
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
+
+exports[`show story on screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
+        "height": 1334,
+      },
+      Object {
+        "backgroundColor": "#fff",
+      },
+    ]
+  }
+>
+  <RCTScrollView
+    automaticallyAdjustContentInsets={false}
+    contentContainerStyle={
+      Array [
+        Object {
+          "padding": undefined,
+        },
+        undefined,
+      ]
+    }
+    contentInset={
+      Object {
+        "bottom": 0,
+      }
+    }
+    enableAutomaticScroll={true}
+    enableOnAndroid={false}
+    enableResetScrollToCoords={true}
+    extraHeight={75}
+    extraScrollHeight={0}
+    getScrollResponder={[Function]}
+    handleOnScroll={[Function]}
+    keyboardDismissMode="interactive"
+    keyboardOpeningTime={250}
+    keyboardShouldPersistTaps="handled"
+    keyboardSpace={0}
+    onScroll={[Function]}
+    resetKeyboardSpace={[Function]}
+    resetScrollToCoords={
+      Object {
+        "x": 0,
+        "y": 0,
+      }
+    }
+    scrollEventThrottle={1}
+    scrollForExtraHeightOnAndroid={[Function]}
+    scrollIntoView={[Function]}
+    scrollToEnd={[Function]}
+    scrollToFocusedInput={[Function]}
+    scrollToPosition={[Function]}
+    showsVerticalScrollIndicator={false}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "flex": 1,
+      }
+    }
+    update={[Function]}
+    viewIsInsideTabBar={false}
+  >
+    <View>
+      <View>
+        <View
+          style={
+            Object {
+              "alignSelf": "center",
+              "backgroundColor": "#fff",
+              "borderBottomLeftRadius": 15,
+              "borderBottomRightRadius": 15,
+              "borderColor": "lightgray",
+              "borderWidth": 1,
+              "elevation": 1,
+              "flex": 1,
+              "height": 200,
+              "marginBottom": 12,
+              "shadowColor": "rgba(0,0,0, .4)",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 0.5,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 0.5,
+              "width": "98%",
+            }
+          }
+        >
+          <Image
+            blurRadius={0}
+            onError={[Function]}
+            source={
+              Object {
+                "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                },
+                Object {
+                  "borderBottomLeftRadius": 14,
+                  "borderBottomRightRadius": 14,
+                },
+              ]
+            }
+            transitionDuration={300}
+            uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f"
+          />
+          <ViewManagerAdapter_ExpoBlurView
+            proxiedProperties={
+              Object {
+                "intensity": 100,
+                "tint": "dark",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "borderBottomLeftRadius": 14,
+                  "borderBottomRightRadius": 14,
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "borderTopColor": "#ddd",
+            "borderTopWidth": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-end",
+            "padding": 5,
+            "paddingLeft": 10,
+            "paddingRight": 0,
+            "paddingTop": 10,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+            testID="story.chatIcon"
+          >
+            <Text />
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+            testID="story.calendarIcon"
+          >
+            <Text />
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          testID="story.shareButton"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+          >
+            <Text />
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "borderTopColor": "#ddd",
+              "borderTopWidth": 1,
+              "flex": 1,
+              "flexDirection": "column",
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 20,
+            }
+          }
+        >
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "paddingBottom": 10,
+                  "paddingTop": 15,
+                },
+              ]
+            }
+          >
+            Yearbook
+          </Text>
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+          >
+            School cafe
+          </Text>
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+          >
+            November 30th 2020
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#222",
+                "fontSize": 15,
+                "marginRight": 20,
+                "marginTop": 15,
+              }
+            }
+            testID="story.parsedText"
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": "#222",
+                    "fontSize": 15,
+                    "marginRight": 20,
+                    "marginTop": 15,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
+            </Text>
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
+            }
+          >
+             
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
+            }
+          >
+             
+          </Text>
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "grey",
+                  "fontSize": 15,
+                  "paddingBottom": 100,
+                },
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
+
+exports[`show story with URL in content to test linking 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
+        "height": 1334,
+      },
+      Object {
+        "backgroundColor": "#fff",
+      },
+    ]
+  }
+>
+  <RCTScrollView
+    automaticallyAdjustContentInsets={false}
+    contentContainerStyle={
+      Array [
+        Object {
+          "padding": undefined,
+        },
+        undefined,
+      ]
+    }
+    contentInset={
+      Object {
+        "bottom": 0,
+      }
+    }
+    enableAutomaticScroll={true}
+    enableOnAndroid={false}
+    enableResetScrollToCoords={true}
+    extraHeight={75}
+    extraScrollHeight={0}
+    getScrollResponder={[Function]}
+    handleOnScroll={[Function]}
+    keyboardDismissMode="interactive"
+    keyboardOpeningTime={250}
+    keyboardShouldPersistTaps="handled"
+    keyboardSpace={0}
+    onScroll={[Function]}
+    resetKeyboardSpace={[Function]}
+    resetScrollToCoords={
+      Object {
+        "x": 0,
+        "y": 0,
+      }
+    }
+    scrollEventThrottle={1}
+    scrollForExtraHeightOnAndroid={[Function]}
+    scrollIntoView={[Function]}
+    scrollToEnd={[Function]}
+    scrollToFocusedInput={[Function]}
+    scrollToPosition={[Function]}
+    showsVerticalScrollIndicator={false}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "flex": 1,
+      }
+    }
+    update={[Function]}
+    viewIsInsideTabBar={false}
+  >
+    <View>
+      <View>
+        <View
+          style={
+            Object {
+              "alignSelf": "center",
+              "backgroundColor": "#fff",
+              "borderBottomLeftRadius": 15,
+              "borderBottomRightRadius": 15,
+              "borderColor": "lightgray",
+              "borderWidth": 1,
+              "elevation": 1,
+              "flex": 1,
+              "height": 200,
+              "marginBottom": 12,
+              "shadowColor": "rgba(0,0,0, .4)",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 0.5,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 0.5,
+              "width": "98%",
+            }
+          }
+        >
+          <Image
+            blurRadius={0}
+            onError={[Function]}
+            source={
+              Object {
+                "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                },
+                Object {
+                  "borderBottomLeftRadius": 14,
+                  "borderBottomRightRadius": 14,
+                },
+              ]
+            }
+            transitionDuration={300}
+            uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f"
+          />
+          <ViewManagerAdapter_ExpoBlurView
+            proxiedProperties={
+              Object {
+                "intensity": 100,
+                "tint": "dark",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "borderBottomLeftRadius": 14,
+                  "borderBottomRightRadius": 14,
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "borderTopColor": "#ddd",
+            "borderTopWidth": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-end",
+            "padding": 5,
+            "paddingLeft": 10,
+            "paddingRight": 0,
+            "paddingTop": 10,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+            testID="story.chatIcon"
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 12,
+                  },
+                  Object {
+                    "color": "#222",
+                    "fontSize": 30,
+                    "marginRight": 200,
+                    "paddingRight": 200,
+                  },
+                  Object {
+                    "fontFamily": "simple-line-icons",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+            testID="story.calendarIcon"
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 12,
+                  },
+                  Object {
+                    "color": "#222",
+                    "fontSize": 30,
+                    "marginRight": 200,
+                    "paddingRight": 200,
+                  },
+                  Object {
+                    "fontFamily": "ionicons",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          testID="story.shareButton"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 12,
+                  },
+                  Object {
+                    "color": "#222",
+                    "fontSize": 30,
+                    "marginRight": 200,
+                    "paddingRight": 200,
+                  },
+                  Object {
+                    "fontFamily": "ionicons",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "borderTopColor": "#ddd",
+              "borderTopWidth": 1,
+              "flex": 1,
+              "flexDirection": "column",
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 20,
+            }
+          }
+        >
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "paddingBottom": 10,
+                  "paddingTop": 15,
+                },
+              ]
+            }
+          >
+            Yearbook
+          </Text>
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+          >
+            At Google Campus
+          </Text>
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+          >
+            November 30th 2020
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#222",
+                "fontSize": 15,
+                "marginRight": 20,
+                "marginTop": 15,
+              }
+            }
+            testID="story.parsedText"
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": "#222",
+                    "fontSize": 15,
+                    "marginRight": 20,
+                    "marginTop": 15,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              google 
+            </Text>
+            <Text
+              allowFontScaling={false}
+              onPress={[Function]}
+              style={
+                Array [
+                  Object {
+                    "color": "#222",
+                    "fontSize": 15,
+                    "marginRight": 20,
+                    "marginTop": 15,
+                  },
+                  Object {
+                    "color": "blue",
+                    "textDecorationLine": "underline",
+                  },
+                ]
+              }
+            >
+              https://google.com
+            </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": "#222",
+                    "fontSize": 15,
+                    "marginRight": 20,
+                    "marginTop": 15,
+                  },
+                  undefined,
+                ]
+              }
+            >
+               is a website mys 
+            </Text>
+            <Text
+              allowFontScaling={false}
+              onPress={[Function]}
+              style={
+                Array [
+                  Object {
+                    "color": "#222",
+                    "fontSize": 15,
+                    "marginRight": 20,
+                    "marginTop": 15,
+                  },
+                  Object {
+                    "color": "blue",
+                    "textDecorationLine": "underline",
+                  },
+                ]
+              }
+            >
+              https://mystamford.edu.sg/somepage
+            </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": "#222",
+                    "fontSize": 15,
+                    "marginRight": 20,
+                    "marginTop": 15,
+                  },
+                  undefined,
+                ]
+              }
+            >
+               is a website, 
+            </Text>
+            <Text
+              allowFontScaling={false}
+              onPress={[Function]}
+              style={
+                Array [
+                  Object {
+                    "color": "#222",
+                    "fontSize": 15,
+                    "marginRight": 20,
+                    "marginTop": 15,
+                  },
+                  Object {
+                    "color": "blue",
+                    "textDecorationLine": "underline",
+                  },
+                ]
+              }
+            >
+              test@smartcookies.io
+            </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": "#222",
+                    "fontSize": 15,
+                    "marginRight": 20,
+                    "marginTop": 15,
+                  },
+                  undefined,
+                ]
+              }
+            >
+               is an email and 
+            </Text>
+            <Text
+              allowFontScaling={false}
+              onPress={[Function]}
+              style={
+                Array [
+                  Object {
+                    "color": "#222",
+                    "fontSize": 15,
+                    "marginRight": 20,
+                    "marginTop": 15,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              444-555-6666
+            </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": "#222",
+                    "fontSize": 15,
+                    "marginRight": 20,
+                    "marginTop": 15,
+                  },
+                  undefined,
+                ]
+              }
+            >
+               is a phone number
+            </Text>
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
+            }
+          >
+             
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
+            }
+          >
+             
+          </Text>
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "grey",
+                  "fontSize": 15,
+                  "paddingBottom": 100,
+                },
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
+
+exports[`show story without chat 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
+        "height": 1334,
+      },
+      Object {
+        "backgroundColor": "#fff",
+      },
+    ]
+  }
+>
+  <RCTScrollView
+    automaticallyAdjustContentInsets={false}
+    contentContainerStyle={
+      Array [
+        Object {
+          "padding": undefined,
+        },
+        undefined,
+      ]
+    }
+    contentInset={
+      Object {
+        "bottom": 0,
+      }
+    }
+    enableAutomaticScroll={true}
+    enableOnAndroid={false}
+    enableResetScrollToCoords={true}
+    extraHeight={75}
+    extraScrollHeight={0}
+    getScrollResponder={[Function]}
+    handleOnScroll={[Function]}
+    keyboardDismissMode="interactive"
+    keyboardOpeningTime={250}
+    keyboardShouldPersistTaps="handled"
+    keyboardSpace={0}
+    onScroll={[Function]}
+    resetKeyboardSpace={[Function]}
+    resetScrollToCoords={
+      Object {
+        "x": 0,
+        "y": 0,
+      }
+    }
+    scrollEventThrottle={1}
+    scrollForExtraHeightOnAndroid={[Function]}
+    scrollIntoView={[Function]}
+    scrollToEnd={[Function]}
+    scrollToFocusedInput={[Function]}
+    scrollToPosition={[Function]}
+    showsVerticalScrollIndicator={false}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "flex": 1,
+      }
+    }
+    update={[Function]}
+    viewIsInsideTabBar={false}
+  >
+    <View>
+      <View>
+        <View
+          style={
+            Object {
+              "alignSelf": "center",
+              "backgroundColor": "#fff",
+              "borderBottomLeftRadius": 15,
+              "borderBottomRightRadius": 15,
+              "borderColor": "lightgray",
+              "borderWidth": 1,
+              "elevation": 1,
+              "flex": 1,
+              "height": 200,
+              "marginBottom": 12,
+              "shadowColor": "rgba(0,0,0, .4)",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 0.5,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 0.5,
+              "width": "98%",
+            }
+          }
+        >
+          <Image
+            blurRadius={0}
+            onError={[Function]}
+            source={
+              Object {
+                "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                },
+                Object {
+                  "borderBottomLeftRadius": 14,
+                  "borderBottomRightRadius": 14,
+                },
+              ]
+            }
+            transitionDuration={300}
+            uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f"
+          />
+          <ViewManagerAdapter_ExpoBlurView
+            proxiedProperties={
+              Object {
+                "intensity": 100,
+                "tint": "dark",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "borderBottomLeftRadius": 14,
+                  "borderBottomRightRadius": 14,
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "borderTopColor": "#ddd",
+            "borderTopWidth": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-end",
+            "padding": 5,
+            "paddingLeft": 10,
+            "paddingRight": 0,
+            "paddingTop": 10,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+            testID="story.calendarIcon"
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 12,
+                  },
+                  Object {
+                    "color": "#222",
+                    "fontSize": 30,
+                    "marginRight": 200,
+                    "paddingRight": 200,
+                  },
+                  Object {
+                    "fontFamily": "ionicons",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          testID="story.shareButton"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 12,
+                  },
+                  Object {
+                    "color": "#222",
+                    "fontSize": 30,
+                    "marginRight": 200,
+                    "paddingRight": 200,
+                  },
+                  Object {
+                    "fontFamily": "ionicons",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "borderTopColor": "#ddd",
+              "borderTopWidth": 1,
+              "flex": 1,
+              "flexDirection": "column",
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 20,
+            }
+          }
+        >
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "paddingBottom": 10,
+                  "paddingTop": 15,
+                },
+              ]
+            }
+          >
+            Yearbook
+          </Text>
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+          >
+            School cafe
+          </Text>
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 15,
+                  "marginRight": 20,
+                },
+              ]
+            }
+          >
+            November 30th 2020
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#222",
+                "fontSize": 15,
+                "marginRight": 20,
+                "marginTop": 15,
+              }
+            }
+            testID="story.parsedText"
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": "#222",
+                    "fontSize": 15,
+                    "marginRight": 20,
+                    "marginTop": 15,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
+            </Text>
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
+            }
+          >
+             
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                undefined,
+              ]
+            }
+          >
+             
+          </Text>
+          <Text
+            selectable={true}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "grey",
+                  "fontSize": 15,
+                  "paddingBottom": 100,
+                },
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

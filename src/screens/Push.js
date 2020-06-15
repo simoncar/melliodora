@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image, Dimensions, Alert, TouchableOpacity, Switch } from "react-native";
 
-import styles from "./styles";
-import { SettingsListItem } from "../settings/SettingsListItem";
+import styles from "../components/story/styles";
+import { SettingsListItem } from "../components/settings/SettingsListItem";
 import * as firebase from "firebase";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
-import I18n from "../../lib/i18n";
+import I18n from "../lib/i18n";
 import _ from "lodash";
 import { Input } from "react-native-elements";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../components/common/sComponent"
 
 class push extends Component {
 	constructor(props) {

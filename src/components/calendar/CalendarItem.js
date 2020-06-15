@@ -4,9 +4,9 @@ import styles from "./styles";
 import { Text } from "../../components/common/sComponent"
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
-import { getLanguageString } from "../global";
+import { getLanguageString } from "../../lib/global";
 import { Grid, Col, Row } from "react-native-easy-grid";
-import { formatTime, formatMonth } from "../global.js";
+import { formatTime, formatMonth } from "../../lib/global.js";
 const { width } = Dimensions.get("window");
 import _ from "lodash";
 class CalendarItem extends Component {

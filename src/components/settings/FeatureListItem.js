@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Dimensions, StyleSheet, Alert } from "react-nat
 import styles from "./styles";
 import { Ionicons, SimpleLineIcons, AntDesign } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
-import { getLanguageString } from "../global";
+import { getLanguageString } from "../../lib/global";
 import firebase from "firebase";
 import { Text } from "../../components/common/sComponent"
 

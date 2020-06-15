@@ -1,19 +1,19 @@
 
 import React, { Component } from "react";
 import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight, TouchableOpacity } from "react-native";
-import { isAdmin } from "../global";
-import I18n from "../../lib/i18n";
+import { isAdmin } from "../lib/global";
+import I18n from "../lib/i18n";
 import { MaterialIcons, FontAwesome, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Updates } from "expo";
-import FeatureMoreItems from "./FeatureMoreItems";
+import FeatureMoreItems from "../components/settings/FeatureMoreItems";
 
-import Analytics from "../../lib/analytics";
+import Analytics from "../lib/analytics";
 import _ from "lodash";
 import { connect } from "react-redux";
 import * as Linking from "expo-linking";
 
-import { SettingsListItem, Separator } from "./SettingsListItem";
-import { Text } from "../../components/common/sComponent"
+import { SettingsListItem, Separator } from "../components/settings/SettingsListItem";
+import { Text } from "../components/common/sComponent"
 
 class Settings extends Component {
 	constructor(props) {

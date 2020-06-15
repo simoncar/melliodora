@@ -5,11 +5,11 @@ import { Container, Content } from "native-base";
 import { Ionicons, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import ParsedText from "react-native-parsed-text";
-import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../global.js";
+import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global.js";
 import _ from "lodash";
 import { connect } from "react-redux";
-import stylesGlobal from "../../themes/globalTheme";
-import { Text } from "../../components/common/sComponent"
+import stylesGlobal from "../themes/globalTheme";
+import { Text } from "../components/common/sComponent"
 
 export class Story extends Component {
 	constructor(props) {

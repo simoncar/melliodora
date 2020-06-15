@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Setup from "./js/setup";
+import Setup from "./src/setup";
 
 import Constants from "expo-constants";
 import _ from "lodash";
@@ -8,13 +8,13 @@ import _ from "lodash";
 // npm-check
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+	constructor(props) {
+		super(props);
+	}
 
-  render() {
-    console.disableYellowBox = true;
+	render() {
+		console.disableYellowBox = true;
 
-    return <Setup />;
-  }
+		return <Setup />;
+	}
 }

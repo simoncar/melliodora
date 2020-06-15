@@ -40,7 +40,7 @@ OR
 
 Before publishing, rebuild locales if new i18n items added
 
-`i18n-translate-json apiKey js/locales/ en fr,es,ja,ko,zh,da,nl,fi,de,hi,id,ga,it,lt,ms,no,pl,pt,ro,ru,sl,sv,th,vi,cy`
+`i18n-translate-json apiKey src/locales/ en fr,es,ja,ko,zh,da,nl,fi,de,hi,id,ga,it,lt,ms,no,pl,pt,ro,ru,sl,sv,th,vi,cy`
 
 https://github.com/meedan/i18n-translate-json
 

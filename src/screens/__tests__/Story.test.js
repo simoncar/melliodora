@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from 'react-native-testing-library';
 
-import { Story } from '../index';
+import { Story } from '../Story';
 
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 

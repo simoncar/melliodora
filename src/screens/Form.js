@@ -6,7 +6,7 @@ import { Container, Content } from "native-base";
 
 import * as firebase from "firebase";
 import { Entypo } from "@expo/vector-icons";
-import I18n from "../../lib/i18n";
+import I18n from "../lib/i18n";
 import _ from "lodash";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
@@ -14,8 +14,8 @@ import uuid from "uuid";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { connect } from "react-redux";
-import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime } from "./formUtilities";
-import { SaveFeature, DeleteFeature } from "./formAPI";
+import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime } from "../components/story/formUtilities";
+import { SaveFeature, DeleteFeature } from "../components/story/formAPI";
 import { StackActions } from "@react-navigation/native";
 
 
