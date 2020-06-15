@@ -10,7 +10,7 @@ import { SettingsListItem } from "../components/settings/SettingsListItem";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
-class DomainSelection extends Component {
+export class DomainSelection extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -74,7 +74,8 @@ class DomainSelection extends Component {
 				onChangeText={text => this.searchFilterFunction(text)}
 				value={this.state.searchTerm}
 				placeholder="Search"
-				placeholderTextColor="#555555" />
+				placeholderTextColor="#555555"
+				testID="domainSelection.search" />
 			<Ionicons style={styles.searchIcon} name="ios-search" size={32} color="#777777" />
 		</View>
 	};
@@ -88,11 +89,10 @@ class DomainSelection extends Component {
 				title={item.name}
 				onPress={() => this.props.dispatch(processSelectedCommunity(item))} />
 		)
-
 	};
 
 	render() {
-		let onPressedCreateCommunity = () => this.props.navigation.push("preWelcome");
+		let onPressedCreateCommunity = () => this.props.navigation.push("login");
 		if (this.props.showCreateCommunity == false) {
 			onPressedCreateCommunity = () => this.props.navigation.push("communityCreateScreen");
 		}
@@ -110,7 +110,12 @@ class DomainSelection extends Component {
 				<View>
 					{this.renderHeader()}
 					<View >
-						<FlatList data={this.state.domains} renderItem={this.renderItem} keyExtractor={(_, idx) => "domain" + idx} ItemSeparatorComponent={this.renderSeparator} bounces={false} showsVerticalScrollIndicator={false} />
+						<FlatList
+							data={this.state.domains}
+							renderItem={this.renderItem}
+							keyExtractor={(_, idx) => "domain" + idx}
+							ItemSeparatorComponent={this.renderSeparator}
+						/>
 					</View>
 				</View>
 				<View style={styles.centered}>
@@ -177,4 +182,5 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
 	community: state.community
 });
+
 export default connect(mapStateToProps)(DomainSelection);
