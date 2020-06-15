@@ -4,11 +4,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import I18n from "./lib/i18n";
 
 import DomainSelection from "./screens/DomainSelection";
-import LoginScreen from "./components/auth/LoginScreen";
-import SignUpScreen from "./components/auth/SignUpScreen";
+import LoginScreen from "./screens/Login";
+import SignUpScreen from "./screens/SignUpScreen";
 import WelcomeScreen from "./screens/Welcome";
 import CommunityCreateScreen from "./screens/CommunityCreateScreen"
-import ForgotPasswordScreen from "./components/auth/ForgotPasswordScreen";
+import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
 
 const Stack = createStackNavigator()
 

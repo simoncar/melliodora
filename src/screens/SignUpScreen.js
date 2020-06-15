@@ -7,9 +7,9 @@ import { Input } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import firebase from "firebase";
 import "firebase/functions";
-import { Text } from "../../components/common/sComponent"
-import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../../lib/uploadImage";
-import Loader from "../common/Loader";
+import { Text } from "../components/common/sComponent"
+import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/uploadImage";
+import Loader from "../components/common/Loader";
 
 class SignUpScreen extends Component {
 	static navigationOptions = ({ navigation }) => ({

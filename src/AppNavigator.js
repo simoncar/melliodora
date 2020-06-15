@@ -32,12 +32,12 @@ import push from "./screens/Push";
 import authPortal from "./components/webportalURL/authPortal";
 import WebportalURL from "./components/webportalURL";
 
-import LoginScreen from "./components/auth/LoginScreen";
-import SignUpScreen from "./components/auth/SignUpScreen";
-import ForgotPasswordScreen from "./components/auth/ForgotPasswordScreen";
-import CameraApp from "./components/auth/CameraApp";
-import UserProfile from "./components/auth/UserProfile";
-import EditUserProfile from "./components/auth/EditUserProfile";
+import LoginScreen from "./screens/Login";
+import SignUpScreen from "./screens/SignUpScreen";
+import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
+import CameraApp from "./screens/CameraApp";
+import UserProfile from "./screens/UserProfile";
+import EditUserProfile from "./screens/EditUserProfile";
 import UserSearch from "./components/settings/UserSearch";
 
 const StackHome = createStackNavigator();

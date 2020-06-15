@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, View, TextInput, Button, Alert } from "react-native";
 
 import firebase from "firebase";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../components/common/sComponent"
 
 export default class ForgotPasswordScreen extends Component {
 	static navigationOptions = ({ navigation }) => ({
