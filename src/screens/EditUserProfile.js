@@ -6,9 +6,9 @@ import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import _ from "lodash";
-import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../../lib/uploadImage";
-import Loader from "../common/Loader";
-import { Text } from "../../components/common/sComponent"
+import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/uploadImage";
+import Loader from "../components/common/Loader";
+import { Text } from "../components/common/sComponent"
 
 class EditUserProfile extends Component {
 	state = {

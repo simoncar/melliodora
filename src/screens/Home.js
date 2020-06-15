@@ -287,7 +287,7 @@ class Home extends Component {
 						paddingVertical: 8
 					}} style={styles.adab8ac51ac6d11ea973dcfce83f911da} showsHorizontalScrollIndicator={false}>
 						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
-							this.props.navigation.navigate("webportalURL", {
+							this.props.navigation.navigate("WebPortal", {
 								url: "https://iflaapr.org/newsletters",
 								title: "Newsletters"
 							});
@@ -297,7 +297,7 @@ class Home extends Component {
 						</TouchableOpacity>
 
 						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
-							this.props.navigation.navigate("webportalURL", {
+							this.props.navigation.navigate("WebPortal", {
 								url: "https://iflaapr.org/news/listing/design",
 								title: "Design News"
 							});
@@ -307,7 +307,7 @@ class Home extends Component {
 						</TouchableOpacity>
 
 						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
-							this.props.navigation.navigate("webportalURL", {
+							this.props.navigation.navigate("WebPortal", {
 								url: "https://iflaapr.org/news/listing/management",
 								title: "Management News"
 							});
@@ -317,7 +317,7 @@ class Home extends Component {
 						</TouchableOpacity>
 
 						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
-							this.props.navigation.navigate("webportalURL", {
+							this.props.navigation.navigate("WebPortal", {
 								url: "https://iflaapr.org/news/listing/planning",
 								title: "Planning News"
 							});
@@ -327,7 +327,7 @@ class Home extends Component {
 						</TouchableOpacity>
 
 						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
-							this.props.navigation.navigate("webportalURL", {
+							this.props.navigation.navigate("WebPortal", {
 								url: "https://iflaapr.org/membership-directory/corporate",
 								title: "Directory"
 							});
@@ -338,7 +338,7 @@ class Home extends Component {
 
 						<TouchableOpacity style={styles.homeMenuItemContainer}
 						// onPress={() => {
-						//   this.props.navigation.navigate("webportalURL", {
+						//   this.props.navigation.navigate("WebPortal", {
 						//     url: "https://smartcookies.io/smart-community",
 						//     title: "Member Associations",
 						//   });

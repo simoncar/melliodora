@@ -42,7 +42,6 @@ const initialize = () => {
   };
 
   trackingOpts = normalizeTrackingOptions(trackingOpts);
-  console.log("identifyidentifyidentifyidentifyidentify");
   if (trackingOpts.uid) {
     Amplitude.setUserId(trackingOpts.uid);
     if (trackingOpts) {

@@ -9,7 +9,7 @@ import Constants from "expo-constants";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../components/common/sComponent"
 
 const moment = require("moment");
 

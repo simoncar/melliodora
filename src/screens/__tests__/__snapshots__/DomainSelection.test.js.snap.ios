@@ -1,0 +1,1219 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`list domains 1`] = `
+<View>
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#fff",
+        "borderRadius": 13,
+        "flexDirection": "row",
+        "margin": 12,
+        "marginTop": 32,
+        "opacity": 1,
+        "padding": 15,
+      }
+    }
+  >
+    <Text />
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "SegoeUI",
+          },
+          Object {
+            "color": "#111111",
+            "flex": 1,
+            "paddingHorizontal": 12,
+            "textAlign": "left",
+          },
+        ]
+      }
+    >
+      Create Community
+    </Text>
+    <Text />
+  </View>
+  <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#fff",
+          "borderColor": "#111111",
+          "flexDirection": "row",
+          "height": 55,
+        }
+      }
+    >
+      <TextInput
+        allowFontScaling={true}
+        onChangeText={[Function]}
+        placeholder="Search"
+        placeholderTextColor="#555555"
+        rejectResponderTermination={true}
+        style={
+          Object {
+            "flex": 1,
+            "paddingLeft": 30,
+          }
+        }
+        testID="domainSelection.search"
+        underlineColorAndroid="transparent"
+      />
+      <Text />
+    </View>
+    <View>
+      <RCTScrollView
+        ItemSeparatorComponent={[Function]}
+        data={
+          Array [
+            Object {
+              "name": "Bali Children Foundation",
+              "node": "balichildrenfoundation_org",
+            },
+            Object {
+              "name": "Camp Asia",
+              "nameAlias": Array [
+                "ca",
+              ],
+              "node": "camp_asia",
+            },
+            Object {
+              "admins": Array [
+                "xZI3FkYWTbTlSZgOZ4jNG7YT1nC3",
+              ],
+              "kind": "123",
+              "language": "123",
+              "name": "Coco Palms",
+              "node": "test",
+              "region": "123",
+              "users": "213",
+            },
+            Object {
+              "name": "IFLA Asia Pacific",
+              "nameAlias": Array [
+                "IFLAAPR",
+              ],
+              "node": "ais_edu_sg",
+            },
+            Object {
+              "name": "My Photo Community",
+              "node": "demo_sg",
+            },
+            Object {
+              "name": "Oakforest International",
+              "node": "oakforest_international_edu",
+            },
+            Object {
+              "name": "Smart Cookies Team Hero",
+              "node": "smartcookies_system_hero",
+            },
+            Object {
+              "name": "Speech Language Club",
+              "node": "speech_language",
+            },
+            Object {
+              "name": "Stamford American",
+              "nameAlias": Array [
+                "SAIS",
+              ],
+              "node": "sais_edu_sg",
+            },
+            Object {
+              "name": "Team Entrepreneur CA",
+              "node": "team_entrepreneur_ca",
+            },
+            Object {
+              "admins": Array [
+                "4lGCJyOuXfbG1ig7EHJOM6LPoji2",
+              ],
+              "kind": "",
+              "language": "",
+              "name": "afrik_hub",
+              "node": "afrik_hub",
+              "region": "",
+              "users": "",
+            },
+          ]
+        }
+        disableVirtualization={false}
+        getItem={[Function]}
+        getItemCount={[Function]}
+        horizontal={false}
+        initialNumToRender={10}
+        keyExtractor={[Function]}
+        maxToRenderPerBatch={10}
+        numColumns={1}
+        onContentSizeChange={[Function]}
+        onEndReachedThreshold={2}
+        onLayout={[Function]}
+        onMomentumScrollEnd={[Function]}
+        onScroll={[Function]}
+        onScrollBeginDrag={[Function]}
+        onScrollEndDrag={[Function]}
+        removeClippedSubviews={false}
+        renderItem={[Function]}
+        scrollEventThrottle={50}
+        stickyHeaderIndices={Array []}
+        updateCellsBatchingPeriod={50}
+        viewabilityConfigCallbackPairs={Array []}
+        windowSize={21}
+      >
+        <View>
+          <View
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              isTVSelectable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "white",
+                    "borderBottomColor": "#CED0CE",
+                    "borderBottomWidth": 1,
+                    "flexDirection": "row",
+                    "paddingVertical": 8,
+                  }
+                }
+              >
+                <Text />
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "paddingHorizontal": 8,
+                    }
+                  }
+                >
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#333333",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Bali Children Foundation
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#777777",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "marginHorizontal": 8,
+                    }
+                  }
+                >
+                  <Text />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "backgroundColor": "#CED0CE",
+                }
+              }
+            />
+          </View>
+          <View
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              isTVSelectable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "white",
+                    "borderBottomColor": "#CED0CE",
+                    "borderBottomWidth": 1,
+                    "flexDirection": "row",
+                    "paddingVertical": 8,
+                  }
+                }
+              >
+                <Text />
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "paddingHorizontal": 8,
+                    }
+                  }
+                >
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#333333",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Camp Asia
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#777777",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "marginHorizontal": 8,
+                    }
+                  }
+                >
+                  <Text />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "backgroundColor": "#CED0CE",
+                }
+              }
+            />
+          </View>
+          <View
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              isTVSelectable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "white",
+                    "borderBottomColor": "#CED0CE",
+                    "borderBottomWidth": 1,
+                    "flexDirection": "row",
+                    "paddingVertical": 8,
+                  }
+                }
+              >
+                <Text />
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "paddingHorizontal": 8,
+                    }
+                  }
+                >
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#333333",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Coco Palms
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#777777",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "marginHorizontal": 8,
+                    }
+                  }
+                >
+                  <Text />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "backgroundColor": "#CED0CE",
+                }
+              }
+            />
+          </View>
+          <View
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              isTVSelectable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "white",
+                    "borderBottomColor": "#CED0CE",
+                    "borderBottomWidth": 1,
+                    "flexDirection": "row",
+                    "paddingVertical": 8,
+                  }
+                }
+              >
+                <Text />
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "paddingHorizontal": 8,
+                    }
+                  }
+                >
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#333333",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      IFLA Asia Pacific
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#777777",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "marginHorizontal": 8,
+                    }
+                  }
+                >
+                  <Text />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "backgroundColor": "#CED0CE",
+                }
+              }
+            />
+          </View>
+          <View
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              isTVSelectable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "white",
+                    "borderBottomColor": "#CED0CE",
+                    "borderBottomWidth": 1,
+                    "flexDirection": "row",
+                    "paddingVertical": 8,
+                  }
+                }
+              >
+                <Text />
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "paddingHorizontal": 8,
+                    }
+                  }
+                >
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#333333",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      My Photo Community
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#777777",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "marginHorizontal": 8,
+                    }
+                  }
+                >
+                  <Text />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "backgroundColor": "#CED0CE",
+                }
+              }
+            />
+          </View>
+          <View
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              isTVSelectable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "white",
+                    "borderBottomColor": "#CED0CE",
+                    "borderBottomWidth": 1,
+                    "flexDirection": "row",
+                    "paddingVertical": 8,
+                  }
+                }
+              >
+                <Text />
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "paddingHorizontal": 8,
+                    }
+                  }
+                >
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#333333",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Oakforest International
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#777777",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "marginHorizontal": 8,
+                    }
+                  }
+                >
+                  <Text />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "backgroundColor": "#CED0CE",
+                }
+              }
+            />
+          </View>
+          <View
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              isTVSelectable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "white",
+                    "borderBottomColor": "#CED0CE",
+                    "borderBottomWidth": 1,
+                    "flexDirection": "row",
+                    "paddingVertical": 8,
+                  }
+                }
+              >
+                <Text />
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "paddingHorizontal": 8,
+                    }
+                  }
+                >
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#333333",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Smart Cookies Team Hero
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#777777",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "marginHorizontal": 8,
+                    }
+                  }
+                >
+                  <Text />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "backgroundColor": "#CED0CE",
+                }
+              }
+            />
+          </View>
+          <View
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              isTVSelectable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "white",
+                    "borderBottomColor": "#CED0CE",
+                    "borderBottomWidth": 1,
+                    "flexDirection": "row",
+                    "paddingVertical": 8,
+                  }
+                }
+              >
+                <Text />
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "paddingHorizontal": 8,
+                    }
+                  }
+                >
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#333333",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Speech Language Club
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#777777",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "marginHorizontal": 8,
+                    }
+                  }
+                >
+                  <Text />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "backgroundColor": "#CED0CE",
+                }
+              }
+            />
+          </View>
+          <View
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              isTVSelectable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "white",
+                    "borderBottomColor": "#CED0CE",
+                    "borderBottomWidth": 1,
+                    "flexDirection": "row",
+                    "paddingVertical": 8,
+                  }
+                }
+              >
+                <Text />
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "paddingHorizontal": 8,
+                    }
+                  }
+                >
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#333333",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Stamford American
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#777777",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "marginHorizontal": 8,
+                    }
+                  }
+                >
+                  <Text />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "backgroundColor": "#CED0CE",
+                }
+              }
+            />
+          </View>
+          <View
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              isTVSelectable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={null}
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "white",
+                    "borderBottomColor": "#CED0CE",
+                    "borderBottomWidth": 1,
+                    "flexDirection": "row",
+                    "paddingVertical": 8,
+                  }
+                }
+              >
+                <Text />
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "paddingHorizontal": 8,
+                    }
+                  }
+                >
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#333333",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Team Entrepreneur CA
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Array [
+                            undefined,
+                            Object {
+                              "color": "#777777",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "marginHorizontal": 8,
+                    }
+                  }
+                >
+                  <Text />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "backgroundColor": "#CED0CE",
+                }
+              }
+            />
+          </View>
+          <View
+            style={
+              Object {
+                "height": 0,
+              }
+            }
+          />
+        </View>
+      </RCTScrollView>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignSelf": "center",
+        "marginBottom": 12,
+        "marginLeft": 12,
+        "marginTop": 58,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      isTVSelectable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "SegoeUI",
+            },
+            undefined,
+          ]
+        }
+      >
+        Sign In
+      </Text>
+    </View>
+  </View>
+</View>
+`;

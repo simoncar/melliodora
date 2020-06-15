@@ -5,6 +5,7 @@ import { Feather } from "@expo/vector-icons";
 
 import { Text } from "../../components/common/sComponent"
 
+
 export const SettingsListItem = class SettingsListItem extends Component {
 	render() {
 		const { icon, onPress, title, titleInfoStyle, titleInfo, hasNavArrow = true } = this.props;

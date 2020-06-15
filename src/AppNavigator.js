@@ -30,14 +30,14 @@ import chatTitle from "./components/chat/chatTitle";
 import chat from "./components/chat";
 import push from "./screens/Push";
 import authPortal from "./components/webportalURL/authPortal";
-import WebportalURL from "./components/webportalURL";
+import WebPortal from "./screens/WebPortal";
 
-import LoginScreen from "./components/auth/LoginScreen";
-import SignUpScreen from "./components/auth/SignUpScreen";
-import ForgotPasswordScreen from "./components/auth/ForgotPasswordScreen";
-import CameraApp from "./components/auth/CameraApp";
-import UserProfile from "./components/auth/UserProfile";
-import EditUserProfile from "./components/auth/EditUserProfile";
+import LoginScreen from "./screens/Login";
+import SignUpScreen from "./screens/SignUpScreen";
+import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
+import CameraApp from "./screens/CameraApp";
+import UserProfile from "./screens/UserProfile";
+import EditUserProfile from "./screens/EditUserProfile";
 import UserSearch from "./components/settings/UserSearch";
 
 const StackHome = createStackNavigator();
@@ -64,7 +64,7 @@ function StackHomeNavigator() {
 			<StackHome.Screen name="Form" component={Form} options={{ title: I18n.t("edit") }} />
 			<StackHome.Screen name="authPortalEmbed" component={authPortal} options={{ title: I18n.t("myS") }} />
 			<StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
-			<StackHome.Screen name="webportalURL" component={WebportalURL} options={{ title: I18n.t("myS") }} />
+			<StackHome.Screen name="WebPortal" component={WebPortal} options={{ title: I18n.t("myS") }} />
 			<StackHome.Screen name="selectLanguageHome" component={selectLanguage} options={{ title: I18n.t("language") }} />
 			<StackHome.Screen name="Calendars" component={Calendars} options={{ title: I18n.t("calendar") }} />
 			<StackChat.Screen name="selectLanguageChat" component={selectLanguage} options={{ title: I18n.t("language") }} />
@@ -120,7 +120,7 @@ function StackOtherNavigator() {
 			<StackOther.Screen name="storyMore" component={Story} options={({ route }) => ({ title: route.params.summary })} />
 			<StackOther.Screen name="moreAdmin" component={MoreAdmin} />
 			<StackOther.Screen name="Content" component={Content} />
-			<StackOther.Screen name="webportalURL" component={WebportalURL} />
+			<StackOther.Screen name="WebPortal" component={WebPortal} />
 			<StackOther.Screen name="selectLanguage" component={selectLanguage} options={{ title: I18n.t("language") }} />
 			<StackOther.Screen name="adminPassword" component={adminPassword} options={{ title: I18n.t("adminAccess") }} />
 			<StackOther.Screen name="login" component={LoginScreen} />

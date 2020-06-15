@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { View, TextInput, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../components/common/sComponent"
 import firebase from "firebase";
-import Loader from "../common/Loader";
-import { processSelectedCommunity } from "../../store/community";
+import Loader from "../components/common/Loader";
+import { processSelectedCommunity } from "../store/community";
 
 class CommunityCreateScreen extends Component {
 	state = {

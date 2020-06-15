@@ -20,7 +20,7 @@ export default class Library extends Component {
 							titleInfo=""
 							titleInfoStyle={styles.titleInfoStyle}
 							onPress={() =>
-								this.props.navigation.navigate("webportalURL", {
+								this.props.navigation.navigate("WebPortal", {
 									url: "https://sais.follettdestiny.com/common/welcome.jsp?context=saas18_8400395",
 									title: "Library",
 								})
@@ -47,7 +47,7 @@ export default class Library extends Component {
 							titleInfo=""
 							titleInfoStyle={styles.titleInfoStyle}
 							onPress={() =>
-								this.props.navigation.navigate("webportalURL", {
+								this.props.navigation.navigate("WebPortal", {
 									url: "https://www.pebblego.com/choose",
 									title: "Pebble Go",
 								})
@@ -60,7 +60,7 @@ export default class Library extends Component {
 							titleInfo=""
 							titleInfoStyle={styles.titleInfoStyle}
 							onPress={() =>
-								this.props.navigation.navigate("webportalURL", {
+								this.props.navigation.navigate("WebPortal", {
 									url: "http://www.tumblebooks.com/library/auto_login.asp?U=saiss&P=books",
 									title: "Tubble Books",
 								})
@@ -73,7 +73,7 @@ export default class Library extends Component {
 							titleInfo=""
 							titleInfoStyle={styles.titleInfoStyle}
 							onPress={() =>
-								this.props.navigation.navigate("webportalURL", {
+								this.props.navigation.navigate("WebPortal", {
 									url: "https://sais.follettdestiny.com/cataloging/servlet/presentbooklistform.do?listID=10728306&context=saas18_8400395&site=100",
 									title: "1000 eBooks",
 								})
@@ -86,7 +86,7 @@ export default class Library extends Component {
 							titleInfo=""
 							titleInfoStyle={styles.titleInfoStyle}
 							onPress={() =>
-								this.props.navigation.navigate("webportalURL", {
+								this.props.navigation.navigate("WebPortal", {
 									url:
 										"http://galeapps.galegroup.com/apps/auth/sgsais?cause=http%3A%2F%2Ffind.galegroup.com%2Fmenu%2Fstart%3FuserGroupName%3Dsgsais%26prod%3DGVRL%26finalAuth%3Dtrue",
 									title: "password = book",
