@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { View, StyleSheet, ActivityIndicator, YellowBox } from "react-native";
-import Setup from "./js/setup";
+import Setup from "./src/setup";
 import * as Sentry from "sentry-expo";
 import Constants from "expo-constants";
 import _ from "lodash";
 
-import { store, persistor } from "./js/store/store";
+import { store, persistor } from "./src/store/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import * as ScreenOrientation from 'expo-screen-orientation';
