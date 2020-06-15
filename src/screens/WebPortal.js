@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Analytics from "../lib/analytics";
 var WEBVIEW_REF = "webview";
 
-class WebPortal extends Component {
+export class WebPortal extends Component {
 
 	constructor(props) {
 		super(props);
@@ -19,6 +19,7 @@ class WebPortal extends Component {
 			cookies: {},
 			webViewUrl: ""
 		};
+
 	}
 
 	componentDidMount() {
@@ -46,7 +47,14 @@ class WebPortal extends Component {
 						<Ionicons style={styles.navIcon} name="ios-arrow-back" />
 					</TouchableOpacity>
 
-					<TextInput ref="pageURL" value={this.state.url} placeholderTextColor="#FFF" style={styles.url} autoCapitalize="none" selectionColor="#FFF" />
+					<TextInput
+						ref="pageURL"
+						value={this.state.url}
+						placeholderTextColor="#FFF"
+						style={styles.url}
+						autoCapitalize="none"
+						selectionColor="#FFF"
+						testID="webPortal.urlField" />
 
 					<Ionicons style={styles.navIcon} name="ios-arrow-forward" />
 				</View>
@@ -57,7 +65,8 @@ class WebPortal extends Component {
 					automaticallyAdjustContentInsets={false}
 					onNavigationStateChange={this.onNavigationStateChange.bind(this)}
 					domStorageEnabled={true}
-					ref={WEBVIEW_REF} />
+					ref={WEBVIEW_REF}
+					testID="webPortal.RNCWebView" />
 			</View>
 		</View>;
 	}
