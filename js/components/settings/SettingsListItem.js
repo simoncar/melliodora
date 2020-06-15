@@ -1,8 +1,9 @@
 
 import React, { Component } from "react";
 import { View, TouchableHighlight, StyleSheet } from "react-native";
-import { Text } from "native-base";
 import { Feather } from "@expo/vector-icons";
+
+import { Text } from "../../components/common/sComponent"
 
 export const SettingsListItem = class SettingsListItem extends Component {
 	render() {

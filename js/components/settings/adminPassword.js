@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { setAdminPass } from "../../store/auth";
 import { Input } from "react-native-elements";
 import I18n from "../../lib/i18n";
-import { Text } from "native-base";
+import { Text } from "../../components/common/sComponent"
 
 class adminPassword extends Component {
 	constructor(props) {

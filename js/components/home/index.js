@@ -1,7 +1,7 @@
 
 import React, { Component, Dimensions } from "react";
 import { FlatList, View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image, ScrollView, StyleSheet } from "react-native";
-import { Container, Content, Text } from "native-base";
+import { Container, Content } from "native-base";
 import Constants from "expo-constants";
 import firebase from "firebase";
 import { getLanguageString } from "../global";
@@ -13,6 +13,7 @@ import Analytics from "../../lib/analytics";
 import moment from "moment";
 import { setUserInfo } from "../../store/auth";
 import { connect } from "react-redux";
+import { Text } from "../../components/common/sComponent"
 
 import DemoData from "../../lib/demoData";
 

@@ -268,13 +268,11 @@ export default {
   eventText: {
     color: "#222",
     fontSize: stylesGlobal.bodyFontSize,
-    fontFamily: stylesGlobal.fontFamily,
     marginRight: 20,
   },
   eventTextBody: {
     color: "#222",
     fontSize: stylesGlobal.bodyFontSize,
-    fontFamily: stylesGlobal.fontFamily,
     marginRight: 20,
     marginTop: 15,
   },

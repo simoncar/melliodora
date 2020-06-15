@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { Linking, View, TouchableOpacity, TouchableHighlight, Share, StyleSheet } from "react-native";
-import { Container, Content, Text } from "native-base";
+import { Container, Content } from "native-base";
 import { Ionicons, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import ParsedText from "react-native-parsed-text";
@@ -9,6 +9,7 @@ import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../
 import _ from "lodash";
 import { connect } from "react-redux";
 import stylesGlobal from "../../themes/globalTheme";
+import { Text } from "../../components/common/sComponent"
 
 export class Story extends Component {
 	constructor(props) {
@@ -130,7 +131,7 @@ export class Story extends Component {
 	_drawIconCalendar(params) {
 		if (isValue(params.date_start)) {
 			return <TouchableOpacity onPress={() => {
-				this.props.navigation.navigate("phoneCalendar", this.state);
+				this.props.navigation.navigate("Calendars", this.state);
 			}}>
 				<Text testID="story.calendarIcon" style={styles.eventText}>
 					<Ionicons name="ios-calendar" style={styles.eventIcon} />
@@ -285,7 +286,6 @@ const styles = StyleSheet.create({
 	},
 	eventText: {
 		color: "#222",
-		fontFamily: stylesGlobal.fontFamily,
 		fontSize: stylesGlobal.bodyFontSize,
 		marginRight: 20,
 	},
@@ -296,7 +296,6 @@ const styles = StyleSheet.create({
 	},
 	eventTextBody: {
 		color: "#222",
-		fontFamily: stylesGlobal.fontFamily,
 		fontSize: stylesGlobal.bodyFontSize,
 		marginRight: 20,
 		marginTop: 15,
