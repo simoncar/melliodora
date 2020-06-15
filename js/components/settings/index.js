@@ -10,8 +10,8 @@ import { SettingsListItem, Separator } from "./SettingsListItem";
 import Analytics from "../../lib/analytics";
 import _ from "lodash";
 import { connect } from "react-redux";
-import { Text } from "native-base";
 import * as Linking from "expo-linking";
+import { Text } from "../../components/common/sComponent"
 
 class Settings extends Component {
 	constructor(props) {

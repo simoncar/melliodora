@@ -278,14 +278,12 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		overflow: "hidden",
 		zIndex: -1,
-		fontFamily: "SegoeUI",
 	},
 	subtitle: {
 		fontSize: 11,
 		color: "#555555",
 		overflow: "hidden",
 		zIndex: -1,
-		fontFamily: "SegoeUI",
 	},
 	searchContainer: {
 		backgroundColor: "#fff",

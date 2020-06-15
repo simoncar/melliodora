@@ -402,7 +402,6 @@ export default (variables = variable) => {
     },
 
     "NativeBase.Text": {
-      fontFamily: variables.btnFontFamily,
       marginLeft: 0,
       marginRight: 0,
       color: variables.inverseTextColor,
