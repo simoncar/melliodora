@@ -121,6 +121,14 @@ class chatRooms extends Component {
 		return <ChatroomItem {...item} navigation={this.props.navigation} card={false} />;
 	}
 
+	newGroup() {
+		this.props.navigation.navigate("chatTitle", {
+			edit: false,
+			title: "Chat Group",
+			onGoBack: this.refresh,
+		});
+	}
+
 	render() {
 		const card = this.props.card === false ? false : true;
 		return (
@@ -129,11 +137,7 @@ class chatRooms extends Component {
 					style={styles.addButton}
 					underlayColor="#ff7043"
 					onPress={() => {
-						this.props.navigation.navigate("chatTitle", {
-							edit: false,
-							chatroom: "New Chatroom",
-							onGoBack: this.refresh,
-						});
+						this.newGroup()
 					}}
 				>
 					<Text style={{ fontSize: 44, color: "white", position: "absolute", left: "20%", top: "-20%" }}>+</Text>
@@ -146,11 +150,7 @@ class chatRooms extends Component {
 									<TouchableOpacity
 										style={{ flexDirection: "row" }}
 										onPress={() => {
-											this.props.navigation.navigate("chatTitle", {
-												edit: false,
-												chatroomTitle: "New Chatroom",
-												onGoBack: this.refresh,
-											});
+											this.newGroup()
 										}}
 									>
 										<View style={{ flexDirection: "row", alignItems: "center" }}>

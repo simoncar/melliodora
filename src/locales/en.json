@@ -12,7 +12,6 @@
 	"library": "Library",
 	"catalogue": "Catalogue",
 	"safeguarding": "Safeguarding",
-	"gateways": "Gateways",
 	"reports": "Reports",
 	"language": "Language",
 	"adminAccess": "Admin Access",
@@ -56,5 +55,6 @@
 	"welcome": "Welcome",
 	"forgetPassword": "Forget Password",
 	"create": "Create",
-	"cancel": "Cancel"
+	"cancel": "Cancel",
+	"groupSubject": "Group Subject"
 }
