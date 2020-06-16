@@ -10,8 +10,8 @@ class ChatroomItem extends Component {
 	}
 
 	render() {
-		const { title, mostRecentMessage } = this.props
-		const props = this.props
+		const { chatroom, title, mostRecentMessage } = this.props
+
 		return (
 			<SettingsListItem
 				hasNavArrow={true}
@@ -20,7 +20,10 @@ class ChatroomItem extends Component {
 				titleInfo={mostRecentMessage}
 				onPress={() => {
 					this.props.navigation.navigate("chat", {
-						...props
+						chatroom: chatroom,
+						card: false,
+						title: title,
+						type: "public",
 					})
 				}} />
 		)
