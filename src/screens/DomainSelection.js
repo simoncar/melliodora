@@ -5,8 +5,8 @@ import _ from "lodash";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { getCommunities, processSelectedCommunity } from "../store/community";
-import { Text } from "../components/common/sComponent"
-import { SettingsListItem } from "../components/settings/SettingsListItem";
+import { Text } from "../components/sComponent"
+import { SettingsListItem } from "../components/SettingsListItem";
 
 import { MaterialIcons } from "@expo/vector-icons";
 

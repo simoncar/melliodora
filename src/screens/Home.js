@@ -13,7 +13,7 @@ import Analytics from "../lib/analytics";
 import moment from "moment";
 import { setUserInfo } from "../store/auth";
 import { connect } from "react-redux";
-import { Text } from "../components/common/sComponent"
+import { Text } from "../components/sComponent"
 
 import DemoData from "../lib/demoData";
 
