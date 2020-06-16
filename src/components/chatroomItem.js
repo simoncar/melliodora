@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
 		color: "#555555",
 		fontWeight: "500",
 	},
-	chatTitleRight: {
+	ChatTitleRight: {
 		marginTop: 7,
 		fontSize: 15,
 		backgroundColor: "white",

@@ -6,7 +6,7 @@ import { Button, Input } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 
-export default class chatTitle extends Component {
+export default class ChatTitle extends Component {
 	constructor(props) {
 		super(props);
 

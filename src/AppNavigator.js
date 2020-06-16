@@ -25,7 +25,7 @@ import Story from "./screens/Story";
 import Form from "./screens/Form";
 import campusMap from "./screens/Map";
 import chatRooms from "./screens/chatRooms";
-import chatTitle from "./components/chatTitle";
+import ChatTitle from "./components/ChatTitle";
 import chat from "./screens/Chat";
 import push from "./screens/Push";
 import authPortal from "./screens/authPortal";
@@ -90,7 +90,7 @@ function StackChatNavigator() {
 	return (
 		<StackChat.Navigator>
 			<StackChat.Screen name="chatRooms" component={chatRooms} options={{ title: I18n.t("chat") }} />
-			<StackChat.Screen name="chatTitle" component={chatTitle} options={({ route }) => ({ title: route.params.title })} />
+			<StackChat.Screen name="ChatTitle" component={ChatTitle} options={({ route }) => ({ title: route.params.title })} />
 			<StackChat.Screen name="chat" component={chat} options={({ route }) => ({ title: route.params.title })} />
 			<StackChat.Screen name="selectLanguageChat" component={selectLanguage} options={{ title: I18n.t("language") }} />
 		</StackChat.Navigator>

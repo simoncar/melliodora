@@ -113,7 +113,7 @@ class chatRooms extends Component {
 		const card = this.props.card === false ? false : true;
 		return <Container style={styles.homeContainer}>
 			<TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
-				this.props.navigation.navigate("chatTitle", {
+				this.props.navigation.navigate("ChatTitle", {
 					edit: false,
 					chatroom: "New Chatroom",
 					onGoBack: this.refresh
@@ -127,7 +127,7 @@ class chatRooms extends Component {
 						<View style={card && styles.card}>
 							<View style={styles.acfd00761af6b11ea88c25dbffc760ad0}>
 								<TouchableOpacity style={styles.acfd02e70af6b11ea88c25dbffc760ad0} onPress={() => {
-									this.props.navigation.navigate("chatTitle", {
+									this.props.navigation.navigate("ChatTitle", {
 										edit: false,
 										chatroomTitle: "New Chatroom",
 										onGoBack: this.refresh
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
 		color: "#555555",
 		fontWeight: "500",
 	},
-	chatTitleRight: {
+	ChatTitleRight: {
 		marginTop: 7,
 		fontSize: 15,
 		backgroundColor: "white",
