@@ -24,7 +24,7 @@ import Content from "./components/content";
 import Story from "./screens/Story";
 import Form from "./screens/Form";
 import campusMap from "./screens/Map";
-import chatRooms from "./screens/chatRooms";
+import chatRooms from "./screens/ChatRooms";
 import ChatTitle from "./components/ChatTitle";
 import chat from "./screens/Chat";
 import push from "./screens/Push";
