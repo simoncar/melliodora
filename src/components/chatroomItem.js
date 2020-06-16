@@ -1,8 +1,7 @@
 
 import React, { Component } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { Text } from "./sComponent";
-import { SimpleLineIcons, Entypo } from "@expo/vector-icons";
+import { StyleSheet } from "react-native";
+import { SimpleLineIcons } from "@expo/vector-icons";
 import { SettingsListItem } from "../components/SettingsListItem";
 
 class ChatroomItem extends Component {

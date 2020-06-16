@@ -4,7 +4,7 @@ import { StyleSheet, FlatList, View, AsyncStorage, TouchableOpacity, TouchableHi
 import * as firebase from "firebase";
 import { Container, Content } from "native-base";
 import { Entypo, AntDesign } from "@expo/vector-icons";
-import ChatroomItem from "../components/chatroomItem";
+import ChatroomItem from "../components/ChatRoomItem";
 import Analytics from "../lib/analytics";
 import _ from "lodash";
 import { connect } from "react-redux";
