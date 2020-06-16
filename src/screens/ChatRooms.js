@@ -35,7 +35,6 @@ class chatRooms extends Component {
 
 		firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").orderBy("title").get().then(snapshot => {
 			if (snapshot.empty) {
-				console.log("No notifications");
 				return;
 			}
 			const userInterestGroupCheck = _.has(global, "userInfo.interestGroups") && Array.isArray(global.userInfo.interestGroups);
@@ -101,17 +100,17 @@ class chatRooms extends Component {
 			<TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
 				this.newChatroom()
 			}}>
-				<Text style={styles.acfd00760af6b11ea88c25dbffc760ad0}>+</Text>
+				<Text style={styles.floatingButtonText}>+</Text>
 			</TouchableHighlight>
 			<Content showsVerticalScrollIndicator={false}>
 				<View style={styles.newsContentLine}>
 					<View>
 						<View style={card && styles.card}>
-							<View style={styles.acfd00761af6b11ea88c25dbffc760ad0}>
-								<TouchableOpacity style={styles.acfd02e70af6b11ea88c25dbffc760ad0} onPress={() => {
+							<View style={styles.newChatroomView}>
+								<TouchableOpacity style={styles.newChatroomOpacity} onPress={() => {
 									this.newChatroom()
 								}}>
-									<View style={styles.acfd02e71af6b11ea88c25dbffc760ad0}>
+									<View style={styles.plusIconView}>
 										<AntDesign style={styles.iconLeftPlus} name="pluscircleo" />
 										<Text style={styles.cardTitle}>New Chat Group</Text>
 										<Entypo style={styles.iconRight} name="chevron-right" />
@@ -129,83 +128,83 @@ class chatRooms extends Component {
 }
 
 const styles = StyleSheet.create({
-	acfd00760af6b11ea88c25dbffc760ad0: {
-		fontSize: 44,
-		color: "white",
-		position: "absolute",
-		left: "20%",
-		top: "-20%"
-	},
-	acfd00761af6b11ea88c25dbffc760ad0: {
-		flexDirection: "row",
-		paddingRight: 4,
-		justifyContent: "space-between",
-		alignItems: "center",
-		marginTop: 5
-	},
-	acfd02e70af6b11ea88c25dbffc760ad0: {
-		flexDirection: "row"
-	},
-	acfd02e71af6b11ea88c25dbffc760ad0: {
-		flexDirection: "row",
-		alignItems: "center"
-	},
-
-	iconRight: {
-		fontSize: 25,
-		color: "#777777",
-		marginRight: 15,
-		lineHeight: 60,
-	},
-
-	iconLeftPlus: {
-		fontSize: 35,
-		color: "#999999",
-		margin: 12,
-	},
-
-	card: {
-		backgroundColor: "#fff",
-		elevation: 1,
-		marginBottom: 12,
-		width: "98%",
-		alignSelf: "center",
-		borderRadius: 15,
-	},
 	addButton: {
+		alignItems: "center",
 		backgroundColor: "#ff5722",
 		borderColor: "#ff5722",
-		borderWidth: 1,
-		height: 50,
-		width: 50,
 		borderRadius: 50 / 2,
-		alignItems: "center",
+		borderWidth: 1,
+		bottom: 20,
+		height: 50,
 		justifyContent: "center",
 		position: "absolute",
-		bottom: 20,
 		right: 20,
 		shadowColor: "#000000",
-		shadowOpacity: 0.8,
-		shadowRadius: 2,
 		shadowOffset: {
 			height: 1,
 			width: 0,
 		},
+		shadowOpacity: 0.8,
+		shadowRadius: 2,
+		width: 50,
 		zIndex: 1,
 	},
+	card: {
+		alignSelf: "center",
+		backgroundColor: "#fff",
+		borderRadius: 15,
+		elevation: 1,
+		marginBottom: 12,
+		width: "98%",
+	},
+	cardTitle: {
+		alignItems: "center",
+		color: "#111111",
+		fontSize: 16,
+		justifyContent: "center",
+	},
+	floatingButtonText: {
+		color: "white",
+		fontSize: 44,
+		left: "20%",
+		position: "absolute",
+		top: "-20%"
+	},
 
+	homeContainer: {
+		backgroundColor: "#f2f2f2",
+	},
+
+	iconLeftPlus: {
+		color: "#999999",
+		fontSize: 35,
+		margin: 12,
+	},
+
+	iconRight: {
+		color: "#777777",
+		fontSize: 25,
+		lineHeight: 60,
+		marginRight: 15,
+	},
+	newChatroomOpacity: {
+		flexDirection: "row"
+	},
+
+	newChatroomView: {
+		alignItems: "center",
+		flexDirection: "row",
+		justifyContent: "space-between",
+		marginTop: 5,
+		paddingRight: 4
+	},
 	newsContentLine: {
 		backgroundColor: "#f2f2f2",
 		paddingTop: 10,
 	},
-	cardTitle: {
-		justifyContent: "center",
+	plusIconView: {
 		alignItems: "center",
-		fontSize: 16,
-		color: "#111111",
-	},
-	homeContainer: {
-		backgroundColor: "#f2f2f2",
+		flexDirection: "row"
 	},
 
 });
