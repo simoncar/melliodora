@@ -1,7 +1,6 @@
 
-
 import React, { Component } from "react";
-import { View, Alert, TouchableOpacity, Linking, Modal, FlatList, StyleSheet, Dimensions } from "react-native";
+import { View, Alert, TouchableOpacity, Linking, Modal, FlatList, StyleSheet } from "react-native";
 import { Container, Footer } from "native-base";
 import { GiftedChat, SystemMessage, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
@@ -429,24 +428,11 @@ const styles = StyleSheet.create({
 		color: "#777777",
 		fontSize: 25
 	},
-	sendView: {
-		marginBottom: 10,
-		marginRight: 10
-	},
-	sendIcon: {
-		color: "#777777",
-		fontSize: 25
-	},
-	separator: {
-		backgroundColor: "#CED0CE",
-		height: 1
-	},
 	a221aa080ac4611ea973dcfce83f911da: {
 		backgroundColor: "#f2f2f2",
 		flex: 1,
 		marginTop: 22
 	},
-
 	a221aa082ac4611ea973dcfce83f911da: {
 		color: "#fff",
 		fontSize: 24,
@@ -466,10 +452,10 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		padding: 12
 	},
+
 	a221aa085ac4611ea973dcfce83f911da: {
 		height: "70%"
 	},
-
 	chatBanner: {
 		alignSelf: "center",
 		borderBottomColor: "#666",
@@ -479,7 +465,6 @@ const styles = StyleSheet.create({
 		paddingBottom: 5,
 		paddingTop: 5
 	},
-
 	chatHeading: {
 		alignSelf: "center",
 		color: "black",
@@ -489,10 +474,10 @@ const styles = StyleSheet.create({
 		paddingBottom: 5,
 		paddingRight: 10
 	},
-
 	footer: {
 		height: 10
 	},
+
 	footerContainer: {
 		marginBottom: 10,
 		marginLeft: 10,
@@ -504,11 +489,25 @@ const styles = StyleSheet.create({
 		color: "#000",
 		fontSize: 14
 	},
+
 	photoContainer: {
 		height: 26,
 		marginBottom: 10,
 		marginLeft: 10,
 		width: 26
+	},
+	sendIcon: {
+		color: "#777777",
+		fontSize: 25
+	},
+
+	sendView: {
+		marginBottom: 10,
+		marginRight: 10
+	},
+	separator: {
+		backgroundColor: "#CED0CE",
+		height: 1
 	},
 	topBar: {
 		alignItems: "center",
