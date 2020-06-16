@@ -3,17 +3,12 @@ import React, { Component } from "react";
 import { StyleSheet, FlatList, View, AsyncStorage, TouchableOpacity, TouchableHighlight } from "react-native";
 import * as firebase from "firebase";
 import { Container, Content } from "native-base";
-import { SimpleLineIcons, Entypo, AntDesign } from "@expo/vector-icons";
-
-import I18n from "../lib/i18n";
+import { Entypo, AntDesign } from "@expo/vector-icons";
 import ChatroomItem from "../components/chatroomItem";
 import Analytics from "../lib/analytics";
 import _ from "lodash";
-import { buildChatroomList } from "../store/community";
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent";
-
-var specialChatrooms = {};
 
 class chatRooms extends Component {
 	constructor(props) {
@@ -28,12 +23,7 @@ class chatRooms extends Component {
 			refresh: this.refresh
 		});
 
-		const { navigation } = this.props;
-		// this.focusListener = navigation.addListener("didFocus", () => {
-		//   console.log("chatRooms is focused");
-		//  this.props.dispatch(buildChatroomList());
 		this.buildChatroomList();
-		// });
 
 		Analytics.track("Chatrooms");
 	}
@@ -41,14 +31,6 @@ class chatRooms extends Component {
 	buildChatroomList() {
 		var userChatrooms = [];
 
-		console.log("building chat room list");
-		// if (global.email == "christinathorsen@gmail.com") {
-		//   specialChatrooms = {
-		//     chatroom: "sealysicochat",
-		//     title: "App Developers Chat",
-		//   };
-		//   userChatrooms.push(specialChatrooms);
-		// }
 		this.loadFromAsyncStorage();
 
 		firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").orderBy("title").get().then(snapshot => {
@@ -91,13 +73,8 @@ class chatRooms extends Component {
 		});
 	}
 
-	componentWillUnmount() {
-		// Remove the event listener
-		//this.focusListener.remove();
-	}
 
 	refresh = ({ title }) => {
-		//this.props.navigation.setParams({ title: title });
 	};
 
 	keyExtractor = item => item.chatroom;
@@ -220,16 +197,12 @@ const styles = StyleSheet.create({
 		backgroundColor: "#f2f2f2",
 		paddingTop: 10,
 	},
-
-
 	cardTitle: {
 		justifyContent: "center",
 		alignItems: "center",
 		fontSize: 16,
 		color: "#111111",
 	},
-
-
 	homeContainer: {
 		backgroundColor: "#f2f2f2",
 	},

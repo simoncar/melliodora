@@ -30,8 +30,8 @@ class ChatroomItem extends Component {
 
 const styles = StyleSheet.create({
 	iconLeft: {
-		fontSize: 35,
 		color: "#999999",
+		fontSize: 35,
 		margin: 12,
 	},
 });

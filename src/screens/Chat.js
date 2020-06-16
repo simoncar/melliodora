@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import { View, Alert, TouchableOpacity, Linking, Modal, FlatList, StyleSheet } from "react-native";
 import { Container, Footer } from "native-base";
@@ -366,25 +367,10 @@ class chat extends Component {
 				</TouchableOpacity>
 			</View>
 
-			<GiftedChat
-				messages={this.state.messages}
-				onSend={this.onSend}
-				user={{
-					_id: this.userInfo.uid,
-					...userDetails
-				}}
-				renderActions={this.renderCustomActions}
-				renderSystemMessage={this.renderSystemMessage}
-				renderCustomView={this.renderCustomView}
-				renderMessageImage={this.renderCustomImage}
-				renderMessageVideo={this.renderCustomVideo}
-				showUserAvatar={true} bottomOffset={0}
-				onPressAvatar={this.avatarPress}
-				alwaysShowSend={true}
-				renderSend={this.renderSend}
-				placeholder={I18n.t("typeMessage")}
-				parsePatterns={this.parsePatterns}
-				renderUsernameOnMessage={true} />
+			<GiftedChat messages={this.state.messages} onSend={this.onSend} user={{
+				_id: this.userInfo.uid,
+				...userDetails
+			}} renderActions={this.renderCustomActions} renderSystemMessage={this.renderSystemMessage} renderCustomView={this.renderCustomView} renderMessageImage={this.renderCustomImage} renderMessageVideo={this.renderCustomVideo} showUserAvatar={true} bottomOffset={0} onPressAvatar={this.avatarPress} alwaysShowSend={true} renderSend={this.renderSend} placeholder={I18n.t("typeMessage")} parsePatterns={this.parsePatterns} renderUsernameOnMessage={true} />
 
 			<Footer style={styles.footer} />
 		</Container>;
@@ -442,24 +428,11 @@ const styles = StyleSheet.create({
 		color: "#777777",
 		fontSize: 25
 	},
-	sendView: {
-		marginBottom: 10,
-		marginRight: 10
-	},
-	sendIcon: {
-		color: "#777777",
-		fontSize: 25
-	},
-	separator: {
-		backgroundColor: "#CED0CE",
-		height: 1
-	},
 	a221aa080ac4611ea973dcfce83f911da: {
 		backgroundColor: "#f2f2f2",
 		flex: 1,
 		marginTop: 22
 	},
-
 	a221aa082ac4611ea973dcfce83f911da: {
 		color: "#fff",
 		fontSize: 24,
@@ -479,10 +452,10 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		padding: 12
 	},
+
 	a221aa085ac4611ea973dcfce83f911da: {
 		height: "70%"
 	},
-
 	chatBanner: {
 		alignSelf: "center",
 		borderBottomColor: "#666",
@@ -492,7 +465,6 @@ const styles = StyleSheet.create({
 		paddingBottom: 5,
 		paddingTop: 5
 	},
-
 	chatHeading: {
 		alignSelf: "center",
 		color: "black",
@@ -502,10 +474,10 @@ const styles = StyleSheet.create({
 		paddingBottom: 5,
 		paddingRight: 10
 	},
-
 	footer: {
 		height: 10
 	},
+
 	footerContainer: {
 		marginBottom: 10,
 		marginLeft: 10,
@@ -517,11 +489,25 @@ const styles = StyleSheet.create({
 		color: "#000",
 		fontSize: 14
 	},
+
 	photoContainer: {
 		height: 26,
 		marginBottom: 10,
 		marginLeft: 10,
 		width: 26
+	},
+	sendIcon: {
+		color: "#777777",
+		fontSize: 25
+	},
+
+	sendView: {
+		marginBottom: 10,
+		marginRight: 10
+	},
+	separator: {
+		backgroundColor: "#CED0CE",
+		height: 1
 	},
 	topBar: {
 		alignItems: "center",
