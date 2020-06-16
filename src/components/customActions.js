@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { StyleSheet, TouchableOpacity, View, ViewPropTypes, SafeAreaView } from "react-native";
 import Constants from "expo-constants";
-import { Text } from "../../components/sComponent"
+import { Text } from "./sComponent"
 import * as Permissions from "expo-permissions";
 import NavBar, { NavButton, NavButtonText, NavTitle } from "react-native-nav";
 import { Entypo } from "@expo/vector-icons";

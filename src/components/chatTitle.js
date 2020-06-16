@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { Text } from "../../components/sComponent"
+import { Text } from "./sComponent"
 import * as firebase from "firebase";
 import { Button, Input } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
-import I18n from "../../lib/i18n";
+import I18n from "../lib/i18n";
 
 export default class chatTitle extends Component {
 	constructor(props) {

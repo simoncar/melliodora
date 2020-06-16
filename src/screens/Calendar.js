@@ -6,12 +6,12 @@ import { Agenda } from "react-native-calendars";
 import styles from "./styles";
 import { Ionicons } from "@expo/vector-icons";
 
-import I18n from "../../lib/i18n";
+import I18n from "../lib/i18n";
 import moment from "moment";
 import "./node_modules/moment/min/locales";
-import CalendarItem from "../../components/CalendarItem";
-import Analytics from "../../lib/analytics";
-import { Text } from "../../components/sComponent"
+import CalendarItem from "../components/CalendarItem";
+import Analytics from "../lib/analytics";
+import { Text } from "../components/sComponent"
 
 const tabBarIcon = name => ({ tintColor }) => (
 	<Ionicons style={{ backgroundColor: "transparent" }} name={name} color={tintColor} size={24} />

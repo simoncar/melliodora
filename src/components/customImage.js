@@ -6,14 +6,17 @@ import {
   ViewPropTypes,
   Text,
   View,
+  Dimensions,
   Modal,
-  ImageBackground,
+  Button,
   CameraRoll,
 } from "react-native";
-import { Video } from "expo";
-import I18n from "../../lib/i18n";
+import { Image } from "react-native-expo-image-cache";
+import I18n from "../lib/i18n";
 
-export default class CustomVideo extends React.Component {
+const { width } = Dimensions.get("window");
+
+export default class CustomImage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +30,7 @@ export default class CustomVideo extends React.Component {
   }
 
   _share(uri) {
-    CameraRoll.saveToCameraRoll(uri, "video");
+    CameraRoll.saveToCameraRoll(uri, "photo");
     this.setState({ saveTitle: I18n.t("saved") });
   }
 
@@ -36,9 +39,16 @@ export default class CustomVideo extends React.Component {
       uri:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
     };
-    const uri = this.props.currentMessage.video;
+    const uri = this.props.currentMessage.image;
+    const images = [
+      {
+        // Simplest usage.
+        url: uri,
+        saveToLocalByLongPress: true,
+      },
+    ];
 
-    if (this.props.currentMessage.video) {
+    if (this.props.currentMessage.image) {
       return (
         <View>
           <TouchableOpacity
@@ -68,16 +78,7 @@ export default class CustomVideo extends React.Component {
                   Close{" "}
                 </Text>
               </TouchableOpacity>
-
-              <Video
-                source={{
-                  uri: uri,
-                }}
-                rate={1.0}
-                volume={1.0}
-                resizeMode="cover"
-                shouldPlay
-                isLooping
+              <Image
                 style={{
                   flex: 1,
                   justifyContent: "center",
@@ -85,37 +86,20 @@ export default class CustomVideo extends React.Component {
                   width: null,
                   height: null,
                 }}
+                {...{ preview, uri }}
+                resizeMode={"contain"}
               />
             </Modal>
 
-            <ImageBackground
-              style={{
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              {...{ preview, uri }}
-              resizeMode={"contain"}
-            >
-              <View
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Video
-                  source={{
-                    uri: uri,
-                  }}
-                  rate={1.0}
-                  volume={1.0}
-                  isMuted={false}
-                  resizeMode="cover"
-                  style={{ width: 300, height: 300 }}
-                />
-              </View>
-            </ImageBackground>
+            <Image style={{ width, height: 200 }} {...{ preview, uri }} resizeMode={"contain"} />
           </TouchableOpacity>
+
+          <Button
+            title={this.state.saveTitle}
+            onPress={() => {
+              this._share(uri);
+            }}
+          />
         </View>
       );
     } else return null;
@@ -132,13 +116,13 @@ const styles = StyleSheet.create({
   },
 });
 
-CustomVideo.defaultProps = {
+CustomImage.defaultProps = {
   currentMessage: {},
   containerStyle: {},
   mapViewStyle: {},
 };
 
-CustomVideo.propTypes = {
+CustomImage.propTypes = {
   currentMessage: PropTypes.object,
   containerStyle: ViewPropTypes.style,
   mapViewStyle: ViewPropTypes.style,
