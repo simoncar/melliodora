@@ -6,8 +6,8 @@ import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 
-import { Text } from "../components/common/sComponent";
-import Loader from "../components/common/Loader";
+import { Text } from "../components/sComponent";
+import Loader from "../components/Loader";
 
 
 export class LoginScreen extends Component {

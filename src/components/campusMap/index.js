@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Image, View } from "react-native";
 import styles from "./styles";
 import Analytics from "../../lib/analytics";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../../components/sComponent"
 
 class campusMap extends Component {
 	constructor(props) {

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { View, TouchableHighlight, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../../components/sComponent"
 
 
 export const SettingsListItem = class SettingsListItem extends Component {

@@ -21,7 +21,7 @@ import { SettingsListItem } from "../settings/SettingsListItem";
 import { connectActionSheet, ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../../components/sComponent"
 
 var localMessages = [];
 

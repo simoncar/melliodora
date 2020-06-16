@@ -2,12 +2,12 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { Updates } from "expo";
-import Analytics from "../../lib/analytics";
+import Analytics from "../lib/analytics";
 import { connect } from "react-redux";
-import { setAdminPass } from "../../store/auth";
+import { setAdminPass } from "../store/auth";
 import { Input } from "react-native-elements";
-import I18n from "../../lib/i18n";
-import { Text } from "../../components/common/sComponent"
+import I18n from "../lib/i18n";
+import { Text } from "../components/sComponent"
 
 class adminPassword extends Component {
 	constructor(props) {

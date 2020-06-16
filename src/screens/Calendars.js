@@ -4,10 +4,10 @@ import { Alert, ScrollView, View, StyleSheet } from "react-native";
 import { Container, Content } from "native-base";
 import * as Calendar from 'expo-calendar';
 import { Ionicons } from "@expo/vector-icons";
-import Analytics from "../../lib/analytics";
+import Analytics from "../lib/analytics";
 
-import { SettingsListItem } from "../../components/settings/SettingsListItem";
-import { Text } from "../../components/common/sComponent";
+import { SettingsListItem } from "../components/settings/SettingsListItem";
+import { Text } from "../components/sComponent";
 
 class Calendars extends Component {
 

@@ -5,7 +5,7 @@ import { Ionicons, SimpleLineIcons, AntDesign } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import { getLanguageString } from "../../lib/global";
 import firebase from "firebase";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../../components/sComponent"
 
 class FeatureListItem extends Component {
 	constructor(props) {

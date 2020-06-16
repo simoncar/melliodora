@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { View, FlatList, ActivityIndicator, StyleSheet, AsyncStorage } from "react-native";
 import { SearchBar } from "react-native-elements";
-import CalendarItem from "../calendar/CalendarItem";
-import Analytics from "../../lib/analytics";
-import I18n from "../../lib/i18n";
+import CalendarItem from "../components/CalendarItem";
+import Analytics from "../lib/analytics";
+import I18n from "../lib/i18n";
 
 class Search extends Component {
   static navigationOptions = ({ navigation }) => ({

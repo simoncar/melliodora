@@ -15,7 +15,6 @@ export default {
   },
 
   header: {
-    width: Dimensions.get("window").width,
     paddingLeft: 15,
     paddingRight: 15,
     ...ifIphoneX(

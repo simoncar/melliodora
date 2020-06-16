@@ -3,10 +3,10 @@ import { View, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet, AsyncS
 import { SearchBar } from "react-native-elements";
 import { AntDesign } from "@expo/vector-icons";
 import { ListItem } from "react-native-elements";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../components/sComponent"
 import * as firebase from "firebase";
 import _ from "lodash";
-import I18n from "../../lib/i18n";
+import I18n from "../lib/i18n";
 
 class UserSearch extends Component {
 	static navigationOptions = ({ navigation }) => ({

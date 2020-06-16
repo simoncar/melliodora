@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Linking, Platform, StyleSheet, TouchableOpacity, ViewPropTypes } from "react-native";
 import { MapView } from "expo";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../../components/sComponent"
 
 export default class CustomView extends React.Component {
 	render() {

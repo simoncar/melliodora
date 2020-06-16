@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 import * as Linking from "expo-linking";
 
 import { SettingsListItem, Separator } from "../components/settings/SettingsListItem";
-import { Text } from "../components/common/sComponent"
+import { Text } from "../components/sComponent"
 
 class Settings extends Component {
 	constructor(props) {

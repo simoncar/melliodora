@@ -4,7 +4,6 @@ const { Dimensions, Platform } = React;
 
 export default {
   header: {
-    width: Dimensions.get("window").width,
     paddingLeft: 15,
     paddingRight: 15,
     marginLeft: Platform.OS === "ios" ? undefined : -30

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../../components/sComponent"
 import * as firebase from "firebase";
 import { Button, Input } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";

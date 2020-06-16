@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity } from "react-native";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../../components/sComponent"
 import { SimpleLineIcons, Entypo } from "@expo/vector-icons";
 import styles from "./styles";
 

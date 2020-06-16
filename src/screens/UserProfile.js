@@ -9,7 +9,7 @@ import {
 	TouchableHighlight,
 } from "react-native";
 import firebase from "firebase";
-import { Text } from "../components/common/sComponent"
+import { Text } from "../components/sComponent"
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import { connect } from "react-redux";

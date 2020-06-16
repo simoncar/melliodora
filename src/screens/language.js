@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
-import { SettingsListItem } from "../settings/SettingsListItem";
+import { SettingsListItem } from "../components/settings/SettingsListItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import I18n from "../../lib/i18n";
-import { Text } from "../../components/common/sComponent"
-import Analytics from "../../lib/analytics";
+import I18n from "../lib/i18n";
+import { Text } from "../components/sComponent"
+import Analytics from "../lib/analytics";
 import { connect } from "react-redux";
-import { changeLanguage } from "../../store/auth";
+import { changeLanguage } from "../store/auth";
 
 class selectLanguage extends Component {
 	constructor(props) {

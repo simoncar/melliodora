@@ -11,7 +11,7 @@ import Analytics from "../../lib/analytics";
 import _ from "lodash";
 import { buildChatroomList } from "../../store/community";
 import { connect } from "react-redux";
-import { Text } from "../../components/common/sComponent"
+import { Text } from "../../components/sComponent"
 
 var specialChatrooms = {};
 
