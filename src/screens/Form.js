@@ -14,8 +14,8 @@ import uuid from "uuid";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { connect } from "react-redux";
-import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime } from "../components/story/formUtilities";
-import { SaveFeature, DeleteFeature } from "../components/story/formAPI";
+import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime } from "../components/formUtilities";
+import { SaveFeature, DeleteFeature } from "../components/formAPI";
 import { StackActions } from "@react-navigation/native";
 
 

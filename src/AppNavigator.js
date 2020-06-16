@@ -9,36 +9,34 @@ import _ from "lodash";
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather, FontAwesome } from "@expo/vector-icons";
 import I18n from "./lib/i18n";
 
-import Calendar from "./components/calendar";
-import Calendars from "./components/calendar/Calendars";
+import Calendar from "./screens/Calendar";
+import Calendars from "./screens/Calendars";
 import Home from "./screens/Home";
-import Search from "./components/search";
-import Contact from "./components/contact";
-import ContactAdmin from "./components/contact/ContactAdmin";
+import Search from "./screens/Search";
+import Contact from "./screens/Contact";
+import ContactAdmin from "./screens/ContactAdmin";
 import Settings from "./screens/More";
-import Library from "./components/settings/library";
-import Logs from "./components/settings/logs";
-import adminPassword from "./components/settings/adminPassword";
-import selectLanguage from "./components/settings/language";
-import MoreAdmin from "./components/settings/MoreAdmin";
-import Content from "./components/settings/content";
+import Library from "./screens/Library";
+import adminPassword from "./screens/AdminPassword";
+import selectLanguage from "./screens/Language";
+import MoreAdmin from "./screens/MoreAdmin";
+import Content from "./components/content";
 import Story from "./screens/Story";
 import Form from "./screens/Form";
-import campusMap from "./components/campusMap";
-import chatRooms from "./components/chat/chatRooms";
-import chatTitle from "./components/chat/chatTitle";
-import chat from "./components/chat";
+import campusMap from "./screens/Map";
+import chatRooms from "./screens/ChatRooms";
+import ChatTitle from "./components/ChatTitle";
+import chat from "./screens/Chat";
 import push from "./screens/Push";
-import authPortal from "./components/webportalURL/authPortal";
+import authPortal from "./screens/AuthPortal";
 import WebPortal from "./screens/WebPortal";
-
 import LoginScreen from "./screens/Login";
 import SignUpScreen from "./screens/SignUpScreen";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
 import CameraApp from "./screens/CameraApp";
 import UserProfile from "./screens/UserProfile";
 import EditUserProfile from "./screens/EditUserProfile";
-import UserSearch from "./components/settings/UserSearch";
+import UserSearch from "./screens/UserSearch";
 
 const StackHome = createStackNavigator();
 
@@ -92,7 +90,7 @@ function StackChatNavigator() {
 	return (
 		<StackChat.Navigator>
 			<StackChat.Screen name="chatRooms" component={chatRooms} options={{ title: I18n.t("chat") }} />
-			<StackChat.Screen name="chatTitle" component={chatTitle} options={({ route }) => ({ title: route.params.title })} />
+			<StackChat.Screen name="ChatTitle" component={ChatTitle} options={({ route }) => ({ title: route.params.title })} />
 			<StackChat.Screen name="chat" component={chat} options={({ route }) => ({ title: route.params.title })} />
 			<StackChat.Screen name="selectLanguageChat" component={selectLanguage} options={{ title: I18n.t("language") }} />
 		</StackChat.Navigator>
@@ -116,7 +114,6 @@ function StackOtherNavigator() {
 		<StackOther.Navigator>
 			<StackOther.Screen name="settings" component={Settings} options={{ title: I18n.t("more") }} />
 			<StackOther.Screen name="library" component={Library} options={{ title: I18n.t("library") }} />
-			<StackOther.Screen name="logs" component={Logs} />
 			<StackOther.Screen name="storyMore" component={Story} options={({ route }) => ({ title: route.params.summary })} />
 			<StackOther.Screen name="moreAdmin" component={MoreAdmin} />
 			<StackOther.Screen name="Content" component={Content} />
