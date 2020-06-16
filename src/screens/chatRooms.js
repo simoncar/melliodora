@@ -86,15 +86,20 @@ class chatRooms extends Component {
 		return <ChatroomItem {...item} navigation={this.props.navigation} card={false} />;
 	}
 
+	newChatroom() {
+		this.props.navigation.navigate("ChatTitle", {
+			edit: false,
+			chatroom: "New Chatroom",
+			title: "New Chatroom",
+			onGoBack: this.refresh
+		});
+	}
+
 	render() {
 		const card = this.props.card === false ? false : true;
 		return <Container style={styles.homeContainer}>
 			<TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
-				this.props.navigation.navigate("ChatTitle", {
-					edit: false,
-					chatroom: "New Chatroom",
-					onGoBack: this.refresh
-				});
+				this.newChatroom()
 			}}>
 				<Text style={styles.acfd00760af6b11ea88c25dbffc760ad0}>+</Text>
 			</TouchableHighlight>
@@ -104,11 +109,7 @@ class chatRooms extends Component {
 						<View style={card && styles.card}>
 							<View style={styles.acfd00761af6b11ea88c25dbffc760ad0}>
 								<TouchableOpacity style={styles.acfd02e70af6b11ea88c25dbffc760ad0} onPress={() => {
-									this.props.navigation.navigate("ChatTitle", {
-										edit: false,
-										chatroomTitle: "New Chatroom",
-										onGoBack: this.refresh
-									});
+									this.newChatroom()
 								}}>
 									<View style={styles.acfd02e71af6b11ea88c25dbffc760ad0}>
 										<AntDesign style={styles.iconLeftPlus} name="pluscircleo" />
