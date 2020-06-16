@@ -17,7 +17,7 @@ class ChatroomItem extends Component {
 				hasNavArrow={true}
 				icon={<SimpleLineIcons style={styles.iconLeft} name="bubbles" />}
 				title={title}
-				titleInfo={mostRecentMessage}
+				subTitle={mostRecentMessage}
 				onPress={() => {
 					this.props.navigation.navigate("chat", {
 						chatroom: chatroom,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 	iconLeft: {
 		color: "#999999",
 		fontSize: 35,
-		margin: 12,
+		marginLeft: 10
 	},
 });
 

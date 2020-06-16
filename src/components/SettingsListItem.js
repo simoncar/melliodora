@@ -7,14 +7,28 @@ import { Text } from "./sComponent"
 
 
 export const SettingsListItem = class SettingsListItem extends Component {
+
+	subTitle(subTitle) {
+		if (subTitle != undefined) {
+			return (
+				<Text
+					numberOfLines={2}
+					ellipsizeMode="tail"
+					style={{ color: "#777777" }}
+				>{subTitle}</Text>
+			)
+		} else return
+	}
+
 	render() {
-		const { icon, onPress, title, titleInfoStyle, titleInfo, hasNavArrow = true } = this.props;
+		const { icon, onPress, title, subTitle, titleInfoStyle, titleInfo, hasNavArrow = true } = this.props;
 		return <TouchableHighlight onPress={onPress}>
 			<View style={styles.outerView}>
 				{icon}
 				<View style={styles.innerView}>
 					<View>
 						<Text style={[titleInfoStyle, { color: "#333333" }]}>{title || ""}</Text>
+						{this.subTitle(subTitle)}
 					</View>
 
 					<View>
@@ -24,7 +38,7 @@ export const SettingsListItem = class SettingsListItem extends Component {
 
 				<View style={styles.rightChevron}>{hasNavArrow && <Feather name="chevron-right" size={22} color="#777777" />}</View>
 			</View>
-		</TouchableHighlight>;
+		</TouchableHighlight >;
 	}
 };
 
