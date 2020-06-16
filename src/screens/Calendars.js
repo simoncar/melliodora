@@ -6,7 +6,7 @@ import * as Calendar from 'expo-calendar';
 import { Ionicons } from "@expo/vector-icons";
 import Analytics from "../lib/analytics";
 
-import { SettingsListItem } from "../components/settings/SettingsListItem";
+import { SettingsListItem } from "../components/SettingsListItem";
 import { Text } from "../components/sComponent";
 
 class Calendars extends Component {

@@ -3,9 +3,9 @@ import React, { createRef } from "react";
 import { StyleSheet, Text, View, FlatList, PanResponder, Animated, SafeAreaView, Button, TouchableOpacity, TouchableHighlight, TextInput, Image, ScrollView, Switch } from "react-native";
 import * as firebase from "firebase";
 import { FontAwesome } from "@expo/vector-icons";
-import RadioButton from "../RadioButton";
+import RadioButton from "../components/RadioButton";
 import { Overlay } from "react-native-elements";
-import { saveFeatureChanges } from "../../store/settings";
+import { saveFeatureChanges } from "../store/settings";
 import { connect } from "react-redux";
 
 const navHeight = 0; //Header.HEIGHT;
@@ -452,6 +452,33 @@ const styles = StyleSheet.create({
 	},
 	a9f95ddc3af6811ea88c25dbffc760ad0: {
 		width: "100%"
+	},
+	header: {
+		paddingLeft: 15,
+		paddingRight: 15,
+		marginLeft: Platform.OS === "ios" ? undefined : -30
+	},
+	rowHeader: {
+		flex: 1,
+		flexDirection: "row",
+		justifyContent: "space-between",
+		alignSelf: "stretch",
+		paddingTop: Platform.OS === "android" ? 0 : 0
+	},
+	btnHeader: {
+		alignSelf: "center"
+	},
+
+	newsContentLine: {
+		borderTopWidth: 1,
+		borderTopColor: "#ddd"
+	},
+	itemTitle: {
+		flex: 1,
+		fontSize: 18,
+		justifyContent: "center",
+		alignItems: "center",
+		color: "black"
 	}
 });
 

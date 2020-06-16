@@ -17,7 +17,7 @@ import Backend from "./backend";
 import Analytics from "../../lib/analytics";
 import * as firebase from "firebase";
 import { ListItem } from "react-native-elements";
-import { SettingsListItem } from "../settings/SettingsListItem";
+import { SettingsListItem } from "../SettingsListItem";
 import { connectActionSheet, ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { connect } from "react-redux";
 import { compose } from "redux";

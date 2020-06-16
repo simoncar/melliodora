@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image } from "react-native";
-import { SettingsListItem } from "../settings/SettingsListItem";
+import { SettingsListItem } from "../components/SettingsListItem";
 
 export default class Library extends Component {
 	constructor(props) {

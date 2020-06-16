@@ -5,14 +5,14 @@ import { isAdmin } from "../lib/global";
 import I18n from "../lib/i18n";
 import { MaterialIcons, FontAwesome, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Updates } from "expo";
-import FeatureMoreItems from "../components/settings/FeatureMoreItems";
+import FeatureMoreItems from "../components/FeatureMoreItems";
 
 import Analytics from "../lib/analytics";
 import _ from "lodash";
 import { connect } from "react-redux";
 import * as Linking from "expo-linking";
 
-import { SettingsListItem, Separator } from "../components/settings/SettingsListItem";
+import { SettingsListItem, Separator } from "../components/SettingsListItem";
 import { Text } from "../components/sComponent"
 
 class Settings extends Component {

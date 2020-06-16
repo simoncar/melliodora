@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image, Dimensions, Alert, TouchableOpacity, Switch } from "react-native";
 
-import { SettingsListItem } from "../components/settings/SettingsListItem";
+import { SettingsListItem } from "../components/SettingsListItem";
 import * as firebase from "firebase";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";

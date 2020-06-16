@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View,  TouchableHighlight } from "react-native";
-import I18n from "../../lib/i18n";
+import I18n from "../lib/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
 import FeatureMoreItems from "./FeatureMoreItems";
 import { connect } from 'react-redux';

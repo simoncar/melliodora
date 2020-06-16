@@ -4,7 +4,7 @@ import { Image } from "react-native-expo-image-cache";
 
 import firebase from "firebase";
 import ListItem from "./FeatureListItem";
-import { getLanguageString } from "../../lib/global";
+import { getLanguageString } from "../lib/global";
 import { SettingsListItem, Separator } from "./SettingsListItem";
 import { connect } from "react-redux";
 
