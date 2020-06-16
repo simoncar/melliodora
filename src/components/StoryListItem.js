@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { Text } from "./common/sComponent"
+import { Text } from "./sComponent"
 
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";

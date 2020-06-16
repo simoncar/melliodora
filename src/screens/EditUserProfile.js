@@ -7,8 +7,8 @@ import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import _ from "lodash";
 import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/uploadImage";
-import Loader from "../components/common/Loader";
-import { Text } from "../components/common/sComponent"
+import Loader from "../components/Loader";
+import { Text } from "../components/sComponent"
 
 class EditUserProfile extends Component {
 	state = {

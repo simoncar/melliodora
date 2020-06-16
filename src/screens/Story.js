@@ -8,7 +8,7 @@ import ParsedText from "react-native-parsed-text";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global.js";
 import _ from "lodash";
 import { connect } from "react-redux";
-import { Text } from "../components/common/sComponent"
+import { Text } from "../components/sComponent"
 
 export class Story extends Component {
 	constructor(props) {

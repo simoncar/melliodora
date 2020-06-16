@@ -1,14 +1,14 @@
+
 import React, { Component } from "react";
 import { StyleSheet, View, Image, Dimensions, Alert, TouchableOpacity, Switch } from "react-native";
 
-import styles from "../components/story/styles";
-import { SettingsListItem } from "../components/settings/SettingsListItem";
+import { SettingsListItem } from "../components/SettingsListItem";
 import * as firebase from "firebase";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import _ from "lodash";
 import { Input } from "react-native-elements";
-import { Text } from "../components/common/sComponent"
+import { Text } from "../components/sComponent";
 
 class push extends Component {
 	constructor(props) {
@@ -16,33 +16,25 @@ class push extends Component {
 
 		this.state = {
 			initialText: "",
-			_key: props._key,
+			_key: props._key
 		};
 
 		this.pushSend = this.pushSend.bind(this);
 	}
 
 	static navigationOptions = ({ navigation }) => ({
-		headerLeft: (
-			<TouchableOpacity
-				onPress={() => {
-					navigation.goBack();
-				}}
-			>
-				<Entypo name="chevron-left" style={styles.chatHeadingLeft} />
-			</TouchableOpacity>
-		),
+		headerLeft: <TouchableOpacity onPress={() => {
+			navigation.goBack();
+		}}>
+			<Entypo name="chevron-left" style={styles.chatHeadingLeft} />
+		</TouchableOpacity>,
 
-		headerTitle: <Text style={{ fontSize: 17, fontWeight: "600" }}>{I18n.t("message")}</Text>,
-		headerRight: (
-			<TouchableOpacity
-				onPress={() => {
-					navigation.state.params.pushSend();
-				}}
-			>
-				<Text style={styles.chatHeading}>{I18n.t("send")}</Text>
-			</TouchableOpacity>
-		),
+		headerTitle: <Text style={styles.a01e39070af6511ea88c25dbffc760ad0}>{I18n.t("message")}</Text>,
+		headerRight: <TouchableOpacity onPress={() => {
+			navigation.state.params.pushSend();
+		}}>
+			<Text style={styles.chatHeading}>{I18n.t("send")}</Text>
+		</TouchableOpacity>
 	});
 
 	componentDidMount() {
@@ -58,7 +50,7 @@ class push extends Component {
 		this.setState({ initialText: initialText });
 
 		this.props.navigation.setParams({
-			pushSend: this.pushSend,
+			pushSend: this.pushSend
 		});
 	}
 
@@ -71,7 +63,7 @@ class push extends Component {
 			grade: grades,
 			image: "",
 			state: "pending",
-			timestamp: Date.now(),
+			timestamp: Date.now()
 		};
 
 		console.log("push =", pushMessage);
@@ -93,17 +85,7 @@ class push extends Component {
 	}
 
 	gradeSelector(title, level, grade) {
-		return (
-			<SettingsListItem
-				hasSwitch={true}
-				switchState={this.state[grade]}
-				switchOnValueChange={() => this._setGrade(grade)}
-				title={title}
-				titleInfo={level}
-				hasNavArrow={false}
-				icon={<MaterialIcons name="people" style={styles.imageStyleCheckOn} />}
-			/>
-		);
+		return <SettingsListItem hasSwitch={true} switchState={this.state[grade]} switchOnValueChange={() => this._setGrade(grade)} title={title} titleInfo={level} hasNavArrow={false} icon={<MaterialIcons name="people" style={styles.imageStyleCheckOn} />} />;
 	}
 
 	_setGrade(grade) {
@@ -122,29 +104,31 @@ class push extends Component {
 	}
 
 	render() {
-		return (
-			<View>
-				<View style={{ flex: 1, backgroundColor: "#f2f2f2" }}>
-					<View
-						style={{
-							flex: 1,
-							paddingTop: 20,
-							paddingLeft: 10,
-							paddingRight: 10,
-						}}
-					>
-						<Input
-							onChangeText={(text) => this.setState({ initialText: text })}
-							placeholder={"Description"}
-							multiline
-							containerStyle={styles.containerStyle}
-							value={this.state.initialText}
-						/>
-					</View>
+		return <View>
+			<View style={styles.a01e3de90af6511ea88c25dbffc760ad0}>
+				<View style={styles.a01e405a0af6511ea88c25dbffc760ad0}>
+					<Input onChangeText={text => this.setState({ initialText: text })} placeholder={"Description"} multiline containerStyle={styles.containerStyle} value={this.state.initialText} />
 				</View>
 			</View>
-		);
+		</View>;
 	}
 }
+
+const styles = StyleSheet.create({
+	a01e39070af6511ea88c25dbffc760ad0: {
+		fontSize: 17,
+		fontWeight: "600"
+	},
+	a01e3de90af6511ea88c25dbffc760ad0: {
+		flex: 1,
+		backgroundColor: "#f2f2f2"
+	},
+	a01e405a0af6511ea88c25dbffc760ad0: {
+		flex: 1,
+		paddingTop: 20,
+		paddingLeft: 10,
+		paddingRight: 10
+	}
+});
 
 export default push;
