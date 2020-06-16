@@ -9,7 +9,7 @@ import _ from "lodash";
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather, FontAwesome } from "@expo/vector-icons";
 import I18n from "./lib/i18n";
 
-import Calendar from "./screens/calendar";
+import Calendar from "./screens/Calendar";
 import Calendars from "./screens/Calendars";
 import Home from "./screens/Home";
 import Search from "./screens/Search";

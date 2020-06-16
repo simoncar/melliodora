@@ -1,7 +1,5 @@
-
-
 import React, { Component } from "react";
-import { View, Alert, TouchableOpacity, Linking, Modal, FlatList, StyleSheet, Dimensions } from "react-native";
+import { View, Alert, TouchableOpacity, Linking, Modal, FlatList, StyleSheet } from "react-native";
 import { Container, Footer } from "native-base";
 import { GiftedChat, SystemMessage, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
@@ -368,10 +366,25 @@ class chat extends Component {
 				</TouchableOpacity>
 			</View>
 
-			<GiftedChat messages={this.state.messages} onSend={this.onSend} user={{
-				_id: this.userInfo.uid,
-				...userDetails
-			}} renderActions={this.renderCustomActions} renderSystemMessage={this.renderSystemMessage} renderCustomView={this.renderCustomView} renderMessageImage={this.renderCustomImage} renderMessageVideo={this.renderCustomVideo} showUserAvatar={true} bottomOffset={0} onPressAvatar={this.avatarPress} alwaysShowSend={true} renderSend={this.renderSend} placeholder={I18n.t("typeMessage")} parsePatterns={this.parsePatterns} renderUsernameOnMessage={true} />
+			<GiftedChat
+				messages={this.state.messages}
+				onSend={this.onSend}
+				user={{
+					_id: this.userInfo.uid,
+					...userDetails
+				}}
+				renderActions={this.renderCustomActions}
+				renderSystemMessage={this.renderSystemMessage}
+				renderCustomView={this.renderCustomView}
+				renderMessageImage={this.renderCustomImage}
+				renderMessageVideo={this.renderCustomVideo}
+				showUserAvatar={true} bottomOffset={0}
+				onPressAvatar={this.avatarPress}
+				alwaysShowSend={true}
+				renderSend={this.renderSend}
+				placeholder={I18n.t("typeMessage")}
+				parsePatterns={this.parsePatterns}
+				renderUsernameOnMessage={true} />
 
 			<Footer style={styles.footer} />
 		</Container>;
