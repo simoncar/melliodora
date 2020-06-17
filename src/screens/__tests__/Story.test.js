@@ -127,7 +127,7 @@ test('show story on screen', () => {
 test('show story with URL in content to test linking', () => {
 	const navigation = { navigate: jest.fn() };
 
-	const { toJSON, queryByText} = render(
+	const { toJSON, queryByText } = render(
 		<Story
 			route={itemURLlinking}
 			auth={auth}
