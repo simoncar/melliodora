@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { Image, View, TouchableOpacity, AsyncStorage, StyleSheet } from "react-native";
+import { View, AsyncStorage, StyleSheet } from "react-native";
 import * as firebase from "firebase";
 
 import { Agenda } from "react-native-calendars";
@@ -12,12 +12,10 @@ import CalendarItem from "../components/CalendarItem";
 import Analytics from "../lib/analytics";
 import { Text } from "../components/sComponent";
 
-const tabBarIcon = name => ({ tintColor }) => <Ionicons style={styles.a36552790af7b11ea88c25dbffc760ad0} name={name} color={tintColor} size={24} />;
-
 var todayItem = {};
 const todayDate = moment().format("YYYY-MM-DD");
 
-class calendar1 extends Component {
+class Calendar extends Component {
 	constructor(props) {
 		super(props);
 
@@ -39,37 +37,30 @@ class calendar1 extends Component {
 		};
 	}
 
-	static navigationOptions = ({ navigation }) => ({
-		title: I18n.t("calendar"),
-		headerRight: <TouchableOpacity onPress={() => {
-			navigation.push("searchCalendar");
-		}}>
-			<View style={styles.a36554ea0af7b11ea88c25dbffc760ad0}>
-				<Ionicons name="md-search" style={styles.a365575b0af7b11ea88c25dbffc760ad0} />
-			</View>
-		</TouchableOpacity>
-	});
-
 	componentDidMount() {
+
+
 		moment.updateLocale;
 		this.calendarEvents = firebase.firestore().collection(global.domain).doc("calendar").collection("calendarItems");
 
 		this.loadFromAsyncStorage();
 
-		this.listenLoadFromFirebase(this.calendarEvents);
+		this.aa()
+
+		//this.listenLoadFromFirebase(this.calendarEvents);
 		Analytics.track("Calendar");
 	}
 
-	componentWillUnmount() {
-		this.unsubscribe();
+	aa() {
+		console.log("AA")
 	}
+
 
 	listenLoadFromFirebase(dataSnapshot2) {
 		dataSnapshot2.get().then(snapshot => {
 			var items2 = {};
 			var newItems = {};
 			var trans = {};
-			// this.loadItems();
 			var itemCount = 0;
 			var strtime = 0;
 
@@ -93,9 +84,6 @@ class calendar1 extends Component {
 
 			snapshot.forEach(doc => {
 				itemCount++;
-				// items2.push(doc.data());
-
-				//   console.log (snapshot)
 				strtime = doc.data().date_start;
 				strtime = strtime.substring(0, 10);
 
@@ -127,21 +115,20 @@ class calendar1 extends Component {
 	}
 
 	loadFromAsyncStorage() {
-		AsyncStorage.getItem("calendarItems").then(fi => {
-			var items = JSON.parse(fi);
-			console.log("items2222", items);
-			if (null != items) {
-				this.setState({
-					items,
-					loading: false
-				});
-			}
-		});
+		// AsyncStorage.getItem("calendarItems").then(fi => {
+		// 	var items = JSON.parse(fi);
+		// 	if (null != items) {
+		// 		this.setState({
+		// 			items,
+		// 			loading: false
+		// 		});
+		// 	}
+		// });
 	}
 
 	_storeData = async calendarItems => {
 		try {
-			AsyncStorage.setItem("calendarItems", calendarItems);
+			//AsyncStorage.setItem("calendarItems", calendarItems);
 		} catch (error) {
 			console.log(error);
 			// Error saving data
@@ -158,12 +145,6 @@ class calendar1 extends Component {
 				newItems[strtime] = [];
 			}
 
-			// Object.keys(this.state.items).forEach(key => {
-			//   newItems[key] = this.state.items[key];
-			// });
-			// this.setState({
-			//   items: newItems,
-			// });
 		}, 1000);
 	}
 
@@ -171,10 +152,10 @@ class calendar1 extends Component {
 		const date = new Date();
 		date.setDate(date.getDate());
 
-		return <Agenda items={this.state.items}
-			// loadItemsForMonth={this.loadFromAsyncStorage.bind(this)}
+		return <Agenda
+			renderEmptyData={() => { return null }}
+			items={this.state.items}
 			selected={date} renderItem={this.renderItem.bind(this)} renderEmptyDate={this.renderEmptyDate.bind(this)}
-			//rowHasChanged={this.rowHasChanged.bind(this)}
 			rowHasChanged={(r1, r2) => {
 				return r1.summary !== r2.summary;
 			}} hideKnob={false} renderKnob={() => {
@@ -235,19 +216,7 @@ class calendar1 extends Component {
 }
 
 const styles = StyleSheet.create({
-	a36552790af7b11ea88c25dbffc760ad0: {
-		backgroundColor: "transparent"
-	},
-	a36554ea0af7b11ea88c25dbffc760ad0: {
-		color: "#48484A",
-		fontSize: 25,
-		marginRight: 10
-	},
-	a365575b0af7b11ea88c25dbffc760ad0: {
-		color: "#48484A",
-		fontSize: 25,
-		marginRight: 10
-	},
+
 	a36563900af7b11ea88c25dbffc760ad0: {
 		color: "#999999",
 		fontSize: 30
@@ -264,4 +233,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default calendar1;
+export default Calendar;
