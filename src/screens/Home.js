@@ -1,5 +1,5 @@
 
-import React, { Component, Dimensions } from "react";
+import React, { Component } from "react";
 import { FlatList, View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image, ScrollView, StyleSheet } from "react-native";
 import { Container, Content } from "native-base";
 import Constants from "expo-constants";
@@ -20,7 +20,7 @@ import DemoData from "../lib/demoData";
 const demo = DemoData;
 
 const bottomLogo = {
-	sais_edu_sg: require("../../images/sais_edu_sg/10yearLogo.png"),
+	sais_edu_sg: require("../../images/sais_edu_sg/SAISlogo_new2.png"),
 	ais_edu_sg: require("../../images/ais_edu_sg/ifla-apr.jpeg")
 };
 
@@ -362,14 +362,14 @@ class Home extends Component {
 							uri: global.switch_homeLogoURI
 						}} />
 					</View>
-					<View style={styles.adab8fa71ac6d11ea973dcfce83f911da}>
+					<View style={styles.cookiesLogoView}>
 						<TouchableOpacity onPress={() => {
 							this._handleOpenWithLinking("https://smartcookies.io/smart-community");
-						}} style={styles.adab8fa72ac6d11ea973dcfce83f911da}>
+						}}>
 							<Image source={require("../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
 						</TouchableOpacity>
 					</View>
-					<View>
+					<View style={styles.userDiagnostics} >
 						<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
 						<Text style={styles.user}>{global.name}</Text>
 						<Text style={styles.user}>{global.email}</Text>
@@ -394,6 +394,9 @@ const styles = StyleSheet.create({
 		backgroundColor: "white",
 		marginVertical: 6
 	},
+	userDiagnostics: {
+		paddingBottom: 30,
+	},
 	adab8d360ac6d11ea973dcfce83f911da: {
 		color: "black",
 		fontSize: 12
@@ -403,14 +406,11 @@ const styles = StyleSheet.create({
 		marginTop: 70,
 		width: "100%"
 	},
-	adab8fa71ac6d11ea973dcfce83f911da: {
+	cookiesLogoView: {
 		alignItems: "center",
 		marginTop: 100
 	},
-	adab8fa72ac6d11ea973dcfce83f911da: {
-		height: 40,
-		width: 40
-	},
+
 	addButton: {
 		alignItems: "center",
 		backgroundColor: "#ff5722",
@@ -485,8 +485,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "column",
 		fontSize: 12,
-		paddingBottom: 0,
-		paddingTop: 0,
 		textAlign: "center"
 	},
 	version: {
@@ -496,8 +494,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "column",
 		fontSize: 12,
-		paddingBottom: 20,
-		paddingTop: 0,
 		textAlign: "center"
 	}
 });
