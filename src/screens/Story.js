@@ -9,6 +9,7 @@ import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../
 import _ from "lodash";
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent"
+import { phoneCalendar } from "../lib/phoneCalendar"
 
 export class Story extends Component {
 	constructor(props) {
@@ -130,7 +131,8 @@ export class Story extends Component {
 	_drawIconCalendar(params) {
 		if (isValue(params.date_start)) {
 			return <TouchableOpacity onPress={() => {
-				this.props.navigation.navigate("Calendars", this.state);
+				phoneCalendar(this.state)
+				//this.props.navigation.navigate("Calendars", this.state);
 			}}>
 				<Text testID="story.calendarIcon" style={styles.eventText}>
 					<Ionicons name="ios-calendar" style={styles.eventIcon} />

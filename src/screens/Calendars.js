@@ -9,6 +9,12 @@ import Analytics from "../lib/analytics";
 import { SettingsListItem } from "../components/SettingsListItem";
 import { Text } from "../components/sComponent";
 
+//
+//
+// THIS SCREEN IS NO-LONGER IN USE
+//
+//
+
 class Calendars extends Component {
 
 	constructor(props) {
@@ -41,12 +47,11 @@ class Calendars extends Component {
 		}
 	};
 
-	// async function getDefaultCalendarSource() {
-	// 	const calendars = await Calendar.getCalendarsAsync();
-	// 	const defaultCalendars = calendars.filter(each => each.source.name === 'Default');
-	// 	return defaultCalendars[0].source;
-	//   }
-
+	getDefaultCalendarSource = async () => {
+		const calendars = await Calendar.getCalendarsAsync();
+		const defaultCalendars = calendars.filter(each => each.source.name === 'Default');
+		return defaultCalendars[0].source;
+	};
 
 	_addEvent = async phoneCalendarID => {
 
@@ -67,7 +72,7 @@ class Calendars extends Component {
 			Analytics.track("Calendar Add", { story: this.props.summaryMyLanguage });
 
 			await Calendar.createEventAsync(phoneCalendarID, newEvent);
-			this.props.navigation.goBack();
+			this.props.navigation.goBack()
 		} catch (e) {
 			Alert.alert("Event not saved", e.message);
 		}
@@ -86,7 +91,13 @@ class Calendars extends Component {
 						</View>
 
 						<ScrollView>
-							{this.state.calendars.map(calendar => <SettingsListItem icon={<Ionicons name="ios-calendar" style={styles.calendarIcon} />} title={calendar.title} titleInfo={calendar.type} key={calendar.id} onPress={() => this._addEvent(calendar.id)} />)}
+							{this.state.calendars.map(calendar => <SettingsListItem
+								icon={<Ionicons name="ios-calendar"
+									style={styles.calendarIcon} />}
+								title={calendar.title}
+								titleInfo={calendar.source.name}
+								key={calendar.id}
+								onPress={() => this._addEvent(calendar.id)} />)}
 						</ScrollView>
 					</View>
 				</Content>
