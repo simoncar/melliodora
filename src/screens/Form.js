@@ -250,101 +250,100 @@ class Form extends Component {
 }
 
 const styles = StyleSheet.create({
-	cameraIcon: {
-		fontSize: 25,
-		color: "white"
+	SubmitButtonStyle: {
+		alignItems: "center",
+		backgroundColor: "#fff",
+		borderRadius: 25,
+		elevation: 4,
+		height: 50,
+		justifyContent: "center",
+		marginBottom: 30,
+		shadowColor: "rgba(0,0,0, .4)",
+		shadowOffset: { height: 2, width: 2 },
+		shadowOpacity: 0.8,
+		shadowRadius: 1,
+		width: 250,
 	},
 	a5ad7ce80ad2111ea973dcfce83f911da: {
 		backgroundColor: "#f2f2f2"
 	},
 	a5ad7ce81ad2111ea973dcfce83f911da: {
-		flex: 1,
-		backgroundColor: "#f2f2f2"
+		backgroundColor: "#f2f2f2",
+		flex: 1
 	},
 	a5ad7ce82ad2111ea973dcfce83f911da: {
 		flex: 1,
-		paddingTop: 20,
 		paddingLeft: 10,
-		paddingRight: 10
+		paddingRight: 10,
+		paddingTop: 20
 	},
 	a5ad7f590ad2111ea973dcfce83f911da: {
 		flex: 1,
-		paddingTop: 20,
 		paddingLeft: 10,
-		paddingRight: 10
+		paddingRight: 10,
+		paddingTop: 20
 	},
 	a5ad81ca0ad2111ea973dcfce83f911da: {
-		paddingTop: 20,
-		flexDirection: "row"
+		flexDirection: "row",
+		paddingTop: 20
 	},
 	a5ad843b0ad2111ea973dcfce83f911da: {
-		flexDirection: "column",
 		alignItems: "center",
+		flexDirection: "column",
 		marginTop: 12
 	},
 
-	SubmitButtonStyle: {
-		backgroundColor: "#fff",
-		height: 50,
-		width: 250,
-		borderRadius: 25,
-		alignItems: "center",
-		justifyContent: "center",
-		shadowColor: "rgba(0,0,0, .4)",
-		shadowOffset: { height: 2, width: 2 },
-		shadowOpacity: 0.8,
-		shadowRadius: 1,
-		elevation: 4,
-		marginBottom: 30,
+	cameraIcon: {
+		color: "white",
+		fontSize: 25
 	},
 
 	containerStyle: {
-		borderWidth: 1,
-		borderRadius: 10,
-		borderColor: "#d2d2d2",
 		backgroundColor: "#ffffff",
+		borderColor: "#d2d2d2",
+		borderRadius: 10,
+		borderWidth: 1,
 		marginVertical: 8,
 	},
 
-	storyPhoto: {
-		width: "98%",
-		height: 200,
-		flex: 1,
-		borderBottomLeftRadius: 15,
-		borderBottomRightRadius: 15,
-		backgroundColor: "#fff",
-		shadowColor: "rgba(0,0,0, .4)",
-		shadowOffset: { height: 1, width: 0.5 },
-		shadowOpacity: 0.2,
-		shadowRadius: 0.5,
-		elevation: 1,
-		marginBottom: 12,
-		width: "98%",
-		alignSelf: "center",
-		borderWidth: 1,
-		borderColor: "lightgray",
-	},
-
 	photoButton: {
-		zIndex: 990,
+		alignItems: "center",
 		backgroundColor: "#ff5722",
 		borderColor: "#ff5722",
-		borderWidth: 1,
-		height: 50,
-		width: 50,
 		borderRadius: 50 / 2,
-		alignItems: "center",
+		borderWidth: 1,
+		bottom: 20,
+		height: 50,
 		justifyContent: "center",
 		position: "absolute",
-		bottom: 20,
 		right: 20,
 		shadowColor: "#000000",
-		shadowOpacity: 0.8,
-		shadowRadius: 2,
 		shadowOffset: {
 			height: 1,
 			width: 0,
 		},
+		shadowOpacity: 0.8,
+		shadowRadius: 2,
+		width: 50,
+		zIndex: 990,
+	},
+
+	storyPhoto: {
+		alignSelf: "center",
+		backgroundColor: "#fff",
+		borderBottomLeftRadius: 15,
+		borderBottomRightRadius: 15,
+		borderColor: "lightgray",
+		borderWidth: 1,
+		elevation: 1,
+		flex: 1,
+		height: 200,
+		marginBottom: 12,
+		shadowColor: "rgba(0,0,0, .4)",
+		shadowOffset: { height: 1, width: 0.5 },
+		shadowOpacity: 0.2,
+		shadowRadius: 0.5,
+		width: "98%",
 	},
 
 

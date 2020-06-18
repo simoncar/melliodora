@@ -125,7 +125,7 @@ class Calendar extends Component {
 
 	_storeData = async calendarItems => {
 		try {
-			//AsyncStorage.setItem("calendarItems", calendarItems);
+			AsyncStorage.setItem("calendarItems", calendarItems);
 		} catch (error) {
 			console.log(error);
 			// Error saving data

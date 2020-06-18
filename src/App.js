@@ -12,12 +12,12 @@ import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
 
 class App extends Component {
 	componentDidMount() {
-		this._notificationSubscription = this._registerForPushNotifications();
+		this._registerForPushNotifications();
 		Analytics.track("App Started");
 	}
 
 	componentWillUnmount() {
-		this._notificationSubscription && this._notificationSubscription.remove();
+		this._notificationSubscription.remove();
 	}
 
 	_handleNotification = ({ origin, data }) => { };

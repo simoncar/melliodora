@@ -12,7 +12,6 @@ import CustomImage from "../components/customImage";
 import CustomVideo from "../components/customVideo";
 import I18n from "../lib/i18n";
 import uuid from "uuid";
-import _ from "lodash";
 import Backend from "../components/backend";
 import Analytics from "../lib/analytics";
 import * as firebase from "firebase";
@@ -130,7 +129,7 @@ class chat extends Component {
 				rounded: true,
 				...avatar
 			}} title={<View style={styles.a221a2b50ac4611ea973dcfce83f911da}>
-				<Text style={styles.a221a5260ac4611ea973dcfce83f911da}>{item.displayName || fullName || item.email}</Text>
+				<Text style={styles.a221a5260ac4611ea973dcfce83f911da}>{item.displayName || fullName}</Text>
 			</View>} chevron={true} subtitle={<View style={styles.a221a5261ac4611ea973dcfce83f911da}>
 				<Text style={styles.a221a5262ac4611ea973dcfce83f911da}>{fullName}</Text>
 				<Text style={styles.a221a5263ac4611ea973dcfce83f911da}>{item.email}</Text>
