@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { FlatList, View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image, ScrollView, StyleSheet } from "react-native";
 import { Container, Content } from "native-base";
@@ -33,7 +32,6 @@ class Home extends Component {
 			featureItems: [],
 			calendarItems: [],
 			balanceItems: [],
-
 		};
 
 		this.loadFromAsyncStorage();
@@ -282,10 +280,11 @@ class Home extends Component {
 			</TouchableHighlight>}
 			<Content showsVerticalScrollIndicator={false}>
 				{global.domain === "ais_edu_sg" ? <View style={styles.newsContentLine}>
-					<ScrollView horizontal={true} bounces={false} contentContainerStyle={{
-						paddingHorizontal: 12,
-						paddingVertical: 8
-					}} style={styles.adab8ac51ac6d11ea973dcfce83f911da} showsHorizontalScrollIndicator={false}>
+					<ScrollView
+						horizontal={true} bounces={false} contentContainerStyle={{
+							paddingHorizontal: 12,
+							paddingVertical: 8
+						}} style={styles.adab8ac51ac6d11ea973dcfce83f911da} showsHorizontalScrollIndicator={false}>
 						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
 							this.props.navigation.navigate("WebPortal", {
 								url: "https://iflaapr.org/newsletters",
@@ -394,9 +393,6 @@ const styles = StyleSheet.create({
 		backgroundColor: "white",
 		marginVertical: 6
 	},
-	userDiagnostics: {
-		paddingBottom: 30,
-	},
 	adab8d360ac6d11ea973dcfce83f911da: {
 		color: "black",
 		fontSize: 12
@@ -406,11 +402,6 @@ const styles = StyleSheet.create({
 		marginTop: 70,
 		width: "100%"
 	},
-	cookiesLogoView: {
-		alignItems: "center",
-		marginTop: 100
-	},
-
 	addButton: {
 		alignItems: "center",
 		backgroundColor: "#ff5722",
@@ -447,25 +438,29 @@ const styles = StyleSheet.create({
 		width: "98%"
 	},
 
-
+	cookiesLogoView: {
+		alignItems: "center",
+		marginTop: 100
+	},
 	homeMenuIcon: {
 		height: 50,
 		width: 50
 	},
+
+
 	homeMenuItemContainer: {
 		alignItems: "center",
 		flexDirection: "column",
 		marginRight: 15
 	},
-
-
-
 	homeMenuText: { color: "black", fontSize: 12, textAlign: "center" },
+
+
+
 	newsContentLine: {
 		backgroundColor: "#f2f2f2",
 		paddingTop: 10
 	},
-
 	sclogo: {
 		alignSelf: "center",
 		borderTopWidth: 1,
@@ -478,6 +473,7 @@ const styles = StyleSheet.create({
 		resizeMode: "contain",
 		width: "80%"
 	},
+
 	user: {
 		alignSelf: "center",
 		backgroundColor: "white",
@@ -486,6 +482,9 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		fontSize: 12,
 		textAlign: "center"
+	},
+	userDiagnostics: {
+		paddingBottom: 30,
 	},
 	version: {
 		alignSelf: "center",
