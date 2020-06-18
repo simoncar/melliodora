@@ -2,10 +2,8 @@
 import React, { Component } from "react";
 import { View, AsyncStorage, StyleSheet } from "react-native";
 import * as firebase from "firebase";
-
 import { Agenda } from "react-native-calendars";
 import { Ionicons } from "@expo/vector-icons";
-
 import I18n from "../lib/i18n";
 import moment from "moment";
 import CalendarItem from "../components/CalendarItem";
@@ -68,7 +66,6 @@ class Calendar extends Component {
 			}
 
 			items2 = newItems;
-			//items2 = this.state.items;
 			const todayDay = new moment().format("MMMM Do");
 
 			items2[todayDate].push({
@@ -174,20 +171,6 @@ class Calendar extends Component {
 
 	renderItem(item) {
 		return <CalendarItem navigation={this.props.navigation} item={item} />;
-	}
-
-	getIcon(eventDetails) {
-		let ret = "";
-
-		if (ret.contains("sport")) {
-			ret = "ios-american-football";
-		} else if (ret.contains("art")) {
-			ret = "ios-brush";
-		} else {
-			ret = "";
-		}
-
-		return ret;
 	}
 
 	renderEmptyDate(item) {
