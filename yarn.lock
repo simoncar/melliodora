@@ -7706,6 +7706,11 @@ immer@1.10.0:
   resolved "https://registry.yarnpkg.com/immer/-/immer-1.10.0.tgz#bad67605ba9c810275d91e1c2a47d4582e98286d"
   integrity sha512-O3sR1/opvCDGLEVcvrGTMtLac8GJ5IwZC4puPrLuRj3l7ICKvkmA0vGuU9OW8mV9WIBRnaxp5GJh9IEAaNOoYg==
 
+immutable@^4.0.0-rc.12:
+  version "4.0.0-rc.12"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.0.0-rc.12.tgz#ca59a7e4c19ae8d9bf74a97bdf0f6e2f2a5d0217"
+  integrity sha512-0M2XxkZLx/mi3t8NVwIm1g8nHoEmM9p9UBl/G9k4+hm0kBgOVdMV/B3CY5dQ8qG8qc80NN4gDV4HQv6FTJ5q7A==
+
 import-fresh@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/import-fresh/-/import-fresh-2.0.0.tgz#d81355c15612d386c61f9ddd3922d4304822a546"
@@ -12191,13 +12196,15 @@ react-native-appearance@^0.3.4:
     invariant "^2.2.4"
     use-subscription "^1.0.0"
 
-react-native-calendars@^1.294.0:
-  version "1.294.0"
-  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.294.0.tgz#e4cbc11e09c47c7257624f7fc00ef1e6cc6c70c3"
-  integrity sha512-4AalnFpp3dCQ8WjgeNN2Y1itAZ9BF3BtQ5huc2Js0iJ+zehNmdA1N6uPdKcj6GA/xk3J8lgB2xAexyZ2exbyfw==
+react-native-calendars@^1.296.0:
+  version "1.299.0"
+  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.299.0.tgz#184a373a5f97d58c1f44e051d26820f6a48ac7ee"
+  integrity sha512-AG5fvyElTh+V6bLo9MovgwFTKozUp1Uu/7hDAwweT40aQw/TlaX/lwK1ctR0+WzLgMLKfxLY/nQD1P/shctcPw==
   dependencies:
     hoist-non-react-statics "^3.3.1"
-    lodash "^4.0.0"
+    immutable "^4.0.0-rc.12"
+    lodash "^4.17.15"
+    moment "^2.24.0"
     prop-types "^15.5.10"
     react-native-swipe-gestures "^1.0.5"
     xdate "^0.8.0"
