@@ -44,10 +44,7 @@ class Calendar extends Component {
 		this.calendarEvents = firebase.firestore().collection(global.domain).doc("calendar").collection("calendarItems");
 
 		this.loadFromAsyncStorage();
-
-		this.aa()
-
-		//this.listenLoadFromFirebase(this.calendarEvents);
+		this.listenLoadFromFirebase(this.calendarEvents);
 		Analytics.track("Calendar");
 	}
 
@@ -115,15 +112,15 @@ class Calendar extends Component {
 	}
 
 	loadFromAsyncStorage() {
-		// AsyncStorage.getItem("calendarItems").then(fi => {
-		// 	var items = JSON.parse(fi);
-		// 	if (null != items) {
-		// 		this.setState({
-		// 			items,
-		// 			loading: false
-		// 		});
-		// 	}
-		// });
+		AsyncStorage.getItem("calendarItems").then(fi => {
+			var items = JSON.parse(fi);
+			if (null != items) {
+				this.setState({
+					items,
+					loading: false
+				});
+			}
+		});
 	}
 
 	_storeData = async calendarItems => {
