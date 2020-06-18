@@ -30,6 +30,5 @@ export const logToCalendar = async (key, title, body, email = "") => {
     const result = await p;
     return result;
   } catch (err) {
-    console.log("system hero error", err);
   }
 };

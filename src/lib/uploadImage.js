@@ -15,7 +15,6 @@ export const saveProfilePic = async (imgURI) => {
 	// const d = new Date();
 	fileToUpload = imgURI;
 
-	console.log("fileToUpload", fileToUpload);
 
 	mime = "image/jpeg";
 	// this.setState({ cameraIcon: "hour-glass" });

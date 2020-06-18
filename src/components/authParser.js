@@ -64,7 +64,6 @@ export class AuthParser extends React.Component {
         authenticated: true,
       };
 
-      console.log("firebase=", userDict);
       firebase
         .firestore()
         .collection(global.domain)
@@ -78,7 +77,6 @@ export class AuthParser extends React.Component {
       AsyncStorage.setItem("authenticated", "true");
 
 
-      console.log("Saving details: ", global.uid, name, email);
     }
   }
 }

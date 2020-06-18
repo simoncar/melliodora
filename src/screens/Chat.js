@@ -1,8 +1,8 @@
 
 import React, { Component } from "react";
-import { View, Alert, TouchableOpacity, Linking, Modal, FlatList, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Linking, Modal, FlatList, StyleSheet } from "react-native";
 import { Container, Footer } from "native-base";
-import { GiftedChat, SystemMessage, Send } from "react-native-gifted-chat";
+import { GiftedChat, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
@@ -46,7 +46,6 @@ class chat extends Component {
 		this.parsePatterns = this.parsePatterns.bind(this);
 		this.onReceive = this.onReceive.bind(this);
 		this.renderCustomActions = this.renderCustomActions.bind(this);
-		this.renderSystemMessage = this.renderSystemMessage.bind(this);
 		this.renderFooter = this.renderFooter.bind(this);
 		this.onLoadEarlier = this.onLoadEarlier.bind(this);
 
@@ -63,12 +62,6 @@ class chat extends Component {
 		this.chatroom = chatroom;
 		this.title = title;
 
-		this.ref = firebase.firestore().collection(this.communityDomain).doc("chat").collection("chatrooms").doc(this.chatroom);
-
-		this.unsubscribe = this.ref.onSnapshot(doc => {
-			const item = doc.data();
-		});
-
 		Backend.setLanguage(this.props.auth.language);
 		Backend.setChatroom(this.chatroom, this.title);
 		Backend.setMute(null);
@@ -78,8 +71,6 @@ class chat extends Component {
 				this.setState(previousState => ({
 					messages: GiftedChat.append(previousState.messages, message)
 				}));
-			} else {
-				console.log("ignoring message");
 			}
 		});
 
@@ -162,10 +153,6 @@ class chat extends Component {
 		Backend.closeChat();
 	}
 
-	avatarPress = props => {
-		Alert.alert(props.email);
-	};
-
 	onLoadEarlier() {
 		this.setState(previousState => ({
 			isLoadingEarlier: true
@@ -203,14 +190,6 @@ class chat extends Component {
 			this.onSend(images);
 		}
 	};
-
-	renderSystemMessage(props) {
-		return <SystemMessage {...props} containerStyle={{
-			marginBottom: 15
-		}} textStyle={{
-			fontSize: 14
-		}} />;
-	}
 
 	renderCustomView(props) {
 		return <CustomView {...props} />;
@@ -371,13 +350,12 @@ class chat extends Component {
 					...userDetails
 				}}
 				renderActions={this.renderCustomActions}
-				renderSystemMessage={this.renderSystemMessage}
 				renderCustomView={this.renderCustomView}
 				renderMessageImage={this.renderCustomImage}
 				renderMessageVideo={this.renderCustomVideo}
 				showUserAvatar={true} bottomOffset={0}
-				onPressAvatar={this.avatarPress}
 				alwaysShowSend={true}
+				textInputProps={{ autoFocus: true }}
 				renderSend={this.renderSend}
 				placeholder={I18n.t("typeMessage")}
 				parsePatterns={this.parsePatterns}

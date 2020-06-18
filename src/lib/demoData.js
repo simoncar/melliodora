@@ -3,7 +3,6 @@ import moment from "moment";
 
 class DemoData {
 	static async setupDemoData() {
-		console.log("setting up demo data - oakforest_international_edu");
 
 		var cal = [];
 

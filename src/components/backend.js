@@ -149,8 +149,6 @@ export class Backend extends React.Component {
 					uid: global.uid,
 				};
 
-				console.log("messageDict", messageDict);
-
 				this.messageRef = firebase
 					.firestore()
 					.collection(global.domain)
@@ -195,11 +193,8 @@ export class Backend extends React.Component {
 	}
 
 	closeChat() {
-		console.log("Unsubscribe 1");
 		if (this.unsubscribe) {
-			console.log("Unsubscribe 2");
 			this.unsubscribe();
-			console.log("Unsubscribe 3");
 		}
 	}
 }
@@ -220,7 +215,6 @@ async function uploadImageAsync(message, chatroom, user) {
 
 	var fileType = message.filename.split(".").pop().split(/\#|\?/)[0];
 	var fileToUpload = "";
-	console.log("fileType=", fileType);
 	fileType = fileType.toUpperCase();
 	if (fileType == "JPG" || fileType == "HEIC" || fileType == "PNG") {
 		const convertedImage = await new ImageManipulator.manipulateAsync(
@@ -261,19 +255,16 @@ async function uploadImageAsync(message, chatroom, user) {
 			return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
 		})
 		.then((downloadURL) => {
-			console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
 			URLfile = downloadURL;
 			return downloadURL;
 		})
 
 		.catch((error) => {
 			// Use to signal error if something goes wrong.
-			console.log(`Failed to upload file and get link - ${error}`);
 		});
 
 	// We're done with the blob, close and release it
 	blob.close();
-	console.log("----------= file type - ", fileType);
 
 	user.name = user.name ? user.name : "";
 	user.id = user.id ? user.id : "";
