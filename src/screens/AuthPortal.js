@@ -26,10 +26,8 @@ class authPortal extends Component {
 		var url;
 
 		if (_.isNil(this.props.route.params && this.props.route.params.url)) {
-			console.log("A", url);
 			url = undefined != global.switch_portalURL ? global.switch_portalURL : "https://www.smartcookies.io";
 		} else {
-			console.log("B");
 
 			url = this.props.route.params.url;
 		}
@@ -49,7 +47,6 @@ class authPortal extends Component {
 		this.actionOptions = global.switch_webportalActions ? global.switch_webportalActions.map(item => Object.keys(item)[0]) : [];
 		this.actionOptions.push("Cancel");
 
-		console.log("initial:", this.state.url, url, global.switch_portalURL);
 	}
 	//this.props.chatroom
 
@@ -116,7 +113,6 @@ class authPortal extends Component {
 			}
 		}
 		this.setState({ url: navState.url });
-		console.log(" navState.url:", navState.url, navState);
 	};
 
 	onBack() {

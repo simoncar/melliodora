@@ -17,7 +17,6 @@ class Firebase {
           resolve(1);
         }
       } catch (e) {
-        console.log("firebase catch error:", e.message);
         //console.error(e.message);
       }
     });

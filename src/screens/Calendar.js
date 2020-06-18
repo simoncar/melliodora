@@ -36,8 +36,6 @@ class Calendar extends Component {
 	}
 
 	componentDidMount() {
-
-
 		moment.updateLocale;
 		this.calendarEvents = firebase.firestore().collection(global.domain).doc("calendar").collection("calendarItems");
 
@@ -45,11 +43,6 @@ class Calendar extends Component {
 		this.listenLoadFromFirebase(this.calendarEvents);
 		Analytics.track("Calendar");
 	}
-
-	aa() {
-		console.log("AA")
-	}
-
 
 	listenLoadFromFirebase(dataSnapshot2) {
 		dataSnapshot2.get().then(snapshot => {
@@ -104,7 +97,6 @@ class Calendar extends Component {
 				items: items2
 			});
 		}).catch(err => {
-			console.log("Error getting documents", err);
 		});
 	}
 
@@ -124,7 +116,6 @@ class Calendar extends Component {
 		try {
 			AsyncStorage.setItem("calendarItems", calendarItems);
 		} catch (error) {
-			console.log(error);
 			// Error saving data
 		}
 	};

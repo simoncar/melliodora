@@ -4,7 +4,6 @@ export function SaveFeature(dict) {
 	const { _key, summary, description, order, photo1, showIconChat, visible, visibleMore, dateTimeStart, dateTimeEnd, date_start } = dict;
 
 
-	console.log("SAVING:", dict.dateTimeStart, dict.dateTimeEnd)
 	const storyDict = {
 		summary: summary || "Title",
 		description: description || "Description",
