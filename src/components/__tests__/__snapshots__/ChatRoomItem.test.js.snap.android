@@ -56,6 +56,22 @@ exports[`display individual chatroom list item 1`] = `
         >
           School Sports
         </Text>
+        <Text
+          ellipsizeMode="tail"
+          numberOfLines={2}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#777777",
+              },
+            ]
+          }
+        >
+          what time is the running race?
+        </Text>
       </View>
       <View>
         <Text
@@ -73,7 +89,7 @@ exports[`display individual chatroom list item 1`] = `
             ]
           }
         >
-          what time is the running race?
+          
         </Text>
       </View>
     </View>

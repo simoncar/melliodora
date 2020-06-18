@@ -296,7 +296,7 @@ exports[`list of calendars on the device - with calendars 1`] = `
                         ]
                       }
                     >
-                      unknown
+                      Other
                     </Text>
                   </View>
                 </View>
@@ -426,7 +426,7 @@ exports[`list of calendars on the device - with calendars 1`] = `
                         ]
                       }
                     >
-                      birthdays
+                      Other
                     </Text>
                   </View>
                 </View>
@@ -556,7 +556,7 @@ exports[`list of calendars on the device - with calendars 1`] = `
                         ]
                       }
                     >
-                      local
+                      Default
                     </Text>
                   </View>
                 </View>
@@ -686,7 +686,7 @@ exports[`list of calendars on the device - with calendars 1`] = `
                         ]
                       }
                     >
-                      subscribed
+                      Subscribed Calendars
                     </Text>
                   </View>
                 </View>

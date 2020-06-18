@@ -6,181 +6,187 @@ import Analytics from "../lib/analytics";
 import I18n from "../lib/i18n";
 
 class Search extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: I18n.t("search")
-  });
+	static navigationOptions = ({ navigation }) => ({
+		title: I18n.t("search")
+	});
 
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      loading: true,
-      loadingMessage: I18n.t("search") + "...",
-      data: [],
-      fullData: [],
-      error: null
-    };
-  }
-  keyExtractor = item => item._key;
+		this.state = {
+			loading: true,
+			loadingMessage: I18n.t("search") + "...",
+			data: [],
+			fullData: [],
+			error: null
+		};
+	}
+	keyExtractor = item => item._key;
 
-  componentDidMount() {
-    // this.props.navigation.setParams({
-    //   updateSearchCache: this.updateSearchCache,
-    // });
+	componentDidMount() {
+		// this.props.navigation.setParams({
+		//   updateSearchCache: this.updateSearchCache,
+		// });
 
-    this.setState({ loading: true });
+		this.setState({ loading: true });
 
-    Analytics.track("Search");
+		Analytics.track("Search");
 
-    this.loadFromAsyncStorage();
-  }
+		this.aa()
 
-  updateSearchCache = () => {
-    this.setState({ loading: true });
-    //Api.getStudents(this.callback.bind(this));
-  };
+		this.loadFromAsyncStorage();
+	}
 
-  callback = data => {
-    this.setState({ loading: false });
+	aa() {
+		console.log("AA")
+	}
 
-    this.setState({
-      data: data,
-      fullData: data,
-      loading: false
-    });
-    console.log("callback here ");
-    this.search.focus();
-  };
+	updateSearchCache = () => {
+		this.setState({ loading: true });
+		//Api.getStudents(this.callback.bind(this));
+	};
 
-  loadFromAsyncStorage() {
-    try {
-      var events = [];
-      AsyncStorage.getItem("calendarItems").then(fi => {
-        var data = JSON.parse(fi);
+	callback = data => {
+		this.setState({ loading: false });
 
-        for (var key in data) {
-          var calItem = data[key];
-          calItem.forEach(doc => {
-            events.push(doc);
-          });
-        }
+		this.setState({
+			data: data,
+			fullData: data,
+			loading: false
+		});
+		console.log("callback here ");
+		this.search.focus();
+	};
 
-        //if (data == null) {
-        // Api.getStudents(this.callback.bind(this));
-        //} else {
-        this.setState({
-          data: events,
-          fullData: events,
-          loading: false
-        });
-        this.search.focus();
-        //  }
-      });
-    } catch (error) {
-      console.log(error);
-      // Error retrieving data
-    }
-  }
+	loadFromAsyncStorage() {
+		try {
+			var events = [];
+			AsyncStorage.getItem("calendarItems").then(fi => {
+				var data = JSON.parse(fi);
 
-  // callback() {
-  //   console.log("callback");
-  //   this.setState({
-  //     loadingMessage: "Search ...",
-  //   });
+				for (var key in data) {
+					var calItem = data[key];
+					calItem.forEach(doc => {
+						events.push(doc);
+					});
+				}
 
-  //   this.search.focus();
-  // }
+				//if (data == null) {
+				// Api.getStudents(this.callback.bind(this));
+				//} else {
+				this.setState({
+					data: events,
+					fullData: events,
+					loading: false
+				});
+				this.search.focus();
+				//  }
+			});
+		} catch (error) {
+			console.log(error);
+			// Error retrieving data
+		}
+	}
 
-  renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "86%",
-          backgroundColor: "#CED0CE",
-          marginLeft: "14%"
-        }}
-      />
-    );
-  };
+	// callback() {
+	//   console.log("callback");
+	//   this.setState({
+	//     loadingMessage: "Search ...",
+	//   });
 
-  searchFilterFunction = text => {
-    this.setState({
-      value: text
-    });
-    if (this.state.fullData != null) {
-      const newData = this.state.fullData.filter(item => {
-        const itemData = `${item.summary.toUpperCase()}`;
-        const textData = text.toUpperCase();
+	//   this.search.focus();
+	// }
 
-        return itemData.indexOf(textData) > -1;
-      });
-      this.setState({
-        data: newData
-      });
-    }
-  };
+	renderSeparator = () => {
+		return (
+			<View
+				style={{
+					height: 1,
+					width: "86%",
+					backgroundColor: "#CED0CE",
+					marginLeft: "14%"
+				}}
+			/>
+		);
+	};
 
-  renderHeader = () => {
-    return (
-      <SearchBar
-        placeholder={this.state.loadingMessage}
-        ref={search => (this.search = search)}
-        lightTheme
-        round
-        onChangeText={text => this.searchFilterFunction(text)}
-        autoCorrect={false}
-        value={this.state.value}
-        containerStyle={styles.searchContainer}
-        inputContainerStyle={styles.searchContainer}
-      />
-    );
-  };
+	searchFilterFunction = text => {
+		this.setState({
+			value: text
+		});
+		if (this.state.fullData != null) {
+			const newData = this.state.fullData.filter(item => {
+				const itemData = `${item.summary.toUpperCase()}`;
+				const textData = text.toUpperCase();
 
-  _renderItem(item) {
-    return <CalendarItem navigation={this.props.navigation} item={item.item} />;
-  }
+				return itemData.indexOf(textData) > -1;
+			});
+			this.setState({
+				data: newData
+			});
+		}
+	};
 
-  render() {
-    if (this.state.loading) {
-      return (
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-          <ActivityIndicator
-            size="large"
-            style={{
-              margin: 40
-            }}
-          />
-        </View>
-      );
-    }
-    return (
-      <View style={{ flex: 1 }}>
-        <FlatList
-          data={this.state.data}
-          renderItem={this._renderItem.bind(this)}
-          keyExtractor={item => item.mac}
-          ItemSeparatorComponent={this.renderSeparator}
-          ListHeaderComponent={this.renderHeader}
-        />
-      </View>
-    );
-  }
+	renderHeader = () => {
+		return (
+			<SearchBar
+				placeholder={this.state.loadingMessage}
+				ref={search => (this.search = search)}
+				lightTheme
+				round
+				onChangeText={text => this.searchFilterFunction(text)}
+				autoCorrect={false}
+				value={this.state.value}
+				containerStyle={styles.searchContainer}
+				inputContainerStyle={styles.searchContainer}
+			/>
+		);
+	};
+
+	_renderItem(item) {
+		return <CalendarItem navigation={this.props.navigation} item={item.item} />;
+	}
+
+	render() {
+		if (this.state.loading) {
+			return (
+				<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+					<ActivityIndicator
+						size="large"
+						style={{
+							margin: 40
+						}}
+					/>
+				</View>
+			);
+		}
+		return (
+			<View style={{ flex: 1 }}>
+				<FlatList
+					data={this.state.data}
+					renderItem={this._renderItem.bind(this)}
+					keyExtractor={item => item.mac}
+					ItemSeparatorComponent={this.renderSeparator}
+					ListHeaderComponent={this.renderHeader}
+				/>
+			</View>
+		);
+	}
 }
 
 // Styles
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  searchContainer: {
-    backgroundColor: "#fff"
-  },
-  navigationIcon: {
-    color: "#48484A",
-    fontSize: 25,
-    marginRight: 10
-  }
+	container: {
+		flex: 1
+	},
+	searchContainer: {
+		backgroundColor: "#fff"
+	},
+	navigationIcon: {
+		color: "#48484A",
+		fontSize: 25,
+		marginRight: 10
+	}
 });
 
 export default Search;

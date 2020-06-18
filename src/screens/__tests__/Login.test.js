@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from 'react-native-testing-library';
+import { render } from 'react-native-testing-library';
 
 import { LoginScreen } from '../Login';
 

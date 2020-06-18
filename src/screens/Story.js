@@ -9,6 +9,7 @@ import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../
 import _ from "lodash";
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent"
+import { phoneCalendar } from "../lib/phoneCalendar"
 
 export class Story extends Component {
 	constructor(props) {
@@ -84,7 +85,7 @@ export class Story extends Component {
 	_drawImage(imageURI) {
 		var uri = ""
 		if (_.isNil(imageURI) || (imageURI == "")) {
-			uri = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fxdesk-calendar-980x470-20181016.jpg.pagespeed.ic.BdAsh-Nj_6.jpg?alt=media&token=697fef73-e77d-46de-83f5-a45540694274";
+			uri = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680";
 		} else {
 			uri = imageURI;
 		}
@@ -130,7 +131,8 @@ export class Story extends Component {
 	_drawIconCalendar(params) {
 		if (isValue(params.date_start)) {
 			return <TouchableOpacity onPress={() => {
-				this.props.navigation.navigate("Calendars", this.state);
+				phoneCalendar(this.state)
+				//this.props.navigation.navigate("Calendars", this.state);
 			}}>
 				<Text testID="story.calendarIcon" style={styles.eventText}>
 					<Ionicons name="ios-calendar" style={styles.eventIcon} />
