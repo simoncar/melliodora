@@ -8,8 +8,8 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import CustomView from "../components/customView";
-import CustomImage from "../components/customImage";
-import CustomVideo from "../components/customVideo";
+import CustomImage from "../components/ChatCustomImage";
+import CustomVideo from "../components/ChatCustomVideo";
 import I18n from "../lib/i18n";
 import uuid from "uuid";
 import _ from "lodash";
@@ -54,10 +54,8 @@ class chat extends Component {
 		localMessages = [];
 
 		this.communityDomain = this.props.community.selectedCommunity.node;
-		console.log("this.this.communityDomain", this.communityDomain);
 		this.userInfo = this.props.auth.userInfo;
 
-		console.log("PROPS:", this.props);
 	}
 
 	componentDidMount() {
@@ -180,7 +178,7 @@ class chat extends Component {
 	renderCustomActions(props) {
 		return <TouchableOpacity style={styles.photoContainer} onPress={this._pickImage}>
 			<View>
-				<Entypo name="camera" style={styles.a221a5264ac4611ea973dcfce83f911da} />
+				<Entypo name="camera" style={styles.cameraAction} />
 			</View>
 		</TouchableOpacity>;
 	}
@@ -367,10 +365,24 @@ class chat extends Component {
 				</TouchableOpacity>
 			</View>
 
-			<GiftedChat messages={this.state.messages} onSend={this.onSend} user={{
-				_id: this.userInfo.uid,
-				...userDetails
-			}} renderActions={this.renderCustomActions} renderSystemMessage={this.renderSystemMessage} renderCustomView={this.renderCustomView} renderMessageImage={this.renderCustomImage} renderMessageVideo={this.renderCustomVideo} showUserAvatar={true} bottomOffset={0} onPressAvatar={this.avatarPress} alwaysShowSend={true} renderSend={this.renderSend} placeholder={I18n.t("typeMessage")} parsePatterns={this.parsePatterns} renderUsernameOnMessage={true} />
+			<GiftedChat
+				messages={this.state.messages}
+				onSend={this.onSend} user={{
+					_id: this.userInfo.uid,
+					...userDetails
+				}}
+				renderActions={this.renderCustomActions}
+				renderSystemMessage={this.renderSystemMessage}
+				renderCustomView={this.renderCustomView}
+				renderMessageImage={this.renderCustomImage}
+				renderMessageVideo={this.renderCustomVideo}
+				showUserAvatar={true} bottomOffset={0}
+				onPressAvatar={this.avatarPress}
+				alwaysShowSend={true}
+				renderSend={this.renderSend}
+				placeholder={I18n.t("typeMessage")}
+				parsePatterns={this.parsePatterns}
+				renderUsernameOnMessage={true} />
 
 			<Footer style={styles.footer} />
 		</Container>;
@@ -424,7 +436,7 @@ const styles = StyleSheet.create({
 	a221a5263ac4611ea973dcfce83f911da: {
 		color: "gray"
 	},
-	a221a5264ac4611ea973dcfce83f911da: {
+	cameraAction: {
 		color: "#777777",
 		fontSize: 25
 	},
