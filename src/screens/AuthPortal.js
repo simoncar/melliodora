@@ -1,15 +1,14 @@
 
 import React, { Component } from "react";
 import Constants from "expo-constants";
-import { Animated, TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
+import { TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
 import { WebView } from "react-native-webview";
-import { connectActionSheet, ActionSheetProvider, ActionSheetOptions } from "@expo/react-native-action-sheet";
+import { connectActionSheet, ActionSheetProvider } from "@expo/react-native-action-sheet";
 //import { withNavigation } from "react-navigation";
 
-import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import AuthParser from "../components/authParser";
 import _ from "lodash";
-import Analytics from "../lib/analytics";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { saveDetails } from "../store/authPortal";
@@ -205,6 +204,14 @@ export default class AppContainer extends React.Component {
 }
 
 const styles = StyleSheet.create({
+	Leftheading: {
+		alignSelf: "center",
+		color: "#037AFF",
+		fontSize: 30,
+		paddingBottom: 5,
+		paddingLeft: 10,
+		paddingRight: 10,
+	},
 	aeba9fa70af6311ea88c25dbffc760ad0: {
 		backgroundColor: "transparent"
 	},
@@ -214,74 +221,37 @@ const styles = StyleSheet.create({
 	aebaabdc1af6311ea88c25dbffc760ad0: {
 		flex: 2
 	},
+
 	aebab5a00af6311ea88c25dbffc760ad0: {
 		fontSize: 14,
 		fontWeight: "bold"
 	},
-	settingsMessage: {
-		paddingTop: 10,
-		paddingLeft: 10,
-		paddingRight: 10,
-		backgroundColor: "blue",
-	},
-	settingsMessageText: {
-		fontSize: 22,
-		paddingBottom: 10,
-		color: "white",
-	},
-	settingsMessageIcon: {
-		fontSize: 30,
-		width: 30,
-		color: "white",
-	},
-
-	navIcon: {
-		paddingLeft: 10,
-		paddingRight: 10,
-		color: "#FFF",
-		fontSize: 20,
-	},
 
 	heading: {
-		color: "#037AFF",
 		alignSelf: "center",
+		color: "#037AFF",
 		fontSize: 30,
 		paddingBottom: 5,
 		paddingRight: 10,
 	},
-	Leftheading: {
-		color: "#037AFF",
-		alignSelf: "center",
-		fontSize: 30,
-		paddingBottom: 5,
-		paddingRight: 10,
+	navIcon: {
+		color: "#FFF",
+		fontSize: 20,
 		paddingLeft: 10,
+		paddingRight: 10,
 	},
 
-	roundedButton: {
-		alignSelf: "center",
+
+	topbar: {
 		alignItems: "center",
-		backgroundColor: "rgba(0,0,0,0.2)",
-		borderRadius: 30,
-		width: 60,
-		height: 60,
+		backgroundColor: "grey",
+		flexDirection: "row",
+		height: 40,
 	},
+
 	url: {
 		color: "#FFF",
 		fontSize: 14,
 	},
-	container: {
-		flex: 1,
-		paddingTop: 15 /* Padding to push below the navigation bar */,
-		backgroundColor: "#F5FCFF",
-	},
-	topbar: {
-		flexDirection: "row",
-		alignItems: "center",
-		height: 40,
-		backgroundColor: "grey",
-	},
-	topbarTextDisabled: {
-		color: "green",
-	},
+
 });

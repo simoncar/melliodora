@@ -1,13 +1,10 @@
 
 import React, { Component } from "react";
-import { View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Text } from "./sComponent";
-import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
-import { getLanguageString } from "../lib/global";
 import { Grid, Col, Row } from "react-native-easy-grid";
-import { formatTime, formatMonth } from "../lib/global.js";
-const { width } = Dimensions.get("window");
+import { formatTime } from "../lib/global.js";
 import _ from "lodash";
 class CalendarItem extends Component {
 	constructor(props) {
@@ -44,14 +41,14 @@ class CalendarItem extends Component {
 	renderImage(calImage) {
 
 		if (_.isNil(calImage)) {
-			var uri = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fxdesk-calendar-980x470-20181016.jpg.pagespeed.ic.BdAsh-Nj_6.jpg?alt=media&token=697fef73-e77d-46de-83f5-a45540694274";
+			var uri = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680";
 		} else {
 			var uri = calImage;
 		}
 		const preview = {
 			uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
 		};
-		
+
 
 		if (undefined != calImage && calImage.length > 0) {
 			return <Image {...{ preview, uri }} style={styles.image} resizeMode="contain" />;

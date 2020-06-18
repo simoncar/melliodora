@@ -30,9 +30,7 @@ class Settings extends Component {
 
 	_logout() {
 		AsyncStorage.clear().then(() => {
-			global = {};
 			Analytics.track("Logout");
-
 			Alert.alert("Restarting");
 			Updates.reloadFromCache();
 		});
@@ -77,36 +75,40 @@ class Settings extends Component {
 				<MaterialIcons name="edit" style={styles.adminEditButton} />
 			</TouchableHighlight>}
 			<Text></Text>
-			{this._renderUser()}
-			<SettingsListItem icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />} title={I18n.t("searchUsers")} onPress={() => this.props.navigation.navigate("UserSearch")} />
+			<View style={styles.card}>
+				{this._renderUser()}
+				<SettingsListItem icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />} title={I18n.t("searchUsers")} onPress={() => this.props.navigation.navigate("UserSearch")} />
+			</View>
+			<View style={styles.card}>
 
-			<FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
+				{features.filter(item => item.visible !== false).map((el, idx) => {
+					i++;
+					const navTitle = el.navTitle || el.title;
+					const navProps = el.navURL ? {
+						url: el.navURL,
+						title: I18n.t(navTitle, { defaultValue: navTitle })
+					} : {};
 
-			{features.filter(item => item.visible !== false).map((el, idx) => {
-				i++;
-				const navTitle = el.navTitle || el.title;
-				const navProps = el.navURL ? {
-					url: el.navURL,
-					title: I18n.t(navTitle, { defaultValue: navTitle })
-				} : {};
+					const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
+					return <SettingsListItem key={"feature" + idx} icon={<Image style={styles.imageStyle} source={imgSource} />} title={I18n.t(el.title || "", {
+						defaultValue: el.title || ""
+					})} titleInfo={el.titleInfo || ""} onPress={() => this.props.navigation.navigate(el.navigate || "WebPortal", navProps)} />;
+				})}
 
-				const imgSource = el.icon ? icons[el.icon] : icons["wifi"];
-				return <SettingsListItem key={"feature" + idx} icon={<Image style={styles.imageStyle} source={imgSource} />} title={I18n.t(el.title || "", {
-					defaultValue: el.title || ""
-				})} titleInfo={el.titleInfo || ""} onPress={() => this.props.navigation.navigate(el.navigate || "WebPortal", navProps)} />;
-			})}
+			</View>
 
 			{this.separator(i)}
+			<View style={styles.card}>
+				<SettingsListItem icon={<FontAwesome name="language" style={styles.imageStyleIcon} />} title={"Language"} titleInfo={this.props.auth.language} onPress={() => this.props.navigation.navigate("selectLanguage")} />
+				<SettingsListItem icon={<FontAwesome name="lock" style={styles.imageStyleIcon} />} hasNavArrow={true} title={I18n.t("adminAccess")} onPress={() => this.props.navigation.navigate("adminPassword")} />
 
-			<SettingsListItem icon={<FontAwesome name="language" style={styles.imageStyleIcon} />} title={"Language"} titleInfo={this.props.auth.language} onPress={() => this.props.navigation.navigate("selectLanguage")} />
-			<SettingsListItem icon={<FontAwesome name="lock" style={styles.imageStyleIcon} />} hasNavArrow={true} title={I18n.t("adminAccess")} onPress={() => this.props.navigation.navigate("adminPassword")} />
+				{isAdmin(this.props.adminPassword) && <SettingsListItem icon={<FontAwesome name="edit" style={styles.imageStyleIcon} />} title={I18n.t("editor")} onPress={() => this.props.navigation.navigate("Content")} />}
 
-			{isAdmin(this.props.adminPassword) && <SettingsListItem icon={<FontAwesome name="edit" style={styles.imageStyleIcon} />} title={I18n.t("editor")} onPress={() => this.props.navigation.navigate("Content")} />}
-
-			<SettingsListItem hasNavArrow={false} icon={<MaterialIcons name="info-outline" style={styles.imageStyleIcon} />} title={I18n.t("aboutThisApp")} onPress={() => {
-				Linking.openURL("https://smartcookies.io/smart-community");
-			}} />
-			<SettingsListItem hasNavArrow={false} icon={<SimpleLineIcons name="logout" style={styles.imageStyleIcon} />} title={I18n.t("logout")} onPress={() => this._logout()} />
+				<SettingsListItem hasNavArrow={false} icon={<MaterialIcons name="info-outline" style={styles.imageStyleIcon} />} title={I18n.t("aboutThisApp")} onPress={() => {
+					Linking.openURL("https://smartcookies.io/smart-community");
+				}} />
+				<SettingsListItem hasNavArrow={false} icon={<SimpleLineIcons name="logout" style={styles.imageStyleIcon} />} title={I18n.t("logout")} onPress={() => this._logout()} />
+			</View>
 		</View>;
 	}
 	toggleAuthView() {
@@ -137,8 +139,15 @@ const styles = StyleSheet.create({
 		zIndex: 1
 	},
 	adminEditButton: { color: "white", fontSize: 25 },
-
 	adminEditView: { backgroundColor: "#EFEFF4", flex: 1 },
+
+	card: {
+		alignSelf: "center",
+		backgroundColor: "#fff",
+		borderRadius: 15,
+		marginBottom: 12,
+		width: "95%",
+	},
 	imageStyle: {
 		alignSelf: "center",
 		height: 30,

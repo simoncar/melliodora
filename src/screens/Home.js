@@ -1,5 +1,4 @@
-
-import React, { Component, Dimensions } from "react";
+import React, { Component } from "react";
 import { FlatList, View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image, ScrollView, StyleSheet } from "react-native";
 import { Container, Content } from "native-base";
 import Constants from "expo-constants";
@@ -20,7 +19,7 @@ import DemoData from "../lib/demoData";
 const demo = DemoData;
 
 const bottomLogo = {
-	sais_edu_sg: require("../../images/sais_edu_sg/10yearLogo.png"),
+	sais_edu_sg: require("../../images/sais_edu_sg/SAISlogo_new2.png"),
 	ais_edu_sg: require("../../images/ais_edu_sg/ifla-apr.jpeg")
 };
 
@@ -33,7 +32,6 @@ class Home extends Component {
 			featureItems: [],
 			calendarItems: [],
 			balanceItems: [],
-
 		};
 
 		this.loadFromAsyncStorage();
@@ -282,10 +280,11 @@ class Home extends Component {
 			</TouchableHighlight>}
 			<Content showsVerticalScrollIndicator={false}>
 				{global.domain === "ais_edu_sg" ? <View style={styles.newsContentLine}>
-					<ScrollView horizontal={true} bounces={false} contentContainerStyle={{
-						paddingHorizontal: 12,
-						paddingVertical: 8
-					}} style={styles.adab8ac51ac6d11ea973dcfce83f911da} showsHorizontalScrollIndicator={false}>
+					<ScrollView
+						horizontal={true} bounces={false} contentContainerStyle={{
+							paddingHorizontal: 12,
+							paddingVertical: 8
+						}} style={styles.adab8ac51ac6d11ea973dcfce83f911da} showsHorizontalScrollIndicator={false}>
 						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
 							this.props.navigation.navigate("WebPortal", {
 								url: "https://iflaapr.org/newsletters",
@@ -362,14 +361,14 @@ class Home extends Component {
 							uri: global.switch_homeLogoURI
 						}} />
 					</View>
-					<View style={styles.adab8fa71ac6d11ea973dcfce83f911da}>
+					<View style={styles.cookiesLogoView}>
 						<TouchableOpacity onPress={() => {
 							this._handleOpenWithLinking("https://smartcookies.io/smart-community");
-						}} style={styles.adab8fa72ac6d11ea973dcfce83f911da}>
+						}}>
 							<Image source={require("../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
 						</TouchableOpacity>
 					</View>
-					<View>
+					<View style={styles.userDiagnostics} >
 						<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
 						<Text style={styles.user}>{global.name}</Text>
 						<Text style={styles.user}>{global.email}</Text>
@@ -402,14 +401,6 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		marginTop: 70,
 		width: "100%"
-	},
-	adab8fa71ac6d11ea973dcfce83f911da: {
-		alignItems: "center",
-		marginTop: 100
-	},
-	adab8fa72ac6d11ea973dcfce83f911da: {
-		height: 40,
-		width: 40
 	},
 	addButton: {
 		alignItems: "center",
@@ -447,25 +438,29 @@ const styles = StyleSheet.create({
 		width: "98%"
 	},
 
-
+	cookiesLogoView: {
+		alignItems: "center",
+		marginTop: 100
+	},
 	homeMenuIcon: {
 		height: 50,
 		width: 50
 	},
+
+
 	homeMenuItemContainer: {
 		alignItems: "center",
 		flexDirection: "column",
 		marginRight: 15
 	},
-
-
-
 	homeMenuText: { color: "black", fontSize: 12, textAlign: "center" },
+
+
+
 	newsContentLine: {
 		backgroundColor: "#f2f2f2",
 		paddingTop: 10
 	},
-
 	sclogo: {
 		alignSelf: "center",
 		borderTopWidth: 1,
@@ -478,6 +473,7 @@ const styles = StyleSheet.create({
 		resizeMode: "contain",
 		width: "80%"
 	},
+
 	user: {
 		alignSelf: "center",
 		backgroundColor: "white",
@@ -485,9 +481,10 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "column",
 		fontSize: 12,
-		paddingBottom: 0,
-		paddingTop: 0,
 		textAlign: "center"
+	},
+	userDiagnostics: {
+		paddingBottom: 30,
 	},
 	version: {
 		alignSelf: "center",
@@ -496,8 +493,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "column",
 		fontSize: 12,
-		paddingBottom: 20,
-		paddingTop: 0,
 		textAlign: "center"
 	}
 });

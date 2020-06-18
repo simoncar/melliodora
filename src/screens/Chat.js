@@ -413,10 +413,6 @@ const styles = StyleSheet.create({
 	a221a5263ac4611ea973dcfce83f911da: {
 		color: "gray"
 	},
-	cameraAction: {
-		color: "#777777",
-		fontSize: 25
-	},
 	a221aa080ac4611ea973dcfce83f911da: {
 		backgroundColor: "#f2f2f2",
 		flex: 1,
@@ -441,9 +437,13 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		padding: 12
 	},
-
 	a221aa085ac4611ea973dcfce83f911da: {
 		height: "70%"
+	},
+
+	cameraAction: {
+		color: "#777777",
+		fontSize: 25
 	},
 	chatBanner: {
 		alignSelf: "center",

@@ -1,9 +1,7 @@
 import firebase from "firebase";
 import uuid from "uuid";
 import * as ImagePicker from "expo-image-picker";
-import * as ImageManipulator from "expo-image-manipulator";
 import * as Permissions from "expo-permissions";
-import { Camera } from "expo-camera";
 
 export async function getPermissionAsync() {
 	const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
