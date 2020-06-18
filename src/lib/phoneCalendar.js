@@ -18,7 +18,6 @@ export const phoneCalendar = async (event) => {
 	try {
 		//Analytics.track("Calendar Add", { story: this.props.summaryMyLanguage });
 		const defaultCalendarID = await getDefaultCalendarID();
-		console.log(defaultCalendarID)
 		await Calendar.createEventAsync(defaultCalendarID.id, newEvent);
 		Alert.alert("Saved to Calendar");
 	} catch (e) {
