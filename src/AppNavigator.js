@@ -124,11 +124,9 @@ const Tab = createBottomTabNavigator();
 
 function Tabs() {
 	return <Tab.Navigator screenOptions={({ route }) => ({
-		tabBarIcon: ({ focused, color, size }) => {
-			let iconName, iconLib;
+		tabBarIcon: ({ color, size }) => {
 
 			if (route.name === "homeNav") {
-				iconName = "";
 				return <Ionicons name={"ios-home"} size={size} color={color} />;
 			} else if (route.name === "home") {
 				return <Ionicons name={"ios-calendar"} size={size} color={color} />;

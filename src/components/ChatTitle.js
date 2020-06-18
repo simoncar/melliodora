@@ -13,7 +13,7 @@ export default class ChatTitle extends Component {
 	constructor(props) {
 		super(props);
 
-		const { title, chatroom, type, edit } = this.props.route.params;
+		const { chatroom, type, edit } = this.props.route.params;
 
 		this.state = {
 			chatroom: chatroom,
