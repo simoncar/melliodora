@@ -1,15 +1,7 @@
+ 
 import PropTypes from "prop-types";
 import React from "react";
-import {
-  StyleSheet,
-  TouchableOpacity,
-  ViewPropTypes,
-  Text,
-  View,
-  Modal,
-  ImageBackground,
-  CameraRoll,
-} from "react-native";
+import { StyleSheet, TouchableOpacity, ViewPropTypes, Text, View, Modal, ImageBackground, CameraRoll } from "react-native";
 import { Video } from "expo";
 import I18n from "../lib/i18n";
 
@@ -18,7 +10,7 @@ export default class CustomVideo extends React.Component {
     super(props);
     this.state = {
       modalVisible: false,
-      saveTitle: I18n.t("save"),
+      saveTitle: I18n.t("save")
     };
   }
 
@@ -33,113 +25,80 @@ export default class CustomVideo extends React.Component {
 
   render() {
     const preview = {
-      uri:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+      uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
     };
     const uri = this.props.currentMessage.video;
 
     if (this.props.currentMessage.video) {
-      return (
-        <View>
-          <TouchableOpacity
-            onPress={() => {
+      return <View>
+          <TouchableOpacity onPress={() => {
+          this.setModalVisible(!this.state.modalVisible);
+        }}>
+            <Modal transparent={false} visible={this.state.modalVisible} onRequestClose={() => this.setModalVisible(false)}>
+              <TouchableOpacity onPress={() => {
               this.setModalVisible(!this.state.modalVisible);
-            }}
-          >
-            <Modal
-              transparent={false}
-              visible={this.state.modalVisible}
-              onRequestClose={() => this.setModalVisible(false)}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 20,
-                    paddingLeft: 10,
-                    paddingTop: 50,
-                    paddingBottom: 5,
-                  }}
-                >
+            }}>
+                <Text style={styles.acb9ca510b16711ea999f193302967c6e}>
                   {" "}
                   Close{" "}
                 </Text>
               </TouchableOpacity>
 
-              <Video
-                source={{
-                  uri: uri,
-                }}
-                rate={1.0}
-                volume={1.0}
-                resizeMode="cover"
-                shouldPlay
-                isLooping
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: null,
-                  height: null,
-                }}
-              />
+              <Video source={{
+              uri: uri
+            }} rate={1.0} volume={1.0} resizeMode="cover" shouldPlay isLooping style={styles.acb9ca511b16711ea999f193302967c6e} />
             </Modal>
 
-            <ImageBackground
-              style={{
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              {...{ preview, uri }}
-              resizeMode={"contain"}
-            >
-              <View
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Video
-                  source={{
-                    uri: uri,
-                  }}
-                  rate={1.0}
-                  volume={1.0}
-                  isMuted={false}
-                  resizeMode="cover"
-                  style={{ width: 300, height: 300 }}
-                />
+            <ImageBackground style={styles.acb9ca512b16711ea999f193302967c6e} {...{ preview, uri }} resizeMode={"contain"}>
+              <View style={styles.acb9ca513b16711ea999f193302967c6e}>
+                <Video source={{
+                uri: uri
+              }} rate={1.0} volume={1.0} isMuted={false} resizeMode="cover" style={styles.acb9ca514b16711ea999f193302967c6e} />
               </View>
             </ImageBackground>
           </TouchableOpacity>
-        </View>
-      );
+        </View>;
     } else return null;
   }
 }
 
 const styles = StyleSheet.create({
-  container: {},
-  mapView: {
-    width: 150,
-    height: 100,
-    borderRadius: 13,
-    margin: 3,
+  acb9ca510b16711ea999f193302967c6e: {
+    fontSize: 20,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    paddingTop: 50
   },
+  acb9ca511b16711ea999f193302967c6e: {
+    alignItems: "center",
+    flex: 1,
+    height: null,
+    justifyContent: "center",
+    width: null
+  },
+  acb9ca512b16711ea999f193302967c6e: {
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "center"
+  },
+  acb9ca513b16711ea999f193302967c6e: {
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  acb9ca514b16711ea999f193302967c6e: { height: 300, width: 300 },
+
+
 });
+
 
 CustomVideo.defaultProps = {
   currentMessage: {},
   containerStyle: {},
-  mapViewStyle: {},
+  mapViewStyle: {}
 };
 
 CustomVideo.propTypes = {
   currentMessage: PropTypes.object,
   containerStyle: ViewPropTypes.style,
-  mapViewStyle: ViewPropTypes.style,
+  mapViewStyle: ViewPropTypes.style
 };
