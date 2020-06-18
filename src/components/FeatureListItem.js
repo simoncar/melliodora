@@ -84,48 +84,31 @@ const styles = StyleSheet.create({
 		flex: 1,
 		height: 60,
 		backgroundColor: "white",
-		flexDirection: "row",
 		justifyContent: "center",
 		alignItems: "center"
 	},
 	a73435c52af6a11ea88c25dbffc760ad0: {
-		width: 36,
-		height: 36,
-		margin: 12,
+		borderColor: "lightgray",
 		borderRadius: 18,
 		borderWidth: StyleSheet.hairlineWidth,
-		borderColor: "lightgray"
+		height: 36,
+		margin: 12,
+		width: 36
 	},
 	a73438360af6a11ea88c25dbffc760ad0: {
 		lineHeight: 60,
 		marginRight: 15
 	},
-	header: {
-		paddingLeft: 15,
-		paddingRight: 15,
-		marginLeft: Platform.OS === "ios" ? undefined : -30
-	},
-	rowHeader: {
-		flex: 1,
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignSelf: "stretch",
-		paddingTop: Platform.OS === "android" ? 0 : 0
-	},
-	btnHeader: {
-		alignSelf: "center"
-	},
-
-	newsContentLine: {
-		borderTopWidth: 1,
-		borderTopColor: "#ddd"
-	},
 	itemTitle: {
+		alignItems: "center",
+		color: "black",
 		flex: 1,
 		fontSize: 18,
-		justifyContent: "center",
-		alignItems: "center",
-		color: "black"
+		justifyContent: "center"
+	},
+	newsContentLine: {
+		borderTopColor: "#ddd",
+		borderTopWidth: 1
 	}
 });
 
