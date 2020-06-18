@@ -16,7 +16,7 @@ class CalendarItem extends Component {
 
 	render() {
 		const item = this.props.item;
-		return <TouchableOpacity style={styles.af42b5460af7b11ea88c25dbffc760ad0} onPress={() => this.props.navigation.navigate("storyCalendar", item)}>
+		return <TouchableOpacity style={styles.opacity} onPress={() => this.props.navigation.navigate("storyCalendar", item)}>
 			<View style={[styles.agendaItem, {
 				height: item.height,
 				borderRightColor: this.formatBackground(item.color)
@@ -24,7 +24,7 @@ class CalendarItem extends Component {
 				<Grid>
 					<Row>
 						<Col>
-							<View style={styles.af42b7b70af7b11ea88c25dbffc760ad0}>
+							<View style={styles.textView}>
 								<Text style={styles.text}>{item.summary}</Text>
 								<Text style={styles.agendaLocation}>{item.location} </Text>
 								{this.renderTime(item.time_start_pretty, item.time_end_pretty)}
@@ -35,13 +35,14 @@ class CalendarItem extends Component {
 						</Col>
 					</Row>
 					<Row>
-						<View style={styles.af42b7b71af7b11ea88c25dbffc760ad0}>{this.renderImage(item.photo1)}</View>
+						<View style={styles.imageView}>{this.renderImage(item.photo1)}</View>
 					</Row>
 				</Grid>
 			</View>
 		</TouchableOpacity>;
 	}
 	renderImage(calImage) {
+
 		if (_.isNil(calImage)) {
 			var uri = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fxdesk-calendar-980x470-20181016.jpg.pagespeed.ic.BdAsh-Nj_6.jpg?alt=media&token=697fef73-e77d-46de-83f5-a45540694274";
 		} else {
@@ -50,8 +51,10 @@ class CalendarItem extends Component {
 		const preview = {
 			uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
 		};
+		
+
 		if (undefined != calImage && calImage.length > 0) {
-			return <Image {...{ preview, uri }} style={styles.af42ba280af7b11ea88c25dbffc760ad0} resizeMode="contain" />;
+			return <Image {...{ preview, uri }} style={styles.image} resizeMode="contain" />;
 		}
 	}
 
@@ -95,66 +98,66 @@ class CalendarItem extends Component {
 
 
 const styles = StyleSheet.create({
-	af42b5460af7b11ea88c25dbffc760ad0: {
-		flexDirection: "row",
-		marginBottom: 12
-	},
-	af42b7b70af7b11ea88c25dbffc760ad0: {
-		flex: 1,
-		alignItems: "flex-end"
-	},
-	af42b7b71af7b11ea88c25dbffc760ad0: {
-		flex: 1,
-		alignItems: "flex-end"
-	},
-	af42ba280af7b11ea88c25dbffc760ad0: {
-		width: 300,
-		height: 150
-	},
-
-	text: {
-		fontSize: 15,
-		color: "#000",
-		marginBottom: 10,
-		paddingTop: 5,
-		fontWeight: 'bold',
-		textAlign: 'right'
-	},
-	groupView: {
-		borderRadius: 3,
-		backgroundColor: "#D3D3D3",
-		width: 95,
-		height: 15,
-		alignItems: "center",
-		paddingLeft: 0,
-		paddingRight: 0,
-		justifyContent: "center",
-	},
-	groupText: {
-		fontSize: 16,
-		color: "white",
-	},
-
-	agendaItem: {
-		backgroundColor: "white",
-		flex: 1,
-		borderRadius: 5,
-		padding: 10,
-		marginRight: 10,
-		marginTop: 5,
-		alignSelf: "stretch",
-		borderRightWidth: 10,
-	},
-
 	agendaDate: {
 		color: "gray",
 		fontSize: 12,
 		marginBottom: 3,
 	},
+	agendaItem: {
+		alignSelf: "stretch",
+		backgroundColor: "white",
+		borderRadius: 5,
+		borderRightWidth: 10,
+		flex: 1,
+		marginRight: 10,
+		marginTop: 5,
+		padding: 10,
+	},
 	agendaLocation: {
 		color: "gray",
 		fontSize: 12,
 		marginTop: 5,
+	},
+	groupText: {
+		color: "white",
+		fontSize: 16,
+	},
+
+	groupView: {
+		alignItems: "center",
+		backgroundColor: "#D3D3D3",
+		borderRadius: 3,
+		height: 15,
+		justifyContent: "center",
+		paddingLeft: 0,
+		paddingRight: 0,
+		width: 95,
+	},
+	image: {
+		height: 150,
+		width: 300
+	},
+	imageView: {
+		alignItems: "flex-end",
+		flex: 1
+	},
+
+	opacity: {
+		flexDirection: "row",
+		marginBottom: 12
+	},
+
+	text: {
+		color: "#000",
+		fontSize: 15,
+		fontWeight: 'bold',
+		marginBottom: 10,
+		paddingTop: 5,
+		textAlign: 'right'
+	},
+	textView: {
+		alignItems: "flex-end",
+		flex: 1
 	},
 
 });
