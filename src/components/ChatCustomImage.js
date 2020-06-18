@@ -2,6 +2,11 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Text, View, Modal, Button, CameraRoll } from "react-native";
 import { Image } from "react-native-expo-image-cache";
+
+import * as Permissions from 'expo-permissions';
+import * as MediaLibrary from 'expo-media-library';
+import * as FileSystem from 'expo-file-system';
+
 import I18n from "../lib/i18n";
 
 export default class CustomImage extends React.Component {
@@ -17,9 +22,25 @@ export default class CustomImage extends React.Component {
 		this.setState({ modalVisible: visible });
 	}
 
-	_share(uri) {
-		CameraRoll.saveToCameraRoll(uri, "photo");
-		this.setState({ saveTitle: I18n.t("saved") });
+	downloadFile(uri) {
+		let fileUri = FileSystem.documentDirectory + "image.jpg";
+		FileSystem.downloadAsync(uri, fileUri)
+			.then(({ uri }) => {
+				this.saveFile(uri);
+			})
+			.catch(error => {
+				console.error(error);
+			})
+	}
+
+	saveFile = async (fileUri) => {
+		const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+		if (status === "granted") {
+			const asset = await MediaLibrary.createAssetAsync(fileUri)
+			await MediaLibrary.saveToLibraryAsync(asset).then(
+				this.setState({ modalVisible: false })
+			)
+		}
 	}
 
 	render() {
@@ -27,14 +48,10 @@ export default class CustomImage extends React.Component {
 			uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
 		};
 		const uri = this.props.currentMessage.image;
-		const images = [{
-			url: uri,
-			saveToLocalByLongPress: true
-		}];
 
 		if (this.props.currentMessage.image) {
 			return <View style={styles.top}>
-				<TouchableOpacity onPress={() => {
+				<TouchableOpacity testID="customImage.showImage" onPress={() => {
 					this.setModalVisible(!this.state.modalVisible);
 				}}>
 					<Modal transparent={false} visible={this.state.modalVisible} onRequestClose={() => this.setModalVisible(false)}>
@@ -47,12 +64,19 @@ export default class CustomImage extends React.Component {
 									Close
 							</Text>
 							</TouchableOpacity>
-							<Button title={this.state.saveTitle} onPress={() => {
-								this._share(uri);
-							}} />
+							<Button
+								title={this.state.saveTitle}
+								testID="customImage.save"
+								onPress={() => {
+									this.downloadFile(uri);
+								}} />
 						</View>
 
-						<Image style={styles.modalImageView} {...{ preview, uri }} resizeMode={"contain"} />
+						<Image
+							style={styles.modalImageView}
+							{...{ preview, uri }}
+							resizeMode={"contain"}
+							testID="customImage.image" />
 					</Modal>
 
 					<Image style={styles.chatImageVIew} {...{ preview, uri }} />
@@ -60,7 +84,7 @@ export default class CustomImage extends React.Component {
 
 
 			</View>;
-		} else return null;
+		}
 	}
 }
 

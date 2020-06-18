@@ -1,0 +1,459 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`show photo in chat thread 1`] = `
+<View
+  style={
+    Object {
+      "margin": 5,
+    }
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+    testID="customImage.showImage"
+  >
+    <Modal
+      hardwareAccelerated={false}
+      onRequestClose={[Function]}
+      transparent={false}
+      visible={false}
+    >
+      <View
+        style={Object {}}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontSize": 20,
+                "paddingBottom": 5,
+                "paddingLeft": 10,
+                "paddingTop": 50,
+              }
+            }
+          >
+            Close
+          </Text>
+        </View>
+        <View
+          accessibilityRole="button"
+          accessibilityStates={Array []}
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          testID="customImage.save"
+        >
+          <View
+            style={
+              Array [
+                Object {},
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#007AFF",
+                    "fontSize": 18,
+                    "padding": 8,
+                    "textAlign": "center",
+                  },
+                ]
+              }
+            >
+              Save
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "height": null,
+            "justifyContent": "center",
+            "width": null,
+          }
+        }
+      >
+        <Image
+          blurRadius={0}
+          onError={[Function]}
+          resizeMode="contain"
+          source={
+            Object {
+              "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+            }
+          }
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              },
+              Object {},
+            ]
+          }
+          testID="customImage.image"
+          transitionDuration={300}
+          uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/chatimage%2FdLyDZVfkOZ2XDVk49jHF%2F202006%2F73891c7b-5960-4b7f-a7e3-b8975ee9fecc?alt=media&token=f76974de-d8d2-4b1f-a980-a83265bdcf10"
+        />
+        <ViewManagerAdapter_ExpoBlurView
+          proxiedProperties={
+            Object {
+              "intensity": 100,
+              "tint": "dark",
+            }
+          }
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+            ]
+          }
+        />
+      </View>
+    </Modal>
+    <View
+      style={
+        Object {
+          "height": 200,
+          "marginBottom": 5,
+          "width": 350,
+        }
+      }
+    >
+      <Image
+        blurRadius={0}
+        onError={[Function]}
+        source={
+          Object {
+            "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            },
+            Object {},
+          ]
+        }
+        transitionDuration={300}
+        uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/chatimage%2FdLyDZVfkOZ2XDVk49jHF%2F202006%2F73891c7b-5960-4b7f-a7e3-b8975ee9fecc?alt=media&token=f76974de-d8d2-4b1f-a980-a83265bdcf10"
+      />
+      <ViewManagerAdapter_ExpoBlurView
+        proxiedProperties={
+          Object {
+            "intensity": 100,
+            "tint": "dark",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            },
+            Object {
+              "backgroundColor": "transparent",
+            },
+          ]
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`show photo in chat thread 2`] = `
+<View
+  style={
+    Object {
+      "margin": 5,
+    }
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+    testID="customImage.showImage"
+  >
+    <Modal
+      hardwareAccelerated={false}
+      onRequestClose={[Function]}
+      transparent={false}
+      visible={false}
+    >
+      <View
+        style={Object {}}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontSize": 20,
+                "paddingBottom": 5,
+                "paddingLeft": 10,
+                "paddingTop": 50,
+              }
+            }
+          >
+            Close
+          </Text>
+        </View>
+        <View
+          accessibilityRole="button"
+          accessibilityStates={Array []}
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          testID="customImage.save"
+        >
+          <View
+            style={
+              Array [
+                Object {},
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#007AFF",
+                    "fontSize": 18,
+                    "padding": 8,
+                    "textAlign": "center",
+                  },
+                ]
+              }
+            >
+              Save
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "height": null,
+            "justifyContent": "center",
+            "width": null,
+          }
+        }
+      >
+        <Image
+          blurRadius={0}
+          onError={[Function]}
+          resizeMode="contain"
+          source={
+            Object {
+              "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+            }
+          }
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              },
+              Object {},
+            ]
+          }
+          testID="customImage.image"
+          transitionDuration={300}
+          uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/chatimage%2FdLyDZVfkOZ2XDVk49jHF%2F202006%2F73891c7b-5960-4b7f-a7e3-b8975ee9fecc?alt=media&token=f76974de-d8d2-4b1f-a980-a83265bdcf10"
+        />
+        <ViewManagerAdapter_ExpoBlurView
+          proxiedProperties={
+            Object {
+              "intensity": 100,
+              "tint": "dark",
+            }
+          }
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+            ]
+          }
+        />
+      </View>
+    </Modal>
+    <View
+      style={
+        Object {
+          "height": 200,
+          "marginBottom": 5,
+          "width": 350,
+        }
+      }
+    >
+      <Image
+        blurRadius={0}
+        onError={[Function]}
+        source={
+          Object {
+            "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            },
+            Object {},
+          ]
+        }
+        transitionDuration={300}
+        uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/chatimage%2FdLyDZVfkOZ2XDVk49jHF%2F202006%2F73891c7b-5960-4b7f-a7e3-b8975ee9fecc?alt=media&token=f76974de-d8d2-4b1f-a980-a83265bdcf10"
+      />
+      <ViewManagerAdapter_ExpoBlurView
+        proxiedProperties={
+          Object {
+            "intensity": 100,
+            "tint": "dark",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            },
+            Object {
+              "backgroundColor": "transparent",
+            },
+          ]
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`show photo in chat thread with no photo 1`] = `null`;
