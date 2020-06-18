@@ -1,11 +1,8 @@
 
-import PropTypes from "prop-types";
 import React from "react";
-import { StyleSheet, TouchableOpacity, ViewPropTypes, Text, View, Dimensions, Modal, Button, CameraRoll } from "react-native";
+import { StyleSheet, TouchableOpacity, Text, View, Modal, Button, CameraRoll } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 import I18n from "../lib/i18n";
-
-const { width } = Dimensions.get("window");
 
 export default class CustomImage extends React.Component {
 	constructor(props) {
