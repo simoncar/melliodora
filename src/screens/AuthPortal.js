@@ -4,9 +4,8 @@ import Constants from "expo-constants";
 import { TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
 import { WebView } from "react-native-webview";
 import { connectActionSheet, ActionSheetProvider } from "@expo/react-native-action-sheet";
-//import { withNavigation } from "react-navigation";
 
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import AuthParser from "../components/authParser";
 import _ from "lodash";
 import { connect } from "react-redux";
@@ -16,7 +15,6 @@ import { Text } from "../components/sComponent";
 
 const timer = require("react-native-timer");
 
-const tabBarIcon = name => ({ tintColor }) => <MaterialIcons style={styles.aeba9fa70af6311ea88c25dbffc760ad0} name={name} color={tintColor} size={24} />;
 
 class authPortal extends Component {
 	constructor(props) {

@@ -138,7 +138,6 @@ class EventDateTime extends Component {
 			} else {
 				date_start = "";
 			}
-			console.log("date_start:", date_start);
 
 			this.props.handler(selectedDate, selectedDate, date_start);
 		} else {

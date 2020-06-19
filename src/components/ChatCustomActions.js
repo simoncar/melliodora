@@ -133,11 +133,11 @@ export default class CustomActions extends React.Component {
 					this.setModalVisibleVideo(false);
 				}}>
 					<NavButtonText style={styles.ab6227203b16711ea999f193302967c6e}>
-						{"Cancel"}
+						<Text>Cancel</Text>
 					</NavButtonText>
 				</NavButton>
 				<NavTitle style={styles.ab6227204b16711ea999f193302967c6e}>
-					{"Videos"}
+					<Text>Videos</Text>
 				</NavTitle>
 				<NavButton onPress={() => {
 					this.setModalVisibleVideo(false);
@@ -156,7 +156,7 @@ export default class CustomActions extends React.Component {
 					//this.handleAddPicture();
 				}}>
 					<NavButtonText style={styles.ab6229910b16711ea999f193302967c6e}>
-						{"Send"}
+						<Text>Send</Text>
 					</NavButtonText>
 				</NavButton>
 			</NavBar>

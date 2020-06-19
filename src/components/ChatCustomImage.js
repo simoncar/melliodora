@@ -28,9 +28,7 @@ export default class CustomImage extends React.Component {
 			.then(({ uri }) => {
 				this.saveFile(uri);
 			})
-			.catch(error => {
-				console.error(error);
-			})
+
 	}
 
 	saveFile = async (fileUri) => {
