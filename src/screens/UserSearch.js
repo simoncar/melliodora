@@ -94,7 +94,6 @@ class UserSearch extends Component {
 	};
 
 	_renderItem({ item, index }) {
-		console.log("item2222", item);
 		const avatarTitle = item.email.slice(0, 2);
 		const fullName = item.firstName + " " + item.lastName;
 		const avatar = item.photoURL ? { source: { uri: item.photoURL } } : { title: avatarTitle };

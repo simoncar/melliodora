@@ -60,7 +60,6 @@ class Settings extends Component {
 
 	separator(i) {
 		if (i > 0) {
-			console.log("separator = ", i);
 			return <Separator />;
 		}
 	}

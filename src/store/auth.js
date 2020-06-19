@@ -77,7 +77,6 @@ const _anonymouslySignIn = () => {
 
 // worker Saga
 function* WORKER_checkAdmin(action) {
-	try {
 		const adminPassword = yield select((state) => state.auth.adminPassword);
 		global.adminPassword = adminPassword;
 		if (adminPassword == "cookies") {
@@ -94,16 +93,12 @@ function* WORKER_checkAdmin(action) {
 		} else {
 			yield put(setIsAdmin(false));
 		}
-	} catch (e) {
-		console.log(e);
-	}
 }
 
 function* WORKER_authListener() {
 	// #1
 	const channel = new eventChannel((emiter) => {
 		const listener = firebase.auth().onAuthStateChanged((user) => {
-			console.log("SetupUser", user);
 			if (!user) {
 				emiter({ data: { noUser: true } });
 			} else {
@@ -131,12 +126,8 @@ function* WORKER_authListener() {
 }
 
 function* WORKER_anonymouslySignIn(action) {
-	try {
 		yield call(_anonymouslySignIn);
 		yield put(checkAdmin());
-	} catch (e) {
-		console.log(e);
-	}
 }
 
 function* WORKER_initUser(action) {
@@ -144,7 +135,6 @@ function* WORKER_initUser(action) {
 		const { user, isAnonymous } = action;
 
 		const uid = user.uid;
-		console.log("Auth = ", uid);
 
 		// store the auth as a valid user
 		global.uid = uid;

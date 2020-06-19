@@ -161,7 +161,7 @@ class chat extends Component {
 
 	onReceive(text) { }
 
-	renderCustomActions(props) {
+	renderCustomActions() {
 		return <TouchableOpacity style={styles.photoContainer} onPress={this._pickImage}>
 			<View>
 				<Entypo name="camera" style={styles.cameraAction} />
