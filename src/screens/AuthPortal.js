@@ -148,7 +148,6 @@ class authPortal extends Component {
 	}
 
 	render() {
-		const { visible, style, children, ...rest } = this.props;
 
 		return <View style={styles.aebaabdc0af6311ea88c25dbffc760ad0}>
 			<View style={styles.aebaabdc1af6311ea88c25dbffc760ad0}>
@@ -210,9 +209,7 @@ const styles = StyleSheet.create({
 		paddingLeft: 10,
 		paddingRight: 10,
 	},
-	aeba9fa70af6311ea88c25dbffc760ad0: {
-		backgroundColor: "transparent"
-	},
+
 	aebaabdc0af6311ea88c25dbffc760ad0: {
 		flex: 1
 	},
@@ -238,15 +235,12 @@ const styles = StyleSheet.create({
 		paddingLeft: 10,
 		paddingRight: 10,
 	},
-
-
 	topbar: {
 		alignItems: "center",
 		backgroundColor: "grey",
 		flexDirection: "row",
 		height: 40,
 	},
-
 	url: {
 		color: "#FFF",
 		fontSize: 14,
