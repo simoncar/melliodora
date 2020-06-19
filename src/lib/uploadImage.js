@@ -5,13 +5,12 @@ import * as Permissions from "expo-permissions";
 
 export async function getPermissionAsync() {
 	const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
-	// this.setState({ hasCameraPermission: status === "granted" });
+	this.setState({ hasCameraPermission: status === "granted" });
 }
 
 export const saveProfilePic = async (imgURI) => {
 	if (!imgURI) return "";
-	// const d = new Date();
-	fileToUpload = imgURI;
+	var fileToUpload = imgURI;
 
 
 	mime = "image/jpeg";
