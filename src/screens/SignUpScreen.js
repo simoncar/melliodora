@@ -116,13 +116,8 @@ class SignUpScreen extends Component {
 	};
 
 	async saveProfilePic(imgURI) {
-		// const d = new Date();
-		fileToUpload = imgURI;
-
-		console.log("fileToUpload", fileToUpload);
-
-		mime = "image/jpeg";
-		// this.setState({ cameraIcon: "hour-glass" });
+		var fileToUpload = imgURI;
+		var mime = "image/jpeg";
 
 		const blob = await new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
@@ -147,8 +142,6 @@ class SignUpScreen extends Component {
 	}
 	_pickImage = async () => {
 		let result = await launchProfileImagePicker();
-
-		console.log(result);
 
 		if (!result.cancelled) {
 			this.setState({ profilePic: result.uri });

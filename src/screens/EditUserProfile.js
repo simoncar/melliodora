@@ -56,7 +56,6 @@ class EditUserProfile extends Component {
 			if (user && user.uid === this.originData.uid && !_.isEmpty(diff)) {
 				const updateProfileObj = {};
 				if (diff.photoURL) {
-					console.log("updating profile picture..");
 					const downloadURL = await saveProfilePic(diff.photoURL);
 
 					//set auth photo info

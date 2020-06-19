@@ -1,4 +1,3 @@
-import React from "react";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";

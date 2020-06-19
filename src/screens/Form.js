@@ -72,7 +72,6 @@ class Form extends Component {
 		this.setState({ visibleMore: visible });
 	}
 	handleEventDateTime(dateTimeStart, dateTimeEnd, date_start) {
-		console.log("HANDLER DATE:", dateTimeStart, dateTimeEnd);
 		this.setState({
 			dateTimeStart: dateTimeStart,
 			dateTimeEnd: dateTimeEnd,

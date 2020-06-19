@@ -57,7 +57,6 @@ function* WORKER_processSelectedCommunity(action) {
 
 	let community = action.selectedCommunity
 
-	console.log("WORKER_processSelectedCommunity", community)
 	community = community || {};
 
 	global.domain = community.node;
@@ -121,7 +120,6 @@ function* WORKER_getCommunities() {
 
 
 	if (snapshot.empty) {
-		console.log("No Communities");
 		return [];
 	}
 	const domainsStore = [];
@@ -141,7 +139,6 @@ function* WORKER_getCommunityDetails(action) {
 		.where("node", "==", node)
 		.get());
 	if (snapshot.empty) {
-		console.log("No matching node.");
 		//invalid 
 		yield put(processSelectedCommunity({}));
 		yield put(setInvalidCommunity(true));
@@ -169,7 +166,6 @@ function* WORKER_buildChatroomList(action) {
 		.get());
 
 	if (snapshot.empty) {
-		console.log("chatrooms");
 		return;
 	}
 	const userInterestGroupCheck = _.has(global, "userInfo.interestGroups") && Array.isArray(global.userInfo.interestGroups);
