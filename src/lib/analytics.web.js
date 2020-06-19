@@ -2,11 +2,9 @@
  * @flow
  */
 
-import * as Amplitude from "expo-analytics-amplitude";
 import Constants from "expo-constants";
 import { normalizeTrackingOptions } from "./analyticsUtil";
 
-var release = Constants.manifest.revisionId || "UNVERSIONED";
 
 const events = {
 	APP_STARTED: "APP_STARTED",
