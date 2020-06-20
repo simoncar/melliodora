@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from 'react-native-testing-library';
+import { render } from 'react-native-testing-library';
 
 import { WebPortal } from '../WebPortal';
 
@@ -41,7 +41,7 @@ const itemCore = {
 test('web portal', () => {
 	const navigation = { navigate: jest.fn() };
 
-	const { toJSON, getByTestId, queryByText } = render(
+	const { toJSON, getByTestId } = render(
 		<WebPortal
 			route={itemCore}
 			auth={auth}
@@ -59,7 +59,7 @@ test('web portal', () => {
 
 	expect(getByTestId('webPortal.RNCWebView').props).toEqual(
 		expect.objectContaining({
-			source: { "uri": "https://www.google.com" },
+		source: { "uri": "https://www.google.com" },
 		})
 	);
 
