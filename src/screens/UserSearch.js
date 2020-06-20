@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { View, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet, AsyncStorage } from "react-native";
+import { View, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { AntDesign } from "@expo/vector-icons";
 import { ListItem } from "react-native-elements";
@@ -97,7 +97,13 @@ class UserSearch extends Component {
 		const avatarTitle = item.email.slice(0, 2);
 		const fullName = item.firstName + " " + item.lastName;
 		const avatar = item.photoURL ? { source: { uri: item.photoURL } } : { title: avatarTitle };
-		return <TouchableOpacity onPress={() => this.props.navigation.navigate("UserProfile", { uid: item.uid, user: item })}>
+		return <TouchableOpacity onPress={() =>
+			this.props.navigation.navigate("UserProfile",
+				{
+					uid: item.uid,
+					user: item
+				})
+		}>
 			<ListItem leftAvatar={{
 				rounded: true,
 				...avatar

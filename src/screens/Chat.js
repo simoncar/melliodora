@@ -293,7 +293,7 @@ class chat extends Component {
 		let userDetails = {};
 		if (this.userInfo.isAnonymous) {
 			userDetails = {
-				name: "Guest " + this.userInfo.uid.substring(1, 4)
+				name: "Guest"
 			};
 		} else {
 			userDetails = {

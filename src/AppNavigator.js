@@ -110,13 +110,14 @@ function StackOtherNavigator() {
 		<StackOther.Screen name="WebPortal" component={WebPortal} />
 		<StackOther.Screen name="selectLanguage" component={selectLanguage} options={{ title: I18n.t("language") }} />
 		<StackOther.Screen name="adminPassword" component={adminPassword} options={{ title: I18n.t("adminAccess") }} />
-		<StackOther.Screen name="login" component={LoginScreen} />
-		<StackOther.Screen name="signup" component={SignUpScreen} />
-		<StackOther.Screen name="forgetpassword" component={ForgotPasswordScreen} />
+		<StackOther.Screen name="login" component={LoginScreen} options={{ title: I18n.t("signIn") }} />
+		<StackOther.Screen name="signup" component={SignUpScreen} options={{ title: I18n.t("signUp") }}/>
+		<StackOther.Screen name="forgetpassword" component={ForgotPasswordScreen} options={{ title: I18n.t("forgetPassword") }}/>
 		<StackOther.Screen name="CameraApp" component={CameraApp} />
-		<StackOther.Screen name="UserProfile" component={UserProfile} />
-		<StackOther.Screen name="UserSearch" component={UserSearch} />
-		<StackOther.Screen name="EditUserProfile" component={EditUserProfile} />
+		<StackOther.Screen name="UserProfile" component={UserProfile} options={{ title: I18n.t("profile") }} />
+		<StackOther.Screen name="chatPrivate" component={chat} options={({ route }) => ({ title: route.params.title })} />
+		<StackOther.Screen name="UserSearch" component={UserSearch} options={{ title: I18n.t("searchUsers") }} />
+		<StackOther.Screen name="EditUserProfile" component={EditUserProfile} options={{ title: I18n.t("profile") }} />
 	</StackOther.Navigator>;
 }
 
