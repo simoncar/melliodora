@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { View, TouchableOpacity, Linking, Modal, FlatList, StyleSheet } from "react-native";
 import { Container, Footer } from "native-base";

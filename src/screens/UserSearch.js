@@ -93,7 +93,7 @@ class UserSearch extends Component {
 			lightTheme round onChangeText={text => this.searchFilterFunction(text)} autoCorrect={false} value={this.state.value} containerStyle={styles.searchContainer} inputContainerStyle={styles.searchContainer} />;
 	};
 
-	_renderItem({ item, index }) {
+	_renderItem({ item }) {
 		const avatarTitle = item.email.slice(0, 2);
 		const fullName = item.firstName + " " + item.lastName;
 		const avatar = item.photoURL ? { source: { uri: item.photoURL } } : { title: avatarTitle };
