@@ -13,7 +13,7 @@ import Analytics from "../lib/analytics";
 import moment from "moment";
 import { setUserInfo } from "../store/auth";
 import { connect } from "react-redux";
-import { Text } from "../components/sComponent"
+import { Text, ShortList } from "../components/sComponent"
 
 import DemoData from "../lib/demoData";
 
@@ -206,7 +206,6 @@ class Home extends Component {
 		});
 
 		if (featureItems.length > 0) {
-			console.log("STORE DATA:", featureItems)
 			this._storeData(JSON.stringify(featureItems));
 			this.setState({
 				featureItems
@@ -248,13 +247,13 @@ class Home extends Component {
 		}
 	};
 
-	_renderItem = ({ item }, cardStyle) => {
-		return <ListItem navigation={this.props.navigation} item={item} card={true} language={this.language} cardStyle={cardStyle} />;
-	};
+	_renderItem(navigation, item, cardStyle) {
+		return <ListItem key={item._key} navigation={navigation} item={item} card={true} language={this.language} cardStyle={cardStyle} />
+	}
 
-	_renderItemNoCard = ({ item }) => {
-		return <ListItem navigation={this.props.navigation} item={item} card={false} language={this.language} />;
-	};
+	_renderItemNoCard(navigation, item) {
+		return <ListItem key={item._key} navigation={navigation} item={item} card={false} language={this.language} />;
+	}
 	_renderBalance() {
 		if (global.domain === "oakforest_international_edu") {
 			return (
@@ -266,7 +265,7 @@ class Home extends Component {
 	_renderToday() {
 		if (this.state.calendarItems.length > 0) {
 			return <View style={styles.card}>
-				<FlatList data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard} />
+				<ShortList data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard} />
 			</View>;
 		}
 	}
@@ -355,7 +354,11 @@ class Home extends Component {
 					{this._renderBalance()}
 					{this._renderToday()}
 
-					<FlatList data={this.state.featureItems} keyExtractor={this.keyExtractor} renderItem={item => this._renderItem(item, { borderWidth: 0 })} />
+					<ShortList
+						navigation={this.props.navigation}
+						data={this.state.featureItems}
+						keyExtractor={this.keyExtractor}
+						renderItem={this._renderItem} />
 				</View>
 				<View style={styles.card}>
 					<View style={styles.adab8fa70ac6d11ea973dcfce83f911da}>
