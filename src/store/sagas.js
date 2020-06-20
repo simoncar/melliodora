@@ -7,9 +7,7 @@ import { authPortalSaga } from "./authPortal"
 import { REHYDRATE } from 'redux-persist'
 
 export default function* rootSaga() {
-    console.log("Waiting for rehydration")
     yield take(REHYDRATE); // Wait for rehydrate to prevent sagas from running with empty store
-    console.log("Rehydrated")
     yield all([
         settingsSaga(),
         authSaga(),

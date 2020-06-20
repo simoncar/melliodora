@@ -45,7 +45,10 @@ export default class App extends Component {
 	);
 	render() {
 		console.disableYellowBox = true;
-		YellowBox.ignoreWarnings(["Setting a timer"]);
+		YellowBox.ignoreWarnings(
+			["Setting a timer"],
+			['Non-serializable values were found in the navigation state']
+		);
 		ScreenOrientation.unlockAsync()
 
 		return (
@@ -60,9 +63,12 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		backgroundColor: "#fff",
 		alignItems: "center",
+		backgroundColor: "#fff",
+		flex: 1,
 		justifyContent: "center",
 	},
 });
+
+
+

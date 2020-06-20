@@ -1,8 +1,7 @@
-
 import React, { Component } from "react";
-import { View, Alert, TouchableOpacity, Linking, Modal, FlatList, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Linking, Modal, FlatList, StyleSheet } from "react-native";
 import { Container, Footer } from "native-base";
-import { GiftedChat, SystemMessage, Send } from "react-native-gifted-chat";
+import { GiftedChat, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
@@ -12,7 +11,6 @@ import CustomImage from "../components/ChatCustomImage";
 import CustomVideo from "../components/ChatCustomVideo";
 import I18n from "../lib/i18n";
 import uuid from "uuid";
-import _ from "lodash";
 import Backend from "../components/backend";
 import Analytics from "../lib/analytics";
 import * as firebase from "firebase";
@@ -47,7 +45,6 @@ class chat extends Component {
 		this.parsePatterns = this.parsePatterns.bind(this);
 		this.onReceive = this.onReceive.bind(this);
 		this.renderCustomActions = this.renderCustomActions.bind(this);
-		this.renderSystemMessage = this.renderSystemMessage.bind(this);
 		this.renderFooter = this.renderFooter.bind(this);
 		this.onLoadEarlier = this.onLoadEarlier.bind(this);
 
@@ -64,12 +61,6 @@ class chat extends Component {
 		this.chatroom = chatroom;
 		this.title = title;
 
-		this.ref = firebase.firestore().collection(this.communityDomain).doc("chat").collection("chatrooms").doc(this.chatroom);
-
-		this.unsubscribe = this.ref.onSnapshot(doc => {
-			const item = doc.data();
-		});
-
 		Backend.setLanguage(this.props.auth.language);
 		Backend.setChatroom(this.chatroom, this.title);
 		Backend.setMute(null);
@@ -79,8 +70,6 @@ class chat extends Component {
 				this.setState(previousState => ({
 					messages: GiftedChat.append(previousState.messages, message)
 				}));
-			} else {
-				console.log("ignoring message");
 			}
 		});
 
@@ -116,7 +105,7 @@ class chat extends Component {
 		}
 	};
 
-	_renderUsersItem({ item, index }) {
+	_renderUsersItem({ item }) {
 		const avatarTitle = item.email.slice(0, 2);
 		const fullName = item.firstName + " " + item.lastName;
 		const avatar = item.photoURL ? { source: { uri: item.photoURL } } : { title: avatarTitle };
@@ -128,7 +117,7 @@ class chat extends Component {
 				rounded: true,
 				...avatar
 			}} title={<View style={styles.a221a2b50ac4611ea973dcfce83f911da}>
-				<Text style={styles.a221a5260ac4611ea973dcfce83f911da}>{item.displayName || fullName || item.email}</Text>
+				<Text style={styles.a221a5260ac4611ea973dcfce83f911da}>{item.displayName || fullName}</Text>
 			</View>} chevron={true} subtitle={<View style={styles.a221a5261ac4611ea973dcfce83f911da}>
 				<Text style={styles.a221a5262ac4611ea973dcfce83f911da}>{fullName}</Text>
 				<Text style={styles.a221a5263ac4611ea973dcfce83f911da}>{item.email}</Text>
@@ -163,10 +152,6 @@ class chat extends Component {
 		Backend.closeChat();
 	}
 
-	avatarPress = props => {
-		Alert.alert(props.email);
-	};
-
 	onLoadEarlier() {
 		this.setState(previousState => ({
 			isLoadingEarlier: true
@@ -175,7 +160,7 @@ class chat extends Component {
 
 	onReceive(text) { }
 
-	renderCustomActions(props) {
+	renderCustomActions() {
 		return <TouchableOpacity style={styles.photoContainer} onPress={this._pickImage}>
 			<View>
 				<Entypo name="camera" style={styles.cameraAction} />
@@ -205,14 +190,6 @@ class chat extends Component {
 		}
 	};
 
-	renderSystemMessage(props) {
-		return <SystemMessage {...props} containerStyle={{
-			marginBottom: 15
-		}} textStyle={{
-			fontSize: 14
-		}} />;
-	}
-
 	renderCustomView(props) {
 		return <CustomView {...props} />;
 	}
@@ -234,7 +211,7 @@ class chat extends Component {
 		return null;
 	}
 
-	parsePatterns(linkStyle) {
+	parsePatterns() {
 		return [{ type: "url", style: styles.url, onPress: this._handleOpenWithLinking }];
 	}
 
@@ -372,13 +349,12 @@ class chat extends Component {
 					...userDetails
 				}}
 				renderActions={this.renderCustomActions}
-				renderSystemMessage={this.renderSystemMessage}
 				renderCustomView={this.renderCustomView}
 				renderMessageImage={this.renderCustomImage}
 				renderMessageVideo={this.renderCustomVideo}
 				showUserAvatar={true} bottomOffset={0}
-				onPressAvatar={this.avatarPress}
 				alwaysShowSend={true}
+				textInputProps={{ autoFocus: true }}
 				renderSend={this.renderSend}
 				placeholder={I18n.t("typeMessage")}
 				parsePatterns={this.parsePatterns}
@@ -436,10 +412,6 @@ const styles = StyleSheet.create({
 	a221a5263ac4611ea973dcfce83f911da: {
 		color: "gray"
 	},
-	cameraAction: {
-		color: "#777777",
-		fontSize: 25
-	},
 	a221aa080ac4611ea973dcfce83f911da: {
 		backgroundColor: "#f2f2f2",
 		flex: 1,
@@ -464,9 +436,13 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		padding: 12
 	},
-
 	a221aa085ac4611ea973dcfce83f911da: {
 		height: "70%"
+	},
+
+	cameraAction: {
+		color: "#777777",
+		fontSize: 25
 	},
 	chatBanner: {
 		alignSelf: "center",

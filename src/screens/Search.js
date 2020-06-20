@@ -32,14 +32,10 @@ class Search extends Component {
 
 		Analytics.track("Search");
 
-		this.aa()
-
 		this.loadFromAsyncStorage();
 	}
 
-	aa() {
-		console.log("AA")
-	}
+
 
 	updateSearchCache = () => {
 		this.setState({ loading: true });
@@ -54,7 +50,6 @@ class Search extends Component {
 			fullData: data,
 			loading: false
 		});
-		console.log("callback here ");
 		this.search.focus();
 	};
 

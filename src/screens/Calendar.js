@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { View, AsyncStorage, StyleSheet } from "react-native";
+import { AsyncStorage, StyleSheet } from "react-native";
 import * as firebase from "firebase";
 import { Agenda } from "react-native-calendars";
 import { Ionicons } from "@expo/vector-icons";
@@ -8,7 +8,6 @@ import I18n from "../lib/i18n";
 import moment from "moment";
 import CalendarItem from "../components/CalendarItem";
 import Analytics from "../lib/analytics";
-import { Text } from "../components/sComponent";
 
 var todayItem = {};
 const todayDate = moment().format("YYYY-MM-DD");
@@ -36,8 +35,6 @@ class Calendar extends Component {
 	}
 
 	componentDidMount() {
-
-
 		moment.updateLocale;
 		this.calendarEvents = firebase.firestore().collection(global.domain).doc("calendar").collection("calendarItems");
 
@@ -45,11 +42,6 @@ class Calendar extends Component {
 		this.listenLoadFromFirebase(this.calendarEvents);
 		Analytics.track("Calendar");
 	}
-
-	aa() {
-		console.log("AA")
-	}
-
 
 	listenLoadFromFirebase(dataSnapshot2) {
 		dataSnapshot2.get().then(snapshot => {
@@ -103,9 +95,7 @@ class Calendar extends Component {
 			this.setState({
 				items: items2
 			});
-		}).catch(err => {
-			console.log("Error getting documents", err);
-		});
+		})
 	}
 
 	loadFromAsyncStorage() {
@@ -121,26 +111,10 @@ class Calendar extends Component {
 	}
 
 	_storeData = async calendarItems => {
-		try {
-			//AsyncStorage.setItem("calendarItems", calendarItems);
-		} catch (error) {
-			console.log(error);
-			// Error saving data
-		}
+		AsyncStorage.setItem("calendarItems", calendarItems);
 	};
 
-	loadItems(day) {
-		setTimeout(() => {
-			const newItems = {};
 
-			for (let i = -15; i < 365; i++) {
-				const time = Date.now() + i * 24 * 60 * 60 * 1000;
-				const strtime = this.timeToString(time);
-				newItems[strtime] = [];
-			}
-
-		}, 1000);
-	}
 
 	render() {
 		const date = new Date();
@@ -173,10 +147,8 @@ class Calendar extends Component {
 		return <CalendarItem navigation={this.props.navigation} item={item} />;
 	}
 
-	renderEmptyDate(item) {
-		return <View style={styles.a36563902af7b11ea88c25dbffc760ad0}>
-			<Text style={styles.a36563903af7b11ea88c25dbffc760ad0} />
-		</View>;
+	renderEmptyDate() {
+		return;
 	}
 
 	rowHasChanged(r1, r2) {
@@ -202,14 +174,7 @@ const styles = StyleSheet.create({
 		fontSize: 30
 	},
 	a36563901af7b11ea88c25dbffc760ad0: {},
-	a36563902af7b11ea88c25dbffc760ad0: {
-		height: 15,
-		flex: 1,
-		paddingTop: 30
-	},
-	a36563903af7b11ea88c25dbffc760ad0: {
-		color: "black"
-	},
+
 
 });
 

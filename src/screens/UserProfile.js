@@ -59,7 +59,6 @@ class UserProfile extends Component {
 		const { uid, user } = this.props.navigation.state.params;
 
 		this.showChat = uid != global.uid;
-		console.log("uid", uid);
 		if (user) {
 			this.setState({ user, uid });
 		} else if (uid) {
@@ -170,7 +169,6 @@ class UserProfile extends Component {
 			type: "private",
 		};
 
-		console.log("dict", dict);
 		const communityDomain = this.props.community.selectedCommunity.node;
 		const querySnapshot = await firebase
 			.firestore()

@@ -13,7 +13,7 @@ export default class ChatTitle extends Component {
 	constructor(props) {
 		super(props);
 
-		const { title, chatroom, type, edit } = this.props.route.params;
+		const { chatroom, type, edit } = this.props.route.params;
 
 		this.state = {
 			chatroom: chatroom,
@@ -44,9 +44,9 @@ export default class ChatTitle extends Component {
 			} else {
 				await firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").add(dict);
 			}
-			console.log("ChatTitle go back");
+			this.props.route.params.onGoBack({ title: this.state.chatroom });
 			this.props.navigation.goBack(null);
-			this.props.navigation.state.params.onGoBack({ title: this.state.chatroom });
+
 		} catch (err) {
 			this.setState({ errorMsg: err.message });
 		}
@@ -56,14 +56,12 @@ export default class ChatTitle extends Component {
 		var dict = {
 			visible: false
 		};
-		console.log("hiding");
 		firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").doc(this.props.navigation.getParam("chatroom")).set(dict, { merge: true });
 
 		this.props.navigation.navigate("chatRooms");
 	}
 
 	_closeHideButton() {
-		console.log(this.state.type);
 		if (["user", "private", "interestGroup"].indexOf(this.state.type) > -1) {
 			return <Button icon={<MaterialIcons name="delete" size={25} color="white" />} title="Close/Hide Chat Group" style={styles.button} onPress={() => this._hideChatroom()} />;
 		} else {

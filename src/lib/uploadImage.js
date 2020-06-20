@@ -1,21 +1,17 @@
 import firebase from "firebase";
 import uuid from "uuid";
 import * as ImagePicker from "expo-image-picker";
-import * as ImageManipulator from "expo-image-manipulator";
 import * as Permissions from "expo-permissions";
-import { Camera } from "expo-camera";
 
 export async function getPermissionAsync() {
 	const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
-	// this.setState({ hasCameraPermission: status === "granted" });
+	this.setState({ hasCameraPermission: status === "granted" });
 }
 
 export const saveProfilePic = async (imgURI) => {
 	if (!imgURI) return "";
-	// const d = new Date();
-	fileToUpload = imgURI;
+	var fileToUpload = imgURI;
 
-	console.log("fileToUpload", fileToUpload);
 
 	mime = "image/jpeg";
 	// this.setState({ cameraIcon: "hour-glass" });

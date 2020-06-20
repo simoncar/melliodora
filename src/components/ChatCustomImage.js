@@ -1,6 +1,6 @@
 
 import React from "react";
-import { StyleSheet, TouchableOpacity, Text, View, Modal, Button, CameraRoll } from "react-native";
+import { StyleSheet, TouchableOpacity, Text, View, Modal, Button } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
 import * as Permissions from 'expo-permissions';
@@ -28,9 +28,7 @@ export default class CustomImage extends React.Component {
 			.then(({ uri }) => {
 				this.saveFile(uri);
 			})
-			.catch(error => {
-				console.error(error);
-			})
+
 	}
 
 	saveFile = async (fileUri) => {
@@ -84,6 +82,8 @@ export default class CustomImage extends React.Component {
 
 
 			</View>;
+		} else {
+			return
 		}
 	}
 }

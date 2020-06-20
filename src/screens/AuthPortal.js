@@ -1,15 +1,13 @@
 
 import React, { Component } from "react";
 import Constants from "expo-constants";
-import { Animated, TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
+import { TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
 import { WebView } from "react-native-webview";
-import { connectActionSheet, ActionSheetProvider, ActionSheetOptions } from "@expo/react-native-action-sheet";
-//import { withNavigation } from "react-navigation";
+import { connectActionSheet, ActionSheetProvider } from "@expo/react-native-action-sheet";
 
-import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import AuthParser from "../components/authParser";
 import _ from "lodash";
-import Analytics from "../lib/analytics";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { saveDetails } from "../store/authPortal";
@@ -17,7 +15,6 @@ import { Text } from "../components/sComponent";
 
 const timer = require("react-native-timer");
 
-const tabBarIcon = name => ({ tintColor }) => <MaterialIcons style={styles.aeba9fa70af6311ea88c25dbffc760ad0} name={name} color={tintColor} size={24} />;
 
 class authPortal extends Component {
 	constructor(props) {
@@ -26,10 +23,8 @@ class authPortal extends Component {
 		var url;
 
 		if (_.isNil(this.props.route.params && this.props.route.params.url)) {
-			console.log("A", url);
 			url = undefined != global.switch_portalURL ? global.switch_portalURL : "https://www.smartcookies.io";
 		} else {
-			console.log("B");
 
 			url = this.props.route.params.url;
 		}
@@ -49,7 +44,6 @@ class authPortal extends Component {
 		this.actionOptions = global.switch_webportalActions ? global.switch_webportalActions.map(item => Object.keys(item)[0]) : [];
 		this.actionOptions.push("Cancel");
 
-		console.log("initial:", this.state.url, url, global.switch_portalURL);
 	}
 	//this.props.chatroom
 
@@ -116,7 +110,6 @@ class authPortal extends Component {
 			}
 		}
 		this.setState({ url: navState.url });
-		console.log(" navState.url:", navState.url, navState);
 	};
 
 	onBack() {
@@ -155,7 +148,6 @@ class authPortal extends Component {
 	}
 
 	render() {
-		const { visible, style, children, ...rest } = this.props;
 
 		return <View style={styles.aebaabdc0af6311ea88c25dbffc760ad0}>
 			<View style={styles.aebaabdc1af6311ea88c25dbffc760ad0}>
@@ -209,83 +201,49 @@ export default class AppContainer extends React.Component {
 }
 
 const styles = StyleSheet.create({
-	aeba9fa70af6311ea88c25dbffc760ad0: {
-		backgroundColor: "transparent"
+	Leftheading: {
+		alignSelf: "center",
+		color: "#037AFF",
+		fontSize: 30,
+		paddingBottom: 5,
+		paddingLeft: 10,
+		paddingRight: 10,
 	},
+
 	aebaabdc0af6311ea88c25dbffc760ad0: {
 		flex: 1
 	},
 	aebaabdc1af6311ea88c25dbffc760ad0: {
 		flex: 2
 	},
+
 	aebab5a00af6311ea88c25dbffc760ad0: {
 		fontSize: 14,
 		fontWeight: "bold"
 	},
-	settingsMessage: {
-		paddingTop: 10,
-		paddingLeft: 10,
-		paddingRight: 10,
-		backgroundColor: "blue",
-	},
-	settingsMessageText: {
-		fontSize: 22,
-		paddingBottom: 10,
-		color: "white",
-	},
-	settingsMessageIcon: {
-		fontSize: 30,
-		width: 30,
-		color: "white",
-	},
-
-	navIcon: {
-		paddingLeft: 10,
-		paddingRight: 10,
-		color: "#FFF",
-		fontSize: 20,
-	},
 
 	heading: {
-		color: "#037AFF",
 		alignSelf: "center",
+		color: "#037AFF",
 		fontSize: 30,
 		paddingBottom: 5,
 		paddingRight: 10,
 	},
-	Leftheading: {
-		color: "#037AFF",
-		alignSelf: "center",
-		fontSize: 30,
-		paddingBottom: 5,
-		paddingRight: 10,
+	navIcon: {
+		color: "#FFF",
+		fontSize: 20,
 		paddingLeft: 10,
+		paddingRight: 10,
 	},
-
-	roundedButton: {
-		alignSelf: "center",
+	topbar: {
 		alignItems: "center",
-		backgroundColor: "rgba(0,0,0,0.2)",
-		borderRadius: 30,
-		width: 60,
-		height: 60,
+		backgroundColor: "grey",
+		flexDirection: "row",
+		height: 40,
 	},
 	url: {
 		color: "#FFF",
 		fontSize: 14,
 	},
-	container: {
-		flex: 1,
-		paddingTop: 15 /* Padding to push below the navigation bar */,
-		backgroundColor: "#F5FCFF",
-	},
-	topbar: {
-		flexDirection: "row",
-		alignItems: "center",
-		height: 40,
-		backgroundColor: "grey",
-	},
-	topbarTextDisabled: {
-		color: "green",
-	},
+
 });

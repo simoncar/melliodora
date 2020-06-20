@@ -38,14 +38,12 @@ class push extends Component {
 	});
 
 	componentDidMount() {
-		console.log("SSS:", this.props);
 		var initialText = this.props.summary;
 
 		if (_.isString(this.props.description)) {
 			initialText = initialText + "\n\n" + this.props.description;
 		}
 
-		var initialDate = this.state.start_date;
 
 		this.setState({ initialText: initialText });
 
@@ -66,7 +64,6 @@ class push extends Component {
 			timestamp: Date.now()
 		};
 
-		console.log("push =", pushMessage);
 
 		var storyRef = firebase.firestore().collection(global.domain).doc("push").collection("message").add(pushMessage);
 
@@ -95,7 +92,6 @@ class push extends Component {
 	_getGrade() {
 		var grades = [];
 		for (var i = -4; i < 13; i++) {
-			console.log("loop=", i, this.state[i]);
 			if (this.state[i] == true) {
 				grades.push(i);
 			}

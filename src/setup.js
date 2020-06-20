@@ -5,11 +5,11 @@ import I18n from "./lib/i18n";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import _ from "lodash";
+import * as firebase from "firebase";
+import "firebase/firestore";
 
 import Firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
-import * as firebase from "firebase";
-import "firebase/firestore";
 import Constants from "expo-constants";
 import { connect } from "react-redux";
 import { getCommunityDetails } from "./store/community";
@@ -23,13 +23,10 @@ class Setup extends Component {
 	};
 
 	componentDidMount() {
-		try {
-			Firebase.initialise().then(() =>
-				this.props.dispatch({ type: "FIREBASE_READY" })
-			);
-		} catch (e) {
-			console.log("firebase error", e.message);
-		}
+		Firebase.initialise().then(() =>
+			this.props.dispatch({ type: "FIREBASE_READY" })
+		);
+
 		if (Constants.manifest.extra.instance) {
 			const node = Constants.manifest.extra.instance;
 			this.props.dispatch(getCommunityDetails(node));
@@ -45,14 +42,8 @@ class Setup extends Component {
 		let language = this.props.auth.language;
 		if (language === "ar") {
 			I18nManager.forceRTL(true);
-			if (!I18nManager.isRTL) {
-				Updates.reloadFromCache();
-			}
 		} else {
 			I18nManager.forceRTL(false);
-			if (I18nManager.isRTL) {
-				Updates.reloadFromCache();
-			}
 		}
 		I18n.locale = language;
 	}

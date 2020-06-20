@@ -20,7 +20,6 @@ export const saveFeatureChanges = () => ({
 
 export const retrieveFeatures = async () => {
     try {
-        console.log("retrivin features2");
 
         const doc = await firebase
             .firestore()
@@ -43,7 +42,6 @@ export const retrieveFeatures = async () => {
 
 function* WORKER_saveFeatureChanges() {
     try {
-        console.log("exectuing saveFeatureChanges")
         const docData = { moreListings: changedFeatures };
         yield call(() => firebase
             .firestore()

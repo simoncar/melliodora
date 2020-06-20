@@ -5,19 +5,17 @@ import { Notifications } from "expo";
 import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
 import Analytics from "./lib/analytics";
-import Constants from "expo-constants";
 import { connect } from "react-redux";
-import { getCommunityDetails } from "./store/community";
-import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
+import { AppearanceProvider } from 'react-native-appearance';
 
 class App extends Component {
 	componentDidMount() {
-		this._notificationSubscription = this._registerForPushNotifications();
+		this._registerForPushNotifications();
 		Analytics.track("App Started");
 	}
 
 	componentWillUnmount() {
-		this._notificationSubscription && this._notificationSubscription.remove();
+		this._notificationSubscription.remove();
 	}
 
 	_handleNotification = ({ origin, data }) => { };

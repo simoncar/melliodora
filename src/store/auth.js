@@ -1,12 +1,11 @@
 import firebase from "firebase";
-import { call, put, takeEvery, takeLatest, select, take, fork, spawn, delay, takeLeading } from "redux-saga/effects";
+import { call, put, takeLatest, select, take, delay, takeLeading } from "redux-saga/effects";
 import { eventChannel } from "redux-saga";
 import _ from "lodash";
 import Constants from "expo-constants";
 import * as Localization from "expo-localization";
 import Analytics from "../lib/analytics";
 import { Updates } from "expo";
-import { REHYDRATE } from "redux-persist";
 
 // ACTIONS
 export const SET_USER_INFO = "SET_USER_INFO";
@@ -67,9 +66,6 @@ export const setLanguage = (language) => ({
 	language,
 });
 
-const getCurrentUserClaims = () => {
-	return firebase.auth().currentUser.getIdTokenResult();
-};
 
 const _anonymouslySignIn = () => {
 	return firebase.auth().signInAnonymously();
@@ -77,25 +73,20 @@ const _anonymouslySignIn = () => {
 
 // worker Saga
 function* WORKER_checkAdmin(action) {
-	try {
-		const adminPassword = yield select((state) => state.auth.adminPassword);
-		global.adminPassword = adminPassword;
-		if (adminPassword == "cookies") {
-			yield put(setIsAdmin(true));
-			return;
-		}
+	const adminPassword = yield select((state) => state.auth.adminPassword);
+	global.adminPassword = adminPassword;
+	if (adminPassword == "cookies") {
+		yield put(setIsAdmin(true));
+		return;
+	}
 
-		// const { claims } = yield call(getCurrentUserClaims);
-		const adminUIDs = yield select((state) => state.community.selectedCommunity.admins);
-		const userUID = yield select((state) => state.auth.userInfo.uid);
+	const adminUIDs = yield select((state) => state.community.selectedCommunity.admins);
+	const userUID = yield select((state) => state.auth.userInfo.uid);
 
-		if (Array.isArray(adminUIDs) && adminUIDs.indexOf(userUID) > -1) {
-			yield put(setIsAdmin(true));
-		} else {
-			yield put(setIsAdmin(false));
-		}
-	} catch (e) {
-		console.log(e);
+	if (Array.isArray(adminUIDs) && adminUIDs.indexOf(userUID) > -1) {
+		yield put(setIsAdmin(true));
+	} else {
+		yield put(setIsAdmin(false));
 	}
 }
 
@@ -103,7 +94,6 @@ function* WORKER_authListener() {
 	// #1
 	const channel = new eventChannel((emiter) => {
 		const listener = firebase.auth().onAuthStateChanged((user) => {
-			console.log("SetupUser", user);
 			if (!user) {
 				emiter({ data: { noUser: true } });
 			} else {
@@ -130,13 +120,9 @@ function* WORKER_authListener() {
 	}
 }
 
-function* WORKER_anonymouslySignIn(action) {
-	try {
-		yield call(_anonymouslySignIn);
-		yield put(checkAdmin());
-	} catch (e) {
-		console.log(e);
-	}
+function* WORKER_anonymouslySignIn() {
+	yield call(_anonymouslySignIn);
+	yield put(checkAdmin());
 }
 
 function* WORKER_initUser(action) {
@@ -144,7 +130,6 @@ function* WORKER_initUser(action) {
 		const { user, isAnonymous } = action;
 
 		const uid = user.uid;
-		console.log("Auth = ", uid);
 
 		// store the auth as a valid user
 		global.uid = uid;
@@ -178,9 +163,7 @@ function* WORKER_initUser(action) {
 
 		const doc = yield call(() => firebase.firestore().collection("users").doc(uid).get());
 
-		if (!doc.exists) {
-			console.log("No such document!");
-		} else {
+		if (doc.exists) {
 			const docData = doc.data();
 
 			global.userInfo = docData;

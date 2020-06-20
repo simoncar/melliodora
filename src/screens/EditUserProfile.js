@@ -18,11 +18,9 @@ class EditUserProfile extends Component {
 
 	componentDidMount() {
 		const { uid, user, email } = this.props.navigation.state.params;
-		console.log("uid", uid, email);
 
 		const currentUser = firebase.auth().currentUser;
 		if (currentUser.uid != uid || currentUser.isAnonymous) {
-			console.log("different user edit profiel!!!");
 			return this.props.navigation.pop();
 		}
 		this.props.navigation.state.params._updateProfile = this._updateProfile;
@@ -55,11 +53,9 @@ class EditUserProfile extends Component {
 			const diff = this.difference(this.state.user, this.originData);
 
 			const user = firebase.auth().currentUser;
-			// console.log("this.originData.uid", this.originData.uid, diff, this.originData, this.state);
 			if (user && user.uid === this.originData.uid && !_.isEmpty(diff)) {
 				const updateProfileObj = {};
 				if (diff.photoURL) {
-					console.log("updating profile picture..");
 					const downloadURL = await saveProfilePic(diff.photoURL);
 
 					//set auth photo info

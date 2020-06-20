@@ -6,7 +6,6 @@ import * as Amplitude from "expo-analytics-amplitude";
 import Constants from "expo-constants";
 import { normalizeTrackingOptions } from "./analyticsUtil";
 
-var release = Constants.manifest.revisionId || "UNVERSIONED";
 
 const events = {
 	APP_STARTED: "APP_STARTED",
@@ -42,10 +41,11 @@ const initialize = () => {
 	};
 
 	trackingOpts = normalizeTrackingOptions(trackingOpts);
-	if (trackingOpts.uid) {
-		Amplitude.setUserId(trackingOpts.uid);
-		if (trackingOpts) {
-			Amplitude.setUserProperties(trackingOpts);
+
+	if (trackingOpts) {
+		Amplitude.setUserProperties(trackingOpts);
+		if (trackingOpts.uid) {
+			Amplitude.setUserId(trackingOpts.uid);
 		}
 	} else {
 		Amplitude.clearUserProperties();
@@ -60,7 +60,7 @@ const maybeInitialize = () => {
 	}
 };
 
-const track = (event: string, options: any = null) => {
+const track = (event, options = null) => {
 	maybeInitialize();
 
 	options = normalizeTrackingOptions(options);
@@ -71,7 +71,6 @@ const track = (event: string, options: any = null) => {
 		Amplitude.logEvent(event);
 	}
 
-	//}
 };
 
 export default {

@@ -453,33 +453,7 @@ const styles = StyleSheet.create({
 	a9f95ddc3af6811ea88c25dbffc760ad0: {
 		width: "100%"
 	},
-	header: {
-		paddingLeft: 15,
-		paddingRight: 15,
-		marginLeft: Platform.OS === "ios" ? undefined : -30
-	},
-	rowHeader: {
-		flex: 1,
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignSelf: "stretch",
-		paddingTop: Platform.OS === "android" ? 0 : 0
-	},
-	btnHeader: {
-		alignSelf: "center"
-	},
-
-	newsContentLine: {
-		borderTopWidth: 1,
-		borderTopColor: "#ddd"
-	},
-	itemTitle: {
-		flex: 1,
-		fontSize: 18,
-		justifyContent: "center",
-		alignItems: "center",
-		color: "black"
-	}
+	
 });
 
 const mapStateToProps = state => ({
