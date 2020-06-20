@@ -52,8 +52,9 @@
 	"aboutThisApp": "About this App",
 	"password": "Password",
 	"welcome": "Welcome",
-	"forgetPassword": "Forget Password",
+	"forgetPassword": "Forgotten Password",
 	"create": "Create",
 	"cancel": "Cancel",
-	"groupSubject": "Group Subject"
+	"groupSubject": "Group Subject",
+	"profile": "Profile"
 }
