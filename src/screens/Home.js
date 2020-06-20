@@ -7,6 +7,7 @@ import { getLanguageString } from "../lib/global";
 import I18n from "../lib/i18n";
 import { logToCalendar } from "../lib/systemHero";
 
+
 import ListItem from "../components/StoryListItem";
 import Analytics from "../lib/analytics";
 import moment from "moment";
@@ -205,6 +206,7 @@ class Home extends Component {
 		});
 
 		if (featureItems.length > 0) {
+			console.log("STORE DATA:", featureItems)
 			this._storeData(JSON.stringify(featureItems));
 			this.setState({
 				featureItems

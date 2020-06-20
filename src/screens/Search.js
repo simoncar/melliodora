@@ -32,8 +32,6 @@ class Search extends Component {
 
 		Analytics.track("Search");
 
-		this.aa()
-
 		this.loadFromAsyncStorage();
 	}
 
