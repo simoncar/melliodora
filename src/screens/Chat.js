@@ -106,7 +106,7 @@ class chat extends Component {
 		}
 	};
 
-	_renderUsersItem({ item, index }) {
+	_renderUsersItem({ item }) {
 		const avatarTitle = item.email.slice(0, 2);
 		const fullName = item.firstName + " " + item.lastName;
 		const avatar = item.photoURL ? { source: { uri: item.photoURL } } : { title: avatarTitle };
@@ -212,7 +212,7 @@ class chat extends Component {
 		return null;
 	}
 
-	parsePatterns(linkStyle) {
+	parsePatterns() {
 		return [{ type: "url", style: styles.url, onPress: this._handleOpenWithLinking }];
 	}
 

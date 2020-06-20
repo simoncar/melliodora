@@ -44,8 +44,9 @@ export default class ChatTitle extends Component {
 			} else {
 				await firebase.firestore().collection(global.domain).doc("chat").collection("chatrooms").add(dict);
 			}
+			this.props.route.params.onGoBack({ title: this.state.chatroom });
 			this.props.navigation.goBack(null);
-			this.props.navigation.state.params.onGoBack({ title: this.state.chatroom });
+
 		} catch (err) {
 			this.setState({ errorMsg: err.message });
 		}

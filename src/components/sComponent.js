@@ -1,7 +1,6 @@
-// CustomText.js    
 import React from 'react';
-import { StyleSheet, Text as RNText } from 'react-native';
-
+import { StyleSheet, Text as RNText, View } from 'react-native';
+import _ from "lodash";
 
 export function Text(props) {
 	const { style, ...rest } = props;
@@ -13,8 +12,27 @@ export function Text(props) {
 	);
 }
 
+export function ShortList(props) {
+	const { navigation } = props;
+
+	const features = props.data ? props.data : [];
+	if (!_.isEmpty(features)) {
+
+		return (
+			<View>
+				{
+					features.map((el) => {
+						return props.renderItem(navigation, el)
+					})
+				}
+			</View >
+		);
+	} else {
+		return <Text></Text>
+	}
+}
+
 const styles = StyleSheet.create({
-	// ... add your default style here
 	defaultStyle: {
 		fontFamily: "SegoeUI",
 	},

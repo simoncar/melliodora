@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { StyleSheet, FlatList, View, AsyncStorage, TouchableOpacity, TouchableHighlight } from "react-native";
+import { StyleSheet, View, AsyncStorage, TouchableOpacity, TouchableHighlight } from "react-native";
 import * as firebase from "firebase";
 import { Container, Content } from "native-base";
 import { Entypo, AntDesign } from "@expo/vector-icons";
@@ -8,7 +8,7 @@ import ChatroomItem from "../components/ChatRoomItem";
 import Analytics from "../lib/analytics";
 import _ from "lodash";
 import { connect } from "react-redux";
-import { Text } from "../components/sComponent";
+import { Text, ShortList } from "../components/sComponent";
 
 class chatRooms extends Component {
 	constructor(props) {
@@ -73,16 +73,17 @@ class chatRooms extends Component {
 	}
 
 
-	refresh = ({ title }) => {
+	refresh = () => {
+		this.buildChatroomList()
 	};
 
 	keyExtractor = item => item.chatroom;
 
-	_renderItem({ item }) {
-		return <ChatroomItem {...item} navigation={this.props.navigation} card={true} />;
+	_renderItem(item) {
+		return <ChatroomItem key={item.chatroom} {...item} navigation={this.props.navigation} card={true} />;
 	}
-	_renderItemNoCard({ item }) {
-		return <ChatroomItem {...item} navigation={this.props.navigation} card={false} />;
+	_renderItemNoCard(navigation, item) {
+		return <ChatroomItem key={item.chatroom} {...item} navigation={navigation} card={false} />;
 	}
 
 	newChatroom() {
@@ -119,7 +120,12 @@ class chatRooms extends Component {
 							</View>
 						</View>
 
-						<FlatList style={styles.card} data={this.state.userChatrooms} renderItem={this._renderItemNoCard.bind(this)} keyExtractor={this.keyExtractor} />
+						<ShortList
+							navigation={this.props.navigation}
+							style={styles.card}
+							data={this.state.userChatrooms}
+							renderItem={this._renderItemNoCard}
+							keyExtractor={this.keyExtractor} />
 					</View>
 				</View>
 			</Content>
