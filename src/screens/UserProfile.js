@@ -1,32 +1,18 @@
 
 import React, { Component } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Button } from "react-native";
 import firebase from "firebase";
 import { Text } from "../components/sComponent";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { connect } from "react-redux";
+import I18n from "../lib/i18n";
 
 class UserProfile extends Component {
-	static navigationOptions = ({ navigation }) => ({
-		title: "User Profile",
-		headerRight: () => {
-			const permitEdit = navigation.state.params.permitEdit;
-
-			if (!permitEdit) return;
-			return <TouchableOpacity onPress={() => {
-				navigation.push("EditUserProfile", { ...navigation.state.params });
-			}}>
-				<View style={styles.abf9f4070b2d311ea999f193302967c6e}>
-					<Text>Edit </Text>
-					<Ionicons name="ios-settings" style={styles.abf9f6780b2d311ea999f193302967c6e} />
-				</View>
-			</TouchableOpacity>;
-		}
-	});
 
 	state = {
 		user: {}
 	};
+
 	componentDidMount() {
 		const { uid, user } = this.props.route.params;
 
@@ -36,9 +22,9 @@ class UserProfile extends Component {
 		} else if (uid) {
 			firebase.firestore().collection(this.props.community.selectedCommunity.node).doc("user").collection("registered").doc(uid).get().then(snapshot => {
 				if (!snapshot.exists) {
-					return this.props.navigation.push("EditUserProfile", {
-						...this.props.navigation.state.params
-					});
+					// return this.props.navigation.push("EditUserProfile", {
+					// 	...this.props.navigation.state.params
+					// });
 				}
 				const data = snapshot.data();
 				this.props.navigation.setParams({ uid: uid, user: data });
@@ -99,6 +85,27 @@ class UserProfile extends Component {
 	};
 
 	render() {
+
+		var permitEdit = this.props.route.params.permitEdit;
+		var aa = this.props.route.params
+
+		permitEdit = true
+
+		const navParams = {
+			chatroom: "docID",
+			type: "private"
+		};
+
+		if (permitEdit) {
+			this.props.navigation.setOptions({
+				headerRight: () =>
+					<Button
+						onPress={() => { this.props.navigation.navigate("EditUserProfile", navParams) }}
+
+						title={I18n.t("edit")} />
+			});
+		}
+
 		return <SafeAreaView style={styles.abfa078f0b2d311ea999f193302967c6e}>
 			<ScrollView ScrollView bounces={false}>
 				{this._renderProfilePic()}
@@ -192,7 +199,7 @@ class UserProfile extends Component {
 								</Text>}
 				</View>
 			</ScrollView>
-		</SafeAreaView>;
+		</SafeAreaView >;
 	}
 }
 const mapStateToProps = state => ({
@@ -201,18 +208,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(UserProfile);
 
 const styles = StyleSheet.create({
-	abf9f4070b2d311ea999f193302967c6e: {
-		alignItems: "center",
-		color: "#48484A",
-		flexDirection: "row",
-		fontSize: 25,
-		marginRight: 10
-	},
-	abf9f6780b2d311ea999f193302967c6e: {
-		color: "#48484A",
-		fontSize: 25,
-		marginRight: 10
-	},
+
 	abfa02ad1b2d311ea999f193302967c6e: {
 		alignItems: "center",
 		backgroundColor: "#fdfdfd",

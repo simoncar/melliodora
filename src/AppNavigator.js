@@ -114,12 +114,7 @@ function StackOtherNavigator() {
 		<StackOther.Screen name="signup" component={SignUpScreen} options={{ title: I18n.t("signUp") }} />
 		<StackOther.Screen name="forgetpassword" component={ForgotPasswordScreen} options={{ title: I18n.t("forgetPassword") }} />
 		<StackOther.Screen name="CameraApp" component={CameraApp} />
-		<StackOther.Screen name="UserProfile" component={UserProfile}
-			options={({ navigation, route }) => ({
-				headerTitle: I18n.t("profile"),
-				headerRight: () => headerRightEditProfile(navigation)
-			})}
-		/>
+		<StackOther.Screen name="UserProfile" component={UserProfile} options={{ title: I18n.t("profile") }} />
 		<StackOther.Screen name="chatPrivate" component={chat} options={({ route }) => ({ title: route.params.title })} />
 		<StackOther.Screen name="UserSearch" component={UserSearch} options={{ title: I18n.t("searchUsers") }} />
 		<StackOther.Screen name="EditUserProfile" component={EditUserProfile} options={{ title: I18n.t("profile") }} />
@@ -198,7 +193,7 @@ function headerRightEditProfile(navigation) {
 			<Text>Edit </Text>
 			<Ionicons name="ios-settings" style={styles.abf9f6780b2d311ea999f193302967c6e} />
 		</View>
-	</TouchableOpacity>;;
+	</TouchableOpacity>
 }
 
 function headerTitle(route) {

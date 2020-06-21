@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList, View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image, ScrollView, StyleSheet } from "react-native";
+import { View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image, ScrollView, StyleSheet } from "react-native";
 import { Container, Content } from "native-base";
 import Constants from "expo-constants";
 import firebase from "firebase";

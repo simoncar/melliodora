@@ -3,13 +3,15 @@ import React, { Component } from "react";
 import { View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, ScrollView, Button } from "react-native";
 import firebase from "firebase";
 
-import { Ionicons } from "@expo/vector-icons";
-
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { connectActionSheet } from "@expo/react-native-action-sheet";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import _ from "lodash";
 import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/uploadImage";
+import Loader from "../components/Loader";
 import { Text } from "../components/sComponent";
 
-export default class EditUserProfile extends Component {
+class EditUserProfile extends Component {
 
 	constructor(props) {
 		super(props);
@@ -18,17 +20,19 @@ export default class EditUserProfile extends Component {
 			loading: false,
 			user: {}
 		};
+
+
+
+
 	}
 
 	componentDidMount() {
 		const { uid, user, email } = this.props.route.params;
 
 		const currentUser = firebase.auth().currentUser;
-
-		// if (currentUser.uid != uid || currentUser.isAnonymous) {
-		// 	return this.props.navigation.pop();
-		// }
-
+		if (currentUser.uid != uid || currentUser.isAnonymous) {
+			return this.props.navigation.pop();
+		}
 		this.props.route.params._updateProfile = this._updateProfile;
 		this.originData = { ...user, uid };
 		this.setState({ user: { ...user, uid, email: currentUser.email } });
@@ -145,11 +149,13 @@ export default class EditUserProfile extends Component {
         </Text>
 		</View>;
 	};
-
 	render() {
+
+
+
 		return <SafeAreaView style={styles.ac0abe6c0b2d911ea999f193302967c6e}>
 			<ScrollView bounces={false}>
-
+				<Loader modalVisible={this.state.loading} animationType="fade" />
 				<Text>{this.state.errorMessage}</Text>
 				{this._renderProfilePic()}
 
@@ -210,6 +216,36 @@ export default class EditUserProfile extends Component {
 	}
 }
 
+const ConnectedApp = connectActionSheet(EditUserProfile);
+
+export default class ActionSheetContainer extends Component {
+
+
+	static navigationOptions = ({ navigation }) => ({
+		// title: I18n.t("Edit", { defaultValue: "Edit" }),
+		title: "Edit Profile",
+		headerRight: () => {
+			const permitEdit = this.props.route.params.permitEdit;
+
+			if (!permitEdit) return;
+			return <TouchableOpacity onPress={() => this.props.route.params._updateProfile()}>
+				<View style={styles.ac0ac5bf0b2d911ea999f193302967c6e}>
+					<Text style={styles.ac0ac5bf1b2d911ea999f193302967c6e}>Save </Text>
+					<MaterialIcons name="done" style={styles.ac0ac5bf2b2d911ea999f193302967c6e} />
+				</View>
+			</TouchableOpacity>;
+		}
+	});
+
+	render() {
+
+		console.log("EDIT PROPS:", this.props)
+
+		return <ActionSheetProvider>
+			<ConnectedApp navigation={this.props.navigation} />
+		</ActionSheetProvider>;
+	}
+}
 
 const styles = StyleSheet.create({
 	ac0ab98a1b2d911ea999f193302967c6e: {
