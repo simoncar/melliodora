@@ -1,10 +1,10 @@
 
 import React, { Component } from "react";
-import { View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, ScrollView, Button } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Button } from "react-native";
 import firebase from "firebase";
-
+import { Input } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
-
+import I18n from "../lib/i18n";
 import _ from "lodash";
 import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/uploadImage";
 import { Text } from "../components/sComponent";
@@ -21,17 +21,12 @@ export default class EditUserProfile extends Component {
 	}
 
 	componentDidMount() {
-		const { uid, user, email } = this.props.route.params;
-
-		const currentUser = firebase.auth().currentUser;
-
-		// if (currentUser.uid != uid || currentUser.isAnonymous) {
-		// 	return this.props.navigation.pop();
-		// }
+		const { uid, user } = this.props.route.params;
+		console.log(this.props.route.params)
 
 		this.props.route.params._updateProfile = this._updateProfile;
 		this.originData = { ...user, uid };
-		this.setState({ user: { ...user, uid, email: currentUser.email } });
+		this.setState({ user: { ...user, uid } });
 	}
 
 	/**
@@ -57,32 +52,30 @@ export default class EditUserProfile extends Component {
 		try {
 			// const modifiedObj = _.pick(this.state.user, Object.keys(this.originData));
 			const diff = this.difference(this.state.user, this.originData);
+			console.log("DIFF:", diff)
+			console.log(this.state)
 
-			const user = firebase.auth().currentUser;
-			if (user && user.uid === this.originData.uid && !_.isEmpty(diff)) {
+			if (!_.isEmpty(diff)) {
 				const updateProfileObj = {};
 				if (diff.photoURL) {
 					const downloadURL = await saveProfilePic(diff.photoURL);
-
-					//set auth photo info
 					updateProfileObj["photoURL"] = downloadURL;
-
-					//set firestore photo info
 					diff["photoURL"] = downloadURL;
 				}
 
-				//update displayname
-				if (diff.displayName) updateProfileObj["displayName"] = diff.displayName;
-
-				//update auth user info
-				if (!_.isEmpty(updateProfileObj)) user.updateProfile(updateProfileObj);
-
-				//update firestore user info
-				await firebase.firestore().collection(global.domain).doc("user").collection("registered").doc(user.uid).set(diff, { merge: true });
+				await firebase
+					.firestore()
+					.collection(global.domain)
+					.doc("user")
+					.collection("registered")
+					.doc(this.state.user.uid)
+					.set(diff, { merge: true });
 			}
 
-			await this.setState({ loading: false });
-			this.props.navigation.popToTop();
+			const refreshFunction = this.props.route.params.refreshFunction;
+			refreshFunction(diff);
+
+			this.props.navigation.pop();
 		} catch (error) {
 			this.setState({
 				errorMessage: error.message,
@@ -131,7 +124,6 @@ export default class EditUserProfile extends Component {
 
 	_renderProfilePic = () => {
 		const width = 120;
-		const containerHeight = 200;
 		const photoURL = this.state.user.photoURL;
 
 		return <View style={styles.profilePicContainer}>
@@ -147,6 +139,15 @@ export default class EditUserProfile extends Component {
 	};
 
 	render() {
+
+		this.props.navigation.setOptions({
+			headerRight: () =>
+				<Button
+					onPress={() => this.props.route.params._updateProfile()}
+					title={I18n.t("save")} />
+
+		});
+
 		return <SafeAreaView style={styles.ac0abe6c0b2d911ea999f193302967c6e}>
 			<ScrollView bounces={false}>
 
@@ -155,9 +156,9 @@ export default class EditUserProfile extends Component {
 
 				<View style={styles.titleContainer}>
 					<Text style={styles.nameText} numberOfLines={1}>
-						Email:
+						{I18n.t("email")}:
             </Text>
-					<Text style={[styles.sectionContentText, { height: 18 }]} numberOfLines={1}>
+					<Text style={[styles.sectionContentText]} numberOfLines={1}>
 						{this.state.user.email}
 					</Text>
 				</View>
@@ -166,7 +167,7 @@ export default class EditUserProfile extends Component {
 					<Text style={styles.nameText} numberOfLines={1}>
 						Display Name:
             </Text>
-					<TextInput style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, displayName: text } }))} value={this.state.user.displayName} />
+					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, displayName: text } }))} value={this.state.user.displayName} />
 				</View>
 
 				<View style={[styles.titleContainer, { flexDirection: "row" }]}>
@@ -174,14 +175,14 @@ export default class EditUserProfile extends Component {
 						<Text style={styles.nameText} numberOfLines={1}>
 							First Name:
               </Text>
-						<TextInput style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, firstName: text } }))} value={this.state.user.firstName} />
+						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, firstName: text } }))} value={this.state.user.firstName} />
 					</View>
 					<View style={styles.ac0ac34e1b2d911ea999f193302967c6e}></View>
 					<View style={styles.ac0ac34e2b2d911ea999f193302967c6e}>
 						<Text style={styles.nameText} numberOfLines={1}>
 							Last Name:
               </Text>
-						<TextInput style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, lastName: text } }))} value={this.state.user.lastName} />
+						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, lastName: text } }))} value={this.state.user.lastName} />
 					</View>
 				</View>
 
@@ -189,21 +190,21 @@ export default class EditUserProfile extends Component {
 					<Text style={styles.nameText} numberOfLines={1}>
 						Country:
             </Text>
-					<TextInput style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, country: text } }))} value={this.state.user.country} />
+					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, country: text } }))} value={this.state.user.country} />
 				</View>
 
 				<View style={styles.titleContainer}>
 					<Text style={styles.nameText} numberOfLines={1}>
 						Region:
             </Text>
-					<TextInput style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, region: text } }))} value={this.state.user.region} />
+					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, region: text } }))} value={this.state.user.region} />
 				</View>
 
 				<View style={styles.titleContainer}>
 					<Text style={styles.nameText} numberOfLines={1}>
 						Organization:
             </Text>
-					<TextInput style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, organization: text } }))} value={this.state.user.organization} />
+					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, organization: text } }))} value={this.state.user.organization} />
 				</View>
 			</ScrollView>
 		</SafeAreaView>;
@@ -224,19 +225,6 @@ const styles = StyleSheet.create({
 	ac0abe6c0b2d911ea999f193302967c6e: { backgroundColor: "#fdfdfd", flex: 1 },
 	ac0ac34e0b2d911ea999f193302967c6e: { flex: 1 },
 	ac0ac34e2b2d911ea999f193302967c6e: { flex: 1 },
-	ac0ac5bf0b2d911ea999f193302967c6e: {
-		alignItems: "center",
-		color: "#48484A",
-		flexDirection: "row",
-		fontSize: 25,
-		marginRight: 10
-	},
-	ac0ac5bf1b2d911ea999f193302967c6e: { color: "#777777" },
-	ac0ac5bf2b2d911ea999f193302967c6e: {
-		color: "#777777",
-		fontSize: 25,
-		marginRight: 10
-	},
 
 	nameText: {
 		color: "#777777",

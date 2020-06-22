@@ -33,6 +33,18 @@ class UserProfile extends Component {
 		}
 	}
 
+	refreshFunction(data) {
+		const oldUser = this.state.user
+		const newUser = {
+			...oldUser,
+			...data
+		}
+
+
+		console.log("REFRESH FUNCTION:", oldUser, newUser)
+		this.setState({ user: newUser });
+	}
+
 	_renderProfilePic = () => {
 		const width = 128;
 		const photoURL = this.state.user.photoURL;
@@ -87,21 +99,19 @@ class UserProfile extends Component {
 	render() {
 
 		var permitEdit = this.props.route.params.permitEdit;
-		var aa = this.props.route.params
 
 		permitEdit = true
-
-		const navParams = {
-			chatroom: "docID",
-			type: "private"
-		};
 
 		if (permitEdit) {
 			this.props.navigation.setOptions({
 				headerRight: () =>
 					<Button
-						onPress={() => { this.props.navigation.navigate("EditUserProfile", navParams) }}
-
+						onPress={() => {
+							this.props.navigation.navigate("EditUserProfile", {
+								...this.state,
+								refreshFunction: this.refreshFunction.bind(this)
+							})
+						}}
 						title={I18n.t("edit")} />
 			});
 		}

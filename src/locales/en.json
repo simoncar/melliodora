@@ -56,5 +56,6 @@
 	"create": "Create",
 	"cancel": "Cancel",
 	"groupSubject": "Group Subject",
-	"profile": "Profile"
+	"profile": "Profile",
+	"email": "Email"
 }
