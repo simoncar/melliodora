@@ -130,7 +130,7 @@ class EditUserProfile extends Component {
 				{photoURL ? <Image style={styles.profilePhoto} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={100} color="#999999" style={styles.profilePic} />}
 				{}
 			</TouchableOpacity>
-			<Text style={styles.profilePicText} numberOfLines={1}>
+			<Text style={styles.profilePicText} >
 				{I18n.t("edit")}
 			</Text>
 		</View>;
@@ -187,7 +187,14 @@ const styles = StyleSheet.create({
 		fontWeight: "600"
 	},
 
-	profilePhoto: { height: 100, width: 100 },
+	profilePhoto: {
+		borderColor: "grey",
+		borderRadius: 150 / 2,
+		borderWidth: 1,
+		height: 150,
+		overflow: "hidden",
+		width: 150
+	},
 	profilePic: {
 		borderColor: "lightgray",
 		height: 200

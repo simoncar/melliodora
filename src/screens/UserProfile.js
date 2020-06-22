@@ -47,11 +47,9 @@ class UserProfile extends Component {
 		const width = 128;
 		const photoURL = this.state.user.photoURL;
 
-		return <View style={styles.abfa02ad0b2d311ea999f193302967c6e}>
-			{}
-			<View style={styles.abfa02ad1b2d311ea999f193302967c6e}>
-				{photoURL ? <Image style={styles.abfa02ad2b2d311ea999f193302967c6e} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.abfa051e0b2d311ea999f193302967c6e} />}
-			</View>
+		return <View style={styles.profilePicContainer}>
+
+			{photoURL ? <Image style={styles.profilePhoto} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.abfa051e0b2d311ea999f193302967c6e} />}
 		</View>;
 	};
 
@@ -113,6 +111,29 @@ class UserProfile extends Component {
 		return <SafeAreaView style={styles.abfa078f0b2d311ea999f193302967c6e}>
 			<ScrollView ScrollView bounces={false}>
 				{this._renderProfilePic()}
+
+
+
+				<View style={styles.titleContainer}>
+					<Text style={styles.nameText} >
+						{this.state.user.displayName}
+					</Text>
+					<Text style={styles.emailText}>
+						{this.state.user.email}
+					</Text>
+
+
+					<Text style={styles.groupText} >
+						Groups
+            </Text>
+
+					{Array.isArray(this.state.user.interestGroups) && this.state.user.interestGroups.length ? this.state.user.interestGroups.map(grp => <Text style={styles.sectionContentText} key={grp}>
+						{grp}
+					</Text>) : <Text style={styles.sectionContentText} >
+							None
+								</Text>}
+				</View>
+
 				{this.showChat ? <View style={[styles.titleContainer, { flexDirection: "row", justifyContent: "center" }]}>
 					<TouchableOpacity style={styles.abfa0c710b2d311ea999f193302967c6e} onPress={() => {
 						this.privateMessageUser(this.state.user.uid, global.uid, this.state.user.displayName || this.state.user.firstName + " " + this.state.user.lastName);
@@ -126,82 +147,6 @@ class UserProfile extends Component {
 					</TouchableOpacity>
 				</View> : null}
 
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Email:
-            </Text>
-					<Text style={styles.sectionContentText} numberOfLines={1}>
-						{this.state.user.email}
-					</Text>
-				</View>
-
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Display Name:
-            </Text>
-					<Text style={styles.sectionContentText} numberOfLines={1}>
-						{this.state.user.displayName}
-					</Text>
-				</View>
-
-				<View style={[styles.titleContainer, { flexDirection: "row" }]}>
-					<View style={styles.abfa18a60b2d311ea999f193302967c6e}>
-						<Text style={styles.nameText} numberOfLines={1}>
-							First Name:
-              </Text>
-						<Text style={styles.sectionContentText} numberOfLines={1}>
-							{this.state.user.firstName}
-						</Text>
-					</View>
-
-					<View style={styles.abfa18a61b2d311ea999f193302967c6e}>
-						<Text style={styles.nameText} numberOfLines={1}>
-							Last Name:
-              </Text>
-						<Text style={styles.sectionContentText} numberOfLines={1}>
-							{this.state.user.lastName}
-						</Text>
-					</View>
-				</View>
-
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Country:
-            </Text>
-					<Text style={styles.sectionContentText} numberOfLines={1}>
-						{this.state.user.country}
-					</Text>
-				</View>
-
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Region:
-            </Text>
-					<Text style={styles.sectionContentText} numberOfLines={1}>
-						{this.state.user.region}
-					</Text>
-				</View>
-
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Organization:
-            </Text>
-					<Text style={styles.sectionContentText} numberOfLines={1}>
-						{this.state.user.organization}
-					</Text>
-				</View>
-
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Interest Group(s):
-            </Text>
-
-					{Array.isArray(this.state.user.interestGroups) && this.state.user.interestGroups.length ? this.state.user.interestGroups.map(grp => <Text style={styles.sectionContentText} numberOfLines={1} key={grp}>
-						{grp}
-					</Text>) : <Text style={styles.sectionContentText} numberOfLines={1}>
-							None
-								</Text>}
-				</View>
 			</ScrollView>
 		</SafeAreaView >;
 	}
@@ -212,22 +157,21 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(UserProfile);
 
 const styles = StyleSheet.create({
-
-	abfa02ad1b2d311ea999f193302967c6e: {
+	profilePhoto: {
+		borderColor: "grey",
+		borderRadius: 150 / 2,
+		borderWidth: 1,
+		height: 150,
+		overflow: "hidden",
+		width: 150
+	},
+	profilePicContainer: {
 		alignItems: "center",
-		backgroundColor: "#fdfdfd",
-		bottom: 0,
-		justifyContent: "center",
-		left: 0,
-		position: "absolute",
-		right: 0,
-		top: 0,
-		zIndex: 2
+		paddingBottom: 15,
+		paddingHorizontal: 15,
+		paddingTop: 15
 	},
-	abfa02ad2b2d311ea999f193302967c6e: {
-		borderColor: "lightgray",
-		borderWidth: 5,
-	},
+
 	abfa051e0b2d311ea999f193302967c6e: {
 		borderColor: "lightgray",
 		borderWidth: StyleSheet.hairlineWidth,
@@ -262,22 +206,34 @@ const styles = StyleSheet.create({
 		marginTop: 4,
 		textAlign: "center"
 	},
-	abfa18a60b2d311ea999f193302967c6e: { flex: 1 },
-	abfa18a61b2d311ea999f193302967c6e: { flex: 1 },
 
 	nameText: {
 		color: "black",
-		fontSize: 18,
-		fontWeight: "600"
+		fontSize: 25,
+		fontWeight: "bold",
+		textAlign: "center"
+	},
+	emailText: {
+		color: "black",
+		fontSize: 13,
+		textAlign: "center"
+	},
+	groupText: {
+		color: "black",
+		fontSize: 13,
+		textAlign: "center",
+		marginTop: 20
 	},
 	sectionContentText: {
 		color: "#808080",
-		fontSize: 14
+		fontSize: 14,
+		textAlign: "center"
 	},
 	titleContainer: {
 		backgroundColor: "#fdfdfd",
 		paddingBottom: 15,
 		paddingHorizontal: 15,
-		paddingTop: 15
+		paddingTop: 15,
+
 	}
 });
