@@ -4,8 +4,6 @@ import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import { Text } from "./components/sComponent";
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather, FontAwesome } from "@expo/vector-icons";
 import I18n from "./lib/i18n";
 
@@ -16,7 +14,6 @@ import Search from "./screens/Search";
 import Contact from "./screens/Contact";
 import ContactAdmin from "./screens/ContactAdmin";
 import Settings from "./screens/More";
-import Library from "./screens/Library";
 import adminPassword from "./screens/AdminPassword";
 import selectLanguage from "./screens/Language";
 import MoreAdmin from "./screens/MoreAdmin";
@@ -103,7 +100,6 @@ const StackOther = createStackNavigator();
 function StackOtherNavigator() {
 	return <StackOther.Navigator>
 		<StackOther.Screen name="settings" component={Settings} options={{ title: I18n.t("more") }} />
-		<StackOther.Screen name="library" component={Library} options={{ title: I18n.t("library") }} />
 		<StackOther.Screen name="storyMore" component={Story} options={({ route }) => ({ title: route.params.summary })} />
 		<StackOther.Screen name="moreAdmin" component={MoreAdmin} />
 		<StackOther.Screen name="Content" component={Content} />
