@@ -4,12 +4,16 @@ import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Bu
 import firebase from "firebase";
 import { Input } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
+
+import { ActionSheetProvider, connectActionSheet } from "@expo/react-native-action-sheet";
+import { MaterialIcons } from "@expo/vector-icons";
+
 import I18n from "../lib/i18n";
 import _ from "lodash";
 import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/uploadImage";
 import { Text } from "../components/sComponent";
 
-export default class EditUserProfile extends Component {
+class EditUserProfile extends Component {
 
 	constructor(props) {
 		super(props);
@@ -18,13 +22,15 @@ export default class EditUserProfile extends Component {
 			loading: false,
 			user: {}
 		};
+
+		console.log("XXX PROPS:", this.props)
 	}
 
 	componentDidMount() {
-		const { uid, user } = this.props.route.params;
-		console.log(this.props.route.params)
+		const { uid, user } = this.props;
+		console.log(this.props)
 
-		this.props.route.params._updateProfile = this._updateProfile;
+		//this.props.route.params._updateProfile = this._updateProfile;
 		this.originData = { ...user, uid };
 		this.setState({ user: { ...user, uid } });
 	}
@@ -50,7 +56,6 @@ export default class EditUserProfile extends Component {
 		this.setState({ loading: true });
 
 		try {
-			// const modifiedObj = _.pick(this.state.user, Object.keys(this.originData));
 			const diff = this.difference(this.state.user, this.originData);
 			console.log("DIFF:", diff)
 			console.log(this.state)
@@ -72,7 +77,7 @@ export default class EditUserProfile extends Component {
 					.set(diff, { merge: true });
 			}
 
-			const refreshFunction = this.props.route.params.refreshFunction;
+			const refreshFunction = this.props.refreshFunction;
 			refreshFunction(diff);
 
 			this.props.navigation.pop();
@@ -127,11 +132,19 @@ export default class EditUserProfile extends Component {
 		const photoURL = this.state.user.photoURL;
 
 		return <View style={styles.profilePicContainer}>
-			<TouchableOpacity style={styles.ac0ab98a0b2d911ea999f193302967c6e} onPress={this._onOpenActionSheet}>
-				{photoURL ? <Image style={styles.ac0ab98a1b2d911ea999f193302967c6e} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={width * 0.85} color="#999999" style={styles.ac0abbfb0b2d911ea999f193302967c6e} />}
+			<TouchableOpacity onPress={this._onOpenActionSheet}>
+				{photoURL ?
+					<Image
+						style={styles.profilePic}
+						source={{ uri: photoURL }} />
+					:
+					<Ionicons
+						name="ios-person"
+						size={width * 0.85}
+						color="#999999"
+						style={styles.profilePic} />}
 				{}
 			</TouchableOpacity>
-			<Text></Text>
 			<Text style={styles.profilePicText} numberOfLines={1}>
 				Add profile picture
         </Text>
@@ -140,47 +153,32 @@ export default class EditUserProfile extends Component {
 
 	render() {
 
-		this.props.navigation.setOptions({
-			headerRight: () =>
-				<Button
-					onPress={() => this.props.route.params._updateProfile()}
-					title={I18n.t("save")} />
 
-		});
 
-		return <SafeAreaView style={styles.ac0abe6c0b2d911ea999f193302967c6e}>
-			<ScrollView bounces={false}>
+		return <SafeAreaView style={styles.saveAreaView}>
+			<ScrollView>
 
 				<Text>{this.state.errorMessage}</Text>
+
 				{this._renderProfilePic()}
 
 				<View style={styles.titleContainer}>
 					<Text style={styles.nameText} numberOfLines={1}>
 						{I18n.t("email")}:
             </Text>
-					<Text style={[styles.sectionContentText]} numberOfLines={1}>
-						{this.state.user.email}
-					</Text>
+					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, email: text } }))} value={this.state.user.email} />
 				</View>
 
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Display Name:
-            </Text>
-					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, displayName: text } }))} value={this.state.user.displayName} />
-				</View>
-
-				<View style={[styles.titleContainer, { flexDirection: "row" }]}>
-					<View style={styles.ac0ac34e0b2d911ea999f193302967c6e}>
+				<View style={styles.titleContainerRow}>
+					<View style={styles.rowFlex}>
 						<Text style={styles.nameText} numberOfLines={1}>
-							First Name:
+							{I18n.t("firstName")}:
               </Text>
 						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, firstName: text } }))} value={this.state.user.firstName} />
 					</View>
-					<View style={styles.ac0ac34e1b2d911ea999f193302967c6e}></View>
-					<View style={styles.ac0ac34e2b2d911ea999f193302967c6e}>
+					<View style={styles.rowFlex}>
 						<Text style={styles.nameText} numberOfLines={1}>
-							Last Name:
+							{I18n.t("lastName")}:
               </Text>
 						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, lastName: text } }))} value={this.state.user.lastName} />
 					</View>
@@ -188,48 +186,52 @@ export default class EditUserProfile extends Component {
 
 				<View style={styles.titleContainer}>
 					<Text style={styles.nameText} numberOfLines={1}>
-						Country:
+						{I18n.t("country")}:
             </Text>
 					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, country: text } }))} value={this.state.user.country} />
 				</View>
 
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Region:
-            </Text>
-					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, region: text } }))} value={this.state.user.region} />
-				</View>
-
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Organization:
-            </Text>
-					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, organization: text } }))} value={this.state.user.organization} />
-				</View>
+				<Button
+					onPress={() => this._updateProfile()}
+					title={I18n.t("save")} />
 			</ScrollView>
 		</SafeAreaView>;
 	}
 }
 
 
-const styles = StyleSheet.create({
-	ac0ab98a1b2d911ea999f193302967c6e: {
-		borderColor: "lightgray",
-		borderWidth: 5,
-	},
-	ac0abbfb0b2d911ea999f193302967c6e: {
-		borderColor: "lightgray",
-		borderWidth: StyleSheet.hairlineWidth,
-		textAlign: "center",
-	},
-	ac0abe6c0b2d911ea999f193302967c6e: { backgroundColor: "#fdfdfd", flex: 1 },
-	ac0ac34e0b2d911ea999f193302967c6e: { flex: 1 },
-	ac0ac34e2b2d911ea999f193302967c6e: { flex: 1 },
+const ConnectedApp = connectActionSheet(EditUserProfile);
 
+export default class ActionSheetContainer extends Component {
+
+
+	render() {
+
+
+		console.log("EDIT PROPS:", this.props)
+
+		return <ActionSheetProvider>
+			<ConnectedApp
+				navigation={this.props.navigation}
+				refreshFunction={this.props.route.params.refreshFunction}
+				uid={this.props.route.params.uid}
+				user={this.props.route.params.user} />
+		</ActionSheetProvider>;
+	}
+}
+
+
+
+
+const styles = StyleSheet.create({
 	nameText: {
 		color: "#777777",
 		fontSize: 10,
 		fontWeight: "600"
+	},
+	profilePic: {
+		borderColor: "lightgray",
+		textAlign: "center",
 	},
 	profilePicContainer: {
 		alignItems: "center",
@@ -242,6 +244,8 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		fontWeight: "600"
 	},
+	rowFlex: { flex: 1 },
+	saveAreaView: { backgroundColor: "#fdfdfd", flex: 1 },
 	sectionContentText: {
 		borderBottomWidth: 1,
 		borderColor: "#100c08",
@@ -253,5 +257,13 @@ const styles = StyleSheet.create({
 		paddingBottom: 15,
 		paddingHorizontal: 15,
 		paddingTop: 15
+	},
+	titleContainerRow: {
+		flexDirection: "row",
+		paddingBottom: 15,
+		paddingHorizontal: 15,
+		paddingTop: 15
 	}
+
+
 });

@@ -57,5 +57,8 @@
 	"cancel": "Cancel",
 	"groupSubject": "Group Subject",
 	"profile": "Profile",
-	"email": "Email"
+	"email": "Email",
+	"firstName": "First Name",
+	"lastName": "Last Name",
+	"country": "Country"
 }

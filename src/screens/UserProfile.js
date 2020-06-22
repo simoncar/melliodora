@@ -40,7 +40,6 @@ class UserProfile extends Component {
 			...data
 		}
 
-
 		console.log("REFRESH FUNCTION:", oldUser, newUser)
 		this.setState({ user: newUser });
 	}
