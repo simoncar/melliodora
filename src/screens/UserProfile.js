@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Button } from "react-native";
 import firebase from "firebase";
 import { Text } from "../components/sComponent";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import I18n from "../lib/i18n";
 
@@ -49,7 +49,7 @@ class UserProfile extends Component {
 
 		return <View style={styles.profilePicContainer}>
 
-			{photoURL ? <Image style={styles.profilePhoto} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.abfa051e0b2d311ea999f193302967c6e} />}
+			{photoURL ? <Image style={styles.profilePhoto} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.profilePhotoNone} />}
 		</View>;
 	};
 
@@ -108,7 +108,7 @@ class UserProfile extends Component {
 			});
 		}
 
-		return <SafeAreaView style={styles.abfa078f0b2d311ea999f193302967c6e}>
+		return <SafeAreaView style={styles.saveArea}>
 			<ScrollView ScrollView bounces={false}>
 				{this._renderProfilePic()}
 
@@ -123,29 +123,29 @@ class UserProfile extends Component {
 					</Text>
 
 
-					<Text style={styles.groupText} >
-						Groups
-            </Text>
+					<Text style={styles.groupText} >Groups</Text>
 
 					{Array.isArray(this.state.user.interestGroups) && this.state.user.interestGroups.length ? this.state.user.interestGroups.map(grp => <Text style={styles.sectionContentText} key={grp}>
 						{grp}
 					</Text>) : <Text style={styles.sectionContentText} >
 							None
 								</Text>}
-				</View>
 
-				{this.showChat ? <View style={[styles.titleContainer, { flexDirection: "row", justifyContent: "center" }]}>
-					<TouchableOpacity style={styles.abfa0c710b2d311ea999f193302967c6e} onPress={() => {
-						this.privateMessageUser(this.state.user.uid, global.uid, this.state.user.displayName || this.state.user.firstName + " " + this.state.user.lastName);
-					}}>
-						<View style={styles.abfa0ee20b2d311ea999f193302967c6e}>
-							<MaterialIcons name="message" size={25} color={"white"} />
-						</View>
-						<Text style={styles.abfa0ee21b2d311ea999f193302967c6e}>
-							Private{"\n"}Message
-                </Text>
-					</TouchableOpacity>
-				</View> : null}
+
+					{this.showChat ? <View>
+						<TouchableOpacity onPress={() => {
+							this.privateMessageUser(this.state.user.uid, global.uid, this.state.user.displayName || this.state.user.firstName + " " + this.state.user.lastName);
+						}}>
+							<View style={styles.chatIconView}>
+								<SimpleLineIcons name="bubble"
+									size={25}
+									color={"white"}
+									style={styles.chatIcon} />
+							</View>
+
+						</TouchableOpacity>
+					</View> : null}
+				</View>
 
 			</ScrollView>
 		</SafeAreaView >;
@@ -157,61 +157,15 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(UserProfile);
 
 const styles = StyleSheet.create({
-	profilePhoto: {
-		borderColor: "grey",
-		borderRadius: 150 / 2,
-		borderWidth: 1,
-		height: 150,
-		overflow: "hidden",
-		width: 150
-	},
-	profilePicContainer: {
-		alignItems: "center",
-		paddingBottom: 15,
-		paddingHorizontal: 15,
-		paddingTop: 15
-	},
 
-	abfa051e0b2d311ea999f193302967c6e: {
-		borderColor: "lightgray",
-		borderWidth: StyleSheet.hairlineWidth,
-		color: "#0075b7",
-		textAlign: "center",
-	},
-	abfa078f0b2d311ea999f193302967c6e: { flex: 1 },
-	abfa0c710b2d311ea999f193302967c6e: {
-		alignItems: "center",
-		justifyContent: "center"
-	},
-	abfa0ee20b2d311ea999f193302967c6e: {
-		alignItems: "center",
-		backgroundColor: "#4CAF50",
-		borderTopLeftRadius: 50 / 2,
-		height: 50,
-		justifyContent: "center",
-		shadowColor: "#000000",
-		shadowOffset: {
-			height: 1,
-			width: 1
-		},
-		shadowOpacity: 0.8,
-		shadowRadius: 2,
-		width: 50
-	},
-	abfa0ee21b2d311ea999f193302967c6e: {
-		alignItems: "center",
-		color: "#808080",
-		fontSize: 12,
-		justifyContent: "center",
-		marginTop: 4,
+	chatIcon: {
+		color: "#222",
+		fontSize: 30,
 		textAlign: "center"
 	},
-
-	nameText: {
-		color: "black",
-		fontSize: 25,
-		fontWeight: "bold",
-		textAlign: "center"
+	chatIconView: {
+		color: "#222",
+		fontSize: 16,
 	},
 	emailText: {
 		color: "black",
@@ -221,12 +175,44 @@ const styles = StyleSheet.create({
 	groupText: {
 		color: "black",
 		fontSize: 13,
-		textAlign: "center",
-		marginTop: 20
+		marginTop: 20,
+		textAlign: "center"
 	},
+	nameText: {
+		color: "black",
+		fontSize: 25,
+		fontWeight: "bold",
+		textAlign: "center"
+	},
+	profilePhoto: {
+		borderColor: "lightgray",
+		borderRadius: 150 / 2,
+		borderWidth: StyleSheet.hairlineWidth,
+		height: 150,
+		overflow: "hidden",
+		width: 150
+	},
+
+	profilePhotoNone: {
+		borderColor: "grey",
+		borderRadius: 150 / 2,
+		borderWidth: StyleSheet.hairlineWidth,
+		height: 150,
+		overflow: "hidden",
+		textAlign: "center",
+		width: 150,
+	},
+	profilePicContainer: {
+		alignItems: "center",
+		paddingBottom: 15,
+		paddingHorizontal: 15,
+		paddingTop: 15
+	},
+	saveArea: { flex: 1 },
 	sectionContentText: {
 		color: "#808080",
 		fontSize: 14,
+		marginBottom: 30,
 		textAlign: "center"
 	},
 	titleContainer: {

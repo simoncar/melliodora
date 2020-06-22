@@ -55,8 +55,6 @@ class EditUserProfile extends Component {
 
 		try {
 			const diff = this.difference(this.state.user, this.originData);
-			console.log("DIFF:", diff);
-			console.log(this.state);
 
 			if (!_.isEmpty(diff)) {
 				const updateProfileObj = {};
@@ -152,10 +150,10 @@ class EditUserProfile extends Component {
 				<View style={styles.titleContainerRow}>
 					<View style={styles.rowFlex}>
 						<Text style={styles.nameText}>{I18n.t("firstName")}:</Text>
-						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, firstName: text } }))} value={this.state.user.firstName} />
+						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, firstName: text, displayName: text + ' ' + this.state.user.lastName } }))} value={this.state.user.firstName} />
 					</View>
 					<View style={styles.rowFlex}><Text style={styles.nameText}>{I18n.t("lastName")}:</Text>
-						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, lastName: text } }))} value={this.state.user.lastName} />
+						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, lastName: text, displayName: this.state.user.firstName + ' ' + text } }))} value={this.state.user.lastName} />
 					</View>
 				</View>
 
