@@ -30,7 +30,7 @@ import WebPortal from "./screens/WebPortal";
 import LoginScreen from "./screens/Login";
 import SignUpScreen from "./screens/SignUpScreen";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
-import CameraApp from "./screens/CameraApp";
+import CameraApp from "./screens/Camera";
 import UserProfile from "./screens/UserProfile";
 import EditUserProfile from "./screens/EditUserProfile";
 import UserSearch from "./screens/UserSearch";
@@ -109,7 +109,7 @@ function StackOtherNavigator() {
 		<StackOther.Screen name="login" component={LoginScreen} options={{ title: I18n.t("signIn") }} />
 		<StackOther.Screen name="signup" component={SignUpScreen} options={{ title: I18n.t("signUp") }} />
 		<StackOther.Screen name="forgetpassword" component={ForgotPasswordScreen} options={{ title: I18n.t("forgetPassword") }} />
-		<StackOther.Screen name="CameraApp" component={CameraApp} />
+		<StackOther.Screen name="CameraApp" component={CameraApp} options={{ title: I18n.t("camera") }} />
 		<StackOther.Screen name="UserProfile" component={UserProfile} options={{ title: I18n.t("profile") }} />
 		<StackOther.Screen name="chatPrivate" component={chat} options={({ route }) => ({ title: route.params.title })} />
 		<StackOther.Screen name="UserSearch" component={UserSearch} options={{ title: I18n.t("searchUsers") }} />

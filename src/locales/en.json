@@ -60,5 +60,6 @@
 	"email": "Email",
 	"firstName": "First Name",
 	"lastName": "Last Name",
-	"country": "Country"
+	"country": "Country",
+	"camera": "Camera"
 }
