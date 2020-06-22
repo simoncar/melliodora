@@ -1,32 +1,18 @@
 
 import React, { Component } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Button } from "react-native";
 import firebase from "firebase";
 import { Text } from "../components/sComponent";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { connect } from "react-redux";
+import I18n from "../lib/i18n";
 
 class UserProfile extends Component {
-	static navigationOptions = ({ navigation }) => ({
-		title: "User Profile",
-		headerRight: () => {
-			const permitEdit = navigation.state.params.permitEdit;
-
-			if (!permitEdit) return;
-			return <TouchableOpacity onPress={() => {
-				navigation.push("EditUserProfile", { ...navigation.state.params });
-			}}>
-				<View style={styles.abf9f4070b2d311ea999f193302967c6e}>
-					<Text>Edit </Text>
-					<Ionicons name="ios-settings" style={styles.abf9f6780b2d311ea999f193302967c6e} />
-				</View>
-			</TouchableOpacity>;
-		}
-	});
 
 	state = {
 		user: {}
 	};
+
 	componentDidMount() {
 		const { uid, user } = this.props.route.params;
 
@@ -36,9 +22,9 @@ class UserProfile extends Component {
 		} else if (uid) {
 			firebase.firestore().collection(this.props.community.selectedCommunity.node).doc("user").collection("registered").doc(uid).get().then(snapshot => {
 				if (!snapshot.exists) {
-					return this.props.navigation.push("EditUserProfile", {
-						...this.props.navigation.state.params
-					});
+					// return this.props.navigation.push("EditUserProfile", {
+					// 	...this.props.navigation.state.params
+					// });
 				}
 				const data = snapshot.data();
 				this.props.navigation.setParams({ uid: uid, user: data });
@@ -47,27 +33,32 @@ class UserProfile extends Component {
 		}
 	}
 
+	refreshFunction(data) {
+		const oldUser = this.state.user
+		const newUser = {
+			...oldUser,
+			...data
+		}
+
+		this.setState({ user: newUser });
+	}
+
 	_renderProfilePic = () => {
 		const width = 128;
 		const photoURL = this.state.user.photoURL;
 
-		return <View style={styles.abfa02ad0b2d311ea999f193302967c6e}>
-			{}
-			<View style={styles.abfa02ad1b2d311ea999f193302967c6e}>
-				{photoURL ? <Image style={styles.abfa02ad2b2d311ea999f193302967c6e} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.abfa051e0b2d311ea999f193302967c6e} />}
-			</View>
+		return <View style={styles.profilePicContainer}>
+
+			{photoURL ? <Image style={styles.profilePhoto} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.profilePhotoNone} />}
 		</View>;
 	};
 
 	privateMessageUser = async (targetUID, sourcUID, targetName) => {
-		//only for new chat
 		const dict = {
 			type: "private",
 			title: targetName,
 			createdTimeStamp: firebase.firestore.Timestamp.now()
 		};
-
-		// const data = [];
 
 		let docID = "";
 		if (targetUID < sourcUID) {
@@ -93,107 +84,66 @@ class UserProfile extends Component {
 
 		this.setState({ modalVisible: false });
 
-		console.log(navParams)
 		this.props.navigation.pop();
 		this.props.navigation.navigate("chatPrivate", navParams);
 	};
 
 	render() {
-		return <SafeAreaView style={styles.abfa078f0b2d311ea999f193302967c6e}>
+		this.props.navigation.setOptions({
+			headerRight: () =>
+				<Button
+					onPress={() => {
+						this.props.navigation.navigate("EditUserProfile", {
+							...this.state,
+							refreshFunction: this.refreshFunction.bind(this)
+						})
+					}}
+					title={I18n.t("edit")} />
+		});
+
+		return <SafeAreaView style={styles.saveAreaView}>
 			<ScrollView ScrollView bounces={false}>
 				{this._renderProfilePic()}
-				{this.showChat ? <View style={[styles.titleContainer, { flexDirection: "row", justifyContent: "center" }]}>
-					<TouchableOpacity style={styles.abfa0c710b2d311ea999f193302967c6e} onPress={() => {
-						this.privateMessageUser(this.state.user.uid, global.uid, this.state.user.displayName || this.state.user.firstName + " " + this.state.user.lastName);
-					}}>
-						<View style={styles.abfa0ee20b2d311ea999f193302967c6e}>
-							<MaterialIcons name="message" size={25} color={"white"} />
-						</View>
-						<Text style={styles.abfa0ee21b2d311ea999f193302967c6e}>
-							Private{"\n"}Message
-                </Text>
-					</TouchableOpacity>
-				</View> : null}
+
+
 
 				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Email:
-            </Text>
-					<Text style={styles.sectionContentText} numberOfLines={1}>
-						{this.state.user.email}
-					</Text>
-				</View>
-
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Display Name:
-            </Text>
-					<Text style={styles.sectionContentText} numberOfLines={1}>
+					<Text style={styles.nameText} >
 						{this.state.user.displayName}
 					</Text>
-				</View>
-
-				<View style={[styles.titleContainer, { flexDirection: "row" }]}>
-					<View style={styles.abfa18a60b2d311ea999f193302967c6e}>
-						<Text style={styles.nameText} numberOfLines={1}>
-							First Name:
-              </Text>
-						<Text style={styles.sectionContentText} numberOfLines={1}>
-							{this.state.user.firstName}
-						</Text>
-					</View>
-
-					<View style={styles.abfa18a61b2d311ea999f193302967c6e}>
-						<Text style={styles.nameText} numberOfLines={1}>
-							Last Name:
-              </Text>
-						<Text style={styles.sectionContentText} numberOfLines={1}>
-							{this.state.user.lastName}
-						</Text>
-					</View>
-				</View>
-
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Country:
-            </Text>
-					<Text style={styles.sectionContentText} numberOfLines={1}>
-						{this.state.user.country}
+					<Text style={styles.emailText}>
+						{this.state.user.email}
 					</Text>
-				</View>
 
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Region:
-            </Text>
-					<Text style={styles.sectionContentText} numberOfLines={1}>
-						{this.state.user.region}
-					</Text>
-				</View>
 
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Organization:
-            </Text>
-					<Text style={styles.sectionContentText} numberOfLines={1}>
-						{this.state.user.organization}
-					</Text>
-				</View>
+					<Text style={styles.groupText} >Groups</Text>
 
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Interest Group(s):
-            </Text>
-
-					{Array.isArray(this.state.user.interestGroups) && this.state.user.interestGroups.length ? this.state.user.interestGroups.map(grp => <Text style={styles.sectionContentText} numberOfLines={1} key={grp}>
+					{Array.isArray(this.state.user.interestGroups) && this.state.user.interestGroups.length ? this.state.user.interestGroups.map(grp => <Text style={styles.sectionContentText} key={grp}>
 						{grp}
-					</Text>) : <Text style={styles.sectionContentText} numberOfLines={1}>
+					</Text>) : <Text style={styles.sectionContentText} >
 							None
 								</Text>}
+
+
+					{this.showChat ? <View>
+						<TouchableOpacity onPress={() => {
+							this.privateMessageUser(this.state.user.uid, global.uid, this.state.user.displayName || this.state.user.firstName + " " + this.state.user.lastName);
+						}}>
+							<View style={styles.chatIconView}>
+								<SimpleLineIcons name="bubble"
+									size={25}
+									color={"white"}
+									style={styles.chatIcon} />
+							</View>
+
+						</TouchableOpacity>
+					</View> : null}
 				</View>
+
 			</ScrollView>
-		</SafeAreaView>;
+		</SafeAreaView >;
 	}
+
 }
 const mapStateToProps = state => ({
 	community: state.community
@@ -201,83 +151,69 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(UserProfile);
 
 const styles = StyleSheet.create({
-	abf9f4070b2d311ea999f193302967c6e: {
-		alignItems: "center",
-		color: "#48484A",
-		flexDirection: "row",
-		fontSize: 25,
-		marginRight: 10
-	},
-	abf9f6780b2d311ea999f193302967c6e: {
-		color: "#48484A",
-		fontSize: 25,
-		marginRight: 10
-	},
-	abfa02ad1b2d311ea999f193302967c6e: {
-		alignItems: "center",
-		backgroundColor: "#fdfdfd",
-		bottom: 0,
-		justifyContent: "center",
-		left: 0,
-		position: "absolute",
-		right: 0,
-		top: 0,
-		zIndex: 2
-	},
-	abfa02ad2b2d311ea999f193302967c6e: {
-		borderColor: "lightgray",
-		borderWidth: 5,
-	},
-	abfa051e0b2d311ea999f193302967c6e: {
-		borderColor: "lightgray",
-		borderWidth: StyleSheet.hairlineWidth,
-		color: "#0075b7",
-		textAlign: "center",
-	},
-	abfa078f0b2d311ea999f193302967c6e: { flex: 1 },
-	abfa0c710b2d311ea999f193302967c6e: {
-		alignItems: "center",
-		justifyContent: "center"
-	},
-	abfa0ee20b2d311ea999f193302967c6e: {
-		alignItems: "center",
-		backgroundColor: "#4CAF50",
-		borderTopLeftRadius: 50 / 2,
-		height: 50,
-		justifyContent: "center",
-		shadowColor: "#000000",
-		shadowOffset: {
-			height: 1,
-			width: 1
-		},
-		shadowOpacity: 0.8,
-		shadowRadius: 2,
-		width: 50
-	},
-	abfa0ee21b2d311ea999f193302967c6e: {
-		alignItems: "center",
-		color: "#808080",
-		fontSize: 12,
-		justifyContent: "center",
-		marginTop: 4,
+
+	chatIcon: {
+		color: "#222",
+		fontSize: 30,
 		textAlign: "center"
 	},
-	abfa18a60b2d311ea999f193302967c6e: { flex: 1 },
-	abfa18a61b2d311ea999f193302967c6e: { flex: 1 },
-
+	chatIconView: {
+		color: "#222",
+		fontSize: 16,
+	},
+	emailText: {
+		color: "black",
+		fontSize: 13,
+		textAlign: "center"
+	},
+	groupText: {
+		color: "black",
+		fontSize: 13,
+		marginTop: 20,
+		textAlign: "center"
+	},
 	nameText: {
 		color: "black",
-		fontSize: 18,
-		fontWeight: "600"
+		fontSize: 25,
+		fontWeight: "bold",
+		textAlign: "center"
 	},
+	profilePhoto: {
+		borderColor: "lightgray",
+		borderRadius: 150 / 2,
+		borderWidth: StyleSheet.hairlineWidth,
+		height: 150,
+		overflow: "hidden",
+		width: 150
+	},
+
+	profilePhotoNone: {
+		borderColor: "grey",
+		borderRadius: 150 / 2,
+		borderWidth: StyleSheet.hairlineWidth,
+		height: 150,
+		overflow: "hidden",
+		textAlign: "center",
+		width: 150,
+	},
+	profilePicContainer: {
+		alignItems: "center",
+		paddingBottom: 15,
+		paddingHorizontal: 15,
+		paddingTop: 15
+	},
+	saveArea: { flex: 1 },
 	sectionContentText: {
 		color: "#808080",
-		fontSize: 14
+		fontSize: 14,
+		marginBottom: 30,
+		textAlign: "center"
 	},
 	titleContainer: {
 		backgroundColor: "#fdfdfd",
 		paddingBottom: 15,
 		paddingHorizontal: 15,
-		paddingTop: 15
+		paddingTop: 15,
+
 	}
 });

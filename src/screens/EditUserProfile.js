@@ -1,32 +1,35 @@
 
-import React, { Component } from "react";
-import { View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
-import firebase from "firebase";
 
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
-import { connectActionSheet } from "@expo/react-native-action-sheet";
-import { ActionSheetProvider } from "@expo/react-native-action-sheet";
+import React, { Component } from "react";
+import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Button } from "react-native";
+import firebase from "firebase";
+import { Input } from "react-native-elements";
+import { Ionicons } from "@expo/vector-icons";
+import * as Permissions from "expo-permissions";
+import { ActionSheetProvider, connectActionSheet } from "@expo/react-native-action-sheet";
+
+import I18n from "../lib/i18n";
 import _ from "lodash";
-import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/uploadImage";
-import Loader from "../components/Loader";
+import { saveProfilePic, launchProfileImagePicker } from "../lib/uploadImage";
 import { Text } from "../components/sComponent";
 
 class EditUserProfile extends Component {
-	state = {
-		loading: false,
-		user: {}
-	};
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			loading: false,
+			user: {}
+		};
+	}
 
 	componentDidMount() {
-		const { uid, user, email } = this.props.route.params;
+		const { uid, user } = this.props;
 
-		const currentUser = firebase.auth().currentUser;
-		if (currentUser.uid != uid || currentUser.isAnonymous) {
-			return this.props.navigation.pop();
-		}
-		this.props.route.params._updateProfile = this._updateProfile;
+		//this.props.route.params._updateProfile = this._updateProfile;
 		this.originData = { ...user, uid };
-		this.setState({ user: { ...user, uid, email: currentUser.email } });
+		this.setState({ user: { ...user, uid } });
 	}
 
 	/**
@@ -50,34 +53,23 @@ class EditUserProfile extends Component {
 		this.setState({ loading: true });
 
 		try {
-			// const modifiedObj = _.pick(this.state.user, Object.keys(this.originData));
 			const diff = this.difference(this.state.user, this.originData);
 
-			const user = firebase.auth().currentUser;
-			if (user && user.uid === this.originData.uid && !_.isEmpty(diff)) {
+			if (!_.isEmpty(diff)) {
 				const updateProfileObj = {};
 				if (diff.photoURL) {
 					const downloadURL = await saveProfilePic(diff.photoURL);
-
-					//set auth photo info
 					updateProfileObj["photoURL"] = downloadURL;
-
-					//set firestore photo info
 					diff["photoURL"] = downloadURL;
 				}
 
-				//update displayname
-				if (diff.displayName) updateProfileObj["displayName"] = diff.displayName;
-
-				//update auth user info
-				if (!_.isEmpty(updateProfileObj)) user.updateProfile(updateProfileObj);
-
-				//update firestore user info
-				await firebase.firestore().collection(global.domain).doc("user").collection("registered").doc(user.uid).set(diff, { merge: true });
+				await firebase.firestore().collection(global.domain).doc("user").collection("registered").doc(this.state.user.uid).set(diff, { merge: true });
 			}
 
-			await this.setState({ loading: false });
-			this.props.navigation.popToTop();
+			const refreshFunction = this.props.refreshFunction;
+			refreshFunction(diff);
+
+			this.props.navigation.pop();
 		} catch (error) {
 			this.setState({
 				errorMessage: error.message,
@@ -88,7 +80,6 @@ class EditUserProfile extends Component {
 
 	_pickImage = async () => {
 		let result = await launchProfileImagePicker();
-		console.log(result);
 
 		if (!result.cancelled) {
 			this.setProfilePic({ profilePic: result.uri });
@@ -99,106 +90,75 @@ class EditUserProfile extends Component {
 		this.setState(prevState => ({ user: { ...prevState.user, photoURL: profilePic } }));
 	};
 
-	_onOpenActionSheet = () => {
-		getPermissionAsync();
-		const options = ["Take photo from camera", "Select from gallery", "Clear", "Cancel"];
-		const destructiveButtonIndex = options.length - 2;
-		const cancelButtonIndex = options.length - 1;
+	_onOpenActionSheet = async () => {
+		const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
+		if (status === 'granted') {
+			const options = ["Take photo from camera", "Select from gallery", "Clear", "Cancel"];
+			const destructiveButtonIndex = options.length - 2;
+			const cancelButtonIndex = options.length - 1;
 
-		this.props.showActionSheetWithOptions({
-			options,
-			cancelButtonIndex,
-			destructiveButtonIndex
-		}, buttonIndex => {
-			// Do something here depending on the button index selected
-			switch (buttonIndex) {
-				case 0:
-					this.props.navigation.push("CameraApp", {
-						onGoBack: this.setProfilePic
-					});
-					break;
-				case 1:
-					this._pickImage();
-					break;
-			}
-		});
+			this.props.showActionSheetWithOptions({
+				options,
+				cancelButtonIndex,
+				destructiveButtonIndex
+			}, buttonIndex => {
+				// Do something here depending on the button index selected
+				switch (buttonIndex) {
+					case 0:
+						this.props.navigation.push("CameraApp", {
+							onGoBack: this.setProfilePic
+						});
+						break;
+					case 1:
+						this._pickImage();
+						break;
+				}
+			});
+		}
 	};
 
 	_renderProfilePic = () => {
-		const width = 120;
-		const containerHeight = 200;
 		const photoURL = this.state.user.photoURL;
 
 		return <View style={styles.profilePicContainer}>
-			<TouchableOpacity style={styles.ac0ab98a0b2d911ea999f193302967c6e} onPress={this._onOpenActionSheet}>
-				{photoURL ? <Image style={styles.ac0ab98a1b2d911ea999f193302967c6e} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={width * 0.85} color="#999999" style={styles.ac0abbfb0b2d911ea999f193302967c6e} />}
+			<TouchableOpacity onPress={this._onOpenActionSheet}>
+				{photoURL ? <Image style={styles.profilePhoto} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={100} color="#999999" style={styles.profilePic} />}
 				{}
 			</TouchableOpacity>
-			<Text></Text>
-			<Text style={styles.profilePicText} numberOfLines={1}>
-				Add profile picture
-        </Text>
+			<Text style={styles.profilePicText} >
+				{I18n.t("edit")}
+			</Text>
 		</View>;
 	};
+
 	render() {
-		return <SafeAreaView style={styles.ac0abe6c0b2d911ea999f193302967c6e}>
-			<ScrollView bounces={false}>
-				<Loader modalVisible={this.state.loading} animationType="fade" />
+		return <SafeAreaView style={styles.saveAreaView}>
+			<ScrollView>
+
 				<Text>{this.state.errorMessage}</Text>
+
 				{this._renderProfilePic()}
 
 				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Email:
-            </Text>
-					<Text style={[styles.sectionContentText, { height: 18 }]} numberOfLines={1}>
-						{this.state.user.email}
-					</Text>
+					<Text style={styles.nameText}>{I18n.t("email")}: </Text>
+					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, email: text } }))} value={this.state.user.email} />
 				</View>
 
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Display Name:
-            </Text>
-					<TextInput style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, displayName: text } }))} value={this.state.user.displayName} />
-				</View>
-
-				<View style={[styles.titleContainer, { flexDirection: "row" }]}>
-					<View style={styles.ac0ac34e0b2d911ea999f193302967c6e}>
-						<Text style={styles.nameText} numberOfLines={1}>
-							First Name:
-              </Text>
-						<TextInput style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, firstName: text } }))} value={this.state.user.firstName} />
+				<View style={styles.titleContainerRow}>
+					<View style={styles.rowFlex}>
+						<Text style={styles.nameText}>{I18n.t("firstName")}:</Text>
+						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, firstName: text, displayName: text + ' ' + this.state.user.lastName } }))} value={this.state.user.firstName} />
 					</View>
-					<View style={styles.ac0ac34e1b2d911ea999f193302967c6e}></View>
-					<View style={styles.ac0ac34e2b2d911ea999f193302967c6e}>
-						<Text style={styles.nameText} numberOfLines={1}>
-							Last Name:
-              </Text>
-						<TextInput style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, lastName: text } }))} value={this.state.user.lastName} />
+					<View style={styles.rowFlex}><Text style={styles.nameText}>{I18n.t("lastName")}:</Text>
+						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, lastName: text, displayName: this.state.user.firstName + ' ' + text } }))} value={this.state.user.lastName} />
 					</View>
 				</View>
 
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Country:
-            </Text>
-					<TextInput style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, country: text } }))} value={this.state.user.country} />
+				<View style={styles.titleContainer}><Text style={styles.nameText}>{I18n.t("country")}:</Text>
+					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, country: text } }))} value={this.state.user.country} />
 				</View>
 
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Region:
-            </Text>
-					<TextInput style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, region: text } }))} value={this.state.user.region} />
-				</View>
-
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						Organization:
-            </Text>
-					<TextInput style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, organization: text } }))} value={this.state.user.organization} />
-				</View>
+				<Button onPress={() => this._updateProfile()} title={I18n.t("save")} />
 			</ScrollView>
 		</SafeAreaView>;
 	}
@@ -207,60 +167,32 @@ class EditUserProfile extends Component {
 const ConnectedApp = connectActionSheet(EditUserProfile);
 
 export default class ActionSheetContainer extends Component {
-	static navigationOptions = ({ navigation }) => ({
-		// title: I18n.t("Edit", { defaultValue: "Edit" }),
-		title: "Edit Profile",
-		headerRight: () => {
-			const permitEdit = this.props.route.params.permitEdit;
-
-			if (!permitEdit) return;
-			return <TouchableOpacity onPress={() => this.props.route.params._updateProfile()}>
-				<View style={styles.ac0ac5bf0b2d911ea999f193302967c6e}>
-					<Text style={styles.ac0ac5bf1b2d911ea999f193302967c6e}>Save </Text>
-					<MaterialIcons name="done" style={styles.ac0ac5bf2b2d911ea999f193302967c6e} />
-				</View>
-			</TouchableOpacity>;
-		}
-	});
 
 	render() {
 		return <ActionSheetProvider>
-			<ConnectedApp navigation={this.props.navigation} />
+			<ConnectedApp navigation={this.props.navigation} refreshFunction={this.props.route.params.refreshFunction} uid={this.props.route.params.uid} user={this.props.route.params.user} />
 		</ActionSheetProvider>;
 	}
 }
 
 const styles = StyleSheet.create({
-	ac0ab98a1b2d911ea999f193302967c6e: {
-		borderColor: "lightgray",
-		borderWidth: 5,
-	},
-	ac0abbfb0b2d911ea999f193302967c6e: {
-		borderColor: "lightgray",
-		borderWidth: StyleSheet.hairlineWidth,
-		textAlign: "center",
-	},
-	ac0abe6c0b2d911ea999f193302967c6e: { backgroundColor: "#fdfdfd", flex: 1 },
-	ac0ac34e0b2d911ea999f193302967c6e: { flex: 1 },
-	ac0ac34e2b2d911ea999f193302967c6e: { flex: 1 },
-	ac0ac5bf0b2d911ea999f193302967c6e: {
-		alignItems: "center",
-		color: "#48484A",
-		flexDirection: "row",
-		fontSize: 25,
-		marginRight: 10
-	},
-	ac0ac5bf1b2d911ea999f193302967c6e: { color: "#777777" },
-	ac0ac5bf2b2d911ea999f193302967c6e: {
-		color: "#777777",
-		fontSize: 25,
-		marginRight: 10
-	},
-
 	nameText: {
 		color: "#777777",
 		fontSize: 10,
 		fontWeight: "600"
+	},
+
+	profilePhoto: {
+		borderColor: "grey",
+		borderRadius: 150 / 2,
+		borderWidth: 1,
+		height: 150,
+		overflow: "hidden",
+		width: 150
+	},
+	profilePic: {
+		borderColor: "lightgray",
+		height: 200
 	},
 	profilePicContainer: {
 		alignItems: "center",
@@ -273,6 +205,8 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		fontWeight: "600"
 	},
+	rowFlex: { flex: 1 },
+	saveAreaView: { backgroundColor: "#fdfdfd", flex: 1 },
 	sectionContentText: {
 		borderBottomWidth: 1,
 		borderColor: "#100c08",
@@ -284,5 +218,12 @@ const styles = StyleSheet.create({
 		paddingBottom: 15,
 		paddingHorizontal: 15,
 		paddingTop: 15
+	},
+	titleContainerRow: {
+		flexDirection: "row",
+		paddingBottom: 15,
+		paddingHorizontal: 15,
+		paddingTop: 15
 	}
+
 });
