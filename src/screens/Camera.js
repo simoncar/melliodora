@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { View, Dimensions, TouchableHighlight, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Dimensions, TouchableHighlight, StyleSheet } from "react-native";
 import * as firebase from "firebase";
 import { Entypo } from "@expo/vector-icons";
 import * as ImageManipulator from "expo-image-manipulator";
@@ -18,18 +18,10 @@ export default class CameraApp extends Component {
 
 	state = {
 		hasCameraPermission: null,
-		type: Camera.Constants.Type.back,
+		type: Camera.Constants.Type.front,
 		cameraIcon: "camera"
 	};
 
-	static navigationOptions = ({ navigation }) => ({
-		headerLeft: <TouchableOpacity onPress={() => {
-			navigation.goBack();
-		}}>
-			<Entypo name="chevron-left" style={styles.left} />
-		</TouchableOpacity>,
-		headerTitle: <Text style={styles.a9f20bde0b21211ea8aa31930972200e5}>Capture Event</Text>
-	});
 
 	async componentDidMount() {
 		const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -57,14 +49,13 @@ export default class CameraApp extends Component {
 	};
 
 	async snapPhoto() {
-		var d = new Date();
 		const options = { quality: 1, base64: true, fixOrientation: true, exif: true };
 		await this.camera.takePictureAsync(options).then(async photo => {
 			const convertedImage = await new ImageManipulator.manipulateAsync(photo.uri, [{ resize: { height: 600 } }], {
 				compress: 0
 			});
 			//photo.exif.Orientation = 1;
-			fileToUpload = convertedImage.uri;
+			var fileToUpload = convertedImage.uri;
 
 			this.setState({ profilePic: fileToUpload });
 			this.goBack();
@@ -85,12 +76,12 @@ export default class CameraApp extends Component {
 		} else if (hasCameraPermission === false) {
 			return <Text>No access to camera</Text>;
 		} else {
-			return <View style={styles.a9f210c00b21211ea8aa31930972200e5}>
+			return <View style={styles.flexView}>
 				<TouchableHighlight style={styles.camera} underlayColor="#ff7043" onPress={this.snapPhoto.bind(this)}>
 					<Entypo name={this.state.cameraIcon} size={28} color={"white"} />
 				</TouchableHighlight>
 
-				<Camera style={styles.a9f210c01b21211ea8aa31930972200e5} type={this.state.type} ref={ref => {
+				<Camera style={styles.flexCamera} type={this.state.type} ref={ref => {
 					this.camera = ref;
 				}}></Camera>
 			</View>;
@@ -99,14 +90,11 @@ export default class CameraApp extends Component {
 }
 
 const styles = StyleSheet.create({
-	a9f20bde0b21211ea8aa31930972200e5: { fontSize: 18, fontWeight: "bold" },
-	a9f210c00b21211ea8aa31930972200e5: { flex: 1 },
-	a9f210c01b21211ea8aa31930972200e5: { flex: 1 },
-
 	camera: {
 		alignItems: "center",
 		backgroundColor: "#ff5722",
 		borderColor: "#ff5722",
+		borderRadius: 150 / 2,
 		borderWidth: 1,
 		bottom: 30,
 		height: 80,
@@ -123,11 +111,7 @@ const styles = StyleSheet.create({
 		width: 80,
 		zIndex: 1
 	},
-	left: {
-		alignSelf: "center",
-		color: "#037AFF",
-		fontSize: 30,
-		paddingBottom: 5,
-		paddingRight: 10
-	}
+	flexCamera: { flex: 1 },
+	flexView: { flex: 1 },
+
 });

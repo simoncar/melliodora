@@ -93,7 +93,7 @@ class EditUserProfile extends Component {
 	_onOpenActionSheet = async () => {
 		const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
 		if (status === 'granted') {
-			const options = ["Take photo from camera", "Select from gallery", "Clear", "Cancel"];
+			const options = ["Take Photo", "Choose Photo", "Delete", "Cancel"];
 			const destructiveButtonIndex = options.length - 2;
 			const cancelButtonIndex = options.length - 1;
 
@@ -125,9 +125,6 @@ class EditUserProfile extends Component {
 				{photoURL ? <Image style={styles.profilePhoto} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={100} color="#999999" style={styles.profilePic} />}
 				{}
 			</TouchableOpacity>
-			<Text style={styles.profilePicText} >
-				{I18n.t("edit")}
-			</Text>
 		</View>;
 	};
 
@@ -200,11 +197,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 15,
 		paddingTop: 15
 	},
-	profilePicText: {
-		color: "#777777",
-		fontSize: 14,
-		fontWeight: "600"
-	},
+
 	rowFlex: { flex: 1 },
 	saveAreaView: { backgroundColor: "#fdfdfd", flex: 1 },
 	sectionContentText: {
