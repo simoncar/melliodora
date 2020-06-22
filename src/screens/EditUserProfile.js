@@ -1,31 +1,35 @@
-import React, { Component } from "react";
-import { View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
-import firebase from "firebase";
 
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
-import { connectActionSheet } from "@expo/react-native-action-sheet";
-import { ActionSheetProvider } from "@expo/react-native-action-sheet";
+
+import React, { Component } from "react";
+import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Button } from "react-native";
+import firebase from "firebase";
+import { Input } from "react-native-elements";
+import { Ionicons } from "@expo/vector-icons";
+import * as Permissions from "expo-permissions";
+import { ActionSheetProvider, connectActionSheet } from "@expo/react-native-action-sheet";
+
+import I18n from "../lib/i18n";
 import _ from "lodash";
-import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/uploadImage";
-import Loader from "../components/Loader";
-import { Text } from "../components/sComponent"
+import { saveProfilePic, launchProfileImagePicker } from "../lib/uploadImage";
+import { Text } from "../components/sComponent";
 
 class EditUserProfile extends Component {
-	state = {
-		loading: false,
-		user: {},
-	};
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			loading: false,
+			user: {}
+		};
+	}
 
 	componentDidMount() {
-		const { uid, user, email } = this.props.navigation.state.params;
+		const { uid, user } = this.props;
 
-		const currentUser = firebase.auth().currentUser;
-		if (currentUser.uid != uid || currentUser.isAnonymous) {
-			return this.props.navigation.pop();
-		}
-		this.props.navigation.state.params._updateProfile = this._updateProfile;
+		//this.props.route.params._updateProfile = this._updateProfile;
 		this.originData = { ...user, uid };
-		this.setState({ user: { ...user, uid, email: currentUser.email } });
+		this.setState({ user: { ...user, uid } });
 	}
 
 	/**
@@ -49,45 +53,33 @@ class EditUserProfile extends Component {
 		this.setState({ loading: true });
 
 		try {
-			// const modifiedObj = _.pick(this.state.user, Object.keys(this.originData));
 			const diff = this.difference(this.state.user, this.originData);
 
-			const user = firebase.auth().currentUser;
-			if (user && user.uid === this.originData.uid && !_.isEmpty(diff)) {
+			if (!_.isEmpty(diff)) {
 				const updateProfileObj = {};
 				if (diff.photoURL) {
 					const downloadURL = await saveProfilePic(diff.photoURL);
-
-					//set auth photo info
 					updateProfileObj["photoURL"] = downloadURL;
-
-					//set firestore photo info
 					diff["photoURL"] = downloadURL;
 				}
 
-				//update displayname
-				if (diff.displayName) updateProfileObj["displayName"] = diff.displayName;
-
-				//update auth user info
-				if (!_.isEmpty(updateProfileObj)) user.updateProfile(updateProfileObj);
-
-				//update firestore user info
-				await firebase.firestore().collection(global.domain).doc("user").collection("registered").doc(user.uid).set(diff, { merge: true });
+				await firebase.firestore().collection(global.domain).doc("user").collection("registered").doc(this.state.user.uid).set(diff, { merge: true });
 			}
 
-			await this.setState({ loading: false });
-			this.props.navigation.popToTop();
+			const refreshFunction = this.props.refreshFunction;
+			refreshFunction(diff);
+
+			this.props.navigation.pop();
 		} catch (error) {
 			this.setState({
 				errorMessage: error.message,
-				loading: false,
+				loading: false
 			});
 		}
 	};
 
 	_pickImage = async () => {
 		let result = await launchProfileImagePicker();
-		console.log(result);
 
 		if (!result.cancelled) {
 			this.setProfilePic({ profilePic: result.uri });
@@ -95,253 +87,143 @@ class EditUserProfile extends Component {
 	};
 
 	setProfilePic = ({ profilePic }) => {
-		this.setState((prevState) => ({ user: { ...prevState.user, photoURL: profilePic } }));
+		this.setState(prevState => ({ user: { ...prevState.user, photoURL: profilePic } }));
 	};
 
-	_onOpenActionSheet = () => {
-		getPermissionAsync();
-		const options = ["Take photo from camera", "Select from gallery", "Clear", "Cancel"];
-		const destructiveButtonIndex = options.length - 2;
-		const cancelButtonIndex = options.length - 1;
+	_onOpenActionSheet = async () => {
+		const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
+		if (status === 'granted') {
+			const options = ["Take photo from camera", "Select from gallery", "Clear", "Cancel"];
+			const destructiveButtonIndex = options.length - 2;
+			const cancelButtonIndex = options.length - 1;
 
-		this.props.showActionSheetWithOptions(
-			{
+			this.props.showActionSheetWithOptions({
 				options,
 				cancelButtonIndex,
-				destructiveButtonIndex,
-			},
-			(buttonIndex) => {
+				destructiveButtonIndex
+			}, buttonIndex => {
 				// Do something here depending on the button index selected
 				switch (buttonIndex) {
 					case 0:
 						this.props.navigation.push("CameraApp", {
-							onGoBack: this.setProfilePic,
+							onGoBack: this.setProfilePic
 						});
 						break;
 					case 1:
 						this._pickImage();
 						break;
 				}
-			}
-		);
+			});
+		}
 	};
 
 	_renderProfilePic = () => {
-		const width = 120;
-		const containerHeight = 200;
 		const photoURL = this.state.user.photoURL;
 
-		return (
-			<View style={styles.profilePicContainer}>
-				<TouchableOpacity style={{ width }} onPress={this._onOpenActionSheet}>
-					{photoURL ? (
-						<Image
-							style={{
-								width: width,
-								height: width,
-								borderRadius: width / 2,
-								borderWidth: 5,
-								borderColor: "lightgray",
-							}}
-							source={{ uri: photoURL }}
-						/>
-					) : (
-							<Ionicons
-								name="ios-person"
-								size={width * 0.85}
-								color="#999999"
-								style={{
-									width: width,
-									height: width,
-									borderRadius: width / 2,
-									borderWidth: StyleSheet.hairlineWidth,
-									borderColor: "lightgray",
-									textAlign: "center",
-								}}
-							/>
-						)}
-					{/* <Image
-            style={[
-              {
-                backgroundColor: "white",
-                width: width,
-                height: width,
-                borderRadius: width / 2,
-                borderWidth: 5,
-                borderColor: "lightgray"
-              }
-            ]}
-            source={photoURL ? { uri: photoURL } : null}
-          /> */}
-				</TouchableOpacity>
-				<Text></Text>
-				<Text style={styles.profilePicText} numberOfLines={1}>
-					Add profile picture
-        </Text>
-			</View>
-		);
+		return <View style={styles.profilePicContainer}>
+			<TouchableOpacity onPress={this._onOpenActionSheet}>
+				{photoURL ? <Image style={styles.profilePhoto} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={100} color="#999999" style={styles.profilePic} />}
+				{}
+			</TouchableOpacity>
+			<Text style={styles.profilePicText} >
+				{I18n.t("edit")}
+			</Text>
+		</View>;
 	};
+
 	render() {
-		return (
-			<SafeAreaView style={{ flex: 1, backgroundColor: "#fdfdfd" }}>
-				<ScrollView bounces={false}>
-					<Loader modalVisible={this.state.loading} animationType="fade" />
-					<Text>{this.state.errorMessage}</Text>
-					{this._renderProfilePic()}
+		return <SafeAreaView style={styles.saveAreaView}>
+			<ScrollView>
 
-					<View style={styles.titleContainer}>
-						<Text style={styles.nameText} numberOfLines={1}>
-							Email:
-            </Text>
-						<Text style={[styles.sectionContentText, { height: 18 }]} numberOfLines={1}>
-							{this.state.user.email}
-						</Text>
-					</View>
+				<Text>{this.state.errorMessage}</Text>
 
-					<View style={styles.titleContainer}>
-						<Text style={styles.nameText} numberOfLines={1}>
-							Display Name:
-            </Text>
-						<TextInput
-							style={styles.sectionContentText}
-							onChangeText={(text) => this.setState((prevState) => ({ user: { ...prevState.user, displayName: text } }))}
-							value={this.state.user.displayName}
-						/>
-					</View>
+				{this._renderProfilePic()}
 
-					<View style={[styles.titleContainer, { flexDirection: "row" }]}>
-						<View style={{ flex: 1 }}>
-							<Text style={styles.nameText} numberOfLines={1}>
-								First Name:
-              </Text>
-							<TextInput
-								style={styles.sectionContentText}
-								onChangeText={(text) => this.setState((prevState) => ({ user: { ...prevState.user, firstName: text } }))}
-								value={this.state.user.firstName}
-							/>
-						</View>
-						<View style={{ width: 30 }}></View>
-						<View style={{ flex: 1 }}>
-							<Text style={styles.nameText} numberOfLines={1}>
-								Last Name:
-              </Text>
-							<TextInput
-								style={styles.sectionContentText}
-								onChangeText={(text) => this.setState((prevState) => ({ user: { ...prevState.user, lastName: text } }))}
-								value={this.state.user.lastName}
-							/>
-						</View>
-					</View>
+				<View style={styles.titleContainer}>
+					<Text style={styles.nameText}>{I18n.t("email")}: </Text>
+					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, email: text } }))} value={this.state.user.email} />
+				</View>
 
-					<View style={styles.titleContainer}>
-						<Text style={styles.nameText} numberOfLines={1}>
-							Country:
-            </Text>
-						<TextInput
-							style={styles.sectionContentText}
-							onChangeText={(text) => this.setState((prevState) => ({ user: { ...prevState.user, country: text } }))}
-							value={this.state.user.country}
-						/>
+				<View style={styles.titleContainerRow}>
+					<View style={styles.rowFlex}>
+						<Text style={styles.nameText}>{I18n.t("firstName")}:</Text>
+						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, firstName: text, displayName: text + ' ' + this.state.user.lastName } }))} value={this.state.user.firstName} />
 					</View>
+					<View style={styles.rowFlex}><Text style={styles.nameText}>{I18n.t("lastName")}:</Text>
+						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, lastName: text, displayName: this.state.user.firstName + ' ' + text } }))} value={this.state.user.lastName} />
+					</View>
+				</View>
 
-					<View style={styles.titleContainer}>
-						<Text style={styles.nameText} numberOfLines={1}>
-							Region:
-            </Text>
-						<TextInput
-							style={styles.sectionContentText}
-							onChangeText={(text) => this.setState((prevState) => ({ user: { ...prevState.user, region: text } }))}
-							value={this.state.user.region}
-						/>
-					</View>
+				<View style={styles.titleContainer}><Text style={styles.nameText}>{I18n.t("country")}:</Text>
+					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, country: text } }))} value={this.state.user.country} />
+				</View>
 
-					<View style={styles.titleContainer}>
-						<Text style={styles.nameText} numberOfLines={1}>
-							Organization:
-            </Text>
-						<TextInput
-							style={styles.sectionContentText}
-							onChangeText={(text) => this.setState((prevState) => ({ user: { ...prevState.user, organization: text } }))}
-							value={this.state.user.organization}
-						/>
-					</View>
-				</ScrollView>
-			</SafeAreaView>
-		);
+				<Button onPress={() => this._updateProfile()} title={I18n.t("save")} />
+			</ScrollView>
+		</SafeAreaView>;
 	}
 }
 
 const ConnectedApp = connectActionSheet(EditUserProfile);
 
 export default class ActionSheetContainer extends Component {
-	static navigationOptions = ({ navigation }) => ({
-		// title: I18n.t("Edit", { defaultValue: "Edit" }),
-		title: "Edit Profile",
-		headerRight: () => {
-			const permitEdit = navigation.state.params.permitEdit;
-
-			if (!permitEdit) return;
-			return (
-				<TouchableOpacity onPress={() => navigation.state.params._updateProfile()}>
-					<View
-						style={{
-							color: "#48484A",
-							fontSize: 25,
-							marginRight: 10,
-							flexDirection: "row",
-							alignItems: "center",
-						}}>
-						<Text style={{ color: "#777777" }}>Save </Text>
-						<MaterialIcons
-							name="done"
-							style={{
-								color: "#777777",
-								fontSize: 25,
-								marginRight: 10,
-							}}
-						/>
-					</View>
-				</TouchableOpacity>
-			);
-		},
-	});
 
 	render() {
-		return (
-			<ActionSheetProvider>
-				<ConnectedApp navigation={this.props.navigation} />
-			</ActionSheetProvider>
-		);
+		return <ActionSheetProvider>
+			<ConnectedApp navigation={this.props.navigation} refreshFunction={this.props.route.params.refreshFunction} uid={this.props.route.params.uid} user={this.props.route.params.user} />
+		</ActionSheetProvider>;
 	}
 }
 
 const styles = StyleSheet.create({
+	nameText: {
+		color: "#777777",
+		fontSize: 10,
+		fontWeight: "600"
+	},
+
+	profilePhoto: {
+		borderColor: "grey",
+		borderRadius: 150 / 2,
+		borderWidth: 1,
+		height: 150,
+		overflow: "hidden",
+		width: 150
+	},
+	profilePic: {
+		borderColor: "lightgray",
+		height: 200
+	},
 	profilePicContainer: {
-		paddingHorizontal: 15,
-		paddingTop: 15,
-		paddingBottom: 15,
 		alignItems: "center",
+		paddingBottom: 15,
+		paddingHorizontal: 15,
+		paddingTop: 15
 	},
 	profilePicText: {
-		fontWeight: "600",
+		color: "#777777",
 		fontSize: 14,
-		color: "#777777",
+		fontWeight: "600"
 	},
-	titleContainer: {
-		paddingHorizontal: 15,
-		paddingTop: 15,
-		paddingBottom: 15,
-	},
-	nameText: {
-		fontWeight: "600",
-		fontSize: 10,
-		color: "#777777",
-	},
+	rowFlex: { flex: 1 },
+	saveAreaView: { backgroundColor: "#fdfdfd", flex: 1 },
 	sectionContentText: {
+		borderBottomWidth: 1,
+		borderColor: "#100c08",
 		color: "#111111",
 		fontSize: 14,
-		height: 40,
-		borderColor: "#100c08",
-		borderBottomWidth: 1,
+		height: 40
 	},
+	titleContainer: {
+		paddingBottom: 15,
+		paddingHorizontal: 15,
+		paddingTop: 15
+	},
+	titleContainerRow: {
+		flexDirection: "row",
+		paddingBottom: 15,
+		paddingHorizontal: 15,
+		paddingTop: 15
+	}
+
 });

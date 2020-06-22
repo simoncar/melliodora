@@ -4,8 +4,8 @@ import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import _ from "lodash";
 
+import { Text } from "./components/sComponent";
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather, FontAwesome } from "@expo/vector-icons";
 import I18n from "./lib/i18n";
 
@@ -111,8 +111,8 @@ function StackOtherNavigator() {
 		<StackOther.Screen name="selectLanguage" component={selectLanguage} options={{ title: I18n.t("language") }} />
 		<StackOther.Screen name="adminPassword" component={adminPassword} options={{ title: I18n.t("adminAccess") }} />
 		<StackOther.Screen name="login" component={LoginScreen} options={{ title: I18n.t("signIn") }} />
-		<StackOther.Screen name="signup" component={SignUpScreen} options={{ title: I18n.t("signUp") }}/>
-		<StackOther.Screen name="forgetpassword" component={ForgotPasswordScreen} options={{ title: I18n.t("forgetPassword") }}/>
+		<StackOther.Screen name="signup" component={SignUpScreen} options={{ title: I18n.t("signUp") }} />
+		<StackOther.Screen name="forgetpassword" component={ForgotPasswordScreen} options={{ title: I18n.t("forgetPassword") }} />
 		<StackOther.Screen name="CameraApp" component={CameraApp} />
 		<StackOther.Screen name="UserProfile" component={UserProfile} options={{ title: I18n.t("profile") }} />
 		<StackOther.Screen name="chatPrivate" component={chat} options={({ route }) => ({ title: route.params.title })} />
@@ -183,6 +183,7 @@ function headerRightSearch(navigation, searchPage) {
 		</View>
 	</TouchableOpacity>;
 }
+
 
 function headerTitle(route) {
 	if (route.params == undefined) {

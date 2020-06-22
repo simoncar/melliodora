@@ -56,5 +56,9 @@
 	"create": "Create",
 	"cancel": "Cancel",
 	"groupSubject": "Group Subject",
-	"profile": "Profile"
+	"profile": "Profile",
+	"email": "Email",
+	"firstName": "First Name",
+	"lastName": "Last Name",
+	"country": "Country"
 }
