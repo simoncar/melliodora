@@ -26,7 +26,6 @@ class EditUserProfile extends Component {
 
 	componentDidMount() {
 		const { uid, user } = this.props;
-		console.log(this.props);
 
 		//this.props.route.params._updateProfile = this._updateProfile;
 		this.originData = { ...user, uid };
@@ -81,7 +80,6 @@ class EditUserProfile extends Component {
 
 	_pickImage = async () => {
 		let result = await launchProfileImagePicker();
-		console.log(result);
 
 		if (!result.cancelled) {
 			this.setProfilePic({ profilePic: result.uri });
@@ -121,7 +119,6 @@ class EditUserProfile extends Component {
 
 	_renderProfilePic = () => {
 		const photoURL = this.state.user.photoURL;
-		console.log("PHOTO URL:", photoURL);
 
 		return <View style={styles.profilePicContainer}>
 			<TouchableOpacity onPress={this._onOpenActionSheet}>

@@ -89,26 +89,19 @@ class UserProfile extends Component {
 	};
 
 	render() {
+		this.props.navigation.setOptions({
+			headerRight: () =>
+				<Button
+					onPress={() => {
+						this.props.navigation.navigate("EditUserProfile", {
+							...this.state,
+							refreshFunction: this.refreshFunction.bind(this)
+						})
+					}}
+					title={I18n.t("edit")} />
+		});
 
-		var permitEdit = this.props.route.params.permitEdit;
-
-		permitEdit = true
-
-		if (permitEdit) {
-			this.props.navigation.setOptions({
-				headerRight: () =>
-					<Button
-						onPress={() => {
-							this.props.navigation.navigate("EditUserProfile", {
-								...this.state,
-								refreshFunction: this.refreshFunction.bind(this)
-							})
-						}}
-						title={I18n.t("edit")} />
-			});
-		}
-
-		return <SafeAreaView style={styles.saveArea}>
+		return <SafeAreaView style={styles.saveAreaView}>
 			<ScrollView ScrollView bounces={false}>
 				{this._renderProfilePic()}
 
@@ -150,6 +143,7 @@ class UserProfile extends Component {
 			</ScrollView>
 		</SafeAreaView >;
 	}
+
 }
 const mapStateToProps = state => ({
 	community: state.community

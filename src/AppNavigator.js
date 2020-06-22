@@ -185,17 +185,6 @@ function headerRightSearch(navigation, searchPage) {
 }
 
 
-function headerRightEditProfile(navigation) {
-	return <TouchableOpacity onPress={() => {
-		navigation.push("EditUserProfile", { ...props.route.params });
-	}}>
-		<View style={styles.abf9f4070b2d311ea999f193302967c6e}>
-			<Text>Edit </Text>
-			<Ionicons name="ios-settings" style={styles.abf9f6780b2d311ea999f193302967c6e} />
-		</View>
-	</TouchableOpacity>
-}
-
 function headerTitle(route) {
 	if (route.params == undefined) {
 		return "";

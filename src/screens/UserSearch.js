@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet } from "react-native";
 import { SearchBar } from "react-native-elements";
-import { AntDesign } from "@expo/vector-icons";
 import { ListItem } from "react-native-elements";
 import { Text } from "../components/sComponent";
 import * as firebase from "firebase";
@@ -137,11 +136,6 @@ const styles = StyleSheet.create({
 	afacb18f1b14711ea999f193302967c6e: { flex: 1 },
 
 
-	navigationIcon: {
-		color: "#48484A",
-		fontSize: 25,
-		marginRight: 10
-	},
 	searchContainer: {
 		backgroundColor: "#fff"
 	}
