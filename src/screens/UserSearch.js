@@ -10,15 +10,6 @@ import _ from "lodash";
 import I18n from "../lib/i18n";
 
 class UserSearch extends Component {
-	static navigationOptions = ({ navigation }) => ({
-		title: "User Profiles",
-		headerBackTitle: null,
-		headerRight: <TouchableOpacity onPress={() => navigation.state.params.reload()}>
-			<View style={styles.navigationIcon}>
-				<AntDesign name="reload1" style={styles.navigationIcon} />
-			</View>
-		</TouchableOpacity>
-	});
 
 	constructor(props) {
 		super(props);

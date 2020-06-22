@@ -40,7 +40,6 @@ class UserProfile extends Component {
 			...data
 		}
 
-		console.log("REFRESH FUNCTION:", oldUser, newUser)
 		this.setState({ user: newUser });
 	}
 
@@ -57,14 +56,11 @@ class UserProfile extends Component {
 	};
 
 	privateMessageUser = async (targetUID, sourcUID, targetName) => {
-		//only for new chat
 		const dict = {
 			type: "private",
 			title: targetName,
 			createdTimeStamp: firebase.firestore.Timestamp.now()
 		};
-
-		// const data = [];
 
 		let docID = "";
 		if (targetUID < sourcUID) {
@@ -90,7 +86,6 @@ class UserProfile extends Component {
 
 		this.setState({ modalVisible: false });
 
-		console.log(navParams)
 		this.props.navigation.pop();
 		this.props.navigation.navigate("chatPrivate", navParams);
 	};

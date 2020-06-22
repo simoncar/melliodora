@@ -1,20 +1,22 @@
 import firebase from "firebase";
 import uuid from "uuid";
 import * as ImagePicker from "expo-image-picker";
+import * as ImageManipulator from "expo-image-manipulator";
 import * as Permissions from "expo-permissions";
+import { Camera } from "expo-camera";
 
 export async function getPermissionAsync() {
 	const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
-	this.setState({ hasCameraPermission: status === "granted" });
+	// this.setState({ hasCameraPermission: status === "granted" })
+	return status;
 }
 
 export const saveProfilePic = async (imgURI) => {
 	if (!imgURI) return "";
-	var fileToUpload = imgURI;
 
+	console.log("fileToUpload", imgURI);
 
-	mime = "image/jpeg";
-	// this.setState({ cameraIcon: "hour-glass" });
+	var mime = "image/jpeg";
 
 	const blob = await new Promise((resolve, reject) => {
 		const xhr = new XMLHttpRequest();
@@ -25,7 +27,7 @@ export const saveProfilePic = async (imgURI) => {
 			reject(new TypeError("Network request failed"));
 		};
 		xhr.responseType = "blob";
-		xhr.open("GET", fileToUpload, true);
+		xhr.open("GET", imgURI, true);
 		xhr.send(null);
 	});
 
@@ -33,7 +35,7 @@ export const saveProfilePic = async (imgURI) => {
 
 	const snapshot = await ref.put(blob, { contentType: mime });
 	const downloadURL = await snapshot.ref.getDownloadURL();
-
+	console.log("downloadURL:", downloadURL)
 	blob.close();
 	return downloadURL;
 };
