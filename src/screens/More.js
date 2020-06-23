@@ -1,10 +1,10 @@
 
 import React, { Component } from "react";
-import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Alert, AsyncStorage,TouchableOpacity } from "react-native";
 import { isAdmin } from "../lib/global";
 import I18n from "../lib/i18n";
 import { MaterialIcons, FontAwesome, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { Updates } from "expo";
+import * as Updates from 'expo-updates'
 
 
 import Analytics from "../lib/analytics";
@@ -67,13 +67,7 @@ class Settings extends Component {
 
 	render() {
 		var i = 0;
-		const features = this.props.settings.features ? this.props.settings.features : [];
 		return <View style={styles.adminEditView}>
-			{(global.administrator || this.props.auth.isAdmin) && <TouchableHighlight style={styles.adminButton} underlayColor="#ff7043" onPress={() => this.props.navigation.navigate("moreAdmin", {
-				moreFeatures: this.state.features
-			})}>
-				<MaterialIcons name="edit" style={styles.adminEditButton} />
-			</TouchableHighlight>}
 
 			<View style={styles.card}>
 				{this._renderUser()}
@@ -105,28 +99,7 @@ class Settings extends Component {
 }
 
 const styles = StyleSheet.create({
-	adminButton: {
-		alignItems: "center",
-		backgroundColor: "#ff5722",
-		borderColor: "#ff5722",
-		borderRadius: 50 / 2,
-		borderWidth: 1,
-		bottom: 20,
-		height: 50,
-		justifyContent: "center",
-		position: "absolute",
-		right: 20,
-		shadowColor: "#000000",
-		shadowOffset: {
-			height: 1,
-			width: 0
-		},
-		shadowOpacity: 0.8,
-		shadowRadius: 2,
-		width: 50,
-		zIndex: 1
-	},
-	adminEditButton: { color: "white", fontSize: 25 },
+
 	adminEditView: { backgroundColor: "#EFEFF4", flex: 1, marginTop: 10 },
 
 	card: {
@@ -137,8 +110,6 @@ const styles = StyleSheet.create({
 		padding: 10,
 		width: "95%",
 	},
-
-
 	imageStyleIcon: {
 		alignSelf: "center",
 		color: "#999999",
@@ -147,10 +118,6 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		width: 30
 	},
-
-	imageStyleIconBottom: {
-	},
-
 	nameText: {
 		fontSize: 18,
 		fontWeight: "600"

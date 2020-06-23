@@ -14,7 +14,6 @@ import Search from "./screens/Search";
 import Settings from "./screens/More";
 import adminPassword from "./screens/AdminPassword";
 import SelectLanguage from "./screens/Language";
-import MoreAdmin from "./screens/MoreAdmin";
 import Content from "./components/content";
 import Story from "./screens/Story";
 import Form from "./screens/Form";
@@ -97,7 +96,6 @@ function StackOtherNavigator() {
 	return <StackOther.Navigator>
 		<StackOther.Screen name="settings" component={Settings} options={{ title: I18n.t("more") }} />
 		<StackOther.Screen name="storyMore" component={Story} options={({ route }) => ({ title: route.params.summary })} />
-		<StackOther.Screen name="moreAdmin" component={MoreAdmin} />
 		<StackOther.Screen name="Content" component={Content} />
 		<StackOther.Screen name="WebPortal" component={WebPortal} />
 		<StackOther.Screen name="selectLanguage" component={SelectLanguage} options={{ title: I18n.t("language") }} />
