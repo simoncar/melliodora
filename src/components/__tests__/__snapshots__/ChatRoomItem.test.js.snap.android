@@ -20,7 +20,7 @@ exports[`display individual chatroom list item 1`] = `
         "alignItems": "center",
         "backgroundColor": "white",
         "borderBottomColor": "#CED0CE",
-        "borderBottomWidth": 1,
+        "borderBottomWidth": 0.5,
         "flexDirection": "row",
         "paddingVertical": 8,
       }
