@@ -54,7 +54,6 @@ test('show camera screen', async () => {
 	expect(toJSON()).toMatchSnapshot();
 
 	fireEvent.press(getByTestId('camera.takePhoto'));
-	//expect(changeLanguage).toHaveBeenCalledWith({ "language": "id", "type": "CHANGE_LANGUAGE" });
 
 });
 
