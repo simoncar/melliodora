@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image, ScrollView, StyleSheet } from "react-native";
-import { Container, Content } from "native-base";
 import Constants from "expo-constants";
 import firebase from "firebase";
 import { getLanguageString } from "../lib/global";
@@ -383,7 +382,6 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-	container: { backgroundColor: "#EFEFF4", flex: 1, marginTop: 10 },
 	adab8ac50ac6d11ea973dcfce83f911da: {
 		color: "white",
 		fontSize: 44,
@@ -391,14 +389,11 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		top: "-20%"
 	},
-	adab8ac51ac6d11ea973dcfce83f911da: {
-		backgroundColor: "white",
-		marginVertical: 6
-	},
 	adab8d360ac6d11ea973dcfce83f911da: {
 		color: "black",
 		fontSize: 12
 	},
+
 	adab8fa70ac6d11ea973dcfce83f911da: {
 		alignItems: "center",
 		marginTop: 70,
@@ -433,6 +428,7 @@ const styles = StyleSheet.create({
 		padding: 10,
 		width: "95%",
 	},
+	container: { backgroundColor: "#EFEFF4", flex: 1, marginTop: 10 },
 
 	cookiesLogoView: {
 		alignItems: "center",
