@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, Dimensions, TouchableHighlight, StyleSheet } from "react-native";
-import * as firebase from "firebase";
 import { Entypo } from "@expo/vector-icons";
 import * as ImageManipulator from "expo-image-manipulator";
 import { Camera } from "expo-camera";
