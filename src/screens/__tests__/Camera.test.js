@@ -39,7 +39,7 @@ const auth = {
 test('show camera screen', async () => {
 	const navigation = { navigate: jest.fn() };
 	const onGoBack = jest.fn();
-	Permissions.askAsync.mockImplementation(permission => { return { status: 'granted' }; });
+	Permissions.askAsync.mockImplementation(() => { return { status: 'granted' }; });
 
 	const { toJSON, getByTestId } = render(
 		<CameraApp
@@ -62,7 +62,7 @@ test('show camera screen', async () => {
 test('no access to camera', async () => {
 	const navigation = { navigate: jest.fn() };
 	const onGoBack = jest.fn();
-	Permissions.askAsync.mockImplementation(permission => { return { status: 'denied' }; });
+	Permissions.askAsync.mockImplementation(() => { return { status: 'denied' }; });
 
 	const { toJSON, getByText } = render(
 		<CameraApp
