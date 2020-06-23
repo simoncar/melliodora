@@ -67,7 +67,7 @@ class Settings extends Component {
 
 	render() {
 		var i = 0;
-		return <View style={styles.adminEditView}>
+		return <View style={styles.container}>
 
 			<View style={styles.card}>
 				{this._renderUser()}
@@ -100,7 +100,7 @@ class Settings extends Component {
 
 const styles = StyleSheet.create({
 
-	adminEditView: { backgroundColor: "#EFEFF4", flex: 1, marginTop: 10 },
+	container: { backgroundColor: "#EFEFF4", flex: 1, marginTop: 10 },
 
 	card: {
 		alignSelf: "center",
