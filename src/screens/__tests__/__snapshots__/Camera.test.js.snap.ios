@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`no access to camera 1`] = `
+<Text
+  style={
+    Array [
+      Object {
+        "fontFamily": "SegoeUI",
+      },
+      undefined,
+    ]
+  }
+>
+  No access to camera
+</Text>
+`;
+
+exports[`show camera screen 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#ff5722",
+        "borderColor": "#ff5722",
+        "borderRadius": 75,
+        "borderWidth": 1,
+        "bottom": 30,
+        "height": 80,
+        "justifyContent": "center",
+        "left": 340,
+        "position": "absolute",
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 1,
+          "width": 0,
+        },
+        "shadowOpacity": 0.8,
+        "shadowRadius": 2,
+        "width": 80,
+        "zIndex": 1,
+      }
+    }
+    testID="camera.button"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": "white",
+            "fontSize": 28,
+          },
+          null,
+          Object {
+            "fontFamily": "entypo",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+      testID="camera.takePhoto"
+    >
+      
+    </Text>
+  </View>
+  <ViewManagerAdapter_ExponentCamera
+    proxiedProperties={
+      Object {
+        "autoFocus": undefined,
+        "faceDetectorSettings": Object {},
+        "flashMode": undefined,
+        "focusDepth": 0,
+        "onBarCodeScanned": [Function],
+        "onCameraReady": [Function],
+        "onFacesDetected": [Function],
+        "onMountError": [Function],
+        "onPictureSaved": [Function],
+        "type": undefined,
+        "whiteBalance": undefined,
+        "zoom": 0,
+      }
+    }
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  />
+</View>
+`;
