@@ -21,9 +21,9 @@ export const SettingsListItem = class SettingsListItem extends Component {
 	}
 
 	render() {
-		const { icon, onPress, title, subTitle, titleInfoStyle, titleInfo, hasNavArrow = true } = this.props;
+		const { icon, onPress, title, subTitle, titleInfoStyle, titleInfo, hasNavArrow = true, lastItem = false } = this.props;
 		return <TouchableHighlight onPress={onPress}>
-			<View style={styles.outerView}>
+			<View style={(lastItem) ? styles.outerViewLast : styles.outerView}>
 				{icon}
 				<View style={styles.innerView}>
 					<View>
@@ -54,7 +54,14 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: "white",
 		borderBottomColor: "#CED0CE",
-		borderBottomWidth: 1,
+		borderBottomWidth: StyleSheet.hairlineWidth,
+		flexDirection: "row",
+		paddingVertical: 8
+	},
+	outerViewLast: {
+		alignItems: "center",
+		backgroundColor: "white",
+		borderBottomColor: "#CED0CE",
 		flexDirection: "row",
 		paddingVertical: 8
 	},

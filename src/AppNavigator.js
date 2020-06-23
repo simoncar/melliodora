@@ -11,8 +11,6 @@ import Calendar from "./screens/Calendar";
 import Calendars from "./screens/Calendars";
 import Home from "./screens/Home";
 import Search from "./screens/Search";
-import Contact from "./screens/Contact";
-import ContactAdmin from "./screens/ContactAdmin";
 import Settings from "./screens/More";
 import adminPassword from "./screens/AdminPassword";
 import SelectLanguage from "./screens/Language";
@@ -45,8 +43,6 @@ function StackHomeNavigator() {
 			headerRight: () => headerRightSearch(navigation, "searchCalendarHome")
 		})} />
 
-		<StackHome.Screen name="contact" component={Contact} options={{ title: I18n.t("contact") }} />
-		<StackHome.Screen name="contactAdmin" component={ContactAdmin} options={{ title: I18n.t("contact") }} />
 		<StackHome.Screen name="story" component={Story} options={({ route }) => ({ title: route.params.summary })} />
 		<StackHome.Screen name="push" component={push} />
 		<StackHome.Screen name="chatStory" component={chat} options={({ route }) => ({ title: route.params.title })} />
