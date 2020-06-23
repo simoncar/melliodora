@@ -1,13 +1,11 @@
-
 import React, { Component } from "react";
 import { View, Dimensions, TouchableHighlight, StyleSheet } from "react-native";
-import * as firebase from "firebase";
 import { Entypo } from "@expo/vector-icons";
 import * as ImageManipulator from "expo-image-manipulator";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
-
 import { Text } from "../components/sComponent";
+import I18n from "../lib/i18n";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 
@@ -28,25 +26,6 @@ export default class CameraApp extends Component {
 		this.setState({ hasCameraPermission: status === "granted" });
 	}
 
-	setUid(value) {
-		this.uid = value;
-	}
-
-	get uid() {
-		return (firebase.auth().currentUser || {}).uid;
-	}
-
-	get timestamp() {
-		return firebase.database.ServerValue.TIMESTAMP;
-	}
-
-	uploadImage = async uri => {
-		// const response = await fetch(uri);
-		// console.log("response=", response);
-		const blob = await uri.blob();
-		var ref = firebase.storage().ref().child("my-image");
-		return ref.put(blob);
-	};
 
 	async snapPhoto() {
 		const options = { quality: 1, base64: true, fixOrientation: true, exif: true };
@@ -54,7 +33,6 @@ export default class CameraApp extends Component {
 			const convertedImage = await new ImageManipulator.manipulateAsync(photo.uri, [{ resize: { height: 600 } }], {
 				compress: 0
 			});
-			//photo.exif.Orientation = 1;
 			var fileToUpload = convertedImage.uri;
 
 			this.setState({ profilePic: fileToUpload });
@@ -63,27 +41,32 @@ export default class CameraApp extends Component {
 	}
 
 	goBack() {
+
 		const { navigation } = this.props;
-		navigation.state.params.onGoBack({ profilePic: this.state.profilePic });
+		this.props.route.params.onGoBack({ profilePic: this.state.profilePic });
 		navigation.goBack();
 	}
 
 	render() {
 		const { hasCameraPermission } = this.state;
-
 		if (hasCameraPermission === null) {
 			return <View />;
 		} else if (hasCameraPermission === false) {
-			return <Text>No access to camera</Text>;
+			return <Text>{I18n.t("permissionsNoCamera")}</Text>;
 		} else {
 			return <View style={styles.flexView}>
-				<TouchableHighlight style={styles.camera} underlayColor="#ff7043" onPress={this.snapPhoto.bind(this)}>
-					<Entypo name={this.state.cameraIcon} size={28} color={"white"} />
+				<TouchableHighlight
+					testID="camera.button"
+					style={styles.camera}
+					underlayColor="#ff7043"
+					onPress={this.snapPhoto.bind(this)}>
+					<Entypo testID="camera.takePhoto" name={this.state.cameraIcon} size={28} color={"white"} />
 				</TouchableHighlight>
 
 				<Camera style={styles.flexCamera} type={this.state.type} ref={ref => {
 					this.camera = ref;
 				}}></Camera>
+
 			</View>;
 		}
 	}

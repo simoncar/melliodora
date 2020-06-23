@@ -61,5 +61,6 @@
 	"firstName": "First Name",
 	"lastName": "Last Name",
 	"country": "Country",
-	"camera": "Camera"
+	"camera": "Camera",
+	"permissionsNoCamera": "No access to camera"
 }

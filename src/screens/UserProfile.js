@@ -43,15 +43,6 @@ class UserProfile extends Component {
 		this.setState({ user: newUser });
 	}
 
-	_renderProfilePic = () => {
-		const width = 128;
-		const photoURL = this.state.user.photoURL;
-
-		return <View style={styles.profilePicContainer}>
-
-			{photoURL ? <Image style={styles.profilePhoto} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.profilePhotoNone} />}
-		</View>;
-	};
 
 	privateMessageUser = async (targetUID, sourcUID, targetName) => {
 		const dict = {
@@ -88,24 +79,40 @@ class UserProfile extends Component {
 		this.props.navigation.navigate("chatPrivate", navParams);
 	};
 
+	edit() {
+		this.props.navigation.navigate("EditUserProfile", {
+			...this.state,
+			refreshFunction: this.refreshFunction.bind(this)
+		})
+	}
+
+	renderProfilePic = () => {
+		const width = 128;
+		const photoURL = this.state.user.photoURL;
+
+		return <TouchableOpacity onPress={() => {
+			this.edit()
+		}}>
+			<View style={styles.profilePicContainer}>
+				{photoURL ? <Image style={styles.profilePhoto} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.profilePhotoNone} />}
+			</View>
+		</TouchableOpacity>
+	};
+
+
 	render() {
 		this.props.navigation.setOptions({
 			headerRight: () =>
 				<Button
 					onPress={() => {
-						this.props.navigation.navigate("EditUserProfile", {
-							...this.state,
-							refreshFunction: this.refreshFunction.bind(this)
-						})
+						this.edit()
 					}}
 					title={I18n.t("edit")} />
 		});
 
-		return <SafeAreaView style={styles.saveAreaView}>
+		return <SafeAreaView>
 			<ScrollView ScrollView bounces={false}>
-				{this._renderProfilePic()}
-
-
+				{this.renderProfilePic()}
 
 				<View style={styles.titleContainer}>
 					<Text style={styles.nameText} >
@@ -202,7 +209,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 15,
 		paddingTop: 15
 	},
-	saveArea: { flex: 1 },
 	sectionContentText: {
 		color: "#808080",
 		fontSize: 14,
