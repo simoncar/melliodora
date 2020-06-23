@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { Image, StyleSheet, View, Alert, AsyncStorage, TouchableHighlight, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Alert, AsyncStorage, TouchableHighlight, TouchableOpacity } from "react-native";
 import { isAdmin } from "../lib/global";
 import I18n from "../lib/i18n";
 import { MaterialIcons, FontAwesome, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
