@@ -40,7 +40,6 @@ exports[`show language selector 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "borderBottomWidth": 0.5,
             "flexDirection": "row",
@@ -125,7 +124,6 @@ exports[`show language selector 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "borderBottomWidth": 0.5,
             "flexDirection": "row",
@@ -210,7 +208,6 @@ exports[`show language selector 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "borderBottomWidth": 0.5,
             "flexDirection": "row",
@@ -295,7 +292,6 @@ exports[`show language selector 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "borderBottomWidth": 0.5,
             "flexDirection": "row",
@@ -380,7 +376,6 @@ exports[`show language selector 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "borderBottomWidth": 0.5,
             "flexDirection": "row",
@@ -465,7 +460,6 @@ exports[`show language selector 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "borderBottomWidth": 0.5,
             "flexDirection": "row",
@@ -550,7 +544,6 @@ exports[`show language selector 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "flexDirection": "row",
             "paddingVertical": 8,
@@ -690,7 +683,6 @@ exports[`show language selector with no default language 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "borderBottomWidth": 0.5,
             "flexDirection": "row",
@@ -801,7 +793,6 @@ exports[`show language selector with no default language 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "borderBottomWidth": 0.5,
             "flexDirection": "row",
@@ -912,7 +903,6 @@ exports[`show language selector with no default language 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "borderBottomWidth": 0.5,
             "flexDirection": "row",
@@ -1023,7 +1013,6 @@ exports[`show language selector with no default language 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "borderBottomWidth": 0.5,
             "flexDirection": "row",
@@ -1134,7 +1123,6 @@ exports[`show language selector with no default language 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "borderBottomWidth": 0.5,
             "flexDirection": "row",
@@ -1245,7 +1233,6 @@ exports[`show language selector with no default language 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "borderBottomWidth": 0.5,
             "flexDirection": "row",
@@ -1356,7 +1343,6 @@ exports[`show language selector with no default language 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderBottomColor": "#CED0CE",
             "flexDirection": "row",
             "paddingVertical": 8,

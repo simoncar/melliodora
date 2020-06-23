@@ -2,13 +2,14 @@
 import React, { Component } from "react";
 import { StyleSheet, View, AsyncStorage, TouchableOpacity, TouchableHighlight } from "react-native";
 import * as firebase from "firebase";
-import { Container, Content } from "native-base";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import ChatroomItem from "../components/ChatRoomItem";
 import Analytics from "../lib/analytics";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { Text, ShortList } from "../components/sComponent";
+import { SettingsListItem } from "../components/SettingsListItem";
+
 
 class chatRooms extends Component {
 	constructor(props) {
@@ -79,9 +80,7 @@ class chatRooms extends Component {
 
 	keyExtractor = item => item.chatroom;
 
-	_renderItem(item) {
-		return <ChatroomItem key={item.chatroom} {...item} navigation={this.props.navigation} card={true} />;
-	}
+
 	_renderItemNoCard(navigation, item) {
 		return <ChatroomItem key={item.chatroom} {...item} navigation={navigation} card={false} />;
 	}
@@ -96,40 +95,33 @@ class chatRooms extends Component {
 	}
 
 	render() {
-		const card = this.props.card === false ? false : true;
-		return <Container style={styles.homeContainer}>
+		return <View style={styles.container}>
 			<TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
 				this.newChatroom()
 			}}>
 				<Text style={styles.floatingButtonText}>+</Text>
 			</TouchableHighlight>
-			<Content showsVerticalScrollIndicator={false}>
-				<View style={styles.newsContentLine}>
-					<View>
-						<View style={card && styles.card}>
-							<View style={styles.newChatroomView}>
-								<TouchableOpacity style={styles.newChatroomOpacity} onPress={() => {
-									this.newChatroom()
-								}}>
-									<View style={styles.plusIconView}>
-										<AntDesign style={styles.iconLeftPlus} name="pluscircleo" />
-										<Text style={styles.cardTitle}>New Chat Group</Text>
-										<Entypo style={styles.iconRight} name="chevron-right" />
-									</View>
-								</TouchableOpacity>
-							</View>
-						</View>
-
-						<ShortList
-							navigation={this.props.navigation}
-							style={styles.card}
-							data={this.state.userChatrooms}
-							renderItem={this._renderItemNoCard}
-							keyExtractor={this.keyExtractor} />
-					</View>
+			<View>
+				<View style={styles.card}>
+					<SettingsListItem
+						hasNavArrow={true}
+						icon={<AntDesign style={styles.iconLeftPlus} name="pluscircleo" />}
+						title={"New Chat Group"}
+						onPress={() => {
+							this.newChatroom()
+						}}
+						lastItem={true} />
 				</View>
-			</Content>
-		</Container>;
+				<View style={styles.card}>
+					<ShortList
+						navigation={this.props.navigation}
+						style={styles.card}
+						data={this.state.userChatrooms}
+						renderItem={this._renderItemNoCard}
+						keyExtractor={this.keyExtractor} />
+				</View>
+			</View>
+		</View>;
 	}
 }
 
@@ -155,20 +147,17 @@ const styles = StyleSheet.create({
 		width: 50,
 		zIndex: 1,
 	},
+
 	card: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
 		borderRadius: 15,
-		elevation: 1,
-		marginBottom: 12,
-		width: "98%",
+		marginBottom: 6,
+		padding: 10,
+		width: "95%",
 	},
-	cardTitle: {
-		alignItems: "center",
-		color: "#111111",
-		fontSize: 16,
-		justifyContent: "center",
-	},
+	container: { backgroundColor: "#EFEFF4", flex: 1, marginTop: 10 },
+
 	floatingButtonText: {
 		color: "white",
 		fontSize: 44,
@@ -177,41 +166,13 @@ const styles = StyleSheet.create({
 		top: "-20%"
 	},
 
-	homeContainer: {
-		backgroundColor: "#f2f2f2",
-	},
 
 	iconLeftPlus: {
 		color: "#999999",
-		fontSize: 35,
-		margin: 12,
-	},
-
-	iconRight: {
-		color: "#777777",
 		fontSize: 25,
-		lineHeight: 60,
-		marginRight: 15,
-	},
-	newChatroomOpacity: {
-		flexDirection: "row"
+		marginLeft: 12,
 	},
 
-	newChatroomView: {
-		alignItems: "center",
-		flexDirection: "row",
-		justifyContent: "space-between",
-		marginTop: 5,
-		paddingRight: 4
-	},
-	newsContentLine: {
-		backgroundColor: "#f2f2f2",
-		paddingTop: 10,
-	},
-	plusIconView: {
-		alignItems: "center",
-		flexDirection: "row"
-	},
 
 });
 

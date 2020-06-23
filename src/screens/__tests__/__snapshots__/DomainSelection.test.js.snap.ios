@@ -194,7 +194,6 @@ exports[`list domains 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
@@ -293,7 +292,6 @@ exports[`list domains 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
@@ -392,7 +390,6 @@ exports[`list domains 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
@@ -491,7 +488,6 @@ exports[`list domains 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
@@ -590,7 +586,6 @@ exports[`list domains 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
@@ -689,7 +684,6 @@ exports[`list domains 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
@@ -788,7 +782,6 @@ exports[`list domains 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
@@ -887,7 +880,6 @@ exports[`list domains 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
@@ -986,7 +978,6 @@ exports[`list domains 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
@@ -1085,7 +1076,6 @@ exports[`list domains 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",

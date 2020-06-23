@@ -217,7 +217,6 @@ exports[`list of calendars on the device - with calendars 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
@@ -347,7 +346,6 @@ exports[`list of calendars on the device - with calendars 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
@@ -477,7 +475,6 @@ exports[`list of calendars on the device - with calendars 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
@@ -607,7 +604,6 @@ exports[`list of calendars on the device - with calendars 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
-                    "backgroundColor": "white",
                     "borderBottomColor": "#CED0CE",
                     "borderBottomWidth": 0.5,
                     "flexDirection": "row",
