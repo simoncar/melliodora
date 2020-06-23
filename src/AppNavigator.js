@@ -15,7 +15,7 @@ import Contact from "./screens/Contact";
 import ContactAdmin from "./screens/ContactAdmin";
 import Settings from "./screens/More";
 import adminPassword from "./screens/AdminPassword";
-import selectLanguage from "./screens/Language";
+import SelectLanguage from "./screens/Language";
 import MoreAdmin from "./screens/MoreAdmin";
 import Content from "./components/content";
 import Story from "./screens/Story";
@@ -55,9 +55,9 @@ function StackHomeNavigator() {
 		<StackHome.Screen name="authPortalEmbed" component={authPortal} options={{ title: I18n.t("myS") }} />
 		<StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
 		<StackHome.Screen name="WebPortal" component={WebPortal} options={{ title: I18n.t("myS") }} />
-		<StackHome.Screen name="selectLanguageHome" component={selectLanguage} options={{ title: I18n.t("language") }} />
+		<StackHome.Screen name="selectLanguageHome" component={SelectLanguage} options={{ title: I18n.t("language") }} />
 		<StackHome.Screen name="Calendars" component={Calendars} options={{ title: I18n.t("calendar") }} />
-		<StackChat.Screen name="selectLanguageChat" component={selectLanguage} options={{ title: I18n.t("language") }} />
+		<StackChat.Screen name="selectLanguageChat" component={SelectLanguage} options={{ title: I18n.t("language") }} />
 	</StackHome.Navigator>;
 }
 
@@ -83,7 +83,7 @@ function StackChatNavigator() {
 		<StackChat.Screen name="chatRooms" component={chatRooms} options={{ title: I18n.t("chat") }} />
 		<StackChat.Screen name="ChatTitle" component={ChatTitle} options={({ route }) => ({ title: route.params.title })} />
 		<StackChat.Screen name="chat" component={chat} options={({ route }) => ({ title: route.params.title })} />
-		<StackChat.Screen name="selectLanguageChat" component={selectLanguage} options={{ title: I18n.t("language") }} />
+		<StackChat.Screen name="selectLanguageChat" component={SelectLanguage} options={{ title: I18n.t("language") }} />
 	</StackChat.Navigator>;
 }
 
@@ -104,7 +104,7 @@ function StackOtherNavigator() {
 		<StackOther.Screen name="moreAdmin" component={MoreAdmin} />
 		<StackOther.Screen name="Content" component={Content} />
 		<StackOther.Screen name="WebPortal" component={WebPortal} />
-		<StackOther.Screen name="selectLanguage" component={selectLanguage} options={{ title: I18n.t("language") }} />
+		<StackOther.Screen name="selectLanguage" component={SelectLanguage} options={{ title: I18n.t("language") }} />
 		<StackOther.Screen name="adminPassword" component={adminPassword} options={{ title: I18n.t("adminAccess") }} />
 		<StackOther.Screen name="login" component={LoginScreen} options={{ title: I18n.t("signIn") }} />
 		<StackOther.Screen name="signup" component={SignUpScreen} options={{ title: I18n.t("signUp") }} />
