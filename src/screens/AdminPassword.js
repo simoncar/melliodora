@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { Updates } from "expo";
+import * as Updates from 'expo-updates'
 import Analytics from "../lib/analytics";
 import { connect } from "react-redux";
 import { setAdminPass } from "../store/auth";

@@ -5,7 +5,7 @@ import _ from "lodash";
 import Constants from "expo-constants";
 import * as Localization from "expo-localization";
 import Analytics from "../lib/analytics";
-import { Updates } from "expo";
+import * as Updates from 'expo-updates'
 
 // ACTIONS
 export const SET_USER_INFO = "SET_USER_INFO";
