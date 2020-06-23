@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
 	},
 	outerView: {
 		alignItems: "center",
-		backgroundColor: "white",
 		borderBottomColor: "#CED0CE",
 		borderBottomWidth: StyleSheet.hairlineWidth,
 		flexDirection: "row",
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
 	},
 	outerViewLast: {
 		alignItems: "center",
-		backgroundColor: "white",
 		borderBottomColor: "#CED0CE",
 		flexDirection: "row",
 		paddingVertical: 8

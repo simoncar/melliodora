@@ -273,120 +273,117 @@ class Home extends Component {
 	env() { }
 
 	render() {
-		return <Container>
+		return <ScrollView><View style={styles.container}>
 			{(global.administrator || this.props.auth.isAdmin) && <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
 				this.props.navigation.navigate("Form", { edit: false });
 			}}>
 				<Text style={styles.adab8ac50ac6d11ea973dcfce83f911da}>+</Text>
 			</TouchableHighlight>}
-			<Content showsVerticalScrollIndicator={false}>
-				{global.domain === "ais_edu_sg" ? <View style={styles.newsContentLine}>
-					<ScrollView
-						horizontal={true} bounces={false} contentContainerStyle={{
-							paddingHorizontal: 12,
-							paddingVertical: 8
-						}} style={styles.adab8ac51ac6d11ea973dcfce83f911da} showsHorizontalScrollIndicator={false}>
-						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
-							this.props.navigation.navigate("WebPortal", {
-								url: "https://iflaapr.org/newsletters",
-								title: "Newsletters"
-							});
-						}}>
-							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/news.png")} />
-							<Text style={styles.adab8d360ac6d11ea973dcfce83f911da}>{I18n.t("newsletters")}</Text>
-						</TouchableOpacity>
+			{global.domain === "ais_edu_sg" ? <View style={styles.newsContentLine}>
 
-						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
-							this.props.navigation.navigate("WebPortal", {
-								url: "https://iflaapr.org/news/listing/design",
-								title: "Design News"
-							});
-						}}>
-							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Design.jpeg")} />
-							<Text style={styles.homeMenuText}>{I18n.t("design") + "\n" + I18n.t("design")}</Text>
-						</TouchableOpacity>
 
-						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
-							this.props.navigation.navigate("WebPortal", {
-								url: "https://iflaapr.org/news/listing/management",
-								title: "Management News"
-							});
-						}}>
-							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Management.jpeg")} />
-							<Text style={styles.homeMenuText}>{I18n.t("management") + "\n" + I18n.t("news")}</Text>
-						</TouchableOpacity>
+				<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
+					this.props.navigation.navigate("WebPortal", {
+						url: "https://iflaapr.org/newsletters",
+						title: "Newsletters"
+					});
+				}}>
+					<Image style={styles.homeMenuIcon} source={require("../../resources/icons/news.png")} />
+					<Text style={styles.adab8d360ac6d11ea973dcfce83f911da}>{I18n.t("newsletters")}</Text>
+				</TouchableOpacity>
 
-						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
-							this.props.navigation.navigate("WebPortal", {
-								url: "https://iflaapr.org/news/listing/planning",
-								title: "Planning News"
-							});
-						}}>
-							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Planning.jpeg")} />
-							<Text style={styles.homeMenuText}>{I18n.t("planning") + "\n" + I18n.t("news")}</Text>
-						</TouchableOpacity>
+				<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
+					this.props.navigation.navigate("WebPortal", {
+						url: "https://iflaapr.org/news/listing/design",
+						title: "Design News"
+					});
+				}}>
+					<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Design.jpeg")} />
+					<Text style={styles.homeMenuText}>{I18n.t("design") + "\n" + I18n.t("design")}</Text>
+				</TouchableOpacity>
 
-						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
-							this.props.navigation.navigate("WebPortal", {
-								url: "https://iflaapr.org/membership-directory/corporate",
-								title: "Directory"
-							});
-						}}>
-							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Directory.jpeg")} />
-							<Text style={styles.homeMenuText}>{I18n.t("directory")}</Text>
-						</TouchableOpacity>
+				<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
+					this.props.navigation.navigate("WebPortal", {
+						url: "https://iflaapr.org/news/listing/management",
+						title: "Management News"
+					});
+				}}>
+					<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Management.jpeg")} />
+					<Text style={styles.homeMenuText}>{I18n.t("management") + "\n" + I18n.t("news")}</Text>
+				</TouchableOpacity>
 
-						<TouchableOpacity style={styles.homeMenuItemContainer}
-						// onPress={() => {
-						//   this.props.navigation.navigate("WebPortal", {
-						//     url: "https://smartcookies.io/smart-community",
-						//     title: "Member Associations",
-						//   });
-						// }}
-						>
-							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Associations.png")} />
-							<Text style={styles.homeMenuText}>{I18n.t("member") + "\n" + I18n.t("associations")}</Text>
-						</TouchableOpacity>
-					</ScrollView>
-				</View> : null}
+				<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
+					this.props.navigation.navigate("WebPortal", {
+						url: "https://iflaapr.org/news/listing/planning",
+						title: "Planning News"
+					});
+				}}>
+					<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Planning.jpeg")} />
+					<Text style={styles.homeMenuText}>{I18n.t("planning") + "\n" + I18n.t("news")}</Text>
+				</TouchableOpacity>
 
-				<View style={styles.newsContentLine}>
-					{this._renderBalance()}
-					{this._renderToday()}
+				<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
+					this.props.navigation.navigate("WebPortal", {
+						url: "https://iflaapr.org/membership-directory/corporate",
+						title: "Directory"
+					});
+				}}>
+					<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Directory.jpeg")} />
+					<Text style={styles.homeMenuText}>{I18n.t("directory")}</Text>
+				</TouchableOpacity>
 
-					<ShortList
-						navigation={this.props.navigation}
-						data={this.state.featureItems}
-						keyExtractor={this.keyExtractor}
-						renderItem={this._renderItem} />
+				<TouchableOpacity style={styles.homeMenuItemContainer}
+				// onPress={() => {
+				//   this.props.navigation.navigate("WebPortal", {
+				//     url: "https://smartcookies.io/smart-community",
+				//     title: "Member Associations",
+				//   });
+				// }}
+				>
+					<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Associations.png")} />
+					<Text style={styles.homeMenuText}>{I18n.t("member") + "\n" + I18n.t("associations")}</Text>
+				</TouchableOpacity>
+
+			</View> : null}
+
+			<View style={styles.newsContentLine}>
+				{this._renderBalance()}
+				{this._renderToday()}
+
+				<ShortList
+					navigation={this.props.navigation}
+					data={this.state.featureItems}
+					keyExtractor={this.keyExtractor}
+					renderItem={this._renderItem} />
+			</View>
+			<View style={styles.card}>
+				<View style={styles.adab8fa70ac6d11ea973dcfce83f911da}>
+					<Image style={styles.tenYearLogo} source={bottomLogo[global.domain] || {
+						uri: global.switch_homeLogoURI
+					}} />
 				</View>
-				<View style={styles.card}>
-					<View style={styles.adab8fa70ac6d11ea973dcfce83f911da}>
-						<Image style={styles.tenYearLogo} source={bottomLogo[global.domain] || {
-							uri: global.switch_homeLogoURI
-						}} />
-					</View>
-					<View style={styles.cookiesLogoView}>
-						<TouchableOpacity onPress={() => {
-							this._handleOpenWithLinking("https://smartcookies.io/smart-community");
-						}}>
-							<Image source={require("../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
-						</TouchableOpacity>
-					</View>
-					<View style={styles.userDiagnostics} >
-						<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
-						<Text style={styles.user}>{global.name}</Text>
-						<Text style={styles.user}>{global.email}</Text>
-						<Text style={styles.user}>{global.uid}</Text>
-						<Text style={styles.user}>{this.language}</Text>
-					</View>
+				<View style={styles.cookiesLogoView}>
+					<TouchableOpacity onPress={() => {
+						this._handleOpenWithLinking("https://smartcookies.io/smart-community");
+					}}>
+						<Image source={require("../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
+					</TouchableOpacity>
 				</View>
-			</Content>
-		</Container>;
+				<View style={styles.userDiagnostics} >
+					<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
+					<Text style={styles.user}>{global.name}</Text>
+					<Text style={styles.user}>{global.email}</Text>
+					<Text style={styles.user}>{global.uid}</Text>
+					<Text style={styles.user}>{this.language}</Text>
+				</View>
+			</View>
+		</View>
+		</ScrollView>
 	}
 }
 
 const styles = StyleSheet.create({
+	container: { backgroundColor: "#EFEFF4", flex: 1, marginTop: 10 },
 	adab8ac50ac6d11ea973dcfce83f911da: {
 		color: "white",
 		fontSize: 44,
@@ -431,16 +428,10 @@ const styles = StyleSheet.create({
 	card: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
-		borderColor: "lightgray",
 		borderRadius: 15,
-		borderWidth: 1,
-		elevation: 1,
 		marginBottom: 12,
-		shadowColor: "rgba(0,0,0, .4)",
-		shadowOffset: { height: 1, width: 0.5 },
-		shadowOpacity: 0.2,
-		shadowRadius: 0.5,
-		width: "98%"
+		padding: 10,
+		width: "95%",
 	},
 
 	cookiesLogoView: {

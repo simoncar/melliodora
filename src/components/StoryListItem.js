@@ -110,16 +110,10 @@ const styles = StyleSheet.create({
 	card: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
-		borderColor: "lightgray",
 		borderRadius: 15,
-		borderWidth: 1,
-		elevation: 1,
 		marginBottom: 12,
-		shadowColor: "rgba(0,0,0, .4)",
-		shadowOffset: { height: 1, width: 0.5 },
-		shadowOpacity: 0.2,
-		shadowRadius: 0.5,
-		width: "98%"
+		padding: 10,
+		width: "95%",
 	},
 	cardLocation: {
 		alignItems: "center",
