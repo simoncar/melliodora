@@ -1,17 +1,14 @@
 
 import React, { Component } from "react";
-import { StyleSheet, View, Alert, AsyncStorage,TouchableOpacity } from "react-native";
+import { StyleSheet, View, Alert, AsyncStorage, TouchableOpacity } from "react-native";
 import { isAdmin } from "../lib/global";
 import I18n from "../lib/i18n";
 import { MaterialIcons, FontAwesome, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Updates from 'expo-updates'
-
-
 import Analytics from "../lib/analytics";
 import _ from "lodash";
 import { connect } from "react-redux";
 import * as Linking from "expo-linking";
-
 import { SettingsListItem, Separator } from "../components/SettingsListItem";
 import FeatureMoreItems from "../components/FeatureMoreItems";
 import { Text } from "../components/sComponent"
@@ -33,7 +30,7 @@ class Settings extends Component {
 		AsyncStorage.clear().then(() => {
 			Analytics.track("Logout");
 			Alert.alert("Restarting");
-			Updates.reloadFromCache();
+			Updates.reloadAsync();
 		});
 	}
 

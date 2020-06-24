@@ -191,7 +191,7 @@ function* WORKER_changeLanguage(action) {
 
 function* reloadApp() {
 	yield delay(1000);
-	Updates.reloadFromCache();
+	Updates.reloadAsync();
 }
 
 const languageState = (state) => state.auth.language;
