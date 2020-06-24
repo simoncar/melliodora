@@ -1,13 +1,12 @@
 
 import React, { Component } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { Text } from "./sComponent"
-
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
-
-
 import { formatTime, formatMonth, isURL } from "../lib/global.js";
+
+const WINDOW_WIDTH = Dimensions.get("window").width;
 
 class ListItem extends Component {
 	constructor(props) {
@@ -47,7 +46,7 @@ class ListItem extends Component {
 
 	renderChat(chatroom, title) {
 		return (
-			<TouchableOpacity style={styles.flexRow} onPress={() => {
+			<TouchableOpacity style={styles.cardOpacity} onPress={() => {
 				this.props.navigation.navigate("chatStory", {
 					chatroom: chatroom,
 					title: title
@@ -64,26 +63,28 @@ class ListItem extends Component {
 		const { _key, photo1, excerpt, source, summaryMyLanguage, location, date_start, time_start_pretty, time_end_pretty } = this.props.item;
 
 		return (<View style={card && [styles.card, this.props.cardStyle]}>
-			<View style={styles.cardView}>
-				<TouchableOpacity style={styles.flexRow} onPress={() => {
+			<View style={styles.cardHeaderRow}>
+				<TouchableOpacity onPress={() => {
 					this.props.navigation.navigate("story", this.props.item);
 				}}>
-					<View style={styles.storyLeftSideTitle}>
+
+					<View style={styles.cardLeftView}>
 						{this.icon(source, photo1)}
 
 						<View>
-							<Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardTitle}>
-								{summaryMyLanguage}
-							</Text>
+
 							{this.renderLocation(location)}
 							{this.renderDate(date_start)}
 							{this.renderTime(time_start_pretty, time_end_pretty, source)}
+
 						</View>
-					</View>
-					<View style={styles.rightSideIcons}>
-						{showIconChat &&
-							this.renderChat(_key, summaryMyLanguage)}
-						<Ionicons name="ios-more" size={25} style={styles.moreIcon} />
+						<View style={styles.cardRightView}>
+
+							<Ionicons name="ios-more" size={25} style={styles.moreIcon} />
+							<Ionicons name="ios-more" size={25} style={styles.moreIcon} />
+							<Ionicons name="ios-more" size={25} style={styles.moreIcon} />
+						</View>
+
 					</View>
 				</TouchableOpacity>
 			</View>
@@ -115,27 +116,38 @@ const styles = StyleSheet.create({
 		padding: 10,
 		width: "95%",
 	},
+	cardHeaderRow: {
+		flex: 1,
+		alignItems: 'stretch',
+		color: "#111111",
+		fontSize: 16,
+		fontWeight: "500",
+		flexDirection: "row",
+		justifyContent: 'space-between',
+	},
+	cardLeftView: {
+		alignItems: "center",
+		flexDirection: "row",
+	},
 	cardLocation: {
 		alignItems: "center",
 		color: "#555555",
 		fontSize: 12,
-		fontWeight: "500",
-		justifyContent: "center",
+	},
+	cardRightView: {
+		flexDirection: "row-reverse",
 	},
 	cardTitle: {
 		alignItems: "center",
 		color: "#111111",
 		fontSize: 16,
 		fontWeight: "500",
-		justifyContent: "center",
-		width: 270
+		width: WINDOW_WIDTH - 150
 	},
 	cardView: {
 		alignItems: "center",
 		borderBottomColor: "lightgray",
 		borderBottomWidth: 0.1,
-		flexDirection: "row",
-		justifyContent: "space-between",
 		marginTop: 5,
 		paddingRight: 4
 	},
@@ -151,9 +163,6 @@ const styles = StyleSheet.create({
 		color: "#777777",
 		fontSize: 12,
 		marginBottom: 3
-	},
-	flexRow: {
-		flexDirection: "row"
 	},
 	iconCalendar: {
 		borderColor: "#999999",
@@ -184,27 +193,16 @@ const styles = StyleSheet.create({
 		height: 36,
 		justifyContent: "center",
 		margin: 12,
-		width: 36
 	},
 	moreIcon: {
 		marginRight: 8
 	},
-	rightSideIcons: {
-		flex: 1,
-		flexDirection: "row",
-		justifyContent: "flex-end",
-		alignItems: "center"
-	},
+
 	storyExcerpt: {
 		color: "#777777",
 		fontSize: 14,
 		paddingHorizontal: 8,
 		paddingVertical: 12
-	},
-
-	storyLeftSideTitle: {
-		alignItems: "center",
-		flexDirection: "row"
 	},
 	storyLowerView: {
 		flexDirection: "column"
