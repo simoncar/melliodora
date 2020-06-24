@@ -324,10 +324,6 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		top: "-20%"
 	},
-	adab8d360ac6d11ea973dcfce83f911da: {
-		color: "black",
-		fontSize: 12
-	},
 
 	adab8fa70ac6d11ea973dcfce83f911da: {
 		alignItems: "center",
@@ -369,18 +365,6 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		marginTop: 100
 	},
-	homeMenuIcon: {
-		height: 50,
-		width: 50
-	},
-
-
-	homeMenuItemContainer: {
-		alignItems: "center",
-		flexDirection: "column",
-		marginRight: 15
-	},
-	homeMenuText: { color: "black", fontSize: 12, textAlign: "center" },
 
 
 
