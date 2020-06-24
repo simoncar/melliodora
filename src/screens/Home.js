@@ -278,7 +278,7 @@ class Home extends Component {
 				<Text style={styles.adab8ac50ac6d11ea973dcfce83f911da}>+</Text>
 			</TouchableHighlight>}
 
-			<ButtonBar />
+			{(global.domain === "ais_edu_sg") && <ButtonBar />}
 
 			<View style={styles.newsContentLine}>
 				{this._renderBalance()}
