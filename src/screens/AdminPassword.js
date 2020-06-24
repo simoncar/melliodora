@@ -54,7 +54,7 @@ class adminPassword extends Component {
 	}
 	_saveButton() {
 		if (this.state.adminPassword == "cookies") {
-			return <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => Updates.reloadFromCache()}>
+			return <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => Updates.reloadAsync()}>
 				<Text style={styles.TextStyle}>{I18n.t("save")}</Text>
 			</TouchableOpacity>;
 		}
