@@ -190,8 +190,6 @@ const styles = StyleSheet.create({
 		marginLeft: 10
 	},
 	leftView: {
-		color: "#48484A",
-		fontSize: 25,
 		marginLeft: 10
 	},
 	rightIcon: {
@@ -200,8 +198,6 @@ const styles = StyleSheet.create({
 		marginRight: 10
 	},
 	rightView: {
-		color: "#48484A",
-		fontSize: 25,
 		marginRight: 10
 	}
 });
