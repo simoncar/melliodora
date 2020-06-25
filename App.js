@@ -28,7 +28,7 @@ if (Constants.isDevice) {
 		debug: true,
 	});
 
-	Sentry.captureMessage("App started V" + Constants.manifest.version);
+	//Sentry.captureMessage("App started V" + Constants.manifest.version);
 
 }
 export default class App extends Component {
