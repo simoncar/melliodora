@@ -12,141 +12,9 @@ exports[`list item  with a photo 1`] = `
         "padding": 10,
         "width": "95%",
       },
-      undefined,
     ]
   }
 >
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "lightgray",
-        "borderBottomWidth": 0.1,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "marginTop": 5,
-        "paddingRight": 4,
-      }
-    }
-  >
-    <View
-      accessible={true}
-      focusable={true}
-      isTVSelectable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "flexDirection": "row",
-          "opacity": 1,
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "lightgray",
-              "borderRadius": 18,
-              "borderWidth": 0.5,
-              "height": 36,
-              "justifyContent": "center",
-              "margin": 12,
-              "width": 36,
-            }
-          }
-        />
-        <View>
-          <Text
-            ellipsizeMode="tail"
-            numberOfLines={2}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "alignItems": "center",
-                  "color": "#111111",
-                  "fontSize": 16,
-                  "fontWeight": "500",
-                  "justifyContent": "center",
-                  "width": 270,
-                },
-              ]
-            }
-          >
-            Yearbook
-          </Text>
-          <Text
-            ellipsizeMode="tail"
-            numberOfLines={2}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "alignItems": "center",
-                  "color": "#555555",
-                  "fontSize": 12,
-                  "fontWeight": "500",
-                  "justifyContent": "center",
-                },
-              ]
-            }
-          >
-            School cafe
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-          }
-        }
-      >
-        <View
-          accessible={true}
-          focusable={true}
-          isTVSelectable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "flexDirection": "row",
-              "opacity": 1,
-            }
-          }
-        >
-          <Text />
-        </View>
-        <Text />
-      </View>
-    </View>
-  </View>
   <View
     accessible={true}
     focusable={true}
@@ -167,10 +35,105 @@ exports[`list item  with a photo 1`] = `
     <View
       style={
         Object {
-          "flexDirection": "column",
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "width": 710,
         }
       }
     >
+      <View
+        style={
+          Object {
+            "width": 60,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "borderColor": "lightgray",
+              "borderRadius": 18,
+              "borderWidth": 0.5,
+              "height": 36,
+              "justifyContent": "center",
+              "margin": 12,
+            }
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "width": "100%",
+          }
+        }
+      >
+        <Text
+          ellipsizeMode="tail"
+          numberOfLines={2}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              undefined,
+            ]
+          }
+        >
+          Yearbook
+        </Text>
+        <Text
+          ellipsizeMode="tail"
+          numberOfLines={2}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "alignItems": "center",
+                "color": "#555555",
+                "fontSize": 12,
+              },
+            ]
+          }
+        >
+          School cafe
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row-reverse",
+            "marginLeft": 5,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text />
+        </View>
+      </View>
+    </View>
+    <View>
       <View
         style={
           Object {
@@ -197,174 +160,9 @@ exports[`list item of a calendar with date 1`] = `
         "padding": 10,
         "width": "95%",
       },
-      undefined,
     ]
   }
 >
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "lightgray",
-        "borderBottomWidth": 0.1,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "marginTop": 5,
-        "paddingRight": 4,
-      }
-    }
-  >
-    <View
-      accessible={true}
-      focusable={true}
-      isTVSelectable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "flexDirection": "row",
-          "opacity": 1,
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          style={
-            Array [
-              Object {
-                "color": undefined,
-                "fontSize": 35,
-              },
-              Object {
-                "borderColor": "#999999",
-                "borderRadius": 5,
-                "borderWidth": 0,
-                "color": "#999999",
-                "height": 36,
-                "margin": 12,
-                "textAlign": "center",
-                "textAlignVertical": "top",
-                "width": 36,
-              },
-              Object {
-                "fontFamily": "ionicons",
-                "fontStyle": "normal",
-                "fontWeight": "normal",
-              },
-              Object {},
-            ]
-          }
-        >
-          
-        </Text>
-        <View>
-          <Text
-            ellipsizeMode="tail"
-            numberOfLines={2}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "alignItems": "center",
-                  "color": "#111111",
-                  "fontSize": 16,
-                  "fontWeight": "500",
-                  "justifyContent": "center",
-                  "width": 270,
-                },
-              ]
-            }
-          >
-            Suzuki Showcase Concert
-          </Text>
-          <Text
-            ellipsizeMode="tail"
-            numberOfLines={2}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "alignItems": "center",
-                  "color": "#555555",
-                  "fontSize": 12,
-                  "fontWeight": "500",
-                  "justifyContent": "center",
-                },
-              ]
-            }
-          >
-            Music Room
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#777777",
-                  "fontSize": 12,
-                  "marginBottom": 3,
-                },
-              ]
-            }
-          >
-            June 12th 2020
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-          }
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          style={
-            Array [
-              Object {
-                "color": undefined,
-                "fontSize": 25,
-              },
-              Object {
-                "marginRight": 8,
-              },
-              Object {
-                "fontFamily": "ionicons",
-                "fontStyle": "normal",
-                "fontWeight": "normal",
-              },
-              Object {},
-            ]
-          }
-        >
-          
-        </Text>
-      </View>
-    </View>
-  </View>
   <View
     accessible={true}
     focusable={true}
@@ -385,10 +183,89 @@ exports[`list item of a calendar with date 1`] = `
     <View
       style={
         Object {
-          "flexDirection": "column",
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "width": 710,
         }
       }
-    />
+    >
+      <View
+        style={
+          Object {
+            "width": 60,
+          }
+        }
+      >
+        <Text />
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "width": "100%",
+          }
+        }
+      >
+        <Text
+          ellipsizeMode="tail"
+          numberOfLines={2}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              undefined,
+            ]
+          }
+        >
+          Suzuki Showcase Concert
+        </Text>
+        <Text
+          ellipsizeMode="tail"
+          numberOfLines={2}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "alignItems": "center",
+                "color": "#555555",
+                "fontSize": 12,
+              },
+            ]
+          }
+        >
+          Music Room
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#777777",
+                "fontSize": 12,
+                "marginBottom": 3,
+              },
+            ]
+          }
+        >
+          June 12th 2020
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row-reverse",
+            "marginLeft": 5,
+          }
+        }
+      />
+    </View>
+    <View />
   </View>
 </View>
 `;
@@ -405,174 +282,9 @@ exports[`list item of a calendar with date and time 1`] = `
         "padding": 10,
         "width": "95%",
       },
-      undefined,
     ]
   }
 >
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "lightgray",
-        "borderBottomWidth": 0.1,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "marginTop": 5,
-        "paddingRight": 4,
-      }
-    }
-  >
-    <View
-      accessible={true}
-      focusable={true}
-      isTVSelectable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "flexDirection": "row",
-          "opacity": 1,
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          style={
-            Array [
-              Object {
-                "color": undefined,
-                "fontSize": 35,
-              },
-              Object {
-                "borderColor": "#999999",
-                "borderRadius": 5,
-                "borderWidth": 0,
-                "color": "#999999",
-                "height": 36,
-                "margin": 12,
-                "textAlign": "center",
-                "textAlignVertical": "top",
-                "width": 36,
-              },
-              Object {
-                "fontFamily": "ionicons",
-                "fontStyle": "normal",
-                "fontWeight": "normal",
-              },
-              Object {},
-            ]
-          }
-        >
-          
-        </Text>
-        <View>
-          <Text
-            ellipsizeMode="tail"
-            numberOfLines={2}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "alignItems": "center",
-                  "color": "#111111",
-                  "fontSize": 16,
-                  "fontWeight": "500",
-                  "justifyContent": "center",
-                  "width": 270,
-                },
-              ]
-            }
-          >
-            Suzuki Showcase Concert
-          </Text>
-          <Text
-            ellipsizeMode="tail"
-            numberOfLines={2}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "alignItems": "center",
-                  "color": "#555555",
-                  "fontSize": 12,
-                  "fontWeight": "500",
-                  "justifyContent": "center",
-                },
-              ]
-            }
-          >
-            Music Room
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#777777",
-                  "fontSize": 12,
-                  "marginBottom": 3,
-                },
-              ]
-            }
-          >
-            June 12th 2020
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-          }
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          style={
-            Array [
-              Object {
-                "color": undefined,
-                "fontSize": 25,
-              },
-              Object {
-                "marginRight": 8,
-              },
-              Object {
-                "fontFamily": "ionicons",
-                "fontStyle": "normal",
-                "fontWeight": "normal",
-              },
-              Object {},
-            ]
-          }
-        >
-          
-        </Text>
-      </View>
-    </View>
-  </View>
   <View
     accessible={true}
     focusable={true}
@@ -593,10 +305,111 @@ exports[`list item of a calendar with date and time 1`] = `
     <View
       style={
         Object {
-          "flexDirection": "column",
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "width": 710,
         }
       }
-    />
+    >
+      <View
+        style={
+          Object {
+            "width": 60,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            Array [
+              Object {
+                "color": undefined,
+                "fontSize": 35,
+              },
+              Object {
+                "color": "#999999",
+                "margin": 12,
+              },
+              Object {
+                "fontFamily": "ionicons",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              Object {},
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "width": "100%",
+          }
+        }
+      >
+        <Text
+          ellipsizeMode="tail"
+          numberOfLines={2}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              undefined,
+            ]
+          }
+        >
+          Suzuki Showcase Concert
+        </Text>
+        <Text
+          ellipsizeMode="tail"
+          numberOfLines={2}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "alignItems": "center",
+                "color": "#555555",
+                "fontSize": 12,
+              },
+            ]
+          }
+        >
+          Music Room
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#777777",
+                "fontSize": 12,
+                "marginBottom": 3,
+              },
+            ]
+          }
+        >
+          June 12th 2020
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row-reverse",
+            "marginLeft": 5,
+          }
+        }
+      />
+    </View>
+    <View />
   </View>
 </View>
 `;
@@ -613,129 +426,9 @@ exports[`show balance 1`] = `
         "padding": 10,
         "width": "95%",
       },
-      undefined,
     ]
   }
 >
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "lightgray",
-        "borderBottomWidth": 0.1,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "marginTop": 5,
-        "paddingRight": 4,
-      }
-    }
-  >
-    <View
-      accessible={true}
-      focusable={true}
-      isTVSelectable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "flexDirection": "row",
-          "opacity": 1,
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text />
-        <View>
-          <Text
-            ellipsizeMode="tail"
-            numberOfLines={2}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "alignItems": "center",
-                  "color": "#111111",
-                  "fontSize": 16,
-                  "fontWeight": "500",
-                  "justifyContent": "center",
-                  "width": 270,
-                },
-              ]
-            }
-          >
-            $56.20
-          </Text>
-          <Text
-            ellipsizeMode="tail"
-            numberOfLines={2}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "alignItems": "center",
-                  "color": "#555555",
-                  "fontSize": 12,
-                  "fontWeight": "500",
-                  "justifyContent": "center",
-                },
-              ]
-            }
-          >
-            Cafeteria Account Balance
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-          }
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          style={
-            Array [
-              Object {
-                "color": undefined,
-                "fontSize": 25,
-              },
-              Object {
-                "marginRight": 8,
-              },
-              Object {
-                "fontFamily": "ionicons",
-                "fontStyle": "normal",
-                "fontWeight": "normal",
-              },
-              Object {},
-            ]
-          }
-        >
-          
-        </Text>
-      </View>
-    </View>
-  </View>
   <View
     accessible={true}
     focusable={true}
@@ -756,10 +449,73 @@ exports[`show balance 1`] = `
     <View
       style={
         Object {
-          "flexDirection": "column",
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "width": 710,
         }
       }
-    />
+    >
+      <View
+        style={
+          Object {
+            "width": 60,
+          }
+        }
+      >
+        <Text />
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "width": "100%",
+          }
+        }
+      >
+        <Text
+          ellipsizeMode="tail"
+          numberOfLines={2}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              undefined,
+            ]
+          }
+        >
+          $56.20
+        </Text>
+        <Text
+          ellipsizeMode="tail"
+          numberOfLines={2}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "alignItems": "center",
+                "color": "#555555",
+                "fontSize": 12,
+              },
+            ]
+          }
+        >
+          Cafeteria Account Balance
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row-reverse",
+            "marginLeft": 5,
+          }
+        }
+      />
+    </View>
+    <View />
   </View>
 </View>
 `;
