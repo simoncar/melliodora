@@ -3,7 +3,6 @@ import { View, StyleSheet, ActivityIndicator, YellowBox } from "react-native";
 import Setup from "./src/setup";
 import * as Sentry from "sentry-expo";
 import Constants from "expo-constants";
-import _ from "lodash";
 
 import { store, persistor } from "./src/store/store";
 import { Provider } from "react-redux";
