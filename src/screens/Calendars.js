@@ -87,7 +87,7 @@ class Calendars extends Component {
 						<View style={styles.newsContent}>
 							<Text selectable={true} style={styles.eventTitle}>
 								Select Calendar
-              					</Text>
+ 							</Text>
 						</View>
 
 						<ScrollView>
