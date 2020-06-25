@@ -62,45 +62,99 @@ class ListItem extends Component {
 		const card = this.props.card === false ? false : true;
 		const { _key, photo1, excerpt, source, summaryMyLanguage, location, date_start, time_start_pretty, time_end_pretty } = this.props.item;
 
-		return (<View style={card && [styles.card, this.props.cardStyle]}>
-			<View style={styles.cardHeaderRow}>
+		return (<View><View style={{ width: WINDOW_WIDTH - 20, flexDirection: "row", justifyContent: "space-between" }} >
+
+			<View style={{ width: 60 }}>
+
+				{this.icon(source, photo1)}
+
+			</View>
+
+
+			<View style={{ flex: 1, width: '100%' }}>
+				<Text numberOfLines={2} ellipsizeMode="tail" >
+					{summaryMyLanguage}
+				</Text>
+				{this.renderLocation(location)}
+				{this.renderDate(date_start)}
+				{this.renderTime(time_start_pretty, time_end_pretty, source)}
+			</View>
+
+			<View style={{ flexDirection: "row-reverse" }} >
+				<Ionicons name="ios-more" size={25} style={styles.moreIcon} />
+				{showIconChat &&
+					this.renderChat(_key, summaryMyLanguage)}
+			</View>
+		</View>
+			<View style={{ width: WINDOW_WIDTH - 20, flexDirection: "row", justifyContent: "space-between" }} >
+
+				<Text style={{ width: 20 }}>A</Text>
+				<Text numberOfLines={1} style={{ flex: 1, width: '100%' }}>Some really long test sentence that is too long to fit on the screen</Text>
+				<View style={{ flexDirection: "row-reverse" }} >
+
+					<Ionicons name="ios-more" size={25} style={styles.moreIcon} />
+					{showIconChat &&
+						this.renderChat(_key, summaryMyLanguage)}
+				</View>
+			</View>
+			<View style={{ width: WINDOW_WIDTH - 20, flexDirection: "row", justifyContent: "space-between" }} >
+
+				<Text style={{ width: 20 }}>A</Text>
+				<Text numberOfLines={2} style={{ flex: 1, width: '100%' }}>Some really long test sentence that is too long to fit onSome really long test sentence that is too long to fit on the screenSome really long test sentence that is too long to fit on the screenSome really long test sentence that is too long to fit on the screenSome really long test sentence that is too long to fit on the screenSome really long test sentence that is too long to fit on the screenSome really long test sentence that is too long to fit on the screen the screen</Text>
+				<View style={{ flexDirection: "row-reverse" }} >
+					<Text style={{}}>A</Text>
+					<Text style={{}}>A</Text>
+					<Text style={{}}>A</Text>
+					<Text style={{}}>A</Text>
+					<Text style={{}}>A</Text>
+					<Text style={{}}>A</Text>
+					<Text style={{}}>A</Text>
+				</View>
+			</View>
+
+			<View style={card && [styles.card, this.props.cardStyle]}>
+				<View style={styles.aa}>
+					<TouchableOpacity style={styles.bb} onPress={() => {
+						this.props.navigation.navigate("story", this.props.item);
+					}}>
+						<View style={styles.cc}>
+							{this.icon(source, photo1)}
+
+							<View>
+								<Text numberOfLines={2} ellipsizeMode="tail" style={styles.dd}>
+									{summaryMyLanguage}
+								</Text>
+								{this.renderLocation(location)}
+								{this.renderDate(date_start)}
+								{this.renderTime(time_start_pretty, time_end_pretty, source)}
+							</View>
+						</View>
+						<View style={styles.ee}>
+							{showIconChat &&
+								this.renderChat(_key, summaryMyLanguage)}
+							<Ionicons name="ios-more" size={25} style={styles.moreIcon} />
+						</View>
+					</TouchableOpacity>
+				</View>
+
 				<TouchableOpacity onPress={() => {
 					this.props.navigation.navigate("story", this.props.item);
 				}}>
-
-					<View style={styles.cardLeftView}>
-						{this.icon(source, photo1)}
-
-						<View>
-
-							{this.renderLocation(location)}
-							{this.renderDate(date_start)}
-							{this.renderTime(time_start_pretty, time_end_pretty, source)}
-
-						</View>
-						<View style={styles.cardRightView}>
-
-							<Ionicons name="ios-more" size={25} style={styles.moreIcon} />
-							<Ionicons name="ios-more" size={25} style={styles.moreIcon} />
-							<Ionicons name="ios-more" size={25} style={styles.moreIcon} />
-						</View>
-
+					<View style={styles.ff}>
+						{excerpt ? <Text ellipsizeMode="clip" style={styles.gg}>
+							{excerpt}
+						</Text> : null}
+						{isURL(photo1) && <Image style={styles.storyPhoto} {...{ uri: photo1 }} />}
 					</View>
 				</TouchableOpacity>
+
 			</View>
 
-			<TouchableOpacity onPress={() => {
-				this.props.navigation.navigate("story", this.props.item);
-			}}>
-				<View style={styles.storyLowerView}>
-					{excerpt ? <Text ellipsizeMode="clip" style={styles.storyExcerpt}>
-						{excerpt}
-					</Text> : null}
-					{isURL(photo1) && <Image style={styles.storyPhoto} {...{ uri: photo1 }} />}
-				</View>
-			</TouchableOpacity>
-
 		</View>
+
+
+
+
 
 		)
 	}
