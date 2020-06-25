@@ -4,7 +4,6 @@ import Constants from "expo-constants";
 import { TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
 import { WebView } from "react-native-webview";
 import { connectActionSheet, ActionSheetProvider } from "@expo/react-native-action-sheet";
-
 import { Ionicons } from "@expo/vector-icons";
 import AuthParser from "../components/authParser";
 import _ from "lodash";
@@ -14,7 +13,6 @@ import { saveDetails } from "../store/authPortal";
 import { Text } from "../components/sComponent";
 
 const timer = require("react-native-timer");
-
 
 class authPortal extends Component {
 	constructor(props) {
@@ -92,7 +90,13 @@ class authPortal extends Component {
 		if (navState.url.substring(0, 42) != "https://mystamford.edu.sg/login/login.aspx" && navState.url.substring(0, 25) == "https://mystamford.edu.sg") {
 			setTimeout(() => {
 				var jsCode = "window.ReactNativeWebView.postMessage(document.documentElement.innerHTML);";
-				this.webref.injectJavaScript(jsCode);
+				try {
+					this.webref.injectJavaScript(jsCode);
+				}
+				catch (e) {
+					console.log(e.message);
+				}
+
 			}, 5000);
 			this.setState({ canGoBack: false });
 		} else {
