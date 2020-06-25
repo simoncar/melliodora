@@ -15,6 +15,8 @@ import { ButtonBar } from "../components/ButtonBar"
 
 import DemoData from "../lib/demoData";
 
+
+
 const demo = DemoData;
 
 const bottomLogo = {
@@ -245,8 +247,8 @@ class Home extends Component {
 		}
 	};
 
-	_renderItem(navigation, item, cardStyle) {
-		return <ListItem key={item._key} navigation={navigation} item={item} card={true} language={this.language} cardStyle={cardStyle} />
+	_renderItem(navigation, item) {
+		return <ListItem key={item._key} navigation={navigation} item={item} card={true} language={this.language} />
 	}
 
 	_renderItemNoCard(navigation, item) {
@@ -263,7 +265,7 @@ class Home extends Component {
 	_renderToday() {
 		if (this.state.calendarItems.length > 0) {
 			return <View style={styles.card}>
-				<ShortList data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard} />
+				<ShortList navigation={this.props.navigation} data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard} />
 			</View>;
 		}
 	}
