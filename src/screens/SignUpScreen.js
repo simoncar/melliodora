@@ -120,7 +120,7 @@ class SignUpScreen extends Component {
 
 		const ref = firebase.storage().ref("smartcommunity/profile").child(uuid.v4());
 
-		const snapshot = await ref.put(blob, { contentType: mime });
+		const snapshot = await ref.put(blob, { contentType: mime, cacheControl: 'max-age=31536000' });
 		const downloadURL = await snapshot.ref.getDownloadURL();
 
 		blob.close();

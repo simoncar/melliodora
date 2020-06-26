@@ -195,7 +195,7 @@ class Form extends Component {
 
 			const ref = firebase.storage().ref("random/" + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2)).child(uuid.v4());
 
-			const snapshot = await ref.put(blob, { contentType: mime }).then(snapshot => {
+			const snapshot = await ref.put(blob, { contentType: mime, cacheControl: 'max-age=31536000' }).then(snapshot => {
 				return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
 			}).then(downloadURL => {
 				console.log(`Successfully uploaded file and got download link - ${downloadURL}`);

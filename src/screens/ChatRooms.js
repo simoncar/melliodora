@@ -1,14 +1,15 @@
 
 import React, { Component } from "react";
-import { StyleSheet, View, AsyncStorage, TouchableOpacity, TouchableHighlight } from "react-native";
+import { StyleSheet, View, AsyncStorage } from "react-native";
 import * as firebase from "firebase";
-import { Entypo, AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import ChatroomItem from "../components/ChatRoomItem";
 import Analytics from "../lib/analytics";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { Text, ShortList } from "../components/sComponent";
 import { SettingsListItem } from "../components/SettingsListItem";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 class chatRooms extends Component {
@@ -96,11 +97,14 @@ class chatRooms extends Component {
 
 	render() {
 		return <View style={styles.container}>
-			<TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
-				this.newChatroom()
-			}}>
+			<TouchableOpacity
+				style={styles.addButton}
+				underlayColor="#ff7043"
+				onPress={() => {
+					this.newChatroom()
+				}}>
 				<Text style={styles.floatingButtonText}>+</Text>
-			</TouchableHighlight>
+			</TouchableOpacity>
 			<View>
 				<View style={styles.card}>
 					<SettingsListItem

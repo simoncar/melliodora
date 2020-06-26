@@ -250,7 +250,7 @@ async function uploadImageAsync(message, chatroom, user) {
 		.child(uuid.v4());
 
 	const snapshot = await ref
-		.put(blob, { contentType: mime })
+		.put(blob, { contentType: mime, cacheControl: 'max-age=31536000' })
 		.then((snapshot) => {
 			return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
 		})
