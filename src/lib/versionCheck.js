@@ -7,12 +7,10 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Updates } from "expo";
 
 const versionDoc = "latestAppStoreVersion-" + (Constants.manifest && Constants.manifest && Constants.manifest.slug);
-console.log("SLUG:", versionDoc)
 export default class VersionCheck {
 	constructor() { }
 
 	lookupAppStoreVersion(callback) {
-		console.log("SLUG:", callback)
 		const revisionId = Constants.manifest.revisionId ? Constants.manifest.revisionId : "Simulator";
 		var revisionIdLatest = "";
 
@@ -20,15 +18,12 @@ export default class VersionCheck {
 		this.ref = firebase.firestore().collection("domains").doc("config").collection("version").doc(versionDoc).get().then(doc => {
 			if (doc.exists) {
 				revisionIdLatest = doc.data().revisionId;
-				console.log("LATEST REVISION = ", revisionIdLatest, " - I have : ", revisionId);
 
 				if (_.isObject(Constants.platform.ios)) {
 					if (doc.data().iosAppStore != Constants.manifest.version) {
 						// old version - get new version from app store
-						console.log("OLD IOS VERSION", Constants.manifest.version);
 						callback("appleAppStore");
 					} else {
-						console.log("CURRENT IOS VERSION", Constants.manifest.version);
 						if (revisionIdLatest != revisionId) {
 							callback("codePushReload");
 							this.writeNewPushCodeVersionIfRequired(revisionId);
@@ -39,10 +34,8 @@ export default class VersionCheck {
 				} else if (_.isObject(Constants.platform.android)) {
 					if (doc.data().androidGooglePlay != Constants.manifest.version) {
 						// old version - get new version from google play
-						console.log("OLD Android VERSION", Constants.manifest.version);
 						callback("googlePlay");
 					} else {
-						console.log("CURRENT Android VERSION", Constants.manifest.version);
 						if (revisionIdLatest != revisionId) {
 							callback("codePushReload");
 							this.writeNewPushCodeVersionIfRequired(revisionId);
@@ -52,18 +45,12 @@ export default class VersionCheck {
 					}
 				}
 			}
-		}).catch(err => {
-			console.log("Error getting document", err);
-		});
+		})
 	}
 
 	writeNewPushCodeVersionIfRequired(myRevision) {
 		this.ref = firebase.firestore().collection("domains").doc("config").collection("version").doc(myRevision).get().then(doc => {
 			if (!doc.exists) {
-				console.log("No such document!");
-
-				//write a brand new version into the database
-
 				firebase.firestore().collection("domains").doc("config").collection("version").doc(myRevision).set({
 					revisionId: myRevision,
 					manifest: Constants.manifest,
@@ -82,7 +69,6 @@ export default class VersionCheck {
 		const { manifest } = Constants;
 		const googlePlay = manifest.extra && manifest.extra.googlePlay;
 		const appleAppStore = manifest.extra && manifest.extra.appleAppStore;
-		console.log("EXTRA:", manifest.extra)
 		switch (updateType) {
 			case "googlePlay":
 				Linking.openURL(googlePlay);
