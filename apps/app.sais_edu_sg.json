@@ -13,6 +13,8 @@
 		},
 		"extra": {
 			"instance": "sais_edu_sg",
+			"googlePlay": "https://play.google.com/store/apps/details?id=io.smartcookies.geofence",
+			"appleAppStore": "https://apps.apple.com/us/app/geofence-smart-cookies/id1479109613?ls=1",
 			"amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78",
 			"sentryDSN": "https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405"
 		},
