@@ -38,11 +38,7 @@
 			"color": "#000000"
 		},
 		"orientation": "portrait",
-		"packagerOpts": {
-			"assetExts": [
-				"ttf"
-			]
-		},
+
 		"ios": {
 			"bundleIdentifier": "com.softmowertrain.parent.mycommunity",
 			"supportsTablet": true
