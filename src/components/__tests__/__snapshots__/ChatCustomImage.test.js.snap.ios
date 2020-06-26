@@ -11,6 +11,7 @@ exports[`show photo in chat thread 1`] = `
   <View
     accessible={true}
     focusable={true}
+    isTVSelectable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -37,6 +38,7 @@ exports[`show photo in chat thread 1`] = `
         <View
           accessible={true}
           focusable={true}
+          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -65,9 +67,10 @@ exports[`show photo in chat thread 1`] = `
         </View>
         <View
           accessibilityRole="button"
-          accessibilityState={Object {}}
+          accessibilityStates={Array []}
           accessible={true}
           focusable={true}
+          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -95,7 +98,7 @@ exports[`show photo in chat thread 1`] = `
                   Object {
                     "color": "#007AFF",
                     "fontSize": 18,
-                    "margin": 8,
+                    "padding": 8,
                     "textAlign": "center",
                   },
                 ]

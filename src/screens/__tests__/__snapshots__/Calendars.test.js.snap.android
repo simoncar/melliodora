@@ -203,6 +203,7 @@ exports[`list of calendars on the device - with calendars 1`] = `
             <View
               accessible={true}
               focusable={true}
+              isTVSelectable={true}
               onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
@@ -210,6 +211,7 @@ exports[`list of calendars on the device - with calendars 1`] = `
               onResponderTerminate={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
+              style={null}
             >
               <View
                 style={
@@ -330,6 +332,7 @@ exports[`list of calendars on the device - with calendars 1`] = `
             <View
               accessible={true}
               focusable={true}
+              isTVSelectable={true}
               onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
@@ -337,6 +340,7 @@ exports[`list of calendars on the device - with calendars 1`] = `
               onResponderTerminate={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
+              style={null}
             >
               <View
                 style={
@@ -457,6 +461,7 @@ exports[`list of calendars on the device - with calendars 1`] = `
             <View
               accessible={true}
               focusable={true}
+              isTVSelectable={true}
               onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
@@ -464,6 +469,7 @@ exports[`list of calendars on the device - with calendars 1`] = `
               onResponderTerminate={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
+              style={null}
             >
               <View
                 style={
@@ -584,6 +590,7 @@ exports[`list of calendars on the device - with calendars 1`] = `
             <View
               accessible={true}
               focusable={true}
+              isTVSelectable={true}
               onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
@@ -591,6 +598,7 @@ exports[`list of calendars on the device - with calendars 1`] = `
               onResponderTerminate={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
+              style={null}
             >
               <View
                 style={

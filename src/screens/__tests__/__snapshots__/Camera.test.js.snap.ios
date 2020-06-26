@@ -26,6 +26,7 @@ exports[`show camera screen 1`] = `
   <View
     accessible={true}
     focusable={true}
+    isTVSelectable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -66,7 +67,7 @@ exports[`show camera screen 1`] = `
             "color": "white",
             "fontSize": 28,
           },
-          undefined,
+          null,
           Object {
             "fontFamily": "entypo",
             "fontStyle": "normal",

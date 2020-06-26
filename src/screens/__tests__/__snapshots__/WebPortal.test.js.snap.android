@@ -28,6 +28,7 @@ exports[`web portal 1`] = `
       <View
         accessible={true}
         focusable={true}
+        isTVSelectable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -81,7 +82,6 @@ exports[`web portal 1`] = `
         domStorageEnabled={true}
         javaScriptEnabled={true}
         messagingEnabled={false}
-        messagingModuleName="WebViewMessageHandler1"
         onHttpError={[Function]}
         onLoadingError={[Function]}
         onLoadingFinish={[Function]}

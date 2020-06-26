@@ -18,6 +18,7 @@ exports[`list item  with a photo 1`] = `
   <View
     accessible={true}
     focusable={true}
+    isTVSelectable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -119,6 +120,7 @@ exports[`list item  with a photo 1`] = `
         <View
           accessible={true}
           focusable={true}
+          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -174,6 +176,7 @@ exports[`list item of a calendar with date 1`] = `
   <View
     accessible={true}
     focusable={true}
+    isTVSelectable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -294,6 +297,7 @@ exports[`list item of a calendar with date and time 1`] = `
   <View
     accessible={true}
     focusable={true}
+    isTVSelectable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -436,6 +440,7 @@ exports[`show balance 1`] = `
   <View
     accessible={true}
     focusable={true}
+    isTVSelectable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
