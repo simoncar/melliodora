@@ -74,7 +74,7 @@
 		"native-base": "2.13.8",
 		"prop-types": "^15.7.2",
 		"react": "16.11.0",
-		"react-dom": "16.11.0",
+		"react-dom": "16.13.1",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-38.0.0.tar.gz",
 		"react-native-appearance": "~0.3.3",
 		"react-native-calendars": "^1.296.0",
