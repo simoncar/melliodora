@@ -1,6 +1,8 @@
 {
 	"name": "genericApp",
 	"displayName": "genericApp",
+	"slug": "simoncar",
+	"owner": "simoncar@gmail.com",
 	"expo": {
 		"version": "21.0.37",
 		"icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",

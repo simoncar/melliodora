@@ -97,8 +97,6 @@ class Settings extends Component {
 
 const styles = StyleSheet.create({
 
-	container: { backgroundColor: "#EFEFF4", flex: 1, marginTop: 10 },
-
 	card: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
@@ -107,12 +105,13 @@ const styles = StyleSheet.create({
 		padding: 10,
 		width: "95%",
 	},
+
+	container: { backgroundColor: "#EFEFF4", flex: 1, marginTop: 10 },
 	imageStyleIcon: {
 		alignSelf: "center",
 		color: "#999999",
 		fontSize: 25,
 		marginLeft: 15,
-		textAlign: "center",
 		width: 30
 	},
 	nameText: {
