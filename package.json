@@ -72,7 +72,7 @@
 		"i18n-js": "^3.7.0",
 		"lodash": "^4.17.15",
 		"moment": "^2.24.0",
-		"native-base": "2.13.8",
+		"native-base": "2.13.12",
 		"prop-types": "^15.7.2",
 		"react": "16.11.0",
 		"react-dom": "16.11.0",
