@@ -6,7 +6,6 @@
 		"icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",
 		"slug": "myCommunity",
 		"name": "myCommunity",
-		"owner": "simoncar@gmail.com",
 		"description": "For parents, Singapore",
 		"updates": {
 			"fallbackToCacheTimeout": 0
