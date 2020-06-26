@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Platform, StatusBar, View, StyleSheet } from "react-native";
-import { Notifications } from "expo";
 
 import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
@@ -14,18 +13,12 @@ class App extends Component {
 		Analytics.track("App Started");
 	}
 
-	componentWillUnmount() {
-		this._notificationSubscription.remove();
-	}
 
-	_handleNotification = ({ origin, data }) => { };
+
 
 	_registerForPushNotifications() {
 		registerForPush.reg(global.name);
 
-		this._notificationSubscription = Notifications.addListener(
-			this._handleNotification
-		);
 	}
 
 	render() {

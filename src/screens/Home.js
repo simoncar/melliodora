@@ -12,10 +12,11 @@ import { setUserInfo } from "../store/auth";
 import { connect } from "react-redux";
 import { Text, ShortList } from "../components/sComponent"
 import { ButtonBar } from "../components/ButtonBar"
+import VersionCheck from "../lib/versionCheck";
 
 import DemoData from "../lib/demoData";
 
-
+const versionCheck = new VersionCheck();
 
 const demo = DemoData;
 
@@ -33,6 +34,7 @@ class Home extends Component {
 			featureItems: [],
 			calendarItems: [],
 			balanceItems: [],
+			appUpdateMessage: "none",
 		};
 
 		this.loadFromAsyncStorage();
@@ -71,6 +73,27 @@ class Home extends Component {
 		});
 
 
+		console.log("lookupAppStoreVersion:")
+		versionCheck.lookupAppStoreVersion((updateType) => {
+			console.log("updateType:", updateType)
+			switch (updateType) {
+				case "none":
+					//you are all up to date
+					this.setState({ appUpdateMessage: "none" });
+					break;
+				case "googlePlay":
+					this.setState({ appUpdateMessage: "googlePlay" });
+					break;
+				case "appleAppStore":
+					this.setState({ appUpdateMessage: "appleAppStore" });
+					break;
+				case "codePushReload":
+					this.setState({ appUpdateMessage: "codePushReload" });
+					break;
+			}
+		});
+
+
 	}
 
 
@@ -84,6 +107,12 @@ class Home extends Component {
 		this.unsubscribeFeature();
 		//this.focusListener.remove();
 		clearInterval(this.interval);
+	}
+	updateMessage() {
+		console.log("updateMessage:--", this.state.appUpdateMessage)
+		if (this.state.appUpdateMessage != "none") {
+			return versionCheck.updateMessage(this.state.appUpdateMessage);
+		}
 	}
 
 	loadBalance() {
@@ -305,6 +334,10 @@ class Home extends Component {
 						<Image source={require("../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
 					</TouchableOpacity>
 				</View>
+
+
+				{this.updateMessage()}
+
 				<View style={styles.userDiagnostics} >
 					<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
 					<Text style={styles.user}>{global.name}</Text>

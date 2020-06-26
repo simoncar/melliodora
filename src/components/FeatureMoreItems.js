@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
 		borderWidth: 0.1,
 		height: 30,
 		marginLeft: 15,
-		textAlign: "center",
 		width: 30
 	}
 });
