@@ -20,7 +20,7 @@ class ListItem extends Component {
 		} else if (source == "balance") {
 			return <MaterialCommunityIcons name="cash-multiple" size={35} style={styles.iconCash} />;
 		} else {
-			return <Image style={styles.iconPhoto} source={photo1} />;
+			return <Image style={styles.iconPhoto} source={{ uri: photo1 }} />;
 		}
 	}
 	renderTime(start, end, source) {
@@ -86,7 +86,7 @@ class ListItem extends Component {
 
 				</View>
 				<View style={styles.ff}>
-					{isURL(photo1) && <Image style={styles.storyPhoto} source={photo1} />}
+					{isURL(photo1) && <Image style={styles.storyPhoto} source={{ uri: photo1 }} />}
 				</View>
 			</TouchableOpacity>
 		</View>;
