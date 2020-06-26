@@ -5,7 +5,6 @@
 		"version": "22.0.37",
 		"icon": "./resources/sais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
 		"slug": "myStamford",
-		"owner": "simoncar@gmail.com",
 		"name": "Stamford",
 		"description": "For SAIS parents, Singapore",
 		"updates": {
