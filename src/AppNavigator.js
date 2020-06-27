@@ -42,7 +42,7 @@ function StackHomeNavigator() {
 			headerRight: () => headerRightSearch(navigation, "searchCalendarHome")
 		})} />
 
-		<StackHome.Screen name="story" component={Story} options={({ route }) => ({ title: route.params.summary })} />
+		<StackHome.Screen name="story" component={Story} options={({ route }) => ({ title: route.params.summaryMyLanguage })} />
 		<StackHome.Screen name="push" component={push} />
 		<StackHome.Screen name="chatStory" component={chat} options={({ route }) => ({ title: route.params.title })} />
 		<StackHome.Screen name="campusMap" component={campusMap} options={{ title: I18n.t("map") }} />
