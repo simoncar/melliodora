@@ -1,12 +1,11 @@
 
 import React, { Component } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
-import { Image } from "react-native-expo-image-cache";
+import { View, FlatList, StyleSheet, Image } from "react-native";
 
 import firebase from "firebase";
 import ListItem from "./FeatureListItem";
 import { getLanguageString } from "../lib/global";
-import { SettingsListItem, Separator } from "./SettingsListItem";
+import { SettingsListItem } from "./SettingsListItem";
 import { connect } from "react-redux";
 
 class FeatureMoreItems extends Component {
@@ -38,6 +37,7 @@ class FeatureMoreItems extends Component {
 					source: "feature",
 					summaryMyLanguage: getLanguageString(this.props.language, doc.data(), "summary"),
 					descriptionMyLanguage: getLanguageString(this.props.language, doc.data(), "description")
+
 				};
 			} else {
 				trans = {
@@ -73,20 +73,19 @@ class FeatureMoreItems extends Component {
 	keyExtractor = item => item._key;
 
 	_renderItem({ item }) {
-		const preview = {
-			uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
-		};
+		
 		const uri = item.photo1;
 
 		if (!(this.props.show == "visibleMore")) {
 			return <ListItem navigation={this.props.navigation} item={item} editMode={this.props.editMode} language={this.props.language} />;
 		} else {
-			return <SettingsListItem key={"feature2" + item._key} title={item.summaryMyLanguage} icon={<Image style={styles.a37fe39e0b4f011ea999f193302967c6e} {...{ preview, uri }} />} onPress={() => this.props.navigation.navigate("storyMore", item)} />;
+			return <SettingsListItem key={"feature2" + item._key} title={item.summaryMyLanguage} icon={<Image style={styles.imageIcon} source={{ uri: uri }} />} onPress={() => this.props.navigation.navigate("storyMore", item)} />;
 		}
 	}
 	_listEmptyComponent = () => {
 		return null;
 	};
+	
 	render() {
 		if (this.state.loading || !this.state.featureItems > 0) return <View></View>;
 		return <View>
@@ -96,7 +95,7 @@ class FeatureMoreItems extends Component {
 }
 
 const styles = StyleSheet.create({
-	a37fe39e0b4f011ea999f193302967c6e: {
+	imageIcon: {
 		alignSelf: "center",
 		borderColor: "lightgray",
 		borderRadius: 18,
