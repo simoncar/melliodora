@@ -1,4 +1,5 @@
 
+
 import React, { Component } from "react";
 import { TouchableOpacity, StyleSheet, View, Image, ScrollView } from "react-native";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
@@ -14,8 +15,7 @@ import Loader from "../components/Loader";
 import I18n from "../lib/i18n";
 
 const width = 100;
-class SignUp extends Component {
-
+export class SignUp extends Component {
 
 	state = {
 		email: "",
@@ -28,8 +28,6 @@ class SignUp extends Component {
 		errorMessage: null,
 		loading: false
 	};
-
-	componentDidMount() { }
 
 	checkConfirmPassword = text => {
 		this.setState({ confirmPassword: text }, () => {
@@ -125,6 +123,7 @@ class SignUp extends Component {
 		blob.close();
 		return downloadURL;
 	}
+
 	_pickImage = async () => {
 		let result = await launchProfileImagePicker();
 
@@ -176,11 +175,11 @@ class SignUp extends Component {
 					<TouchableOpacity onPress={this._onOpenActionSheet}>{this.icon(this.state.profilePic)}</TouchableOpacity>
 				</View>
 				<Text>{this.state.errorMessage}</Text>
-				<Input placeholder={I18n.t("email")} onChangeText={text => this.setState({ email: text })} value={this.state.email} containerStyle={styles.containerStyle} inputContainerStyle={{ borderBottomWidth: 0 }} autoCapitalize="none" keyboardType="email-address" autoFocus={true} />
-				<Input placeholder={I18n.t("password")} onChangeText={text => this.setState({ password: text })} value={this.state.password} containerStyle={styles.containerStyle} secureTextEntry={true} inputContainerStyle={{ borderBottomWidth: 0 }} />
-				<Input placeholder={I18n.t("passwordConfirm")} onChangeText={text => this.checkConfirmPassword(text)} value={this.state.confirmPassword} containerStyle={styles.containerStyle} secureTextEntry={true} inputContainerStyle={{ borderBottomWidth: 0 }} />
-				<Input placeholder={I18n.t("firstName")} onChangeText={text => this.setState({ firstName: text })} value={this.state.firstName} containerStyle={styles.containerStyle} inputContainerStyle={{ borderBottomWidth: 0 }} autoCapitalize="words" />
-				<Input placeholder={I18n.t("lastName")} onChangeText={text => this.setState({ lastName: text })} value={this.state.lastName} containerStyle={styles.containerStyle} inputContainerStyle={{ borderBottomWidth: 0 }} autoCapitalize="words" />
+				<Input placeholder={I18n.t("email")} onChangeText={text => this.setState({ email: text })} value={this.state.email} containerStyle={styles.containerStyle} inputContainerStyle={styles.containerInput} autoCapitalize="none" keyboardType="email-address" autoFocus={true} testID="signup.email" />
+				<Input placeholder={I18n.t("password")} onChangeText={text => this.setState({ password: text })} value={this.state.password} containerStyle={styles.containerStyle} secureTextEntry={true} inputContainerStyle={styles.containerInput} testID="signup.password" />
+				<Input placeholder={I18n.t("passwordConfirm")} onChangeText={text => this.checkConfirmPassword(text)} value={this.state.confirmPassword} containerStyle={styles.containerStyle} secureTextEntry={true} inputContainerStyle={styles.containerInput} testID="signup.passwordConfirm" />
+				<Input placeholder={I18n.t("firstName")} onChangeText={text => this.setState({ firstName: text })} value={this.state.firstName} containerStyle={styles.containerStyle} inputContainerStyle={styles.containerInput} autoCapitalize="words" testID="signup.firstName" />
+				<Input placeholder={I18n.t("lastName")} onChangeText={text => this.setState({ lastName: text })} value={this.state.lastName} containerStyle={styles.containerStyle} inputContainerStyle={styles.containerInput} autoCapitalize="words" testID="signup.lastName" />
 				<View style={styles.buttonView}>
 					<TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={this.handleSignUp}>
 						<Text style={styles.TextStyle}>{I18n.t("signUp")}</Text>
@@ -216,13 +215,14 @@ const styles = StyleSheet.create({
 		shadowRadius: 1,
 		width: 250
 	},
-
 	buttonView: { alignItems: "center", flexDirection: "column", marginTop: 12 },
+
 	container: {
 		backgroundColor: "#f2f2f2",
 		flex: 1,
 		padding: 10
 	},
+	containerInput: { borderBottomWidth: 0 },
 	containerStyle: {
 		backgroundColor: "#ffffff",
 		borderColor: "#d2d2d2",
@@ -253,6 +253,6 @@ const styles = StyleSheet.create({
 		width: width
 	},
 
-	profileImageView: { alignItems: "center" },
+	profileImageView: { alignItems: "center" }
 
 });

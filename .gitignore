@@ -68,3 +68,4 @@ fastlane/screenshots
 firebase-debug.log
 
 .env
+*.bundle

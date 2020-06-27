@@ -10,12 +10,18 @@ import I18n from "../lib/i18n";
 class UserProfile extends Component {
 
 	state = {
-		user: {}
+		user: {
+			photoURL: "",
+			firstName: "",
+			lastName: "",
+			displayName: "",
+			email: ""
+		}
 	};
 
 	componentDidMount() {
 		const { uid, user } = this.props.route.params;
-
+		console.log(this.props.route.params)
 		this.showChat = uid != global.uid;
 		if (user) {
 			this.setState({ user, uid });
@@ -26,7 +32,15 @@ class UserProfile extends Component {
 					// 	...this.props.navigation.state.params
 					// });
 				}
-				const data = snapshot.data();
+				const data = {
+					photoURL: snapshot.data().photoURL,
+					firstName: snapshot.data().firstName,
+					lastName: snapshot.data().lastName,
+					displayName: snapshot.data().displayName,
+					email: snapshot.data().email
+				}
+
+				snapshot.data();
 				this.props.navigation.setParams({ uid: uid, user: data });
 				this.setState({ user: data });
 			});
@@ -88,7 +102,7 @@ class UserProfile extends Component {
 
 	renderProfilePic = () => {
 		const width = 128;
-		const photoURL = this.state.user.photoURL;
+		const photoURL = this.state.user && this.state.user.photoURL;
 
 		return <TouchableOpacity onPress={() => {
 			this.edit()

@@ -93,7 +93,7 @@ class EditUserProfile extends Component {
 	_onOpenActionSheet = async () => {
 		const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
 		if (status === 'granted') {
-			const options = ["Take Photo", "Choose Photo", "Delete", "Cancel"];
+			const options = [I18n.t("photoTake"), I18n.t("photoChoose"), I18n.t("delete"), I18n.t("cancel")];
 			const destructiveButtonIndex = options.length - 2;
 			const cancelButtonIndex = options.length - 1;
 
