@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { TouchableOpacity, Linking, StyleSheet, View, TextInput, Button, Image, ScrollView } from "react-native";
+import { TouchableOpacity, StyleSheet, View, Image, ScrollView } from "react-native";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import uuid from "uuid";
@@ -11,12 +11,11 @@ import "firebase/functions";
 import { Text } from "../components/sComponent";
 import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/uploadImage";
 import Loader from "../components/Loader";
+import I18n from "../lib/i18n";
+
 const width = 100;
-class SignUpScreen extends Component {
-	static navigationOptions = ({ navigation }) => ({
-		title: "Sign Up",
-		headerBackTitle: null
-	});
+class SignUp extends Component {
+
 
 	state = {
 		email: "",
@@ -35,7 +34,7 @@ class SignUpScreen extends Component {
 	checkConfirmPassword = text => {
 		this.setState({ confirmPassword: text }, () => {
 			if (this.state.confirmPassword !== this.state.password) {
-				const errorMsg = "Password don't match";
+				const errorMsg = I18n.t("passwordMismatch");
 				this.setState({ errorMessage: errorMsg });
 			} else {
 				this.setState({ errorMessage: "" });
@@ -136,8 +135,7 @@ class SignUpScreen extends Component {
 
 	_onOpenActionSheet = () => {
 		getPermissionAsync();
-		// Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
-		const options = ["Take photo from camera", "Select from gallery", "Clear", "Cancel"];
+		const options = [I18n.t("photoTake"), I18n.t("photoChoose"), I18n.t("delete"), I18n.t("cancel")];
 		const destructiveButtonIndex = options.length - 2;
 		const cancelButtonIndex = options.length - 1;
 
@@ -161,16 +159,12 @@ class SignUpScreen extends Component {
 	};
 
 	icon(source) {
-		// const uri = source;
-		// const preview = {
-		//   uri:
-		//     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
-		// };
+
 		const width = 100;
 		if (!source) {
-			return <Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.ade446a80b68611ea999f193302967c6e} />;
+			return <Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.profileIcon} />;
 		} else {
-			return <Image style={styles.ade446a81b68611ea999f193302967c6e} source={{ uri: source }} />;
+			return <Image style={styles.profileImage} source={{ uri: source }} />;
 		}
 	}
 
@@ -178,20 +172,18 @@ class SignUpScreen extends Component {
 		return <View style={styles.container}>
 			<Loader modalVisible={this.state.loading} animationType="fade" />
 			<ScrollView>
-				<Text>{this.state.errorMessage}</Text>
-				<Input placeholder="Email Address" onChangeText={text => this.setState({ email: text })} value={this.state.email} containerStyle={styles.containerStyle} inputContainerStyle={{ borderBottomWidth: 0 }} autoCapitalize="none" keyboardType="email-address" autoFocus={true} />
-				<Input placeholder="Password" onChangeText={text => this.setState({ password: text })} value={this.state.password} containerStyle={styles.containerStyle} secureTextEntry={true} inputContainerStyle={{ borderBottomWidth: 0 }} />
-				<Input placeholder="Confirm Password" onChangeText={text => this.checkConfirmPassword(text)} value={this.state.confirmPassword} containerStyle={styles.containerStyle} secureTextEntry={true} inputContainerStyle={{ borderBottomWidth: 0 }} />
-				<View>
-					<Text>Profile Picture: </Text>
+				<View style={styles.profileImageView}>
 					<TouchableOpacity onPress={this._onOpenActionSheet}>{this.icon(this.state.profilePic)}</TouchableOpacity>
 				</View>
-				<Input placeholder="Display name" onChangeText={text => this.setState({ displayName: text })} value={this.state.displayName} containerStyle={styles.containerStyle} inputContainerStyle={{ borderBottomWidth: 0 }} />
-				<Input placeholder="First name" onChangeText={text => this.setState({ firstName: text })} value={this.state.firstName} containerStyle={styles.containerStyle} inputContainerStyle={{ borderBottomWidth: 0 }} autoCapitalize="words" />
-				<Input placeholder="Last name" onChangeText={text => this.setState({ lastName: text })} value={this.state.lastName} containerStyle={styles.containerStyle} inputContainerStyle={{ borderBottomWidth: 0 }} autoCapitalize="words" />
-				<View style={styles.ade449190b68611ea999f193302967c6e}>
+				<Text>{this.state.errorMessage}</Text>
+				<Input placeholder={I18n.t("email")} onChangeText={text => this.setState({ email: text })} value={this.state.email} containerStyle={styles.containerStyle} inputContainerStyle={{ borderBottomWidth: 0 }} autoCapitalize="none" keyboardType="email-address" autoFocus={true} />
+				<Input placeholder={I18n.t("password")} onChangeText={text => this.setState({ password: text })} value={this.state.password} containerStyle={styles.containerStyle} secureTextEntry={true} inputContainerStyle={{ borderBottomWidth: 0 }} />
+				<Input placeholder={I18n.t("passwordConfirm")} onChangeText={text => this.checkConfirmPassword(text)} value={this.state.confirmPassword} containerStyle={styles.containerStyle} secureTextEntry={true} inputContainerStyle={{ borderBottomWidth: 0 }} />
+				<Input placeholder={I18n.t("firstName")} onChangeText={text => this.setState({ firstName: text })} value={this.state.firstName} containerStyle={styles.containerStyle} inputContainerStyle={{ borderBottomWidth: 0 }} autoCapitalize="words" />
+				<Input placeholder={I18n.t("lastName")} onChangeText={text => this.setState({ lastName: text })} value={this.state.lastName} containerStyle={styles.containerStyle} inputContainerStyle={{ borderBottomWidth: 0 }} autoCapitalize="words" />
+				<View style={styles.buttonView}>
 					<TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={this.handleSignUp}>
-						<Text style={styles.TextStyle}>Sign Up</Text>
+						<Text style={styles.TextStyle}>{I18n.t("signUp")}</Text>
 					</TouchableOpacity>
 				</View>
 			</ScrollView>
@@ -199,7 +191,7 @@ class SignUpScreen extends Component {
 	}
 }
 
-const ConnectedApp = connectActionSheet(SignUpScreen);
+const ConnectedApp = connectActionSheet(SignUp);
 
 export default class ActionSheetContainer extends Component {
 	render() {
@@ -210,55 +202,57 @@ export default class ActionSheetContainer extends Component {
 }
 
 const styles = StyleSheet.create({
-	ade446a80b68611ea999f193302967c6e: {
-		width: width,
-		height: width,
-		margin: 12,
-		borderRadius: width / 2,
-		borderWidth: StyleSheet.hairlineWidth,
-		borderColor: "lightgray",
-		color: "#0075b7",
-		textAlign: "center"
-	},
-	ade446a81b68611ea999f193302967c6e: {
-		width: width,
-		height: width,
-		margin: 12,
-		borderRadius: width / 2,
-		borderWidth: StyleSheet.hairlineWidth,
-		borderColor: "lightgray",
+	SubmitButtonStyle: {
+		alignItems: "center",
+		backgroundColor: "#fff",
+		borderRadius: 25,
+		elevation: 4,
+		height: 50,
 		justifyContent: "center",
-		alignItems: "center"
+		marginBottom: 30,
+		shadowColor: "rgba(0,0,0, .4)",
+		shadowOffset: { height: 2, width: 2 },
+		shadowOpacity: 0.8,
+		shadowRadius: 1,
+		width: 250
 	},
-	ade449190b68611ea999f193302967c6e: { flexDirection: "column", alignItems: "center", marginTop: 12 },
 
+	buttonView: { alignItems: "center", flexDirection: "column", marginTop: 12 },
 	container: {
 		backgroundColor: "#f2f2f2",
 		flex: 1,
 		padding: 10
 	},
-
 	containerStyle: {
-		borderWidth: 1,
-		borderRadius: 10,
-		borderColor: "#d2d2d2",
 		backgroundColor: "#ffffff",
+		borderColor: "#d2d2d2",
+		borderRadius: 10,
+		borderWidth: 1,
 		marginVertical: 8
 	},
 
-	learnMore: {},
-	SubmitButtonStyle: {
-		backgroundColor: "#fff",
-		height: 50,
-		width: 250,
-		borderRadius: 25,
+	profileIcon: {
+		borderColor: "lightgray",
+		borderRadius: width / 2,
+		borderWidth: StyleSheet.hairlineWidth,
+		color: "#0075b7",
+		height: width,
+		margin: 12,
+		textAlign: "center",
+		width: width
+	},
+
+	profileImage: {
 		alignItems: "center",
+		borderColor: "lightgray",
+		borderRadius: width / 2,
+		borderWidth: StyleSheet.hairlineWidth,
+		height: width,
 		justifyContent: "center",
-		shadowColor: "rgba(0,0,0, .4)",
-		shadowOffset: { height: 2, width: 2 },
-		shadowOpacity: 0.8,
-		shadowRadius: 1,
-		elevation: 4,
-		marginBottom: 30
-	}
+		margin: 12,
+		width: width
+	},
+
+	profileImageView: { alignItems: "center" },
+
 });
