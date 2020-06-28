@@ -1,8 +1,8 @@
 
 import React, { Component } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Button } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import firebase from "firebase";
-import { Text } from "../components/sComponent";
+import { Text, Button } from "../components/sComponent";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import I18n from "../lib/i18n";
@@ -136,11 +136,10 @@ class UserProfile extends Component {
 	render() {
 		this.props.navigation.setOptions({
 			headerRight: () =>
-				<Button
-					onPress={() => {
-						this.edit()
-					}}
-					title={I18n.t("edit")} />
+				<TouchableOpacity onPress={() => this.edit()}>
+					<Text style={styles.headerButton}>{I18n.t("edit")}</Text>
+				</TouchableOpacity>
+
 		});
 
 		return <SafeAreaView>
@@ -192,7 +191,11 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(UserProfile);
 
 const styles = StyleSheet.create({
-
+	headerButton: {
+		fontSize: 17,
+		textAlign: "center",
+		marginRight: 10
+	},
 	chatIcon: {
 		color: "#222",
 		fontSize: 30,

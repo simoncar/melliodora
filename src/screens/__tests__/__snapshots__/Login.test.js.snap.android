@@ -188,34 +188,43 @@ exports[`show login screen 1`] = `
       </View>
     </RNGestureHandlerButton>
   </View>
-  <RNGestureHandlerButton
-    collapsable={false}
-    onGestureEvent={[Function]}
-    onGestureHandlerEvent={[Function]}
-    onGestureHandlerStateChange={[Function]}
-    onHandlerStateChange={[Function]}
-    rippleColor={0}
+  <View
     style={
-      Array [
-        Object {
-          "overflow": "hidden",
-        },
-        undefined,
-      ]
+      Object {
+        "alignItems": "center",
+        "flexDirection": "column",
+        "marginTop": 12,
+      }
     }
   >
     <View
       accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#777777",
-          "borderRadius": 15,
-          "flexDirection": "row",
-          "height": 55,
+          "backgroundColor": "#fff",
+          "borderRadius": 25,
+          "elevation": 4,
+          "height": 50,
           "justifyContent": "center",
-          "margin": 12,
+          "marginBottom": 30,
           "opacity": 1,
+          "shadowColor": "rgba(0,0,0, .4)",
+          "shadowOffset": Object {
+            "height": 2,
+            "width": 2,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 1,
+          "width": 250,
         }
       }
     >
@@ -225,38 +234,51 @@ exports[`show login screen 1`] = `
             Object {
               "fontFamily": "SegoeUI",
             },
-            Object {
-              "color": "white",
-              "fontSize": 22,
-            },
+            undefined,
           ]
         }
       >
         Login
       </Text>
     </View>
-  </RNGestureHandlerButton>
-  <RNGestureHandlerButton
-    collapsable={false}
-    onGestureEvent={[Function]}
-    onGestureHandlerEvent={[Function]}
-    onGestureHandlerStateChange={[Function]}
-    onHandlerStateChange={[Function]}
-    rippleColor={0}
+  </View>
+  <View
     style={
-      Array [
-        Object {
-          "overflow": "hidden",
-        },
-        undefined,
-      ]
+      Object {
+        "alignItems": "center",
+        "flexDirection": "column",
+        "marginTop": 12,
+      }
     }
   >
     <View
       accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Object {
+          "alignItems": "center",
+          "backgroundColor": "#fff",
+          "borderRadius": 25,
+          "elevation": 4,
+          "height": 50,
+          "justifyContent": "center",
+          "marginBottom": 30,
           "opacity": 1,
+          "shadowColor": "rgba(0,0,0, .4)",
+          "shadowOffset": Object {
+            "height": 2,
+            "width": 2,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 1,
+          "width": 250,
         }
       }
     >
@@ -266,17 +288,13 @@ exports[`show login screen 1`] = `
             Object {
               "fontFamily": "SegoeUI",
             },
-            Object {
-              "color": "#111111",
-              "fontSize": 16,
-              "marginLeft": 30,
-            },
+            undefined,
           ]
         }
       >
         Sign Up
       </Text>
     </View>
-  </RNGestureHandlerButton>
+  </View>
 </View>
 `;

@@ -9,7 +9,7 @@ import { Input } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import firebase from "firebase";
 import "firebase/functions";
-import { Text } from "../components/sComponent";
+import { Text, Button } from "../components/sComponent";
 import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/uploadImage";
 import Loader from "../components/Loader";
 import I18n from "../lib/i18n";
@@ -180,11 +180,8 @@ export class SignUp extends Component {
 				<Input placeholder={I18n.t("passwordConfirm")} onChangeText={text => this.checkConfirmPassword(text)} value={this.state.confirmPassword} containerStyle={styles.containerStyle} secureTextEntry={true} inputContainerStyle={styles.containerInput} testID="signup.passwordConfirm" />
 				<Input placeholder={I18n.t("firstName")} onChangeText={text => this.setState({ firstName: text })} value={this.state.firstName} containerStyle={styles.containerStyle} inputContainerStyle={styles.containerInput} autoCapitalize="words" testID="signup.firstName" />
 				<Input placeholder={I18n.t("lastName")} onChangeText={text => this.setState({ lastName: text })} value={this.state.lastName} containerStyle={styles.containerStyle} inputContainerStyle={styles.containerInput} autoCapitalize="words" testID="signup.lastName" />
-				<View style={styles.buttonView}>
-					<TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={this.handleSignUp}>
-						<Text style={styles.TextStyle}>{I18n.t("signUp")}</Text>
-					</TouchableOpacity>
-				</View>
+
+				<Button title={I18n.t("signUp")} onPress={this.handleSignUp} testID="forgotpasswordsubmit" />
 			</ScrollView>
 		</View>;
 	}
@@ -201,21 +198,6 @@ export default class ActionSheetContainer extends Component {
 }
 
 const styles = StyleSheet.create({
-	SubmitButtonStyle: {
-		alignItems: "center",
-		backgroundColor: "#fff",
-		borderRadius: 25,
-		elevation: 4,
-		height: 50,
-		justifyContent: "center",
-		marginBottom: 30,
-		shadowColor: "rgba(0,0,0, .4)",
-		shadowOffset: { height: 2, width: 2 },
-		shadowOpacity: 0.8,
-		shadowRadius: 1,
-		width: 250
-	},
-	buttonView: { alignItems: "center", flexDirection: "column", marginTop: 12 },
 
 	container: {
 		backgroundColor: "#f2f2f2",

@@ -1,7 +1,7 @@
 
 
 import React, { Component } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Button } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import firebase from "firebase";
 import { Input } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
@@ -11,7 +11,7 @@ import { ActionSheetProvider, connectActionSheet } from "@expo/react-native-acti
 import I18n from "../lib/i18n";
 import _ from "lodash";
 import { saveProfilePic, launchProfileImagePicker } from "../lib/uploadImage";
-import { Text } from "../components/sComponent";
+import { Text, Button } from "../components/sComponent";
 
 class EditUserProfile extends Component {
 
@@ -29,7 +29,6 @@ class EditUserProfile extends Component {
 			},
 		};
 
-		console.log("EDIT PROPS:", this.props)
 	}
 
 	componentDidMount() {
@@ -61,7 +60,6 @@ class EditUserProfile extends Component {
 		this.setState({ loading: true });
 		try {
 			const diff = this.difference(this.state.user, this.originData);
-			console.log(this.state.user.uid, global.domain, diff)
 
 
 			if (!_.isEmpty(diff)) {

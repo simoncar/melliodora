@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { StyleSheet, View, Alert, AsyncStorage, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Alert, AsyncStorage, TouchableOpacity, ScrollView } from "react-native";
 import { isAdmin } from "../lib/global";
 import I18n from "../lib/i18n";
 import { MaterialIcons, FontAwesome, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -65,28 +65,29 @@ class Settings extends Component {
 	render() {
 		var i = 0;
 		return <View style={styles.container}>
+			<ScrollView>
+				<View style={styles.card}>
+					{this._renderUser()}
+					<SettingsListItem lastItem={true} icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />} title={I18n.t("searchUsers")} onPress={() => this.props.navigation.navigate("UserSearch")} />
+				</View>
 
-			<View style={styles.card}>
-				{this._renderUser()}
-				<SettingsListItem lastItem={true} icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />} title={I18n.t("searchUsers")} onPress={() => this.props.navigation.navigate("UserSearch")} />
-			</View>
+				<View style={styles.card}>
+					<FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
+				</View>
 
-			<View style={styles.card}>
-				<FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
-			</View>
+				{this.separator(i)}
+				<View style={styles.card}>
+					<SettingsListItem icon={<FontAwesome name="language" style={styles.imageStyleIcon} />} title={"Language"} titleInfo={this.props.auth.language} onPress={() => this.props.navigation.navigate("selectLanguage")} />
+					<SettingsListItem icon={<FontAwesome name="lock" style={styles.imageStyleIcon} />} hasNavArrow={true} title={I18n.t("adminAccess")} onPress={() => this.props.navigation.navigate("adminPassword")} />
 
-			{this.separator(i)}
-			<View style={styles.card}>
-				<SettingsListItem icon={<FontAwesome name="language" style={styles.imageStyleIcon} />} title={"Language"} titleInfo={this.props.auth.language} onPress={() => this.props.navigation.navigate("selectLanguage")} />
-				<SettingsListItem icon={<FontAwesome name="lock" style={styles.imageStyleIcon} />} hasNavArrow={true} title={I18n.t("adminAccess")} onPress={() => this.props.navigation.navigate("adminPassword")} />
+					{isAdmin(this.props.adminPassword) && <SettingsListItem icon={<FontAwesome name="edit" style={styles.imageStyleIcon} />} title={I18n.t("editor")} onPress={() => this.props.navigation.navigate("Content")} />}
 
-				{isAdmin(this.props.adminPassword) && <SettingsListItem icon={<FontAwesome name="edit" style={styles.imageStyleIcon} />} title={I18n.t("editor")} onPress={() => this.props.navigation.navigate("Content")} />}
-
-				<SettingsListItem hasNavArrow={false} icon={<MaterialIcons name="info-outline" style={styles.imageStyleIcon} />} title={I18n.t("aboutThisApp")} onPress={() => {
-					Linking.openURL("https://smartcookies.io/smart-community");
-				}} />
-				<SettingsListItem lastItem={true} hasNavArrow={false} icon={<SimpleLineIcons name="logout" style={styles.imageStyleIcon} />} title={I18n.t("logout")} onPress={() => this._logout()} />
-			</View>
+					<SettingsListItem hasNavArrow={false} icon={<MaterialIcons name="info-outline" style={styles.imageStyleIcon} />} title={I18n.t("aboutThisApp")} onPress={() => {
+						Linking.openURL("https://smartcookies.io/smart-community");
+					}} />
+					<SettingsListItem lastItem={true} hasNavArrow={false} icon={<SimpleLineIcons name="logout" style={styles.imageStyleIcon} />} title={I18n.t("logout")} onPress={() => this._logout()} />
+				</View>
+			</ScrollView>
 		</View>;
 	}
 	toggleAuthView() {
