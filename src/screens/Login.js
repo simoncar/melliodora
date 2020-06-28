@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 
-import { Text } from "../components/sComponent";
+import { Text, Button } from "../components/sComponent";
 import Loader from "../components/Loader";
 import I18n from "../lib/i18n";
 
@@ -79,15 +79,9 @@ export class LoginScreen extends Component {
 				</TouchableOpacity>
 			</View>
 
-			<TouchableOpacity onPress={this.handleLogin} style={styles.button}>
-				<Text style={styles.loginText}>{I18n.t("login")}</Text>
-			</TouchableOpacity>
+			<Button title={I18n.t("login")} onPress={this.handleLogin} testID="login.loginButton" />
+			<Button title={I18n.t("signUp")} onPress={() => this.props.navigation.navigate("signup")} testID="login.signupButton" />
 
-
-
-			<TouchableOpacity onPress={() => this.props.navigation.navigate("signup")}>
-				<Text style={styles.textAction}>{I18n.t("signUp")}</Text>
-			</TouchableOpacity>
 		</SafeAreaView>;
 	}
 }
@@ -107,15 +101,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		margin: 10
 	},
-	button: {
-		alignItems: "center",
-		backgroundColor: "#777777",
-		borderRadius: 15,
-		flexDirection: "row",
-		height: 55,
-		justifyContent: "center",
-		margin: 12
-	},
+
 	container: {
 		backgroundColor: "#f2f2f2",
 		flex: 1,
@@ -125,7 +111,7 @@ const styles = StyleSheet.create({
 	inputField: {
 		flex: 1,
 	},
-	loginText: { color: "white", fontSize: 22 },
+
 
 	textAction: {
 		color: "#111111",

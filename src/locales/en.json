@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "About this App",
+	"ok": "OK",
 	"adminAccess": "Admin Access",
 	"associations": "Associations",
 	"athletics": "Athletics",
@@ -41,6 +42,7 @@
 	"password": "Password",
 	"passwordConfirm": "Confirm Password",
 	"passwordMismatch": "Passwords don't match",
+	"passwordForgot": "A reset email will be sent if you have an account",
 	"permissionsNoCamera": "No access to camera",
 	"photos": "Photos",
 	"photoTake": "Take Photo",
