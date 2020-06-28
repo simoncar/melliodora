@@ -43,7 +43,7 @@ function StackHomeNavigator() {
 		})} />
 
 		<StackHome.Screen name="story" component={Story} options={({ route }) => ({ title: route.params.summaryMyLanguage })} />
-		<StackHome.Screen name="push" component={push} />
+		<StackHome.Screen name="push" component={push} options={{ title: I18n.t("send") }} />
 		<StackHome.Screen name="chatStory" component={chat} options={({ route }) => ({ title: route.params.title })} />
 		<StackHome.Screen name="campusMap" component={campusMap} options={{ title: I18n.t("map") }} />
 		<StackHome.Screen name="Form" component={Form} options={{ title: I18n.t("edit") }} />
