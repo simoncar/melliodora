@@ -25,7 +25,7 @@ import push from "./screens/Push";
 import authPortal from "./screens/AuthPortal";
 import WebPortal from "./screens/WebPortal";
 import LoginScreen from "./screens/Login";
-import SignUpScreen from "./screens/SignUpScreen";
+import SignUp from "./screens/SignUp";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
 import CameraApp from "./screens/Camera";
 import UserProfile from "./screens/UserProfile";
@@ -42,7 +42,7 @@ function StackHomeNavigator() {
 			headerRight: () => headerRightSearch(navigation, "searchCalendarHome")
 		})} />
 
-		<StackHome.Screen name="story" component={Story} options={({ route }) => ({ title: route.params.summary })} />
+		<StackHome.Screen name="story" component={Story} options={({ route }) => ({ title: route.params.summaryMyLanguage })} />
 		<StackHome.Screen name="push" component={push} />
 		<StackHome.Screen name="chatStory" component={chat} options={({ route }) => ({ title: route.params.title })} />
 		<StackHome.Screen name="campusMap" component={campusMap} options={{ title: I18n.t("map") }} />
@@ -101,7 +101,7 @@ function StackOtherNavigator() {
 		<StackOther.Screen name="selectLanguage" component={SelectLanguage} options={{ title: I18n.t("language") }} />
 		<StackOther.Screen name="adminPassword" component={adminPassword} options={{ title: I18n.t("adminAccess") }} />
 		<StackOther.Screen name="login" component={LoginScreen} options={{ title: I18n.t("signIn") }} />
-		<StackOther.Screen name="signup" component={SignUpScreen} options={{ title: I18n.t("signUp") }} />
+		<StackOther.Screen name="signup" component={SignUp} options={{ title: I18n.t("signUp") }} />
 		<StackOther.Screen name="forgetpassword" component={ForgotPasswordScreen} options={{ title: I18n.t("forgetPassword") }} />
 		<StackOther.Screen name="CameraApp" component={CameraApp} options={{ title: I18n.t("camera") }} />
 		<StackOther.Screen name="UserProfile" component={UserProfile} options={{ title: I18n.t("profile") }} />

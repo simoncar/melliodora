@@ -20,8 +20,16 @@ class EditUserProfile extends Component {
 
 		this.state = {
 			loading: false,
-			user: {}
+			user: {
+				photoURL: "",
+				firstName: "",
+				lastName: "",
+				displayName: "",
+				email: ""
+			},
 		};
+
+		console.log("EDIT PROPS:", this.props)
 	}
 
 	componentDidMount() {
@@ -51,9 +59,10 @@ class EditUserProfile extends Component {
 
 	_updateProfile = async () => {
 		this.setState({ loading: true });
-
 		try {
 			const diff = this.difference(this.state.user, this.originData);
+			console.log(this.state.user.uid, global.domain, diff)
+
 
 			if (!_.isEmpty(diff)) {
 				const updateProfileObj = {};
@@ -62,9 +71,15 @@ class EditUserProfile extends Component {
 					updateProfileObj["photoURL"] = downloadURL;
 					diff["photoURL"] = downloadURL;
 				}
-
-				await firebase.firestore().collection(global.domain).doc("user").collection("registered").doc(this.state.user.uid).set(diff, { merge: true });
+				await firebase.firestore()
+					.collection(global.domain)
+					.doc("user")
+					.collection("registered")
+					.doc(this.state.user.uid)
+					.set(diff, { merge: true });
 			}
+
+
 
 			const refreshFunction = this.props.refreshFunction;
 			refreshFunction(diff);
@@ -93,7 +108,7 @@ class EditUserProfile extends Component {
 	_onOpenActionSheet = async () => {
 		const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
 		if (status === 'granted') {
-			const options = ["Take Photo", "Choose Photo", "Delete", "Cancel"];
+			const options = [I18n.t("photoTake"), I18n.t("photoChoose"), I18n.t("delete"), I18n.t("cancel")];
 			const destructiveButtonIndex = options.length - 2;
 			const cancelButtonIndex = options.length - 1;
 

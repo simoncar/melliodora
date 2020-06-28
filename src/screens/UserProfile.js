@@ -10,26 +10,53 @@ import I18n from "../lib/i18n";
 class UserProfile extends Component {
 
 	state = {
-		user: {}
+		user: {
+			photoURL: "",
+			firstName: "",
+			lastName: "",
+			displayName: "",
+			email: ""
+		},
+		errorMessage: null
 	};
 
 	componentDidMount() {
 		const { uid, user } = this.props.route.params;
-
+		console.log("USER PROFILE UID:", uid)
 		this.showChat = uid != global.uid;
 		if (user) {
 			this.setState({ user, uid });
 		} else if (uid) {
-			firebase.firestore().collection(this.props.community.selectedCommunity.node).doc("user").collection("registered").doc(uid).get().then(snapshot => {
-				if (!snapshot.exists) {
-					// return this.props.navigation.push("EditUserProfile", {
-					// 	...this.props.navigation.state.params
-					// });
-				}
-				const data = snapshot.data();
-				this.props.navigation.setParams({ uid: uid, user: data });
-				this.setState({ user: data });
-			});
+			firebase.firestore()
+				.collection(this.props.community.selectedCommunity.node)
+				.doc("user")
+				.collection("registered")
+				.doc(uid)
+				.get()
+				.then(snapshot => {
+					if (!snapshot.exists) {
+						this.props.navigation.navigate("EditUserProfile", {
+							...this.state,
+							...{ uid: uid },
+							refreshFunction: this.refreshFunction.bind(this)
+						})
+					} else {
+
+
+						console.log(snapshot.data())
+
+
+						const data = {
+							photoURL: snapshot.data().photoURL || "",
+							firstName: snapshot.data().firstName || "",
+							lastName: snapshot.data().lastName || "",
+							displayName: snapshot.data().displayName || "",
+							email: snapshot.data().email || ""
+						}
+						this.props.navigation.setParams({ uid: uid, user: data });
+						this.setState({ user: data });
+					}
+				});
 		}
 	}
 
@@ -86,9 +113,15 @@ class UserProfile extends Component {
 		})
 	}
 
+	logout() {
+		firebase.auth().signOut().then(function () {
+			this.props.navigation.popToTop();
+		})
+	}
+
 	renderProfilePic = () => {
 		const width = 128;
-		const photoURL = this.state.user.photoURL;
+		const photoURL = this.state.user && this.state.user.photoURL;
 
 		return <TouchableOpacity onPress={() => {
 			this.edit()
@@ -146,6 +179,7 @@ class UserProfile extends Component {
 						</TouchableOpacity>
 					</View> : null}
 				</View>
+				<Button onPress={() => this.logout()} title={I18n.t("logout")} />
 
 			</ScrollView>
 		</SafeAreaView >;

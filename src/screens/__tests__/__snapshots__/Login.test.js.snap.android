@@ -68,7 +68,11 @@ exports[`show login screen 1`] = `
         Object {
           "fontFamily": "SegoeUI",
         },
-        undefined,
+        Object {
+          "color": "red",
+          "paddingTop": 10,
+          "textAlign": "center",
+        },
       ]
     }
   />
@@ -93,7 +97,7 @@ exports[`show login screen 1`] = `
       autoFocus={true}
       keyboardType="email-address"
       onChangeText={[Function]}
-      placeholder="Email Address"
+      placeholder="Email"
       rejectResponderTermination={true}
       style={
         Object {
@@ -178,7 +182,8 @@ exports[`show login screen 1`] = `
             ]
           }
         >
-          Forgot password?
+          Forgotten Password
+          ?
         </Text>
       </View>
     </RNGestureHandlerButton>
@@ -269,7 +274,7 @@ exports[`show login screen 1`] = `
           ]
         }
       >
-        Don't have an account?  Sign Up
+        Sign Up
       </Text>
     </View>
   </RNGestureHandlerButton>

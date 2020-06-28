@@ -75,7 +75,6 @@ class Settings extends Component {
 				<FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
 			</View>
 
-
 			{this.separator(i)}
 			<View style={styles.card}>
 				<SettingsListItem icon={<FontAwesome name="language" style={styles.imageStyleIcon} />} title={"Language"} titleInfo={this.props.auth.language} onPress={() => this.props.navigation.navigate("selectLanguage")} />

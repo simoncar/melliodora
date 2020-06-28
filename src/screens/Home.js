@@ -72,10 +72,8 @@ class Home extends Component {
 			this.loadCalendar();
 		});
 
-
-		console.log("lookupAppStoreVersion:")
 		versionCheck.lookupAppStoreVersion((updateType) => {
-			console.log("updateType:", updateType)
+
 			switch (updateType) {
 				case "none":
 					//you are all up to date
@@ -109,7 +107,6 @@ class Home extends Component {
 		clearInterval(this.interval);
 	}
 	updateMessage() {
-		console.log("updateMessage:--", this.state.appUpdateMessage)
 		if (this.state.appUpdateMessage != "none") {
 			return versionCheck.updateMessage(this.state.appUpdateMessage);
 		}
