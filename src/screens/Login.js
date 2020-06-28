@@ -23,7 +23,6 @@ export class LoginScreen extends Component {
 			await firebase.auth().signInWithEmailAndPassword(email, password);
 		} catch (error) {
 			this.setState({ errorMessage: error.message, loading: false });
-			console.log(error)
 		}
 	};
 

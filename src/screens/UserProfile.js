@@ -16,34 +16,47 @@ class UserProfile extends Component {
 			lastName: "",
 			displayName: "",
 			email: ""
-		}
+		},
+		errorMessage: null
 	};
 
 	componentDidMount() {
 		const { uid, user } = this.props.route.params;
-		console.log(this.props.route.params)
+		console.log("USER PROFILE UID:", uid)
 		this.showChat = uid != global.uid;
 		if (user) {
 			this.setState({ user, uid });
 		} else if (uid) {
-			firebase.firestore().collection(this.props.community.selectedCommunity.node).doc("user").collection("registered").doc(uid).get().then(snapshot => {
-				if (!snapshot.exists) {
-					// return this.props.navigation.push("EditUserProfile", {
-					// 	...this.props.navigation.state.params
-					// });
-				}
-				const data = {
-					photoURL: snapshot.data().photoURL,
-					firstName: snapshot.data().firstName,
-					lastName: snapshot.data().lastName,
-					displayName: snapshot.data().displayName,
-					email: snapshot.data().email
-				}
+			firebase.firestore()
+				.collection(this.props.community.selectedCommunity.node)
+				.doc("user")
+				.collection("registered")
+				.doc(uid)
+				.get()
+				.then(snapshot => {
+					if (!snapshot.exists) {
+						this.props.navigation.navigate("EditUserProfile", {
+							...this.state,
+							...{ uid: uid },
+							refreshFunction: this.refreshFunction.bind(this)
+						})
+					} else {
 
-				snapshot.data();
-				this.props.navigation.setParams({ uid: uid, user: data });
-				this.setState({ user: data });
-			});
+
+						console.log(snapshot.data())
+
+
+						const data = {
+							photoURL: snapshot.data().photoURL || "",
+							firstName: snapshot.data().firstName || "",
+							lastName: snapshot.data().lastName || "",
+							displayName: snapshot.data().displayName || "",
+							email: snapshot.data().email || ""
+						}
+						this.props.navigation.setParams({ uid: uid, user: data });
+						this.setState({ user: data });
+					}
+				});
 		}
 	}
 
@@ -97,6 +110,12 @@ class UserProfile extends Component {
 		this.props.navigation.navigate("EditUserProfile", {
 			...this.state,
 			refreshFunction: this.refreshFunction.bind(this)
+		})
+	}
+
+	logout() {
+		firebase.auth().signOut().then(function () {
+			this.props.navigation.popToTop();
 		})
 	}
 
@@ -160,6 +179,7 @@ class UserProfile extends Component {
 						</TouchableOpacity>
 					</View> : null}
 				</View>
+				<Button onPress={() => this.logout()} title={I18n.t("logout")} />
 
 			</ScrollView>
 		</SafeAreaView >;

@@ -82,7 +82,7 @@ class UserSearch extends Component {
 
 	_renderItem({ item }) {
 
-		const avatarTitle = item.email.slice(0, 2);
+		const avatarTitle = ((item.email != undefined) ? item.email.slice(0, 2) : "");
 		const fullName = ((item.firstName != undefined) ? item.firstName : "") + " " + ((item.lastName != undefined) ? item.lastName : "");
 		const avatar = item.photoURL ? { source: { uri: item.photoURL } } : { title: avatarTitle };
 		return <TouchableOpacity onPress={() =>
