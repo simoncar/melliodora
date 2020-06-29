@@ -6,13 +6,16 @@ on:
 jobs:
   publish:
     name: Install and publish
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_FIREBASE_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
+          file_name: .env
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
-
       - uses: expo/expo-github-action@v5
         with:
           expo-version: 3.x
@@ -22,6 +25,7 @@ jobs:
         env:
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPSPECIFIC_PASSWORD }}
           EXPO_APPLE_PASSWORD: ${{ secrets.EXPO_APPLE_ID_PASSWORD }}
+      - run: yarn install
       - run: expo build:ios --config apps/app.generic.json --apple-id ${{ secrets.EXPO_APPLE_ID }}
       - run: expo build:ios --config apps/app.sais_edu_sg.json
       - run: expo build:android -t app-bundle --config apps/app.generic.json
