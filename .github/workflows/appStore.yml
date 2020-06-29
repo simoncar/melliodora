@@ -26,7 +26,7 @@ jobs:
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPSPECIFIC_PASSWORD }}
           EXPO_APPLE_PASSWORD: ${{ secrets.EXPO_APPLE_ID_PASSWORD }}
       - run: yarn install
-      - run: expo build:ios --config apps/app.generic.json --apple-id ${{ secrets.EXPO_APPLE_ID }}
+      - run: expo build:ios --config apps/app.generic.json 
       - run: expo build:ios --config apps/app.sais_edu_sg.json
       - run: expo build:android -t app-bundle --config apps/app.generic.json
       - run: expo build:android -t app-bundle --config apps/app.sais_edu_sg.json
