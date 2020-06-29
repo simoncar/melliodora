@@ -8,11 +8,6 @@ jobs:
     name: Install and publish
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: SpicyPizza/create-envfile@v1
-        with:
-          envkey_FIREBASE_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
-          file_name: .env
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
