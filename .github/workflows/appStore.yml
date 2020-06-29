@@ -13,7 +13,6 @@ jobs:
         with:
           envkey_FIREBASE_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
           file_name: .env
-       
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
