@@ -6,7 +6,7 @@ on:
 jobs:
   publish:
     name: Install and publish
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
       - uses: SpicyPizza/create-envfile@v1
@@ -24,5 +24,4 @@ jobs:
           expo-cache: true
         env:
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPSPECIFIC_PASSWORD }}
-      - run: yarn install
       - run: expo upload:ios --config apps/app.generic.json
