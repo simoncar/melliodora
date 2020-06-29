@@ -12,14 +12,15 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
-        env:
-          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPSPECIFIC_PASSWORD }}
-          EXPO_APPLE_ID: ${{ secrets.EXPO_APPLE_ID }}
-          EXPO_APPLE_ID_PASSWORD: ${{ secrets.EXPO_APPLE_ID_PASSWORD }}  
+
       - uses: expo/expo-github-action@v5
         with:
           expo-version: 3.x
           expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
           expo-cache: true
-      - run: expo upload:ios --non-interactive --config apps/app.generic.json
+        env:
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPSPECIFIC_PASSWORD }}
+          EXPO_APPLE_ID: ${{ secrets.EXPO_APPLE_ID }}
+          EXPO_APPLE_ID_PASSWORD: ${{ secrets.EXPO_APPLE_ID_PASSWORD }}    
+      - run: expo upload:ios --non-interactive --config apps/app.generic.json --apple-id simoncar@gmail.com
