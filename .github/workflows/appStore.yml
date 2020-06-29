@@ -23,4 +23,4 @@ jobs:
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPSPECIFIC_PASSWORD }}
           EXPO_APPLE_ID: ${{ secrets.EXPO_APPLE_ID }}
           EXPO_APPLE_ID_PASSWORD: ${{ secrets.EXPO_APPLE_ID_PASSWORD }}    
-      - run: expo upload:ios --non-interactive --config apps/app.generic.json --apple-id simoncar@gmail.com
+      - run: expo upload:ios --non-interactive --config apps/app.generic.json --apple-id ${{ secrets.EXPO_APPLE_ID }} --apple-id-password ${{ secrets.EXPO_APPLE_ID_PASSWORD }}    
