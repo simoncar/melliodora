@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "Despre această aplicație",
+	"ok": "O.K",
 	"adminAccess": "Acces Admin",
 	"associations": "Asociațiile",
 	"athletics": "Atletism",
@@ -41,6 +42,7 @@
 	"password": "Parola",
 	"passwordConfirm": "Confirmă parola",
 	"passwordMismatch": "Parolele nu se potrivesc",
+	"passwordForgot": "Un e-mail de resetare va fi trimis dacă aveți un cont",
 	"permissionsNoCamera": "Fără acces la cameră",
 	"photos": "Fotografii",
 	"photoTake": "Fa o poza",

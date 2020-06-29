@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "Apie šią programą",
+	"ok": "Gerai",
 	"adminAccess": "Administratoriaus prieiga",
 	"associations": "Asociacijos",
 	"athletics": "Lengvoji atletika",
@@ -41,6 +42,7 @@
 	"password": "Slaptažodis",
 	"passwordConfirm": "Patvirtinti slaptažodį",
 	"passwordMismatch": "Slaptažodžiai nesutampa",
+	"passwordForgot": "Jei turėsite sąskaitą, el. Laiškas bus atsiųstas iš naujo",
 	"permissionsNoCamera": "Nėra galimybės naudotis kamera",
 	"photos": "Nuotraukos",
 	"photoTake": "Nufotografuoti",

@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "Over deze app",
+	"ok": "OK",
 	"adminAccess": "Beheerderstoegang",
 	"associations": "Verenigingen",
 	"athletics": "Atletiek",
@@ -41,6 +42,7 @@
 	"password": "Wachtwoord",
 	"passwordConfirm": "bevestig wachtwoord",
 	"passwordMismatch": "Wachtwoorden komen niet overeen",
+	"passwordForgot": "Er wordt een reset-e-mail verzonden als u een account heeft",
 	"permissionsNoCamera": "Geen toegang tot camera",
 	"photos": "Foto's",
 	"photoTake": "Foto nemen",

@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "关于这个程序",
+	"ok": "好",
 	"adminAccess": "管理员权限",
 	"associations": "社团协会",
 	"athletics": "竞技",
@@ -41,6 +42,7 @@
 	"password": "密码",
 	"passwordConfirm": "确认密码",
 	"passwordMismatch": "密码不匹配",
+	"passwordForgot": "如果您有一个帐户，将发送重置电子邮件",
 	"permissionsNoCamera": "无法使用相机",
 	"photos": "相片",
 	"photoTake": "拍照",

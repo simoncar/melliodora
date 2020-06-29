@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "Mengenai Aplikasi ini",
+	"ok": "okey",
 	"adminAccess": "Akses Pentadbir",
 	"associations": "Persatuan",
 	"athletics": "Atletik",
@@ -41,6 +42,7 @@
 	"password": "Kata Laluan",
 	"passwordConfirm": "Sahkan Kata Laluan",
 	"passwordMismatch": "Kata laluan tidak sepadan",
+	"passwordForgot": "E-mel set semula akan dihantar jika anda mempunyai akaun",
 	"permissionsNoCamera": "Tiada akses ke kamera",
 	"photos": "Gambar",
 	"photoTake": "Mengambil gambar",

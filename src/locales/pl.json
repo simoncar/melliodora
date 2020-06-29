@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "O tej aplikacji",
+	"ok": "dobrze",
 	"adminAccess": "Dostęp administratora",
 	"associations": "Wspomnienia",
 	"athletics": "lekkoatletyka",
@@ -41,6 +42,7 @@
 	"password": "Hasło",
 	"passwordConfirm": "Potwierdź hasło",
 	"passwordMismatch": "Hasła się nie zgadzają",
+	"passwordForgot": "Zresetowany e-mail zostanie wysłany, jeśli masz konto",
 	"permissionsNoCamera": "Brak dostępu do kamery",
 	"photos": "Zdjęcia",
 	"photoTake": "Zrobić zdjęcie",

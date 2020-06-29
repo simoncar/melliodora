@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "Tietoja tästä sovelluksesta",
+	"ok": "kunnossa",
 	"adminAccess": "Järjestelmänvalvojan käyttöoikeudet",
 	"associations": "yhdistykset",
 	"athletics": "Yleisurheilu",
@@ -41,6 +42,7 @@
 	"password": "Salasana",
 	"passwordConfirm": "Vahvista salasana",
 	"passwordMismatch": "Salasanat eivät täsmää",
+	"passwordForgot": "Palautusviesti lähetetään, jos sinulla on tili",
 	"permissionsNoCamera": "Ei pääsyä kameraan",
 	"photos": "Valokuvat",
 	"photoTake": "Ota valokuva",

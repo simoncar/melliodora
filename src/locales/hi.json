@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "इस ऐप के बारे में",
+	"ok": "ठीक है",
 	"adminAccess": "व्यवस्थापक पहुँच",
 	"associations": "संघों",
 	"athletics": "व्यायाम",
@@ -41,6 +42,7 @@
 	"password": "कुंजिका",
 	"passwordConfirm": "पासवर्ड की पुष्टि कीजिये",
 	"passwordMismatch": "पासवर्ड मेल नहीं खाते",
+	"passwordForgot": "खाता होने पर रीसेट ईमेल भेजा जाएगा",
 	"permissionsNoCamera": "कैमरे तक पहुंच नहीं है",
 	"photos": "तस्वीरें",
 	"photoTake": "फोटो लो",

@@ -2,7 +2,7 @@
 	"name": "genericApp",
 	"displayName": "genericApp",
 	"expo": {
-		"version": "22.0.37",
+		"version": "38.0.0",
 		"icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",
 		"slug": "myCommunity",
 		"name": "myCommunity",
@@ -38,14 +38,13 @@
 			"color": "#000000"
 		},
 		"orientation": "portrait",
-
 		"ios": {
 			"bundleIdentifier": "com.softmowertrain.parent.mycommunity",
 			"supportsTablet": true
 		},
 		"android": {
 			"package": "com.softmowertrain.parent.mycommunity",
-			"versionCode": 22,
+			"versionCode": 24,
 			"permissions": [
 				"READ_CALENDAR",
 				"WRITE_CALENDAR"

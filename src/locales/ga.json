@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "Maidir leis an Aip seo",
+	"ok": "Ceart go leor",
 	"adminAccess": "Rochtain Riaracháin",
 	"associations": "Cumainn",
 	"athletics": "Lúthchleasaíocht",
@@ -41,6 +42,7 @@
 	"password": "Pasfhocal",
 	"passwordConfirm": "Deimhnigh Pasfhocal",
 	"passwordMismatch": "Ní hionann pasfhocail",
+	"passwordForgot": "Seolfar r-phost athshocraithe má tá cuntas agat",
 	"permissionsNoCamera": "Gan aon rochtain ar cheamara",
 	"photos": "Grianghraif",
 	"photoTake": "Tóg pictiúr",

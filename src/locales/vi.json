@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "Về ứng dụng này",
+	"ok": "đồng ý",
 	"adminAccess": "Quản trị viên truy cập",
 	"associations": "Hiệp hội",
 	"athletics": "Thế vận hội",
@@ -41,6 +42,7 @@
 	"password": "Mật khẩu",
 	"passwordConfirm": "Xác nhận mật khẩu",
 	"passwordMismatch": "Mật khẩu không khớp",
+	"passwordForgot": "Một email đặt lại sẽ được gửi nếu bạn có tài khoản",
 	"permissionsNoCamera": "Không có quyền truy cập vào máy ảnh",
 	"photos": "Hình ảnh",
 	"photoTake": "Chụp hình",

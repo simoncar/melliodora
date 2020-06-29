@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "Om den här appen",
+	"ok": "OK",
 	"adminAccess": "Adminåtkomst",
 	"associations": "föreningar",
 	"athletics": "Friidrott",
@@ -41,6 +42,7 @@
 	"password": "Lösenord",
 	"passwordConfirm": "Bekräfta lösenord",
 	"passwordMismatch": "Lösenord matchar inte",
+	"passwordForgot": "Ett återställningsmeddelande skickas om du har ett konto",
 	"permissionsNoCamera": "Ingen åtkomst till kamera",
 	"photos": "foton",
 	"photoTake": "Ta ett foto",
