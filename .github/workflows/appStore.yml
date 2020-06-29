@@ -24,7 +24,7 @@ jobs:
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
           expo-cache: true
         env:
-          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPSPECIFIC_PASSWORD }}:  
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPSPECIFIC_PASSWORD }}
       - run: yarn install
-      - expo build:ios --config apps/app.generic.json
-      - expo upload:ios --config apps/app.generic.json
+      - run: expo build:ios --config apps/app.generic.json
+      - run: upload:ios --config apps/app.generic.json
