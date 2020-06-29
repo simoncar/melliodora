@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "Ynglŷn â'r App hwn",
+	"ok": "iawn",
 	"adminAccess": "Mynediad Gweinyddol",
 	"associations": "Cymdeithasau",
 	"athletics": "Athletau",
@@ -41,6 +42,7 @@
 	"password": "Cyfrinair",
 	"passwordConfirm": "Cadarnhau Cyfrinair",
 	"passwordMismatch": "Nid yw cyfrineiriau'n cyfateb",
+	"passwordForgot": "Anfonir e-bost ailosod os oes gennych gyfrif",
 	"permissionsNoCamera": "Dim mynediad i'r camera",
 	"photos": "Lluniau",
 	"photoTake": "Tynnwch y Llun",

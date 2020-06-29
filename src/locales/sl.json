@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "O tej aplikaciji",
+	"ok": "v redu",
 	"adminAccess": "Administratorski dostop",
 	"associations": "Združenja",
 	"athletics": "Atletika",
@@ -41,6 +42,7 @@
 	"password": "Geslo",
 	"passwordConfirm": "potrdi geslo",
 	"passwordMismatch": "Gesla se ne ujemajo",
+	"passwordForgot": "Če imate račun, vam bomo poslali ponastavljeno e-poštno sporočilo",
 	"permissionsNoCamera": "Brez dostopa do kamere",
 	"photos": "Fotografije",
 	"photoTake": "Fotografiraj",

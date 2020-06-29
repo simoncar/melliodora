@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "Об этом приложении",
+	"ok": "хорошо",
 	"adminAccess": "Доступ администратора",
 	"associations": "ассоциации",
 	"athletics": "легкая атлетика",
@@ -41,6 +42,7 @@
 	"password": "пароль",
 	"passwordConfirm": "Подтвердите Пароль",
 	"passwordMismatch": "Пароли не совпадают",
+	"passwordForgot": "Сброс электронной почты будет отправлено, если у вас есть аккаунт",
 	"permissionsNoCamera": "Нет доступа к камере",
 	"photos": "Фото",
 	"photoTake": "Сфотографировать",

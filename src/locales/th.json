@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "เกี่ยวกับแอพนี้",
+	"ok": "ตกลง",
 	"adminAccess": "การเข้าถึงของผู้ดูแลระบบ",
 	"associations": "สมาคม",
 	"athletics": "กรีฑา",
@@ -41,6 +42,7 @@
 	"password": "รหัสผ่าน",
 	"passwordConfirm": "ยืนยันรหัสผ่าน",
 	"passwordMismatch": "รหัสผ่านไม่ตรงกัน",
+	"passwordForgot": "อีเมลรีเซ็ตจะถูกส่งหากคุณมีบัญชี",
 	"permissionsNoCamera": "ไม่มีการเข้าถึงกล้อง",
 	"photos": "ภาพถ่าย",
 	"photoTake": "ถ่ายภาพ",

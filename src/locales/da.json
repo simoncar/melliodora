@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "Om denne app",
+	"ok": "Okay",
 	"adminAccess": "Adminadgang",
 	"associations": "Foreninger",
 	"athletics": "atletik",
@@ -41,6 +42,7 @@
 	"password": "Adgangskode",
 	"passwordConfirm": "Bekræft kodeord",
 	"passwordMismatch": "Adgangskoder stemmer ikke overens",
+	"passwordForgot": "En e-mail til nulstilling sendes, hvis du har en konto",
 	"permissionsNoCamera": "Ingen adgang til kamera",
 	"photos": "Billeder",
 	"photoTake": "Tag et billede",

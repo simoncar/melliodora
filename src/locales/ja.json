@@ -1,5 +1,6 @@
 {
 	"aboutThisApp": "このアプリについて",
+	"ok": "OK",
 	"adminAccess": "管理アクセス",
 	"associations": "協会",
 	"athletics": "陸上競技",
@@ -41,6 +42,7 @@
 	"password": "パスワード",
 	"passwordConfirm": "パスワードを認証する",
 	"passwordMismatch": "パスワードが一致しません",
+	"passwordForgot": "アカウントをお持ちの場合は、リセットメールが送信されます",
 	"permissionsNoCamera": "カメラにアクセスできません",
 	"photos": "写真",
 	"photoTake": "写真を撮る",
