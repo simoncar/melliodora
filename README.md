@@ -56,9 +56,7 @@ https://github.com/simoncar/melliodora/blob/master/.github/workflows/main.yml
 (if you add a new config file, update the main.yml above)
 
 `expo publish --config apps/app.generic.json`
-
 `expo publish --config apps/app.sais_edu_sg.json`
-
 `expo publish --config apps/app.ais_edu_sg.json`
 
 # Build (and Publish)
@@ -67,22 +65,22 @@ Before building - update version numbers app.*.json
 
 ## App Store (iOS)
 
+Build occurs automatically when push to the appstore branch
+https://github.com/simoncar/melliodora/blob/master/.github/workflows/appStore.yml
+
+There is no need to run these commands
 `expo build:ios --config apps/app.generic.json`
-
 `expo build:ios --config apps/app.sais_edu_sg.json`
-
-## upload
-
-`expo upload:ios --config apps/app.generic.json`
-
-`expo upload:ios --config apps/app.sais_edu_sg.json`
-
-
-## Google Play (Android)
-
 `expo build:android -t app-bundle --config apps/app.generic.json`
-
 `expo build:android -t app-bundle --config apps/app.sais_edu_sg.json`
+
+## upload - iOS
+
+`expo upload:ios --config apps/app.generic.json && expo upload:ios --config apps/app.sais_edu_sg.json
+
+## upload - Google Plan. 
+
+need to do this manually 
 
 
 ## Web (This project not web ready yet)
