@@ -63,13 +63,13 @@ export class Story extends Component {
 
 	_handleOpenWithLinking = sURL => {
 
-		if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
+		//if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
 			Linking.openURL(sURL);
-		} else {
-			this.props.navigation.navigate("authPortalEmbed", {
-				url: sURL
-			});
-		}
+		//} else {
+		//	this.props.navigation.navigate("authPortalEmbed", {
+		//		url: sURL
+		//	});
+		//}
 	};
 
 	_handleEmailPress(email) {
