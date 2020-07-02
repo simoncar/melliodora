@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-native-testing-library';
 
-import { LoginScreen } from '../Login';
+import { SignUp } from '../SignUp';
 
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 
@@ -28,28 +28,47 @@ const auth = {
 	}
 }
 
-test('show login screen', () => {
+test('show SignUp screen', () => {
 	const navigation = { navigate: jest.fn() };
 
 	const { toJSON, getByTestId, queryByText } = render(
-		<LoginScreen
+		<SignUp
 			auth={auth}
 			navigation={navigation} />
 	);
 
-	expect(toJSON()).toMatchSnapshot();
-	expect(queryByText("Forgotten Password?")).not.toBeNull();
-	expect(queryByText("Sign Up")).not.toBeNull();
 
-	expect(getByTestId('login.email').props).toEqual(
+
+
+	expect(toJSON()).toMatchSnapshot();
+	expect(getByTestId('signup.email').props).toEqual(
 		expect.objectContaining({
 			placeholder: 'Email',
 		})
 	);
-	expect(getByTestId('login.password').props).toEqual(
+
+	expect(getByTestId('signup.password').props).toEqual(
 		expect.objectContaining({
 			placeholder: 'Password',
 		})
 	);
+	expect(getByTestId('signup.passwordConfirm').props).toEqual(
+		expect.objectContaining({
+			placeholder: 'Confirm Password',
+		})
+	);
+
+	expect(getByTestId('signup.firstName').props).toEqual(
+		expect.objectContaining({
+			placeholder: 'First Name',
+		})
+	);
+
+	expect(getByTestId('signup.lastName').props).toEqual(
+		expect.objectContaining({
+			placeholder: 'Last Name',
+		})
+	);
+
 
 });

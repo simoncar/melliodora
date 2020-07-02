@@ -21,7 +21,7 @@ export class DomainSelection extends Component {
 
 		props.dispatch(getCommunities());
 	}
-
+81
 	componentDidMount() {
 		const { communities } = this.props.community;
 		if (communities.length > 0) {

@@ -3,67 +3,13 @@
 exports[`show story no calendar no image 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "backgroundColor": "#fff",
-        "flex": 1,
-        "height": 1314,
-      },
-      Object {
-        "backgroundColor": "#fff",
-      },
-    ]
+    Object {
+      "backgroundColor": "#fff",
+    }
   }
 >
   <RCTScrollView
-    automaticallyAdjustContentInsets={false}
-    contentContainerStyle={
-      Array [
-        Object {
-          "padding": undefined,
-        },
-        undefined,
-      ]
-    }
-    contentInset={
-      Object {
-        "bottom": 0,
-      }
-    }
-    enableAutomaticScroll={true}
-    enableOnAndroid={false}
-    enableResetScrollToCoords={true}
-    extraHeight={75}
-    extraScrollHeight={0}
-    getScrollResponder={[Function]}
-    handleOnScroll={[Function]}
-    keyboardDismissMode="interactive"
-    keyboardOpeningTime={250}
-    keyboardShouldPersistTaps="handled"
-    keyboardSpace={0}
-    onScroll={[Function]}
-    resetKeyboardSpace={[Function]}
-    resetScrollToCoords={
-      Object {
-        "x": 0,
-        "y": 0,
-      }
-    }
-    scrollEventThrottle={1}
-    scrollForExtraHeightOnAndroid={[Function]}
-    scrollIntoView={[Function]}
-    scrollToEnd={[Function]}
-    scrollToFocusedInput={[Function]}
-    scrollToPosition={[Function]}
     showsVerticalScrollIndicator={false}
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "flex": 1,
-      }
-    }
-    update={[Function]}
-    viewIsInsideTabBar={false}
   >
     <View>
       <View>
@@ -152,7 +98,6 @@ exports[`show story no calendar no image 1`] = `
         <View
           accessible={true}
           focusable={true}
-          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -211,7 +156,6 @@ exports[`show story no calendar no image 1`] = `
         <View
           accessible={true}
           focusable={true}
-          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -403,67 +347,13 @@ exports[`show story no calendar no image 1`] = `
 exports[`show story on screen 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "backgroundColor": "#fff",
-        "flex": 1,
-        "height": 1314,
-      },
-      Object {
-        "backgroundColor": "#fff",
-      },
-    ]
+    Object {
+      "backgroundColor": "#fff",
+    }
   }
 >
   <RCTScrollView
-    automaticallyAdjustContentInsets={false}
-    contentContainerStyle={
-      Array [
-        Object {
-          "padding": undefined,
-        },
-        undefined,
-      ]
-    }
-    contentInset={
-      Object {
-        "bottom": 0,
-      }
-    }
-    enableAutomaticScroll={true}
-    enableOnAndroid={false}
-    enableResetScrollToCoords={true}
-    extraHeight={75}
-    extraScrollHeight={0}
-    getScrollResponder={[Function]}
-    handleOnScroll={[Function]}
-    keyboardDismissMode="interactive"
-    keyboardOpeningTime={250}
-    keyboardShouldPersistTaps="handled"
-    keyboardSpace={0}
-    onScroll={[Function]}
-    resetKeyboardSpace={[Function]}
-    resetScrollToCoords={
-      Object {
-        "x": 0,
-        "y": 0,
-      }
-    }
-    scrollEventThrottle={1}
-    scrollForExtraHeightOnAndroid={[Function]}
-    scrollIntoView={[Function]}
-    scrollToEnd={[Function]}
-    scrollToFocusedInput={[Function]}
-    scrollToPosition={[Function]}
     showsVerticalScrollIndicator={false}
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "flex": 1,
-      }
-    }
-    update={[Function]}
-    viewIsInsideTabBar={false}
   >
     <View>
       <View>
@@ -552,7 +442,6 @@ exports[`show story on screen 1`] = `
         <View
           accessible={true}
           focusable={true}
-          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -587,7 +476,6 @@ exports[`show story on screen 1`] = `
         <View
           accessible={true}
           focusable={true}
-          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -622,7 +510,6 @@ exports[`show story on screen 1`] = `
         <View
           accessible={true}
           focusable={true}
-          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -807,67 +694,13 @@ exports[`show story on screen 1`] = `
 exports[`show story with URL in content to test linking 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "backgroundColor": "#fff",
-        "flex": 1,
-        "height": 1314,
-      },
-      Object {
-        "backgroundColor": "#fff",
-      },
-    ]
+    Object {
+      "backgroundColor": "#fff",
+    }
   }
 >
   <RCTScrollView
-    automaticallyAdjustContentInsets={false}
-    contentContainerStyle={
-      Array [
-        Object {
-          "padding": undefined,
-        },
-        undefined,
-      ]
-    }
-    contentInset={
-      Object {
-        "bottom": 0,
-      }
-    }
-    enableAutomaticScroll={true}
-    enableOnAndroid={false}
-    enableResetScrollToCoords={true}
-    extraHeight={75}
-    extraScrollHeight={0}
-    getScrollResponder={[Function]}
-    handleOnScroll={[Function]}
-    keyboardDismissMode="interactive"
-    keyboardOpeningTime={250}
-    keyboardShouldPersistTaps="handled"
-    keyboardSpace={0}
-    onScroll={[Function]}
-    resetKeyboardSpace={[Function]}
-    resetScrollToCoords={
-      Object {
-        "x": 0,
-        "y": 0,
-      }
-    }
-    scrollEventThrottle={1}
-    scrollForExtraHeightOnAndroid={[Function]}
-    scrollIntoView={[Function]}
-    scrollToEnd={[Function]}
-    scrollToFocusedInput={[Function]}
-    scrollToPosition={[Function]}
     showsVerticalScrollIndicator={false}
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "flex": 1,
-      }
-    }
-    update={[Function]}
-    viewIsInsideTabBar={false}
   >
     <View>
       <View>
@@ -956,7 +789,6 @@ exports[`show story with URL in content to test linking 1`] = `
         <View
           accessible={true}
           focusable={true}
-          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -1015,7 +847,6 @@ exports[`show story with URL in content to test linking 1`] = `
         <View
           accessible={true}
           focusable={true}
-          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -1074,7 +905,6 @@ exports[`show story with URL in content to test linking 1`] = `
         <View
           accessible={true}
           focusable={true}
-          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -1424,67 +1254,13 @@ exports[`show story with URL in content to test linking 1`] = `
 exports[`show story without chat 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "backgroundColor": "#fff",
-        "flex": 1,
-        "height": 1314,
-      },
-      Object {
-        "backgroundColor": "#fff",
-      },
-    ]
+    Object {
+      "backgroundColor": "#fff",
+    }
   }
 >
   <RCTScrollView
-    automaticallyAdjustContentInsets={false}
-    contentContainerStyle={
-      Array [
-        Object {
-          "padding": undefined,
-        },
-        undefined,
-      ]
-    }
-    contentInset={
-      Object {
-        "bottom": 0,
-      }
-    }
-    enableAutomaticScroll={true}
-    enableOnAndroid={false}
-    enableResetScrollToCoords={true}
-    extraHeight={75}
-    extraScrollHeight={0}
-    getScrollResponder={[Function]}
-    handleOnScroll={[Function]}
-    keyboardDismissMode="interactive"
-    keyboardOpeningTime={250}
-    keyboardShouldPersistTaps="handled"
-    keyboardSpace={0}
-    onScroll={[Function]}
-    resetKeyboardSpace={[Function]}
-    resetScrollToCoords={
-      Object {
-        "x": 0,
-        "y": 0,
-      }
-    }
-    scrollEventThrottle={1}
-    scrollForExtraHeightOnAndroid={[Function]}
-    scrollIntoView={[Function]}
-    scrollToEnd={[Function]}
-    scrollToFocusedInput={[Function]}
-    scrollToPosition={[Function]}
     showsVerticalScrollIndicator={false}
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "flex": 1,
-      }
-    }
-    update={[Function]}
-    viewIsInsideTabBar={false}
   >
     <View>
       <View>
@@ -1573,7 +1349,6 @@ exports[`show story without chat 1`] = `
         <View
           accessible={true}
           focusable={true}
-          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -1632,7 +1407,6 @@ exports[`show story without chat 1`] = `
         <View
           accessible={true}
           focusable={true}
-          isTVSelectable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}

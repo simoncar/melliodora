@@ -1,70 +1,49 @@
-import React, { Component } from "react";
-import { StyleSheet, View, TextInput, Button, Alert } from "react-native";
 
+import React, { Component } from "react";
+import { StyleSheet, View, TextInput, Alert } from "react-native";
+import I18n from "../lib/i18n";
 import firebase from "firebase";
-import { Text } from "../components/sComponent"
+import { Text, Button } from "../components/sComponent";
 
 export default class ForgotPasswordScreen extends Component {
-	static navigationOptions = ({ navigation }) => ({
-		title: "Forgot Password",
-		headerBackTitle: null,
-	});
 
 	state = { email: "", errorMessage: null };
 
 	handleForgotPassword = () => {
 		const { email } = this.state;
 
-		const msg = Alert.alert("Forgot Password Submitted", "We'll email instructions on how to reset your password soon.", [
-			{ text: "OK", onPress: () => this.props.navigation.popToTop() },
-		]);
-		firebase
-			.auth()
-			.sendPasswordResetEmail(email)
-			.then(() => msg)
-			.catch((error) => this.setState({ errorMessage: error.message }));
+		const msg = Alert.alert(I18n.t("passwordForgot"), [{ text: I18n.t("ok"), onPress: () => this.props.navigation.popToTop() }]);
+		firebase.auth().sendPasswordResetEmail(email).then(() => msg).catch(error => this.setState({ errorMessage: error.message }));
 	};
 
 	render() {
-		return (
-			<View style={styles.container}>
-				<Text>{this.state.errorMessage}</Text>
+		return <View style={styles.container}>
+			<Text>{this.state.errorMessage}</Text>
 
-				<TextInput
-					placeholder="Email Address"
-					style={styles.containerStyle}
-					onChangeText={(text) => this.setState({ email: text })}
-					value={this.state.email}
-					autoCapitalize="none"
-					testID="email"
-					keyboardType="email-address"
-					autoFocus={true}
-				/>
+			<TextInput placeholder={I18n.t("email")} style={styles.containerStyle} onChangeText={text => this.setState({ email: text })} value={this.state.email} autoCapitalize="none" testID="email" keyboardType="email-address" autoFocus={true} />
 
-				<View style={{ marginTop: 8 }}>
-					<Button title="Submit" onPress={this.handleForgotPassword} testID="forgotpasswordsubmit" />
-				</View>
-			</View>
-		);
+			<Button title={I18n.t("send")} onPress={this.handleForgotPassword} testID="forgotPassword.submit" />
+		</View>;
 	}
 }
 
 const styles = StyleSheet.create({
+
 	container: {
 		backgroundColor: "#f2f2f2",
 		flex: 1,
-		padding: 10,
+		padding: 10
 	},
 
 	containerStyle: {
-		borderWidth: 1,
-		borderRadius: 10,
-		borderColor: "#d2d2d2",
 		backgroundColor: "#ffffff",
-		marginVertical: 8,
+		borderColor: "#d2d2d2",
+		borderRadius: 10,
+		borderWidth: 1,
 		color: "black",
 		fontSize: 18,
+		marginVertical: 8,
 		minHeight: 40,
-		paddingHorizontal: 12,
-	},
+		paddingHorizontal: 12
+	}
 });

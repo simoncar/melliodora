@@ -6,8 +6,9 @@ import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 
-import { Text } from "../components/sComponent";
+import { Text, Button } from "../components/sComponent";
 import Loader from "../components/Loader";
+import I18n from "../lib/i18n";
 
 
 export class LoginScreen extends Component {
@@ -40,12 +41,12 @@ export class LoginScreen extends Component {
 	render() {
 		return <SafeAreaView style={styles.container}>
 			<Loader modalVisible={this.state.loading} animationType="fade" />
-			<Text>{this.state.errorMessage}</Text>
+			<Text style={styles.errorMessage}>{this.state.errorMessage}</Text>
 			<View style={styles.SectionStyle}>
 				<Ionicons name="ios-mail" size={25} color="grey" style={styles.ImageStyle} />
 				<TextInput
 					style={styles.inputField}
-					placeholder="Email Address"
+					placeholder={I18n.t("email")}
 					onChangeText={text => this.setState({ email: text })}
 					value={this.state.email} autoCapitalize="none"
 					testID="login.email"
@@ -60,7 +61,7 @@ export class LoginScreen extends Component {
 				<Ionicons name="ios-lock" size={25} color="grey" style={styles.ImageStyle} />
 				<TextInput
 					style={styles.inputField}
-					placeholder="Password"
+					placeholder={I18n.t("password")}
 					onChangeText={text => this.setState({ password: text })}
 					value={this.state.password}
 					autoCapitalize="none"
@@ -73,20 +74,14 @@ export class LoginScreen extends Component {
 			<View>
 				<TouchableOpacity onPress={() => this.props.navigation.navigate("forgetpassword")}>
 					<Text style={styles.textAction}>
-						Forgot password?
+						{I18n.t("forgetPassword")}?
             </Text>
 				</TouchableOpacity>
 			</View>
 
-			<TouchableOpacity onPress={this.handleLogin} style={styles.button}>
-				<Text style={styles.loginText}>Login</Text>
-			</TouchableOpacity>
+			<Button title={I18n.t("login")} onPress={this.handleLogin} testID="login.loginButton" />
+			<Button title={I18n.t("signUp")} onPress={() => this.props.navigation.navigate("signup")} testID="login.signupButton" />
 
-
-
-			<TouchableOpacity onPress={() => this.props.navigation.navigate("signup")}>
-				<Text style={styles.textAction}>Don't have an account?  Sign Up</Text>
-			</TouchableOpacity>
 		</SafeAreaView>;
 	}
 }
@@ -106,24 +101,17 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		margin: 10
 	},
-	button: {
-		alignItems: "center",
-		backgroundColor: "#777777",
-		borderRadius: 15,
-		flexDirection: "row",
-		height: 55,
-		justifyContent: "center",
-		margin: 12
-	},
+
 	container: {
 		backgroundColor: "#f2f2f2",
 		flex: 1,
 		padding: 10
 	},
+	errorMessage: { color: "red", paddingTop: 10, textAlign: 'center' },
 	inputField: {
 		flex: 1,
 	},
-	loginText: { color: "white", fontSize: 22 },
+
 
 	textAction: {
 		color: "#111111",

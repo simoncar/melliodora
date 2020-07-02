@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text as RNText, View } from 'react-native';
+import { StyleSheet, Text as RNText, View, TouchableOpacity } from 'react-native';
 import _ from "lodash";
 
 export function Text(props) {
@@ -11,6 +11,22 @@ export function Text(props) {
 		</RNText>
 	);
 }
+
+export function Button(props) {
+	const { style, ...rest } = props;
+
+	return (
+
+
+		<View style={styles.buttonView}>
+			<TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={rest.onPress}>
+				<Text>{rest.title}</Text>
+			</TouchableOpacity>
+		</View>
+
+	);
+}
+
 
 export function ShortList(props) {
 	const { navigation } = props;
@@ -35,5 +51,20 @@ export function ShortList(props) {
 const styles = StyleSheet.create({
 	defaultStyle: {
 		fontFamily: "SegoeUI",
+	},
+	buttonView: { alignItems: "center", flexDirection: "column", marginTop: 12 },
+	SubmitButtonStyle: {
+		alignItems: "center",
+		backgroundColor: "#fff",
+		borderRadius: 25,
+		elevation: 4,
+		height: 50,
+		justifyContent: "center",
+		marginBottom: 30,
+		shadowColor: "rgba(0,0,0, .4)",
+		shadowOffset: { height: 2, width: 2 },
+		shadowOpacity: 0.8,
+		shadowRadius: 1,
+		width: 250
 	},
 });

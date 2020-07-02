@@ -217,13 +217,13 @@ class chat extends Component {
 
 	_handleOpenWithLinking = sURL => {
 
-		if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
-			Linking.openURL(sURL);
-		} else {
-			this.props.navigation.navigate("authPortalEmbed", {
-				url: sURL
-			});
-		}
+		//if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
+		Linking.openURL(sURL);
+		//} else {
+		//this.props.navigation.navigate("authPortalEmbed", {
+		//	url: sURL
+		//});
+		//}
 	};
 
 	refresh = ({ title }) => {
@@ -275,19 +275,19 @@ class chat extends Component {
 	};
 
 	render() {
-		if (this.communityDomain == "sais_edu_sg" && !this.props.authPortal.authEmail) {
-			const { goBack } = this.props.navigation;
+		// if (this.communityDomain == "sais_edu_sg" && !this.props.authPortal.authEmail) {
+		// 	const { goBack } = this.props.navigation;
 
-			goBack(null);
-			setTimeout(() => {
-				this.props.navigation.navigate("authPortalEmbed");
-			}, 100);
+		// 	goBack(null);
+		// 	setTimeout(() => {
+		// 		this.props.navigation.navigate("authPortalEmbed");
+		// 	}, 100);
 
-			this.props.navigation.navigate("chatRooms");
-			return <View>
-				<Text>{I18n.t("login")}</Text>
-			</View>;
-		}
+		// 	this.props.navigation.navigate("chatRooms");
+		// 	return <View>
+		// 		<Text>{I18n.t("login")}</Text>
+		// 	</View>;
+		// }
 
 		let userDetails = {};
 		if (this.userInfo.isAnonymous) {

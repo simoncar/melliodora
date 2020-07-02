@@ -2,7 +2,7 @@
 	"name": "Stamford",
 	"displayName": "Stamford",
 	"expo": {
-		"version": "22.0.37",
+		"version": "38.0.0",
 		"icon": "./resources/sais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
 		"slug": "myStamford",
 		"name": "Stamford",
@@ -38,18 +38,13 @@
 			"color": "#000000"
 		},
 		"orientation": "portrait",
-		"packagerOpts": {
-			"assetExts": [
-				"ttf"
-			]
-		},
 		"ios": {
 			"bundleIdentifier": "com.softmowertrain.parent.mystamford",
 			"supportsTablet": true
 		},
 		"android": {
 			"package": "com.softmowertrain.parent.mystamford",
-			"versionCode": 22,
+			"versionCode": 24,
 			"permissions": [
 				"READ_CALENDAR",
 				"WRITE_CALENDAR"

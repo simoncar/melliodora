@@ -1,7 +1,6 @@
 
 import React, { Component } from "react";
 import { Alert, ScrollView, View, StyleSheet } from "react-native";
-import { Container, Content } from "native-base";
 import * as Calendar from 'expo-calendar';
 import { Ionicons } from "@expo/vector-icons";
 import Analytics from "../lib/analytics";
@@ -13,7 +12,7 @@ import { Text } from "../components/sComponent";
 //
 // THIS SCREEN IS NO-LONGER IN USE
 //
-//
+// 
 
 class Calendars extends Component {
 
@@ -81,39 +80,35 @@ class Calendars extends Component {
 	render() {
 		if (this.state.calendars.length) {
 
-			return <Container style={styles.container}>
-				<Content showsVerticalScrollIndicator={false}>
-					<View>
-						<View style={styles.newsContent}>
-							<Text selectable={true} style={styles.eventTitle}>
-								Select Calendar
+			return <View>
+				<View>
+					<View style={styles.newsContent}>
+						<Text selectable={true} style={styles.eventTitle}>
+							Select Calendar
  							</Text>
-						</View>
+					</View>
 
-						<ScrollView>
-							{this.state.calendars.map(calendar => <SettingsListItem
-								icon={<Ionicons name="ios-calendar"
-									style={styles.calendarIcon} />}
-								title={calendar.title}
-								titleInfo={calendar.source.name}
-								key={calendar.id}
-								onPress={() => this._addEvent(calendar.id)} />)}
-						</ScrollView>
-					</View>
-				</Content>
-			</Container>;
+					<ScrollView>
+						{this.state.calendars.map(calendar => <SettingsListItem
+							icon={<Ionicons name="ios-calendar"
+								style={styles.calendarIcon} />}
+							title={calendar.title}
+							titleInfo={calendar.source.name}
+							key={calendar.id}
+							onPress={() => this._addEvent(calendar.id)} />)}
+					</ScrollView>
+				</View>
+			</View>
 		} else {
-			return <Container style={styles.container}>
-				<Content showsVerticalScrollIndicator={false}>
-					<View>
-						<View style={styles.newsContent}>
-							<Text selectable={true} style={styles.eventTitle}>
-								No Calendars Available
+			return <View>
+				<View>
+					<View style={styles.newsContent}>
+						<Text selectable={true} style={styles.eventTitle}>
+							No Calendars Available
 							  </Text>
-						</View>
 					</View>
-				</Content>
-			</Container>;
+				</View>
+			</View>
 		}
 	}
 }

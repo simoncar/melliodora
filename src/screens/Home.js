@@ -72,10 +72,8 @@ class Home extends Component {
 			this.loadCalendar();
 		});
 
-
-		console.log("lookupAppStoreVersion:")
 		versionCheck.lookupAppStoreVersion((updateType) => {
-			console.log("updateType:", updateType)
+
 			switch (updateType) {
 				case "none":
 					//you are all up to date
@@ -109,7 +107,6 @@ class Home extends Component {
 		clearInterval(this.interval);
 	}
 	updateMessage() {
-		console.log("updateMessage:--", this.state.appUpdateMessage)
 		if (this.state.appUpdateMessage != "none") {
 			return versionCheck.updateMessage(this.state.appUpdateMessage);
 		}
@@ -302,57 +299,58 @@ class Home extends Component {
 	env() { }
 
 	render() {
-		return <ScrollView><View style={styles.container}>
+		return <View style={styles.container}>
 			{(global.administrator || this.props.auth.isAdmin) && <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
 				this.props.navigation.navigate("Form", { edit: false });
 			}}>
-				<Text style={styles.adab8ac50ac6d11ea973dcfce83f911da}>+</Text>
+				<Text style={styles.editIcon}>+</Text>
 			</TouchableHighlight>}
 
 			{(global.domain === "ais_edu_sg") && <ButtonBar navigation={this.props.navigation} />}
+			<ScrollView>
+				<View style={styles.newsContentLine}>
+					{this._renderBalance()}
+					{this._renderToday()}
 
-			<View style={styles.newsContentLine}>
-				{this._renderBalance()}
-				{this._renderToday()}
-
-				<ShortList
-					navigation={this.props.navigation}
-					data={this.state.featureItems}
-					keyExtractor={this.keyExtractor}
-					renderItem={this._renderItem} />
-			</View>
-			<View style={styles.card}>
-				<View style={styles.adab8fa70ac6d11ea973dcfce83f911da}>
-					<Image style={styles.tenYearLogo} source={bottomLogo[global.domain] || {
-						uri: global.switch_homeLogoURI
-					}} />
+					<ShortList
+						navigation={this.props.navigation}
+						data={this.state.featureItems}
+						keyExtractor={this.keyExtractor}
+						renderItem={this._renderItem} />
 				</View>
-				<View style={styles.cookiesLogoView}>
-					<TouchableOpacity onPress={() => {
-						this._handleOpenWithLinking("https://smartcookies.io/smart-community");
-					}}>
-						<Image source={require("../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
-					</TouchableOpacity>
+				<View style={styles.card}>
+					<View style={styles.adab8fa70ac6d11ea973dcfce83f911da}>
+						<Image style={styles.tenYearLogo} source={bottomLogo[global.domain] || {
+							uri: global.switch_homeLogoURI
+						}} />
+					</View>
+					<View style={styles.cookiesLogoView}>
+						<TouchableOpacity onPress={() => {
+							this._handleOpenWithLinking("https://smartcookies.io/smart-community");
+						}}>
+							<Image source={require("../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
+						</TouchableOpacity>
+					</View>
+
+
+					{this.updateMessage()}
+
+					<View style={styles.userDiagnostics} >
+						<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
+						<Text style={styles.user}>{global.name}</Text>
+						<Text style={styles.user}>{global.email}</Text>
+						<Text style={styles.user}>{global.uid}</Text>
+						<Text style={styles.user}>{this.language}</Text>
+					</View>
 				</View>
+			</ScrollView>
 
-
-				{this.updateMessage()}
-
-				<View style={styles.userDiagnostics} >
-					<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
-					<Text style={styles.user}>{global.name}</Text>
-					<Text style={styles.user}>{global.email}</Text>
-					<Text style={styles.user}>{global.uid}</Text>
-					<Text style={styles.user}>{this.language}</Text>
-				</View>
-			</View>
 		</View>
-		</ScrollView>
 	}
 }
 
 const styles = StyleSheet.create({
-	adab8ac50ac6d11ea973dcfce83f911da: {
+	editIcon: {
 		color: "white",
 		fontSize: 44,
 		left: "20%",
@@ -379,12 +377,12 @@ const styles = StyleSheet.create({
 		shadowColor: "#000000",
 		shadowOffset: {
 			height: 1,
-			width: 0
+			width: 0,
 		},
 		shadowOpacity: 0.8,
 		shadowRadius: 2,
 		width: 50,
-		zIndex: 1
+		zIndex: 990,
 	},
 	card: {
 		alignSelf: "center",

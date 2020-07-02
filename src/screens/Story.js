@@ -1,7 +1,5 @@
-
 import React, { Component } from "react";
-import { Linking, View, TouchableOpacity, TouchableHighlight, Share, StyleSheet } from "react-native";
-import { Container, Content } from "native-base";
+import { Linking, View, TouchableOpacity, TouchableHighlight, Share, StyleSheet, ScrollView } from "react-native";
 import { Ionicons, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import ParsedText from "react-native-parsed-text";
@@ -65,13 +63,13 @@ export class Story extends Component {
 
 	_handleOpenWithLinking = sURL => {
 
-		if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
+		//if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
 			Linking.openURL(sURL);
-		} else {
-			this.props.navigation.navigate("authPortalEmbed", {
-				url: sURL
-			});
-		}
+		//} else {
+		//	this.props.navigation.navigate("authPortalEmbed", {
+		//		url: sURL
+		//	});
+		//}
 	};
 
 	_handleEmailPress(email) {
@@ -154,7 +152,7 @@ export class Story extends Component {
 	}
 
 	render() {
-		return <Container style={styles.container}>
+		return <View style={styles.container}>
 			{isAdmin(this.props.route.params.adminPassword) && this.state.source == "feature" && <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
 				this.props.navigation.navigate("Form", {
 					edit: true,
@@ -165,7 +163,7 @@ export class Story extends Component {
 				<MaterialIcons name="edit" style={styles.editIcon} />
 			</TouchableHighlight>}
 
-			<Content showsVerticalScrollIndicator={false}>
+			<ScrollView showsVerticalScrollIndicator={false}>
 				{this._drawImage(this.state.photo1)}
 
 				<View style={styles.iconRow}>
@@ -226,8 +224,8 @@ export class Story extends Component {
 
 					</View>
 				</View>
-			</Content>
-		</Container>;
+			</ScrollView>
+		</View>;
 	}
 }
 

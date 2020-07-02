@@ -63,6 +63,8 @@ https://github.com/simoncar/melliodora/blob/master/.github/workflows/main.yml
 
 # Build (and Publish)
 
+Before building - update version numbers app.*.json
+
 ## App Store (iOS)
 
 `expo build:ios --config apps/app.generic.json`
