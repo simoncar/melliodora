@@ -50,10 +50,15 @@ https://github.com/meedan/i18n-translate-json
 # Version Bump
 
 `json-version-inc -j ./apps/app.sais_edu_sg.json -p expo.ios.buildNumber -t PATCH`
+
 `json-version-inc -j ./apps/app.generic.json -p expo.ios.buildNumber -t PATCH`
+
 `json-version-inc -j ./apps/app.sais_edu_sg.json -p expo.android.versionCode -t PATCH`
+
 `json-version-inc -j ./apps/app.generic.json -p expo.android.versionCode -t PATCH`
+
 `json-version-inc -j ./apps/app.sais_edu_sg.json -p expo.version -t PATCH`
+
 `json-version-inc -j ./apps/app.generic.json -p expo.version -t PATCH`
 
 
