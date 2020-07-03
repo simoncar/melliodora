@@ -91,9 +91,9 @@ There is no need to run these commands
 
 ## upload - iOS
 
-`expo upload:ios --config apps/app.generic.json && expo upload:ios --config apps/app.sais_edu_sg.json
+`expo upload:ios --config apps/app.generic.json && expo upload:ios --config apps/app.sais_edu_sg.json`
 
-## upload - Google Plan. 
+## upload - Google Play. 
 
 need to do this manually 
 
