@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image, ScrollView, StyleSheet } from "react-native";
+import { View, Linking, TouchableOpacity, TouchableHighlight, Image, ScrollView, StyleSheet } from "react-native";
 import Constants from "expo-constants";
 import firebase from "firebase";
+import AsyncStorage from '@react-native-community/async-storage';
 import { getLanguageString } from "../lib/global";
 import { logToCalendar } from "../lib/systemHero";
 
