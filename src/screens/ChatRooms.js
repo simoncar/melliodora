@@ -1,8 +1,9 @@
 
 import React, { Component } from "react";
-import { StyleSheet, View, AsyncStorage } from "react-native";
+import { StyleSheet, View } from "react-native";
 import * as firebase from "firebase";
 import { AntDesign } from "@expo/vector-icons";
+import AsyncStorage from '@react-native-community/async-storage';
 import ChatroomItem from "../components/ChatRoomItem";
 import Analytics from "../lib/analytics";
 import _ from "lodash";

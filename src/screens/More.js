@@ -1,7 +1,8 @@
 
 import React, { Component } from "react";
-import { StyleSheet, View, Alert, AsyncStorage, TouchableOpacity, ScrollView } from "react-native";
+import { StyleSheet, View, Alert, TouchableOpacity, ScrollView } from "react-native";
 import { isAdmin } from "../lib/global";
+import AsyncStorage from '@react-native-community/async-storage';
 import I18n from "../lib/i18n";
 import { MaterialIcons, FontAwesome, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Updates from 'expo-updates'
