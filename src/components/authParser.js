@@ -1,8 +1,8 @@
 import React from "react";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 import * as firebase from "firebase";
 import _ from "lodash";
-import Constants from "expo-constants";
+
 
 export class AuthParser extends React.Component {
 	extractLoginUsername(res) {

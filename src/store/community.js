@@ -65,6 +65,7 @@ function* WORKER_processSelectedCommunity(action) {
 			global.switch_portalName = "myStamford";
 			global.switch_tab_portalName = "myS";
 			global.switch_portalURL = "https://mystamford.edu.sg/parent-dashboard";
+			//global.switch_portalURL = "https://sais.edu.sg/";
 			global.switch_webportalActions = [
 				{ Home: "https://mystamford.edu.sg/parent-dashboard" },
 				{ "Cafe Top-Up": "https://mystamford.edu.sg/cafe/cafe-online-ordering" },

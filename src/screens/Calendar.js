@@ -1,9 +1,10 @@
 
 import React, { Component } from "react";
-import { AsyncStorage, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import * as firebase from "firebase";
 import { Agenda } from "react-native-calendars";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from '@react-native-community/async-storage';
 import I18n from "../lib/i18n";
 import moment from "moment";
 import CalendarItem from "../components/CalendarItem";

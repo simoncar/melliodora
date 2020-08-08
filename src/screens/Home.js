@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { View, Linking, TouchableOpacity, TouchableHighlight, AsyncStorage, Image, ScrollView, StyleSheet } from "react-native";
+import { View, Linking, TouchableOpacity, TouchableHighlight, Image, ScrollView, StyleSheet } from "react-native";
 import Constants from "expo-constants";
 import firebase from "firebase";
+import AsyncStorage from '@react-native-community/async-storage';
 import { getLanguageString } from "../lib/global";
 import { logToCalendar } from "../lib/systemHero";
 
@@ -155,22 +156,22 @@ class Home extends Component {
 		var calendarItems = [];
 
 		if (global.domain === "sais_edu_sg") {
-			var a = moment("2020-08-12");
-			var b = moment();
-			// =1
-			var schoolStarts = a.diff(b, 'days') + 1
+			// var a = moment("2020-08-12");
+			// var b = moment();
+			// // =1
+			// var schoolStarts = a.diff(b, 'days') + 1
 
-			var trans = {
-				visible: true,
-				source: "calendar",
-				summaryMyLanguage: "School Starts In " + schoolStarts + " Days",
-				date_start: "2020-08-12",
-				color: "red",
-				showIconChat: false,
-				photo1: "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202006%2F7a2af15c-093b-4722-af28-a313a76a6676?alt=media&token=16f5257e-ba70-4906-aa28-48b4c16cf0d5",
-				descriptionMyLanguage: "2020/2021 Calendar\n\nhttps://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202006%2FPTACalendar.pdf?alt=media&token=9c93542f-1d0d-4d13-bd55-4c22c191d703"
-			};
-			calendarItems.push({ ...{ _key: "schoolStarts" }, ...trans });
+			// var trans = {
+			// 	visible: true,
+			// 	source: "calendar",
+			// 	summaryMyLanguage: "School Starts In " + schoolStarts + " Days",
+			// 	date_start: "2020-08-12",
+			// 	color: "red",
+			// 	showIconChat: false,
+			// 	photo1: "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202006%2F7a2af15c-093b-4722-af28-a313a76a6676?alt=media&token=16f5257e-ba70-4906-aa28-48b4c16cf0d5",
+			// 	descriptionMyLanguage: "2020/2021 Calendar\n\nhttps://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202006%2FPTACalendar.pdf?alt=media&token=9c93542f-1d0d-4d13-bd55-4c22c191d703"
+			// };
+			// calendarItems.push({ ...{ _key: "schoolStarts" }, ...trans });
 		}
 
 		let calendar = firebase.firestore().collection(global.domain).doc("calendar").collection("calendarItems").where("date_start", "==", todayDate).get().then(snapshot => {

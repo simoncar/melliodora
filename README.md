@@ -47,6 +47,21 @@ https://github.com/meedan/i18n-translate-json
 
 ## then publish
 
+# Version Bump
+
+`json-version-inc -j ./apps/app.sais_edu_sg.json -p expo.ios.buildNumber -t PATCH`
+
+`json-version-inc -j ./apps/app.generic.json -p expo.ios.buildNumber -t PATCH`
+
+`json-version-inc -j ./apps/app.sais_edu_sg.json -p expo.android.versionCode -t PATCH`
+
+`json-version-inc -j ./apps/app.generic.json -p expo.android.versionCode -t PATCH`
+
+`json-version-inc -j ./apps/app.sais_edu_sg.json -p expo.version -t PATCH`
+
+`json-version-inc -j ./apps/app.generic.json -p expo.version -t PATCH`
+
+
 # Github actions now auto-deploy this application when you commit to master
 
 https://github.com/simoncar/melliodora/actions
@@ -56,9 +71,7 @@ https://github.com/simoncar/melliodora/blob/master/.github/workflows/main.yml
 (if you add a new config file, update the main.yml above)
 
 `expo publish --config apps/app.generic.json`
-
 `expo publish --config apps/app.sais_edu_sg.json`
-
 `expo publish --config apps/app.ais_edu_sg.json`
 
 # Build (and Publish)
@@ -67,22 +80,22 @@ Before building - update version numbers app.*.json
 
 ## App Store (iOS)
 
+Build occurs automatically when push to the appstore branch
+https://github.com/simoncar/melliodora/blob/master/.github/workflows/appStore.yml
+
+There is no need to run these commands
 `expo build:ios --config apps/app.generic.json`
-
 `expo build:ios --config apps/app.sais_edu_sg.json`
-
-## upload
-
-`expo upload:ios --config apps/app.generic.json`
-
-`expo upload:ios --config apps/app.sais_edu_sg.json`
-
-
-## Google Play (Android)
-
 `expo build:android -t app-bundle --config apps/app.generic.json`
-
 `expo build:android -t app-bundle --config apps/app.sais_edu_sg.json`
+
+## upload - iOS
+
+`expo upload:ios --config apps/app.generic.json && expo upload:ios --config apps/app.sais_edu_sg.json`
+
+## upload - Google Play. 
+
+need to do this manually 
 
 
 ## Web (This project not web ready yet)

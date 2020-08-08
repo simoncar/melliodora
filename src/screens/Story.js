@@ -5,6 +5,8 @@ import { Image } from "react-native-expo-image-cache";
 import ParsedText from "react-native-parsed-text";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global.js";
 import _ from "lodash";
+import Constants from "expo-constants";
+
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent"
 import { phoneCalendar } from "../lib/phoneCalendar"
@@ -64,7 +66,7 @@ export class Story extends Component {
 	_handleOpenWithLinking = sURL => {
 
 		//if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
-			Linking.openURL(sURL);
+		Linking.openURL(sURL);
 		//} else {
 		//	this.props.navigation.navigate("authPortalEmbed", {
 		//		url: sURL
@@ -112,17 +114,19 @@ export class Story extends Component {
 	}
 
 	_drawIconChat(chatroom, title) {
-		if (this.state.showIconChat == true) {
-			return <TouchableOpacity onPress={() => {
-				this.props.navigation.navigate("chatStory", {
-					chatroom: chatroom,
-					title: title
-				});
-			}}>
-				<Text testID="story.chatIcon" style={styles.eventText}>
-					<SimpleLineIcons name="bubble" style={styles.eventIcon} />
-				</Text>
-			</TouchableOpacity>;
+		if (Constants.manifest.extra.instance != "sais_edu_sg") {
+			if (this.state.showIconChat == true) {
+				return <TouchableOpacity onPress={() => {
+					this.props.navigation.navigate("chatStory", {
+						chatroom: chatroom,
+						title: title
+					});
+				}}>
+					<Text testID="story.chatIcon" style={styles.eventText}>
+						<SimpleLineIcons name="bubble" style={styles.eventIcon} />
+					</Text>
+				</TouchableOpacity>;
+			}
 		}
 	}
 
