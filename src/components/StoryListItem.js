@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { View, TouchableOpacity, StyleSheet, Dimensions, Image } from "react-native";
 import { Text } from "./sComponent";
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import Constants from "expo-constants";
 
 import { formatTime, formatMonth, isURL } from "../lib/global.js";
 
@@ -46,14 +47,17 @@ class ListItem extends Component {
 	}
 
 	renderChat(chatroom, title) {
-		return <TouchableOpacity onPress={() => {
-			this.props.navigation.navigate("chatStory", {
-				chatroom: chatroom,
-				title: title
-			});
-		}}>
-			<SimpleLineIcons name="bubble" size={25} style={styles.chatBubble} />
-		</TouchableOpacity>;
+		if (Constants.manifest.extra.instance != "sais_edu_sg") {
+
+			return <TouchableOpacity onPress={() => {
+				this.props.navigation.navigate("chatStory", {
+					chatroom: chatroom,
+					title: title
+				});
+			}}>
+				<SimpleLineIcons name="bubble" size={25} style={styles.chatBubble} />
+			</TouchableOpacity>;
+		}
 	}
 
 	render() {
