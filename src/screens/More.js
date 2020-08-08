@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Alert, TouchableOpacity, ScrollView } from "react-native";
 import { isAdmin } from "../lib/global";
+import Constants from "expo-constants";
 import AsyncStorage from '@react-native-community/async-storage';
 import I18n from "../lib/i18n";
 import { MaterialIcons, FontAwesome, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -36,25 +37,31 @@ class Settings extends Component {
 	}
 
 	_renderUser() {
-		const user = this.props.auth.userInfo;
-		if (_.has(user, "email") && user.email) {
-			const email = user.email;
-			return <TouchableOpacity onPress={() => this.props.navigation.navigate("UserProfile", {
-				uid: user.uid,
-				permitEdit: true
-			})}>
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						{I18n.t("loggedInAs")}
-					</Text>
-					<Text style={styles.sectionContentText} numberOfLines={1}>
-						{email}
-					</Text>
-				</View>
-			</TouchableOpacity>;
-		} else {
-			return <SettingsListItem hasNavArrow={false} icon={<MaterialCommunityIcons name="account-plus" style={styles.imageStyleIcon} />} title={I18n.t("signIn") + " / " + I18n.t("signUp")} onPress={() => this.props.navigation.navigate("login")} />;
+
+		if (Constants.manifest.extra.instance != "sais_edu_sg") {
+			const user = this.props.auth.userInfo;
+			if (_.has(user, "email") && user.email) {
+				const email = user.email;
+				return <TouchableOpacity onPress={() => this.props.navigation.navigate("UserProfile", {
+					uid: user.uid,
+					permitEdit: true
+				})}>
+					<View style={styles.titleContainer}>
+						<Text style={styles.nameText} numberOfLines={1}>
+							{I18n.t("loggedInAs")}
+						</Text>
+						<Text style={styles.sectionContentText} numberOfLines={1}>
+							{email}
+						</Text>
+					</View>
+				</TouchableOpacity>;
+			} else {
+				return <SettingsListItem hasNavArrow={false} icon={<MaterialCommunityIcons name="account-plus" style={styles.imageStyleIcon} />} title={I18n.t("signIn") + " / " + I18n.t("signUp")} onPress={() => this.props.navigation.navigate("login")} />;
+			}
 		}
+
+
+
 	}
 
 	separator(i) {
@@ -67,10 +74,8 @@ class Settings extends Component {
 		var i = 0;
 		return <View style={styles.container}>
 			<ScrollView>
-				<View style={styles.card}>
-					{this._renderUser()}
-					<SettingsListItem lastItem={true} icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />} title={I18n.t("searchUsers")} onPress={() => this.props.navigation.navigate("UserSearch")} />
-				</View>
+				{this._renderUser()}
+				{Constants.manifest.extra.instance != "sais_edu_sg" && <SettingsListItem lastItem={true} icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />} title={I18n.t("searchUsers")} onPress={() => this.props.navigation.navigate("UserSearch")} />}
 
 				<View style={styles.card}>
 					<FeatureMoreItems navigation={this.props.navigation} show="visibleMore" />
