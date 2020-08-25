@@ -8,6 +8,64 @@ exports[`show story no calendar no image 1`] = `
     }
   }
 >
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#ff5722",
+        "borderColor": "#ff5722",
+        "borderRadius": 25,
+        "borderWidth": 1,
+        "bottom": 20,
+        "height": 50,
+        "justifyContent": "center",
+        "position": "absolute",
+        "right": 20,
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 1,
+          "width": 0,
+        },
+        "shadowOpacity": 0.8,
+        "shadowRadius": 2,
+        "width": 50,
+        "zIndex": 990,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
   <RCTScrollView
     showsVerticalScrollIndicator={false}
   >
@@ -220,6 +278,66 @@ exports[`show story no calendar no image 1`] = `
             </Text>
           </Text>
         </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "paddingBottom": 15,
+                  "paddingLeft": 15,
+                  "paddingRight": 10,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 12,
+                  },
+                  Object {
+                    "color": "#ff5722",
+                    "fontSize": 30,
+                    "marginRight": 200,
+                    "paddingRight": 200,
+                  },
+                  Object {
+                    "fontFamily": "material-community",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+             
+          </Text>
+        </View>
       </View>
       <View
         style={
@@ -361,6 +479,42 @@ exports[`show story on screen 1`] = `
     }
   }
 >
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#ff5722",
+        "borderColor": "#ff5722",
+        "borderRadius": 25,
+        "borderWidth": 1,
+        "bottom": 20,
+        "height": 50,
+        "justifyContent": "center",
+        "position": "absolute",
+        "right": 20,
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 1,
+          "width": 0,
+        },
+        "shadowOpacity": 0.8,
+        "shadowRadius": 2,
+        "width": 50,
+        "zIndex": 990,
+      }
+    }
+  >
+    <Text />
+  </View>
   <RCTScrollView
     showsVerticalScrollIndicator={false}
   >
@@ -559,6 +713,42 @@ exports[`show story on screen 1`] = `
             <Text />
           </Text>
         </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "paddingBottom": 15,
+                  "paddingLeft": 15,
+                  "paddingRight": 10,
+                },
+              ]
+            }
+          >
+            <Text />
+             
+          </Text>
+        </View>
       </View>
       <View
         style={
@@ -717,6 +907,64 @@ exports[`show story with URL in content to test linking 1`] = `
     }
   }
 >
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#ff5722",
+        "borderColor": "#ff5722",
+        "borderRadius": 25,
+        "borderWidth": 1,
+        "bottom": 20,
+        "height": 50,
+        "justifyContent": "center",
+        "position": "absolute",
+        "right": 20,
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 1,
+          "width": 0,
+        },
+        "shadowOpacity": 0.8,
+        "shadowRadius": 2,
+        "width": 50,
+        "zIndex": 990,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
   <RCTScrollView
     showsVerticalScrollIndicator={false}
   >
@@ -985,6 +1233,66 @@ exports[`show story with URL in content to test linking 1`] = `
             >
               
             </Text>
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "paddingBottom": 15,
+                  "paddingLeft": 15,
+                  "paddingRight": 10,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 12,
+                  },
+                  Object {
+                    "color": "#ff5722",
+                    "fontSize": 30,
+                    "marginRight": 200,
+                    "paddingRight": 200,
+                  },
+                  Object {
+                    "fontFamily": "material-community",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+             
           </Text>
         </View>
       </View>
@@ -1286,6 +1594,64 @@ exports[`show story without chat 1`] = `
     }
   }
 >
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#ff5722",
+        "borderColor": "#ff5722",
+        "borderRadius": 25,
+        "borderWidth": 1,
+        "bottom": 20,
+        "height": 50,
+        "justifyContent": "center",
+        "position": "absolute",
+        "right": 20,
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 1,
+          "width": 0,
+        },
+        "shadowOpacity": 0.8,
+        "shadowRadius": 2,
+        "width": 50,
+        "zIndex": 990,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
   <RCTScrollView
     showsVerticalScrollIndicator={false}
   >
@@ -1496,6 +1862,66 @@ exports[`show story without chat 1`] = `
             >
               
             </Text>
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "paddingBottom": 15,
+                  "paddingLeft": 15,
+                  "paddingRight": 10,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": undefined,
+                    "fontSize": 12,
+                  },
+                  Object {
+                    "color": "#ff5722",
+                    "fontSize": 30,
+                    "marginRight": 200,
+                    "paddingRight": 200,
+                  },
+                  Object {
+                    "fontFamily": "material-community",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+             
           </Text>
         </View>
       </View>

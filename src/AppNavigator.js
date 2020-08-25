@@ -14,7 +14,7 @@ import Calendars from "./screens/Calendars";
 import Home from "./screens/Home";
 import Search from "./screens/Search";
 import Settings from "./screens/More";
-import adminPassword from "./screens/AdminPassword";
+import AdminPassword from "./screens/AdminPassword";
 import SelectLanguage from "./screens/Language";
 import Content from "./components/content";
 import Story from "./screens/Story";
@@ -101,7 +101,7 @@ function StackOtherNavigator() {
 		<StackOther.Screen name="Content" component={Content} />
 		<StackOther.Screen name="WebPortal" component={WebPortal} />
 		<StackOther.Screen name="selectLanguage" component={SelectLanguage} options={{ title: I18n.t("language") }} />
-		<StackOther.Screen name="adminPassword" component={adminPassword} options={{ title: I18n.t("adminAccess") }} />
+		<StackOther.Screen name="AdminPassword" component={AdminPassword} options={{ title: I18n.t("adminAccess") }} />
 		<StackOther.Screen name="login" component={LoginScreen} options={{ title: I18n.t("signIn") }} />
 		<StackOther.Screen name="signup" component={SignUp} options={{ title: I18n.t("signUp") }} />
 		<StackOther.Screen name="forgetpassword" component={ForgotPasswordScreen} options={{ title: I18n.t("forgetPassword") }} />

@@ -75,7 +75,7 @@ const _anonymouslySignIn = () => {
 function* WORKER_checkAdmin(action) {
 	const adminPassword = yield select((state) => state.auth.adminPassword);
 	global.adminPassword = adminPassword;
-	if (adminPassword == "cookies") {
+	if (adminPassword == global.admin_password) {
 		yield put(setIsAdmin(true));
 		return;
 	}
