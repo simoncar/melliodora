@@ -21,11 +21,6 @@ const versionCheck = new VersionCheck();
 
 const demo = DemoData;
 
-const bottomLogo = {
-	sais_edu_sg: require("../../images/sais_edu_sg/SAISlogo_new2.png"),
-	ais_edu_sg: require("../../images/ais_edu_sg/ifla-apr.jpeg")
-};
-
 class Home extends Component {
 	constructor(props) {
 		super(props);
@@ -320,11 +315,7 @@ class Home extends Component {
 						renderItem={this._renderItem} />
 				</View>
 				<View style={styles.card}>
-					<View style={styles.adab8fa70ac6d11ea973dcfce83f911da}>
-						<Image style={styles.tenYearLogo} source={bottomLogo[global.domain] || {
-							uri: global.switch_homeLogoURI
-						}} />
-					</View>
+
 					<View style={styles.cookiesLogoView}>
 						<TouchableOpacity onPress={() => {
 							this._handleOpenWithLinking("https://smartcookies.io/smart-community");
@@ -332,7 +323,6 @@ class Home extends Component {
 							<Image source={require("../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
 						</TouchableOpacity>
 					</View>
-
 
 					{this.updateMessage()}
 
@@ -351,19 +341,7 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-	editIcon: {
-		color: "white",
-		fontSize: 44,
-		left: "20%",
-		position: "absolute",
-		top: "-20%"
-	},
 
-	adab8fa70ac6d11ea973dcfce83f911da: {
-		alignItems: "center",
-		marginTop: 70,
-		width: "100%"
-	},
 	addButton: {
 		alignItems: "center",
 		backgroundColor: "#ff5722",
@@ -394,13 +372,18 @@ const styles = StyleSheet.create({
 		width: "95%",
 	},
 	container: { backgroundColor: "#EFEFF4", flex: 1, marginTop: 10 },
-
 	cookiesLogoView: {
 		alignItems: "center",
 		marginTop: 100
 	},
 
-
+	editIcon: {
+		color: "white",
+		fontSize: 44,
+		left: "20%",
+		position: "absolute",
+		top: "-20%"
+	},
 
 	newsContentLine: {
 		backgroundColor: "#f2f2f2",
@@ -411,12 +394,6 @@ const styles = StyleSheet.create({
 		borderTopWidth: 1,
 		height: 40,
 		width: 40
-	},
-
-	tenYearLogo: {
-		height: 200,
-		resizeMode: "contain",
-		width: "80%"
 	},
 
 	user: {

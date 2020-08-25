@@ -75,6 +75,7 @@ function* WORKER_processSelectedCommunity(action) {
 				{ Logout: "https://mystamford.edu.sg/logout" },
 			];
 			global.switch_call = "+65 6709 4800";
+			global.admin_password = "franklin5"
 			break;
 		case "ais_edu_sg":
 			global.switch_portalURL =
@@ -89,6 +90,7 @@ function* WORKER_processSelectedCommunity(action) {
 				{ PTA: "" },
 				{ Logout: "" },
 			];
+			global.admin_password = "aussie21"
 			break;
 		case "camp_asia":
 			global.switch_portalURL = "https://www.campasia.asia/online-booking/login";
@@ -100,11 +102,11 @@ function* WORKER_processSelectedCommunity(action) {
 				{ PTA: "" },
 				{ Logout: "" },
 			];
-			global.switch_homeLogoURI =
-				"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/smartcommunity%2Fcommunitylogo%2FCA_ID_Reverse_new.png?alt=media&token=54fbd759-31f5-46bb-a73f-6424db99d5dd";
+			global.admin_password = "cookies"
 			break;
 		default:
 			global.switch_portalURL = "https://www.smartcookies.io/"
+			global.admin_password = "cookies"
 
 	}
 
