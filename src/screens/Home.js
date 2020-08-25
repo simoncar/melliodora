@@ -328,6 +328,7 @@ class Home extends Component {
 
 					<View style={styles.userDiagnostics} >
 						<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
+						<Text style={styles.version}>{Constants.manifest.version}</Text>
 						<Text style={styles.user}>{global.name}</Text>
 						<Text style={styles.user}>{global.email}</Text>
 						<Text style={styles.user}>{global.uid}</Text>
