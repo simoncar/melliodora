@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from 'react-native-testing-library';
+import { render } from 'react-native-testing-library';
 
 import { AdminPassword } from '../AdminPassword';
 
@@ -32,7 +32,7 @@ const auth = {
 test('show admin password', () => {
 	const navigation = { navigate: jest.fn() };
 
-	const { toJSON, getByTestId, queryByText } = render(
+	const { toJSON, getByTestId } = render(
 		<AdminPassword
 			auth={auth}
 			navigation={navigation} />

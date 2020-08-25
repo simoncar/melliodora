@@ -21,11 +21,6 @@ const versionCheck = new VersionCheck();
 
 const demo = DemoData;
 
-const bottomLogo = {
-	sais_edu_sg: require("../../images/sais_edu_sg/SAISlogo_new2.png"),
-	ais_edu_sg: require("../../images/ais_edu_sg/ifla-apr.jpeg")
-};
-
 class Home extends Component {
 	constructor(props) {
 		super(props);
