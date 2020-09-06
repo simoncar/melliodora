@@ -2,15 +2,6 @@
 
 Eucalyptus melliodora, commonly known as yellow box, is a medium-sized to occasionally tall eucalypt.
 
-# environment setup
-
-add a file name .env to your root directory
-
-FIREBASE_APIKEY=yourKeyHere
-
-(we are using gitHub actions, so also add FIREBASE_APIKEY to your github secrets)
-
-
 # Code
 
 Analytics tracking on each key page
