@@ -4,11 +4,11 @@ import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import * as Analytics from 'expo-firebase-analytics';
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather, FontAwesome } from "@expo/vector-icons";
+
 import I18n from "./lib/i18n";
 import Constants from "expo-constants";
-
-
 import Calendar from "./screens/Calendar";
 import Calendars from "./screens/Calendars";
 import Home from "./screens/Home";
@@ -140,7 +140,7 @@ function Tabs() {
 		<Tab.Screen name="homeNav" component={StackHomeNavigator} options={{ title: I18n.t("home") }} />
 		<Tab.Screen name="home" component={StackCalendarNavigator} options={{ title: I18n.t("calendar") }} />
 		{Constants.manifest.extra.instance != "sais_edu_sg" && <Tab.Screen name="chatRooms" component={StackChatNavigator} options={{ title: I18n.t("chat") }} />}
-		<Tab.Screen name="webportal" component={StackWebNavigator} options={{ title: I18n.t("myS") }} />
+		{Constants.manifest.extra.instance != "sais_edu_sg" && <Tab.Screen name="webportal" component={StackWebNavigator} options={{ title: I18n.t("myS") }} />}
 		<Tab.Screen name="other" component={StackOtherNavigator} options={{ title: I18n.t("more") }} />
 	</Tab.Navigator>;
 }
@@ -148,7 +148,23 @@ function Tabs() {
 const MainScreen = createStackNavigator();
 
 export default function MainScreenNavigator() {
-	return <NavigationContainer>
+
+	const routeNameRef = React.useRef();
+	const navigationRef = React.useRef();
+
+	return <NavigationContainer
+		ref={navigationRef}
+		onReady={() => routeNameRef.current = navigationRef.current.getCurrentRoute().name}
+		onStateChange={() => {
+			const previousRouteName = routeNameRef.current;
+			const currentRouteName = navigationRef.current.getCurrentRoute().name
+
+			if (previousRouteName !== currentRouteName) {
+				Analytics.setCurrentScreen(currentRouteName);
+			}
+			routeNameRef.current = currentRouteName;
+		}}
+	>
 		<MainScreen.Navigator headerMode="none">
 			<MainScreen.Screen name="Tab" component={Tabs} />
 			<MainScreen.Screen name="authPortal" component={authPortal} />

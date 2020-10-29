@@ -5,7 +5,6 @@ import { SettingsListItem } from "../components/SettingsListItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import { Text } from "../components/sComponent";
-import Analytics from "../lib/analytics";
 import { connect } from "react-redux";
 import { changeLanguage } from "../store/auth";
 
@@ -21,7 +20,6 @@ export class SelectLanguage extends Component {
 
 	componentDidMount() {
 		this._retrieveLanguage();
-		Analytics.track("Language");
 	}
 
 	_retrieveLanguage = () => {

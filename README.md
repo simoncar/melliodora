@@ -6,10 +6,6 @@ Eucalyptus melliodora, commonly known as yellow box, is a medium-sized to occasi
 
 Analytics tracking on each key page
 
-`Analytics.track("Home", { details: "extra stuff here" });`
-
-https://analytics.amplitude.com/smartcookies/activity
-
 
 # Run
 

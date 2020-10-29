@@ -4,7 +4,7 @@ import { eventChannel } from "redux-saga";
 import _ from "lodash";
 import Constants from "expo-constants";
 import * as Localization from "expo-localization";
-import Analytics from "../lib/analytics";
+import * as Analytics from 'expo-firebase-analytics';
 import * as Updates from 'expo-updates'
 
 // ACTIONS
@@ -94,6 +94,16 @@ function* WORKER_authListener() {
 	// #1
 	const channel = new eventChannel((emiter) => {
 		const listener = firebase.auth().onAuthStateChanged((user) => {
+
+			if (__DEV__) {
+				console.log('Development');
+				Analytics.setDebugModeEnabled(false)
+			} else {
+				console.log('Production');
+				Analytics.setDebugModeEnabled(false)
+				Analytics.setUserId(user.uid | null)
+			}
+
 			if (!user) {
 				emiter({ data: { noUser: true } });
 			} else {
@@ -177,7 +187,7 @@ function* WORKER_initUser(action) {
 }
 function* WORKER_changeLanguage(action) {
 	const language = action.language;
-	yield call(() => Analytics.track("Language", { set: language }));
+	yield call(() => Analytics.logEvent("Language", { language: language }));
 	yield put(setLanguage(language));
 
 	while (true) {

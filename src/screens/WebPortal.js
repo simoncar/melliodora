@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
 import { WebView } from "react-native-webview";
 import { Ionicons } from "@expo/vector-icons";
-import Analytics from "../lib/analytics";
+
 var WEBVIEW_REF = "webview";
 
 export class WebPortal extends Component {
@@ -22,9 +22,7 @@ export class WebPortal extends Component {
 
 	}
 
-	componentDidMount() {
-		Analytics.track("Web Portal", { url: this.state.url });
-	}
+
 
 	onNavigationStateChange = navState => {
 		this.setState({ url: navState.url });

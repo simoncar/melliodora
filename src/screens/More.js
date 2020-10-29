@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import I18n from "../lib/i18n";
 import { MaterialIcons, FontAwesome, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Updates from 'expo-updates'
-import Analytics from "../lib/analytics";
+import * as Analytics from 'expo-firebase-analytics';
 import _ from "lodash";
 import { connect } from "react-redux";
 import * as Linking from "expo-linking";
@@ -24,13 +24,10 @@ class Settings extends Component {
 		};
 	}
 
-	componentDidMount() {
-		Analytics.track("More");
-	}
 
 	_logout() {
 		AsyncStorage.clear().then(() => {
-			Analytics.track("Logout");
+			Analytics.logEvent("Logout");
 			Alert.alert("Restarting");
 			Updates.reloadAsync();
 		});
