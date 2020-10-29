@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "991350571487",
+    "firebase_url": "https://calendar-app-57e88.firebaseio.com",
+    "project_id": "calendar-app-57e88",
+    "storage_bucket": "calendar-app-57e88.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991350571487:android:8453d7c3bc27934d69c46a",
+        "android_client_info": {
+          "package_name": "com.softmowertrain.parent.mystamford"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991350571487-d5gn919r2nr99cbkker936mm5fteb34f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_92FFHxtnYY5KOv2cMjiemAFpcyZUGA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991350571487-4ddh1eu0au5g39dqgq3qqia97b4sq2o1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "991350571487-su0hbpq45msjsk306u6v9u4q642l79u5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.smartcookies.geofence",
+                "app_store_id": "1479109613"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991350571487:android:4ab9aeeea798084669c46a",
+        "android_client_info": {
+          "package_name": "io.smartcookies.geofence"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991350571487-d5gn919r2nr99cbkker936mm5fteb34f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_92FFHxtnYY5KOv2cMjiemAFpcyZUGA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991350571487-4ddh1eu0au5g39dqgq3qqia97b4sq2o1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "991350571487-su0hbpq45msjsk306u6v9u4q642l79u5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.smartcookies.geofence",
+                "app_store_id": "1479109613"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

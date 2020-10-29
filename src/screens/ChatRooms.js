@@ -5,7 +5,6 @@ import * as firebase from "firebase";
 import { AntDesign } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-community/async-storage';
 import ChatroomItem from "../components/ChatRoomItem";
-import Analytics from "../lib/analytics";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { Text, ShortList } from "../components/sComponent";
@@ -28,7 +27,6 @@ class chatRooms extends Component {
 
 		this.buildChatroomList();
 
-		Analytics.track("Chatrooms");
 	}
 
 	buildChatroomList() {

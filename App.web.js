@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, YellowBox } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Setup from "./src/setup";
 
 import { store, persistor } from "./src/store/store";
@@ -27,11 +27,12 @@ export default class App extends Component {
 		</View>
 	);
 	render() {
-		console.disableYellowBox = true;
-		YellowBox.ignoreWarnings(
-			["Setting a timer"],
-			['Non-serializable values were found in the navigation state']
-		);
+
+		// console.disableYellowBox = true;
+		// YellowBox.ignoreWarnings(
+		// 	["Setting a timer"],
+		// 	['Non-serializable values were found in the navigation state']
+		// );
 
 		return (
 			<Provider store={store}>

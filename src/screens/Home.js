@@ -7,7 +7,6 @@ import { getLanguageString } from "../lib/global";
 import { logToCalendar } from "../lib/systemHero";
 
 import ListItem from "../components/StoryListItem";
-import Analytics from "../lib/analytics";
 import moment from "moment";
 import { setUserInfo } from "../store/auth";
 import { connect } from "react-redux";
@@ -53,8 +52,6 @@ class Home extends Component {
 		logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain, this.props.auth.userInfo.email || "");
 
 		this.feature = firebase.firestore().collection(global.domain).doc("feature").collection("features").orderBy("order");
-
-		Analytics.track("Home");
 
 		this.loadCalendar();
 

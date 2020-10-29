@@ -1,8 +1,7 @@
 
 import React, { Component } from "react";
-import { View, ImageBackground, Text, TouchableOpacity, Button, Alert, StyleSheet } from "react-native";
+import { View, ImageBackground, Text, TouchableOpacity, Button, Alert, ScrollView, StyleSheet } from "react-native";
 import { Input } from "react-native-elements";
-import { Container, Content } from "native-base";
 
 import * as firebase from "firebase";
 import { Entypo } from "@expo/vector-icons";
@@ -22,6 +21,9 @@ import { StackActions } from "@react-navigation/native";
 class Form extends Component {
 	uid = "";
 	storyRef = null;
+
+
+
 
 	constructor(props) {
 		super(props);
@@ -56,6 +58,15 @@ class Form extends Component {
 		this.handlerVisible = this.handlerVisible.bind(this);
 		this.handlerVisibleMore = this.handlerVisibleMore.bind(this);
 		this.handleEventDateTime = this.handleEventDateTime.bind(this);
+	}
+
+	componentDidMount() {
+		const navigation = this.props.navigation;
+
+		navigation.setOptions({
+			save: this.save,
+			headerRight: () => <Button onPress={() => this.save()} title="Save" />,
+		});
 	}
 
 	handlerChat(show) {
@@ -156,6 +167,7 @@ class Form extends Component {
 
 	_pickImage = async () => {
 		var d = new Date();
+		
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images
 		});
@@ -213,17 +225,14 @@ class Form extends Component {
 	};
 
 	render() {
-		this.props.navigation.setOptions({
-			headerRight: () => <Button onPress={() => this.save()} title={I18n.t("save")} />
-		});
-		return <Container style={styles.a5ad7ce80ad2111ea973dcfce83f911da}>
-			<Content showsVerticalScrollIndicator={true}>
-				<View style={styles.a5ad7ce81ad2111ea973dcfce83f911da}>
-					{this._drawImage(this.state.photo1)}
 
+		return (
+			<View style={styles.container}>
+				{this._drawImage(this.state.photo1)}
+				<ScrollView showsVerticalScrollIndicator={false}>
 					<View>
 						<View>
-							<View style={styles.a5ad7ce82ad2111ea973dcfce83f911da}>
+							<View style={styles.formControls}>
 								<View style={styles.containerStyle}>
 									<IconChat handler={this.handlerChat} showIconChat={this.state.showIconChat} />
 									<ShowOnHomeScreen handler={this.handlerVisible} visible={this.state.visible} />
@@ -234,17 +243,17 @@ class Form extends Component {
 							</View>
 						</View>
 					</View>
-					<View style={styles.a5ad7f590ad2111ea973dcfce83f911da}>
+					<View style={styles.formLongValues}>
 						<Input onChangeText={text => this.setState({ summary: text })} placeholder="Title" autoFocus={true} inputContainerStyle={{ borderBottomWidth: 0 }} containerStyle={styles.containerStyle} value={this.state.summary} />
 
-						<View style={styles.a5ad81ca0ad2111ea973dcfce83f911da}></View>
+						<View style={styles.formSpace}></View>
 
 						<Input onChangeText={text => this.setState({ description: text })} placeholder="Description" multiline inputContainerStyle={{ borderBottomWidth: 0 }} containerStyle={styles.containerStyle} value={this.state.description} />
 					</View>
-					<View style={styles.a5ad843b0ad2111ea973dcfce83f911da}>{this.deleteButton()}</View>
-				</View>
-			</Content>
-		</Container>;
+					<View style={styles.formButton}>{this.deleteButton()}</View>
+				</ScrollView>
+			</View>
+		)
 	}
 }
 
@@ -263,46 +272,43 @@ const styles = StyleSheet.create({
 		shadowRadius: 1,
 		width: 250,
 	},
-	a5ad7ce80ad2111ea973dcfce83f911da: {
-		backgroundColor: "#f2f2f2"
-	},
-	a5ad7ce81ad2111ea973dcfce83f911da: {
-		backgroundColor: "#f2f2f2",
-		flex: 1
-	},
-	a5ad7ce82ad2111ea973dcfce83f911da: {
-		flex: 1,
-		paddingLeft: 10,
-		paddingRight: 10,
-		paddingTop: 20
-	},
-	a5ad7f590ad2111ea973dcfce83f911da: {
-		flex: 1,
-		paddingLeft: 10,
-		paddingRight: 10,
-		paddingTop: 20
-	},
-	a5ad81ca0ad2111ea973dcfce83f911da: {
-		flexDirection: "row",
-		paddingTop: 20
-	},
-	a5ad843b0ad2111ea973dcfce83f911da: {
-		alignItems: "center",
-		flexDirection: "column",
-		marginTop: 12
-	},
 
 	cameraIcon: {
 		color: "white",
 		fontSize: 25
 	},
-
+	container: {
+		backgroundColor: "#f2f2f2",
+		flex: 1
+	},
 	containerStyle: {
 		backgroundColor: "#ffffff",
 		borderColor: "#d2d2d2",
 		borderRadius: 10,
 		borderWidth: 1,
 		marginVertical: 8,
+	},
+	formButton: {
+		alignItems: "center",
+		flexDirection: "column",
+		marginTop: 12
+	},
+	formControls: {
+		paddingLeft: 10,
+		paddingRight: 10,
+		paddingTop: 20
+	},
+
+	formLongValues: {
+		flex: 1,
+		paddingLeft: 10,
+		paddingRight: 10,
+		paddingTop: 20
+	},
+
+	formSpace: {
+		flexDirection: "row",
+		paddingTop: 20
 	},
 
 	photoButton: {
@@ -335,7 +341,6 @@ const styles = StyleSheet.create({
 		borderColor: "lightgray",
 		borderWidth: 1,
 		elevation: 1,
-		flex: 1,
 		height: 200,
 		marginBottom: 12,
 		shadowColor: "rgba(0,0,0, .4)",

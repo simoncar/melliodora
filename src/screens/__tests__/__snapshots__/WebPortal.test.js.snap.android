@@ -89,6 +89,7 @@ exports[`web portal 1`] = `
         onLoadingStart={[Function]}
         onMessage={[Function]}
         onNavigationStateChange={[Function]}
+        onRenderProcessGone={[Function]}
         onShouldStartLoadWithRequest={[Function]}
         overScrollMode="always"
         saveFormDataDisabled={false}

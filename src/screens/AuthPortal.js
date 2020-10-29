@@ -60,7 +60,6 @@ class authPortal extends Component {
 			reload: this.reload
 		});
 
-		//Analytics.track("Auth Portal", { url: this.props.route.params.url });
 	}
 
 	_onOpenActionSheet = () => {

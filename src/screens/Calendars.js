@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Alert, ScrollView, View, StyleSheet } from "react-native";
 import * as Calendar from 'expo-calendar';
 import { Ionicons } from "@expo/vector-icons";
-import Analytics from "../lib/analytics";
+import * as Analytics from 'expo-firebase-analytics';
 
 import { SettingsListItem } from "../components/SettingsListItem";
 import { Text } from "../components/sComponent";
@@ -68,7 +68,7 @@ class Calendars extends Component {
 		};
 
 		try {
-			Analytics.track("Calendar Add", { story: this.props.summaryMyLanguage });
+			Analytics.logEvent("Calendar Add", { story: this.props.summaryMyLanguage });
 
 			await Calendar.createEventAsync(phoneCalendarID, newEvent);
 			this.props.navigation.goBack()

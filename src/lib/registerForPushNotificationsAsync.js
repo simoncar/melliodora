@@ -1,4 +1,4 @@
-import { Notifications } from "expo";
+import * as Notifications from 'expo-notifications'
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import * as firebase from "firebase";

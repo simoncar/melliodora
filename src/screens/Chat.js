@@ -12,7 +12,7 @@ import CustomVideo from "../components/ChatCustomVideo";
 import I18n from "../lib/i18n";
 import uuid from "uuid";
 import Backend from "../components/backend";
-import Analytics from "../lib/analytics";
+import * as Analytics from 'expo-firebase-analytics';
 import * as firebase from "firebase";
 import { ListItem } from "react-native-elements";
 import { SettingsListItem } from "../components/SettingsListItem";
@@ -75,7 +75,7 @@ class chat extends Component {
 
 		this.loadChatUsers();
 
-		Analytics.track("Chat", { chatroom: this.props.title });
+		Analytics.logEvent("Chat", { chatroom: this.props.title });
 	}
 	_getInterestGroupUsers = async () => {
 		const data = [];

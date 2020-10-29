@@ -87,7 +87,7 @@ exports[`show camera screen 1`] = `
         "faceDetectorSettings": Object {},
         "flashMode": undefined,
         "focusDepth": 0,
-        "onBarCodeScanned": [Function],
+        "onBarCodeScanned": undefined,
         "onCameraReady": [Function],
         "onFacesDetected": [Function],
         "onMountError": [Function],
