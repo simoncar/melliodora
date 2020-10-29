@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, ActivityIndicator, YellowBox } from "react-native";
+import { View, StyleSheet, ActivityIndicator, LogBox } from "react-native";
 import Setup from "./src/setup";
 import * as Sentry from "sentry-expo";
 import Constants from "expo-constants";
@@ -43,11 +43,11 @@ export default class App extends Component {
 		</View>
 	);
 	render() {
-		console.disableYellowBox = true;
-		YellowBox.ignoreWarnings(
-			["Setting a timer"],
-			['Non-serializable values were found in the navigation state']
-		);
+		//LogBox.ignoreAllLogs()
+		// YellowBox.ignoreWarnings(
+		// 	["Setting a timer"],
+		// 	['Non-serializable values were found in the navigation state']
+		// );
 		ScreenOrientation.unlockAsync()
 
 		return (

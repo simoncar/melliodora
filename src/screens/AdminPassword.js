@@ -1,10 +1,7 @@
-
-
-
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import * as Updates from 'expo-updates';
-import Analytics from "../lib/analytics";
+import * as Analytics from 'expo-firebase-analytics';
 import { connect } from "react-redux";
 import { setAdminPass } from "../store/auth";
 import { Input } from "react-native-elements";
@@ -22,7 +19,6 @@ export class AdminPassword extends Component {
 	}
 
 	componentDidMount() {
-		Analytics.track("Admin Password");
 		this._retrieveAdminPassword();
 	}
 
@@ -45,7 +41,7 @@ export class AdminPassword extends Component {
 		if (adminPassword == global.admin_password) {
 			this.setState({ adminPasswordCorrect: "Password Correct!" });
 			this.setState({ restartMessage: "Click to Restart in Admin Mode" });
-			Analytics.track("Admin Password", { entered: "Correct" });
+			Analytics.logEvent("Admin Password", { entered: "Correct" });
 
 			global.adminPassword = adminPassword;
 
@@ -64,7 +60,15 @@ export class AdminPassword extends Component {
 
 	render() {
 		return <View style={styles.container}>
-			<Input style={styles.passwordField} onChangeText={text => this._setAdminPassword(text)} placeholder={I18n.t("password")} containerStyle={styles.containerStyle} inputContainerStyle={styles.inputBorder} autoCapitalize="none" testID="admin.password" autoFocus={true} />
+			<Input
+				style={styles.passwordField}
+				onChangeText={text => this._setAdminPassword(text)}
+				placeholder={I18n.t("password")}
+				containerStyle={styles.containerStyle}
+				inputContainerStyle={styles.inputBorder}
+				autoCapitalize="none"
+				testID="admin.password"
+				autoFocus={true} />
 			<View style={styles.saveButton}>{this._saveButton()}</View>
 		</View>;
 	}

@@ -1,7 +1,6 @@
 
 import React, { Component } from "react";
 import { Image, View, StyleSheet } from "react-native";
-import Analytics from "../lib/analytics";
 import { Text } from "../components/sComponent";
 
 class campusMap extends Component {
@@ -9,9 +8,6 @@ class campusMap extends Component {
 		super(props);
 	}
 
-	componentDidMount() {
-		Analytics.track("Map");
-	}
 
 	render() {
 		return <View>

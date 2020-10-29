@@ -6,7 +6,9 @@ export function SaveFeature(dict) {
 
 	const storyDict = {
 		summary: summary || "Title",
+		summaryEN: summary || "Title",
 		description: description || "Description",
+		descriptionEN: description || "Description",
 		order: order !== undefined ? Number(order) : 1,
 		showIconChat: showIconChat,
 		visible: visible,

@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import I18n from "../lib/i18n";
 import moment from "moment";
 import CalendarItem from "../components/CalendarItem";
-import Analytics from "../lib/analytics";
+
 
 var todayItem = {};
 const todayDate = moment().format("YYYY-MM-DD");
@@ -41,7 +41,7 @@ class Calendar extends Component {
 
 		this.loadFromAsyncStorage();
 		this.listenLoadFromFirebase(this.calendarEvents);
-		Analytics.track("Calendar");
+	
 	}
 
 	listenLoadFromFirebase(dataSnapshot2) {

@@ -1,20 +1,17 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, View, StyleSheet } from "react-native";
+import { Platform, StatusBar } from "react-native";
 
 import AppNavigator from "./AppNavigator";
 import registerForPush from "./lib/registerForPushNotificationsAsync";
-import Analytics from "./lib/analytics";
+import * as Analytics from 'expo-firebase-analytics';
 import { connect } from "react-redux";
 import { AppearanceProvider } from 'react-native-appearance';
 
 class App extends Component {
 	componentDidMount() {
 		this._registerForPushNotifications();
-		Analytics.track("App Started");
+		Analytics.logEvent("App_Started");
 	}
-
-
-
 
 	_registerForPushNotifications() {
 		registerForPush.reg(global.name);

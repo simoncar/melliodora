@@ -2,8 +2,8 @@
 	"name": "Stamford",
 	"displayName": "Stamford",
 	"expo": {
-		"version": "38.0.2",
-		"icon": "./resources/sais_edu_sg/icons/ios/AppIcon.appiconset/Icon-App-76x76@3x.png",
+		"version": "39.0.0",
+		"icon": "./resources/sais_edu_sg/icon.png",
 		"slug": "myStamford",
 		"name": "Stamford",
 		"description": "For SAIS parents, Singapore",
@@ -14,7 +14,6 @@
 			"instance": "sais_edu_sg",
 			"googlePlay": "https://play.google.com/store/apps/details?id=com.softmowertrain.parent.mystamford",
 			"appleAppStore": "https://apps.apple.com/us/app/id1249949678",
-			"amplitudeApiKey": "cb69c87c1d6e6d5debfe5e24104a4b78",
 			"sentryDSN": "https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405"
 		},
 		"splash": {
@@ -40,16 +39,31 @@
 		"orientation": "portrait",
 		"ios": {
 			"bundleIdentifier": "com.softmowertrain.parent.mystamford",
+			"googleServicesFile": "./resources/sais_edu_sg/GoogleService-Info.plist",
 			"supportsTablet": true,
-			"buildNumber": "7"
+			"buildNumber": "8"
 		},
 		"android": {
 			"package": "com.softmowertrain.parent.mystamford",
-			"versionCode": 26,
+			"googleServicesFile": "./resources/sais_edu_sg/google-services.json",
+			"versionCode": 28,
 			"permissions": [
 				"READ_CALENDAR",
 				"WRITE_CALENDAR"
 			]
+		},
+		"web": {
+			"config": {
+			"firebase": {
+				"apiKey": "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
+				"measurementId": "G-0T769CEZVP",
+    			"authDomain": "calendar-app-57e88.firebaseapp.com",
+    			"databaseURL": "https://calendar-app-57e88.firebaseio.com",
+    			"projectId": "calendar-app-57e88",
+				"storageBucket": "calendar-app-57e88.appspot.com",
+				"appId": "1:991350571487:web:64e8030d8ad0c20969c46a"
+			}
+			}
 		},
 		"androidStatusBarColor": "#AF3643",
 		"androidStatusBar": {
