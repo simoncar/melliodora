@@ -67,23 +67,20 @@ export class SelectAlbum extends Component<TProps, TState>{
 
 	_renderItem = ({ item }) => (
 		<View style={styles.card}>
-			<TouchableOpacity
-				onPress={() => {
-					console.log("pressed:", item)
-				}}>
-				<Text>{item.title}</Text>
-			</TouchableOpacity>
+			<SettingsListItem
+				hasSwitch={false}
+				hasNavArrow={true}
+				title={item.title}
+				onPress={() => console.log("pressed:", item)}
+				icon={<MaterialCommunityIcons
+					name="album"
+				/>} />
 		</View>
+
 	);
-
-
-	//	<SettingsListItem hasSwitch={false} hasNavArrow={false} title="English" onPress={() => this._changeLanguage("en")} icon={<MaterialCommunityIcons name="check" style={this._getStyle("en")} />} />
 
 	render() {
 		return <SafeAreaView style={styles.adminContainer}>
-			<View style={styles.card}>
-				<Text>Albums</Text>
-			</View>
 			<View style={styles.card}>
 				<FlatList data={this.state.albums} renderItem={this._renderItem} keyExtractor={this.keyExtractor} />
 			</View>
