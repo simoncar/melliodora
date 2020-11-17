@@ -166,6 +166,15 @@ export class Story extends Component {
 			}}>
 				<MaterialIcons name="edit" style={styles.editIcon} />
 			</TouchableHighlight>}
+			{isAdmin(this.props.route.params.adminPassword) && this.state.source == "feature" && <TouchableHighlight style={styles.addButtonPhotos} underlayColor="#ff7043" onPress={() => {
+				this.props.navigation.navigate("Albums", {
+					edit: true,
+					...this.state,
+					refreshFunction: this.refreshFunction
+				});
+			}}>
+				<MaterialIcons name="camera" style={styles.editIcon} />
+			</TouchableHighlight>}
 
 			<ScrollView showsVerticalScrollIndicator={false}>
 				{this._drawImage(this.state.photo1)}
@@ -241,6 +250,27 @@ const styles = StyleSheet.create({
 		borderRadius: 50 / 2,
 		borderWidth: 1,
 		bottom: 20,
+		height: 50,
+		justifyContent: "center",
+		position: "absolute",
+		right: 20,
+		shadowColor: "#000000",
+		shadowOffset: {
+			height: 1,
+			width: 0,
+		},
+		shadowOpacity: 0.8,
+		shadowRadius: 2,
+		width: 50,
+		zIndex: 990,
+	},
+	addButtonPhotos: {
+		alignItems: "center",
+		backgroundColor: "#ff5722",
+		borderColor: "#ff5722",
+		borderRadius: 50 / 2,
+		borderWidth: 1,
+		bottom: 100,
 		height: 50,
 		justifyContent: "center",
 		position: "absolute",

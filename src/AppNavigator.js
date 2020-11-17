@@ -16,6 +16,7 @@ import Search from "./screens/Search";
 import Settings from "./screens/More";
 import AdminPassword from "./screens/AdminPassword";
 import SelectLanguage from "./screens/Language";
+import SelectAlbum from "./screens/Albums";
 import Content from "./components/content";
 import Story from "./screens/Story";
 import Form from "./screens/Form";
@@ -53,6 +54,7 @@ function StackHomeNavigator() {
 		<StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
 		<StackHome.Screen name="WebPortal" component={WebPortal} options={{ title: I18n.t("myS") }} />
 		<StackHome.Screen name="selectLanguageHome" component={SelectLanguage} options={{ title: I18n.t("language") }} />
+		<StackHome.Screen name="Albums" component={SelectAlbum} options={{ title: I18n.t("albums") }} />
 		<StackHome.Screen name="Calendars" component={Calendars} options={{ title: I18n.t("calendar") }} />
 		<StackChat.Screen name="selectLanguageChat" component={SelectLanguage} options={{ title: I18n.t("language") }} />
 	</StackHome.Navigator>;

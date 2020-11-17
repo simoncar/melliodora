@@ -98,9 +98,16 @@ function* WORKER_authListener() {
 			if (__DEV__) {
 				console.log('Development');
 				Analytics.setDebugModeEnabled(false)
+					.catch(error => {
+						//just ignore for now
+					})
+
 			} else {
 				console.log('Production');
 				Analytics.setDebugModeEnabled(false)
+					.catch(error => {
+						//just ignore for now
+					})
 				Analytics.setUserId(user.uid | null)
 			}
 

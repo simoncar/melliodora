@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { StyleSheet, View, SafeAreaView } from "react-native";
 import { SettingsListItem } from "../components/SettingsListItem";
