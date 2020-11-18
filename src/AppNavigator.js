@@ -34,7 +34,7 @@ import CameraApp from "./screens/Camera";
 import UserProfile from "./screens/UserProfile";
 import EditUserProfile from "./screens/EditUserProfile";
 import UserSearch from "./screens/UserSearch";
-import ImagePickerScreen from './screens/ImagePickerScreen';
+import ImagePickerScreen from './screens/ImagePicker';
 
 const StackHome = createStackNavigator();
 
