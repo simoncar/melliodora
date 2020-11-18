@@ -73,9 +73,7 @@ export class SelectAlbum extends Component<TProps, TState>{
 				hasNavArrow={true}
 				title={item.title}
 				onPress={() => {
-					this.props.navigation.navigate("selectLanguageChat", {
-						chatroom: this.props.title,
-						url: this.props.url
+					this.props.navigation.navigate("ImagePickerScreen", {
 					});
 				}}
 				icon={<MaterialCommunityIcons

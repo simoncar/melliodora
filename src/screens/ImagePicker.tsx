@@ -6,6 +6,8 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SelectableImageGrid from '../components/SelectableImageGrid';
 import { useCameraRoll } from '../../hooks/useCameraRoll';
+import uuid from "uuid";
+import * as firebase from "firebase";
 
 export default function ImagePickerScreen(props: any) {
 	const camRoll = useCameraRoll();
@@ -16,10 +18,32 @@ export default function ImagePickerScreen(props: any) {
 		const asset = selectedItems
 		console.log("creating: ", asset[0])
 		//const cachedAsset = await MediaLibrary.createAssetAsync(asset[0].uri);
-
-		const promiseFS = FileSystem.copyAsync({ from: asset[0].uri, to: FileSystem.documentDirectory + 'myFile.jpg' })
+		const filename = uuid() + '.jpg'
+		const promiseFS = FileSystem.copyAsync({ from: asset[0].uri, to: FileSystem.documentDirectory + filename })
 		promiseFS.then((ret) => {
 			console.log("promiseFS2: ", ret)
+
+			//1. save this to firebase 
+			var photo = {
+				local: filename,
+				timestamp: firebase.firestore.Timestamp.now(),
+			};
+
+			///simonco/feature/features/zmuUZZOnEMI1nuyT2wa8/photos/pHOiZkhkJ5E9FfiTNzcl
+
+			firebase
+				.firestore()
+				.collection(global.domain)
+				.doc("feature")
+				.collection("features")
+				.doc("zmuUZZOnEMI1nuyT2wa8")
+				.collection("photos")
+				.add(photo);
+
+			//2. upload file to storage
+
+			//3. reference the cloud version of the file if there is no local version
+
 
 			const promiseInfo = FileSystem.getInfoAsync(FileSystem.documentDirectory + 'myFile.jpg')
 			promiseInfo.then(async (retaa) => {
@@ -53,12 +77,7 @@ export default function ImagePickerScreen(props: any) {
 			})
 
 		})
-
-
-
-
 	}
-
 
 	const noItems = camRoll.images.length === 0 && !camRoll.isRefreshing;
 

@@ -5,6 +5,7 @@ import { IImage } from '../../core/interfaces';
 import BadgeIcon from './BadgeIcon';
 import { useTheme } from '@react-navigation/native';
 
+
 interface SelectableItem<T extends IImage> {
 	selected: boolean;
 	img: T;
