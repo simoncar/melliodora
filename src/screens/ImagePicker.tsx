@@ -9,9 +9,18 @@ import { useCameraRoll } from '../../hooks/useCameraRoll';
 import uuid from "uuid";
 import * as firebase from "firebase";
 
-export default function ImagePickerScreen(props: any) {
+
+interface TProps {
+	storyKey: string
+}
+
+
+export default function ImagePickerScreen(props: TProps) {
 	const camRoll = useCameraRoll();
 	const [items, setItems] = React.useState<MediaLibrary.Asset[]>([]);
+
+	const { storyKey } = props.route.params;
+	console.log("StoryKey:", storyKey)
 
 	const handleSelected = async (selectedItems: MediaLibrary.Asset[]) => {
 
@@ -29,14 +38,12 @@ export default function ImagePickerScreen(props: any) {
 				timestamp: firebase.firestore.Timestamp.now(),
 			};
 
-			///simonco/feature/features/zmuUZZOnEMI1nuyT2wa8/photos/pHOiZkhkJ5E9FfiTNzcl
-
 			firebase
 				.firestore()
 				.collection(global.domain)
 				.doc("feature")
 				.collection("features")
-				.doc("zmuUZZOnEMI1nuyT2wa8")
+				.doc(storyKey)
 				.collection("photos")
 				.add(photo);
 

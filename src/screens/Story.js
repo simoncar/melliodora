@@ -10,6 +10,7 @@ import Constants from "expo-constants";
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent"
 import { phoneCalendar } from "../lib/phoneCalendar"
+import ImageList from "../components/ImageList"
 
 export class Story extends Component {
 	constructor(props) {
@@ -155,6 +156,7 @@ export class Story extends Component {
 		this.setState({ newState, summaryMyLanguage: newState.summary, descriptionMyLanguage: newState.description });
 	}
 
+
 	render() {
 		return <View style={styles.container}>
 			{isAdmin(this.props.route.params.adminPassword) && this.state.source == "feature" && <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
@@ -234,6 +236,7 @@ export class Story extends Component {
 						<Text selectable style={styles.eventTextAbbreviation}>
 							{getAbbreviations(this.state.summary, global.domain)}
 						</Text>
+						<ImageList />
 
 					</View>
 				</View>

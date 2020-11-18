@@ -21,6 +21,7 @@ interface TProps {
 	albums: []
 }
 interface TState {
+	storyKey: string,
 	albums: {
 		title: string;
 		_key: string;
@@ -31,8 +32,13 @@ export class SelectAlbum extends Component<TProps, TState>{
 
 	constructor(props: Readonly<TProps>) {
 		super(props);
+
+		const { edit, _key, summary, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params;
+
+		console.log("Key:", _key)
 		this.state = {
 			albums: [],
+			storyKey: _key,
 		};
 
 		const albums: {
@@ -60,8 +66,6 @@ export class SelectAlbum extends Component<TProps, TState>{
 						console.log(error)
 					})
 			})
-
-
 	}
 
 	keyExtractor = (item) => item._key;
@@ -74,6 +78,8 @@ export class SelectAlbum extends Component<TProps, TState>{
 				title={item.title}
 				onPress={() => {
 					this.props.navigation.navigate("ImagePickerScreen", {
+						storyKey: this.state.storyKey
+						
 					});
 				}}
 				icon={<MaterialCommunityIcons
