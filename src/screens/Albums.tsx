@@ -17,6 +17,7 @@ export interface CameraRollResult {
 }
 
 interface TProps {
+	navigation: GalleryNavProp<'Picker'>
 	albums: []
 }
 interface TState {
@@ -71,7 +72,12 @@ export class SelectAlbum extends Component<TProps, TState>{
 				hasSwitch={false}
 				hasNavArrow={true}
 				title={item.title}
-				onPress={() => console.log("pressed:", item)}
+				onPress={() => {
+					this.props.navigation.navigate("selectLanguageChat", {
+						chatroom: this.props.title,
+						url: this.props.url
+					});
+				}}
 				icon={<MaterialCommunityIcons
 					name="album"
 				/>} />

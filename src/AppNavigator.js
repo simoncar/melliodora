@@ -34,6 +34,7 @@ import CameraApp from "./screens/Camera";
 import UserProfile from "./screens/UserProfile";
 import EditUserProfile from "./screens/EditUserProfile";
 import UserSearch from "./screens/UserSearch";
+import ImagePickerScreen from './screens/ImagePickerScreen';
 
 const StackHome = createStackNavigator();
 
@@ -57,6 +58,7 @@ function StackHomeNavigator() {
 		<StackHome.Screen name="Albums" component={SelectAlbum} options={{ title: I18n.t("albums") }} />
 		<StackHome.Screen name="Calendars" component={Calendars} options={{ title: I18n.t("calendar") }} />
 		<StackChat.Screen name="selectLanguageChat" component={SelectLanguage} options={{ title: I18n.t("language") }} />
+		<StackChat.Screen name="ImagePickerScreen" component={ImagePickerScreen} options={{ title: I18n.t("images") }} />
 	</StackHome.Navigator>;
 }
 

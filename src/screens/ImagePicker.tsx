@@ -7,8 +7,6 @@ import { Ionicons } from '@expo/vector-icons';
 import SelectableImageGrid from '../components/SelectableImageGrid';
 import { useCameraRoll } from '../../hooks/useCameraRoll';
 
-
-
 export default function ImagePickerScreen(props: any) {
 	const camRoll = useCameraRoll();
 	const [items, setItems] = React.useState<MediaLibrary.Asset[]>([]);
