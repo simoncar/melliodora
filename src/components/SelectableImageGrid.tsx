@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
-import { StyleSheet,View, Image, RefreshControl, ListRenderItemInfo, View as BareView } from 'react-native';
-import { IImage } from '../core/interafaces';
+import { StyleSheet, ActivityIndicator, View, Image, RefreshControl, ListRenderItemInfo, View as BareView } from 'react-native';
+import { IImage } from '../../core/interfaces';
 import BadgeIcon from './BadgeIcon';
-import { ActivityIndicator } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
 
 interface SelectableItem<T extends IImage> {

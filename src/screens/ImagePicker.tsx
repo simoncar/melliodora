@@ -2,16 +2,14 @@ import * as React from 'react';
 import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 import * as Linking from 'expo-linking';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SelectableImageGrid from '../components/SelectableImageGrid';
 import { useCameraRoll } from '../../hooks/useCameraRoll';
 
 
-import { PickerScreenNavProps } from '../navigation/navigation.types';
 
-
-export default function ImagePickerScreen(props: PickerScreenNavProps) {
+export default function ImagePickerScreen(props: any) {
 	const camRoll = useCameraRoll();
 	const [items, setItems] = React.useState<MediaLibrary.Asset[]>([]);
 
@@ -86,7 +84,6 @@ export default function ImagePickerScreen(props: PickerScreenNavProps) {
 						onEndReached={camRoll.loadMore}
 					/>
 				)}
-			<FAB label="Add ..." icon="check-bold" style={styles.fab} visible={items.length > 0} onPress={onContinue} />
 		</View>
 	);
 }
@@ -105,7 +102,7 @@ function NoPermissionsMessage() {
 	return (
 		<View style={styles.messageContainer}>
 			<Text style={styles.messageText}>You need permissions to access Camera Roll!</Text>
-			<Button onPress={() => Linking.openSettings()}>Open Settings</Button>
+			<TouchableOpacity onPress={() => Linking.openSettings()}>Open Settings</TouchableOpacity>
 		</View>
 	);
 }
