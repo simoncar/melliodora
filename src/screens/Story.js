@@ -36,7 +36,6 @@ export class Story extends Component {
 			dateTimeStart,
 			dateTimeEnd,
 			location
-
 		};
 
 		this.refreshFunction = this.refreshFunction.bind(this);
@@ -62,7 +61,6 @@ export class Story extends Component {
 			alert(error.message);
 		}
 	};
-
 
 	_handleOpenWithLinking = sURL => {
 
@@ -409,4 +407,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(Story);
-//export default compose(myFunction, connect(mapStateToProps)(Story));

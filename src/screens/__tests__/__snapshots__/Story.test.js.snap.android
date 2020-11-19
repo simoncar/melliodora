@@ -513,6 +513,11 @@ exports[`show story no calendar no image 1`] = `
           >
             
           </Text>
+          <View>
+            <Text>
+              Image List Component
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -968,6 +973,11 @@ exports[`show story on screen 1`] = `
           >
             
           </Text>
+          <View>
+            <Text>
+              Image List Component
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -1704,6 +1714,11 @@ exports[`show story with URL in content to test linking 1`] = `
           >
             
           </Text>
+          <View>
+            <Text>
+              Image List Component
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -2241,6 +2256,11 @@ exports[`show story without chat 1`] = `
           >
             
           </Text>
+          <View>
+            <Text>
+              Image List Component
+            </Text>
+          </View>
         </View>
       </View>
     </View>

@@ -9,11 +9,9 @@ import { useCameraRoll } from '../../hooks/useCameraRoll';
 import uuid from "uuid";
 import * as firebase from "firebase";
 
-
 interface TProps {
 	storyKey: string
 }
-
 
 export default function ImagePickerScreen(props: TProps) {
 	const camRoll = useCameraRoll();
@@ -52,36 +50,39 @@ export default function ImagePickerScreen(props: TProps) {
 			//3. reference the cloud version of the file if there is no local version
 
 
-			const promiseInfo = FileSystem.getInfoAsync(FileSystem.documentDirectory + 'myFile.jpg')
-			promiseInfo.then(async (retaa) => {
-				console.log("promiseInfo: ", retaa)
-				const assetXX = await MediaLibrary.createAssetAsync(retaa.uri);
 
-				const promise = MediaLibrary.getAlbumAsync("Imports - Selected")
+			setItems(selectedItems);
+			props.navigation.setOptions({
+				headerTitle: `Speed Pick Shortlist$${selectedItems.length} items selected`,
+			});
 
-				promise.then((ret) => {
-					console.log("adding =", retaa.uri)
+			//const promiseInfo = FileSystem.getInfoAsync(FileSystem.documentDirectory + 'myFile.jpg')
+			// promiseInfo.then(async (retaa) => {
+			// 	console.log("promiseInfo: ", retaa)
+			// 	const assetXX = await MediaLibrary.createAssetAsync(retaa.uri);
+
+			// 	const promise = MediaLibrary.getAlbumAsync("Imports - Selected")
+
+			// 	promise.then((ret) => {
+			// 		console.log("adding =", retaa.uri)
 
 
 
-					const promise2 = MediaLibrary.addAssetsToAlbumAsync(assetXX, ret.id, true);
-					promise2.then((ret2) => {
-						console.log("ret2=", ret2, asset)
-					})
-						.catch((err) => {
-							return err;
-						});
-				})
-					.catch((err) => {
-						return err;
-					});
+			// 		const promise2 = MediaLibrary.addAssetsToAlbumAsync(assetXX, ret.id, true);
+			// 		promise2.then((ret2) => {
+			// 			console.log("ret2=", ret2, asset)
+			// 		})
+			// 			.catch((err) => {
+			// 				return err;
+			// 			});
+			// 	})
+			// 		.catch((err) => {
+			// 			return err;
+			// 		});
 
-				setItems(selectedItems);
-				props.navigation.setOptions({
-					headerTitle: `Speed Pick Shortlist$${selectedItems.length} items selected`,
-				});
 
-			})
+
+			// })
 
 		})
 	}
