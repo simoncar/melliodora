@@ -23,8 +23,6 @@ class Form extends Component {
 	storyRef = null;
 
 
-
-
 	constructor(props) {
 		super(props);
 
