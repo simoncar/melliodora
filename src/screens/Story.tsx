@@ -6,6 +6,7 @@ import ParsedText from "react-native-parsed-text";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global.js";
 import _ from "lodash";
 import Constants from "expo-constants";
+import { rebuildAlbum } from "../components/AlbumAPI"
 
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent"
@@ -16,7 +17,19 @@ export class Story extends Component {
 	constructor(props) {
 		super(props);
 
-		const { _key, summary, location, summaryMyLanguage, source, date_start, time_start_pretty, time_end_pretty, descriptionMyLanguage, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd } = this.props.route.params;
+		const {
+			_key,
+			summary,
+			location,
+			summaryMyLanguage,
+			source,
+			date_start, time_start_pretty,
+			time_end_pretty, descriptionMyLanguage,
+			description, photo1, visible, visibleMore,
+			showIconChat, order,
+			dateTimeStart, dateTimeEnd,
+			album }
+			= this.props.route.params;
 
 		this.state = {
 			photo1: photo1 !== undefined ? photo1 : null,
@@ -35,7 +48,8 @@ export class Story extends Component {
 			source,
 			dateTimeStart,
 			dateTimeEnd,
-			location
+			location,
+			album
 		};
 
 		this.refreshFunction = this.refreshFunction.bind(this);
@@ -115,16 +129,45 @@ export class Story extends Component {
 	_drawIconChat(chatroom, title) {
 		if (Constants.manifest.extra.instance != "sais_edu_sg") {
 			if (this.state.showIconChat == true) {
-				return <TouchableOpacity onPress={() => {
-					this.props.navigation.navigate("chatStory", {
-						chatroom: chatroom,
-						title: title
-					});
-				}}>
-					<Text testID="story.chatIcon" style={styles.eventText}>
-						<SimpleLineIcons name="bubble" style={styles.eventIcon} />
-					</Text>
-				</TouchableOpacity>;
+				return (
+					<View>
+						<TouchableOpacity onPress={() => {
+							this.props.navigation.navigate("chatStory", {
+								chatroom: chatroom,
+								title: title
+							});
+						}}>
+							<Text testID="story.chatIcon" style={styles.eventText}>
+								<SimpleLineIcons name="bubble" style={styles.eventIcon} />
+							</Text>
+						</TouchableOpacity>
+					</View>
+
+				)
+			}
+		}
+	}
+
+	_drawRebuild() {
+		if (Constants.manifest.extra.instance != "sais_edu_sg") {
+			if (this.state.showIconChat == true) {
+				return (
+					<View>
+
+						<View>
+							<TouchableOpacity onPress={() => {
+								// do stuff here
+								console.log("rebuild")
+								rebuildAlbum("8SGypsTFfeiwI8ugMNGU")
+
+							}}>
+								<Text testID="story.chatIcon" style={styles.eventText}>
+									Rebuild
+								</Text>
+							</TouchableOpacity >
+						</View >
+					</View>
+				)
 			}
 		}
 	}
@@ -155,6 +198,7 @@ export class Story extends Component {
 	}
 
 
+
 	render() {
 		return <View style={styles.container}>
 			{isAdmin(this.props.route.params.adminPassword) && this.state.source == "feature" && <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
@@ -180,6 +224,7 @@ export class Story extends Component {
 				{this._drawImage(this.state.photo1)}
 
 				<View style={styles.iconRow}>
+					{this._drawRebuild()}
 					{this._drawIconChat(this.state._key, this.state.summaryMyLanguage)}
 					{this._drawIconCalendar(this.state)}
 					{this._drawIconShare()}
@@ -229,14 +274,13 @@ export class Story extends Component {
 							{"\n\n"}
 						</Text>}
 
-						<Text> </Text>
-						<Text> </Text>
 						<Text selectable style={styles.eventTextAbbreviation}>
 							{getAbbreviations(this.state.summary, global.domain)}
 						</Text>
-						<ImageList />
+
 
 					</View>
+					<ImageList album={this.state.album} />
 				</View>
 			</ScrollView>
 		</View>;
@@ -326,7 +370,6 @@ const styles = StyleSheet.create({
 	eventTextAbbreviation: {
 		color: "grey",
 		fontSize: 16,
-		paddingBottom: 100,
 	},
 	eventTextBody: {
 		color: "#222",

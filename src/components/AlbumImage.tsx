@@ -5,27 +5,37 @@ import { IImage } from '../../core/interfaces';
 import BadgeIcon from './BadgeIcon';
 import { useTheme } from '@react-navigation/native';
 import * as FileSystem from 'expo-file-system';
-import * as firebase from "firebase";
+
 import _ from "lodash";
-import AlbumImage from "./AlbumImage"
-
-export default function ImageList(props: any) {
 
 
-	if (Array.isArray(props.album)) {
-		return (
-			<View>
-				{
-					props.album.map((el) => {
-						console.log("el:", el)
-						return <AlbumImage key={el} image={el} />
-					})
-				}
-			</View >
-		);
+export default function AlbumImage(props: any) {
+	const [isLoading, setIsLoading] = React.useState(true);
+
+	const imageURI = FileSystem.documentDirectory + props.image
+	const filePromise = FileSystem.getInfoAsync(imageURI)
+
+	filePromise.then((fileReturn) => {
+		console.log("fileReturn:", fileReturn.exists)
+		setIsLoading(false)
+
+	}).catch(error => {
+		console.log("error getting file info:", error)
+	})
+
+	if (!isLoading) {
+		return <View>
+			<Image style={styles.storyPhoto}
+				source={{
+					uri: imageURI,
+				}}
+				key={imageURI}
+			/>
+		</View>;
 	} else {
-		return (null)
+		return (<Text>Loading</Text>)
 	}
+
 }
 
 const styles = StyleSheet.create({
@@ -36,7 +46,6 @@ const styles = StyleSheet.create({
 		borderBottomRightRadius: 15,
 		borderColor: "lightgray",
 		borderWidth: 1,
-		elevation: 1,
 		flex: 1,
 		height: 200,
 		marginBottom: 12,

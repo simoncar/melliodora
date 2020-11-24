@@ -49,6 +49,8 @@ export default function ImagePickerScreen(props: TProps) {
 
 			//3. reference the cloud version of the file if there is no local version
 
+			//4. Rebuild story array
+
 
 
 			setItems(selectedItems);

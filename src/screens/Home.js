@@ -4,8 +4,6 @@ import Constants from "expo-constants";
 import firebase from "firebase";
 import AsyncStorage from '@react-native-community/async-storage';
 import { getLanguageString } from "../lib/global";
-import { logToCalendar } from "../lib/systemHero";
-
 import ListItem from "../components/StoryListItem";
 import moment from "moment";
 import { setUserInfo } from "../store/auth";
@@ -49,9 +47,12 @@ class Home extends Component {
 			this.loadBalance();
 		}
 
-		logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain, this.props.auth.userInfo.email || "");
-
-		this.feature = firebase.firestore().collection(global.domain).doc("feature").collection("features").orderBy("order");
+		this.feature = firebase
+			.firestore()
+			.collection(global.domain)
+			.doc("feature")
+			.collection("features")
+			.orderBy("order");
 
 		this.loadCalendar();
 
@@ -59,8 +60,6 @@ class Home extends Component {
 
 		const { navigation } = this.props;
 		this.focusListener = navigation.addListener("didFocus", () => {
-			// The screen is focused
-			// Call any action
 			this.loadBalance();
 			this.loadCalendar();
 		});
@@ -83,10 +82,7 @@ class Home extends Component {
 					break;
 			}
 		});
-
-
 	}
-
 
 	componentDidUpdate() {
 		if (this.state.timer === 1) {
@@ -96,7 +92,6 @@ class Home extends Component {
 
 	componentWillUnmount() {
 		this.unsubscribeFeature();
-		//this.focusListener.remove();
 		clearInterval(this.interval);
 	}
 	updateMessage() {
@@ -166,32 +161,39 @@ class Home extends Component {
 			// calendarItems.push({ ...{ _key: "schoolStarts" }, ...trans });
 		}
 
-		let calendar = firebase.firestore().collection(global.domain).doc("calendar").collection("calendarItems").where("date_start", "==", todayDate).get().then(snapshot => {
-			snapshot.forEach(doc => {
-				var trans = {
-					visible: true,
-					source: "calendar",
-					summaryMyLanguage: getLanguageString(this.language, doc.data(), "summary"),
-					summary: doc.data().summary,
-					summaryEN: doc.data().summary,
-					date_start: doc.data().date_start,
-					color: "red",
-					showIconChat: false,
-					descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description"),
-					number: doc.data().number
-				};
-				calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
-			});
-			if (calendarItems.length > 0) {
+		firebase
+			.firestore()
+			.collection(global.domain)
+			.doc("calendar")
+			.collection("calendarItems")
+			.where("date_start", "==", todayDate)
+			.get()
+			.then(snapshot => {
+				snapshot.forEach(doc => {
+					var trans = {
+						visible: true,
+						source: "calendar",
+						summaryMyLanguage: getLanguageString(this.language, doc.data(), "summary"),
+						summary: doc.data().summary,
+						summaryEN: doc.data().summary,
+						date_start: doc.data().date_start,
+						color: "red",
+						showIconChat: false,
+						descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description"),
+						number: doc.data().number
+					};
+					calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
+				});
+				if (calendarItems.length > 0) {
+					this.setState({
+						calendarItems,
+						loading: false
+					});
+				}
 				this.setState({
-					calendarItems,
 					loading: false
 				});
-			}
-			this.setState({
-				loading: false
 			});
-		});
 
 		var trans = {
 			visible: true,
@@ -222,6 +224,7 @@ class Home extends Component {
 			if (!doc.data().visible == false) {
 				featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
 			}
+
 		});
 
 		if (featureItems.length > 0) {
@@ -267,11 +270,22 @@ class Home extends Component {
 	};
 
 	_renderItem(navigation, item) {
-		return <ListItem key={item._key} navigation={navigation} item={item} card={true} language={this.language} />
+		return <ListItem
+			key={item._key}
+			navigation={navigation}
+			item={item}
+			card={true}
+			language={this.language} />
 	}
 
 	_renderItemNoCard(navigation, item) {
-		return <ListItem key={item._key} navigation={navigation} item={item} card={false} language={this.language} />;
+		return <ListItem
+			key={item._key}
+			navigation={navigation}
+			item={item}
+			card={false}
+			language={this.language}
+		/>;
 	}
 	_renderBalance() {
 		if (global.domain === "oakforest_international_edu") {
