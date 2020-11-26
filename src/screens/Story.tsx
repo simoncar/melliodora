@@ -52,6 +52,7 @@ export class Story extends Component {
 			album
 		};
 
+
 		this.refreshFunction = this.refreshFunction.bind(this);
 	}
 
@@ -194,10 +195,14 @@ export class Story extends Component {
 	}
 
 	refreshFunction(newState) {
-		this.setState({ newState, summaryMyLanguage: newState.summary, descriptionMyLanguage: newState.description });
+		console.log("refresh function")
+		this.setState(
+			{
+				newState,
+				summaryMyLanguage: newState.summary,
+				descriptionMyLanguage: newState.description
+			});
 	}
-
-
 
 	render() {
 		return <View style={styles.container}>
@@ -280,7 +285,10 @@ export class Story extends Component {
 
 
 					</View>
-					<ImageList album={this.state.album} />
+					<ImageList
+						album={this.state.album}
+						refreshFunction={this.refreshFunction}
+					/>
 				</View>
 			</ScrollView>
 		</View>;

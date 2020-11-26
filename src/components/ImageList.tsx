@@ -9,16 +9,28 @@ import * as firebase from "firebase";
 import _ from "lodash";
 import AlbumImage from "./AlbumImage"
 
-export default function ImageList(props: any) {
+interface IProps {
+	album: {},
+	refreshFunction: any,
+}
 
+export default function ImageList(props: IProps) {
 
-	if (Array.isArray(props.album)) {
+	const album = props.album
+
+	if ((typeof album === "object" || typeof album === 'function') && (album !== null)) {
 		return (
 			<View>
 				{
-					props.album.map((el) => {
-						console.log("el:", el)
-						return <AlbumImage key={el} image={el} />
+
+					Object.keys(album).map(function (key, index) {
+						console.log("el:", album[key])
+						return <AlbumImage
+							key={key}
+							local={album[key].local}
+							server={album[key].server}
+							thumb={album[key].thumb}
+						/>
 					})
 				}
 			</View >

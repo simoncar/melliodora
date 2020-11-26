@@ -5,25 +5,21 @@ import { IImage } from '../../core/interfaces';
 import BadgeIcon from './BadgeIcon';
 import { useTheme } from '@react-navigation/native';
 import * as FileSystem from 'expo-file-system';
-
 import _ from "lodash";
 
+interface IProps {
+	local: string,
+	server: string,
+	thumb: string,
+	key: string
+}
 
-export default function AlbumImage(props: any) {
+export default function AlbumImage(props: IProps) {
 	const [isLoading, setIsLoading] = React.useState(true);
 
-	const imageURI = FileSystem.documentDirectory + props.image
-	const filePromise = FileSystem.getInfoAsync(imageURI)
+	const imageURI = props.thumb
 
-	filePromise.then((fileReturn) => {
-		console.log("fileReturn:", fileReturn.exists)
-		setIsLoading(false)
-
-	}).catch(error => {
-		console.log("error getting file info:", error)
-	})
-
-	if (!isLoading) {
+	if (imageURI.length > 1) {
 		return <View>
 			<Image style={styles.storyPhoto}
 				source={{
@@ -33,9 +29,8 @@ export default function AlbumImage(props: any) {
 			/>
 		</View>;
 	} else {
-		return (<Text>Loading</Text>)
+		return null
 	}
-
 }
 
 const styles = StyleSheet.create({

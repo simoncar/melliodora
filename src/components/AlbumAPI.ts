@@ -18,9 +18,11 @@ export function rebuildAlbum(featureID) {
 		.then(snapshot => {
 			snapshot.forEach(doc => {
 				console.log("doc:", doc.data())
+
 				album[i] = {
-					"local": doc.data().local,
-					"server": doc.data().server
+					"local": doc.data().local || "",
+					"server": doc.data().server || "",
+					"thumb": doc.data().thumb || ""
 				}
 				i++
 
@@ -44,7 +46,7 @@ export function rebuildAlbum(featureID) {
 	storageSend(featureID)
 }
 
-export function storageSend(featureID) {
+export async function storageSend(featureID) {
 
 	console.log("storage send:", featureID)
 	var album = []
@@ -58,14 +60,13 @@ export function storageSend(featureID) {
 		.collection("photos")
 		.get()
 		.then(snapshot => {
-			snapshot.forEach(doc => {
-				console.log("doc:", doc.data())
+			snapshot.forEach(async doc => {
 				album.push(doc.data().local)
 
 				if (doc.data().server === undefined) {
 					console.log("file not on server", doc.data().local)
 					const imageURI = FileSystem.documentDirectory + doc.data().local
-					uploadImage(featureID, imageURI, doc.data().local)
+					await uploadImage(featureID, imageURI, doc.data().local, doc.id)
 						.then((downloadURL) => {
 
 							console.log("downloadURL:", downloadURL)
@@ -90,9 +91,9 @@ export function storageSend(featureID) {
 		})
 }
 
-const uploadImage = async (feature: string, imgURI: string, filename: string) => {
+const uploadImage = async (feature: string, imgURI: string, filename: string, photoDocId: string) => {
 	if (!imgURI) return "";
-
+	console.log("commence upload....", imgURI)
 	var mime = "image/jpeg";
 
 	const blob: any = await new Promise((resolve, reject) => {
@@ -111,7 +112,19 @@ const uploadImage = async (feature: string, imgURI: string, filename: string) =>
 
 	const ref = firebase.storage().ref("album/2020/11/" + feature + "/" + filename);
 
-	const snapshot = await ref.put(blob, { contentType: mime, cacheControl: 'max-age=31536000' });
+	const snapshot = await ref.put(blob,
+		{
+			contentType: mime,
+			cacheControl: 'max-age=11536000',
+			customMetadata: {
+				feature: feature,
+				domain: global.domain,
+				uid: global.uid,
+				name: global.name,
+				email: global.email,
+				photoDocId: photoDocId,
+			}
+		});
 	const downloadURL = await snapshot.ref.getDownloadURL();
 	blob.close();
 	console.log("-----")
