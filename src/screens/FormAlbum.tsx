@@ -1,25 +1,45 @@
-import * as React from 'react';
+import React, { useEffect } from 'react'
+
 import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 import * as Linking from 'expo-linking';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SelectableImageGrid from '../components/SelectableImageGrid';
 import { useCameraRoll } from '../../hooks/useCameraRoll';
 import uuid from "uuid";
 import * as firebase from "firebase";
 import { rebuildAlbum } from '../components/AlbumAPI'
+import I18n from "../lib/i18n";
 
 interface TProps {
 	storyKey: string
+	route: any
+	navigation: any
 }
 
-export default function ImagePickerScreen(props: TProps) {
+export default function FormAlbum(props: TProps) {
 	const camRoll = useCameraRoll();
 	const [items, setItems] = React.useState<MediaLibrary.Asset[]>([]);
 
 	const { storyKey } = props.route.params;
 	console.log("StoryKey:", storyKey)
+
+	const navigation = props.navigation;
+
+
+
+	useEffect(() => {
+		navigation.setOptions({
+			headerRight: () => <Button onPress={() => save()} title={I18n.t("save")} />,
+		});
+	}, [])
+
+
+
+	const save = () => {
+		console.log("save")
+	}
 
 	const handleSelected = async (selectedItems: MediaLibrary.Asset[]) => {
 

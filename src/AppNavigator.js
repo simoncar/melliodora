@@ -34,7 +34,7 @@ import CameraApp from "./screens/Camera";
 import UserProfile from "./screens/UserProfile";
 import EditUserProfile from "./screens/EditUserProfile";
 import UserSearch from "./screens/UserSearch";
-import ImagePickerScreen from './screens/ImagePicker';
+import FormAlbum from './screens/FormAlbum';
 
 const StackHome = createStackNavigator();
 
@@ -51,6 +51,7 @@ function StackHomeNavigator() {
 		<StackHome.Screen name="chatStory" component={chat} options={({ route }) => ({ title: route.params.title })} />
 		<StackHome.Screen name="campusMap" component={campusMap} options={{ title: I18n.t("map") }} />
 		<StackHome.Screen name="Form" component={Form} options={{ title: I18n.t("edit") }} />
+		<StackChat.Screen name="FormAlbum" component={FormAlbum} options={{ title: I18n.t("images") }} />
 		<StackHome.Screen name="authPortalEmbed" component={authPortal} options={{ title: I18n.t("myS") }} />
 		<StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
 		<StackHome.Screen name="WebPortal" component={WebPortal} options={{ title: I18n.t("myS") }} />
@@ -58,7 +59,6 @@ function StackHomeNavigator() {
 		<StackHome.Screen name="Albums" component={SelectAlbum} options={{ title: I18n.t("albums") }} />
 		<StackHome.Screen name="Calendars" component={Calendars} options={{ title: I18n.t("calendar") }} />
 		<StackChat.Screen name="selectLanguageChat" component={SelectLanguage} options={{ title: I18n.t("language") }} />
-		<StackChat.Screen name="ImagePickerScreen" component={ImagePickerScreen} options={{ title: I18n.t("images") }} />
 	</StackHome.Navigator>;
 }
 

@@ -22,7 +22,6 @@ class Form extends Component {
 	uid = "";
 	storyRef = null;
 
-
 	constructor(props) {
 		super(props);
 
@@ -49,7 +48,6 @@ class Form extends Component {
 			showAdvanced: true,
 			notifyMeSwitch: false
 		};
-
 
 		this.handlerChat = this.handlerChat.bind(this);
 		this.handlerOrder = this.handlerOrder.bind(this);

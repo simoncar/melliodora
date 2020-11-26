@@ -35,7 +35,6 @@ export class SelectAlbum extends Component<TProps, TState>{
 
 		const { edit, _key, summary, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params;
 
-		console.log("Key:", _key)
 		this.state = {
 			albums: [],
 			storyKey: _key,
@@ -51,9 +50,7 @@ export class SelectAlbum extends Component<TProps, TState>{
 
 				MediaLibrary.getAlbumsAsync()
 					.then(albumsList => {
-						console.log("Albums:", albumsList)
 						albumsList.forEach(album => {
-							console.log("Album:", album.title)
 							albums.push({
 								title: album.title,
 								_key: album.id
@@ -77,9 +74,9 @@ export class SelectAlbum extends Component<TProps, TState>{
 				hasNavArrow={true}
 				title={item.title}
 				onPress={() => {
-					this.props.navigation.navigate("ImagePickerScreen", {
+					this.props.navigation.navigate("FormAlbum", {
 						storyKey: this.state.storyKey
-						
+
 					});
 				}}
 				icon={<MaterialCommunityIcons
