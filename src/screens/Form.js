@@ -63,7 +63,7 @@ class Form extends Component {
 
 		navigation.setOptions({
 			save: this.save,
-			headerRight: () => <Button onPress={() => this.save()} title="Save!" />,
+			headerRight: () => <Button onPress={() => this.save()} title={I18n.t("save")} />,
 		});
 	}
 
