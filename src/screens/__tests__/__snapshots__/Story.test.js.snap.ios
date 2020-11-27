@@ -220,63 +220,103 @@ exports[`show story no calendar no image 1`] = `
           }
         }
       >
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
+        <View>
+          <View>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "SegoeUI",
+                    },
+                    Object {
+                      "color": "#222",
+                      "fontSize": 16,
+                      "marginRight": 20,
+                    },
+                  ]
+                }
+                testID="story.rebuild"
+              >
+                Rebuild
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
+              Object {
+                "opacity": 1,
+              }
             }
-            testID="story.chatIcon"
           >
             <Text
-              allowFontScaling={false}
               style={
                 Array [
                   Object {
-                    "color": undefined,
-                    "fontSize": 12,
+                    "fontFamily": "SegoeUI",
                   },
                   Object {
                     "color": "#222",
-                    "fontSize": 30,
-                    "marginRight": 200,
-                    "paddingRight": 200,
+                    "fontSize": 16,
+                    "marginRight": 20,
                   },
-                  Object {
-                    "fontFamily": "simple-line-icons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
                 ]
               }
+              testID="story.chatIcon"
             >
-              
+              <Text
+                allowFontScaling={false}
+                style={
+                  Array [
+                    Object {
+                      "color": undefined,
+                      "fontSize": 12,
+                    },
+                    Object {
+                      "color": "#222",
+                      "fontSize": 30,
+                      "marginRight": 200,
+                      "paddingRight": 200,
+                    },
+                    Object {
+                      "fontFamily": "simple-line-icons",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    Object {},
+                  ]
+                }
+              >
+                
+              </Text>
             </Text>
-          </Text>
+          </View>
         </View>
         <View
           accessible={true}
@@ -482,30 +522,6 @@ exports[`show story no calendar no image 1`] = `
             </Text>
           </Text>
           <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
             selectable={true}
             style={
               Array [
@@ -515,18 +531,12 @@ exports[`show story no calendar no image 1`] = `
                 Object {
                   "color": "grey",
                   "fontSize": 16,
-                  "paddingBottom": 100,
                 },
               ]
             }
           >
             
           </Text>
-          <View>
-            <Text>
-              Image List Component
-            </Text>
-          </View>
         </View>
       </View>
     </View>
@@ -710,39 +720,79 @@ exports[`show story on screen 1`] = `
           }
         }
       >
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
+        <View>
+          <View>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "SegoeUI",
+                    },
+                    Object {
+                      "color": "#222",
+                      "fontSize": 16,
+                      "marginRight": 20,
+                    },
+                  ]
+                }
+                testID="story.rebuild"
+              >
+                Rebuild
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
+              Object {
+                "opacity": 1,
+              }
             }
-            testID="story.chatIcon"
           >
-            <Text />
-          </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "SegoeUI",
+                  },
+                  Object {
+                    "color": "#222",
+                    "fontSize": 16,
+                    "marginRight": 20,
+                  },
+                ]
+              }
+              testID="story.chatIcon"
+            >
+              <Text />
+            </Text>
+          </View>
         </View>
         <View
           accessible={true}
@@ -951,30 +1001,6 @@ exports[`show story on screen 1`] = `
             </Text>
           </Text>
           <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
             selectable={true}
             style={
               Array [
@@ -984,18 +1010,12 @@ exports[`show story on screen 1`] = `
                 Object {
                   "color": "grey",
                   "fontSize": 16,
-                  "paddingBottom": 100,
                 },
               ]
             }
           >
             
           </Text>
-          <View>
-            <Text>
-              Image List Component
-            </Text>
-          </View>
         </View>
       </View>
     </View>
@@ -1223,63 +1243,103 @@ exports[`show story with URL in content to test linking 1`] = `
           }
         }
       >
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
+        <View>
+          <View>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "SegoeUI",
+                    },
+                    Object {
+                      "color": "#222",
+                      "fontSize": 16,
+                      "marginRight": 20,
+                    },
+                  ]
+                }
+                testID="story.rebuild"
+              >
+                Rebuild
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
+              Object {
+                "opacity": 1,
+              }
             }
-            testID="story.chatIcon"
           >
             <Text
-              allowFontScaling={false}
               style={
                 Array [
                   Object {
-                    "color": undefined,
-                    "fontSize": 12,
+                    "fontFamily": "SegoeUI",
                   },
                   Object {
                     "color": "#222",
-                    "fontSize": 30,
-                    "marginRight": 200,
-                    "paddingRight": 200,
+                    "fontSize": 16,
+                    "marginRight": 20,
                   },
-                  Object {
-                    "fontFamily": "simple-line-icons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
                 ]
               }
+              testID="story.chatIcon"
             >
-              
+              <Text
+                allowFontScaling={false}
+                style={
+                  Array [
+                    Object {
+                      "color": undefined,
+                      "fontSize": 12,
+                    },
+                    Object {
+                      "color": "#222",
+                      "fontSize": 30,
+                      "marginRight": 200,
+                      "paddingRight": 200,
+                    },
+                    Object {
+                      "fontFamily": "simple-line-icons",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    Object {},
+                  ]
+                }
+              >
+                
+              </Text>
             </Text>
-          </Text>
+          </View>
         </View>
         <View
           accessible={true}
@@ -1701,30 +1761,6 @@ exports[`show story with URL in content to test linking 1`] = `
             </Text>
           </Text>
           <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
             selectable={true}
             style={
               Array [
@@ -1734,18 +1770,12 @@ exports[`show story with URL in content to test linking 1`] = `
                 Object {
                   "color": "grey",
                   "fontSize": 16,
-                  "paddingBottom": 100,
                 },
               ]
             }
           >
             
           </Text>
-          <View>
-            <Text>
-              Image List Component
-            </Text>
-          </View>
         </View>
       </View>
     </View>
@@ -2252,30 +2282,6 @@ exports[`show story without chat 1`] = `
             </Text>
           </Text>
           <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
             selectable={true}
             style={
               Array [
@@ -2285,18 +2291,12 @@ exports[`show story without chat 1`] = `
                 Object {
                   "color": "grey",
                   "fontSize": 16,
-                  "paddingBottom": 100,
                 },
               ]
             }
           >
             
           </Text>
-          <View>
-            <Text>
-              Image List Component
-            </Text>
-          </View>
         </View>
       </View>
     </View>

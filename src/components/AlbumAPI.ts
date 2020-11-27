@@ -1,7 +1,49 @@
 import * as firebase from "firebase";
 import * as FileSystem from 'expo-file-system';
+import * as MediaLibrary from 'expo-media-library';
+import uuid from "uuid";
 
-export function rebuildAlbum(featureID) {
+export function saveSelectedImages(items: MediaLibrary.Asset[]) {
+
+
+	for (var key in items) {
+		if (items.hasOwnProperty(key)) {
+			console.log(key + " -> " + items[key].uri);
+		}
+	}
+	// //const cachedAsset = await MediaLibrary.createAssetAsync(asset[0].uri);
+	// const filename = uuid() + '.jpg'
+	// const promiseFS = FileSystem.copyAsync({ from: items[0].uri, to: FileSystem.documentDirectory + filename })
+	// promiseFS.then((ret) => {
+
+	// 	//1. save this to firebase 
+	// 	var photo = {
+	// 		local: filename,
+	// 		timestamp: firebase.firestore.Timestamp.now(),
+	// 	};
+
+	// 	firebase
+	// 		.firestore()
+	// 		.collection(global.domain)
+	// 		.doc("feature")
+	// 		.collection("features")
+	// 		.doc(storyKey)
+	// 		.collection("photos")
+	// 		.add(photo)
+	// 		.then(() => {
+	// 			rebuildAlbum(storyKey)
+	// 		})
+
+	// 	//2. upload file to storage
+
+	// 	//3. reference the cloud version of the file if there is no local version
+
+	// 	//4. Rebuild story array
+
+	// })
+}
+
+export function rebuildAlbum(featureID: string) {
 
 	console.log("featureID rebuild:", featureID)
 	var album = {}

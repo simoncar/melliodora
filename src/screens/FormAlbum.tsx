@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-
+import React, { useState, useEffect } from 'react'
 import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 import * as Linking from 'expo-linking';
@@ -7,9 +6,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SelectableImageGrid from '../components/SelectableImageGrid';
 import { useCameraRoll } from '../../hooks/useCameraRoll';
-import uuid from "uuid";
-import * as firebase from "firebase";
-import { rebuildAlbum } from '../components/AlbumAPI'
+import { saveSelectedImages } from "../components/AlbumAPI";
 import I18n from "../lib/i18n";
 
 interface TProps {
@@ -19,79 +16,34 @@ interface TProps {
 }
 
 export default function FormAlbum(props: TProps) {
+	const [items, setItems] = useState<MediaLibrary.Asset[]>([]);
+
 	const camRoll = useCameraRoll();
-	const [items, setItems] = React.useState<MediaLibrary.Asset[]>([]);
 
 	const { storyKey } = props.route.params;
-	console.log("StoryKey:", storyKey)
-
 	const navigation = props.navigation;
-
-
 
 	useEffect(() => {
 		navigation.setOptions({
+			headerTitle: `Speed Pick Shortlist$${items.length} items selected`,
 			headerRight: () => <Button onPress={() => save()} title={I18n.t("save")} />,
 		});
-	}, [])
-
-
+	}, [items])
 
 	const save = () => {
-		console.log("save")
+
+		console.log("Saving:", items)
+		saveSelectedImages(items)
+
 	}
 
 	const handleSelected = async (selectedItems: MediaLibrary.Asset[]) => {
-
-		const asset = selectedItems
-		console.log("creating: ", asset[0])
-		//const cachedAsset = await MediaLibrary.createAssetAsync(asset[0].uri);
-		const filename = uuid() + '.jpg'
-		const promiseFS = FileSystem.copyAsync({ from: asset[0].uri, to: FileSystem.documentDirectory + filename })
-		promiseFS.then((ret) => {
-			console.log("promiseFS2: ", ret)
-
-			//1. save this to firebase 
-			var photo = {
-				local: filename,
-				timestamp: firebase.firestore.Timestamp.now(),
-			};
-
-			firebase
-				.firestore()
-				.collection(global.domain)
-				.doc("feature")
-				.collection("features")
-				.doc(storyKey)
-				.collection("photos")
-				.add(photo)
-				.then(() => {
-					rebuildAlbum(storyKey)
-				})
-
-			//2. upload file to storage
-
-			//3. reference the cloud version of the file if there is no local version
-
-			//4. Rebuild story array
-
-			setItems(selectedItems);
-			props.navigation.setOptions({
-				headerTitle: `Speed Pick Shortlist$${selectedItems.length} items selected`,
-			});
-
-
-
-		})
+		setItems(selectedItems);
 	}
 
 	const noItems = camRoll.images.length === 0 && !camRoll.isRefreshing;
 
 	if (!camRoll.permissionsGranted) return <NoPermissionsMessage />;
-
-	const onContinue = () => {
-		//props.navigation.push('Prepare', { images: items });
-	};
 
 	return (
 		<View style={styles.container}>

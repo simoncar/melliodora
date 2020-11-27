@@ -162,7 +162,7 @@ export class Story extends Component {
 								rebuildAlbum("8SGypsTFfeiwI8ugMNGU")
 
 							}}>
-								<Text testID="story.chatIcon" style={styles.eventText}>
+								<Text testID="story.rebuild" style={styles.eventText}>
 									Rebuild
 								</Text>
 							</TouchableOpacity >
