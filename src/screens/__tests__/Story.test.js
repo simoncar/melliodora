@@ -3,7 +3,9 @@ import { render, fireEvent } from 'react-native-testing-library';
 
 import { Story } from '../Story';
 
+jest.mock("../../components/ImageList");
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+
 
 const auth = {
 	"_persist": {

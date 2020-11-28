@@ -529,6 +529,11 @@ exports[`show story no calendar no image 1`] = `
             
           </Text>
         </View>
+        <View>
+          <Text>
+            mock
+          </Text>
+        </View>
       </View>
     </View>
   </RCTScrollView>
@@ -997,6 +1002,11 @@ exports[`show story on screen 1`] = `
             }
           >
             
+          </Text>
+        </View>
+        <View>
+          <Text>
+            mock
           </Text>
         </View>
       </View>
@@ -1750,6 +1760,11 @@ exports[`show story with URL in content to test linking 1`] = `
             
           </Text>
         </View>
+        <View>
+          <Text>
+            mock
+          </Text>
+        </View>
       </View>
     </View>
   </RCTScrollView>
@@ -2260,6 +2275,11 @@ exports[`show story without chat 1`] = `
             }
           >
             
+          </Text>
+        </View>
+        <View>
+          <Text>
+            mock
           </Text>
         </View>
       </View>
