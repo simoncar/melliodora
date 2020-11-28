@@ -1,5 +1,3 @@
-
-
 import React, { Component } from "react";
 import { View, TouchableOpacity, StyleSheet, Dimensions, Image } from "react-native";
 import { Text } from "./sComponent";
@@ -63,7 +61,16 @@ class ListItem extends Component {
 	render() {
 		const showIconChat = this.props.item.showIconChat === false ? false : true;
 		const card = this.props.card === false ? false : true;
-		const { _key, photo1, source, summaryMyLanguage, location, date_start, time_start_pretty, time_end_pretty } = this.props.item;
+		const {
+			_key,
+			photo1,
+			source,
+			summaryMyLanguage,
+			location,
+			date_start,
+			time_start_pretty,
+			time_end_pretty
+		} = this.props.item;
 
 		return <View style={card && [styles.card]}>
 			<TouchableOpacity style={styles.bb} onPress={() => {
