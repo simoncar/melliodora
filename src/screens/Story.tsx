@@ -434,7 +434,6 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		elevation: 1,
 		flex: 1,
-		height: 200,
 		marginBottom: 12,
 		shadowColor: "rgba(0,0,0, .4)",
 		shadowOffset: { height: 1, width: 0.5 },

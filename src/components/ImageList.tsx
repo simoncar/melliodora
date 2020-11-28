@@ -19,7 +19,6 @@ export default function ImageList(props: IProps) {
 	}, []);
 
 	function refreshFunction(photos) {
-		console.log("Refresh in ImageLIst:", photos)
 		setPhotos(photos);
 	}
 
