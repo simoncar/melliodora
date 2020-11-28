@@ -7,7 +7,6 @@ import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../
 import _ from "lodash";
 import Constants from "expo-constants";
 import { storageSend } from "../components/AlbumAPI"
-
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent"
 import { phoneCalendar } from "../lib/phoneCalendar"
@@ -106,85 +105,6 @@ export class Story extends Component {
 		}
 	}
 
-	_drawIconSend() {
-		if (isAdmin(this.props.route.params.adminPassword)) {
-			return <TouchableOpacity onPress={() => {
-				this.state.summaryMyLanguage;
-				this.props.navigation.navigate("push", this.state);
-			}}>
-				<Text style={styles.eventTextSend}>
-					<MaterialCommunityIcons name="send-lock" style={styles.eventIconSendLock} />{" "}
-				</Text>
-			</TouchableOpacity>;
-		}
-	}
-
-	_drawIconChat(chatroom, title) {
-		if (Constants.manifest.extra.instance != "sais_edu_sg") {
-			if (this.state.showIconChat == true) {
-				return (
-					<View>
-						<TouchableOpacity onPress={() => {
-							this.props.navigation.navigate("chatStory", {
-								chatroom: chatroom,
-								title: title
-							});
-						}}>
-							<Text testID="story.chatIcon" style={styles.eventText}>
-								<SimpleLineIcons name="bubble" style={styles.eventIcon} />
-							</Text>
-						</TouchableOpacity>
-					</View>
-
-				)
-			}
-		}
-	}
-
-	_drawRebuild() {
-		if (Constants.manifest.extra.instance != "sais_edu_sg") {
-			if (this.state.showIconChat == true) {
-				return (
-					<View>
-
-						<View>
-							<TouchableOpacity onPress={() => {
-								// do stuff here
-								console.log("rebuild")
-								storageSend("8SGypsTFfeiwI8ugMNGU")
-
-							}}>
-								<Text testID="story.rebuild" style={styles.eventText}>
-									Rebuild
-								</Text>
-							</TouchableOpacity >
-						</View >
-					</View>
-				)
-			}
-		}
-	}
-
-	_drawIconCalendar(params) {
-		if (isValue(params.date_start)) {
-			return <TouchableOpacity onPress={() => {
-				phoneCalendar(this.state)
-				//this.props.navigation.navigate("Calendars", this.state);
-			}}>
-				<Text testID="story.calendarIcon" style={styles.eventText}>
-					<Ionicons name="ios-calendar" style={styles.eventIcon} />
-				</Text>
-			</TouchableOpacity>;
-		}
-	}
-
-	_drawIconShare() {
-		return <TouchableOpacity onPress={() => this._shareMessage()} testID="story.shareButton">
-			<Text style={styles.eventText}>
-				<Ionicons name="ios-share-alt" style={styles.eventIcon} />
-			</Text>
-		</TouchableOpacity>;
-	}
 
 	refreshFunction(newState) {
 		console.log("refresh function")
@@ -196,36 +116,120 @@ export class Story extends Component {
 			});
 	}
 
+	rightSideEdit() {
+
+		if (isAdmin(this.props.route.params.adminPassword) && this.state.source == "feature")
+			return (
+				<TouchableHighlight
+					style={[styles.button, styles.buttonEdit]} underlayColor="#ff7043"
+					onPress={() => {
+						this.props.navigation.navigate("Form", {
+							edit: true,
+							...this.state,
+							refreshFunction: this.refreshFunction
+						});
+					}}>
+					<MaterialIcons name="edit" style={styles.icon} />
+				</TouchableHighlight>
+			)
+	}
+
+	rightSidePhotos() {
+		if (isAdmin(this.props.route.params.adminPassword) && this.state.source == "feature") {
+			return (
+				<TouchableHighlight
+					style={[styles.button, styles.buttonPhotos]}
+					underlayColor="#ff7043"
+					onPress={() => {
+						this.props.navigation.navigate("Albums", {
+							edit: true,
+							...this.state,
+							refreshFunction: this.refreshFunction
+						});
+					}}>
+					<MaterialIcons name="camera" style={styles.icon} />
+				</TouchableHighlight>
+			)
+		}
+	}
+
+	rightSideChat(chatroom, title) {
+		if (Constants.manifest.extra.instance != "sais_edu_sg") {
+			if (this.state.showIconChat == true) {
+				return (
+
+					<TouchableHighlight
+						style={[styles.button, styles.buttonChat]}
+						onPress={() => {
+							this.props.navigation.navigate("chatStory", {
+								chatroom: chatroom,
+								title: title
+							});
+						}}>
+						<SimpleLineIcons name="bubble" style={styles.icon} />
+					</TouchableHighlight>
+
+
+				)
+			}
+		}
+	}
+
+
+	rightSideSend() {
+		if (isAdmin(this.props.route.params.adminPassword)) {
+			return <TouchableHighlight
+				style={[styles.button, styles.buttonSend]}
+				onPress={() => {
+					this.state.summaryMyLanguage;
+					this.props.navigation.navigate("push", this.state);
+				}}>
+				<MaterialCommunityIcons name="send-lock" style={styles.icon} />
+			</TouchableHighlight>;
+		}
+	}
+
+
+
+
+	rightSideCalendar(params) {
+		if (isValue(params.date_start)) {
+			return <TouchableHighlight onPress={() => {
+				phoneCalendar(this.state)
+				//this.props.navigation.navigate("Calendars", this.state);
+			}}>
+				<Ionicons name="ios-calendar" style={styles.icon} />
+			</TouchableHighlight>;
+		}
+	}
+
+	rightSideShare() {
+		return <TouchableHighlight
+			style={[styles.button, styles.buttonShare]}
+			onPress={() => this._shareMessage()} testID="story.shareButton">
+			<Ionicons name="ios-share-alt" style={styles.icon} />
+		</TouchableHighlight>;
+	}
+
+
+
+
 	render() {
 		return <View style={styles.container}>
-			{isAdmin(this.props.route.params.adminPassword) && this.state.source == "feature" && <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
-				this.props.navigation.navigate("Form", {
-					edit: true,
-					...this.state,
-					refreshFunction: this.refreshFunction
-				});
-			}}>
-				<MaterialIcons name="edit" style={styles.editIcon} />
-			</TouchableHighlight>}
-			{isAdmin(this.props.route.params.adminPassword) && this.state.source == "feature" && <TouchableHighlight style={styles.addButtonPhotos} underlayColor="#ff7043" onPress={() => {
-				this.props.navigation.navigate("Albums", {
-					edit: true,
-					...this.state,
-					refreshFunction: this.refreshFunction
-				});
-			}}>
-				<MaterialIcons name="camera" style={styles.editIcon} />
-			</TouchableHighlight>}
+			{this.rightSideEdit()}
+			{this.rightSidePhotos()}
+			{this.rightSideChat(this.state._key, this.state.summaryMyLanguage)}
+
+			{this.rightSideCalendar(this.state)}
+			{this.rightSideShare()}
+			{this.rightSideSend(this.state)}
 
 			<ScrollView showsVerticalScrollIndicator={false}>
 				{this._drawImage(this.state.photo1)}
 
 				<View style={styles.iconRow}>
-					{this._drawRebuild()}
-					{this._drawIconChat(this.state._key, this.state.summaryMyLanguage)}
-					{this._drawIconCalendar(this.state)}
-					{this._drawIconShare()}
-					{this._drawIconSend(this.state)}
+
+
 				</View>
 
 				<View style={styles.contentView}>
@@ -292,17 +296,14 @@ export class Story extends Component {
 }
 
 const styles = StyleSheet.create({
-	addButton: {
+	button: {
 		alignItems: "center",
-		backgroundColor: "#ff5722",
-		borderColor: "#ff5722",
+		backgroundColor: 'rgba(52, 52, 52, 0.1)',
 		borderRadius: 50 / 2,
-		borderWidth: 1,
-		bottom: 20,
 		height: 50,
 		justifyContent: "center",
 		position: "absolute",
-		right: 20,
+		right: 15,
 		shadowColor: "#000000",
 		shadowOffset: {
 			height: 1,
@@ -313,26 +314,20 @@ const styles = StyleSheet.create({
 		width: 50,
 		zIndex: 990,
 	},
-	addButtonPhotos: {
-		alignItems: "center",
-		backgroundColor: "#ff5722",
-		borderColor: "#ff5722",
-		borderRadius: 50 / 2,
-		borderWidth: 1,
-		bottom: 100,
-		height: 50,
-		justifyContent: "center",
-		position: "absolute",
-		right: 20,
-		shadowColor: "#000000",
-		shadowOffset: {
-			height: 1,
-			width: 0,
-		},
-		shadowOpacity: 0.8,
-		shadowRadius: 2,
-		width: 50,
-		zIndex: 990,
+	buttonEdit: {
+		bottom: 10,
+	},
+	buttonPhotos: {
+		bottom: 70,
+	},
+	buttonChat: {
+		bottom: 130,
+	},
+	buttonSend: {
+		bottom: 190,
+	},
+	buttonShare: {
+		bottom: 250,
 	},
 	container: {
 		backgroundColor: "#fff"
@@ -340,7 +335,7 @@ const styles = StyleSheet.create({
 	contentView: {
 		flex: 1
 	},
-	editIcon: {
+	icon: {
 		color: "white",
 		fontSize: 25
 	},
@@ -360,11 +355,9 @@ const styles = StyleSheet.create({
 		marginRight: 200,
 		paddingRight: 200,
 	},
-	eventIconSendLock: {
-		color: "#ff5722",
-		fontSize: 30,
-		marginRight: 200,
-		paddingRight: 200,
+	sendIcon: {
+		color: "white",
+		fontSize: 25,
 	},
 	eventText: {
 		color: "#222",
