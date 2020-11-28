@@ -161,47 +161,42 @@ export class Story extends Component<TProps, TState>{
 	}
 
 	rightSidePhotos() {
-		if (isAdmin(this.props.route.params.adminPassword) && this.state.source == "feature") {
-			return (
-				<TouchableHighlight
-					style={[styles.button, styles.buttonPhotos]}
-					underlayColor="#ff7043"
-					onPress={() => {
-						this.props.navigation.navigate("Albums", {
-							edit: true,
-							...this.state,
-							refreshFunction: this.refreshFunction
-						});
-					}}>
-					<MaterialIcons testID="story.cameraIcon" name="camera" style={styles.icon} />
-				</TouchableHighlight>
-			)
-		}
+		return (
+			<TouchableHighlight
+				style={[styles.button, styles.buttonPhotos]}
+				underlayColor="#ff7043"
+				onPress={() => {
+					this.props.navigation.navigate("Albums", {
+						edit: true,
+						...this.state,
+						refreshFunction: this.refreshFunction
+					});
+				}}>
+				<MaterialIcons testID="story.cameraIcon" name="camera" style={styles.icon} />
+			</TouchableHighlight>
+		)
 	}
 
 	rightSideChat(chatroom, title) {
-		if (Constants.manifest.extra.instance != "sais_edu_sg") {
-			if (this.state.showIconChat == true) {
-				return (
+		if (this.state.showIconChat == true) {
+			return (
 
-					<TouchableHighlight
-						style={[styles.button, styles.buttonChat]}
-						testID="story.chatIcon"
-						onPress={() => {
-							this.props.navigation.navigate("chatStory", {
-								chatroom: chatroom,
-								title: title
-							});
-						}}>
-						<SimpleLineIcons name="bubble" style={styles.icon} />
-					</TouchableHighlight>
+				<TouchableHighlight
+					style={[styles.button, styles.buttonChat]}
+					testID="story.chatIcon"
+					onPress={() => {
+						this.props.navigation.navigate("chatStory", {
+							chatroom: chatroom,
+							title: title
+						});
+					}}>
+					<SimpleLineIcons name="bubble" style={styles.icon} />
+				</TouchableHighlight>
 
 
-				)
-			}
+			)
 		}
 	}
-
 
 	rightSideSend() {
 		if (isAdmin(this.props.route.params.adminPassword)) {
@@ -216,9 +211,6 @@ export class Story extends Component<TProps, TState>{
 			</TouchableHighlight>;
 		}
 	}
-
-
-
 
 	rightSideCalendar(params) {
 		if (isValue(params.date_start)) {
