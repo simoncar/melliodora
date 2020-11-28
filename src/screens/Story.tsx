@@ -6,7 +6,7 @@ import ParsedText from "react-native-parsed-text";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global.js";
 import _ from "lodash";
 import Constants from "expo-constants";
-import { rebuildAlbum } from "../components/AlbumAPI"
+import { storageSend } from "../components/AlbumAPI"
 
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent"
@@ -27,8 +27,8 @@ export class Story extends Component {
 			time_end_pretty, descriptionMyLanguage,
 			description, photo1, visible, visibleMore,
 			showIconChat, order,
-			dateTimeStart, dateTimeEnd,
-			album }
+			dateTimeStart, dateTimeEnd
+		}
 			= this.props.route.params;
 
 		this.state = {
@@ -48,8 +48,7 @@ export class Story extends Component {
 			source,
 			dateTimeStart,
 			dateTimeEnd,
-			location,
-			album
+			location
 		};
 
 
@@ -78,14 +77,7 @@ export class Story extends Component {
 	};
 
 	_handleOpenWithLinking = sURL => {
-
-		//if (sURL.indexOf("https://mystamford.edu.sg") == -1) {
 		Linking.openURL(sURL);
-		//} else {
-		//	this.props.navigation.navigate("authPortalEmbed", {
-		//		url: sURL
-		//	});
-		//}
 	};
 
 	_handleEmailPress(email) {
@@ -159,7 +151,7 @@ export class Story extends Component {
 							<TouchableOpacity onPress={() => {
 								// do stuff here
 								console.log("rebuild")
-								rebuildAlbum("8SGypsTFfeiwI8ugMNGU")
+								storageSend("8SGypsTFfeiwI8ugMNGU")
 
 							}}>
 								<Text testID="story.rebuild" style={styles.eventText}>
@@ -285,10 +277,14 @@ export class Story extends Component {
 
 
 					</View>
+
+
 					<ImageList
-						album={this.state.album}
+						feature={this.state._key}
 						refreshFunction={this.refreshFunction}
 					/>
+
+
 				</View>
 			</ScrollView>
 		</View>;
@@ -449,8 +445,6 @@ const styles = StyleSheet.create({
 		color: "blue",
 		textDecorationLine: "underline",
 	},
-
-
 });
 
 const mapStateToProps = state => ({

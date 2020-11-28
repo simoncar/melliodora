@@ -1,43 +1,43 @@
-import React, { useState } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, RefreshControl, ListRenderItemInfo, View as BareView } from 'react-native';
-import { IImage } from '../../core/interfaces';
-import BadgeIcon from './BadgeIcon';
-import { useTheme } from '@react-navigation/native';
-import * as FileSystem from 'expo-file-system';
-import * as firebase from "firebase";
-import _ from "lodash";
 import AlbumImage from "./AlbumImage"
+import { listenPhotos } from "./AlbumAPI"
 
 interface IProps {
-	album: {},
+	feature: string,
 	refreshFunction: any,
 }
 
 export default function ImageList(props: IProps) {
+	const [photos, setPhotos] = useState([]);
+	const feature = props.feature
 
-	const album = props.album
+	useEffect(() => {
+		if (Array.isArray(photos)) {
+			let x = listenPhotos(feature, refreshFunction)
+		}
+	}, []);
 
-	if ((typeof album === "object" || typeof album === 'function') && (album !== null)) {
-		return (
-			<View>
-				{
-
-					Object.keys(album).map(function (key, index) {
-						console.log("el:", album[key])
-						return <AlbumImage
-							key={key}
-							local={album[key].local}
-							server={album[key].server}
-							thumb={album[key].thumb}
-						/>
-					})
-				}
-			</View >
-		);
-	} else {
-		return (null)
+	function refreshFunction(photos) {
+		console.log("Refresh in ImageLIst:", photos)
+		setPhotos(photos);
 	}
+
+	return (
+		<View>
+			{
+				Object.keys(photos).map(function (key, index) {
+					console.log("el:", photos[key])
+					return <AlbumImage
+						key={photos[key].key}
+						local={photos[key].local}
+						server={photos[key].server}
+						thumb={photos[key].thumb}
+					/>
+				})
+			}
+		</View >
+	);
 }
 
 const styles = StyleSheet.create({

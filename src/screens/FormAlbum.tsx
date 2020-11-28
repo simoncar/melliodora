@@ -33,7 +33,7 @@ export default function FormAlbum(props: TProps) {
 	const save = () => {
 
 		console.log("Saving:", items)
-		saveSelectedImages(items)
+		saveSelectedImages(items, storyKey)
 
 	}
 

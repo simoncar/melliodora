@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { StyleSheet, Text, View, Image, RefreshControl, ListRenderItemInfo, View as BareView } from 'react-native';
-import { IImage } from '../../core/interfaces';
-import BadgeIcon from './BadgeIcon';
-import { useTheme } from '@react-navigation/native';
-import * as FileSystem from 'expo-file-system';
 import _ from "lodash";
 
 interface IProps {
@@ -15,11 +10,11 @@ interface IProps {
 }
 
 export default function AlbumImage(props: IProps) {
-	const [isLoading, setIsLoading] = React.useState(true);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const imageURI = props.thumb
 
-	if (imageURI.length > 1) {
+	if (imageURI != undefined && imageURI.length > 1) {
 		return <View>
 			<Image style={styles.storyPhoto}
 				source={{
