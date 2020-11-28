@@ -1,18 +1,44 @@
 import React, { Component } from "react";
-import { Linking, View, TouchableOpacity, TouchableHighlight, Share, StyleSheet, ScrollView } from "react-native";
+import { Linking, View, TouchableHighlight, Share, StyleSheet, ScrollView } from "react-native";
 import { Ionicons, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import ParsedText from "react-native-parsed-text";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global.js";
 import _ from "lodash";
 import Constants from "expo-constants";
-import { storageSend } from "../components/AlbumAPI"
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent"
 import { phoneCalendar } from "../lib/phoneCalendar"
 import ImageList from "../components/ImageList"
 
-export class Story extends Component {
+interface TProps {
+	navigation: any,
+	route: any
+}
+interface TState {
+	photo1: string,
+	summary: string,
+	summaryMyLanguage: string,
+	descriptionMyLanguage: string,
+	description: string,
+	visible: string,
+	visibleMore: string,
+	showIconChat: string,
+	order: string,
+	_key: string,
+	date_start: any,
+	time_start_pretty: any,
+	time_end_pretty: any,
+	source: any,
+	dateTimeStart: any,
+	dateTimeEnd: any,
+	location: any,
+	newState: any
+}
+
+
+export class Story extends Component<TProps, TState>{
+
 	constructor(props) {
 		super(props);
 
@@ -135,47 +161,42 @@ export class Story extends Component {
 	}
 
 	rightSidePhotos() {
-		if (isAdmin(this.props.route.params.adminPassword) && this.state.source == "feature") {
-			return (
-				<TouchableHighlight
-					style={[styles.button, styles.buttonPhotos]}
-					underlayColor="#ff7043"
-					onPress={() => {
-						this.props.navigation.navigate("Albums", {
-							edit: true,
-							...this.state,
-							refreshFunction: this.refreshFunction
-						});
-					}}>
-					<MaterialIcons testID="story.cameraIcon" name="camera" style={styles.icon} />
-				</TouchableHighlight>
-			)
-		}
+		return (
+			<TouchableHighlight
+				style={[styles.button, styles.buttonPhotos]}
+				underlayColor="#ff7043"
+				onPress={() => {
+					this.props.navigation.navigate("Albums", {
+						edit: true,
+						...this.state,
+						refreshFunction: this.refreshFunction
+					});
+				}}>
+				<MaterialIcons testID="story.cameraIcon" name="camera" style={styles.icon} />
+			</TouchableHighlight>
+		)
 	}
 
 	rightSideChat(chatroom, title) {
-		if (Constants.manifest.extra.instance != "sais_edu_sg") {
-			if (this.state.showIconChat == true) {
-				return (
+		if (this.state.showIconChat == true) {
+			return (
 
-					<TouchableHighlight
-						style={[styles.button, styles.buttonChat]}
-						testID="story.chatIcon"
-						onPress={() => {
-							this.props.navigation.navigate("chatStory", {
-								chatroom: chatroom,
-								title: title
-							});
-						}}>
-						<SimpleLineIcons name="bubble" style={styles.icon} />
-					</TouchableHighlight>
+				<TouchableHighlight
+					style={[styles.button, styles.buttonChat]}
+					testID="story.chatIcon"
+					onPress={() => {
+						this.props.navigation.navigate("chatStory", {
+							chatroom: chatroom,
+							title: title
+						});
+					}}>
+					<SimpleLineIcons name="bubble" style={styles.icon} />
+				</TouchableHighlight>
 
 
-				)
-			}
+			)
 		}
 	}
-
 
 	rightSideSend() {
 		if (isAdmin(this.props.route.params.adminPassword)) {
@@ -190,9 +211,6 @@ export class Story extends Component {
 			</TouchableHighlight>;
 		}
 	}
-
-
-
 
 	rightSideCalendar(params) {
 		if (isValue(params.date_start)) {
@@ -266,10 +284,7 @@ export class Story extends Component {
 				<Text selectable style={styles.eventTextAbbreviation}>
 					{getAbbreviations(this.state.summary, global.domain)}
 				</Text>
-
-
 			</View>
-
 		)
 	}
 
