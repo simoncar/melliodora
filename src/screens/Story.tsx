@@ -219,84 +219,78 @@ export class Story extends Component {
 	}
 
 
+	_drawText() {
+		return (
+			<View style={styles.textBox}>
+				<Text selectable style={styles.eventTitle}>
+					{this.state.summaryMyLanguage}
+				</Text>
 
+				{isValue(this.state.location) && <Text selectable style={styles.eventText}>
+					{this.state.location}
+				</Text>}
+
+				{isValue(this.state.date_start) && <Text selectable style={styles.eventText}>
+					{formatMonth(this.state.date_start)}
+				</Text>}
+
+
+				{isValue(this.state.time_start_pretty) && <Text selectable style={styles.eventTextTime}>
+					{formatTime(this.state.time_start_pretty, this.state.time_end_pretty)}
+				</Text>}
+
+
+				<ParsedText style={styles.eventTextBody} testID="story.parsedText"
+					parse={[{
+						pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*[-a-zA-Z0-9@:%_\+~#?&\/=])*/i,
+						style: styles.url,
+						onPress: this._handleOpenWithLinking
+					}, {
+						type: "phone",
+						style: styles.phone,
+						onPress: this._handlePhonePress
+					}, {
+						type: "email",
+						style: styles.email,
+						onPress: this._handleEmailPress
+					}, { pattern: /433333332/, style: styles.magicNumber }, { pattern: /#(\w+)/, style: styles.hashTag }]} childrenProps={{ allowFontScaling: false }}>
+					{this.state.descriptionMyLanguage}
+				</ParsedText>
+
+				{this.props.auth.language != "en" && <Text selectable style={styles.englishFallback}>
+					{"\n\n"}
+					{this.state.description}
+					{"\n\n"}
+				</Text>}
+
+				<Text selectable style={styles.eventTextAbbreviation}>
+					{getAbbreviations(this.state.summary, global.domain)}
+				</Text>
+
+
+			</View>
+
+		)
+	}
 
 	render() {
 		return <View style={styles.container}>
 			{this.rightSideEdit()}
 			{this.rightSidePhotos()}
 			{this.rightSideChat(this.state._key, this.state.summaryMyLanguage)}
-
 			{this.rightSideCalendar(this.state)}
 			{this.rightSideShare()}
 			{this.rightSideSend(this.state)}
 
 			<ScrollView showsVerticalScrollIndicator={false}>
 				{this._drawImage(this.state.photo1)}
+				{this._drawText()}
 
-				<View style={styles.iconRow}>
+				<ImageList
+					feature={this.state._key}
+					refreshFunction={this.refreshFunction}
+				/>
 
-
-				</View>
-
-				<View style={styles.contentView}>
-					<View style={styles.newsContent}>
-						<Text selectable style={styles.eventTitle}>
-							{this.state.summaryMyLanguage}
-						</Text>
-
-						{isValue(this.state.location) && <Text selectable style={styles.eventText}>
-							{this.state.location}
-						</Text>}
-
-						{isValue(this.state.date_start) && <Text selectable style={styles.eventText}>
-							{formatMonth(this.state.date_start)}
-						</Text>}
-
-
-						{isValue(this.state.time_start_pretty) && <Text selectable style={styles.eventTextTime}>
-							{formatTime(this.state.time_start_pretty, this.state.time_end_pretty)}
-						</Text>}
-
-
-						<ParsedText style={styles.eventTextBody} testID="story.parsedText"
-							parse={[{
-								pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*[-a-zA-Z0-9@:%_\+~#?&\/=])*/i,
-								style: styles.url,
-								onPress: this._handleOpenWithLinking
-							}, {
-								type: "phone",
-								style: styles.phone,
-								onPress: this._handlePhonePress
-							}, {
-								type: "email",
-								style: styles.email,
-								onPress: this._handleEmailPress
-							}, { pattern: /433333332/, style: styles.magicNumber }, { pattern: /#(\w+)/, style: styles.hashTag }]} childrenProps={{ allowFontScaling: false }}>
-							{this.state.descriptionMyLanguage}
-						</ParsedText>
-
-						{this.props.auth.language != "en" && <Text selectable style={styles.englishFallback}>
-							{"\n\n"}
-							{this.state.description}
-							{"\n\n"}
-						</Text>}
-
-						<Text selectable style={styles.eventTextAbbreviation}>
-							{getAbbreviations(this.state.summary, global.domain)}
-						</Text>
-
-
-					</View>
-
-
-					<ImageList
-						feature={this.state._key}
-						refreshFunction={this.refreshFunction}
-					/>
-
-
-				</View>
 			</ScrollView>
 		</View>;
 	}
@@ -403,21 +397,9 @@ const styles = StyleSheet.create({
 		paddingBottom: 10,
 		paddingTop: 15,
 	},
-	iconRow: {
-		flexDirection: "row",
-		justifyContent: "flex-end",
-		padding: 5,
-		paddingTop: 10,
-		paddingLeft: 10,
-		paddingRight: 0,
-		flex: 1,
-		borderTopWidth: 1,
-		borderTopColor: "#ddd"
-	},
+
 
 	newsContent: {
-		borderTopColor: "#ddd",
-		borderTopWidth: 1,
 		flexDirection: "column",
 		flex: 1,
 		paddingLeft: 20,
@@ -427,6 +409,25 @@ const styles = StyleSheet.create({
 	storyPhoto: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
+		borderBottomLeftRadius: 15,
+		borderBottomRightRadius: 15,
+		borderColor: "lightgray",
+		borderWidth: 1,
+		elevation: 1,
+		flex: 1,
+		height: 200,
+		marginBottom: 12,
+		shadowColor: "rgba(0,0,0, .4)",
+		shadowOffset: { height: 1, width: 0.5 },
+		shadowOpacity: 0.2,
+		shadowRadius: 0.5,
+		width: "98%",
+	},
+
+	textBox: {
+		padding: 10,
+		backgroundColor: 'rgba(52, 52, 52, 0.03)',
+		alignSelf: "center",
 		borderBottomLeftRadius: 15,
 		borderBottomRightRadius: 15,
 		borderColor: "lightgray",

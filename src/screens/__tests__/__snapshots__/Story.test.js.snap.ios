@@ -398,124 +398,113 @@ exports[`show story no calendar no image 1`] = `
       <View
         style={
           Object {
-            "borderTopColor": "#ddd",
-            "borderTopWidth": 1,
+            "alignSelf": "center",
+            "backgroundColor": "rgba(52, 52, 52, 0.03)",
+            "borderBottomLeftRadius": 15,
+            "borderBottomRightRadius": 15,
+            "borderColor": "lightgray",
+            "borderWidth": 1,
+            "elevation": 1,
             "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-            "padding": 5,
-            "paddingLeft": 10,
-            "paddingRight": 0,
-            "paddingTop": 10,
-          }
-        }
-      />
-      <View
-        style={
-          Object {
-            "flex": 1,
+            "height": 200,
+            "marginBottom": 12,
+            "padding": 10,
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0.5,
+            },
+            "shadowOpacity": 0.2,
+            "shadowRadius": 0.5,
+            "width": "98%",
           }
         }
       >
-        <View
+        <Text
+          selectable={true}
           style={
-            Object {
-              "borderTopColor": "#ddd",
-              "borderTopWidth": 1,
-              "flex": 1,
-              "flexDirection": "column",
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 20,
-            }
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "paddingBottom": 10,
+                "paddingTop": 15,
+              },
+            ]
           }
         >
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "fontWeight": "bold",
-                  "paddingBottom": 10,
-                  "paddingTop": 15,
-                },
-              ]
-            }
-          >
-            Yearbook
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            School cafe
-          </Text>
-          <Text
-            style={
+          Yearbook
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
               Object {
                 "color": "#222",
                 "fontSize": 16,
                 "marginRight": 20,
-                "marginTop": 15,
-              }
+              },
+            ]
+          }
+        >
+          School cafe
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#222",
+              "fontSize": 16,
+              "marginRight": 20,
+              "marginTop": 15,
             }
-            testID="story.parsedText"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-              While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
-            </Text>
-          </Text>
+          }
+          testID="story.parsedText"
+        >
           <Text
-            selectable={true}
+            allowFontScaling={false}
             style={
               Array [
                 Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "grey",
+                  "color": "#222",
                   "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
                 },
+                undefined,
               ]
             }
           >
-            
+            While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
           </Text>
-        </View>
-        <View>
-          <Text>
-            mock
-          </Text>
-        </View>
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "grey",
+                "fontSize": 16,
+              },
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+      <View>
+        <Text>
+          mock
+        </Text>
       </View>
     </View>
   </RCTScrollView>
@@ -821,141 +810,130 @@ exports[`show story on screen 1`] = `
       <View
         style={
           Object {
-            "borderTopColor": "#ddd",
-            "borderTopWidth": 1,
+            "alignSelf": "center",
+            "backgroundColor": "rgba(52, 52, 52, 0.03)",
+            "borderBottomLeftRadius": 15,
+            "borderBottomRightRadius": 15,
+            "borderColor": "lightgray",
+            "borderWidth": 1,
+            "elevation": 1,
             "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-            "padding": 5,
-            "paddingLeft": 10,
-            "paddingRight": 0,
-            "paddingTop": 10,
-          }
-        }
-      />
-      <View
-        style={
-          Object {
-            "flex": 1,
+            "height": 200,
+            "marginBottom": 12,
+            "padding": 10,
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0.5,
+            },
+            "shadowOpacity": 0.2,
+            "shadowRadius": 0.5,
+            "width": "98%",
           }
         }
       >
-        <View
+        <Text
+          selectable={true}
           style={
-            Object {
-              "borderTopColor": "#ddd",
-              "borderTopWidth": 1,
-              "flex": 1,
-              "flexDirection": "column",
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 20,
-            }
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "paddingBottom": 10,
+                "paddingTop": 15,
+              },
+            ]
           }
         >
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "fontWeight": "bold",
-                  "paddingBottom": 10,
-                  "paddingTop": 15,
-                },
-              ]
-            }
-          >
-            Yearbook
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            School cafe
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            November 30th 2020
-          </Text>
-          <Text
-            style={
+          Yearbook
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
               Object {
                 "color": "#222",
                 "fontSize": 16,
                 "marginRight": 20,
-                "marginTop": 15,
-              }
+              },
+            ]
+          }
+        >
+          School cafe
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "marginRight": 20,
+              },
+            ]
+          }
+        >
+          November 30th 2020
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#222",
+              "fontSize": 16,
+              "marginRight": 20,
+              "marginTop": 15,
             }
-            testID="story.parsedText"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-              While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
-            </Text>
-          </Text>
+          }
+          testID="story.parsedText"
+        >
           <Text
-            selectable={true}
+            allowFontScaling={false}
             style={
               Array [
                 Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "grey",
+                  "color": "#222",
                   "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
                 },
+                undefined,
               ]
             }
           >
-            
+            While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
           </Text>
-        </View>
-        <View>
-          <Text>
-            mock
-          </Text>
-        </View>
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "grey",
+                "fontSize": 16,
+              },
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+      <View>
+        <Text>
+          mock
+        </Text>
       </View>
     </View>
   </RCTScrollView>
@@ -1396,282 +1374,271 @@ exports[`show story with URL in content to test linking 1`] = `
       <View
         style={
           Object {
-            "borderTopColor": "#ddd",
-            "borderTopWidth": 1,
+            "alignSelf": "center",
+            "backgroundColor": "rgba(52, 52, 52, 0.03)",
+            "borderBottomLeftRadius": 15,
+            "borderBottomRightRadius": 15,
+            "borderColor": "lightgray",
+            "borderWidth": 1,
+            "elevation": 1,
             "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-            "padding": 5,
-            "paddingLeft": 10,
-            "paddingRight": 0,
-            "paddingTop": 10,
-          }
-        }
-      />
-      <View
-        style={
-          Object {
-            "flex": 1,
+            "height": 200,
+            "marginBottom": 12,
+            "padding": 10,
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0.5,
+            },
+            "shadowOpacity": 0.2,
+            "shadowRadius": 0.5,
+            "width": "98%",
           }
         }
       >
-        <View
+        <Text
+          selectable={true}
           style={
-            Object {
-              "borderTopColor": "#ddd",
-              "borderTopWidth": 1,
-              "flex": 1,
-              "flexDirection": "column",
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 20,
-            }
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "paddingBottom": 10,
+                "paddingTop": 15,
+              },
+            ]
           }
         >
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "fontWeight": "bold",
-                  "paddingBottom": 10,
-                  "paddingTop": 15,
-                },
-              ]
-            }
-          >
-            Yearbook
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            At Google Campus
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            November 30th 2020
-          </Text>
-          <Text
-            style={
+          Yearbook
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
               Object {
                 "color": "#222",
                 "fontSize": 16,
                 "marginRight": 20,
-                "marginTop": 15,
-              }
+              },
+            ]
+          }
+        >
+          At Google Campus
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "marginRight": 20,
+              },
+            ]
+          }
+        >
+          November 30th 2020
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#222",
+              "fontSize": 16,
+              "marginRight": 20,
+              "marginTop": 15,
             }
-            testID="story.parsedText"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-              google 
-            </Text>
-            <Text
-              allowFontScaling={false}
-              onPress={[Function]}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  Object {
-                    "color": "blue",
-                    "textDecorationLine": "underline",
-                  },
-                ]
-              }
-            >
-              https://google.com
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-               is a website mys 
-            </Text>
-            <Text
-              allowFontScaling={false}
-              onPress={[Function]}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  Object {
-                    "color": "blue",
-                    "textDecorationLine": "underline",
-                  },
-                ]
-              }
-            >
-              https://mystamford.edu.sg/somepage
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-               is a website, 
-            </Text>
-            <Text
-              allowFontScaling={false}
-              onPress={[Function]}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  Object {
-                    "color": "blue",
-                    "textDecorationLine": "underline",
-                  },
-                ]
-              }
-            >
-              test@smartcookies.io
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-               is an email and 
-            </Text>
-            <Text
-              allowFontScaling={false}
-              onPress={[Function]}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-              444-555-6666
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-               is a phone number
-            </Text>
-          </Text>
+          }
+          testID="story.parsedText"
+        >
           <Text
-            selectable={true}
+            allowFontScaling={false}
             style={
               Array [
                 Object {
-                  "fontFamily": "SegoeUI",
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                undefined,
+              ]
+            }
+          >
+            google 
+          </Text>
+          <Text
+            allowFontScaling={false}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
                 },
                 Object {
-                  "color": "grey",
-                  "fontSize": 16,
+                  "color": "blue",
+                  "textDecorationLine": "underline",
                 },
               ]
             }
           >
-            
+            https://google.com
           </Text>
-        </View>
-        <View>
-          <Text>
-            mock
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                undefined,
+              ]
+            }
+          >
+             is a website mys 
           </Text>
-        </View>
+          <Text
+            allowFontScaling={false}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                Object {
+                  "color": "blue",
+                  "textDecorationLine": "underline",
+                },
+              ]
+            }
+          >
+            https://mystamford.edu.sg/somepage
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                undefined,
+              ]
+            }
+          >
+             is a website, 
+          </Text>
+          <Text
+            allowFontScaling={false}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                Object {
+                  "color": "blue",
+                  "textDecorationLine": "underline",
+                },
+              ]
+            }
+          >
+            test@smartcookies.io
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                undefined,
+              ]
+            }
+          >
+             is an email and 
+          </Text>
+          <Text
+            allowFontScaling={false}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                undefined,
+              ]
+            }
+          >
+            444-555-6666
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                undefined,
+              ]
+            }
+          >
+             is a phone number
+          </Text>
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "grey",
+                "fontSize": 16,
+              },
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+      <View>
+        <Text>
+          mock
+        </Text>
       </View>
     </View>
   </RCTScrollView>
@@ -2051,141 +2018,130 @@ exports[`show story without chat 1`] = `
       <View
         style={
           Object {
-            "borderTopColor": "#ddd",
-            "borderTopWidth": 1,
+            "alignSelf": "center",
+            "backgroundColor": "rgba(52, 52, 52, 0.03)",
+            "borderBottomLeftRadius": 15,
+            "borderBottomRightRadius": 15,
+            "borderColor": "lightgray",
+            "borderWidth": 1,
+            "elevation": 1,
             "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-            "padding": 5,
-            "paddingLeft": 10,
-            "paddingRight": 0,
-            "paddingTop": 10,
-          }
-        }
-      />
-      <View
-        style={
-          Object {
-            "flex": 1,
+            "height": 200,
+            "marginBottom": 12,
+            "padding": 10,
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0.5,
+            },
+            "shadowOpacity": 0.2,
+            "shadowRadius": 0.5,
+            "width": "98%",
           }
         }
       >
-        <View
+        <Text
+          selectable={true}
           style={
-            Object {
-              "borderTopColor": "#ddd",
-              "borderTopWidth": 1,
-              "flex": 1,
-              "flexDirection": "column",
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 20,
-            }
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "paddingBottom": 10,
+                "paddingTop": 15,
+              },
+            ]
           }
         >
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "fontWeight": "bold",
-                  "paddingBottom": 10,
-                  "paddingTop": 15,
-                },
-              ]
-            }
-          >
-            Yearbook
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            School cafe
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            November 30th 2020
-          </Text>
-          <Text
-            style={
+          Yearbook
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
               Object {
                 "color": "#222",
                 "fontSize": 16,
                 "marginRight": 20,
-                "marginTop": 15,
-              }
+              },
+            ]
+          }
+        >
+          School cafe
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "marginRight": 20,
+              },
+            ]
+          }
+        >
+          November 30th 2020
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#222",
+              "fontSize": 16,
+              "marginRight": 20,
+              "marginTop": 15,
             }
-            testID="story.parsedText"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-              While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
-            </Text>
-          </Text>
+          }
+          testID="story.parsedText"
+        >
           <Text
-            selectable={true}
+            allowFontScaling={false}
             style={
               Array [
                 Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "grey",
+                  "color": "#222",
                   "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
                 },
+                undefined,
               ]
             }
           >
-            
+            While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
           </Text>
-        </View>
-        <View>
-          <Text>
-            mock
-          </Text>
-        </View>
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "grey",
+                "fontSize": 16,
+              },
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+      <View>
+        <Text>
+          mock
+        </Text>
       </View>
     </View>
   </RCTScrollView>
