@@ -129,7 +129,7 @@ export class Story extends Component {
 							refreshFunction: this.refreshFunction
 						});
 					}}>
-					<MaterialIcons name="edit" style={styles.icon} />
+					<MaterialIcons testID="story.editIcon" name="edit" style={styles.icon} />
 				</TouchableHighlight>
 			)
 	}
@@ -147,7 +147,7 @@ export class Story extends Component {
 							refreshFunction: this.refreshFunction
 						});
 					}}>
-					<MaterialIcons name="camera" style={styles.icon} />
+					<MaterialIcons testID="story.cameraIcon" name="camera" style={styles.icon} />
 				</TouchableHighlight>
 			)
 		}
@@ -160,6 +160,7 @@ export class Story extends Component {
 
 					<TouchableHighlight
 						style={[styles.button, styles.buttonChat]}
+						testID="story.chatIcon"
 						onPress={() => {
 							this.props.navigation.navigate("chatStory", {
 								chatroom: chatroom,
@@ -180,6 +181,7 @@ export class Story extends Component {
 		if (isAdmin(this.props.route.params.adminPassword)) {
 			return <TouchableHighlight
 				style={[styles.button, styles.buttonSend]}
+				testID="story.sendIcon"
 				onPress={() => {
 					this.state.summaryMyLanguage;
 					this.props.navigation.navigate("push", this.state);
@@ -194,10 +196,13 @@ export class Story extends Component {
 
 	rightSideCalendar(params) {
 		if (isValue(params.date_start)) {
-			return <TouchableHighlight onPress={() => {
-				phoneCalendar(this.state)
-				//this.props.navigation.navigate("Calendars", this.state);
-			}}>
+			return <TouchableHighlight
+				onPress={() => {
+					phoneCalendar(this.state)
+					//this.props.navigation.navigate("Calendars", this.state);
+				}}
+				testID="story.calendarIcon"
+			>
 				<Ionicons name="ios-calendar" style={styles.icon} />
 			</TouchableHighlight>;
 		}
@@ -206,8 +211,10 @@ export class Story extends Component {
 	rightSideShare() {
 		return <TouchableHighlight
 			style={[styles.button, styles.buttonShare]}
-			onPress={() => this._shareMessage()} testID="story.shareButton">
-			<Ionicons name="ios-share-alt" style={styles.icon} />
+			onPress={() => this._shareMessage()}
+			testID="story.shareButton"
+		>
+			<Ionicons testID="story.shareIcon" name="ios-share-alt" style={styles.icon} />
 		</TouchableHighlight>;
 	}
 
