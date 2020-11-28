@@ -15,10 +15,12 @@ export function SaveFeature(dict) {
 		visibleMore: visibleMore,
 		translated: false,
 		photo1: photo1,
-		dateTimeStart: dateTimeStart != undefined ? new Date(dateTimeStart) : null,
-		dateTimeEnd: dateTimeEnd != undefined ? new Date(dateTimeEnd) : null,
+		dateTimeStart: null,
+		dateTimeEnd: null,
 		date_start: date_start != undefined ? date_start : ""
 	}
+
+	console.log("storyDict:", storyDict)
 
 	if (_key == "") {
 		firebase.firestore().collection(global.domain).doc("feature").collection("features").add(storyDict);

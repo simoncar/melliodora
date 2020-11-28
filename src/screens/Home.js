@@ -4,8 +4,6 @@ import Constants from "expo-constants";
 import firebase from "firebase";
 import AsyncStorage from '@react-native-community/async-storage';
 import { getLanguageString } from "../lib/global";
-import { logToCalendar } from "../lib/systemHero";
-
 import ListItem from "../components/StoryListItem";
 import moment from "moment";
 import { setUserInfo } from "../store/auth";
@@ -49,9 +47,12 @@ class Home extends Component {
 			this.loadBalance();
 		}
 
-		logToCalendar("AppStarts-" + global.domain, "Startup Count", global.domain, this.props.auth.userInfo.email || "");
-
-		this.feature = firebase.firestore().collection(global.domain).doc("feature").collection("features").orderBy("order");
+		this.feature = firebase
+			.firestore()
+			.collection(global.domain)
+			.doc("feature")
+			.collection("features")
+			.orderBy("order");
 
 		this.loadCalendar();
 
@@ -59,8 +60,6 @@ class Home extends Component {
 
 		const { navigation } = this.props;
 		this.focusListener = navigation.addListener("didFocus", () => {
-			// The screen is focused
-			// Call any action
 			this.loadBalance();
 			this.loadCalendar();
 		});
@@ -83,10 +82,7 @@ class Home extends Component {
 					break;
 			}
 		});
-
-
 	}
-
 
 	componentDidUpdate() {
 		if (this.state.timer === 1) {
@@ -96,7 +92,6 @@ class Home extends Component {
 
 	componentWillUnmount() {
 		this.unsubscribeFeature();
-		//this.focusListener.remove();
 		clearInterval(this.interval);
 	}
 	updateMessage() {
@@ -105,93 +100,45 @@ class Home extends Component {
 		}
 	}
 
-	loadBalance() {
-
-
-	}
-
-	// loadBalance() {
-	// 	var balanceItems = [];
-
-	// 	let balance = firebase.firestore().collection("sais_edu_sg").doc("user").collection("usernames").doc("Rh9hEJmOyLR12WfflrLCCvvpIWD2").get().then(snapshot => {
-	// 		if (!snapshot.exists) {
-	// 			return;
-	// 		}
-	// 		const data = snapshot.data();
-	// 		//.push({ campusBalance: data.campusBalance });
-
-	// 		var trans = {
-	// 			visible: true,
-	// 			source: "balance",
-	// 			summaryMyLanguage: "$" + data.campusBalance.toFixed(2),
-	// 			summary: "$" + data.campusBalance.toFixed(2),
-	// 			summaryEN: "$" + data.campusBalance.toFixed(2),
-	// 			color: "red",
-	// 			showIconChat: false,
-	// 			location: "Cafeteria Account Balance"
-	// 		};
-
-	// 		var familyId = data.guid.substring(data.guid.indexOf("iSAMSparents:") + 13, data.guid.indexOf("-"));
-
-	// 		balanceItems.push({ ...{ _key: snapshot.id }, ...data, ...trans });
-	// 		if (balanceItems.length > 0) {
-	// 			this.setState({
-	// 				balanceItems
-	// 			});
-	// 		}
-	// 	});
-	// }
 
 	loadCalendar() {
 		const todayDate = moment().format("YYYY-MM-DD");
 
 		var calendarItems = [];
 
-		if (global.domain === "sais_edu_sg") {
-			// var a = moment("2020-08-12");
-			// var b = moment();
-			// // =1
-			// var schoolStarts = a.diff(b, 'days') + 1
-
-			// var trans = {
-			// 	visible: true,
-			// 	source: "calendar",
-			// 	summaryMyLanguage: "School Starts In " + schoolStarts + " Days",
-			// 	date_start: "2020-08-12",
-			// 	color: "red",
-			// 	showIconChat: false,
-			// 	photo1: "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202006%2F7a2af15c-093b-4722-af28-a313a76a6676?alt=media&token=16f5257e-ba70-4906-aa28-48b4c16cf0d5",
-			// 	descriptionMyLanguage: "2020/2021 Calendar\n\nhttps://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202006%2FPTACalendar.pdf?alt=media&token=9c93542f-1d0d-4d13-bd55-4c22c191d703"
-			// };
-			// calendarItems.push({ ...{ _key: "schoolStarts" }, ...trans });
-		}
-
-		let calendar = firebase.firestore().collection(global.domain).doc("calendar").collection("calendarItems").where("date_start", "==", todayDate).get().then(snapshot => {
-			snapshot.forEach(doc => {
-				var trans = {
-					visible: true,
-					source: "calendar",
-					summaryMyLanguage: getLanguageString(this.language, doc.data(), "summary"),
-					summary: doc.data().summary,
-					summaryEN: doc.data().summary,
-					date_start: doc.data().date_start,
-					color: "red",
-					showIconChat: false,
-					descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description"),
-					number: doc.data().number
-				};
-				calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
-			});
-			if (calendarItems.length > 0) {
+		firebase
+			.firestore()
+			.collection(global.domain)
+			.doc("calendar")
+			.collection("calendarItems")
+			.where("date_start", "==", todayDate)
+			.get()
+			.then(snapshot => {
+				snapshot.forEach(doc => {
+					var trans = {
+						visible: true,
+						source: "calendar",
+						summaryMyLanguage: getLanguageString(this.language, doc.data(), "summary"),
+						summary: doc.data().summary,
+						summaryEN: doc.data().summary,
+						date_start: doc.data().date_start,
+						color: "red",
+						showIconChat: false,
+						descriptionMyLanguage: getLanguageString(this.language, doc.data(), "description"),
+						number: doc.data().number
+					};
+					calendarItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
+				});
+				if (calendarItems.length > 0) {
+					this.setState({
+						calendarItems,
+						loading: false
+					});
+				}
 				this.setState({
-					calendarItems,
 					loading: false
 				});
-			}
-			this.setState({
-				loading: false
 			});
-		});
 
 		var trans = {
 			visible: true,
@@ -222,6 +169,7 @@ class Home extends Component {
 			if (!doc.data().visible == false) {
 				featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
 			}
+
 		});
 
 		if (featureItems.length > 0) {
@@ -267,11 +215,22 @@ class Home extends Component {
 	};
 
 	_renderItem(navigation, item) {
-		return <ListItem key={item._key} navigation={navigation} item={item} card={true} language={this.language} />
+		return <ListItem
+			key={item._key}
+			navigation={navigation}
+			item={item}
+			card={true}
+			language={this.language} />
 	}
 
 	_renderItemNoCard(navigation, item) {
-		return <ListItem key={item._key} navigation={navigation} item={item} card={false} language={this.language} />;
+		return <ListItem
+			key={item._key}
+			navigation={navigation}
+			item={item}
+			card={false}
+			language={this.language}
+		/>;
 	}
 	_renderBalance() {
 		if (global.domain === "oakforest_international_edu") {

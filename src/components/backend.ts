@@ -17,9 +17,6 @@ export class Backend extends React.Component {
 		};
 	}
 
-	setUid(value) {
-		//this.uid = value;
-	}
 
 	setLanguage(language) {
 		this.language = language;

@@ -22,9 +22,6 @@ class Form extends Component {
 	uid = "";
 	storyRef = null;
 
-
-
-
 	constructor(props) {
 		super(props);
 
@@ -52,7 +49,6 @@ class Form extends Component {
 			notifyMeSwitch: false
 		};
 
-
 		this.handlerChat = this.handlerChat.bind(this);
 		this.handlerOrder = this.handlerOrder.bind(this);
 		this.handlerVisible = this.handlerVisible.bind(this);
@@ -65,7 +61,7 @@ class Form extends Component {
 
 		navigation.setOptions({
 			save: this.save,
-			headerRight: () => <Button onPress={() => this.save()} title="Save" />,
+			headerRight: () => <Button onPress={() => this.save()} title={I18n.t("save")} />,
 		});
 	}
 
@@ -100,14 +96,22 @@ class Form extends Component {
 	};
 
 	save() {
+
+		console.log("saving...")
+		console.log("edit prop:", this.props.route.params.edit);
+
+		SaveFeature(this.state);
+
 		if (this.props.route.params.edit) {
 			const refreshFunction = this.props.route.params.refreshFunction;
 			refreshFunction(this.state);
+			const popAction = StackActions.pop(1);
+			this.props.navigation.dispatch(popAction);
+		} else {
+			const popAction = StackActions.pop(2);
+			this.props.navigation.dispatch(popAction);
 		}
 
-		SaveFeature(this.state);
-		const popAction = StackActions.pop(2);
-		this.props.navigation.dispatch(popAction);
 	}
 
 	deleteHandler(navigation) {
@@ -167,7 +171,7 @@ class Form extends Component {
 
 	_pickImage = async () => {
 		var d = new Date();
-		
+
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images
 		});

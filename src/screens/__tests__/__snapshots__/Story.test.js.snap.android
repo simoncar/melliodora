@@ -19,27 +19,29 @@ exports[`show story no calendar no image 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "backgroundColor": "#ff5722",
-        "borderColor": "#ff5722",
-        "borderRadius": 25,
-        "borderWidth": 1,
-        "bottom": 20,
-        "height": 50,
-        "justifyContent": "center",
-        "position": "absolute",
-        "right": 20,
-        "shadowColor": "#000000",
-        "shadowOffset": Object {
-          "height": 1,
-          "width": 0,
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
         },
-        "shadowOpacity": 0.8,
-        "shadowRadius": 2,
-        "width": 50,
-        "zIndex": 990,
-      }
+        Object {
+          "bottom": 10,
+        },
+      ]
     }
   >
     <Text
@@ -62,8 +64,254 @@ exports[`show story no calendar no image 1`] = `
           Object {},
         ]
       }
+      testID="story.editIcon"
     >
       
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 70,
+        },
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+      testID="story.cameraIcon"
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 130,
+        },
+      ]
+    }
+    testID="story.chatIcon"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "simple-line-icons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 250,
+        },
+      ]
+    }
+    testID="story.shareButton"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "ionicons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+      testID="story.shareIcon"
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 190,
+        },
+      ]
+    }
+    testID="story.sendIcon"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "material-community",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
     </Text>
   </View>
   <RCTScrollView
@@ -141,321 +389,113 @@ exports[`show story no calendar no image 1`] = `
       <View
         style={
           Object {
-            "borderTopColor": "#ddd",
-            "borderTopWidth": 1,
+            "alignSelf": "center",
+            "backgroundColor": "rgba(52, 52, 52, 0.03)",
+            "borderBottomLeftRadius": 15,
+            "borderBottomRightRadius": 15,
+            "borderColor": "lightgray",
+            "borderWidth": 1,
+            "elevation": 1,
             "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-            "padding": 5,
-            "paddingLeft": 10,
-            "paddingRight": 0,
-            "paddingTop": 10,
+            "height": 200,
+            "marginBottom": 12,
+            "padding": 10,
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0.5,
+            },
+            "shadowOpacity": 0.2,
+            "shadowRadius": 0.5,
+            "width": "98%",
           }
         }
       >
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+        <Text
+          selectable={true}
           style={
-            Object {
-              "opacity": 1,
-            }
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "paddingBottom": 10,
+                "paddingTop": 15,
+              },
+            ]
           }
         >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-            testID="story.chatIcon"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 12,
-                  },
-                  Object {
-                    "color": "#222",
-                    "fontSize": 30,
-                    "marginRight": 200,
-                    "paddingRight": 200,
-                  },
-                  Object {
-                    "fontFamily": "simple-line-icons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+          Yearbook
+        </Text>
+        <Text
+          selectable={true}
           style={
-            Object {
-              "opacity": 1,
-            }
-          }
-          testID="story.shareButton"
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 12,
-                  },
-                  Object {
-                    "color": "#222",
-                    "fontSize": 30,
-                    "marginRight": 200,
-                    "paddingRight": 200,
-                  },
-                  Object {
-                    "fontFamily": "ionicons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "paddingBottom": 15,
-                  "paddingLeft": 15,
-                  "paddingRight": 10,
-                },
-              ]
-            }
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 12,
-                  },
-                  Object {
-                    "color": "#ff5722",
-                    "fontSize": 30,
-                    "marginRight": 200,
-                    "paddingRight": 200,
-                  },
-                  Object {
-                    "fontFamily": "material-community",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-             
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "flex": 1,
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "borderTopColor": "#ddd",
-              "borderTopWidth": 1,
-              "flex": 1,
-              "flexDirection": "column",
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 20,
-            }
-          }
-        >
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "fontWeight": "bold",
-                  "paddingBottom": 10,
-                  "paddingTop": 15,
-                },
-              ]
-            }
-          >
-            Yearbook
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            School cafe
-          </Text>
-          <Text
-            style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
               Object {
                 "color": "#222",
                 "fontSize": 16,
                 "marginRight": 20,
-                "marginTop": 15,
-              }
+              },
+            ]
+          }
+        >
+          School cafe
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#222",
+              "fontSize": 16,
+              "marginRight": 20,
+              "marginTop": 15,
             }
-            testID="story.parsedText"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-              While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
-            </Text>
-          </Text>
+          }
+          testID="story.parsedText"
+        >
           <Text
+            allowFontScaling={false}
             style={
               Array [
                 Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "grey",
+                  "color": "#222",
                   "fontSize": 16,
-                  "paddingBottom": 100,
+                  "marginRight": 20,
+                  "marginTop": 15,
                 },
+                undefined,
               ]
             }
           >
-            
+            While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
           </Text>
-        </View>
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "grey",
+                "fontSize": 16,
+              },
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+      <View>
+        <Text>
+          mock
+        </Text>
       </View>
     </View>
   </RCTScrollView>
@@ -481,28 +521,199 @@ exports[`show story on screen 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "backgroundColor": "#ff5722",
-        "borderColor": "#ff5722",
-        "borderRadius": 25,
-        "borderWidth": 1,
-        "bottom": 20,
-        "height": 50,
-        "justifyContent": "center",
-        "position": "absolute",
-        "right": 20,
-        "shadowColor": "#000000",
-        "shadowOffset": Object {
-          "height": 1,
-          "width": 0,
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
         },
-        "shadowOpacity": 0.8,
-        "shadowRadius": 2,
-        "width": 50,
-        "zIndex": 990,
-      }
+        Object {
+          "bottom": 10,
+        },
+      ]
     }
+  >
+    <Text />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 70,
+        },
+      ]
+    }
+  >
+    <Text />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 130,
+        },
+      ]
+    }
+    testID="story.chatIcon"
+  >
+    <Text />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    testID="story.calendarIcon"
+  >
+    <Text />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 250,
+        },
+      ]
+    }
+    testID="story.shareButton"
+  >
+    <Text />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 190,
+        },
+      ]
+    }
+    testID="story.sendIcon"
   >
     <Text />
   </View>
@@ -581,300 +792,130 @@ exports[`show story on screen 1`] = `
       <View
         style={
           Object {
-            "borderTopColor": "#ddd",
-            "borderTopWidth": 1,
+            "alignSelf": "center",
+            "backgroundColor": "rgba(52, 52, 52, 0.03)",
+            "borderBottomLeftRadius": 15,
+            "borderBottomRightRadius": 15,
+            "borderColor": "lightgray",
+            "borderWidth": 1,
+            "elevation": 1,
             "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-            "padding": 5,
-            "paddingLeft": 10,
-            "paddingRight": 0,
-            "paddingTop": 10,
+            "height": 200,
+            "marginBottom": 12,
+            "padding": 10,
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0.5,
+            },
+            "shadowOpacity": 0.2,
+            "shadowRadius": 0.5,
+            "width": "98%",
           }
         }
       >
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+        <Text
+          selectable={true}
           style={
-            Object {
-              "opacity": 1,
-            }
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "paddingBottom": 10,
+                "paddingTop": 15,
+              },
+            ]
           }
         >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-            testID="story.chatIcon"
-          >
-            <Text />
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+          Yearbook
+        </Text>
+        <Text
+          selectable={true}
           style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-            testID="story.calendarIcon"
-          >
-            <Text />
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-          testID="story.shareButton"
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            <Text />
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "paddingBottom": 15,
-                  "paddingLeft": 15,
-                  "paddingRight": 10,
-                },
-              ]
-            }
-          >
-            <Text />
-             
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "flex": 1,
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "borderTopColor": "#ddd",
-              "borderTopWidth": 1,
-              "flex": 1,
-              "flexDirection": "column",
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 20,
-            }
-          }
-        >
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "fontWeight": "bold",
-                  "paddingBottom": 10,
-                  "paddingTop": 15,
-                },
-              ]
-            }
-          >
-            Yearbook
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            School cafe
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            November 30th 2020
-          </Text>
-          <Text
-            style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
               Object {
                 "color": "#222",
                 "fontSize": 16,
                 "marginRight": 20,
-                "marginTop": 15,
-              }
+              },
+            ]
+          }
+        >
+          School cafe
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "marginRight": 20,
+              },
+            ]
+          }
+        >
+          November 30th 2020
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#222",
+              "fontSize": 16,
+              "marginRight": 20,
+              "marginTop": 15,
             }
-            testID="story.parsedText"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-              While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
-            </Text>
-          </Text>
+          }
+          testID="story.parsedText"
+        >
           <Text
+            allowFontScaling={false}
             style={
               Array [
                 Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "grey",
+                  "color": "#222",
                   "fontSize": 16,
-                  "paddingBottom": 100,
+                  "marginRight": 20,
+                  "marginTop": 15,
                 },
+                undefined,
               ]
             }
           >
-            
+            While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
           </Text>
-        </View>
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "grey",
+                "fontSize": 16,
+              },
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+      <View>
+        <Text>
+          mock
+        </Text>
       </View>
     </View>
   </RCTScrollView>
@@ -900,27 +941,29 @@ exports[`show story with URL in content to test linking 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "backgroundColor": "#ff5722",
-        "borderColor": "#ff5722",
-        "borderRadius": 25,
-        "borderWidth": 1,
-        "bottom": 20,
-        "height": 50,
-        "justifyContent": "center",
-        "position": "absolute",
-        "right": 20,
-        "shadowColor": "#000000",
-        "shadowOffset": Object {
-          "height": 1,
-          "width": 0,
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
         },
-        "shadowOpacity": 0.8,
-        "shadowRadius": 2,
-        "width": 50,
-        "zIndex": 990,
-      }
+        Object {
+          "bottom": 10,
+        },
+      ]
     }
   >
     <Text
@@ -943,8 +986,290 @@ exports[`show story with URL in content to test linking 1`] = `
           Object {},
         ]
       }
+      testID="story.editIcon"
     >
       
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 70,
+        },
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+      testID="story.cameraIcon"
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 130,
+        },
+      ]
+    }
+    testID="story.chatIcon"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "simple-line-icons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    testID="story.calendarIcon"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "ionicons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 250,
+        },
+      ]
+    }
+    testID="story.shareButton"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "ionicons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+      testID="story.shareIcon"
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 190,
+        },
+      ]
+    }
+    testID="story.sendIcon"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "material-community",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
     </Text>
   </View>
   <RCTScrollView
@@ -1022,537 +1347,271 @@ exports[`show story with URL in content to test linking 1`] = `
       <View
         style={
           Object {
-            "borderTopColor": "#ddd",
-            "borderTopWidth": 1,
+            "alignSelf": "center",
+            "backgroundColor": "rgba(52, 52, 52, 0.03)",
+            "borderBottomLeftRadius": 15,
+            "borderBottomRightRadius": 15,
+            "borderColor": "lightgray",
+            "borderWidth": 1,
+            "elevation": 1,
             "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-            "padding": 5,
-            "paddingLeft": 10,
-            "paddingRight": 0,
-            "paddingTop": 10,
+            "height": 200,
+            "marginBottom": 12,
+            "padding": 10,
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0.5,
+            },
+            "shadowOpacity": 0.2,
+            "shadowRadius": 0.5,
+            "width": "98%",
           }
         }
       >
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+        <Text
+          selectable={true}
           style={
-            Object {
-              "opacity": 1,
-            }
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "paddingBottom": 10,
+                "paddingTop": 15,
+              },
+            ]
           }
         >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-            testID="story.chatIcon"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 12,
-                  },
-                  Object {
-                    "color": "#222",
-                    "fontSize": 30,
-                    "marginRight": 200,
-                    "paddingRight": 200,
-                  },
-                  Object {
-                    "fontFamily": "simple-line-icons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+          Yearbook
+        </Text>
+        <Text
+          selectable={true}
           style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-            testID="story.calendarIcon"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 12,
-                  },
-                  Object {
-                    "color": "#222",
-                    "fontSize": 30,
-                    "marginRight": 200,
-                    "paddingRight": 200,
-                  },
-                  Object {
-                    "fontFamily": "ionicons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-          testID="story.shareButton"
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 12,
-                  },
-                  Object {
-                    "color": "#222",
-                    "fontSize": 30,
-                    "marginRight": 200,
-                    "paddingRight": 200,
-                  },
-                  Object {
-                    "fontFamily": "ionicons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "paddingBottom": 15,
-                  "paddingLeft": 15,
-                  "paddingRight": 10,
-                },
-              ]
-            }
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 12,
-                  },
-                  Object {
-                    "color": "#ff5722",
-                    "fontSize": 30,
-                    "marginRight": 200,
-                    "paddingRight": 200,
-                  },
-                  Object {
-                    "fontFamily": "material-community",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-             
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "flex": 1,
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "borderTopColor": "#ddd",
-              "borderTopWidth": 1,
-              "flex": 1,
-              "flexDirection": "column",
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 20,
-            }
-          }
-        >
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "fontWeight": "bold",
-                  "paddingBottom": 10,
-                  "paddingTop": 15,
-                },
-              ]
-            }
-          >
-            Yearbook
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            At Google Campus
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            November 30th 2020
-          </Text>
-          <Text
-            style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
               Object {
                 "color": "#222",
                 "fontSize": 16,
                 "marginRight": 20,
-                "marginTop": 15,
-              }
+              },
+            ]
+          }
+        >
+          At Google Campus
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "marginRight": 20,
+              },
+            ]
+          }
+        >
+          November 30th 2020
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#222",
+              "fontSize": 16,
+              "marginRight": 20,
+              "marginTop": 15,
             }
-            testID="story.parsedText"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-              google 
-            </Text>
-            <Text
-              allowFontScaling={false}
-              onPress={[Function]}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  Object {
-                    "color": "blue",
-                    "textDecorationLine": "underline",
-                  },
-                ]
-              }
-            >
-              https://google.com
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-               is a website mys 
-            </Text>
-            <Text
-              allowFontScaling={false}
-              onPress={[Function]}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  Object {
-                    "color": "blue",
-                    "textDecorationLine": "underline",
-                  },
-                ]
-              }
-            >
-              https://mystamford.edu.sg/somepage
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-               is a website, 
-            </Text>
-            <Text
-              allowFontScaling={false}
-              onPress={[Function]}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  Object {
-                    "color": "blue",
-                    "textDecorationLine": "underline",
-                  },
-                ]
-              }
-            >
-              test@smartcookies.io
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-               is an email and 
-            </Text>
-            <Text
-              allowFontScaling={false}
-              onPress={[Function]}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-              444-555-6666
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-               is a phone number
-            </Text>
-          </Text>
+          }
+          testID="story.parsedText"
+        >
           <Text
+            allowFontScaling={false}
             style={
               Array [
                 Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "grey",
+                  "color": "#222",
                   "fontSize": 16,
-                  "paddingBottom": 100,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                undefined,
+              ]
+            }
+          >
+            google 
+          </Text>
+          <Text
+            allowFontScaling={false}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                Object {
+                  "color": "blue",
+                  "textDecorationLine": "underline",
                 },
               ]
             }
           >
-            
+            https://google.com
           </Text>
-        </View>
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                undefined,
+              ]
+            }
+          >
+             is a website mys 
+          </Text>
+          <Text
+            allowFontScaling={false}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                Object {
+                  "color": "blue",
+                  "textDecorationLine": "underline",
+                },
+              ]
+            }
+          >
+            https://mystamford.edu.sg/somepage
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                undefined,
+              ]
+            }
+          >
+             is a website, 
+          </Text>
+          <Text
+            allowFontScaling={false}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                Object {
+                  "color": "blue",
+                  "textDecorationLine": "underline",
+                },
+              ]
+            }
+          >
+            test@smartcookies.io
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                undefined,
+              ]
+            }
+          >
+             is an email and 
+          </Text>
+          <Text
+            allowFontScaling={false}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                undefined,
+              ]
+            }
+          >
+            444-555-6666
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "#222",
+                  "fontSize": 16,
+                  "marginRight": 20,
+                  "marginTop": 15,
+                },
+                undefined,
+              ]
+            }
+          >
+             is a phone number
+          </Text>
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "grey",
+                "fontSize": 16,
+              },
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+      <View>
+        <Text>
+          mock
+        </Text>
       </View>
     </View>
   </RCTScrollView>
@@ -1578,27 +1637,29 @@ exports[`show story without chat 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "backgroundColor": "#ff5722",
-        "borderColor": "#ff5722",
-        "borderRadius": 25,
-        "borderWidth": 1,
-        "bottom": 20,
-        "height": 50,
-        "justifyContent": "center",
-        "position": "absolute",
-        "right": 20,
-        "shadowColor": "#000000",
-        "shadowOffset": Object {
-          "height": 1,
-          "width": 0,
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
         },
-        "shadowOpacity": 0.8,
-        "shadowRadius": 2,
-        "width": 50,
-        "zIndex": 990,
-      }
+        Object {
+          "bottom": 10,
+        },
+      ]
     }
   >
     <Text
@@ -1621,8 +1682,229 @@ exports[`show story without chat 1`] = `
           Object {},
         ]
       }
+      testID="story.editIcon"
     >
       
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 70,
+        },
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+      testID="story.cameraIcon"
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    testID="story.calendarIcon"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "ionicons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 250,
+        },
+      ]
+    }
+    testID="story.shareButton"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "ionicons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+      testID="story.shareIcon"
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 190,
+        },
+      ]
+    }
+    testID="story.sendIcon"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "material-community",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
     </Text>
   </View>
   <RCTScrollView
@@ -1700,338 +1982,130 @@ exports[`show story without chat 1`] = `
       <View
         style={
           Object {
-            "borderTopColor": "#ddd",
-            "borderTopWidth": 1,
+            "alignSelf": "center",
+            "backgroundColor": "rgba(52, 52, 52, 0.03)",
+            "borderBottomLeftRadius": 15,
+            "borderBottomRightRadius": 15,
+            "borderColor": "lightgray",
+            "borderWidth": 1,
+            "elevation": 1,
             "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-            "padding": 5,
-            "paddingLeft": 10,
-            "paddingRight": 0,
-            "paddingTop": 10,
+            "height": 200,
+            "marginBottom": 12,
+            "padding": 10,
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0.5,
+            },
+            "shadowOpacity": 0.2,
+            "shadowRadius": 0.5,
+            "width": "98%",
           }
         }
       >
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+        <Text
+          selectable={true}
           style={
-            Object {
-              "opacity": 1,
-            }
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "paddingBottom": 10,
+                "paddingTop": 15,
+              },
+            ]
           }
         >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-            testID="story.calendarIcon"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 12,
-                  },
-                  Object {
-                    "color": "#222",
-                    "fontSize": 30,
-                    "marginRight": 200,
-                    "paddingRight": 200,
-                  },
-                  Object {
-                    "fontFamily": "ionicons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+          Yearbook
+        </Text>
+        <Text
+          selectable={true}
           style={
-            Object {
-              "opacity": 1,
-            }
-          }
-          testID="story.shareButton"
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 12,
-                  },
-                  Object {
-                    "color": "#222",
-                    "fontSize": 30,
-                    "marginRight": 200,
-                    "paddingRight": 200,
-                  },
-                  Object {
-                    "fontFamily": "ionicons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "paddingBottom": 15,
-                  "paddingLeft": 15,
-                  "paddingRight": 10,
-                },
-              ]
-            }
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 12,
-                  },
-                  Object {
-                    "color": "#ff5722",
-                    "fontSize": 30,
-                    "marginRight": 200,
-                    "paddingRight": 200,
-                  },
-                  Object {
-                    "fontFamily": "material-community",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-             
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "flex": 1,
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "borderTopColor": "#ddd",
-              "borderTopWidth": 1,
-              "flex": 1,
-              "flexDirection": "column",
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 20,
-            }
-          }
-        >
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "fontWeight": "bold",
-                  "paddingBottom": 10,
-                  "paddingTop": 15,
-                },
-              ]
-            }
-          >
-            Yearbook
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            School cafe
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#222",
-                  "fontSize": 16,
-                  "marginRight": 20,
-                },
-              ]
-            }
-          >
-            November 30th 2020
-          </Text>
-          <Text
-            style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
               Object {
                 "color": "#222",
                 "fontSize": 16,
                 "marginRight": 20,
-                "marginTop": 15,
-              }
+              },
+            ]
+          }
+        >
+          School cafe
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#222",
+                "fontSize": 16,
+                "marginRight": 20,
+              },
+            ]
+          }
+        >
+          November 30th 2020
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#222",
+              "fontSize": 16,
+              "marginRight": 20,
+              "marginTop": 15,
             }
-            testID="story.parsedText"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#222",
-                    "fontSize": 16,
-                    "marginRight": 20,
-                    "marginTop": 15,
-                  },
-                  undefined,
-                ]
-              }
-            >
-              While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
-            </Text>
-          </Text>
+          }
+          testID="story.parsedText"
+        >
           <Text
+            allowFontScaling={false}
             style={
               Array [
                 Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                undefined,
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            selectable={true}
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "grey",
+                  "color": "#222",
                   "fontSize": 16,
-                  "paddingBottom": 100,
+                  "marginRight": 20,
+                  "marginTop": 15,
                 },
+                undefined,
               ]
             }
           >
-            
+            While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.
           </Text>
-        </View>
+        </Text>
+        <Text
+          selectable={true}
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "grey",
+                "fontSize": 16,
+              },
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+      <View>
+        <Text>
+          mock
+        </Text>
       </View>
     </View>
   </RCTScrollView>
