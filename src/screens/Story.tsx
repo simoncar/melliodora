@@ -175,6 +175,7 @@ export class Story extends Component<TProps, TState>{
 	rightSideEdit(position) {
 		return (
 			<TouchableHighlight
+				key="rightSideEdit"
 				style={[styles.button, { bottom: (10 + position * 60) }]} underlayColor="#ff7043"
 				onPress={() => {
 					this.props.navigation.navigate("Form", {
@@ -191,13 +192,13 @@ export class Story extends Component<TProps, TState>{
 	rightSidePhotos(position) {
 		return (
 			<TouchableHighlight
+				key="rightSidePhotos"
 				style={[styles.button, { bottom: (10 + position * 60) }]}
 				underlayColor="#ff7043"
 				onPress={() => {
 					this.props.navigation.navigate("Albums", {
 						edit: true,
 						...this.state,
-						refreshFunction: this.refreshFunction
 					});
 				}}>
 				<MaterialIcons testID="story.cameraIcon" name="camera" style={styles.icon} />
@@ -208,6 +209,7 @@ export class Story extends Component<TProps, TState>{
 	rightSideChat(position, chatroom, title) {
 		return (
 			<TouchableHighlight
+				key="rightSideChat"
 				style={[styles.button, { bottom: (10 + position * 60) }]}
 				testID="story.chatIcon"
 				onPress={() => {
@@ -223,6 +225,7 @@ export class Story extends Component<TProps, TState>{
 
 	rightSideSend(position) {
 		return <TouchableHighlight
+			key="rightSideSend"
 			style={[styles.button, { bottom: (10 + position * 60) }]}
 			testID="story.sendIcon"
 			onPress={() => {
@@ -237,6 +240,7 @@ export class Story extends Component<TProps, TState>{
 	rightSideCalendar(position) {
 
 		return <TouchableHighlight
+			key="rightSideCalendar"
 			style={[styles.button, { bottom: (10 + position * 60) }]}
 			testID="story.calendarIcon"
 			onPress={() => {
@@ -253,6 +257,7 @@ export class Story extends Component<TProps, TState>{
 
 	rightSideShare(position) {
 		return <TouchableHighlight
+			key="rightSideShare"
 			style={[styles.button, { bottom: (10 + position * 60) }]}
 			onPress={() => this._shareMessage()}
 			testID="story.shareButton"

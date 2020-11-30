@@ -11,7 +11,7 @@ export interface CameraRollResult {
 	loadMore: () => Promise<void>;
 }
 
-export function useCameraRoll(): CameraRollResult {
+export function useCameraRoll(album: string): CameraRollResult {
 	const [assets, setAssets] = React.useState<MediaLibrary.Asset[]>([]);
 	const [isRefreshing, setRefreshing] = React.useState(true);
 	const [isLoadingMore, setLoadingMore] = React.useState(false);
@@ -20,8 +20,8 @@ export function useCameraRoll(): CameraRollResult {
 
 	const loadMorePhotos = async () => {
 		setLoadingMore(true);
-
-		const promiseAlbum = await MediaLibrary.getAlbumAsync("Imports")
+		console.log("useCameraRoll:", album)
+		const promiseAlbum = await MediaLibrary.getAlbumAsync(album)
 
 		const result = await MediaLibrary.getAssetsAsync({
 			mediaType: MediaLibrary.MediaType.photo,

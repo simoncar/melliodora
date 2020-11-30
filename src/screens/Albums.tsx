@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FlatList, StyleSheet, TouchableOpacity, View, SafeAreaView } from "react-native";
 import { SettingsListItem } from "../components/SettingsListItem";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import { Text } from "../components/sComponent";
 import { connect } from "react-redux";
@@ -45,12 +45,16 @@ export class SelectAlbum extends Component<TProps, TState>{
 			_key: string;
 		}[] = [];
 
+
 		MediaLibrary.requestPermissionsAsync()
 			.then(status => {
 
 				MediaLibrary.getAlbumsAsync()
 					.then(albumsList => {
+
 						albumsList.forEach(album => {
+							console.log("album:", album)
+
 							albums.push({
 								title: album.title,
 								_key: album.id
@@ -75,12 +79,13 @@ export class SelectAlbum extends Component<TProps, TState>{
 				title={item.title}
 				onPress={() => {
 					this.props.navigation.navigate("FormAlbum", {
-						storyKey: this.state.storyKey
-
+						storyKey: this.state.storyKey,
+						album: item.title
 					});
 				}}
-				icon={<MaterialCommunityIcons
-					name="album"
+				icon={<MaterialIcons
+					name="camera"
+					size={35}
 				/>} />
 		</View>
 
@@ -89,7 +94,11 @@ export class SelectAlbum extends Component<TProps, TState>{
 	render() {
 		return <SafeAreaView style={styles.adminContainer}>
 			<View style={styles.card}>
-				<FlatList data={this.state.albums} renderItem={this._renderItem} keyExtractor={this.keyExtractor} />
+				<FlatList
+					data={this.state.albums}
+					renderItem={this._renderItem}
+					keyExtractor={this.keyExtractor}
+				/>
 			</View>
 		</SafeAreaView>
 	}
