@@ -49,7 +49,7 @@ async function registerForPushNotificationsAsync(user) {
 			.collection(global.domain)
 			.doc("user")
 			.collection("usernames")
-			.doc(uid)
+			.doc(global.uid)
 			.set(userDict, { merge: true });
 	}
 }

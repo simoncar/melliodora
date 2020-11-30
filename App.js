@@ -23,8 +23,8 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 if (Constants.isDevice) {
 	Sentry.init({
 		dsn: Constants.manifest.extra.sentryDSN,
-		enableInExpoDevelopment: true,
-		debug: true,
+		enableInExpoDevelopment: false,
+		debug: false,
 	});
 
 	//Sentry.captureMessage("App started V" + Constants.manifest.version);

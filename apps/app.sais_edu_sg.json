@@ -2,14 +2,15 @@
 	"name": "Stamford",
 	"displayName": "Stamford",
 	"expo": {
-		"version": "39.0.0",
+		"version": "39.0.5",
 		"icon": "./resources/sais_edu_sg/icon.png",
 		"slug": "myStamford",
 		"name": "Stamford",
 		"description": "For SAIS parents, Singapore",
 		"updates": {
-			"fallbackToCacheTimeout": 0
+			"fallbackToCacheTimeout": 5
 		},
+		"githubUrl":"https://github.com/simoncar/melliodora",
 		"extra": {
 			"instance": "sais_edu_sg",
 			"googlePlay": "https://play.google.com/store/apps/details?id=com.softmowertrain.parent.mystamford",
@@ -36,17 +37,18 @@
 			"icon": "./resources/sais_edu_sg/icon.png",
 			"color": "#000000"
 		},
-		"orientation": "portrait",
+		"orientation": "default",
 		"ios": {
 			"bundleIdentifier": "com.softmowertrain.parent.mystamford",
 			"googleServicesFile": "./resources/sais_edu_sg/GoogleService-Info.plist",
 			"supportsTablet": true,
-			"buildNumber": "8"
+			"buildNumber": "11",
+			"appStoreUrl":"https://apps.apple.com/us/app/id1249949678"
 		},
 		"android": {
 			"package": "com.softmowertrain.parent.mystamford",
 			"googleServicesFile": "./resources/sais_edu_sg/google-services.json",
-			"versionCode": 28,
+			"versionCode": 31,
 			"permissions": [
 				"READ_CALENDAR",
 				"WRITE_CALENDAR"

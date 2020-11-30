@@ -108,7 +108,10 @@ function* WORKER_authListener() {
 					.catch(error => {
 						//just ignore for now
 					})
-				Analytics.setUserId(user.uid | null)
+				// Analytics.setUserId(user.uid | null)
+				// 	.catch(error => {
+				// 		//just ignore for now
+				// 	})
 			}
 
 			if (!user) {
