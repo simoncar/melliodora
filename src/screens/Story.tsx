@@ -79,6 +79,14 @@ export class Story extends Component<TProps, TState>{
 		this.refreshFunction = this.refreshFunction.bind(this);
 	}
 
+	componentDidMount() {
+		const navigation = this.props.navigation;
+
+		navigation.setOptions({
+			headerBackTitleVisible: false
+		});
+	}
+
 	_shareMessage = async () => {
 		try {
 			const result = await Share.share({
