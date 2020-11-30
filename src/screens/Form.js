@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime } from "../components/formUtilities";
 import { SaveFeature, DeleteFeature } from "../components/formAPI";
 import { StackActions } from "@react-navigation/native";
-
+import ImageList from "../components/ImageList"
 
 class Form extends Component {
 	uid = "";
@@ -256,6 +256,13 @@ class Form extends Component {
 						<Input onChangeText={text => this.setState({ description: text })} placeholder="Description" multiline inputContainerStyle={{ borderBottomWidth: 0 }} containerStyle={styles.containerStyle} value={this.state.description} />
 					</View>
 					<View style={styles.formButton}>{this.deleteButton()}</View>
+
+					<ImageList
+						feature={this.state._key}
+						refreshFunction={this.refreshFunction}
+						edit={true}
+					/>
+
 				</ScrollView>
 			</View>
 		)

@@ -6,6 +6,7 @@ import { listenPhotos } from "./AlbumAPI"
 interface IProps {
 	feature: string,
 	refreshFunction: any,
+	edit:boolean,
 }
 
 export default function ImageList(props: IProps) {
@@ -31,6 +32,7 @@ export default function ImageList(props: IProps) {
 						local={photos[key].local}
 						server={photos[key].server}
 						thumb={photos[key].thumb}
+						edit={props.edit}
 					/>
 				})
 			}

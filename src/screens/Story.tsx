@@ -336,6 +336,7 @@ export class Story extends Component<TProps, TState>{
 				<ImageList
 					feature={this.state._key}
 					refreshFunction={this.refreshFunction}
+					edit={false}
 				/>
 
 			</ScrollView>

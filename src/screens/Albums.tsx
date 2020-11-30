@@ -17,7 +17,7 @@ export interface CameraRollResult {
 }
 
 interface TProps {
-	navigation: GalleryNavProp<'Picker'>
+	navigation: any
 	albums: []
 }
 interface TState {

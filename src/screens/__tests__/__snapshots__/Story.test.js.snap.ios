@@ -5,6 +5,7 @@ exports[`show story no calendar no image 1`] = `
   style={
     Object {
       "backgroundColor": "#fff",
+      "height": "100%",
     }
   }
 >
@@ -517,6 +518,7 @@ exports[`show story on screen 1`] = `
   style={
     Object {
       "backgroundColor": "#fff",
+      "height": "100%",
     }
   }
 >
@@ -970,6 +972,7 @@ exports[`show story with URL in content to test linking 1`] = `
   style={
     Object {
       "backgroundColor": "#fff",
+      "height": "100%",
     }
   }
 >
@@ -1701,6 +1704,7 @@ exports[`show story without chat 1`] = `
   style={
     Object {
       "backgroundColor": "#fff",
+      "height": "100%",
     }
   }
 >
