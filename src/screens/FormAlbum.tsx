@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import * as MediaLibrary from 'expo-media-library';
-import * as FileSystem from 'expo-file-system';
 import * as Linking from 'expo-linking';
 import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,26 +12,32 @@ interface TProps {
 	storyKey: string
 	route: any
 	navigation: any
+	album: string
 }
 
 export default function FormAlbum(props: TProps) {
 	const [items, setItems] = useState<MediaLibrary.Asset[]>([]);
 
-	const camRoll = useCameraRoll();
-
-	const { storyKey } = props.route.params;
+	const { storyKey, album, key } = props.route.params;
 	const navigation = props.navigation;
+	let filter = ""
+
+	if (key === "RECENT") {
+		filter = key
+	} else {
+		filter = album
+	}
+	const camRoll = useCameraRoll(filter);
 
 	useEffect(() => {
 		navigation.setOptions({
-			headerTitle: `Speed Pick Shortlist$${items.length} items selected`,
+			headerTitle: "Add Photos",
 			headerRight: () => <Button onPress={() => save()} title={I18n.t("save")} />,
 		});
 	}, [items])
 
 	const save = () => {
 
-		console.log("Saving:", items)
 		saveSelectedImages(items, storyKey)
 
 	}

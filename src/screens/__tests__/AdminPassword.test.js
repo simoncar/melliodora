@@ -3,7 +3,6 @@ import { render } from 'react-native-testing-library';
 
 import { AdminPassword } from '../AdminPassword';
 
-
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 
 const auth = {

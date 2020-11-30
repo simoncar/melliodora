@@ -5,6 +5,7 @@ exports[`show story no calendar no image 1`] = `
   style={
     Object {
       "backgroundColor": "#fff",
+      "height": "100%",
     }
   }
 >
@@ -52,10 +53,12 @@ exports[`show story no calendar no image 1`] = `
             "color": undefined,
             "fontSize": 12,
           },
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          },
+          Array [
+            Object {
+              "color": "white",
+              "fontSize": 25,
+            },
+          ],
           Object {
             "fontFamily": "material",
             "fontStyle": "normal",
@@ -104,6 +107,7 @@ exports[`show story no calendar no image 1`] = `
         },
       ]
     }
+    testID="story.chatIcon"
   >
     <Text
       allowFontScaling={false}
@@ -118,16 +122,15 @@ exports[`show story no calendar no image 1`] = `
             "fontSize": 25,
           },
           Object {
-            "fontFamily": "material",
+            "fontFamily": "simple-line-icons",
             "fontStyle": "normal",
             "fontWeight": "normal",
           },
           Object {},
         ]
       }
-      testID="story.cameraIcon"
     >
-      
+      
     </Text>
   </View>
   <View
@@ -165,7 +168,7 @@ exports[`show story no calendar no image 1`] = `
         },
       ]
     }
-    testID="story.chatIcon"
+    testID="story.sendIcon"
   >
     <Text
       allowFontScaling={false}
@@ -180,7 +183,7 @@ exports[`show story no calendar no image 1`] = `
             "fontSize": 25,
           },
           Object {
-            "fontFamily": "simple-line-icons",
+            "fontFamily": "material-community",
             "fontStyle": "normal",
             "fontWeight": "normal",
           },
@@ -188,7 +191,68 @@ exports[`show story no calendar no image 1`] = `
         ]
       }
     >
-      
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 190,
+        },
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+      testID="story.cameraIcon"
+    >
+      
     </Text>
   </View>
   <View
@@ -251,67 +315,6 @@ exports[`show story no calendar no image 1`] = `
       testID="story.shareIcon"
     >
       
-    </Text>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "position": "absolute",
-          "right": 15,
-          "shadowColor": "#000000",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0,
-          },
-          "shadowOpacity": 0.8,
-          "shadowRadius": 2,
-          "width": 50,
-          "zIndex": 990,
-        },
-        Object {
-          "bottom": 190,
-        },
-      ]
-    }
-    testID="story.sendIcon"
-  >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": undefined,
-            "fontSize": 12,
-          },
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          },
-          Object {
-            "fontFamily": "material-community",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
-    >
-      
     </Text>
   </View>
   <RCTScrollView
@@ -406,7 +409,6 @@ exports[`show story no calendar no image 1`] = `
             "borderWidth": 1,
             "elevation": 1,
             "flex": 1,
-            "height": 200,
             "marginBottom": 12,
             "padding": 10,
             "shadowColor": "rgba(0,0,0, .4)",
@@ -516,6 +518,7 @@ exports[`show story on screen 1`] = `
   style={
     Object {
       "backgroundColor": "#fff",
+      "height": "100%",
     }
   }
 >
@@ -592,6 +595,7 @@ exports[`show story on screen 1`] = `
         },
       ]
     }
+    testID="story.chatIcon"
   >
     <Text />
   </View>
@@ -630,7 +634,7 @@ exports[`show story on screen 1`] = `
         },
       ]
     }
-    testID="story.chatIcon"
+    testID="story.sendIcon"
   >
     <Text />
   </View>
@@ -644,7 +648,31 @@ exports[`show story on screen 1`] = `
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    testID="story.calendarIcon"
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 190,
+        },
+      ]
+    }
   >
     <Text />
   </View>
@@ -718,11 +746,11 @@ exports[`show story on screen 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 190,
+          "bottom": 310,
         },
       ]
     }
-    testID="story.sendIcon"
+    testID="story.calendarIcon"
   >
     <Text />
   </View>
@@ -818,7 +846,6 @@ exports[`show story on screen 1`] = `
             "borderWidth": 1,
             "elevation": 1,
             "flex": 1,
-            "height": 200,
             "marginBottom": 12,
             "padding": 10,
             "shadowColor": "rgba(0,0,0, .4)",
@@ -945,6 +972,7 @@ exports[`show story with URL in content to test linking 1`] = `
   style={
     Object {
       "backgroundColor": "#fff",
+      "height": "100%",
     }
   }
 >
@@ -992,10 +1020,12 @@ exports[`show story with URL in content to test linking 1`] = `
             "color": undefined,
             "fontSize": 12,
           },
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          },
+          Array [
+            Object {
+              "color": "white",
+              "fontSize": 25,
+            },
+          ],
           Object {
             "fontFamily": "material",
             "fontStyle": "normal",
@@ -1044,6 +1074,7 @@ exports[`show story with URL in content to test linking 1`] = `
         },
       ]
     }
+    testID="story.chatIcon"
   >
     <Text
       allowFontScaling={false}
@@ -1058,16 +1089,15 @@ exports[`show story with URL in content to test linking 1`] = `
             "fontSize": 25,
           },
           Object {
-            "fontFamily": "material",
+            "fontFamily": "simple-line-icons",
             "fontStyle": "normal",
             "fontWeight": "normal",
           },
           Object {},
         ]
       }
-      testID="story.cameraIcon"
     >
-      
+      
     </Text>
   </View>
   <View
@@ -1105,7 +1135,7 @@ exports[`show story with URL in content to test linking 1`] = `
         },
       ]
     }
-    testID="story.chatIcon"
+    testID="story.sendIcon"
   >
     <Text
       allowFontScaling={false}
@@ -1120,7 +1150,7 @@ exports[`show story with URL in content to test linking 1`] = `
             "fontSize": 25,
           },
           Object {
-            "fontFamily": "simple-line-icons",
+            "fontFamily": "material-community",
             "fontStyle": "normal",
             "fontWeight": "normal",
           },
@@ -1128,7 +1158,7 @@ exports[`show story with URL in content to test linking 1`] = `
         ]
       }
     >
-      
+      
     </Text>
   </View>
   <View
@@ -1141,7 +1171,31 @@ exports[`show story with URL in content to test linking 1`] = `
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    testID="story.calendarIcon"
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 190,
+        },
+      ]
+    }
   >
     <Text
       allowFontScaling={false}
@@ -1156,15 +1210,16 @@ exports[`show story with URL in content to test linking 1`] = `
             "fontSize": 25,
           },
           Object {
-            "fontFamily": "ionicons",
+            "fontFamily": "material",
             "fontStyle": "normal",
             "fontWeight": "normal",
           },
           Object {},
         ]
       }
+      testID="story.cameraIcon"
     >
-      
+      
     </Text>
   </View>
   <View
@@ -1260,11 +1315,11 @@ exports[`show story with URL in content to test linking 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 190,
+          "bottom": 310,
         },
       ]
     }
-    testID="story.sendIcon"
+    testID="story.calendarIcon"
   >
     <Text
       allowFontScaling={false}
@@ -1279,7 +1334,7 @@ exports[`show story with URL in content to test linking 1`] = `
             "fontSize": 25,
           },
           Object {
-            "fontFamily": "material-community",
+            "fontFamily": "ionicons",
             "fontStyle": "normal",
             "fontWeight": "normal",
           },
@@ -1287,7 +1342,7 @@ exports[`show story with URL in content to test linking 1`] = `
         ]
       }
     >
-      
+      
     </Text>
   </View>
   <RCTScrollView
@@ -1382,7 +1437,6 @@ exports[`show story with URL in content to test linking 1`] = `
             "borderWidth": 1,
             "elevation": 1,
             "flex": 1,
-            "height": 200,
             "marginBottom": 12,
             "padding": 10,
             "shadowColor": "rgba(0,0,0, .4)",
@@ -1650,6 +1704,7 @@ exports[`show story without chat 1`] = `
   style={
     Object {
       "backgroundColor": "#fff",
+      "height": "100%",
     }
   }
 >
@@ -1697,10 +1752,12 @@ exports[`show story without chat 1`] = `
             "color": undefined,
             "fontSize": 12,
           },
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          },
+          Array [
+            Object {
+              "color": "white",
+              "fontSize": 25,
+            },
+          ],
           Object {
             "fontFamily": "material",
             "fontStyle": "normal",
@@ -1749,6 +1806,67 @@ exports[`show story without chat 1`] = `
         },
       ]
     }
+    testID="story.sendIcon"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "material-community",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 130,
+        },
+      ]
+    }
   >
     <Text
       allowFontScaling={false}
@@ -1785,42 +1903,6 @@ exports[`show story without chat 1`] = `
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    testID="story.calendarIcon"
-  >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": undefined,
-            "fontSize": 12,
-          },
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          },
-          Object {
-            "fontFamily": "ionicons",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
-    >
-      
-    </Text>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
       Array [
         Object {
@@ -1842,7 +1924,7 @@ exports[`show story without chat 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 250,
+          "bottom": 190,
         },
       ]
     }
@@ -1904,11 +1986,11 @@ exports[`show story without chat 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 190,
+          "bottom": 250,
         },
       ]
     }
-    testID="story.sendIcon"
+    testID="story.calendarIcon"
   >
     <Text
       allowFontScaling={false}
@@ -1923,7 +2005,7 @@ exports[`show story without chat 1`] = `
             "fontSize": 25,
           },
           Object {
-            "fontFamily": "material-community",
+            "fontFamily": "ionicons",
             "fontStyle": "normal",
             "fontWeight": "normal",
           },
@@ -1931,7 +2013,7 @@ exports[`show story without chat 1`] = `
         ]
       }
     >
-      
+      
     </Text>
   </View>
   <RCTScrollView
@@ -2026,7 +2108,6 @@ exports[`show story without chat 1`] = `
             "borderWidth": 1,
             "elevation": 1,
             "flex": 1,
-            "height": 200,
             "marginBottom": 12,
             "padding": 10,
             "shadowColor": "rgba(0,0,0, .4)",

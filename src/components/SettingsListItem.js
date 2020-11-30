@@ -22,7 +22,8 @@ export const SettingsListItem = class SettingsListItem extends Component {
 
 	render() {
 		const { icon, onPress, title, subTitle, titleInfoStyle, titleInfo, hasNavArrow = true, lastItem = false } = this.props;
-		return <TouchableHighlight onPress={onPress}>
+		return <TouchableHighlight
+			onPress={onPress}>
 			<View style={(lastItem) ? styles.outerViewLast : styles.outerView}>
 				{icon}
 				<View style={styles.innerView}>
