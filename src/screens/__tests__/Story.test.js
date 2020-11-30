@@ -102,7 +102,10 @@ const itemNoCalendarNoImage = {
 }
 
 test('show story on screen', () => {
-	const navigation = { navigate: jest.fn() };
+	const navigation = {
+		navigate: jest.fn(),
+		setOptions: jest.fn()
+	};
 
 	const { toJSON, queryByTestId, getByTestId, queryByText } = render(
 		<Story
@@ -126,7 +129,10 @@ test('show story on screen', () => {
 });
 
 test('show story with URL in content to test linking', () => {
-	const navigation = { navigate: jest.fn() };
+	const navigation = {
+		navigate: jest.fn(),
+		setOptions: jest.fn()
+	};
 
 	const { toJSON, queryByText } = render(
 		<Story
@@ -150,7 +156,10 @@ test('show story with URL in content to test linking', () => {
 
 
 test('show story without chat', () => {
-	const navigation = { navigate: jest.fn() };
+	const navigation = {
+		navigate: jest.fn(),
+		setOptions: jest.fn()
+	};
 
 	const { toJSON, queryByTestId, queryByText } = render(
 		<Story
@@ -167,7 +176,10 @@ test('show story without chat', () => {
 
 
 test('show story no calendar no image', () => {
-	const navigation = { navigate: jest.fn() };
+	const navigation = {
+		navigate: jest.fn(),
+		setOptions: jest.fn()
+	};
 
 	const { toJSON, queryByTestId, queryByText } = render(
 		<Story
