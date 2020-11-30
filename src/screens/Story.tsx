@@ -329,7 +329,6 @@ export class Story extends Component<TProps, TState>{
 	render() {
 		return <View style={styles.container}>
 			{this.rightSideButtons()}
-
 			<ScrollView showsVerticalScrollIndicator={false}>
 				{this._drawImage(this.state.photo1)}
 				{this._drawText()}
@@ -365,7 +364,8 @@ const styles = StyleSheet.create({
 	},
 
 	container: {
-		backgroundColor: "#fff"
+		backgroundColor: "#fff",
+		height: "100%"
 	},
 	contentView: {
 		flex: 1
