@@ -73,6 +73,11 @@ class chat extends Component {
 			}
 		});
 
+		this.props.navigation.setOptions({
+			headerBackTitleVisible: false
+		});
+
+
 		this.loadChatUsers();
 
 		Analytics.logEvent("Chat", { chatroom: this.props.title });

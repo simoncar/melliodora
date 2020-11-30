@@ -1,34 +1,78 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, RefreshControl, ListRenderItemInfo, View as BareView } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, Image, RefreshControl, ListRenderItemInfo, View as BareView } from 'react-native';
 import _ from "lodash";
+import I18n from "../lib/i18n";
 
 interface IProps {
 	local: string,
 	server: string,
 	thumb: string,
-	key: string
+	key: string,
+	edit: boolean,
 }
+
+function deleteButton() {
+	return <TouchableOpacity
+		style={styles.SubmitButtonStyle}
+		activeOpacity={0.5}
+		onPress={() => {
+			console.log("delete:")
+		}}>
+		<Text>
+			{I18n.t("delete")}
+		</Text>
+	</TouchableOpacity >;
+}
+
 
 export default function AlbumImage(props: IProps) {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const imageURI = props.thumb
+	const edit = props.edit
 
 	if (imageURI != undefined && imageURI.length > 1) {
-		return <View>
-			<Image style={styles.storyPhoto}
-				source={{
-					uri: imageURI,
-				}}
-				key={imageURI}
-			/>
-		</View>;
+		if (edit) {
+
+			return <View>
+				<Image style={[styles.storyPhoto, { width: "70%" }]}
+					source={{
+						uri: imageURI,
+					}}
+					key={imageURI}
+				/>
+				{deleteButton()}
+			</View>;
+		} else {
+			return <View>
+				<Image style={styles.storyPhoto}
+					source={{
+						uri: imageURI,
+					}}
+					key={imageURI}
+				/>
+			</View>;
+		}
 	} else {
 		return null
 	}
 }
 
 const styles = StyleSheet.create({
+	SubmitButtonStyle: {
+		alignItems: "center",
+		backgroundColor: "#fff",
+		borderRadius: 25,
+		elevation: 4,
+		height: 50,
+		justifyContent: "center",
+		marginBottom: 30,
+		shadowColor: "rgba(0,0,0, .4)",
+		shadowOffset: { height: 2, width: 2 },
+		shadowOpacity: 0.8,
+		shadowRadius: 1,
+		width: 250,
+	},
 	storyPhoto: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
