@@ -23,12 +23,24 @@ export function useCameraRoll(album: string): CameraRollResult {
 		console.log("useCameraRoll:", album)
 		const promiseAlbum = await MediaLibrary.getAlbumAsync(album)
 
-		const result = await MediaLibrary.getAssetsAsync({
-			mediaType: MediaLibrary.MediaType.photo,
-			album: promiseAlbum,
-			first: 100,
-			after: last || undefined,
-		});
+		let objFilter = {}
+		if (album === "RECENT") {
+			objFilter = {
+				mediaType: MediaLibrary.MediaType.photo,
+				first: 1000,
+				after: last || undefined,
+			}
+		} else {
+			objFilter = {
+				mediaType: MediaLibrary.MediaType.photo,
+				album: promiseAlbum,
+				first: 1000,
+				after: last || undefined,
+			}
+		}
+
+		const result = await MediaLibrary.getAssetsAsync(objFilter);
+
 		setLast(result.endCursor);
 		setAssets([...assets, ...result.assets]);
 		setLoadingMore(false);

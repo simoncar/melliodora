@@ -49,6 +49,11 @@ export class SelectAlbum extends Component<TProps, TState>{
 		MediaLibrary.requestPermissionsAsync()
 			.then(status => {
 
+				albums.push({
+					title: "Recent",
+					_key: "RECENT"
+				})
+
 				MediaLibrary.getAlbumsAsync()
 					.then(albumsList => {
 
@@ -80,7 +85,8 @@ export class SelectAlbum extends Component<TProps, TState>{
 				onPress={() => {
 					this.props.navigation.navigate("FormAlbum", {
 						storyKey: this.state.storyKey,
-						album: item.title
+						album: item.title,
+						key: item._key
 					});
 				}}
 				icon={<MaterialIcons

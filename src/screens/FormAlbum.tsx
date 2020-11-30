@@ -7,7 +7,6 @@ import SelectableImageGrid from '../components/SelectableImageGrid';
 import { useCameraRoll } from '../../hooks/useCameraRoll';
 import { saveSelectedImages } from "../components/AlbumAPI";
 import I18n from "../lib/i18n";
-import { string } from 'prop-types';
 
 interface TProps {
 	storyKey: string
@@ -19,12 +18,16 @@ interface TProps {
 export default function FormAlbum(props: TProps) {
 	const [items, setItems] = useState<MediaLibrary.Asset[]>([]);
 
-
-
-	const { storyKey, album } = props.route.params;
+	const { storyKey, album, key } = props.route.params;
 	const navigation = props.navigation;
+	let filter = ""
 
-	const camRoll = useCameraRoll(album);
+	if (key === "RECENT") {
+		filter = key
+	} else {
+		filter = album
+	}
+	const camRoll = useCameraRoll(filter);
 
 	useEffect(() => {
 		navigation.setOptions({
