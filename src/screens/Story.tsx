@@ -5,7 +5,6 @@ import { Image } from "react-native-expo-image-cache";
 import ParsedText from "react-native-parsed-text";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global.js";
 import _ from "lodash";
-import Constants from "expo-constants";
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent"
 import { phoneCalendar } from "../lib/phoneCalendar"
@@ -142,28 +141,57 @@ export class Story extends Component<TProps, TState>{
 			});
 	}
 
-	rightSideEdit() {
+	rightSideButtons() {
+		let buffer = []
 
-		if (isAdmin(this.props.route.params.adminPassword) && this.state.source == "feature")
-			return (
-				<TouchableHighlight
-					style={[styles.button, styles.buttonEdit]} underlayColor="#ff7043"
-					onPress={() => {
-						this.props.navigation.navigate("Form", {
-							edit: true,
-							...this.state,
-							refreshFunction: this.refreshFunction
-						});
-					}}>
-					<MaterialIcons testID="story.editIcon" name="edit" style={styles.icon} />
-				</TouchableHighlight>
-			)
+		const admin = isAdmin(this.props.route.params.adminPassword)
+		let position = 0
+
+		if (admin && this.state.source == "feature") {
+			buffer.push(this.rightSideEdit(position))
+			position++
+		}
+
+		if (admin && this.state.showIconChat === true) {
+			buffer.push(this.rightSideChat(position, this.state._key, this.state.summaryMyLanguage))
+			position++
+		}
+		if (admin) {
+			buffer.push(this.rightSideSend(position, this.state))
+			position++
+		}
+		buffer.push(this.rightSidePhotos(position))
+		position++
+		buffer.push(this.rightSideShare(position))
+		position++
+
+		if (isValue(this.state.date_start)) {
+			buffer.push(this.rightSideCalendar(position, this.state))
+			position++
+		}
+		return (buffer)
 	}
 
-	rightSidePhotos() {
+	rightSideEdit(position) {
 		return (
 			<TouchableHighlight
-				style={[styles.button, styles.buttonPhotos]}
+				style={[styles.button, { bottom: (10 + position * 60) }]} underlayColor="#ff7043"
+				onPress={() => {
+					this.props.navigation.navigate("Form", {
+						edit: true,
+						...this.state,
+						refreshFunction: this.refreshFunction
+					});
+				}}>
+				<MaterialIcons testID="story.editIcon" name="edit" style={[styles.icon]} />
+			</TouchableHighlight>
+		)
+	}
+
+	rightSidePhotos(position) {
+		return (
+			<TouchableHighlight
+				style={[styles.button, { bottom: (10 + position * 60) }]}
 				underlayColor="#ff7043"
 				onPress={() => {
 					this.props.navigation.navigate("Albums", {
@@ -177,58 +205,55 @@ export class Story extends Component<TProps, TState>{
 		)
 	}
 
-	rightSideChat(chatroom, title) {
-		if (this.state.showIconChat == true) {
-			return (
-
-				<TouchableHighlight
-					style={[styles.button, styles.buttonChat]}
-					testID="story.chatIcon"
-					onPress={() => {
-						this.props.navigation.navigate("chatStory", {
-							chatroom: chatroom,
-							title: title
-						});
-					}}>
-					<SimpleLineIcons name="bubble" style={styles.icon} />
-				</TouchableHighlight>
-
-
-			)
-		}
-	}
-
-	rightSideSend() {
-		if (isAdmin(this.props.route.params.adminPassword)) {
-			return <TouchableHighlight
-				style={[styles.button, styles.buttonSend]}
-				testID="story.sendIcon"
+	rightSideChat(position, chatroom, title) {
+		return (
+			<TouchableHighlight
+				style={[styles.button, { bottom: (10 + position * 60) }]}
+				testID="story.chatIcon"
 				onPress={() => {
-					this.state.summaryMyLanguage;
-					this.props.navigation.navigate("push", this.state);
+					this.props.navigation.navigate("chatStory", {
+						chatroom: chatroom,
+						title: title
+					});
 				}}>
-				<MaterialCommunityIcons name="send-lock" style={styles.icon} />
-			</TouchableHighlight>;
-		}
+				<SimpleLineIcons name="bubble" style={styles.icon} />
+			</TouchableHighlight>
+		)
 	}
 
-	rightSideCalendar(params) {
-		if (isValue(params.date_start)) {
-			return <TouchableHighlight
-				onPress={() => {
-					phoneCalendar(this.state)
-					//this.props.navigation.navigate("Calendars", this.state);
-				}}
-				testID="story.calendarIcon"
-			>
-				<Ionicons name="ios-calendar" style={styles.icon} />
-			</TouchableHighlight>;
-		}
-	}
-
-	rightSideShare() {
+	rightSideSend(position) {
 		return <TouchableHighlight
-			style={[styles.button, styles.buttonShare]}
+			style={[styles.button, { bottom: (10 + position * 60) }]}
+			testID="story.sendIcon"
+			onPress={() => {
+				this.state.summaryMyLanguage;
+				this.props.navigation.navigate("push", this.state);
+			}}>
+			<MaterialCommunityIcons name="send-lock" style={styles.icon} />
+		</TouchableHighlight>;
+	}
+
+
+	rightSideCalendar(position) {
+
+		return <TouchableHighlight
+			style={[styles.button, { bottom: (10 + position * 60) }]}
+			testID="story.calendarIcon"
+			onPress={() => {
+
+				phoneCalendar(this.state)
+				//this.props.navigation.navigate("Calendars", this.state);
+			}}
+			testID="story.calendarIcon"
+		>
+			<Ionicons name="ios-calendar" style={styles.icon} />
+		</TouchableHighlight>;
+
+	}
+
+	rightSideShare(position) {
+		return <TouchableHighlight
+			style={[styles.button, { bottom: (10 + position * 60) }]}
 			onPress={() => this._shareMessage()}
 			testID="story.shareButton"
 		>
@@ -290,12 +315,7 @@ export class Story extends Component<TProps, TState>{
 
 	render() {
 		return <View style={styles.container}>
-			{this.rightSideEdit()}
-			{this.rightSidePhotos()}
-			{this.rightSideChat(this.state._key, this.state.summaryMyLanguage)}
-			{this.rightSideCalendar(this.state)}
-			{this.rightSideShare()}
-			{this.rightSideSend(this.state)}
+			{this.rightSideButtons()}
 
 			<ScrollView showsVerticalScrollIndicator={false}>
 				{this._drawImage(this.state.photo1)}
@@ -330,21 +350,7 @@ const styles = StyleSheet.create({
 		width: 50,
 		zIndex: 990,
 	},
-	buttonEdit: {
-		bottom: 10,
-	},
-	buttonPhotos: {
-		bottom: 70,
-	},
-	buttonChat: {
-		bottom: 130,
-	},
-	buttonSend: {
-		bottom: 190,
-	},
-	buttonShare: {
-		bottom: 250,
-	},
+
 	container: {
 		backgroundColor: "#fff"
 	},
