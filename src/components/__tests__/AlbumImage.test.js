@@ -97,8 +97,6 @@ test('Delete button press', () => {
 	fireEvent.press(getByTestId('delete'));
 	//expect(deleteImage.deleteImage).toHaveBeenCalled();
 
-
-
 });
 
 

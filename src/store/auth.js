@@ -179,9 +179,25 @@ function* WORKER_initUser(action) {
 			isAnonymous,
 		};
 
-		yield call(() => firebase.firestore().collection("users").doc(uid).set(userDict, { merge: true }));
+		yield call(() => {
+			try {
+				firebase.firestore()
+					.collection("users")
+					.doc(uid)
+					.set(userDict, { merge: true })
+			} catch (error) {
+				console.log("auth yield call set User Dic:", error)
+			}
 
-		const doc = yield call(() => firebase.firestore().collection("users").doc(uid).get());
+		});
+
+		const doc = yield call(() => {
+			firebase
+				.firestore()
+				.collection("users")
+				.doc(uid)
+				.get()
+		});
 
 		if (doc.exists) {
 			const docData = doc.data();

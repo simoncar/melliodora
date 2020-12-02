@@ -27,7 +27,6 @@ function deleteButton() {
 	</TouchableOpacity >;
 }
 
-
 export default function AlbumImage(props: IProps) {
 	const [isLoading, setIsLoading] = useState(true);
 
