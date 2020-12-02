@@ -32,7 +32,6 @@ async function saveNewPhoto(localFileName: string, storyKey: string) {
 		.add(photo)
 		.then(() => {
 			console.log("saveNewPhoto end");
-
 			return
 		})
 		.catch(error => {
@@ -184,10 +183,17 @@ export function listenPhotos(featureID, callbackRefreshFunction) {
 					local: doc.data().local,
 					server: doc.data().server,
 					thumb: doc.data().thumb,
+					feature: featureID,
 				}
 
 				photos.push(photo);
 			});
 			callbackRefreshFunction(photos)
 		});
+}
+
+
+export function deleteImage(featureID, imageId) {
+	console.log("API delete photo", featureID, featureID)
+
 }

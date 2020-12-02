@@ -256,7 +256,6 @@ export class Story extends Component<TProps, TState>{
 				phoneCalendar(this.state)
 				//this.props.navigation.navigate("Calendars", this.state);
 			}}
-			testID="story.calendarIcon"
 		>
 			<Ionicons name="ios-calendar" style={styles.icon} />
 		</TouchableHighlight>;
