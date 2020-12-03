@@ -86,7 +86,7 @@ exports[`show story no calendar no image 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "backgroundColor": "rgba(52, 52, 52, 0.3)",
           "borderRadius": 25,
           "height": 50,
           "justifyContent": "center",
@@ -99,7 +99,7 @@ exports[`show story no calendar no image 1`] = `
           },
           "shadowOpacity": 0.8,
           "shadowRadius": 2,
-          "width": 50,
+          "width": 150,
           "zIndex": 990,
         },
         Object {
@@ -109,29 +109,41 @@ exports[`show story no calendar no image 1`] = `
     }
     testID="story.chatIcon"
   >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": undefined,
-            "fontSize": 12,
-          },
+    <View>
+      <Text
+        style={
           Object {
             "color": "white",
             "fontSize": 25,
-          },
-          Object {
-            "fontFamily": "simple-line-icons",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
-    >
-      
-    </Text>
+          }
+        }
+      >
+        Chat
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 12,
+            },
+            Object {
+              "color": "white",
+              "fontSize": 25,
+            },
+            Object {
+              "fontFamily": "simple-line-icons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
   </View>
   <View
     accessible={true}
@@ -318,6 +330,7 @@ exports[`show story no calendar no image 1`] = `
     </Text>
   </View>
   <RCTScrollView
+    onScroll={[Function]}
     showsVerticalScrollIndicator={false}
   >
     <View>
@@ -574,7 +587,7 @@ exports[`show story on screen 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "backgroundColor": "rgba(52, 52, 52, 0.3)",
           "borderRadius": 25,
           "height": 50,
           "justifyContent": "center",
@@ -587,7 +600,7 @@ exports[`show story on screen 1`] = `
           },
           "shadowOpacity": 0.8,
           "shadowRadius": 2,
-          "width": 50,
+          "width": 150,
           "zIndex": 990,
         },
         Object {
@@ -597,7 +610,19 @@ exports[`show story on screen 1`] = `
     }
     testID="story.chatIcon"
   >
-    <Text />
+    <View>
+      <Text
+        style={
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          }
+        }
+      >
+        Chat
+      </Text>
+      <Text />
+    </View>
   </View>
   <View
     accessible={true}
@@ -755,6 +780,7 @@ exports[`show story on screen 1`] = `
     <Text />
   </View>
   <RCTScrollView
+    onScroll={[Function]}
     showsVerticalScrollIndicator={false}
   >
     <View>
@@ -1053,7 +1079,7 @@ exports[`show story with URL in content to test linking 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "backgroundColor": "rgba(52, 52, 52, 0.3)",
           "borderRadius": 25,
           "height": 50,
           "justifyContent": "center",
@@ -1066,7 +1092,7 @@ exports[`show story with URL in content to test linking 1`] = `
           },
           "shadowOpacity": 0.8,
           "shadowRadius": 2,
-          "width": 50,
+          "width": 150,
           "zIndex": 990,
         },
         Object {
@@ -1076,29 +1102,41 @@ exports[`show story with URL in content to test linking 1`] = `
     }
     testID="story.chatIcon"
   >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": undefined,
-            "fontSize": 12,
-          },
+    <View>
+      <Text
+        style={
           Object {
             "color": "white",
             "fontSize": 25,
-          },
-          Object {
-            "fontFamily": "simple-line-icons",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
-    >
-      
-    </Text>
+          }
+        }
+      >
+        Chat
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 12,
+            },
+            Object {
+              "color": "white",
+              "fontSize": 25,
+            },
+            Object {
+              "fontFamily": "simple-line-icons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
   </View>
   <View
     accessible={true}
@@ -1346,6 +1384,7 @@ exports[`show story with URL in content to test linking 1`] = `
     </Text>
   </View>
   <RCTScrollView
+    onScroll={[Function]}
     showsVerticalScrollIndicator={false}
   >
     <View>
@@ -1649,7 +1688,10 @@ exports[`show story with URL in content to test linking 1`] = `
                   "marginRight": 20,
                   "marginTop": 15,
                 },
-                undefined,
+                Object {
+                  "color": "blue",
+                  "textDecorationLine": "underline",
+                },
               ]
             }
           >
@@ -2017,6 +2059,7 @@ exports[`show story without chat 1`] = `
     </Text>
   </View>
   <RCTScrollView
+    onScroll={[Function]}
     showsVerticalScrollIndicator={false}
   >
     <View>
