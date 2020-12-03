@@ -5,7 +5,6 @@ import I18n from "./lib/i18n";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import _ from "lodash";
-import * as firebase from "firebase";
 import "firebase/firestore";
 
 import Firebase from "./lib/firebase";
@@ -45,6 +44,8 @@ class Setup extends Component {
 		I18n.locale = language;
 	}
 
+
+
 	render() {
 		if (
 			this.state.loading ||
@@ -53,7 +54,7 @@ class Setup extends Component {
 			(_.isEmpty(this.props.community.selectedCommunity) &&
 				Constants.manifest.extra.instance)
 		) {
-			return <AppLoading />;
+			return null;
 		} else if (_.isEmpty(this.props.community.selectedCommunity)) {
 			return (
 				<AuthStackNavigator />

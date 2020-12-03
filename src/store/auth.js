@@ -21,7 +21,11 @@ export const SET_LANGUAGE = "SET_LANGUAGE";
 // Action Creators
 export const setUserInfo = (userInfo, updateDB = false) => {
 	if (updateDB) {
-		firebase.firestore().collection("users").doc(userInfo.uid).set(userInfo, { merge: true });
+		firebase
+			.firestore()
+			.collection("users")
+			.doc(userInfo.uid)
+			.set(userInfo, { merge: true });
 	}
 	return {
 		type: SET_USER_INFO,
@@ -148,22 +152,12 @@ function* WORKER_anonymouslySignIn() {
 function* WORKER_initUser(action) {
 	try {
 		const { user, isAnonymous } = action;
-
 		const uid = user.uid;
 
-		// store the auth as a valid user
 		global.uid = uid;
 
-		var token = global.pushToken;
-
-		if (_.isNil(token)) {
-			token = "";
-		}
-		var safeToken = global.safeToken;
-
-		if (_.isNil(safeToken)) {
-			safeToken = "";
-		}
+		var token = _.isNil(global.pushToken) ? "" : global.pushToken
+		var safeToken = (_.isNil(safeToken)) ? "" : global.safeToken;
 
 		const language = yield select((state) => state.auth.language);
 
@@ -175,44 +169,51 @@ function* WORKER_initUser(action) {
 			languageSelected: language,
 			phoneLocale: Localization.locale,
 			version: version,
-			lastLogin: Date.now(),
+			lastLogin: firebase.firestore.Timestamp.now(),
 			isAnonymous,
 		};
 
 		yield call(() => {
 			try {
-				firebase.firestore()
+				firebase
+					.firestore()
 					.collection("users")
 					.doc(uid)
 					.set(userDict, { merge: true })
+					.then(() => {
+						firebase
+							.firestore()
+							.collection("users")
+							.doc(uid)
+							.get()
+							.then(function (doc) {
+
+								if (doc.exists) {
+									const docData = doc.data();
+
+									global.userInfo = docData;
+									put(setUserInfo(docData));
+								} else {
+									console.log("doc does not exist")
+								}
+								put(checkAdmin());
+							})
+
+					})
 			} catch (error) {
 				console.log("auth yield call set User Dic:", error)
 			}
 
 		});
 
-		const doc = yield call(() => {
-			firebase
-				.firestore()
-				.collection("users")
-				.doc(uid)
-				.get()
-		});
-
-		if (doc) {
-			const docData = doc.data();
-
-			global.userInfo = docData;
-			yield put(setUserInfo(docData));
-		} else {
-			console.log("doc does not exist")
-		}
 
 
-		yield put(checkAdmin());
 	} catch (e) {
 		console.log(e);
 	}
+
+
+
 }
 function* WORKER_changeLanguage(action) {
 	const language = action.language;
