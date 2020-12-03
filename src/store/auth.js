@@ -21,7 +21,11 @@ export const SET_LANGUAGE = "SET_LANGUAGE";
 // Action Creators
 export const setUserInfo = (userInfo, updateDB = false) => {
 	if (updateDB) {
-		firebase.firestore().collection("users").doc(userInfo.uid).set(userInfo, { merge: true });
+		firebase
+			.firestore()
+			.collection("users")
+			.doc(userInfo.uid)
+			.set(userInfo, { merge: true });
 	}
 	return {
 		type: SET_USER_INFO,
@@ -99,19 +103,26 @@ function* WORKER_authListener() {
 				console.log('Development');
 				Analytics.setDebugModeEnabled(false)
 					.catch(error => {
-						//just ignore for now
+						console.log('Analytics.DEV.setDebugModeEnabled Error', error);
 					})
 
 			} else {
 				console.log('Production');
 				Analytics.setDebugModeEnabled(false)
 					.catch(error => {
+						console.log('Analytics.setDebugModeEnabled Error', error);
 						//just ignore for now
 					})
-				// Analytics.setUserId(user.uid | null)
-				// 	.catch(error => {
-				// 		//just ignore for now
-				// 	})
+				if (user.uid) {
+					Analytics.setUserId(user.uid)
+						.catch(error => {
+							console.log('Analytics.setUserId Error', error);
+						})
+				} else {
+					console.log("Analytics User ID is null so skipping");
+
+				}
+
 			}
 
 			if (!user) {

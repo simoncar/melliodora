@@ -26,10 +26,6 @@
 	},
 	"main": "node_modules/expo/AppEntry.js",
 	"scripts": {
-		"start": "expo start",
-		"eject": "expo eject",
-		"android": "expo start --android",
-		"ios": "expo start --ios",
 		"test": "jest --watchAll --collectCoverage",
 		"ci": "jest",
 		"app": "cp apps/app.ais.json app.json && expo r -c",
