@@ -9,6 +9,8 @@ import { Text } from "../components/sComponent"
 import ImageList from "../components/ImageList"
 import { actionEdit, actionPhotos, actionChat, actionSend, actionCalendar, actionShare } from "../components/StoryActions"
 import { StoryEntity } from '../lib/interfaces';
+import { getTotalDiskCapacityAsync } from "expo-file-system";
+import { addAssetsToAlbumAsync } from "expo-media-library";
 
 interface TProps {
 	navigation: any,
@@ -185,7 +187,6 @@ export class Story extends Component<TProps, StoryEntity>{
 					}, { pattern: /433333332/, style: styles.url }, { pattern: /#(\w+)/, style: styles.url }]} childrenProps={{ allowFontScaling: false }}>
 					{this.state.descriptionMyLanguage}
 				</ParsedText>
-
 				{this.props.auth.language != "en" && <Text selectable style={styles.englishFallback}>
 					{"\n\n"}
 					{this.state.description}

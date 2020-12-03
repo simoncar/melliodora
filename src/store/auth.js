@@ -199,12 +199,15 @@ function* WORKER_initUser(action) {
 				.get()
 		});
 
-		if (doc.exists) {
+		if (doc) {
 			const docData = doc.data();
 
 			global.userInfo = docData;
 			yield put(setUserInfo(docData));
+		} else {
+			console.log("doc does not exist")
 		}
+
 
 		yield put(checkAdmin());
 	} catch (e) {
