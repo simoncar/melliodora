@@ -49,7 +49,7 @@ class Settings extends Component {
 				<Profile
 					auth={this.props.auth}
 					navigation={this.props.navigation} />
-				
+
 				{Constants.manifest.extra.instance != "sais_edu_sg" && <SettingsListItem lastItem={true} icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />} title={I18n.t("searchUsers")} onPress={() => this.props.navigation.navigate("UserSearch")} />}
 
 				<View style={styles.card}>
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
 		marginLeft: 15,
 		width: 30
 	},
+
 
 });
 

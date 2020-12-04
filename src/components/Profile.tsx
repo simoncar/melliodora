@@ -105,4 +105,11 @@ const styles = StyleSheet.create({
 		top: 10,
 		left: 10,
 	},
+	badge2: {
+		position: 'absolute',
+		top: 10,
+		left: 10,
+	},
+
 });
+

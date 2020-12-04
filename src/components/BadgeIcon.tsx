@@ -105,4 +105,11 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 4,
 		overflow: 'hidden',
 	},
+	container2: {
+		alignSelf: 'flex-end',
+		textAlign: 'center',
+		textAlignVertical: 'center',
+		paddingHorizontal: 4,
+		overflow: 'hidden',
+	},
 });

@@ -6,6 +6,8 @@
 		"@babel/core": "^7.10.2",
 		"@babel/runtime": "^7.10.2",
 		"@expo/webpack-config": "^0.12.16",
+		"@typescript-eslint/eslint-plugin": "^4.9.0",
+		"@typescript-eslint/parser": "^4.9.0",
 		"babel-eslint": "^10.1.0",
 		"babel-preset-expo": "^8.3.0",
 		"eslint": "^7.2.0",
@@ -22,7 +24,8 @@
 		"react-native-dotenv": "^0.2.0",
 		"react-native-testing-library": "^2.1.0",
 		"redux-devtools-extension": "^2.13.8",
-		"redux-logger": "^3.0.6"
+		"redux-logger": "^3.0.6",
+		"typescript": "^4.1.2"
 	},
 	"main": "node_modules/expo/AppEntry.js",
 	"scripts": {

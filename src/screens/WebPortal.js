@@ -40,7 +40,7 @@ export class WebPortal extends Component {
 
 		return <View style={styles.flex1}>
 			<View style={styles.flex2}>
-				<View style={styles.topbar}>
+				<View style={color = "red"}>
 					<TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
 						<Ionicons style={styles.navIcon} name="ios-arrow-back" />
 					</TouchableOpacity>
@@ -88,7 +88,11 @@ const styles = StyleSheet.create({
 	url: {
 		color: "#FFF",
 		fontSize: 14
-	}
+	},
+	url2: {
+		color: "#FFF",
+		fontSize: 14
+	},
 });
 
 
