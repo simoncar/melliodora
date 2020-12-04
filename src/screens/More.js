@@ -14,6 +14,7 @@ import * as Linking from "expo-linking";
 import { SettingsListItem, Separator } from "../components/SettingsListItem";
 import FeatureMoreItems from "../components/FeatureMoreItems";
 import { Text } from "../components/sComponent"
+import Profile from "../components/Profile"
 
 class Settings extends Component {
 	constructor(props) {
@@ -35,28 +36,9 @@ class Settings extends Component {
 
 	_renderUser() {
 
-		if (Constants.manifest.extra.instance != "sais_edu_sg") {
-			const user = this.props.auth.userInfo;
-			if (_.has(user, "email") && user.email) {
-				const email = user.email;
-				return <TouchableOpacity onPress={() => this.props.navigation.navigate("UserProfile", {
-					uid: user.uid,
-					permitEdit: true
-				})}>
-					<View style={styles.titleContainer}>
-						<Text style={styles.nameText} numberOfLines={1}>
-							{I18n.t("loggedInAs")}
-						</Text>
-						<Text style={styles.sectionContentText} numberOfLines={1}>
-							{email}
-						</Text>
-					</View>
-				</TouchableOpacity>;
-			} else {
-				return <SettingsListItem hasNavArrow={false} icon={<MaterialCommunityIcons name="account-plus" style={styles.imageStyleIcon} />} title={I18n.t("signIn") + " / " + I18n.t("signUp")} onPress={() => this.props.navigation.navigate("login")} />;
-			}
-		}
-
+		return <Profile
+			auth={this.props.auth}
+			navigation={this.props.navigation} />
 
 
 	}
@@ -117,20 +99,7 @@ const styles = StyleSheet.create({
 		marginLeft: 15,
 		width: 30
 	},
-	nameText: {
-		fontSize: 18,
-		fontWeight: "600"
-	},
-	sectionContentText: {
-		color: "#808080",
-		fontSize: 14
-	},
-	titleContainer: {
-		backgroundColor: "#ffffff80",
-		paddingBottom: 15,
-		paddingHorizontal: 15,
-		paddingTop: 15
-	}
+
 });
 
 

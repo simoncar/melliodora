@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { getCommunities, processSelectedCommunity } from "../store/community";
 import { Text } from "../components/sComponent"
 import { SettingsListItem } from "../components/SettingsListItem";
-
+import Profile from "../components/Profile"
 import { MaterialIcons } from "@expo/vector-icons";
 
 export class DomainSelection extends Component {
@@ -21,7 +21,7 @@ export class DomainSelection extends Component {
 
 		props.dispatch(getCommunities());
 	}
-81
+	81
 	componentDidMount() {
 		const { communities } = this.props.community;
 		if (communities.length > 0) {
@@ -119,12 +119,9 @@ export class DomainSelection extends Component {
 					</View>
 				</View>
 				<View style={styles.centered}>
-					<TouchableOpacity onPress={() => {
-						this.props.navigation.push("login", { toWelcomeScreen: true })
-					}}>
-						<Text>Sign In</Text>
-
-					</TouchableOpacity>
+					<Profile
+						auth={this.props.auth}
+						navigation={this.props.navigation} />
 				</View>
 			</View >
 		)
@@ -180,7 +177,8 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = state => ({
-	community: state.community
+	community: state.community,
+	auth: state.auth
 });
 
 export default connect(mapStateToProps)(DomainSelection);
