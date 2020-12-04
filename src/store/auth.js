@@ -96,22 +96,46 @@ function* WORKER_checkAdmin(action) {
 
 function* WORKER_authListener() {
 	// #1
-	const channel = new eventChannel((emitter) => {
+	const channel = new eventChannel((emiter) => {
 		const listener = firebase.auth().onAuthStateChanged((user) => {
-			console.log("onAuthStateChanged:", user)
-			if (!user) {
-				emitter({ data: { noUser: true } });
+
+			if (__DEV__) {
+				console.log('Development');
+				Analytics.setDebugModeEnabled(false)
+					.catch(error => {
+						console.log('Analytics.DEV.setDebugModeEnabled Error', error);
+					})
+
 			} else {
-				console.log("eventChannel emitter:", user)
+				console.log('Production');
+				Analytics.setDebugModeEnabled(false)
+					.catch(error => {
+						console.log('Analytics.setDebugModeEnabled Error', error);
+						//just ignore for now
+					})
+				if (user.uid) {
+					Analytics.setUserId(user.uid)
+						.catch(error => {
+							console.log('Analytics.setUserId Error', error);
+						})
+				} else {
+					console.log("Analytics User ID is null so skipping");
+
+				}
+
+			}
+
+			if (!user) {
+				emiter({ data: { noUser: true } });
+			} else {
 				const isAnonymous = user.isAnonymous;
-				emitter({ data: { user, isAnonymous } });
+				emiter({ data: { user, isAnonymous } });
 			}
 		});
 
 		// #2
 		return () => {
 			listener.off();
-			console.log("listener off");
 		};
 	});
 
@@ -122,7 +146,6 @@ function* WORKER_authListener() {
 			yield put(signInAnonymously());
 		} else {
 			const { user, isAnonymous } = data;
-			console.log("init user:", user)
 			yield put(initUser(user, isAnonymous));
 		}
 	}
@@ -135,15 +158,23 @@ function* WORKER_anonymouslySignIn() {
 
 function* WORKER_initUser(action) {
 	try {
-
-		console.log("WORKER_initUser");
 		const { user, isAnonymous } = action;
+
 		const uid = user.uid;
 
+		// store the auth as a valid user
 		global.uid = uid;
 
-		var token = _.isNil(global.pushToken) ? "" : global.pushToken
-		var safeToken = (_.isNil(safeToken)) ? "" : global.safeToken;
+		var token = global.pushToken;
+
+		if (_.isNil(token)) {
+			token = "";
+		}
+		var safeToken = global.safeToken;
+
+		if (_.isNil(safeToken)) {
+			safeToken = "";
+		}
 
 		const language = yield select((state) => state.auth.language);
 
@@ -155,53 +186,25 @@ function* WORKER_initUser(action) {
 			languageSelected: language,
 			phoneLocale: Localization.locale,
 			version: version,
-			lastLogin: firebase.firestore.Timestamp.now(),
+			lastLogin: Date.now(),
 			isAnonymous,
 		};
 
-		yield call(() => {
-			try {
-				console.log("WORKER_initUser - firebase - set");
-				firebase
-					.firestore()
-					.collection("users")
-					.doc(uid)
-					.set(userDict, { merge: true })
-					.then(() => {
-						console.log("WORKER_initUser - get");
-						firebase
-							.firestore()
-							.collection("users")
-							.doc(uid)
-							.get()
-							.then(function (doc) {
-								if (doc.exists) {
-									const docData = doc.data();
-									console.log("WORKER_initUser - doc:", doc.data());
+		yield call(() => firebase.firestore().collection("users").doc(uid).set(userDict, { merge: true }));
 
-									global.userInfo = docData;
-									put(setUserInfo(docData));
-								} else {
-									console.log("doc does not exist")
-								}
-								put(checkAdmin());
-							})
+		const doc = yield call(() => firebase.firestore().collection("users").doc(uid).get());
 
-					})
-			} catch (error) {
-				console.log("auth yield call set User Dic:", error)
-			}
+		if (doc.exists) {
+			const docData = doc.data();
 
-		});
+			global.userInfo = docData;
+			yield put(setUserInfo(docData));
+		}
 
-
-
+		yield put(checkAdmin());
 	} catch (e) {
 		console.log(e);
 	}
-
-
-
 }
 function* WORKER_changeLanguage(action) {
 	const language = action.language;
