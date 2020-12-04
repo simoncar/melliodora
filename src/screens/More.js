@@ -34,14 +34,7 @@ class Settings extends Component {
 		});
 	}
 
-	_renderUser() {
 
-		return <Profile
-			auth={this.props.auth}
-			navigation={this.props.navigation} />
-
-
-	}
 
 	separator(i) {
 		if (i > 0) {
@@ -53,7 +46,10 @@ class Settings extends Component {
 		var i = 0;
 		return <View style={styles.container}>
 			<ScrollView>
-				{this._renderUser()}
+				<Profile
+					auth={this.props.auth}
+					navigation={this.props.navigation} />
+				
 				{Constants.manifest.extra.instance != "sais_edu_sg" && <SettingsListItem lastItem={true} icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />} title={I18n.t("searchUsers")} onPress={() => this.props.navigation.navigate("UserSearch")} />}
 
 				<View style={styles.card}>

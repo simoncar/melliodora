@@ -97,7 +97,11 @@ export class DomainSelection extends Component {
 			onPressedCreateCommunity = () => this.props.navigation.push("communityCreateScreen");
 		}
 		return (
+
 			<View >
+				<Profile
+					auth={this.props.auth}
+					navigation={this.props.navigation} />
 				<TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={onPressedCreateCommunity}>
 					<Ionicons style={styles.leftIcon} name="ios-add-circle" size={32} color="#999999" />
 
@@ -118,11 +122,8 @@ export class DomainSelection extends Component {
 						/>
 					</View>
 				</View>
-				<View style={styles.centered}>
-					<Profile
-						auth={this.props.auth}
-						navigation={this.props.navigation} />
-				</View>
+
+
 			</View >
 		)
 	}
@@ -138,15 +139,16 @@ const styles = StyleSheet.create({
 		borderRadius: 13,
 		alignItems: "center"
 	},
+
 	TextStyle: {
 		color: "#111111",
 		flex: 1, paddingHorizontal: 12, textAlign: "left"
 	},
-	centered: {
-		alignSelf: "center",
-		marginBottom: 12,
-		marginLeft: 12,
-		marginTop: 58
+
+	container: {
+		backgroundColor: "#EFEFF4",
+		flex: 1,
+		marginTop: 10
 	},
 	imageStyleIcon: {
 		alignSelf: "center",

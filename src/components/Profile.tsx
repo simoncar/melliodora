@@ -33,7 +33,7 @@ export default function Profile(props: IProps) {
 			</TouchableOpacity>;
 		} else {
 			return <SettingsListItem
-				hasNavArrow={false}
+				hasNavArrow={true}
 				icon={<MaterialCommunityIcons
 					name="account-plus"
 					style={styles.imageStyleIcon} />}
@@ -49,6 +49,13 @@ const styles = StyleSheet.create({
 	nameText: {
 		fontSize: 18,
 		fontWeight: "600"
+	},
+	imageStyleIcon: {
+		alignSelf: "center",
+		color: "#999999",
+		fontSize: 25,
+		marginLeft: 15,
+		width: 30
 	},
 	sectionContentText: {
 		color: "#808080",
