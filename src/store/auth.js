@@ -96,39 +96,22 @@ function* WORKER_checkAdmin(action) {
 
 function* WORKER_authListener() {
 	// #1
-	const channel = new eventChannel((emiter) => {
+	const channel = new eventChannel((emitter) => {
 		const listener = firebase.auth().onAuthStateChanged((user) => {
-
-			if (__DEV__) {
-				console.log('Development');
-				Analytics.setDebugModeEnabled(false)
-					.catch(error => {
-						//just ignore for now
-					})
-
-			} else {
-				console.log('Production');
-				Analytics.setDebugModeEnabled(false)
-					.catch(error => {
-						//just ignore for now
-					})
-				// Analytics.setUserId(user.uid | null)
-				// 	.catch(error => {
-				// 		//just ignore for now
-				// 	})
-			}
-
+			console.log("onAuthStateChanged:", user)
 			if (!user) {
-				emiter({ data: { noUser: true } });
+				emitter({ data: { noUser: true } });
 			} else {
+				console.log("eventChannel emitter:", user)
 				const isAnonymous = user.isAnonymous;
-				emiter({ data: { user, isAnonymous } });
+				emitter({ data: { user, isAnonymous } });
 			}
 		});
 
 		// #2
 		return () => {
 			listener.off();
+			console.log("listener off");
 		};
 	});
 
@@ -139,6 +122,7 @@ function* WORKER_authListener() {
 			yield put(signInAnonymously());
 		} else {
 			const { user, isAnonymous } = data;
+			console.log("init user:", user)
 			yield put(initUser(user, isAnonymous));
 		}
 	}
@@ -151,6 +135,8 @@ function* WORKER_anonymouslySignIn() {
 
 function* WORKER_initUser(action) {
 	try {
+
+		console.log("WORKER_initUser");
 		const { user, isAnonymous } = action;
 		const uid = user.uid;
 
@@ -175,21 +161,23 @@ function* WORKER_initUser(action) {
 
 		yield call(() => {
 			try {
+				console.log("WORKER_initUser - firebase - set");
 				firebase
 					.firestore()
 					.collection("users")
 					.doc(uid)
 					.set(userDict, { merge: true })
 					.then(() => {
+						console.log("WORKER_initUser - get");
 						firebase
 							.firestore()
 							.collection("users")
 							.doc(uid)
 							.get()
 							.then(function (doc) {
-
 								if (doc.exists) {
 									const docData = doc.data();
+									console.log("WORKER_initUser - doc:", doc.data());
 
 									global.userInfo = docData;
 									put(setUserInfo(docData));

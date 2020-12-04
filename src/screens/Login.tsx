@@ -5,15 +5,30 @@ import _ from "lodash";
 import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
-
 import { Text, Button } from "../components/sComponent";
 import Loader from "../components/Loader";
 import I18n from "../lib/i18n";
 
+interface TProps {
+	navigation: any
+	auth: any
+}
 
-export class LoginScreen extends Component {
+interface TState {
+	email: string
+	password: string
+	errorMessage: string | null
+	loading: boolean
+}
 
-	state = { email: "", password: "", errorMessage: null, loading: false };
+
+export class LoginScreen extends Component<TProps, TState> {
+
+	constructor(props: Readonly<TProps>) {
+		super(props);
+
+		this.state = { email: "", password: "", errorMessage: null, loading: false };
+	}
 
 	handleLogin = async () => {
 		try {
@@ -21,15 +36,22 @@ export class LoginScreen extends Component {
 
 			const { email, password } = this.state;
 			await firebase.auth().signInWithEmailAndPassword(email, password);
+			console.log("signInWithEmailAndPassword:", email, password)
 		} catch (error) {
+			console.log("Login error:", error)
 			this.setState({ errorMessage: error.message, loading: false });
 		}
 	};
 
 	componentDidUpdate(prevProps, prevState) {
+		console.log("Component did update: ")
+		console.log("prevProps:", prevProps);
+		console.log("prevState:", prevState)
+
 		const { userInfo } = this.props.auth;
 		if (this.state.loading && userInfo.email == this.state.email && !_.isEmpty(userInfo)) {
 			this.setState({ loading: false });
+			console.log
 			if (!global.domain || _.has(this.props, "navigation.state.param.toWelcomeScreen")) {
 				this.props.navigation.navigate("welcomeScreen");
 			} else {
@@ -121,7 +143,7 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: { auth: any; }) => ({
 	auth: state.auth
 });
 export default connect(mapStateToProps)(LoginScreen);

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { I18nManager } from "react-native";
 import App from "./App";
 import I18n from "./lib/i18n";
-import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import _ from "lodash";
 import "firebase/firestore";
@@ -48,11 +47,8 @@ class Setup extends Component {
 
 	render() {
 		if (
-			this.state.loading ||
-			!this.props.auth.userInfo ||
-			_.isEmpty(this.props.auth.userInfo) ||
-			(_.isEmpty(this.props.community.selectedCommunity) &&
-				Constants.manifest.extra.instance)
+			this.state.loading
+
 		) {
 			return null;
 		} else if (_.isEmpty(this.props.community.selectedCommunity)) {

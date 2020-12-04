@@ -51,6 +51,7 @@
 		"@react-navigation/native": "^5.5.1",
 		"@react-navigation/stack": "^5.5.1",
 		"@react-navigation/web": "~1.0.0-alpha.9",
+		"@types/react-redux": "^7.1.11",
 		"babel-runtime": "^6.26.0",
 		"color": "^3.1.2",
 		"expo": "^39.0.0",

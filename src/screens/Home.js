@@ -44,7 +44,6 @@ class Home extends Component {
 
 		if (global.domain == "oakforest_international_edu") {
 			demo.setupDemoData();
-			this.loadBalance();
 		}
 
 		this.feature = firebase
@@ -60,7 +59,6 @@ class Home extends Component {
 
 		const { navigation } = this.props;
 		this.focusListener = navigation.addListener("didFocus", () => {
-			this.loadBalance();
 			this.loadCalendar();
 		});
 

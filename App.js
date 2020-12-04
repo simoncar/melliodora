@@ -18,8 +18,10 @@ Sentry.init({
 
 if (Platform.OS === 'web') {
 	Sentry.Browser.captureMessage("App started V" + Constants.manifest.version);
+	console.log("Sentry Web: ", Platform.OS)
 } else {
 	Sentry.Native.captureMessage("App started V" + Constants.manifest.version);
+	console.log("Sentry Device:", Platform.OS)
 }
 
 export default class App extends Component {
@@ -32,7 +34,7 @@ export default class App extends Component {
 			<ActivityIndicator size="large" />
 		</View>
 	);
-	
+
 	render() {
 
 		ScreenOrientation.unlockAsync()
