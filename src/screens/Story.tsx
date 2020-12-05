@@ -8,9 +8,12 @@ import ImageList from "../components/ImageList"
 import { actionEdit, actionPhotos, actionChat, actionSend, actionCalendar, actionShare } from "../components/StoryActions"
 import { StoryEntity } from '../lib/interfaces';
 
+const globalAny: any = global;
+
 interface TProps {
 	navigation: any,
 	route: any,
+	auth: any,
 }
 
 export class Story extends Component<TProps>{
@@ -106,7 +109,7 @@ export class Story extends Component<TProps>{
 
 				<ParsedText style={styles.eventTextBody} testID="story.parsedText"
 					parse={[{
-						pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*[-a-zA-Z0-9@:%_\+~#?&\/=])*/i,
+						pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_+.~#?&/=]*[-a-zA-Z0-9@:%_+~#?&/=])*/i,
 						style: styles.url,
 						onPress: this._handleOpenWithLinking
 					}, {
@@ -130,7 +133,7 @@ export class Story extends Component<TProps>{
 				</Text>}
 
 				<Text selectable style={styles.eventTextAbbreviation}>
-					{getAbbreviations(story.summary, global.domain)}
+					{getAbbreviations(story.summary, globalAny.domain)}
 				</Text>
 			</View>
 		)

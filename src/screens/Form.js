@@ -17,25 +17,15 @@ import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTim
 import { SaveFeature, DeleteFeature } from "../components/formAPI";
 import { StackActions } from "@react-navigation/native";
 import ImageList from "../components/ImageList"
-import { StoryEntity, StoryState } from '../lib/interfaces';
 
+class Form extends Component {
+	uid = "";
+	storyRef = null;
 
-interface TProps {
-	auth: any,
-	community: any,
-	navigation: any,
-	route: any,
-}
-
-
-class Form extends Component<TProps, StoryState> {
-
-	constructor(props: TProps) {
-
+	constructor(props) {
 		super(props);
 
-		const edit = this.props.route.params.edit
-		const { _key, summary, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params.story;
+		const { edit, _key, summary, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params;
 
 		this.state = {
 			photo1: edit && photo1 !== undefined ? photo1 : null,
@@ -46,15 +36,18 @@ class Form extends Component<TProps, StoryState> {
 			showIconChat: edit ? showIconChat : true,
 			order: edit ? order : 1,
 			_key: edit ? _key : "",
+
 			date_start: date_start,
 			time_start_pretty: time_start_pretty,
 			time_end_pretty: time_end_pretty,
+
 			dateTimeStart: dateTimeStart,
 			dateTimeEnd: dateTimeEnd,
-			cameraIcon: "camera",
-		};
 
-		console.log("state key:", _key)
+			cameraIcon: "camera",
+			showAdvanced: true,
+			notifyMeSwitch: false
+		};
 
 		this.handlerChat = this.handlerChat.bind(this);
 		this.handlerOrder = this.handlerOrder.bind(this);
@@ -73,17 +66,17 @@ class Form extends Component<TProps, StoryState> {
 		});
 	}
 
-	handlerChat(show: boolean) {
+	handlerChat(show) {
 		this.setState({ showIconChat: show });
 	}
 
-	handlerOrder(order: number) {
+	handlerOrder(order) {
 		this.setState({ order: order });
 	}
-	handlerVisible(visible: boolean) {
+	handlerVisible(visible) {
 		this.setState({ visible: visible });
 	}
-	handlerVisibleMore(visible: boolean) {
+	handlerVisibleMore(visible) {
 		this.setState({ visibleMore: visible });
 	}
 	handleEventDateTime(dateTimeStart, dateTimeEnd, date_start) {
@@ -209,8 +202,8 @@ class Form extends Component<TProps, StoryState> {
 				xhr.onload = function () {
 					resolve(xhr.response);
 				};
-				xhr.onerror = function (e) {
-					reject(new TypeError("Network request failed"));
+				xhr.onerror = function (errot) {
+					reject(new TypeError("Network request failed :", error));
 				};
 				xhr.responseType = "blob";
 				xhr.open("GET", fileToUpload, true);
@@ -237,11 +230,6 @@ class Form extends Component<TProps, StoryState> {
 	};
 
 	render() {
-
-		const story: StoryEntity = this.props.route.params.story
-		const refreshFunction = this.props.route.params.refreshFunction;
-
-		console.log("state key2:", this.state)
 
 		return (
 			<View style={styles.container}>
@@ -270,8 +258,8 @@ class Form extends Component<TProps, StoryState> {
 					<View style={styles.formButton}>{this.deleteButton()}</View>
 
 					<ImageList
-						feature={story._key}
-						refreshFunction={refreshFunction}
+						feature={this.state._key}
+						refreshFunction={this.refreshFunction}
 						edit={true}
 					/>
 
