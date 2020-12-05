@@ -5,17 +5,17 @@ import { formatTime, formatMonth } from "../lib/global";
 import { phoneCalendar } from "../lib/phoneCalendar"
 import { StoryEntity } from '../lib/interfaces';
 
-export function actionEdit(position: number) {
+export function actionEdit(navigation: any, position: number, story: StoryEntity, refreshFunction) {
 	return (
 		<TouchableHighlight
 			key="rightSideEdit"
 			style={[styles.button, { bottom: (10 + position * 60) }]}
 			underlayColor="#ff7043"
 			onPress={() => {
-				this.props.navigation.navigate("Form", {
+				navigation.navigate("Form", {
 					edit: true,
-					...this.state,
-					refreshFunction: this.refreshFunction
+					story,
+					refreshFunction: refreshFunction
 				});
 			}}>
 			<MaterialIcons testID="story.editIcon" name="edit" style={styles.icon} />
@@ -23,7 +23,7 @@ export function actionEdit(position: number) {
 	)
 }
 
-export function actionPhotos(position: number, navigation: any, storyKey:string) {
+export function actionPhotos(position: number, navigation: any, storyKey: string) {
 	return (
 		<TouchableHighlight
 			key="rightSidePhotos"

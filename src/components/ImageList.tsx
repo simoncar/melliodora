@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, RefreshControl, ListRenderItemInfo, View as BareView } from 'react-native';
+import { StyleSheet, Text, View, Image, ListRenderItemInfo, View as BareView } from 'react-native';
 import AlbumImage from "./AlbumImage"
 import { listenPhotos } from "./AlbumAPI"
 
@@ -11,7 +11,10 @@ interface IProps {
 
 export default function ImageList(props: IProps) {
 	const [photos, setPhotos] = useState([]);
+
 	const feature = props.feature
+
+	console.log("feature props:", props)
 
 	useEffect(() => {
 		if (Array.isArray(photos)) {
@@ -42,6 +45,27 @@ export default function ImageList(props: IProps) {
 }
 
 const styles = StyleSheet.create({
+	badge: {
+		left: 10,
+		position: 'absolute',
+		top: 10,
+	},
+	itemView: {
+		flex: 1,
+		flexDirection: 'column',
+		margin: 1,
+	},
+	overlay: {
+		//...StyleSheet.absoluteFillObject,
+		//backgroundColor: 'rgba(255,255,255,0.7)',
+		borderColor: "blue",
+		margin: 2,
+	},
+	selectionBorder: {
+		borderRadius: 3,
+		borderRightWidth: 50,
+		flex: 1,
+	},
 	storyPhoto: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
@@ -58,26 +82,5 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.2,
 		shadowRadius: 0.5,
 		width: "98%",
-	},
-	overlay: {
-		//...StyleSheet.absoluteFillObject,
-		//backgroundColor: 'rgba(255,255,255,0.7)',
-		borderColor: "blue",
-		margin: 2,
-	},
-	selectionBorder: {
-		borderRadius: 3,
-		borderRightWidth: 50,
-		flex: 1,
-	},
-	itemView: {
-		flex: 1,
-		flexDirection: 'column',
-		margin: 1,
-	},
-	badge: {
-		position: 'absolute',
-		top: 10,
-		left: 10,
 	},
 });

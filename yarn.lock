@@ -11912,12 +11912,6 @@ react-native-parsed-text@0.0.22:
   dependencies:
     prop-types "^15.7.x"
 
-"react-native-parsed-text@https://github.com/EvanBacon/react-native-parsed-text.git":
-  version "0.0.22"
-  resolved "https://github.com/EvanBacon/react-native-parsed-text.git#c909f64ee437796fd1b047edd73146fc89edb796"
-  dependencies:
-    prop-types "^15.5.10"
-
 react-native-progress@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/react-native-progress/-/react-native-progress-4.1.2.tgz#ffb2264ddfeba409c730e36a9791bb7bbe07a00d"

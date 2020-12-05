@@ -17,6 +17,7 @@ import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTim
 import { SaveFeature, DeleteFeature } from "../components/formAPI";
 import { StackActions } from "@react-navigation/native";
 import ImageList from "../components/ImageList"
+import { StoryEntity } from '../lib/interfaces';
 
 class Form extends Component {
 	uid = "";
@@ -25,7 +26,7 @@ class Form extends Component {
 	constructor(props) {
 		super(props);
 
-		const { edit, _key, summary, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params;
+		const { edit, _key, summary, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params.story;
 
 		this.state = {
 			photo1: edit && photo1 !== undefined ? photo1 : null,
@@ -48,6 +49,8 @@ class Form extends Component {
 			showAdvanced: true,
 			notifyMeSwitch: false
 		};
+
+		console.log("state key:", _key)
 
 		this.handlerChat = this.handlerChat.bind(this);
 		this.handlerOrder = this.handlerOrder.bind(this);
@@ -231,6 +234,9 @@ class Form extends Component {
 
 	render() {
 
+		const story: StoryEntity = this.props.route.params.story
+		const refreshFunction = this.props.route.params.refreshFunction;
+
 		return (
 			<View style={styles.container}>
 				{this._drawImage(this.state.photo1)}
@@ -258,8 +264,8 @@ class Form extends Component {
 					<View style={styles.formButton}>{this.deleteButton()}</View>
 
 					<ImageList
-						feature={this.state._key}
-						refreshFunction={this.refreshFunction}
+						feature={story._key}
+						refreshFunction={refreshFunction}
 						edit={true}
 					/>
 

@@ -17,9 +17,6 @@ export class Story extends Component<TProps>{
 
 	constructor(props: TProps) {
 		super(props);
-		console.log("Story Props:", this.props)
-		
-		const story: StoryEntity = this.props.route.params.story
 		this.refreshFunction = this.refreshFunction.bind(this);
 	}
 
@@ -32,17 +29,9 @@ export class Story extends Component<TProps>{
 		});
 	}
 
-	_handleOpenWithLinking = (sURL: string) => {
-		Linking.openURL(sURL);
-	};
-
-	_handleEmailPress(email: string) {
-		Linking.openURL("mailto:" + email);
-	}
-
-	_handlePhonePress(phone: string) {
-		Linking.openURL("tel:" + phone);
-	}
+	_handleOpenWithLinking = (sURL: string) => { Linking.openURL(sURL); };
+	_handleEmailPress(email: string) { Linking.openURL("mailto:" + email); }
+	_handlePhonePress(phone: string) { Linking.openURL("tel:" + phone); }
 
 	_drawImage(imageURI: string) {
 		if (undefined !== imageURI && null !== imageURI && imageURI.length > 0) {
@@ -62,7 +51,7 @@ export class Story extends Component<TProps>{
 			});
 	}
 
-	rightSideButtons() {
+	rightSideButtons(story: StoryEntity) {
 		let buffer = []
 		let position = 0
 
@@ -70,54 +59,54 @@ export class Story extends Component<TProps>{
 		const admin = isAdmin(this.props.route.params.adminPassword)
 
 		if (admin && story.source == "feature") {
-			buffer.push(actionEdit(position))
+			buffer.push(actionEdit(navigation, position, story, this.refreshFunction))
 			position++
 		}
 
 		if (admin && story.showIconChat === true) {
-			buffer.push(actionChat(position, navigation, this.state._key, this.state.summaryMyLanguage))
+			buffer.push(actionChat(position, navigation, story._key, story.summaryMyLanguage))
 			position++
 		}
 		if (admin) {
-			buffer.push(actionSend(position, navigation, this.state))
+			buffer.push(actionSend(position, navigation, story))
 			position++
 		}
-		buffer.push(actionPhotos(position, navigation, this.state._key))
+		buffer.push(actionPhotos(position, navigation, story._key))
 		position++
-		buffer.push(actionShare(position, this.state))
+		buffer.push(actionShare(position, story))
 		position++
 
-		if (isValue(this.state.date_start)) {
-			buffer.push(actionCalendar(position, this.state))
+		if (isValue(story.date_start)) {
+			buffer.push(actionCalendar(position, story))
 			position++
 		}
 		return (buffer)
 	}
 
-	_drawText() {
+	_drawText(story: StoryEntity) {
 		return (
 			<View style={styles.textBox}>
 				<Text selectable style={styles.eventTitle}>
-					{this.state.summaryMyLanguage}
+					{story.summaryMyLanguage}
 				</Text>
 
-				{isValue(this.state.location) && <Text selectable style={styles.eventText}>
-					{this.state.location}
+				{isValue(story.location) && <Text selectable style={styles.eventText}>
+					{story.location}
 				</Text>}
 
-				{isValue(this.state.date_start) && <Text selectable style={styles.eventText}>
-					{formatMonth(this.state.date_start)}
+				{isValue(story.date_start) && <Text selectable style={styles.eventText}>
+					{formatMonth(story.date_start)}
 				</Text>}
 
 
-				{isValue(this.state.time_start_pretty) && <Text selectable style={styles.eventTextTime}>
-					{formatTime(this.state.time_start_pretty, this.state.time_end_pretty)}
+				{isValue(story.time_start_pretty) && <Text selectable style={styles.eventTextTime}>
+					{formatTime(story.time_start_pretty, story.time_end_pretty)}
 				</Text>}
 
 
 				<ParsedText style={styles.eventTextBody} testID="story.parsedText"
 					parse={[{
-						pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*[-a-zA-Z0-9@:%_\+~#?&\/=])*/i,
+						pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*[-a-zA-Z0-9@:%_\+~#?&\/=])*/i,
 						style: styles.url,
 						onPress: this._handleOpenWithLinking
 					}, {
@@ -128,17 +117,20 @@ export class Story extends Component<TProps>{
 						type: "email",
 						style: styles.email,
 						onPress: this._handleEmailPress
-					}, { pattern: /433333332/, style: styles.url }, { pattern: /#(\w+)/, style: styles.url }]} childrenProps={{ allowFontScaling: false }}>
-					{this.state.descriptionMyLanguage}
+					}, { pattern: /433333332/, style: styles.url },
+					{ pattern: /#(\w+)/, style: styles.url }]}
+					childrenProps={{ allowFontScaling: false }}
+				>
+					{story.descriptionMyLanguage}
 				</ParsedText>
 				{this.props.auth.language != "en" && <Text selectable style={styles.englishFallback}>
 					{"\n\n"}
-					{this.state.description}
+					{story.description}
 					{"\n\n"}
 				</Text>}
 
 				<Text selectable style={styles.eventTextAbbreviation}>
-					{getAbbreviations(this.state.summary, global.domain)}
+					{getAbbreviations(story.summary, global.domain)}
 				</Text>
 			</View>
 		)
@@ -149,17 +141,20 @@ export class Story extends Component<TProps>{
 	}
 
 	render() {
+
+		const story: StoryEntity = this.props.route.params.story
+
 		return <View style={styles.container}>
-			{this.rightSideButtons()}
+			{this.rightSideButtons(story)}
 			<ScrollView
 				showsVerticalScrollIndicator={false}
 				onScroll={this.handleScroll}
 			>
-				{this._drawImage(this.state.photo1)}
-				{this._drawText()}
+				{this._drawImage(story.photo1)}
+				{this._drawText(story)}
 
 				<ImageList
-					feature={this.state._key}
+					feature={story._key}
 					refreshFunction={this.refreshFunction}
 					edit={false}
 				/>
