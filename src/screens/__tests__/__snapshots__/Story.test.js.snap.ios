@@ -53,12 +53,10 @@ exports[`show story no calendar no image 1`] = `
             "color": undefined,
             "fontSize": 12,
           },
-          Array [
-            Object {
-              "color": "white",
-              "fontSize": 25,
-            },
-          ],
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
           Object {
             "fontFamily": "material",
             "fontStyle": "normal",
@@ -334,83 +332,6 @@ exports[`show story no calendar no image 1`] = `
     showsVerticalScrollIndicator={false}
   >
     <View>
-      <View>
-        <View
-          style={
-            Object {
-              "alignSelf": "center",
-              "backgroundColor": "#fff",
-              "borderBottomLeftRadius": 15,
-              "borderBottomRightRadius": 15,
-              "borderColor": "lightgray",
-              "borderWidth": 1,
-              "elevation": 1,
-              "flex": 1,
-              "height": 200,
-              "marginBottom": 12,
-              "shadowColor": "rgba(0,0,0, .4)",
-              "shadowOffset": Object {
-                "height": 1,
-                "width": 0.5,
-              },
-              "shadowOpacity": 0.2,
-              "shadowRadius": 0.5,
-              "width": "98%",
-            }
-          }
-        >
-          <Image
-            blurRadius={0}
-            onError={[Function]}
-            source={
-              Object {
-                "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
-              }
-            }
-            style={
-              Array [
-                Object {
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "borderBottomLeftRadius": 14,
-                  "borderBottomRightRadius": 14,
-                },
-              ]
-            }
-            transitionDuration={300}
-            uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680"
-          />
-          <ViewManagerAdapter_ExpoBlurView
-            proxiedProperties={
-              Object {
-                "intensity": 100,
-                "tint": "dark",
-              }
-            }
-            style={
-              Array [
-                Object {
-                  "borderBottomLeftRadius": 14,
-                  "borderBottomRightRadius": 14,
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-              ]
-            }
-          />
-        </View>
-      </View>
       <View
         style={
           Object {
@@ -420,7 +341,6 @@ exports[`show story no calendar no image 1`] = `
             "borderBottomRightRadius": 15,
             "borderColor": "lightgray",
             "borderWidth": 1,
-            "elevation": 1,
             "flex": 1,
             "marginBottom": 12,
             "padding": 10,
@@ -785,7 +705,12 @@ exports[`show story on screen 1`] = `
   >
     <View>
       <View>
-        <View
+        <Image
+          source={
+            Object {
+              "uri": "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f",
+            }
+          }
           style={
             Object {
               "alignSelf": "center",
@@ -794,7 +719,6 @@ exports[`show story on screen 1`] = `
               "borderBottomRightRadius": 15,
               "borderColor": "lightgray",
               "borderWidth": 1,
-              "elevation": 1,
               "flex": 1,
               "height": 200,
               "marginBottom": 12,
@@ -808,58 +732,7 @@ exports[`show story on screen 1`] = `
               "width": "98%",
             }
           }
-        >
-          <Image
-            blurRadius={0}
-            onError={[Function]}
-            source={
-              Object {
-                "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
-              }
-            }
-            style={
-              Array [
-                Object {
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "borderBottomLeftRadius": 14,
-                  "borderBottomRightRadius": 14,
-                },
-              ]
-            }
-            transitionDuration={300}
-            uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f"
-          />
-          <ViewManagerAdapter_ExpoBlurView
-            proxiedProperties={
-              Object {
-                "intensity": 100,
-                "tint": "dark",
-              }
-            }
-            style={
-              Array [
-                Object {
-                  "borderBottomLeftRadius": 14,
-                  "borderBottomRightRadius": 14,
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-              ]
-            }
-          />
-        </View>
+        />
       </View>
       <View
         style={
@@ -870,7 +743,6 @@ exports[`show story on screen 1`] = `
             "borderBottomRightRadius": 15,
             "borderColor": "lightgray",
             "borderWidth": 1,
-            "elevation": 1,
             "flex": 1,
             "marginBottom": 12,
             "padding": 10,
@@ -1046,12 +918,10 @@ exports[`show story with URL in content to test linking 1`] = `
             "color": undefined,
             "fontSize": 12,
           },
-          Array [
-            Object {
-              "color": "white",
-              "fontSize": 25,
-            },
-          ],
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
           Object {
             "fontFamily": "material",
             "fontStyle": "normal",
@@ -1389,7 +1259,12 @@ exports[`show story with URL in content to test linking 1`] = `
   >
     <View>
       <View>
-        <View
+        <Image
+          source={
+            Object {
+              "uri": "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f",
+            }
+          }
           style={
             Object {
               "alignSelf": "center",
@@ -1398,7 +1273,6 @@ exports[`show story with URL in content to test linking 1`] = `
               "borderBottomRightRadius": 15,
               "borderColor": "lightgray",
               "borderWidth": 1,
-              "elevation": 1,
               "flex": 1,
               "height": 200,
               "marginBottom": 12,
@@ -1412,58 +1286,7 @@ exports[`show story with URL in content to test linking 1`] = `
               "width": "98%",
             }
           }
-        >
-          <Image
-            blurRadius={0}
-            onError={[Function]}
-            source={
-              Object {
-                "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
-              }
-            }
-            style={
-              Array [
-                Object {
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "borderBottomLeftRadius": 14,
-                  "borderBottomRightRadius": 14,
-                },
-              ]
-            }
-            transitionDuration={300}
-            uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f"
-          />
-          <ViewManagerAdapter_ExpoBlurView
-            proxiedProperties={
-              Object {
-                "intensity": 100,
-                "tint": "dark",
-              }
-            }
-            style={
-              Array [
-                Object {
-                  "borderBottomLeftRadius": 14,
-                  "borderBottomRightRadius": 14,
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-              ]
-            }
-          />
-        </View>
+        />
       </View>
       <View
         style={
@@ -1474,7 +1297,6 @@ exports[`show story with URL in content to test linking 1`] = `
             "borderBottomRightRadius": 15,
             "borderColor": "lightgray",
             "borderWidth": 1,
-            "elevation": 1,
             "flex": 1,
             "marginBottom": 12,
             "padding": 10,
@@ -1794,12 +1616,10 @@ exports[`show story without chat 1`] = `
             "color": undefined,
             "fontSize": 12,
           },
-          Array [
-            Object {
-              "color": "white",
-              "fontSize": 25,
-            },
-          ],
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
           Object {
             "fontFamily": "material",
             "fontStyle": "normal",
@@ -2064,7 +1884,12 @@ exports[`show story without chat 1`] = `
   >
     <View>
       <View>
-        <View
+        <Image
+          source={
+            Object {
+              "uri": "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f",
+            }
+          }
           style={
             Object {
               "alignSelf": "center",
@@ -2073,7 +1898,6 @@ exports[`show story without chat 1`] = `
               "borderBottomRightRadius": 15,
               "borderColor": "lightgray",
               "borderWidth": 1,
-              "elevation": 1,
               "flex": 1,
               "height": 200,
               "marginBottom": 12,
@@ -2087,58 +1911,7 @@ exports[`show story without chat 1`] = `
               "width": "98%",
             }
           }
-        >
-          <Image
-            blurRadius={0}
-            onError={[Function]}
-            source={
-              Object {
-                "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
-              }
-            }
-            style={
-              Array [
-                Object {
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "borderBottomLeftRadius": 14,
-                  "borderBottomRightRadius": 14,
-                },
-              ]
-            }
-            transitionDuration={300}
-            uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f"
-          />
-          <ViewManagerAdapter_ExpoBlurView
-            proxiedProperties={
-              Object {
-                "intensity": 100,
-                "tint": "dark",
-              }
-            }
-            style={
-              Array [
-                Object {
-                  "borderBottomLeftRadius": 14,
-                  "borderBottomRightRadius": 14,
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-              ]
-            }
-          />
-        </View>
+        />
       </View>
       <View
         style={
@@ -2149,7 +1922,6 @@ exports[`show story without chat 1`] = `
             "borderBottomRightRadius": 15,
             "borderColor": "lightgray",
             "borderWidth": 1,
-            "elevation": 1,
             "flex": 1,
             "marginBottom": 12,
             "padding": 10,

@@ -1,70 +1,25 @@
 import React, { Component } from "react";
-import { Linking, View, StyleSheet, ScrollView } from "react-native";
-import { Image } from "react-native-expo-image-cache";
+import { Image, Linking, View, StyleSheet, ScrollView } from "react-native";
 import ParsedText from "react-native-parsed-text";
-import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global.js";
-import _ from "lodash";
+import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global";
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent"
 import ImageList from "../components/ImageList"
 import { actionEdit, actionPhotos, actionChat, actionSend, actionCalendar, actionShare } from "../components/StoryActions"
 import { StoryEntity } from '../lib/interfaces';
-import { getTotalDiskCapacityAsync } from "expo-file-system";
-import { addAssetsToAlbumAsync } from "expo-media-library";
 
 interface TProps {
 	navigation: any,
-	route: any
+	route: any,
 }
 
-export class Story extends Component<TProps, StoryEntity>{
+export class Story extends Component<TProps>{
 
-	constructor(props) {
+	constructor(props: TProps) {
 		super(props);
-
-		const {
-			_key,
-			summary,
-			location,
-			summaryMyLanguage,
-			source,
-			date_start,
-			time_start_pretty,
-			time_end_pretty,
-			descriptionMyLanguage,
-			description,
-			photo1,
-			visible,
-			visibleMore,
-			showIconChat,
-			order,
-			dateTimeStart,
-			dateTimeEnd
-		}
-			= this.props.route.params;
-
-
-		this.state = {
-			photo1: photo1 !== undefined ? photo1 : null,
-			summary: summary,
-			summaryMyLanguage: summaryMyLanguage,
-			descriptionMyLanguage: descriptionMyLanguage,
-			description: description,
-			visible: visible,
-			visibleMore: visibleMore,
-			showIconChat: showIconChat,
-			order: order,
-			_key: _key,
-			date_start,
-			time_start_pretty,
-			time_end_pretty,
-			source,
-			dateTimeStart,
-			dateTimeEnd,
-			location,
-			scroll: false
-		};
-
+		console.log("Story Props:", this.props)
+		
+		const story: StoryEntity = this.props.route.params.story
 		this.refreshFunction = this.refreshFunction.bind(this);
 	}
 
@@ -77,38 +32,27 @@ export class Story extends Component<TProps, StoryEntity>{
 		});
 	}
 
-	_handleOpenWithLinking = sURL => {
+	_handleOpenWithLinking = (sURL: string) => {
 		Linking.openURL(sURL);
 	};
 
-	_handleEmailPress(email) {
+	_handleEmailPress(email: string) {
 		Linking.openURL("mailto:" + email);
 	}
 
-	_handlePhonePress(phone) {
+	_handlePhonePress(phone: string) {
 		Linking.openURL("tel:" + phone);
 	}
 
-	_drawImage(imageURI) {
-		var uri = ""
-		if (_.isNil(imageURI) || (imageURI == "")) {
-			uri = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680";
-		} else {
-			uri = imageURI;
-		}
-		const preview = {
-			uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
-		};
-
-		if (undefined !== uri && null !== uri && uri.length > 0) {
+	_drawImage(imageURI: string) {
+		if (undefined !== imageURI && null !== imageURI && imageURI.length > 0) {
 			return <View>
-				<Image style={styles.storyPhoto} {...{ preview, uri }} />
+				<Image style={styles.storyPhoto} source={{ uri: imageURI }} />
 			</View>;
 		}
 	}
 
-
-	refreshFunction(newState) {
+	refreshFunction(newState: { summary: any; description: any; }) {
 		console.log("refresh function")
 		this.setState(
 			{
@@ -125,12 +69,12 @@ export class Story extends Component<TProps, StoryEntity>{
 		const navigation = this.props.navigation
 		const admin = isAdmin(this.props.route.params.adminPassword)
 
-		if (admin && this.state.source == "feature") {
+		if (admin && story.source == "feature") {
 			buffer.push(actionEdit(position))
 			position++
 		}
 
-		if (admin && this.state.showIconChat === true) {
+		if (admin && story.showIconChat === true) {
 			buffer.push(actionChat(position, navigation, this.state._key, this.state.summaryMyLanguage))
 			position++
 		}
@@ -276,7 +220,6 @@ const styles = StyleSheet.create({
 		borderBottomRightRadius: 15,
 		borderColor: "lightgray",
 		borderWidth: 1,
-		elevation: 1,
 		flex: 1,
 		height: 200,
 		marginBottom: 12,
@@ -293,7 +236,6 @@ const styles = StyleSheet.create({
 		borderBottomRightRadius: 15,
 		borderColor: "lightgray",
 		borderWidth: 1,
-		elevation: 1,
 		flex: 1,
 		marginBottom: 12,
 		padding: 10,
@@ -309,7 +251,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: { auth: any; }) => ({
 	auth: state.auth
 });
 

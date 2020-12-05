@@ -4,8 +4,9 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Text } from "./sComponent";
 import { Image } from "react-native-expo-image-cache";
 import { Grid, Col, Row } from "react-native-easy-grid";
-import { formatTime } from "../lib/global.js";
+import { formatTime } from "../lib/global";
 import _ from "lodash";
+
 class CalendarItem extends Component {
 	constructor(props) {
 		super(props);

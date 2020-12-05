@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
 		padding: 10
 	},
 
+
 	containerStyle: {
 		backgroundColor: "#ffffff",
 		borderColor: "#d2d2d2",

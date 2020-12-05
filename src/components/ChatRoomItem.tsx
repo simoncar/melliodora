@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
-import { SettingsListItem } from "../components/SettingsListItem";
+import { SettingsListItem } from "./SettingsListItem";
 
 class ChatroomItem extends Component {
 	constructor(props) {

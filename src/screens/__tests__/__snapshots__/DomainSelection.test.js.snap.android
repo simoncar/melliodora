@@ -12,6 +12,90 @@ exports[`list domains 1`] = `
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#CED0CE",
+          "borderBottomWidth": 0.5,
+          "flexDirection": "row",
+          "paddingVertical": 8,
+        }
+      }
+    >
+      <Text />
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingHorizontal": 8,
+          }
+        }
+      >
+        <View>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Array [
+                  undefined,
+                  Object {
+                    "color": "#333333",
+                  },
+                ],
+              ]
+            }
+          >
+            Sign In / Sign Up
+          </Text>
+        </View>
+        <View>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Array [
+                  undefined,
+                  Object {
+                    "color": "#777777",
+                  },
+                ],
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginHorizontal": 8,
+          }
+        }
+      >
+        <Text />
+      </View>
+    </View>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
         "alignItems": "center",
@@ -1140,46 +1224,6 @@ exports[`list domains 1`] = `
           />
         </View>
       </RCTScrollView>
-    </View>
-  </View>
-  <View
-    style={
-      Object {
-        "alignSelf": "center",
-        "marginBottom": 12,
-        "marginLeft": 12,
-        "marginTop": 58,
-      }
-    }
-  >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "opacity": 1,
-        }
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "SegoeUI",
-            },
-            undefined,
-          ]
-        }
-      >
-        Sign In
-      </Text>
     </View>
   </View>
 </View>

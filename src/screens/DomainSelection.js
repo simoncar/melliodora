@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
 		color: "#111111",
 		flex: 1, paddingHorizontal: 12, textAlign: "left"
 	},
+
 	imageStyleIcon: {
 		alignSelf: "center",
 		color: "#999999",

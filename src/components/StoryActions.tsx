@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Share, TouchableHighlight } from 'react-native';
 import { Ionicons, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { formatTime, formatMonth } from "../lib/global.js";
+import { formatTime, formatMonth } from "../lib/global";
 import { phoneCalendar } from "../lib/phoneCalendar"
 import { StoryEntity } from '../lib/interfaces';
 

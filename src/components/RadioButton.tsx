@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { Text } from "../components/sComponent"
+import { Text } from "./sComponent"
 
 export default class RadioButtons extends Component {
 	state = {
