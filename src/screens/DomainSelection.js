@@ -102,6 +102,7 @@ export class DomainSelection extends Component {
 				<Profile
 					auth={this.props.auth}
 					navigation={this.props.navigation} />
+
 				<TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={onPressedCreateCommunity}>
 					<Ionicons style={styles.leftIcon} name="ios-add-circle" size={32} color="#999999" />
 
@@ -139,16 +140,9 @@ const styles = StyleSheet.create({
 		borderRadius: 13,
 		alignItems: "center"
 	},
-
 	TextStyle: {
 		color: "#111111",
 		flex: 1, paddingHorizontal: 12, textAlign: "left"
-	},
-
-	container: {
-		backgroundColor: "#EFEFF4",
-		flex: 1,
-		marginTop: 10
 	},
 	imageStyleIcon: {
 		alignSelf: "center",
@@ -158,7 +152,6 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		width: 30
 	},
-
 	leftIcon: { flexShrink: 1 },
 	searchIcon: { marginLeft: 12, marginRight: 12, padding: 2 },
 
@@ -170,7 +163,6 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		height: 55
 	},
-
 	separator: {
 		backgroundColor: "#CED0CE",
 	},

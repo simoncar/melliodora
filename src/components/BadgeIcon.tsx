@@ -1,8 +1,5 @@
 import * as React from 'react';
 import { Animated, StyleSheet, StyleProp, TextStyle } from 'react-native';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import color from 'color';
 
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -10,24 +7,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 const defaultSize = 20;
 
 type Props = React.ComponentProps<typeof Animated.Text> & {
-	/**
-	 * Whether the badge is visible
-	 */
 	visible: boolean;
-	/**
-	 * MaterialCommunityIcons name.
-	 */
 	icon: string;
-	/**
-	 * Size of the `Badge`.
-	 */
 	size?: number;
 	style?: StyleProp<TextStyle>;
 	ref?: React.RefObject<typeof Animated.Text>;
-	/**
-	 * @optional
-	 */
-
 };
 
 type State = {
@@ -62,28 +46,21 @@ class BadgeIcon extends React.Component<Props, State> {
 		const {
 			icon,
 			size = defaultSize,
-			style,
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			visible,
 			...rest
 		} = this.props;
 		const { opacity } = this.state;
 		const borderRadius = size / 2;
 
 		return (
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
 			<Animated.Text
 				numberOfLines={1}
 				style={[
 					{
-						opacity,
 						color: "green",
 						fontSize: size * 0.5,
-						lineHeight: size,
 						height: size,
+						lineHeight: size,
 						minWidth: size,
-						borderRadius,
 					},
 					styles.container,
 				]}
@@ -98,18 +75,13 @@ class BadgeIcon extends React.Component<Props, State> {
 export default BadgeIcon;
 
 const styles = StyleSheet.create({
+
 	container: {
 		alignSelf: 'flex-end',
+		overflow: 'hidden',
+		paddingHorizontal: 4,
 		textAlign: 'center',
 		textAlignVertical: 'center',
-		paddingHorizontal: 4,
-		overflow: 'hidden',
-	},
-	container2: {
-		alignSelf: 'flex-end',
-		textAlign: 'center',
-		textAlignVertical: 'center',
-		paddingHorizontal: 4,
-		overflow: 'hidden',
-	},
+	}
+
 });

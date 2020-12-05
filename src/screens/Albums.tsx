@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { FlatList, StyleSheet, TouchableOpacity, View, SafeAreaView } from "react-native";
+import { FlatList, StyleSheet, View, SafeAreaView } from "react-native";
 import { SettingsListItem } from "../components/SettingsListItem";
 import { MaterialIcons } from "@expo/vector-icons";
-import I18n from "../lib/i18n";
-import { Text } from "../components/sComponent";
 import { connect } from "react-redux";
 import * as MediaLibrary from 'expo-media-library';
-import * as Permissions from 'expo-permissions';
 
 
 export interface CameraRollResult {
@@ -17,8 +14,9 @@ export interface CameraRollResult {
 }
 
 interface TProps {
-	navigation: any
-	albums: []
+	navigation: any,
+	albums: [],
+	route: any,
 }
 interface TState {
 	storyKey: string,
@@ -33,7 +31,7 @@ export class SelectAlbum extends Component<TProps, TState>{
 	constructor(props: Readonly<TProps>) {
 		super(props);
 
-		const { edit, _key, summary, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params;
+		const { _key } = this.props.route.params;
 
 		this.state = {
 			albums: [],
@@ -47,7 +45,7 @@ export class SelectAlbum extends Component<TProps, TState>{
 
 
 		MediaLibrary.requestPermissionsAsync()
-			.then(status => {
+			.then(() => {
 
 				albums.push({
 					title: "Recent",
@@ -74,7 +72,7 @@ export class SelectAlbum extends Component<TProps, TState>{
 			})
 	}
 
-	keyExtractor = (item) => item._key;
+	keyExtractor = (item: { _key: any; }) => item._key;
 
 	_renderItem = ({ item }) => (
 		<View style={styles.card}>
@@ -125,31 +123,12 @@ const styles = StyleSheet.create({
 		padding: 10,
 		width: "95%",
 	},
-	imageStyleCheckOff: {
-		alignSelf: "center",
-		color: "#FFF",
-		fontSize: 30,
-		height: 30,
-		marginLeft: 15,
-		width: 30
-	},
-	imageStyleCheckOn: {
-		alignSelf: "center",
-		color: "#007AFF",
-		fontSize: 30,
-		height: 30,
-		marginLeft: 15,
-		width: 30
-	},
-	restartWarning: {
-		alignSelf: "center",
-		color: "#8e8e93",
-		fontSize: 16,
-	}
+
 });
 
 
-const mapStateToProps = state => ({
+
+const mapStateToProps = (state: { auth: any; }) => ({
 	auth: state.auth
 });
 export default connect(mapStateToProps)(SelectAlbum);
