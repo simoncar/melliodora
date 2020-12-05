@@ -5,7 +5,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import * as MediaLibrary from 'expo-media-library';
 
-
 export interface CameraRollResult {
 	images: MediaLibrary.Asset[];
 	isRefreshing: boolean;
