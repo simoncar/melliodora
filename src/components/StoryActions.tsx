@@ -18,12 +18,12 @@ export function actionEdit(position: number) {
 					refreshFunction: this.refreshFunction
 				});
 			}}>
-			<MaterialIcons testID="story.editIcon" name="edit" style={[styles.icon]} />
+			<MaterialIcons testID="story.editIcon" name="edit" style={styles.icon} />
 		</TouchableHighlight>
 	)
 }
 
-export function actionPhotos(position: number, navigation: any) {
+export function actionPhotos(position: number, navigation: any, storyKey:string) {
 	return (
 		<TouchableHighlight
 			key="rightSidePhotos"
@@ -31,8 +31,7 @@ export function actionPhotos(position: number, navigation: any) {
 			underlayColor="#ff7043"
 			onPress={() => {
 				navigation.navigate("Albums", {
-					edit: true,
-					...this.state,
+					storyKey: storyKey
 				});
 			}}>
 			<MaterialIcons testID="story.cameraIcon" name="camera" style={styles.icon} />
@@ -122,10 +121,6 @@ export function actionShare(position: number, story: StoryEntity) {
 }
 
 const styles = StyleSheet.create({
-	icon: {
-		color: "white",
-		fontSize: 25
-	},
 	button: {
 		alignItems: "center",
 		backgroundColor: 'rgba(52, 52, 52, 0.1)',
@@ -161,5 +156,9 @@ const styles = StyleSheet.create({
 		shadowRadius: 2,
 		width: 150,
 		zIndex: 990,
+	},
+	icon: {
+		color: "white",
+		fontSize: 25
 	},
 });

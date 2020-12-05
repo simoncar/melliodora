@@ -16,11 +16,15 @@ async function copyToLocal(uri: string, filename: string) {
 }
 
 async function saveNewPhoto(localFileName: string, storyKey: string) {
-	console.log("saveNewPhoto start")
+	console.log("saveNewPhoto start 1")
 	var photo = {
 		local: localFileName,
 		timestamp: firebase.firestore.Timestamp.now(),
 	};
+
+	console.log("saveNewPhoto start 2:", global.domain)
+	console.log("saveNewPhoto start 2a:", storyKey)
+	console.log("saveNewPhoto start 2b:", photo)
 
 	firebase
 		.firestore()
@@ -35,12 +39,13 @@ async function saveNewPhoto(localFileName: string, storyKey: string) {
 			return
 		})
 		.catch(error => {
+			console.log("saveNewPhoto error:", error);
 			return ("error:" + error)
 		})
 }
 
 export function saveSelectedImages(items: MediaLibrary.Asset[], storyKey: string) {
-	console.log("saveSelectedImages start");
+	console.log("saveSelectedImages start:", storyKey);
 
 	for (var key in items) {
 		if (items.hasOwnProperty(key)) {

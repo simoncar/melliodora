@@ -17,6 +17,7 @@ interface TProps {
 	navigation: any,
 	albums: [],
 	route: any,
+	storyKey: string,
 }
 interface TState {
 	storyKey: string,
@@ -31,11 +32,11 @@ export class SelectAlbum extends Component<TProps, TState>{
 	constructor(props: Readonly<TProps>) {
 		super(props);
 
-		const { _key } = this.props.route.params;
+		const { storyKey } = this.props.route.params;
 
 		this.state = {
 			albums: [],
-			storyKey: _key,
+			storyKey: storyKey,
 		};
 
 		const albums: {

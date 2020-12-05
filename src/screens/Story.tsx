@@ -138,7 +138,7 @@ export class Story extends Component<TProps, StoryEntity>{
 			buffer.push(actionSend(position, navigation, this.state))
 			position++
 		}
-		buffer.push(actionPhotos(position, navigation))
+		buffer.push(actionPhotos(position, navigation, this.state._key))
 		position++
 		buffer.push(actionShare(position, this.state))
 		position++
@@ -287,9 +287,8 @@ const styles = StyleSheet.create({
 		width: "98%",
 	},
 	textBox: {
-		padding: 10,
-		backgroundColor: 'rgba(52, 52, 52, 0.03)',
 		alignSelf: "center",
+		backgroundColor: 'rgba(52, 52, 52, 0.03)',
 		borderBottomLeftRadius: 15,
 		borderBottomRightRadius: 15,
 		borderColor: "lightgray",
@@ -297,6 +296,7 @@ const styles = StyleSheet.create({
 		elevation: 1,
 		flex: 1,
 		marginBottom: 12,
+		padding: 10,
 		shadowColor: "rgba(0,0,0, .4)",
 		shadowOffset: { height: 1, width: 0.5 },
 		shadowOpacity: 0.2,
