@@ -68,8 +68,9 @@ class ListItem extends Component<TProps> {
 	}
 
 	render() {
-		const showIconChat = this.props.story.showIconChat === false ? false : true;
-		const card = this.props.card === false ? false : true;
+
+		const showIconChat = this.props.story.showIconChat
+		const card = this.props.card
 		const {
 			_key,
 			photo1,

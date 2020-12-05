@@ -99,7 +99,10 @@ const itemBalance = {
 
 test('list item  with a photo', () => {
 	const { toJSON, queryByText } = render(
-		<ListItem item={itemCore} />
+		<ListItem
+			story={itemCore}
+			card={true}
+		/>
 	);
 
 	expect(toJSON()).toMatchSnapshot();
@@ -110,7 +113,9 @@ test('list item  with a photo', () => {
 
 test('list item of a calendar with date', () => {
 	const { toJSON, queryByText } = render(
-		<ListItem item={itemCalendarDate} />
+		<ListItem
+			story={itemCalendarDate}
+			card={true} />
 	);
 
 	expect(toJSON()).toMatchSnapshot();
@@ -121,7 +126,9 @@ test('list item of a calendar with date', () => {
 
 test('list item of a calendar with date and time', () => {
 	const { toJSON, queryByText } = render(
-		<ListItem item={itemCalendarDateTime} />
+		<ListItem
+			story={itemCalendarDateTime}
+			card={true} />
 	);
 
 	expect(toJSON()).toMatchSnapshot();
@@ -132,7 +139,9 @@ test('list item of a calendar with date and time', () => {
 
 test('show balance', () => {
 	const { toJSON, queryByText } = render(
-		<ListItem item={itemBalance} />
+		<ListItem
+			story={itemBalance}
+			card={true} />
 	);
 
 	expect(toJSON()).toMatchSnapshot();
