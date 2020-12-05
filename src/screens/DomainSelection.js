@@ -88,6 +88,7 @@ export class DomainSelection extends Component {
 				icon={<MaterialIcons name="group" style={styles.imageStyleIcon} />}
 				title={item.name}
 				onPress={() => this.props.dispatch(processSelectedCommunity(item))} />
+
 		)
 	};
 

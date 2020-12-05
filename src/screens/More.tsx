@@ -14,6 +14,9 @@ import * as Linking from "expo-linking";
 import { SettingsListItem, Separator } from "../components/SettingsListItem";
 import FeatureMoreItems from "../components/FeatureMoreItems";
 import Profile from "../components/Profile"
+import { getCommunities, processSelectedCommunity } from "../store/community";
+
+
 interface TProps {
 
 	navigation: any,
@@ -35,11 +38,10 @@ class Settings extends Component<TProps, TState> {
 	}
 
 	_logout() {
-		AsyncStorage.clear().then(() => {
-			Analytics.logEvent("Logout");
-			Alert.alert("Restarting");
-			Updates.reloadAsync();
-		});
+
+		this.props.dispatch(processSelectedCommunity(null))
+
+
 	}
 
 	separator(i: number) {
@@ -74,7 +76,14 @@ class Settings extends Component<TProps, TState> {
 					<SettingsListItem hasNavArrow={false} icon={<MaterialIcons name="info-outline" style={styles.imageStyleIcon} />} title={I18n.t("aboutThisApp")} onPress={() => {
 						Linking.openURL("https://smartcookies.io/smart-community");
 					}} />
-					<SettingsListItem lastItem={true} hasNavArrow={false} icon={<SimpleLineIcons name="logout" style={styles.imageStyleIcon} />} title={I18n.t("logout")} onPress={() => this._logout()} />
+					<SettingsListItem
+						lastItem={true}
+						hasNavArrow={false}
+						icon={<SimpleLineIcons
+							name="logout"
+							style={styles.imageStyleIcon} />}
+						title={I18n.t("changeDomain")}
+						onPress={() => this._logout()} />
 				</View>
 			</ScrollView>
 		</View>;
