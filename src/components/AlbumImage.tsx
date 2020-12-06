@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, Image, Dimensions, ListRenderItemInfo, View as BareView } from 'react-native';
-import _ from "lodash";
+import { StyleSheet, TouchableOpacity, Text, View, Image, Dimensions } from 'react-native';
 import I18n from "../lib/i18n";
 import { deleteImage } from "./AlbumAPI"
 
@@ -29,22 +28,19 @@ function deleteButton() {
 
 
 export default function AlbumImage(props: IProps) {
-	const [isLoading, setIsLoading] = useState(true);
-	const [imageWidth, setWidth] = useState(0);
 	const [imageHeight, setHeight] = useState(0);
 
 	const imageURI = props.thumb
 	const edit = props.edit
 	const windowWidth = Dimensions.get('window').width
 
-	Image.getSize(imageURI, (width, height) => {
-
-		setWidth(windowWidth)
-		setHeight(height / width * windowWidth)
-
-	});
-
 	if (imageURI != undefined && imageURI.length > 1) {
+		Image.getSize(imageURI, (width, height) => {
+
+			setHeight(height / width * windowWidth)
+
+		});
+
 		if (edit === true) {
 
 			return <View>
