@@ -47,13 +47,9 @@ class Setup extends Component {
 
 	render() {
 		if (
-			this.state.loading ||
-			!this.props.auth.userInfo ||
-			_.isEmpty(this.props.auth.userInfo) ||
-			(_.isEmpty(this.props.community.selectedCommunity) &&
-				Constants.manifest.extra.instance)
+			this.state.loading
 		) {
-			return <AppLoading />;
+			return null;
 		} else if (_.isEmpty(this.props.community.selectedCommunity)) {
 			return (
 				<AuthStackNavigator />

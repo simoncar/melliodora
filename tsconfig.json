@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"allowSyntheticDefaultImports": false,
+		"allowSyntheticDefaultImports": true,
 		"jsx": "react-native",
 		"lib": [
 			"dom",
@@ -11,6 +11,9 @@
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
-		"strict": false
+		"strict": true
 	}
 }
+
+
+

@@ -1,0 +1,184 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Delete button press 1`] = `
+<View>
+  <Image
+    source={
+      Object {
+        "uri": "http://",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+          "backgroundColor": "#fff",
+          "borderBottomLeftRadius": 15,
+          "borderBottomRightRadius": 15,
+          "borderColor": "lightgray",
+          "borderWidth": 1,
+          "flex": 1,
+          "height": 200,
+          "marginBottom": 12,
+          "shadowColor": "rgba(0,0,0, .4)",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0.5,
+          },
+          "shadowOpacity": 0.2,
+          "shadowRadius": 0.5,
+          "width": "98%",
+        },
+        Object {
+          "width": "70%",
+        },
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#fff",
+        "borderRadius": 25,
+        "elevation": 4,
+        "height": 50,
+        "justifyContent": "center",
+        "marginBottom": 30,
+        "opacity": 1,
+        "shadowColor": "rgba(0,0,0, .4)",
+        "shadowOffset": Object {
+          "height": 2,
+          "width": 2,
+        },
+        "shadowOpacity": 0.8,
+        "shadowRadius": 1,
+        "width": 250,
+      }
+    }
+    testID="delete"
+  >
+    <Text>
+      Delete
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`show edit Album Image 1`] = `
+<View>
+  <Image
+    source={
+      Object {
+        "uri": "http://",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+          "backgroundColor": "#fff",
+          "borderBottomLeftRadius": 15,
+          "borderBottomRightRadius": 15,
+          "borderColor": "lightgray",
+          "borderWidth": 1,
+          "flex": 1,
+          "height": 200,
+          "marginBottom": 12,
+          "shadowColor": "rgba(0,0,0, .4)",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0.5,
+          },
+          "shadowOpacity": 0.2,
+          "shadowRadius": 0.5,
+          "width": "98%",
+        },
+        Object {
+          "width": "70%",
+        },
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#fff",
+        "borderRadius": 25,
+        "elevation": 4,
+        "height": 50,
+        "justifyContent": "center",
+        "marginBottom": 30,
+        "opacity": 1,
+        "shadowColor": "rgba(0,0,0, .4)",
+        "shadowOffset": Object {
+          "height": 2,
+          "width": 2,
+        },
+        "shadowOpacity": 0.8,
+        "shadowRadius": 1,
+        "width": 250,
+      }
+    }
+    testID="delete"
+  >
+    <Text>
+      Delete
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`show read only Album Image 1`] = `
+<View>
+  <Image
+    source={
+      Object {
+        "uri": "http://",
+      }
+    }
+    style={
+      Object {
+        "alignSelf": "center",
+        "backgroundColor": "#fff",
+        "borderBottomLeftRadius": 15,
+        "borderBottomRightRadius": 15,
+        "borderColor": "lightgray",
+        "borderWidth": 1,
+        "flex": 1,
+        "height": 200,
+        "marginBottom": 12,
+        "shadowColor": "rgba(0,0,0, .4)",
+        "shadowOffset": Object {
+          "height": 1,
+          "width": 0.5,
+        },
+        "shadowOpacity": 0.2,
+        "shadowRadius": 0.5,
+        "width": "98%",
+      }
+    }
+  />
+</View>
+`;
+
+exports[`show void Album Image 1`] = `null`;

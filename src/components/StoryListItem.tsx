@@ -3,17 +3,26 @@ import { View, TouchableOpacity, StyleSheet, Dimensions, Image } from "react-nat
 import { Text } from "./sComponent";
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Constants from "expo-constants";
+import { StoryEntity } from '../lib/interfaces';
 
-import { formatTime, formatMonth, isURL } from "../lib/global.js";
+import { formatTime, formatMonth, isURL } from "../lib/global";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 
-class ListItem extends Component {
-	constructor(props) {
+
+interface TProps {
+	navigation: any,
+	route: any,
+	story: StoryEntity,
+	card: boolean
+}
+
+class ListItem extends Component<TProps> {
+	constructor(props: TProps) {
 		super(props);
 	}
 
-	icon(source, photo1) {
+	icon(source: string, photo1: string) {
 		if (source == "calendar") {
 			return <Ionicons name="ios-calendar" size={35} style={styles.iconCalendar} />;
 		} else if (source == "balance") {
@@ -22,7 +31,7 @@ class ListItem extends Component {
 			return <Image style={styles.iconPhoto} source={{ uri: photo1 }} />;
 		}
 	}
-	renderTime(start, end, source) {
+	renderTime(start: string | any[] | undefined, end: any) {
 		//if (source == "calendar") {
 		if (undefined != start && start.length > 0) {
 			return <Text style={styles.eventTime}>{formatTime(start, end)} </Text>;
@@ -30,7 +39,7 @@ class ListItem extends Component {
 		//}
 	}
 
-	renderLocation(location) {
+	renderLocation(location: string | any[] | undefined) {
 		if (undefined != location && location.length > 0) {
 			return <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardLocation}>
 				{location}
@@ -38,13 +47,13 @@ class ListItem extends Component {
 		}
 	}
 
-	renderDate(date_start) {
+	renderDate(date_start: string | any[] | undefined) {
 		if (undefined != date_start && date_start.length > 0) {
 			return <Text style={styles.eventDate}>{formatMonth(date_start)}</Text>;
 		}
 	}
 
-	renderChat(chatroom, title) {
+	renderChat(chatroom: string, title: string) {
 		if (Constants.manifest.extra.instance != "sais_edu_sg") {
 
 			return <TouchableOpacity onPress={() => {
@@ -59,8 +68,9 @@ class ListItem extends Component {
 	}
 
 	render() {
-		const showIconChat = this.props.item.showIconChat === false ? false : true;
-		const card = this.props.card === false ? false : true;
+
+		const showIconChat = this.props.story.showIconChat
+		const card = this.props.card
 		const {
 			_key,
 			photo1,
@@ -69,12 +79,15 @@ class ListItem extends Component {
 			location,
 			date_start,
 			time_start_pretty,
-			time_end_pretty
-		} = this.props.item;
+			time_end_pretty,
+
+		} = this.props.story;
 
 		return <View style={card && [styles.card]}>
-			<TouchableOpacity style={styles.bb} onPress={() => {
-				this.props.navigation.navigate("story", this.props.item);
+			<TouchableOpacity onPress={() => {
+				this.props.navigation.navigate("story", {
+					story: this.props.story
+				});
 			}}>
 				<View style={styles.headerRow}>
 
@@ -88,7 +101,7 @@ class ListItem extends Component {
 						</Text>
 						{this.renderLocation(location)}
 						{this.renderDate(date_start)}
-						{this.renderTime(time_start_pretty, time_end_pretty, source)}
+						{this.renderTime(time_start_pretty, time_end_pretty)}
 					</View>
 
 					<View style={styles.headerRightIcons}>
@@ -96,7 +109,7 @@ class ListItem extends Component {
 					</View>
 
 				</View>
-				<View style={styles.ff}>
+				<View >
 					{isURL(photo1) && <Image style={styles.storyPhoto} source={{ uri: photo1 }} />}
 				</View>
 			</TouchableOpacity>

@@ -23,12 +23,16 @@
 	},
 	"parser": "babel-eslint",
 	"settings": {
-		"import/parser": "babel-eslint"
+		"import/parser": "babel-eslint",
+		"react": {
+			"version": "latest"
+		}
 	},
 	"plugins": [
 		"react",
 		"react-native",
-		"jest"
+		"jest",
+		"@typescript-eslint"
 	],
 	"rules": {
 		"react/prop-types": 0,

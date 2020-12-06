@@ -44,7 +44,6 @@ class Home extends Component {
 
 		if (global.domain == "oakforest_international_edu") {
 			demo.setupDemoData();
-			this.loadBalance();
 		}
 
 		this.feature = firebase
@@ -60,7 +59,6 @@ class Home extends Component {
 
 		const { navigation } = this.props;
 		this.focusListener = navigation.addListener("didFocus", () => {
-			this.loadBalance();
 			this.loadCalendar();
 		});
 
@@ -218,7 +216,7 @@ class Home extends Component {
 		return <ListItem
 			key={item._key}
 			navigation={navigation}
-			item={item}
+			story={item}
 			card={true}
 			language={this.language} />
 	}
@@ -227,7 +225,7 @@ class Home extends Component {
 		return <ListItem
 			key={item._key}
 			navigation={navigation}
-			item={item}
+			story={item}
 			card={false}
 			language={this.language}
 		/>;
@@ -235,7 +233,7 @@ class Home extends Component {
 	_renderBalance() {
 		if (global.domain === "oakforest_international_edu") {
 			return (
-				<ListItem navigation={this.props.navigation} item={this.state.balanceItems} card={true} language={this.language} />
+				<ListItem navigation={this.props.navigation} story={this.state.balanceItems} card={true} language={this.language} />
 			)
 		}
 	}

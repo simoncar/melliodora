@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, Image, RefreshControl, ListRenderItemInfo, View as BareView } from 'react-native';
 import _ from "lodash";
 import I18n from "../lib/i18n";
+import { deleteImage } from "./AlbumAPI"
 
 interface IProps {
 	local: string,
@@ -9,21 +10,22 @@ interface IProps {
 	thumb: string,
 	key: string,
 	edit: boolean,
+	feature: string,
 }
 
 function deleteButton() {
 	return <TouchableOpacity
 		style={styles.SubmitButtonStyle}
 		activeOpacity={0.5}
+		testID="delete"
 		onPress={() => {
-			console.log("delete:")
+			deleteImage("feature", "image")
 		}}>
 		<Text>
 			{I18n.t("delete")}
 		</Text>
 	</TouchableOpacity >;
 }
-
 
 export default function AlbumImage(props: IProps) {
 	const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +34,7 @@ export default function AlbumImage(props: IProps) {
 	const edit = props.edit
 
 	if (imageURI != undefined && imageURI.length > 1) {
-		if (edit) {
+		if (edit === true) {
 
 			return <View>
 				<Image style={[styles.storyPhoto, { width: "70%" }]}

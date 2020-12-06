@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { getCommunities, processSelectedCommunity } from "../store/community";
 import { Text } from "../components/sComponent"
 import { SettingsListItem } from "../components/SettingsListItem";
-
+import Profile from "../components/Profile"
 import { MaterialIcons } from "@expo/vector-icons";
 
 export class DomainSelection extends Component {
@@ -21,7 +21,7 @@ export class DomainSelection extends Component {
 
 		props.dispatch(getCommunities());
 	}
-81
+	81
 	componentDidMount() {
 		const { communities } = this.props.community;
 		if (communities.length > 0) {
@@ -88,6 +88,7 @@ export class DomainSelection extends Component {
 				icon={<MaterialIcons name="group" style={styles.imageStyleIcon} />}
 				title={item.name}
 				onPress={() => this.props.dispatch(processSelectedCommunity(item))} />
+
 		)
 	};
 
@@ -97,7 +98,12 @@ export class DomainSelection extends Component {
 			onPressedCreateCommunity = () => this.props.navigation.push("communityCreateScreen");
 		}
 		return (
+
 			<View >
+				<Profile
+					auth={this.props.auth}
+					navigation={this.props.navigation} />
+
 				<TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={onPressedCreateCommunity}>
 					<Ionicons style={styles.leftIcon} name="ios-add-circle" size={32} color="#999999" />
 
@@ -118,14 +124,8 @@ export class DomainSelection extends Component {
 						/>
 					</View>
 				</View>
-				<View style={styles.centered}>
-					<TouchableOpacity onPress={() => {
-						this.props.navigation.push("login", { toWelcomeScreen: true })
-					}}>
-						<Text>Sign In</Text>
 
-					</TouchableOpacity>
-				</View>
+
 			</View >
 		)
 	}
@@ -145,12 +145,7 @@ const styles = StyleSheet.create({
 		color: "#111111",
 		flex: 1, paddingHorizontal: 12, textAlign: "left"
 	},
-	centered: {
-		alignSelf: "center",
-		marginBottom: 12,
-		marginLeft: 12,
-		marginTop: 58
-	},
+
 	imageStyleIcon: {
 		alignSelf: "center",
 		color: "#999999",
@@ -159,7 +154,6 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		width: 30
 	},
-
 	leftIcon: { flexShrink: 1 },
 	searchIcon: { marginLeft: 12, marginRight: 12, padding: 2 },
 
@@ -171,7 +165,6 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		height: 55
 	},
-
 	separator: {
 		backgroundColor: "#CED0CE",
 	},
@@ -180,7 +173,8 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = state => ({
-	community: state.community
+	community: state.community,
+	auth: state.auth
 });
 
 export default connect(mapStateToProps)(DomainSelection);

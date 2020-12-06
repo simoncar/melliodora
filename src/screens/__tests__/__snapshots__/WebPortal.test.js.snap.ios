@@ -16,14 +16,7 @@ exports[`web portal 1`] = `
     }
   >
     <View
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "grey",
-          "flexDirection": "row",
-          "height": 40,
-        }
-      }
+      style="red"
     >
       <View
         accessible={true}

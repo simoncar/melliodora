@@ -19,6 +19,8 @@ export default function FormAlbum(props: TProps) {
 	const [items, setItems] = useState<MediaLibrary.Asset[]>([]);
 
 	const { storyKey, album, key } = props.route.params;
+
+
 	const navigation = props.navigation;
 	let filter = ""
 
@@ -37,7 +39,7 @@ export default function FormAlbum(props: TProps) {
 	}, [items])
 
 	const save = () => {
-
+		console.log("SAVE:", storyKey)
 		saveSelectedImages(items, storyKey)
 
 	}

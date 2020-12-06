@@ -125,7 +125,7 @@ test('list domains', () => {
 	expect(queryByText("Create Community")).not.toBeNull();
 	expect(queryByText("Camp Asia")).not.toBeNull();
 	expect(queryByText("Oakforest International")).not.toBeNull();
-	expect(queryByText("Sign In")).not.toBeNull();
+	expect(queryByText("Sign In / Sign Up")).not.toBeNull();
 
 	//console.log(getByTestId('domainSelection.search').props);
 	expect(getByTestId('domainSelection.search').props).toEqual(

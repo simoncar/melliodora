@@ -70,5 +70,6 @@
 	"version": "Version",
 	"welcome": "Welcome",
 	"albums": "Albums",
-		"images": "Images"
+		"images": "Images",
+		"changeDomain": "Change Domain"
 }
