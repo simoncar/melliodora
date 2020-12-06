@@ -7,8 +7,13 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import _ from "lodash";
 
-class OrderOnPage extends Component {
-	constructor(props) {
+export interface OrderProps {
+	handler(order: number): any;
+	order: number;
+}
+
+class OrderOnPage extends Component<OrderProps> {
+	constructor(props: OrderProps) {
 		super(props);
 	}
 
@@ -26,8 +31,14 @@ class OrderOnPage extends Component {
 	}
 }
 
-const IconChat = class IconChat extends Component {
-	constructor(props) {
+export interface IconChatPops {
+	handler(show: boolean): any;
+	showIconChat: boolean;
+}
+
+const IconChat = class IconChat extends Component<IconChatPops> {
+
+	constructor(props: IconChatPops) {
 		super(props);
 	}
 
@@ -39,7 +50,11 @@ const IconChat = class IconChat extends Component {
 				</View>
 
 				<View>
-					<Switch onValueChange={value => this.props.handler(!this.props.showIconChat)} style={styles.switch} value={this.props.showIconChat} />
+					<Switch onValueChange={() =>
+						this.props.handler(!this.props.showIconChat)}
+
+						style={styles.switch}
+						value={this.props.showIconChat} />
 				</View>
 			</View>
 		</View>;

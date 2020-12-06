@@ -15,7 +15,7 @@ import * as Permissions from "expo-permissions";
 import { connect } from "react-redux";
 import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime } from "../components/formUtilities";
 import { SaveFeature, DeleteFeature } from "../components/formAPI";
-import { StackActions } from "@react-navigation/native";
+import { StackActions, StackActionType } from "@react-navigation/native";
 import ImageList from "../components/ImageList"
 import { StoryEntity, StoryState } from '../lib/interfaces';
 
@@ -54,8 +54,6 @@ class Form extends Component<TProps, StoryState> {
 			cameraIcon: "camera",
 		};
 
-		console.log("state key:", _key)
-
 		this.handlerChat = this.handlerChat.bind(this);
 		this.handlerOrder = this.handlerOrder.bind(this);
 		this.handlerVisible = this.handlerVisible.bind(this);
@@ -86,7 +84,7 @@ class Form extends Component<TProps, StoryState> {
 	handlerVisibleMore(visible: boolean) {
 		this.setState({ visibleMore: visible });
 	}
-	handleEventDateTime(dateTimeStart, dateTimeEnd, date_start) {
+	handleEventDateTime(dateTimeStart: string, dateTimeEnd: string, date_start: string) {
 		this.setState({
 			dateTimeStart: dateTimeStart,
 			dateTimeEnd: dateTimeEnd,
@@ -95,7 +93,7 @@ class Form extends Component<TProps, StoryState> {
 	}
 
 	getPermissionAsync = async () => {
-		if (Constants.platform.ios) {
+		if (Constants?.platform?.ios ?? false) {
 			const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 			if (status !== "granted") {
 				alert("Sorry, we need camera roll permissions to make this work!");
@@ -104,9 +102,6 @@ class Form extends Component<TProps, StoryState> {
 	};
 
 	save() {
-
-		console.log("saving...")
-		console.log("edit prop:", this.props.route.params.edit);
 
 		SaveFeature(this.state);
 
@@ -122,7 +117,7 @@ class Form extends Component<TProps, StoryState> {
 
 	}
 
-	deleteHandler(navigation) {
+	deleteHandler(navigation: { dispatch: (arg0: StackActionType) => void; }) {
 		const popAction = StackActions.pop(2);
 		navigation.dispatch(popAction);
 	}
@@ -137,12 +132,12 @@ class Form extends Component<TProps, StoryState> {
 					style: "cancel"
 				}, { text: I18n.t("delete"), onPress: () => DeleteFeature(_key, this.deleteHandler(this.props.navigation)) }], { cancelable: false });
 			}}>
-				<Text style={styles.TextStyle}>{I18n.t("delete")}</Text>
+				<Text >{I18n.t("delete")}</Text>
 			</TouchableOpacity>;
 		}
 	}
 
-	setUid(value) {
+	setUid(value: string | undefined) {
 		this.uid = value;
 	}
 
@@ -156,7 +151,7 @@ class Form extends Component<TProps, StoryState> {
 		return firebase.database.ServerValue.TIMESTAMP;
 	}
 
-	_drawImage(imageURI) {
+	_drawImage(imageURI: string) {
 		var uri = "";
 		if (_.isNil(imageURI)) {
 			uri = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680";
