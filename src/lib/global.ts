@@ -10,7 +10,7 @@ export function isValue(input) {
 	}
 }
 
-export function isURL(str:string) {
+export function isURL(str: string) {
 	if (!str) return false;
 	var pattern = new RegExp("^(https?:\\/\\/)?" + // protocol
 		"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|" + // domain name
@@ -21,7 +21,7 @@ export function isURL(str:string) {
 	return pattern.test(str);
 }
 
-export function formatTime(startTime:string, endTime:string) {
+export function formatTime(startTime: string, endTime: string) {
 	var ret = "";
 
 	if (startTime === null && typeof startTime === "object") {
@@ -41,7 +41,7 @@ export function formatTime(startTime:string, endTime:string) {
 	return ret;
 }
 
-export function formatMonth(eventDate:string) {
+export function formatMonth(eventDate: string) {
 	var ret = "";
 
 	if (eventDate === null && typeof eventDate === "object") {
@@ -59,7 +59,6 @@ export function formatMonth(eventDate:string) {
 
 export function getAbbreviations(eventDetails: string, domain: string) {
 
-	console.log("getAbbrev:", domain)
 	var ret = "";
 	if (eventDetails == undefined || domain != "sais_edu_sg") {
 		return ret;

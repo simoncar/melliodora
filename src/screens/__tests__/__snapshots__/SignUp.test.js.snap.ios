@@ -136,11 +136,12 @@ exports[`show SignUp screen 1`] = `
             keyboardType="email-address"
             onChangeText={[Function]}
             placeholder="Email"
+            placeholderTextColor="#86939e"
             rejectResponderTermination={true}
             style={
               Object {
                 "alignSelf": "center",
-                "color": "black",
+                "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
                 "minHeight": 40,
@@ -151,6 +152,15 @@ exports[`show SignUp screen 1`] = `
             value=""
           />
         </View>
+        <Text
+          style={
+            Object {
+              "color": "#ff190c",
+              "fontSize": 12,
+              "margin": 5,
+            }
+          }
+        />
       </View>
       <View
         style={
@@ -185,12 +195,13 @@ exports[`show SignUp screen 1`] = `
             editable={true}
             onChangeText={[Function]}
             placeholder="Password"
+            placeholderTextColor="#86939e"
             rejectResponderTermination={true}
             secureTextEntry={true}
             style={
               Object {
                 "alignSelf": "center",
-                "color": "black",
+                "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
                 "minHeight": 40,
@@ -201,6 +212,15 @@ exports[`show SignUp screen 1`] = `
             value=""
           />
         </View>
+        <Text
+          style={
+            Object {
+              "color": "#ff190c",
+              "fontSize": 12,
+              "margin": 5,
+            }
+          }
+        />
       </View>
       <View
         style={
@@ -235,12 +255,13 @@ exports[`show SignUp screen 1`] = `
             editable={true}
             onChangeText={[Function]}
             placeholder="Confirm Password"
+            placeholderTextColor="#86939e"
             rejectResponderTermination={true}
             secureTextEntry={true}
             style={
               Object {
                 "alignSelf": "center",
-                "color": "black",
+                "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
                 "minHeight": 40,
@@ -251,6 +272,15 @@ exports[`show SignUp screen 1`] = `
             value=""
           />
         </View>
+        <Text
+          style={
+            Object {
+              "color": "#ff190c",
+              "fontSize": 12,
+              "margin": 5,
+            }
+          }
+        />
       </View>
       <View
         style={
@@ -286,11 +316,12 @@ exports[`show SignUp screen 1`] = `
             editable={true}
             onChangeText={[Function]}
             placeholder="First Name"
+            placeholderTextColor="#86939e"
             rejectResponderTermination={true}
             style={
               Object {
                 "alignSelf": "center",
-                "color": "black",
+                "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
                 "minHeight": 40,
@@ -301,6 +332,15 @@ exports[`show SignUp screen 1`] = `
             value=""
           />
         </View>
+        <Text
+          style={
+            Object {
+              "color": "#ff190c",
+              "fontSize": 12,
+              "margin": 5,
+            }
+          }
+        />
       </View>
       <View
         style={
@@ -336,11 +376,12 @@ exports[`show SignUp screen 1`] = `
             editable={true}
             onChangeText={[Function]}
             placeholder="Last Name"
+            placeholderTextColor="#86939e"
             rejectResponderTermination={true}
             style={
               Object {
                 "alignSelf": "center",
-                "color": "black",
+                "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
                 "minHeight": 40,
@@ -351,6 +392,15 @@ exports[`show SignUp screen 1`] = `
             value=""
           />
         </View>
+        <Text
+          style={
+            Object {
+              "color": "#ff190c",
+              "fontSize": 12,
+              "margin": 5,
+            }
+          }
+        />
       </View>
       <View
         style={
