@@ -1,11 +1,15 @@
+import Constants from "expo-constants";
+
 
 
 export default {
-  FirebaseConfig: {
-    apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
-    authDomain: "calendar-app-57e88.firebaseapp.com",
-    databaseURL: "https://calendar-app-57e88.firebaseio.com",
-    projectId: "calendar-app-57e88",
-    storageBucket: "calendar-app-57e88.appspot.com"
-  }
+	FirebaseConfig: {
+		apiKey: Constants.manifest.web.config.firebase.apiKey,
+		measurementId: Constants.manifest.web.config.firebase.measurementId,
+		authDomain: Constants.manifest.web.config.firebase.authDomain,
+		databaseURL: Constants.manifest.web.config.firebase.databaseURL,
+		projectId: Constants.manifest.web.config.firebase.projectId,
+		storageBucket: Constants.manifest.web.config.firebase.storageBucket,
+		appId: Constants.manifest.web.config.firebase.appId
+	}
 };
