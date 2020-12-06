@@ -10,14 +10,14 @@ import Loader from "../components/Loader";
 import I18n from "../lib/i18n";
 
 interface TProps {
-	navigation: any
+	navigation: any,
 	auth: any
 }
 
 interface TState {
-	email: string
-	password: string
-	errorMessage: string | null
+	email: string,
+	password: string,
+	errorMessage: string | null,
 	loading: boolean
 }
 
@@ -33,25 +33,18 @@ export class LoginScreen extends Component<TProps, TState> {
 	handleLogin = async () => {
 		try {
 			this.setState({ loading: true });
-
 			const { email, password } = this.state;
 			await firebase.auth().signInWithEmailAndPassword(email, password);
-			console.log("signInWithEmailAndPassword:", email, password)
 		} catch (error) {
-			console.log("Login error:", error)
 			this.setState({ errorMessage: error.message, loading: false });
 		}
 	};
 
 	componentDidUpdate(prevProps, prevState) {
-		console.log("Component did update: ")
-		console.log("prevProps:", prevProps);
-		console.log("prevState:", prevState)
 
 		const { userInfo } = this.props.auth;
 		if (this.state.loading && userInfo.email == this.state.email && !_.isEmpty(userInfo)) {
 			this.setState({ loading: false });
-			console.log
 			if (!global.domain || _.has(this.props, "navigation.state.param.toWelcomeScreen")) {
 				this.props.navigation.navigate("welcomeScreen");
 			} else {
