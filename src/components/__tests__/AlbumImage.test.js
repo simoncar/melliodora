@@ -1,10 +1,11 @@
 import React from 'react';
 import { render, fireEvent } from 'react-native-testing-library';
-
+import { Image } from 'react-native';
 import AlbumImage from '../AlbumImage';
 
 jest.mock("../../components/AlbumAPI");
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+
 
 const itemReadOnly = {
 
@@ -27,9 +28,10 @@ const itemEdit = {
 }
 
 
-
-
 test('show read only Album Image', () => {
+	const getSizeMock = jest.spyOn(Image, 'getSize');
+	getSizeMock.mockImplementation(() => { /* do nothing */ });
+
 	const { toJSON } = render(
 		<AlbumImage
 			local={itemReadOnly.local}
@@ -48,6 +50,9 @@ test('show read only Album Image', () => {
 
 
 test('show edit Album Image', () => {
+	const getSizeMock = jest.spyOn(Image, 'getSize');
+	getSizeMock.mockImplementation(() => { /* do nothing */ });
+
 	const { toJSON } = render(
 		<AlbumImage
 			local={itemEdit.local}
@@ -65,8 +70,10 @@ test('show edit Album Image', () => {
 });
 
 
-
 test('show void Album Image', () => {
+	const getSizeMock = jest.spyOn(Image, 'getSize');
+	getSizeMock.mockImplementation(() => { /* do nothing */ });
+
 	const { toJSON } = render(
 		<AlbumImage
 
@@ -79,6 +86,9 @@ test('show void Album Image', () => {
 });
 
 test('Delete button press', () => {
+	const getSizeMock = jest.spyOn(Image, 'getSize');
+	getSizeMock.mockImplementation(() => { /* do nothing */ });
+
 	const deleteImage = { deleteImage: jest.fn() };
 
 	const { toJSON, getByTestId } = render(

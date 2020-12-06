@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, Image, RefreshControl, ListRenderItemInfo, View as BareView } from 'react-native';
-import _ from "lodash";
+import { StyleSheet, TouchableOpacity, Text, View, Image, Dimensions } from 'react-native';
 import I18n from "../lib/i18n";
 import { deleteImage } from "./AlbumAPI"
 
@@ -27,13 +26,21 @@ function deleteButton() {
 	</TouchableOpacity >;
 }
 
+
 export default function AlbumImage(props: IProps) {
-	const [isLoading, setIsLoading] = useState(true);
+	const [imageHeight, setHeight] = useState(0);
 
 	const imageURI = props.thumb
 	const edit = props.edit
+	const windowWidth = Dimensions.get('window').width
 
 	if (imageURI != undefined && imageURI.length > 1) {
+		Image.getSize(imageURI, (width, height) => {
+
+			setHeight(height / width * windowWidth)
+
+		});
+
 		if (edit === true) {
 
 			return <View>
@@ -47,7 +54,11 @@ export default function AlbumImage(props: IProps) {
 			</View>;
 		} else {
 			return <View>
-				<Image style={styles.storyPhoto}
+				<Image style={[styles.storyPhoto,
+				{
+					width: windowWidth,
+					height: imageHeight
+				}]}
 					source={{
 						uri: imageURI,
 					}}
@@ -74,6 +85,7 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.8,
 		shadowRadius: 1,
 		width: 250,
+
 	},
 	storyPhoto: {
 		alignSelf: "center",
@@ -83,33 +95,13 @@ const styles = StyleSheet.create({
 		borderColor: "lightgray",
 		borderWidth: 1,
 		flex: 1,
-		height: 200,
 		marginBottom: 12,
+		resizeMode: "contain",
 		shadowColor: "rgba(0,0,0, .4)",
 		shadowOffset: { height: 1, width: 0.5 },
 		shadowOpacity: 0.2,
 		shadowRadius: 0.5,
-		width: "98%",
+
 	},
-	overlay: {
-		//...StyleSheet.absoluteFillObject,
-		//backgroundColor: 'rgba(255,255,255,0.7)',
-		borderColor: "blue",
-		margin: 2,
-	},
-	selectionBorder: {
-		borderRadius: 3,
-		borderRightWidth: 50,
-		flex: 1,
-	},
-	itemView: {
-		flex: 1,
-		flexDirection: 'column',
-		margin: 1,
-	},
-	badge: {
-		position: 'absolute',
-		top: 10,
-		left: 10,
-	},
+
 });
