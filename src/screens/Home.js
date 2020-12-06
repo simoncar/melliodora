@@ -326,7 +326,11 @@ const styles = StyleSheet.create({
 		padding: 10,
 		width: "95%",
 	},
-	container: { backgroundColor: "#EFEFF4", flex: 1, marginTop: 10 },
+	container: {
+		backgroundColor: "#EFEFF4",
+		flex: 1,
+		marginTop: 10
+	},
 	cookiesLogoView: {
 		alignItems: "center",
 		marginTop: 100

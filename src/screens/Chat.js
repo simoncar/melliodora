@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, Linking, Modal, FlatList, StyleSheet } from "react-native";
-import { Container, Footer } from "native-base";
 import { GiftedChat, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
@@ -280,20 +279,6 @@ class chat extends Component {
 	};
 
 	render() {
-		// if (this.communityDomain == "sais_edu_sg" && !this.props.authPortal.authEmail) {
-		// 	const { goBack } = this.props.navigation;
-
-		// 	goBack(null);
-		// 	setTimeout(() => {
-		// 		this.props.navigation.navigate("authPortalEmbed");
-		// 	}, 100);
-
-		// 	this.props.navigation.navigate("chatRooms");
-		// 	return <View>
-		// 		<Text>{I18n.t("login")}</Text>
-		// 	</View>;
-		// }
-
 		let userDetails = {};
 		if (this.userInfo.isAnonymous) {
 			userDetails = {
@@ -307,45 +292,44 @@ class chat extends Component {
 			};
 		}
 
-		return <Container>
-			<View>
-				<Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
-					<View style={styles.a221aa080ac4611ea973dcfce83f911da}>
-						<TouchableOpacity onPress={() => {
+		return <View style={styles.container}><View>
+			<Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
+				<View style={styles.a221aa080ac4611ea973dcfce83f911da}>
+					<TouchableOpacity onPress={() => {
+						this.setState({ modalVisible: false });
+					}}>
+						<AntDesign size={32} color={"#f2f2f2"} name="closecircleo" />
+					</TouchableOpacity>
+
+					<Text style={styles.a221aa082ac4611ea973dcfce83f911da}>
+						{this.props.title}
+					</Text>
+
+					<View style={styles.a221aa083ac4611ea973dcfce83f911da}>
+						<Text style={styles.a221aa084ac4611ea973dcfce83f911da}>Chatroom users ({this.state.chatroomUsers.length})</Text>
+						{this.renderSeparator()}
+
+						{["users", "public"].indexOf(this.props.route.params) > -1 ? <SettingsListItem title={"All Users"} onPress={() => {
 							this.setState({ modalVisible: false });
-						}}>
-							<AntDesign size={32} color={"#f2f2f2"} name="closecircleo" />
-						</TouchableOpacity>
-
-						<Text style={styles.a221aa082ac4611ea973dcfce83f911da}>
-							{this.props.title}
-						</Text>
-
-						<View style={styles.a221aa083ac4611ea973dcfce83f911da}>
-							<Text style={styles.a221aa084ac4611ea973dcfce83f911da}>Chatroom users ({this.state.chatroomUsers.length})</Text>
-							{this.renderSeparator()}
-
-							{["users", "public"].indexOf(this.props.route.params) > -1 ? <SettingsListItem title={"All Users"} onPress={() => {
-								this.setState({ modalVisible: false });
-								this.props.navigation.navigate("UserSearch");
-							}} /> : <FlatList style={styles.a221aa085ac4611ea973dcfce83f911da} data={this.state.chatroomUsers} renderItem={this._renderUsersItem.bind(this)} keyExtractor={(_, idx) => "user" + idx} ItemSeparatorComponent={this.renderSeparator}
-								// ListHeaderComponent={this.renderSeparator}
-								/>}
-						</View>
+							this.props.navigation.navigate("UserSearch");
+						}} /> : <FlatList style={styles.a221aa085ac4611ea973dcfce83f911da} data={this.state.chatroomUsers} renderItem={this._renderUsersItem.bind(this)} keyExtractor={(_, idx) => "user" + idx} ItemSeparatorComponent={this.renderSeparator}
+							// ListHeaderComponent={this.renderSeparator}
+							/>}
 					</View>
-				</Modal>
+				</View>
+			</Modal>
 
-				<TouchableOpacity onPress={() => {
-					this.props.navigation.navigate("selectLanguageChat", {
-						chatroom: this.props.title,
-						url: this.props.url
-					});
-				}}>
-					<View style={styles.topBar}>
-						<Text style={styles.chatBanner}>{I18n.t("translationsGoogle")}</Text>
-					</View>
-				</TouchableOpacity>
-			</View>
+			<TouchableOpacity onPress={() => {
+				this.props.navigation.navigate("selectLanguageChat", {
+					chatroom: this.props.title,
+					url: this.props.url
+				});
+			}}>
+				<View style={styles.topBar}>
+					<Text style={styles.chatBanner}>{I18n.t("translationsGoogle")}</Text>
+				</View>
+			</TouchableOpacity>
+		</View>
 
 			<GiftedChat
 				messages={this.state.messages}
@@ -365,8 +349,7 @@ class chat extends Component {
 				parsePatterns={this.parsePatterns}
 				renderUsernameOnMessage={true} />
 
-			<Footer style={styles.footer} />
-		</Container>;
+		</View>
 	}
 }
 
@@ -444,11 +427,11 @@ const styles = StyleSheet.create({
 	a221aa085ac4611ea973dcfce83f911da: {
 		height: "70%"
 	},
-
 	cameraAction: {
 		color: "#777777",
 		fontSize: 25
 	},
+
 	chatBanner: {
 		alignSelf: "center",
 		borderBottomColor: "#666",
@@ -466,6 +449,11 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		paddingBottom: 5,
 		paddingRight: 10
+	},
+	container: {
+		backgroundColor: "#EFEFF4",
+		flex: 1,
+		marginTop: 10
 	},
 	footer: {
 		height: 10
