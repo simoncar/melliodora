@@ -17,7 +17,6 @@ export const phoneCalendar = async (event) => {
 		if (Platform.OS === 'android') {
 			return true
 		}
-
 		const response = await Permissions.askAsync(Permissions.REMINDERS)
 		return response.status === 'granted'
 	}
@@ -41,12 +40,15 @@ export const phoneCalendar = async (event) => {
 			const defaultCalendarID = await getDefaultCalendarID();
 			await Calendar.createEventAsync(defaultCalendarID.id, newEvent);
 			Alert.alert(I18n.t("saved"));
+			return "Success"
 		} else {
 			Alert.alert(I18n.t("error"), I18n.t("permissionsNoCalendar"));
+			return "Fail"
 		}
 
 	} catch (e) {
 		Alert.alert(I18n.t("error"), e.message);
+		return "Fail"
 	}
 };
 
