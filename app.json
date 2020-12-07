@@ -41,7 +41,7 @@
     "ios": {
       "bundleIdentifier": "com.softmowertrain.parent.mycommunity",
       "supportsTablet": true,
-      "requireFullScreen": true
+      "requireFullScreen": false
     },
     "android": {
       "package": "com.softmowertrain.parent.mycommunity",
