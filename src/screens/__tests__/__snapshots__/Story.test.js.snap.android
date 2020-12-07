@@ -328,7 +328,6 @@ exports[`show story no calendar no image 1`] = `
     </Text>
   </View>
   <RCTScrollView
-    onScroll={[Function]}
     showsVerticalScrollIndicator={false}
   >
     <View>
@@ -700,7 +699,6 @@ exports[`show story on screen 1`] = `
     <Text />
   </View>
   <RCTScrollView
-    onScroll={[Function]}
     showsVerticalScrollIndicator={false}
   >
     <View>
@@ -1254,7 +1252,6 @@ exports[`show story with URL in content to test linking 1`] = `
     </Text>
   </View>
   <RCTScrollView
-    onScroll={[Function]}
     showsVerticalScrollIndicator={false}
   >
     <View>
@@ -1879,7 +1876,6 @@ exports[`show story without chat 1`] = `
     </Text>
   </View>
   <RCTScrollView
-    onScroll={[Function]}
     showsVerticalScrollIndicator={false}
   >
     <View>
