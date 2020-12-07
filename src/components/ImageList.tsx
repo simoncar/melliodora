@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Dimensions } from 'react-native';
 import AlbumImage from "./AlbumImage"
 import { listenPhotos } from "./AlbumAPI"
-import * as ScreenOrientation from 'expo-screen-orientation';
+import ImageView from "react-native-image-viewing";
 
 interface IProps {
 	feature: string,
@@ -17,7 +17,7 @@ const screen = Dimensions.get('screen');
 export default function ImageList(props: IProps) {
 	const [photos, setPhotos] = useState([]);
 	const [dimensions, setDimensions] = useState({ window, screen });
-
+	const images = [];
 	const feature = props.feature
 
 	const onChange = ({ window, screen }) => {
@@ -41,9 +41,38 @@ export default function ImageList(props: IProps) {
 		setPhotos(photos);
 	}
 
+
+	photos.map(image => {
+		if (image.thumb != undefined && image.thumb.length > 1) {
+			images.push({ uri: image.thumb })
+			console.log("Push:", image.thumb)
+		}
+	})
+
+	// const images = [
+	// 	{
+	// 		uri: "https://images.unsplash.com/photo-1571501679680-de32f1e7aad4",
+	// 	},
+	// 	{
+	// 		uri: "https://images.unsplash.com/photo-1573273787173-0eb81a833b34",
+	// 	},
+	// 	{
+	// 		uri: "https://images.unsplash.com/photo-1569569970363-df7b6160d111",
+	// 	},
+	// ];
+
+	const [visible, setIsVisible] = useState(true);
+
 	return (
 		<View>
 			<View>
+				<ImageView
+					images={images}
+					imageIndex={0}
+					visible={visible}
+					onRequestClose={() => setIsVisible(false)}
+					presentationStyle="fullScreen"
+				/>
 
 				{
 					Object.keys(photos).map(function (key: number, index) {
