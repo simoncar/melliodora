@@ -32,6 +32,9 @@ export class Story extends Component<TProps>{
 		});
 	}
 
+
+
+
 	_handleOpenWithLinking = (sURL: string) => { Linking.openURL(sURL); };
 	_handleEmailPress(email: string) { Linking.openURL("mailto:" + email); }
 	_handlePhonePress(phone: string) { Linking.openURL("tel:" + phone); }
@@ -45,7 +48,6 @@ export class Story extends Component<TProps>{
 	}
 
 	refreshFunction(newState: { summary: any; description: any; }) {
-		console.log("refresh function")
 		this.setState(
 			{
 				newState,
@@ -140,7 +142,6 @@ export class Story extends Component<TProps>{
 	}
 
 	render() {
-
 		const story: StoryEntity = this.props.route.params.story
 
 		return <View style={styles.container}>

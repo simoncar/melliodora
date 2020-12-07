@@ -46,7 +46,7 @@ function StackHomeNavigator() {
 			headerRight: () => headerRightSearch(navigation, "searchCalendarHome")
 		})} />
 
-		<StackHome.Screen name="story" component={Story} options={({ route }) => ({ title: route.params.summaryMyLanguage })} />
+		<StackHome.Screen name="story" component={Story} options={({ route }) => ({ title: route.params.story.summaryMyLanguage })} />
 		<StackHome.Screen name="push" component={push} options={{ title: I18n.t("send") }} />
 		<StackHome.Screen name="chatStory" component={chat} options={({ route }) => ({ title: route.params.title })} />
 		<StackHome.Screen name="campusMap" component={campusMap} options={{ title: I18n.t("map") }} />
@@ -71,7 +71,7 @@ function StackCalendarNavigator() {
 			headerRight: () => headerRightSearch(navigation, "searchCalendar")
 		})} />
 		<StackCalendar.Screen name="Calendars" component={Calendars} options={{ title: I18n.t("calendar") }} />
-		<StackCalendar.Screen name="storyCalendar" component={Story} options={({ route }) => ({ title: route.params.summary })} />
+		<StackCalendar.Screen name="storyCalendar" component={Story} options={({ route }) => ({ title: route.params.story.summaryMyLanguage })} />
 		<StackCalendar.Screen name="searchCalendar" component={Search} options={{ title: I18n.t("search") }} />
 		<StackCalendar.Screen name="chatCalendar" component={chat} options={({ route }) => ({ title: route.params.title })} />
 	</StackCalendar.Navigator>;
@@ -101,7 +101,7 @@ const StackOther = createStackNavigator();
 function StackOtherNavigator() {
 	return <StackOther.Navigator>
 		<StackOther.Screen name="settings" component={Settings} options={{ title: I18n.t("more") }} />
-		<StackOther.Screen name="storyMore" component={Story} options={({ route }) => ({ title: route.params.summary })} />
+		<StackOther.Screen name="storyMore" component={Story} options={({ route }) => ({ title: route.params.story.summaryMyLanguage })} />
 		<StackOther.Screen name="Content" component={Content} />
 		<StackOther.Screen name="WebPortal" component={WebPortal} />
 		<StackOther.Screen name="selectLanguage" component={SelectLanguage} options={{ title: I18n.t("language") }} />

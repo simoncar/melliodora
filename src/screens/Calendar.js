@@ -37,7 +37,11 @@ class Calendar extends Component {
 
 	componentDidMount() {
 		moment.updateLocale;
-		this.calendarEvents = firebase.firestore().collection(global.domain).doc("calendar").collection("calendarItems");
+		this.calendarEvents = firebase
+			.firestore()
+			.collection(global.domain)
+			.doc("calendar")
+			.collection("calendarItems");
 
 		this.loadFromAsyncStorage();
 		this.listenLoadFromFirebase(this.calendarEvents);
@@ -124,11 +128,13 @@ class Calendar extends Component {
 		return <Agenda
 			renderEmptyData={() => { return null }}
 			items={this.state.items}
-			selected={date} renderItem={this.renderItem.bind(this)} renderEmptyDate={this.renderEmptyDate.bind(this)}
+			selected={date}
+			renderItem={this.renderItem.bind(this)}
+			renderEmptyDate={this.renderEmptyDate.bind(this)}
 			rowHasChanged={(r1, r2) => {
 				return r1.summary !== r2.summary;
 			}} hideKnob={false} renderKnob={() => {
-				return <Ionicons style={styles.a36563900af7b11ea88c25dbffc760ad0} name="ios-arrow-down" />;
+				return <Ionicons style={styles.calendarIcon} name="ios-arrow-down" />;
 			}} theme={{
 				selectedDayBackgroundColor: "#111111",
 				dayTextColor: '#333333',
@@ -141,7 +147,7 @@ class Calendar extends Component {
 				agendaTodayTextColor: "#333333",
 				todayTextColor: '#333333',
 				textSectionTitleColor: '#999999'
-			}} style={styles.a36563901af7b11ea88c25dbffc760ad0} />;
+			}} style={styles.calendarTheme} />;
 	}
 
 	renderItem(item) {
@@ -170,12 +176,11 @@ class Calendar extends Component {
 
 const styles = StyleSheet.create({
 
-	a36563900af7b11ea88c25dbffc760ad0: {
+	calendarIcon: {
 		color: "#999999",
 		fontSize: 30
 	},
-	a36563901af7b11ea88c25dbffc760ad0: {},
-
+	calendarTheme: {},
 
 });
 

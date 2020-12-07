@@ -2,6 +2,7 @@ import * as firebase from "firebase";
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
 import uuid from "uuid";
+const globalAny: any = global;
 
 async function copyToLocal(uri: string, filename: string) {
 	console.log("copyToLocal start")
@@ -22,7 +23,7 @@ async function saveNewPhoto(localFileName: string, storyKey: string) {
 		timestamp: firebase.firestore.Timestamp.now(),
 	};
 
-	console.log("saveNewPhoto start 2:", global.domain)
+	console.log("saveNewPhoto start 2:", globalAny.domain)
 	console.log("saveNewPhoto start 2a:", storyKey)
 	console.log("saveNewPhoto start 2b:", photo)
 
@@ -71,7 +72,7 @@ export function saveSelectedImages(items: MediaLibrary.Asset[], storyKey: string
 
 
 
-export async function storageSend(featureID) {
+export async function storageSend(featureID: string) {
 
 	console.log("storage send:", featureID)
 	var album = []
@@ -79,7 +80,7 @@ export async function storageSend(featureID) {
 
 	firebase
 		.firestore()
-		.collection(global.domain)
+		.collection(globalAny.domain)
 		.doc("feature")
 		.collection("features")
 		.doc(featureID)
@@ -98,7 +99,7 @@ export async function storageSend(featureID) {
 							console.log("downloadURL:", downloadURL)
 							firebase
 								.firestore()
-								.collection(global.domain)
+								.collection(globalAny.domain)
 								.doc("feature")
 								.collection("features")
 								.doc(featureID)
@@ -156,10 +157,10 @@ const uploadImage = async (feature: string, imgURI: string, filename: string, ph
 			cacheControl: 'max-age=11536000',
 			customMetadata: {
 				feature: feature,
-				domain: global.domain,
-				uid: global.uid,
-				name: global.name,
-				email: global.email,
+				domain: globalAny.domain,
+				uid: globalAny.uid,
+				name: globalAny.name,
+				email: globalAny.email,
 				photoDocId: photoDocId,
 			}
 		});
@@ -171,34 +172,38 @@ const uploadImage = async (feature: string, imgURI: string, filename: string, ph
 };
 
 
-export function listenPhotos(featureID, callbackRefreshFunction) {
+export function listenPhotos(featureID: string, callbackRefreshFunction: any) {
 
-	firebase
-		.firestore()
-		.collection(global.domain)
-		.doc("feature")
-		.collection("features")
-		.doc(featureID)
-		.collection("photos")
-		.onSnapshot(function (querySnapshot) {
-			var photos = [];
-			querySnapshot.forEach(function (doc) {
-				const photo = {
-					key: doc.id,
-					local: doc.data().local,
-					server: doc.data().server,
-					thumb: doc.data().thumb,
-					feature: featureID,
-				}
+	if (!featureID) {
+		callbackRefreshFunction([])
+	} else {
+		firebase
+			.firestore()
+			.collection(globalAny.domain)
+			.doc("feature")
+			.collection("features")
+			.doc(featureID)
+			.collection("photos")
+			.onSnapshot(function (querySnapshot) {
+				var photos = [];
+				querySnapshot.forEach(function (doc) {
+					const photo = {
+						key: doc.id,
+						local: doc.data().local,
+						server: doc.data().server,
+						thumb: doc.data().thumb,
+						feature: featureID,
+					}
 
-				photos.push(photo);
+					photos.push(photo);
+				});
+				callbackRefreshFunction(photos)
 			});
-			callbackRefreshFunction(photos)
-		});
+	}
 }
 
 
-export function deleteImage(featureID, imageId) {
+export function deleteImage(featureID: string, imageId: string) {
 	console.log("API delete photo", featureID, featureID)
 
 }
