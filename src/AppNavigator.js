@@ -10,7 +10,6 @@ import { MaterialIcons, Ionicons, SimpleLineIcons, Feather, FontAwesome } from "
 import I18n from "./lib/i18n";
 import Constants from "expo-constants";
 import Calendar from "./screens/Calendar";
-import Calendars from "./screens/Calendars";
 import Home from "./screens/Home";
 import Search from "./screens/Search";
 import Settings from "./screens/More";
@@ -57,7 +56,6 @@ function StackHomeNavigator() {
 		<StackHome.Screen name="WebPortal" component={WebPortal} options={{ title: I18n.t("myS") }} />
 		<StackHome.Screen name="selectLanguageHome" component={SelectLanguage} options={{ title: I18n.t("language") }} />
 		<StackHome.Screen name="Albums" component={SelectAlbum} options={{ title: I18n.t("albums") }} />
-		<StackHome.Screen name="Calendars" component={Calendars} options={{ title: I18n.t("calendar") }} />
 		<StackChat.Screen name="selectLanguageChat" component={SelectLanguage} options={{ title: I18n.t("language") }} />
 	</StackHome.Navigator>;
 }
@@ -70,7 +68,6 @@ function StackCalendarNavigator() {
 			headerTitle: I18n.t("calendar"),
 			headerRight: () => headerRightSearch(navigation, "searchCalendar")
 		})} />
-		<StackCalendar.Screen name="Calendars" component={Calendars} options={{ title: I18n.t("calendar") }} />
 		<StackCalendar.Screen name="storyCalendar" component={Story} options={({ route }) => ({ title: route.params.story.summaryMyLanguage })} />
 		<StackCalendar.Screen name="searchCalendar" component={Search} options={{ title: I18n.t("search") }} />
 		<StackCalendar.Screen name="chatCalendar" component={chat} options={({ route }) => ({ title: route.params.title })} />

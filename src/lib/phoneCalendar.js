@@ -1,9 +1,26 @@
-import { Alert } from "react-native";
+import { Alert, Platform } from "react-native";
 import * as Calendar from 'expo-calendar';
+import I18n from "../lib/i18n";
+import * as Permissions from 'expo-permissions';
 
 export const phoneCalendar = async (event) => {
 	const { summaryMyLanguage, descriptionMyLanguage, date_start, location } = event;
 	var newEvent = {};
+
+
+	const _askForCalendarPermissions = async () => {
+		const response = await Permissions.askAsync(Permissions.CALENDAR)
+		return response.status === 'granted'
+	}
+
+	const _askForReminderPermissions = async () => {
+		if (Platform.OS === 'android') {
+			return true
+		}
+
+		const response = await Permissions.askAsync(Permissions.REMINDERS)
+		return response.status === 'granted'
+	}
 
 	newEvent = {
 		title: summaryMyLanguage,
@@ -16,11 +33,20 @@ export const phoneCalendar = async (event) => {
 	};
 
 	try {
-		const defaultCalendarID = await getDefaultCalendarID();
-		await Calendar.createEventAsync(defaultCalendarID.id, newEvent);
-		Alert.alert("Saved to Calendar");
+
+		const calendarGranted = await _askForCalendarPermissions()
+		const reminderGranted = await _askForReminderPermissions()
+
+		if (calendarGranted && reminderGranted) {
+			const defaultCalendarID = await getDefaultCalendarID();
+			await Calendar.createEventAsync(defaultCalendarID.id, newEvent);
+			Alert.alert(I18n.t("saved"));
+		} else {
+			Alert.alert(I18n.t("error"), I18n.t("permissionsNoCalendar"));
+		}
+
 	} catch (e) {
-		Alert.alert("Event not saved", e.message);
+		Alert.alert(I18n.t("error"), e.message);
 	}
 };
 
