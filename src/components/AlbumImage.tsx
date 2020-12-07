@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, Text, View, Image, Dimensions } from 'rea
 import I18n from "../lib/i18n";
 import { deleteImage } from "./AlbumAPI"
 
+
 interface IProps {
 	local: string,
 	server: string,
@@ -33,6 +34,9 @@ export default function AlbumImage(props: IProps) {
 	const imageURI = props.thumb
 	const edit = props.edit
 	const windowWidth = Dimensions.get('window').width
+
+
+
 
 	if (imageURI != undefined && imageURI.length > 1) {
 		Image.getSize(imageURI, (width, height) => {
