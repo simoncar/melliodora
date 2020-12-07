@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, TouchableOpacity, Text, View, Image } from 'react-native';
 import I18n from "../lib/i18n";
 import { deleteImage } from "./AlbumAPI"
 
@@ -11,6 +11,8 @@ interface IProps {
 	key: string,
 	edit: boolean,
 	feature: string,
+	windowHeight: number,
+	windowWidth: number
 }
 
 function deleteButton() {
@@ -29,19 +31,18 @@ function deleteButton() {
 
 
 export default function AlbumImage(props: IProps) {
-	const [imageHeight, setHeight] = useState(0);
+	const [imageHeight, setHeight] = useState(1000);
 
 	const imageURI = props.thumb
 	const edit = props.edit
-	const windowWidth = Dimensions.get('window').width
-
+	//const windowWidth = Dimensions.get('window').width
 
 
 
 	if (imageURI != undefined && imageURI.length > 1) {
 		Image.getSize(imageURI, (width, height) => {
 
-			setHeight(height / width * windowWidth)
+			setHeight(height / width * props.windowWidth)
 
 		});
 
@@ -60,7 +61,7 @@ export default function AlbumImage(props: IProps) {
 			return <View>
 				<Image style={[styles.storyPhoto,
 				{
-					width: windowWidth,
+					width: props.windowWidth,
 					height: imageHeight
 				}]}
 					source={{

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, ListRenderItemInfo, View as BareView } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import AlbumImage from "./AlbumImage"
 import { listenPhotos } from "./AlbumAPI"
 import * as ScreenOrientation from 'expo-screen-orientation';
@@ -10,30 +10,31 @@ interface IProps {
 	edit: boolean,
 }
 
-function useForceUpdate() {
-	const [value, setValue] = useState(0); // integer state
-	console.log("forceUpdate:", value)
-	return () => setValue(value => ++value); // update the state to force render
-}
+const window = Dimensions.get('window');
+const screen = Dimensions.get('screen');
+
 
 export default function ImageList(props: IProps) {
 	const [photos, setPhotos] = useState([]);
-
-	const forceUpdate = useForceUpdate();
+	const [dimensions, setDimensions] = useState({ window, screen });
 
 	const feature = props.feature
 
+	const onChange = ({ window, screen }) => {
+		setDimensions({ window, screen });
+	};
+
 	useEffect(() => {
-		const subscription = ScreenOrientation.addOrientationChangeListener(() => {
-			console.log('ScreenOrientation change event');
-			forceUpdate()
-		});
+
 		if (Array.isArray(photos)) {
 			let x = listenPhotos(feature, refreshFunction)
 		}
+
+		Dimensions.addEventListener('change', onChange);
 		return () => {
-			ScreenOrientation.removeOrientationChangeListeners(subscription);
+			Dimensions.removeEventListener('change', onChange);
 		};
+
 	}, []);
 
 	function refreshFunction(photos) {
@@ -42,18 +43,23 @@ export default function ImageList(props: IProps) {
 
 	return (
 		<View>
-			{
-				Object.keys(photos).map(function (key, index) {
-					return <AlbumImage
-						key={photos[key].key}
-						feature={photos[key].feature}
-						local={photos[key].local}
-						server={photos[key].server}
-						thumb={photos[key].thumb}
-						edit={props.edit}
-					/>
-				})
-			}
+			<View>
+
+				{
+					Object.keys(photos).map(function (key: number, index) {
+						return <AlbumImage
+							key={photos[key].key}
+							feature={photos[key].feature}
+							local={photos[key].local}
+							server={photos[key].server}
+							thumb={photos[key].thumb}
+							edit={props.edit}
+							windowHeight={dimensions.window.height}
+							windowWidth={dimensions.window.width}
+						/>
+					})
+				}
+			</View >
 		</View >
 	);
 }
