@@ -141,7 +141,7 @@ const uploadImage = async (feature: string, imgURI: string, filename: string, ph
 			resolve(xhr.response);
 		};
 		xhr.onerror = function (e) {
-			reject(new TypeError("Network request failed"));
+			reject(new TypeError("Network request failed:"));
 		};
 		xhr.responseType = "blob";
 		xhr.open("GET", imgURI, true);
