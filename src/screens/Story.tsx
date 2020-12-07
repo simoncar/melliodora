@@ -139,10 +139,6 @@ export class Story extends Component<TProps>{
 		)
 	}
 
-	handleScroll() {
-		console.log("scroll")
-	}
-
 	render() {
 
 		const story: StoryEntity = this.props.route.params.story
@@ -151,7 +147,6 @@ export class Story extends Component<TProps>{
 			{this.rightSideButtons(story)}
 			<ScrollView
 				showsVerticalScrollIndicator={false}
-				onScroll={this.handleScroll}
 			>
 				{this._drawImage(story.photo1)}
 				{this._drawText(story)}
