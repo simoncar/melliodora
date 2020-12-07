@@ -175,8 +175,8 @@ exports[`show read only Album Image 1`] = `
           "shadowRadius": 0.5,
         },
         Object {
-          "height": 0,
-          "width": 750,
+          "height": 1000,
+          "width": undefined,
         },
       ]
     }
