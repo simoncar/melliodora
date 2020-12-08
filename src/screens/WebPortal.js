@@ -79,20 +79,12 @@ const styles = StyleSheet.create({
 		paddingLeft: 10,
 		paddingRight: 10
 	},
-	topbar: {
-		alignItems: "center",
-		backgroundColor: "grey",
-		flexDirection: "row",
-		height: 40
-	},
+
 	url: {
 		color: "#FFF",
 		fontSize: 14
 	},
-	url2: {
-		color: "#FFF",
-		fontSize: 14
-	},
+
 });
 
 
