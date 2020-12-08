@@ -4,9 +4,8 @@ import App from "./App";
 import I18n from "./lib/i18n";
 import * as Font from "expo-font";
 import _ from "lodash";
-import * as firebase from "firebase";
-import "firebase/firestore";
-import { AppLoading } from "expo";
+
+
 import Firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
 import Constants from "expo-constants";
