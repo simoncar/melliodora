@@ -80,8 +80,6 @@ function* WORKER_checkAdmin(action) {
 	const adminPassword = yield select((state) => state.auth.adminPassword);
 	global.adminPassword = adminPassword;
 
-	console.log("WORKER_checkAdmin (user/main):", adminPassword, global.admin_password);
-
 	if (adminPassword == global.admin_password) {
 		yield put(setIsAdmin(true));
 		return;
