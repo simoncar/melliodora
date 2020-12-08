@@ -1,25 +1,40 @@
 
 import React, { Component } from "react";
-import { View, TouchableOpacity, Dimensions, StyleSheet, Alert } from "react-native";
-
+import { View, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { Ionicons, SimpleLineIcons, AntDesign } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import { getLanguageString } from "../lib/global";
 import firebase from "firebase";
 import { Text } from "./sComponent";
+import { StoryEntity } from '../lib/interfaces';
 
-class FeatureListItem extends Component {
+const globalAny: any = global;
+
+interface TProps {
+	navigation: any,
+	story: StoryEntity,
+	editMode: boolean,
+	language: string
+}
+
+class FeatureListItem extends Component<TProps> {
 	constructor(props) {
 		super(props);
 	}
 
 	deleteStory = () => {
-		const storyID = this.props.item._key;
-		firebase.firestore().collection(global.domain).doc("feature").collection("features").doc(storyID).delete();
+		const storyID = this.props.story._key;
+		firebase
+			.firestore()
+			.collection(globalAny.domain)
+			.doc("feature")
+			.collection("features")
+			.doc(storyID)
+			.delete();
 	};
 
 	confirmDelete = () => {
-		Alert.alert("Confirm Delete Story", this.props.item.summary + "?", [{
+		Alert.alert("Confirm Delete Story", this.props.story.summary + "?", [{
 			text: "Cancel",
 			style: "cancel"
 		}, { text: "OK", onPress: () => this.deleteStory() }], { cancelable: true });
@@ -27,18 +42,18 @@ class FeatureListItem extends Component {
 
 	adminMode = () => {
 		if (this.props.editMode) {
-			return <TouchableOpacity style={styles.a73433540af6a11ea88c25dbffc760ad0} onPress={() => this.confirmDelete()}>
-				<AntDesign name="delete" size={30} color="black" style={styles.a73433541af6a11ea88c25dbffc760ad0} />
+			return <TouchableOpacity style={styles.touchable} onPress={() => this.confirmDelete()}>
+				<AntDesign name="delete" size={30} color="black" style={styles.deleteIcon} />
 			</TouchableOpacity>;
 		}
 
-		return <TouchableOpacity style={styles.a73433542af6a11ea88c25dbffc760ad0} onPress={() => {
+		return <TouchableOpacity style={styles.touchableChat} onPress={() => {
 			this.props.navigation.navigate("chat", {
-				chatroom: this.props.item._key,
-				title: summary
+				chatroom: this.props.story._key,
+				title: this.props.story.summaryMyLanguage
 			});
 		}}>
-			<SimpleLineIcons name="bubble" size={30} color="black" style={styles.a73435c50af6a11ea88c25dbffc760ad0} />
+			<SimpleLineIcons name="bubble" size={30} color="black" style={styles.chatBubble} />
 		</TouchableOpacity>;
 	};
 
@@ -46,18 +61,16 @@ class FeatureListItem extends Component {
 		const preview = {
 			uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
 		};
-		const summary = getLanguageString(this.props.language, this.props.item, "summary");
-		const uri = this.props.item.photo1;
+		const summary = getLanguageString(this.props.language, this.props.story, "summary");
+		const uri = this.props.story.photo1;
 
 		return <View style={styles.newsContentLine}>
-			<TouchableOpacity onPress={() => this.props.navigation.navigate("storyMore", this.props.item)}>
-				<View style={styles.a73435c51af6a11ea88c25dbffc760ad0}>
-					<Image style={styles.a73435c52af6a11ea88c25dbffc760ad0} {...{ preview, uri }} />
-
+			<TouchableOpacity onPress={() => this.props.navigation.navigate("storyMore", this.props.story)}>
+				<View style={styles.itemRow}>
+					<Image style={styles.itemImage} {...{ preview, uri }} />
 					<Text style={styles.itemTitle}>{summary}</Text>
-
 					{this.adminMode()}
-					<Ionicons name="ios-more" size={30} color="black" style={styles.a73438360af6a11ea88c25dbffc760ad0} />
+					<Ionicons name="ios-more" size={30} color="black" style={styles.moreButton} />
 				</View>
 			</TouchableOpacity>
 		</View>;
@@ -65,29 +78,15 @@ class FeatureListItem extends Component {
 }
 
 const styles = StyleSheet.create({
-	a73433540af6a11ea88c25dbffc760ad0: {
-		flexDirection: "row"
-	},
-	a73433541af6a11ea88c25dbffc760ad0: {
+	chatBubble: {
 		lineHeight: 60,
 		marginRight: 15
 	},
-	a73433542af6a11ea88c25dbffc760ad0: {
-		flexDirection: "row"
-	},
-	a73435c50af6a11ea88c25dbffc760ad0: {
+	deleteIcon: {
 		lineHeight: 60,
 		marginRight: 15
 	},
-	a73435c51af6a11ea88c25dbffc760ad0: {
-		flexDirection: "row",
-		flex: 1,
-		height: 60,
-		backgroundColor: "white",
-		justifyContent: "center",
-		alignItems: "center"
-	},
-	a73435c52af6a11ea88c25dbffc760ad0: {
+	itemImage: {
 		borderColor: "lightgray",
 		borderRadius: 18,
 		borderWidth: StyleSheet.hairlineWidth,
@@ -95,9 +94,13 @@ const styles = StyleSheet.create({
 		margin: 12,
 		width: 36
 	},
-	a73438360af6a11ea88c25dbffc760ad0: {
-		lineHeight: 60,
-		marginRight: 15
+	itemRow: {
+		flexDirection: "row",
+		flex: 1,
+		height: 60,
+		backgroundColor: "white",
+		justifyContent: "center",
+		alignItems: "center"
 	},
 	itemTitle: {
 		alignItems: "center",
@@ -106,9 +109,19 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		justifyContent: "center"
 	},
+	moreButton: {
+		lineHeight: 60,
+		marginRight: 15
+	},
 	newsContentLine: {
 		borderTopColor: "#ddd",
 		borderTopWidth: 1
+	},
+	touchable: {
+		flexDirection: "row"
+	},
+	touchableChat: {
+		flexDirection: "row"
 	}
 });
 

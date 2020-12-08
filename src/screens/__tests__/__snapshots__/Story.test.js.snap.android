@@ -84,7 +84,7 @@ exports[`show story no calendar no image 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.3)",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
           "borderRadius": 25,
           "height": 50,
           "justifyContent": "center",
@@ -97,7 +97,7 @@ exports[`show story no calendar no image 1`] = `
           },
           "shadowOpacity": 0.8,
           "shadowRadius": 2,
-          "width": 150,
+          "width": 50,
           "zIndex": 990,
         },
         Object {
@@ -108,16 +108,6 @@ exports[`show story no calendar no image 1`] = `
     testID="story.chatIcon"
   >
     <View>
-      <Text
-        style={
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          }
-        }
-      >
-        Chat
-      </Text>
       <Text
         allowFontScaling={false}
         style={
@@ -506,7 +496,7 @@ exports[`show story on screen 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.3)",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
           "borderRadius": 25,
           "height": 50,
           "justifyContent": "center",
@@ -519,7 +509,7 @@ exports[`show story on screen 1`] = `
           },
           "shadowOpacity": 0.8,
           "shadowRadius": 2,
-          "width": 150,
+          "width": 50,
           "zIndex": 990,
         },
         Object {
@@ -530,16 +520,6 @@ exports[`show story on screen 1`] = `
     testID="story.chatIcon"
   >
     <View>
-      <Text
-        style={
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          }
-        }
-      >
-        Chat
-      </Text>
       <Text />
     </View>
   </View>
@@ -947,7 +927,7 @@ exports[`show story with URL in content to test linking 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.3)",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
           "borderRadius": 25,
           "height": 50,
           "justifyContent": "center",
@@ -960,7 +940,7 @@ exports[`show story with URL in content to test linking 1`] = `
           },
           "shadowOpacity": 0.8,
           "shadowRadius": 2,
-          "width": 150,
+          "width": 50,
           "zIndex": 990,
         },
         Object {
@@ -971,16 +951,6 @@ exports[`show story with URL in content to test linking 1`] = `
     testID="story.chatIcon"
   >
     <View>
-      <Text
-        style={
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          }
-        }
-      >
-        Chat
-      </Text>
       <Text
         allowFontScaling={false}
         style={

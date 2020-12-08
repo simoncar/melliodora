@@ -44,6 +44,7 @@
 	"passwordMismatch": "Passwords don't match",
 	"passwordForgot": "A reset email will be sent if you have an account",
 	"permissionsNoCamera": "No access to camera",
+	"permissionsNoCalendar": "No access to calendar",
 	"photos": "Photos",
 	"photoTake": "Take Photo",
 	"photoChoose": "Choose Photo",
@@ -51,7 +52,6 @@
 	"profile": "Profile",
 	"pta": "Parent Teacher Association",
 	"reports": "Reports",
-	"safeguarding": "Safeguarding",
 	"save": "Save",
 	"saved": "Saved",
 	"schoolStarts": "School Starts in...",
@@ -70,6 +70,7 @@
 	"version": "Version",
 	"welcome": "Welcome",
 	"albums": "Albums",
-		"images": "Images",
-		"changeDomain": "Change Domain"
+	"images": "Images",
+	"changeDomain": "Change Domain",
+	"error":"Error"
 }

@@ -54,6 +54,22 @@ exports[`list domains 1`] = `
           >
             Sign In / Sign Up
           </Text>
+          <Text
+            ellipsizeMode="tail"
+            numberOfLines={2}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "SegoeUI",
+                },
+                Object {
+                  "color": "#777777",
+                },
+              ]
+            }
+          >
+            
+          </Text>
         </View>
         <View>
           <Text
@@ -311,6 +327,22 @@ exports[`list domains 1`] = `
                     >
                       Bali Children Foundation
                     </Text>
+                    <Text
+                      ellipsizeMode="tail"
+                      numberOfLines={2}
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Object {
+                            "color": "#777777",
+                          },
+                        ]
+                      }
+                    >
+                      
+                    </Text>
                   </View>
                   <View>
                     <Text
@@ -406,6 +438,22 @@ exports[`list domains 1`] = `
                       }
                     >
                       Camp Asia
+                    </Text>
+                    <Text
+                      ellipsizeMode="tail"
+                      numberOfLines={2}
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Object {
+                            "color": "#777777",
+                          },
+                        ]
+                      }
+                    >
+                      
                     </Text>
                   </View>
                   <View>
@@ -503,6 +551,22 @@ exports[`list domains 1`] = `
                     >
                       Coco Palms
                     </Text>
+                    <Text
+                      ellipsizeMode="tail"
+                      numberOfLines={2}
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Object {
+                            "color": "#777777",
+                          },
+                        ]
+                      }
+                    >
+                      
+                    </Text>
                   </View>
                   <View>
                     <Text
@@ -598,6 +662,22 @@ exports[`list domains 1`] = `
                       }
                     >
                       IFLA Asia Pacific
+                    </Text>
+                    <Text
+                      ellipsizeMode="tail"
+                      numberOfLines={2}
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Object {
+                            "color": "#777777",
+                          },
+                        ]
+                      }
+                    >
+                      
                     </Text>
                   </View>
                   <View>
@@ -695,6 +775,22 @@ exports[`list domains 1`] = `
                     >
                       My Photo Community
                     </Text>
+                    <Text
+                      ellipsizeMode="tail"
+                      numberOfLines={2}
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Object {
+                            "color": "#777777",
+                          },
+                        ]
+                      }
+                    >
+                      
+                    </Text>
                   </View>
                   <View>
                     <Text
@@ -790,6 +886,22 @@ exports[`list domains 1`] = `
                       }
                     >
                       Oakforest International
+                    </Text>
+                    <Text
+                      ellipsizeMode="tail"
+                      numberOfLines={2}
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Object {
+                            "color": "#777777",
+                          },
+                        ]
+                      }
+                    >
+                      
                     </Text>
                   </View>
                   <View>
@@ -887,6 +999,22 @@ exports[`list domains 1`] = `
                     >
                       Smart Cookies Team Hero
                     </Text>
+                    <Text
+                      ellipsizeMode="tail"
+                      numberOfLines={2}
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Object {
+                            "color": "#777777",
+                          },
+                        ]
+                      }
+                    >
+                      
+                    </Text>
                   </View>
                   <View>
                     <Text
@@ -982,6 +1110,22 @@ exports[`list domains 1`] = `
                       }
                     >
                       Speech Language Club
+                    </Text>
+                    <Text
+                      ellipsizeMode="tail"
+                      numberOfLines={2}
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Object {
+                            "color": "#777777",
+                          },
+                        ]
+                      }
+                    >
+                      
                     </Text>
                   </View>
                   <View>
@@ -1079,6 +1223,22 @@ exports[`list domains 1`] = `
                     >
                       Stamford American
                     </Text>
+                    <Text
+                      ellipsizeMode="tail"
+                      numberOfLines={2}
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Object {
+                            "color": "#777777",
+                          },
+                        ]
+                      }
+                    >
+                      
+                    </Text>
                   </View>
                   <View>
                     <Text
@@ -1174,6 +1334,22 @@ exports[`list domains 1`] = `
                       }
                     >
                       Team Entrepreneur CA
+                    </Text>
+                    <Text
+                      ellipsizeMode="tail"
+                      numberOfLines={2}
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "SegoeUI",
+                          },
+                          Object {
+                            "color": "#777777",
+                          },
+                        ]
+                      }
+                    >
+                      
                     </Text>
                   </View>
                   <View>

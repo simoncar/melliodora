@@ -33,9 +33,6 @@ const auth = {
 	}
 }
 
-
-
-
 test('show camera screen', async () => {
 	const navigation = { navigate: jest.fn() };
 	const onGoBack = jest.fn();

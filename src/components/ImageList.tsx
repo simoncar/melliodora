@@ -17,6 +17,8 @@ const screen = Dimensions.get('screen');
 export default function ImageList(props: IProps) {
 	const [photos, setPhotos] = useState([]);
 	const [dimensions, setDimensions] = useState({ window, screen });
+	const [visible, setIsVisible] = useState(false);
+
 	const images = [];
 	const feature = props.feature
 
@@ -27,7 +29,7 @@ export default function ImageList(props: IProps) {
 	useEffect(() => {
 
 		if (Array.isArray(photos)) {
-			let x = listenPhotos(feature, refreshFunction)
+			listenPhotos(feature, refreshFunction)
 		}
 
 		Dimensions.addEventListener('change', onChange);
@@ -37,7 +39,7 @@ export default function ImageList(props: IProps) {
 
 	}, []);
 
-	function refreshFunction(photos) {
+	function refreshFunction(photos: []) {
 		setPhotos(photos);
 	}
 
@@ -61,7 +63,7 @@ export default function ImageList(props: IProps) {
 	// 	},
 	// ];
 
-	const [visible, setIsVisible] = useState(true);
+
 
 	return (
 		<View>

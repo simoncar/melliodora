@@ -23,6 +23,7 @@ export class AdminPassword extends Component {
 	}
 
 	_retrieveAdminPassword = async () => {
+
 		try {
 			const value = this.props.auth.adminPassword;
 			if (value !== null) {
