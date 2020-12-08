@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { View, StyleSheet, FlatList, TouchableOpacity, TextInput } from "react-native";
 import _ from "lodash";
@@ -21,7 +20,7 @@ export class DomainSelection extends Component {
 
 		props.dispatch(getCommunities());
 	}
-	81
+
 	componentDidMount() {
 		const { communities } = this.props.community;
 		if (communities.length > 0) {

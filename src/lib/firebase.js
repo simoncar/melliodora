@@ -1,4 +1,6 @@
 import * as firebase from "firebase";
+import "firebase/firestore";
+
 import ApiKeys from "../ApiKeys";
 
 class Firebase {

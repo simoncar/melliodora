@@ -40,6 +40,7 @@ class Home extends Component {
 		});
 
 		global.domain = this.props.community.selectedCommunity.node || global.domain;
+		//this.props.dispatch(processSelectedCommunity(global.domain));
 
 		if (global.domain == "oakforest_international_edu") {
 			demo.setupDemoData();
@@ -244,16 +245,21 @@ class Home extends Component {
 			</View>;
 		}
 	}
+	isTrue(val) {
+		if (val === true) return "true"
+	}
 
 	env() { }
 
 	render() {
 		return <View style={styles.container}>
-			{(global.administrator || this.props.auth.isAdmin) && <TouchableHighlight style={styles.addButton} underlayColor="#ff7043" onPress={() => {
-				this.props.navigation.navigate("Form", { edit: false });
-			}}>
-				<Text style={styles.editIcon}>+</Text>
-			</TouchableHighlight>}
+			{(this.props.auth.isAdmin === true) &&
+				<TouchableHighlight style={styles.addButton} underlayColor="#ff7043"
+					onPress={() => {
+						this.props.navigation.navigate("Form", { edit: false });
+					}}>
+					<Text style={styles.editIcon}>+</Text>
+				</TouchableHighlight>}
 
 			{(global.domain === "ais_edu_sg") && <ButtonBar navigation={this.props.navigation} />}
 			<ScrollView>

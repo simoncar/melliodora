@@ -110,9 +110,6 @@ function* WORKER_processSelectedCommunity(action) {
 
 	}
 
-	console.log("home admincc   :", global.admin_password)
-
-
 	yield put(setSelectedCommunity(community));
 	yield put(checkAdmin());
 }

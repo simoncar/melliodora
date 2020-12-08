@@ -8,6 +8,8 @@ import { Input } from "react-native-elements";
 import I18n from "../lib/i18n";
 import { Text } from "../components/sComponent";
 
+const globalAny: any = global;
+
 export class AdminPassword extends Component {
 	constructor(props) {
 		super(props);
@@ -27,7 +29,7 @@ export class AdminPassword extends Component {
 		try {
 			const value = this.props.auth.adminPassword;
 			if (value !== null) {
-				if (value == global.admin_password) {
+				if (value == globalAny.admin_password) {
 					this.setState({ adminPasswordCorrect: "Password Correct!" });
 				}
 				this.setState({ adminPassword: value });
@@ -39,23 +41,44 @@ export class AdminPassword extends Component {
 
 	_setAdminPassword(adminPassword) {
 		this.setState({ adminPassword: adminPassword });
-		if (adminPassword == global.admin_password) {
+		if (adminPassword == globalAny.admin_password) {
 			this.setState({ adminPasswordCorrect: "Password Correct!" });
 			this.setState({ restartMessage: "Click to Restart in Admin Mode" });
 			Analytics.logEvent("Admin Password", { entered: "Correct" });
 
-			global.adminPassword = adminPassword;
+			globalAny.adminPassword = adminPassword;
 
 			this.props.dispatch(setAdminPass(adminPassword));
 		} else {
 			this.setState({ adminPasswordCorrect: "" });
 		}
 	}
+
+	isTrue(val) {
+		if (val === true) return "true"
+	}
+
+
 	_saveButton() {
-		if (this.state.adminPassword == global.admin_password) {
+		if ((!this.props.auth.isAdmin) && (this.state.adminPassword == globalAny.admin_password)) {
 			return <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => Updates.reloadAsync()}>
 				<Text style={styles.TextStyle}>{I18n.t("save")}</Text>
 			</TouchableOpacity>;
+		}
+	}
+
+	_logoutButton() {
+		if (this.props.auth.isAdmin) {
+			return <TouchableOpacity
+				style={styles.SubmitButtonStyle}
+				activeOpacity={0.5}
+				onPress={() => {
+					this.props.dispatch(setAdminPass(null))
+					Updates.reloadAsync()
+				}
+				}>
+				<Text style={styles.TextStyle}>{I18n.t("logout")}</Text>
+			</TouchableOpacity >;
 		}
 	}
 
@@ -71,6 +94,7 @@ export class AdminPassword extends Component {
 				testID="admin.password"
 				autoFocus={true} />
 			<View style={styles.saveButton}>{this._saveButton()}</View>
+			<View style={styles.saveButton}>{this._logoutButton()}</View>
 		</View>;
 	}
 
@@ -105,16 +129,23 @@ const styles = StyleSheet.create({
 		borderColor: "#d2d2d2",
 		borderRadius: 10,
 		borderWidth: 1,
-		marginVertical: 8
+		height: 45,
+		marginVertical: 8,
 	},
-	inputBorder: { borderBottomWidth: 0 },
+	inputBorder: {
+		borderBottomWidth: 0
+	},
 	passwordField: {
 		borderColor: "gray",
-		borderWidth: 1,
-		height: 40,
-		paddingLeft: 10
+		borderWidth: 0,
+		paddingLeft: 10,
+
 	},
-	saveButton: { alignItems: "center", flexDirection: "column", marginTop: 12 }
+	saveButton: {
+		alignItems: "center",
+		flexDirection: "column",
+		marginTop: 12
+	}
 });
 
 const mapStateToProps = state => ({

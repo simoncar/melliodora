@@ -26,7 +26,7 @@ class Content extends Component {
 
 	render() {
 		return <View style={styles.a911df0d0b21411ea8aa31930972200e5}>
-			{(global.administrator || this.props.auth.isAdmin) && <TouchableHighlight style={styles.adminButton} underlayColor="#ff7043" onPress={() => this.props.navigation.navigate("moreAdmin", { moreFeatures: this.state.features })}>
+			{this.props.auth.isAdmin && <TouchableHighlight style={styles.adminButton} underlayColor="#ff7043" onPress={() => this.props.navigation.navigate("moreAdmin", { moreFeatures: this.state.features })}>
 				<MaterialIcons name="edit" style={styles.a911df0d1b21411ea8aa31930972200e5} />
 			</TouchableHighlight>}
 

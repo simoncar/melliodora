@@ -83,7 +83,7 @@ export default class CustomImage extends React.Component {
 
 			</View>;
 		} else {
-			return
+			return null
 		}
 	}
 }
