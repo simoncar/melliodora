@@ -22,8 +22,6 @@ export class AdminPassword extends Component {
 
 	componentDidMount() {
 		this._retrieveAdminPassword();
-
-		console.log("state", this.props.auth.isAdmin)
 	}
 
 	_retrieveAdminPassword = async () => {
