@@ -14,8 +14,25 @@ export function actionEdit(navigation: any, position: number, story: StoryEntity
 			onPress={() => {
 				navigation.navigate("Form", {
 					edit: true,
-					story:story,
+					story: story,
 					refreshFunction: refreshFunction
+				});
+			}}>
+			<MaterialIcons testID="story.editIcon" name="edit" style={styles.icon} />
+		</TouchableHighlight>
+	)
+}
+
+
+export function actionAdd(navigation: any, refreshFunction: any) {
+	return (
+		<TouchableHighlight
+			key="rightSideEdit"
+			style={[styles.button, { bottom: (10 + 1 * 60) }]}
+			underlayColor="#ff7043"
+			onPress={() => {
+				navigation.navigate("Form", {
+					edit: false
 				});
 			}}>
 			<MaterialIcons testID="story.editIcon" name="edit" style={styles.icon} />

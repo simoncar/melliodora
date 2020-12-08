@@ -33,7 +33,35 @@ class Form extends Component<TProps, StoryState> {
 		super(props);
 
 		const edit = this.props.route.params.edit
-		const { _key, summary, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params.story;
+
+		var story: StoryEntity
+
+		if (this.props.route.params.story != undefined) {
+			console.log("story defined", this.props.route.params.story);
+			story = this.props.route.params.story
+		} else {
+			story = {
+				_key: "",
+				summary: "",
+				description: "",
+				photo1: "",
+				visible: true,
+				visibleMore: true,
+				showIconChat: true,
+				order: 1,
+				dateTimeStart: "",
+				dateTimeEnd: "",
+				date_start: "",
+				time_start_pretty: "",
+				time_end_pretty: "",
+			};
+
+		}
+
+		const { _key, summary, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = story;
+
+
+		console.log("KEY:", _key)
 
 		this.state = {
 			photo1: edit && photo1 !== undefined ? photo1 : null,
@@ -232,6 +260,7 @@ class Form extends Component<TProps, StoryState> {
 	render() {
 
 		const story: StoryEntity = this.props.route.params.story
+		const edit = this.props.route.params.edit
 		const refreshFunction = this.props.route.params.refreshFunction;
 
 		return (
@@ -260,11 +289,11 @@ class Form extends Component<TProps, StoryState> {
 					</View>
 					<View style={styles.formButton}>{this.deleteButton()}</View>
 
-					<ImageList
+					{edit && <ImageList
 						feature={story._key}
 						refreshFunction={refreshFunction}
 						edit={true}
-					/>
+					/>}
 
 				</ScrollView>
 			</View>

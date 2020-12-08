@@ -12,6 +12,8 @@ import { Text, ShortList } from "../components/sComponent"
 import { ButtonBar } from "../components/ButtonBar"
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
+import { actionAdd } from "../components/StoryActions"
+
 
 const versionCheck = new VersionCheck();
 
@@ -254,12 +256,9 @@ class Home extends Component {
 	render() {
 		return <View style={styles.container}>
 			{(this.props.auth.isAdmin === true) &&
-				<TouchableHighlight style={styles.addButton} underlayColor="#ff7043"
-					onPress={() => {
-						this.props.navigation.navigate("Form", { edit: false });
-					}}>
-					<Text style={styles.editIcon}>+</Text>
-				</TouchableHighlight>}
+				actionAdd(this.props.navigation, this.refreshFunction)
+
+			}
 
 			{(global.domain === "ais_edu_sg") && <ButtonBar navigation={this.props.navigation} />}
 			<ScrollView>
