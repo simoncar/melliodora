@@ -19,14 +19,12 @@ import { StackActions, StackActionType } from "@react-navigation/native";
 import ImageList from "../components/ImageList"
 import { StoryEntity, StoryState } from '../lib/interfaces';
 
-
 interface TProps {
 	auth: any,
 	community: any,
 	navigation: any,
 	route: any,
 }
-
 
 class Form extends Component<TProps, StoryState> {
 
@@ -235,8 +233,6 @@ class Form extends Component<TProps, StoryState> {
 
 		const story: StoryEntity = this.props.route.params.story
 		const refreshFunction = this.props.route.params.refreshFunction;
-
-		console.log("state key2:", this.state)
 
 		return (
 			<View style={styles.container}>

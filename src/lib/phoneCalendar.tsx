@@ -1,6 +1,6 @@
 import { Alert, Platform } from "react-native";
 import * as Calendar from 'expo-calendar';
-import I18n from "../lib/i18n";
+import I18n from "./i18n";
 import * as Permissions from 'expo-permissions';
 
 export const phoneCalendar = async (event) => {

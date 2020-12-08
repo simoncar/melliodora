@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Text } from "../components/sComponent"
 import ImageList from "../components/ImageList"
 import { actionEdit, actionPhotos, actionChat, actionSend, actionCalendar, actionShare } from "../components/StoryActions"
-import { StoryEntity } from '../lib/interfaces';
+import { StoryEntity, StoryState } from '../lib/interfaces';
 
 const globalAny: any = global;
 
@@ -16,11 +16,35 @@ interface TProps {
 	auth: any,
 }
 
-export class Story extends Component<TProps>{
+export class Story extends Component<TProps, StoryState>{
 
 	constructor(props: TProps) {
 		super(props);
 		this.refreshFunction = this.refreshFunction.bind(this);
+		this.rightSideButtons = this.rightSideButtons.bind(this);
+
+		const { _key, source, summary, summaryMyLanguage, description, descriptionMyLanguage, location, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params.story;
+
+		this.state = {
+			photo1: photo1 !== undefined ? photo1 : null,
+			summary: summary,
+			summaryMyLanguage: summaryMyLanguage,
+			description: description,
+			descriptionMyLanguage: descriptionMyLanguage,
+			visible: visible,
+			visibleMore: visibleMore,
+			showIconChat: showIconChat,
+			order: order,
+			_key: _key,
+			date_start: date_start,
+			time_start_pretty: time_start_pretty,
+			time_end_pretty: time_end_pretty,
+			dateTimeStart: dateTimeStart,
+			dateTimeEnd: dateTimeEnd,
+			cameraIcon: "camera",
+			source: source,
+			location: location
+		};
 	}
 
 	componentDidMount() {
@@ -47,13 +71,15 @@ export class Story extends Component<TProps>{
 		}
 	}
 
-	refreshFunction(newState: { summary: any; description: any; }) {
+	refreshFunction(newState: StoryState) {
+		console.log("new state:", newState)
 		this.setState(
 			{
-				newState,
 				summaryMyLanguage: newState.summary,
 				descriptionMyLanguage: newState.description
-			});
+			}
+		);
+		this.setState(newState);
 	}
 
 	rightSideButtons(story: StoryEntity) {
@@ -64,7 +90,7 @@ export class Story extends Component<TProps>{
 		const admin = isAdmin(this.props.route.params.adminPassword)
 
 		if (admin && story.source == "feature") {
-			buffer.push(actionEdit(navigation, position, story, this.refreshFunction))
+			buffer.push(actionEdit(navigation, position, this.state, this.refreshFunction))
 			position++
 		}
 
@@ -92,20 +118,20 @@ export class Story extends Component<TProps>{
 		return (
 			<View style={styles.textBox}>
 				<Text selectable style={styles.eventTitle}>
-					{story.summaryMyLanguage}
+					{this.state.summaryMyLanguage}
 				</Text>
 
-				{isValue(story.location) && <Text selectable style={styles.eventText}>
-					{story.location}
+				{isValue(this.state.location) && <Text selectable style={styles.eventText}>
+					{this.state.location}
 				</Text>}
 
-				{isValue(story.date_start) && <Text selectable style={styles.eventText}>
-					{formatMonth(story.date_start)}
+				{isValue(this.state.date_start) && <Text selectable style={styles.eventText}>
+					{formatMonth(this.state.date_start)}
 				</Text>}
 
 
-				{isValue(story.time_start_pretty) && <Text selectable style={styles.eventTextTime}>
-					{formatTime(story.time_start_pretty, story.time_end_pretty)}
+				{isValue(this.state.time_start_pretty) && <Text selectable style={styles.eventTextTime}>
+					{formatTime(this.state.time_start_pretty, this.state.time_end_pretty)}
 				</Text>}
 
 
@@ -126,34 +152,34 @@ export class Story extends Component<TProps>{
 					{ pattern: /#(\w+)/, style: styles.url }]}
 					childrenProps={{ allowFontScaling: false }}
 				>
-					{story.descriptionMyLanguage}
+					{this.state.descriptionMyLanguage}
 				</ParsedText>
 				{this.props.auth.language != "en" && <Text selectable style={styles.englishFallback}>
 					{"\n\n"}
-					{story.description}
+					{this.state.description}
 					{"\n\n"}
 				</Text>}
 
 				<Text selectable style={styles.eventTextAbbreviation}>
-					{getAbbreviations(story.summary, globalAny.domain)}
+					{getAbbreviations(this.state.summary, globalAny.domain)}
 				</Text>
 			</View>
 		)
 	}
 
 	render() {
-		const story: StoryEntity = this.props.route.params.story
+
 
 		return <View style={styles.container}>
-			{this.rightSideButtons(story)}
+			{this.rightSideButtons(this.state)}
 			<ScrollView
 				showsVerticalScrollIndicator={false}
 			>
-				{this._drawImage(story.photo1)}
-				{this._drawText(story)}
+				{this._drawImage(this.state.photo1)}
+				{this._drawText(this.state)}
 
 				<ImageList
-					feature={story._key}
+					feature={this.state._key}
 					refreshFunction={this.refreshFunction}
 					edit={false}
 				/>

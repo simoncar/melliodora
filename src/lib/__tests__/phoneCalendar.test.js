@@ -2,11 +2,9 @@ import React from 'react';
 import { render } from 'react-native-testing-library';
 import * as Permissions from 'expo-permissions';
 import * as Calendar from 'expo-calendar';
-import * as phoneCalendar from '../phoneCalendar';
+import phoneCalendar from '../phoneCalendar';
+
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
-
-
-
 
 const calendars = [
 	{
