@@ -32,8 +32,6 @@ class Form extends Component<TProps, StoryState> {
 
 		super(props);
 
-		const edit = this.props.route.params.edit
-
 		var story: StoryEntity
 
 		if (this.props.route.params.story != undefined) {
@@ -55,29 +53,28 @@ class Form extends Component<TProps, StoryState> {
 				time_start_pretty: "",
 				time_end_pretty: "",
 			};
-
 		}
 
 		const { _key, summary, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = story;
 
-
 		console.log("KEY:", _key)
 
 		this.state = {
-			photo1: edit && photo1 !== undefined ? photo1 : null,
-			summary: edit ? summary : "",
-			description: edit ? description : "",
-			visible: edit ? visible : true,
-			visibleMore: edit ? visibleMore : true,
-			showIconChat: edit ? showIconChat : true,
-			order: edit ? order : 1,
-			_key: edit ? _key : "",
+			photo1: photo1 !== undefined ? photo1 : null,
+			summary: summary,
+			description: description,
+			visible: visible,
+			visibleMore: visibleMore,
+			showIconChat: showIconChat,
+			order: order,
+			_key: _key,
 			date_start: date_start,
 			time_start_pretty: time_start_pretty,
 			time_end_pretty: time_end_pretty,
 			dateTimeStart: dateTimeStart,
 			dateTimeEnd: dateTimeEnd,
 			cameraIcon: "camera",
+			edit: this.props.route.params.edit
 		};
 
 		this.handlerChat = this.handlerChat.bind(this);
@@ -149,14 +146,19 @@ class Form extends Component<TProps, StoryState> {
 	}
 
 	deleteButton() {
-		const { _key, edit } = this.props.route.params;
+		const { _key, edit } = this.state;
 		if (edit) {
 			return <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => {
 				Alert.alert(I18n.t("delete"), "Are you sure?", [{
 					text: I18n.t("cancel"),
 					onPress: () => console.log("Cancel Pressed"),
 					style: "cancel"
-				}, { text: I18n.t("delete"), onPress: () => DeleteFeature(_key, this.deleteHandler(this.props.navigation)) }], { cancelable: false });
+				}, {
+					text: I18n.t("delete"), onPress: () => {
+						console.log("Delete feature:", _key)
+						DeleteFeature(_key, this.deleteHandler(this.props.navigation))
+					}
+				}], { cancelable: false });
 			}}>
 				<Text >{I18n.t("delete")}</Text>
 			</TouchableOpacity>;
