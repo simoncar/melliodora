@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 import { Text, ShortList } from "../components/sComponent"
 import { ButtonBar } from "../components/ButtonBar"
 import VersionCheck from "../lib/versionCheck";
-
 import DemoData from "../lib/demoData";
 
 const versionCheck = new VersionCheck();
