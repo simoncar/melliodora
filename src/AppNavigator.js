@@ -19,7 +19,6 @@ import SelectAlbum from "./screens/Albums";
 import Content from "./components/content";
 import Story from "./screens/Story";
 import Form from "./screens/Form";
-import campusMap from "./screens/Map";
 import chatRooms from "./screens/ChatRooms";
 import ChatTitle from "./components/ChatTitle";
 import chat from "./screens/Chat";
@@ -48,7 +47,6 @@ function StackHomeNavigator() {
 		<StackHome.Screen name="story" component={Story} options={({ route }) => ({ title: route.params.story.summaryMyLanguage })} />
 		<StackHome.Screen name="push" component={push} options={{ title: I18n.t("send") }} />
 		<StackHome.Screen name="chatStory" component={chat} options={({ route }) => ({ title: route.params.title })} />
-		<StackHome.Screen name="campusMap" component={campusMap} options={{ title: I18n.t("map") }} />
 		<StackHome.Screen name="Form" component={Form} options={{ title: I18n.t("edit") }} />
 		<StackChat.Screen name="FormAlbum" component={FormAlbum} options={{ title: I18n.t("images") }} />
 		<StackHome.Screen name="authPortalEmbed" component={authPortal} options={{ title: I18n.t("myS") }} />
