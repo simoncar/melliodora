@@ -55,6 +55,8 @@ export const buildChatroomList = () => ({
 
 function* WORKER_processSelectedCommunity(action) {
 
+	console.log("AAA RUNNIG ***** WORKER_processSelectedCommunity :", community, global.admin_password)
+
 	let community = action.selectedCommunity
 
 	community = community || {};
@@ -110,7 +112,7 @@ function* WORKER_processSelectedCommunity(action) {
 
 	}
 
-	console.log("home admincc   :", global.admin_password)
+	console.log("BBBB RUNNIG ***** WORKER_processSelectedCommunity :", community, global.admin_password)
 
 
 	yield put(setSelectedCommunity(community));

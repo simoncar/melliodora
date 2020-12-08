@@ -79,6 +79,9 @@ const _anonymouslySignIn = () => {
 function* WORKER_checkAdmin(action) {
 	const adminPassword = yield select((state) => state.auth.adminPassword);
 	global.adminPassword = adminPassword;
+
+	console.log("WORKER_checkAdmin (user/main):", adminPassword, global.admin_password);
+
 	if (adminPassword == global.admin_password) {
 		yield put(setIsAdmin(true));
 		return;
@@ -152,8 +155,13 @@ function* WORKER_authListener() {
 }
 
 function* WORKER_anonymouslySignIn() {
-	yield call(_anonymouslySignIn);
-	yield put(checkAdmin());
+	console.log("WORKER_anonymouslySignIn")
+	try {
+		yield call(_anonymouslySignIn);
+		yield put(checkAdmin());
+	} catch (e) {
+		console.log(e);
+	}
 }
 
 function* WORKER_initUser(action) {

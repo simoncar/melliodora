@@ -8,6 +8,8 @@ import { Input } from "react-native-elements";
 import I18n from "../lib/i18n";
 import { Text } from "../components/sComponent";
 
+const globalAny: any = global;
+
 export class AdminPassword extends Component {
 	constructor(props) {
 		super(props);
@@ -27,7 +29,7 @@ export class AdminPassword extends Component {
 		try {
 			const value = this.props.auth.adminPassword;
 			if (value !== null) {
-				if (value == global.admin_password) {
+				if (value == globalAny.admin_password) {
 					this.setState({ adminPasswordCorrect: "Password Correct!" });
 				}
 				this.setState({ adminPassword: value });
@@ -39,20 +41,26 @@ export class AdminPassword extends Component {
 
 	_setAdminPassword(adminPassword) {
 		this.setState({ adminPassword: adminPassword });
-		if (adminPassword == global.admin_password) {
+		if (adminPassword == globalAny.admin_password) {
 			this.setState({ adminPasswordCorrect: "Password Correct!" });
 			this.setState({ restartMessage: "Click to Restart in Admin Mode" });
 			Analytics.logEvent("Admin Password", { entered: "Correct" });
 
-			global.adminPassword = adminPassword;
+			globalAny.adminPassword = adminPassword;
 
 			this.props.dispatch(setAdminPass(adminPassword));
 		} else {
 			this.setState({ adminPasswordCorrect: "" });
 		}
 	}
+
+	isTrue(val) {
+		if (val === true) return "true"
+	}
+
+
 	_saveButton() {
-		if (this.state.adminPassword == global.admin_password) {
+		if (this.state.adminPassword == globalAny.admin_password) {
 			return <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => Updates.reloadAsync()}>
 				<Text style={styles.TextStyle}>{I18n.t("save")}</Text>
 			</TouchableOpacity>;
@@ -61,6 +69,10 @@ export class AdminPassword extends Component {
 
 	render() {
 		return <View style={styles.container}>
+			<Text>The password is: {globalAny.admin_password}</Text>
+			<Text>Entered password: {this.state.adminPassword}</Text>
+			<Text>auth isAdmin: {this.isTrue(this.props.auth.isAdmin)}</Text>
+			<Text>auth isAdmin: {this.props.auth.adminPassword}</Text>
 			<Input
 				style={styles.passwordField}
 				onChangeText={text => this._setAdminPassword(text)}
