@@ -22,6 +22,8 @@ export class AdminPassword extends Component {
 
 	componentDidMount() {
 		this._retrieveAdminPassword();
+
+		console.log("state", this.props.auth.isAdmin)
 	}
 
 	_retrieveAdminPassword = async () => {
@@ -60,19 +62,30 @@ export class AdminPassword extends Component {
 
 
 	_saveButton() {
-		if (this.state.adminPassword == globalAny.admin_password) {
+		if ((!this.props.auth.isAdmin) && (this.state.adminPassword == globalAny.admin_password)) {
 			return <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => Updates.reloadAsync()}>
 				<Text style={styles.TextStyle}>{I18n.t("save")}</Text>
 			</TouchableOpacity>;
 		}
 	}
 
+	_logoutButton() {
+		if (this.props.auth.isAdmin) {
+			return <TouchableOpacity
+				style={styles.SubmitButtonStyle}
+				activeOpacity={0.5}
+				onPress={() => {
+					this.props.dispatch(setAdminPass(null))
+					Updates.reloadAsync()
+				}
+				}>
+				<Text style={styles.TextStyle}>{I18n.t("logout")}</Text>
+			</TouchableOpacity >;
+		}
+	}
+
 	render() {
 		return <View style={styles.container}>
-			<Text>The password is: {globalAny.admin_password}</Text>
-			<Text>Entered password: {this.state.adminPassword}</Text>
-			<Text>auth isAdmin: {this.isTrue(this.props.auth.isAdmin)}</Text>
-			<Text>auth isAdmin: {this.props.auth.adminPassword}</Text>
 			<Input
 				style={styles.passwordField}
 				onChangeText={text => this._setAdminPassword(text)}
@@ -83,6 +96,7 @@ export class AdminPassword extends Component {
 				testID="admin.password"
 				autoFocus={true} />
 			<View style={styles.saveButton}>{this._saveButton()}</View>
+			<View style={styles.saveButton}>{this._logoutButton()}</View>
 		</View>;
 	}
 
@@ -117,16 +131,23 @@ const styles = StyleSheet.create({
 		borderColor: "#d2d2d2",
 		borderRadius: 10,
 		borderWidth: 1,
-		marginVertical: 8
+		height: 45,
+		marginVertical: 8,
 	},
-	inputBorder: { borderBottomWidth: 0 },
+	inputBorder: {
+		borderBottomWidth: 0
+	},
 	passwordField: {
 		borderColor: "gray",
-		borderWidth: 1,
-		height: 40,
-		paddingLeft: 10
+		borderWidth: 0,
+		paddingLeft: 10,
+
 	},
-	saveButton: { alignItems: "center", flexDirection: "column", marginTop: 12 }
+	saveButton: {
+		alignItems: "center",
+		flexDirection: "column",
+		marginTop: 12
+	}
 });
 
 const mapStateToProps = state => ({

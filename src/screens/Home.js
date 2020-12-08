@@ -12,7 +12,6 @@ import { Text, ShortList } from "../components/sComponent"
 import { ButtonBar } from "../components/ButtonBar"
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
-import { processSelectedCommunity } from "../store/community";
 
 const versionCheck = new VersionCheck();
 
@@ -253,9 +252,7 @@ class Home extends Component {
 	env() { }
 
 	render() {
-		//console.log("auth in home.js:", this.props.auth)
 		return <View style={styles.container}>
-			<Text>auth isAdmin: {this.isTrue(this.props.auth.isAdmin)} {this.props.auth.adminPassword}</Text>
 			{(this.props.auth.isAdmin === true) &&
 				<TouchableHighlight style={styles.addButton} underlayColor="#ff7043"
 					onPress={() => {
