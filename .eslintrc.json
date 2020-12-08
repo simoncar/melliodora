@@ -26,7 +26,10 @@
 		"import/parser": "babel-eslint",
 		"react": {
 			"version": "latest"
-		}
+		},
+		 "jest": {
+     		 "version": 26
+    	}
 	},
 	"plugins": [
 		"react",
