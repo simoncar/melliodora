@@ -4,7 +4,7 @@ import App from "./App";
 import I18n from "./lib/i18n";
 import * as Font from "expo-font";
 import _ from "lodash";
-
+import AppLoading from 'expo-app-loading';
 
 import Firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
@@ -59,7 +59,7 @@ class Setup extends Component {
 			(_.isEmpty(this.props.community.selectedCommunity) &&
 				Constants.manifest.extra.instance)
 		) {
-			return null;
+			return <AppLoading />;
 		} else if (_.isEmpty(this.props.community.selectedCommunity)) {
 			return (
 				<AuthStackNavigator />

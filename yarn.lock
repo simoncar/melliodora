@@ -5825,6 +5825,13 @@ expect@^25.5.0:
     jest-message-util "^25.5.0"
     jest-regex-util "^25.2.6"
 
+expo-app-loading@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/expo-app-loading/-/expo-app-loading-1.0.0.tgz#41d95752729cc77e7f907b75affb99b7018c5cec"
+  integrity sha512-P1KKolgsy8B94oG0olrr2pfc5AwUfciCeZkV31nkqJ0tRBKMRP7cz+ImBc7/Fa2HjzQlW61nYkZLXFB9zs15GQ==
+  dependencies:
+    expo-splash-screen "0.8.0"
+
 expo-application@^2.2.1, expo-application@~2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/expo-application/-/expo-application-2.3.0.tgz#5e6929a1fcee543ac433fb2cee1f88738369e26b"
@@ -5993,6 +6000,13 @@ expo-screen-orientation@~2.0.0:
   integrity sha512-pVjzNL3nQyr3iPzn34dOkNgBIwsdcLDshS+/J6otjKPswJxu34jnnFsYrB0tX/xTc0pYTHL5N+ycXIuk14ElYA==
   dependencies:
     fbjs "1.0.0"
+
+expo-splash-screen@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.8.0.tgz#3fa78325bcf3e601b615063a70d103da7319aa5a"
+  integrity sha512-Z3mep1FP9oAurDZ7IXAdwO8kwHCuT1fm7Ha89SQPd7m63CYcesBCcxJzSCluL8UVrLNX/xJQyKD4XrjIE5bduA==
+  dependencies:
+    "@expo/configure-splash-screen" "0.2.0"
 
 expo-splash-screen@~0.6.2:
   version "0.6.2"
