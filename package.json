@@ -66,7 +66,7 @@
 		"expo-firebase-core": "~1.2.0",
 		"expo-font": "~8.3.0",
 		"expo-image-manipulator": "~8.3.0",
-		"expo-image-picker": "~9.1.0",
+		"expo-image-picker": "~9.2.1",
 		"expo-linking": "^1.0.1",
 		"expo-localization": "~9.0.0",
 		"expo-media-library": "~9.2.1",
