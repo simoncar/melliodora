@@ -33,11 +33,11 @@
 		"ci": "jest",
 		"app": "cp apps/app.ais.json app.json && expo r -c",
 		"g": "expo start --config apps/app.generic.json --ios",
+		"t": "expo start --config apps/app.generic.json --tunnel",
 		"w": "expo start --config apps/app.generic.json --web",
 		"offline": "expo start --config apps/app.generic.json --ios --offline",
 		"s": "expo start --config apps/app.sais_edu_sg.json --ios",
 		"a": "expo start --config apps/app.ais_edu_sg.json --ios",
-		"t": "expo start --config apps/app.smartcookies_team_hero.json --ios",
 		"modules": "rm -rf node_modules && yarn"
 	},
 	"dependencies": {
