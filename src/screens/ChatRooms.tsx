@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import * as firebase from "firebase";
 import { AntDesign } from "@expo/vector-icons";
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ChatroomItem from "../components/ChatRoomItem";
 import _ from "lodash";
 import { connect } from "react-redux";

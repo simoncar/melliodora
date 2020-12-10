@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-native-testing-library';
+import { render } from '@testing-library/react-native';
 
 import ListItem from '../StoryListItem';
 
@@ -38,7 +38,6 @@ const itemCore = {
 	"time_start_pretty": null,
 	"translated": true,
 	"visible": true,
-	"visibleMore": true,
 	"language": "en",
 	"location": "School cafe"
 }

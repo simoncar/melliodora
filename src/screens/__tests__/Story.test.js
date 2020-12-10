@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from 'react-native-testing-library';
+import { render, fireEvent } from '@testing-library/react-native';
 import { Story } from '../Story';
 import * as Calendar from 'expo-calendar';
 import * as Permissions from 'expo-permissions';
@@ -132,7 +132,6 @@ const itemCore = {
 			"time_start_pretty": null,
 			"translated": true,
 			"visible": true,
-			"visibleMore": true,
 			"language": "en",
 			"location": "School cafe"
 		}
@@ -220,7 +219,9 @@ test('show story with URL in content to test linking', () => {
 	expect(toJSON()).toMatchSnapshot();
 	expect(queryByText("Yearbook")).not.toBeNull();
 	expect(queryByText("At Google Campus")).not.toBeNull();
-	expect(queryByText("google https://google.com is a website mys https://mystamford.edu.sg/somepage is a website, test@smartcookies.io is an email and 444-555-6666 is a phone number")).not.toBeNull();
+	expect(queryByText("https://google.com")).not.toBeNull();
+	expect(queryByText("https://mystamford.edu.sg/somepage")).not.toBeNull();
+	expect(queryByText(" is a website mys ")).not.toBeNull();
 
 	fireEvent.press(queryByText('https://google.com'));
 	fireEvent.press(queryByText('https://mystamford.edu.sg/somepage'));

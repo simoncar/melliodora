@@ -13,7 +13,6 @@ interface IProps {
 
 export default function Profile(props: IProps) {
 
-
 	if (Constants.manifest.extra.instance != "sais_edu_sg") {
 		const user = props.auth.userInfo;
 		if (_.has(user, "email") && user.email) {
@@ -39,6 +38,7 @@ export default function Profile(props: IProps) {
 					style={styles.imageStyleIcon} />}
 				title={I18n.t("signIn") + " / " + I18n.t("signUp")}
 				onPress={() => props.navigation.navigate("login")}
+				lastItem={true}
 			/>;
 		}
 	}

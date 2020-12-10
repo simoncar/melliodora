@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor, fireEvent } from 'react-native-testing-library';
+import { render, waitFor, fireEvent } from '@testing-library/react-native';
 import * as Permissions from "expo-permissions";
 import CameraApp from '../Camera';
 

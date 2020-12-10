@@ -1,151 +1,220 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`list domains 1`] = `
-<View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-  >
+<View
+  style={
+    Object {
+      "flex": 1,
+      "marginTop": 10,
+    }
+  }
+>
+  <View>
     <View
       style={
         Object {
-          "alignItems": "center",
-          "borderBottomColor": "#CED0CE",
-          "borderBottomWidth": 0.5,
-          "flexDirection": "row",
-          "paddingVertical": 8,
+          "alignSelf": "center",
+          "backgroundColor": "#fff",
+          "borderRadius": 15,
+          "marginBottom": 12,
+          "padding": 10,
+          "width": "95%",
         }
       }
     >
-      <Text />
       <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "paddingHorizontal": 8,
-          }
-        }
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
       >
-        <View>
-          <Text
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "#CED0CE",
+              "flexDirection": "row",
+              "paddingVertical": 8,
+            }
+          }
+        >
+          <Text />
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Array [
-                  undefined,
-                  Object {
-                    "color": "#333333",
-                  },
-                ],
-              ]
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingHorizontal": 8,
+              }
             }
           >
-            Sign In / Sign Up
-          </Text>
-          <Text
-            ellipsizeMode="tail"
-            numberOfLines={2}
+            <View>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "SegoeUI",
+                    },
+                    Array [
+                      undefined,
+                      Object {
+                        "color": "#333333",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Sign In / Sign Up
+              </Text>
+            </View>
+            <View>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "SegoeUI",
+                    },
+                    Array [
+                      undefined,
+                      Object {
+                        "color": "#777777",
+                      },
+                    ],
+                  ]
+                }
+              >
+                
+              </Text>
+            </View>
+          </View>
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Object {
-                  "color": "#777777",
-                },
-              ]
+              Object {
+                "marginHorizontal": 8,
+              }
             }
           >
-            
-          </Text>
-        </View>
-        <View>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "SegoeUI",
-                },
-                Array [
-                  undefined,
-                  Object {
-                    "color": "#777777",
-                  },
-                ],
-              ]
-            }
-          >
-            
-          </Text>
+            <Text />
+          </View>
         </View>
       </View>
-      <View
-        style={
-          Object {
-            "marginHorizontal": 8,
-          }
+    </View>
+    <View
+      style={
+        Object {
+          "alignSelf": "center",
+          "backgroundColor": "#fff",
+          "borderRadius": 15,
+          "marginBottom": 12,
+          "padding": 10,
+          "width": "95%",
         }
+      }
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
       >
-        <Text />
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "#CED0CE",
+              "flexDirection": "row",
+              "paddingVertical": 8,
+            }
+          }
+        >
+          <Text />
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingHorizontal": 8,
+              }
+            }
+          >
+            <View>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "SegoeUI",
+                    },
+                    Array [
+                      undefined,
+                      Object {
+                        "color": "#333333",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Create Community
+              </Text>
+            </View>
+            <View>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "SegoeUI",
+                    },
+                    Array [
+                      undefined,
+                      Object {
+                        "color": "#777777",
+                      },
+                    ],
+                  ]
+                }
+              >
+                
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "marginHorizontal": 8,
+              }
+            }
+          >
+            <Text />
+          </View>
+        </View>
       </View>
     </View>
   </View>
   <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
+        "alignSelf": "center",
         "backgroundColor": "#fff",
-        "borderRadius": 13,
-        "flexDirection": "row",
-        "margin": 12,
-        "marginTop": 32,
-        "opacity": 1,
-        "padding": 15,
+        "borderRadius": 15,
+        "marginBottom": 12,
+        "padding": 10,
+        "width": "95%",
       }
     }
   >
-    <Text />
-    <Text
-      style={
-        Array [
-          Object {
-            "fontFamily": "SegoeUI",
-          },
-          Object {
-            "color": "#111111",
-            "flex": 1,
-            "paddingHorizontal": 12,
-            "textAlign": "left",
-          },
-        ]
-      }
-    >
-      Create Community
-    </Text>
-    <Text />
-  </View>
-  <View>
     <View
       style={
         Object {
@@ -174,107 +243,116 @@ exports[`list domains 1`] = `
       />
       <Text />
     </View>
-    <View>
-      <RCTScrollView
-        ItemSeparatorComponent={[Function]}
-        data={
-          Array [
+    <RCTScrollView
+      ItemSeparatorComponent={[Function]}
+      ListFooterComponent={
+        <View
+          style={
             Object {
-              "name": "Bali Children Foundation",
-              "node": "balichildrenfoundation_org",
-            },
-            Object {
-              "name": "Camp Asia",
-              "nameAlias": Array [
-                "ca",
-              ],
-              "node": "camp_asia",
-            },
-            Object {
-              "admins": Array [
-                "xZI3FkYWTbTlSZgOZ4jNG7YT1nC3",
-              ],
-              "kind": "123",
-              "language": "123",
-              "name": "Coco Palms",
-              "node": "test",
-              "region": "123",
-              "users": "213",
-            },
-            Object {
-              "name": "IFLA Asia Pacific",
-              "nameAlias": Array [
-                "IFLAAPR",
-              ],
-              "node": "ais_edu_sg",
-            },
-            Object {
-              "name": "My Photo Community",
-              "node": "demo_sg",
-            },
-            Object {
-              "name": "Oakforest International",
-              "node": "oakforest_international_edu",
-            },
-            Object {
-              "name": "Smart Cookies Team Hero",
-              "node": "smartcookies_system_hero",
-            },
-            Object {
-              "name": "Speech Language Club",
-              "node": "speech_language",
-            },
-            Object {
-              "name": "Stamford American",
-              "nameAlias": Array [
-                "SAIS",
-              ],
-              "node": "sais_edu_sg",
-            },
-            Object {
-              "name": "Team Entrepreneur CA",
-              "node": "team_entrepreneur_ca",
-            },
-            Object {
-              "admins": Array [
-                "4lGCJyOuXfbG1ig7EHJOM6LPoji2",
-              ],
-              "kind": "",
-              "language": "",
-              "name": "afrik_hub",
-              "node": "afrik_hub",
-              "region": "",
-              "users": "",
-            },
-          ]
-        }
-        disableVirtualization={false}
-        getItem={[Function]}
-        getItemCount={[Function]}
-        horizontal={false}
-        initialNumToRender={10}
-        keyExtractor={[Function]}
-        maxToRenderPerBatch={10}
-        onContentSizeChange={[Function]}
-        onEndReachedThreshold={2}
-        onLayout={[Function]}
-        onMomentumScrollEnd={[Function]}
-        onScroll={[Function]}
-        onScrollBeginDrag={[Function]}
-        onScrollEndDrag={[Function]}
-        removeClippedSubviews={true}
-        renderItem={[Function]}
-        scrollEventThrottle={50}
-        stickyHeaderIndices={Array []}
-        updateCellsBatchingPeriod={50}
-        viewabilityConfigCallbackPairs={Array []}
-        windowSize={21}
-      >
-        <View>
-          <View
-            onLayout={[Function]}
-            style={null}
-          >
+              "paddingBottom": 100,
+            }
+          }
+        />
+      }
+      data={
+        Array [
+          Object {
+            "name": "Bali Children Foundation",
+            "node": "balichildrenfoundation_org",
+          },
+          Object {
+            "name": "Camp Asia",
+            "nameAlias": Array [
+              "ca",
+            ],
+            "node": "camp_asia",
+          },
+          Object {
+            "admins": Array [
+              "xZI3FkYWTbTlSZgOZ4jNG7YT1nC3",
+            ],
+            "kind": "123",
+            "language": "123",
+            "name": "Coco Palms",
+            "node": "test",
+            "region": "123",
+            "users": "213",
+          },
+          Object {
+            "name": "IFLA Asia Pacific",
+            "nameAlias": Array [
+              "IFLAAPR",
+            ],
+            "node": "ais_edu_sg",
+          },
+          Object {
+            "name": "My Photo Community",
+            "node": "demo_sg",
+          },
+          Object {
+            "name": "Oakforest International",
+            "node": "oakforest_international_edu",
+          },
+          Object {
+            "name": "Smart Cookies Team Hero",
+            "node": "smartcookies_system_hero",
+          },
+          Object {
+            "name": "Speech Language Club",
+            "node": "speech_language",
+          },
+          Object {
+            "name": "Stamford American",
+            "nameAlias": Array [
+              "SAIS",
+            ],
+            "node": "sais_edu_sg",
+          },
+          Object {
+            "name": "Team Entrepreneur CA",
+            "node": "team_entrepreneur_ca",
+          },
+          Object {
+            "admins": Array [
+              "4lGCJyOuXfbG1ig7EHJOM6LPoji2",
+            ],
+            "kind": "",
+            "language": "",
+            "name": "afrik_hub",
+            "node": "afrik_hub",
+            "region": "",
+            "users": "",
+          },
+        ]
+      }
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={true}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View>
             <View
               accessible={true}
               focusable={true}
@@ -327,22 +405,6 @@ exports[`list domains 1`] = `
                     >
                       Bali Children Foundation
                     </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={2}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "SegoeUI",
-                          },
-                          Object {
-                            "color": "#777777",
-                          },
-                        ]
-                      }
-                    >
-                      
-                    </Text>
                   </View>
                   <View>
                     <Text
@@ -375,18 +437,20 @@ exports[`list domains 1`] = `
                 </View>
               </View>
             </View>
-            <View
-              style={
-                Object {
-                  "backgroundColor": "#CED0CE",
-                }
-              }
-            />
           </View>
           <View
-            onLayout={[Function]}
-            style={null}
-          >
+            style={
+              Object {
+                "backgroundColor": "#CED0CE",
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View>
             <View
               accessible={true}
               focusable={true}
@@ -439,22 +503,6 @@ exports[`list domains 1`] = `
                     >
                       Camp Asia
                     </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={2}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "SegoeUI",
-                          },
-                          Object {
-                            "color": "#777777",
-                          },
-                        ]
-                      }
-                    >
-                      
-                    </Text>
                   </View>
                   <View>
                     <Text
@@ -487,18 +535,20 @@ exports[`list domains 1`] = `
                 </View>
               </View>
             </View>
-            <View
-              style={
-                Object {
-                  "backgroundColor": "#CED0CE",
-                }
-              }
-            />
           </View>
           <View
-            onLayout={[Function]}
-            style={null}
-          >
+            style={
+              Object {
+                "backgroundColor": "#CED0CE",
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View>
             <View
               accessible={true}
               focusable={true}
@@ -551,22 +601,6 @@ exports[`list domains 1`] = `
                     >
                       Coco Palms
                     </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={2}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "SegoeUI",
-                          },
-                          Object {
-                            "color": "#777777",
-                          },
-                        ]
-                      }
-                    >
-                      
-                    </Text>
                   </View>
                   <View>
                     <Text
@@ -599,18 +633,20 @@ exports[`list domains 1`] = `
                 </View>
               </View>
             </View>
-            <View
-              style={
-                Object {
-                  "backgroundColor": "#CED0CE",
-                }
-              }
-            />
           </View>
           <View
-            onLayout={[Function]}
-            style={null}
-          >
+            style={
+              Object {
+                "backgroundColor": "#CED0CE",
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View>
             <View
               accessible={true}
               focusable={true}
@@ -663,22 +699,6 @@ exports[`list domains 1`] = `
                     >
                       IFLA Asia Pacific
                     </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={2}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "SegoeUI",
-                          },
-                          Object {
-                            "color": "#777777",
-                          },
-                        ]
-                      }
-                    >
-                      
-                    </Text>
                   </View>
                   <View>
                     <Text
@@ -711,18 +731,20 @@ exports[`list domains 1`] = `
                 </View>
               </View>
             </View>
-            <View
-              style={
-                Object {
-                  "backgroundColor": "#CED0CE",
-                }
-              }
-            />
           </View>
           <View
-            onLayout={[Function]}
-            style={null}
-          >
+            style={
+              Object {
+                "backgroundColor": "#CED0CE",
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View>
             <View
               accessible={true}
               focusable={true}
@@ -775,22 +797,6 @@ exports[`list domains 1`] = `
                     >
                       My Photo Community
                     </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={2}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "SegoeUI",
-                          },
-                          Object {
-                            "color": "#777777",
-                          },
-                        ]
-                      }
-                    >
-                      
-                    </Text>
                   </View>
                   <View>
                     <Text
@@ -823,18 +829,20 @@ exports[`list domains 1`] = `
                 </View>
               </View>
             </View>
-            <View
-              style={
-                Object {
-                  "backgroundColor": "#CED0CE",
-                }
-              }
-            />
           </View>
           <View
-            onLayout={[Function]}
-            style={null}
-          >
+            style={
+              Object {
+                "backgroundColor": "#CED0CE",
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View>
             <View
               accessible={true}
               focusable={true}
@@ -887,22 +895,6 @@ exports[`list domains 1`] = `
                     >
                       Oakforest International
                     </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={2}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "SegoeUI",
-                          },
-                          Object {
-                            "color": "#777777",
-                          },
-                        ]
-                      }
-                    >
-                      
-                    </Text>
                   </View>
                   <View>
                     <Text
@@ -935,18 +927,20 @@ exports[`list domains 1`] = `
                 </View>
               </View>
             </View>
-            <View
-              style={
-                Object {
-                  "backgroundColor": "#CED0CE",
-                }
-              }
-            />
           </View>
           <View
-            onLayout={[Function]}
-            style={null}
-          >
+            style={
+              Object {
+                "backgroundColor": "#CED0CE",
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View>
             <View
               accessible={true}
               focusable={true}
@@ -999,22 +993,6 @@ exports[`list domains 1`] = `
                     >
                       Smart Cookies Team Hero
                     </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={2}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "SegoeUI",
-                          },
-                          Object {
-                            "color": "#777777",
-                          },
-                        ]
-                      }
-                    >
-                      
-                    </Text>
                   </View>
                   <View>
                     <Text
@@ -1047,18 +1025,20 @@ exports[`list domains 1`] = `
                 </View>
               </View>
             </View>
-            <View
-              style={
-                Object {
-                  "backgroundColor": "#CED0CE",
-                }
-              }
-            />
           </View>
           <View
-            onLayout={[Function]}
-            style={null}
-          >
+            style={
+              Object {
+                "backgroundColor": "#CED0CE",
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View>
             <View
               accessible={true}
               focusable={true}
@@ -1111,22 +1091,6 @@ exports[`list domains 1`] = `
                     >
                       Speech Language Club
                     </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={2}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "SegoeUI",
-                          },
-                          Object {
-                            "color": "#777777",
-                          },
-                        ]
-                      }
-                    >
-                      
-                    </Text>
                   </View>
                   <View>
                     <Text
@@ -1159,18 +1123,20 @@ exports[`list domains 1`] = `
                 </View>
               </View>
             </View>
-            <View
-              style={
-                Object {
-                  "backgroundColor": "#CED0CE",
-                }
-              }
-            />
           </View>
           <View
-            onLayout={[Function]}
-            style={null}
-          >
+            style={
+              Object {
+                "backgroundColor": "#CED0CE",
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View>
             <View
               accessible={true}
               focusable={true}
@@ -1223,22 +1189,6 @@ exports[`list domains 1`] = `
                     >
                       Stamford American
                     </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={2}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "SegoeUI",
-                          },
-                          Object {
-                            "color": "#777777",
-                          },
-                        ]
-                      }
-                    >
-                      
-                    </Text>
                   </View>
                   <View>
                     <Text
@@ -1271,18 +1221,20 @@ exports[`list domains 1`] = `
                 </View>
               </View>
             </View>
-            <View
-              style={
-                Object {
-                  "backgroundColor": "#CED0CE",
-                }
-              }
-            />
           </View>
           <View
-            onLayout={[Function]}
-            style={null}
-          >
+            style={
+              Object {
+                "backgroundColor": "#CED0CE",
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View>
             <View
               accessible={true}
               focusable={true}
@@ -1335,22 +1287,6 @@ exports[`list domains 1`] = `
                     >
                       Team Entrepreneur CA
                     </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={2}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "SegoeUI",
-                          },
-                          Object {
-                            "color": "#777777",
-                          },
-                        ]
-                      }
-                    >
-                      
-                    </Text>
                   </View>
                   <View>
                     <Text
@@ -1383,24 +1319,35 @@ exports[`list domains 1`] = `
                 </View>
               </View>
             </View>
-            <View
-              style={
-                Object {
-                  "backgroundColor": "#CED0CE",
-                }
-              }
-            />
           </View>
           <View
             style={
               Object {
-                "height": 0,
+                "backgroundColor": "#CED0CE",
               }
             }
           />
         </View>
-      </RCTScrollView>
-    </View>
+        <View
+          style={
+            Object {
+              "height": 0,
+            }
+          }
+        />
+        <View
+          onLayout={[Function]}
+        >
+          <View
+            style={
+              Object {
+                "paddingBottom": 100,
+              }
+            }
+          />
+        </View>
+      </View>
+    </RCTScrollView>
   </View>
 </View>
 `;

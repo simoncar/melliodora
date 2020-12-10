@@ -69,6 +69,7 @@ exports[`web portal 1`] = `
         allowFileAccess={false}
         allowsFullscreenVideo={false}
         androidHardwareAccelerationDisabled={false}
+        androidLayerType="none"
         automaticallyAdjustContentInsets={false}
         cacheEnabled={true}
         domStorageEnabled={true}
@@ -87,6 +88,7 @@ exports[`web portal 1`] = `
         overScrollMode="always"
         saveFormDataDisabled={false}
         scalesPageToFit={true}
+        setSupportMultipleWindows={true}
         source={
           Object {
             "uri": "https://www.google.com",

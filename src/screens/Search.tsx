@@ -4,7 +4,7 @@ import { View, FlatList, ActivityIndicator, StyleSheet } from "react-native";
 import { SearchBar } from "react-native-elements";
 import CalendarItem from "../components/CalendarItem";
 import I18n from "../lib/i18n";
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Search extends Component {
   static navigationOptions = ({ navigation }) => ({

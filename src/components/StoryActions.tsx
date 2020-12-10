@@ -132,7 +132,7 @@ export function actionShare(position: number, story: StoryEntity) {
 		onPress={() => _shareMessage()}
 		testID="story.shareButton"
 	>
-		<Ionicons testID="story.shareIcon" name="ios-share-alt" style={styles.icon} />
+		<MaterialCommunityIcons testID="story.shareIcon" name="share" style={styles.icon} />
 	</TouchableHighlight>;
 }
 

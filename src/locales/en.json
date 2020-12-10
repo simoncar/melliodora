@@ -1,6 +1,8 @@
 {
 	"aboutThisApp": "About this App",
 	"ok": "OK",
+	"clear": "Clear",
+	"done": "Done",
 	"adminAccess": "Admin Access",
 	"associations": "Associations",
 	"athletics": "Athletics",
@@ -38,6 +40,7 @@
 	"mute": "Mute",
 	"myS": "Portal",
 	"news": "News",
+	"visible": "Visible",
 	"newsletters": "Newsletters",
 	"password": "Password",
 	"passwordConfirm": "Confirm Password",
@@ -72,5 +75,8 @@
 	"albums": "Albums",
 	"images": "Images",
 	"changeDomain": "Change Domain",
-	"error":"Error"
+	"error":"Error",
+	"order":"Order",
+	"date":"Date",
+	"time":"Time"
 }

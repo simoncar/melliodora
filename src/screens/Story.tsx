@@ -23,7 +23,7 @@ export class Story extends Component<TProps, StoryState>{
 		this.refreshFunction = this.refreshFunction.bind(this);
 		this.rightSideButtons = this.rightSideButtons.bind(this);
 
-		const { _key, source, summary, summaryMyLanguage, description, descriptionMyLanguage, location, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params.story;
+		const { _key, source, summary, summaryMyLanguage, description, descriptionMyLanguage, location, photo1, visible, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params.story;
 
 		this.state = {
 			photo1: photo1 !== undefined ? photo1 : null,
@@ -32,7 +32,6 @@ export class Story extends Component<TProps, StoryState>{
 			description: description,
 			descriptionMyLanguage: descriptionMyLanguage,
 			visible: visible,
-			visibleMore: visibleMore,
 			showIconChat: showIconChat,
 			order: order,
 			_key: _key,

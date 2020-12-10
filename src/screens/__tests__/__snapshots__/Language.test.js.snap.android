@@ -74,22 +74,6 @@ exports[`show language selector 1`] = `
             >
               English
             </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
-            </Text>
           </View>
           <View>
             <Text
@@ -171,22 +155,6 @@ exports[`show language selector 1`] = `
               }
             >
               中文(简体)
-            </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
             </Text>
           </View>
           <View>
@@ -270,22 +238,6 @@ exports[`show language selector 1`] = `
             >
               日本語
             </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
-            </Text>
           </View>
           <View>
             <Text
@@ -367,22 +319,6 @@ exports[`show language selector 1`] = `
               }
             >
               Français
-            </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
             </Text>
           </View>
           <View>
@@ -466,22 +402,6 @@ exports[`show language selector 1`] = `
             >
               한국어
             </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
-            </Text>
           </View>
           <View>
             <Text
@@ -564,22 +484,6 @@ exports[`show language selector 1`] = `
             >
               Español
             </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
-            </Text>
           </View>
           <View>
             <Text
@@ -660,22 +564,6 @@ exports[`show language selector 1`] = `
               }
             >
               bahasa Indonesia
-            </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
             </Text>
           </View>
           <View>
@@ -809,7 +697,7 @@ exports[`show language selector with no default language 1`] = `
             ]
           }
         >
-          
+          󰄬
         </Text>
         <View
           style={
@@ -840,22 +728,6 @@ exports[`show language selector with no default language 1`] = `
             >
               English
             </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
-            </Text>
           </View>
           <View>
             <Text
@@ -933,7 +805,7 @@ exports[`show language selector with no default language 1`] = `
             ]
           }
         >
-          
+          󰄬
         </Text>
         <View
           style={
@@ -964,22 +836,6 @@ exports[`show language selector with no default language 1`] = `
             >
               中文(简体)
             </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
-            </Text>
           </View>
           <View>
             <Text
@@ -1057,7 +913,7 @@ exports[`show language selector with no default language 1`] = `
             ]
           }
         >
-          
+          󰄬
         </Text>
         <View
           style={
@@ -1088,22 +944,6 @@ exports[`show language selector with no default language 1`] = `
             >
               日本語
             </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
-            </Text>
           </View>
           <View>
             <Text
@@ -1181,7 +1021,7 @@ exports[`show language selector with no default language 1`] = `
             ]
           }
         >
-          
+          󰄬
         </Text>
         <View
           style={
@@ -1212,22 +1052,6 @@ exports[`show language selector with no default language 1`] = `
             >
               Français
             </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
-            </Text>
           </View>
           <View>
             <Text
@@ -1305,7 +1129,7 @@ exports[`show language selector with no default language 1`] = `
             ]
           }
         >
-          
+          󰄬
         </Text>
         <View
           style={
@@ -1336,22 +1160,6 @@ exports[`show language selector with no default language 1`] = `
             >
               한국어
             </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
-            </Text>
           </View>
           <View>
             <Text
@@ -1429,7 +1237,7 @@ exports[`show language selector with no default language 1`] = `
             ]
           }
         >
-          
+          󰄬
         </Text>
         <View
           style={
@@ -1459,22 +1267,6 @@ exports[`show language selector with no default language 1`] = `
               }
             >
               Español
-            </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
             </Text>
           </View>
           <View>
@@ -1552,7 +1344,7 @@ exports[`show language selector with no default language 1`] = `
             ]
           }
         >
-          
+          󰄬
         </Text>
         <View
           style={
@@ -1582,22 +1374,6 @@ exports[`show language selector with no default language 1`] = `
               }
             >
               bahasa Indonesia
-            </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={2}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#777777",
-                  },
-                ]
-              }
-            >
-              
             </Text>
           </View>
           <View>
