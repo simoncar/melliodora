@@ -1,12 +1,13 @@
+
 import React, { Component } from "react";
 import { View, StyleSheet, FlatList, TouchableOpacity, TextInput } from "react-native";
 import _ from "lodash";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { getCommunities, processSelectedCommunity } from "../store/community";
-import { Text } from "../components/sComponent"
+import { Text } from "../components/sComponent";
 import { SettingsListItem } from "../components/SettingsListItem";
-import Profile from "../components/Profile"
+import Profile from "../components/Profile";
 import { MaterialIcons } from "@expo/vector-icons";
 
 export class DomainSelection extends Component {
@@ -39,7 +40,6 @@ export class DomainSelection extends Component {
 		return <View style={styles.separator} />;
 	};
 
-
 	searchFilterFunction = text => {
 		this.setState({
 			selectedDomain: null,
@@ -69,26 +69,22 @@ export class DomainSelection extends Component {
 
 	renderHeader = () => {
 		return <View style={styles.searchView}>
-			<TextInput style={styles.searchInput}
-				onChangeText={text => this.searchFilterFunction(text)}
-				value={this.state.searchTerm}
-				placeholder="Search"
-				placeholderTextColor="#555555"
-				testID="domainSelection.search" />
+			<TextInput style={styles.searchInput} onChangeText={text => this.searchFilterFunction(text)} value={this.state.searchTerm} placeholder="Search" placeholderTextColor="#555555" testID="domainSelection.search" />
 			<Ionicons style={styles.searchIcon} name="ios-search" size={32} color="#777777" />
-		</View>
+		</View>;
 	};
 
 	renderItem = ({ item }) => {
 
-		return (
+		return <View>
 			<SettingsListItem
 				hasNavArrow={true}
-				icon={<MaterialIcons name="group" style={styles.imageStyleIcon} />}
+				icon={<MaterialIcons
+					name="group"
+					style={styles.imageStyleIcon} />}
 				title={item.name}
 				onPress={() => this.props.dispatch(processSelectedCommunity(item))} />
-
-		)
+		</View>;
 	};
 
 	render() {
@@ -96,53 +92,28 @@ export class DomainSelection extends Component {
 		if (this.props.showCreateCommunity == false) {
 			onPressedCreateCommunity = () => this.props.navigation.push("communityCreateScreen");
 		}
-		return (
+		return <View style={styles.viewFlex}>
+			<View>
+				<Profile auth={this.props.auth} navigation={this.props.navigation} />
 
-			<View >
-				<Profile
-					auth={this.props.auth}
-					navigation={this.props.navigation} />
-
-				<TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={onPressedCreateCommunity}>
+				<TouchableOpacity style={styles.submitButtonStyle} activeOpacity={0.5} onPress={onPressedCreateCommunity}>
 					<Ionicons style={styles.leftIcon} name="ios-add-circle" size={32} color="#999999" />
 
-					<Text style={styles.TextStyle}>
+					<Text style={styles.textStyle}>
 						Create Community
 						</Text>
 					<Ionicons style={styles.leftIcon} name="ios-arrow-forward" size={32} color="#777777" />
 				</TouchableOpacity>
-
-				<View>
-					{this.renderHeader()}
-					<View >
-						<FlatList
-							data={this.state.domains}
-							renderItem={this.renderItem}
-							keyExtractor={(_, idx) => "domain" + idx}
-							ItemSeparatorComponent={this.renderSeparator}
-						/>
-					</View>
-				</View>
-
-
-			</View >
-		)
+				{this.renderHeader()}
+			</View>
+			<FlatList data={this.state.domains} renderItem={this.renderItem} keyExtractor={(_, idx) => "domain" + idx} ItemSeparatorComponent={this.renderSeparator} ListFooterComponent={<View style={styles.bottomSpace}></View>} />
+		</View>;
 	}
 }
 
 const styles = StyleSheet.create({
-	SubmitButtonStyle: {
-		flexDirection: "row",
-		margin: 12,
-		marginTop: 32,
-		padding: 15,
-		backgroundColor: "#fff",
-		borderRadius: 13,
-		alignItems: "center"
-	},
-	TextStyle: {
-		color: "#111111",
-		flex: 1, paddingHorizontal: 12, textAlign: "left"
+	bottomSpace: {
+		paddingBottom: 100
 	},
 
 	imageStyleIcon: {
@@ -165,8 +136,25 @@ const styles = StyleSheet.create({
 		height: 55
 	},
 	separator: {
-		backgroundColor: "#CED0CE",
+		backgroundColor: "#CED0CE"
 	},
+
+	submitButtonStyle: {
+		flexDirection: "row",
+		margin: 12,
+		marginTop: 32,
+		padding: 15,
+		backgroundColor: "#fff",
+		borderRadius: 13,
+		alignItems: "center"
+	},
+	textStyle: {
+		color: "#111111",
+		flex: 1,
+		paddingHorizontal: 12,
+		textAlign: "left"
+	},
+	viewFlex: { flex: 1 }
 
 });
 
