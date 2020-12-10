@@ -345,7 +345,7 @@ exports[`list item of a calendar with date and time 1`] = `
             ]
           }
         >
-          
+          
         </Text>
       </View>
       <View

@@ -73,7 +73,7 @@ export class LoginScreen extends Component<TProps, TState> {
 			</View>
 
 			<View style={styles.SectionStyle}>
-				<Ionicons name="ios-lock" size={25} color="grey" style={styles.ImageStyle} />
+				<Ionicons name="lock-closed" size={25} color="grey" style={styles.ImageStyle} />
 				<TextInput
 					style={styles.inputField}
 					placeholder={I18n.t("password")}
