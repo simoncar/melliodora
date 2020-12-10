@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from 'react-native-testing-library';
+import { render, fireEvent } from '@testing-library/react-native';
 import { Story } from '../Story';
 import * as Calendar from 'expo-calendar';
 import * as Permissions from 'expo-permissions';

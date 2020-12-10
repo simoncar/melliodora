@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-native-testing-library';
+import { render } from '@testing-library/react-native';
 
 import { WebPortal } from '../WebPortal';
 
@@ -59,7 +59,7 @@ test('web portal', () => {
 
 	expect(getByTestId('webPortal.RNCWebView').props).toEqual(
 		expect.objectContaining({
-		source: { "uri": "https://www.google.com" },
+			source: { "uri": "https://www.google.com" },
 		})
 	);
 

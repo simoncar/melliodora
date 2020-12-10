@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-native-testing-library';
+import { render } from '@testing-library/react-native';
 import * as Permissions from 'expo-permissions';
 import * as Calendar from 'expo-calendar';
 import phoneCalendar from '../phoneCalendar';
