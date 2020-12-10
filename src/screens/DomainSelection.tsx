@@ -94,19 +94,30 @@ export class DomainSelection extends Component {
 		}
 		return <View style={styles.viewFlex}>
 			<View>
-				<Profile auth={this.props.auth} navigation={this.props.navigation} />
+				<View style={styles.card}>
+					<Profile auth={this.props.auth} navigation={this.props.navigation} />
+				</View>
+				<View style={styles.card}>
 
-				<TouchableOpacity style={styles.submitButtonStyle} activeOpacity={0.5} onPress={onPressedCreateCommunity}>
-					<Ionicons style={styles.leftIcon} name="ios-add-circle" size={32} color="#999999" />
 
-					<Text style={styles.textStyle}>
-						Create Community
-						</Text>
-					<Ionicons style={styles.leftIcon} name="ios-arrow-forward" size={32} color="#777777" />
-				</TouchableOpacity>
-				{this.renderHeader()}
+					<SettingsListItem
+						hasNavArrow={true}
+						icon={<Ionicons
+							name="ios-add-circle"
+							style={styles.imageStyleIcon} />}
+						title="Create Community"
+						onPress={() => onPressedCreateCommunity()}
+						lastItem={true}
+					/>
+
+
+				</View>
+
 			</View>
-			<FlatList data={this.state.domains} renderItem={this.renderItem} keyExtractor={(_, idx) => "domain" + idx} ItemSeparatorComponent={this.renderSeparator} ListFooterComponent={<View style={styles.bottomSpace}></View>} />
+			<View style={styles.card}>
+				{this.renderHeader()}
+				<FlatList data={this.state.domains} renderItem={this.renderItem} keyExtractor={(_, idx) => "domain" + idx} ItemSeparatorComponent={this.renderSeparator} ListFooterComponent={<View style={styles.bottomSpace}></View>} />
+			</View >
 		</View>;
 	}
 }
@@ -114,6 +125,15 @@ export class DomainSelection extends Component {
 const styles = StyleSheet.create({
 	bottomSpace: {
 		paddingBottom: 100
+	},
+
+	card: {
+		alignSelf: "center",
+		backgroundColor: "#fff",
+		borderRadius: 15,
+		marginBottom: 12,
+		padding: 10,
+		width: "95%",
 	},
 
 	imageStyleIcon: {
@@ -141,11 +161,7 @@ const styles = StyleSheet.create({
 
 	submitButtonStyle: {
 		flexDirection: "row",
-		margin: 12,
-		marginTop: 32,
-		padding: 15,
 		backgroundColor: "#fff",
-		borderRadius: 13,
 		alignItems: "center"
 	},
 	textStyle: {
@@ -154,7 +170,10 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 12,
 		textAlign: "left"
 	},
-	viewFlex: { flex: 1 }
+	viewFlex: {
+		flex: 1,
+		marginTop: 10
+	}
 
 });
 

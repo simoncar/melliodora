@@ -35,13 +35,13 @@ export function SettingsListItem(props: TProps) {
 	} = props;
 
 	function renderSubTitle(subTitle: string) {
-		if (subTitle != undefined) {
+		if (subTitle != "") {
 			return <Text
 				numberOfLines={2}
 				ellipsizeMode="tail"
 				style={styles.subtitle}>
 				{subTitle}</Text>;
-		} else return;
+		} else return null;
 	}
 
 	return <TouchableHighlight onPress={onPress}>
@@ -61,7 +61,7 @@ export function SettingsListItem(props: TProps) {
 			<View style={styles.rightChevron}>{hasNavArrow && <Feather name="chevron-right" size={22} color="#777777" />}</View>
 		</View>
 	</TouchableHighlight>;
-};
+}
 
 const styles = StyleSheet.create({
 	innerView: {
@@ -94,5 +94,7 @@ const styles = StyleSheet.create({
 		marginTop: 30,
 		width: "100%"
 	},
-	subtitle: { color: "#777777" }
+	subtitle: {
+		color: "#777777"
+	}
 });
