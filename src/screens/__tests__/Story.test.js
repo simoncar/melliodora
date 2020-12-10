@@ -220,7 +220,9 @@ test('show story with URL in content to test linking', () => {
 	expect(toJSON()).toMatchSnapshot();
 	expect(queryByText("Yearbook")).not.toBeNull();
 	expect(queryByText("At Google Campus")).not.toBeNull();
-	expect(queryByText("google https://google.com is a website mys https://mystamford.edu.sg/somepage is a website, test@smartcookies.io is an email and 444-555-6666 is a phone number")).not.toBeNull();
+	expect(queryByText("https://google.com")).not.toBeNull();
+	expect(queryByText("https://mystamford.edu.sg/somepage")).not.toBeNull();
+	expect(queryByText(" is a website mys ")).not.toBeNull();
 
 	fireEvent.press(queryByText('https://google.com'));
 	fireEvent.press(queryByText('https://mystamford.edu.sg/somepage'));
