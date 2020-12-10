@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, Dimensions, TouchableOpacity, Text, View, Image } from 'react-native';
+import { StyleSheet, ImageBackground, TouchableHighlight, TouchableOpacity, Text, View, Image } from 'react-native';
 import I18n from "../lib/i18n";
 import { deleteImage } from "./AlbumAPI"
-
+import { Foundation } from "@expo/vector-icons";
 
 interface IProps {
 	local: string,
@@ -41,36 +41,32 @@ export default function AlbumImage(props: IProps) {
 
 	if (imageURI != undefined && imageURI.length > 1) {
 		Image.getSize(imageURI, (width, height) => {
-
 			setHeight(height / width * props.windowWidth)
-
 		});
 
-		if (edit === true) {
+		return <View>
 
-			return <View>
-				<Image style={[styles.storyPhoto, { width: "70%" }]}
-					source={{
-						uri: imageURI,
-					}}
-					key={imageURI}
-				/>
-				{deleteButton()}
-			</View>;
-		} else {
-			return <View>
-				<Image style={[styles.storyPhoto,
-				{
+			<ImageBackground source={{ uri: imageURI, }}
+				style={{
 					width: props.windowWidth,
 					height: imageHeight
-				}]}
-					source={{
-						uri: imageURI,
-					}}
-					key={imageURI}
-				/>
-			</View>;
-		}
+				}}>
+				{edit && <TouchableHighlight
+					onPress={() => deleteImage("feature", "image")}
+				>
+					<Foundation
+						name="x-circle"
+						size={34}
+						color="red"
+						style={{ alignSelf: 'flex-end' }}
+					/>
+				</TouchableHighlight>
+				}
+			</ImageBackground>
+
+
+		</View>;
+
 	} else {
 		return null
 	}
@@ -90,22 +86,6 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.8,
 		shadowRadius: 1,
 		width: 250,
-
-	},
-	storyPhoto: {
-		alignSelf: "center",
-		backgroundColor: "#fff",
-		borderBottomLeftRadius: 15,
-		borderBottomRightRadius: 15,
-		borderColor: "lightgray",
-		borderWidth: 1,
-		flex: 1,
-		marginBottom: 12,
-		resizeMode: "contain",
-		shadowColor: "rgba(0,0,0, .4)",
-		shadowOffset: { height: 1, width: 0.5 },
-		shadowOpacity: 0.2,
-		shadowRadius: 0.5,
 
 	},
 
