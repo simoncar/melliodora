@@ -210,7 +210,6 @@ exports[`show photo in chat thread 1`] = `
         transitionDuration={300}
         uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/chatimage%2FdLyDZVfkOZ2XDVk49jHF%2F202006%2F73891c7b-5960-4b7f-a7e3-b8975ee9fecc?alt=media&token=f76974de-d8d2-4b1f-a980-a83265bdcf10"
       />
-      <ViewManagerAdapter_ExpoBlurView
       <View
         style={
           Array [
