@@ -69,7 +69,7 @@
 		"expo-image-picker": "~9.1.0",
 		"expo-linking": "^1.0.1",
 		"expo-localization": "~9.0.0",
-		"expo-media-library": "~9.2.1",
+		"expo-media-library": "~10.0.0",
 		"expo-notifications": "~0.7.2",
 		"expo-permissions": "~9.3.0",
 		"expo-screen-orientation": "~2.0.0",
