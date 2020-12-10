@@ -47,24 +47,20 @@ class Settings extends Component<TProps, TState> {
 		var i = 0;
 		return <View style={styles.container}>
 			<ScrollView>
-				<Profile
-					auth={this.props.auth}
-					navigation={this.props.navigation} />
-
-				{Constants.manifest.extra.instance != "sais_edu_sg" &&
-					<SettingsListItem
-						lastItem={true}
-						icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
-						title={I18n.t("searchUsers")}
-						onPress={() => this.props.navigation.navigate("UserSearch")}
-					/>
-				}
-
 				<View style={styles.card}>
-					<FeatureMoreItems
-						navigation={this.props.navigation}
-						show="visibleMore" />
+					<Profile
+						auth={this.props.auth}
+						navigation={this.props.navigation} />
+					{Constants.manifest.extra.instance != "sais_edu_sg" &&
+						<SettingsListItem
+							lastItem={true}
+							icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
+							title={I18n.t("searchUsers")}
+							onPress={() => this.props.navigation.navigate("UserSearch")}
+						/>
+					}
 				</View>
+
 
 				{this.separator(i)}
 				<View style={styles.card}>
@@ -76,16 +72,8 @@ class Settings extends Component<TProps, TState> {
 						titleInfo={this.props.auth.language}
 						onPress={() => this.props.navigation.navigate("selectLanguage")}
 					/>
-					<SettingsListItem
-						icon={<FontAwesome
-							name="lock"
-							style={styles.imageStyleIcon} />}
-						hasNavArrow={true}
-						title={I18n.t("adminAccess")}
-						onPress={() => this.props.navigation.navigate("AdminPassword")}
-					/>
 
-					{isAdmin(this.props.adminPassword) && <SettingsListItem icon={<FontAwesome name="edit" style={styles.imageStyleIcon} />} title={I18n.t("editor")} onPress={() => this.props.navigation.navigate("Content")} />}
+
 
 					<SettingsListItem
 						hasNavArrow={false}
@@ -106,6 +94,30 @@ class Settings extends Component<TProps, TState> {
 						title={I18n.t("changeDomain")}
 						onPress={() => this._logout()} />
 				</View>
+
+				{this.separator(i)}
+
+				<View style={styles.card}>
+					<SettingsListItem
+						icon={<FontAwesome
+							name="lock"
+							style={styles.imageStyleIcon} />}
+						hasNavArrow={true}
+						title={I18n.t("adminAccess")}
+						onPress={() => this.props.navigation.navigate("AdminPassword")}
+					/>
+
+					{isAdmin(this.props.adminPassword) &&
+
+						<FeatureMoreItems
+							navigation={this.props.navigation}
+							language={this.props.auth.language}
+						/>
+
+					}
+				</View>
+
+
 			</ScrollView>
 		</View>;
 	}

@@ -13,7 +13,7 @@ import uuid from "uuid";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { connect } from "react-redux";
-import { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime } from "../components/formUtilities";
+import { IconChat, OrderOnPage, ShowOnHomeScreen, EventDateTime } from "../components/formUtilities";
 import { SaveFeature, DeleteFeature } from "../components/formAPI";
 import { StackActions, StackActionType } from "@react-navigation/native";
 import ImageList from "../components/ImageList"
@@ -44,7 +44,6 @@ class Form extends Component<TProps, StoryState> {
 				description: "",
 				photo1: "",
 				visible: true,
-				visibleMore: true,
 				showIconChat: true,
 				order: 1,
 				dateTimeStart: "",
@@ -55,7 +54,7 @@ class Form extends Component<TProps, StoryState> {
 			};
 		}
 
-		const { _key, summary, description, photo1, visible, visibleMore, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = story;
+		const { _key, summary, description, photo1, visible, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = story;
 
 		console.log("KEY:", _key)
 
@@ -64,7 +63,6 @@ class Form extends Component<TProps, StoryState> {
 			summary: summary,
 			description: description,
 			visible: visible,
-			visibleMore: visibleMore,
 			showIconChat: showIconChat,
 			order: order,
 			_key: _key,
@@ -80,7 +78,6 @@ class Form extends Component<TProps, StoryState> {
 		this.handlerChat = this.handlerChat.bind(this);
 		this.handlerOrder = this.handlerOrder.bind(this);
 		this.handlerVisible = this.handlerVisible.bind(this);
-		this.handlerVisibleMore = this.handlerVisibleMore.bind(this);
 		this.handleEventDateTime = this.handleEventDateTime.bind(this);
 	}
 
@@ -104,9 +101,7 @@ class Form extends Component<TProps, StoryState> {
 	handlerVisible(visible: boolean) {
 		this.setState({ visible: visible });
 	}
-	handlerVisibleMore(visible: boolean) {
-		this.setState({ visibleMore: visible });
-	}
+
 	handleEventDateTime(dateTimeStart: string, dateTimeEnd: string, date_start: string) {
 		this.setState({
 			dateTimeStart: dateTimeStart,
@@ -275,7 +270,6 @@ class Form extends Component<TProps, StoryState> {
 								<View style={styles.containerStyle}>
 									<IconChat handler={this.handlerChat} showIconChat={this.state.showIconChat} />
 									<ShowOnHomeScreen handler={this.handlerVisible} visible={this.state.visible} />
-									<ShowOnMoreScreen handler={this.handlerVisibleMore} visibleMore={this.state.visibleMore} />
 									<OrderOnPage handler={this.handlerOrder} order={this.state.order} />
 									<EventDateTime handler={this.handleEventDateTime} dateTimeStart={this.state.dateTimeStart} dateTimeEnd={this.state.dateTimeEnd} />
 								</View>

@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { View, Text, TouchableOpacity, Switch, StyleSheet } from "react-native";
 import { Input } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import I18n from "../lib/i18n";
 import moment from "moment";
 import _ from "lodash";
 
@@ -21,7 +22,7 @@ class OrderOnPage extends Component<OrderProps> {
 		return <View style={styles.settingsItem}>
 			<View style={styles.settingsLeft}>
 				<View>
-					<Text>Order on Page</Text>
+					<Text>{I18n.t("order")}</Text>
 				</View>
 				<View>
 					<Input onChangeText={order => this.props.handler(order)} placeholder="0" value={this.props.order.toString()} keyboardType="number-pad" containerStyle={styles.inputOrderOnPage} />
@@ -46,7 +47,7 @@ const IconChat = class IconChat extends Component<IconChatPops> {
 		return <View style={styles.settingsItem}>
 			<View style={styles.settingsLeft}>
 				<View>
-					<Text>Allow Chat</Text>
+					<Text>{I18n.t("chat")}</Text>
 				</View>
 
 				<View>
@@ -70,7 +71,7 @@ class ShowOnHomeScreen extends Component {
 		return <View style={styles.settingsItem}>
 			<View style={styles.settingsLeft}>
 				<View>
-					<Text>Home Screen</Text>
+					<Text>{I18n.t("visible")}</Text>
 				</View>
 
 				<View>
@@ -81,25 +82,7 @@ class ShowOnHomeScreen extends Component {
 	}
 }
 
-class ShowOnMoreScreen extends Component {
-	constructor(props) {
-		super(props);
-	}
 
-	render() {
-		return <View style={styles.settingsItem}>
-			<View style={styles.settingsLeft}>
-				<View>
-					<Text>More Screen</Text>
-				</View>
-
-				<View>
-					<Switch onValueChange={value => this.props.handler(value)} style={styles.switch} value={this.props.visibleMore} />
-				</View>
-			</View>
-		</View>;
-	}
-}
 
 class EventDateTime extends Component {
 	constructor(props) {
@@ -212,7 +195,7 @@ class EventDateTime extends Component {
 			<View style={styles.settingsItem}>
 				<View style={styles.settingsLeft}>
 					<View>
-						<Text>Date</Text>
+						<Text>{I18n.t("date")}</Text>
 					</View>
 					<View>
 						<TouchableOpacity onPress={() => {
@@ -230,7 +213,7 @@ class EventDateTime extends Component {
 			{false && <View style={styles.settingsItem}>
 				<View style={styles.settingsLeft}>
 					<View>
-						<Text>Time</Text>
+						<Text>{I18n.t("time")}</Text>
 					</View>
 					<View style={styles.settingsRightTime}>
 						<TouchableOpacity onPress={() => {
@@ -259,20 +242,26 @@ class EventDateTime extends Component {
 								this.setState({ show: false, dateTimeStart: "", dateTimeEnd: "", date_start: "" });
 								this.props.handler(null, null, "");
 							}}>
-								<Text style={styles.blueButton}>Clear</Text>
+								<Text style={styles.blueButton}>{I18n.t("clear")}</Text>
 							</TouchableOpacity>
 
 							<View style={styles.settings}>
 								<TouchableOpacity onPress={() => {
 									this.setState({ show: false });
 								}}>
-									<Text style={styles.blueButton}>Done</Text>
+									<Text style={styles.blueButton}>{I18n.t("done")}</Text>
 								</TouchableOpacity>
 							</View>
 						</View>
 					</View>
 
-					<DateTimePicker testID="dateTimePicker" value={_.isDate(this.state.controlDate) ? this.state.controlDate : new Date()} mode={this.state.mode} is24Hour={false} display="default" onChange={this.onChange} />
+					<DateTimePicker
+						testID="dateTimePicker"
+						value={_.isDate(this.state.controlDate) ? this.state.controlDate : new Date()}
+						mode={this.state.mode}
+						is24Hour={false}
+						display="default"
+						onChange={this.onChange} />
 				</View>}
 			</View>
 		</View>;
@@ -316,4 +305,4 @@ const styles = StyleSheet.create({
 
 });
 
-export { IconChat, OrderOnPage, ShowOnHomeScreen, ShowOnMoreScreen, EventDateTime };
+export { IconChat, OrderOnPage, ShowOnHomeScreen, EventDateTime };

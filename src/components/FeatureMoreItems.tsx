@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import firebase from "firebase";
-import ListItem from "./FeatureListItem";
 import { getLanguageString } from "../lib/global";
 import { SettingsListItem } from "./SettingsListItem";
 import { connect } from "react-redux";
@@ -10,10 +9,7 @@ const globalAny: any = global;
 
 interface TProps {
 	navigation: any,
-	albums: [],
-	editMode: boolean,
 	language: string,
-	show: string,
 }
 interface TState {
 	loading: boolean,
@@ -36,7 +32,12 @@ class FeatureMoreItems extends Component<TProps, TState> {
 
 	componentDidMount() {
 		try {
-			this.ref = firebase.firestore().collection(globalAny.domain).doc("feature").collection("features").orderBy("order");
+			this.ref = firebase
+				.firestore()
+				.collection(globalAny.domain)
+				.doc("feature")
+				.collection("features")
+				.orderBy("order");
 			this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
 		} catch (e) {
 			console.error(e.message);
@@ -47,7 +48,7 @@ class FeatureMoreItems extends Component<TProps, TState> {
 		var trans = {};
 		var featureItems: any[] = [];
 
-		querySnapshot.forEach((doc: { data: () => { (): any; new(): any; translated: boolean; summary: any; description: any; visibleMore: any; }; id: any; }) => {
+		querySnapshot.forEach((doc: { data: () => { (): any; new(): any; translated: boolean; summary: any; description: any }; id: any; }) => {
 			if (doc.data().translated == true) {
 				trans = {
 					source: "feature",
@@ -62,13 +63,8 @@ class FeatureMoreItems extends Component<TProps, TState> {
 					descriptionMyLanguage: doc.data().description
 				};
 			}
-			if (this.props.show == "visibleMore") {
-				if (doc.data().visibleMore) {
-					featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
-				}
-			} else {
-				featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
-			}
+
+			featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
 		});
 
 		if (featureItems.length > 0) {
@@ -92,23 +88,14 @@ class FeatureMoreItems extends Component<TProps, TState> {
 
 		const uri = item.photo1;
 
-		if (!(this.props.show == "visibleMore")) {
-			return <ListItem
-				key={"feature2" + item._key}
-				navigation={this.props.navigation}
-				story={item}
-				editMode={this.props.editMode}
-				language={this.props.language}
-			/>;
-		} else {
-			return <SettingsListItem
-				key={"feature2" + item._key}
-				title={item.summaryMyLanguage}
-				icon={<Image style={styles.imageIcon}
-					source={{ uri: uri }} />}
-				onPress={() => this.props.navigation.navigate("storyMore", { story: item })}
-			/>;
-		}
+
+		return <SettingsListItem
+			key={"feature2" + item._key}
+			title={item.summaryMyLanguage}
+			icon={<Image style={styles.imageIcon}
+				source={{ uri: uri }} />}
+			onPress={() => this.props.navigation.navigate("storyMore", { story: item })}
+		/>;
 	}
 	_listEmptyComponent = () => {
 		return null;

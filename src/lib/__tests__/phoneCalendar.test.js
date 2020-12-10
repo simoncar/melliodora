@@ -82,7 +82,6 @@ const itemCore = {
 	"time_end_pretty": undefined,
 	"time_start_pretty": undefined,
 	"visible": true,
-	"visibleMore": undefined,
 }
 
 test('add event to calendar', () => {

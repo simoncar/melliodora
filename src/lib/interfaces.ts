@@ -23,7 +23,6 @@ export interface StoryEntity {
 	descriptionMyLanguage?: string,
 	description: string,
 	visible: boolean,
-	visibleMore: boolean,
 	showIconChat: boolean,
 	order: number,
 	date_start: string,

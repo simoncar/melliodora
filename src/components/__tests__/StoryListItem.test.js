@@ -38,7 +38,6 @@ const itemCore = {
 	"time_start_pretty": null,
 	"translated": true,
 	"visible": true,
-	"visibleMore": true,
 	"language": "en",
 	"location": "School cafe"
 }
