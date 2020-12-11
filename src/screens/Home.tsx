@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Linking, TouchableOpacity, TouchableHighlight, Image, ScrollView, StyleSheet } from "react-native";
+import { View, Linking, TouchableOpacity,  Image, ScrollView, StyleSheet } from "react-native";
 import Constants from "expo-constants";
 import firebase from "firebase";
 import AsyncStorage from '@react-native-async-storage/async-storage';

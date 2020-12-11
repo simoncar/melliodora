@@ -8,6 +8,7 @@ import ImageList from "../components/ImageList"
 import { actionEdit, actionPhotos, actionChat, actionSend, actionCalendar, actionShare } from "../components/StoryActions"
 import { StoryEntity, StoryState } from '../lib/interfaces';
 
+
 const globalAny: any = global;
 
 interface TProps {
@@ -65,7 +66,10 @@ export class Story extends Component<TProps, StoryState>{
 	_drawImage(imageURI: string) {
 		if (undefined !== imageURI && null !== imageURI && imageURI.length > 0) {
 			return <View>
-				<Image style={styles.storyPhoto} source={{ uri: imageURI }} />
+				
+				<Image
+					style={styles.storyPhoto}
+					source={{ uri: imageURI }} />
 			</View>;
 		}
 	}

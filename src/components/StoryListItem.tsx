@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, StyleSheet, Dimensions, Image } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { Text } from "./sComponent";
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-
+import Image from "../components/Imgix"
 import Constants from "expo-constants";
 import { StoryEntity } from '../lib/interfaces';
-import { img } from "../lib/imgix"
+
+
 
 import { formatTime, formatMonth, isURL } from "../lib/global";
 
@@ -30,7 +31,10 @@ class ListItem extends Component<TProps> {
 		} else if (source == "balance") {
 			return <MaterialCommunityIcons name="cash-multiple" size={35} style={styles.iconCash} />;
 		} else {
-			return <Image style={styles.iconPhoto} source={{ uri: photo1 }} />;
+			return <Image
+				style={styles.iconPhoto}
+				source={{ uri: photo1 }}
+			/>;
 		}
 	}
 	renderTime(start: string | any[] | undefined, end: any) {
@@ -82,8 +86,8 @@ class ListItem extends Component<TProps> {
 
 		} = this.props.story;
 
-		const photo1 = img(this.props.story.photo1) + "&monochrome=252525&blur=500"
-
+		//const photo1 = img(this.props.story.photo1) + "&monochrome=252525&blur=500"
+		const photo1 = this.props.story.photo1
 
 		return <View style={card && [styles.card]}>
 			<TouchableOpacity onPress={() => {
@@ -111,13 +115,37 @@ class ListItem extends Component<TProps> {
 					</View>
 
 				</View>
-				<View >
-					{isURL(photo1) && <Image style={styles.storyPhoto} source={{ uri: photo1 }} />}
-				</View>
+
+				{isURL(photo1) && <View>
+
+					<Image
+						style={styles.storyPhoto}
+						source={{ uri: photo1 }}
+						auto={true}
+						htn={1}
+					/>
+
+				</View>}
+
 			</TouchableOpacity>
-		</View>;
+		</View >;
 	}
 }
+
+/*
+aggressiveLoad = { bool } // whether to wait until the component has mounted to render the image, useful for auto-sizing, defaults to false
+auto = { array } // array of values to pass to Imgix's auto param, defaults to ['format']
+entropy = { bool } // whether or not to crop using points of interest. See Imgix API for more details. Defaults to false
+faces = { bool } // whether to crop to faces, defaults to true
+fit = { string } // see Imgix's API, defaults to 'crop'
+fluid = { bool } // whether to fit the image requested to the size of the component rendered, defaults to true
+precision = { number } // round to nearest x for image width and height, useful for caching, defaults to 100
+height = { number } // force images to be a certain height, overrides precision
+width = { number } // force images to be a certain width, overrides precision
+generateSrcSet = { bool } // generate 2x and 3x src sets when using an <img> tag. Defaults to true
+customParams = { object } // any other Imgix params to add to the image src
+imgProps = { object } // any other attributes to add to the Image component
+*/
 
 const styles = StyleSheet.create({
 	card: {
