@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 import { isAdmin } from "../lib/global";

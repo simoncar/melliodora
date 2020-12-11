@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { View, TouchableOpacity, StyleSheet, Dimensions, Image } from "react-native";
 import { Text } from "./sComponent";
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+
 import Constants from "expo-constants";
 import { StoryEntity } from '../lib/interfaces';
+import { img } from "../lib/imgix"
 
 import { formatTime, formatMonth, isURL } from "../lib/global";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
-
 
 interface TProps {
 	navigation: any,
@@ -20,6 +21,7 @@ interface TProps {
 class ListItem extends Component<TProps> {
 	constructor(props: TProps) {
 		super(props);
+
 	}
 
 	icon(source: string, photo1: string) {
@@ -32,11 +34,9 @@ class ListItem extends Component<TProps> {
 		}
 	}
 	renderTime(start: string | any[] | undefined, end: any) {
-		//if (source == "calendar") {
 		if (undefined != start && start.length > 0) {
 			return <Text style={styles.eventTime}>{formatTime(start, end)} </Text>;
 		}
-		//}
 	}
 
 	renderLocation(location: string | any[] | undefined) {
@@ -73,7 +73,6 @@ class ListItem extends Component<TProps> {
 		const card = this.props.card
 		const {
 			_key,
-			photo1,
 			source,
 			summaryMyLanguage,
 			location,
@@ -82,6 +81,9 @@ class ListItem extends Component<TProps> {
 			time_end_pretty,
 
 		} = this.props.story;
+
+		const photo1 = img(this.props.story.photo1) + "&monochrome=252525&blur=500"
+
 
 		return <View style={card && [styles.card]}>
 			<TouchableOpacity onPress={() => {

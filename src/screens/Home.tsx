@@ -243,8 +243,12 @@ class Home extends Component {
 	_renderToday() {
 		if (this.state.calendarItems.length > 0) {
 			return <View style={styles.card}>
-				<ShortList navigation={this.props.navigation} data={this.state.calendarItems} keyExtractor={this.keyExtractor} renderItem={this._renderItemNoCard} />
-			</View>;
+				<ShortList
+					navigation={this.props.navigation}
+					data={this.state.calendarItems}
+					keyExtractor={this.keyExtractor}
+					renderItem={this._renderItemNoCard} />
+			</View>
 		}
 	}
 	isTrue(val) {
@@ -301,27 +305,6 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
 
-	addButton: {
-		alignItems: "center",
-		backgroundColor: "#ff5722",
-		borderColor: "#ff5722",
-		borderRadius: 50 / 2,
-		borderWidth: 1,
-		bottom: 20,
-		height: 50,
-		justifyContent: "center",
-		position: "absolute",
-		right: 20,
-		shadowColor: "#000000",
-		shadowOffset: {
-			height: 1,
-			width: 0,
-		},
-		shadowOpacity: 0.8,
-		shadowRadius: 2,
-		width: 50,
-		zIndex: 990,
-	},
 	card: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
@@ -340,13 +323,6 @@ const styles = StyleSheet.create({
 		marginTop: 100
 	},
 
-	editIcon: {
-		color: "white",
-		fontSize: 44,
-		left: "20%",
-		position: "absolute",
-		top: "-20%"
-	},
 
 	newsContentLine: {
 		backgroundColor: "#f2f2f2",
