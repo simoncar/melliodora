@@ -39,6 +39,7 @@ export default function AlbumImage(props: IProps) {
 				}}>
 				{edit && <TouchableHighlight
 					onPress={() => deleteImage(props.feature, props.photoKey)}
+					testID="delete"
 				>
 					<Foundation
 						name="x-circle"
