@@ -5,13 +5,13 @@ import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SelectableImageGrid from '../components/SelectableImageGrid';
 import { useCameraRoll } from '../../hooks/useCameraRoll';
-import { saveSelectedImages } from "../components/AlbumAPI";
+import { saveSelectedImages, saveSelectedImages2, storageSend } from "../components/AlbumAPI";
 import I18n from "../lib/i18n";
 
 interface TProps {
-	storyKey: string
-	route: any
-	navigation: any
+	storyKey: string,
+	route: any,
+	navigation: any,
 	album: string
 }
 
@@ -19,9 +19,8 @@ export default function FormAlbum(props: TProps) {
 	const [items, setItems] = useState<MediaLibrary.Asset[]>([]);
 
 	const { storyKey, album, key } = props.route.params;
-
-
 	const navigation = props.navigation;
+
 	let filter = ""
 
 	if (key === "RECENT") {
@@ -34,15 +33,20 @@ export default function FormAlbum(props: TProps) {
 	useEffect(() => {
 		navigation.setOptions({
 			headerTitle: "Add Photos",
-			headerRight: () => <Button onPress={() => save()} title={I18n.t("save")} />,
+			headerRight: () => { return <Button onPress={() => save()} title={I18n.t("save")} /> },
 		});
 	}, [items])
 
 	const save = () => {
 		console.log("SAVE:", storyKey)
-		saveSelectedImages(items, storyKey)
-
+		saveSelectedImages2(items, storyKey)
+			.then(() => {
+				console.log("SAVE COMPLETE to LOCAL and FIREBASE")
+				storageSend(storyKey)
+			})
 	}
+
+
 
 	const handleSelected = async (selectedItems: MediaLibrary.Asset[]) => {
 		setItems(selectedItems);
@@ -94,25 +98,20 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	messageContainer: {
+		alignItems: 'center',
 		flex: 1,
 		justifyContent: 'center',
-		alignItems: 'center',
 	},
 	messageText: {
 		fontSize: 15,
 	},
 	refreshIcon: {
-		paddingTop: 20,
 		fontSize: 50,
+		paddingTop: 20,
 	},
 	secondaryText: {
-		fontSize: 12,
 		color: '#555',
+		fontSize: 12,
 	},
-	fab: {
-		position: 'absolute',
-		bottom: 16,
-		left: '30%',
-		right: '30%',
-	},
+
 });

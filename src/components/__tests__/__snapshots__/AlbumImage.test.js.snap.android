@@ -2,185 +2,162 @@
 
 exports[`Delete button press 1`] = `
 <View>
-  <Image
-    source={
-      Object {
-        "uri": "http://",
-      }
-    }
-    style={
-      Array [
-        Object {
-          "alignSelf": "center",
-          "backgroundColor": "#fff",
-          "borderBottomLeftRadius": 15,
-          "borderBottomRightRadius": 15,
-          "borderColor": "lightgray",
-          "borderWidth": 1,
-          "flex": 1,
-          "marginBottom": 12,
-          "resizeMode": "contain",
-          "shadowColor": "rgba(0,0,0, .4)",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0.5,
-          },
-          "shadowOpacity": 0.2,
-          "shadowRadius": 0.5,
-        },
-        Object {
-          "width": "70%",
-        },
-      ]
-    }
-  />
   <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
+    accessibilityIgnoresInvertColors={true}
     style={
       Object {
-        "alignItems": "center",
-        "backgroundColor": "#fff",
-        "borderRadius": 25,
-        "elevation": 4,
-        "height": 50,
-        "justifyContent": "center",
-        "marginBottom": 30,
-        "opacity": 1,
-        "shadowColor": "rgba(0,0,0, .4)",
-        "shadowOffset": Object {
-          "height": 2,
-          "width": 2,
-        },
-        "shadowOpacity": 0.8,
-        "shadowRadius": 1,
-        "width": 250,
+        "height": 1000,
+        "width": undefined,
       }
     }
-    testID="delete"
   >
-    <Text>
-      Delete
-    </Text>
+    <Image
+      source={
+        Object {
+          "uri": "http://",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "height": 1000,
+            "width": undefined,
+          },
+          undefined,
+        ]
+      }
+    />
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": "red",
+              "fontSize": 34,
+            },
+            Object {
+              "alignSelf": "flex-end",
+            },
+            Object {
+              "fontFamily": "foundation",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
   </View>
 </View>
 `;
 
 exports[`show edit Album Image 1`] = `
 <View>
-  <Image
-    source={
-      Object {
-        "uri": "http://",
-      }
-    }
-    style={
-      Array [
-        Object {
-          "alignSelf": "center",
-          "backgroundColor": "#fff",
-          "borderBottomLeftRadius": 15,
-          "borderBottomRightRadius": 15,
-          "borderColor": "lightgray",
-          "borderWidth": 1,
-          "flex": 1,
-          "marginBottom": 12,
-          "resizeMode": "contain",
-          "shadowColor": "rgba(0,0,0, .4)",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0.5,
-          },
-          "shadowOpacity": 0.2,
-          "shadowRadius": 0.5,
-        },
-        Object {
-          "width": "70%",
-        },
-      ]
-    }
-  />
   <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
+    accessibilityIgnoresInvertColors={true}
     style={
       Object {
-        "alignItems": "center",
-        "backgroundColor": "#fff",
-        "borderRadius": 25,
-        "elevation": 4,
-        "height": 50,
-        "justifyContent": "center",
-        "marginBottom": 30,
-        "opacity": 1,
-        "shadowColor": "rgba(0,0,0, .4)",
-        "shadowOffset": Object {
-          "height": 2,
-          "width": 2,
-        },
-        "shadowOpacity": 0.8,
-        "shadowRadius": 1,
-        "width": 250,
+        "height": 1000,
+        "width": undefined,
       }
     }
-    testID="delete"
   >
-    <Text>
-      Delete
-    </Text>
+    <Image
+      source={
+        Object {
+          "uri": "http://",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "height": 1000,
+            "width": undefined,
+          },
+          undefined,
+        ]
+      }
+    />
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+    >
+      <Text />
+    </View>
   </View>
 </View>
 `;
 
 exports[`show read only Album Image 1`] = `
 <View>
-  <Image
-    source={
+  <View
+    accessibilityIgnoresInvertColors={true}
+    style={
       Object {
-        "uri": "http://",
+        "height": 1000,
+        "width": undefined,
       }
     }
-    style={
-      Array [
+  >
+    <Image
+      source={
         Object {
-          "alignSelf": "center",
-          "backgroundColor": "#fff",
-          "borderBottomLeftRadius": 15,
-          "borderBottomRightRadius": 15,
-          "borderColor": "lightgray",
-          "borderWidth": 1,
-          "flex": 1,
-          "marginBottom": 12,
-          "resizeMode": "contain",
-          "shadowColor": "rgba(0,0,0, .4)",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0.5,
+          "uri": "http://",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
           },
-          "shadowOpacity": 0.2,
-          "shadowRadius": 0.5,
-        },
-        Object {
-          "height": 1000,
-          "width": undefined,
-        },
-      ]
-    }
-  />
+          Object {
+            "height": 1000,
+            "width": undefined,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
 </View>
 `;
 

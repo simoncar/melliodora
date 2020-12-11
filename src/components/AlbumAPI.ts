@@ -4,19 +4,51 @@ import * as MediaLibrary from 'expo-media-library';
 import uuid from "uuid";
 const globalAny: any = global;
 
+export const saveSelectedImages2 = (items: MediaLibrary.Asset[], storyKey: string) => {
+	return new Promise((resolve, reject) => {
+		const promises = []
+
+		for (var key in items) {
+			if (items.hasOwnProperty(key)) {
+
+				const filename: string = uuid() + '.jpg'
+
+				const pCopy = copyToLocal(items[key].uri, filename)
+				promises.push(pCopy)
+				const pSave = saveNewPhotoToFirebase(filename, storyKey)
+				promises.push(pSave)
+			}
+		}
+
+		console.log("Promise All - storageSend")
+		Promise.all(promises)
+			.then(() => {
+				resolve("Stuff worked!");
+			})
+			.catch(error => {
+				reject(Error("It broke " + error));
+			})
+	});
+};
+
+
 async function copyToLocal(uri: string, filename: string) {
-	console.log("copyToLocal start")
-	FileSystem.copyAsync({ from: uri, to: FileSystem.documentDirectory + filename })
-		.then(() => {
-			console.log("copyToLocal end")
-			return filename
-		})
-		.catch(error => {
-			return ("error:" + error)
-		})
+	return new Promise((resolve, reject) => {
+		console.log("copyToLocal start :", filename)
+		FileSystem.copyAsync({ from: uri, to: FileSystem.documentDirectory + filename })
+			.then(() => {
+				console.log("copyToLocal [promise ] resolve : ", filename)
+				resolve("copyToLocal end");
+			})
+			.catch(error => {
+				console.log("copyToLocal [promise ] resolve : ", filename)
+				reject(Error("copyToLocal broke:" + error));
+			})
+		console.log("copyToLocal end :", filename)
+	});
 }
 
-async function saveNewPhoto(localFileName: string, storyKey: string) {
+async function saveNewPhotoToFirebase(localFileName: string, storyKey: string) {
 	console.log("saveNewPhoto start 1")
 	var photo = {
 		local: localFileName,
@@ -27,7 +59,7 @@ async function saveNewPhoto(localFileName: string, storyKey: string) {
 	console.log("saveNewPhoto start 2a:", storyKey)
 	console.log("saveNewPhoto start 2b:", photo)
 
-	firebase
+	return firebase
 		.firestore()
 		.collection(global.domain)
 		.doc("feature")
@@ -35,15 +67,8 @@ async function saveNewPhoto(localFileName: string, storyKey: string) {
 		.doc(storyKey)
 		.collection("photos")
 		.add(photo)
-		.then(() => {
-			console.log("saveNewPhoto end");
-			return
-		})
-		.catch(error => {
-			console.log("saveNewPhoto error:", error);
-			return ("error:" + error)
-		})
 }
+
 
 export function saveSelectedImages(items: MediaLibrary.Asset[], storyKey: string) {
 	console.log("saveSelectedImages start:", storyKey);
@@ -56,7 +81,6 @@ export function saveSelectedImages(items: MediaLibrary.Asset[], storyKey: string
 					saveNewPhoto(filename, storyKey)
 						.then(() => {
 							console.log("head off to storage send");
-
 							storageSend(storyKey)
 						})
 						.catch(error => {
@@ -70,64 +94,64 @@ export function saveSelectedImages(items: MediaLibrary.Asset[], storyKey: string
 	}
 }
 
-
-
 export async function storageSend(featureID: string) {
+	return new Promise((resolve, reject) => {
+		console.log("storage send:", featureID)
+		var album = []
+		const promises = []
 
-	console.log("storage send:", featureID)
-	var album = []
-	const promises = []
+		firebase
+			.firestore()
+			.collection(globalAny.domain)
+			.doc("feature")
+			.collection("features")
+			.doc(featureID)
+			.collection("photos")
+			.get()
+			.then(snapshot => {
+				snapshot.forEach(async doc => {
+					album.push(doc.data().local)
 
-	firebase
-		.firestore()
-		.collection(globalAny.domain)
-		.doc("feature")
-		.collection("features")
-		.doc(featureID)
-		.collection("photos")
-		.get()
-		.then(snapshot => {
-			snapshot.forEach(async doc => {
-				album.push(doc.data().local)
+					if (doc.data().server === undefined) {
+						console.log("file not on server", doc.data().local)
+						const imageURI = FileSystem.documentDirectory + doc.data().local
+						const p = uploadImage(featureID, imageURI, doc.data().local, doc.id)
+							.then((downloadURL) => {
 
-				if (doc.data().server === undefined) {
-					console.log("file not on server", doc.data().local)
-					const imageURI = FileSystem.documentDirectory + doc.data().local
-					const p = uploadImage(featureID, imageURI, doc.data().local, doc.id)
-						.then((downloadURL) => {
+								console.log("downloadURL:", downloadURL)
+								firebase
+									.firestore()
+									.collection(globalAny.domain)
+									.doc("feature")
+									.collection("features")
+									.doc(featureID)
+									.collection("photos")
+									.doc(doc.id)
+									.set(
+										{
+											server: downloadURL
+										}, { merge: true })
+									.then(() => {
+										console.log("Done updating storage send ")
+									})
 
-							console.log("downloadURL:", downloadURL)
-							firebase
-								.firestore()
-								.collection(globalAny.domain)
-								.doc("feature")
-								.collection("features")
-								.doc(featureID)
-								.collection("photos")
-								.doc(doc.id)
-								.set(
-									{
-										server: downloadURL
-									}, { merge: true })
-								.then(() => {
-									console.log("Done updating storage send ")
-								})
+							})
+						console.log("Promise Push - storageSend")
+						promises.push(p)
+					}
+				})
 
-						})
-					console.log("Promise Push")
-					promises.push(p)
-				}
+				console.log("Promise All - storageSend")
+				Promise.all(promises)
+					.then(() => {
+						resolve("Stuff worked!");
+					})
+					.catch(error => {
+						reject(Error("It broke " + error));
+					})
 			})
 
-			console.log("Promise All")
-			Promise.all(promises)
-				.then(() => {
-					console.log("Firebase I - Updated all storage in photos collection")
-				})
-				.catch(error => {
-					console.log("error :", error)
-				})
-		})
+	})
 }
 
 const uploadImage = async (feature: string, imgURI: string, filename: string, photoDocId: string) => {
@@ -203,7 +227,20 @@ export function listenPhotos(featureID: string, callbackRefreshFunction: any) {
 }
 
 
-export function deleteImage(featureID: string, imageId: string) {
-	console.log("API delete photo", featureID, featureID)
+export function deleteImage(featureID: string, photoKey: string) {
+	console.log("API delete photo", featureID, photoKey)
+
+	firebase
+		.firestore()
+		.collection(globalAny.domain)
+		.doc("feature")
+		.collection("features")
+		.doc(featureID)
+		.collection("photos")
+		.doc(photoKey)
+		.delete()
+		.then(() => {
+			console.log("photo deleted")
+		})
 
 }

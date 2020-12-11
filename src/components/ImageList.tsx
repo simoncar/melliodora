@@ -68,6 +68,7 @@ export default function ImageList(props: IProps) {
 					Object.keys(photos).map(function (key: number, index) {
 						return <AlbumImage
 							key={photos[key].key}
+							photoKey={photos[key].key}
 							feature={photos[key].feature}
 							local={photos[key].local}
 							server={photos[key].server}
