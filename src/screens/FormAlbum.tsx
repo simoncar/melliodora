@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SelectableImageGrid from '../components/SelectableImageGrid';
 import { useCameraRoll } from '../../hooks/useCameraRoll';
-import { saveSelectedImages, saveSelectedImages2, storageSend } from "../components/AlbumAPI";
+import { saveSelectedImages, storageSend } from "../components/AlbumAPI";
 import I18n from "../lib/i18n";
 
 interface TProps {
@@ -32,21 +32,21 @@ export default function FormAlbum(props: TProps) {
 
 	useEffect(() => {
 		navigation.setOptions({
-			headerTitle: "Add Photos",
+			headerTitle: I18n.t("photoChoose"),
 			headerRight: () => { return <Button onPress={() => save()} title={I18n.t("save")} /> },
 		});
 	}, [items])
 
 	const save = () => {
 		console.log("SAVE:", storyKey)
-		saveSelectedImages2(items, storyKey)
+		saveSelectedImages(items, storyKey)
 			.then(() => {
 				console.log("SAVE COMPLETE to LOCAL and FIREBASE")
 				storageSend(storyKey)
+				navigation.pop();
+				navigation.pop();
 			})
 	}
-
-
 
 	const handleSelected = async (selectedItems: MediaLibrary.Asset[]) => {
 		setItems(selectedItems);

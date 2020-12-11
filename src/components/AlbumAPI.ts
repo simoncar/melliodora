@@ -4,7 +4,7 @@ import * as MediaLibrary from 'expo-media-library';
 import uuid from "uuid";
 const globalAny: any = global;
 
-export const saveSelectedImages2 = (items: MediaLibrary.Asset[], storyKey: string) => {
+export const saveSelectedImages = (items: MediaLibrary.Asset[], storyKey: string) => {
 	return new Promise((resolve, reject) => {
 		const promises = []
 
@@ -23,7 +23,7 @@ export const saveSelectedImages2 = (items: MediaLibrary.Asset[], storyKey: strin
 		console.log("Promise All - storageSend")
 		Promise.all(promises)
 			.then(() => {
-				resolve("Stuff worked!");
+				resolve("Saved Locally and to Firebase DB (BUT NOT to Storage yet)");
 			})
 			.catch(error => {
 				reject(Error("It broke " + error));
@@ -67,31 +67,6 @@ async function saveNewPhotoToFirebase(localFileName: string, storyKey: string) {
 		.doc(storyKey)
 		.collection("photos")
 		.add(photo)
-}
-
-
-export function saveSelectedImages(items: MediaLibrary.Asset[], storyKey: string) {
-	console.log("saveSelectedImages start:", storyKey);
-
-	for (var key in items) {
-		if (items.hasOwnProperty(key)) {
-			const filename: string = uuid() + '.jpg'
-			copyToLocal(items[key].uri, filename)
-				.then(() => {
-					saveNewPhoto(filename, storyKey)
-						.then(() => {
-							console.log("head off to storage send");
-							storageSend(storyKey)
-						})
-						.catch(error => {
-							return ("error:" + error)
-						})
-				})
-				.catch(error => {
-					return ("error:" + error)
-				})
-		}
-	}
 }
 
 export async function storageSend(featureID: string) {
