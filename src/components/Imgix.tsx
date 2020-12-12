@@ -60,9 +60,7 @@ export default function Image(props: IProps) {
 
 		/>;
 	}
-
 }
-
 
 function img(photo: string) {
 	if (!photo) return false;
