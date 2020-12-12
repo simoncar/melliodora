@@ -5,9 +5,6 @@ import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-
 import Image from "../components/Imgix"
 import Constants from "expo-constants";
 import { StoryEntity } from '../lib/interfaces';
-
-
-
 import { formatTime, formatMonth, isURL } from "../lib/global";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
@@ -122,7 +119,6 @@ class ListItem extends Component<TProps> {
 						style={styles.storyPhoto}
 						source={{ uri: photo1 }}
 						auto={true}
-						htn={1}
 					/>
 
 				</View>}
@@ -179,8 +175,16 @@ const styles = StyleSheet.create({
 
 	headerIcon: { width: 60 },
 
-	headerRightIcons: { flexDirection: "row-reverse", marginLeft: 5 },
-	headerRow: { alignItems: "center", flexDirection: "row", justifyContent: "space-between", width: WINDOW_WIDTH - 40 },
+	headerRightIcons: {
+		flexDirection: "row-reverse",
+		marginLeft: 5
+	},
+	headerRow: {
+		alignItems: "center",
+		flexDirection: "row",
+		justifyContent: "space-between",
+		width: WINDOW_WIDTH - 40
+	},
 	headerTextPanel: { flex: 1, width: '100%' },
 	iconCalendar: {
 		color: "#999999",
@@ -204,7 +208,7 @@ const styles = StyleSheet.create({
 	storyPhoto: {
 		borderBottomLeftRadius: 15,
 		borderBottomRightRadius: 15,
-		height: 200,
+		height: WINDOW_WIDTH / 2,
 	}
 });
 

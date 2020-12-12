@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Image as ReactImage, Dimensions } from 'react-native'
 import Uri from 'jsuri';
 import { base64 } from 'base-64';
+import _ from "lodash";
 
 interface IProps {
 	source: {},
@@ -15,6 +16,9 @@ export default function Image(props: IProps) {
 	const [imageHeight, setHeight] = useState(1000);
 	const [imageWidth, setWidth] = useState(1000);
 
+	if (props.source.uri === undefined || props.source.uri === null || props.source.uri === "") return null
+
+	console.log("URI:", props.source.uri)
 	const { width, height } = Dimensions.get('window');
 	const photo1Imgix = img(props.source.uri)
 
@@ -22,9 +26,14 @@ export default function Image(props: IProps) {
 
 	objImgix.fit = "clip"
 	objImgix.w = width
+	objImgix.auto = "enhance"
 
 	if (props.htn !== undefined) {
 		objImgix.htn = props.htn
+	}
+
+	if (props.style !== undefined && props.style.width > 0) {
+		objImgix.w = props.style.width
 	}
 
 	var _src = processImage(photo1Imgix, objImgix)
@@ -37,7 +46,7 @@ export default function Image(props: IProps) {
 			setHeight(height / width * Dimensions.get('window').width)
 			setWidth(width)
 
-			console.log("W:", width, "H:", height)
+			console.log("W:", imageWidth, "H:", imageHeight)
 		});
 
 		return <ReactImage

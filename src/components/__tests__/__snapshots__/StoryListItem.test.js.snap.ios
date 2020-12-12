@@ -51,7 +51,7 @@ exports[`list item  with a photo 1`] = `
         <Image
           source={
             Object {
-              "uri": "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f",
+              "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=format&fit=clip&w=750",
             }
           }
           style={
@@ -140,14 +140,14 @@ exports[`list item  with a photo 1`] = `
       <Image
         source={
           Object {
-            "uri": "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f",
+            "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=format&fit=clip&w=750",
           }
         }
         style={
           Object {
             "borderBottomLeftRadius": 15,
             "borderBottomRightRadius": 15,
-            "height": 200,
+            "height": 375,
           }
         }
       />
@@ -271,7 +271,6 @@ exports[`list item of a calendar with date 1`] = `
         }
       />
     </View>
-    <View />
   </View>
 </View>
 `;
@@ -413,7 +412,6 @@ exports[`list item of a calendar with date and time 1`] = `
         }
       />
     </View>
-    <View />
   </View>
 </View>
 `;
@@ -517,7 +515,6 @@ exports[`show balance 1`] = `
         }
       />
     </View>
-    <View />
   </View>
 </View>
 `;

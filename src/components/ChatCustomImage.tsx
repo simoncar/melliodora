@@ -1,14 +1,13 @@
 
 import React from "react";
-import { StyleSheet, TouchableOpacity, Text, View, Modal, Button } from "react-native";
-import { Image } from "react-native-expo-image-cache";
-
+import { StyleSheet, TouchableOpacity, Dimensions, Text, View, Modal, Button } from "react-native";
+import Image from "../components/Imgix"
 import * as Permissions from 'expo-permissions';
 import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 
 import I18n from "../lib/i18n";
-
+const WINDOW_WIDTH = Dimensions.get("window").width;
 export default class CustomImage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -42,9 +41,8 @@ export default class CustomImage extends React.Component {
 	}
 
 	render() {
-		const preview = {
-			uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
-		};
+
+
 		const uri = this.props.currentMessage.image;
 
 		if (this.props.currentMessage.image) {
@@ -72,12 +70,16 @@ export default class CustomImage extends React.Component {
 
 						<Image
 							style={styles.modalImageView}
-							{...{ preview, uri }}
-							resizeMode={"contain"}
-							testID="customImage.image" />
+							source={{ uri: uri }}
+							autoSizeProps={true}
+						/>
+
 					</Modal>
 
-					<Image style={styles.chatImageVIew} {...{ preview, uri }} />
+					<Image
+						style={styles.chatImageVIew}
+						source={{ uri: uri }}
+					/>
 				</TouchableOpacity>
 
 
@@ -106,10 +108,8 @@ const styles = StyleSheet.create({
 	},
 	modalImageView: {
 		alignItems: "center",
-		flex: 1,
-		height: null,
 		justifyContent: "center",
-		width: null
+		width: WINDOW_WIDTH
 	},
 	top: {
 		margin: 5

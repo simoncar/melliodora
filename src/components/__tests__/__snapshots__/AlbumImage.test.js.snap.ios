@@ -2,164 +2,113 @@
 
 exports[`Delete button press 1`] = `
 <View>
-  <View
-    accessibilityIgnoresInvertColors={true}
-    style={
+  <Image
+    source={
       Object {
-        "height": 1000,
-        "width": undefined,
+        "uri": "http://?auto=enhance&fit=clip&w=750",
       }
     }
-  >
-    <Image
-      source={
+    style={
+      Array [
         Object {
-          "uri": "http://",
-        }
-      }
+          "height": 1000,
+          "width": 1000,
+        },
+        undefined,
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    testID="delete"
+  >
+    <Text
+      allowFontScaling={false}
       style={
         Array [
           Object {
-            "bottom": 0,
-            "left": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
+            "color": "red",
+            "fontSize": 34,
           },
           Object {
-            "height": 1000,
-            "width": undefined,
+            "alignSelf": "flex-end",
           },
-          undefined,
+          Object {
+            "fontFamily": "foundation",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
         ]
       }
-    />
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      testID="delete"
     >
-      <Text
-        allowFontScaling={false}
-        style={
-          Array [
-            Object {
-              "color": "red",
-              "fontSize": 34,
-            },
-            Object {
-              "alignSelf": "flex-end",
-            },
-            Object {
-              "fontFamily": "foundation",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
-    </View>
+      
+    </Text>
   </View>
 </View>
 `;
 
 exports[`show edit Album Image 1`] = `
 <View>
-  <View
-    accessibilityIgnoresInvertColors={true}
-    style={
+  <Image
+    source={
       Object {
-        "height": 1000,
-        "width": undefined,
+        "uri": "http://?auto=enhance&fit=clip&w=750",
       }
     }
-  >
-    <Image
-      source={
+    style={
+      Array [
         Object {
-          "uri": "http://",
-        }
-      }
-      style={
-        Array [
-          Object {
-            "bottom": 0,
-            "left": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-          },
-          Object {
-            "height": 1000,
-            "width": undefined,
-          },
-          undefined,
-        ]
-      }
-    />
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      testID="delete"
-    >
-      <Text />
-    </View>
+          "height": 1000,
+          "width": 1000,
+        },
+        undefined,
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    testID="delete"
+  >
+    <Text />
   </View>
 </View>
 `;
 
 exports[`show read only Album Image 1`] = `
 <View>
-  <View
-    accessibilityIgnoresInvertColors={true}
-    style={
+  <Image
+    source={
       Object {
-        "height": 1000,
-        "width": undefined,
+        "uri": "http://?auto=enhance&fit=clip&w=750",
       }
     }
-  >
-    <Image
-      source={
+    style={
+      Array [
         Object {
-          "uri": "http://",
-        }
-      }
-      style={
-        Array [
-          Object {
-            "bottom": 0,
-            "left": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-          },
-          Object {
-            "height": 1000,
-            "width": undefined,
-          },
-          undefined,
-        ]
-      }
-    />
-  </View>
+          "height": 1000,
+          "width": 1000,
+        },
+        undefined,
+      ]
+    }
+  />
 </View>
 `;
 
