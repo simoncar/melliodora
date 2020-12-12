@@ -5,32 +5,16 @@ exports[`Delete button press 1`] = `
   <Image
     source={
       Object {
-        "uri": "http://",
+        "uri": "http://?auto=enhance&fit=clip&w=750",
       }
     }
     style={
       Array [
         Object {
-          "alignSelf": "center",
-          "backgroundColor": "#fff",
-          "borderBottomLeftRadius": 15,
-          "borderBottomRightRadius": 15,
-          "borderColor": "lightgray",
-          "borderWidth": 1,
-          "flex": 1,
-          "marginBottom": 12,
-          "resizeMode": "contain",
-          "shadowColor": "rgba(0,0,0, .4)",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0.5,
-          },
-          "shadowOpacity": 0.2,
-          "shadowRadius": 0.5,
+          "height": 1000,
+          "width": 1000,
         },
-        Object {
-          "width": "70%",
-        },
+        undefined,
       ]
     }
   />
@@ -44,30 +28,29 @@ exports[`Delete button press 1`] = `
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "alignItems": "center",
-        "backgroundColor": "#fff",
-        "borderRadius": 25,
-        "elevation": 4,
-        "height": 50,
-        "justifyContent": "center",
-        "marginBottom": 30,
-        "opacity": 1,
-        "shadowColor": "rgba(0,0,0, .4)",
-        "shadowOffset": Object {
-          "height": 2,
-          "width": 2,
-        },
-        "shadowOpacity": 0.8,
-        "shadowRadius": 1,
-        "width": 250,
-      }
-    }
     testID="delete"
   >
-    <Text>
-      Delete
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": "red",
+            "fontSize": 34,
+          },
+          Object {
+            "alignSelf": "flex-end",
+          },
+          Object {
+            "fontFamily": "foundation",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
     </Text>
   </View>
 </View>
@@ -78,32 +61,16 @@ exports[`show edit Album Image 1`] = `
   <Image
     source={
       Object {
-        "uri": "http://",
+        "uri": "http://?auto=enhance&fit=clip&w=750",
       }
     }
     style={
       Array [
         Object {
-          "alignSelf": "center",
-          "backgroundColor": "#fff",
-          "borderBottomLeftRadius": 15,
-          "borderBottomRightRadius": 15,
-          "borderColor": "lightgray",
-          "borderWidth": 1,
-          "flex": 1,
-          "marginBottom": 12,
-          "resizeMode": "contain",
-          "shadowColor": "rgba(0,0,0, .4)",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0.5,
-          },
-          "shadowOpacity": 0.2,
-          "shadowRadius": 0.5,
+          "height": 1000,
+          "width": 1000,
         },
-        Object {
-          "width": "70%",
-        },
+        undefined,
       ]
     }
   />
@@ -117,31 +84,9 @@ exports[`show edit Album Image 1`] = `
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "alignItems": "center",
-        "backgroundColor": "#fff",
-        "borderRadius": 25,
-        "elevation": 4,
-        "height": 50,
-        "justifyContent": "center",
-        "marginBottom": 30,
-        "opacity": 1,
-        "shadowColor": "rgba(0,0,0, .4)",
-        "shadowOffset": Object {
-          "height": 2,
-          "width": 2,
-        },
-        "shadowOpacity": 0.8,
-        "shadowRadius": 1,
-        "width": 250,
-      }
-    }
     testID="delete"
   >
-    <Text>
-      Delete
-    </Text>
+    <Text />
   </View>
 </View>
 `;
@@ -151,33 +96,16 @@ exports[`show read only Album Image 1`] = `
   <Image
     source={
       Object {
-        "uri": "http://",
+        "uri": "http://?auto=enhance&fit=clip&w=750",
       }
     }
     style={
       Array [
         Object {
-          "alignSelf": "center",
-          "backgroundColor": "#fff",
-          "borderBottomLeftRadius": 15,
-          "borderBottomRightRadius": 15,
-          "borderColor": "lightgray",
-          "borderWidth": 1,
-          "flex": 1,
-          "marginBottom": 12,
-          "resizeMode": "contain",
-          "shadowColor": "rgba(0,0,0, .4)",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0.5,
-          },
-          "shadowOpacity": 0.2,
-          "shadowRadius": 0.5,
-        },
-        Object {
           "height": 1000,
-          "width": undefined,
+          "width": 1000,
         },
+        undefined,
       ]
     }
   />

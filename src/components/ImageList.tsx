@@ -51,35 +51,24 @@ export default function ImageList(props: IProps) {
 		}
 	})
 
-	// const images = [
-	// 	{
-	// 		uri: "https://images.unsplash.com/photo-1571501679680-de32f1e7aad4",
-	// 	},
-	// 	{
-	// 		uri: "https://images.unsplash.com/photo-1573273787173-0eb81a833b34",
-	// 	},
-	// 	{
-	// 		uri: "https://images.unsplash.com/photo-1569569970363-df7b6160d111",
-	// 	},
-	// ];
-
+	// 		< ImageView
+	// 	images = { images }
+	// 	imageIndex = { 0}
+	// 	visible = { visible }
+	// 	onRequestClose = {() => setIsVisible(false)
+	// }
+	// presentationStyle = "fullScreen"
+	// 	/>
 
 
 	return (
 		<View>
 			<View>
-				<ImageView
-					images={images}
-					imageIndex={0}
-					visible={visible}
-					onRequestClose={() => setIsVisible(false)}
-					presentationStyle="fullScreen"
-				/>
-
 				{
 					Object.keys(photos).map(function (key: number, index) {
 						return <AlbumImage
 							key={photos[key].key}
+							photoKey={photos[key].key}
 							feature={photos[key].feature}
 							local={photos[key].local}
 							server={photos[key].server}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Linking, View, StyleSheet, ScrollView } from "react-native";
+import { Linking, View, StyleSheet, ScrollView, Dimensions } from "react-native";
 import ParsedText from "react-native-parsed-text";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global";
 import { connect } from "react-redux";
@@ -7,9 +7,10 @@ import { Text } from "../components/sComponent"
 import ImageList from "../components/ImageList"
 import { actionEdit, actionPhotos, actionChat, actionSend, actionCalendar, actionShare } from "../components/StoryActions"
 import { StoryEntity, StoryState } from '../lib/interfaces';
+import Image from "../components/Imgix"
 
 const globalAny: any = global;
-
+const WINDOW_WIDTH = Dimensions.get("window").width;
 interface TProps {
 	navigation: any,
 	route: any,
@@ -65,7 +66,10 @@ export class Story extends Component<TProps, StoryState>{
 	_drawImage(imageURI: string) {
 		if (undefined !== imageURI && null !== imageURI && imageURI.length > 0) {
 			return <View>
-				<Image style={styles.storyPhoto} source={{ uri: imageURI }} />
+
+				<Image
+					style={styles.storyPhoto}
+					source={{ uri: imageURI }} />
 			</View>;
 		}
 	}
@@ -240,7 +244,7 @@ const styles = StyleSheet.create({
 		borderColor: "lightgray",
 		borderWidth: 1,
 		flex: 1,
-		height: 200,
+		height: WINDOW_WIDTH / 2,
 		marginBottom: 12,
 		shadowColor: "rgba(0,0,0, .4)",
 		shadowOffset: { height: 1, width: 0.5 },

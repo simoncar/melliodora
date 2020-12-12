@@ -22,8 +22,8 @@ class UserProfile extends Component {
 
 	componentDidMount() {
 		const { uid, user } = this.props.route.params;
-		console.log("USER PROFILE UID:", uid)
 		this.showChat = uid != global.uid;
+		
 		if (user) {
 			this.setState({ user, uid });
 		} else if (uid) {

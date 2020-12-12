@@ -109,58 +109,34 @@ exports[`show photo in chat thread 1`] = `
           </Text>
         </View>
       </View>
-      <View
-        style={
+      <Image
+        source={
           Object {
-            "alignItems": "center",
-            "flex": 1,
-            "height": null,
-            "justifyContent": "center",
-            "width": null,
+            "uri": "https://smartcookies.imgix.net/chatimage%2FdLyDZVfkOZ2XDVk49jHF%2F202006%2F73891c7b-5960-4b7f-a7e3-b8975ee9fecc?alt=media&token=f76974de-d8d2-4b1f-a980-a83265bdcf10&auto=enhance&fit=clip&w=750",
           }
         }
-      >
-        <Image
-          blurRadius={0.5}
-          onError={[Function]}
-          resizeMode="contain"
-          source={
+        style={
+          Array [
             Object {
-              "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
-            }
-          }
-          style={
-            Array [
-              Object {
-                "bottom": 0,
-                "left": 0,
-                "position": "absolute",
-                "right": 0,
-                "top": 0,
-              },
-              Object {},
-            ]
-          }
-          testID="customImage.image"
-          transitionDuration={300}
-          uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/chatimage%2FdLyDZVfkOZ2XDVk49jHF%2F202006%2F73891c7b-5960-4b7f-a7e3-b8975ee9fecc?alt=media&token=f76974de-d8d2-4b1f-a980-a83265bdcf10"
-        />
-        <View
-          style={
+              "height": 1000,
+              "width": 1000,
+            },
             Object {
-              "backgroundColor": "black",
-              "bottom": 0,
-              "left": 0,
-              "opacity": 0.5,
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-            }
-          }
-        />
-      </View>
+              "alignItems": "center",
+              "justifyContent": "center",
+              "width": 750,
+            },
+          ]
+        }
+        testID="customImage.imageModal"
+      />
     </Modal>
-    <View
+    <Image
+      source={
+        Object {
+          "uri": "https://smartcookies.imgix.net/chatimage%2FdLyDZVfkOZ2XDVk49jHF%2F202006%2F73891c7b-5960-4b7f-a7e3-b8975ee9fecc?alt=media&token=f76974de-d8d2-4b1f-a980-a83265bdcf10&auto=enhance&fit=clip&w=350",
+        }
+      }
       style={
         Object {
           "height": 200,
@@ -168,44 +144,8 @@ exports[`show photo in chat thread 1`] = `
           "width": 350,
         }
       }
-    >
-      <Image
-        blurRadius={0.5}
-        onError={[Function]}
-        source={
-          Object {
-            "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII=",
-          }
-        }
-        style={
-          Array [
-            Object {
-              "bottom": 0,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-            },
-            Object {},
-          ]
-        }
-        transitionDuration={300}
-        uri="https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/chatimage%2FdLyDZVfkOZ2XDVk49jHF%2F202006%2F73891c7b-5960-4b7f-a7e3-b8975ee9fecc?alt=media&token=f76974de-d8d2-4b1f-a980-a83265bdcf10"
-      />
-      <View
-        style={
-          Object {
-            "backgroundColor": "black",
-            "bottom": 0,
-            "left": 0,
-            "opacity": 0.5,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-          }
-        }
-      />
-    </View>
+      testID="customImage.image"
+    />
   </View>
 </View>
 `;

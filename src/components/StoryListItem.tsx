@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, StyleSheet, Dimensions, Image } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { Text } from "./sComponent";
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import Image from "../components/Imgix"
 import Constants from "expo-constants";
 import { StoryEntity } from '../lib/interfaces';
-
 import { formatTime, formatMonth, isURL } from "../lib/global";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
-
 
 interface TProps {
 	navigation: any,
@@ -20,6 +19,7 @@ interface TProps {
 class ListItem extends Component<TProps> {
 	constructor(props: TProps) {
 		super(props);
+
 	}
 
 	icon(source: string, photo1: string) {
@@ -28,15 +28,16 @@ class ListItem extends Component<TProps> {
 		} else if (source == "balance") {
 			return <MaterialCommunityIcons name="cash-multiple" size={35} style={styles.iconCash} />;
 		} else {
-			return <Image style={styles.iconPhoto} source={{ uri: photo1 }} />;
+			return <Image
+				style={styles.iconPhoto}
+				source={{ uri: photo1 }}
+			/>;
 		}
 	}
 	renderTime(start: string | any[] | undefined, end: any) {
-		//if (source == "calendar") {
 		if (undefined != start && start.length > 0) {
 			return <Text style={styles.eventTime}>{formatTime(start, end)} </Text>;
 		}
-		//}
 	}
 
 	renderLocation(location: string | any[] | undefined) {
@@ -73,14 +74,13 @@ class ListItem extends Component<TProps> {
 		const card = this.props.card
 		const {
 			_key,
-			photo1,
 			source,
 			summaryMyLanguage,
 			location,
 			date_start,
 			time_start_pretty,
 			time_end_pretty,
-
+			photo1,
 		} = this.props.story;
 
 		return <View style={card && [styles.card]}>
@@ -109,11 +109,19 @@ class ListItem extends Component<TProps> {
 					</View>
 
 				</View>
-				<View >
-					{isURL(photo1) && <Image style={styles.storyPhoto} source={{ uri: photo1 }} />}
-				</View>
+
+				{isURL(photo1) && <View>
+
+					<Image
+						style={styles.storyPhoto}
+						source={{ uri: photo1 }}
+						auto={true}
+					/>
+
+				</View>}
+
 			</TouchableOpacity>
-		</View>;
+		</View >;
 	}
 }
 
@@ -124,7 +132,7 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		marginBottom: 12,
 		padding: 10,
-		width: "95%"
+		width: WINDOW_WIDTH - 15
 	},
 	cardLocation: {
 		color: "#555555",
@@ -149,8 +157,16 @@ const styles = StyleSheet.create({
 
 	headerIcon: { width: 60 },
 
-	headerRightIcons: { flexDirection: "row-reverse", marginLeft: 5 },
-	headerRow: { alignItems: "center", flexDirection: "row", justifyContent: "space-between", width: WINDOW_WIDTH - 40 },
+	headerRightIcons: {
+		flexDirection: "row-reverse",
+		marginLeft: 5
+	},
+	headerRow: {
+		alignItems: "center",
+		flexDirection: "row",
+		justifyContent: "space-between",
+		width: WINDOW_WIDTH - 40
+	},
 	headerTextPanel: { flex: 1, width: '100%' },
 	iconCalendar: {
 		color: "#999999",
@@ -174,7 +190,7 @@ const styles = StyleSheet.create({
 	storyPhoto: {
 		borderBottomLeftRadius: 15,
 		borderBottomRightRadius: 15,
-		height: 200,
+		height: WINDOW_WIDTH / 2,
 	}
 });
 

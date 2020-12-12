@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Text } from "./sComponent";
-import { Image } from "react-native-expo-image-cache";
+import Image from "../components/Imgix"
 import { Grid, Col, Row } from "react-native-easy-grid";
 import { formatTime } from "../lib/global";
 import _ from "lodash";
@@ -33,28 +33,18 @@ class CalendarItem extends Component {
 						</Col>
 					</Row>
 					<Row>
-						<View style={styles.imageView}>{this.renderImage(item.photo1)}</View>
+						<View style={styles.imageView}>
+							<Image
+								source={{ uri: item.photo1 }}
+								style={styles.image}
+							/>
+						</View>
 					</Row>
 				</Grid>
 			</View>
 		</TouchableOpacity>;
 	}
-	renderImage(calImage) {
 
-		if (_.isNil(calImage)) {
-			var uri = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680";
-		} else {
-			var uri = calImage;
-		}
-		const preview = {
-			uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
-		};
-
-
-		if (undefined != calImage && calImage.length > 0) {
-			return <Image {...{ preview, uri }} style={styles.image} resizeMode="contain" />;
-		}
-	}
 
 	renderTime(start, end) {
 		if (undefined != start && start.length > 0) {
