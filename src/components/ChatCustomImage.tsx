@@ -72,6 +72,7 @@ export default class CustomImage extends React.Component {
 							style={styles.modalImageView}
 							source={{ uri: uri }}
 							autoSizeProps={true}
+							imageProps={{ testID: "customImage.imageModal" }}
 						/>
 
 					</Modal>
@@ -79,9 +80,9 @@ export default class CustomImage extends React.Component {
 					<Image
 						style={styles.chatImageVIew}
 						source={{ uri: uri }}
+						imageProps={{ testID: "customImage.image" }}
 					/>
 				</TouchableOpacity>
-
 
 			</View>;
 		} else {

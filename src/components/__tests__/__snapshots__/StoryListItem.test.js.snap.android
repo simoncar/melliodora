@@ -10,7 +10,7 @@ exports[`list item  with a photo 1`] = `
         "borderRadius": 15,
         "marginBottom": 12,
         "padding": 10,
-        "width": "95%",
+        "width": 735,
       },
     ]
   }
@@ -166,7 +166,7 @@ exports[`list item of a calendar with date 1`] = `
         "borderRadius": 15,
         "marginBottom": 12,
         "padding": 10,
-        "width": "95%",
+        "width": 735,
       },
     ]
   }
@@ -285,7 +285,7 @@ exports[`list item of a calendar with date and time 1`] = `
         "borderRadius": 15,
         "marginBottom": 12,
         "padding": 10,
-        "width": "95%",
+        "width": 735,
       },
     ]
   }
@@ -426,7 +426,7 @@ exports[`show balance 1`] = `
         "borderRadius": 15,
         "marginBottom": 12,
         "padding": 10,
-        "width": "95%",
+        "width": 735,
       },
     ]
   }

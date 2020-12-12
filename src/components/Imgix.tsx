@@ -10,6 +10,7 @@ interface IProps {
 	style: any,
 	htn: number,
 	auto: boolean,
+	testID: string,
 }
 
 export default function Image(props: IProps) {
@@ -18,7 +19,6 @@ export default function Image(props: IProps) {
 
 	if (props.source.uri === undefined || props.source.uri === null || props.source.uri === "") return null
 
-	console.log("URI:", props.source.uri)
 	const { width, height } = Dimensions.get('window');
 	const photo1Imgix = img(props.source.uri)
 
@@ -37,8 +37,6 @@ export default function Image(props: IProps) {
 	}
 
 	var _src = processImage(photo1Imgix, objImgix)
-	console.log("src imgix", objImgix)
-	console.log("src imgix", _src)
 
 	if (props.autoSizeProps) {
 
@@ -46,19 +44,21 @@ export default function Image(props: IProps) {
 			setHeight(height / width * Dimensions.get('window').width)
 			setWidth(width)
 
-			console.log("W:", imageWidth, "H:", imageHeight)
 		});
 
 		return <ReactImage
 			{...props.imageProps}
 			style={[{ width: imageWidth, height: imageHeight }, props.style]}
-			source={{ uri: _src }} />;
+			source={{ uri: _src }}
+		/>;
 
 	} else {
 		return <ReactImage
 			{...props.imageProps}
 			style={props.style}
-			source={{ uri: _src }} />;
+			source={{ uri: _src }}
+
+		/>;
 	}
 
 }
@@ -94,7 +94,6 @@ function processImage(src, longOptions) {
 
 	Object.keys(longOptions).forEach(function (key) {
 		var val = longOptions[key]
-		console.log("val:", val)
 
 		key = encodeURIComponent(key)
 
