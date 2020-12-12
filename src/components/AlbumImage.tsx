@@ -31,7 +31,6 @@ export default function AlbumImage(props: IProps) {
 		const imageWidth = props.windowWidth
 
 		return <View>
-
 			<Image
 				source={{ uri: imageURI }}
 				autoSizeProps={true}
@@ -48,9 +47,6 @@ export default function AlbumImage(props: IProps) {
 				/>
 			</TouchableHighlight>
 			}
-
-
-
 		</View>;
 
 	} else {

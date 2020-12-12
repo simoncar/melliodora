@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { TouchableOpacity, Image, View, StyleSheet } from "react-native";
 import { Text } from "./sComponent"
