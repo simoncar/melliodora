@@ -5,7 +5,7 @@ exports[`Delete button press 1`] = `
   <Image
     source={
       Object {
-        "uri": "http://?auto=format&fit=clip&w=750",
+        "uri": "http://?auto=enhance&fit=clip&w=750",
       }
     }
     style={
@@ -61,7 +61,7 @@ exports[`show edit Album Image 1`] = `
   <Image
     source={
       Object {
-        "uri": "http://?auto=format&fit=clip&w=750",
+        "uri": "http://?auto=enhance&fit=clip&w=750",
       }
     }
     style={
@@ -96,7 +96,7 @@ exports[`show read only Album Image 1`] = `
   <Image
     source={
       Object {
-        "uri": "http://?auto=format&fit=clip&w=750",
+        "uri": "http://?auto=enhance&fit=clip&w=750",
       }
     }
     style={

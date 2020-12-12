@@ -80,11 +80,8 @@ class ListItem extends Component<TProps> {
 			date_start,
 			time_start_pretty,
 			time_end_pretty,
-
+			photo1,
 		} = this.props.story;
-
-		//const photo1 = img(this.props.story.photo1) + "&monochrome=252525&blur=500"
-		const photo1 = this.props.story.photo1
 
 		return <View style={card && [styles.card]}>
 			<TouchableOpacity onPress={() => {
@@ -128,21 +125,6 @@ class ListItem extends Component<TProps> {
 	}
 }
 
-/*
-aggressiveLoad = { bool } // whether to wait until the component has mounted to render the image, useful for auto-sizing, defaults to false
-auto = { array } // array of values to pass to Imgix's auto param, defaults to ['format']
-entropy = { bool } // whether or not to crop using points of interest. See Imgix API for more details. Defaults to false
-faces = { bool } // whether to crop to faces, defaults to true
-fit = { string } // see Imgix's API, defaults to 'crop'
-fluid = { bool } // whether to fit the image requested to the size of the component rendered, defaults to true
-precision = { number } // round to nearest x for image width and height, useful for caching, defaults to 100
-height = { number } // force images to be a certain height, overrides precision
-width = { number } // force images to be a certain width, overrides precision
-generateSrcSet = { bool } // generate 2x and 3x src sets when using an <img> tag. Defaults to true
-customParams = { object } // any other Imgix params to add to the image src
-imgProps = { object } // any other attributes to add to the Image component
-*/
-
 const styles = StyleSheet.create({
 	card: {
 		alignSelf: "center",
@@ -150,7 +132,7 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		marginBottom: 12,
 		padding: 10,
-		width: "95%"
+		width: WINDOW_WIDTH - 15
 	},
 	cardLocation: {
 		color: "#555555",
