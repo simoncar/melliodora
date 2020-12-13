@@ -29,10 +29,10 @@ export async function getStories(domain: string) {
 	})
 }
 
-function getStory(story: any, id: string): StoryEntity {
+export function getStory(story: any, id: string): StoryEntity {
 
 	var trans = {};
-	var returnStory = {}
+	var returnStory: StoryEntity
 
 	if (story.translated == true) {
 		trans = {
@@ -52,14 +52,7 @@ function getStory(story: any, id: string): StoryEntity {
 		story.photo1 = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680"
 	}
 
-	console.log(story.photo1)
-
-
-
-
 	returnStory = { ...{ _key: id }, ...story, ...trans }
-
-
 
 	return returnStory
 
