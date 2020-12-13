@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { TouchableOpacity, Image, View, StyleSheet } from "react-native";
 import { Text } from "./sComponent"
@@ -19,7 +18,10 @@ export class ButtonBar extends Component {
 							});
 						}}>
 							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/news.png")} />
-							<Text style={styles.adab8d360ac6d11ea973dcfce83f911da}>{I18n.t("newsletters")}</Text>
+							<Text
+								style={styles.homeMenuText}>
+								{I18n.t("newsletters")}
+							</Text>
 						</TouchableOpacity>
 
 						<TouchableOpacity style={styles.homeMenuItemContainer} onPress={() => {
@@ -62,18 +64,6 @@ export class ButtonBar extends Component {
 							<Text style={styles.homeMenuText}>{I18n.t("directory")}</Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity style={styles.homeMenuItemContainer}
-						// onPress={() => {
-						//   this.props.navigation.navigate("WebPortal", {
-						//     url: "https://smartcookies.io/smart-community",
-						//     title: "Member Associations",
-						//   });
-						// }}
-						>
-							<Image style={styles.homeMenuIcon} source={require("../../resources/icons/_Associations.png")} />
-							<Text style={styles.homeMenuText}>{I18n.t("member") + "\n" + I18n.t("associations")}</Text>
-						</TouchableOpacity>
-
 					</View>
 				</ScrollView>
 			</View>
@@ -82,10 +72,6 @@ export class ButtonBar extends Component {
 }
 
 const styles = StyleSheet.create({
-	adab8d360ac6d11ea973dcfce83f911da: {
-		color: "black",
-		fontSize: 12
-	},
 	card: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
@@ -103,7 +89,11 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		marginRight: 15
 	},
-	homeMenuText: { color: "black", fontSize: 12, textAlign: "center" },
+	homeMenuText: {
+		color: "black",
+		fontSize: 12,
+		textAlign: "center"
+	},
 	row: {
 		flex: 1,
 		flexDirection: "row",

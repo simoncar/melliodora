@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { Animated, StyleSheet, StyleProp, TextStyle } from 'react-native';
-
-
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const defaultSize = 20;
+const size = 20;
 
 type Props = React.ComponentProps<typeof Animated.Text> & {
 	visible: boolean;
 	icon: string;
-	size?: number;
 	style?: StyleProp<TextStyle>;
 	ref?: React.RefObject<typeof Animated.Text>;
 };
@@ -21,52 +18,65 @@ type State = {
 class BadgeIcon extends React.Component<Props, State> {
 	static defaultProps = {
 		visible: true,
-		size: defaultSize,
 	};
+	constructor(props) {
+		super(props);
 
-	state = {
-		opacity: new Animated.Value(this.props.visible ? 1 : 0),
-	};
+		this.state = {
+			opacity: new Animated.Value(this.props.visible ? 1 : 0),
+		};
+
+	}
 
 	componentDidUpdate(prevProps: Props) {
 		const {
 			visible,
-
 		} = this.props;
 
 		if (visible !== prevProps.visible) {
 			Animated.timing(this.state.opacity, {
 				toValue: visible ? 1 : 0,
+				duration: 150,
 				useNativeDriver: true,
 			}).start();
 		}
+
 	}
 
 	render() {
 		const {
 			icon,
-			size = defaultSize,
+			visible,
+			style,
 			...rest
 		} = this.props;
+
 		const { opacity } = this.state;
-		const borderRadius = size / 2;
+		const borderRadius = size / 2
+
+		console.log("opacity:", opacity)
 
 		return (
 			<Animated.Text
 				numberOfLines={1}
+
 				style={[
 					{
-						color: "green",
-						fontSize: size * 0.5,
-						height: size,
-						lineHeight: size,
-						minWidth: size,
+						opacity,
+						borderRadius
 					},
-					styles.container,
+					styles.container
 				]}
+
 				{...rest}
 			>
-				<MaterialCommunityIcons name={icon} />
+				<MaterialCommunityIcons
+					style={{
+						color: "blue",
+						alignSelf: 'flex-end',
+					}}
+					name={icon}
+				/>
 			</Animated.Text>
 		);
 	}
@@ -78,10 +88,8 @@ const styles = StyleSheet.create({
 
 	container: {
 		alignSelf: 'flex-end',
-		overflow: 'hidden',
-		paddingHorizontal: 4,
-		textAlign: 'center',
-		textAlignVertical: 'center',
+		position: 'absolute',
+		right: 10,
+		top: 10,
 	}
-
 });

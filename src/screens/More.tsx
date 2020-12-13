@@ -30,6 +30,8 @@ class Settings extends Component<TProps, TState> {
 		this.state = {
 			user: null
 		};
+
+
 	}
 
 	_logout() {
@@ -84,14 +86,17 @@ class Settings extends Component<TProps, TState> {
 							Linking.openURL("https://smartcookies.io/smart-community");
 						}}
 					/>
-					<SettingsListItem
-						lastItem={true}
-						hasNavArrow={false}
-						icon={<SimpleLineIcons
-							name="logout"
-							style={styles.imageStyleIcon} />}
-						title={I18n.t("changeDomain")}
-						onPress={() => this._logout()} />
+
+					{(Constants.manifest.extra.instance === "") &&
+						<SettingsListItem
+							lastItem={true}
+							hasNavArrow={false}
+							icon={<SimpleLineIcons
+								name="logout"
+								style={styles.imageStyleIcon} />}
+							title={I18n.t("changeDomain")}
+							onPress={() => this._logout()} />
+					}
 				</View>
 
 				{this.separator(i)}

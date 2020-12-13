@@ -22,8 +22,6 @@ export class WebPortal extends Component {
 
 	}
 
-
-
 	onNavigationStateChange = navState => {
 		this.setState({ url: navState.url });
 	};
