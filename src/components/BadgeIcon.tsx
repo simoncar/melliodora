@@ -43,8 +43,6 @@ class BadgeIcon extends React.Component<Props, State> {
 
 	}
 
-
-
 	render() {
 		const {
 			icon,
