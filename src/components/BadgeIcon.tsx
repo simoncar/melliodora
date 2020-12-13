@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Animated, StyleSheet, StyleProp, TextStyle } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const size = 20;
+const size = 30;
 
 type Props = React.ComponentProps<typeof Animated.Text> & {
 	visible: boolean;
@@ -25,7 +25,6 @@ class BadgeIcon extends React.Component<Props, State> {
 		this.state = {
 			opacity: new Animated.Value(this.props.visible ? 1 : 0),
 		};
-
 	}
 
 	componentDidUpdate(prevProps: Props) {
@@ -54,7 +53,6 @@ class BadgeIcon extends React.Component<Props, State> {
 		const { opacity } = this.state;
 		const borderRadius = size / 2
 
-		console.log("opacity:", opacity)
 
 		return (
 			<Animated.Text
