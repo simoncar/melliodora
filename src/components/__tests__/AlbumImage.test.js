@@ -3,7 +3,7 @@ import { render, fireEvent } from '@testing-library/react-native';
 import { Image } from 'react-native';
 import AlbumImage from '../AlbumImage';
 
-jest.mock("../../components/AlbumAPI");
+jest.mock("../../lib/albumAPI");
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 
 

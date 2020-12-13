@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
-import firebase from "firebase";
-import { getLanguageString } from "../lib/global";
+import { View, StyleSheet, Text } from "react-native";
+import Image from "../components/Imgix"
 import { SettingsListItem } from "./SettingsListItem";
+import { getStories } from "../lib/storyAPI"
 import { connect } from "react-redux";
 
 const globalAny: any = global;
@@ -20,6 +20,7 @@ interface TState {
 		_key: string;
 	}[]
 }
+
 class FeatureMoreItems extends Component<TProps, TState> {
 	constructor(props: {} | Readonly<{}>) {
 		super(props);
@@ -31,63 +32,29 @@ class FeatureMoreItems extends Component<TProps, TState> {
 	}
 
 	componentDidMount() {
+
 		try {
-			this.ref = firebase
-				.firestore()
-				.collection(globalAny.domain)
-				.doc("feature")
-				.collection("features")
-				.orderBy("order");
-			this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+
+
+			getStories(globalAny.domain)
+				.then(stories => {
+					this.setState({
+						featureItems: stories,
+						loading: false
+					});
+				})
+
 		} catch (e) {
 			console.error(e.message);
 		}
 	}
 
-	onCollectionUpdate = (querySnapshot: any[]) => {
-		var trans = {};
-		var featureItems: any[] = [];
-
-		querySnapshot.forEach((doc: { data: () => { (): any; new(): any; translated: boolean; summary: any; description: any }; id: any; }) => {
-			if (doc.data().translated == true) {
-				trans = {
-					source: "feature",
-					summaryMyLanguage: getLanguageString(this.props.language, doc.data(), "summary"),
-					descriptionMyLanguage: getLanguageString(this.props.language, doc.data(), "description")
-
-				};
-			} else {
-				trans = {
-					source: "feature",
-					summaryMyLanguage: doc.data().summary,
-					descriptionMyLanguage: doc.data().description
-				};
-			}
-
-			featureItems.push({ ...{ _key: doc.id }, ...doc.data(), ...trans });
-		});
-
-		if (featureItems.length > 0) {
-			this.setState({
-				featureItems
-			});
-		}
-
-		this.setState({
-			loading: false
-		});
-	};
-
-	componentWillUnmount() {
-		this.unsubscribe();
-	}
 
 	keyExtractor = (item: { _key: any; }) => item._key;
 
 	_renderItem(item: any) {
 
 		const uri = item.photo1;
-
 
 		return <SettingsListItem
 			key={"feature2" + item._key}

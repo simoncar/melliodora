@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SelectableImageGrid from '../components/SelectableImageGrid';
 import { useCameraRoll } from '../../hooks/useCameraRoll';
-import { saveSelectedImages, storageSend } from "../components/AlbumAPI";
+import { saveSelectedImages, storageSend } from "../lib/albumAPI";
 import I18n from "../lib/i18n";
 
 interface TProps {

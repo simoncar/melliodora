@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Dimensions } from 'react-native';
 import AlbumImage from "./AlbumImage"
-import { listenPhotos } from "./AlbumAPI"
+import { listenPhotos } from "../lib/albumAPI"
 import ImageView from "react-native-image-viewing";
 
 interface IProps {

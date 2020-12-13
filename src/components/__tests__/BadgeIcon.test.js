@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import { Image } from 'react-native';
@@ -17,16 +18,11 @@ test('Badge icon render', () => {
 			}}
 			visible={true}
 			icon="check-bold"
-
 		/>
 	);
 
 	expect(toJSON()).toMatchSnapshot();
-	//expect(queryByText("Yearbook")).not.toBeNull();
-	//expect(queryByText("School cafe")).not.toBeNull();
 });
-
-
 
 test('Badge icon render not visible', () => {
 	const getSizeMock = jest.spyOn(Image, 'getSize');
@@ -40,13 +36,8 @@ test('Badge icon render not visible', () => {
 			}}
 			visible={false}
 			icon="check-bold"
-
 		/>
 	);
 
 	expect(toJSON()).toMatchSnapshot();
-	//expect(queryByText("Yearbook")).not.toBeNull();
-	//expect(queryByText("School cafe")).not.toBeNull();
 });
-
-

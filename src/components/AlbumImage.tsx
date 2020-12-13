@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, TouchableHighlight, View } from 'react-native';
-import { deleteImage } from "./AlbumAPI"
+import { deleteImage } from "../lib/albumAPI"
 import { Foundation } from "@expo/vector-icons";
 import Image from "../components/Imgix"
 
