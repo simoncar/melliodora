@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
-import { StyleSheet, ActivityIndicator, View, Image, RefreshControl, ListRenderItemInfo } from 'react-native';
+import { StyleSheet, View, Image, RefreshControl, ListRenderItemInfo } from 'react-native';
 import { IImage } from '../lib/interfaces';
 import BadgeIcon from './BadgeIcon';
 import { useTheme } from '@react-navigation/native';
