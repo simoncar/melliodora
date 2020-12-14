@@ -202,7 +202,7 @@ class EventDateTime extends Component {
 							this.showDatepicker();
 						}}>
 							<Text>
-								{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("MMMM Do YYYY") : "No Date"}
+								{_.isDate(this.state.dateTimeStart) ? moment(this.state.dateTimeStart).format("MMMM Do YYYY") : I18n.t("noDate")}
 							</Text>
 						</TouchableOpacity>
 					</View>
