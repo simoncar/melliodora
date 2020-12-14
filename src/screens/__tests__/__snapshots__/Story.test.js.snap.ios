@@ -682,36 +682,34 @@ exports[`show story on screen 1`] = `
     showsVerticalScrollIndicator={false}
   >
     <View>
-      <View>
-        <Image
-          source={
-            Object {
-              "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=750",
-            }
+      <Image
+        source={
+          Object {
+            "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=750",
           }
-          style={
-            Object {
-              "alignSelf": "center",
-              "backgroundColor": "#fff",
-              "borderBottomLeftRadius": 15,
-              "borderBottomRightRadius": 15,
-              "borderColor": "lightgray",
-              "borderWidth": 1,
-              "flex": 1,
-              "height": 375,
-              "marginBottom": 12,
-              "shadowColor": "rgba(0,0,0, .4)",
-              "shadowOffset": Object {
-                "height": 1,
-                "width": 0.5,
-              },
-              "shadowOpacity": 0.2,
-              "shadowRadius": 0.5,
-              "width": "98%",
-            }
+        }
+        style={
+          Object {
+            "alignSelf": "center",
+            "backgroundColor": "#fff",
+            "borderBottomLeftRadius": 15,
+            "borderBottomRightRadius": 15,
+            "borderColor": "lightgray",
+            "borderWidth": 1,
+            "flex": 1,
+            "height": 375,
+            "marginBottom": 12,
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0.5,
+            },
+            "shadowOpacity": 0.2,
+            "shadowRadius": 0.5,
+            "width": "98%",
           }
-        />
-      </View>
+        }
+      />
       <View
         style={
           Object {
@@ -1225,36 +1223,34 @@ exports[`show story with URL in content to test linking 1`] = `
     showsVerticalScrollIndicator={false}
   >
     <View>
-      <View>
-        <Image
-          source={
-            Object {
-              "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=750",
-            }
+      <Image
+        source={
+          Object {
+            "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=750",
           }
-          style={
-            Object {
-              "alignSelf": "center",
-              "backgroundColor": "#fff",
-              "borderBottomLeftRadius": 15,
-              "borderBottomRightRadius": 15,
-              "borderColor": "lightgray",
-              "borderWidth": 1,
-              "flex": 1,
-              "height": 375,
-              "marginBottom": 12,
-              "shadowColor": "rgba(0,0,0, .4)",
-              "shadowOffset": Object {
-                "height": 1,
-                "width": 0.5,
-              },
-              "shadowOpacity": 0.2,
-              "shadowRadius": 0.5,
-              "width": "98%",
-            }
+        }
+        style={
+          Object {
+            "alignSelf": "center",
+            "backgroundColor": "#fff",
+            "borderBottomLeftRadius": 15,
+            "borderBottomRightRadius": 15,
+            "borderColor": "lightgray",
+            "borderWidth": 1,
+            "flex": 1,
+            "height": 375,
+            "marginBottom": 12,
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0.5,
+            },
+            "shadowOpacity": 0.2,
+            "shadowRadius": 0.5,
+            "width": "98%",
           }
-        />
-      </View>
+        }
+      />
       <View
         style={
           Object {
@@ -1849,36 +1845,34 @@ exports[`show story without chat 1`] = `
     showsVerticalScrollIndicator={false}
   >
     <View>
-      <View>
-        <Image
-          source={
-            Object {
-              "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=750",
-            }
+      <Image
+        source={
+          Object {
+            "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=750",
           }
-          style={
-            Object {
-              "alignSelf": "center",
-              "backgroundColor": "#fff",
-              "borderBottomLeftRadius": 15,
-              "borderBottomRightRadius": 15,
-              "borderColor": "lightgray",
-              "borderWidth": 1,
-              "flex": 1,
-              "height": 375,
-              "marginBottom": 12,
-              "shadowColor": "rgba(0,0,0, .4)",
-              "shadowOffset": Object {
-                "height": 1,
-                "width": 0.5,
-              },
-              "shadowOpacity": 0.2,
-              "shadowRadius": 0.5,
-              "width": "98%",
-            }
+        }
+        style={
+          Object {
+            "alignSelf": "center",
+            "backgroundColor": "#fff",
+            "borderBottomLeftRadius": 15,
+            "borderBottomRightRadius": 15,
+            "borderColor": "lightgray",
+            "borderWidth": 1,
+            "flex": 1,
+            "height": 375,
+            "marginBottom": 12,
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0.5,
+            },
+            "shadowOpacity": 0.2,
+            "shadowRadius": 0.5,
+            "width": "98%",
           }
-        />
-      </View>
+        }
+      />
       <View
         style={
           Object {
