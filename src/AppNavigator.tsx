@@ -26,7 +26,7 @@ import authPortal from "./screens/AuthPortal";
 import WebPortal from "./screens/WebPortal";
 import LoginScreen from "./screens/Login";
 import SignUp from "./screens/SignUp";
-import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
+import ForgotPassword from "./screens/ForgotPassword";
 import CameraApp from "./screens/Camera";
 import UserProfile from "./screens/UserProfile";
 import EditUserProfile from "./screens/EditUserProfile";
@@ -101,7 +101,7 @@ function StackOtherNavigator() {
 		<StackOther.Screen name="AdminPassword" component={AdminPassword} options={{ title: I18n.t("adminAccess") }} />
 		<StackOther.Screen name="login" component={LoginScreen} options={{ title: I18n.t("signIn") }} />
 		<StackOther.Screen name="signup" component={SignUp} options={{ title: I18n.t("signUp") }} />
-		<StackOther.Screen name="forgetpassword" component={ForgotPasswordScreen} options={{ title: I18n.t("forgetPassword") }} />
+		<StackOther.Screen name="forgetpassword" component={ForgotPassword} options={{ title: I18n.t("forgetPassword") }} />
 		<StackOther.Screen name="CameraApp" component={CameraApp} options={{ title: I18n.t("camera") }} />
 		<StackOther.Screen name="UserProfile" component={UserProfile} options={{ title: I18n.t("profile") }} />
 		<StackOther.Screen name="chatPrivate" component={chat} options={({ route }) => ({ title: route.params.title })} />

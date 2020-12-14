@@ -1,34 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Badge icon render 1`] = `
-<Text
+<View
   numberOfLines={1}
   style={
     Object {
+      "alignItems": "center",
       "alignSelf": "flex-end",
+      "backgroundColor": "#3266DB",
+      "borderColor": "white",
       "borderRadius": 15,
+      "borderWidth": 2,
+      "height": 30,
+      "justifyContent": "center",
       "opacity": 1,
       "position": "absolute",
       "right": 10,
       "top": 10,
+      "width": 30,
     }
   }
 >
   <Text />
-</Text>
+</View>
 `;
 
 exports[`Badge icon render not visible 1`] = `
-<Text
+<View
   numberOfLines={1}
   style={
     Object {
+      "alignItems": "center",
       "alignSelf": "flex-end",
+      "backgroundColor": "#3266DB",
+      "borderColor": "white",
       "borderRadius": 15,
+      "borderWidth": 2,
+      "height": 30,
+      "justifyContent": "center",
       "opacity": 0,
       "position": "absolute",
       "right": 10,
       "top": 10,
+      "width": 30,
     }
   }
 >
@@ -41,8 +55,8 @@ exports[`Badge icon render not visible 1`] = `
           "fontSize": 12,
         },
         Object {
-          "alignSelf": "flex-end",
-          "color": "blue",
+          "color": "white",
+          "textAlign": "center",
         },
         Object {
           "fontFamily": "material-community",
@@ -55,5 +69,5 @@ exports[`Badge icon render not visible 1`] = `
   >
     󰸞
   </Text>
-</Text>
+</View>
 `;

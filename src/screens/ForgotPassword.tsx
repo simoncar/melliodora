@@ -5,7 +5,7 @@ import I18n from "../lib/i18n";
 import firebase from "firebase";
 import { Text, Button } from "../components/sComponent";
 
-export default class ForgotPasswordScreen extends Component {
+export default class ForgotPassword extends Component {
 
 	state = { email: "", errorMessage: null };
 
