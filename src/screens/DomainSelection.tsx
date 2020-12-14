@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { View, StyleSheet, FlatList, TouchableOpacity, TextInput } from "react-native";
+import { View, StyleSheet, FlatList, TextInput } from "react-native";
 import _ from "lodash";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
@@ -9,6 +9,7 @@ import { Text } from "../components/sComponent";
 import { SettingsListItem } from "../components/SettingsListItem";
 import Profile from "../components/Profile";
 import { MaterialIcons } from "@expo/vector-icons";
+import I18n from "../lib/i18n";
 
 export class DomainSelection extends Component {
 	constructor(props) {
@@ -69,7 +70,10 @@ export class DomainSelection extends Component {
 
 	renderHeader = () => {
 		return <View style={styles.searchView}>
-			<TextInput style={styles.searchInput} onChangeText={text => this.searchFilterFunction(text)} value={this.state.searchTerm} placeholder="Search" placeholderTextColor="#555555" testID="domainSelection.search" />
+			<TextInput style={styles.searchInput} onChangeText={text => this.searchFilterFunction(text)} value={this.state.searchTerm}
+				placeholder={I18n.t("search")}
+				placeholderTextColor="#555555"
+				testID="domainSelection.search" />
 			<Ionicons style={styles.searchIcon} name="ios-search" size={32} color="#777777" />
 		</View>;
 	};
@@ -90,7 +94,7 @@ export class DomainSelection extends Component {
 	render() {
 		let onPressedCreateCommunity = () => this.props.navigation.push("login");
 		if (this.props.showCreateCommunity == false) {
-			onPressedCreateCommunity = () => this.props.navigation.push("communityCreateScreen");
+			onPressedCreateCommunity = () => this.props.navigation.push("communityCreate");
 		}
 		return <View style={styles.viewFlex}>
 			<View>
@@ -160,9 +164,9 @@ const styles = StyleSheet.create({
 	},
 
 	submitButtonStyle: {
-		flexDirection: "row",
+		alignItems: "center",
 		backgroundColor: "#fff",
-		alignItems: "center"
+		flexDirection: "row"
 	},
 	textStyle: {
 		color: "#111111",

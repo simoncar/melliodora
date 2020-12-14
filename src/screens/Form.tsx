@@ -1,8 +1,7 @@
 
 import React, { Component } from "react";
-import { View, ImageBackground, Text, TouchableOpacity, Button, Alert, ScrollView, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, Button, Alert, ScrollView, StyleSheet } from "react-native";
 import { Input } from "react-native-elements";
-
 import * as firebase from "firebase";
 import { Entypo } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
@@ -18,6 +17,7 @@ import { SaveFeature, DeleteFeature } from "../components/formAPI";
 import { StackActions, StackActionType } from "@react-navigation/native";
 import ImageList from "../components/ImageList"
 import { StoryEntity, StoryState } from '../lib/interfaces';
+import Image from "../components/Imgix"
 
 interface TProps {
 	auth: any,
@@ -174,27 +174,6 @@ class Form extends Component<TProps, StoryState> {
 		return firebase.database.ServerValue.TIMESTAMP;
 	}
 
-	_drawImage(imageURI: string) {
-		var uri = "";
-		if (_.isNil(imageURI)) {
-			uri = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680";
-		} else {
-			uri = imageURI;
-		}
-
-		if (undefined !== uri && null !== uri && uri.length > 0) {
-			return <View>
-				<ImageBackground style={styles.storyPhoto} source={{ uri: `${uri}` }}>
-					<TouchableOpacity style={styles.photoButton} onPress={this._pickImage}>
-						<View>
-							<Entypo name={this.state.cameraIcon} style={styles.cameraIcon} />
-						</View>
-					</TouchableOpacity>
-				</ImageBackground>
-			</View>;
-		}
-	}
-
 	_pickImage = async () => {
 		var d = new Date();
 
@@ -262,7 +241,18 @@ class Form extends Component<TProps, StoryState> {
 
 		return (
 			<View style={styles.container}>
-				{this._drawImage(this.state.photo1)}
+
+				<View>
+
+					<Image
+						style={styles.storyPhoto}
+						source={{ uri: this.state.photo1 }} />
+
+					<TouchableOpacity style={styles.photoButton} onPress={this._pickImage}>
+						<Entypo name={this.state.cameraIcon} style={styles.cameraIcon} />
+					</TouchableOpacity>
+				</View>
+
 				<ScrollView showsVerticalScrollIndicator={false}>
 					<View>
 						<View>

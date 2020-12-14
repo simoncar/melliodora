@@ -52,16 +52,24 @@ class BadgeIcon extends React.Component<Props, State> {
 
 		const { opacity } = this.state;
 		const borderRadius = size / 2
+		const borderWidth = 3
 
 
 		return (
-			<Animated.Text
+			<Animated.View
 				numberOfLines={1}
 
 				style={[
 					{
 						opacity,
-						borderRadius
+						borderRadius,
+						borderWidth: 2,
+						borderColor: "white",
+						height: 30,
+						width: 30,
+						backgroundColor: "#3266DB",
+						alignItems: 'center',
+						justifyContent: 'center',
 					},
 					styles.container
 				]}
@@ -70,12 +78,12 @@ class BadgeIcon extends React.Component<Props, State> {
 			>
 				<MaterialCommunityIcons
 					style={{
-						color: "blue",
-						alignSelf: 'flex-end',
+						color: "white",
+						textAlign: 'center',
 					}}
 					name={icon}
 				/>
-			</Animated.Text>
+			</Animated.View>
 		);
 	}
 }
@@ -90,4 +98,5 @@ const styles = StyleSheet.create({
 		right: 10,
 		top: 10,
 	}
+
 });

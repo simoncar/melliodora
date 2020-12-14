@@ -56,23 +56,10 @@ export class Story extends Component<TProps, StoryState>{
 		});
 	}
 
-
-
-
 	_handleOpenWithLinking = (sURL: string) => { Linking.openURL(sURL); };
 	_handleEmailPress(email: string) { Linking.openURL("mailto:" + email); }
 	_handlePhonePress(phone: string) { Linking.openURL("tel:" + phone); }
 
-	_drawImage(imageURI: string) {
-		if (undefined !== imageURI && null !== imageURI && imageURI.length > 0) {
-			return <View>
-
-				<Image
-					style={styles.storyPhoto}
-					source={{ uri: imageURI }} />
-			</View>;
-		}
-	}
 
 	refreshFunction(newState: StoryState) {
 		console.log("new state:", newState)
@@ -178,7 +165,11 @@ export class Story extends Component<TProps, StoryState>{
 			<ScrollView
 				showsVerticalScrollIndicator={false}
 			>
-				{this._drawImage(this.state.photo1)}
+
+				<Image
+					style={styles.storyPhoto}
+					source={{ uri: this.state.photo1 }} />
+				
 				{this._drawText(this.state)}
 
 				<ImageList

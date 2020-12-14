@@ -19,7 +19,7 @@ interface ImageGridProps<T extends IImage> {
 	onEndReached?: () => void;
 }
 
-export default function SelectableImageGrid<T extends IImage>(props: ImageGridProps<T>) {
+export default function ImageLibraryGrid<T extends IImage>(props: ImageGridProps<T>) {
 	const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set([]));
 	const theme = useTheme();
 

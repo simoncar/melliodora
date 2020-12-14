@@ -3,7 +3,7 @@ import * as MediaLibrary from 'expo-media-library';
 import * as Linking from 'expo-linking';
 import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import SelectableImageGrid from '../components/SelectableImageGrid';
+import ImageLibraryGrid from '../components/ImageLibraryGrid';
 import { useCameraRoll } from '../../hooks/useCameraRoll';
 import { saveSelectedImages, storageSend } from "../lib/albumAPI";
 import I18n from "../lib/i18n";
@@ -61,7 +61,7 @@ export default function FormAlbum(props: TProps) {
 			{noItems ? (
 				<NoItemsMessage handleRefresh={camRoll.doRefresh} />
 			) : (
-					<SelectableImageGrid
+					<ImageLibraryGrid
 						images={camRoll.images}
 						onSelectedChange={handleSelected}
 						refreshing={camRoll.isRefreshing}

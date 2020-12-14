@@ -10,7 +10,7 @@ import { ActionSheetProvider, connectActionSheet } from "@expo/react-native-acti
 
 import I18n from "../lib/i18n";
 import _ from "lodash";
-import { saveProfilePic, launchProfileImagePicker } from "../lib/uploadImage";
+import { saveProfilePic, launchProfileImagePicker } from "../lib/uploadImageAPI";
 import { Text, Button } from "../components/sComponent";
 
 class EditUserProfile extends Component {

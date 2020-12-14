@@ -7,7 +7,7 @@ import firebase from "firebase";
 import Loader from "../components/Loader";
 import { processSelectedCommunity } from "../store/community";
 
-class CommunityCreateScreen extends Component {
+class CommunityCreate extends Component {
 	state = {
 		communityName: "",
 		kind: "",
@@ -110,7 +110,7 @@ class CommunityCreateScreen extends Component {
 const mapStateToProps = state => ({
 	auth: state.auth
 });
-export default connect(mapStateToProps)(CommunityCreateScreen);
+export default connect(mapStateToProps)(CommunityCreate);
 
 const styles = StyleSheet.create({
 	SubmitButtonStyle: {
