@@ -17,10 +17,13 @@ export default function Image(props: IProps) {
 	const [imageHeight, setHeight] = useState(1000);
 	const [imageWidth, setWidth] = useState(1000);
 
-	if (props.source.uri === undefined || props.source.uri === null || props.source.uri === "") return null
+	let uri = props.source.uri
 
+	if (uri === undefined || uri === "") {
+		uri = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680"
+	}
 	const { width, height } = Dimensions.get('window');
-	const photo1Imgix = img(props.source.uri)
+	const photo1Imgix = img(uri)
 
 	let objImgix = {}
 

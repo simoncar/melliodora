@@ -56,8 +56,6 @@ class Form extends Component<TProps, StoryState> {
 
 		const { _key, summary, description, photo1, visible, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = story;
 
-		console.log("KEY:", _key)
-
 		this.state = {
 			photo1: photo1 !== undefined ? photo1 : null,
 			summary: summary,
@@ -143,18 +141,21 @@ class Form extends Component<TProps, StoryState> {
 	deleteButton() {
 		const { _key, edit } = this.state;
 		if (edit) {
-			return <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => {
-				Alert.alert(I18n.t("delete"), "Are you sure?", [{
-					text: I18n.t("cancel"),
-					onPress: () => console.log("Cancel Pressed"),
-					style: "cancel"
-				}, {
-					text: I18n.t("delete"), onPress: () => {
-						console.log("Delete feature:", _key)
-						DeleteFeature(_key, this.deleteHandler(this.props.navigation))
-					}
-				}], { cancelable: false });
-			}}>
+			return <TouchableOpacity
+				style={styles.SubmitButtonStyle}
+				activeOpacity={0.5}
+				onPress={() => {
+					Alert.alert(I18n.t("delete"), "Are you sure?", [{
+						text: I18n.t("cancel"),
+						onPress: () => console.log("Cancel Pressed"),
+						style: "cancel"
+					}, {
+						text: I18n.t("delete"), onPress: () => {
+							console.log("Delete feature:", _key)
+							DeleteFeature(_key, this.deleteHandler(this.props.navigation))
+						}
+					}], { cancelable: false });
+				}}>
 				<Text >{I18n.t("delete")}</Text>
 			</TouchableOpacity>;
 		}
@@ -182,14 +183,7 @@ class Form extends Component<TProps, StoryState> {
 		});
 
 		if (!result.cancelled) {
-			//this.setState({ image: result.uri });
-			//this._images = images;
 
-			const preview = {
-				uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABaCAMAAAC4y0kXAAAAA1BMVEX///+nxBvIAAAAIElEQVRoge3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAPBgKBQAASc1kqgAAAAASUVORK5CYII="
-			};
-
-			this.setState({ photo1: preview.uri });
 			this.setState({ cameraIcon: "hour-glass" });
 
 			var fileToUpload = "";
@@ -238,6 +232,8 @@ class Form extends Component<TProps, StoryState> {
 		const story: StoryEntity = this.props.route.params.story
 		const edit = this.props.route.params.edit
 		const refreshFunction = this.props.route.params.refreshFunction;
+
+
 
 		return (
 			<View style={styles.container}>
@@ -370,7 +366,6 @@ const styles = StyleSheet.create({
 		borderBottomRightRadius: 15,
 		borderColor: "lightgray",
 		borderWidth: 1,
-		elevation: 1,
 		height: 200,
 		marginBottom: 12,
 		shadowColor: "rgba(0,0,0, .4)",

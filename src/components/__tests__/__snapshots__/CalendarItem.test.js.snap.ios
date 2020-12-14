@@ -278,7 +278,21 @@ exports[`show Calendar Item with Date and Time 1`] = `
               "flex": 1,
             }
           }
-        />
+        >
+          <Image
+            source={
+              Object {
+                "uri": "https://smartcookies.imgix.net/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680&auto=enhance&fit=clip&w=300",
+              }
+            }
+            style={
+              Object {
+                "height": 150,
+                "width": 300,
+              }
+            }
+          />
+        </View>
       </View>
     </View>
   </View>
@@ -405,7 +419,21 @@ exports[`show Calendar Item with Date only 1`] = `
               "flex": 1,
             }
           }
-        />
+        >
+          <Image
+            source={
+              Object {
+                "uri": "https://smartcookies.imgix.net/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680&auto=enhance&fit=clip&w=300",
+              }
+            }
+            style={
+              Object {
+                "height": 150,
+                "width": 300,
+              }
+            }
+          />
+        </View>
       </View>
     </View>
   </View>
