@@ -47,19 +47,8 @@ export default function ImageList(props: IProps) {
 	photos.map(image => {
 		if (image.thumb != undefined && image.thumb.length > 1) {
 			images.push({ uri: image.thumb })
-			console.log("Push:", image.thumb)
 		}
 	})
-
-	// 		< ImageView
-	// 	images = { images }
-	// 	imageIndex = { 0}
-	// 	visible = { visible }
-	// 	onRequestClose = {() => setIsVisible(false)
-	// }
-	// presentationStyle = "fullScreen"
-	// 	/>
-
 
 	return (
 		<View>
