@@ -65,7 +65,7 @@ class CommunityCreate extends Component {
 				<Text>{this.state.errorMessage}</Text>
 				<View style={styles.titleContainer}>
 					<Text style={styles.nameText} numberOfLines={1}>
-						Community Name:
+						Polo Name:
             </Text>
 					<TextInput style={styles.sectionContentText} onChangeText={text => this.setState({ communityName: text })} value={this.state.communityName} />
 				</View>

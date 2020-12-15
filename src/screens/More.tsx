@@ -87,12 +87,13 @@ class Settings extends Component<TProps, TState> {
 						}}
 					/>
 
+
 					{(Constants.manifest.extra.instance === "") &&
 						<SettingsListItem
 							lastItem={true}
 							hasNavArrow={false}
-							icon={<SimpleLineIcons
-								name="logout"
+							icon={<MaterialIcons
+								name="camera-roll"
 								style={styles.imageStyleIcon} />}
 							title={I18n.t("changeDomain")}
 							onPress={() => this._logout()} />

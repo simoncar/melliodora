@@ -1,7 +1,7 @@
 
 
 import React from "react";
-import { View, TouchableHighlight, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { Text } from "./sComponent";
 
@@ -44,23 +44,23 @@ export function SettingsListItem(props: TProps) {
 		} else return null;
 	}
 
-	return <TouchableHighlight onPress={onPress}>
+	return <TouchableOpacity onPress={onPress}>
 		<View style={lastItem ? styles.outerViewLast : styles.outerView}>
 			{icon}
 			<View style={styles.innerView}>
 				<View>
-					<Text style={[titleInfoStyle, { color: "#333333" }]}>{title || ""}</Text>
+					<Text style={titleInfoStyle}>{title || ""}</Text>
 					{renderSubTitle(subTitle)}
 				</View>
 
 				<View>
-					<Text style={[titleInfoStyle, { color: "#777777" }]}>{titleInfo || ""}</Text>
+					<Text style={titleInfoStyle}>{titleInfo || ""}</Text>
 				</View>
 			</View>
 
 			<View style={styles.rightChevron}>{hasNavArrow && <Feather name="chevron-right" size={22} color="#777777" />}</View>
 		</View>
-	</TouchableHighlight>;
+	</TouchableOpacity>;
 }
 
 const styles = StyleSheet.create({

@@ -103,16 +103,17 @@ export class DomainSelection extends Component {
 				</View>
 				<View style={styles.card}>
 
-
 					<SettingsListItem
 						hasNavArrow={true}
-						icon={<Ionicons
-							name="ios-add-circle"
-							style={styles.imageStyleIcon} />}
-						title="Create Community"
+						icon={<MaterialIcons
+							name="camera-roll"
+							style={styles.imageStyleIconCreate} />}
+						title={I18n.t("createDomain")}
 						onPress={() => onPressedCreateCommunity()}
 						lastItem={true}
+						subTitle="A Polo is your own space for sharing photos"
 					/>
+
 
 
 				</View>
@@ -143,6 +144,15 @@ const styles = StyleSheet.create({
 	imageStyleIcon: {
 		alignSelf: "center",
 		color: "#999999",
+		fontSize: 25,
+		marginLeft: 15,
+		textAlign: "center",
+		width: 30
+	},
+
+	imageStyleIconCreate: {
+		alignSelf: "center",
+		color: "green",
 		fontSize: 25,
 		marginLeft: 15,
 		textAlign: "center",
