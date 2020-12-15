@@ -169,6 +169,7 @@ class Form extends Component<TProps, StoryState> {
 		return (firebase.auth().currentUser || {}).uid;
 	}
 
+
 	set uid(uid) { }
 
 	get timestamp() {
@@ -181,7 +182,7 @@ class Form extends Component<TProps, StoryState> {
 
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images
-	 });
+		});
 
 		let result = await ImagePicker.launchImageLibraryAsync();
 
