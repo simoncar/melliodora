@@ -178,18 +178,12 @@ class Form extends Component<TProps, StoryState> {
 	_pickImage = async () => {
 		var d = new Date();
 
-		console.log("AAA")
 
-		// let result = await ImagePicker.launchImageLibraryAsync({
-		// 	mediaTypes: ImagePicker.MediaTypeOptions.Images
-		// });
-
+		let result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Images
+	 });
 
 		let result = await ImagePicker.launchImageLibraryAsync();
-
-
-		console.log("BBB")
-
 
 		if (!result.cancelled) {
 
