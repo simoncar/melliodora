@@ -44,7 +44,6 @@ export default function ImageLibraryGrid<T extends IImage>(props: ImageGridProps
 					flex: 1,
 					borderWidth: 1,
 					height: 200,
-
 				}}
 				onPress={() => {
 					handlePress(item);
