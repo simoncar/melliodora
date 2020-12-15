@@ -6,7 +6,7 @@ import * as firebase from "firebase";
 import { Entypo } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import _ from "lodash";
-import * as ImagePicker from "expo-image-picker";
+import * as ImagePicker from 'expo-image-picker'
 import * as ImageManipulator from "expo-image-manipulator";
 import uuid from "uuid";
 import Constants from "expo-constants";
@@ -169,6 +169,7 @@ class Form extends Component<TProps, StoryState> {
 		return (firebase.auth().currentUser || {}).uid;
 	}
 
+
 	set uid(uid) { }
 
 	get timestamp() {
@@ -178,9 +179,12 @@ class Form extends Component<TProps, StoryState> {
 	_pickImage = async () => {
 		var d = new Date();
 
+
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images
 		});
+
+		let result = await ImagePicker.launchImageLibraryAsync();
 
 		if (!result.cancelled) {
 
@@ -244,7 +248,9 @@ class Form extends Component<TProps, StoryState> {
 						style={styles.storyPhoto}
 						source={{ uri: this.state.photo1 }} />
 
-					<TouchableOpacity style={styles.photoButton} onPress={this._pickImage}>
+					<TouchableOpacity
+						style={styles.photoButton}
+						onPress={this._pickImage}>
 						<Entypo name={this.state.cameraIcon} style={styles.cameraIcon} />
 					</TouchableOpacity>
 				</View>
