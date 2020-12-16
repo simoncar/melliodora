@@ -94,7 +94,7 @@ export class DomainSelection extends Component {
 	render() {
 		let onPressedCreateCommunity = () => this.props.navigation.push("login");
 		if (this.props.showCreateCommunity == false) {
-			onPressedCreateCommunity = () => this.props.navigation.push("communityCreate");
+			onPressedCreateCommunity = () => this.props.navigation.push("domainCreate");
 		}
 		return <View style={styles.viewFlex}>
 			<View>

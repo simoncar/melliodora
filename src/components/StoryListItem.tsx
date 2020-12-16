@@ -6,6 +6,7 @@ import Image from "../components/Imgix"
 import Constants from "expo-constants";
 import { StoryEntity } from '../lib/interfaces';
 import { formatTime, formatMonth, isURL } from "../lib/global";
+import ImageList from "../components/ImageList"
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 
@@ -119,6 +120,14 @@ class ListItem extends Component<TProps> {
 					/>
 
 				</View>}
+
+				<ImageList
+					feature={_key}
+					edit={false}
+					miniRoll={true}
+				/>
+
+
 
 			</TouchableOpacity>
 		</View >;

@@ -14,7 +14,6 @@ import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
 import { actionAdd } from "../components/StoryActions"
 
-
 const versionCheck = new VersionCheck();
 
 const demo = DemoData;
@@ -264,7 +263,6 @@ class Home extends Component {
 
 			}
 
-			{(global.domain === "ais_edu_sg") && <ButtonBar navigation={this.props.navigation} />}
 			<ScrollView>
 				<View style={styles.newsContentLine}>
 					{this._renderBalance()}

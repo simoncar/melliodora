@@ -15,9 +15,12 @@ interface IProps {
 
 export default function Image(props: IProps) {
 	const [imageHeight, setHeight] = useState(1000);
-	const [imageWidth, setWidth] = useState(1000);
-
+	const [imageWidth, setWidth] = useState(1000); 2
+	const SCALE = 3
 	let uri = props.source.uri
+
+	console.log("here:", uri)
+
 
 	if (uri === undefined || uri === "") {
 		uri = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680"
@@ -28,7 +31,7 @@ export default function Image(props: IProps) {
 	let objImgix = {}
 
 	objImgix.fit = "clip"
-	objImgix.w = width
+	objImgix.w = width * SCALE
 	objImgix.auto = "enhance"
 
 	if (props.htn !== undefined) {
@@ -36,7 +39,7 @@ export default function Image(props: IProps) {
 	}
 
 	if (props.style !== undefined && props.style.width > 0) {
-		objImgix.w = props.style.width
+		objImgix.w = props.style.width * SCALE
 	}
 
 	var _src = processImage(photo1Imgix, objImgix)
@@ -51,7 +54,7 @@ export default function Image(props: IProps) {
 
 		return <ReactImage
 			{...props.imageProps}
-			style={[{ width: imageWidth, height: imageHeight }, props.style]}
+			style={[{ width: imageWidth / SCALE, height: imageHeight }, props.style]}
 			source={{ uri: _src }}
 		/>;
 
