@@ -4,6 +4,8 @@ import AlbumImage from "./AlbumImage"
 import { listenPhotos } from "../lib/albumAPI"
 import Image from "../components/Imgix"
 import ImageView from "react-native-image-viewing";
+import { ScrollView } from 'react-native-gesture-handler';
+
 
 interface IProps {
 	feature: string,
@@ -57,20 +59,23 @@ export default function ImageList(props: IProps) {
 		return (
 			<View
 				style={styles.rollView}>
-				{
-					Object.keys(photos).map(function (key: number, index) {
+				<ScrollView
+					horizontal={true}>
+					{
+						Object.keys(photos).map(function (key: number, index) {
 
-						return <Image
-							key={photos[key].key}
-							source={{
-								uri: photos[key].server
-							}}
-							style={styles.image}
-						/>
+							return <Image
+								key={photos[key].key}
+								source={{
+									uri: photos[key].server
+								}}
+								style={styles.image}
+							/>
 
 
-					})
-				}
+						})
+					}
+				</ScrollView>
 			</View >
 		);
 	} else {
@@ -105,7 +110,8 @@ const styles = StyleSheet.create({
 	},
 	rollView: {
 		flex: 1,
-		flexDirection: "row"
+		flexDirection: "row",
+
 	}
 })
 

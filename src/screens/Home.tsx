@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Linking, TouchableOpacity,  Image, ScrollView, StyleSheet } from "react-native";
+import { View, Linking, TouchableOpacity, Image, ScrollView, StyleSheet } from "react-native";
 import Constants from "expo-constants";
 import firebase from "firebase";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,7 +9,6 @@ import moment from "moment";
 import { setUserInfo } from "../store/auth";
 import { connect } from "react-redux";
 import { Text, ShortList } from "../components/sComponent"
-import { ButtonBar } from "../components/ButtonBar"
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
 import { actionAdd } from "../components/StoryActions"
@@ -139,20 +138,7 @@ class Home extends Component {
 				});
 			});
 
-		var trans = {
-			visible: true,
-			source: "balance",
-			summaryMyLanguage: "$56.20",
-			summary: "$56.20",
-			summaryEN: "$56.20",
-			color: "red",
-			showIconChat: false,
-			location: "Cafeteria Account Balance"
-		};
 
-		this.setState({
-			balanceItems: trans
-		});
 	}
 
 	onFeatureUpdate = querySnapshot => {
@@ -231,13 +217,6 @@ class Home extends Component {
 			language={this.language}
 		/>;
 	}
-	_renderBalance() {
-		if (global.domain === "oakforest_international_edu") {
-			return (
-				<ListItem navigation={this.props.navigation} story={this.state.balanceItems} card={true} language={this.language} />
-			)
-		}
-	}
 
 	_renderToday() {
 		if (this.state.calendarItems.length > 0) {
@@ -265,7 +244,6 @@ class Home extends Component {
 
 			<ScrollView>
 				<View style={styles.newsContentLine}>
-					{this._renderBalance()}
 					{this._renderToday()}
 
 					<ShortList
@@ -274,6 +252,7 @@ class Home extends Component {
 						keyExtractor={this.keyExtractor}
 						renderItem={this._renderItem} />
 				</View>
+
 				<View style={styles.card}>
 
 					<View style={styles.cookiesLogoView}>

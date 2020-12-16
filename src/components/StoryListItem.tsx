@@ -121,15 +121,18 @@ class ListItem extends Component<TProps> {
 
 				</View>}
 
+
+
+
+
+			</TouchableOpacity>
+			<View style={styles.cardMiniList}>
 				<ImageList
 					feature={_key}
 					edit={false}
 					miniRoll={true}
 				/>
-
-
-
-			</TouchableOpacity>
+			</View>
 		</View >;
 	}
 }
@@ -146,6 +149,11 @@ const styles = StyleSheet.create({
 	cardLocation: {
 		color: "#555555",
 		fontSize: 12
+	},
+	cardMiniList: {
+		alignSelf: "center",
+		padding: 10,
+		width: WINDOW_WIDTH - 15
 	},
 	chatBubble: {
 		marginLeft: 15,
