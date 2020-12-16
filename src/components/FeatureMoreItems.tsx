@@ -32,10 +32,7 @@ class FeatureMoreItems extends Component<TProps, TState> {
 	}
 
 	componentDidMount() {
-
 		try {
-
-
 			getStories(globalAny.domain)
 				.then(stories => {
 					this.setState({
@@ -82,7 +79,6 @@ class FeatureMoreItems extends Component<TProps, TState> {
 			</View >
 		}
 	}
-
 }
 
 const styles = StyleSheet.create({
