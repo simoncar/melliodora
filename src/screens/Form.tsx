@@ -184,7 +184,6 @@ class Form extends Component<TProps, StoryState> {
 			mediaTypes: ImagePicker.MediaTypeOptions.Images
 		});
 
-		let result = await ImagePicker.launchImageLibraryAsync();
 
 		if (!result.cancelled) {
 
