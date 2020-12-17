@@ -21,10 +21,9 @@ interface TState {
 	loading: boolean
 }
 
-
 export class LoginScreen extends Component<TProps, TState> {
 
-	constructor(props: Readonly<TProps>) {
+	constructor(props: TProps) {
 		super(props);
 
 		this.state = { email: "", password: "", errorMessage: null, loading: false };

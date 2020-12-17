@@ -13,36 +13,53 @@ interface IProps {
 
 export default function Profile(props: IProps) {
 
-	if (Constants.manifest.extra.instance != "sais_edu_sg") {
-		const user = props.auth.userInfo;
-		if (_.has(user, "email") && user.email) {
-			const email = user.email;
-			return <TouchableOpacity onPress={() => props.navigation.navigate("UserProfile", {
+	if (Constants.manifest.extra.instance === "sais_edu_sg") {
+		return <View />
+	}
+
+	const user = props.auth.userInfo;
+
+
+	if (_.has(user, "email") && user.email) {
+		const email = user.email;
+		return <TouchableOpacity onPress={() => {
+			props.navigation.navigate("UserProfile", {
 				uid: user.uid,
+				user: user,
 				permitEdit: true
-			})}>
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText} numberOfLines={1}>
-						{I18n.t("loggedInAs")}
-					</Text>
-					<Text style={styles.sectionContentText} numberOfLines={1}>
-						{email}
-					</Text>
-				</View>
-			</TouchableOpacity>;
-		} else {
-			return <SettingsListItem
+			})
+		}
+		}>
+			<View style={styles.titleContainer}>
+				<Text style={styles.nameText} >
+					{I18n.t("loggedInAs")}
+				</Text>
+				<Text style={styles.sectionContentText} >
+					{email}
+				</Text>
+			</View>
+		</TouchableOpacity>;
+	} else {
+		return <View>
+			<SettingsListItem
 				hasNavArrow={true}
 				icon={<MaterialCommunityIcons
 					name="account-plus"
 					style={styles.imageStyleIcon} />}
-				title={I18n.t("signIn") + " / " + I18n.t("signUp")}
+				title={I18n.t("signIn")}
 				onPress={() => props.navigation.navigate("login")}
 				lastItem={true}
-			/>;
-		}
+			/>
+			<SettingsListItem
+				hasNavArrow={true}
+				icon={<MaterialCommunityIcons
+					name="account-plus"
+					style={styles.imageStyleIcon} />}
+				title={I18n.t("signUp")}
+				onPress={() => props.navigation.navigate("signup")}
+				lastItem={true}
+			/></View>
 	}
-	return <View />
 
 }
 
