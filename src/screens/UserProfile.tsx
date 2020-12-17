@@ -191,11 +191,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(UserProfile);
 
 const styles = StyleSheet.create({
-	headerButton: {
-		fontSize: 17,
-		textAlign: "center",
-		marginRight: 10
-	},
 	chatIcon: {
 		color: "#222",
 		fontSize: 30,
@@ -215,6 +210,11 @@ const styles = StyleSheet.create({
 		fontSize: 13,
 		marginTop: 20,
 		textAlign: "center"
+	},
+	headerButton: {
+		fontSize: 17,
+		textAlign: "center",
+		marginRight: 10
 	},
 	nameText: {
 		color: "black",
