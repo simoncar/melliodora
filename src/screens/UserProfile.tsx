@@ -72,8 +72,8 @@ class UserProfile extends Component<TProps, TState> {
 							displayName: snapshot.data().displayName || "",
 							email: snapshot.data().email || ""
 						}
-						this.props.navigation.setParams({ uid: uid, user: data });
-						this.setState({ user: data });
+						//this.props.navigation.setParams({ uid: uid, user: data });
+						//this.setState({ user: data });
 					}
 				});
 		}
@@ -86,7 +86,7 @@ class UserProfile extends Component<TProps, TState> {
 			...data
 		}
 
-		this.setState({ user: newUser });
+		//this.setState({ user: newUser });
 	}
 
 
@@ -135,20 +135,13 @@ class UserProfile extends Component<TProps, TState> {
 
 				<View style={styles.titleContainer}>
 					<Text style={styles.nameText} >
-						{this.state.user.displayName}
+						{this.state.user.firstName} {this.state.user.lastName}
 					</Text>
 					<Text style={styles.emailText}>
 						{this.state.user.email}
 					</Text>
 
 
-					<Text style={styles.groupText} >Groups</Text>
-
-					{Array.isArray(this.state.user.interestGroups) && this.state.user.interestGroups.length ? this.state.user.interestGroups.map(grp => <Text style={styles.sectionContentText} key={grp}>
-						{grp}
-					</Text>) : <Text style={styles.sectionContentText} >
-							None
-								</Text>}
 
 				</View>
 				<Button
@@ -174,12 +167,7 @@ const styles = StyleSheet.create({
 		fontSize: 13,
 		textAlign: "center"
 	},
-	groupText: {
-		color: "black",
-		fontSize: 13,
-		marginTop: 20,
-		textAlign: "center"
-	},
+
 	headerButton: {
 		fontSize: 17,
 		marginRight: 10,
@@ -215,12 +203,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 15,
 		paddingTop: 15
 	},
-	sectionContentText: {
-		color: "#808080",
-		fontSize: 14,
-		marginBottom: 30,
-		textAlign: "center"
-	},
+
 	titleContainer: {
 		backgroundColor: "#fdfdfd",
 		paddingBottom: 15,

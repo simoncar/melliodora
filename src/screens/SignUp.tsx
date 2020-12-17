@@ -8,14 +8,31 @@ import uuid from "uuid";
 import { Input } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import firebase from "firebase";
-import "firebase/functions";
 import { Text, Button } from "../components/sComponent";
 import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/uploadImageAPI";
-import Loader from "../components/Loader";
 import I18n from "../lib/i18n";
 
 const width = 100;
-export class SignUp extends Component {
+const globalAny: any = global;
+
+interface TProps {
+	navigation: any,
+	auth: any
+}
+
+interface TState {
+	email: string,
+	password: string,
+	confirmPassword: string,
+	profilePic: string,
+	displayName: string,
+	firstName: string,
+	lastName: string,
+	errorMessage: string | null,
+	loading: boolean
+}
+
+export class SignUp extends Component<TProps, TState> {
 
 	state = {
 		email: "",
@@ -29,61 +46,66 @@ export class SignUp extends Component {
 		loading: false
 	};
 
-	checkConfirmPassword = text => {
-		this.setState({ confirmPassword: text }, () => {
-			if (this.state.confirmPassword !== this.state.password) {
-				const errorMsg = I18n.t("passwordMismatch");
-				this.setState({ errorMessage: errorMsg });
-			} else {
-				this.setState({ errorMessage: "" });
-			}
-		});
-	};
-
 	handleSignUp = () => {
 		try {
 			this.setState({ loading: true });
-			firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(async userCredential => {
-				let downloadURL = "";
-				if (this.state.profilePic) {
-					downloadURL = await saveProfilePic(this.state.profilePic);
-					userCredential.user.updateProfile({
-						photoURL: downloadURL,
-						displayName: this.state.displayName
-					});
-				}
-				const communityJoined = global.domain ? [global.domain] : [];
+			console.log("Create account:", this.state.email)
+			firebase.auth()
+				.createUserWithEmailAndPassword(this.state.email, this.state.password)
+				.then(async userCredential => {
+					console.log("userCredential:", userCredential)
+					let downloadURL = "";
+					if (this.state.profilePic) {
+						downloadURL = await saveProfilePic(this.state.profilePic);
+						userCredential.user.updateProfile({
+							photoURL: downloadURL,
+							displayName: this.state.displayName
+						});
+					}
+					const communityJoined = globalAny.domain ? [globalAny.domain] : [];
 
-				const photoURLObj = downloadURL ? { photoURL: downloadURL } : {};
-				const userDict = {
-					...photoURLObj,
-					email: userCredential.user.email,
-					uid: userCredential.user.uid,
-					displayName: this.state.displayName,
-					firstName: this.state.firstName,
-					lastName: this.state.lastName
-				};
+					const photoURLObj = downloadURL ? { photoURL: downloadURL } : {};
+					const userDict = {
+						...photoURLObj,
+						email: userCredential.user.email,
+						uid: userCredential.user.uid,
+						displayName: this.state.displayName,
+						firstName: this.state.firstName,
+						lastName: this.state.lastName
+					};
 
-				// create global registerd user
-				firebase.firestore().collection("users").doc(userCredential.user.uid).set({ ...userDict, communityJoined }, { merge: true });
+					// create global registerd user
+					firebase
+						.firestore()
+						.collection("users")
+						.doc(userCredential.user.uid)
+						.set({ ...userDict, communityJoined }, { merge: true });
 
-				// create domain specific user
-				if (global.domain) {
-					firebase.firestore().collection(global.domain).doc("user").collection("registered").doc(userCredential.user.uid).set(userDict, { merge: true });
-				}
-			})
+					// create domain specific user
+					if (globalAny.domain) {
+						firebase
+							.firestore()
+							.collection(globalAny.domain)
+							.doc("user")
+							.collection("registered")
+							.doc(userCredential.user.uid)
+							.set(userDict, { merge: true });
+					}
+				})
 				// .then(() => {
 				//   const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
-				//   setUserClaim({ email: this.state.email, domain: global.domain })
+				//   setUserClaim({ email: this.state.email, domain: globalAny.domain })
 				// })
-				.then(result => this.setState({ loading: false })).then(() => {
-					if (this.props.navigation.state.params.toWelcomeScreen) {
-						this.props.navigation.navigate("welcomeScreen");
-					} else {
-						this.props.navigation.popToTop();
-					}
-				}).catch(error => {
+				.then(result => {
+					console.log("resultA:", result)
+					this.setState({ loading: false })
+				}
+				)
+				.then((result) => {
+					console.log("resultB:", result)
 					this.props.navigation.popToTop();
+				}).catch(error => {
+					console.log("CCC:", error)
 					this.setState({ errorMessage: error.message, loading: false });
 				});
 		} catch (error) {
@@ -169,19 +191,61 @@ export class SignUp extends Component {
 
 	render() {
 		return <View style={styles.container}>
-			<Loader modalVisible={this.state.loading} animationType="fade" />
 			<ScrollView>
 				<View style={styles.profileImageView}>
 					<TouchableOpacity onPress={this._onOpenActionSheet}>{this.icon(this.state.profilePic)}</TouchableOpacity>
 				</View>
 				<Text>{this.state.errorMessage}</Text>
-				<Input placeholder={I18n.t("email")} onChangeText={text => this.setState({ email: text })} value={this.state.email} containerStyle={styles.containerStyle} inputContainerStyle={styles.containerInput} autoCapitalize="none" keyboardType="email-address" autoFocus={true} testID="signup.email" />
-				<Input placeholder={I18n.t("password")} onChangeText={text => this.setState({ password: text })} value={this.state.password} containerStyle={styles.containerStyle} secureTextEntry={true} inputContainerStyle={styles.containerInput} testID="signup.password" />
-				<Input placeholder={I18n.t("passwordConfirm")} onChangeText={text => this.checkConfirmPassword(text)} value={this.state.confirmPassword} containerStyle={styles.containerStyle} secureTextEntry={true} inputContainerStyle={styles.containerInput} testID="signup.passwordConfirm" />
-				<Input placeholder={I18n.t("firstName")} onChangeText={text => this.setState({ firstName: text })} value={this.state.firstName} containerStyle={styles.containerStyle} inputContainerStyle={styles.containerInput} autoCapitalize="words" testID="signup.firstName" />
-				<Input placeholder={I18n.t("lastName")} onChangeText={text => this.setState({ lastName: text })} value={this.state.lastName} containerStyle={styles.containerStyle} inputContainerStyle={styles.containerInput} autoCapitalize="words" testID="signup.lastName" />
+				<Input placeholder={I18n.t("email")}
+					onChangeText={text => this.setState({ email: text })}
+					value={this.state.email}
+					containerStyle={styles.containerStyle}
+					inputContainerStyle={styles.containerInput}
+					autoCapitalize="none"
+					keyboardType="email-address"
+					autoFocus={true}
+					testID="signup.email"
+				/>
 
-				<Button title={I18n.t("signUp")} onPress={this.handleSignUp} testID="forgotpasswordsubmit" />
+				<View style={styles.passwordField}>
+
+					<Input
+						placeholder={I18n.t("password")}
+						onChangeText={text => this.setState({ password: text })}
+						value={this.state.password}
+						autoCapitalize="none"
+						secureTextEntry={false}
+						testID="login.password"
+						containerStyle={styles.containerStyle}
+						inputContainerStyle={styles.containerInput}
+					/>
+					<Ionicons name="ios-eye-off"
+						size={25}
+						color="grey"
+						style={styles.imageStyle} />
+				</View>
+
+
+				<Input placeholder={I18n.t("firstName")}
+					onChangeText={text => this.setState({ firstName: text })}
+					value={this.state.firstName}
+					containerStyle={styles.containerStyle}
+					inputContainerStyle={styles.containerInput}
+					autoCapitalize="words"
+					testID="signup.firstName"
+				/>
+				<Input placeholder={I18n.t("lastName")}
+					onChangeText={text => this.setState({ lastName: text })}
+					value={this.state.lastName}
+					containerStyle={styles.containerStyle}
+					inputContainerStyle={styles.containerInput}
+					autoCapitalize="words"
+					testID="signup.lastName"
+				/>
+
+				<Button title={I18n.t("signUp")}
+					onPress={this.handleSignUp}
+					testID="forgotpasswordsubmit" />
 			</ScrollView>
 		</View>;
 	}
@@ -198,19 +262,36 @@ export default class ActionSheetContainer extends Component {
 }
 
 const styles = StyleSheet.create({
-
 	container: {
 		backgroundColor: "#f2f2f2",
 		flex: 1,
 		padding: 10
 	},
-	containerInput: { borderBottomWidth: 0 },
+
+	containerInput: {
+		borderBottomWidth: 0,
+	},
 	containerStyle: {
 		backgroundColor: "#ffffff",
 		borderColor: "#d2d2d2",
 		borderRadius: 10,
 		borderWidth: 1,
-		marginVertical: 8
+		height: 45,
+		marginVertical: 8,
+	},
+
+	imageStyle: {
+		paddingHorizontal: 15
+	},
+	passwordField: {
+		alignItems: "center",
+		borderColor: "#000",
+		borderRadius: 5,
+		flexDirection: "row",
+		height: 40,
+		justifyContent: "center",
+		margin: 20,
+		padding: 10
 	},
 
 	profileIcon: {
