@@ -72,8 +72,8 @@ class UserProfile extends Component<TProps, TState> {
 							displayName: snapshot.data().displayName || "",
 							email: snapshot.data().email || ""
 						}
-						//this.props.navigation.setParams({ uid: uid, user: data });
-						//this.setState({ user: data });
+						this.props.navigation.setParams({ uid: uid, user: data });
+						this.setState({ user: data });
 					}
 				});
 		}
@@ -86,7 +86,7 @@ class UserProfile extends Component<TProps, TState> {
 			...data
 		}
 
-		//this.setState({ user: newUser });
+		this.setState({ user: newUser });
 	}
 
 
@@ -121,13 +121,7 @@ class UserProfile extends Component<TProps, TState> {
 
 
 	render() {
-		this.props.navigation.setOptions({
-			headerRight: () =>
-				<TouchableOpacity onPress={() => this.edit()}>
-					<Text style={styles.headerButton}>{I18n.t("edit")}</Text>
-				</TouchableOpacity>
 
-		});
 
 		return <SafeAreaView>
 			<ScrollView ScrollView bounces={false}>
