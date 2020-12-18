@@ -4,6 +4,7 @@
 	"private": true,
 	"devDependencies": {
 		"@babel/core": "~7.9.0",
+		"@babel/plugin-transform-react-jsx-source": "^7.12.1",
 		"@babel/runtime": "^7.10.2",
 		"@expo/webpack-config": "~0.12.45",
 		"@types/i18n-js": "^3.0.3",

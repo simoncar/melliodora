@@ -22,7 +22,8 @@ interface TState {
 	selectedDomain: string | null,
 	domains: [],
 	allDomains: [],
-	searchTerm: string
+	searchTerm: string,
+	auth: any
 }
 
 export class DomainSelection extends Component<TProps, TState> {
@@ -31,7 +32,8 @@ export class DomainSelection extends Component<TProps, TState> {
 		this.state = {
 			selectedDomain: "",
 			domains: [],
-			allDomains: []
+			allDomains: [],
+			auth: props.auth
 		};
 
 		props.dispatch(getCommunities());
@@ -42,7 +44,10 @@ export class DomainSelection extends Component<TProps, TState> {
 	componentDidMount() {
 		const { communities } = this.props.community;
 		if (communities.length > 0) {
-			this.setState({ domains: communities, allDomains: communities });
+			this.setState({
+				domains: communities,
+				allDomains: communities
+			});
 		}
 	}
 
@@ -120,7 +125,9 @@ export class DomainSelection extends Component<TProps, TState> {
 		return <View style={styles.viewFlex}>
 			<View>
 				<View style={styles.card}>
-					<Profile auth={this.props.auth} navigation={this.props.navigation} />
+					<Profile
+						auth={this.props.auth}
+						navigation={this.props.navigation} />
 				</View>
 				<View style={styles.card}>
 

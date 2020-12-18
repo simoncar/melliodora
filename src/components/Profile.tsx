@@ -17,7 +17,8 @@ export default function Profile(props: IProps) {
 		return <View />
 	}
 
-	const user = props.auth.userInfo;
+	const user = (props.auth === undefined) ? null : props.auth.userInfo;
+	console.log("profile auth:", props.auth);
 
 
 	if (_.has(user, "email") && user.email) {

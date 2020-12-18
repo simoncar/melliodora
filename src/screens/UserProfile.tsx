@@ -102,6 +102,7 @@ class UserProfile extends Component<TProps, TState> {
 
 		firebase.auth().signOut()
 			.then(() => {
+				console.log("signed out")
 				navigation.popToTop();
 			})
 	}
@@ -119,10 +120,7 @@ class UserProfile extends Component<TProps, TState> {
 		</TouchableOpacity>
 	};
 
-
 	render() {
-
-
 		return <SafeAreaView>
 			<ScrollView ScrollView bounces={false}>
 				{this.renderProfilePic()}
@@ -134,8 +132,6 @@ class UserProfile extends Component<TProps, TState> {
 					<Text style={styles.emailText}>
 						{this.state.user.email}
 					</Text>
-
-
 
 				</View>
 				<Button
@@ -149,7 +145,8 @@ class UserProfile extends Component<TProps, TState> {
 
 }
 const mapStateToProps = state => ({
-	community: state.community
+	community: state.community,
+	auth: state.auth
 });
 
 export default connect(mapStateToProps)(UserProfile);
@@ -162,11 +159,7 @@ const styles = StyleSheet.create({
 		textAlign: "center"
 	},
 
-	headerButton: {
-		fontSize: 17,
-		marginRight: 10,
-		textAlign: "center"
-	},
+
 	nameText: {
 		color: "black",
 		fontSize: 25,
