@@ -11431,10 +11431,10 @@ react-native-appearance@~0.3.3:
     invariant "^2.2.4"
     use-subscription "^1.0.0"
 
-react-native-calendars@^1.296.0:
-  version "1.505.0"
-  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.505.0.tgz#0eba6b4229e1ecf66aba015bd9e3b1b0b6cb86f3"
-  integrity sha512-U5+Lu7osqNByyAhCapH3TDLBNHDIv7lNA5T9eLnY+LFw8olJkM7WDlLFLpE+RTXcMY1hLI6GjaSg9o5Qpyz3cQ==
+react-native-calendars@^1.1062.0:
+  version "1.1062.0"
+  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.1062.0.tgz#14c0261bb37d982343715661b75438e7b8dc45e2"
+  integrity sha512-N3YvGw5ZdnkXALrt6SZWfIB+bpo+24OqE6PLi7HS6wpVOyAQEpE1xPdI71Bdc+u9Y8GpWWfLWd0Iq/64miNvjA==
   dependencies:
     hoist-non-react-statics "^3.3.1"
     immutable "^4.0.0-rc.12"
