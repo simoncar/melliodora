@@ -21,6 +21,7 @@ interface TState {
 	errorMessage: string | null,
 	navigation: any,
 	route: any,
+	auth: any,
 }
 
 class UserProfile extends Component<TProps, TState> {
@@ -103,6 +104,7 @@ class UserProfile extends Component<TProps, TState> {
 		firebase.auth().signOut()
 			.then(() => {
 				console.log("signed out")
+				
 				navigation.popToTop();
 			})
 	}

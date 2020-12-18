@@ -1,17 +1,17 @@
-
-
 import React, { Component } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
+import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import firebase from "firebase";
+import Image from "../components/Imgix"
 import { Input } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import * as Permissions from "expo-permissions";
 import { ActionSheetProvider, connectActionSheet } from "@expo/react-native-action-sheet";
-
 import I18n from "../lib/i18n";
 import _ from "lodash";
 import { saveProfilePic, launchProfileImagePicker } from "../lib/uploadImageAPI";
 import { Text, Button } from "../components/sComponent";
+
+const globalAny: any = global;
 
 class EditUserProfile extends Component {
 
@@ -24,7 +24,6 @@ class EditUserProfile extends Component {
 				photoURL: "",
 				firstName: "",
 				lastName: "",
-				displayName: "",
 				email: ""
 			},
 		};
@@ -39,50 +38,28 @@ class EditUserProfile extends Component {
 		this.setState({ user: { ...user, uid } });
 	}
 
-	/**
-	 * Deep diff between two object, using lodash
-	 * @param  {Object} object Object compared
-	 * @param  {Object} base   Object to compare with
-	 * @return {Object}        Return a new object who represent the diff
-	 */
-	difference = (object, base) => {
-		function changes(object, base) {
-			return _.transform(object, function (result, value, key) {
-				if (!_.isEqual(value, base[key])) {
-					result[key] = _.isObject(value) && _.isObject(base[key]) ? changes(value, base[key]) : value;
-				}
-			});
-		}
-		return changes(object, base);
-	};
-
-	_updateProfile = async () => {
+	save = async () => {
 		this.setState({ loading: true });
 		try {
-			const diff = this.difference(this.state.user, this.originData);
 
+			// const updateProfileObj = {};
 
-			if (!_.isEmpty(diff)) {
-				const updateProfileObj = {};
-				if (diff.photoURL) {
-					const downloadURL = await saveProfilePic(diff.photoURL);
-					updateProfileObj["photoURL"] = downloadURL;
-					diff["photoURL"] = downloadURL;
-				}
-				await firebase.firestore()
-					.collection(global.domain)
-					.doc("user")
-					.collection("registered")
-					.doc(this.state.user.uid)
-					.set(diff, { merge: true });
-			}
+			// const downloadURL = await saveProfilePic(diff.photoURL);
+			// updateProfileObj["photoURL"] = downloadURL;
+			// diff["photoURL"] = downloadURL;
 
-
+			await firebase.firestore()
+				.collection(globalAny.domain)
+				.doc("user")
+				.collection("registered")
+				.doc(this.state.user.uid)
+				.set(diff, { merge: true });
 
 			const refreshFunction = this.props.refreshFunction;
 			refreshFunction(diff);
 
 			this.props.navigation.pop();
+
 		} catch (error) {
 			this.setState({
 				errorMessage: error.message,
@@ -136,7 +113,7 @@ class EditUserProfile extends Component {
 		return <View style={styles.profilePicContainer}>
 			<TouchableOpacity onPress={this._onOpenActionSheet}>
 				{photoURL ? <Image style={styles.profilePhoto} source={{ uri: photoURL }} /> : <Ionicons name="ios-person" size={100} color="#999999" style={styles.profilePic} />}
-				{}
+				{ }
 			</TouchableOpacity>
 		</View>;
 	};
@@ -157,18 +134,45 @@ class EditUserProfile extends Component {
 				<View style={styles.titleContainerRow}>
 					<View style={styles.rowFlex}>
 						<Text style={styles.nameText}>{I18n.t("firstName")}:</Text>
-						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, firstName: text, displayName: text + ' ' + this.state.user.lastName } }))} value={this.state.user.firstName} />
+						<Input
+							style={styles.sectionContentText}
+							onChangeText={text =>
+								this.setState(prevState =>
+								(
+									{
+										user:
+										{
+											...prevState.user,
+											firstName: text,
+										}
+									}
+								)
+								)
+							}
+							value={this.state.user.firstName}
+						/>
 					</View>
 					<View style={styles.rowFlex}><Text style={styles.nameText}>{I18n.t("lastName")}:</Text>
-						<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, lastName: text, displayName: this.state.user.firstName + ' ' + text } }))} value={this.state.user.lastName} />
+						<Input
+							style={styles.sectionContentText}
+							onChangeText={text =>
+								this.setState(prevState =>
+								(
+									{
+										user:
+										{
+											...prevState.user,
+											lastName: text,
+										}
+									}
+								)
+								)
+							}
+							value={this.state.user.lastName} />
 					</View>
 				</View>
 
-				<View style={styles.titleContainer}><Text style={styles.nameText}>{I18n.t("country")}:</Text>
-					<Input style={styles.sectionContentText} onChangeText={text => this.setState(prevState => ({ user: { ...prevState.user, country: text } }))} value={this.state.user.country} />
-				</View>
-
-				<Button onPress={() => this._updateProfile()} title={I18n.t("save")} />
+				<Button onPress={() => this.save()} title={I18n.t("save")} />
 			</ScrollView>
 		</SafeAreaView>;
 	}
