@@ -18,7 +18,7 @@ interface TProps {
 }
 
 class FeatureListItem extends Component<TProps> {
-	constructor(props) {
+	constructor(props: TProps) {
 		super(props);
 	}
 

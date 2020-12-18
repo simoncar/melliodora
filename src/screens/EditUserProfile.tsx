@@ -10,12 +10,24 @@ import I18n from "../lib/i18n";
 import _ from "lodash";
 import { saveProfilePic, launchProfileImagePicker } from "../lib/uploadImageAPI";
 import { Text, Button } from "../components/sComponent";
+import { UserEntity } from '../lib/interfaces';
 
 const globalAny: any = global;
 
-class EditUserProfile extends Component {
+interface TProps {
+	navigation: any,
+	language: string,
+	uid: string,
+	user: UserEntity
+}
+interface TState {
+	loading: boolean,
+	user: UserEntity
+}
 
-	constructor(props) {
+class EditUserProfile extends Component<TProps, TState> {
+
+	constructor(props: TProps) {
 		super(props);
 
 		this.state = {
@@ -24,7 +36,9 @@ class EditUserProfile extends Component {
 				photoURL: "",
 				firstName: "",
 				lastName: "",
-				email: ""
+				email: "",
+				uid: "",
+				displayName: "",
 			},
 		};
 
@@ -32,10 +46,10 @@ class EditUserProfile extends Component {
 
 	componentDidMount() {
 		const { uid, user } = this.props;
-
-		//this.props.route.params._updateProfile = this._updateProfile;
-		this.originData = { ...user, uid };
-		this.setState({ user: { ...user, uid } });
+		this.setState(
+			{
+				user: { ...user, uid }
+			});
 	}
 
 	save = async () => {
@@ -48,12 +62,14 @@ class EditUserProfile extends Component {
 			// updateProfileObj["photoURL"] = downloadURL;
 			// diff["photoURL"] = downloadURL;
 
-			await firebase.firestore()
-				.collection(globalAny.domain)
-				.doc("user")
-				.collection("registered")
-				.doc(this.state.user.uid)
-				.set(diff, { merge: true });
+			console.log("save:", this.state.user)
+
+			// await firebase.firestore()
+			// 	.collection(globalAny.domain)
+			// 	.doc("user")
+			// 	.collection("registered")
+			// 	.doc(this.state.user.uid)
+			// 	.set(diff, { merge: true });
 
 			const refreshFunction = this.props.refreshFunction;
 			refreshFunction(diff);
