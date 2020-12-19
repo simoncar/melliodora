@@ -29,6 +29,7 @@ export interface MemeEntity extends IImage {
 //   },
 
 
+
 export interface UserEntity {
 	displayName: string,
 	email: string,
