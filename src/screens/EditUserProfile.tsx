@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
-import firebase from "firebase";
 import Image from "../components/Imgix";
 import { Input } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
@@ -8,7 +7,7 @@ import * as Permissions from "expo-permissions";
 import { ActionSheetProvider, connectActionSheet } from "@expo/react-native-action-sheet";
 import I18n from "../lib/i18n";
 import _ from "lodash";
-import { saveProfilePic, launchProfileImagePicker } from "../lib/uploadImageAPI";
+import { launchProfileImagePicker } from "../lib/uploadImageAPI";
 import { Text, Button } from "../components/sComponent";
 import { UserEntity } from "../lib/interfaces";
 
