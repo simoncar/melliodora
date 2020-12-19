@@ -95,11 +95,12 @@ function* WORKER_checkAdmin(action) {
 	}
 }
 
+
 function* WORKER_authListener() {
 	// #1
-	const channel = new eventChannel((emiter) => {
+	const channel = new eventChannel((emitter) => {
 		const listener = firebase.auth().onAuthStateChanged((user) => {
-
+			console.log("onAuthStateChanged:", user)
 			if (__DEV__) {
 				console.log('Development');
 				Analytics.setDebugModeEnabled(false)
@@ -121,16 +122,14 @@ function* WORKER_authListener() {
 						})
 				} else {
 					console.log("Analytics User ID is null so skipping");
-
 				}
-
 			}
 
 			if (!user) {
-				emiter({ data: { noUser: true } });
+				emitter({ data: { noUser: true } });
 			} else {
 				const isAnonymous = user.isAnonymous;
-				emiter({ data: { user, isAnonymous } });
+				emitter({ data: { user, isAnonymous } });
 			}
 		});
 

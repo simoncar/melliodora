@@ -52,7 +52,6 @@ export const buildChatroomList = () => ({
 });
 
 
-
 function* WORKER_processSelectedCommunity(action) {
 
 	let community = action.selectedCommunity

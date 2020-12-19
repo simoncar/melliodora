@@ -15,6 +15,30 @@ export interface MemeEntity extends IImage {
 	type: MemeType;
 }
 
+
+//  "userInfo": Object {
+//     "communityJoined": Array [],
+//     "isAnonymous": false,
+//     "languageSelected": "en",
+//     "lastLogin": 1608326981732,
+//     "loginCount": 2,
+//     "phoneLocale": "en",
+//     "safeToken": "",
+//     "token": "",
+//     "version": "unknown",
+//   },
+
+
+export interface UserEntity {
+	displayName: string,
+	email: string,
+	firstName: string,
+	lastName?: string,
+	uid: string,
+	photoURL: string,
+
+}
+
 export interface StoryEntity {
 	_key: string,
 	photo1: string,

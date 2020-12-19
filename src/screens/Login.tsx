@@ -21,10 +21,9 @@ interface TState {
 	loading: boolean
 }
 
-
 export class LoginScreen extends Component<TProps, TState> {
 
-	constructor(props: Readonly<TProps>) {
+	constructor(props: TProps) {
 		super(props);
 
 		this.state = { email: "", password: "", errorMessage: null, loading: false };
@@ -34,7 +33,9 @@ export class LoginScreen extends Component<TProps, TState> {
 		try {
 			this.setState({ loading: true });
 			const { email, password } = this.state;
-			await firebase.auth().signInWithEmailAndPassword(email, password);
+			await firebase
+				.auth()
+				.signInWithEmailAndPassword(email, password);
 		} catch (error) {
 			this.setState({ errorMessage: error.message, loading: false });
 		}
@@ -45,11 +46,7 @@ export class LoginScreen extends Component<TProps, TState> {
 		const { userInfo } = this.props.auth;
 		if (this.state.loading && userInfo.email == this.state.email && !_.isEmpty(userInfo)) {
 			this.setState({ loading: false });
-			if (!global.domain || _.has(this.props, "navigation.state.param.toWelcomeScreen")) {
-				this.props.navigation.navigate("welcomeScreen");
-			} else {
-				this.props.navigation.popToTop();
-			}
+			this.props.navigation.popToTop();
 		}
 	}
 

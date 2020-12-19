@@ -5,28 +5,49 @@ import _ from "lodash";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { getCommunities, processSelectedCommunity } from "../store/community";
-import { Text } from "../components/sComponent";
 import { SettingsListItem } from "../components/SettingsListItem";
 import Profile from "../components/Profile";
 import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 
-export class DomainSelection extends Component {
-	constructor(props) {
+interface TProps {
+	navigation: any,
+	auth: any,
+	community: string,
+	dispatch: any,
+	showCreateCommunity: boolean
+}
+
+interface TState {
+	selectedDomain: string | null,
+	domains: [],
+	allDomains: [],
+	searchTerm: string,
+	auth: any
+}
+
+export class DomainSelection extends Component<TProps, TState> {
+	constructor(props: TProps) {
 		super(props);
 		this.state = {
 			selectedDomain: "",
 			domains: [],
-			allDomains: []
+			allDomains: [],
+			auth: props.auth
 		};
 
 		props.dispatch(getCommunities());
+
+		console.log("auth:", this.props.auth)
 	}
 
 	componentDidMount() {
 		const { communities } = this.props.community;
 		if (communities.length > 0) {
-			this.setState({ domains: communities, allDomains: communities });
+			this.setState({
+				domains: communities,
+				allDomains: communities
+			});
 		}
 	}
 
@@ -49,7 +70,6 @@ export class DomainSelection extends Component {
 
 		const allDomains = this.state.allDomains;
 
-		//reset when blank text
 		if (!text) {
 			this.setState({
 				domains: allDomains
@@ -70,11 +90,17 @@ export class DomainSelection extends Component {
 
 	renderHeader = () => {
 		return <View style={styles.searchView}>
-			<TextInput style={styles.searchInput} onChangeText={text => this.searchFilterFunction(text)} value={this.state.searchTerm}
+			<TextInput style={styles.searchInput}
+				onChangeText={text => this.searchFilterFunction(text)}
+				value={this.state.searchTerm}
 				placeholder={I18n.t("search")}
 				placeholderTextColor="#555555"
 				testID="domainSelection.search" />
-			<Ionicons style={styles.searchIcon} name="ios-search" size={32} color="#777777" />
+			<Ionicons
+				style={styles.searchIcon}
+				name="ios-search"
+				size={32}
+				color="#777777" />
 		</View>;
 	};
 
@@ -99,7 +125,9 @@ export class DomainSelection extends Component {
 		return <View style={styles.viewFlex}>
 			<View>
 				<View style={styles.card}>
-					<Profile auth={this.props.auth} navigation={this.props.navigation} />
+					<Profile
+						auth={this.props.auth}
+						navigation={this.props.navigation} />
 				</View>
 				<View style={styles.card}>
 
@@ -113,9 +141,6 @@ export class DomainSelection extends Component {
 						lastItem={true}
 						subTitle="A Polo is your own space for sharing photos"
 					/>
-
-
-
 				</View>
 
 			</View>
@@ -158,7 +183,6 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		width: 30
 	},
-	leftIcon: { flexShrink: 1 },
 	searchIcon: { marginLeft: 12, marginRight: 12, padding: 2 },
 
 	searchInput: { flex: 1, paddingLeft: 30 },
@@ -171,18 +195,6 @@ const styles = StyleSheet.create({
 	},
 	separator: {
 		backgroundColor: "#CED0CE"
-	},
-
-	submitButtonStyle: {
-		alignItems: "center",
-		backgroundColor: "#fff",
-		flexDirection: "row"
-	},
-	textStyle: {
-		color: "#111111",
-		flex: 1,
-		paddingHorizontal: 12,
-		textAlign: "left"
 	},
 	viewFlex: {
 		flex: 1,
