@@ -8,7 +8,10 @@
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",
-		"plugin:jest/recommended"
+		"plugin:jest/recommended",
+		"prettier",
+		"prettier/@typescript-eslint",
+		"prettier/react"
 	],
 	"globals": {
 		"Atomics": "readonly",
@@ -27,9 +30,9 @@
 		"react": {
 			"version": "latest"
 		},
-		 "jest": {
-     		 "version": 25
-    	}
+		"jest": {
+			"version": 25
+		}
 	},
 	"plugins": [
 		"react",
