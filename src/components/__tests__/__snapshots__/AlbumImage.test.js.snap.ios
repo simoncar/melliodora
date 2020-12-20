@@ -5,14 +5,14 @@ exports[`Delete button press 1`] = `
   <Image
     source={
       Object {
-        "uri": "http://?auto=enhance&fit=clip&w=750",
+        "uri": "http://?auto=enhance&fit=clip&w=2250",
       }
     }
     style={
       Array [
         Object {
           "height": 1000,
-          "width": 1000,
+          "width": 333.3333333333333,
         },
         undefined,
       ]
@@ -61,14 +61,14 @@ exports[`show edit Album Image 1`] = `
   <Image
     source={
       Object {
-        "uri": "http://?auto=enhance&fit=clip&w=750",
+        "uri": "http://?auto=enhance&fit=clip&w=2250",
       }
     }
     style={
       Array [
         Object {
           "height": 1000,
-          "width": 1000,
+          "width": 333.3333333333333,
         },
         undefined,
       ]
@@ -96,14 +96,14 @@ exports[`show read only Album Image 1`] = `
   <Image
     source={
       Object {
-        "uri": "http://?auto=enhance&fit=clip&w=750",
+        "uri": "http://?auto=enhance&fit=clip&w=2250",
       }
     }
     style={
       Array [
         Object {
           "height": 1000,
-          "width": 1000,
+          "width": 333.3333333333333,
         },
         undefined,
       ]

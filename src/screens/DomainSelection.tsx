@@ -36,8 +36,6 @@ export class DomainSelection extends Component<TProps, TState> {
 		};
 
 		props.dispatch(getCommunities());
-
-		console.log("auth:", this.props.auth);
 	}
 
 	componentDidMount() {

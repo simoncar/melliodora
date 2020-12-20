@@ -35,7 +35,7 @@ test('show photo in chat thread', () => {
 	expect(toJSON()).toMatchSnapshot();
 	expect(getByTestId('customImage.image').props.source).toEqual(
 		expect.objectContaining({
-			uri: "https://smartcookies.imgix.net/chatimage%2FdLyDZVfkOZ2XDVk49jHF%2F202006%2F73891c7b-5960-4b7f-a7e3-b8975ee9fecc?alt=media&token=f76974de-d8d2-4b1f-a980-a83265bdcf10&auto=enhance&fit=clip&w=350",
+			uri: "https://smartcookies.imgix.net/chatimage%2FdLyDZVfkOZ2XDVk49jHF%2F202006%2F73891c7b-5960-4b7f-a7e3-b8975ee9fecc?alt=media&token=f76974de-d8d2-4b1f-a980-a83265bdcf10&auto=enhance&fit=clip&w=1050",
 		})
 	);
 

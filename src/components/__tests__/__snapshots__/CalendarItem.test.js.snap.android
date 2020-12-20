@@ -124,7 +124,7 @@ exports[`show Calendar Item with Date and Image 1`] = `
           <Image
             source={
               Object {
-                "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=300",
+                "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=900",
               }
             }
             style={
@@ -282,7 +282,7 @@ exports[`show Calendar Item with Date and Time 1`] = `
           <Image
             source={
               Object {
-                "uri": "https://smartcookies.imgix.net/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680&auto=enhance&fit=clip&w=300",
+                "uri": "https://smartcookies.imgix.net/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680&auto=enhance&fit=clip&w=900",
               }
             }
             style={
@@ -423,7 +423,7 @@ exports[`show Calendar Item with Date only 1`] = `
           <Image
             source={
               Object {
-                "uri": "https://smartcookies.imgix.net/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680&auto=enhance&fit=clip&w=300",
+                "uri": "https://smartcookies.imgix.net/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680&auto=enhance&fit=clip&w=900",
               }
             }
             style={

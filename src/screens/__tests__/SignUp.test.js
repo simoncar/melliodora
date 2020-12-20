@@ -52,11 +52,7 @@ test('show SignUp screen', () => {
 			placeholder: 'Password',
 		})
 	);
-	expect(getByTestId('signup.passwordConfirm').props).toEqual(
-		expect.objectContaining({
-			placeholder: 'Confirm Password',
-		})
-	);
+
 
 	expect(getByTestId('signup.firstName').props).toEqual(
 		expect.objectContaining({

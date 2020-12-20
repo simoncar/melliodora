@@ -285,7 +285,7 @@ exports[`show login screen 1`] = `
           ]
         }
       >
-        Sign Up
+        Create Account
       </Text>
     </View>
   </View>

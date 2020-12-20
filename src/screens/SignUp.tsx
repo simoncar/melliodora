@@ -1,7 +1,11 @@
-
-
 import React, { Component } from "react";
-import { TouchableOpacity, StyleSheet, View, Image, ScrollView } from "react-native";
+import {
+	TouchableOpacity,
+	StyleSheet,
+	View,
+	Image,
+	ScrollView,
+} from "react-native";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import uuid from "uuid";
@@ -9,31 +13,34 @@ import { Input } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import firebase from "firebase";
 import { Text, Button } from "../components/sComponent";
-import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/uploadImageAPI";
+import {
+	saveProfilePic,
+	launchProfileImagePicker,
+	getPermissionAsync,
+} from "../lib/uploadImageAPI";
 import I18n from "../lib/i18n";
 
 const width = 100;
 const globalAny: any = global;
 
 interface TProps {
-	navigation: any,
-	auth: any
+	navigation: any;
+	auth: any;
 }
 
 interface TState {
-	email: string,
-	password: string,
-	confirmPassword: string,
-	profilePic: string,
-	displayName: string,
-	firstName: string,
-	lastName: string,
-	errorMessage: string | null,
-	loading: boolean
+	email: string;
+	password: string;
+	confirmPassword: string;
+	profilePic: string;
+	displayName: string;
+	firstName: string;
+	lastName: string;
+	errorMessage: string | null;
+	loading: boolean;
 }
 
 export class SignUp extends Component<TProps, TState> {
-
 	state = {
 		email: "",
 		password: "",
@@ -43,35 +50,45 @@ export class SignUp extends Component<TProps, TState> {
 		firstName: "",
 		lastName: "",
 		errorMessage: null,
-		loading: false
+		loading: false,
 	};
 
 	handleSignUp = () => {
 		try {
 			this.setState({ loading: true });
-			console.log("Create account:", this.state.email)
-			firebase.auth()
-				.createUserWithEmailAndPassword(this.state.email, this.state.password)
-				.then(async userCredential => {
-					console.log("userCredential:", userCredential)
+			console.log("Create account:", this.state.email);
+			firebase
+				.auth()
+				.createUserWithEmailAndPassword(
+					this.state.email,
+					this.state.password
+				)
+				.then(async (userCredential) => {
+					console.log("userCredential:", userCredential);
 					let downloadURL = "";
 					if (this.state.profilePic) {
-						downloadURL = await saveProfilePic(this.state.profilePic);
+						downloadURL = await saveProfilePic(
+							this.state.profilePic
+						);
 						userCredential.user.updateProfile({
 							photoURL: downloadURL,
-							displayName: this.state.displayName
+							displayName: this.state.displayName,
 						});
 					}
-					const communityJoined = globalAny.domain ? [globalAny.domain] : [];
+					const communityJoined = globalAny.domain
+						? [globalAny.domain]
+						: [];
 
-					const photoURLObj = downloadURL ? { photoURL: downloadURL } : {};
+					const photoURLObj = downloadURL
+						? { photoURL: downloadURL }
+						: {};
 					const userDict = {
 						...photoURLObj,
 						email: userCredential.user.email,
 						uid: userCredential.user.uid,
 						displayName: this.state.displayName,
 						firstName: this.state.firstName,
-						lastName: this.state.lastName
+						lastName: this.state.lastName,
 					};
 
 					// create global registerd user
@@ -96,22 +113,25 @@ export class SignUp extends Component<TProps, TState> {
 				//   const setUserClaim = firebase.functions().httpsCallable('setUserClaim');
 				//   setUserClaim({ email: this.state.email, domain: globalAny.domain })
 				// })
-				.then(result => {
-					console.log("resultA:", result)
-					this.setState({ loading: false })
-				}
-				)
 				.then((result) => {
-					console.log("resultB:", result)
+					console.log("resultA:", result);
+					this.setState({ loading: false });
+				})
+				.then((result) => {
+					console.log("resultB:", result);
 					this.props.navigation.popToTop();
-				}).catch(error => {
-					console.log("CCC:", error)
-					this.setState({ errorMessage: error.message, loading: false });
+				})
+				.catch((error) => {
+					console.log("CCC:", error);
+					this.setState({
+						errorMessage: error.message,
+						loading: false,
+					});
 				});
 		} catch (error) {
 			this.setState({
 				errorMessage: error.message,
-				loading: false
+				loading: false,
 			});
 		}
 	};
@@ -137,9 +157,15 @@ export class SignUp extends Component<TProps, TState> {
 			xhr.send(null);
 		});
 
-		const ref = firebase.storage().ref("smartcommunity/profile").child(uuid.v4());
+		const ref = firebase
+			.storage()
+			.ref("smartcommunity/profile")
+			.child(uuid.v4());
 
-		const snapshot = await ref.put(blob, { contentType: mime, cacheControl: 'max-age=31536000' });
+		const snapshot = await ref.put(blob, {
+			contentType: mime,
+			cacheControl: "max-age=31536000",
+		});
 		const downloadURL = await snapshot.ref.getDownloadURL();
 
 		blob.close();
@@ -156,98 +182,129 @@ export class SignUp extends Component<TProps, TState> {
 
 	_onOpenActionSheet = () => {
 		getPermissionAsync();
-		const options = [I18n.t("photoTake"), I18n.t("photoChoose"), I18n.t("delete"), I18n.t("cancel")];
+		const options = [
+			I18n.t("photoTake"),
+			I18n.t("photoChoose"),
+			I18n.t("delete"),
+			I18n.t("cancel"),
+		];
 		const destructiveButtonIndex = options.length - 2;
 		const cancelButtonIndex = options.length - 1;
 
-		this.props.showActionSheetWithOptions({
-			options,
-			cancelButtonIndex,
-			destructiveButtonIndex
-		}, buttonIndex => {
-			// Do something here depending on the button index selected
-			switch (buttonIndex) {
-				case 0:
-					this.props.navigation.push("CameraApp", {
-						onGoBack: this.setProfilePic
-					});
-					break;
-				case 1:
-					this._pickImage();
-					break;
+		this.props.showActionSheetWithOptions(
+			{
+				options,
+				cancelButtonIndex,
+				destructiveButtonIndex,
+			},
+			(buttonIndex) => {
+				// Do something here depending on the button index selected
+				switch (buttonIndex) {
+					case 0:
+						this.props.navigation.push("CameraApp", {
+							onGoBack: this.setProfilePic,
+						});
+						break;
+					case 1:
+						this._pickImage();
+						break;
+				}
 			}
-		});
+		);
 	};
 
 	icon(source) {
-
 		const width = 100;
 		if (!source) {
-			return <Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.profileIcon} />;
+			return (
+				<Ionicons
+					name="ios-person"
+					size={width * 0.85}
+					color="grey"
+					style={styles.profileIcon}
+				/>
+			);
 		} else {
-			return <Image style={styles.profileImage} source={{ uri: source }} />;
+			return (
+				<Image style={styles.profileImage} source={{ uri: source }} />
+			);
 		}
 	}
 
 	render() {
-		return <View style={styles.container}>
-			<ScrollView>
-				<View style={styles.profileImageView}>
-					<TouchableOpacity onPress={this._onOpenActionSheet}>{this.icon(this.state.profilePic)}</TouchableOpacity>
-				</View>
-				<Text>{this.state.errorMessage}</Text>
-				<Input placeholder={I18n.t("email")}
-					onChangeText={text => this.setState({ email: text })}
-					value={this.state.email}
-					containerStyle={styles.containerStyle}
-					inputContainerStyle={styles.containerInput}
-					autoCapitalize="none"
-					keyboardType="email-address"
-					autoFocus={true}
-					testID="signup.email"
-				/>
-
-				<View style={styles.passwordField}>
-
+		return (
+			<View style={styles.container}>
+				<ScrollView>
+					<View style={styles.profileImageView}>
+						<TouchableOpacity onPress={this._onOpenActionSheet}>
+							{this.icon(this.state.profilePic)}
+						</TouchableOpacity>
+					</View>
+					<Text>{this.state.errorMessage}</Text>
 					<Input
-						placeholder={I18n.t("password")}
-						onChangeText={text => this.setState({ password: text })}
-						value={this.state.password}
-						autoCapitalize="none"
-						secureTextEntry={false}
-						testID="login.password"
+						placeholder={I18n.t("email")}
+						onChangeText={(text) => this.setState({ email: text })}
+						value={this.state.email}
 						containerStyle={styles.containerStyle}
 						inputContainerStyle={styles.containerInput}
+						autoCapitalize="none"
+						keyboardType="email-address"
+						autoFocus={true}
+						testID="signup.email"
 					/>
-					<Ionicons name="ios-eye-off"
-						size={25}
-						color="grey"
-						style={styles.imageStyle} />
-				</View>
 
+					<View style={styles.passwordField}>
+						<Input
+							placeholder={I18n.t("password")}
+							onChangeText={(text) =>
+								this.setState({ password: text })
+							}
+							value={this.state.password}
+							autoCapitalize="none"
+							secureTextEntry={false}
+							testID="signup.password"
+							containerStyle={styles.containerStyle}
+							inputContainerStyle={styles.containerInput}
+						/>
+						<Ionicons
+							name="ios-eye-off"
+							size={25}
+							color="grey"
+							style={styles.imageStyle}
+						/>
+					</View>
 
-				<Input placeholder={I18n.t("firstName")}
-					onChangeText={text => this.setState({ firstName: text })}
-					value={this.state.firstName}
-					containerStyle={styles.containerStyle}
-					inputContainerStyle={styles.containerInput}
-					autoCapitalize="words"
-					testID="signup.firstName"
-				/>
-				<Input placeholder={I18n.t("lastName")}
-					onChangeText={text => this.setState({ lastName: text })}
-					value={this.state.lastName}
-					containerStyle={styles.containerStyle}
-					inputContainerStyle={styles.containerInput}
-					autoCapitalize="words"
-					testID="signup.lastName"
-				/>
+					<Input
+						placeholder={I18n.t("firstName")}
+						onChangeText={(text) =>
+							this.setState({ firstName: text })
+						}
+						value={this.state.firstName}
+						containerStyle={styles.containerStyle}
+						inputContainerStyle={styles.containerInput}
+						autoCapitalize="words"
+						testID="signup.firstName"
+					/>
+					<Input
+						placeholder={I18n.t("lastName")}
+						onChangeText={(text) =>
+							this.setState({ lastName: text })
+						}
+						value={this.state.lastName}
+						containerStyle={styles.containerStyle}
+						inputContainerStyle={styles.containerInput}
+						autoCapitalize="words"
+						testID="signup.lastName"
+					/>
 
-				<Button title={I18n.t("signUp")}
-					onPress={this.handleSignUp}
-					testID="forgotpasswordsubmit" />
-			</ScrollView>
-		</View>;
+					<Button
+						title={I18n.t("signUp")}
+						onPress={this.handleSignUp}
+						testID="forgotpasswordsubmit"
+					/>
+				</ScrollView>
+			</View>
+		);
 	}
 }
 
@@ -255,9 +312,11 @@ const ConnectedApp = connectActionSheet(SignUp);
 
 export default class ActionSheetContainer extends Component {
 	render() {
-		return <ActionSheetProvider>
-			<ConnectedApp navigation={this.props.navigation} />
-		</ActionSheetProvider>;
+		return (
+			<ActionSheetProvider>
+				<ConnectedApp navigation={this.props.navigation} />
+			</ActionSheetProvider>
+		);
 	}
 }
 
@@ -265,7 +324,7 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "#f2f2f2",
 		flex: 1,
-		padding: 10
+		padding: 10,
 	},
 
 	containerInput: {
@@ -281,7 +340,7 @@ const styles = StyleSheet.create({
 	},
 
 	imageStyle: {
-		paddingHorizontal: 15
+		paddingHorizontal: 15,
 	},
 	passwordField: {
 		alignItems: "center",
@@ -291,7 +350,7 @@ const styles = StyleSheet.create({
 		height: 40,
 		justifyContent: "center",
 		margin: 20,
-		padding: 10
+		padding: 10,
 	},
 
 	profileIcon: {
@@ -302,7 +361,7 @@ const styles = StyleSheet.create({
 		height: width,
 		margin: 12,
 		textAlign: "center",
-		width: width
+		width: width,
 	},
 
 	profileImage: {
@@ -313,9 +372,8 @@ const styles = StyleSheet.create({
 		height: width,
 		justifyContent: "center",
 		margin: 12,
-		width: width
+		width: width,
 	},
 
-	profileImageView: { alignItems: "center" }
-
+	profileImageView: { alignItems: "center" },
 });

@@ -122,10 +122,11 @@ test('list domains', () => {
 	);
 
 	expect(toJSON()).toMatchSnapshot();
-	expect(queryByText("Create Community")).not.toBeNull();
+	expect(queryByText("Create your Polo")).not.toBeNull();
 	expect(queryByText("Camp Asia")).not.toBeNull();
 	expect(queryByText("Oakforest International")).not.toBeNull();
-	expect(queryByText("Sign In / Sign Up")).not.toBeNull();
+	expect(queryByText("Sign In")).not.toBeNull();
+	expect(queryByText("Create Account")).not.toBeNull();
 
 	//console.log(getByTestId('domainSelection.search').props);
 	expect(getByTestId('domainSelection.search').props).toEqual(
