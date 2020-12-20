@@ -1,30 +1,65 @@
 import React, { Component } from "react";
-import { Linking, View, StyleSheet, ScrollView, Dimensions } from "react-native";
+import {
+	Linking,
+	View,
+	StyleSheet,
+	ScrollView,
+	Dimensions,
+} from "react-native";
 import ParsedText from "react-native-parsed-text";
-import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global";
+import {
+	formatTime,
+	formatMonth,
+	getAbbreviations,
+	isAdmin,
+	isValue,
+} from "../lib/global";
 import { connect } from "react-redux";
-import { Text } from "../components/sComponent"
-import ImageList from "../components/ImageList"
-import { actionEdit, actionPhotos, actionChat, actionSend, actionCalendar, actionShare } from "../components/StoryActions"
-import { StoryEntity, StoryState } from '../lib/interfaces';
-import Image from "../components/Imgix"
+import { Text } from "../components/sComponent";
+import ImageList from "../components/ImageList";
+import {
+	actionEdit,
+	actionPhotos,
+	actionChat,
+	actionSend,
+	actionCalendar,
+	actionShare,
+} from "../components/StoryActions";
+import { StoryEntity, StoryState } from "../lib/interfaces";
+import Image from "../components/Imgix";
 
 const globalAny: any = global;
 const WINDOW_WIDTH = Dimensions.get("window").width;
 interface TProps {
-	navigation: any,
-	route: any,
-	auth: any,
+	navigation: any;
+	route: any;
+	auth: any;
 }
 
-export class Story extends Component<TProps, StoryState>{
-
+export class Story extends Component<TProps, StoryState> {
 	constructor(props: TProps) {
 		super(props);
 		this.refreshFunction = this.refreshFunction.bind(this);
 		this.rightSideButtons = this.rightSideButtons.bind(this);
 
-		const { _key, source, summary, summaryMyLanguage, description, descriptionMyLanguage, location, photo1, visible, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = this.props.route.params.story;
+		const {
+			_key,
+			source,
+			summary,
+			summaryMyLanguage,
+			description,
+			descriptionMyLanguage,
+			location,
+			photo1,
+			visible,
+			showIconChat,
+			order,
+			dateTimeStart,
+			dateTimeEnd,
+			date_start,
+			time_start_pretty,
+			time_end_pretty,
+		} = this.props.route.params.story;
 
 		this.state = {
 			photo1: photo1 !== undefined ? photo1 : null,
@@ -43,65 +78,80 @@ export class Story extends Component<TProps, StoryState>{
 			dateTimeEnd: dateTimeEnd,
 			cameraIcon: "camera",
 			source: source,
-			location: location
+			location: location,
 		};
 	}
 
 	componentDidMount() {
-
 		const navigation = this.props.navigation;
 
 		navigation.setOptions({
-			headerBackTitleVisible: false
+			headerBackTitleVisible: false,
 		});
 	}
 
-	_handleOpenWithLinking = (sURL: string) => { Linking.openURL(sURL); };
-	_handleEmailPress(email: string) { Linking.openURL("mailto:" + email); }
-	_handlePhonePress(phone: string) { Linking.openURL("tel:" + phone); }
-
+	_handleOpenWithLinking = (sURL: string) => {
+		Linking.openURL(sURL);
+	};
+	_handleEmailPress(email: string) {
+		Linking.openURL("mailto:" + email);
+	}
+	_handlePhonePress(phone: string) {
+		Linking.openURL("tel:" + phone);
+	}
 
 	refreshFunction(newState: StoryState) {
-		console.log("new state:", newState)
-		this.setState(
-			{
-				summaryMyLanguage: newState.summary,
-				descriptionMyLanguage: newState.description
-			}
-		);
+		this.setState({
+			summaryMyLanguage: newState.summary,
+			descriptionMyLanguage: newState.description,
+		});
 		this.setState(newState);
 	}
 
 	rightSideButtons(story: StoryEntity) {
-		let buffer = []
-		let position = 0
+		let buffer = [];
+		let position = 0;
 
-		const navigation = this.props.navigation
-		const admin = isAdmin(this.props.route.params.adminPassword)
+		const navigation = this.props.navigation;
+		const admin = isAdmin(this.props.route.params.adminPassword);
 
 		if (admin && story.source == "feature") {
-			buffer.push(actionEdit(navigation, position, this.state, this.refreshFunction))
-			position++
+			buffer.push(
+				actionEdit(
+					navigation,
+					position,
+					this.state,
+					this.refreshFunction
+				)
+			);
+			position++;
 		}
 
 		if (admin && story.showIconChat === true) {
-			buffer.push(actionChat(position, navigation, story._key, story.summaryMyLanguage))
-			position++
+			buffer.push(
+				actionChat(
+					position,
+					navigation,
+					story._key,
+					story.summaryMyLanguage
+				)
+			);
+			position++;
 		}
 		if (admin) {
-			buffer.push(actionSend(position, navigation, story))
-			position++
+			buffer.push(actionSend(position, navigation, story));
+			position++;
 		}
-		buffer.push(actionPhotos(position, navigation, story._key))
-		position++
-		buffer.push(actionShare(position, story))
-		position++
+		buffer.push(actionPhotos(position, navigation, story._key));
+		position++;
+		buffer.push(actionShare(position, story));
+		position++;
 
 		if (isValue(story.date_start)) {
-			buffer.push(actionCalendar(position, story))
-			position++
+			buffer.push(actionCalendar(position, story));
+			position++;
 		}
-		return (buffer)
+		return buffer;
 	}
 
 	_drawText(story: StoryEntity) {
@@ -111,83 +161,94 @@ export class Story extends Component<TProps, StoryState>{
 					{this.state.summaryMyLanguage}
 				</Text>
 
-				{isValue(this.state.location) && <Text selectable style={styles.eventText}>
-					{this.state.location}
-				</Text>}
+				{isValue(this.state.location) && (
+					<Text selectable style={styles.eventText}>
+						{this.state.location}
+					</Text>
+				)}
 
-				{isValue(this.state.date_start) && <Text selectable style={styles.eventText}>
-					{formatMonth(this.state.date_start)}
-				</Text>}
+				{isValue(this.state.date_start) && (
+					<Text selectable style={styles.eventText}>
+						{formatMonth(this.state.date_start)}
+					</Text>
+				)}
 
+				{isValue(this.state.time_start_pretty) && (
+					<Text selectable style={styles.eventTextTime}>
+						{formatTime(
+							this.state.time_start_pretty,
+							this.state.time_end_pretty
+						)}
+					</Text>
+				)}
 
-				{isValue(this.state.time_start_pretty) && <Text selectable style={styles.eventTextTime}>
-					{formatTime(this.state.time_start_pretty, this.state.time_end_pretty)}
-				</Text>}
-
-
-				<ParsedText style={styles.eventTextBody} testID="story.parsedText"
-					parse={[{
-						pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_+.~#?&/=]*[-a-zA-Z0-9@:%_+~#?&/=])*/i,
-						style: styles.url,
-						onPress: this._handleOpenWithLinking
-					}, {
-						type: "phone",
-						style: styles.url,
-						onPress: this._handlePhonePress
-					}, {
-						type: "email",
-						style: styles.email,
-						onPress: this._handleEmailPress
-					}, { pattern: /433333332/, style: styles.url },
-					{ pattern: /#(\w+)/, style: styles.url }]}
-					childrenProps={{ allowFontScaling: false }}
-				>
+				<ParsedText
+					style={styles.eventTextBody}
+					testID="story.parsedText"
+					parse={[
+						{
+							pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_+.~#?&/=]*[-a-zA-Z0-9@:%_+~#?&/=])*/i,
+							style: styles.url,
+							onPress: this._handleOpenWithLinking,
+						},
+						{
+							type: "phone",
+							style: styles.url,
+							onPress: this._handlePhonePress,
+						},
+						{
+							type: "email",
+							style: styles.email,
+							onPress: this._handleEmailPress,
+						},
+						{ pattern: /433333332/, style: styles.url },
+						{ pattern: /#(\w+)/, style: styles.url },
+					]}
+					childrenProps={{ allowFontScaling: false }}>
 					{this.state.descriptionMyLanguage}
 				</ParsedText>
-				{this.props.auth.language != "en" && <Text selectable style={styles.englishFallback}>
-					{"\n\n"}
-					{this.state.description}
-					{"\n\n"}
-				</Text>}
+				{this.props.auth.language != "en" && (
+					<Text selectable style={styles.englishFallback}>
+						{"\n\n"}
+						{this.state.description}
+						{"\n\n"}
+					</Text>
+				)}
 
 				<Text selectable style={styles.eventTextAbbreviation}>
 					{getAbbreviations(this.state.summary, globalAny.domain)}
 				</Text>
 			</View>
-		)
+		);
 	}
 
 	render() {
+		return (
+			<View style={styles.container}>
+				{this.rightSideButtons(this.state)}
+				<ScrollView showsVerticalScrollIndicator={false}>
+					<Image
+						style={styles.storyPhoto}
+						source={{ uri: this.state.photo1 }}
+					/>
 
+					{this._drawText(this.state)}
 
-		return <View style={styles.container}>
-			{this.rightSideButtons(this.state)}
-			<ScrollView
-				showsVerticalScrollIndicator={false}
-			>
-
-				<Image
-					style={styles.storyPhoto}
-					source={{ uri: this.state.photo1 }} />
-				
-				{this._drawText(this.state)}
-
-				<ImageList
-					feature={this.state._key}
-					refreshFunction={this.refreshFunction}
-					edit={false}
-				/>
-
-			</ScrollView>
-		</View>;
+					<ImageList
+						feature={this.state._key}
+						refreshFunction={this.refreshFunction}
+						edit={false}
+					/>
+				</ScrollView>
+			</View>
+		);
 	}
 }
 
 const styles = StyleSheet.create({
-
 	container: {
 		backgroundColor: "#fff",
-		height: "100%"
+		height: "100%",
 	},
 	email: {
 		color: "blue",
@@ -245,7 +306,7 @@ const styles = StyleSheet.create({
 	},
 	textBox: {
 		alignSelf: "center",
-		backgroundColor: 'rgba(52, 52, 52, 0.03)',
+		backgroundColor: "rgba(52, 52, 52, 0.03)",
 		borderBottomLeftRadius: 15,
 		borderBottomRightRadius: 15,
 		borderColor: "lightgray",
@@ -265,8 +326,8 @@ const styles = StyleSheet.create({
 	},
 });
 
-const mapStateToProps = (state: { auth: any; }) => ({
-	auth: state.auth
+const mapStateToProps = (state: { auth: any }) => ({
+	auth: state.auth,
 });
 
 export default connect(mapStateToProps)(Story);
