@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 
 import ListItem from '../StoryListItem';
-
+jest.mock("../../components/ImageList");
 
 const itemCore = {
 	"source": "feature",

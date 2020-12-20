@@ -33,6 +33,11 @@ exports[`show language selector 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -64,12 +69,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -83,12 +83,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -115,6 +110,11 @@ exports[`show language selector 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -146,12 +146,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -165,12 +160,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -197,6 +187,11 @@ exports[`show language selector 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -228,12 +223,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -247,12 +237,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -279,6 +264,11 @@ exports[`show language selector 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -310,12 +300,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -329,12 +314,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -361,6 +341,11 @@ exports[`show language selector 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -392,12 +377,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -411,12 +391,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -443,6 +418,11 @@ exports[`show language selector 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -474,12 +454,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -493,12 +468,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -525,6 +495,11 @@ exports[`show language selector 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -555,12 +530,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -574,12 +544,7 @@ exports[`show language selector 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -662,6 +627,11 @@ exports[`show language selector with no default language 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -719,12 +689,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -738,12 +703,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -770,6 +730,11 @@ exports[`show language selector with no default language 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -827,12 +792,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -846,12 +806,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -878,6 +833,11 @@ exports[`show language selector with no default language 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -935,12 +895,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -954,12 +909,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -986,6 +936,11 @@ exports[`show language selector with no default language 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -1043,12 +998,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -1062,12 +1012,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -1094,6 +1039,11 @@ exports[`show language selector with no default language 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -1151,12 +1101,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -1170,12 +1115,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -1202,6 +1142,11 @@ exports[`show language selector with no default language 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -1259,12 +1204,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -1278,12 +1218,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -1310,6 +1245,11 @@ exports[`show language selector with no default language 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
       <View
         style={
@@ -1366,12 +1306,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#333333",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >
@@ -1385,12 +1320,7 @@ exports[`show language selector with no default language 1`] = `
                   Object {
                     "fontFamily": "SegoeUI",
                   },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "#777777",
-                    },
-                  ],
+                  undefined,
                 ]
               }
             >

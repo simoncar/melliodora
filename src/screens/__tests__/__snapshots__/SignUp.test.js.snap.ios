@@ -10,58 +10,6 @@ exports[`show SignUp screen 1`] = `
     }
   }
 >
-  <Modal
-    animationType="fade"
-    hardwareAccelerated={false}
-    transparent={true}
-    visible={false}
-  >
-    <View
-      style={
-        Object {
-          "backgroundColor": "rgba(0,0,0,0.6)",
-          "height": "100%",
-          "left": 0,
-          "position": "absolute",
-          "top": 0,
-          "width": "100%",
-          "zIndex": 9,
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "backgroundColor": "#ffffff",
-            "borderRadius": 15,
-            "height": 90,
-            "left": "50%",
-            "marginLeft": -45,
-            "marginTop": -45,
-            "position": "absolute",
-            "top": "50%",
-            "width": 90,
-          }
-        }
-      >
-        <Image
-          source={1}
-          style={
-            Object {
-              "borderRadius": 15,
-              "height": 70,
-              "left": "50%",
-              "marginLeft": -35,
-              "marginTop": -35,
-              "position": "relative",
-              "top": "50%",
-              "width": 70,
-            }
-          }
-        />
-      </View>
-    </View>
-  </Modal>
   <RCTScrollView>
     <View>
       <View
@@ -107,6 +55,7 @@ exports[`show SignUp screen 1`] = `
             "borderColor": "#d2d2d2",
             "borderRadius": 10,
             "borderWidth": 1,
+            "height": 45,
             "marginVertical": 8,
             "paddingHorizontal": 10,
             "width": "100%",
@@ -165,62 +114,80 @@ exports[`show SignUp screen 1`] = `
       <View
         style={
           Object {
-            "backgroundColor": "#ffffff",
-            "borderColor": "#d2d2d2",
-            "borderRadius": 10,
-            "borderWidth": 1,
-            "marginVertical": 8,
-            "paddingHorizontal": 10,
-            "width": "100%",
+            "alignItems": "center",
+            "borderColor": "#000",
+            "borderRadius": 5,
+            "flexDirection": "row",
+            "height": 40,
+            "justifyContent": "center",
+            "margin": 20,
+            "padding": 10,
           }
         }
       >
         <View
           style={
             Object {
-              "alignItems": "center",
-              "borderBottomWidth": 0,
-              "borderColor": "#86939e",
-              "flexDirection": "row",
-              "transform": Array [
-                Object {
-                  "translateX": 0,
-                },
-              ],
+              "backgroundColor": "#ffffff",
+              "borderColor": "#d2d2d2",
+              "borderRadius": 10,
+              "borderWidth": 1,
+              "height": 45,
+              "marginVertical": 8,
+              "paddingHorizontal": 10,
+              "width": "100%",
             }
           }
         >
-          <TextInput
-            allowFontScaling={true}
-            editable={true}
-            onChangeText={[Function]}
-            placeholder="Password"
-            placeholderTextColor="#86939e"
-            rejectResponderTermination={true}
-            secureTextEntry={true}
+          <View
             style={
               Object {
-                "alignSelf": "center",
-                "color": "#242424",
-                "flex": 1,
-                "fontSize": 18,
-                "minHeight": 40,
+                "alignItems": "center",
+                "borderBottomWidth": 0,
+                "borderColor": "#86939e",
+                "flexDirection": "row",
+                "transform": Array [
+                  Object {
+                    "translateX": 0,
+                  },
+                ],
               }
             }
-            testID="signup.password"
-            underlineColorAndroid="transparent"
-            value=""
+          >
+            <TextInput
+              allowFontScaling={true}
+              autoCapitalize="none"
+              editable={true}
+              onChangeText={[Function]}
+              placeholder="Password"
+              placeholderTextColor="#86939e"
+              rejectResponderTermination={true}
+              secureTextEntry={false}
+              style={
+                Object {
+                  "alignSelf": "center",
+                  "color": "#242424",
+                  "flex": 1,
+                  "fontSize": 18,
+                  "minHeight": 40,
+                }
+              }
+              testID="signup.password"
+              underlineColorAndroid="transparent"
+              value=""
+            />
+          </View>
+          <Text
+            style={
+              Object {
+                "color": "#ff190c",
+                "fontSize": 12,
+                "margin": 5,
+              }
+            }
           />
         </View>
-        <Text
-          style={
-            Object {
-              "color": "#ff190c",
-              "fontSize": 12,
-              "margin": 5,
-            }
-          }
-        />
+        <Text />
       </View>
       <View
         style={
@@ -229,66 +196,7 @@ exports[`show SignUp screen 1`] = `
             "borderColor": "#d2d2d2",
             "borderRadius": 10,
             "borderWidth": 1,
-            "marginVertical": 8,
-            "paddingHorizontal": 10,
-            "width": "100%",
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderBottomWidth": 0,
-              "borderColor": "#86939e",
-              "flexDirection": "row",
-              "transform": Array [
-                Object {
-                  "translateX": 0,
-                },
-              ],
-            }
-          }
-        >
-          <TextInput
-            allowFontScaling={true}
-            editable={true}
-            onChangeText={[Function]}
-            placeholder="Confirm Password"
-            placeholderTextColor="#86939e"
-            rejectResponderTermination={true}
-            secureTextEntry={true}
-            style={
-              Object {
-                "alignSelf": "center",
-                "color": "#242424",
-                "flex": 1,
-                "fontSize": 18,
-                "minHeight": 40,
-              }
-            }
-            testID="signup.passwordConfirm"
-            underlineColorAndroid="transparent"
-            value=""
-          />
-        </View>
-        <Text
-          style={
-            Object {
-              "color": "#ff190c",
-              "fontSize": 12,
-              "margin": 5,
-            }
-          }
-        />
-      </View>
-      <View
-        style={
-          Object {
-            "backgroundColor": "#ffffff",
-            "borderColor": "#d2d2d2",
-            "borderRadius": 10,
-            "borderWidth": 1,
+            "height": 45,
             "marginVertical": 8,
             "paddingHorizontal": 10,
             "width": "100%",
@@ -349,6 +257,7 @@ exports[`show SignUp screen 1`] = `
             "borderColor": "#d2d2d2",
             "borderRadius": 10,
             "borderWidth": 1,
+            "height": 45,
             "marginVertical": 8,
             "paddingHorizontal": 10,
             "width": "100%",
@@ -452,7 +361,7 @@ exports[`show SignUp screen 1`] = `
               ]
             }
           >
-            Sign Up
+            Create Account
           </Text>
         </View>
       </View>

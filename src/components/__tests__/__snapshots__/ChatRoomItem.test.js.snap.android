@@ -11,6 +11,11 @@ exports[`display individual chatroom list item 1`] = `
   onResponderTerminate={[Function]}
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
 >
   <View
     style={
@@ -42,12 +47,7 @@ exports[`display individual chatroom list item 1`] = `
               Object {
                 "fontFamily": "SegoeUI",
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "#333333",
-                },
-              ],
+              undefined,
             ]
           }
         >
@@ -77,12 +77,7 @@ exports[`display individual chatroom list item 1`] = `
               Object {
                 "fontFamily": "SegoeUI",
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "#777777",
-                },
-              ],
+              undefined,
             ]
           }
         >

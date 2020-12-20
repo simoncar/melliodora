@@ -324,7 +324,7 @@ exports[`show story no calendar no image 1`] = `
       <Image
         source={
           Object {
-            "uri": "https://smartcookies.imgix.net/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680&auto=enhance&fit=clip&w=750",
+            "uri": "https://smartcookies.imgix.net/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680&auto=enhance&fit=clip&w=2250",
           }
         }
         style={
@@ -713,7 +713,7 @@ exports[`show story on screen 1`] = `
       <Image
         source={
           Object {
-            "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=750",
+            "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=2250",
           }
         }
         style={
@@ -1254,7 +1254,7 @@ exports[`show story with URL in content to test linking 1`] = `
       <Image
         source={
           Object {
-            "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=750",
+            "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=2250",
           }
         }
         style={
@@ -1876,7 +1876,7 @@ exports[`show story without chat 1`] = `
       <Image
         source={
           Object {
-            "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=750",
+            "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=2250",
           }
         }
         style={
