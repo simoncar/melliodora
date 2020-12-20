@@ -46,8 +46,11 @@ https://github.com/simoncar/melliodora/blob/master/.github/workflows/main.yml
 (if you add a new config file, update the main.yml above)
 
 `expo publish --config apps/app.generic.json`
+
 `expo publish --config apps/app.sais_edu_sg.json`
-`expo publish --config apps/app.ais_edu_sg.json`
+
+`expo publish --config apps/app.polo_photos.json`
+
 
 # Build (and Publish)
 
