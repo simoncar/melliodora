@@ -27,6 +27,7 @@
 	"language": "Language",
 	"languageChangeWarning": "App will restart after selecting a new language",
 	"lastName": "Last Name",
+	"name": "Name",
 	"library": "Library",
 	"loggedInAs": "Logged in as",
 	"login": "Login",
@@ -77,8 +78,8 @@
 	"images": "Images",
 	"changeDomain": "Browse Polo's",
 	"createDomain": "Create your Polo",
-	"error":"Error",
-	"order":"Order",
-	"date":"Date",
-	"time":"Time"
+	"error": "Error",
+	"order": "Order",
+	"date": "Date",
+	"time": "Time"
 }

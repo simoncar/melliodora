@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { View, StyleSheet, FlatList, TextInput } from "react-native";
 import _ from "lodash";
@@ -11,19 +10,19 @@ import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 
 interface TProps {
-	navigation: any,
-	auth: any,
-	community: string,
-	dispatch: any,
-	showCreateCommunity: boolean
+	navigation: any;
+	auth: any;
+	community: string;
+	dispatch: any;
+	showCreateCommunity: boolean;
 }
 
 interface TState {
-	selectedDomain: string | null,
-	domains: [],
-	allDomains: [],
-	searchTerm: string,
-	auth: any
+	selectedDomain: string | null;
+	domains: [];
+	allDomains: [];
+	searchTerm?: string;
+	auth: any;
 }
 
 export class DomainSelection extends Component<TProps, TState> {
@@ -33,12 +32,12 @@ export class DomainSelection extends Component<TProps, TState> {
 			selectedDomain: "",
 			domains: [],
 			allDomains: [],
-			auth: props.auth
+			auth: props.auth,
 		};
 
 		props.dispatch(getCommunities());
 
-		console.log("auth:", this.props.auth)
+		console.log("auth:", this.props.auth);
 	}
 
 	componentDidMount() {
@@ -46,7 +45,7 @@ export class DomainSelection extends Component<TProps, TState> {
 		if (communities.length > 0) {
 			this.setState({
 				domains: communities,
-				allDomains: communities
+				allDomains: communities,
 			});
 		}
 	}
@@ -62,99 +61,131 @@ export class DomainSelection extends Component<TProps, TState> {
 		return <View style={styles.separator} />;
 	};
 
-	searchFilterFunction = text => {
+	searchFilterFunction = (text) => {
 		this.setState({
 			selectedDomain: null,
-			searchTerm: text
+			searchTerm: text,
 		});
 
 		const allDomains = this.state.allDomains;
 
 		if (!text) {
 			this.setState({
-				domains: allDomains
+				domains: allDomains,
 			});
 			return;
 		}
 		const textToSearch = text.toUpperCase();
-		const filteredData = allDomains.filter(dataItem => {
+		const filteredData = allDomains.filter((dataItem) => {
 			const searchObject = _.pick(dataItem, ["name", "node"]);
 
-			return Object.values(searchObject).some(item => item.toUpperCase().includes(textToSearch));
+			return Object.values(searchObject).some((item) =>
+				item.toUpperCase().includes(textToSearch)
+			);
 		});
 
 		this.setState({
-			domains: filteredData
+			domains: filteredData,
 		});
 	};
 
 	renderHeader = () => {
-		return <View style={styles.searchView}>
-			<TextInput style={styles.searchInput}
-				onChangeText={text => this.searchFilterFunction(text)}
-				value={this.state.searchTerm}
-				placeholder={I18n.t("search")}
-				placeholderTextColor="#555555"
-				testID="domainSelection.search" />
-			<Ionicons
-				style={styles.searchIcon}
-				name="ios-search"
-				size={32}
-				color="#777777" />
-		</View>;
+		return (
+			<View style={styles.searchView}>
+				<TextInput
+					style={styles.searchInput}
+					onChangeText={(text) => this.searchFilterFunction(text)}
+					value={this.state.searchTerm}
+					placeholder={I18n.t("search")}
+					placeholderTextColor="#555555"
+					testID="domainSelection.search"
+				/>
+				<Ionicons
+					style={styles.searchIcon}
+					name="ios-search"
+					size={32}
+					color="#777777"
+				/>
+			</View>
+		);
 	};
 
 	renderItem = ({ item }) => {
-
-		return <View>
-			<SettingsListItem
-				hasNavArrow={true}
-				icon={<MaterialIcons
-					name="group"
-					style={styles.imageStyleIcon} />}
-				title={item.name}
-				onPress={() => this.props.dispatch(processSelectedCommunity(item))} />
-		</View>;
+		return (
+			<View>
+				<SettingsListItem
+					hasNavArrow={true}
+					icon={
+						<MaterialIcons
+							name="group"
+							style={styles.imageStyleIcon}
+						/>
+					}
+					title={item.name}
+					onPress={() =>
+						this.props.dispatch(processSelectedCommunity(item))
+					}
+				/>
+			</View>
+		);
 	};
 
 	render() {
-		let onPressedCreateCommunity = () => this.props.navigation.push("login");
-		if (this.props.showCreateCommunity == false) {
-			onPressedCreateCommunity = () => this.props.navigation.push("domainCreate");
+		let onPressedCreateCommunity = () =>
+			this.props.navigation.push("login");
+
+		if (
+			_.has(this.props.auth.userInfo, "email") &&
+			this.props.auth.userInfo.email
+		) {
+			onPressedCreateCommunity = () =>
+				this.props.navigation.push("communityCreate");
 		}
-		return <View style={styles.viewFlex}>
-			<View>
-				<View style={styles.card}>
-					<Profile
-						auth={this.props.auth}
-						navigation={this.props.navigation} />
+		return (
+			<View style={styles.viewFlex}>
+				<View>
+					<View style={styles.card}>
+						<Profile
+							auth={this.props.auth}
+							navigation={this.props.navigation}
+						/>
+					</View>
+					<View style={styles.card}>
+						<SettingsListItem
+							hasNavArrow={true}
+							icon={
+								<MaterialIcons
+									name="camera-roll"
+									style={styles.imageStyleIconCreate}
+								/>
+							}
+							title={I18n.t("createDomain")}
+							onPress={() => onPressedCreateCommunity()}
+							lastItem={true}
+							subTitle="A Polo is your own space for sharing photos"
+						/>
+					</View>
 				</View>
 				<View style={styles.card}>
-
-					<SettingsListItem
-						hasNavArrow={true}
-						icon={<MaterialIcons
-							name="camera-roll"
-							style={styles.imageStyleIconCreate} />}
-						title={I18n.t("createDomain")}
-						onPress={() => onPressedCreateCommunity()}
-						lastItem={true}
-						subTitle="A Polo is your own space for sharing photos"
+					{this.renderHeader()}
+					<FlatList
+						data={this.state.domains}
+						renderItem={this.renderItem}
+						keyExtractor={(_, idx) => "domain" + idx}
+						ItemSeparatorComponent={this.renderSeparator}
+						ListFooterComponent={
+							<View style={styles.bottomSpace}></View>
+						}
 					/>
 				</View>
-
 			</View>
-			<View style={styles.card}>
-				{this.renderHeader()}
-				<FlatList data={this.state.domains} renderItem={this.renderItem} keyExtractor={(_, idx) => "domain" + idx} ItemSeparatorComponent={this.renderSeparator} ListFooterComponent={<View style={styles.bottomSpace}></View>} />
-			</View >
-		</View>;
+		);
 	}
 }
 
 const styles = StyleSheet.create({
 	bottomSpace: {
-		paddingBottom: 100
+		paddingBottom: 100,
 	},
 
 	card: {
@@ -172,7 +203,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		marginLeft: 15,
 		textAlign: "center",
-		width: 30
+		width: 30,
 	},
 
 	imageStyleIconCreate: {
@@ -181,7 +212,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		marginLeft: 15,
 		textAlign: "center",
-		width: 30
+		width: 30,
 	},
 	searchIcon: { marginLeft: 12, marginRight: 12, padding: 2 },
 
@@ -191,22 +222,20 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		borderColor: "#111111",
 		flexDirection: "row",
-		height: 55
+		height: 55,
 	},
 	separator: {
-		backgroundColor: "#CED0CE"
+		backgroundColor: "#CED0CE",
 	},
 	viewFlex: {
 		flex: 1,
-		marginTop: 10
-	}
-
+		marginTop: 10,
+	},
 });
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
 	community: state.community,
-	auth: state.auth
+	auth: state.auth,
 });
 
 export default connect(mapStateToProps)(DomainSelection);
