@@ -7,7 +7,7 @@ import Constants from "expo-constants";
 import { store, persistor } from "./src/store/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import * as ScreenOrientation from 'expo-screen-orientation';
+import * as ScreenOrientation from "expo-screen-orientation";
 
 Sentry.init({
 	dsn: Constants.manifest.extra.sentryDSN,
@@ -15,13 +15,14 @@ Sentry.init({
 	debug: false,
 });
 
-
-if (Platform.OS === 'web') {
-	Sentry.Browser.captureMessage("App started V" + Constants.manifest.version);
-	console.log("Sentry Web: ", Platform.OS)
+if (Platform.OS === "web") {
+	Sentry.Browser.captureMessage(
+		"Polo started V" + Constants.manifest.version
+	);
+	console.log("Sentry Web: ", Platform.OS);
 } else {
-	Sentry.Native.captureMessage("App started V" + Constants.manifest.version);
-	console.log("Sentry Device:", Platform.OS)
+	Sentry.Native.captureMessage("Polo started V" + Constants.manifest.version);
+	console.log("Sentry Device:", Platform.OS);
 }
 
 export default class App extends Component {
@@ -36,12 +37,13 @@ export default class App extends Component {
 	);
 
 	render() {
-
-		ScreenOrientation.unlockAsync()
+		//ScreenOrientation.unlockAsync();
 
 		return (
 			<Provider store={store}>
-				<PersistGate persistor={persistor} loading={this.renderLoading()}>
+				<PersistGate
+					persistor={persistor}
+					loading={this.renderLoading()}>
 					<Setup />
 				</PersistGate>
 			</Provider>
@@ -57,6 +59,3 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 });
-
-
-
