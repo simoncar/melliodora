@@ -4,7 +4,7 @@ import App from "./App";
 import I18n from "./lib/i18n";
 import * as Font from "expo-font";
 import _ from "lodash";
-import AppLoading from 'expo-app-loading';
+import AppLoading from "expo-app-loading";
 
 import Firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
@@ -13,9 +13,6 @@ import { connect } from "react-redux";
 import { getCommunityDetails } from "./store/community";
 
 class Setup extends Component {
-	constructor() {
-		super();
-	}
 	state = {
 		loading: true,
 	};
@@ -25,16 +22,17 @@ class Setup extends Component {
 			this.props.dispatch({ type: "FIREBASE_READY" })
 		);
 
-
-		console.log("setup props", this.props.community.selectedCommunity.node)
+		console.log("setup props", this.props.community.selectedCommunity.node);
 
 		if (Constants.manifest.extra.instance) {
 			const node = Constants.manifest.extra.instance;
 			this.props.dispatch(getCommunityDetails(node));
 		} else if (this.props.community.selectedCommunity.node === undefined) {
-			console.log("NO DOMAIN ** NO DOMAIN ** NO DOMAIN")
+			console.log("NO DOMAIN ** NO DOMAIN ** NO DOMAIN");
 		} else if (this.props.community.selectedCommunity.node) {
-			this.props.dispatch(getCommunityDetails(this.props.community.selectedCommunity.node));
+			this.props.dispatch(
+				getCommunityDetails(this.props.community.selectedCommunity.node)
+			);
 		}
 
 		Font.loadAsync({
@@ -50,28 +48,22 @@ class Setup extends Component {
 		I18n.locale = language;
 	}
 
-
 	render() {
-		if (
-			this.state.loading ||
-			!this.props.auth.userInfo ||
-			_.isEmpty(this.props.auth.userInfo) ||
-			(_.isEmpty(this.props.community.selectedCommunity) &&
-				Constants.manifest.extra.instance)
-		) {
-			return <AppLoading />;
-		} else if (_.isEmpty(this.props.community.selectedCommunity)) {
-			return (
-				<AuthStackNavigator />
-			);
+		// if (
+		// 	this.state.loading ||
+		// 	!this.props.auth.userInfo ||
+		// 	_.isEmpty(this.props.auth.userInfo) ||
+		// 	(_.isEmpty(this.props.community.selectedCommunity) &&
+		// 		Constants.manifest.extra.instance)
+		// ) {
+		// 	return <AppLoading />;
+		// } else
+		if (_.isEmpty(this.props.community.selectedCommunity)) {
+			return <AuthStackNavigator />;
 		} else {
-			// check if user is admin
-			return (
-				<App />
-			);
+			return <App />;
 		}
 	}
-
 }
 
 const mapStateToProps = (state) => ({

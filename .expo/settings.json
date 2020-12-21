@@ -4,7 +4,6 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "rj-6hp",
-  "https": false,
-  "urlType": "http"
+  "urlRandomness": "tk-945",
+  "https": false
 }

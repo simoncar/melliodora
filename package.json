@@ -43,7 +43,7 @@
 		"s": "expo start --config apps/app.sais_edu_sg.json --no-minify --ios",
 		"a": "expo start --config apps/app.ais_edu_sg.json --no-minify --ios",
 		"modules": "rm -rf node_modules && yarn",
-		"p": "expo publish --config apps/app.generic.json"
+		"p": "expo start --config apps/app.polo_photos.json --no-minify"
 	},
 	"dependencies": {
 		"@expo/react-native-action-sheet": "^3.8.0",
