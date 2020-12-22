@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { View, StyleSheet, FlatList, TextInput } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, FlatList, TextInput, Text } from "react-native";
 import _ from "lodash";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
@@ -8,6 +8,8 @@ import { SettingsListItem } from "../components/SettingsListItem";
 import Profile from "../components/Profile";
 import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
+import { getDomains } from "../lib/domainAPI";
+import { useDomain, useDomains, usePersistedDomains } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
@@ -25,90 +27,34 @@ interface TState {
 	auth: any;
 }
 
-export class DomainSelection extends Component<TProps, TState> {
-	constructor(props: TProps) {
-		super(props);
-		this.state = {
-			selectedDomain: "",
-			domains: [],
-			allDomains: [],
-			auth: props.auth,
-		};
+export default function DomainSelection(props: TProps, state: TState) {
+	const [loading, setLoading] = useState(true);
+	const [domainsList, setDomainsList] = useState([]);
 
-		props.dispatch(getCommunities());
-	}
+	const [domains, domainsSetter, domainsIsUpdated] = usePersistedDomains();
 
-	componentDidMount() {
-		const { communities } = this.props.community;
-		if (communities.length > 0) {
-			this.setState({
-				domains: communities,
-				allDomains: communities,
-			});
+	useEffect(() => {
+		getDomains().then((domainsDB) => {
+			//console.log("domainsDB:", domainsDB);
+			domainsSetter(JSON.stringify(domainsDB));
+			console.log("db loaded");
+			setDomainsList(domainsDB);
+		});
+	}, []);
+
+	useEffect(() => {
+		if (domains !== "" && loading === true) {
+			setDomainsList(JSON.parse(domains));
+			console.log("effect domains loaded");
+			setLoading(false);
 		}
-	}
+	}, [domains]);
 
-	componentDidUpdate(prevProps, prevState) {
-		const { communities } = this.props.community;
-		if (communities !== prevProps.community.communities) {
-			this.setState({ domains: communities, allDomains: communities });
-		}
-	}
-
-	renderSeparator = () => {
+	const renderSeparator = () => {
 		return <View style={styles.separator} />;
 	};
 
-	searchFilterFunction = (text) => {
-		this.setState({
-			selectedDomain: null,
-			searchTerm: text,
-		});
-
-		const allDomains = this.state.allDomains;
-
-		if (!text) {
-			this.setState({
-				domains: allDomains,
-			});
-			return;
-		}
-		const textToSearch = text.toUpperCase();
-		const filteredData = allDomains.filter((dataItem) => {
-			const searchObject = _.pick(dataItem, ["name", "node"]);
-
-			return Object.values(searchObject).some((item) =>
-				item.toUpperCase().includes(textToSearch)
-			);
-		});
-
-		this.setState({
-			domains: filteredData,
-		});
-	};
-
-	renderHeader = () => {
-		return (
-			<View style={styles.searchView}>
-				<TextInput
-					style={styles.searchInput}
-					onChangeText={(text) => this.searchFilterFunction(text)}
-					value={this.state.searchTerm}
-					placeholder={I18n.t("search")}
-					placeholderTextColor="#555555"
-					testID="domainSelection.search"
-				/>
-				<Ionicons
-					style={styles.searchIcon}
-					name="ios-search"
-					size={32}
-					color="#777777"
-				/>
-			</View>
-		);
-	};
-
-	renderItem = ({ item }) => {
+	const renderItem = ({ item }) => {
 		return (
 			<View>
 				<SettingsListItem
@@ -120,65 +66,50 @@ export class DomainSelection extends Component<TProps, TState> {
 						/>
 					}
 					title={item.name}
-					onPress={() =>
-						this.props.dispatch(processSelectedCommunity(item))
-					}
 				/>
 			</View>
 		);
 	};
 
-	render() {
-		let onPressedCreateCommunity = () =>
-			this.props.navigation.push("login");
+	let onPressedCreateCommunity = () => props.navigation.push("login");
 
-		if (
-			_.has(this.props.auth.userInfo, "email") &&
-			this.props.auth.userInfo.email
-		) {
-			onPressedCreateCommunity = () =>
-				this.props.navigation.push("communityCreate");
-		}
-		return (
-			<View style={styles.viewFlex}>
-				<View>
-					<View style={styles.card}>
-						<Profile
-							auth={this.props.auth}
-							navigation={this.props.navigation}
-						/>
-					</View>
-					<View style={styles.card}>
-						<SettingsListItem
-							hasNavArrow={true}
-							icon={
-								<MaterialIcons
-									name="camera-roll"
-									style={styles.imageStyleIconCreate}
-								/>
-							}
-							title={I18n.t("createDomain")}
-							onPress={() => onPressedCreateCommunity()}
-							lastItem={true}
-							subTitle="A Polo is your own space for sharing photos"
-						/>
-					</View>
+	return (
+		<View style={styles.viewFlex}>
+			<View>
+				<View style={styles.card}>
+					<Profile auth={props.auth} navigation={props.navigation} />
 				</View>
 				<View style={styles.card}>
-					{this.renderHeader()}
+					<SettingsListItem
+						hasNavArrow={true}
+						icon={
+							<MaterialIcons
+								name="camera-roll"
+								style={styles.imageStyleIconCreate}
+							/>
+						}
+						title={I18n.t("createDomain")}
+						onPress={() => onPressedCreateCommunity()}
+						lastItem={true}
+						subTitle="A Polo is your own space for sharing photos"
+					/>
+				</View>
+			</View>
+			{loading === false && (
+				<View style={styles.card}>
 					<FlatList
-						data={this.state.domains}
-						renderItem={this.renderItem}
-						keyExtractor={(_, idx) => "domain" + idx}
-						ItemSeparatorComponent={this.renderSeparator}
+						data={domainsList}
+						renderItem={renderItem}
+						keyExtractor={(item) => item._key}
+						ItemSeparatorComponent={renderSeparator}
 						ListFooterComponent={
 							<View style={styles.bottomSpace}></View>
 						}
 					/>
 				</View>
-			</View>
-		);
-	}
+			)}
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
@@ -212,16 +143,7 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		width: 30,
 	},
-	searchIcon: { marginLeft: 12, marginRight: 12, padding: 2 },
 
-	searchInput: { flex: 1, paddingLeft: 30 },
-	searchView: {
-		alignItems: "center",
-		backgroundColor: "#fff",
-		borderColor: "#111111",
-		flexDirection: "row",
-		height: 55,
-	},
 	separator: {
 		backgroundColor: "#CED0CE",
 	},
@@ -230,10 +152,3 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 	},
 });
-
-const mapStateToProps = (state) => ({
-	community: state.community,
-	auth: state.auth,
-});
-
-export default connect(mapStateToProps)(DomainSelection);

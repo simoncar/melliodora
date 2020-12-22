@@ -11525,6 +11525,11 @@ react-native-gifted-chat@^0.16.3:
     react-native-typing-animation "^0.1.7"
     uuid "3.4.0"
 
+react-native-global-state-hooks@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-global-state-hooks/-/react-native-global-state-hooks-1.1.1.tgz#ffe6897e8ea1781c472325090a0e38fb03d2760b"
+  integrity sha512-xJNVHUTf+zTbU1MboKWGAgCMogQISLYfJGbTq6i2fHwqHL21Lh4ksGqTsccs0am5pdANh8ssv9ZGBGLCkQ3OTQ==
+
 react-native-image-viewing@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/react-native-image-viewing/-/react-native-image-viewing-0.2.0.tgz#3c0bc67cfb9aa7607cec632139d7ef4c45e07e4e"

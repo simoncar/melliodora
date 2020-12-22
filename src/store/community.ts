@@ -3,6 +3,8 @@ import { call, put,  takeLatest, select } from "redux-saga/effects";
 import _ from "lodash";
 import { checkAdmin } from "./auth";
 
+
+
 export const PROCESS_SELECTED_COMMUNITY = 'PROCESS_SELECTED_COMMUNITY';
 export const SET_SELECTED_COMMUNITY = 'SET_SELECTED_COMMUNITY';
 export const GET_COMMUNITIES = 'GET_COMMUNITIES';
@@ -135,6 +137,7 @@ function* WORKER_getCommunities() {
 function* WORKER_getCommunityDetails(action) {
 	const node = action.node;
 
+
 	const snapshot = yield call(() => firebase
 		.firestore()
 		.collection("domains")
@@ -191,7 +194,9 @@ function* WORKER_buildChatroomList(action) {
 	yield put(setUserChatrooms(userChatrooms));
 
 }
-export function* communitySaga() {
+export function* communitySaga() { 
+
+	
 	yield takeLatest(GET_COMMUNITIES, WORKER_getCommunities);
 	yield takeLatest(PROCESS_SELECTED_COMMUNITY, WORKER_processSelectedCommunity);
 	yield takeLatest(BUILD_CHATROOM_LIST, WORKER_buildChatroomList);
@@ -207,6 +212,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+
 	switch (action.type) {
 		case SET_SELECTED_COMMUNITY:
 			return {
