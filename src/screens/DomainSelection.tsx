@@ -13,21 +13,9 @@ import { useDomain, useDomains, usePersistedDomains } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
-	auth: any;
-	community: string;
-	dispatch: any;
-	showCreateCommunity: boolean;
 }
 
-interface TState {
-	selectedDomain: string | null;
-	domains: [];
-	allDomains: [];
-	searchTerm?: string;
-	auth: any;
-}
-
-export default function DomainSelection(props: TProps, state: TState) {
+export default function DomainSelection(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [domainsList, setDomainsList] = useState([]);
 
@@ -35,9 +23,7 @@ export default function DomainSelection(props: TProps, state: TState) {
 
 	useEffect(() => {
 		getDomains().then((domainsDB) => {
-			//console.log("domainsDB:", domainsDB);
 			domainsSetter(JSON.stringify(domainsDB));
-			console.log("db loaded");
 			setDomainsList(domainsDB);
 		});
 	}, []);
@@ -45,7 +31,6 @@ export default function DomainSelection(props: TProps, state: TState) {
 	useEffect(() => {
 		if (domains !== "" && loading === true) {
 			setDomainsList(JSON.parse(domains));
-			console.log("effect domains loaded");
 			setLoading(false);
 		}
 	}, [domains]);
