@@ -3,7 +3,6 @@ import { View, StyleSheet, Text } from "react-native";
 import Image from "../components/Imgix";
 import { SettingsListItem } from "./SettingsListItem";
 import { getStories } from "../lib/storyAPI";
-import { connect } from "react-redux";
 import { usePersistedDomainNode } from "../lib/globalState";
 
 interface TProps {

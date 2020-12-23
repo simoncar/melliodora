@@ -60,7 +60,7 @@ export class AuthParser extends React.Component {
 				role,
 				authenticated: true,
 			};
-
+			console.log("Auth parser firestore")
 			firebase
 				.firestore()
 				.collection(global.domain)

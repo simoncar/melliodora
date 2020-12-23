@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { Text } from "./sComponent";
-import {
-	Ionicons,
-	SimpleLineIcons,
-	MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Image from "../components/Imgix";
 import Constants from "expo-constants";
 import { StoryEntity } from "../lib/interfaces";
@@ -25,45 +21,27 @@ interface TProps {
 class ListItem extends Component<TProps> {
 	constructor(props: TProps) {
 		super(props);
-		console.log(this.props);
 	}
 
 	icon(source: string, photo1: string) {
 		if (source == "calendar") {
-			return (
-				<Ionicons
-					name="ios-calendar"
-					size={35}
-					style={styles.iconCalendar}
-				/>
-			);
+			return <Ionicons name="ios-calendar" size={35} style={styles.iconCalendar} />;
 		} else if (source == "balance") {
-			return (
-				<MaterialCommunityIcons
-					name="cash-multiple"
-					size={35}
-					style={styles.iconCash}
-				/>
-			);
+			return <MaterialCommunityIcons name="cash-multiple" size={35} style={styles.iconCash} />;
 		} else {
 			return <Image style={styles.iconPhoto} source={{ uri: photo1 }} />;
 		}
 	}
 	renderTime(start: string | any[] | undefined, end: any) {
 		if (undefined != start && start.length > 0) {
-			return (
-				<Text style={styles.eventTime}>{formatTime(start, end)} </Text>
-			);
+			return <Text style={styles.eventTime}>{formatTime(start, end)} </Text>;
 		}
 	}
 
 	renderLocation(location: string | any[] | undefined) {
 		if (undefined != location && location.length > 0) {
 			return (
-				<Text
-					numberOfLines={2}
-					ellipsizeMode="tail"
-					style={styles.cardLocation}>
+				<Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardLocation}>
 					{location}
 				</Text>
 			);
@@ -72,9 +50,7 @@ class ListItem extends Component<TProps> {
 
 	renderDate(date_start: string | any[] | undefined) {
 		if (undefined != date_start && date_start.length > 0) {
-			return (
-				<Text style={styles.eventDate}>{formatMonth(date_start)}</Text>
-			);
+			return <Text style={styles.eventDate}>{formatMonth(date_start)}</Text>;
 		}
 	}
 
@@ -88,11 +64,7 @@ class ListItem extends Component<TProps> {
 							title: title,
 						});
 					}}>
-					<SimpleLineIcons
-						name="bubble"
-						size={25}
-						style={styles.chatBubble}
-					/>
+					<SimpleLineIcons name="bubble" size={25} style={styles.chatBubble} />
 				</TouchableOpacity>
 			);
 		}
@@ -116,14 +88,14 @@ class ListItem extends Component<TProps> {
 			<View style={card && [styles.card]}>
 				<TouchableOpacity
 					onPress={() => {
+						console.log("navigate to story:", this.props.domain);
 						this.props.navigation.navigate("story", {
 							story: this.props.story,
+							domain: this.props.domain,
 						});
 					}}>
 					<View style={styles.headerRow}>
-						<View style={styles.headerIcon}>
-							{this.icon(source, photo1)}
-						</View>
+						<View style={styles.headerIcon}>{this.icon(source, photo1)}</View>
 
 						<View style={styles.headerTextPanel}>
 							<Text numberOfLines={2} ellipsizeMode="tail">
@@ -131,35 +103,22 @@ class ListItem extends Component<TProps> {
 							</Text>
 							{this.renderLocation(location)}
 							{this.renderDate(date_start)}
-							{this.renderTime(
-								time_start_pretty,
-								time_end_pretty
-							)}
+							{this.renderTime(time_start_pretty, time_end_pretty)}
 						</View>
 
 						<View style={styles.headerRightIcons}>
-							{showIconChat &&
-								this.renderChat(_key, summaryMyLanguage)}
+							{showIconChat && this.renderChat(_key, summaryMyLanguage)}
 						</View>
 					</View>
 
 					{isURL(photo1) && (
 						<View>
-							<Image
-								style={styles.storyPhoto}
-								source={{ uri: photo1 }}
-								auto={true}
-							/>
+							<Image style={styles.storyPhoto} source={{ uri: photo1 }} auto={true} />
 						</View>
 					)}
 				</TouchableOpacity>
 				<View style={styles.cardMiniList}>
-					<ImageList
-						feature={_key}
-						edit={false}
-						miniRoll={true}
-						domain={this.props.domain}
-					/>
+					<ImageList feature={_key} edit={false} miniRoll={true} domain={this.props.domain} />
 				</View>
 			</View>
 		);

@@ -24,20 +24,11 @@ interface TProps {
 export default function DomainSelection(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [domainsList, setDomainsList] = useState([]);
-	const [NArefresh, NAsetter, NAstate, NAisUpdated] = useDomainName();
-	const [NOrefresh, NOsetter, NOstate, NOisUpdated] = useDomainNode();
+	const [NOrefresh, nodeSetter, NOstate, NOisUpdated] = useDomainNode();
 
 	const [domains, domainsSetter, domainsIsUpdated] = usePersistedDomains();
-	const [
-		domainNode,
-		domainNodeSetter,
-		domainNodeIsUpdated,
-	] = usePersistedDomainNode();
-	const [
-		domainName,
-		domainNameSetter,
-		domainNameIsUpdated,
-	] = usePersistedDomainName();
+	const [domainNode, domainNodeSetter, domainNodeIsUpdated] = usePersistedDomainNode();
+	const [domainName, domainNameSetter, domainNameIsUpdated] = usePersistedDomainName();
 
 	useEffect(() => {
 		getDomains().then((domainsDB) => {
@@ -62,19 +53,10 @@ export default function DomainSelection(props: TProps) {
 			<View>
 				<SettingsListItem
 					hasNavArrow={true}
-					icon={
-						<MaterialIcons
-							name="group"
-							style={styles.imageStyleIcon}
-						/>
-					}
+					icon={<MaterialIcons name="group" style={styles.imageStyleIcon} />}
 					title={item.name}
 					onPress={() => {
-						console.log("select domain:", item.node);
-						NOsetter(item.node);
-						console.log("select name:", item.name);
-						//NAsetter(item.name);
-						props.navigation.push("home");
+						nodeSetter(item.node);
 					}}
 				/>
 			</View>
@@ -92,12 +74,7 @@ export default function DomainSelection(props: TProps) {
 				<View style={styles.card}>
 					<SettingsListItem
 						hasNavArrow={true}
-						icon={
-							<MaterialIcons
-								name="camera-roll"
-								style={styles.imageStyleIconCreate}
-							/>
-						}
+						icon={<MaterialIcons name="camera-roll" style={styles.imageStyleIconCreate} />}
 						title={I18n.t("createDomain")}
 						onPress={() => onPressedCreateCommunity()}
 						lastItem={true}
@@ -114,9 +91,7 @@ export default function DomainSelection(props: TProps) {
 						renderItem={renderItem}
 						keyExtractor={(item) => item._key}
 						ItemSeparatorComponent={renderSeparator}
-						ListFooterComponent={
-							<View style={styles.bottomSpace}></View>
-						}
+						ListFooterComponent={<View style={styles.bottomSpace}></View>}
 					/>
 				</View>
 			)}

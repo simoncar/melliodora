@@ -9,8 +9,8 @@ import { ScrollView } from "react-native-gesture-handler";
 interface IProps {
 	feature: string;
 	refreshFunction: any;
-	edit: boolean;
-	miniRoll: boolean;
+	edit?: boolean;
+	miniRoll?: boolean;
 	domain: string;
 }
 

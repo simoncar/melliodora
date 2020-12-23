@@ -12,17 +12,9 @@ import { connect } from "react-redux";
 import { getCommunityDetails } from "./store/community";
 import { usePersistedDomainNode } from "./lib/globalState";
 
-interface TProps {
-	navigation: any;
-}
-
-export default function Setup(props: TProps) {
+export default function Setup() {
 	const [loading, setLoading] = useState(true);
-	const [
-		domainNode,
-		domainNodeSetter,
-		domainNodeIsUpdated,
-	] = usePersistedDomainNode();
+	const [domainNode, domainNodeSetter, domainNodeIsUpdated] = usePersistedDomainNode();
 
 	useEffect(() => {
 		Firebase.initialise().then(() => console.log("firebase initialized?"));
@@ -43,6 +35,7 @@ export default function Setup(props: TProps) {
 	if (loading) {
 		return <AppLoading />;
 	} else if (domainNode === "") {
+		console.log("trigger auth stack navigator");
 		return <AuthStackNavigator />;
 	} else {
 		return <App />;

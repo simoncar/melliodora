@@ -16,9 +16,7 @@ Sentry.init({
 });
 
 if (Platform.OS === "web") {
-	Sentry.Browser.captureMessage(
-		"Polo started V" + Constants.manifest.version
-	);
+	Sentry.Browser.captureMessage("Polo started V" + Constants.manifest.version);
 	console.log("Sentry Web: ", Platform.OS);
 } else {
 	Sentry.Native.captureMessage("Polo started V" + Constants.manifest.version);
@@ -41,9 +39,7 @@ export default class App extends Component {
 
 		return (
 			<Provider store={store}>
-				<PersistGate
-					persistor={persistor}
-					loading={this.renderLoading()}>
+				<PersistGate persistor={persistor} loading={this.renderLoading()}>
 					<Setup />
 				</PersistGate>
 			</Provider>

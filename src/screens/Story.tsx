@@ -1,19 +1,7 @@
 import React, { Component } from "react";
-import {
-	Linking,
-	View,
-	StyleSheet,
-	ScrollView,
-	Dimensions,
-} from "react-native";
+import { Linking, View, StyleSheet, ScrollView, Dimensions } from "react-native";
 import ParsedText from "react-native-parsed-text";
-import {
-	formatTime,
-	formatMonth,
-	getAbbreviations,
-	isAdmin,
-	isValue,
-} from "../lib/global";
+import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global";
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent";
 import ImageList from "../components/ImageList";
@@ -28,12 +16,12 @@ import {
 import { StoryEntity, StoryState } from "../lib/interfaces";
 import Image from "../components/Imgix";
 
-const globalAny: any = global;
 const WINDOW_WIDTH = Dimensions.get("window").width;
 interface TProps {
 	navigation: any;
 	route: any;
 	auth: any;
+	domain: string;
 }
 
 export class Story extends Component<TProps, StoryState> {
@@ -116,26 +104,12 @@ export class Story extends Component<TProps, StoryState> {
 		const admin = isAdmin(this.props.route.params.adminPassword);
 
 		if (admin && story.source == "feature") {
-			buffer.push(
-				actionEdit(
-					navigation,
-					position,
-					this.state,
-					this.refreshFunction
-				)
-			);
+			buffer.push(actionEdit(navigation, position, this.state, this.refreshFunction));
 			position++;
 		}
 
 		if (admin && story.showIconChat === true) {
-			buffer.push(
-				actionChat(
-					position,
-					navigation,
-					story._key,
-					story.summaryMyLanguage
-				)
-			);
+			buffer.push(actionChat(position, navigation, story._key, story.summaryMyLanguage));
 			position++;
 		}
 		if (admin) {
@@ -175,10 +149,7 @@ export class Story extends Component<TProps, StoryState> {
 
 				{isValue(this.state.time_start_pretty) && (
 					<Text selectable style={styles.eventTextTime}>
-						{formatTime(
-							this.state.time_start_pretty,
-							this.state.time_end_pretty
-						)}
+						{formatTime(this.state.time_start_pretty, this.state.time_end_pretty)}
 					</Text>
 				)}
 
@@ -216,21 +187,19 @@ export class Story extends Component<TProps, StoryState> {
 				)}
 
 				<Text selectable style={styles.eventTextAbbreviation}>
-					{getAbbreviations(this.state.summary, globalAny.domain)}
+					{getAbbreviations(this.state.summary, this.props.route.params.domain)}
 				</Text>
 			</View>
 		);
 	}
 
 	render() {
+		console.log("story 212:", this.props.route.params.domain);
 		return (
 			<View style={styles.container}>
 				{this.rightSideButtons(this.state)}
 				<ScrollView showsVerticalScrollIndicator={false}>
-					<Image
-						style={styles.storyPhoto}
-						source={{ uri: this.state.photo1 }}
-					/>
+					<Image style={styles.storyPhoto} source={{ uri: this.state.photo1 }} />
 
 					{this._drawText(this.state)}
 
@@ -238,6 +207,7 @@ export class Story extends Component<TProps, StoryState> {
 						feature={this.state._key}
 						refreshFunction={this.refreshFunction}
 						edit={false}
+						domain={this.props.route.params.domain}
 					/>
 				</ScrollView>
 			</View>

@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-	View,
-	Linking,
-	TouchableOpacity,
-	Image,
-	ScrollView,
-	StyleSheet,
-} from "react-native";
+import { View, Linking, TouchableOpacity, Image, ScrollView, StyleSheet } from "react-native";
 import Constants from "expo-constants";
 import firebase from "firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -22,7 +15,7 @@ import { actionAdd } from "../components/StoryActions";
 import { usePersistedDomainNode } from "../lib/globalState";
 import { getStories } from "../lib/storyAPI";
 
-const versionCheck = new VersionCheck(); 
+const versionCheck = new VersionCheck();
 
 const demo = DemoData;
 
@@ -36,11 +29,7 @@ export default function Home(props: TProps) {
 	const [calendarItems, setCalendarItems] = useState([]);
 	const [balanceItems, setBalanceItems] = useState([]);
 	const [appUpdateMessage, setAppUpdateMessage] = useState("none");
-	const [
-		domainNode,
-		domainNodeSetter,
-		domainNodeIsUpdated,
-	] = usePersistedDomainNode();
+	const [domainNode, domainNodeSetter, domainNodeIsUpdated] = usePersistedDomainNode();
 
 	const language = "en";
 
@@ -202,7 +191,6 @@ export default function Home(props: TProps) {
 	// };
 
 	const renderItem = (navigation, item) => {
-		console.log("item:", item);
 		return (
 			<ListItem
 				key={item._key}
@@ -261,24 +249,15 @@ export default function Home(props: TProps) {
 					<View style={styles.cookiesLogoView}>
 						<TouchableOpacity
 							onPress={() => {
-								handleOpenWithLinking(
-									"https://smartcookies.io/smart-community"
-								);
+								handleOpenWithLinking("https://smartcookies.io/smart-community");
 							}}>
-							<Image
-								source={require("../../images/sais_edu_sg/SCLogo.png")}
-								style={styles.sclogo}
-							/>
+							<Image source={require("../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
 						</TouchableOpacity>
 					</View>
 
 					<View style={styles.userDiagnostics}>
-						<Text style={styles.version}>
-							{Constants.manifest.revisionId}
-						</Text>
-						<Text style={styles.version}>
-							{Constants.manifest.version}
-						</Text>
+						<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
+						<Text style={styles.version}>{Constants.manifest.version}</Text>
 						<Text style={styles.user}>{global.name}</Text>
 						<Text style={styles.user}>{global.email}</Text>
 						<Text style={styles.user}>{global.uid}</Text>
