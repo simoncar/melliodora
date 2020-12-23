@@ -415,7 +415,7 @@ exports[`list domains 1`] = `
           <View>
             <View
               accessible={true}
-              focusable={false}
+              focusable={true}
               onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
@@ -508,7 +508,7 @@ exports[`list domains 1`] = `
           <View>
             <View
               accessible={true}
-              focusable={false}
+              focusable={true}
               onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
@@ -601,7 +601,7 @@ exports[`list domains 1`] = `
           <View>
             <View
               accessible={true}
-              focusable={false}
+              focusable={true}
               onClick={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}

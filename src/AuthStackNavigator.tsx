@@ -6,29 +6,62 @@ import DomainSelection from "./screens/DomainSelection";
 import LoginScreen from "./screens/Login";
 import SignUp from "./screens/SignUp";
 import WelcomeScreen from "./screens/Welcome";
-import CommunityCreate from "./screens/CommunityCreate"
+import CommunityCreate from "./screens/CommunityCreate";
 import ForgotPassword from "./screens/ForgotPassword";
 import UserProfile from "./screens/UserProfile";
 import EditUserProfile from "./screens/EditUserProfile";
+import Home from "./screens/Home";
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 
 function AuthStackNavigator() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator>
-				<Stack.Screen name='DomainSelection' component={DomainSelection} options={{ title: I18n.t("home") }} />
-				<Stack.Screen name='login' component={LoginScreen} options={{ title: I18n.t("signIn") }} />
-				<Stack.Screen name='signup' component={SignUp} options={{ title: I18n.t("signUp") }} />
-				<Stack.Screen name='welcomeScreen' component={WelcomeScreen} options={{ title: I18n.t("welcome") }} />
-				<Stack.Screen name='communityCreate' component={CommunityCreate} options={{ title: I18n.t("create") }} />
-				<Stack.Screen name='forgetpassword' component={ForgotPassword} options={{ title: I18n.t("forgetPassword") }} />
-				<Stack.Screen name="UserProfile" component={UserProfile} options={{ title: I18n.t("profile") }} />
-				<Stack.Screen name="EditUserProfile" component={EditUserProfile} options={{ title: I18n.t("profile") }} />
+				<Stack.Screen
+					name="DomainSelection"
+					component={DomainSelection}
+					options={{ title: I18n.t("home") }}
+				/>
+				<Stack.Screen
+					name="login"
+					component={LoginScreen}
+					options={{ title: I18n.t("signIn") }}
+				/>
+				<Stack.Screen
+					name="signup"
+					component={SignUp}
+					options={{ title: I18n.t("signUp") }}
+				/>
+				<Stack.Screen
+					name="welcomeScreen"
+					component={WelcomeScreen}
+					options={{ title: I18n.t("welcome") }}
+				/>
+				<Stack.Screen
+					name="communityCreate"
+					component={CommunityCreate}
+					options={{ title: I18n.t("create") }}
+				/>
+				<Stack.Screen
+					name="forgetpassword"
+					component={ForgotPassword}
+					options={{ title: I18n.t("forgetPassword") }}
+				/>
+				<Stack.Screen
+					name="UserProfile"
+					component={UserProfile}
+					options={{ title: I18n.t("profile") }}
+				/>
+				<Stack.Screen
+					name="EditUserProfile"
+					component={EditUserProfile}
+					options={{ title: I18n.t("profile") }}
+				/>
+				<Stack.Screen name="home" component={Home} />
 			</Stack.Navigator>
 		</NavigationContainer>
-	)
+	);
 }
 
-
-export default AuthStackNavigator
+export default AuthStackNavigator;

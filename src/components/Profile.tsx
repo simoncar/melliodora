@@ -1,31 +1,14 @@
-import React, { useCallback, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SettingsListItem } from "./SettingsListItem";
 import Constants from "expo-constants";
 import I18n from "../lib/i18n";
 import _ from "lodash";
-import { usePersistedCount } from "../lib/globalState";
 
 interface IProps {
 	auth: any;
 	navigation: any;
-}
-
-function Stage2() {
-	const [state, setter, isUpdated] = usePersistedCount();
-
-	const onClick = useCallback(
-		() => setter((currentState: number) => currentState + 1),
-		[]
-	);
-	return (
-		<View>
-			<Text>{state}</Text>
-			<Text>{isUpdated ? "true" : "false"}</Text>
-			<Button title={"AA" + state} onPress={onClick}></Button>
-		</View>
-	);
 }
 
 export default function Profile(props: IProps) {
@@ -83,8 +66,6 @@ export default function Profile(props: IProps) {
 					onPress={() => props.navigation.navigate("signup")}
 					lastItem={true}
 				/>
-
-				<View>{Stage2()}</View>
 			</View>
 		);
 	}

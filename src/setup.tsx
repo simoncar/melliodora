@@ -1,73 +1,50 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { I18nManager } from "react-native";
 import App from "./App";
 import I18n from "./lib/i18n";
 import * as Font from "expo-font";
 import _ from "lodash";
 import AppLoading from "expo-app-loading";
-
 import Firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
 import Constants from "expo-constants";
 import { connect } from "react-redux";
 import { getCommunityDetails } from "./store/community";
+import { usePersistedDomainNode } from "./lib/globalState";
 
-class Setup extends Component {
-	state = {
-		loading: true,
-	};
+interface TProps {
+	navigation: any;
+}
 
-	componentDidMount() {
-		Firebase.initialise().then(() =>
-			this.props.dispatch({ type: "FIREBASE_READY" })
-		);
+export default function Setup(props: TProps) {
+	const [loading, setLoading] = useState(true);
+	const [
+		domainNode,
+		domainNodeSetter,
+		domainNodeIsUpdated,
+	] = usePersistedDomainNode();
 
-		console.log("setup props", this.props.community.selectedCommunity.node);
-
-		if (Constants.manifest.extra.instance) {
-			const node = Constants.manifest.extra.instance;
-			this.props.dispatch(getCommunityDetails(node));
-		} else if (this.props.community.selectedCommunity.node === undefined) {
-			console.log("NO DOMAIN ** NO DOMAIN ** NO DOMAIN");
-		} else if (this.props.community.selectedCommunity.node) {
-			this.props.dispatch(
-				getCommunityDetails(this.props.community.selectedCommunity.node)
-			);
-		}
+	useEffect(() => {
+		Firebase.initialise().then(() => console.log("firebase initialized?"));
 
 		Font.loadAsync({
 			SegoeUI: require("../resources/segoe-ui.ttf"),
-		}).then(() => this.setState({ loading: false }));
+		}).then(() => setLoading(false));
 
-		let language = this.props.auth.language;
+		let language = "en"; //TODO: rebuild
 		if (language === "ar") {
 			I18nManager.forceRTL(true);
 		} else {
 			I18nManager.forceRTL(false);
 		}
 		I18n.locale = language;
-	}
+	}, []);
 
-	render() {
-		if (
-			this.state.loading ||
-			!this.props.auth.userInfo ||
-			_.isEmpty(this.props.auth.userInfo) ||
-			(_.isEmpty(this.props.community.selectedCommunity) &&
-				Constants.manifest.extra.instance)
-		) {
-			return <AppLoading />;
-		} else if (_.isEmpty(this.props.community.selectedCommunity)) {
-			return <AuthStackNavigator />;
-		} else {
-			return <App />;
-		}
+	if (loading) {
+		return <AppLoading />;
+	} else if (domainNode === "") {
+		return <AuthStackNavigator />;
+	} else {
+		return <App />;
 	}
 }
-
-const mapStateToProps = (state) => ({
-	communityCreation: state.communityCreation,
-	community: state.community,
-	auth: state.auth,
-});
-export default connect(mapStateToProps)(Setup);

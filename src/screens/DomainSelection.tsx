@@ -9,7 +9,13 @@ import Profile from "../components/Profile";
 import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import { getDomains } from "../lib/domainAPI";
-import { useDomain, useDomains, usePersistedDomains } from "../lib/globalState";
+import {
+	usePersistedDomains,
+	usePersistedDomainNode,
+	usePersistedDomainName,
+	useDomainNode,
+	useDomainName,
+} from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
@@ -18,8 +24,20 @@ interface TProps {
 export default function DomainSelection(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [domainsList, setDomainsList] = useState([]);
+	const [NArefresh, NAsetter, NAstate, NAisUpdated] = useDomainName();
+	const [NOrefresh, NOsetter, NOstate, NOisUpdated] = useDomainNode();
 
 	const [domains, domainsSetter, domainsIsUpdated] = usePersistedDomains();
+	const [
+		domainNode,
+		domainNodeSetter,
+		domainNodeIsUpdated,
+	] = usePersistedDomainNode();
+	const [
+		domainName,
+		domainNameSetter,
+		domainNameIsUpdated,
+	] = usePersistedDomainName();
 
 	useEffect(() => {
 		getDomains().then((domainsDB) => {
@@ -51,6 +69,13 @@ export default function DomainSelection(props: TProps) {
 						/>
 					}
 					title={item.name}
+					onPress={() => {
+						console.log("select domain:", item.node);
+						NOsetter(item.node);
+						console.log("select name:", item.name);
+						//NAsetter(item.name);
+						props.navigation.push("home");
+					}}
 				/>
 			</View>
 		);
@@ -82,6 +107,8 @@ export default function DomainSelection(props: TProps) {
 			</View>
 			{loading === false && (
 				<View style={styles.card}>
+					<Text>Domain_Node:{domainNode}</Text>
+					<Text>Domain_Name:{domainName}</Text>
 					<FlatList
 						data={domainsList}
 						renderItem={renderItem}

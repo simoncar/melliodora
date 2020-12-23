@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	View,
 	Linking,
@@ -19,312 +19,275 @@ import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
 import { actionAdd } from "../components/StoryActions";
+import { usePersistedDomainNode } from "../lib/globalState";
+import { getStories } from "../lib/storyAPI";
 
-const versionCheck = new VersionCheck();
+const versionCheck = new VersionCheck(); 
 
 const demo = DemoData;
 
-class Home extends Component {
-	constructor(props) {
-		super(props);
+interface TProps {
+	navigation: any;
+}
 
-		this.state = {
-			loading: true,
-			featureItems: [],
-			calendarItems: [],
-			balanceItems: [],
-			appUpdateMessage: "none",
-		};
+export default function Home(props: TProps) {
+	const [loading, setLoading] = useState(true);
+	const [featureItems, setFeatureItems] = useState([]);
+	const [calendarItems, setCalendarItems] = useState([]);
+	const [balanceItems, setBalanceItems] = useState([]);
+	const [appUpdateMessage, setAppUpdateMessage] = useState("none");
+	const [
+		domainNode,
+		domainNodeSetter,
+		domainNodeIsUpdated,
+	] = usePersistedDomainNode();
 
-		this.loadFromAsyncStorage();
-	}
+	const language = "en";
 
-	componentDidMount() {
-		this.language = this.props.auth.language;
+	console.log("domain node:", domainNode);
 
-		this.props.navigation.setParams({
-			title: this.props.community.selectedCommunity.name,
+	useEffect(() => {
+		//	loadFromAsyncStorage();
+
+		props.navigation.setParams({
+			title: domainNode,
 		});
 
-		global.domain =
-			this.props.community.selectedCommunity.node || global.domain;
-		//this.props.dispatch(processSelectedCommunity(global.domain));
-
-		if (global.domain == "oakforest_international_edu") {
+		if (domainNode == "oakforest_international_edu") {
 			demo.setupDemoData();
 		}
 
-		this.feature = firebase
-			.firestore()
-			.collection(global.domain)
-			.doc("feature")
-			.collection("features")
-			.orderBy("order");
-
-		this.loadCalendar();
-
-		this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
-
-		const { navigation } = this.props;
-		this.focusListener = navigation.addListener("didFocus", () => {
-			this.loadCalendar();
-		});
-
-		versionCheck.lookupAppStoreVersion((updateType) => {
-			switch (updateType) {
-				case "none":
-					//you are all up to date
-					this.setState({ appUpdateMessage: "none" });
-					break;
-				case "googlePlay":
-					this.setState({ appUpdateMessage: "googlePlay" });
-					break;
-				case "appleAppStore":
-					this.setState({ appUpdateMessage: "appleAppStore" });
-					break;
-				case "codePushReload":
-					this.setState({ appUpdateMessage: "codePushReload" });
-					break;
-			}
-		});
-	}
-
-	componentDidUpdate() {
-		if (this.state.timer === 1) {
-			clearInterval(this.interval);
-		}
-	}
-
-	componentWillUnmount() {
-		this.unsubscribeFeature();
-		clearInterval(this.interval);
-	}
-	updateMessage() {
-		if (this.state.appUpdateMessage != "none") {
-			return versionCheck.updateMessage(this.state.appUpdateMessage);
-		}
-	}
-
-	loadCalendar() {
-		const todayDate = moment().format("YYYY-MM-DD");
-
-		var calendarItems = [];
-
-		firebase
-			.firestore()
-			.collection(global.domain)
-			.doc("calendar")
-			.collection("calendarItems")
-			.where("date_start", "==", todayDate)
-			.get()
-			.then((snapshot) => {
-				snapshot.forEach((doc) => {
-					var trans = {
-						visible: true,
-						source: "calendar",
-						summaryMyLanguage: getLanguageString(
-							this.language,
-							doc.data(),
-							"summary"
-						),
-						summary: doc.data().summary,
-						summaryEN: doc.data().summary,
-						date_start: doc.data().date_start,
-						color: "red",
-						showIconChat: false,
-						descriptionMyLanguage: getLanguageString(
-							this.language,
-							doc.data(),
-							"description"
-						),
-						number: doc.data().number,
-					};
-					calendarItems.push({
-						...{ _key: doc.id },
-						...doc.data(),
-						...trans,
-					});
-				});
-				if (calendarItems.length > 0) {
-					this.setState({
-						calendarItems,
-						loading: false,
-					});
-				}
-				this.setState({
-					loading: false,
-				});
+		getStories(domainNode)
+			.then((stories) => {
+				setFeatureItems(stories);
+				setLoading(false);
+			})
+			.catch((e) => {
+				console.error(e.message);
 			});
-	}
 
-	onFeatureUpdate = (querySnapshot) => {
-		var featureItems = [];
+		// loadCalendar();
 
-		querySnapshot.forEach((doc) => {
-			var trans = {
-				source: "feature",
-				summaryMyLanguage: getLanguageString(
-					this.language,
-					doc.data(),
-					"summary"
-				),
-				descriptionMyLanguage: getLanguageString(
-					this.language,
-					doc.data(),
-					"description"
-				),
-			};
+		// this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
 
-			if (!doc.data().visible == false) {
-				featureItems.push({
-					...{ _key: doc.id },
-					...doc.data(),
-					...trans,
-				});
-			}
-		});
+		// const { navigation } = this.props;
+		// this.focusListener = navigation.addListener("didFocus", () => {
+		// 	this.loadCalendar();
+		// });
 
-		if (featureItems.length > 0) {
-			this._storeData(JSON.stringify(featureItems));
-			this.setState({
-				featureItems,
-			});
-		}
-	};
+		// versionCheck.lookupAppStoreVersion((updateType) => {
+		// 	switch (updateType) {
+		// 		case "none":
+		// 			//you are all up to date
+		// 			this.setState({ appUpdateMessage: "none" });
+		// 			break;
+		// 		case "googlePlay":
+		// 			this.setState({ appUpdateMessage: "googlePlay" });
+		// 			break;
+		// 		case "appleAppStore":
+		// 			this.setState({ appUpdateMessage: "appleAppStore" });
+		// 			break;
+		// 		case "codePushReload":
+		// 			this.setState({ appUpdateMessage: "codePushReload" });
+		// 			break;
+		// 	}
+		// });
+	}, []);
 
-	_handleOpenWithLinking = (sURL) => {
+	// loadCalendar() {
+	// 	const todayDate = moment().format("YYYY-MM-DD");
+
+	// 	var calendarItems = [];
+
+	// 	firebase
+	// 		.firestore()
+	// 		.collection(global.domain)
+	// 		.doc("calendar")
+	// 		.collection("calendarItems")
+	// 		.where("date_start", "==", todayDate)
+	// 		.get()
+	// 		.then((snapshot) => {
+	// 			snapshot.forEach((doc) => {
+	// 				var trans = {
+	// 					visible: true,
+	// 					source: "calendar",
+	// 					summaryMyLanguage: getLanguageString(
+	// 						this.language,
+	// 						doc.data(),
+	// 						"summary"
+	// 					),
+	// 					summary: doc.data().summary,
+	// 					summaryEN: doc.data().summary,
+	// 					date_start: doc.data().date_start,
+	// 					color: "red",
+	// 					showIconChat: false,
+	// 					descriptionMyLanguage: getLanguageString(
+	// 						this.language,
+	// 						doc.data(),
+	// 						"description"
+	// 					),
+	// 					number: doc.data().number,
+	// 				};
+	// 				calendarItems.push({
+	// 					...{ _key: doc.id },
+	// 					...doc.data(),
+	// 					...trans,
+	// 				});
+	// 			});
+	// 			if (calendarItems.length > 0) {
+	// 				this.setState({
+	// 					calendarItems,
+	// 					loading: false,
+	// 				});
+	// 			}
+	// 			this.setState({
+	// 				loading: false,
+	// 			});
+	// 		});
+	// }
+
+	// onFeatureUpdate = (querySnapshot) => {
+	// 	var featureItems = [];
+
+	// 	querySnapshot.forEach((doc) => {
+	// 		var trans = {
+	// 			source: "feature",
+	// 			summaryMyLanguage: getLanguageString(
+	// 				this.language,
+	// 				doc.data(),
+	// 				"summary"
+	// 			),
+	// 			descriptionMyLanguage: getLanguageString(
+	// 				this.language,
+	// 				doc.data(),
+	// 				"description"
+	// 			),
+	// 		};
+
+	// 		if (!doc.data().visible == false) {
+	// 			featureItems.push({
+	// 				...{ _key: doc.id },
+	// 				...doc.data(),
+	// 				...trans,
+	// 			});
+	// 		}
+	// 	});
+
+	// 	if (featureItems.length > 0) {
+	// 		this._storeData(JSON.stringify(featureItems));
+	// 		this.setState({
+	// 			featureItems,
+	// 		});
+	// 	}
+	// };
+
+	const handleOpenWithLinking = (sURL) => {
 		Linking.openURL(sURL);
 	};
 
-	keyExtractor = (item) => item._key;
+	const keyExtractor = (item) => item._key;
 
-	setupUser = () => {
-		const { communityJoined } = this.props.auth.userInfo;
-		if (
-			Array.isArray(communityJoined) &&
-			communityJoined.indexOf(global.domain) < 0
-		) {
-			const userInfo = {
-				...this.props.auth.userInfo,
-				communityJoined: [...communityJoined, global.domain],
-			};
-			this.props.dispatch(setUserInfo(userInfo, true));
-		}
-	};
-	loadFromAsyncStorage() {
-		AsyncStorage.multiGet(["featureItems"], (err, stores) => {
-			const featureItems = JSON.parse(stores[0][1]);
-			this.setState({
-				featureItems,
-			});
-		});
-	}
+	// setupUser = () => {
+	// 	const { communityJoined } = this.props.auth.userInfo;
+	// 	if (
+	// 		Array.isArray(communityJoined) &&
+	// 		communityJoined.indexOf(global.domain) < 0
+	// 	) {
+	// 		const userInfo = {
+	// 			...this.props.auth.userInfo,
+	// 			communityJoined: [...communityJoined, global.domain],
+	// 		};
+	// 		this.props.dispatch(setUserInfo(userInfo, true));
+	// 	}
+	// };
 
-	_storeData = async (featureItems) => {
-		try {
-			AsyncStorage.setItem("featureItems", featureItems);
-		} catch (error) {
-			console.log(error);
-			// Error saving data
-		}
-	};
-
-	_renderItem(navigation, item) {
+	const renderItem = (navigation, item) => {
+		console.log("item:", item);
 		return (
 			<ListItem
 				key={item._key}
-				navigation={navigation}
+				navigation={props.navigation}
 				story={item}
 				card={true}
-				language={this.language}
+				language={language}
+				domain={domainNode}
 			/>
 		);
-	}
+	};
 
-	_renderItemNoCard(navigation, item) {
+	const renderItemNoCard = (item) => {
 		return (
 			<ListItem
 				key={item._key}
-				navigation={navigation}
+				navigation={props.navigation}
 				story={item}
 				card={false}
-				language={this.language}
+				language={language}
+				domain={domainNode}
 			/>
 		);
-	}
+	};
 
-	_renderToday() {
-		if (this.state.calendarItems.length > 0) {
+	const renderToday = () => {
+		if (calendarItems.length > 0) {
 			return (
 				<View style={styles.card}>
 					<ShortList
-						navigation={this.props.navigation}
-						data={this.state.calendarItems}
-						keyExtractor={this.keyExtractor}
-						renderItem={this._renderItemNoCard}
+						navigation={props.navigation}
+						data={calendarItems}
+						keyExtractor={keyExtractor}
+						renderItem={renderItemNoCard}
 					/>
 				</View>
 			);
 		}
-	}
-	isTrue(val) {
-		if (val === true) return "true";
-	}
+	};
 
-	env() {}
+	return (
+		<View style={styles.container}>
+			<ScrollView>
+				<View style={styles.newsContentLine}>
+					{renderToday()}
 
-	render() {
-		return (
-			<View style={styles.container}>
-				{this.props.auth.isAdmin === true &&
-					actionAdd(this.props.navigation, this.refreshFunction)}
+					<ShortList
+						navigation={props.navigation}
+						data={featureItems}
+						keyExtractor={keyExtractor}
+						renderItem={renderItem}
+					/>
+				</View>
 
-				<ScrollView>
-					<View style={styles.newsContentLine}>
-						{this._renderToday()}
-
-						<ShortList
-							navigation={this.props.navigation}
-							data={this.state.featureItems}
-							keyExtractor={this.keyExtractor}
-							renderItem={this._renderItem}
-						/>
+				<View style={styles.card}>
+					<View style={styles.cookiesLogoView}>
+						<TouchableOpacity
+							onPress={() => {
+								handleOpenWithLinking(
+									"https://smartcookies.io/smart-community"
+								);
+							}}>
+							<Image
+								source={require("../../images/sais_edu_sg/SCLogo.png")}
+								style={styles.sclogo}
+							/>
+						</TouchableOpacity>
 					</View>
 
-					<View style={styles.card}>
-						<View style={styles.cookiesLogoView}>
-							<TouchableOpacity
-								onPress={() => {
-									this._handleOpenWithLinking(
-										"https://smartcookies.io/smart-community"
-									);
-								}}>
-								<Image
-									source={require("../../images/sais_edu_sg/SCLogo.png")}
-									style={styles.sclogo}
-								/>
-							</TouchableOpacity>
-						</View>
-
-						{this.updateMessage()}
-
-						<View style={styles.userDiagnostics}>
-							<Text style={styles.version}>
-								{Constants.manifest.revisionId}
-							</Text>
-							<Text style={styles.version}>
-								{Constants.manifest.version}
-							</Text>
-							<Text style={styles.user}>{global.name}</Text>
-							<Text style={styles.user}>{global.email}</Text>
-							<Text style={styles.user}>{global.uid}</Text>
-							<Text style={styles.user}>{this.language}</Text>
-						</View>
+					<View style={styles.userDiagnostics}>
+						<Text style={styles.version}>
+							{Constants.manifest.revisionId}
+						</Text>
+						<Text style={styles.version}>
+							{Constants.manifest.version}
+						</Text>
+						<Text style={styles.user}>{global.name}</Text>
+						<Text style={styles.user}>{global.email}</Text>
+						<Text style={styles.user}>{global.uid}</Text>
+						<Text style={styles.user}>{language}</Text>
 					</View>
-				</ScrollView>
-			</View>
-		);
-	}
+				</View>
+			</ScrollView>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
@@ -379,9 +342,3 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 	},
 });
-
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-	community: state.community,
-});
-export default connect(mapStateToProps)(Home);

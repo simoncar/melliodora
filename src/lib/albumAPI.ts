@@ -171,14 +171,14 @@ const uploadImage = async (feature: string, imgURI: string, filename: string, ph
 };
 
 
-export function listenPhotos(featureID: string, callbackRefreshFunction: any) {
+export function listenPhotos(domain:string,featureID: string, callbackRefreshFunction: any) {
 
 	if (!featureID) {
 		callbackRefreshFunction([])
 	} else {
 		firebase
 			.firestore()
-			.collection(globalAny.domain)
+			.collection(domain)
 			.doc("feature")
 			.collection("features")
 			.doc(featureID)
@@ -202,12 +202,12 @@ export function listenPhotos(featureID: string, callbackRefreshFunction: any) {
 }
 
 
-export function deleteImage(featureID: string, photoKey: string) {
+export function deleteImage(domain:string,featureID: string, photoKey: string) {
 	console.log("API delete photo", featureID, photoKey)
 
 	firebase
 		.firestore()
-		.collection(globalAny.domain)
+		.collection(domain)
 		.doc("feature")
 		.collection("features")
 		.doc(featureID)
