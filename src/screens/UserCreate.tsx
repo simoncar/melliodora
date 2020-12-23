@@ -17,7 +17,7 @@ import {
 	saveProfilePic,
 	launchProfileImagePicker,
 	getPermissionAsync,
-} from "../lib/uploadImageAPI";
+} from "../lib/APIUploadImage";
 import I18n from "../lib/i18n";
 
 const width = 100;

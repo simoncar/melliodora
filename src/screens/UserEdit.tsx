@@ -7,7 +7,7 @@ import * as Permissions from "expo-permissions";
 import { ActionSheetProvider, connectActionSheet } from "@expo/react-native-action-sheet";
 import I18n from "../lib/i18n";
 import _ from "lodash";
-import { launchProfileImagePicker } from "../lib/uploadImageAPI";
+import { launchProfileImagePicker } from "../lib/APIUploadImage";
 import { Text, Button } from "../components/sComponent";
 import { UserEntity } from "../lib/interfaces";
 

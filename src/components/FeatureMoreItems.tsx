@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import Image from "../components/Imgix";
 import { SettingsListItem } from "./SettingsListItem";
-import { getStories } from "../lib/storyAPI";
+import { getStories } from "../lib/APIStory";
 import { usePersistedDomainNode } from "../lib/globalState";
 
 interface TProps {

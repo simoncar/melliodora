@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Dimensions, Text, StyleSheet } from "react-native";
 import AlbumImage from "./AlbumImage";
-import { listenPhotos } from "../lib/albumAPI";
+import { listenPhotos } from "../lib/APIAlbum";
 import Image from "../components/Imgix";
 import ImageView from "react-native-image-viewing";
 import { ScrollView } from "react-native-gesture-handler";

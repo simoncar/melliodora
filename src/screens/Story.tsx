@@ -30,6 +30,8 @@ export class Story extends Component<TProps, StoryState> {
 		this.refreshFunction = this.refreshFunction.bind(this);
 		this.rightSideButtons = this.rightSideButtons.bind(this);
 
+		console.log("story domain:", props.domain, props.route.params);
+
 		const {
 			_key,
 			source,
@@ -102,21 +104,22 @@ export class Story extends Component<TProps, StoryState> {
 
 		const navigation = this.props.navigation;
 		const admin = isAdmin(this.props.route.params.adminPassword);
+		const domain = this.props.route.params.domain
 
 		if (admin && story.source == "feature") {
-			buffer.push(actionEdit(navigation, position, this.state, this.refreshFunction));
+			buffer.push(actionEdit(navigation, position, this.state, domain,this.refreshFunction));
 			position++;
 		}
 
 		if (admin && story.showIconChat === true) {
-			buffer.push(actionChat(position, navigation, story._key, story.summaryMyLanguage));
+			buffer.push(actionChat(position, navigation, story._key, story.summaryMyLanguage,domain));
 			position++;
 		}
 		if (admin) {
-			buffer.push(actionSend(position, navigation, story));
+			buffer.push(actionSend(position, navigation, story,domain));
 			position++;
 		}
-		buffer.push(actionPhotos(position, navigation, story._key));
+		buffer.push(actionPhotos(position, navigation, story._key,domain));
 		position++;
 		buffer.push(actionShare(position, story));
 		position++;

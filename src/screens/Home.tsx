@@ -13,7 +13,7 @@ import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
 import { actionAdd } from "../components/StoryActions";
 import { usePersistedDomainNode } from "../lib/globalState";
-import { getStories } from "../lib/storyAPI";
+import { getStories } from "../lib/APIStory";
 
 const versionCheck = new VersionCheck();
 

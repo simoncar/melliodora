@@ -4,12 +4,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import I18n from "./lib/i18n";
 import DomainSelection from "./screens/DomainSelection";
 import LoginScreen from "./screens/Login";
-import SignUp from "./screens/SignUp";
+import SignUp from "./screens/UserCreate";
 import WelcomeScreen from "./screens/Welcome";
 import CommunityCreate from "./screens/CommunityCreate";
 import ForgotPassword from "./screens/ForgotPassword";
 import UserProfile from "./screens/UserProfile";
-import EditUserProfile from "./screens/EditUserProfile";
+import EditUserProfile from "./screens/UserEdit";
 
 const Stack = createStackNavigator();
 

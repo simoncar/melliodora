@@ -26,7 +26,7 @@ interface TProps {
 	domain: string;
 }
 
-class Form extends Component<TProps, StoryState> {
+export default class Form extends Component<TProps, StoryState> {
 	constructor(props: TProps) {
 		super(props);
 
@@ -82,6 +82,7 @@ class Form extends Component<TProps, StoryState> {
 			dateTimeEnd: dateTimeEnd,
 			cameraIcon: "camera",
 			edit: this.props.route.params.edit,
+			domain: this.props.route.params.domain,
 		};
 
 		this.handlerChat = this.handlerChat.bind(this);
@@ -317,7 +318,7 @@ class Form extends Component<TProps, StoryState> {
 							feature={story._key}
 							refreshFunction={refreshFunction}
 							edit={true}
-							domain={this.props.domain}
+							domain={this.state.domain}
 						/>
 					)}
 				</ScrollView>
@@ -418,9 +419,3 @@ const styles = StyleSheet.create({
 		width: "98%",
 	},
 });
-
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-	community: state.community,
-});
-export default connect(mapStateToProps)(Form);

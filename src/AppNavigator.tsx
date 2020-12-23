@@ -24,11 +24,11 @@ import push from "./screens/Push";
 import authPortal from "./screens/AuthPortal";
 import WebPortal from "./screens/WebPortal";
 import LoginScreen from "./screens/Login";
-import SignUp from "./screens/SignUp";
+import SignUp from "./screens/UserCreate";
 import ForgotPassword from "./screens/ForgotPassword";
 import CameraApp from "./screens/Camera";
 import UserProfile from "./screens/UserProfile";
-import EditUserProfile from "./screens/EditUserProfile";
+import EditUserProfile from "./screens/UserEdit";
 import UserSearch from "./screens/UserSearch";
 import FormAlbum from "./screens/FormAlbum";
 

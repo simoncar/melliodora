@@ -8,7 +8,7 @@ import { SettingsListItem } from "../components/SettingsListItem";
 import Profile from "../components/Profile";
 import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
-import { getDomains } from "../lib/domainAPI";
+import { getDomains } from "../lib/APIDomain";
 import {
 	usePersistedDomains,
 	usePersistedDomainNode,

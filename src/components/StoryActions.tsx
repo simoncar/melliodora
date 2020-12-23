@@ -1,115 +1,133 @@
-import React from 'react';
-import { StyleSheet, View, Share, TouchableHighlight } from 'react-native';
+import React from "react";
+import { StyleSheet, View, Share, TouchableHighlight } from "react-native";
 import { Ionicons, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { formatTime, formatMonth } from "../lib/global";
-import { phoneCalendar } from "../lib/phoneCalendar"
-import { StoryEntity } from '../lib/interfaces';
+import { phoneCalendar } from "../lib/phoneCalendar";
+import { StoryEntity } from "../lib/interfaces";
+import { setUserProperty } from "expo-firebase-analytics";
 
-export function actionEdit(navigation: any, position: number, story: StoryEntity, refreshFunction: any) {
+export function actionEdit(
+	navigation: any,
+	position: number,
+	story: StoryEntity,
+	domain: string,
+	refreshFunction: any
+) {
 	return (
 		<TouchableHighlight
 			key="rightSideEdit"
-			style={[styles.button, { bottom: (10 + position * 60) }]}
+			style={[styles.button, { bottom: 10 + position * 60 }]}
 			underlayColor="#ff7043"
 			onPress={() => {
 				navigation.navigate("Form", {
 					edit: true,
 					story: story,
-					refreshFunction: refreshFunction
+					domain: domain,
+					refreshFunction: refreshFunction,
 				});
 			}}>
 			<MaterialIcons testID="story.editIcon" name="edit" style={styles.icon} />
 		</TouchableHighlight>
-	)
+	);
 }
 
-
-export function actionAdd(navigation: any, refreshFunction: any) {
+export function actionAdd(navigation: any, domain: string, refreshFunction: any) {
 	return (
 		<TouchableHighlight
 			key="rightSideEdit"
-			style={[styles.button, { bottom: (10 + 1 * 60) }]}
+			style={[styles.button, { bottom: 10 + 1 * 60 }]}
 			underlayColor="#ff7043"
 			onPress={() => {
 				navigation.navigate("Form", {
-					edit: false
+					edit: false,
+					domain: domain,
 				});
 			}}>
 			<MaterialIcons testID="story.editIcon" name="edit" style={styles.icon} />
 		</TouchableHighlight>
-	)
+	);
 }
 
-export function actionPhotos(position: number, navigation: any, storyKey: string) {
+export function actionPhotos(position: number, navigation: any, storyKey: string, domain: string) {
 	return (
 		<TouchableHighlight
 			key="rightSidePhotos"
-			style={[styles.button, { bottom: (10 + position * 60) }]}
+			style={[styles.button, { bottom: 10 + position * 60 }]}
 			underlayColor="#ff7043"
 			onPress={() => {
 				navigation.navigate("Albums", {
-					storyKey: storyKey
+					storyKey: storyKey,
+					domain: domain,
 				});
 			}}>
 			<MaterialIcons testID="story.cameraIcon" name="camera" style={styles.icon} />
 		</TouchableHighlight>
-	)
+	);
 }
 
-export function actionChat(position: number, navigation: any, chatroom: string, title: string) {
+export function actionChat(position: number, navigation: any, chatroom: string, title: string, domain: string) {
 	return (
 		<TouchableHighlight
 			key="rightSideChat"
-			style={[styles.button, { bottom: (10 + position * 60) }]}
+			style={[styles.button, { bottom: 10 + position * 60 }]}
 			testID="story.chatIcon"
 			onPress={() => {
 				navigation.navigate("chatStory", {
 					chatroom: chatroom,
-					title: title
+					title: title,
+					domain: domain,
 				});
 			}}>
 			<View>
 				<SimpleLineIcons name="bubble" style={styles.icon} />
 			</View>
 		</TouchableHighlight>
-	)
+	);
 }
 
-export function actionSend(position: number, navigation: any, story: StoryEntity) {
-	return <TouchableHighlight
-		key="rightSideSend"
-		style={[styles.button, { bottom: (10 + position * 60) }]}
-		testID="story.sendIcon"
-		onPress={() => {
-			story.summaryMyLanguage;
-			navigation.navigate("push", story);
-		}}>
-		<MaterialCommunityIcons name="send-lock" style={styles.icon} />
-	</TouchableHighlight>;
+export function actionSend(position: number, navigation: any, story: StoryEntity, domain: string) {
+	return (
+		<TouchableHighlight
+			key="rightSideSend"
+			style={[styles.button, { bottom: 10 + position * 60 }]}
+			testID="story.sendIcon"
+			onPress={() => {
+				story.summaryMyLanguage;
+				navigation.navigate("push", { story: story, domain: domain });
+			}}>
+			<MaterialCommunityIcons name="send-lock" style={styles.icon} />
+		</TouchableHighlight>
+	);
 }
-
 
 export function actionCalendar(position: number, story: StoryEntity) {
-
-	return <TouchableHighlight
-		key="rightSideCalendar"
-		style={[styles.button, { bottom: (10 + position * 60) }]}
-		testID="story.calendarIcon"
-		onPress={() => {
-			phoneCalendar(story)
-		}}
-	>
-		<Ionicons name="ios-calendar" style={styles.icon} />
-	</TouchableHighlight>;
+	return (
+		<TouchableHighlight
+			key="rightSideCalendar"
+			style={[styles.button, { bottom: 10 + position * 60 }]}
+			testID="story.calendarIcon"
+			onPress={() => {
+				phoneCalendar(story);
+			}}>
+			<Ionicons name="ios-calendar" style={styles.icon} />
+		</TouchableHighlight>
+	);
 }
 
 export function actionShare(position: number, story: StoryEntity) {
-
 	const _shareMessage = async () => {
 		try {
 			const result = await Share.share({
-				message: "" + story.summaryMyLanguage + "\n" + formatMonth(story.date_start) + "\n" + formatTime(story.time_start_pretty, story.time_end_pretty) + " \n" + story.descriptionMyLanguage,
-				title: story.summaryMyLanguage
+				message:
+					"" +
+					story.summaryMyLanguage +
+					"\n" +
+					formatMonth(story.date_start) +
+					"\n" +
+					formatTime(story.time_start_pretty, story.time_end_pretty) +
+					" \n" +
+					story.descriptionMyLanguage,
+				title: story.summaryMyLanguage,
 			});
 
 			if (result.action === Share.sharedAction) {
@@ -126,20 +144,21 @@ export function actionShare(position: number, story: StoryEntity) {
 		}
 	};
 
-	return <TouchableHighlight
-		key="rightSideShare"
-		style={[styles.button, { bottom: (10 + position * 60) }]}
-		onPress={() => _shareMessage()}
-		testID="story.shareButton"
-	>
-		<MaterialCommunityIcons testID="story.shareIcon" name="share" style={styles.icon} />
-	</TouchableHighlight>;
+	return (
+		<TouchableHighlight
+			key="rightSideShare"
+			style={[styles.button, { bottom: 10 + position * 60 }]}
+			onPress={() => _shareMessage()}
+			testID="story.shareButton">
+			<MaterialCommunityIcons testID="story.shareIcon" name="share" style={styles.icon} />
+		</TouchableHighlight>
+	);
 }
 
 const styles = StyleSheet.create({
 	button: {
 		alignItems: "center",
-		backgroundColor: 'rgba(52, 52, 52, 0.1)',
+		backgroundColor: "rgba(52, 52, 52, 0.1)",
 		borderRadius: 50 / 2,
 		height: 50,
 
@@ -155,10 +174,10 @@ const styles = StyleSheet.create({
 		shadowRadius: 2,
 		width: 50,
 
-		zIndex: 990
+		zIndex: 990,
 	},
 	icon: {
 		color: "white",
-		fontSize: 25
+		fontSize: 25,
 	},
 });
