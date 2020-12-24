@@ -3,54 +3,79 @@ import GlobalStore from 'react-native-global-state-hooks';
 
 //const countStore = new GlobalStore(0);
 
-const countStore = new GlobalStore(0, null, 'GLOBAL_COUNT');
-const domainNodeStore = new GlobalStore("", null, 'DOMAIN_NODE');
-const domainNameStore = new GlobalStore("", null, 'DOMAIN_NAME');
-const domainsStore = new GlobalStore("", null, 'DOMAINS');
+const domainStore = new GlobalStore("", null, 'globalState_DOMAIN_NODE');
+const domainNameStore = new GlobalStore("", null, 'globalState_DOMAIN_NAME');
+const domainsStore = new GlobalStore("", null, 'globalState_DOMAINS');
 
-export const useCount = countStore.getHook();
-export const useDomainNode = domainNodeStore.getHook();
+const authStore = new GlobalStore("", null, 'globalState_AUTH');
+
+const loginStore = new GlobalStore(false, null,'globalState_LOGIN')
+const emailStore = new GlobalStore("", null, 'globalState_EMAIL');
+const uidStore = new GlobalStore("", null, 'globalState_UID');
+const displayNameStore = new GlobalStore("", null, 'globalState_DISPLAYNAME');
+const photoURLStore = new GlobalStore("", null, 'globalState_PHOTOURL');
+
+export const useDomain = domainStore.getHook();
 export const useDomainName = domainNameStore.getHook();
 export const useDomains = domainsStore.getHook();
 
-export const usePersistedCount = () => {
-  const [refresh, setter, state, isUpdated] = useCount();
+export const useAuth = authStore.getHook();
 
-  useEffect(() => {
-    refresh();
-  }, []);
+export const useEmail = emailStore.getHook();
+export const useLogin = loginStore.getHook();
+export const useUid = uidStore.getHook();
+export const useDisplayName = displayNameStore.getHook();
+export const usePhotoURL = photoURLStore.getHook();
 
-	
+export const useDomainP = () => {
+  const [refresh, setter, state, isUpdated] = useDomain();
+  useEffect(() => {refresh(); }, [refresh]);
   return [state, setter, isUpdated];
 }
 
-export const usePersistedDomainNode = () => {
-  const [refresh, setter, state, isUpdated] = useDomainNode();
-
-  useEffect(() => {
-    refresh();
-  }, []);
-
-  return [state, setter, isUpdated];
-}
-
-export const usePersistedDomainName = () => {
+export const useDomainNameP = () => {
   const [refresh, setter, state, isUpdated] = useDomainName();
-
-  useEffect(() => {
-    refresh();
-  }, []);
-
+  useEffect(() => {refresh(); }, [refresh]);
   return [state, setter, isUpdated];
 }
 
-export const usePersistedDomains = () => {
+export const useDomainsP = () => {
   const [refresh, setter, state, isUpdated] = useDomains();
-
-  useEffect(() => {
-    refresh();
-  }, []);
-	
-
+  useEffect(() => {refresh(); }, [refresh]);
   return [state, setter, isUpdated];
 }
+
+export const useAuthP = () => {
+  const [refresh, setter, state, isUpdated] = useAuth();
+  useEffect(() => {refresh(); }, [refresh]);
+  return [state, setter, isUpdated];
+}
+
+export const useLoginP = () => {
+  const [refresh, setter, state, isUpdated] = useLogin();
+  useEffect(() => {refresh(); }, [refresh]);
+  return [state, setter, isUpdated];
+}
+export const useEmailP = () => {
+  const [refresh, setter, state, isUpdated] = useEmail();
+  useEffect(() => {refresh(); }, [refresh]);
+  return [state, setter, isUpdated];
+}
+export const useUidP = () => {
+  const [refresh, setter, state, isUpdated] = useUid();
+  useEffect(() => {refresh(); }, [refresh]);
+  return [state, setter, isUpdated];
+}
+
+export const useDisplayNameP = () => {
+  const [refresh, setter, state, isUpdated] = useDisplayName();
+  useEffect(() => {refresh(); }, [refresh]);
+  return [state, setter, isUpdated];
+}
+
+export const usePhotoURLP = () => {
+  const [refresh, setter, state, isUpdated] = usePhotoURL();
+  useEffect(() => {refresh(); }, [refresh]);
+  return [state, setter, isUpdated];
+}
+

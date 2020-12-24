@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import Image from "../components/Imgix";
 import { SettingsListItem } from "./SettingsListItem";
 import { getStories } from "../lib/APIStory";
-import { usePersistedDomainNode } from "../lib/globalState";
+import { useDomainP } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
@@ -13,10 +13,10 @@ interface TProps {
 export default function FeatureMoreItems(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [featureItems, setFeatureItems] = useState([]);
-	const [domainNode, domainNodeSetter, domainNodeIsUpdated] = usePersistedDomainNode();
+	const [domain, domainSetter, domainIsUpdated] = useDomainP();
 
 	useEffect(() => {
-		getStories(domainNode)
+		getStories(domain)
 			.then((stories) => {
 				setFeatureItems(stories);
 				setLoading(false);

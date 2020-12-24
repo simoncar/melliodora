@@ -8,6 +8,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { Text, Button } from "../components/sComponent";
 import Loader from "../components/Loader";
 import I18n from "../lib/i18n";
+import { saveAuth } from "../lib/APIUser";
+import { useAuth, useLogin, useEmail, useUid, useDisplayName, usePhotoURL } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
@@ -19,15 +21,22 @@ export default function LoginScreen(props: TProps) {
 	const [password, setPassword] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
 
+	const [, setGAuth, gAuth] = useAuth();
+	const [, setGLogin, gLogin] = useLogin();
+	const [, setGEmail, gEmail] = useEmail();
+	const [, setGDisplayName, gDisplayName] = useDisplayName();
+	const [, setGPhotoURL, gPhotoURL] = usePhotoURL();
+	const [, setGUid, gUid] = useUid();
+
 	const handleLogin = () => {
 		setLoading(true);
 		firebase
 			.auth()
 			.signInWithEmailAndPassword(email, password)
-			.then((auth) => {
-				console.log("AUTH:", auth);
-				setLoading(false);
-				//this.props.navigation.popToTop();
+			.then((auth: firebase.auth.UserCredential) => {
+				//saveAuth(auth);
+
+				props.navigation.popToTop();
 			})
 			.catch(function (error) {
 				// Handle Errors here.
@@ -91,7 +100,7 @@ export default function LoginScreen(props: TProps) {
 				</TouchableOpacity>
 			</View>
 
-			<Button title={I18n.t("login")} onPress={handleLogin} testID="login.loginButton" />
+			<Button title={I18n.t("login")} onPress={() => handleLogin()} testID="login.loginButton" />
 			<Button
 				title={I18n.t("signUp")}
 				onPress={() => props.navigation.navigate("signup")}

@@ -10,7 +10,10 @@ class Firebase {
 			try {
 				if (!firebase.apps.length) {
 					firebase.initializeApp(ApiKeys.FirebaseConfig);
-					resolve(1);
+
+				
+
+					resolve(1)
 				} else {
 					resolve(1);
 				}

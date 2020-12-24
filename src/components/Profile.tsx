@@ -1,39 +1,51 @@
-import React from "react";
+import React, { useEffect, useReducer } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SettingsListItem } from "./SettingsListItem";
 import Constants from "expo-constants";
 import I18n from "../lib/i18n";
 import _ from "lodash";
+import { useLoginP, useDomainP, useEmailP, useDisplayNameP, useUidP } from "../lib/globalState";
 
 interface IProps {
-	auth: any;
 	navigation: any;
 }
 
 export default function Profile(props: IProps) {
+	const [login, ,] = useLoginP();
+	const [uid, ,] = useUidP();
+	const [displayName, ,] = useDisplayNameP();
+	const [email, setEmail, isUpdatedEmail] = useEmailP();
+	const [domain, setDomain, isUpdatedDomain] = useDomainP();
+
 	if (Constants.manifest.extra.instance === "sais_edu_sg") {
 		return <View />;
 	}
+	console.log(login);
+	if (login === true) {
+		const user = {
+			firstName: "",
+			lastName: "",
+			displayName: displayName,
+			uid: uid,
+			email: email,
+		};
 
-	const user = props.auth === undefined ? null : props.auth.userInfo;
+		console.log("sending>", user);
 
-	if (_.has(user, "email") && user.email) {
-		const email = user.email;
 		return (
 			<View>
 				<TouchableOpacity
 					onPress={() => {
 						props.navigation.navigate("UserProfile", {
-							uid: user.uid,
+							uid: uid,
 							user: user,
 							permitEdit: true,
+							domain: domain,
 						});
 					}}>
 					<View style={styles.titleContainer}>
-						<Text style={styles.nameText}>
-							{I18n.t("loggedInAs")}
-						</Text>
+						<Text style={styles.nameText}>{displayName}</Text>
 						<Text style={styles.sectionContentText}>{email}</Text>
 					</View>
 				</TouchableOpacity>
@@ -44,24 +56,14 @@ export default function Profile(props: IProps) {
 			<View>
 				<SettingsListItem
 					hasNavArrow={true}
-					icon={
-						<MaterialCommunityIcons
-							name="account-plus"
-							style={styles.imageStyleIcon}
-						/>
-					}
+					icon={<MaterialCommunityIcons name="account-plus" style={styles.imageStyleIcon} />}
 					title={I18n.t("signIn")}
 					onPress={() => props.navigation.navigate("login")}
 					lastItem={true}
 				/>
 				<SettingsListItem
 					hasNavArrow={true}
-					icon={
-						<MaterialCommunityIcons
-							name="account-plus"
-							style={styles.imageStyleIcon}
-						/>
-					}
+					icon={<MaterialCommunityIcons name="account-plus" style={styles.imageStyleIcon} />}
 					title={I18n.t("signUp")}
 					onPress={() => props.navigation.navigate("signup")}
 					lastItem={true}

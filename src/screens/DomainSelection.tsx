@@ -9,13 +9,7 @@ import Profile from "../components/Profile";
 import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import { getDomains } from "../lib/APIDomain";
-import {
-	usePersistedDomains,
-	usePersistedDomainNode,
-	usePersistedDomainName,
-	useDomainNode,
-	useDomainName,
-} from "../lib/globalState";
+import { useDomainsP, useDomainP, useDomainNameP, useDomain, useDomainName } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
@@ -24,14 +18,15 @@ interface TProps {
 export default function DomainSelection(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [domainsList, setDomainsList] = useState([]);
-	const [NOrefresh, nodeSetter, NOstate, NOisUpdated] = useDomainNode();
+	const [NOrefresh, nodeSetter, NOstate, NOisUpdated] = useDomain();
 
-	const [domains, domainsSetter, domainsIsUpdated] = usePersistedDomains();
-	const [domainNode, domainNodeSetter, domainNodeIsUpdated] = usePersistedDomainNode();
-	const [domainName, domainNameSetter, domainNameIsUpdated] = usePersistedDomainName();
+	const [domains, domainsSetter, domainsIsUpdated] = useDomainsP();
+	const [domain, domainSetter, domainIsUpdated] = useDomainP();
+	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
 
 	useEffect(() => {
 		getDomains().then((domainsDB) => {
+			console.log("Domains from DB:", domainsDB);
 			domainsSetter(JSON.stringify(domainsDB));
 			setDomainsList(domainsDB);
 		});
@@ -56,6 +51,7 @@ export default function DomainSelection(props: TProps) {
 					icon={<MaterialIcons name="group" style={styles.imageStyleIcon} />}
 					title={item.name}
 					onPress={() => {
+						domainNameSetter(item.name);
 						nodeSetter(item.node);
 					}}
 				/>
@@ -84,7 +80,7 @@ export default function DomainSelection(props: TProps) {
 			</View>
 			{loading === false && (
 				<View style={styles.card}>
-					<Text>Domain_Node:{domainNode}</Text>
+					<Text>Domain_Node:{domain}</Text>
 					<Text>Domain_Name:{domainName}</Text>
 					<FlatList
 						data={domainsList}

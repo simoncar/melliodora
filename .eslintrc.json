@@ -11,7 +11,8 @@
 		"plugin:jest/recommended",
 		"prettier",
 		"prettier/@typescript-eslint",
-		"prettier/react"
+		"prettier/react",
+		"plugin:react-hooks/recommended"
 	],
 	"globals": {
 		"Atomics": "readonly",

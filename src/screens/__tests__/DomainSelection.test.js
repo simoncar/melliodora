@@ -6,7 +6,7 @@ import DomainSelection from '../DomainSelection';
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 
 jest.mock("../../lib/globalState", () => ({
-	usePersistedDomains: () => [JSON.stringify([{
+	useDomainsP: () => [JSON.stringify([{
 		"name": "Team Entrepreneur CA",
 		"node": "team_entrepreneur_ca",
 		"_key": "111113948fh38hf398h4f",
@@ -24,14 +24,14 @@ jest.mock("../../lib/globalState", () => ({
 	])
 		, jest.fn(), true],
 
-	usePersistedCount: () => [33
+	useCountP: () => [33
 		, jest.fn(), true]
 }));
 
 
 test('list domains', () => {
 	const navigation = { navigate: jest.fn() };
-	const usePersistedDomains = jest.fn();
+	const useDomainsP = jest.fn();
 	const setter = jest.fn();
 
 

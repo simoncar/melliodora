@@ -12,7 +12,7 @@ import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
 import { actionAdd } from "../components/StoryActions";
-import { usePersistedDomainNode } from "../lib/globalState";
+import { useDomainP } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 
 const versionCheck = new VersionCheck();
@@ -29,24 +29,24 @@ export default function Home(props: TProps) {
 	const [calendarItems, setCalendarItems] = useState([]);
 	const [balanceItems, setBalanceItems] = useState([]);
 	const [appUpdateMessage, setAppUpdateMessage] = useState("none");
-	const [domainNode, domainNodeSetter, domainNodeIsUpdated] = usePersistedDomainNode();
+	const [domain, domainSetter, domainIsUpdated] = useDomainP();
 
 	const language = "en";
 
-	console.log("domain node:", domainNode);
+	console.log("domain node:", domain);
 
 	useEffect(() => {
 		//	loadFromAsyncStorage();
 
 		props.navigation.setParams({
-			title: domainNode,
+			title: domain,
 		});
 
-		if (domainNode == "oakforest_international_edu") {
+		if (domain == "oakforest_international_edu") {
 			demo.setupDemoData();
 		}
 
-		getStories(domainNode)
+		getStories(domain)
 			.then((stories) => {
 				setFeatureItems(stories);
 				setLoading(false);
@@ -198,7 +198,7 @@ export default function Home(props: TProps) {
 				story={item}
 				card={true}
 				language={language}
-				domain={domainNode}
+				domain={domain}
 			/>
 		);
 	};
@@ -211,7 +211,7 @@ export default function Home(props: TProps) {
 				story={item}
 				card={false}
 				language={language}
-				domain={domainNode}
+				domain={domain}
 			/>
 		);
 	};

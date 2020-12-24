@@ -10,14 +10,55 @@ import AuthStackNavigator from "./AuthStackNavigator";
 import Constants from "expo-constants";
 import { connect } from "react-redux";
 import { getCommunityDetails } from "./store/community";
-import { usePersistedDomainNode } from "./lib/globalState";
+import { useDomainP, useAuth, useLogin, useEmail, useUid, useDisplayName, usePhotoURL } from "./lib/globalState";
+
+import * as firebase from "firebase";
 
 export default function Setup() {
 	const [loading, setLoading] = useState(true);
-	const [domainNode, domainNodeSetter, domainNodeIsUpdated] = usePersistedDomainNode();
+	const [domain, domainSetter, domainIsUpdated] = useDomainP();
+
+	const [, setGAuth, gAuth] = useAuth();
+	const [, setGLogin, gLogin] = useLogin();
+	const [, setGEmail, gEmail] = useEmail();
+	const [, setGDisplayName, gDisplayName] = useDisplayName();
+	const [, setGPhotoURL, gPhotoURL] = usePhotoURL();
+	const [, setGUid, gUid] = useUid();
 
 	useEffect(() => {
-		Firebase.initialise().then(() => console.log("firebase initialized?"));
+		Firebase.initialise().then(() => {
+			console.log("firebase initialized?");
+
+			firebase.auth().onAuthStateChanged((user) => {
+				let objAuth = {};
+				if (user === null) {
+					console.log("auth state changed 1:", user);
+					objAuth = {
+						uid: "",
+						displayName: "",
+						email: "",
+						photoURL: "",
+					};
+
+					setGLogin(false);
+				} else {
+					console.log("auth state changed 2:", user);
+					objAuth = {
+						uid: user.uid,
+						displayName: user.displayName === null ? "" : user.displayName,
+						email: user.email,
+						photoURL: user.photoURL === null ? "" : user.photoURL,
+					};
+					setGLogin(true);
+				}
+
+				setGAuth(JSON.stringify(objAuth));
+				setGEmail(objAuth.email);
+				setGDisplayName(objAuth.displayName);
+				setGPhotoURL(objAuth.photoURL);
+				setGUid(objAuth.uid);
+			});
+		});
 
 		Font.loadAsync({
 			SegoeUI: require("../resources/segoe-ui.ttf"),
@@ -34,7 +75,7 @@ export default function Setup() {
 
 	if (loading) {
 		return <AppLoading />;
-	} else if (domainNode === "") {
+	} else if (domain === "") {
 		console.log("trigger auth stack navigator");
 		return <AuthStackNavigator />;
 	} else {

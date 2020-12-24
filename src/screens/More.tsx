@@ -11,7 +11,7 @@ import { SettingsListItem, Separator } from "../components/SettingsListItem";
 import FeatureMoreItems from "../components/FeatureMoreItems";
 import Profile from "../components/Profile";
 import { processSelectedCommunity } from "../store/community";
-import { usePersistedDomainNode } from "../lib/globalState";
+import { useDomainP, useDomainNameP } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
@@ -21,10 +21,12 @@ interface TProps {
 }
 
 export default function Settings(props: TProps) {
-	const [domainNode, domainNodeSetter, domainNodeIsUpdated] = usePersistedDomainNode();
+	const [domain, domainSetter, domainIsUpdated] = useDomainP();
+	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
 
 	const changeDomain = () => {
-		domainNodeSetter(""); //this will trigger a new navigator
+		domainNameSetter("");
+		domainSetter(""); //this will trigger a new navigator
 	};
 
 	const separator = (i: number) => {
