@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import Image from "../components/Imgix";
 import { Input } from "react-native-elements";
@@ -10,75 +10,56 @@ import _ from "lodash";
 import { launchProfileImagePicker } from "../lib/APIUploadImage";
 import { Text, Button } from "../components/sComponent";
 import { UserEntity } from "../lib/interfaces";
-
-const globalAny: any = global;
+import { UpdateUser } from "../lib/APIUser";
+import { useAuth, useDisplayName } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
-	language: string;
-	uid: string;
-	user: UserEntity;
-}
-interface TState {
-	loading: boolean;
-	user: UserEntity;
+	route: any;
 }
 
-class EditUserProfile extends Component<TProps, TState> {
-	constructor(props: TProps) {
-		super(props);
+export default function EditUserProfile(props: TProps) {
+	const [errorMessage, setErrorMessage] = useState("");
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [refresh, setDisplayName, state, isUpdated] = useDisplayName();
+	const user = props.route.params.user;
 
-		this.state = {
-			loading: false,
-			user: {
-				photoURL: "",
-				firstName: "",
-				lastName: "",
-				email: "",
-				uid: "",
-				displayName: "",
-			},
+	useEffect(() => {
+		setFirstName(user.firstName);
+		setLastName(user.lastName);
+	}, []);
+
+	const save = async () => {
+		const newUser = {
+			firstName: firstName,
+			lastName: lastName,
+			uid: user.uid,
 		};
-	}
 
-	componentDidMount() {
-		const { uid, user } = this.props;
-		this.setState({
-			user: { ...user, uid },
-		});
-	}
+		
 
-	save = async () => {
-		this.setState({ loading: true });
-		try {
-			// const updateProfileObj = {};
+		UpdateUser(newUser, setDisplayName);
+		// const updateProfileObj = {};
 
-			// const downloadURL = await saveProfilePic(diff.photoURL);
-			// updateProfileObj["photoURL"] = downloadURL;
-			// diff["photoURL"] = downloadURL;
+		// const downloadURL = await saveProfilePic(diff.photoURL);
+		// updateProfileObj["photoURL"] = downloadURL;
+		// diff["photoURL"] = downloadURL;
 
-			console.log("save:", this.state.user);
+		// await firebase.firestore()
+		// 	.collection(globalAny.domain)
+		// 	.doc("user")
+		// 	.collection("registered")
+		// 	.doc(this.state.user.uid)
+		// 	.set(diff, { merge: true });
 
-			// await firebase.firestore()
-			// 	.collection(globalAny.domain)
-			// 	.doc("user")
-			// 	.collection("registered")
-			// 	.doc(this.state.user.uid)
-			// 	.set(diff, { merge: true });
+		//const refreshFunction = this.props.refreshFunction;
+		//refreshFunction(diff);
 
-			const refreshFunction = this.props.refreshFunction;
-			refreshFunction(diff);
-
-			this.props.navigation.pop();
-		} catch (error) {
-			this.setState({
-				errorMessage: error.message,
-				loading: false,
-			});
-		}
+		//this.props.navigation.pop();
 	};
 
-	_pickImage = async () => {
+	const _pickImage = async () => {
 		let result = await launchProfileImagePicker();
 
 		if (!result.cancelled) {
@@ -86,11 +67,11 @@ class EditUserProfile extends Component<TProps, TState> {
 		}
 	};
 
-	setProfilePic = ({ profilePic }) => {
+	const setProfilePic = ({ profilePic }) => {
 		this.setState((prevState) => ({ user: { ...prevState.user, photoURL: profilePic } }));
 	};
 
-	_onOpenActionSheet = async () => {
+	const _onOpenActionSheet = async () => {
 		const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
 		if (status === "granted") {
 			const options = [I18n.t("photoTake"), I18n.t("photoChoose"), I18n.t("delete"), I18n.t("cancel")];
@@ -120,12 +101,12 @@ class EditUserProfile extends Component<TProps, TState> {
 		}
 	};
 
-	_renderProfilePic = () => {
-		const photoURL = this.state.user.photoURL;
+	const _renderProfilePic = () => {
+		const photoURL = user.photoURL;
 
 		return (
 			<View style={styles.profilePicContainer}>
-				<TouchableOpacity onPress={this._onOpenActionSheet}>
+				<TouchableOpacity onPress={_onOpenActionSheet}>
 					{photoURL ? (
 						<Image style={styles.profilePhoto} source={{ uri: photoURL }} />
 					) : (
@@ -137,80 +118,43 @@ class EditUserProfile extends Component<TProps, TState> {
 		);
 	};
 
-	render() {
-		return (
-			<SafeAreaView style={styles.saveAreaView}>
-				<ScrollView>
-					<Text>{this.state.errorMessage}</Text>
+	return (
+		<SafeAreaView style={styles.saveAreaView}>
+			<ScrollView>
+				<Text>{errorMessage}</Text>
+				<Text>{firstName}</Text>
+				<Text>{lastName}</Text>
 
-					{this._renderProfilePic()}
+				{_renderProfilePic()}
 
-					<View style={styles.titleContainer}>
-						<Text style={styles.nameText}>{I18n.t("email")}: </Text>
+				<View style={styles.titleContainer}>
+					<Text style={styles.nameText}>{I18n.t("email")}: </Text>
+					<Input style={styles.sectionContentText} value={user.email} />
+				</View>
+
+				<View style={styles.titleContainerRow}>
+					<View style={styles.rowFlex}>
+						<Text style={styles.nameText}>{I18n.t("firstName")}:</Text>
 						<Input
 							style={styles.sectionContentText}
-							onChangeText={(text) =>
-								this.setState((prevState) => ({ user: { ...prevState.user, email: text } }))
-							}
-							value={this.state.user.email}
+							onChangeText={(firstName) => setFirstName(firstName)}
+							value={firstName}
 						/>
 					</View>
-
-					<View style={styles.titleContainerRow}>
-						<View style={styles.rowFlex}>
-							<Text style={styles.nameText}>{I18n.t("firstName")}:</Text>
-							<Input
-								style={styles.sectionContentText}
-								onChangeText={(text) =>
-									this.setState((prevState) => ({
-										user: {
-											...prevState.user,
-											firstName: text,
-										},
-									}))
-								}
-								value={this.state.user.firstName}
-							/>
-						</View>
-						<View style={styles.rowFlex}>
-							<Text style={styles.nameText}>{I18n.t("lastName")}:</Text>
-							<Input
-								style={styles.sectionContentText}
-								onChangeText={(text) =>
-									this.setState((prevState) => ({
-										user: {
-											...prevState.user,
-											lastName: text,
-										},
-									}))
-								}
-								value={this.state.user.lastName}
-							/>
-						</View>
+					<View style={styles.rowFlex}>
+						<Text style={styles.nameText}>{I18n.t("lastName")}:</Text>
+						<Input
+							style={styles.sectionContentText}
+							onChangeText={(lastName) => setLastName(lastName)}
+							value={lastName}
+						/>
 					</View>
+				</View>
 
-					<Button onPress={() => this.save()} title={I18n.t("save")} />
-				</ScrollView>
-			</SafeAreaView>
-		);
-	}
-}
-
-const ConnectedApp = connectActionSheet(EditUserProfile);
-
-export default class ActionSheetContainer extends Component {
-	render() {
-		return (
-			<ActionSheetProvider>
-				<ConnectedApp
-					navigation={this.props.navigation}
-					refreshFunction={this.props.route.params.refreshFunction}
-					uid={this.props.route.params.uid}
-					user={this.props.route.params.user}
-				/>
-			</ActionSheetProvider>
-		);
-	}
+				<Button onPress={() => save()} title={I18n.t("save")} />
+			</ScrollView>
+		</SafeAreaView>
+	);
 }
 
 const styles = StyleSheet.create({

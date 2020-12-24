@@ -26,7 +26,6 @@ export default function DomainSelection(props: TProps) {
 
 	useEffect(() => {
 		getDomains().then((domainsDB) => {
-			console.log("Domains from DB:", domainsDB);
 			domainsSetter(JSON.stringify(domainsDB));
 			setDomainsList(domainsDB);
 		});

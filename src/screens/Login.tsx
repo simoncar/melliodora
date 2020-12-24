@@ -21,13 +21,6 @@ export default function LoginScreen(props: TProps) {
 	const [password, setPassword] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
 
-	const [, setGAuth, gAuth] = useAuth();
-	const [, setGLogin, gLogin] = useLogin();
-	const [, setGEmail, gEmail] = useEmail();
-	const [, setGDisplayName, gDisplayName] = useDisplayName();
-	const [, setGPhotoURL, gPhotoURL] = usePhotoURL();
-	const [, setGUid, gUid] = useUid();
-
 	const handleLogin = () => {
 		setLoading(true);
 		firebase

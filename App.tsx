@@ -28,22 +28,10 @@ export default class App extends Component {
 		super(props);
 	}
 
-	renderLoading = () => (
-		<View style={styles.container}>
-			<ActivityIndicator size="large" />
-		</View>
-	);
-
 	render() {
 		//ScreenOrientation.unlockAsync();
 
-		return (
-			<Provider store={store}>
-				<PersistGate persistor={persistor} loading={this.renderLoading()}>
-					<Setup />
-				</PersistGate>
-			</Provider>
-		);
+		return <Setup />;
 	}
 }
 

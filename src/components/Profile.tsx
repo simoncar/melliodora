@@ -21,7 +21,6 @@ export default function Profile(props: IProps) {
 	if (Constants.manifest.extra.instance === "sais_edu_sg") {
 		return <View />;
 	}
-	console.log(login);
 	if (login === true) {
 		const user = {
 			firstName: "",
@@ -30,8 +29,6 @@ export default function Profile(props: IProps) {
 			uid: uid,
 			email: email,
 		};
-
-		console.log("sending>", user);
 
 		return (
 			<View>

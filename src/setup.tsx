@@ -31,8 +31,8 @@ export default function Setup() {
 
 			firebase.auth().onAuthStateChanged((user) => {
 				let objAuth = {};
+				console.log("auth1");
 				if (user === null) {
-					console.log("auth state changed 1:", user);
 					objAuth = {
 						uid: "",
 						displayName: "",
@@ -42,7 +42,7 @@ export default function Setup() {
 
 					setGLogin(false);
 				} else {
-					console.log("auth state changed 2:", user);
+					console.log("auth2");
 					objAuth = {
 						uid: user.uid,
 						displayName: user.displayName === null ? "" : user.displayName,
@@ -76,7 +76,6 @@ export default function Setup() {
 	if (loading) {
 		return <AppLoading />;
 	} else if (domain === "") {
-		console.log("trigger auth stack navigator");
 		return <AuthStackNavigator />;
 	} else {
 		return <App />;

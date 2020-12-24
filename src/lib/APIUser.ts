@@ -1,8 +1,6 @@
 import React, { useState} from "react";
 import * as firebase from "firebase";
-import {useAuth} from "../lib/globalState";
-
-
+import {useAuth, useDisplayName} from "../lib/globalState";
 
 interface IAuth {
 	uid: string;
@@ -49,5 +47,35 @@ export function Login(email, password) {
 				//setLoading(false);
 				console.log(error);
 			});
-	};
+};
+	
+export function UpdateUser(user,setDisplayName) {
 
+
+//are you updating yourself?
+	var authUser = firebase.auth().currentUser;
+
+	if (authUser != null) {
+
+		if (user.uid === authUser.uid) {
+			console.log("same user")
+			const displayName = user.firstName + " " + user.lastName
+
+			authUser.updateProfile({
+				displayName: displayName,
+				photoURL: "https://example.com/jane-q-user/profile.jpg"
+			}).then(function () {
+				// Update successful.
+				console.log("update success");
+				setDisplayName(displayName);
+			}).catch(function (error) {
+				// An error happened.
+					console.log("update failed", error);
+			});
+		}
+
+	}
+
+	console.log("update:", user.uid, authUser.uid)
+
+}
