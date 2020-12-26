@@ -79,8 +79,6 @@ export default function DomainSelection(props: TProps) {
 			</View>
 			{loading === false && (
 				<View style={styles.card}>
-					<Text>Domain_Node:{domain}</Text>
-					<Text>Domain_Name:{domainName}</Text>
 					<FlatList
 						data={domainsList}
 						renderItem={renderItem}

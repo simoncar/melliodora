@@ -11,7 +11,9 @@ import { launchProfileImagePicker } from "../lib/APIUploadImage";
 import { Text, Button } from "../components/sComponent";
 import { UserEntity } from "../lib/interfaces";
 import { UpdateUser } from "../lib/APIUser";
-import { useAuth, useDisplayName } from "../lib/globalState";
+import { useAuth, useDisplayNameP, usePhotoURLP } from "../lib/globalState";
+import { useActionSheet } from "@expo/react-native-action-sheet";
+import { saveProfilePic } from "../lib/APIUploadImage";
 
 interface TProps {
 	navigation: any;
@@ -19,66 +21,61 @@ interface TProps {
 }
 
 export default function EditUserProfile(props: TProps) {
+	const { showActionSheetWithOptions } = useActionSheet();
+
 	const [errorMessage, setErrorMessage] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
-	const [refresh, setDisplayName, state, isUpdated] = useDisplayName();
+	const [photoURL, setPhotoURL] = useState("");
+	const [stateDisplayName, setGDisplayName, isUpdatedDisplayName] = useDisplayNameP();
+	const [statePhotoURL, setGPhotoURL, isUpdatedPhotoURL] = usePhotoURLP();
+
 	const user = props.route.params.user;
 
+	console.log("Edit User Props (initial state):", user);
 	useEffect(() => {
 		setFirstName(user.firstName);
 		setLastName(user.lastName);
+		setGDisplayName(user.displayName);
+		setPhotoURL(user.photoURL);
 	}, []);
 
-	const save = async () => {
-		const newUser = {
-			firstName: firstName,
-			lastName: lastName,
-			uid: user.uid,
-		};
-
-		
-
-		UpdateUser(newUser, setDisplayName);
-		// const updateProfileObj = {};
-
-		// const downloadURL = await saveProfilePic(diff.photoURL);
-		// updateProfileObj["photoURL"] = downloadURL;
-		// diff["photoURL"] = downloadURL;
-
-		// await firebase.firestore()
-		// 	.collection(globalAny.domain)
-		// 	.doc("user")
-		// 	.collection("registered")
-		// 	.doc(this.state.user.uid)
-		// 	.set(diff, { merge: true });
-
-		//const refreshFunction = this.props.refreshFunction;
-		//refreshFunction(diff);
-
-		//this.props.navigation.pop();
+	const save = async (newUser) => {
+		UpdateUser(newUser, setGDisplayName, setGPhotoURL);
 	};
 
 	const _pickImage = async () => {
 		let result = await launchProfileImagePicker();
-
+		console.log("pick result:", result);
 		if (!result.cancelled) {
-			this.setProfilePic({ profilePic: result.uri });
-		}
-	};
+			console.log("save to server:", result.uri);
+			const downloadURL = await saveProfilePic(result.uri);
 
-	const setProfilePic = ({ profilePic }) => {
-		this.setState((prevState) => ({ user: { ...prevState.user, photoURL: profilePic } }));
+			console.log("downloadURL:", downloadURL);
+			setGPhotoURL(downloadURL);
+			setPhotoURL(downloadURL);
+			const newUser = {
+				firstName: firstName,
+				lastName: lastName,
+				uid: user.uid,
+				photoURL: downloadURL,
+			};
+			save(newUser);
+			//setProfilePic({ profilePic: result.uri });
+		}
 	};
 
 	const _onOpenActionSheet = async () => {
 		const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
+		console.log("here:", status);
 		if (status === "granted") {
 			const options = [I18n.t("photoTake"), I18n.t("photoChoose"), I18n.t("delete"), I18n.t("cancel")];
 			const destructiveButtonIndex = options.length - 2;
 			const cancelButtonIndex = options.length - 1;
 
-			this.props.showActionSheetWithOptions(
+			console.log("here2:", showActionSheetWithOptions);
+
+			showActionSheetWithOptions(
 				{
 					options,
 					cancelButtonIndex,
@@ -88,12 +85,13 @@ export default function EditUserProfile(props: TProps) {
 					// Do something here depending on the button index selected
 					switch (buttonIndex) {
 						case 0:
-							this.props.navigation.push("CameraApp", {
-								onGoBack: this.setProfilePic,
+							props.navigation.push("CameraApp", {
+								onGoBack: setProfilePic,
 							});
 							break;
 						case 1:
-							this._pickImage();
+							console.log("here3:");
+							_pickImage();
 							break;
 					}
 				}
@@ -102,13 +100,15 @@ export default function EditUserProfile(props: TProps) {
 	};
 
 	const _renderProfilePic = () => {
-		const photoURL = user.photoURL;
-
+		console.log("statePhotoURL:", statePhotoURL);
 		return (
 			<View style={styles.profilePicContainer}>
-				<TouchableOpacity onPress={_onOpenActionSheet}>
-					{photoURL ? (
-						<Image style={styles.profilePhoto} source={{ uri: photoURL }} />
+				<TouchableOpacity
+					onPress={() => {
+						_onOpenActionSheet();
+					}}>
+					{statePhotoURL ? (
+						<Image style={styles.profilePhoto} source={{ uri: statePhotoURL }} />
 					) : (
 						<Ionicons name="ios-person" size={100} color="#999999" style={styles.profilePic} />
 					)}
@@ -124,14 +124,14 @@ export default function EditUserProfile(props: TProps) {
 				<Text>{errorMessage}</Text>
 				<Text>{firstName}</Text>
 				<Text>{lastName}</Text>
+				<Text>PhotoURL G:{statePhotoURL}</Text>
+				<Text>Display Name G:{stateDisplayName}</Text>
 
 				{_renderProfilePic()}
-
 				<View style={styles.titleContainer}>
 					<Text style={styles.nameText}>{I18n.t("email")}: </Text>
 					<Input style={styles.sectionContentText} value={user.email} />
 				</View>
-
 				<View style={styles.titleContainerRow}>
 					<View style={styles.rowFlex}>
 						<Text style={styles.nameText}>{I18n.t("firstName")}:</Text>
@@ -150,8 +150,17 @@ export default function EditUserProfile(props: TProps) {
 						/>
 					</View>
 				</View>
-
-				<Button onPress={() => save()} title={I18n.t("save")} />
+				<Button
+					onPress={() =>
+						save({
+							firstName: firstName,
+							lastName: lastName,
+							uid: user.uid,
+							photoURL: statePhotoURL,
+						})
+					}
+					title={I18n.t("save")}
+				/>
 			</ScrollView>
 		</SafeAreaView>
 	);

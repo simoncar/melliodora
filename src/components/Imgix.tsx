@@ -48,25 +48,19 @@ export default function Image(props: IProps) {
 			setHeight((height / width) * Dimensions.get("window").width);
 			setWidth(width);
 		});
+		console.log("ImgixA:", _src);
 
 		return (
 			<ReactImage
 				{...props.imageProps}
-				style={[
-					{ width: imageWidth / SCALE, height: imageHeight },
-					props.style,
-				]}
+				style={[{ width: imageWidth / SCALE, height: imageHeight }, props.style]}
 				source={{ uri: _src }}
 			/>
 		);
 	} else {
-		return (
-			<ReactImage
-				{...props.imageProps}
-				style={props.style}
-				source={{ uri: _src }}
-			/>
-		);
+		console.log("ImgixB:", _src);
+
+		return <ReactImage {...props.imageProps} style={props.style} source={{ uri: _src }} />;
 	}
 }
 

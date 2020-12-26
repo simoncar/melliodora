@@ -27,7 +27,7 @@ export const saveProfilePic = async (imgURI) => {
 	});
 
 	const ref = firebase.storage().ref("smartcommunity/profile").child(uuid.v4());
-
+	console.log("sending to server")
 	const snapshot = await ref.put(blob, { contentType: mime, cacheControl: 'max-age=31536000' });
 	const downloadURL = await snapshot.ref.getDownloadURL();
 	blob.close();
@@ -36,9 +36,10 @@ export const saveProfilePic = async (imgURI) => {
 
 export async function launchProfileImagePicker() {
 	return await ImagePicker.launchImageLibraryAsync({
-		mediaTypes: ImagePicker.MediaTypeOptions.All,
+		mediaTypes: ImagePicker.MediaTypeOptions.Images,
 		allowsEditing: true,
-		aspect: [4, 3],
-		quality: 1,
+		allowsMultipleSelection:false,
+		aspect: [4, 4],
+		quality: 0,
 	});
 }

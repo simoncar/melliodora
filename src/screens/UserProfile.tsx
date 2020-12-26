@@ -18,8 +18,6 @@ interface IProps {
 export default function UserProfile(props: IProps) {
 	const [user, setUser] = useState(props.route.params.user);
 
-	console.log("props.user:", user);
-
 	const refreshFunction = (data) => {
 		const oldUser = props.user;
 		const newUser = {
@@ -73,9 +71,7 @@ export default function UserProfile(props: IProps) {
 				{renderProfilePic()}
 
 				<View style={styles.titleContainer}>
-					<Text style={styles.nameText}>
-						{user.firstName} {user.lastName}
-					</Text>
+					<Text style={styles.nameText}>{user.displayName}</Text>
 					<Text style={styles.emailText}>{user.email}</Text>
 				</View>
 				<Button onPress={() => logout()} title={I18n.t("logout")} />

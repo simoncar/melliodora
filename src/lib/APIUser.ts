@@ -9,7 +9,6 @@ interface IAuth {
 	email: string;
 }
 
-
 export function Login(email, password) {
 	const [refresh, setter, state, isUpdated] = useAuth();
 	const [loading, setLoading] = useState(false);
@@ -28,6 +27,9 @@ export function Login(email, password) {
 					email: auth.user.email,
 					photoURL: auth.user.photoURL === null ? "" : auth.user.photoURL,
 				};
+
+
+		
 
 				//setLoading(false);
 				setLoading(false)
@@ -49,7 +51,7 @@ export function Login(email, password) {
 			});
 };
 	
-export function UpdateUser(user,setDisplayName) {
+export function UpdateUser(user,setGDisplayName,setGPhotoURL ) {
 
 
 //are you updating yourself?
@@ -63,11 +65,21 @@ export function UpdateUser(user,setDisplayName) {
 
 			authUser.updateProfile({
 				displayName: displayName,
-				photoURL: "https://example.com/jane-q-user/profile.jpg"
+				photoURL: user.PhotoURL,
 			}).then(function () {
 				// Update successful.
 				console.log("update success");
-				setDisplayName(displayName);
+
+				firebase.firestore()
+					.collection("users")
+					.doc(authUser.uid)
+					.set(user, { merge: true });
+				
+				console.log("FB Update", user)
+				
+				setGDisplayName(displayName);
+				setGPhotoURL(user.photoURL);
+				console.log("photo URL set to :", user.photoURL)
 			}).catch(function (error) {
 				// An error happened.
 					console.log("update failed", error);
