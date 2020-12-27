@@ -14,7 +14,7 @@ import Loader from "../components/Loader";
 import { processSelectedCommunity } from "../store/community";
 import I18n from "../lib/i18n";
 
-class CommunityCreate extends Component {
+export default class CommunityCreate extends Component {
 	state = {
 		communityName: "",
 		kind: "",
@@ -97,10 +97,6 @@ class CommunityCreate extends Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-});
-export default connect(mapStateToProps)(CommunityCreate);
 
 const styles = StyleSheet.create({
 	button: {

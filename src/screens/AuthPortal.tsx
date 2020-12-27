@@ -14,7 +14,7 @@ import { Text } from "../components/sComponent";
 
 const timer = require("react-native-timer");
 
-class authPortal extends Component {
+export default class authPortal extends Component {
 	constructor(props) {
 		super(props);
 
@@ -168,11 +168,6 @@ class authPortal extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	auth: state.auth,
-	authPortal: state.authPortal
-});
-const ConnectedApp = compose(connectActionSheet, connect(mapStateToProps))(authPortal);
 
 export default class AppContainer extends React.Component {
 	static navigationOptions = ({ navigation }) => ({

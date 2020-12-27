@@ -10,7 +10,7 @@ import { Text } from "../components/sComponent";
 
 const globalAny: any = global;
 
-export class AdminPassword extends Component {
+export default class AdminPassword extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -147,8 +147,3 @@ const styles = StyleSheet.create({
 		marginTop: 12
 	}
 });
-
-const mapStateToProps = state => ({
-	auth: state.auth
-});
-export default connect(mapStateToProps)(AdminPassword);

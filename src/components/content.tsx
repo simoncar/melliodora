@@ -5,7 +5,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import FeatureMoreItems from "./FeatureMoreItems";
 import { connect } from 'react-redux';
 
-class Content extends Component {
+export default class Content extends Component {
 	constructor(props) {
 		super(props);
 
@@ -40,10 +40,7 @@ class Content extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	auth: state.auth
-});
-export default connect(mapStateToProps)(Content);
+
 
 const styles = StyleSheet.create({
 	a911df0d0b21411ea8aa31930972200e5: { backgroundColor: "#EFEFF4", flex: 1 },

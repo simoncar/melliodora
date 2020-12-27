@@ -12,7 +12,7 @@ import { SettingsListItem } from "../components/SettingsListItem";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 
-class chatRooms extends Component {
+export default class chatRooms extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -179,7 +179,4 @@ const styles = StyleSheet.create({
 
 });
 
-const mapStateToProps = state => ({
-	community: state.community
-});
-export default connect(mapStateToProps)(chatRooms);
+

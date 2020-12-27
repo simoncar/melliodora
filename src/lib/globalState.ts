@@ -14,6 +14,7 @@ const emailStore = new GlobalStore("", null, 'globalState_EMAIL');
 const uidStore = new GlobalStore("", null, 'globalState_UID');
 const displayNameStore = new GlobalStore("", null, 'globalState_DISPLAYNAME');
 const photoURLStore = new GlobalStore("", null, 'globalState_PHOTOURL');
+const languageStore = new GlobalStore("", null, 'globalState_LANGUAGE')
 
 export const useDomain = domainStore.getHook();
 export const useDomainName = domainNameStore.getHook();
@@ -26,56 +27,69 @@ export const useLogin = loginStore.getHook();
 export const useUid = uidStore.getHook();
 export const useDisplayName = displayNameStore.getHook();
 export const usePhotoURL = photoURLStore.getHook();
+export const useLanguage = languageStore.getHook();
 
 export const useDomainP = () => {
   const [refresh, setter, state, isUpdated] = useDomain();
-  useEffect(() => {refresh(); }, [refresh]);
+  useEffect(() => {refresh(); }, []);
   return [state, setter, isUpdated];
 }
 
 export const useDomainNameP = () => {
   const [refresh, setter, state, isUpdated] = useDomainName();
-  useEffect(() => {refresh(); }, [refresh]);
+  useEffect(() => {refresh(); }, []);
   return [state, setter, isUpdated];
 }
 
 export const useDomainsP = () => {
   const [refresh, setter, state, isUpdated] = useDomains();
-  useEffect(() => {refresh(); }, [refresh]);
+  useEffect(() => {refresh(); }, []);
   return [state, setter, isUpdated];
 }
 
 export const useAuthP = () => {
   const [refresh, setter, state, isUpdated] = useAuth();
-  useEffect(() => {refresh(); }, [refresh]);
+  useEffect(() => {refresh(); }, []);
   return [state, setter, isUpdated];
 }
 
 export const useLoginP = () => {
   const [refresh, setter, state, isUpdated] = useLogin();
-  useEffect(() => {refresh(); }, [refresh]);
+  useEffect(() => {refresh(); }, []);
   return [state, setter, isUpdated];
 }
 export const useEmailP = () => {
   const [refresh, setter, state, isUpdated] = useEmail();
-  useEffect(() => {refresh(); }, [refresh]);
+  useEffect(() => {refresh(); }, []);
   return [state, setter, isUpdated];
 }
 export const useUidP = () => {
   const [refresh, setter, state, isUpdated] = useUid();
-  useEffect(() => {refresh(); }, [refresh]);
+  useEffect(() => {refresh(); }, []);
   return [state, setter, isUpdated];
 }
 
 export const useDisplayNameP = () => {
   const [refresh, setter, state, isUpdated] = useDisplayName();
-  useEffect(() => {refresh(); }, [refresh]);
+  useEffect(() => {refresh(); }, []);
   return [state, setter, isUpdated];
 }
 
 export const usePhotoURLP = () => {
   const [refresh, setter, state, isUpdated] = usePhotoURL();
-  useEffect(() => {refresh(); }, [refresh]);
+  useEffect(() => {refresh(); }, []);
   return [state, setter, isUpdated];
 }
+
+export const useLanguageP = () => {
+  const [refresh, setter, state, isUpdated] = useLanguage();
+ console.log("insideA:", state,isUpdated)
+	useEffect(() => {
+		refresh();
+	}, []);
+
+	console.log("insdieZ:", state,isUpdated)
+  return [state, setter, isUpdated];
+}
+
 

@@ -11,7 +11,7 @@ import { SettingsListItem, Separator } from "../components/SettingsListItem";
 import FeatureMoreItems from "../components/FeatureMoreItems";
 import Profile from "../components/Profile";
 import { processSelectedCommunity } from "../store/community";
-import { useDomainP, useDomainNameP } from "../lib/globalState";
+import { useDomainP, useDomainNameP, useLanguage } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
@@ -23,6 +23,7 @@ interface TProps {
 export default function Settings(props: TProps) {
 	const [domain, domainSetter, domainIsUpdated] = useDomainP();
 	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
+	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 
 	const changeDomain = () => {
 		domainNameSetter("");
@@ -56,7 +57,12 @@ export default function Settings(props: TProps) {
 						icon={<FontAwesome name="language" style={styles.imageStyleIcon} />}
 						title={"Language"}
 						titleInfo={"some value"}
-						onPress={() => props.navigation.navigate("selectLanguage")}
+						onPress={() =>
+							props.navigation.navigate("selectLanguage", {
+								language: language,
+								setLanguageFn: setLanguage,
+							})
+						}
 					/>
 
 					<SettingsListItem
@@ -88,13 +94,15 @@ export default function Settings(props: TProps) {
 						title={I18n.t("adminAccess")}
 						onPress={() => props.navigation.navigate("AdminPassword")}
 					/>
-
-					{isAdmin(props.adminPassword) && <FeatureMoreItems navigation={props.navigation} language={"en"} />}
 				</View>
 			</ScrollView>
 		</View>
 	);
 }
+
+// {
+// 	isAdmin(props.adminPassword) && <FeatureMoreItems navigation={props.navigation} language={"en"} />;
+// }
 
 const styles = StyleSheet.create({
 	card: {

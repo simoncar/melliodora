@@ -24,7 +24,7 @@ interface TProps {
 	domain: string;
 }
 
-export class Story extends Component<TProps, StoryState> {
+export default class Story extends Component<TProps, StoryState> {
 	constructor(props: TProps) {
 		super(props);
 		this.refreshFunction = this.refreshFunction.bind(this);
@@ -299,8 +299,3 @@ const styles = StyleSheet.create({
 	},
 });
 
-const mapStateToProps = (state: { auth: any }) => ({
-	auth: state.auth,
-});
-
-export default connect(mapStateToProps)(Story);

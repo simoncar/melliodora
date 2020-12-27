@@ -40,7 +40,7 @@
 		"g": "expo start --config apps/app.generic.json --no-minify --ios",
 		"t": "expo start --config apps/app.generic.json --no-minify --tunnel",
 		"w": "expo start --config apps/app.generic.json --no-minify --web",
-		"offline": "expo start --config apps/app.generic.json --no-minify --ios --offline",
+		"offline": "expo start --config apps/app.generic.json --no-minify --ios  --dev --offline",
 		"s": "expo start --config apps/app.sais_edu_sg.json --no-minify --ios",
 		"a": "expo start --config apps/app.ais_edu_sg.json --no-minify --ios",
 		"modules": "rm -rf node_modules && yarn",

@@ -10,13 +10,26 @@ import AuthStackNavigator from "./AuthStackNavigator";
 import Constants from "expo-constants";
 import { connect } from "react-redux";
 import { getCommunityDetails } from "./store/community";
-import { useDomainP, useAuth, useLogin, useEmail, useUid, useDisplayName, usePhotoURL } from "./lib/globalState";
+import {
+	useDomainP,
+	useAuth,
+	useLogin,
+	useLanguage,
+	useEmail,
+	useUid,
+	useDisplayName,
+	usePhotoURL,
+} from "./lib/globalState";
+import * as Localization from "expo-localization";
 
 import * as firebase from "firebase";
+import { removePushTokenSubscription } from "expo-notifications";
 
 export default function Setup() {
 	const [loading, setLoading] = useState(true);
 	const [domain, domainSetter, domainIsUpdated] = useDomainP();
+	//const [language, setLanguage, languageIsUpdated] = useLanguageP();
+	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 
 	const [, setGAuth, gAuth] = useAuth();
 	const [, setGLogin, gLogin] = useLogin();
@@ -26,6 +39,53 @@ export default function Setup() {
 	const [, setGUid, gUid] = useUid();
 
 	useEffect(() => {
+		async function loadFonts() {
+			console.log(" ---- load fonts ----");
+			await Font.loadAsync({
+				SegoeUI: require("../resources/segoe-ui.ttf"),
+			});
+			return "done loading fonts";
+		}
+
+		async function loadLanguage() {
+			return refreshLanguage();
+		}
+
+		async function initLang(inLang) {
+			var lang = inLang;
+			console.log("Localization:", Localization.locale);
+			if (lang === "") {
+				lang = "zh";
+				I18n.locale = Localization.locale;
+
+				await setLanguage(lang);
+			}
+
+			if (lang === "ar") {
+				I18nManager.forceRTL(true);
+			} else {
+				I18nManager.forceRTL(false);
+			}
+			I18n.locale = language;
+
+			console.log("language2:", lang);
+			return lang;
+		}
+
+		loadFonts()
+			.then((ret) => {
+				console.log("done fonts:", ret);
+				return loadLanguage();
+			})
+			.then((ret) => {
+				return initLang(ret);
+			})
+
+			.then((ret) => {
+				console.log("set loading done:", ret);
+				return setLoading(false);
+			});
+
 		Firebase.initialise().then(() => {
 			console.log("firebase initialized?");
 
@@ -39,7 +99,6 @@ export default function Setup() {
 						email: "",
 						photoURL: "",
 					};
-
 					setGLogin(false);
 				} else {
 					console.log("auth2");
@@ -59,18 +118,6 @@ export default function Setup() {
 				setGUid(objAuth.uid);
 			});
 		});
-
-		Font.loadAsync({
-			SegoeUI: require("../resources/segoe-ui.ttf"),
-		}).then(() => setLoading(false));
-
-		let language = "en"; //TODO: rebuild
-		if (language === "ar") {
-			I18nManager.forceRTL(true);
-		} else {
-			I18nManager.forceRTL(false);
-		}
-		I18n.locale = language;
 	}, []);
 
 	if (loading) {

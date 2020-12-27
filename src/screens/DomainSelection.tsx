@@ -9,7 +9,7 @@ import Profile from "../components/Profile";
 import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import { getDomains } from "../lib/APIDomain";
-import { useDomainsP, useDomainP, useDomainNameP, useDomain, useDomainName } from "../lib/globalState";
+import { useDomainsP, useDomainP, useDomainNameP, useDomain, useDomainName, useLanguage } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
@@ -23,6 +23,7 @@ export default function DomainSelection(props: TProps) {
 	const [domains, domainsSetter, domainsIsUpdated] = useDomainsP();
 	const [domain, domainSetter, domainIsUpdated] = useDomainP();
 	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
+	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 
 	useEffect(() => {
 		getDomains().then((domainsDB) => {
@@ -75,6 +76,7 @@ export default function DomainSelection(props: TProps) {
 						lastItem={true}
 						subTitle="A Polo is your own space for sharing photos"
 					/>
+					<Text>Language: {language}</Text>
 				</View>
 			</View>
 			{loading === false && (
@@ -88,6 +90,7 @@ export default function DomainSelection(props: TProps) {
 					/>
 				</View>
 			)}
+			<Text>Language: {language}</Text>
 		</View>
 	);
 }
@@ -96,16 +99,14 @@ const styles = StyleSheet.create({
 	bottomSpace: {
 		paddingBottom: 100,
 	},
-
 	card: {
 		alignSelf: "center",
-		backgroundColor: "#fff",
+		backgroundColor: "white",
 		borderRadius: 15,
 		marginBottom: 12,
 		padding: 10,
 		width: "95%",
 	},
-
 	imageStyleIcon: {
 		alignSelf: "center",
 		color: "#999999",
@@ -126,6 +127,10 @@ const styles = StyleSheet.create({
 
 	separator: {
 		backgroundColor: "#CED0CE",
+	},
+
+	user: {
+		color: "red",
 	},
 	viewFlex: {
 		flex: 1,

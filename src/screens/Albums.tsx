@@ -26,7 +26,7 @@ interface TState {
 	}[];
 }
 
-export class SelectAlbum extends Component<TProps, TState> {
+export default class SelectAlbum extends Component<TProps, TState> {
 	constructor(props: Readonly<TProps>) {
 		super(props);
 
@@ -113,7 +113,3 @@ const styles = StyleSheet.create({
 	},
 });
 
-const mapStateToProps = (state: { auth: any }) => ({
-	auth: state.auth,
-});
-export default connect(mapStateToProps)(SelectAlbum);
