@@ -12,7 +12,7 @@ import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
 import { actionAdd } from "../components/StoryActions";
-import { useDomainP } from "../lib/globalState";
+import { useDomainP, useLanguage } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 
 const versionCheck = new VersionCheck();
@@ -30,8 +30,7 @@ export default function Home(props: TProps) {
 	const [balanceItems, setBalanceItems] = useState([]);
 	const [appUpdateMessage, setAppUpdateMessage] = useState("none");
 	const [domain, domainSetter, domainIsUpdated] = useDomainP();
-
-	const language = "en";
+	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 
 	useEffect(() => {
 		//	loadFromAsyncStorage();

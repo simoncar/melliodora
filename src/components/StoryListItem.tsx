@@ -16,6 +16,7 @@ interface TProps {
 	story: StoryEntity;
 	card: boolean;
 	domain: string;
+	language: string
 }
 
 class ListItem extends Component<TProps> {
@@ -92,6 +93,8 @@ class ListItem extends Component<TProps> {
 						this.props.navigation.navigate("story", {
 							story: this.props.story,
 							domain: this.props.domain,
+							language: this.props.language,
+							 
 						});
 					}}>
 					<View style={styles.headerRow}>

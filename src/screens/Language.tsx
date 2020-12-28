@@ -20,7 +20,6 @@ export default function SelectLanguage(props) {
 	};
 
 	const changeLanguage = (newLanguage) => {
-		//setLanguageFn(newLanguage)
 		setLanguage(newLanguage);
 		I18n.locale = newLanguage;
 		props.navigation.pop();
@@ -79,9 +78,6 @@ export default function SelectLanguage(props) {
 					onPress={() => changeLanguage("id")}
 					icon={<MaterialCommunityIcons name="check" style={getStyle("id")} />}
 				/>
-			</View>
-			<View style={styles.card}>
-				<Text style={styles.restartWarning}>{I18n.t("languageChangeWarning")}</Text>
 			</View>
 		</SafeAreaView>
 	);

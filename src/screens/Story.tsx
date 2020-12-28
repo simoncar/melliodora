@@ -20,8 +20,8 @@ const WINDOW_WIDTH = Dimensions.get("window").width;
 interface TProps {
 	navigation: any;
 	route: any;
-	auth: any;
 	domain: string;
+	language: string;
 }
 
 export default class Story extends Component<TProps, StoryState> {
@@ -29,8 +29,6 @@ export default class Story extends Component<TProps, StoryState> {
 		super(props);
 		this.refreshFunction = this.refreshFunction.bind(this);
 		this.rightSideButtons = this.rightSideButtons.bind(this);
-
-		console.log("story domain:", props.domain, props.route.params);
 
 		const {
 			_key,
@@ -104,22 +102,22 @@ export default class Story extends Component<TProps, StoryState> {
 
 		const navigation = this.props.navigation;
 		const admin = isAdmin(this.props.route.params.adminPassword);
-		const domain = this.props.route.params.domain
+		const domain = this.props.route.params.domain;
 
 		if (admin && story.source == "feature") {
-			buffer.push(actionEdit(navigation, position, this.state, domain,this.refreshFunction));
+			buffer.push(actionEdit(navigation, position, this.state, domain, this.refreshFunction));
 			position++;
 		}
 
 		if (admin && story.showIconChat === true) {
-			buffer.push(actionChat(position, navigation, story._key, story.summaryMyLanguage,domain));
+			buffer.push(actionChat(position, navigation, story._key, story.summaryMyLanguage, domain));
 			position++;
 		}
 		if (admin) {
-			buffer.push(actionSend(position, navigation, story,domain));
+			buffer.push(actionSend(position, navigation, story, domain));
 			position++;
 		}
-		buffer.push(actionPhotos(position, navigation, story._key,domain));
+		buffer.push(actionPhotos(position, navigation, story._key, domain));
 		position++;
 		buffer.push(actionShare(position, story));
 		position++;
@@ -181,7 +179,7 @@ export default class Story extends Component<TProps, StoryState> {
 					childrenProps={{ allowFontScaling: false }}>
 					{this.state.descriptionMyLanguage}
 				</ParsedText>
-				{this.props.auth.language != "en" && (
+				{this.props.route.params.language != "en" && (
 					<Text selectable style={styles.englishFallback}>
 						{"\n\n"}
 						{this.state.description}
@@ -197,7 +195,7 @@ export default class Story extends Component<TProps, StoryState> {
 	}
 
 	render() {
-		console.log("story 212:", this.props.route.params.domain);
+		console.log("story language:", this.props.route.params.language);
 		return (
 			<View style={styles.container}>
 				{this.rightSideButtons(this.state)}
@@ -298,4 +296,3 @@ const styles = StyleSheet.create({
 		textDecorationLine: "underline",
 	},
 });
-
