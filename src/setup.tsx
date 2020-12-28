@@ -56,7 +56,6 @@ export default function Setup() {
 			console.log("Localization:", Localization.locale);
 			if (lang === "") {
 				lang = "zh";
-				I18n.locale = Localization.locale;
 
 				await setLanguage(lang);
 			}
@@ -66,9 +65,8 @@ export default function Setup() {
 			} else {
 				I18nManager.forceRTL(false);
 			}
-			I18n.locale = language;
+			I18n.locale = lang;
 
-			console.log("language2:", lang);
 			return lang;
 		}
 

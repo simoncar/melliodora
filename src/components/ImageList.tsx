@@ -30,8 +30,6 @@ export default function ImageList(props: IProps) {
 		setDimensions({ window, screen });
 	};
 
-	console.log("ImageLIst Domain:", props.domain);
-
 	useEffect(() => {
 		if (Array.isArray(photos)) {
 			listenPhotos(props.domain, feature, refreshFunction);

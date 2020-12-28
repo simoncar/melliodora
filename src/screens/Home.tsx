@@ -15,7 +15,6 @@ import { actionAdd } from "../components/StoryActions";
 import { useDomainP } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 
-
 const versionCheck = new VersionCheck();
 
 const demo = DemoData;
@@ -34,10 +33,10 @@ export default function Home(props: TProps) {
 
 	const language = "en";
 
-	console.log("domain node:", domain);
-
 	useEffect(() => {
 		//	loadFromAsyncStorage();
+
+		console.log("domain node:", domain);
 
 		props.navigation.setParams({
 			title: domain,

@@ -5,13 +5,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import { Text } from "../components/sComponent";
 import { connect } from "react-redux";
+import { useDomainP, useDomainNameP, useLanguage } from "../lib/globalState";
+import { parseSync } from "@babel/core";
 
 export default function SelectLanguage(props) {
-	console.log("SelectLanguage:", props.route.params.language);
+	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 
-	const _getStyle = (language) => {
-		if (language === language) {
-			language, setLanguageFn;
+	const getStyle = (pass: string) => {
+		if (language === pass) {
 			return styles.imageStyleCheckOn;
 		} else {
 			return styles.imageStyleCheckOff;
@@ -20,14 +21,11 @@ export default function SelectLanguage(props) {
 
 	const changeLanguage = (newLanguage) => {
 		//setLanguageFn(newLanguage)
-		props.route.params.setLanguageFn(newLanguage);
+		setLanguage(newLanguage);
 		I18n.locale = newLanguage;
 		props.navigation.pop();
 	};
 
-	const getStyle = (newLanguage) => {
-		return null;
-	};
 	return (
 		<SafeAreaView style={styles.adminContainer}>
 			<View style={styles.card}>

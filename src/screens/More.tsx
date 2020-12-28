@@ -56,11 +56,10 @@ export default function Settings(props: TProps) {
 					<SettingsListItem
 						icon={<FontAwesome name="language" style={styles.imageStyleIcon} />}
 						title={"Language"}
-						titleInfo={"some value"}
+						titleInfo={language}
 						onPress={() =>
 							props.navigation.navigate("selectLanguage", {
 								language: language,
-								setLanguageFn: setLanguage,
 							})
 						}
 					/>

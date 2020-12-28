@@ -20,7 +20,7 @@ export default function Image(props: IProps) {
 	const SCALE = 3;
 	let uri = props.source.uri;
 
-	if (uri === undefined || uri === "") {
+	if (uri === undefined || uri === "" || uri === null) {
 		uri =
 			"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680";
 	}
@@ -48,7 +48,6 @@ export default function Image(props: IProps) {
 			setHeight((height / width) * Dimensions.get("window").width);
 			setWidth(width);
 		});
-		console.log("ImgixA:", _src);
 
 		return (
 			<ReactImage
@@ -58,8 +57,6 @@ export default function Image(props: IProps) {
 			/>
 		);
 	} else {
-		console.log("ImgixB:", _src);
-
 		return <ReactImage {...props.imageProps} style={props.style} source={{ uri: _src }} />;
 	}
 }
