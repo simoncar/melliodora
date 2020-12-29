@@ -5,7 +5,7 @@ import { SettingsListItem } from "./SettingsListItem";
 import Constants from "expo-constants";
 import I18n from "../lib/i18n";
 import _ from "lodash";
-import { useLoginP, useDomainP, useEmailP, useDisplayNameP, useUidP } from "../lib/globalState";
+import { useLoginP, usePhotoURL, useDomainP, useEmailP, useDisplayNameP, useUidP } from "../lib/globalState";
 
 interface IProps {
 	navigation: any;
@@ -17,6 +17,7 @@ export default function Profile(props: IProps) {
 	const [displayName, ,] = useDisplayNameP();
 	const [email, setEmail, isUpdatedEmail] = useEmailP();
 	const [domain, setDomain, isUpdatedDomain] = useDomainP();
+	const [, setGPhotoURL, gPhotoURL] = usePhotoURL();
 
 	if (Constants.manifest.extra.instance === "sais_edu_sg") {
 		return <View />;
@@ -28,6 +29,7 @@ export default function Profile(props: IProps) {
 			displayName: displayName,
 			uid: uid,
 			email: email,
+			photoURL: gPhotoURL,
 		};
 
 		return (

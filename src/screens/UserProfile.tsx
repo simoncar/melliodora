@@ -48,6 +48,8 @@ export default function UserProfile(props: IProps) {
 	const renderProfilePic = () => {
 		const width = 128;
 		const photoURL = user && user.photoURL;
+		console.log("user edit profile:", user);
+		
 
 		return (
 			<TouchableOpacity
@@ -69,7 +71,7 @@ export default function UserProfile(props: IProps) {
 		<SafeAreaView>
 			<ScrollView>
 				{renderProfilePic()}
-
+		
 				<View style={styles.titleContainer}>
 					<Text style={styles.nameText}>{user.displayName}</Text>
 					<Text style={styles.emailText}>{user.email}</Text>

@@ -65,8 +65,8 @@ export function UpdateUser(user,setGDisplayName,setGPhotoURL ) {
 
 			authUser.updateProfile({
 				displayName: displayName,
-				photoURL: user.PhotoURL,
-			}).then(function () {
+				photoURL: user.photoURL,
+			}).then(function () { 
 				// Update successful.
 				console.log("update success");
 
