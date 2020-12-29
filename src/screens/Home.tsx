@@ -12,7 +12,7 @@ import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
 import { actionAdd } from "../components/StoryActions";
-import { useDomain, useLanguage } from "../lib/globalState";
+import { useDomain, useLanguage, useLogin } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 
 const versionCheck = new VersionCheck();
@@ -31,6 +31,7 @@ export default function Home(props: TProps) {
 	const [appUpdateMessage, setAppUpdateMessage] = useState("none");
 	const [refreshDomain, setDomain, domain, domainIsUpdated] = useDomain();
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
+	const [, setGLogin, gLogin] = useLogin();
 
 	useEffect(() => {
 		//	loadFromAsyncStorage();
@@ -246,6 +247,7 @@ export default function Home(props: TProps) {
 			<ScrollView>
 				<View style={styles.newsContentLine}>
 					{renderToday()}
+					<Text>Logged In: {gLogin === false ? "False" : "true"}</Text>
 
 					<ShortList
 						navigation={props.navigation}

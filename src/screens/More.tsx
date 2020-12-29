@@ -46,7 +46,7 @@ export default function Settings(props: TProps) {
 							lastItem={true}
 							icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
 							title={I18n.t("searchUsers")}
-							onPress={() => props.navigation.navigate("UserSearch")}
+							onPress={() => props.navigation.navigate("UserSearch", { domain: domain })}
 						/>
 					)}
 				</View>

@@ -24,6 +24,7 @@ import * as Localization from "expo-localization";
 
 import * as firebase from "firebase";
 import { removePushTokenSubscription } from "expo-notifications";
+import { useSafeArea } from "react-native-safe-area-context";
 
 export default function Setup() {
 	const [loading, setLoading] = useState(true);
@@ -89,8 +90,9 @@ export default function Setup() {
 
 			firebase.auth().onAuthStateChanged((user) => {
 				let objAuth = {};
-				console.log("auth1");
 				if (user === null) {
+					console.log("auth1 - not logged in - no UID");
+
 					objAuth = {
 						uid: "",
 						displayName: "",
@@ -99,7 +101,7 @@ export default function Setup() {
 					};
 					setGLogin(false);
 				} else {
-					console.log("auth2");
+					console.log("auth2:", user.uid);
 					objAuth = {
 						uid: user.uid,
 						displayName: user.displayName === null ? "" : user.displayName,

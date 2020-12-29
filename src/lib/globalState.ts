@@ -83,12 +83,10 @@ export const usePhotoURLP = () => {
 
 export const useLanguageP = () => {
   const [refresh, setter, state, isUpdated] = useLanguage();
- console.log("insideA:", state,isUpdated)
 	useEffect(() => {
 		refresh();
 	}, []);
 
-	console.log("insdieZ:", state,isUpdated)
   return [state, setter, isUpdated];
 }
 
