@@ -3,8 +3,6 @@ import { call, put,  takeLatest, select } from "redux-saga/effects";
 import _ from "lodash";
 import { checkAdmin } from "./auth";
 
-
-
 export const PROCESS_SELECTED_COMMUNITY = 'PROCESS_SELECTED_COMMUNITY';
 export const SET_SELECTED_COMMUNITY = 'SET_SELECTED_COMMUNITY';
 export const GET_COMMUNITIES = 'GET_COMMUNITIES';

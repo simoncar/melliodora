@@ -60,7 +60,7 @@ export default class AdminPassword extends Component {
 
 
 	_saveButton() {
-		if ((!this.props.auth.isAdmin) && (this.state.adminPassword == globalAny.admin_password)) {
+		if (!(this.props.auth === undefined) && (!this.props.auth.isAdmin) && (this.state.adminPassword == globalAny.admin_password)) {
 			return <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={() => Updates.reloadAsync()}>
 				<Text style={styles.TextStyle}>{I18n.t("save")}</Text>
 			</TouchableOpacity>;
