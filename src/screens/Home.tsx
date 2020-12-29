@@ -12,7 +12,7 @@ import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
 import { actionAdd } from "../components/StoryActions";
-import { useDomainP, useLanguage } from "../lib/globalState";
+import { useDomain, useLanguage } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 
 const versionCheck = new VersionCheck();
@@ -29,7 +29,7 @@ export default function Home(props: TProps) {
 	const [calendarItems, setCalendarItems] = useState([]);
 	const [balanceItems, setBalanceItems] = useState([]);
 	const [appUpdateMessage, setAppUpdateMessage] = useState("none");
-	const [domain, domainSetter, domainIsUpdated] = useDomainP();
+	const [refreshDomain, setDomain, domain, domainIsUpdated] = useDomain();
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 
 	useEffect(() => {
@@ -81,6 +81,17 @@ export default function Home(props: TProps) {
 		// 	}
 		// });
 	}, []);
+
+	useEffect(() => {
+		getStories(domain, language)
+			.then((stories) => {
+				setFeatureItems(stories);
+				setLoading(false);
+			})
+			.catch((e) => {
+				console.error(e.message);
+			});
+	}, [domain, language]);
 
 	// loadCalendar() {
 	// 	const todayDate = moment().format("YYYY-MM-DD");
