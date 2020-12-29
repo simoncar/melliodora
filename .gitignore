@@ -62,10 +62,10 @@ fastlane/screenshots
 .expo/packager-info.json
 .tmp/
 .vscode/.react/debuggerWorker.js
-.vscode/launch.json
 
 *.lock
 firebase-debug.log
 
 .env
 *.bundle
+.vscode/.react/AppEntry.map
