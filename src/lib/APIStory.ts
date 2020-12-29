@@ -2,10 +2,10 @@ import * as firebase from "firebase";
 import { StoryEntity } from './interfaces';
 import { getLanguageString } from "./global";
 
-export async function getStories(domain: string) {
+export async function getStories(domain: string, language:string) {
 
 	return new Promise((resolve, reject) => {
-		const stories = []
+		const stories: StoryEntity[] = []
 
 		firebase
 			.firestore()
@@ -16,7 +16,7 @@ export async function getStories(domain: string) {
 			.get()
 			.then(function (snapshot) {
 				snapshot.forEach(function (doc) {
-					const story = getStory(doc.data(), doc.id)
+					const story:  StoryEntity = getStory(doc.data(), doc.id, language)
 					stories.push(story);
 
 				})
@@ -29,7 +29,7 @@ export async function getStories(domain: string) {
 	})
 }
 
-export function getStory(story: any, id: string): StoryEntity {
+export function getStory(story: any, id: string, language:string): StoryEntity {
 
 	var trans = {};
 	var returnStory: StoryEntity
@@ -37,8 +37,8 @@ export function getStory(story: any, id: string): StoryEntity {
 	if (story.translated == true) {
 		trans = {
 			source: "feature",
-			summaryMyLanguage: getLanguageString(story.language, story, "summary"),
-			descriptionMyLanguage: getLanguageString(story.language, story, "description")
+			summaryMyLanguage: getLanguageString(language, story, "summary"),
+			descriptionMyLanguage: getLanguageString(language, story, "description")
 		};
 	} else {
 		trans = {

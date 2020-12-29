@@ -45,7 +45,7 @@ export default function Home(props: TProps) {
 			demo.setupDemoData();
 		}
 
-		getStories(domain)
+		getStories(domain, language)
 			.then((stories) => {
 				setFeatureItems(stories);
 				setLoading(false);

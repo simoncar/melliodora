@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import Image from "../components/Imgix";
+import { StoryEntity } from "../lib/interfaces";
 import { SettingsListItem } from "./SettingsListItem";
 import { getStories } from "../lib/APIStory";
 import { useDomainP } from "../lib/globalState";
@@ -16,7 +17,7 @@ export default function FeatureMoreItems(props: TProps) {
 	const [domain, domainSetter, domainIsUpdated] = useDomainP();
 
 	useEffect(() => {
-		getStories(domain)
+		getStories(domain.toString())
 			.then((stories) => {
 				setFeatureItems(stories);
 				setLoading(false);
