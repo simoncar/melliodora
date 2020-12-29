@@ -11,7 +11,7 @@ import { SettingsListItem, Separator } from "../components/SettingsListItem";
 import FeatureMoreItems from "../components/FeatureMoreItems";
 import Profile from "../components/Profile";
 import { processSelectedCommunity } from "../store/community";
-import { useDomainP, useDomainNameP, useLanguage } from "../lib/globalState";
+import { useDomainP, useDomainNameP, useLanguage, useLogin } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
@@ -24,6 +24,7 @@ export default function Settings(props: TProps) {
 	const [domain, domainSetter, domainIsUpdated] = useDomainP();
 	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
+	const [, setGLogin, gLogin] = useLogin();
 
 	const changeDomain = () => {
 		domainNameSetter("");
@@ -42,14 +43,20 @@ export default function Settings(props: TProps) {
 			<ScrollView>
 				<View style={styles.card}>
 					{Constants.manifest.extra.instance != "sais_edu_sg" && (
+						<Profile auth={props.auth} navigation={props.navigation} />
+					)}
+				</View>
+
+				{gLogin && (
+					<View style={styles.card}>
 						<SettingsListItem
 							lastItem={true}
 							icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
 							title={I18n.t("searchUsers")}
 							onPress={() => props.navigation.navigate("UserSearch", { domain: domain })}
 						/>
-					)}
-				</View>
+					</View>
+				)}
 
 				{separator(i)}
 				<View style={styles.card}>

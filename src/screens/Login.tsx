@@ -22,13 +22,15 @@ export default function LoginScreen(props: TProps) {
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const handleLogin = () => {
+		console.log("Logging In Begin");
+
 		setLoading(true);
 		firebase
 			.auth()
 			.signInWithEmailAndPassword(email, password)
 			.then((auth: firebase.auth.UserCredential) => {
 				//saveAuth(auth);
-
+				console.log("Logging In Done:", auth);
 				props.navigation.popToTop();
 			})
 			.catch(function (error) {

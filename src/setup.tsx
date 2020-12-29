@@ -91,7 +91,7 @@ export default function Setup() {
 			firebase.auth().onAuthStateChanged((user) => {
 				let objAuth = {};
 				if (user === null) {
-					console.log("auth1 - not logged in - no UID");
+					console.log("auth state changed 1 - not logged in - no UID");
 
 					objAuth = {
 						uid: "",
@@ -101,7 +101,7 @@ export default function Setup() {
 					};
 					setGLogin(false);
 				} else {
-					console.log("auth2:", user.uid);
+					console.log("auth state changed 2:", user.uid);
 					objAuth = {
 						uid: user.uid,
 						displayName: user.displayName === null ? "" : user.displayName,
