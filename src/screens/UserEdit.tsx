@@ -11,33 +11,32 @@ import { launchProfileImagePicker } from "../lib/APIUploadImage";
 import { Text, Button } from "../components/sComponent";
 import { UserEntity } from "../lib/interfaces";
 import { UpdateUser } from "../lib/APIUser";
-import { useAuth, useDisplayNameP, usePhotoURLP } from "../lib/globalState";
+import { useAuth, useDisplayNameP, usePhotoURLP,useUidP,useEmailP} from "../lib/globalState";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { saveProfilePic } from "../lib/APIUploadImage";
+import firebase from "firebase";
 
 interface TProps {
 	navigation: any;
 	route: any;
 }
 
+//NOTE: You can only edit yourself  (current logged in user) for now
+
 export default function EditUserProfile(props: TProps) {
 	const { showActionSheetWithOptions } = useActionSheet();
 
 	const [errorMessage, setErrorMessage] = useState("");
-	const [firstName, setFirstName] = useState("");
+	const [displayName, setDisplayName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [photoURL, setPhotoURL] = useState("");
 	const [stateDisplayName, setGDisplayName, isUpdatedDisplayName] = useDisplayNameP();
 	const [statePhotoURL, setGPhotoURL, isUpdatedPhotoURL] = usePhotoURLP();
+	const [uid, ,] = useUidP();
+	const [email, setEmail, isUpdatedEmail] = useEmailP();
 
-	const user = props.route.params.user;
-
-	console.log("Edit User Props (initial state):", user);
 	useEffect(() => {
-		setFirstName(user.firstName);
-		setLastName(user.lastName);
-		setGDisplayName(user.displayName);
-		setPhotoURL(user.photoURL);
+		
 	}, []);
 
 	const save = async (newUser) => {
@@ -57,7 +56,7 @@ export default function EditUserProfile(props: TProps) {
 			const newUser = {
 				firstName: firstName,
 				lastName: lastName,
-				uid: user.uid,
+				uid: uid,
 				photoURL: downloadURL,
 			};
 			save(newUser);
@@ -118,49 +117,50 @@ export default function EditUserProfile(props: TProps) {
 		);
 	};
 
+		const logout = () => {
+		firebase
+			.auth()
+			.signOut()
+			.then(() => {
+				console.log("signed out");
+				props.navigation.popToTop();
+			});
+	};
+
+
 	return (
 		<SafeAreaView style={styles.saveAreaView}>
 			<ScrollView>
 				<Text>{errorMessage}</Text>
-				<Text>{firstName}</Text>
-				<Text>{lastName}</Text>
-				<Text>PhotoURL G:{statePhotoURL}</Text>
-				<Text>Display Name G:{stateDisplayName}</Text>
 
 				{_renderProfilePic()}
 				<View style={styles.titleContainer}>
 					<Text style={styles.nameText}>{I18n.t("email")}: </Text>
-					<Input style={styles.sectionContentText} value={user.email} />
+					<Text style={styles.nameText}>{email}: </Text>
 				</View>
 				<View style={styles.titleContainerRow}>
 					<View style={styles.rowFlex}>
-						<Text style={styles.nameText}>{I18n.t("firstName")}:</Text>
+						<Text style={styles.nameText}>Display Name:</Text>
 						<Input
 							style={styles.sectionContentText}
-							onChangeText={(firstName) => setFirstName(firstName)}
-							value={firstName}
+							onChangeText={(text) => setDisplayName(text)}
+							value={displayName}
 						/>
 					</View>
-					<View style={styles.rowFlex}>
-						<Text style={styles.nameText}>{I18n.t("lastName")}:</Text>
-						<Input
-							style={styles.sectionContentText}
-							onChangeText={(lastName) => setLastName(lastName)}
-							value={lastName}
-						/>
-					</View>
+					
 				</View>
 				<Button
 					onPress={() =>
 						save({
-							firstName: firstName,
-							lastName: lastName,
-							uid: user.uid,
+							displayName: displayName,
+							uid: uid,
 							photoURL: statePhotoURL,
 						})
 					}
 					title={I18n.t("save")}
 				/>
+
+					<Button onPress={() => logout()} title={I18n.t("logout")} />
 			</ScrollView>
 		</SafeAreaView>
 	);

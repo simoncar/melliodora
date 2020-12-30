@@ -24,8 +24,6 @@ export default function Profile(props: IProps) {
 	}
 	if (login === true) {
 		const user = {
-			firstName: "",
-			lastName: "",
 			displayName: displayName,
 			uid: uid,
 			email: email,

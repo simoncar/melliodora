@@ -61,10 +61,9 @@ export function UpdateUser(user,setGDisplayName,setGPhotoURL ) {
 
 		if (user.uid === authUser.uid) {
 			console.log("same user")
-			const displayName = user.firstName + " " + user.lastName
 
 			authUser.updateProfile({
-				displayName: displayName,
+				displayName: user.displayName,
 				photoURL: user.photoURL,
 			}).then(function () { 
 				// Update successful.
@@ -77,7 +76,7 @@ export function UpdateUser(user,setGDisplayName,setGPhotoURL ) {
 				
 				console.log("FB Update", user)
 				
-				setGDisplayName(displayName);
+				setGDisplayName(user.displayName);
 				setGPhotoURL(user.photoURL);
 				console.log("photo URL set to :", user.photoURL)
 			}).catch(function (error) {
