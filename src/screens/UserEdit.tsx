@@ -54,8 +54,7 @@ export default function EditUserProfile(props: TProps) {
 			setGPhotoURL(downloadURL);
 			setPhotoURL(downloadURL);
 			const newUser = {
-				firstName: firstName,
-				lastName: lastName,
+				displayName: stateDisplayName,
 				uid: uid,
 				photoURL: downloadURL,
 			};
@@ -144,7 +143,7 @@ export default function EditUserProfile(props: TProps) {
 						<Input
 							style={styles.sectionContentText}
 							onChangeText={(text) => setDisplayName(text)}
-							value={displayName}
+							placeholder={stateDisplayName}
 						/>
 					</View>
 					
