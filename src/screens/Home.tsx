@@ -247,7 +247,6 @@ export default function Home(props: TProps) {
 			<ScrollView>
 				<View style={styles.newsContentLine}>
 					{renderToday()}
-					<Text>Logged In: {gLogin === false ? "False" : "true"}</Text>
 
 					<ShortList
 						navigation={props.navigation}
