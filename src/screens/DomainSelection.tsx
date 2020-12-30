@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, TextInput, Text } from "react-native";
+import { View, StyleSheet, FlatList, Text } from "react-native";
 import _ from "lodash";
-import { Ionicons } from "@expo/vector-icons";
-import { connect } from "react-redux";
-import { getCommunities, processSelectedCommunity } from "../store/community";
 import { SettingsListItem } from "../components/SettingsListItem";
 import Profile from "../components/Profile";
 import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import { getDomains, isDomainAdmin } from "../lib/APIDomain";
-import { useDomainsP, useDomainP, useUid, useDomainNameP, useDomain, useLanguage } from "../lib/globalState";
-import FeatureMoreItems from "../components/FeatureMoreItems";
+import { useDomainsP, useUid, useDomainNameP, useDomain, useLanguage } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
@@ -22,7 +18,6 @@ export default function DomainSelection(props: TProps) {
 	const [NOrefresh, nodeSetter, NOstate, NOisUpdated] = useDomain();
 	const [, , uid] = useUid();
 	const [domains, domainsSetter, domainsIsUpdated] = useDomainsP();
-	const [domain, domainSetter, domainIsUpdated] = useDomainP();
 	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 
@@ -84,7 +79,6 @@ export default function DomainSelection(props: TProps) {
 						lastItem={true}
 						subTitle="A Polo is your own space for sharing photos"
 					/>
-					<Text>Language: {language}</Text>
 				</View>
 			</View>
 			{loading === false && (
@@ -98,7 +92,6 @@ export default function DomainSelection(props: TProps) {
 					/>
 				</View>
 			)}
-			<Text>Language: {language}</Text>
 		</View>
 	);
 }

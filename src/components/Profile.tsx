@@ -5,6 +5,7 @@ import { SettingsListItem } from "./SettingsListItem";
 import Constants from "expo-constants";
 import I18n from "../lib/i18n";
 import _ from "lodash";
+import Image from "../components/Imgix";
 import { useLoginP, usePhotoURL, useDomainP, useEmailP, useDisplayNameP, useUidP } from "../lib/globalState";
 
 interface IProps {
@@ -41,9 +42,14 @@ export default function Profile(props: IProps) {
 							domain: domain,
 						});
 					}}>
-					<View style={styles.titleContainer}>
-						<Text style={styles.nameText}>{displayName}</Text>
-						<Text style={styles.sectionContentText}>{email}</Text>
+					<View style={styles.row}>
+						<View style={styles.titleContainer}>
+							<Text style={styles.nameText}>{displayName}</Text>
+							<Text style={styles.sectionContentText}>{email}</Text>
+						</View>
+						<View>
+							<Image style={styles.profilePhoto} source={{ uri: gPhotoURL }} auto={true} />
+						</View>
 					</View>
 				</TouchableOpacity>
 			</View>
@@ -71,6 +77,7 @@ export default function Profile(props: IProps) {
 }
 
 const styles = StyleSheet.create({
+	row: { flexDirection: "row", justifyContent: "space-between" },
 	imageStyleIcon: {
 		alignSelf: "center",
 		color: "#999999",
@@ -94,5 +101,15 @@ const styles = StyleSheet.create({
 		paddingBottom: 15,
 		paddingHorizontal: 15,
 		paddingTop: 15,
+	},
+	profilePhoto: {
+		alignItems: "center",
+		borderColor: "lightgray",
+		borderRadius: 30,
+		height: 60,
+		justifyContent: "center",
+		width: 60,
+		marginRight: 5,
+		marginTop: 5,
 	},
 });

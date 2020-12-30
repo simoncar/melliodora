@@ -15,6 +15,7 @@ import { useAuth, useDisplayNameP, useDomainP, usePhotoURLP, useUidP, useEmailP 
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { saveProfilePic } from "../lib/APIUploadImage";
 import firebase from "firebase";
+import { CameraApp } from "../screens/Camera";
 
 interface TProps {
 	navigation: any;
@@ -71,8 +72,6 @@ export default function EditUserProfile(props: TProps) {
 			const destructiveButtonIndex = options.length - 2;
 			const cancelButtonIndex = options.length - 1;
 
-			console.log("here2:", showActionSheetWithOptions);
-
 			showActionSheetWithOptions(
 				{
 					options,
@@ -83,9 +82,7 @@ export default function EditUserProfile(props: TProps) {
 					// Do something here depending on the button index selected
 					switch (buttonIndex) {
 						case 0:
-							props.navigation.push("CameraApp", {
-								onGoBack: setProfilePic,
-							});
+							CameraApp();
 							break;
 						case 1:
 							pickImage();
