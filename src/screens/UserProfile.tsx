@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView ,Dimensions} from "react-native";
 
 import { Text, Button } from "../components/sComponent";
@@ -20,12 +20,13 @@ interface IProps {
 }
 
 export default function UserProfile(props: IProps) {
-	const [user, setUser] = useState(props.route.params.user);
+	const [user, setUser] = useState({});
 	const [, , gDisplayName] = useDisplayName();
 	const [, , gEmail] = useEmail();
 
 	console.log("UserProfileDisplay:", props.route.params.user)
-
+	if (user !== props.route.params.user) setUser(props.route.params.user)
+	
 
 	const edit = () => {
 
@@ -34,39 +35,32 @@ export default function UserProfile(props: IProps) {
 	};
 
 
-	const renderProfilePic = () => {
-		const width = 128;
+
+const width = 128;
 		const photoURL = user && user.photoURL;
 		console.log("user edit profile:", user);
 		
-
-		return (
-			<TouchableOpacity
+	return (
+		<SafeAreaView>
+			<ScrollView>
+				<TouchableOpacity
 				onPress={() => {
 					edit();
-				}}>
-				<View style={styles.profilePicContainer}>
+					}}>
+					
+						<View style={styles.profilePicContainer}>
 					{photoURL ? (
 						<Image style={styles.profilePhoto} source={{ uri: photoURL }} />
 					) : (
 						<Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.profilePhotoNone} />
 					)}
 				</View>
-			</TouchableOpacity>
-		);
-	};
-
-	return (
-		<SafeAreaView>
-			<ScrollView>
-				{renderProfilePic()}
 		
 				<View style={styles.titleContainer}>
-					<Text style={styles.nameText}>{user.firstName + " " + user.lastName}</Text>
 					<Text style={styles.nameText}>{user.displayName}</Text>
 					<Text style={styles.emailText}>{user.email}</Text>
 				</View>
-			
+			</TouchableOpacity>
 			</ScrollView>
 		</SafeAreaView>
 	);

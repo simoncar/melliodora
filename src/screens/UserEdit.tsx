@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import Image from "../components/Imgix";
 import { Input } from "react-native-elements";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 import * as Permissions from "expo-permissions";
 import { ActionSheetProvider, connectActionSheet } from "@expo/react-native-action-sheet";
 import I18n from "../lib/i18n";
@@ -11,7 +11,7 @@ import { launchProfileImagePicker } from "../lib/APIUploadImage";
 import { Text, Button } from "../components/sComponent";
 import { UserEntity } from "../lib/interfaces";
 import { UpdateUser } from "../lib/APIUser";
-import { useAuth, useDisplayNameP, usePhotoURLP,useUidP,useEmailP} from "../lib/globalState";
+import { useAuth, useDisplayNameP, useDomainP, usePhotoURLP, useUidP, useEmailP } from "../lib/globalState";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { saveProfilePic } from "../lib/APIUploadImage";
 import firebase from "firebase";
@@ -34,18 +34,19 @@ export default function EditUserProfile(props: TProps) {
 	const [statePhotoURL, setGPhotoURL, isUpdatedPhotoURL] = usePhotoURLP();
 	const [uid, ,] = useUidP();
 	const [email, setEmail, isUpdatedEmail] = useEmailP();
+	const [domain, setDomain, isUpdatedDomain] = useDomainP();
 
 	useEffect(() => {
-		
+		setDisplayName(stateDisplayName);
 	}, []);
 
 	const save = async (newUser) => {
 		UpdateUser(newUser, setGDisplayName, setGPhotoURL);
+		props.navigation.popToTop();
 	};
 
-	const _pickImage = async () => {
+	const pickImage = async () => {
 		let result = await launchProfileImagePicker();
-		console.log("pick result:", result);
 		if (!result.cancelled) {
 			console.log("save to server:", result.uri);
 			const downloadURL = await saveProfilePic(result.uri);
@@ -59,11 +60,10 @@ export default function EditUserProfile(props: TProps) {
 				photoURL: downloadURL,
 			};
 			save(newUser);
-			//setProfilePic({ profilePic: result.uri });
 		}
 	};
 
-	const _onOpenActionSheet = async () => {
+	const openActionSheet = async () => {
 		const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
 		console.log("here:", status);
 		if (status === "granted") {
@@ -88,8 +88,7 @@ export default function EditUserProfile(props: TProps) {
 							});
 							break;
 						case 1:
-							console.log("here3:");
-							_pickImage();
+							pickImage();
 							break;
 					}
 				}
@@ -97,56 +96,55 @@ export default function EditUserProfile(props: TProps) {
 		}
 	};
 
-	const _renderProfilePic = () => {
-		console.log("statePhotoURL:", statePhotoURL);
+	const profilePic = () => {
 		return (
 			<View style={styles.profilePicContainer}>
 				<TouchableOpacity
 					onPress={() => {
-						_onOpenActionSheet();
+						openActionSheet();
 					}}>
 					{statePhotoURL ? (
 						<Image style={styles.profilePhoto} source={{ uri: statePhotoURL }} />
 					) : (
 						<Ionicons name="ios-person" size={100} color="#999999" style={styles.profilePic} />
 					)}
-					{}
+					<View style={styles.circle}>
+						<Entypo name="camera" size={17} style={styles.camera} />
+					</View>
 				</TouchableOpacity>
 			</View>
 		);
 	};
 
-		const logout = () => {
+	const logout = () => {
 		firebase
 			.auth()
 			.signOut()
 			.then(() => {
-				console.log("signed out");
 				props.navigation.popToTop();
 			});
 	};
-
 
 	return (
 		<SafeAreaView style={styles.saveAreaView}>
 			<ScrollView>
 				<Text>{errorMessage}</Text>
 
-				{_renderProfilePic()}
+				{profilePic()}
 				<View style={styles.titleContainer}>
 					<Text style={styles.nameText}>{I18n.t("email")}: </Text>
 					<Text style={styles.nameText}>{email}: </Text>
 				</View>
 				<View style={styles.titleContainerRow}>
 					<View style={styles.rowFlex}>
-						<Text style={styles.nameText}>Display Name:</Text>
+						<Text style={styles.nameText}>{I18n.t("name")}:</Text>
 						<Input
 							style={styles.sectionContentText}
 							onChangeText={(text) => setDisplayName(text)}
-							placeholder={stateDisplayName}
+							placeholder={I18n.t("name")}
+							value={displayName}
 						/>
 					</View>
-					
 				</View>
 				<Button
 					onPress={() =>
@@ -159,7 +157,7 @@ export default function EditUserProfile(props: TProps) {
 					title={I18n.t("save")}
 				/>
 
-					<Button onPress={() => logout()} title={I18n.t("logout")} />
+				<Button onPress={() => logout()} title={I18n.t("logout")} />
 			</ScrollView>
 		</SafeAreaView>
 	);
@@ -171,7 +169,6 @@ const styles = StyleSheet.create({
 		fontSize: 10,
 		fontWeight: "600",
 	},
-
 	profilePhoto: {
 		borderColor: "grey",
 		borderRadius: 150 / 2,
@@ -190,7 +187,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 15,
 		paddingTop: 15,
 	},
-
 	rowFlex: { flex: 1 },
 	saveAreaView: { backgroundColor: "#fdfdfd", flex: 1 },
 	sectionContentText: {
@@ -210,5 +206,22 @@ const styles = StyleSheet.create({
 		paddingBottom: 15,
 		paddingHorizontal: 15,
 		paddingTop: 15,
+	},
+	camera: {
+		color: "white",
+		marginBottom: 2,
+	},
+	circle: {
+		position: "absolute",
+		top: 115,
+		left: 115,
+		width: 30,
+		height: 30,
+		borderRadius: 30 / 2,
+		backgroundColor: "lightgrey",
+		borderWidth: 2,
+		borderColor: "white",
+		alignItems: "center",
+		justifyContent: "center",
 	},
 });

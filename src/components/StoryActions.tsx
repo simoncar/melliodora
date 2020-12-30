@@ -173,7 +173,6 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.8,
 		shadowRadius: 2,
 		width: 50,
-
 		zIndex: 990,
 	},
 	icon: {

@@ -65,3 +65,9 @@ export interface StoryState extends StoryEntity {
 	cameraIcon: string,
 	edit: boolean
 }
+
+export interface AuthUser {
+	uid: string;
+	displayName: string;
+	photoURL?: string;
+}
