@@ -47,17 +47,6 @@ export default function Settings(props: TProps) {
 					)}
 				</View>
 
-				{gLogin && (
-					<View style={styles.card}>
-						<SettingsListItem
-							lastItem={true}
-							icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
-							title={I18n.t("searchUsers")}
-							onPress={() => props.navigation.navigate("UserSearch", { domain: domain })}
-						/>
-					</View>
-				)}
-
 				{separator(i)}
 				<View style={styles.card}>
 					<SettingsListItem
@@ -97,6 +86,7 @@ export default function Settings(props: TProps) {
 					<SettingsListItem
 						icon={<FontAwesome name="lock" style={styles.imageStyleIcon} />}
 						hasNavArrow={true}
+						lastItem={true}
 						title={I18n.t("adminAccess")}
 						onPress={() => props.navigation.navigate("AdminPassword")}
 					/>

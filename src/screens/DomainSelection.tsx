@@ -8,8 +8,9 @@ import { SettingsListItem } from "../components/SettingsListItem";
 import Profile from "../components/Profile";
 import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
-import { getDomains } from "../lib/APIDomain";
-import { useDomainsP, useDomainP, useDomainNameP, useDomain, useDomainName, useLanguage } from "../lib/globalState";
+import { getDomains, isDomainAdmin } from "../lib/APIDomain";
+import { useDomainsP, useDomainP, useUid, useDomainNameP, useDomain, useLanguage } from "../lib/globalState";
+import FeatureMoreItems from "../components/FeatureMoreItems";
 
 interface TProps {
 	navigation: any;
@@ -19,7 +20,7 @@ export default function DomainSelection(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [domainsList, setDomainsList] = useState([]);
 	const [NOrefresh, nodeSetter, NOstate, NOisUpdated] = useDomain();
-
+	const [, , uid] = useUid();
 	const [domains, domainsSetter, domainsIsUpdated] = useDomainsP();
 	const [domain, domainSetter, domainIsUpdated] = useDomainP();
 	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
@@ -44,16 +45,23 @@ export default function DomainSelection(props: TProps) {
 	};
 
 	const renderItem = ({ item }) => {
+		const admin = isDomainAdmin(uid, item.admins);
 		return (
 			<View>
 				<SettingsListItem
 					hasNavArrow={true}
-					icon={<MaterialIcons name="group" style={styles.imageStyleIcon} />}
+					icon={
+						<MaterialIcons
+							name="group"
+							style={admin ? styles.imageStyleIconAdmin : styles.imageStyleIcon}
+						/>
+					}
 					title={item.name}
 					onPress={() => {
 						domainNameSetter(item.name);
 						nodeSetter(item.node);
 					}}
+					subTitle={admin ? I18n.t("administrator") : ""}
 				/>
 			</View>
 		);
@@ -110,6 +118,14 @@ const styles = StyleSheet.create({
 	imageStyleIcon: {
 		alignSelf: "center",
 		color: "#999999",
+		fontSize: 25,
+		marginLeft: 15,
+		textAlign: "center",
+		width: 30,
+	},
+	imageStyleIconAdmin: {
+		alignSelf: "center",
+		color: "green",
 		fontSize: 25,
 		marginLeft: 15,
 		textAlign: "center",

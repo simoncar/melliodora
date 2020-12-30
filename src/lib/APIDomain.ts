@@ -22,6 +22,7 @@ export async function getDomains() {
 						_key: doc.id,
 						name: doc.data().name,
 						node: doc.data().node,
+						admins: doc.data().admins
 					}
 					domains.push(domain);
 
@@ -33,4 +34,18 @@ export async function getDomains() {
 			})
 
 	})
+}
+
+export function isDomainAdmin(currentUid:string, adminArray: string[])
+{
+	if (Array.isArray(adminArray))
+	{
+		if (adminArray.includes(currentUid))
+			return true
+		else
+			return false
+	} else
+		return false
+	
+
 }

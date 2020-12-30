@@ -164,6 +164,23 @@ export default function EditUserProfile(props: TProps) {
 }
 
 const styles = StyleSheet.create({
+	camera: {
+		color: "white",
+		marginBottom: 2,
+	},
+	circle: {
+		alignItems: "center",
+		backgroundColor: "lightgrey",
+		borderColor: "white",
+		borderRadius: 30 / 2,
+		borderWidth: 2,
+		height: 30,
+		justifyContent: "center",
+		left: 115,
+		position: "absolute",
+		top: 115,
+		width: 30,
+	},
 	nameText: {
 		color: "#777777",
 		fontSize: 10,
@@ -206,22 +223,5 @@ const styles = StyleSheet.create({
 		paddingBottom: 15,
 		paddingHorizontal: 15,
 		paddingTop: 15,
-	},
-	camera: {
-		color: "white",
-		marginBottom: 2,
-	},
-	circle: {
-		position: "absolute",
-		top: 115,
-		left: 115,
-		width: 30,
-		height: 30,
-		borderRadius: 30 / 2,
-		backgroundColor: "lightgrey",
-		borderWidth: 2,
-		borderColor: "white",
-		alignItems: "center",
-		justifyContent: "center",
 	},
 });
