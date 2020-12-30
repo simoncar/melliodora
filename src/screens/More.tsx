@@ -79,18 +79,6 @@ export default function Settings(props: TProps) {
 						/>
 					)}
 				</View>
-
-				{separator(i)}
-
-				<View style={styles.card}>
-					<SettingsListItem
-						icon={<FontAwesome name="lock" style={styles.imageStyleIcon} />}
-						hasNavArrow={true}
-						lastItem={true}
-						title={I18n.t("adminAccess")}
-						onPress={() => props.navigation.navigate("AdminPassword")}
-					/>
-				</View>
 			</ScrollView>
 		</View>
 	);

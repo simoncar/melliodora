@@ -6,10 +6,19 @@ import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import { Text, Button } from "../components/sComponent";
 import I18n from "../lib/i18n";
+import { saveProfilePic } from "../lib/APIUploadImage";
+import { usePhotoURLP } from "../lib/globalState";
 
-export default function CameraScreen() {
+interface TProps {
+	navigation: any;
+	route: any;
+}
+
+export default function CameraScreen(props: TProps) {
+	const [camRef, setCamRef] = useState(null);
 	const [hasPermission, setHasPermission] = useState(null);
-	const [type, setType] = useState(Camera.Constants.Type.back);
+	const [type, setType] = useState(Camera.Constants.Type.front);
+	const [statePhotoURL, setGPhotoURL, isUpdatedPhotoURL] = usePhotoURLP();
 
 	useEffect(() => {
 		(async () => {
@@ -26,27 +35,31 @@ export default function CameraScreen() {
 	}
 	return (
 		<View style={styles.container}>
-			<Camera style={styles.camera} type={type}></Camera>
+			<Camera
+				style={styles.camera}
+				ref={(ref) => {
+					setCamRef(ref);
+				}}
+				type={type}></Camera>
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity
 					style={styles.buttonCancel}
 					onPress={() => {
-						setType(
-							type === Camera.Constants.Type.back
-								? Camera.Constants.Type.front
-								: Camera.Constants.Type.back
-						);
+						props.navigation.pop();
 					}}>
 					<Text style={styles.textCancel}>{I18n.t("cancel")}</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
 					style={styles.buttonPhoto}
 					onPress={() => {
-						setType(
-							type === Camera.Constants.Type.back
-								? Camera.Constants.Type.front
-								: Camera.Constants.Type.back
-						);
+						camRef.takePictureAsync({ quality: 0 }).then((a) => {
+							console.log("Pic:", a);
+							saveProfilePic(a.uri).then((downloadURL) => {
+								console.log("saved profile pic here:", downloadURL);
+								setGPhotoURL(downloadURL);
+								props.navigation.pop();
+							});
+						});
 					}}></TouchableOpacity>
 				<TouchableOpacity
 					style={styles.buttonFlip}
@@ -105,12 +118,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: "black",
 	},
-	textPhoto: {
-		alignItems: "center",
-		justifyContent: "center",
-		color: "#ccac08",
-		fontSize: 14,
-	},
+
 	textCancel: {
 		alignItems: "center",
 		justifyContent: "center",

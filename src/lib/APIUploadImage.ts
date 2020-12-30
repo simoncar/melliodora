@@ -30,6 +30,7 @@ export const saveProfilePic = async (imgURI) => {
 	console.log("sending to server")
 	const snapshot = await ref.put(blob, { contentType: mime, cacheControl: 'max-age=31536000' });
 	const downloadURL = await snapshot.ref.getDownloadURL();
+	console.log("DURL:",downloadURL)
 	blob.close();
 	return downloadURL;
 };
