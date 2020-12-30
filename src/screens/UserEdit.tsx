@@ -4,18 +4,15 @@ import Image from "../components/Imgix";
 import { Input } from "react-native-elements";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import * as Permissions from "expo-permissions";
-import { ActionSheetProvider, connectActionSheet } from "@expo/react-native-action-sheet";
 import I18n from "../lib/i18n";
 import _ from "lodash";
 import { launchProfileImagePicker } from "../lib/APIUploadImage";
 import { Text, Button } from "../components/sComponent";
-import { UserEntity } from "../lib/interfaces";
 import { UpdateUser } from "../lib/APIUser";
-import { useAuth, useDisplayNameP, useDomainP, usePhotoURLP, useUidP, useEmailP } from "../lib/globalState";
+import { useDisplayNameP, useDomainP, usePhotoURLP, useUidP, useEmailP } from "../lib/globalState";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { saveProfilePic } from "../lib/APIUploadImage";
 import firebase from "firebase";
-import { CameraApp } from "../screens/Camera";
 
 interface TProps {
 	navigation: any;
@@ -82,7 +79,9 @@ export default function EditUserProfile(props: TProps) {
 					// Do something here depending on the button index selected
 					switch (buttonIndex) {
 						case 0:
-							CameraApp();
+							console.log("navigation:", props.navigation);
+
+							props.navigation.push("CameraScreen");
 							break;
 						case 1:
 							pickImage();

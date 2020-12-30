@@ -9,6 +9,7 @@ import CommunityCreate from "./screens/CommunityCreate";
 import ForgotPassword from "./screens/ForgotPassword";
 import UserProfile from "./screens/UserProfile";
 import EditUserProfile from "./screens/UserEdit";
+import CameraScreen from "./screens/Camera";
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,7 @@ function AuthStackNavigator() {
 					component={EditUserProfile}
 					options={{ title: I18n.t("profile") }}
 				/>
+				<Stack.Screen name="CameraScreen" component={CameraScreen} options={{ title: I18n.t("camera") }} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

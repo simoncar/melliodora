@@ -26,7 +26,7 @@ import WebPortal from "./screens/WebPortal";
 import LoginScreen from "./screens/Login";
 import SignUp from "./screens/UserCreate";
 import ForgotPassword from "./screens/ForgotPassword";
-import CameraApp from "./screens/Camera";
+import CameraScreen from "./screens/Camera";
 import UserProfile from "./screens/UserProfile";
 import EditUserProfile from "./screens/UserEdit";
 import UserSearch from "./screens/UserSearch";
@@ -54,6 +54,7 @@ function StackHomeNavigator() {
 					title: route.params.story.summaryMyLanguage,
 				})}
 			/>
+			<StackHome.Screen name="CameraScreen" component={CameraScreen} options={{ title: I18n.t("camera") }} />
 
 			<StackHome.Screen name="push" component={push} options={{ title: I18n.t("send") }} />
 			<StackHome.Screen
@@ -173,7 +174,7 @@ function StackOtherNavigator() {
 				component={ForgotPassword}
 				options={{ title: I18n.t("forgetPassword") }}
 			/>
-			<StackOther.Screen name="CameraApp" component={CameraApp} options={{ title: I18n.t("camera") }} />
+			<StackOther.Screen name="CameraScreen" component={CameraScreen} options={{ title: I18n.t("camera") }} />
 			<StackOther.Screen name="UserProfile" component={UserProfile} options={{ title: I18n.t("profile") }} />
 			<StackOther.Screen
 				name="chatPrivate"
