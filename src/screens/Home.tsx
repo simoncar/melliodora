@@ -12,8 +12,9 @@ import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
 import { actionAdd } from "../components/StoryActions";
-import { useDomain, useLanguage, useLogin, useAdmin } from "../lib/globalState";
+import { useDomain, useLanguage, useLogin, useAdmin, useUid } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
+import { isDomainAdminServer } from "../lib/APIDomain";
 
 const versionCheck = new VersionCheck();
 
@@ -33,11 +34,10 @@ export default function Home(props: TProps) {
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 	const [, setGLogin, gLogin] = useLogin();
 	const [admin, setAdmin] = useAdmin();
+	const [, setGUid, gUid] = useUid();
 
 	useEffect(() => {
 		//	loadFromAsyncStorage();
-
-		console.log("domain node:", domain);
 
 		props.navigation.setParams({
 			title: domain,
@@ -235,7 +235,8 @@ export default function Home(props: TProps) {
 					<ShortList
 						navigation={props.navigation}
 						data={calendarItems}
-						keyExtractor={keyExtractor}
+						key
+						Extractor={keyExtractor}
 						renderItem={renderItemNoCard}
 					/>
 				</View>
@@ -247,6 +248,7 @@ export default function Home(props: TProps) {
 		<View style={styles.container}>
 			{admin && actionAdd(props.navigation, domain)}
 			<ScrollView>
+				<Text>{admin}</Text>
 				<View style={styles.newsContentLine}>
 					{renderToday()}
 
