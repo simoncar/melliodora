@@ -16,8 +16,8 @@ import SelectLanguage from "./screens/Language";
 import SelectAlbum from "./screens/Albums";
 import Story from "./screens/Story";
 import Form from "./screens/Form";
-import chatRooms from "./screens/ChatRooms";
-import ChatTitle from "./components/ChatTitle";
+import ChatRooms from "./screens/ChatRooms";
+import ChatTitle from "./screens/ChatTitle";
 import chat from "./screens/Chat";
 import push from "./screens/Push";
 import authPortal from "./screens/AuthPortal";
@@ -116,7 +116,7 @@ const StackChat = createStackNavigator();
 function StackChatNavigator() {
 	return (
 		<StackChat.Navigator>
-			<StackChat.Screen name="chatRooms" component={chatRooms} options={{ title: I18n.t("chat") }} />
+			<StackChat.Screen name="chatRooms" component={ChatRooms} options={{ title: I18n.t("chat") }} />
 			<StackChat.Screen
 				name="ChatTitle"
 				component={ChatTitle}
@@ -161,7 +161,7 @@ function StackOtherNavigator() {
 				component={SelectLanguage}
 				options={{ title: I18n.t("language") }}
 			/>
-		
+
 			<StackOther.Screen name="login" component={LoginScreen} options={{ title: I18n.t("signIn") }} />
 			<StackOther.Screen name="signup" component={SignUp} options={{ title: I18n.t("signUp") }} />
 			<StackOther.Screen

@@ -5,7 +5,9 @@ import I18n from "./lib/i18n";
 import * as Font from "expo-font";
 import _ from "lodash";
 import AppLoading from "expo-app-loading";
-import Firebase from "./lib/firebase";
+
+import firebase from "./lib/firebase";
+
 import AuthStackNavigator from "./AuthStackNavigator";
 import { isDomainAdminServer } from "./lib/APIDomain";
 
@@ -22,7 +24,6 @@ import {
 } from "./lib/globalState";
 import * as Localization from "expo-localization";
 
-import * as firebase from "firebase";
 import { removePushTokenSubscription } from "expo-notifications";
 
 export default function Setup() {
@@ -79,40 +80,38 @@ export default function Setup() {
 			})
 
 			.then((ret) => {
-				Firebase.initialise().then(() => {
-					console.log("firebase initialized?");
+				console.log("firebase initialized");
 
-					firebase.auth().onAuthStateChanged((user) => {
-						let objAuth = {};
-						if (user === null) {
-							console.log("auth state changed 1 - not logged in - no UID");
+				firebase.auth().onAuthStateChanged((user) => {
+					let objAuth = {};
+					if (user === null) {
+						console.log("auth state changed 1 - not logged in - no UID");
 
-							objAuth = {
-								uid: "",
-								displayName: "",
-								email: "",
-								photoURL: "",
-							};
-							setGLogin(false);
-						} else {
-							console.log("auth state changed 2:", user.uid);
-							objAuth = {
-								uid: user.uid,
-								displayName: user.displayName === null ? "" : user.displayName,
-								email: user.email,
-								photoURL: user.photoURL === null ? "" : user.photoURL,
-							};
-							setGLogin(true);
-						}
+						objAuth = {
+							uid: "",
+							displayName: "",
+							email: "",
+							photoURL: "",
+						};
+						setGLogin(false);
+					} else {
+						console.log("auth state changed 2:", user.uid);
+						objAuth = {
+							uid: user.uid,
+							displayName: user.displayName === null ? "" : user.displayName,
+							email: user.email,
+							photoURL: user.photoURL === null ? "" : user.photoURL,
+						};
+						setGLogin(true);
+					}
 
-						setGAuth(JSON.stringify(objAuth));
-						setGEmail(objAuth.email);
-						setGDisplayName(objAuth.displayName);
-						setGPhotoURL(objAuth.photoURL);
-						setGUid(objAuth.uid);
+					setGAuth(JSON.stringify(objAuth));
+					setGEmail(objAuth.email);
+					setGDisplayName(objAuth.displayName);
+					setGPhotoURL(objAuth.photoURL);
+					setGUid(objAuth.uid);
 
-						return setLoading(false);
-					});
+					return setLoading(false);
 				});
 			});
 	}, []);

@@ -1,7 +1,5 @@
 import Constants from "expo-constants";
 
-
-
 export default {
 	FirebaseConfig: {
 		apiKey: Constants.manifest.web.config.firebase.apiKey,
@@ -10,6 +8,6 @@ export default {
 		databaseURL: Constants.manifest.web.config.firebase.databaseURL,
 		projectId: Constants.manifest.web.config.firebase.projectId,
 		storageBucket: Constants.manifest.web.config.firebase.storageBucket,
-		appId: Constants.manifest.web.config.firebase.appId
-	}
+		appId: Constants.manifest.web.config.firebase.appId,
+	},
 };

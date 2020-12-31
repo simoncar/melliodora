@@ -5,8 +5,6 @@ import _ from "lodash";
 import uuid from "uuid";
 
 export class Backend extends React.Component {
-	uid = "";
-
 	messageRef = null;
 
 	constructor(props) {
@@ -17,11 +15,17 @@ export class Backend extends React.Component {
 		};
 	}
 
-
 	setLanguage(language) {
 		this.language = language;
 	}
 
+	setDomain(domain) {
+		this.domain = domain;
+	}
+
+	setUID(uid) {
+		this.uid = uid;
+	}
 	aagetUid() {
 		return this.uid;
 	}
@@ -49,10 +53,13 @@ export class Backend extends React.Component {
 				return message.textEN;
 		}
 	}
+
 	loadMessages = async (callback) => {
+		console.log("loadMessages domain:", this.domain);
+
 		this.ref = firebase
 			.firestore()
-			.collection(global.domain)
+			.collection(this.domain)
 			.doc("chat")
 			.collection("chatrooms")
 			.doc(this.state.chatroom)
@@ -106,14 +113,6 @@ export class Backend extends React.Component {
 		return (firebase.auth().currentUser || {}).uid;
 	}
 
-	set uid(uid) {
-		return;
-	}
-
-	setUid(value) {
-		this.uid = value;
-	}
-
 	get timestamp() {
 		return firebase.database.ServerValue.TIMESTAMP;
 	}
@@ -148,7 +147,7 @@ export class Backend extends React.Component {
 
 				this.messageRef = firebase
 					.firestore()
-					.collection(global.domain)
+					.collection(this.domain)
 					.doc("chat")
 					.collection("chatrooms")
 					.doc(this.state.chatroom)
@@ -165,21 +164,21 @@ export class Backend extends React.Component {
 					mute: muteState,
 					pushToken: global.pushToken,
 					timestamp: Date.now(),
-					uid: global.uid,
+					uid: this.uid,
 					language: this.language,
 				};
 			} else {
 				var messageDict = {
 					pushToken: global.pushToken,
 					timestamp: Date.now(),
-					uid: global.uid,
+					uid: this.uid,
 					language: this.language,
 				};
 			}
 
 			firebase
 				.firestore()
-				.collection(global.domain)
+				.collection(this.domain)
 				.doc("chat")
 				.collection("chatrooms")
 				.doc(this.state.chatroom)
@@ -247,7 +246,7 @@ async function uploadImageAsync(message, chatroom, user) {
 		.child(uuid.v4());
 
 	const snapshot = await ref
-		.put(blob, { contentType: mime, cacheControl: 'max-age=31536000' })
+		.put(blob, { contentType: mime, cacheControl: "max-age=31536000" })
 		.then((snapshot) => {
 			return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
 		})
@@ -292,7 +291,7 @@ async function uploadImageAsync(message, chatroom, user) {
 
 	firebase
 		.firestore()
-		.collection(global.domain)
+		.collection(this.domain)
 		.doc("chat")
 		.collection("chatrooms")
 		.doc(chatroom)

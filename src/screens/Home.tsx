@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Linking, TouchableOpacity, Image, ScrollView, StyleSheet, Dimensions } from "react-native";
 import Constants from "expo-constants";
-import firebase from "firebase";
+import firebase from "./lib/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getLanguageString } from "../lib/global";
 import ListItem from "../components/StoryListItem";

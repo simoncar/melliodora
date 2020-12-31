@@ -38,7 +38,6 @@ export default class chat extends Component {
 			chatroomUsers: [],
 		};
 
-		this._isMounted = false;
 		this.onSend = this.onSend.bind(this);
 		this.parsePatterns = this.parsePatterns.bind(this);
 		this.onReceive = this.onReceive.bind(this);
@@ -48,19 +47,18 @@ export default class chat extends Component {
 
 		localMessages = [];
 
-		this.communityDomain = this.props.community.selectedCommunity.node;
-		this.userInfo = this.props.auth.userInfo;
+		console.log("*** domain:", this.props.route.params);
 	}
 
 	componentDidMount() {
-		const { chatroom, title } = this.props.route.params;
+		const { chatroom, title, language, domain,uid } = this.props.route.params;
 
-		this.chatroom = chatroom;
-		this.title = title;
-
-		Backend.setLanguage(this.props.auth.language);
-		Backend.setChatroom(this.chatroom, this.title);
+		Backend.setLanguage(language);
+		Backend.setChatroom(chatroom, title);
+		Backend.setUID(uid);
+		Backend.setDomain(domain);
 		Backend.setMute(null);
+
 		Backend.loadMessages((message) => {
 			if (!localMessages.includes(message._id)) {
 				this.setState((previousState) => ({
@@ -73,81 +71,7 @@ export default class chat extends Component {
 			headerBackTitleVisible: false,
 		});
 
-		this.loadChatUsers();
-
-		Analytics.logEvent("Chat", { chatroom: this.props.title });
-	}
-	_getInterestGroupUsers = async () => {
-		const data = [];
-		const querySnapshot = await firebase
-			.firestore()
-			.collection(this.communityDomain)
-			.doc("user")
-			.collection("registered")
-			.where("interestGroups", "array-contains", this.props.title)
-			.limit(5000)
-			.get();
-
-		querySnapshot.docs.forEach((doc) => {
-			data.push(doc.data());
-		});
-		return data;
-	};
-
-	_getPrivateChatUsers = async (members) => {
-		const data = [];
-		const querySnapshot = await firebase
-			.firestore()
-			.collection(this.communityDomain)
-			.doc("user")
-			.collection("registered")
-			.where("uid", "in", members)
-			.get();
-
-		querySnapshot.docs.forEach((doc) => {
-			data.push(doc.data());
-		});
-		return data;
-	};
-
-	loadChatUsers = () => {
-		if (this.props.type == "interestGroup") {
-			this._getInterestGroupUsers().then((data) => this.setState({ chatroomUsers: data }));
-		} else if (this.props.type == "private") {
-			this._getPrivateChatUsers(this.props.members).then((data) => this.setState({ chatroomUsers: data }));
-		}
-	};
-
-	_renderUsersItem({ item }) {
-		const avatarTitle = item.email.slice(0, 2);
-		const fullName = item.firstName + " " + item.lastName;
-		const avatar = item.photoURL ? { source: { uri: item.photoURL } } : { title: avatarTitle };
-		return (
-			<TouchableOpacity
-				onPress={() => {
-					this.setState({ modalVisible: false });
-					this.props.navigation.navigate("UserProfile", { uid: item.uid, user: item });
-				}}>
-				<ListItem
-					leftAvatar={{
-						rounded: true,
-						...avatar,
-					}}
-					title={
-						<View style={styles.a221a2b50ac4611ea973dcfce83f911da}>
-							<Text style={styles.a221a5260ac4611ea973dcfce83f911da}>{item.displayName || fullName}</Text>
-						</View>
-					}
-					chevron={true}
-					subtitle={
-						<View style={styles.a221a5261ac4611ea973dcfce83f911da}>
-							<Text style={styles.a221a5262ac4611ea973dcfce83f911da}>{fullName}</Text>
-							<Text style={styles.a221a5263ac4611ea973dcfce83f911da}>{item.email}</Text>
-						</View>
-					}
-				/>
-			</TouchableOpacity>
-		);
+		Analytics.logEvent("Chat", { chatroom: title });
 	}
 
 	onSend(messages = []) {
@@ -309,15 +233,15 @@ export default class chat extends Component {
 
 	render() {
 		let userDetails = {};
-		if (this.userInfo.isAnonymous) {
+		if (this.props.route.params.uid === "") {
 			userDetails = {
 				name: "Guest",
 			};
 		} else {
 			userDetails = {
-				name: this.userInfo.firstName,
-				email: this.userInfo.email,
-				...(this.userInfo.photoURL && { avatar: this.userInfo.photoURL }),
+				name: this.props.route.params.displayName,
+				email: "",
+				...(this.props.route.params.photoURL && { avatar: this.props.route.params.photoURL }),
 			};
 		}
 
@@ -334,40 +258,13 @@ export default class chat extends Component {
 							</TouchableOpacity>
 
 							<Text style={styles.a221aa082ac4611ea973dcfce83f911da}>{this.props.title}</Text>
-
-							<View style={styles.a221aa083ac4611ea973dcfce83f911da}>
-								<Text style={styles.a221aa084ac4611ea973dcfce83f911da}>
-									Chatroom users ({this.state.chatroomUsers.length})
-								</Text>
-								{this.renderSeparator()}
-
-								{["users", "public"].indexOf(this.props.route.params) > -1 ? (
-									<SettingsListItem
-										title={"All Users"}
-										onPress={() => {
-											this.setState({ modalVisible: false });
-											this.props.navigation.navigate("UserSearch");
-										}}
-									/>
-								) : (
-									<FlatList
-										style={styles.a221aa085ac4611ea973dcfce83f911da}
-										data={this.state.chatroomUsers}
-										renderItem={this._renderUsersItem.bind(this)}
-										keyExtractor={(_, idx) => "user" + idx}
-										ItemSeparatorComponent={this.renderSeparator}
-										// ListHeaderComponent={this.renderSeparator}
-									/>
-								)}
-							</View>
 						</View>
 					</Modal>
 
 					<TouchableOpacity
 						onPress={() => {
 							this.props.navigation.navigate("selectLanguageChat", {
-								chatroom: this.props.title,
-								url: this.props.url,
+								chatroom: this.props.route.params.title,
 							});
 						}}>
 						<View style={styles.topBar}>
@@ -380,7 +277,7 @@ export default class chat extends Component {
 					messages={this.state.messages}
 					onSend={this.onSend}
 					user={{
-						_id: this.userInfo.uid,
+						_id: this.props.route.params.uid,
 						...userDetails,
 					}}
 					renderActions={this.renderCustomActions}
