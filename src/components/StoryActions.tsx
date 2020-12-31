@@ -31,22 +31,6 @@ export function actionEdit(
 	);
 }
 
-export function actionAdd(navigation: any, domain: string, refreshFunction: any) {
-	return (
-		<TouchableHighlight
-			key="rightSideEdit"
-			style={[styles.button, { bottom: 10 + 1 * 60 }]}
-			underlayColor="#ff7043"
-			onPress={() => {
-				navigation.navigate("Form", {
-					edit: false,
-					domain: domain,
-				});
-			}}>
-			<MaterialIcons testID="story.editIcon" name="edit" style={styles.icon} />
-		</TouchableHighlight>
-	);
-}
 
 export function actionPhotos(position: number, navigation: any, storyKey: string, domain: string) {
 	return (

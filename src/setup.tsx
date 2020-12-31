@@ -7,6 +7,7 @@ import _ from "lodash";
 import AppLoading from "expo-app-loading";
 import Firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
+import { isDomainAdminServer } from "./lib/APIDomain";
 
 import {
 	useDomainP,
@@ -34,6 +35,7 @@ export default function Setup() {
 	const [, setGDisplayName, gDisplayName] = useDisplayName();
 	const [, setGPhotoURL, gPhotoURL] = usePhotoURL();
 	const [, setGUid, gUid] = useUid();
+	const [, setAdmin, admin] = useAdmin();
 
 	useEffect(() => {
 		async function loadFonts() {
@@ -117,6 +119,10 @@ export default function Setup() {
 
 	useEffect(() => {
 		console.log("domain set useEffect", domain, gUid);
+		isDomainAdminServer(gUid, domain).then((xxx) => {
+			console.log("X:", xxx);
+			setAdmin(xxx);
+		});
 	}, [domain, gUid]);
 
 	if (loading) {

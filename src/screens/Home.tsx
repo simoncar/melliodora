@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Linking, TouchableOpacity, Image, ScrollView, StyleSheet } from "react-native";
+import { View, Linking, TouchableOpacity, Image, ScrollView, StyleSheet, Dimensions } from "react-native";
 import Constants from "expo-constants";
 import firebase from "firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -14,10 +14,11 @@ import DemoData from "../lib/demoData";
 import { actionAdd } from "../components/StoryActions";
 import { useDomain, useLanguage, useLogin, useAdmin, useUid } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
-import { isDomainAdminServer } from "../lib/APIDomain";
+import { Ionicons } from "@expo/vector-icons";
+import I18n from "../lib/i18n";
 
 const versionCheck = new VersionCheck();
-
+const WINDOW_WIDTH = Dimensions.get("window").width;
 const demo = DemoData;
 
 interface TProps {
@@ -244,11 +245,50 @@ export default function Home(props: TProps) {
 		}
 	};
 
+	const addNew = () => {
+		if (admin) {
+			return (
+				<View style={styles.card}>
+					<TouchableOpacity
+						key="rightSideEdit"
+						onPress={() => {
+							props.navigation.navigate("Form", {
+								edit: false,
+								domain: domain,
+							});
+						}}>
+						<View style={styles.headerRow}>
+							<View style={styles.headerIcon}>
+								<Image
+									style={styles.iconPhoto}
+									source={{
+										uri:
+											"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fcat.jpg?alt=media&token=1e1364ad-2689-453f-9f99-7f2c1e12b723",
+									}}
+								/>
+							</View>
+							<View style={styles.headerTextPanel}>
+								<Text style={styles.addText}>{I18n.t("addPolo")}</Text>
+							</View>
+							<View style={styles.headerRightIcons}>
+								<Ionicons
+									testID="story.editIcon"
+									name="md-add-circle-outline"
+									style={styles.icon}
+									size={30}
+								/>
+							</View>
+						</View>
+					</TouchableOpacity>
+				</View>
+			);
+		}
+	};
+
 	return (
 		<View style={styles.container}>
-			{admin && actionAdd(props.navigation, domain)}
 			<ScrollView>
-				<Text>{admin}</Text>
+				{addNew()}
 				<View style={styles.newsContentLine}>
 					{renderToday()}
 
@@ -285,14 +325,17 @@ export default function Home(props: TProps) {
 }
 
 const styles = StyleSheet.create({
+	headerTextPanel: { marginLeft: 5, flex: 1, width: "100%" },
 	card: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
 		borderRadius: 15,
 		marginBottom: 12,
-		padding: 10,
-		width: "95%",
+		paddingLeft: 5,
+		width: "97%",
 	},
+
+	headerIcon: { width: 60 },
 	container: {
 		backgroundColor: "#EFEFF4",
 		flex: 1,
@@ -302,7 +345,21 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		marginTop: 100,
 	},
-
+	icon: {
+		marginLeft: 15,
+		marginRight: 5,
+	},
+	iconPhoto: {
+		alignItems: "center",
+		borderColor: "lightgray",
+		borderRadius: 18,
+		borderWidth: StyleSheet.hairlineWidth,
+		height: 36,
+		left: 6,
+		justifyContent: "center",
+		margin: 12,
+		width: 36,
+	},
 	newsContentLine: {
 		backgroundColor: "#f2f2f2",
 		paddingTop: 10,
@@ -313,7 +370,12 @@ const styles = StyleSheet.create({
 		height: 40,
 		width: 40,
 	},
-
+	headerRow: {
+		alignItems: "center",
+		flexDirection: "row",
+		justifyContent: "space-between",
+		width: WINDOW_WIDTH - 35,
+	},
 	user: {
 		alignSelf: "center",
 		backgroundColor: "white",
@@ -334,5 +396,9 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		fontSize: 12,
 		textAlign: "center",
+	},
+	headerRightIcons: {
+		flexDirection: "row-reverse",
+		marginLeft: 5,
 	},
 });
