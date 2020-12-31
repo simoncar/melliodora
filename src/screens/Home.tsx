@@ -12,7 +12,7 @@ import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
 import { actionAdd } from "../components/StoryActions";
-import { useDomain, useLanguage, useLogin } from "../lib/globalState";
+import { useDomain, useLanguage, useLogin, useAdmin } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 
 const versionCheck = new VersionCheck();
@@ -32,6 +32,7 @@ export default function Home(props: TProps) {
 	const [refreshDomain, setDomain, domain, domainIsUpdated] = useDomain();
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 	const [, setGLogin, gLogin] = useLogin();
+	const [admin, setAdmin] = useAdmin();
 
 	useEffect(() => {
 		//	loadFromAsyncStorage();
@@ -244,6 +245,7 @@ export default function Home(props: TProps) {
 
 	return (
 		<View style={styles.container}>
+			{admin && actionAdd(props.navigation, domain)}
 			<ScrollView>
 				<View style={styles.newsContentLine}>
 					{renderToday()}

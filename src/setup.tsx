@@ -19,6 +19,7 @@ import {
 	useUid,
 	useDisplayName,
 	usePhotoURL,
+	useAdmin,
 } from "./lib/globalState";
 import * as Localization from "expo-localization";
 
@@ -38,6 +39,7 @@ export default function Setup() {
 	const [, setGDisplayName, gDisplayName] = useDisplayName();
 	const [, setGPhotoURL, gPhotoURL] = usePhotoURL();
 	const [, setGUid, gUid] = useUid();
+	const [, setAdmin] = useAdmin();
 
 	useEffect(() => {
 		async function loadFonts() {
@@ -116,6 +118,7 @@ export default function Setup() {
 				setGDisplayName(objAuth.displayName);
 				setGPhotoURL(objAuth.photoURL);
 				setGUid(objAuth.uid);
+				setAdmin(false);
 			});
 		});
 	}, []);

@@ -6,7 +6,7 @@ import Profile from "../components/Profile";
 import { MaterialIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import { getDomains, isDomainAdmin } from "../lib/APIDomain";
-import { useDomainsP, useUid, useDomainNameP, useDomain, useLanguage } from "../lib/globalState";
+import { useDomainsP, useUid, useDomainNameP, useDomain, useLanguage, useAdmin } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;
@@ -15,6 +15,7 @@ interface TProps {
 export default function DomainSelection(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [domainsList, setDomainsList] = useState([]);
+	const [admin, setAdmin] = useAdmin();
 	const [NOrefresh, nodeSetter, NOstate, NOisUpdated] = useDomain();
 	const [, , uid] = useUid();
 	const [domains, domainsSetter, domainsIsUpdated] = useDomainsP();
@@ -40,7 +41,7 @@ export default function DomainSelection(props: TProps) {
 	};
 
 	const renderItem = ({ item }) => {
-		const admin = isDomainAdmin(uid, item.admins);
+		const userIsAdmin = isDomainAdmin(uid, item.admins);
 		return (
 			<View>
 				<SettingsListItem
@@ -48,15 +49,16 @@ export default function DomainSelection(props: TProps) {
 					icon={
 						<MaterialIcons
 							name="group"
-							style={admin ? styles.imageStyleIconAdmin : styles.imageStyleIcon}
+							style={userIsAdmin ? styles.imageStyleIconAdmin : styles.imageStyleIcon}
 						/>
 					}
 					title={item.name}
 					onPress={() => {
 						domainNameSetter(item.name);
+						userIsAdmin ? setAdmin(true) : setAdmin(false);
 						nodeSetter(item.node);
 					}}
-					subTitle={admin ? I18n.t("administrator") : ""}
+					subTitle={userIsAdmin ? I18n.t("administrator") : ""}
 				/>
 			</View>
 		);
