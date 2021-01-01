@@ -16,7 +16,7 @@ interface TProps {
 	story: StoryEntity;
 	card: boolean;
 	domain: string;
-	language: string
+	language: string;
 }
 
 class ListItem extends Component<TProps> {
@@ -55,7 +55,7 @@ class ListItem extends Component<TProps> {
 		}
 	}
 
-	renderChat(chatroom: string, title: string) {
+	renderChat(chatroom: string, title: string, domain: string, language: string) {
 		if (Constants.manifest.extra.instance != "sais_edu_sg") {
 			return (
 				<TouchableOpacity
@@ -63,6 +63,8 @@ class ListItem extends Component<TProps> {
 						this.props.navigation.navigate("chatStory", {
 							chatroom: chatroom,
 							title: title,
+							domain: domain,
+							language: language,
 						});
 					}}>
 					<SimpleLineIcons name="bubble" size={25} style={styles.chatBubble} />
@@ -74,6 +76,8 @@ class ListItem extends Component<TProps> {
 	render() {
 		const showIconChat = this.props.story.showIconChat;
 		const card = this.props.card;
+		const domain = this.props.domain;
+		const language = this.props.language;
 		const {
 			_key,
 			source,
@@ -94,7 +98,6 @@ class ListItem extends Component<TProps> {
 							story: this.props.story,
 							domain: this.props.domain,
 							language: this.props.language,
-							 
 						});
 					}}>
 					<View style={styles.headerRow}>
@@ -110,7 +113,7 @@ class ListItem extends Component<TProps> {
 						</View>
 
 						<View style={styles.headerRightIcons}>
-							{showIconChat && this.renderChat(_key, summaryMyLanguage)}
+							{showIconChat && this.renderChat(_key, summaryMyLanguage, domain, language)}
 						</View>
 					</View>
 

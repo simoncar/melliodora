@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Linking, View, StyleSheet, ScrollView, Dimensions } from "react-native";
 import ParsedText from "react-native-parsed-text";
 import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global";
-import { connect } from "react-redux";
 import { Text } from "../components/sComponent";
 import ImageList from "../components/ImageList";
 import {
@@ -103,6 +102,9 @@ export default class Story extends Component<TProps, StoryState> {
 		const navigation = this.props.navigation;
 		const admin = isAdmin(this.props.route.params.adminPassword);
 		const domain = this.props.route.params.domain;
+		const language = this.props.route.params.language;
+
+		console.log("story:", domain, language);
 
 		if (admin && story.source == "feature") {
 			buffer.push(actionEdit(navigation, position, this.state, domain, this.refreshFunction));
@@ -110,7 +112,7 @@ export default class Story extends Component<TProps, StoryState> {
 		}
 
 		if (admin && story.showIconChat === true) {
-			buffer.push(actionChat(position, navigation, story._key, story.summaryMyLanguage, domain));
+			buffer.push(actionChat(position, navigation, story._key, story.summaryMyLanguage, domain, language));
 			position++;
 		}
 		if (admin) {

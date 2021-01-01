@@ -47,7 +47,6 @@ export default class chat extends Component {
 
 		localMessages = [];
 
-		console.log("*** domain:", this.props.route.params);
 	}
 
 	componentDidMount() {

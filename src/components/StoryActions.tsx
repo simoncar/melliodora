@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Share, TouchableHighlight } from "react-native";
 import { Ionicons, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { formatTime, formatMonth } from "../lib/global";
+import { formatTime, formatMonth, getLanguageString } from "../lib/global";
 import { phoneCalendar } from "../lib/phoneCalendar";
 import { StoryEntity } from "../lib/interfaces";
 import { setUserProperty } from "expo-firebase-analytics";
@@ -31,7 +31,6 @@ export function actionEdit(
 	);
 }
 
-
 export function actionPhotos(position: number, navigation: any, storyKey: string, domain: string) {
 	return (
 		<TouchableHighlight
@@ -49,7 +48,14 @@ export function actionPhotos(position: number, navigation: any, storyKey: string
 	);
 }
 
-export function actionChat(position: number, navigation: any, chatroom: string, title: string, domain: string) {
+export function actionChat(
+	position: number,
+	navigation: any,
+	chatroom: string,
+	title: string,
+	domain: string,
+	language: string
+) {
 	return (
 		<TouchableHighlight
 			key="rightSideChat"
@@ -60,6 +66,7 @@ export function actionChat(position: number, navigation: any, chatroom: string, 
 					chatroom: chatroom,
 					title: title,
 					domain: domain,
+					language: language,
 				});
 			}}>
 			<View>

@@ -20,7 +20,6 @@ import ChatRooms from "./screens/ChatRooms";
 import ChatTitle from "./screens/ChatTitle";
 import chat from "./screens/Chat";
 import push from "./screens/Push";
-import authPortal from "./screens/AuthPortal";
 import WebPortal from "./screens/WebPortal";
 import LoginScreen from "./screens/Login";
 import SignUp from "./screens/UserCreate";
@@ -63,7 +62,6 @@ function StackHomeNavigator() {
 			/>
 			<StackHome.Screen name="Form" component={Form} options={{ title: I18n.t("edit") }} />
 			<StackHome.Screen name="FormAlbum" component={FormAlbum} options={{ title: I18n.t("images") }} />
-			<StackHome.Screen name="authPortalEmbed" component={authPortal} options={{ title: I18n.t("myS") }} />
 			<StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
 			<StackHome.Screen name="WebPortal" component={WebPortal} options={{ title: I18n.t("myS") }} />
 			<StackHome.Screen
@@ -137,7 +135,7 @@ const StackWeb = createStackNavigator();
 function StackWebNavigator() {
 	return (
 		<StackWeb.Navigator>
-			<StackWeb.Screen name="authPortal" component={authPortal} options={{ url: "", title: "Portal" }} />
+			<StackWeb.Screen name="webPortal" component={WebPortal} options={{ url: "", title: "Portal" }} />
 		</StackWeb.Navigator>
 	);
 }
@@ -244,7 +242,7 @@ export default function MainScreenNavigator() {
 			}}>
 			<MainScreen.Navigator headerMode="none">
 				<MainScreen.Screen name="Tab" component={Tabs} />
-				<MainScreen.Screen name="authPortal" component={authPortal} />
+				<MainScreen.Screen name="WebPortal" component={WebPortal} />
 			</MainScreen.Navigator>
 		</NavigationContainer>
 	);
