@@ -1,5 +1,6 @@
 import React, { useState} from "react";
-import * as firebase from "firebase";
+import firebase from "../lib/firebase";
+
 import { useAuth } from "../lib/globalState";
 import { AuthUser } from "../lib/interfaces"
 

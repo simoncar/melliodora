@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, TouchableOpacity, Button, Alert, ScrollView, StyleSheet } from "react-native";
 import { Input } from "react-native-elements";
-import * as firebase from "firebase";
+import firebase from "../lib/firebase";
 import { Entypo } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import _ from "lodash";

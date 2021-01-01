@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { Text } from "../components/sComponent";
-import firebase from "firebase";
+import firebase from "../lib/firebase";
 import Loader from "../components/Loader";
 import { processSelectedCommunity } from "../store/community";
 import I18n from "../lib/i18n";

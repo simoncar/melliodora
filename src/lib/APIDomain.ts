@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import firebase from "../lib/firebase";
 
 interface IDomain {
 	_key: string;

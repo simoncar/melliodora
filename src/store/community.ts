@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import firebase from "../lib/firebase";
 import { call, put,  takeLatest, select } from "redux-saga/effects";
 import _ from "lodash";
 import { checkAdmin } from "./auth";

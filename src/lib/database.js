@@ -2,7 +2,7 @@
  * @class Database
  */
 
-import * as firebase from "firebase";
+import firebase from "../lib/firebase";
 
 export default class Database {
   /**

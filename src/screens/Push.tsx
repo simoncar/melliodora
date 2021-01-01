@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { StyleSheet, View, Alert } from "react-native";
-import * as firebase from "firebase";
+import firebase from "../lib/firebase";
 import I18n from "../lib/i18n";
 import _ from "lodash";
 import { Input } from "react-native-elements";

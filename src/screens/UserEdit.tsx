@@ -12,7 +12,7 @@ import { UpdateUser } from "../lib/APIUser";
 import { useDisplayNameP, useDomainP, usePhotoURLP, useUidP, useEmailP } from "../lib/globalState";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { saveProfilePic } from "../lib/APIUploadImage";
-import firebase from "firebase";
+import firebase from "../lib/firebase";
 
 interface TProps {
 	navigation: any;

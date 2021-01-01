@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import firebase from "../lib/firebase";
 import uuid from "uuid";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";

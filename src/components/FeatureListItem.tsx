@@ -4,7 +4,7 @@ import { View, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { Ionicons, SimpleLineIcons, AntDesign } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 import { getLanguageString } from "../lib/global";
-import firebase from "firebase";
+import firebase from "../lib/firebase";
 import { Text } from "./sComponent";
 import { StoryEntity } from '../lib/interfaces';
 

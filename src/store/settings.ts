@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import firebase from "../lib/firebase";
 import { call, put, takeLatest } from "redux-saga/effects";
 
 export const SET_FEATURES = 'SET_FEATURES';

@@ -3,7 +3,7 @@ import { View, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet } from 
 import { SearchBar } from "react-native-elements";
 import { ListItem } from "react-native-elements";
 import { Text } from "../components/sComponent";
-import * as firebase from "firebase";
+import firebase from "../lib/firebase";
 import _ from "lodash";
 import I18n from "../lib/i18n";
 

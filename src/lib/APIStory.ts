@@ -1,4 +1,5 @@
-import * as firebase from "firebase";
+import firebase from "../lib/firebase";
+
 import { StoryEntity } from './interfaces';
 import { getLanguageString } from "./global";
 

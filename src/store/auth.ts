@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import firebase from "../lib/firebase";
 import { call, put, takeLatest, select, take, delay, takeLeading } from "redux-saga/effects";
 import { eventChannel } from "redux-saga";
 import _ from "lodash";

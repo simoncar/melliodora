@@ -1,5 +1,5 @@
 import React from "react";
-import firebase from "firebase";
+import firebase from "../lib/firebase";
 import Constants from "expo-constants";
 import { TouchableOpacity, View, Text, Linking, StyleSheet } from "react-native";
 import _ from "lodash";

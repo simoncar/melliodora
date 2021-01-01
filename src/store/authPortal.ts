@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import firebase from "../lib/firebase";
 import { call, put, takeLatest, select } from "redux-saga/effects";
 import _ from "lodash";
 
@@ -55,7 +55,15 @@ function* WORKER_saveDetails(action) {
 				authenticated: true,
 			};
 
-			yield call(() => firebase.firestore().collection(domain).doc("user").collection("usernames").doc(uid).set(userDict, { merge: true }));
+			yield call(() =>
+				firebase
+					.firestore()
+					.collection(domain)
+					.doc("user")
+					.collection("usernames")
+					.doc(uid)
+					.set(userDict, { merge: true })
+			);
 
 			yield put(setAuthName(name));
 			yield put(setAuthEmail(email));

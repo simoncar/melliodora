@@ -11,7 +11,7 @@ import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import uuid from "uuid";
 import { Input } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
-import firebase from "firebase";
+import firebase from "../lib/firebase";
 import { Text, Button } from "../components/sComponent";
 import {
 	saveProfilePic,
