@@ -17,14 +17,14 @@ export default function FeatureMoreItems(props: TProps) {
 	const [domain, domainSetter, domainIsUpdated] = useDomainP();
 
 	useEffect(() => {
-		getStories(domain.toString())
-			.then((stories) => {
-				setFeatureItems(stories);
-				setLoading(false);
-			})
-			.catch((e) => {
-				console.error(e.message);
-			});
+		// getStories(domain.toString())
+		// 	.then((stories) => {
+		// 		setFeatureItems(stories);
+		// 		setLoading(false);
+		// 	})
+		// 	.catch((e) => {
+		// 		console.error(e.message);
+		// 	});
 	});
 
 	const renderItem = (item: any) => {

@@ -36,7 +36,6 @@ export async function getDomains() {
 }
 
 export function isDomainAdmin(currentUid: string, adminArray: string[]) {
-	console.log("isDomainAdmin:", currentUid, adminArray);
 	if (Array.isArray(adminArray)) {
 		if (adminArray.includes(currentUid)) return true;
 		else return false;

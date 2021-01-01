@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Linking, TouchableOpacity, Image, ScrollView, StyleSheet, Dimensions } from "react-native";
 import Constants from "expo-constants";
-import firebase from "./lib/firebase";
+import firebase from "../lib/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getLanguageString } from "../lib/global";
 import ListItem from "../components/StoryListItem";
@@ -37,6 +37,11 @@ export default function Home(props: TProps) {
 	const [admin, setAdmin] = useAdmin();
 	const [, setGUid, gUid] = useUid();
 
+	const storyRead = (stories) => {
+		setFeatureItems(stories);
+		setLoading(false);
+	};
+
 	useEffect(() => {
 		//	loadFromAsyncStorage();
 
@@ -48,14 +53,7 @@ export default function Home(props: TProps) {
 			demo.setupDemoData();
 		}
 
-		getStories(domain, language)
-			.then((stories) => {
-				setFeatureItems(stories);
-				setLoading(false);
-			})
-			.catch((e) => {
-				console.error(e.message);
-			});
+		const unsubscribe = getStories(domain, language, storyRead);
 
 		// loadCalendar();
 
@@ -83,17 +81,18 @@ export default function Home(props: TProps) {
 		// 			break;
 		// 	}
 		// });
+
+		return () => {
+			console.log("Stories UNSUBSCRIBE");
+			unsubscribe;
+		};
 	}, []);
 
 	useEffect(() => {
-		getStories(domain, language)
-			.then((stories) => {
-				setFeatureItems(stories);
-				setLoading(false);
-			})
-			.catch((e) => {
-				console.error(e.message);
-			});
+		const unsubscribe = getStories(domain, language, storyRead);
+		return () => {
+			unsubscribe;
+		};
 	}, [domain, language]);
 
 	// loadCalendar() {
