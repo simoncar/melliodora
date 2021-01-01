@@ -10,6 +10,7 @@ import { useDomain, useUid, useDisplayName, useLanguage, usePhotoURL } from "../
 
 interface TProps {
 	navigation: any;
+	route: any;
 }
 
 export default function ChatRooms(props: TProps) {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import * as firebase from "firebase";
+import firebase from "../lib/firebase";
 import { Agenda } from "react-native-calendars";
 import { Ionicons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import moment from "moment";
 import CalendarItem from "../components/CalendarItem";
-import { useDomain } from "../lib/globalState";
+import { useDomain, useLanguage } from "../lib/globalState";
 
 const todayItem = {};
 const todayDate = moment().format("YYYY-MM-DD");
@@ -16,14 +16,16 @@ interface TProps {
 }
 
 export default function Calendar(props: TProps) {
-	const [items, setItems] = useState([]);
+	const [items, setItems] = useState({});
 	const [, , domain] = useDomain();
+	const [, , language] = useLanguage();
 
 	useEffect(() => {
 		const todayDay = new moment().format("MMMM Do");
 
 		todayItem[todayDate] = [];
 		todayItem[todayDate].push({
+			_key: "todayKey",
 			summary: I18n.t("today") + " " + todayDay,
 			summaryMyLanguage: I18n.t("today") + " " + todayDay,
 			icon: "md-radio-button-off",
@@ -55,6 +57,7 @@ export default function Calendar(props: TProps) {
 				const todayDay = new moment().format("MMMM Do");
 
 				items2[todayDate].push({
+					_key: "todayKey",
 					summary: I18n.t("today") + " " + todayDay,
 					summaryMyLanguage: I18n.t("today") + " " + todayDay,
 					icon: "md-radio-button-off",
@@ -80,18 +83,18 @@ export default function Calendar(props: TProps) {
 					var event = { ...{ _key: doc.id }, ...doc.data(), ...trans };
 					items2[strtime].push(event);
 				});
-
+				console.log("setItems Calendar ");
 				setItems(items2);
 			});
 
 		return () => {
-			console.log("Chatrooms UNSUBSCRIBE");
+			console.log("calendar UNSUBSCRIBE");
 			unsubscribe();
 		};
 	}, []);
 
 	const renderItem = (item) => {
-		return <CalendarItem navigation={props.navigation} item={item} />;
+		return <CalendarItem navigation={props.navigation} story={item} domain={domain} language={language} />;
 	};
 
 	const renderEmptyDate = () => {
@@ -119,9 +122,6 @@ export default function Calendar(props: TProps) {
 				return r1.summary !== r2.summary;
 			}}
 			hideKnob={false}
-			renderKnob={() => {
-				return <Ionicons style={styles.calendarIcon} name="ios-arrow-down" />;
-			}}
 			theme={{
 				selectedDayBackgroundColor: "#111111",
 				dayTextColor: "#333333",
