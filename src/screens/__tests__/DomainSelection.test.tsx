@@ -56,7 +56,7 @@ jest.mock("../../lib/globalState", () => ({
 test('list domains', () => {
 	const navigation = { navigate: jest.fn() };
 
-	const { toJSON, queryByText, getByTestId } = render(
+	const { toJSON, queryByText } = render(
 		<DomainSelection
 			navigation={navigation} />
 	);

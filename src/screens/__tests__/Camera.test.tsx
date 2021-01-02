@@ -11,8 +11,6 @@ jest.mock('expo', () => ({
 	}
 }));
 
-
-
 test('show camera screen', async () => {
 	const navigation = { navigate: jest.fn() };
 	const onGoBack = jest.fn();

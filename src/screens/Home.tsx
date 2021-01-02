@@ -205,6 +205,7 @@ export default function Home(props: TProps) {
 				card={true}
 				language={language}
 				domain={domain}
+				admin={ admin}
 			/>
 		);
 	};
@@ -218,6 +219,7 @@ export default function Home(props: TProps) {
 				card={false}
 				language={language}
 				domain={domain}
+				admin={admin}
 			/>
 		);
 	};

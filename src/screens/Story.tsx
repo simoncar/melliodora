@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Linking, View, StyleSheet, ScrollView, Dimensions } from "react-native";
 import ParsedText from "react-native-parsed-text";
-import { formatTime, formatMonth, getAbbreviations, isAdmin, isValue } from "../lib/global";
+import { formatTime, formatMonth, getAbbreviations, isValue } from "../lib/global";
 import { Text } from "../components/sComponent";
 import ImageList from "../components/ImageList";
 import {
@@ -19,8 +19,6 @@ const WINDOW_WIDTH = Dimensions.get("window").width;
 interface TProps {
 	navigation: any;
 	route: any;
-	domain: string;
-	language: string;
 }
 
 export default class Story extends Component<TProps, StoryState> {
@@ -66,6 +64,7 @@ export default class Story extends Component<TProps, StoryState> {
 			cameraIcon: "camera",
 			source: source,
 			location: location,
+			edit: false,
 		};
 	}
 
@@ -100,11 +99,9 @@ export default class Story extends Component<TProps, StoryState> {
 		let position = 0;
 
 		const navigation = this.props.navigation;
-		const admin = isAdmin(this.props.route.params.adminPassword);
+		const admin = this.props.route.params.admin;
 		const domain = this.props.route.params.domain;
 		const language = this.props.route.params.language;
-
-		console.log("story:", domain, language);
 
 		if (admin && story.source == "feature") {
 			buffer.push(actionEdit(navigation, position, this.state, domain, this.refreshFunction));
@@ -197,7 +194,6 @@ export default class Story extends Component<TProps, StoryState> {
 	}
 
 	render() {
-		console.log("story language:", this.props.route.params.language);
 		return (
 			<View style={styles.container}>
 				{this.rightSideButtons(this.state)}

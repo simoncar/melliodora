@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 import { Camera } from "expo-camera";
-import { Text} from "../components/sComponent";
+import * as Permissions from "expo-permissions";
+import { Text } from "../components/sComponent";
 import I18n from "../lib/i18n";
 import { saveProfilePic } from "../lib/APIUploadImage";
 import { usePhotoURLP } from "../lib/globalState";
@@ -20,7 +21,7 @@ export default function CameraScreen(props: TProps) {
 
 	useEffect(() => {
 		(async () => {
-			const { status } = await Camera.requestPermissionsAsync();
+			const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
 			setHasPermission(status === "granted");
 		})();
 	}, []);
@@ -49,16 +50,17 @@ export default function CameraScreen(props: TProps) {
 				</TouchableOpacity>
 				<TouchableOpacity
 					style={styles.buttonPhoto}
+					testID="camera.takePhoto"
 					onPress={() => {
 						camRef.takePictureAsync({ quality: 0 }).then((a) => {
-							console.log("Pic:", a);
 							saveProfilePic(a.uri).then((downloadURL) => {
 								console.log("saved profile pic here:", downloadURL);
 								setGPhotoURL(downloadURL);
 								props.navigation.pop();
 							});
 						});
-					}}></TouchableOpacity>
+					}}
+				/>
 				<TouchableOpacity
 					style={styles.buttonFlip}
 					onPress={() => {
@@ -84,11 +86,11 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	buttonContainer: {
+		alignItems: "center",
 		flexDirection: "row",
 		height: 70,
 		justifyContent: "space-between",
 		margin: 20,
-		alignItems: "center",
 	},
 	buttonFlip: {
 		alignItems: "center",
@@ -113,14 +115,13 @@ const styles = StyleSheet.create({
 		height: 600,
 	},
 	container: {
-		flex: 1,
 		backgroundColor: "black",
+		flex: 1,
 	},
-
 	textCancel: {
 		alignItems: "center",
-		justifyContent: "center",
 		color: "white",
 		fontSize: 16,
+		justifyContent: "center",
 	},
 });

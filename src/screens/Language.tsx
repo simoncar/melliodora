@@ -3,10 +3,13 @@ import { StyleSheet, View, SafeAreaView } from "react-native";
 import { SettingsListItem } from "../components/SettingsListItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
-
 import { useLanguage } from "../lib/globalState";
 
-export default function SelectLanguage(props) {
+interface TProps {
+	navigation: any;
+}
+
+export default function SelectLanguage(props: TProps) {
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 
 	const getStyle = (pass: string) => {
@@ -17,7 +20,7 @@ export default function SelectLanguage(props) {
 		}
 	};
 
-	const changeLanguage = (newLanguage) => {
+	const changeLanguage = (newLanguage: string) => {
 		setLanguage(newLanguage);
 		I18n.locale = newLanguage;
 		props.navigation.pop();

@@ -65,191 +65,6 @@ exports[`show story no calendar no image 1`] = `
           Object {},
         ]
       }
-      testID="story.editIcon"
-    >
-      
-    </Text>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "position": "absolute",
-          "right": 15,
-          "shadowColor": "#000000",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0,
-          },
-          "shadowOpacity": 0.8,
-          "shadowRadius": 2,
-          "width": 50,
-          "zIndex": 990,
-        },
-        Object {
-          "bottom": 70,
-        },
-      ]
-    }
-    testID="story.chatIcon"
-  >
-    <View>
-      <Text
-        allowFontScaling={false}
-        style={
-          Array [
-            Object {
-              "color": undefined,
-              "fontSize": 12,
-            },
-            Object {
-              "color": "white",
-              "fontSize": 25,
-            },
-            Object {
-              "fontFamily": "simple-line-icons",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
-    </View>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "position": "absolute",
-          "right": 15,
-          "shadowColor": "#000000",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0,
-          },
-          "shadowOpacity": 0.8,
-          "shadowRadius": 2,
-          "width": 50,
-          "zIndex": 990,
-        },
-        Object {
-          "bottom": 130,
-        },
-      ]
-    }
-    testID="story.sendIcon"
-  >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": undefined,
-            "fontSize": 12,
-          },
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          },
-          Object {
-            "fontFamily": "material-community",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
-    >
-      󰟭
-    </Text>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "position": "absolute",
-          "right": 15,
-          "shadowColor": "#000000",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0,
-          },
-          "shadowOpacity": 0.8,
-          "shadowRadius": 2,
-          "width": 50,
-          "zIndex": 990,
-        },
-        Object {
-          "bottom": 190,
-        },
-      ]
-    }
-  >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": undefined,
-            "fontSize": 12,
-          },
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          },
-          Object {
-            "fontFamily": "material",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
       testID="story.cameraIcon"
     >
       
@@ -286,7 +101,7 @@ exports[`show story no calendar no image 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 250,
+          "bottom": 70,
         },
       ]
     }
@@ -545,124 +360,6 @@ exports[`show story on screen 1`] = `
         },
       ]
     }
-    testID="story.chatIcon"
-  >
-    <View>
-      <Text />
-    </View>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "position": "absolute",
-          "right": 15,
-          "shadowColor": "#000000",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0,
-          },
-          "shadowOpacity": 0.8,
-          "shadowRadius": 2,
-          "width": 50,
-          "zIndex": 990,
-        },
-        Object {
-          "bottom": 130,
-        },
-      ]
-    }
-    testID="story.sendIcon"
-  >
-    <Text />
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "position": "absolute",
-          "right": 15,
-          "shadowColor": "#000000",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0,
-          },
-          "shadowOpacity": 0.8,
-          "shadowRadius": 2,
-          "width": 50,
-          "zIndex": 990,
-        },
-        Object {
-          "bottom": 190,
-        },
-      ]
-    }
-  >
-    <Text />
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "position": "absolute",
-          "right": 15,
-          "shadowColor": "#000000",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0,
-          },
-          "shadowOpacity": 0.8,
-          "shadowRadius": 2,
-          "width": 50,
-          "zIndex": 990,
-        },
-        Object {
-          "bottom": 250,
-        },
-      ]
-    }
     testID="story.shareButton"
   >
     <Text />
@@ -698,7 +395,7 @@ exports[`show story on screen 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 310,
+          "bottom": 130,
         },
       ]
     }
@@ -934,191 +631,6 @@ exports[`show story with URL in content to test linking 1`] = `
           Object {},
         ]
       }
-      testID="story.editIcon"
-    >
-      
-    </Text>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "position": "absolute",
-          "right": 15,
-          "shadowColor": "#000000",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0,
-          },
-          "shadowOpacity": 0.8,
-          "shadowRadius": 2,
-          "width": 50,
-          "zIndex": 990,
-        },
-        Object {
-          "bottom": 70,
-        },
-      ]
-    }
-    testID="story.chatIcon"
-  >
-    <View>
-      <Text
-        allowFontScaling={false}
-        style={
-          Array [
-            Object {
-              "color": undefined,
-              "fontSize": 12,
-            },
-            Object {
-              "color": "white",
-              "fontSize": 25,
-            },
-            Object {
-              "fontFamily": "simple-line-icons",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
-        }
-      >
-        
-      </Text>
-    </View>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "position": "absolute",
-          "right": 15,
-          "shadowColor": "#000000",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0,
-          },
-          "shadowOpacity": 0.8,
-          "shadowRadius": 2,
-          "width": 50,
-          "zIndex": 990,
-        },
-        Object {
-          "bottom": 130,
-        },
-      ]
-    }
-    testID="story.sendIcon"
-  >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": undefined,
-            "fontSize": 12,
-          },
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          },
-          Object {
-            "fontFamily": "material-community",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
-    >
-      󰟭
-    </Text>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "position": "absolute",
-          "right": 15,
-          "shadowColor": "#000000",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0,
-          },
-          "shadowOpacity": 0.8,
-          "shadowRadius": 2,
-          "width": 50,
-          "zIndex": 990,
-        },
-        Object {
-          "bottom": 190,
-        },
-      ]
-    }
-  >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": undefined,
-            "fontSize": 12,
-          },
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          },
-          Object {
-            "fontFamily": "material",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
       testID="story.cameraIcon"
     >
       
@@ -1155,7 +667,7 @@ exports[`show story with URL in content to test linking 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 250,
+          "bottom": 70,
         },
       ]
     }
@@ -1217,7 +729,7 @@ exports[`show story with URL in content to test linking 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 310,
+          "bottom": 130,
         },
       ]
     }
@@ -1619,128 +1131,6 @@ exports[`show story without chat 1`] = `
           Object {},
         ]
       }
-      testID="story.editIcon"
-    >
-      
-    </Text>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "position": "absolute",
-          "right": 15,
-          "shadowColor": "#000000",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0,
-          },
-          "shadowOpacity": 0.8,
-          "shadowRadius": 2,
-          "width": 50,
-          "zIndex": 990,
-        },
-        Object {
-          "bottom": 70,
-        },
-      ]
-    }
-    testID="story.sendIcon"
-  >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": undefined,
-            "fontSize": 12,
-          },
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          },
-          Object {
-            "fontFamily": "material-community",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
-    >
-      󰟭
-    </Text>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(52, 52, 52, 0.1)",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "position": "absolute",
-          "right": 15,
-          "shadowColor": "#000000",
-          "shadowOffset": Object {
-            "height": 1,
-            "width": 0,
-          },
-          "shadowOpacity": 0.8,
-          "shadowRadius": 2,
-          "width": 50,
-          "zIndex": 990,
-        },
-        Object {
-          "bottom": 130,
-        },
-      ]
-    }
-  >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": undefined,
-            "fontSize": 12,
-          },
-          Object {
-            "color": "white",
-            "fontSize": 25,
-          },
-          Object {
-            "fontFamily": "material",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
       testID="story.cameraIcon"
     >
       
@@ -1777,7 +1167,7 @@ exports[`show story without chat 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 190,
+          "bottom": 70,
         },
       ]
     }
@@ -1839,7 +1229,7 @@ exports[`show story without chat 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 250,
+          "bottom": 130,
         },
       ]
     }
