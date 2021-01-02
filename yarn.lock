@@ -6621,10 +6621,10 @@ firebase@7.9.0:
     "@firebase/storage" "0.3.26"
     "@firebase/util" "0.2.40"
 
-firestore-jest-mock@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/firestore-jest-mock/-/firestore-jest-mock-0.4.0.tgz#bf9f7aec7c9415c1d21b4363305e04638ee92b8f"
-  integrity sha512-HBehJqFf3TXuL5BIDoMUVuIWrwVD8xjbG2MmuaUG9XfIA1998pd+vcy3Ck4r/wN/6y/kyPeqyE7KPZJ1gsjLHA==
+firestore-jest-mock@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/firestore-jest-mock/-/firestore-jest-mock-0.7.1.tgz#ae932170b70baee60d949cbbb61ef676ebf0627d"
+  integrity sha512-JtBu0i40mYxBeHViVx6v1TCC/rnx5q89kJ+JxQcaT1UfDKJyodobHrkG4dr8hxymKHGf7cgqvJr9kLWVnUJOiw==
 
 flat-cache@^2.0.1:
   version "2.0.1"
