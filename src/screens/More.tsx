@@ -1,135 +1,88 @@
-import React, { Component } from "react";
+import React from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
-import { isAdmin } from "../lib/global";
 import Constants from "expo-constants";
 import I18n from "../lib/i18n";
-import { MaterialIcons, FontAwesome, SimpleLineIcons } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import _ from "lodash";
-import { connect } from "react-redux";
+
 import * as Linking from "expo-linking";
 import { SettingsListItem, Separator } from "../components/SettingsListItem";
-import FeatureMoreItems from "../components/FeatureMoreItems";
-import Profile from "../components/Profile"
-import { processSelectedCommunity } from "../store/community";
+import Profile from "../components/Profile";
+import { useDomainP, useDomainNameP, useLanguage, useLogin } from "../lib/globalState";
 
 interface TProps {
-
-	navigation: any,
-	auth: any,
-	route: any,
-	adminPassword: string,
-}
-interface TState {
-	user: string | null,
+	navigation: any;
+	auth: any;
+	route: any;
+	adminPassword: string;
 }
 
-class Settings extends Component<TProps, TState> {
-	constructor(props: TProps) {
-		super(props);
+export default function Settings(props: TProps) {
+	const [domain, domainSetter, domainIsUpdated] = useDomainP();
+	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
+	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
+	const [, setGLogin, gLogin] = useLogin();
 
-		this.state = {
-			user: null
-		};
+	const changeDomain = () => {
+		domainNameSetter("");
+		domainSetter(""); //this will trigger a new navigator
+	};
 
-
-	}
-
-	_logout() {
-		this.props.dispatch(processSelectedCommunity(null))
-	}
-
-	separator(i: number) {
+	const separator = (i: number) => {
 		if (i > 0) {
 			return <Separator />;
 		}
-	}
+	};
 
-	render() {
-		var i = 0;
-		return <View style={styles.container}>
+	var i = 0;
+	return (
+		<View style={styles.container}>
 			<ScrollView>
 				<View style={styles.card}>
-					<Profile
-						auth={this.props.auth}
-						navigation={this.props.navigation} />
-					{Constants.manifest.extra.instance != "sais_edu_sg" &&
-						<SettingsListItem
-							lastItem={true}
-							icon={<MaterialIcons name="search" style={styles.imageStyleIcon} />}
-							title={I18n.t("searchUsers")}
-							onPress={() => this.props.navigation.navigate("UserSearch")}
-						/>
-					}
+					{Constants.manifest.extra.instance != "sais_edu_sg" && (
+						<Profile auth={props.auth} navigation={props.navigation} />
+					)}
 				</View>
 
-
-				{this.separator(i)}
+				{separator(i)}
 				<View style={styles.card}>
 					<SettingsListItem
-						icon={<FontAwesome
-							name="language"
-							style={styles.imageStyleIcon} />}
+						icon={<FontAwesome name="language" style={styles.imageStyleIcon} />}
 						title={"Language"}
-						titleInfo={this.props.auth.language}
-						onPress={() => this.props.navigation.navigate("selectLanguage")}
+						titleInfo={language}
+						onPress={() =>
+							props.navigation.navigate("selectLanguage", {
+								language: language,
+							})
+						}
 					/>
-
-
 
 					<SettingsListItem
 						hasNavArrow={false}
-						icon={<MaterialIcons
-							name="info-outline"
-							style={styles.imageStyleIcon} />}
+						icon={<MaterialIcons name="info-outline" style={styles.imageStyleIcon} />}
 						title={I18n.t("aboutThisApp")}
 						onPress={() => {
 							Linking.openURL("https://smartcookies.io/smart-community");
 						}}
 					/>
 
-
-					{(Constants.manifest.extra.instance === "") &&
+					{Constants.manifest.extra.instance === "" && (
 						<SettingsListItem
 							lastItem={true}
 							hasNavArrow={false}
-							icon={<MaterialIcons
-								name="camera-roll"
-								style={styles.imageStyleIcon} />}
+							icon={<MaterialIcons name="camera-roll" style={styles.imageStyleIcon} />}
 							title={I18n.t("changeDomain")}
-							onPress={() => this._logout()} />
-					}
-				</View>
-
-				{this.separator(i)}
-
-				<View style={styles.card}>
-					<SettingsListItem
-						icon={<FontAwesome
-							name="lock"
-							style={styles.imageStyleIcon} />}
-						hasNavArrow={true}
-						title={I18n.t("adminAccess")}
-						onPress={() => this.props.navigation.navigate("AdminPassword")}
-					/>
-
-					{isAdmin(this.props.adminPassword) &&
-
-						<FeatureMoreItems
-							navigation={this.props.navigation}
-							language={this.props.auth.language}
+							onPress={() => changeDomain()}
 						/>
-
-					}
+					)}
 				</View>
-
-
 			</ScrollView>
-		</View>;
-	}
+		</View>
+	);
 }
 
-const styles = StyleSheet.create({
 
+const styles = StyleSheet.create({
 	card: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
@@ -145,12 +98,6 @@ const styles = StyleSheet.create({
 		color: "#999999",
 		fontSize: 25,
 		marginLeft: 15,
-		width: 30
+		width: 30,
 	},
 });
-
-const mapStateToProps = (state: { settings: any; auth: any; }) => ({
-	settings: state.settings,
-	auth: state.auth
-});
-export default connect(mapStateToProps)(Settings);

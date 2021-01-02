@@ -1,52 +1,54 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Text } from "./sComponent";
-import Image from "../components/Imgix"
-import { Grid, Col, Row } from "react-native-easy-grid";
+import Image from "../components/Imgix";
 import { formatTime } from "../lib/global";
 import _ from "lodash";
+import { StoryEntity } from "../lib/interfaces";
 
-class CalendarItem extends Component {
-	constructor(props) {
-		super(props);
-	}
+interface TProps {
+	navigation: any;
+	story: StoryEntity;
+	domain: string;
+	language: string;
+}
 
-	render() {
-		const item = this.props.item;
-		return <TouchableOpacity style={styles.opacity} onPress={() => this.props.navigation.navigate("storyCalendar", { story: item })}>
-			<View style={styles.agendaItem}>
-				<Grid>
-					<Row>
-						<Col>
-							<View style={styles.textView}>
-								<Text style={styles.text}>{item.summary}</Text>
-								<Text style={styles.agendaLocation}>{item.location} </Text>
-								{this.renderTime(item.time_start_pretty, item.time_end_pretty)}
-							</View>
-						</Col>
-					</Row>
-					<Row>
-						<View style={styles.imageView}>
-							<Image
-								source={{ uri: item.photo1 }}
-								style={styles.image}
-							/>
-						</View>
-					</Row>
-				</Grid>
-			</View>
-		</TouchableOpacity>;
-	}
-
-
-	renderTime(start, end) {
+export default function CalendarItem(props: TProps) {
+	const renderTime = (start, end) => {
 		if (undefined != start && start.length > 0) {
 			return <Text style={styles.agendaDate}>{formatTime(start, end)} </Text>;
 		}
-	}
+	};
 
+	const story = props.story;
+	const language = props.language;
+	const domain = props.domain;
+
+	return (
+		<TouchableOpacity
+			style={styles.opacity}
+			onPress={() =>
+				props.navigation.navigate("storyCalendar", {
+					story: story,
+					domain: domain,
+					language: language,
+				})
+			}>
+			<View style={styles.agendaItem}>
+				<View style={styles.textView}>
+					<Text style={styles.text}>{story.summary}</Text>
+					<Text style={styles.agendaLocation}>{story.location} </Text>
+					{renderTime(story.time_start_pretty, story.time_end_pretty)}
+				</View>
+				{story.photo1 != undefined && (
+					<View style={styles.imageView}>
+						<Image source={{ uri: story.photo1 }} style={styles.image} />
+					</View>
+				)}
+			</View>
+		</TouchableOpacity>
+	);
 }
-
 
 const styles = StyleSheet.create({
 	agendaDate: {
@@ -63,41 +65,41 @@ const styles = StyleSheet.create({
 		flex: 1,
 		marginRight: 10,
 		marginTop: 5,
-		padding: 10
+		padding: 10,
 	},
 	agendaLocation: {
 		color: "gray",
 		fontSize: 12,
 		marginTop: 5,
 	},
-	
+
 	image: {
 		height: 150,
-		width: 300
+		width: 300,
+		borderRadius: 5,
 	},
 	imageView: {
 		alignItems: "flex-end",
-		flex: 1
+		flex: 1,
 	},
 
 	opacity: {
 		flexDirection: "row",
-		marginBottom: 12
+		marginBottom: 12,
 	},
 
 	text: {
 		color: "#000",
 		fontSize: 15,
-		fontWeight: 'bold',
+		fontWeight: "bold",
 		marginBottom: 10,
 		paddingTop: 5,
-		textAlign: 'right'
+		textAlign: "right",
 	},
 	textView: {
 		alignItems: "flex-end",
-		flex: 1
+		flex: 1,
 	},
-
 });
 
 export default CalendarItem;

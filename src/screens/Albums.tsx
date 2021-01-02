@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { FlatList, StyleSheet, View, SafeAreaView } from "react-native";
 import { SettingsListItem } from "../components/SettingsListItem";
 import { MaterialIcons } from "@expo/vector-icons";
-import { connect } from "react-redux";
-import * as MediaLibrary from 'expo-media-library';
+import * as MediaLibrary from "expo-media-library";
 
 export interface CameraRollResult {
 	images: MediaLibrary.Asset[];
@@ -13,21 +12,20 @@ export interface CameraRollResult {
 }
 
 interface TProps {
-	navigation: any,
-	albums: [],
-	route: any,
-	storyKey: string,
+	navigation: any;
+	albums: [];
+	route: any;
+	storyKey: string;
 }
 interface TState {
-	storyKey: string,
+	storyKey: string;
 	albums: {
 		title: string;
 		_key: string;
-	}[]
+	}[];
 }
 
-export class SelectAlbum extends Component<TProps, TState>{
-
+export default class SelectAlbum extends Component<TProps, TState> {
 	constructor(props: Readonly<TProps>) {
 		super(props);
 
@@ -43,36 +41,31 @@ export class SelectAlbum extends Component<TProps, TState>{
 			_key: string;
 		}[] = [];
 
+		MediaLibrary.requestPermissionsAsync().then(() => {
+			albums.push({
+				title: "Recent",
+				_key: "RECENT",
+			});
 
-		MediaLibrary.requestPermissionsAsync()
-			.then(() => {
-
-				albums.push({
-					title: "Recent",
-					_key: "RECENT"
-				})
-
-				MediaLibrary.getAlbumsAsync()
-					.then(albumsList => {
-
-						albumsList.forEach(album => {
-							console.log("album:", album)
-
-							albums.push({
-								title: album.title,
-								_key: album.id
-							})
-						})
-						this.setState({
-							albums,
+			MediaLibrary.getAlbumsAsync()
+				.then((albumsList) => {
+					albumsList.forEach((album) => {
+						albums.push({
+							title: album.title,
+							_key: album.id,
 						});
-					}).catch(error => {
-						console.log(error)
-					})
-			})
+					});
+					this.setState({
+						albums,
+					});
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		});
 	}
 
-	keyExtractor = (item: { _key: any; }) => item._key;
+	keyExtractor = (item: { _key: any }) => item._key;
 
 	_renderItem = ({ item }) => (
 		<View style={styles.card}>
@@ -84,29 +77,23 @@ export class SelectAlbum extends Component<TProps, TState>{
 					this.props.navigation.navigate("FormAlbum", {
 						storyKey: this.state.storyKey,
 						album: item.title,
-						key: item._key
+						key: item._key,
 					});
 				}}
-				icon={<MaterialIcons
-					name="camera"
-					size={35}
-				/>} />
+				icon={<MaterialIcons name="camera" size={35} />}
+			/>
 		</View>
-
 	);
 
 	render() {
-		return <SafeAreaView style={styles.adminContainer}>
-			<View style={styles.card}>
-				<FlatList
-					data={this.state.albums}
-					renderItem={this._renderItem}
-					keyExtractor={this.keyExtractor}
-				/>
-			</View>
-		</SafeAreaView>
+		return (
+			<SafeAreaView style={styles.adminContainer}>
+				<View style={styles.card}>
+					<FlatList data={this.state.albums} renderItem={this._renderItem} keyExtractor={this.keyExtractor} />
+				</View>
+			</SafeAreaView>
+		);
 	}
-
 }
 
 const styles = StyleSheet.create({
@@ -123,12 +110,4 @@ const styles = StyleSheet.create({
 		padding: 10,
 		width: "95%",
 	},
-
 });
-
-
-
-const mapStateToProps = (state: { auth: any; }) => ({
-	auth: state.auth
-});
-export default connect(mapStateToProps)(SelectAlbum);

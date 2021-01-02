@@ -1,100 +1,127 @@
-import React, { Component } from "react";
-import { View, Dimensions, TouchableHighlight, StyleSheet } from "react-native";
-import { Entypo } from "@expo/vector-icons";
-import * as ImageManipulator from "expo-image-manipulator";
+import React, { useState, useEffect } from "react";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { Fontisto } from "@expo/vector-icons";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import { Text } from "../components/sComponent";
 import I18n from "../lib/i18n";
+import { saveProfilePic } from "../lib/APIUploadImage";
+import { usePhotoURLP } from "../lib/globalState";
 
-const WINDOW_WIDTH = Dimensions.get("window").width;
-
-export default class CameraApp extends Component {
-	constructor(props) {
-		super(props);
-	}
-
-	state = {
-		hasCameraPermission: null,
-		type: Camera.Constants.Type.front,
-		cameraIcon: "camera"
-	};
-
-
-	async componentDidMount() {
-		const { status } = await Permissions.askAsync(Permissions.CAMERA);
-		this.setState({ hasCameraPermission: status === "granted" });
-	}
-
-
-	async snapPhoto() {
-		const options = { quality: 1, base64: true, fixOrientation: true, exif: true };
-		await this.camera.takePictureAsync(options).then(async photo => {
-			const convertedImage = await new ImageManipulator.manipulateAsync(photo.uri, [{ resize: { height: 600 } }], {
-				compress: 0
-			});
-			var fileToUpload = convertedImage.uri;
-
-			this.setState({ profilePic: fileToUpload });
-			this.goBack();
-		});
-	}
-
-	goBack() {
-
-		const { navigation } = this.props;
-		this.props.route.params.onGoBack({ profilePic: this.state.profilePic });
-		navigation.goBack();
-	}
-
-	render() {
-		const { hasCameraPermission } = this.state;
-		if (hasCameraPermission === null) {
-			return <View />;
-		} else if (hasCameraPermission === false) {
-			return <Text>{I18n.t("permissionsNoCamera")}</Text>;
-		} else {
-			return <View style={styles.flexView}>
-				<TouchableHighlight
-					testID="camera.button"
-					style={styles.camera}
-					underlayColor="#ff7043"
-					onPress={this.snapPhoto.bind(this)}>
-					<Entypo testID="camera.takePhoto" name={this.state.cameraIcon} size={28} color={"white"} />
-				</TouchableHighlight>
-
-				<Camera style={styles.flexCamera} type={this.state.type} ref={ref => {
-					this.camera = ref;
-				}}></Camera>
-
-			</View>;
-		}
-	}
+interface TProps {
+	navigation: any;
+	route: any;
 }
 
+export default function CameraScreen(props: TProps) {
+	const [camRef, setCamRef] = useState(null);
+	const [hasPermission, setHasPermission] = useState(null);
+	const [type, setType] = useState(Camera.Constants.Type.front);
+	const [statePhotoURL, setGPhotoURL, isUpdatedPhotoURL] = usePhotoURLP();
+
+	useEffect(() => {
+		(async () => {
+			const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+			setHasPermission(status === "granted");
+		})();
+	}, []);
+
+	if (hasPermission === null) {
+		return <View />;
+	}
+	if (hasPermission === false) {
+		return <Text>{I18n.t("permissionsNoCamera")}</Text>;
+	}
+	return (
+		<View style={styles.container}>
+			<Camera
+				style={styles.camera}
+				ref={(ref) => {
+					setCamRef(ref);
+				}}
+				type={type}></Camera>
+			<View style={styles.buttonContainer}>
+				<TouchableOpacity
+					style={styles.buttonCancel}
+					onPress={() => {
+						props.navigation.pop();
+					}}>
+					<Text style={styles.textCancel}>{I18n.t("cancel")}</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.buttonPhoto}
+					testID="camera.takePhoto"
+					onPress={() => {
+						camRef.takePictureAsync({ quality: 0 }).then((a) => {
+							saveProfilePic(a.uri).then((downloadURL) => {
+								console.log("saved profile pic here:", downloadURL);
+								setGPhotoURL(downloadURL);
+								props.navigation.pop();
+							});
+						});
+					}}
+				/>
+				<TouchableOpacity
+					style={styles.buttonFlip}
+					onPress={() => {
+						setType(
+							type === Camera.Constants.Type.back
+								? Camera.Constants.Type.front
+								: Camera.Constants.Type.back
+						);
+					}}>
+					<Fontisto
+						name="spinner-refresh"
+						size={30}
+						color="black"
+						style={{ transform: [{ rotateZ: "70deg" }] }}
+					/>
+				</TouchableOpacity>
+			</View>
+		</View>
+	);
+}
 const styles = StyleSheet.create({
-	camera: {
+	buttonCancel: {
 		alignItems: "center",
-		backgroundColor: "#ff5722",
-		borderColor: "#ff5722",
-		borderRadius: 150 / 2,
-		borderWidth: 1,
-		bottom: 30,
+	},
+	buttonContainer: {
+		alignItems: "center",
+		flexDirection: "row",
+		height: 70,
+		justifyContent: "space-between",
+		margin: 20,
+	},
+	buttonFlip: {
+		alignItems: "center",
+		backgroundColor: "darkgrey",
+		borderRadius: 50 / 2,
+		height: 50,
+		justifyContent: "center",
+		right: 15,
+		width: 50,
+	},
+	buttonPhoto: {
+		alignItems: "center",
+		backgroundColor: "lightgrey",
+		borderColor: "darkgrey",
+		borderRadius: 80 / 2,
+		borderWidth: 2,
 		height: 80,
 		justifyContent: "center",
-		left: WINDOW_WIDTH / 2 - 35,
-		position: "absolute",
-		shadowColor: "#000000",
-		shadowOffset: {
-			height: 1,
-			width: 0
-		},
-		shadowOpacity: 0.8,
-		shadowRadius: 2,
 		width: 80,
-		zIndex: 1
 	},
-	flexCamera: { flex: 1 },
-	flexView: { flex: 1 },
-
+	camera: {
+		height: 600,
+	},
+	container: {
+		backgroundColor: "black",
+		flex: 1,
+	},
+	textCancel: {
+		alignItems: "center",
+		color: "white",
+		fontSize: 16,
+		justifyContent: "center",
+	},
 });

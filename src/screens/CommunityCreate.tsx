@@ -1,20 +1,11 @@
 import React, { Component } from "react";
-import {
-	View,
-	TextInput,
-	StyleSheet,
-	SafeAreaView,
-	ScrollView,
-	TouchableOpacity,
-} from "react-native";
-import { connect } from "react-redux";
+import { View, TextInput, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
 import { Text } from "../components/sComponent";
-import firebase from "firebase";
+import firebase from "../lib/firebase";
 import Loader from "../components/Loader";
-import { processSelectedCommunity } from "../store/community";
 import I18n from "../lib/i18n";
 
-class CommunityCreate extends Component {
+export default class CommunityCreate extends Component {
 	state = {
 		communityName: "",
 		kind: "",
@@ -31,8 +22,7 @@ class CommunityCreate extends Component {
 			let { communityName } = this.state;
 
 			communityName = communityName.trim();
-			const node =
-				"DOMAIN_" + communityName.toLowerCase().split(" ").join("_");
+			const node = "DOMAIN_" + communityName.toLowerCase().split(" ").join("_");
 
 			const dict = {
 				name: communityName,
@@ -40,10 +30,7 @@ class CommunityCreate extends Component {
 				admins: [this.props.auth.userInfo.uid],
 			};
 
-			const communityRef = firebase
-				.firestore()
-				.collection("domains")
-				.doc(node);
+			const communityRef = firebase.firestore().collection("domains").doc(node);
 
 			const doc = await communityRef.get();
 
@@ -66,19 +53,14 @@ class CommunityCreate extends Component {
 	render() {
 		return (
 			<SafeAreaView style={styles.safeArea}>
-				<Loader
-					modalVisible={this.state.loading}
-					animationType="fade"
-				/>
+				<Loader modalVisible={this.state.loading} animationType="fade" />
 				<ScrollView>
 					<Text>{this.state.errorMessage}</Text>
 					<View style={styles.titleContainer}>
 						<Text style={styles.nameText}>{I18n.t("name")}</Text>
 						<TextInput
 							style={styles.sectionContentText}
-							onChangeText={(text) =>
-								this.setState({ communityName: text })
-							}
+							onChangeText={(text) => this.setState({ communityName: text })}
 							value={this.state.communityName}
 						/>
 					</View>
@@ -96,11 +78,6 @@ class CommunityCreate extends Component {
 		);
 	}
 }
-
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-});
-export default connect(mapStateToProps)(CommunityCreate);
 
 const styles = StyleSheet.create({
 	button: {

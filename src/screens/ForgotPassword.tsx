@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TextInput, Alert } from "react-native";
 import I18n from "../lib/i18n";
-import firebase from "firebase";
+import firebase from "../lib/firebase";
 import { Text, Button } from "../components/sComponent";
 
 export default class ForgotPassword extends Component {

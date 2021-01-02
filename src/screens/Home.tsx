@@ -1,330 +1,322 @@
-import React, { Component } from "react";
-import {
-	View,
-	Linking,
-	TouchableOpacity,
-	Image,
-	ScrollView,
-	StyleSheet,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Linking, TouchableOpacity, Image, ScrollView, StyleSheet, Dimensions } from "react-native";
 import Constants from "expo-constants";
-import firebase from "firebase";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getLanguageString } from "../lib/global";
 import ListItem from "../components/StoryListItem";
-import moment from "moment";
-import { setUserInfo } from "../store/auth";
-import { connect } from "react-redux";
+
 import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
-import { actionAdd } from "../components/StoryActions";
+import { useDomain, useLanguage, useLogin, useAdmin, useUid } from "../lib/globalState";
+import { getStories } from "../lib/APIStory";
+import { Ionicons } from "@expo/vector-icons";
+import I18n from "../lib/i18n";
 
 const versionCheck = new VersionCheck();
-
+const WINDOW_WIDTH = Dimensions.get("window").width;
 const demo = DemoData;
 
-class Home extends Component {
-	constructor(props) {
-		super(props);
+interface TProps {
+	navigation: any;
+}
 
-		this.state = {
-			loading: true,
-			featureItems: [],
-			calendarItems: [],
-			balanceItems: [],
-			appUpdateMessage: "none",
-		};
+export default function Home(props: TProps) {
+	const [loading, setLoading] = useState(true);
+	const [featureItems, setFeatureItems] = useState([]);
+	const [calendarItems, setCalendarItems] = useState([]);
+	const [balanceItems, setBalanceItems] = useState([]);
+	const [appUpdateMessage, setAppUpdateMessage] = useState("none");
+	const [refreshDomain, setDomain, domain, domainIsUpdated] = useDomain();
+	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
+	const [, setGLogin, gLogin] = useLogin();
+	const [admin, setAdmin] = useAdmin();
+	const [, setGUid, gUid] = useUid();
 
-		this.loadFromAsyncStorage();
-	}
+	const storyRead = (stories) => {
+		setFeatureItems(stories);
+		setLoading(false);
+	};
 
-	componentDidMount() {
-		this.language = this.props.auth.language;
+	useEffect(() => {
+		//	loadFromAsyncStorage();
 
-		this.props.navigation.setParams({
-			title: this.props.community.selectedCommunity.name,
+		props.navigation.setParams({
+			title: domain,
 		});
 
-		global.domain =
-			this.props.community.selectedCommunity.node || global.domain;
-		//this.props.dispatch(processSelectedCommunity(global.domain));
-
-		if (global.domain == "oakforest_international_edu") {
+		if (domain == "oakforest_international_edu") {
 			demo.setupDemoData();
 		}
 
-		this.feature = firebase
-			.firestore()
-			.collection(global.domain)
-			.doc("feature")
-			.collection("features")
-			.orderBy("order");
+		const unsubscribe = getStories(domain, language, storyRead);
 
-		this.loadCalendar();
+		// loadCalendar();
 
-		this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
+		// this.unsubscribeFeature = this.feature.onSnapshot(this.onFeatureUpdate);
 
-		const { navigation } = this.props;
-		this.focusListener = navigation.addListener("didFocus", () => {
-			this.loadCalendar();
-		});
+		// const { navigation } = this.props;
+		// this.focusListener = navigation.addListener("didFocus", () => {
+		// 	this.loadCalendar();
+		// });
 
-		versionCheck.lookupAppStoreVersion((updateType) => {
-			switch (updateType) {
-				case "none":
-					//you are all up to date
-					this.setState({ appUpdateMessage: "none" });
-					break;
-				case "googlePlay":
-					this.setState({ appUpdateMessage: "googlePlay" });
-					break;
-				case "appleAppStore":
-					this.setState({ appUpdateMessage: "appleAppStore" });
-					break;
-				case "codePushReload":
-					this.setState({ appUpdateMessage: "codePushReload" });
-					break;
-			}
-		});
-	}
+		// versionCheck.lookupAppStoreVersion((updateType) => {
+		// 	switch (updateType) {
+		// 		case "none":
+		// 			//you are all up to date
+		// 			this.setState({ appUpdateMessage: "none" });
+		// 			break;
+		// 		case "googlePlay":
+		// 			this.setState({ appUpdateMessage: "googlePlay" });
+		// 			break;
+		// 		case "appleAppStore":
+		// 			this.setState({ appUpdateMessage: "appleAppStore" });
+		// 			break;
+		// 		case "codePushReload":
+		// 			this.setState({ appUpdateMessage: "codePushReload" });
+		// 			break;
+		// 	}
+		// });
 
-	componentDidUpdate() {
-		if (this.state.timer === 1) {
-			clearInterval(this.interval);
-		}
-	}
+		return () => {
+			console.log("Stories UNSUBSCRIBE");
+			unsubscribe;
+		};
+	}, []);
 
-	componentWillUnmount() {
-		this.unsubscribeFeature();
-		clearInterval(this.interval);
-	}
-	updateMessage() {
-		if (this.state.appUpdateMessage != "none") {
-			return versionCheck.updateMessage(this.state.appUpdateMessage);
-		}
-	}
+	useEffect(() => {
+		const unsubscribe = getStories(domain, language, storyRead);
+		return () => {
+			unsubscribe;
+		};
+	}, [domain, language]);
 
-	loadCalendar() {
-		const todayDate = moment().format("YYYY-MM-DD");
+	// loadCalendar() {
+	// 	const todayDate = moment().format("YYYY-MM-DD");
 
-		var calendarItems = [];
+	// 	var calendarItems = [];
 
-		firebase
-			.firestore()
-			.collection(global.domain)
-			.doc("calendar")
-			.collection("calendarItems")
-			.where("date_start", "==", todayDate)
-			.get()
-			.then((snapshot) => {
-				snapshot.forEach((doc) => {
-					var trans = {
-						visible: true,
-						source: "calendar",
-						summaryMyLanguage: getLanguageString(
-							this.language,
-							doc.data(),
-							"summary"
-						),
-						summary: doc.data().summary,
-						summaryEN: doc.data().summary,
-						date_start: doc.data().date_start,
-						color: "red",
-						showIconChat: false,
-						descriptionMyLanguage: getLanguageString(
-							this.language,
-							doc.data(),
-							"description"
-						),
-						number: doc.data().number,
-					};
-					calendarItems.push({
-						...{ _key: doc.id },
-						...doc.data(),
-						...trans,
-					});
-				});
-				if (calendarItems.length > 0) {
-					this.setState({
-						calendarItems,
-						loading: false,
-					});
-				}
-				this.setState({
-					loading: false,
-				});
-			});
-	}
+	// 	firebase
+	// 		.firestore()
+	// 		.collection(global.domain)
+	// 		.doc("calendar")
+	// 		.collection("calendarItems")
+	// 		.where("date_start", "==", todayDate)
+	// 		.get()
+	// 		.then((snapshot) => {
+	// 			snapshot.forEach((doc) => {
+	// 				var trans = {
+	// 					visible: true,
+	// 					source: "calendar",
+	// 					summaryMyLanguage: getLanguageString(
+	// 						this.language,
+	// 						doc.data(),
+	// 						"summary"
+	// 					),
+	// 					summary: doc.data().summary,
+	// 					summaryEN: doc.data().summary,
+	// 					date_start: doc.data().date_start,
+	// 					color: "red",
+	// 					showIconChat: false,
+	// 					descriptionMyLanguage: getLanguageString(
+	// 						this.language,
+	// 						doc.data(),
+	// 						"description"
+	// 					),
+	// 					number: doc.data().number,
+	// 				};
+	// 				calendarItems.push({
+	// 					...{ _key: doc.id },
+	// 					...doc.data(),
+	// 					...trans,
+	// 				});
+	// 			});
+	// 			if (calendarItems.length > 0) {
+	// 				this.setState({
+	// 					calendarItems,
+	// 					loading: false,
+	// 				});
+	// 			}
+	// 			this.setState({
+	// 				loading: false,
+	// 			});
+	// 		});
+	// }
 
-	onFeatureUpdate = (querySnapshot) => {
-		var featureItems = [];
+	// onFeatureUpdate = (querySnapshot) => {
+	// 	var featureItems = [];
 
-		querySnapshot.forEach((doc) => {
-			var trans = {
-				source: "feature",
-				summaryMyLanguage: getLanguageString(
-					this.language,
-					doc.data(),
-					"summary"
-				),
-				descriptionMyLanguage: getLanguageString(
-					this.language,
-					doc.data(),
-					"description"
-				),
-			};
+	// 	querySnapshot.forEach((doc) => {
+	// 		var trans = {
+	// 			source: "feature",
+	// 			summaryMyLanguage: getLanguageString(
+	// 				this.language,
+	// 				doc.data(),
+	// 				"summary"
+	// 			),
+	// 			descriptionMyLanguage: getLanguageString(
+	// 				this.language,
+	// 				doc.data(),
+	// 				"description"
+	// 			),
+	// 		};
 
-			if (!doc.data().visible == false) {
-				featureItems.push({
-					...{ _key: doc.id },
-					...doc.data(),
-					...trans,
-				});
-			}
-		});
+	// 		if (!doc.data().visible == false) {
+	// 			featureItems.push({
+	// 				...{ _key: doc.id },
+	// 				...doc.data(),
+	// 				...trans,
+	// 			});
+	// 		}
+	// 	});
 
-		if (featureItems.length > 0) {
-			this._storeData(JSON.stringify(featureItems));
-			this.setState({
-				featureItems,
-			});
-		}
-	};
+	// 	if (featureItems.length > 0) {
+	// 		this._storeData(JSON.stringify(featureItems));
+	// 		this.setState({
+	// 			featureItems,
+	// 		});
+	// 	}
+	// };
 
-	_handleOpenWithLinking = (sURL) => {
+	const handleOpenWithLinking = (sURL) => {
 		Linking.openURL(sURL);
 	};
 
-	keyExtractor = (item) => item._key;
+	const keyExtractor = (item) => item._key;
 
-	setupUser = () => {
-		const { communityJoined } = this.props.auth.userInfo;
-		if (
-			Array.isArray(communityJoined) &&
-			communityJoined.indexOf(global.domain) < 0
-		) {
-			const userInfo = {
-				...this.props.auth.userInfo,
-				communityJoined: [...communityJoined, global.domain],
-			};
-			this.props.dispatch(setUserInfo(userInfo, true));
-		}
-	};
-	loadFromAsyncStorage() {
-		AsyncStorage.multiGet(["featureItems"], (err, stores) => {
-			const featureItems = JSON.parse(stores[0][1]);
-			this.setState({
-				featureItems,
-			});
-		});
-	}
+	// setupUser = () => {
+	// 	const { communityJoined } = this.props.auth.userInfo;
+	// 	if (
+	// 		Array.isArray(communityJoined) &&
+	// 		communityJoined.indexOf(global.domain) < 0
+	// 	) {
+	// 		const userInfo = {
+	// 			...this.props.auth.userInfo,
+	// 			communityJoined: [...communityJoined, global.domain],
+	// 		};
+	// 		this.props.dispatch(setUserInfo(userInfo, true));
+	// 	}
+	// };
 
-	_storeData = async (featureItems) => {
-		try {
-			AsyncStorage.setItem("featureItems", featureItems);
-		} catch (error) {
-			console.log(error);
-			// Error saving data
-		}
-	};
-
-	_renderItem(navigation, item) {
+	const renderItem = (navigation, item) => {
 		return (
 			<ListItem
 				key={item._key}
-				navigation={navigation}
+				navigation={props.navigation}
 				story={item}
 				card={true}
-				language={this.language}
+				language={language}
+				domain={domain}
+				admin={ admin}
 			/>
 		);
-	}
+	};
 
-	_renderItemNoCard(navigation, item) {
+	const renderItemNoCard = (item) => {
 		return (
 			<ListItem
 				key={item._key}
-				navigation={navigation}
+				navigation={props.navigation}
 				story={item}
 				card={false}
-				language={this.language}
+				language={language}
+				domain={domain}
+				admin={admin}
 			/>
 		);
-	}
+	};
 
-	_renderToday() {
-		if (this.state.calendarItems.length > 0) {
+	const renderToday = () => {
+		if (calendarItems.length > 0) {
 			return (
 				<View style={styles.card}>
 					<ShortList
-						navigation={this.props.navigation}
-						data={this.state.calendarItems}
-						keyExtractor={this.keyExtractor}
-						renderItem={this._renderItemNoCard}
+						navigation={props.navigation}
+						data={calendarItems}
+						key
+						Extractor={keyExtractor}
+						renderItem={renderItemNoCard}
 					/>
 				</View>
 			);
 		}
-	}
-	isTrue(val) {
-		if (val === true) return "true";
-	}
+	};
 
-	env() {}
-
-	render() {
-		return (
-			<View style={styles.container}>
-				{this.props.auth.isAdmin === true &&
-					actionAdd(this.props.navigation, this.refreshFunction)}
-
-				<ScrollView>
-					<View style={styles.newsContentLine}>
-						{this._renderToday()}
-
-						<ShortList
-							navigation={this.props.navigation}
-							data={this.state.featureItems}
-							keyExtractor={this.keyExtractor}
-							renderItem={this._renderItem}
-						/>
-					</View>
-
-					<View style={styles.card}>
-						<View style={styles.cookiesLogoView}>
-							<TouchableOpacity
-								onPress={() => {
-									this._handleOpenWithLinking(
-										"https://smartcookies.io/smart-community"
-									);
-								}}>
+	const addNew = () => {
+		if (admin) {
+			return (
+				<View style={styles.card}>
+					<TouchableOpacity
+						key="rightSideEdit"
+						onPress={() => {
+							props.navigation.navigate("Form", {
+								edit: false,
+								domain: domain,
+							});
+						}}>
+						<View style={styles.headerRow}>
+							<View style={styles.headerIcon}>
 								<Image
-									source={require("../../images/sais_edu_sg/SCLogo.png")}
-									style={styles.sclogo}
+									style={styles.iconPhoto}
+									source={{
+										uri:
+											"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fcat.jpg?alt=media&token=1e1364ad-2689-453f-9f99-7f2c1e12b723",
+									}}
 								/>
-							</TouchableOpacity>
+							</View>
+							<View style={styles.headerTextPanel}>
+								<Text style={styles.addText}>{I18n.t("addPolo")}</Text>
+							</View>
+							<View style={styles.headerRightIcons}>
+								<Ionicons
+									testID="story.editIcon"
+									name="md-add-circle-outline"
+									style={styles.icon}
+									size={30}
+								/>
+							</View>
 						</View>
+					</TouchableOpacity>
+				</View>
+			);
+		}
+	};
 
-						{this.updateMessage()}
+	return (
+		<View style={styles.container}>
+			<ScrollView>
+				{addNew()}
+				<View style={styles.newsContentLine}>
+					{renderToday()}
 
-						<View style={styles.userDiagnostics}>
-							<Text style={styles.version}>
-								{Constants.manifest.revisionId}
-							</Text>
-							<Text style={styles.version}>
-								{Constants.manifest.version}
-							</Text>
-							<Text style={styles.user}>{global.name}</Text>
-							<Text style={styles.user}>{global.email}</Text>
-							<Text style={styles.user}>{global.uid}</Text>
-							<Text style={styles.user}>{this.language}</Text>
-						</View>
+					<ShortList
+						navigation={props.navigation}
+						data={featureItems}
+						keyExtractor={keyExtractor}
+						renderItem={renderItem}
+					/>
+				</View>
+
+				<View style={styles.card}>
+					<View style={styles.cookiesLogoView}>
+						<TouchableOpacity
+							onPress={() => {
+								handleOpenWithLinking("https://smartcookies.io/smart-community");
+							}}>
+							<Image source={require("../../images/sais_edu_sg/SCLogo.png")} style={styles.sclogo} />
+						</TouchableOpacity>
 					</View>
-				</ScrollView>
-			</View>
-		);
-	}
+
+					<View style={styles.userDiagnostics}>
+						<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
+						<Text style={styles.version}>{Constants.manifest.version}</Text>
+						<Text style={styles.user}>{global.name}</Text>
+						<Text style={styles.user}>{global.email}</Text>
+						<Text style={styles.user}>{global.uid}</Text>
+						<Text style={styles.user}>{language}</Text>
+					</View>
+				</View>
+			</ScrollView>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
@@ -333,19 +325,46 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		borderRadius: 15,
 		marginBottom: 12,
-		padding: 10,
-		width: "95%",
+		paddingLeft: 5,
+		width: "97%",
 	},
 	container: {
 		backgroundColor: "#EFEFF4",
 		flex: 1,
 		marginTop: 10,
 	},
+
 	cookiesLogoView: {
 		alignItems: "center",
 		marginTop: 100,
 	},
-
+	headerIcon: { width: 60 },
+	headerRightIcons: {
+		flexDirection: "row-reverse",
+		marginLeft: 5,
+	},
+	headerRow: {
+		alignItems: "center",
+		flexDirection: "row",
+		justifyContent: "space-between",
+		width: WINDOW_WIDTH - 35,
+	},
+	headerTextPanel: { flex: 1, marginLeft: 5, width: "100%" },
+	icon: {
+		marginLeft: 15,
+		marginRight: 5,
+	},
+	iconPhoto: {
+		alignItems: "center",
+		borderColor: "lightgray",
+		borderRadius: 18,
+		borderWidth: StyleSheet.hairlineWidth,
+		height: 36,
+		justifyContent: "center",
+		left: 6,
+		margin: 12,
+		width: 36,
+	},
 	newsContentLine: {
 		backgroundColor: "#f2f2f2",
 		paddingTop: 10,
@@ -356,7 +375,6 @@ const styles = StyleSheet.create({
 		height: 40,
 		width: 40,
 	},
-
 	user: {
 		alignSelf: "center",
 		backgroundColor: "white",
@@ -379,9 +397,3 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 	},
 });
-
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-	community: state.community,
-});
-export default connect(mapStateToProps)(Home);

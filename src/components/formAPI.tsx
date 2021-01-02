@@ -1,4 +1,5 @@
-import * as firebase from "firebase";
+
+import firebase from "../lib/firebase";
 
 export function SaveFeature(dict) {
 	const { _key, summary, description, order, photo1, showIconChat, visible, dateTimeStart, dateTimeEnd, date_start } = dict;

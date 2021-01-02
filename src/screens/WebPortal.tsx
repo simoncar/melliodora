@@ -6,23 +6,30 @@ import { Ionicons } from "@expo/vector-icons";
 var WEBVIEW_REF = "webview";
 
 export class WebPortal extends Component {
-
 	constructor(props) {
 		super(props);
 
+		var url = "";
+		if (this.props.route.params === undefined) {
+			url = "https://www.smartcookies.io";
+		} else {
+			url = this.props.route.params.url;
+		}
+
+		//https://connect.ais.com.sg/login/login.aspx?prelogin=https%3a%2f%2fconnect.ais.com.sg%2f&kr=iSAMS:ParentPP
+
 		this.state = {
-			url: this.props.route.params.url,
+			url: url,
 			status: "No Page Loaded",
 			backButtonEnabled: false,
 			forwardButtonEnabled: false,
 			loading: true,
 			cookies: {},
-			webViewUrl: ""
+			webViewUrl: "",
 		};
-
 	}
 
-	onNavigationStateChange = navState => {
+	onNavigationStateChange = (navState) => {
 		this.setState({ url: navState.url });
 	};
 
@@ -35,36 +42,39 @@ export class WebPortal extends Component {
 	};
 
 	render() {
+		return (
+			<View style={styles.flex1}>
+				<View style={styles.flex2}>
+					<View>
+						<TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
+							<Ionicons style={styles.navIcon} name="ios-arrow-back" />
+						</TouchableOpacity>
 
-		return <View style={styles.flex1}>
-			<View style={styles.flex2}>
-				<View style={color = "red"}>
-					<TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
-						<Ionicons style={styles.navIcon} name="ios-arrow-back" />
-					</TouchableOpacity>
+						<TextInput
+							ref="pageURL"
+							value={this.state.url}
+							placeholderTextColor="#FFF"
+							style={styles.url}
+							autoCapitalize="none"
+							selectionColor="#FFF"
+							testID="webPortal.urlField"
+						/>
 
-					<TextInput
-						ref="pageURL"
-						value={this.state.url}
-						placeholderTextColor="#FFF"
-						style={styles.url}
-						autoCapitalize="none"
-						selectionColor="#FFF"
-						testID="webPortal.urlField" />
+						<Ionicons style={styles.navIcon} name="ios-arrow-forward" />
+					</View>
 
-					<Ionicons style={styles.navIcon} name="ios-arrow-forward" />
+					<WebView
+						source={{ uri: this.state.url }}
+						javaScriptEnabled={true}
+						automaticallyAdjustContentInsets={false}
+						onNavigationStateChange={this.onNavigationStateChange.bind(this)}
+						domStorageEnabled={true}
+						ref={WEBVIEW_REF}
+						testID="webPortal.RNCWebView"
+					/>
 				</View>
-
-				<WebView
-					source={{ uri: this.state.url }}
-					javaScriptEnabled={true}
-					automaticallyAdjustContentInsets={false}
-					onNavigationStateChange={this.onNavigationStateChange.bind(this)}
-					domStorageEnabled={true}
-					ref={WEBVIEW_REF}
-					testID="webPortal.RNCWebView" />
 			</View>
-		</View>;
+		);
 	}
 }
 
@@ -75,15 +85,13 @@ const styles = StyleSheet.create({
 		color: "#FFF",
 		fontSize: 20,
 		paddingLeft: 10,
-		paddingRight: 10
+		paddingRight: 10,
 	},
 
 	url: {
 		color: "#FFF",
-		fontSize: 14
+		fontSize: 14,
 	},
-
 });
-
 
 export default WebPortal;

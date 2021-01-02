@@ -1,18 +1,16 @@
-
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableHighlight } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import FeatureMoreItems from "./FeatureMoreItems";
-import { connect } from 'react-redux';
 
-class Content extends Component {
+export default class Content extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			loggedIn: false,
 			language: "",
-			features: global.moreFeatures || []
+			features: global.moreFeatures || [],
 		};
 	}
 
@@ -25,25 +23,29 @@ class Content extends Component {
 	}
 
 	render() {
-		return <View style={styles.a911df0d0b21411ea8aa31930972200e5}>
-			{this.props.auth.isAdmin && <TouchableHighlight style={styles.adminButton} underlayColor="#ff7043" onPress={() => this.props.navigation.navigate("moreAdmin", { moreFeatures: this.state.features })}>
-				<MaterialIcons name="edit" style={styles.a911df0d1b21411ea8aa31930972200e5} />
-			</TouchableHighlight>}
+		return (
+			<View style={styles.a911df0d0b21411ea8aa31930972200e5}>
+				{this.props.auth.isAdmin && (
+					<TouchableHighlight
+						style={styles.adminButton}
+						underlayColor="#ff7043"
+						onPress={() =>
+							this.props.navigation.navigate("moreAdmin", { moreFeatures: this.state.features })
+						}>
+						<MaterialIcons name="edit" style={styles.a911df0d1b21411ea8aa31930972200e5} />
+					</TouchableHighlight>
+				)}
 
-			<View style={styles.a911df0d2b21411ea8aa31930972200e5}>
-				<FeatureMoreItems navigation={this.props.navigation} show="all" editMode />
+				<View style={styles.a911df0d2b21411ea8aa31930972200e5}>
+					<FeatureMoreItems navigation={this.props.navigation} show="all" editMode />
+				</View>
 			</View>
-		</View>;
+		);
 	}
 	toggleAuthView() {
 		this.setState({ toggleAuthView: !this.state.toggleAuthView });
 	}
 }
-
-const mapStateToProps = state => ({
-	auth: state.auth
-});
-export default connect(mapStateToProps)(Content);
 
 const styles = StyleSheet.create({
 	a911df0d0b21411ea8aa31930972200e5: { backgroundColor: "#EFEFF4", flex: 1 },
@@ -64,12 +66,12 @@ const styles = StyleSheet.create({
 		shadowColor: "#000000",
 		shadowOffset: {
 			height: 1,
-			width: 0
+			width: 0,
 		},
 		shadowOpacity: 0.8,
 		shadowRadius: 2,
 		width: 50,
-		zIndex: 1
+		zIndex: 1,
 	},
 	imageStyleCheckOff: {
 		alignSelf: "center",
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
 		fontSize: 30,
 		height: 30,
 		marginLeft: 15,
-		width: 30
+		width: 30,
 	},
 	imageStyleCheckOn: {
 		alignSelf: "center",
@@ -85,6 +87,6 @@ const styles = StyleSheet.create({
 		fontSize: 30,
 		height: 30,
 		marginLeft: 15,
-		width: 30
-	}
+		width: 30,
+	},
 });

@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications'
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
-import * as firebase from "firebase";
+import firebase from "../lib/firebase";
 import _ from "lodash";
 
 class registerForPush {

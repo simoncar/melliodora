@@ -1,20 +1,7 @@
 import React, { Component } from "react";
-import {
-	Linking,
-	View,
-	StyleSheet,
-	ScrollView,
-	Dimensions,
-} from "react-native";
+import { Linking, View, StyleSheet, ScrollView, Dimensions } from "react-native";
 import ParsedText from "react-native-parsed-text";
-import {
-	formatTime,
-	formatMonth,
-	getAbbreviations,
-	isAdmin,
-	isValue,
-} from "../lib/global";
-import { connect } from "react-redux";
+import { formatTime, formatMonth, getAbbreviations, isValue } from "../lib/global";
 import { Text } from "../components/sComponent";
 import ImageList from "../components/ImageList";
 import {
@@ -28,15 +15,13 @@ import {
 import { StoryEntity, StoryState } from "../lib/interfaces";
 import Image from "../components/Imgix";
 
-const globalAny: any = global;
 const WINDOW_WIDTH = Dimensions.get("window").width;
 interface TProps {
 	navigation: any;
 	route: any;
-	auth: any;
 }
 
-export class Story extends Component<TProps, StoryState> {
+export default class Story extends Component<TProps, StoryState> {
 	constructor(props: TProps) {
 		super(props);
 		this.refreshFunction = this.refreshFunction.bind(this);
@@ -79,6 +64,7 @@ export class Story extends Component<TProps, StoryState> {
 			cameraIcon: "camera",
 			source: source,
 			location: location,
+			edit: false,
 		};
 	}
 
@@ -113,36 +99,25 @@ export class Story extends Component<TProps, StoryState> {
 		let position = 0;
 
 		const navigation = this.props.navigation;
-		const admin = isAdmin(this.props.route.params.adminPassword);
+		const admin = this.props.route.params.admin;
+		const domain = this.props.route.params.domain;
+		const language = this.props.route.params.language;
 
 		if (admin && story.source == "feature") {
-			buffer.push(
-				actionEdit(
-					navigation,
-					position,
-					this.state,
-					this.refreshFunction
-				)
-			);
+			buffer.push(actionEdit(navigation, position, this.state, domain, this.refreshFunction));
 			position++;
 		}
 
-		if (admin && story.showIconChat === true) {
-			buffer.push(
-				actionChat(
-					position,
-					navigation,
-					story._key,
-					story.summaryMyLanguage
-				)
-			);
+		if (story.showIconChat) {
+			buffer.push(actionChat(position, navigation, story._key, story.summaryMyLanguage, domain, language));
 			position++;
 		}
+
 		if (admin) {
-			buffer.push(actionSend(position, navigation, story));
+			buffer.push(actionSend(position, navigation, story, domain));
 			position++;
 		}
-		buffer.push(actionPhotos(position, navigation, story._key));
+		buffer.push(actionPhotos(position, navigation, story._key, domain));
 		position++;
 		buffer.push(actionShare(position, story));
 		position++;
@@ -175,10 +150,7 @@ export class Story extends Component<TProps, StoryState> {
 
 				{isValue(this.state.time_start_pretty) && (
 					<Text selectable style={styles.eventTextTime}>
-						{formatTime(
-							this.state.time_start_pretty,
-							this.state.time_end_pretty
-						)}
+						{formatTime(this.state.time_start_pretty, this.state.time_end_pretty)}
 					</Text>
 				)}
 
@@ -207,7 +179,7 @@ export class Story extends Component<TProps, StoryState> {
 					childrenProps={{ allowFontScaling: false }}>
 					{this.state.descriptionMyLanguage}
 				</ParsedText>
-				{this.props.auth.language != "en" && (
+				{this.props.route.params.language != "en" && (
 					<Text selectable style={styles.englishFallback}>
 						{"\n\n"}
 						{this.state.description}
@@ -216,7 +188,7 @@ export class Story extends Component<TProps, StoryState> {
 				)}
 
 				<Text selectable style={styles.eventTextAbbreviation}>
-					{getAbbreviations(this.state.summary, globalAny.domain)}
+					{getAbbreviations(this.state.summary, this.props.route.params.domain)}
 				</Text>
 			</View>
 		);
@@ -227,10 +199,7 @@ export class Story extends Component<TProps, StoryState> {
 			<View style={styles.container}>
 				{this.rightSideButtons(this.state)}
 				<ScrollView showsVerticalScrollIndicator={false}>
-					<Image
-						style={styles.storyPhoto}
-						source={{ uri: this.state.photo1 }}
-					/>
+					<Image style={styles.storyPhoto} source={{ uri: this.state.photo1 }} />
 
 					{this._drawText(this.state)}
 
@@ -238,6 +207,7 @@ export class Story extends Component<TProps, StoryState> {
 						feature={this.state._key}
 						refreshFunction={this.refreshFunction}
 						edit={false}
+						domain={this.props.route.params.domain}
 					/>
 				</ScrollView>
 			</View>
@@ -325,9 +295,3 @@ const styles = StyleSheet.create({
 		textDecorationLine: "underline",
 	},
 });
-
-const mapStateToProps = (state: { auth: any }) => ({
-	auth: state.auth,
-});
-
-export default connect(mapStateToProps)(Story);
