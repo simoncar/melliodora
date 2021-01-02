@@ -59,7 +59,8 @@ export function actionChat(
 	return (
 		<TouchableHighlight
 			key="rightSideChat"
-			style={[styles.button, { bottom: 550 + position * 60 }]}
+			testID="story.chatTouchable"
+			style={[styles.button, { bottom: 10 + position * 60 }]}
 			onPress={() => {
 				navigation.navigate("chatStory", {
 					chatroom: chatroom,
@@ -68,9 +69,7 @@ export function actionChat(
 					language: language,
 				});
 			}}>
-			<View>
-				<SimpleLineIcons name="bubble" testID="story.chatIcon22222" style={styles.icon} />
-			</View>
+			<SimpleLineIcons name="bubble" testID="story.chatIcon" style={styles.icon} />
 		</TouchableHighlight>
 	);
 }

@@ -44,6 +44,68 @@ exports[`show story no calendar no image 1`] = `
         },
       ]
     }
+    testID="story.chatTouchable"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "simple-line-icons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+      testID="story.chatIcon"
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 70,
+        },
+      ]
+    }
   >
     <Text
       allowFontScaling={false}
@@ -101,7 +163,7 @@ exports[`show story no calendar no image 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 70,
+          "bottom": 130,
         },
       ]
     }
@@ -322,6 +384,7 @@ exports[`show story on screen 1`] = `
         },
       ]
     }
+    testID="story.chatTouchable"
   >
     <Text />
   </View>
@@ -360,7 +423,6 @@ exports[`show story on screen 1`] = `
         },
       ]
     }
-    testID="story.shareButton"
   >
     <Text />
   </View>
@@ -396,6 +458,45 @@ exports[`show story on screen 1`] = `
         },
         Object {
           "bottom": 130,
+        },
+      ]
+    }
+    testID="story.shareButton"
+  >
+    <Text />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 190,
         },
       ]
     }
@@ -610,6 +711,68 @@ exports[`show story with URL in content to test linking 1`] = `
         },
       ]
     }
+    testID="story.chatTouchable"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "white",
+            "fontSize": 25,
+          },
+          Object {
+            "fontFamily": "simple-line-icons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+      testID="story.chatIcon"
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.1)",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "right": 15,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+          "width": 50,
+          "zIndex": 990,
+        },
+        Object {
+          "bottom": 70,
+        },
+      ]
+    }
   >
     <Text
       allowFontScaling={false}
@@ -667,7 +830,7 @@ exports[`show story with URL in content to test linking 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 70,
+          "bottom": 130,
         },
       ]
     }
@@ -729,7 +892,7 @@ exports[`show story with URL in content to test linking 1`] = `
           "zIndex": 990,
         },
         Object {
-          "bottom": 130,
+          "bottom": 190,
         },
       ]
     }

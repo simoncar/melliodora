@@ -186,10 +186,10 @@ test("show story on screen", () => {
 			"While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline."
 		)
 	).not.toBeNull();
-	expect(queryByTestId("story.chatIcon")).not.toBeNull();
+	expect(queryByTestId("story.chatTouchable")).not.toBeNull();
 
 	fireEvent.press(getByTestId("story.shareButton"));
-	fireEvent.press(getByTestId("story.chatIcon"));
+	fireEvent.press(getByTestId("story.chatTouchable"));
 	fireEvent.press(getByTestId("story.calendarIcon"));
 	// expect(navigation.navigate).toHaveBeenCalled();
 	// expect(navigation.navigate).toHaveBeenCalledWith("Beacons", { beaconState: "Entered", enrolled: false });

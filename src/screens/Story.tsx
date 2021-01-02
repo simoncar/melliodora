@@ -108,10 +108,11 @@ export default class Story extends Component<TProps, StoryState> {
 			position++;
 		}
 
-		if (admin && story.showIconChat === true) {
+		if (story.showIconChat) {
 			buffer.push(actionChat(position, navigation, story._key, story.summaryMyLanguage, domain, language));
 			position++;
 		}
+
 		if (admin) {
 			buffer.push(actionSend(position, navigation, story, domain));
 			position++;

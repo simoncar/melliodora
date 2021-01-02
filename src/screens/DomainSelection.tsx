@@ -14,7 +14,7 @@ interface TProps {
 export default function DomainSelection(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [domainsList, setDomainsList] = useState([]);
-	
+
 	const [admin, setAdmin] = useAdmin();
 	const [NOrefresh, nodeSetter, NOstate, NOisUpdated] = useDomain();
 	const [, , uid] = useUid();
@@ -70,7 +70,7 @@ export default function DomainSelection(props: TProps) {
 		<View style={styles.viewFlex}>
 			<View>
 				<View style={styles.card}>
-					<Profile auth={props.auth} navigation={props.navigation} />
+					<Profile navigation={props.navigation} />
 				</View>
 				<View style={styles.card}>
 					<SettingsListItem
