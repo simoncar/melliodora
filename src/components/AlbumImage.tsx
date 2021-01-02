@@ -27,27 +27,14 @@ export default function AlbumImage(props: IProps) {
 		// 	setHeight(height / width * props.windowWidth)
 		// });
 
-		const imageWidth = props.windowWidth;
-
 		return (
 			<View>
 				<Image source={{ uri: imageURI }} autoSizeProps={true} />
 				{edit && (
 					<TouchableHighlight
-						onPress={() =>
-							deleteImage(
-								props.domain,
-								props.feature,
-								props.photoKey
-							)
-						}
+						onPress={() => deleteImage(props.domain, props.feature, props.photoKey)}
 						testID="delete">
-						<Foundation
-							name="x-circle"
-							size={34}
-							color="red"
-							style={styles.iconDelete}
-						/>
+						<Foundation name="x-circle" size={34} color="red" style={styles.iconDelete} />
 					</TouchableHighlight>
 				)}
 			</View>

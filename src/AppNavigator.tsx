@@ -5,7 +5,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as Analytics from "expo-firebase-analytics";
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather, FontAwesome } from "@expo/vector-icons";
-
 import I18n from "./lib/i18n";
 import Constants from "expo-constants";
 import Calendar from "./screens/Calendar";

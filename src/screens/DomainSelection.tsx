@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, Text } from "react-native";
-import _ from "lodash";
+import { View, StyleSheet, FlatList } from "react-native";
 import { SettingsListItem } from "../components/SettingsListItem";
 import Profile from "../components/Profile";
 import { MaterialIcons } from "@expo/vector-icons";

@@ -1,5 +1,5 @@
 import React from "react";
-import firebase from "../lib/firebase";
+import firebase from "./firebase";
 import * as ImageManipulator from "expo-image-manipulator";
 import _ from "lodash";
 import uuid from "uuid";

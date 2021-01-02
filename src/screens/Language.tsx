@@ -1,12 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import { StyleSheet, View, SafeAreaView } from "react-native";
 import { SettingsListItem } from "../components/SettingsListItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
-import { Text } from "../components/sComponent";
 
-import { useDomainP, useDomainNameP, useLanguage } from "../lib/globalState";
-import { parseSync } from "@babel/core";
+import { useLanguage } from "../lib/globalState";
 
 export default function SelectLanguage(props) {
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
@@ -29,42 +27,36 @@ export default function SelectLanguage(props) {
 		<SafeAreaView style={styles.adminContainer}>
 			<View style={styles.card}>
 				<SettingsListItem
-					hasSwitch={false}
 					hasNavArrow={false}
 					title="English"
 					onPress={() => changeLanguage("en")}
 					icon={<MaterialCommunityIcons name="check" style={getStyle("en")} />}
 				/>
 				<SettingsListItem
-					hasSwitch={false}
 					hasNavArrow={false}
 					title="中文(简体)"
 					onPress={() => changeLanguage("zh")}
 					icon={<MaterialCommunityIcons name="check" style={getStyle("zh")} />}
 				/>
 				<SettingsListItem
-					hasSwitch={false}
 					hasNavArrow={false}
 					title="日本語"
 					onPress={() => changeLanguage("ja")}
 					icon={<MaterialCommunityIcons name="check" style={getStyle("ja")} />}
 				/>
 				<SettingsListItem
-					hasSwitch={false}
 					hasNavArrow={false}
 					title="Français"
 					onPress={() => changeLanguage("fr")}
 					icon={<MaterialCommunityIcons name="check" style={getStyle("fr")} />}
 				/>
 				<SettingsListItem
-					hasSwitch={false}
 					hasNavArrow={false}
 					title="한국어"
 					onPress={() => changeLanguage("ko")}
 					icon={<MaterialCommunityIcons name="check" style={getStyle("ko")} />}
 				/>
 				<SettingsListItem
-					hasSwitch={false}
 					hasNavArrow={false}
 					title="Español"
 					onPress={() => changeLanguage("es")}
@@ -72,7 +64,6 @@ export default function SelectLanguage(props) {
 				/>
 				<SettingsListItem
 					lastItem={true}
-					hasSwitch={false}
 					hasNavArrow={false}
 					title="bahasa Indonesia"
 					onPress={() => changeLanguage("id")}
@@ -112,10 +103,5 @@ const styles = StyleSheet.create({
 		height: 30,
 		marginLeft: 15,
 		width: 30,
-	},
-	restartWarning: {
-		alignSelf: "center",
-		color: "#8e8e93",
-		fontSize: 16,
 	},
 });

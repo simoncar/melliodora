@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Linking, Modal, FlatList, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Linking, Modal, StyleSheet } from "react-native";
 import { GiftedChat, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
@@ -10,7 +10,7 @@ import CustomImage from "../components/ChatCustomImage";
 import CustomVideo from "../components/ChatCustomVideo";
 import I18n from "../lib/i18n";
 import uuid from "uuid";
-import Backend from "../components/backend";
+import Backend from "../lib/APIChat";
 import * as Analytics from "expo-firebase-analytics";
 import {  ActionSheetProvider } from "@expo/react-native-action-sheet";
 

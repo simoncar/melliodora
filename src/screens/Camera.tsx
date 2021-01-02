@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, Dimensions, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
-import * as ImageManipulator from "expo-image-manipulator";
 import { Camera } from "expo-camera";
-import * as Permissions from "expo-permissions";
-import { Text, Button } from "../components/sComponent";
+import { Text} from "../components/sComponent";
 import I18n from "../lib/i18n";
 import { saveProfilePic } from "../lib/APIUploadImage";
 import { usePhotoURLP } from "../lib/globalState";

@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
-import { isAdmin } from "../lib/global";
 import Constants from "expo-constants";
 import I18n from "../lib/i18n";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
@@ -8,9 +7,7 @@ import _ from "lodash";
 
 import * as Linking from "expo-linking";
 import { SettingsListItem, Separator } from "../components/SettingsListItem";
-import FeatureMoreItems from "../components/FeatureMoreItems";
 import Profile from "../components/Profile";
-import { processSelectedCommunity } from "../store/community";
 import { useDomainP, useDomainNameP, useLanguage, useLogin } from "../lib/globalState";
 
 interface TProps {
@@ -84,9 +81,6 @@ export default function Settings(props: TProps) {
 	);
 }
 
-// {
-// 	isAdmin(props.adminPassword) && <FeatureMoreItems navigation={props.navigation} language={"en"} />;
-// }
 
 const styles = StyleSheet.create({
 	card: {

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import firebase from "../lib/firebase";
 import { Agenda } from "react-native-calendars";
-import { Ionicons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 import moment from "moment";
 import CalendarItem from "../components/CalendarItem";

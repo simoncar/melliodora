@@ -5,7 +5,6 @@ import { Input } from "react-native-elements";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import * as Permissions from "expo-permissions";
 import I18n from "../lib/i18n";
-import _ from "lodash";
 import { launchProfileImagePicker } from "../lib/APIUploadImage";
 import { Text, Button } from "../components/sComponent";
 import { UpdateUser } from "../lib/APIUser";

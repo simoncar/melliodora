@@ -147,19 +147,6 @@ export function getParameterByName(name, url) {
 	return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-export function isAdmin(sPass) {
-	// const adminDevices = ["3C57D89ssssE-B681-48D0-B5A9-B2C2E5530F3B"];
-
-	//const installationId = adminDevices.indexOf(Constants.installationId) > -1;
-	//const deviceId = adminDevices.indexOf(Constants.deviceId) > -1;
-	const adminPass = sPass === global.admin_password;
-	//const simulator = !Constants.isDevice;
-	const globalAdminPass = global.adminPassword === global.admin_password;
-
-	var isAdminDevice = globalAdminPass || adminPass;
-	return isAdminDevice;
-}
-
 export function getLanguageString(language, object, field) {
 	language = language ? language : "en";
 	const fieldName = field + language.toUpperCase();

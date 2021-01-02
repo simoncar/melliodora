@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput, SafeAreaView } from "react-native";
 import firebase from "../lib/firebase";
-import _ from "lodash";
-
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { Text, Button } from "../components/sComponent";
 import Loader from "../components/Loader";
 import I18n from "../lib/i18n";
-import { saveAuth } from "../lib/APIUser";
-import { useAuth, useLogin, useEmail, useUid, useDisplayName, usePhotoURL } from "../lib/globalState";
 
 interface TProps {
 	navigation: any;

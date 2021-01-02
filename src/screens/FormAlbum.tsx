@@ -4,7 +4,7 @@ import * as Linking from 'expo-linking';
 import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import ImageLibraryGrid from '../components/ImageLibraryGrid';
-import { useCameraRoll } from '../../hooks/useCameraRoll';
+import { useCameraRoll } from '../lib/useCameraRoll';
 import { saveSelectedImages, storageSend } from "../lib/APIAlbum";
 import I18n from "../lib/i18n";
 

@@ -3,11 +3,8 @@ import { I18nManager } from "react-native";
 import App from "./App";
 import I18n from "./lib/i18n";
 import * as Font from "expo-font";
-import _ from "lodash";
 import AppLoading from "expo-app-loading";
-
 import firebase from "./lib/firebase";
-
 import AuthStackNavigator from "./AuthStackNavigator";
 import { isDomainAdminServer } from "./lib/APIDomain";
 
@@ -24,7 +21,6 @@ import {
 } from "./lib/globalState";
 import * as Localization from "expo-localization";
 
-import { removePushTokenSubscription } from "expo-notifications";
 
 export default function Setup() {
 	const [loading, setLoading] = useState(true);

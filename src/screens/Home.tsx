@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, Linking, TouchableOpacity, Image, ScrollView, StyleSheet, Dimensions } from "react-native";
 import Constants from "expo-constants";
-import firebase from "../lib/firebase";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getLanguageString } from "../lib/global";
 import ListItem from "../components/StoryListItem";
-import moment from "moment";
-import { setUserInfo } from "../store/auth";
 
 import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
-import { actionAdd } from "../components/StoryActions";
 import { useDomain, useLanguage, useLogin, useAdmin, useUid } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 import { Ionicons } from "@expo/vector-icons";
@@ -324,7 +318,6 @@ export default function Home(props: TProps) {
 }
 
 const styles = StyleSheet.create({
-	headerTextPanel: { marginLeft: 5, flex: 1, width: "100%" },
 	card: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
@@ -333,17 +326,28 @@ const styles = StyleSheet.create({
 		paddingLeft: 5,
 		width: "97%",
 	},
-
-	headerIcon: { width: 60 },
 	container: {
 		backgroundColor: "#EFEFF4",
 		flex: 1,
 		marginTop: 10,
 	},
+
 	cookiesLogoView: {
 		alignItems: "center",
 		marginTop: 100,
 	},
+	headerIcon: { width: 60 },
+	headerRightIcons: {
+		flexDirection: "row-reverse",
+		marginLeft: 5,
+	},
+	headerRow: {
+		alignItems: "center",
+		flexDirection: "row",
+		justifyContent: "space-between",
+		width: WINDOW_WIDTH - 35,
+	},
+	headerTextPanel: { flex: 1, marginLeft: 5, width: "100%" },
 	icon: {
 		marginLeft: 15,
 		marginRight: 5,
@@ -354,8 +358,8 @@ const styles = StyleSheet.create({
 		borderRadius: 18,
 		borderWidth: StyleSheet.hairlineWidth,
 		height: 36,
-		left: 6,
 		justifyContent: "center",
+		left: 6,
 		margin: 12,
 		width: 36,
 	},
@@ -368,12 +372,6 @@ const styles = StyleSheet.create({
 		borderTopWidth: 1,
 		height: 40,
 		width: 40,
-	},
-	headerRow: {
-		alignItems: "center",
-		flexDirection: "row",
-		justifyContent: "space-between",
-		width: WINDOW_WIDTH - 35,
 	},
 	user: {
 		alignSelf: "center",
@@ -395,9 +393,5 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		fontSize: 12,
 		textAlign: "center",
-	},
-	headerRightIcons: {
-		flexDirection: "row-reverse",
-		marginLeft: 5,
 	},
 });

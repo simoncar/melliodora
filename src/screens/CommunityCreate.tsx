@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { View, TextInput, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
-
 import { Text } from "../components/sComponent";
 import firebase from "../lib/firebase";
 import Loader from "../components/Loader";
-import { processSelectedCommunity } from "../store/community";
 import I18n from "../lib/i18n";
 
 export default class CommunityCreate extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Platform } from "react-native";
-import Setup from "./src/setup";
+import Setup from "./src/Setup";
 import * as Sentry from "sentry-expo";
 import Constants from "expo-constants";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
