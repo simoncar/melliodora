@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-
 import DomainSelection from '../DomainSelection';
 
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock('../../lib/firebase')
 
 jest.mock("../../lib/globalState", () => ({
 	useDomainsP: () => [JSON.stringify([{
@@ -25,16 +25,36 @@ jest.mock("../../lib/globalState", () => ({
 		, jest.fn(), true],
 
 	useCountP: () => [33
-		, jest.fn(), true]
+		, jest.fn(), true],
+	useAdmin: () => [true
+		, jest.fn(), true],
+	useDomain: () => [""
+		, jest.fn(), true],
+	useDomainP: () => [""
+		, jest.fn(), true],
+	useUid: () => [""
+		, jest.fn(), true],
+	useDomainNameP: () => [""
+		, jest.fn(), true],
+	useLanguage: () => ["en"
+		, jest.fn(), true],
+	useLoginP: () => [false
+		, jest.fn(), true],
+	useUidP: () => [""
+		, jest.fn(), true],
+	useDisplayNameP: () => [""
+		, jest.fn(), true],
+	useEmailP: () => [""
+		, jest.fn(), true],
+	usePhotoURL: () => [""
+		, jest.fn(), true],
+	usePhotoURLP: () => [""
+		, jest.fn(), true],
 }));
 
 
 test('list domains', () => {
 	const navigation = { navigate: jest.fn() };
-	const useDomainsP = jest.fn();
-	const setter = jest.fn();
-
-
 
 	const { toJSON, queryByText, getByTestId } = render(
 		<DomainSelection

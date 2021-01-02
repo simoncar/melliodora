@@ -1,3 +1,7 @@
+import { getStory } from '../APIStory';
+
+jest.mock('../../lib/firebase')
+
 const story = {
 	"source": "feature",
 	"card": true,
@@ -67,7 +71,7 @@ const storyNoImage = {
 	"location": "School cafe"
 }
 
-import { getStory } from '../storyAPI';
+
 
 describe('get a single story ', () => {
 	it('should process the story and fill in object', () => {

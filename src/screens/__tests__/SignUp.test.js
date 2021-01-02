@@ -1,9 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
-import { SignUp } from '../SignUp';
+import { SignUp } from '../UserCreate';
 
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock('../../lib/firebase')
 
 const auth = {
 	"_persist": {

@@ -14,6 +14,7 @@ interface TProps {
 export default function DomainSelection(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [domainsList, setDomainsList] = useState([]);
+	
 	const [admin, setAdmin] = useAdmin();
 	const [NOrefresh, nodeSetter, NOstate, NOisUpdated] = useDomain();
 	const [, , uid] = useUid();

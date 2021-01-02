@@ -2,6 +2,8 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import ChatRoomItem from '../ChatRoomItem';
 
+jest.mock('../../lib/firebase')
+
 const itemCore = {
 	"card": false,
 	"chatroom": "dLyDZVfkOZ2XDVk49jHF",

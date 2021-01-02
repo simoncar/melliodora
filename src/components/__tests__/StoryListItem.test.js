@@ -1,8 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-
 import ListItem from '../StoryListItem';
+
 jest.mock("../../components/ImageList");
+jest.mock('../../lib/firebase')
 
 const itemCore = {
 	"source": "feature",

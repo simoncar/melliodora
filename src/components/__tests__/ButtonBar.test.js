@@ -4,6 +4,7 @@ import { Image } from 'react-native';
 import { ButtonBar } from '../ButtonBar';
 
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock('../../lib/firebase')
 
 test('button Bar', () => {
 	const navigation = { navigate: jest.fn() };

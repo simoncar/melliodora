@@ -1,37 +1,17 @@
 import React from 'react';
 import { render, waitFor, fireEvent } from '@testing-library/react-native';
 import * as Permissions from "expo-permissions";
-import CameraApp from '../Camera';
+import CameraScreen from '../Camera';
 
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock('../../lib/firebase')
 jest.mock('expo', () => ({
 	Permissions: {
 		askAsync: jest.fn(),
 	}
 }));
 
-const auth = {
-	"_persist": {
-		"rehydrated": true,
-		"version": -1,
-	},
-	"adminPassword": "cookies",
-	"isAdmin": true,
-	"language": "en",
-	"user": false,
-	"userInfo": {
-		"email": "simoncar@gmail.com",
-		"isAnonymous": true,
-		"languageSelected": "en",
-		"lastLogin": 1592026664066,
-		"loginCount": 30,
-		"phoneLocale": "en",
-		"safeToken": "ExponentPushToken{YQNwZDOkv0QdHUlDV-T5HQ}",
-		"token": "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]",
-		"uid": "AMGV7R4J7uZiE82ipxKK9tUVycb2",
-		"version": "unknown",
-	}
-}
+
 
 test('show camera screen', async () => {
 	const navigation = { navigate: jest.fn() };
@@ -39,8 +19,7 @@ test('show camera screen', async () => {
 	Permissions.askAsync.mockImplementation(() => { return { status: 'granted' }; });
 
 	const { toJSON, getByTestId } = render(
-		<CameraApp
-			auth={auth}
+		<CameraScreen
 			navigation={navigation}
 			dispatch={onGoBack}
 		/>
@@ -61,8 +40,7 @@ test('no access to camera', async () => {
 	Permissions.askAsync.mockImplementation(() => { return { status: 'denied' }; });
 
 	const { toJSON, getByText } = render(
-		<CameraApp
-			auth={auth}
+		<CameraScreen
 			navigation={navigation}
 			dispatch={onGoBack}
 		/>

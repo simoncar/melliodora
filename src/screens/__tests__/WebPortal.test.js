@@ -4,6 +4,7 @@ import { render } from '@testing-library/react-native';
 import { WebPortal } from '../WebPortal';
 
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock('../../lib/firebase')
 
 const auth = {
 	"_persist": {

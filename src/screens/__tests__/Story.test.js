@@ -6,7 +6,7 @@ import * as Permissions from 'expo-permissions';
 
 jest.mock("../../components/ImageList");
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
-
+jest.mock('../../lib/firebase')
 
 
 

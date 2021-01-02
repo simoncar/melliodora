@@ -7,8 +7,6 @@ interface IDomain {
 }
 
 export async function getDomains() {
-	console.log("getDomains called");
-
 	return new Promise((resolve, reject) => {
 		const domains: IDomain[] = [];
 

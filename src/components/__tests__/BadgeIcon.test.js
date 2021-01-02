@@ -5,6 +5,7 @@ import { Image } from 'react-native';
 import BadgeIcon from '../BadgeIcon';
 
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock('../../lib/firebase')
 
 test('Badge icon render', () => {
 	const getSizeMock = jest.spyOn(Image, 'getSize');

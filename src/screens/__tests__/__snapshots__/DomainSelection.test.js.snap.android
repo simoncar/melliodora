@@ -14,7 +14,7 @@ exports[`list domains 1`] = `
       style={
         Object {
           "alignSelf": "center",
-          "backgroundColor": "#fff",
+          "backgroundColor": "white",
           "borderRadius": 15,
           "marginBottom": 12,
           "padding": 10,
@@ -179,67 +179,13 @@ exports[`list domains 1`] = `
             </View>
           </View>
         </View>
-        <View>
-          <View>
-            <Text>
-              33
-            </Text>
-            <Text>
-              true
-            </Text>
-            <View
-              accessibilityRole="button"
-              accessibilityState={Object {}}
-              accessible={true}
-              focusable={true}
-              nativeBackgroundAndroid={
-                Object {
-                  "attribute": "selectableItemBackground",
-                  "rippleRadius": undefined,
-                  "type": "ThemeAttrAndroid",
-                }
-              }
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Array [
-                  Object {
-                    "backgroundColor": "#2196F3",
-                    "borderRadius": 2,
-                    "elevation": 4,
-                  },
-                ]
-              }
-            >
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "color": "white",
-                      "fontWeight": "500",
-                      "margin": 8,
-                      "textAlign": "center",
-                    },
-                  ]
-                }
-              >
-                AA33
-              </Text>
-            </View>
-          </View>
-        </View>
       </View>
     </View>
     <View
       style={
         Object {
           "alignSelf": "center",
-          "backgroundColor": "#fff",
+          "backgroundColor": "white",
           "borderRadius": 15,
           "marginBottom": 12,
           "padding": 10,
@@ -347,7 +293,7 @@ exports[`list domains 1`] = `
     style={
       Object {
         "alignSelf": "center",
-        "backgroundColor": "#fff",
+        "backgroundColor": "white",
         "borderRadius": 15,
         "marginBottom": 12,
         "padding": 10,

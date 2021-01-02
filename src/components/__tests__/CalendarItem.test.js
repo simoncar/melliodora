@@ -4,6 +4,7 @@ import { Image } from 'react-native';
 import CalendarItem from '../CalendarItem';
 
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock('../../lib/firebase')
 
 const itemCalendarDate = {
 	"source": "calendar",
@@ -81,7 +82,7 @@ test('show Calendar Item with Date only', () => {
 
 	const { toJSON } = render(
 		<CalendarItem
-			item={itemCalendarDate}
+			story={itemCalendarDate}
 			navigation={navigation}
 		/>
 	);
@@ -99,7 +100,7 @@ test('show Calendar Item with Date and Image', () => {
 
 	const { toJSON } = render(
 		<CalendarItem
-			item={itemCalendarDateImage}
+			story={itemCalendarDateImage}
 			navigation={navigation}
 		/>
 	);
@@ -117,7 +118,7 @@ test('show Calendar Item with Date and Time', () => {
 
 	const { toJSON } = render(
 		<CalendarItem
-			item={itemCalendarDateTime}
+			story={itemCalendarDateTime}
 			navigation={navigation}
 		/>
 	);

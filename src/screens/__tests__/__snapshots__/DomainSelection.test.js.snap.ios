@@ -14,7 +14,7 @@ exports[`list domains 1`] = `
       style={
         Object {
           "alignSelf": "center",
-          "backgroundColor": "#fff",
+          "backgroundColor": "white",
           "borderRadius": 15,
           "marginBottom": 12,
           "padding": 10,
@@ -179,64 +179,13 @@ exports[`list domains 1`] = `
             </View>
           </View>
         </View>
-        <View>
-          <View>
-            <Text>
-              33
-            </Text>
-            <Text>
-              true
-            </Text>
-            <View
-              accessibilityRole="button"
-              accessibilityState={Object {}}
-              accessible={true}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "opacity": 1,
-                }
-              }
-            >
-              <View
-                style={
-                  Array [
-                    Object {},
-                  ]
-                }
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "color": "#007AFF",
-                        "fontSize": 18,
-                        "margin": 8,
-                        "textAlign": "center",
-                      },
-                    ]
-                  }
-                >
-                  AA33
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
       </View>
     </View>
     <View
       style={
         Object {
           "alignSelf": "center",
-          "backgroundColor": "#fff",
+          "backgroundColor": "white",
           "borderRadius": 15,
           "marginBottom": 12,
           "padding": 10,
@@ -344,7 +293,7 @@ exports[`list domains 1`] = `
     style={
       Object {
         "alignSelf": "center",
-        "backgroundColor": "#fff",
+        "backgroundColor": "white",
         "borderRadius": 15,
         "marginBottom": 12,
         "padding": 10,

@@ -5,6 +5,7 @@ import CustomImage from '../ChatCustomImage';
 
 
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock('../../lib/firebase')
 
 const item = {
 	_id: "7be35242-957e-4af3-aa63-881124a79ed0",

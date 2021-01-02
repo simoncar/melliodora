@@ -15,9 +15,7 @@ exports[`web portal 1`] = `
       }
     }
   >
-    <View
-      style="red"
-    >
+    <View>
       <View
         accessible={true}
         focusable={true}

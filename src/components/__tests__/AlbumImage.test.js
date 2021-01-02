@@ -4,6 +4,7 @@ import { Image } from 'react-native';
 import AlbumImage from '../AlbumImage';
 
 jest.mock("../../lib/APIAlbum");
+jest.mock('../../lib/firebase')
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 
 

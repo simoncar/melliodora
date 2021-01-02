@@ -37,105 +37,70 @@ exports[`show Calendar Item with Date and Image 1`] = `
     <View
       style={
         Object {
+          "alignItems": "flex-end",
           "flex": 1,
-          "flexDirection": "column",
         }
       }
     >
-      <View
+      <Text
         style={
-          Object {
-            "flex": 1,
-            "flexDirection": "row",
-          }
+          Array [
+            Object {
+              "fontFamily": "SegoeUI",
+            },
+            Object {
+              "color": "#000",
+              "fontSize": 15,
+              "fontWeight": "bold",
+              "marginBottom": 10,
+              "paddingTop": 5,
+              "textAlign": "right",
+            },
+          ]
         }
       >
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "column",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "alignItems": "flex-end",
-                "flex": 1,
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#000",
-                    "fontSize": 15,
-                    "fontWeight": "bold",
-                    "marginBottom": 10,
-                    "paddingTop": 5,
-                    "textAlign": "right",
-                  },
-                ]
-              }
-            >
-              Suzuki Showcase Concert
-            </Text>
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "gray",
-                    "fontSize": 12,
-                    "marginTop": 5,
-                  },
-                ]
-              }
-            >
-              Music Room
-               
-            </Text>
-          </View>
-        </View>
-      </View>
-      <View
+        Suzuki Showcase Concert
+      </Text>
+      <Text
         style={
-          Object {
-            "flex": 1,
-            "flexDirection": "row",
-          }
+          Array [
+            Object {
+              "fontFamily": "SegoeUI",
+            },
+            Object {
+              "color": "gray",
+              "fontSize": 12,
+              "marginTop": 5,
+            },
+          ]
         }
       >
-        <View
-          style={
-            Object {
-              "alignItems": "flex-end",
-              "flex": 1,
-            }
+        Music Room
+         
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-end",
+          "flex": 1,
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=900",
           }
-        >
-          <Image
-            source={
-              Object {
-                "uri": "https://smartcookies.imgix.net/random%2F202002%2Fe753a7af-7010-47c1-8aca-fa9b945ae3e2?alt=media&token=ceec7bbb-757e-416e-9a67-b74eac51fa9f&auto=enhance&fit=clip&w=900",
-              }
-            }
-            style={
-              Object {
-                "height": 150,
-                "width": 300,
-              }
-            }
-          />
-        </View>
-      </View>
+        }
+        style={
+          Object {
+            "borderRadius": 5,
+            "height": 150,
+            "width": 300,
+          }
+        }
+      />
     </View>
   </View>
 </View>
@@ -178,122 +143,64 @@ exports[`show Calendar Item with Date and Time 1`] = `
     <View
       style={
         Object {
+          "alignItems": "flex-end",
           "flex": 1,
-          "flexDirection": "column",
         }
       }
     >
-      <View
+      <Text
         style={
-          Object {
-            "flex": 1,
-            "flexDirection": "row",
-          }
+          Array [
+            Object {
+              "fontFamily": "SegoeUI",
+            },
+            Object {
+              "color": "#000",
+              "fontSize": 15,
+              "fontWeight": "bold",
+              "marginBottom": 10,
+              "paddingTop": 5,
+              "textAlign": "right",
+            },
+          ]
         }
       >
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "column",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "alignItems": "flex-end",
-                "flex": 1,
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#000",
-                    "fontSize": 15,
-                    "fontWeight": "bold",
-                    "marginBottom": 10,
-                    "paddingTop": 5,
-                    "textAlign": "right",
-                  },
-                ]
-              }
-            >
-              Suzuki Showcase Concert
-            </Text>
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "gray",
-                    "fontSize": 12,
-                    "marginTop": 5,
-                  },
-                ]
-              }
-            >
-              Music Room
-               
-            </Text>
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "gray",
-                    "fontSize": 12,
-                    "marginBottom": 3,
-                  },
-                ]
-              }
-            >
-              7:30 pm - 10:30 pm
-               
-            </Text>
-          </View>
-        </View>
-      </View>
-      <View
+        Suzuki Showcase Concert
+      </Text>
+      <Text
         style={
-          Object {
-            "flex": 1,
-            "flexDirection": "row",
-          }
+          Array [
+            Object {
+              "fontFamily": "SegoeUI",
+            },
+            Object {
+              "color": "gray",
+              "fontSize": 12,
+              "marginTop": 5,
+            },
+          ]
         }
       >
-        <View
-          style={
+        Music Room
+         
+      </Text>
+      <Text
+        style={
+          Array [
             Object {
-              "alignItems": "flex-end",
-              "flex": 1,
-            }
-          }
-        >
-          <Image
-            source={
-              Object {
-                "uri": "https://smartcookies.imgix.net/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680&auto=enhance&fit=clip&w=900",
-              }
-            }
-            style={
-              Object {
-                "height": 150,
-                "width": 300,
-              }
-            }
-          />
-        </View>
-      </View>
+              "fontFamily": "SegoeUI",
+            },
+            Object {
+              "color": "gray",
+              "fontSize": 12,
+              "marginBottom": 3,
+            },
+          ]
+        }
+      >
+        7:30 pm - 10:30 pm
+         
+      </Text>
     </View>
   </View>
 </View>
@@ -336,105 +243,47 @@ exports[`show Calendar Item with Date only 1`] = `
     <View
       style={
         Object {
+          "alignItems": "flex-end",
           "flex": 1,
-          "flexDirection": "column",
         }
       }
     >
-      <View
+      <Text
         style={
-          Object {
-            "flex": 1,
-            "flexDirection": "row",
-          }
+          Array [
+            Object {
+              "fontFamily": "SegoeUI",
+            },
+            Object {
+              "color": "#000",
+              "fontSize": 15,
+              "fontWeight": "bold",
+              "marginBottom": 10,
+              "paddingTop": 5,
+              "textAlign": "right",
+            },
+          ]
         }
       >
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "column",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "alignItems": "flex-end",
-                "flex": 1,
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "#000",
-                    "fontSize": 15,
-                    "fontWeight": "bold",
-                    "marginBottom": 10,
-                    "paddingTop": 5,
-                    "textAlign": "right",
-                  },
-                ]
-              }
-            >
-              Suzuki Showcase Concert
-            </Text>
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "SegoeUI",
-                  },
-                  Object {
-                    "color": "gray",
-                    "fontSize": 12,
-                    "marginTop": 5,
-                  },
-                ]
-              }
-            >
-              Music Room
-               
-            </Text>
-          </View>
-        </View>
-      </View>
-      <View
+        Suzuki Showcase Concert
+      </Text>
+      <Text
         style={
-          Object {
-            "flex": 1,
-            "flexDirection": "row",
-          }
+          Array [
+            Object {
+              "fontFamily": "SegoeUI",
+            },
+            Object {
+              "color": "gray",
+              "fontSize": 12,
+              "marginTop": 5,
+            },
+          ]
         }
       >
-        <View
-          style={
-            Object {
-              "alignItems": "flex-end",
-              "flex": 1,
-            }
-          }
-        >
-          <Image
-            source={
-              Object {
-                "uri": "https://smartcookies.imgix.net/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680&auto=enhance&fit=clip&w=900",
-              }
-            }
-            style={
-              Object {
-                "height": 150,
-                "width": 300,
-              }
-            }
-          />
-        </View>
-      </View>
+        Music Room
+         
+      </Text>
     </View>
   </View>
 </View>
