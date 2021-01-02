@@ -1,4 +1,3 @@
-
 import React from "react";
 import PropTypes from "prop-types";
 import { StyleSheet, TouchableOpacity, View, ViewPropTypes, SafeAreaView } from "react-native";
@@ -15,7 +14,7 @@ export default class CustomActions extends React.Component {
 		this.state = {
 			image: null,
 			modalVisiblePhoto: false,
-			modalVisibleVideo: false
+			modalVisibleVideo: false,
 		};
 		this.onActionsPress = this.onActionsPress.bind(this);
 		this.selectImagesPhoto = this.selectImagesPhoto.bind(this);
@@ -57,24 +56,27 @@ export default class CustomActions extends React.Component {
 
 		const options = ["Photo", "Video", "Cancel"];
 		const cancelButtonIndex = options.length - 1;
-		this.context.actionSheet().showActionSheetWithOptions({
-			options,
-			cancelButtonIndex
-		}, buttonIndex => {
-			switch (buttonIndex) {
-				case 0:
-					//_pickImage();
-					//this.setModalVisiblePhoto(true);
-					break;
-				case 1:
-					// _pickVideo();
+		this.context.actionSheet().showActionSheetWithOptions(
+			{
+				options,
+				cancelButtonIndex,
+			},
+			(buttonIndex) => {
+				switch (buttonIndex) {
+					case 0:
+						//_pickImage();
+						//this.setModalVisiblePhoto(true);
+						break;
+					case 1:
+						// _pickVideo();
 
-					break;
-				case 2:
-					break;
-				default:
+						break;
+					case 2:
+						break;
+					default:
+				}
 			}
-		});
+		);
 	}
 
 	selectImagesPhoto(images) {
@@ -90,92 +92,98 @@ export default class CustomActions extends React.Component {
 	}
 
 	renderNavBarPhoto() {
-		return <SafeAreaView style={styles.ab62223e0b16711ea999f193302967c6e}>
-			<NavBar style={styles.ab6224af0b16711ea999f193302967c6e}>
-				<NavButton onPress={() => {
-					this.setModalVisiblePhoto(false);
-				}}>
-					<NavButtonText style={styles.ab6224af1b16711ea999f193302967c6e}>
-						{"Cancel"}
-					</NavButtonText>
-				</NavButton>
-				<NavTitle style={styles.ab6224af2b16711ea999f193302967c6e}>
-					{"Photos"}
-				</NavTitle>
-				<NavButton onPress={() => {
-					this.setModalVisiblePhoto(false);
+		return (
+			<SafeAreaView style={styles.ab62223e0b16711ea999f193302967c6e}>
+				<NavBar style={styles.ab6224af0b16711ea999f193302967c6e}>
+					<NavButton
+						onPress={() => {
+							this.setModalVisiblePhoto(false);
+						}}>
+						<NavButtonText style={styles.ab6224af1b16711ea999f193302967c6e}>{"Cancel"}</NavButtonText>
+					</NavButton>
+					<NavTitle style={styles.ab6224af2b16711ea999f193302967c6e}>{"Photos"}</NavTitle>
+					<NavButton
+						onPress={() => {
+							this.setModalVisiblePhoto(false);
 
-					const images = this.getImages().map(image => {
-						// fires for every individual image
+							const images = this.getImages().map((image) => {
+								// fires for every individual image
 
-						return {
-							image: image.uri,
-							filename: image.filename,
-							playableDuration: 0
-						};
-					});
+								return {
+									image: image.uri,
+									filename: image.filename,
+									playableDuration: 0,
+								};
+							});
 
-					this.props.onSend(images);
-					//this.handleAddPicture();
-				}}>
-					<NavButtonText style={styles.ab6227200b16711ea999f193302967c6e}>
-						{"Send"}
-					</NavButtonText>
-				</NavButton>
-			</NavBar>
-		</SafeAreaView>;
+							this.props.onSend(images);
+							//this.handleAddPicture();
+						}}>
+						<NavButtonText style={styles.ab6227200b16711ea999f193302967c6e}>{"Send"}</NavButtonText>
+					</NavButton>
+				</NavBar>
+			</SafeAreaView>
+		);
 	}
 
 	renderNavBarVideo() {
-		return <SafeAreaView style={styles.ab6227201b16711ea999f193302967c6e}>
-			<NavBar style={styles.ab6227202b16711ea999f193302967c6e}>
-				<NavButton onPress={() => {
-					this.setModalVisibleVideo(false);
-				}}>
-					<NavButtonText style={styles.ab6227203b16711ea999f193302967c6e}>
-						<Text>Cancel</Text>
-					</NavButtonText>
-				</NavButton>
-				<NavTitle style={styles.ab6227204b16711ea999f193302967c6e}>
-					<Text>Videos</Text>
-				</NavTitle>
-				<NavButton onPress={() => {
-					this.setModalVisibleVideo(false);
+		return (
+			<SafeAreaView style={styles.ab6227201b16711ea999f193302967c6e}>
+				<NavBar style={styles.ab6227202b16711ea999f193302967c6e}>
+					<NavButton
+						onPress={() => {
+							this.setModalVisibleVideo(false);
+						}}>
+						<NavButtonText style={styles.ab6227203b16711ea999f193302967c6e}>
+							<Text>Cancel</Text>
+						</NavButtonText>
+					</NavButton>
+					<NavTitle style={styles.ab6227204b16711ea999f193302967c6e}>
+						<Text>Videos</Text>
+					</NavTitle>
+					<NavButton
+						onPress={() => {
+							this.setModalVisibleVideo(false);
 
-					const images = this.getImages().map(image => {
-						// fires for every individual image
+							const images = this.getImages().map((image) => {
+								// fires for every individual image
 
-						return {
-							image: image.uri,
-							filename: image.filename,
-							playableDuration: 1
-						};
-					});
+								return {
+									image: image.uri,
+									filename: image.filename,
+									playableDuration: 1,
+								};
+							});
 
-					this.props.onSend(images);
-					//this.handleAddPicture();
-				}}>
-					<NavButtonText style={styles.ab6229910b16711ea999f193302967c6e}>
-						<Text>Send</Text>
-					</NavButtonText>
-				</NavButton>
-			</NavBar>
-		</SafeAreaView>;
+							this.props.onSend(images);
+							//this.handleAddPicture();
+						}}>
+						<NavButtonText style={styles.ab6229910b16711ea999f193302967c6e}>
+							<Text>Send</Text>
+						</NavButtonText>
+					</NavButton>
+				</NavBar>
+			</SafeAreaView>
+		);
 	}
 
 	renderIcon() {
 		if (this.props.icon) {
 			return this.props.icon();
 		}
-		return <View>
-			<Entypo name="camera" style={styles.ab622c020b16711ea999f193302967c6e} />
-		</View>;
+		return (
+			<View>
+				<Entypo name="camera" style={styles.ab622c020b16711ea999f193302967c6e} />
+			</View>
+		);
 	}
 
 	render() {
-		return <TouchableOpacity style={[styles.container, this.props.containerStyle]} onPress={this.onActionsPress}>
-			{this.renderIcon()}
-		</TouchableOpacity>;
+		return (
+			<TouchableOpacity style={[styles.container, this.props.containerStyle]} onPress={this.onActionsPress}>
+				{this.renderIcon()}
+			</TouchableOpacity>
+		);
 	}
 }
 
@@ -183,38 +191,38 @@ const styles = StyleSheet.create({
 	ab62223e0b16711ea999f193302967c6e: { backgroundColor: "#fff" },
 	ab6224af0b16711ea999f193302967c6e: {
 		navBar: {
-			backgroundColor: "#FFF"
+			backgroundColor: "#FFF",
 		},
 		statusBar: {
-			backgroundColor: "#FFF"
-		}
+			backgroundColor: "#FFF",
+		},
 	},
 	ab6224af1b16711ea999f193302967c6e: {
-		color: "#000"
+		color: "#000",
 	},
 	ab6224af2b16711ea999f193302967c6e: {
-		color: "#000"
+		color: "#000",
 	},
 	ab6227200b16711ea999f193302967c6e: {
-		color: "#000"
+		color: "#000",
 	},
 	ab6227201b16711ea999f193302967c6e: { backgroundColor: "#fff" },
 	ab6227202b16711ea999f193302967c6e: {
 		navBar: {
-			backgroundColor: "#FFF"
+			backgroundColor: "#FFF",
 		},
 		statusBar: {
-			backgroundColor: "#FFF"
-		}
+			backgroundColor: "#FFF",
+		},
 	},
 	ab6227203b16711ea999f193302967c6e: {
-		color: "#000"
+		color: "#000",
 	},
 	ab6227204b16711ea999f193302967c6e: {
-		color: "#000"
+		color: "#000",
 	},
 	ab6229910b16711ea999f193302967c6e: {
-		color: "#000"
+		color: "#000",
 	},
 	ab622c020b16711ea999f193302967c6e: { color: "#0284FF", fontSize: 25 },
 
@@ -222,23 +230,21 @@ const styles = StyleSheet.create({
 		height: 26,
 		marginBottom: 10,
 		marginLeft: 10,
-		width: 26
+		width: 26,
 	},
-
 });
 
-
 CustomActions.contextTypes = {
-	actionSheet: PropTypes.func
+	actionSheet: PropTypes.func,
 };
 
 CustomActions.defaultProps = {
-	onSend: () => { },
+	onSend: () => {},
 	options: {},
 	icon: null,
 	containerStyle: {},
 	wrapperStyle: {},
-	iconTextStyle: {}
+	iconTextStyle: {},
 };
 
 CustomActions.propTypes = {
@@ -247,5 +253,5 @@ CustomActions.propTypes = {
 	icon: PropTypes.func,
 	containerStyle: ViewPropTypes.style,
 	wrapperStyle: ViewPropTypes.style,
-	iconTextStyle: Text.propTypes.style
+	iconTextStyle: Text.propTypes.style,
 };
