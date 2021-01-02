@@ -75,7 +75,9 @@ exports[`show login screen 1`] = `
         },
       ]
     }
-  />
+  >
+    
+  </Text>
   <View
     style={
       Object {

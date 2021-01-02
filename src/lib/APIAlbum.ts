@@ -1,5 +1,4 @@
 import firebase from "../lib/firebase";
-
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
 import uuid from "uuid";

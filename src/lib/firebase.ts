@@ -1,10 +1,8 @@
 import "expo-firestore-offline-persistence";
-
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/storage";
-
 import ApiKeys from "../ApiKeys";
 
 firebase.apps.length === 0 && firebase.initializeApp(ApiKeys.FirebaseConfig);
