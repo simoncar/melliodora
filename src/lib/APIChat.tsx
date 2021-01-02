@@ -24,7 +24,7 @@ export class Backend extends React.Component {
 	}
 
 	setUID(uid) {
-		this.uid = uid;
+		//this.uid = uid;
 	}
 	aagetUid() {
 		return this.uid;
