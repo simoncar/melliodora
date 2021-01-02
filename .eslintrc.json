@@ -8,7 +8,11 @@
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",
-		"plugin:jest/recommended"
+		"plugin:jest/recommended",
+		"prettier",
+		"prettier/@typescript-eslint",
+		"prettier/react",
+		"plugin:react-hooks/recommended"
 	],
 	"globals": {
 		"Atomics": "readonly",
@@ -23,12 +27,19 @@
 	},
 	"parser": "babel-eslint",
 	"settings": {
-		"import/parser": "babel-eslint"
+		"import/parser": "babel-eslint",
+		"react": {
+			"version": "latest"
+		},
+		"jest": {
+			"version": 25
+		}
 	},
 	"plugins": [
 		"react",
 		"react-native",
-		"jest"
+		"jest",
+		"@typescript-eslint"
 	],
 	"rules": {
 		"react/prop-types": 0,

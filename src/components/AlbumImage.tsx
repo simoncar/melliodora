@@ -1,113 +1,51 @@
-import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, Image, RefreshControl, ListRenderItemInfo, View as BareView } from 'react-native';
-import _ from "lodash";
-import I18n from "../lib/i18n";
+import React, { useState } from "react";
+import { StyleSheet, TouchableHighlight, View } from "react-native";
+import { deleteImage } from "../lib/APIAlbum";
+import { Foundation } from "@expo/vector-icons";
+import Image from "../components/Imgix";
 
 interface IProps {
-	local: string,
-	server: string,
-	thumb: string,
-	key: string,
-	edit: boolean,
+	local: string;
+	server: string;
+	thumb: string;
+	key: string;
+	photoKey: string;
+	edit: boolean;
+	feature: string;
+	windowHeight: number;
+	windowWidth: number;
+	domain: string;
 }
-
-function deleteButton() {
-	return <TouchableOpacity
-		style={styles.SubmitButtonStyle}
-		activeOpacity={0.5}
-		onPress={() => {
-			console.log("delete:")
-		}}>
-		<Text>
-			{I18n.t("delete")}
-		</Text>
-	</TouchableOpacity >;
-}
-
 
 export default function AlbumImage(props: IProps) {
-	const [isLoading, setIsLoading] = useState(true);
-
-	const imageURI = props.thumb
-	const edit = props.edit
+	const imageURI = props.thumb;
+	const edit = props.edit;
+	//const windowWidth = Dimensions.get('window').width
 
 	if (imageURI != undefined && imageURI.length > 1) {
-		if (edit) {
+		// Image.getSize(imageURI, (width, height) => {
+		// 	setHeight(height / width * props.windowWidth)
+		// });
 
-			return <View>
-				<Image style={[styles.storyPhoto, { width: "70%" }]}
-					source={{
-						uri: imageURI,
-					}}
-					key={imageURI}
-				/>
-				{deleteButton()}
-			</View>;
-		} else {
-			return <View>
-				<Image style={styles.storyPhoto}
-					source={{
-						uri: imageURI,
-					}}
-					key={imageURI}
-				/>
-			</View>;
-		}
+		return (
+			<View>
+				<Image source={{ uri: imageURI }} autoSizeProps={true} />
+				{edit && (
+					<TouchableHighlight
+						onPress={() => deleteImage(props.domain, props.feature, props.photoKey)}
+						testID="delete">
+						<Foundation name="x-circle" size={34} color="red" style={styles.iconDelete} />
+					</TouchableHighlight>
+				)}
+			</View>
+		);
 	} else {
-		return null
+		return null;
 	}
 }
 
 const styles = StyleSheet.create({
-	SubmitButtonStyle: {
-		alignItems: "center",
-		backgroundColor: "#fff",
-		borderRadius: 25,
-		elevation: 4,
-		height: 50,
-		justifyContent: "center",
-		marginBottom: 30,
-		shadowColor: "rgba(0,0,0, .4)",
-		shadowOffset: { height: 2, width: 2 },
-		shadowOpacity: 0.8,
-		shadowRadius: 1,
-		width: 250,
-	},
-	storyPhoto: {
-		alignSelf: "center",
-		backgroundColor: "#fff",
-		borderBottomLeftRadius: 15,
-		borderBottomRightRadius: 15,
-		borderColor: "lightgray",
-		borderWidth: 1,
-		flex: 1,
-		height: 200,
-		marginBottom: 12,
-		shadowColor: "rgba(0,0,0, .4)",
-		shadowOffset: { height: 1, width: 0.5 },
-		shadowOpacity: 0.2,
-		shadowRadius: 0.5,
-		width: "98%",
-	},
-	overlay: {
-		//...StyleSheet.absoluteFillObject,
-		//backgroundColor: 'rgba(255,255,255,0.7)',
-		borderColor: "blue",
-		margin: 2,
-	},
-	selectionBorder: {
-		borderRadius: 3,
-		borderRightWidth: 50,
-		flex: 1,
-	},
-	itemView: {
-		flex: 1,
-		flexDirection: 'column',
-		margin: 1,
-	},
-	badge: {
-		position: 'absolute',
-		top: 10,
-		left: 10,
+	iconDelete: {
+		alignSelf: "flex-end",
 	},
 });

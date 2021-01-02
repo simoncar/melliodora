@@ -3,15 +3,15 @@ import * as MediaLibrary from 'expo-media-library';
 import * as Linking from 'expo-linking';
 import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import SelectableImageGrid from '../components/SelectableImageGrid';
-import { useCameraRoll } from '../../hooks/useCameraRoll';
-import { saveSelectedImages } from "../components/AlbumAPI";
+import ImageLibraryGrid from '../components/ImageLibraryGrid';
+import { useCameraRoll } from '../lib/useCameraRoll';
+import { saveSelectedImages, storageSend } from "../lib/APIAlbum";
 import I18n from "../lib/i18n";
 
 interface TProps {
-	storyKey: string
-	route: any
-	navigation: any
+	storyKey: string,
+	route: any,
+	navigation: any,
 	album: string
 }
 
@@ -20,6 +20,7 @@ export default function FormAlbum(props: TProps) {
 
 	const { storyKey, album, key } = props.route.params;
 	const navigation = props.navigation;
+
 	let filter = ""
 
 	if (key === "RECENT") {
@@ -31,15 +32,20 @@ export default function FormAlbum(props: TProps) {
 
 	useEffect(() => {
 		navigation.setOptions({
-			headerTitle: "Add Photos",
-			headerRight: () => <Button onPress={() => save()} title={I18n.t("save")} />,
+			headerTitle: I18n.t("photoChoose"),
+			headerRight: () => { return <Button onPress={() => save()} title={I18n.t("save")} /> },
 		});
 	}, [items])
 
 	const save = () => {
-
+		console.log("SAVE:", storyKey)
 		saveSelectedImages(items, storyKey)
-
+			.then(() => {
+				console.log("SAVE COMPLETE to LOCAL and FIREBASE")
+				storageSend(storyKey)
+				navigation.pop();
+				navigation.pop();
+			})
 	}
 
 	const handleSelected = async (selectedItems: MediaLibrary.Asset[]) => {
@@ -55,7 +61,7 @@ export default function FormAlbum(props: TProps) {
 			{noItems ? (
 				<NoItemsMessage handleRefresh={camRoll.doRefresh} />
 			) : (
-					<SelectableImageGrid
+					<ImageLibraryGrid
 						images={camRoll.images}
 						onSelectedChange={handleSelected}
 						refreshing={camRoll.isRefreshing}
@@ -92,25 +98,20 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	messageContainer: {
+		alignItems: 'center',
 		flex: 1,
 		justifyContent: 'center',
-		alignItems: 'center',
 	},
 	messageText: {
 		fontSize: 15,
 	},
 	refreshIcon: {
-		paddingTop: 20,
 		fontSize: 50,
+		paddingTop: 20,
 	},
 	secondaryText: {
-		fontSize: 12,
 		color: '#555',
+		fontSize: 12,
 	},
-	fab: {
-		position: 'absolute',
-		bottom: 16,
-		left: '30%',
-		right: '30%',
-	},
+
 });

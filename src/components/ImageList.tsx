@@ -1,82 +1,104 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, RefreshControl, ListRenderItemInfo, View as BareView } from 'react-native';
-import AlbumImage from "./AlbumImage"
-import { listenPhotos } from "./AlbumAPI"
+import React, { useState, useEffect } from "react";
+import { View, Dimensions, Text, StyleSheet } from "react-native";
+import AlbumImage from "./AlbumImage";
+import { listenPhotos } from "../lib/APIAlbum";
+import Image from "../components/Imgix";
+import ImageView from "react-native-image-viewing";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface IProps {
-	feature: string,
-	refreshFunction: any,
-	edit:boolean,
+	feature: string;
+	refreshFunction: any;
+	edit?: boolean;
+	miniRoll?: boolean;
+	domain: string;
 }
+
+const window = Dimensions.get("window");
+const screen = Dimensions.get("screen");
 
 export default function ImageList(props: IProps) {
 	const [photos, setPhotos] = useState([]);
-	const feature = props.feature
+	const [dimensions, setDimensions] = useState({ window, screen });
+	const [visible, setIsVisible] = useState(false);
+
+	const images = [];
+	const feature = props.feature;
+	const miniRoll = props.miniRoll;
+
+	const onChange = ({ window, screen }) => {
+		setDimensions({ window, screen });
+	};
 
 	useEffect(() => {
 		if (Array.isArray(photos)) {
-			let x = listenPhotos(feature, refreshFunction)
+			listenPhotos(props.domain, feature, refreshFunction);
 		}
+
+		Dimensions.addEventListener("change", onChange);
+		return () => {
+			Dimensions.removeEventListener("change", onChange);
+		};
 	}, []);
 
-	function refreshFunction(photos) {
+	function refreshFunction(photos: []) {
 		setPhotos(photos);
 	}
 
-	return (
-		<View>
-			{
-				Object.keys(photos).map(function (key, index) {
-					return <AlbumImage
-						key={photos[key].key}
-						local={photos[key].local}
-						server={photos[key].server}
-						thumb={photos[key].thumb}
-						edit={props.edit}
-					/>
-				})
-			}
-		</View >
-	);
+	photos.map((image) => {
+		if (image.thumb != undefined && image.thumb.length > 1) {
+			images.push({ uri: image.thumb });
+		}
+	});
+
+	if (miniRoll === true) {
+		return (
+			<View style={styles.rollView}>
+				<ScrollView horizontal={true}>
+					{Object.keys(photos).map(function (key: number, index) {
+						return (
+							<Image
+								key={photos[key].key}
+								source={{
+									uri: photos[key].server,
+								}}
+								style={styles.image}
+							/>
+						);
+					})}
+				</ScrollView>
+			</View>
+		);
+	} else {
+		return (
+			<View>
+				{Object.keys(photos).map(function (key: number, index) {
+					return (
+						<AlbumImage
+							key={photos[key].key}
+							photoKey={photos[key].key}
+							feature={photos[key].feature}
+							local={photos[key].local}
+							server={photos[key].server}
+							thumb={photos[key].thumb}
+							edit={props.edit}
+							windowHeight={dimensions.window.height}
+							windowWidth={dimensions.window.width}
+						/>
+					);
+				})}
+			</View>
+		);
+	}
 }
 
 const styles = StyleSheet.create({
-	storyPhoto: {
-		alignSelf: "center",
-		backgroundColor: "#fff",
-		borderBottomLeftRadius: 15,
-		borderBottomRightRadius: 15,
-		borderColor: "lightgray",
-		borderWidth: 1,
-		elevation: 1,
+	image: {
+		height: 80,
+		width: 80,
+	},
+	rollView: {
 		flex: 1,
-		height: 200,
-		marginBottom: 12,
-		shadowColor: "rgba(0,0,0, .4)",
-		shadowOffset: { height: 1, width: 0.5 },
-		shadowOpacity: 0.2,
-		shadowRadius: 0.5,
-		width: "98%",
-	},
-	overlay: {
-		//...StyleSheet.absoluteFillObject,
-		//backgroundColor: 'rgba(255,255,255,0.7)',
-		borderColor: "blue",
-		margin: 2,
-	},
-	selectionBorder: {
-		borderRadius: 3,
-		borderRightWidth: 50,
-		flex: 1,
-	},
-	itemView: {
-		flex: 1,
-		flexDirection: 'column',
-		margin: 1,
-	},
-	badge: {
-		position: 'absolute',
-		top: 10,
-		left: 10,
+		flexDirection: "row",
 	},
 });
