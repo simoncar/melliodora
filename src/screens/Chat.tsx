@@ -12,12 +12,8 @@ import I18n from "../lib/i18n";
 import uuid from "uuid";
 import Backend from "../components/backend";
 import * as Analytics from "expo-firebase-analytics";
-import firebase from "../lib/firebase";
-import { ListItem } from "react-native-elements";
-import { SettingsListItem } from "../components/SettingsListItem";
-import { connectActionSheet, ActionSheetProvider } from "@expo/react-native-action-sheet";
-import { connect } from "react-redux";
-import { compose } from "redux";
+import {  ActionSheetProvider } from "@expo/react-native-action-sheet";
+
 import { Text } from "../components/sComponent";
 
 var localMessages = [];
@@ -46,11 +42,10 @@ export default class chat extends Component {
 		this.onLoadEarlier = this.onLoadEarlier.bind(this);
 
 		localMessages = [];
-
 	}
 
 	componentDidMount() {
-		const { chatroom, title, language, domain,uid } = this.props.route.params;
+		const { chatroom, title, language, domain, uid } = this.props.route.params;
 
 		Backend.setLanguage(language);
 		Backend.setChatroom(chatroom, title);

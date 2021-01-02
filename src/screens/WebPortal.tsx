@@ -16,6 +16,8 @@ export class WebPortal extends Component {
 			url = this.props.route.params.url;
 		}
 
+		//https://connect.ais.com.sg/login/login.aspx?prelogin=https%3a%2f%2fconnect.ais.com.sg%2f&kr=iSAMS:ParentPP
+
 		this.state = {
 			url: url,
 			status: "No Page Loaded",
@@ -43,7 +45,7 @@ export class WebPortal extends Component {
 		return (
 			<View style={styles.flex1}>
 				<View style={styles.flex2}>
-					<View style={(color = "red")}>
+					<View>
 						<TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
 							<Ionicons style={styles.navIcon} name="ios-arrow-back" />
 						</TouchableOpacity>

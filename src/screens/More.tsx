@@ -5,7 +5,7 @@ import Constants from "expo-constants";
 import I18n from "../lib/i18n";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import _ from "lodash";
-import { connect } from "react-redux";
+
 import * as Linking from "expo-linking";
 import { SettingsListItem, Separator } from "../components/SettingsListItem";
 import FeatureMoreItems from "../components/FeatureMoreItems";

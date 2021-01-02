@@ -10,7 +10,7 @@ import * as ImageManipulator from "expo-image-manipulator";
 import uuid from "uuid";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
-import { connect } from "react-redux";
+
 import { IconChat, OrderOnPage, ShowOnHomeScreen, EventDateTime } from "../components/formUtilities";
 import { SaveFeature, DeleteFeature } from "../components/formAPI";
 import { StackActions, StackActionType } from "@react-navigation/native";

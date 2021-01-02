@@ -1,12 +1,11 @@
-import React, { useState,useEffect } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView ,Dimensions} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Dimensions } from "react-native";
 
 import { Text, Button } from "../components/sComponent";
 import { Ionicons } from "@expo/vector-icons";
-import { connect } from "react-redux";
-import I18n from "../lib/i18n";
-import { useDisplayName,useEmail } from "../lib/globalState";
 
+import I18n from "../lib/i18n";
+import { useDisplayName, useEmail } from "../lib/globalState";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 
@@ -24,43 +23,43 @@ export default function UserProfile(props: IProps) {
 	const [, , gDisplayName] = useDisplayName();
 	const [, , gEmail] = useEmail();
 
-	console.log("UserProfileDisplay:", props.route.params.user)
-	if (user !== props.route.params.user) setUser(props.route.params.user)
-	
+	console.log("UserProfileDisplay:", props.route.params.user);
+	if (user !== props.route.params.user) setUser(props.route.params.user);
 
 	const edit = () => {
-
 		// edit should only be available if the current profile = the logged in user profile
 		props.navigation.navigate("EditUserProfile");
 	};
 
+	const width = 128;
+	const photoURL = user && user.photoURL;
+	console.log("user edit profile:", user);
 
-
-const width = 128;
-		const photoURL = user && user.photoURL;
-		console.log("user edit profile:", user);
-		
 	return (
 		<SafeAreaView>
 			<ScrollView>
 				<TouchableOpacity
-				onPress={() => {
-					edit();
+					onPress={() => {
+						edit();
 					}}>
-					
-						<View style={styles.profilePicContainer}>
-					{photoURL ? (
-						<Image style={styles.profilePhoto} source={{ uri: photoURL }} />
-					) : (
-						<Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.profilePhotoNone} />
-					)}
-				</View>
-		
-				<View style={styles.titleContainer}>
-					<Text style={styles.nameText}>{user.displayName}</Text>
-					<Text style={styles.emailText}>{user.email}</Text>
-				</View>
-			</TouchableOpacity>
+					<View style={styles.profilePicContainer}>
+						{photoURL ? (
+							<Image style={styles.profilePhoto} source={{ uri: photoURL }} />
+						) : (
+							<Ionicons
+								name="ios-person"
+								size={width * 0.85}
+								color="grey"
+								style={styles.profilePhotoNone}
+							/>
+						)}
+					</View>
+
+					<View style={styles.titleContainer}>
+						<Text style={styles.nameText}>{user.displayName}</Text>
+						<Text style={styles.emailText}>{user.email}</Text>
+					</View>
+				</TouchableOpacity>
 			</ScrollView>
 		</SafeAreaView>
 	);

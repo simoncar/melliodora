@@ -7,7 +7,7 @@ import { getLanguageString } from "../lib/global";
 import ListItem from "../components/StoryListItem";
 import moment from "moment";
 import { setUserInfo } from "../store/auth";
-import { connect } from "react-redux";
+
 import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";

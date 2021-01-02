@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FlatList, StyleSheet, View, SafeAreaView } from "react-native";
 import { SettingsListItem } from "../components/SettingsListItem";
 import { MaterialIcons } from "@expo/vector-icons";
-import { connect } from "react-redux";
+
 import * as MediaLibrary from "expo-media-library";
 
 export interface CameraRollResult {
@@ -112,4 +112,3 @@ const styles = StyleSheet.create({
 		width: "95%",
 	},
 });
-

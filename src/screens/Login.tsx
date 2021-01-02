@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, View, TextInput, SafeAreaView } from "react-native";
 import firebase from "../lib/firebase";
 import _ from "lodash";
-import { connect } from "react-redux";
+
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { Text, Button } from "../components/sComponent";
