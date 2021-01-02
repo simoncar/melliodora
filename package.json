@@ -27,7 +27,6 @@
 		"jest-expo": "^40.0.0",
 		"jest-fetch-mock": "^3.0.3",
 		"metro-react-native-babel-preset": "^0.64.0",
-		"react-native-dotenv": "^2.4.3",
 		"typescript": "~4.0.0"
 	},
 	"main": "node_modules/expo/AppEntry.js",
