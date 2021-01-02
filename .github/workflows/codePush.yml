@@ -18,6 +18,6 @@ jobs:
           expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
       - run: yarn install
-      - run: expo publish --config app.polo_photos.json
+      - run: expo publish --config apps/app.polo_photos.json
       - run: expo publish --config apps/app.generic.json
       - run: expo publish --config apps/app.sais_edu_sg.json
