@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Delete button press 1`] = `
+<View>
+  <Image
+    source={
+      Object {
+        "uri": "http://?auto=enhance&fit=clip&w=2250",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 1000,
+          "width": 333.3333333333333,
+        },
+        undefined,
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    testID="delete"
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": "red",
+            "fontSize": 34,
+          },
+          Object {
+            "alignSelf": "flex-end",
+          },
+          Object {
+            "fontFamily": "foundation",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`show edit Album Image 1`] = `
+<View>
+  <Image
+    source={
+      Object {
+        "uri": "http://?auto=enhance&fit=clip&w=2250",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 1000,
+          "width": 333.3333333333333,
+        },
+        undefined,
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    testID="delete"
+  >
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`show read only Album Image 1`] = `
+<View>
+  <Image
+    source={
+      Object {
+        "uri": "http://?auto=enhance&fit=clip&w=2250",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 1000,
+          "width": 333.3333333333333,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`show void Album Image 1`] = `null`;
