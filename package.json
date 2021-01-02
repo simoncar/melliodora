@@ -24,7 +24,6 @@
 		"eslint-plugin-react": "^7.20.0",
 		"eslint-plugin-react-hooks": "^4.2.0",
 		"eslint-plugin-react-native": "^3.8.1",
-		"firestore-jest-mock": "^0.4.0",
 		"gh-pages": "^3.0.0",
 		"jest-expo": "^40.0.0",
 		"jest-fetch-mock": "^3.0.3",
