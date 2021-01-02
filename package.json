@@ -3,7 +3,7 @@
 	"version": "40.0.0",
 	"private": true,
 	"devDependencies": {
-		"@babel/core": "~7.9.0",
+		"@babel/core": "~7.12.10",
 		"@babel/runtime": "^7.10.2",
 		"@expo/webpack-config": "~0.12.52",
 		"@types/i18n-js": "^3.0.3",
