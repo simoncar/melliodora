@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`show album select screen 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#EFEFF4",
+      "flex": 1,
+      "marginTop": 10,
+    }
+  }
+>
+  <View>
+    <Modal
+      animationType="slide"
+      hardwareAccelerated={false}
+      transparent={false}
+      visible={false}
+    >
+      <View
+        style={
+          Object {
+            "backgroundColor": "#f2f2f2",
+            "flex": 1,
+            "marginTop": 22,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text />
+        </View>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "color": "#fff",
+                "fontSize": 24,
+                "fontWeight": "bold",
+                "textShadowColor": "#000",
+                "textShadowOffset": Object {
+                  "height": 0.8,
+                  "width": 1,
+                },
+                "textShadowRadius": 1,
+              },
+            ]
+          }
+        />
+      </View>
+    </Modal>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "white",
+            "height": 30,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "SegoeUI",
+              },
+              Object {
+                "alignSelf": "center",
+                "borderBottomColor": "#666",
+                "borderBottomWidth": 1,
+                "color": "grey",
+                "fontSize": 14,
+                "paddingBottom": 5,
+                "paddingTop": 5,
+              },
+            ]
+          }
+        >
+          Google Translate
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    onLayout={[Function]}
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  />
+</View>
+`;

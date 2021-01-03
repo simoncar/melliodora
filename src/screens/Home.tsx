@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { View, Linking, TouchableOpacity, Image, ScrollView, StyleSheet, Dimensions } from "react-native";
 import Constants from "expo-constants";
 import ListItem from "../components/StoryListItem";
-
 import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
@@ -37,8 +36,6 @@ export default function Home(props: TProps) {
 	};
 
 	useEffect(() => {
-		//	loadFromAsyncStorage();
-
 		props.navigation.setParams({
 			title: domain,
 		});
@@ -205,7 +202,7 @@ export default function Home(props: TProps) {
 				card={true}
 				language={language}
 				domain={domain}
-				admin={ admin}
+				admin={admin}
 			/>
 		);
 	};
