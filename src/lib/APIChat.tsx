@@ -55,8 +55,6 @@ export class Backend extends React.Component {
 	}
 
 	loadMessages = async (callback) => {
-		console.log("loadMessages domain:", this.domain);
-
 		this.ref = firebase
 			.firestore()
 			.collection(this.domain)

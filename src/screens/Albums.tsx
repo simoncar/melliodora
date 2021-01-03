@@ -49,12 +49,14 @@ export default class SelectAlbum extends Component<TProps, TState> {
 
 			MediaLibrary.getAlbumsAsync()
 				.then((albumsList) => {
-					albumsList.forEach((album) => {
-						albums.push({
-							title: album.title,
-							_key: album.id,
+					if (albumsList != undefined) {
+						albumsList.forEach((album) => {
+							albums.push({
+								title: album.title,
+								_key: album.id,
+							});
 						});
-					});
+					}
 					this.setState({
 						albums,
 					});

@@ -37,8 +37,6 @@ export default function Home(props: TProps) {
 	};
 
 	useEffect(() => {
-		//	loadFromAsyncStorage();
-
 		props.navigation.setParams({
 			title: domain,
 		});

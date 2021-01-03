@@ -12,13 +12,18 @@ import I18n from "../lib/i18n";
 import uuid from "uuid";
 import Backend from "../lib/APIChat";
 import * as Analytics from "expo-firebase-analytics";
-import {  ActionSheetProvider } from "@expo/react-native-action-sheet";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 
 import { Text } from "../components/sComponent";
 
+interface TProps {
+	navigation: any;
+	route: any;
+}
+
 var localMessages = [];
 
-export default class chat extends Component {
+export default class Chat extends Component<TProps> {
 	constructor(props) {
 		super(props);
 		this.state = {
