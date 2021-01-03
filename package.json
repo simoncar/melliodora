@@ -113,7 +113,7 @@
 	},
 	"jest": {
 		"setupFiles": [
-			"./__mocks__/mock"
+			"./__mocks__/mock.ts"
 		],
 		"projects": [
 			{
