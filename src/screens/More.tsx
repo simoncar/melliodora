@@ -12,9 +12,7 @@ import { useDomainP, useDomainNameP, useLanguage, useLogin } from "../lib/global
 
 interface TProps {
 	navigation: any;
-	auth: any;
 	route: any;
-	adminPassword: string;
 }
 
 export default function Settings(props: TProps) {
@@ -80,7 +78,6 @@ export default function Settings(props: TProps) {
 		</View>
 	);
 }
-
 
 const styles = StyleSheet.create({
 	card: {
