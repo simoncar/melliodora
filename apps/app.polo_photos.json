@@ -16,7 +16,7 @@
 		},
 		"splash": {
 			"image": "./resources/genericApp/splashPolo.png",
-			"backgroundColor": "#2AE"
+			"resizeMode": "cover"
 		},
 		"hooks": {
 			"postPublish": [
