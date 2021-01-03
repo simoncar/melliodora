@@ -131,7 +131,7 @@
 			"**/*.{js,jsx,ts,tsx}",
 			"!**/coverage/**",
 			"!**/node_modules/**",
-			"!**/babel.config.js",
+			"!**/babel.config.ts",
 			"!**/jest.setup.js",
 			"!**/web-build/**",
 			"!**/metro.config.js"
