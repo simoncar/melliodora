@@ -113,14 +113,11 @@
 	},
 	"jest": {
 		"setupFiles": [
-			"./mock.js"
+			"./__mocks__/mock.ts"
 		],
 		"projects": [
 			{
 				"preset": "jest-expo/ios"
-			},
-			{
-				"preset": "jest-expo/android"
 			}
 		],
 		"transformIgnorePatterns": [

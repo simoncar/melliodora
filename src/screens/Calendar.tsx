@@ -1,94 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import firebase from "../lib/firebase";
 import { Agenda } from "react-native-calendars";
-import I18n from "../lib/i18n";
-import moment from "moment";
+
 import CalendarItem from "../components/CalendarItem";
 import { useDomain, useLanguage } from "../lib/globalState";
-
-const todayItem = {};
-const todayDate = moment().format("YYYY-MM-DD");
+import { getCalendarItems } from "../lib/APICalendar";
 
 interface TProps {
 	navigation: any;
+	route: any;
 }
 
 export default function Calendar(props: TProps) {
 	const [items, setItems] = useState({});
+	const [loading, setLoading] = useState(true);
 	const [, , domain] = useDomain();
 	const [, , language] = useLanguage();
 
+	const setCalendarItems = (items) => {
+		setItems(items);
+		setLoading(false);
+	};
+
 	useEffect(() => {
-		const todayDay = new moment().format("MMMM Do");
-
-		todayItem[todayDate] = [];
-		todayItem[todayDate].push({
-			_key: "todayKey",
-			summary: I18n.t("today") + " " + todayDay,
-			summaryMyLanguage: I18n.t("today") + " " + todayDay,
-			icon: "md-radio-button-off",
-			color: "yellow",
-			title: todayDay,
-			marginBottom: 25,
-		});
-
-		setItems(todayItem);
-
-		const unsubscribe = firebase
-			.firestore()
-			.collection(domain)
-			.doc("calendar")
-			.collection("calendarItems")
-			.onSnapshot(function (snapshot) {
-				var items2 = {};
-				var newItems = {};
-				var trans = {};
-				var strtime = 0;
-
-				for (let i = -15; i < 365; i++) {
-					const time = Date.now() + i * 24 * 60 * 60 * 1000;
-					const strtime2 = timeToString(time);
-					newItems[strtime2] = [];
-				}
-
-				items2 = newItems;
-				const todayDay = new moment().format("MMMM Do");
-
-				items2[todayDate].push({
-					_key: "todayKey",
-					summary: I18n.t("today") + " " + todayDay,
-					summaryMyLanguage: I18n.t("today") + " " + todayDay,
-					icon: "md-radio-button-off",
-					color: "yellow",
-					title: todayDay,
-				});
-
-				snapshot.forEach((doc) => {
-					strtime = doc.data().date_start;
-					strtime = strtime.substring(0, 10);
-
-					if (!items2[strtime]) {
-						items2[strtime] = [];
-					}
-
-					trans = {
-						source: "calendar",
-						summaryMyLanguage: doc.data().summary,
-						descriptionMyLanguage: doc.data().description,
-						color: doc.data().color,
-					};
-
-					var event = { ...{ _key: doc.id }, ...doc.data(), ...trans };
-					items2[strtime].push(event);
-				});
-				console.log("setItems Calendar ");
-				setItems(items2);
-			});
+		const unsubscribe = getCalendarItems(domain, language, setCalendarItems);
 
 		return () => {
-			console.log("calendar UNSUBSCRIBE");
-			unsubscribe();
+			unsubscribe;
 		};
 	}, []);
 
@@ -98,11 +36,6 @@ export default function Calendar(props: TProps) {
 
 	const renderEmptyDate = () => {
 		return;
-	};
-
-	const timeToString = (time) => {
-		const date = new Date(time);
-		return date.toISOString().split("T")[0];
 	};
 
 	const date = new Date();
@@ -140,9 +73,5 @@ export default function Calendar(props: TProps) {
 }
 
 const styles = StyleSheet.create({
-	calendarIcon: {
-		color: "#999999",
-		fontSize: 30,
-	},
 	calendarTheme: {},
 });

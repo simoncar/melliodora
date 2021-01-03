@@ -1,0 +1,356 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`show album select screen 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#EFEFF4",
+      "flex": 1,
+      "marginTop": 10,
+    }
+  }
+>
+  <RCTScrollView>
+    <View>
+      <View
+        style={
+          Object {
+            "alignSelf": "center",
+            "backgroundColor": "#fff",
+            "borderRadius": 15,
+            "marginBottom": 12,
+            "padding": 10,
+            "width": "95%",
+          }
+        }
+      >
+        <View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "backgroundColor": "#ffffff80",
+                    "paddingBottom": 15,
+                    "paddingHorizontal": 15,
+                    "paddingTop": 15,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 18,
+                      "fontWeight": "600",
+                    }
+                  }
+                >
+                  Some Name
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "color": "#808080",
+                      "fontSize": 14,
+                    }
+                  }
+                >
+                  someeamil@simon.io
+                </Text>
+              </View>
+              <View>
+                <Image
+                  source={
+                    Object {
+                      "uri": "https://somephoto.jpg/?auto=enhance&fit=clip&w=180",
+                    }
+                  }
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "borderColor": "lightgray",
+                      "borderRadius": 30,
+                      "height": 60,
+                      "justifyContent": "center",
+                      "marginRight": 5,
+                      "marginTop": 5,
+                      "width": 60,
+                    }
+                  }
+                />
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignSelf": "center",
+            "backgroundColor": "#fff",
+            "borderRadius": 15,
+            "marginBottom": 12,
+            "padding": 10,
+            "width": "95%",
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#CED0CE",
+                "borderBottomWidth": 0.5,
+                "flexDirection": "row",
+                "paddingVertical": 8,
+              }
+            }
+          >
+            <Text />
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingHorizontal": 8,
+                }
+              }
+            >
+              <View>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "SegoeUI",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  Language
+                </Text>
+              </View>
+              <View>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "SegoeUI",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  en
+                </Text>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "marginHorizontal": 8,
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#CED0CE",
+                "borderBottomWidth": 0.5,
+                "flexDirection": "row",
+                "paddingVertical": 8,
+              }
+            }
+          >
+            <Text />
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingHorizontal": 8,
+                }
+              }
+            >
+              <View>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "SegoeUI",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  About this App
+                </Text>
+              </View>
+              <View>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "SegoeUI",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  
+                </Text>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "marginHorizontal": 8,
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#CED0CE",
+                "flexDirection": "row",
+                "paddingVertical": 8,
+              }
+            }
+          >
+            <Text />
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingHorizontal": 8,
+                }
+              }
+            >
+              <View>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "SegoeUI",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  Browse Polo's
+                </Text>
+              </View>
+              <View>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "SegoeUI",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  
+                </Text>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "marginHorizontal": 8,
+                }
+              }
+            />
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

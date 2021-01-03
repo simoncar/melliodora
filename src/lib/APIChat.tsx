@@ -20,6 +20,7 @@ export class Backend extends React.Component {
 	}
 
 	setDomain(domain) {
+		console.log("backend set domain:", domain);
 		this.domain = domain;
 	}
 
@@ -55,8 +56,6 @@ export class Backend extends React.Component {
 	}
 
 	loadMessages = async (callback) => {
-		console.log("loadMessages domain:", this.domain);
-
 		this.ref = firebase
 			.firestore()
 			.collection(this.domain)
@@ -142,7 +141,7 @@ export class Backend extends React.Component {
 					timestamp: Date.now(),
 					system: false,
 					pushToken: global.pushToken,
-					uid: global.uid,
+					uid:this.uid,
 				};
 
 				this.messageRef = firebase

@@ -17,7 +17,7 @@ import Story from "./screens/Story";
 import Form from "./screens/Form";
 import ChatRooms from "./screens/ChatRooms";
 import ChatTitle from "./screens/ChatTitle";
-import chat from "./screens/Chat";
+import Chat from "./screens/Chat";
 import push from "./screens/Push";
 import WebPortal from "./screens/WebPortal";
 import LoginScreen from "./screens/Login";
@@ -56,7 +56,7 @@ function StackHomeNavigator() {
 			<StackHome.Screen name="push" component={push} options={{ title: I18n.t("send") }} />
 			<StackHome.Screen
 				name="chatStory"
-				component={chat}
+				component={Chat}
 				options={({ route }) => ({ title: route.params.title })}
 			/>
 			<StackHome.Screen name="Form" component={Form} options={{ title: I18n.t("edit") }} />
@@ -101,7 +101,7 @@ function StackCalendarNavigator() {
 			<StackCalendar.Screen name="searchCalendar" component={Search} options={{ title: I18n.t("search") }} />
 			<StackCalendar.Screen
 				name="chatCalendar"
-				component={chat}
+				component={Chat}
 				options={({ route }) => ({ title: route.params.title })}
 			/>
 		</StackCalendar.Navigator>
@@ -119,7 +119,7 @@ function StackChatNavigator() {
 				component={ChatTitle}
 				options={({ route }) => ({ title: route.params.title })}
 			/>
-			<StackChat.Screen name="chat" component={chat} options={({ route }) => ({ title: route.params.title })} />
+			<StackChat.Screen name="chat" component={Chat} options={({ route }) => ({ title: route.params.title })} />
 			<StackChat.Screen
 				name="selectLanguageChat"
 				component={SelectLanguage}
@@ -170,7 +170,7 @@ function StackOtherNavigator() {
 			<StackOther.Screen name="UserProfile" component={UserProfile} options={{ title: I18n.t("profile") }} />
 			<StackOther.Screen
 				name="chatPrivate"
-				component={chat}
+				component={Chat}
 				options={({ route }) => ({ title: route.params.title })}
 			/>
 			<StackOther.Screen name="UserSearch" component={UserSearch} options={{ title: I18n.t("searchUsers") }} />
