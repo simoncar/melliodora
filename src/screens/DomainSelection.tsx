@@ -42,11 +42,9 @@ export default function DomainSelection(props: TProps) {
 	};
 
 	const renderItem = (navigation, item) => {
-		console.log("item:", item);
-
 		const userIsAdmin = isDomainAdmin(uid, item.admins);
 		return (
-			<View>
+			<View key={item._key}>
 				<SettingsListItem
 					hasNavArrow={true}
 					icon={
@@ -89,12 +87,7 @@ export default function DomainSelection(props: TProps) {
 				</View>
 				{loading === false && (
 					<View style={styles.card}>
-						<ShortList
-							navigation={props.navigation}
-							data={domainsList}
-							keyExtractor={(item) => item._key}
-							renderItem={renderItem}
-						/>
+						<ShortList navigation={props.navigation} data={domainsList} renderItem={renderItem} />
 					</View>
 				)}
 			</ScrollView>

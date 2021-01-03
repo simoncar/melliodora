@@ -32,7 +32,6 @@ export function ShortList(props) {
 		return (
 			<View>
 				{features.map((el) => {
-					console.log("el:", el);
 
 					return props.renderItem(navigation, el);
 				})}
