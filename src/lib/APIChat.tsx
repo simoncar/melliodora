@@ -20,11 +20,12 @@ export class Backend extends React.Component {
 	}
 
 	setDomain(domain) {
+		console.log("backend set domain:", domain);
 		this.domain = domain;
 	}
 
 	setUID(uid) {
-		//this.uid = uid;
+		this.uid = uid;
 	}
 	aagetUid() {
 		return this.uid;
@@ -140,7 +141,7 @@ export class Backend extends React.Component {
 					timestamp: Date.now(),
 					system: false,
 					pushToken: global.pushToken,
-					uid: global.uid,
+					uid:this.uid,
 				};
 
 				this.messageRef = firebase
