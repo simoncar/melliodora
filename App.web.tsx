@@ -14,9 +14,6 @@ import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 // npm-check
 
 export default class App extends Component {
-	constructor(props) {
-		super(props);
-	}
 	render() {
 		return (
 			<ActionSheetProvider>

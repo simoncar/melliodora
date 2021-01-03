@@ -1,10 +1,5 @@
 import React from "react";
-import {
-	StyleSheet,
-	Text as RNText,
-	View,
-	TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text as RNText, View, TouchableOpacity } from "react-native";
 import _ from "lodash";
 
 export function Text(props) {
@@ -22,10 +17,7 @@ export function Button(props) {
 
 	return (
 		<View style={styles.buttonView}>
-			<TouchableOpacity
-				style={styles.SubmitButtonStyle}
-				activeOpacity={0.5}
-				onPress={rest.onPress}>
+			<TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={rest.onPress}>
 				<Text>{rest.title}</Text>
 			</TouchableOpacity>
 		</View>
@@ -40,6 +32,8 @@ export function ShortList(props) {
 		return (
 			<View>
 				{features.map((el) => {
+					console.log("el:", el);
+
 					return props.renderItem(navigation, el);
 				})}
 			</View>
