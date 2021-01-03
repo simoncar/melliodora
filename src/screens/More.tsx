@@ -3,8 +3,6 @@ import { StyleSheet, View, ScrollView } from "react-native";
 import Constants from "expo-constants";
 import I18n from "../lib/i18n";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
-import _ from "lodash";
-
 import * as Linking from "expo-linking";
 import { SettingsListItem, Separator } from "../components/SettingsListItem";
 import Profile from "../components/Profile";
