@@ -113,7 +113,7 @@
 	},
 	"jest": {
 		"setupFiles": [
-			"./mock.ts"
+			"./__mocks__/mock"
 		],
 		"projects": [
 			{
@@ -131,7 +131,7 @@
 			"**/*.{js,jsx,ts,tsx}",
 			"!**/coverage/**",
 			"!**/node_modules/**",
-			"!**/babel.config.ts",
+			"!**/babel.config.js",
 			"!**/jest.setup.js",
 			"!**/web-build/**",
 			"!**/metro.config.js"
