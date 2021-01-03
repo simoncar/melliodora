@@ -12,18 +12,13 @@ Sentry.init({
 });
 
 if (Platform.OS === "web") {
-	Sentry.Browser.captureMessage("Polo started V" + Constants.manifest.version);
-	console.log("Sentry Web: ", Platform.OS);
+	console.log("Sentry Web Disabled: ", Platform.OS);
 } else {
 	Sentry.Native.captureMessage("Polo started V" + Constants.manifest.version);
 	console.log("Sentry Device:", Platform.OS);
 }
 
 export default class App extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		return (
 			<ActionSheetProvider>
