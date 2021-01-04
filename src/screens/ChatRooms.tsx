@@ -14,8 +14,8 @@ interface TProps {
 }
 
 export default function ChatRooms(props: TProps) {
-	const [refreshDomain, setDomain, domain, domainIsUpdated] = useDomain();
-	const [, setGUid, uid] = useUid();
+	const [, , domain] = useDomain();
+	const [, , uid] = useUid();
 	const [, , displayName] = useDisplayName();
 	const [, , language] = useLanguage();
 	const [, , photoURL] = usePhotoURL();
@@ -48,12 +48,10 @@ export default function ChatRooms(props: TProps) {
 						});
 					}
 				});
-				console.log("Chatrooms SUBSCRIBE");
 				setUserChatrooms(userChatroomsArr);
 			});
 
 		return () => {
-			console.log("Chatrooms UNSUBSCRIBE");
 			unsubscribe();
 		};
 	}, []);

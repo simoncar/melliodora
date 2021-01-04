@@ -35,7 +35,7 @@ export function getMessage(messageObj: any, id: string, language: string): Messa
 		{
 			_id: messageObj._id,
 			createdAt: messageObj.createdAt,
-			text: messageObj.text + " - " + messageObj._id,
+			text: messageObj.text,
 			user: {
 				_id: messageObj.user._id,
 				name: messageObj.user.name,

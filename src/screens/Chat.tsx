@@ -1,3 +1,5 @@
+// @refresh reset
+
 import React, { Component, useEffect, useState, useCallback } from "react";
 import { View, TouchableOpacity, Linking, Modal, StyleSheet } from "react-native";
 import { GiftedChat, Send } from "react-native-gifted-chat";
@@ -14,41 +16,31 @@ import Backend, { getMessages, addMessage } from "../lib/APIChat";
 import * as Analytics from "expo-firebase-analytics";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { Text } from "../components/sComponent";
-import { useDomain, useLanguage, useLogin, useAdmin, useUid } from "../lib/globalState";
+import { useDomain, useLanguage, useUid } from "../lib/globalState";
 
 export default function Chat() {
 	const [messages, setMessages] = useState([]);
-	const [local, setLocal] = useState([]);
 	const [, , domain] = useDomain();
 	const [, , language] = useLanguage();
 	const [, , uid] = useUid();
-	const localMessages = [];
 
 	const messagesLoaded = (newMessageFromServer) => {
-		if (!localMessages.includes(newMessageFromServer._id)) {
-			setMessages((messages) => GiftedChat.append(messages, newMessageFromServer));
-		}
+		setMessages((messages) => GiftedChat.append(messages, newMessageFromServer));
 	};
 
 	useEffect(() => {
 		const unsubscribe = getMessages(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messagesLoaded);
-		return () => {
-			console.log("Stories UNSUBSCRIBE, isDevice:", Constants.isDevice);
-			unsubscribe;
-		};
+		return () => unsubscribe;
 	}, []);
 
-	const onSend = useCallback((messages2 = []) => {
-		messages2[0]._id = uuid.v4();
-		setMessages((messages) => GiftedChat.append(messages, messages2));
-		localMessages.push(messages2[0]._id);
-		addMessage(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messages2, uid);
-	}, []);
+	const handleSend = (messages) => {
+		addMessage(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messages, uid);
+	};
 
 	return (
 		<GiftedChat
 			messages={messages}
-			onSend={(messages) => onSend(messages)}
+			onSend={handleSend}
 			user={{
 				_id: uid,
 			}}
