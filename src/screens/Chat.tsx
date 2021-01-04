@@ -18,38 +18,31 @@ import { useDomain, useLanguage, useLogin, useAdmin, useUid } from "../lib/globa
 
 export default function Chat() {
 	const [messages, setMessages] = useState([]);
+	const [local, setLocal] = useState([]);
 	const [, , domain] = useDomain();
 	const [, , language] = useLanguage();
+	const [, , uid] = useUid();
+	const localMessages = [];
 
-	const messagesLoaded = (messages) => {
-		setMessages(messages);
-		//setLoading(false);
+	const messagesLoaded = (newMessageFromServer) => {
+		if (!localMessages.includes(newMessageFromServer._id)) {
+			setMessages((messages) => GiftedChat.append(messages, newMessageFromServer));
+		}
 	};
 
 	useEffect(() => {
 		const unsubscribe = getMessages(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messagesLoaded);
-
 		return () => {
-			console.log("Stories UNSUBSCRIBE");
+			console.log("Stories UNSUBSCRIBE, isDevice:", Constants.isDevice);
 			unsubscribe;
 		};
 	}, []);
 
-	const onSend = useCallback((messages = []) => {
-		console.log("add Message :", messages);
-
-		// 		 Array [
-		//   Object {
-		//     "_id": "15ecb585-8031-4653-a402-26e4afeb2e60",
-		//     "createdAt": 2021-01-04T02:32:35.811Z,
-		//     "text": "Agdagasdg",
-		//     "user": Object {
-		//       "_id": 1,
-		//     },
-		//   },
-		addMessage(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messages);
-
-		setMessages((previousMessages) => GiftedChat.append(previousMessages, messages));
+	const onSend = useCallback((messages2 = []) => {
+		messages2[0]._id = uuid.v4();
+		setMessages((messages) => GiftedChat.append(messages, messages2));
+		localMessages.push(messages2[0]._id);
+		addMessage(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messages2, uid);
 	}, []);
 
 	return (
@@ -57,7 +50,7 @@ export default function Chat() {
 			messages={messages}
 			onSend={(messages) => onSend(messages)}
 			user={{
-				_id: 1,
+				_id: uid,
 			}}
 		/>
 	);

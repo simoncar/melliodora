@@ -45,7 +45,6 @@ export interface MessageEntity {
 		name: string;
 		email: string;
 	};
-	uid: string;
 }
 
 export interface StoryEntity {

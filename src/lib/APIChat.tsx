@@ -13,38 +13,41 @@ export function getMessages(domain: string, language: string, chatroom: string, 
 		.collection("chatrooms")
 		.doc(chatroom)
 		.collection("messages")
-		.orderBy("timestamp")
+		.orderBy("createdAt", "asc")
 		//.where("translated", "==", true)
 		.onSnapshot((snapshot) => {
 			const messages: MessageEntity[] = [];
-			snapshot.forEach(function (doc) {
-				const message: MessageEntity = getMessage(doc.data(), doc.id, language);
-				messages.push(message);
-			});
+			snapshot.docChanges().forEach((change) => {
+				if (change.type === "added") {
+					const message: MessageEntity = getMessage(change.doc.data(), change.doc.id, language);
+					messages.push(message);
 
-			callback(messages);
+					callback(message);
+				}
+			});
 		});
 
 	return () => unsubscribe();
 }
 
 export function getMessage(messageObj: any, id: string, language: string): MessageEntity {
-	const message = {
-		_id: id,
-		text: messageObj.text,
-		user: {
-			_id: "sdfgag",
-			name: "username",
-			email: "user@email.com",
+	const message = [
+		{
+			_id: messageObj._id,
+			createdAt: messageObj.createdAt,
+			text: messageObj.text + " - " + messageObj._id,
+			user: {
+				_id: messageObj.user._id,
+				name: messageObj.user.name,
+				email: messageObj.user.email,
+			},
 		},
-		uid: "asdfgag",
-		createdAt: null,
-	};
+	];
 
 	return message;
 }
 
-export function addMessage(domain: string, language: string, chatroom: string, messages: MessageEntity[], user: any) {
+export function addMessage(domain: string, language: string, chatroom: string, messages: MessageEntity[], uid: string) {
 	return new Promise((resolve, reject) => {
 		const promises = [];
 
@@ -59,11 +62,12 @@ export function addMessage(domain: string, language: string, chatroom: string, m
 				chatroom: chatroom,
 				chatroomTitle: chatroom,
 				user: {
-					_id: "asdfgagf",
+					_id: uid,
 					name: "usernmam,e",
 					email: "user@user.com",
 				},
-				timestamp: Date.now(),
+				createdAt: Date.now(),
+				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 				system: false,
 				//pushToken: pushToken,
 			};
