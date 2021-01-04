@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { I18nManager } from "react-native";
+import { I18nManager, LogBox } from "react-native";
 import App from "./App";
 import I18n from "./lib/i18n";
 import * as Font from "expo-font";
@@ -7,7 +7,6 @@ import AppLoading from "expo-app-loading";
 import firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
 import { isDomainAdminServer } from "./lib/APIDomain";
-
 
 import {
 	useDomainP,
@@ -22,7 +21,6 @@ import {
 } from "./lib/globalState";
 import * as Localization from "expo-localization";
 
-
 export default function Setup() {
 	const [loading, setLoading] = useState(true);
 	const [domain, domainSetter, domainIsUpdated] = useDomainP();
@@ -36,6 +34,8 @@ export default function Setup() {
 	const [, setAdmin, admin] = useAdmin();
 
 	useEffect(() => {
+		LogBox.ignoreLogs(["You should try avoid call the same state-setter multiple times at one execution line"]);
+
 		async function loadFonts() {
 			console.log(" ---- load fonts ----");
 			await Font.loadAsync({
@@ -116,7 +116,6 @@ export default function Setup() {
 	useEffect(() => {
 		console.log("domain set useEffect", domain, gUid);
 		isDomainAdminServer(gUid, domain).then((xxx) => {
-			console.log("X:", xxx);
 			setAdmin(xxx);
 		});
 	}, [domain, gUid]);

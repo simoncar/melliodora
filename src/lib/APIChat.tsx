@@ -3,7 +3,7 @@ import firebase from "./firebase";
 import * as ImageManipulator from "expo-image-manipulator";
 import _ from "lodash";
 import uuid from "uuid";
-import { MessageEntity } from "../lib/interfaces";
+import { MessageEntity, UserEntity } from "../lib/interfaces";
 
 export function getMessages(domain: string, language: string, chatroom: string, callback) {
 	const unsubscribe = firebase
@@ -21,7 +21,6 @@ export function getMessages(domain: string, language: string, chatroom: string, 
 				if (change.type === "added") {
 					const message: MessageEntity = getMessage(change.doc.data(), change.doc.id, language);
 					messages.push(message);
-
 					callback(message);
 				}
 			});
@@ -39,7 +38,7 @@ export function getMessage(messageObj: any, id: string, language: string): Messa
 			user: {
 				_id: messageObj.user._id,
 				name: messageObj.user.name,
-				email: messageObj.user.email,
+				avatar: messageObj.user.avatar,
 			},
 		},
 	];
@@ -47,7 +46,13 @@ export function getMessage(messageObj: any, id: string, language: string): Messa
 	return message;
 }
 
-export function addMessage(domain: string, language: string, chatroom: string, messages: MessageEntity[], uid: string) {
+export function addMessage(
+	domain: string,
+	language: string,
+	chatroom: string,
+	messages: MessageEntity[],
+	auth: UserEntity
+) {
 	return new Promise((resolve, reject) => {
 		const promises = [];
 
@@ -62,9 +67,10 @@ export function addMessage(domain: string, language: string, chatroom: string, m
 				chatroom: chatroom,
 				chatroomTitle: chatroom,
 				user: {
-					_id: uid,
-					name: "usernmam,e",
-					email: "user@user.com",
+					_id: auth.uid,
+					name: auth.displayName,
+					email: auth.email,
+					avatar: auth.photoURL,
 				},
 				createdAt: Date.now(),
 				timestamp: firebase.firestore.FieldValue.serverTimestamp(),

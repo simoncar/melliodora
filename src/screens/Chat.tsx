@@ -16,25 +16,29 @@ import Backend, { getMessages, addMessage } from "../lib/APIChat";
 import * as Analytics from "expo-firebase-analytics";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { Text } from "../components/sComponent";
-import { useDomain, useLanguage, useUid } from "../lib/globalState";
+import { useDomain, useLanguage, useAuth } from "../lib/globalState";
 
 export default function Chat() {
 	const [messages, setMessages] = useState([]);
 	const [, , domain] = useDomain();
 	const [, , language] = useLanguage();
-	const [, , uid] = useUid();
+	const [, , authString] = useAuth();
+
+	const auth = JSON.parse(authString);
 
 	const messagesLoaded = (newMessageFromServer) => {
 		setMessages((messages) => GiftedChat.append(messages, newMessageFromServer));
+		console.log("new message from server:", newMessageFromServer);
 	};
 
 	useEffect(() => {
 		const unsubscribe = getMessages(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messagesLoaded);
+
 		return () => unsubscribe;
 	}, []);
 
 	const handleSend = (messages) => {
-		addMessage(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messages, uid);
+		addMessage(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messages, auth);
 	};
 
 	return (
@@ -42,8 +46,12 @@ export default function Chat() {
 			messages={messages}
 			onSend={handleSend}
 			user={{
-				_id: uid,
+				_id: auth.uid,
+				name: auth.displayName,
+				avatar: auth.photoURL,
 			}}
+			showUserAvatar={true}
+			alwaysShowSend={true}
 		/>
 	);
 }

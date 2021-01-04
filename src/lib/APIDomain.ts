@@ -50,12 +50,10 @@ export async function isDomainAdminServer(currentUid: string, domain: string) {
 			.then(function (snapshot) {
 				snapshot.forEach(function (doc) {
 					const x = isDomainAdmin(currentUid, doc.data().admins);
-					console.log("isDomainAdminServer resolve:", x);
 					resolve(x);
 				});
 			})
 			.catch((error) => {
-				console.log("isDomainAdminServer failed:", error);
 				reject(Error("isDomainAdminServer broke " + error));
 			});
 	});
