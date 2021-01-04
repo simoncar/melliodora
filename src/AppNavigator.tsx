@@ -209,11 +209,12 @@ function Tabs() {
 				activeTintColor: "black",
 				inactiveTintColor: "gray",
 			}}>
-			<Tab.Screen name="homeNav" component={StackHomeNavigator} options={{ title: I18n.t("home") }} />
-			<Tab.Screen name="home" component={StackCalendarNavigator} options={{ title: I18n.t("calendar") }} />
 			{Constants.manifest.extra.instance != "sais_edu_sg" && (
 				<Tab.Screen name="chatRooms" component={StackChatNavigator} options={{ title: I18n.t("chat") }} />
 			)}
+			<Tab.Screen name="homeNav" component={StackHomeNavigator} options={{ title: I18n.t("home") }} />
+			<Tab.Screen name="home" component={StackCalendarNavigator} options={{ title: I18n.t("calendar") }} />
+
 			<Tab.Screen name="webportal" component={StackWebNavigator} options={{ title: I18n.t("myS") }} />
 			<Tab.Screen name="other" component={StackOtherNavigator} options={{ title: I18n.t("more") }} />
 		</Tab.Navigator>

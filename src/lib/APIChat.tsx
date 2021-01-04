@@ -3,6 +3,93 @@ import firebase from "./firebase";
 import * as ImageManipulator from "expo-image-manipulator";
 import _ from "lodash";
 import uuid from "uuid";
+import { MessageEntity } from "../lib/interfaces";
+
+export function getMessages(domain: string, language: string, chatroom: string, callback) {
+	const unsubscribe = firebase
+		.firestore()
+		.collection(domain)
+		.doc("chat")
+		.collection("chatrooms")
+		.doc(chatroom)
+		.collection("messages")
+		.orderBy("timestamp")
+		//.where("translated", "==", true)
+		.onSnapshot((snapshot) => {
+			const messages: MessageEntity[] = [];
+			snapshot.forEach(function (doc) {
+				const message: MessageEntity = getMessage(doc.data(), doc.id, language);
+				messages.push(message);
+			});
+
+			callback(messages);
+		});
+
+	return () => unsubscribe();
+}
+
+export function getMessage(messageObj: any, id: string, language: string): MessageEntity {
+	const message = {
+		_id: id,
+		text: messageObj.text,
+		user: {
+			_id: "sdfgag",
+			name: "username",
+			email: "user@email.com",
+		},
+		uid: "asdfgag",
+		createdAt: null,
+	};
+
+	return message;
+}
+
+export function addMessage(domain: string, language: string, chatroom: string, messages: MessageEntity[], user: any) {
+	return new Promise((resolve, reject) => {
+		const promises = [];
+
+		for (let i = 0; i < messages.length; i++) {
+			// if (undefined != messages[i].image && messages[i].image.length > 0) {
+			// 	var uploadUrl = uploadImageAsync(messages[i], chatroom, messages[i].user);
+			// } else {
+			var messageDict = {
+				_id: messages[i]._id,
+				text: messages[i].text,
+				textLanguage: language,
+				chatroom: chatroom,
+				chatroomTitle: chatroom,
+				user: {
+					_id: "asdfgagf",
+					name: "usernmam,e",
+					email: "user@user.com",
+				},
+				timestamp: Date.now(),
+				system: false,
+				//pushToken: pushToken,
+			};
+
+			const p1 = firebase
+				.firestore()
+				.collection(domain)
+				.doc("chat")
+				.collection("chatrooms")
+				.doc(chatroom)
+				.collection("messages")
+				.add(messageDict);
+
+			promises.push(p1);
+			//}
+		}
+
+		Promise.all(promises)
+			.then(() => {
+				resolve("saved to db");
+			})
+			.catch((error) => {
+				reject(Error("It broke " + error));
+			});
+	});
+}
 
 export class Backend extends React.Component {
 	messageRef = null;
@@ -141,7 +228,7 @@ export class Backend extends React.Component {
 					timestamp: Date.now(),
 					system: false,
 					pushToken: global.pushToken,
-					uid:this.uid,
+					uid: this.uid,
 				};
 
 				this.messageRef = firebase

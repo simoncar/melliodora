@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState, useCallback } from "react";
 import { View, TouchableOpacity, Linking, Modal, StyleSheet } from "react-native";
 import { GiftedChat, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
@@ -10,11 +10,58 @@ import CustomImage from "../components/ChatCustomImage";
 import CustomVideo from "../components/ChatCustomVideo";
 import I18n from "../lib/i18n";
 import uuid from "uuid";
-import Backend from "../lib/APIChat";
+import Backend, { getMessages, addMessage } from "../lib/APIChat";
 import * as Analytics from "expo-firebase-analytics";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
-
 import { Text } from "../components/sComponent";
+import { useDomain, useLanguage, useLogin, useAdmin, useUid } from "../lib/globalState";
+
+export default function Chat() {
+	const [messages, setMessages] = useState([]);
+	const [, , domain] = useDomain();
+	const [, , language] = useLanguage();
+
+	const messagesLoaded = (messages) => {
+		setMessages(messages);
+		//setLoading(false);
+	};
+
+	useEffect(() => {
+		const unsubscribe = getMessages(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messagesLoaded);
+
+		return () => {
+			console.log("Stories UNSUBSCRIBE");
+			unsubscribe;
+		};
+	}, []);
+
+	const onSend = useCallback((messages = []) => {
+		console.log("add Message :", messages);
+
+		// 		 Array [
+		//   Object {
+		//     "_id": "15ecb585-8031-4653-a402-26e4afeb2e60",
+		//     "createdAt": 2021-01-04T02:32:35.811Z,
+		//     "text": "Agdagasdg",
+		//     "user": Object {
+		//       "_id": 1,
+		//     },
+		//   },
+		addMessage(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messages);
+
+		setMessages((previousMessages) => GiftedChat.append(previousMessages, messages));
+	}, []);
+
+	return (
+		<GiftedChat
+			messages={messages}
+			onSend={(messages) => onSend(messages)}
+			user={{
+				_id: 1,
+			}}
+		/>
+	);
+}
 
 interface TProps {
 	navigation: any;
@@ -22,8 +69,7 @@ interface TProps {
 }
 
 var localMessages = [];
-
-export default class Chat extends Component<TProps> {
+export class Chat_old extends Component<TProps> {
 	constructor(props) {
 		super(props);
 		this.state = {
