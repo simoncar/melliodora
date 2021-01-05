@@ -4,6 +4,7 @@ import App from "./App";
 import I18n from "./lib/i18n";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import Constants from "expo-constants";
 import firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
 import { isDomainAdminServer } from "./lib/APIDomain";
@@ -34,8 +35,9 @@ export default function Setup() {
 	const [, setAdmin, admin] = useAdmin();
 
 	useEffect(() => {
-		LogBox.ignoreLogs(["You should try avoid call the same state-setter multiple times at one execution line"]);
-
+		if (!Constants.isDevice) {
+			LogBox.ignoreLogs(["You should try avoid call the same state-setter multiple times at one execution line"]);
+		}
 		async function loadFonts() {
 			console.log(" ---- load fonts ----");
 			await Font.loadAsync({
