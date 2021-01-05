@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Agenda } from "react-native-calendars";
-
 import CalendarItem from "../components/CalendarItem";
 import { useDomain, useLanguage } from "../lib/globalState";
 import { getCalendarItems } from "../lib/APICalendar";

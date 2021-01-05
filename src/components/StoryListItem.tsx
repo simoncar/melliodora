@@ -96,7 +96,6 @@ class ListItem extends Component<TProps> {
 			<View style={card && [styles.card]}>
 				<TouchableOpacity
 					onPress={() => {
-						console.log("navigate to story:", this.props.domain);
 						this.props.navigation.navigate("story", {
 							story: this.props.story,
 							domain: this.props.domain,
@@ -106,7 +105,6 @@ class ListItem extends Component<TProps> {
 					}}>
 					<View style={styles.headerRow}>
 						<View style={styles.headerIcon}>{this.icon(source, photo1)}</View>
-
 						<View style={styles.headerTextPanel}>
 							<Text numberOfLines={2} ellipsizeMode="tail">
 								{summaryMyLanguage}

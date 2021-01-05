@@ -1,97 +1,127 @@
-import React, { Component } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
 import { WebView } from "react-native-webview";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
+import * as Linking from "expo-linking";
 
-var WEBVIEW_REF = "webview";
+interface TProps {
+	navigation: any;
+	route: any;
+}
 
-export class WebPortal extends Component {
-	constructor(props) {
-		super(props);
+export default function WebPortal(props: TProps) {
+	const [loading, setLoading] = useState(true);
+	const [url, setUrl] = useState("");
+	const [canGoBack, setBack] = useState(false);
+	const [canGoForward, setForward] = useState(false);
 
-		var url = "";
-		if (this.props.route.params === undefined) {
-			url = "https://www.smartcookies.io";
+	var webview: any;
+
+	useEffect(() => {
+		if (props.route.params === undefined) {
+			setUrl("https://www.smartcookies.io");
 		} else {
-			url = this.props.route.params.url;
+			setUrl(props.route.params.url);
 		}
+		setLoading(false);
 
 		//https://connect.ais.com.sg/login/login.aspx?prelogin=https%3a%2f%2fconnect.ais.com.sg%2f&kr=iSAMS:ParentPP
+	}, []);
 
-		this.state = {
-			url: url,
-			status: "No Page Loaded",
-			backButtonEnabled: false,
-			forwardButtonEnabled: false,
-			loading: true,
-			cookies: {},
-			webViewUrl: "",
+	useLayoutEffect(() => {
+		const onPress = () => {
+			Linking.openURL(url);
 		};
-	}
 
-	onNavigationStateChange = (navState) => {
-		this.setState({ url: navState.url });
+		props.navigation.setOptions({
+			// eslint-disable-next-line react/display-name
+			headerRight: () => {
+				return (
+					<TouchableOpacity onPress={onPress}>
+						<Feather style={styles.share} name="share" size={24} color="black" />
+					</TouchableOpacity>
+				);
+			},
+		});
+	}, [props.navigation, url]);
+
+	const onBack = () => {
+		webview.goBack();
 	};
 
-	onBack() {
-		this.refs[WEBVIEW_REF].goBack();
-	}
-
-	reload = () => {
-		this.refs[WEBVIEW_REF].reload();
+	const onForward = () => {
+		webview.goForward();
 	};
 
-	render() {
-		return (
-			<View style={styles.flex1}>
-				<View style={styles.flex2}>
-					<View>
-						<TouchableOpacity disabled={!this.state.canGoBack} onPress={this.onBack.bind(this)}>
-							<Ionicons style={styles.navIcon} name="ios-arrow-back" />
-						</TouchableOpacity>
+	return (
+		<View style={styles.flex1}>
+			<View style={styles.headerRow}>
+				<TouchableOpacity disabled={!canGoBack} onPress={onBack}>
+					<Ionicons style={styles.navIconLeft} name="ios-arrow-back" />
+				</TouchableOpacity>
 
-						<TextInput
-							ref="pageURL"
-							value={this.state.url}
-							placeholderTextColor="#FFF"
-							style={styles.url}
-							autoCapitalize="none"
-							selectionColor="#FFF"
-							testID="webPortal.urlField"
-						/>
-
-						<Ionicons style={styles.navIcon} name="ios-arrow-forward" />
-					</View>
-
-					<WebView
-						source={{ uri: this.state.url }}
-						javaScriptEnabled={true}
-						automaticallyAdjustContentInsets={false}
-						onNavigationStateChange={this.onNavigationStateChange.bind(this)}
-						domStorageEnabled={true}
-						ref={WEBVIEW_REF}
-						testID="webPortal.RNCWebView"
-					/>
-				</View>
+				<TextInput
+					value={url}
+					placeholderTextColor="#FFF"
+					style={styles.url}
+					autoCapitalize="none"
+					selectionColor="#FFF"
+					testID="webPortal.urlField"
+				/>
+				<TouchableOpacity disabled={!canGoForward} onPress={onForward}>
+					<Ionicons style={styles.navIconRight} name="ios-arrow-forward" />
+				</TouchableOpacity>
 			</View>
-		);
-	}
+
+			{!loading && (
+				<WebView
+					source={{ uri: url }}
+					javaScriptEnabled={true}
+					automaticallyAdjustContentInsets={false}
+					onNavigationStateChange={(navState) => {
+						setUrl(navState.url);
+						setBack(navState.canGoBack);
+						setForward(navState.canGoForward);
+					}}
+					domStorageEnabled={true}
+					ref={(ref) => {
+						webview = ref;
+					}}
+					testID="webPortal.RNCWebView"
+				/>
+			)}
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
 	flex1: { flex: 1 },
-	flex2: { flex: 2 },
-	navIcon: {
-		color: "#FFF",
+	headerRow: {
+		flexDirection: "row",
+	},
+	navIconLeft: {
+		alignContent: "center",
+		color: "black",
 		fontSize: 20,
-		paddingLeft: 10,
+		height: 30,
+		padding: 5,
+	},
+
+	navIconRight: {
+		alignSelf: "flex-end",
+		color: "black",
+		fontSize: 20,
+		height: 30,
+		padding: 5,
+	},
+	share: {
 		paddingRight: 10,
 	},
-
 	url: {
-		color: "#FFF",
+		color: "black",
+		flex: 1,
 		fontSize: 14,
+		height: 30,
+		width: "100%",
 	},
 });
-
-export default WebPortal;

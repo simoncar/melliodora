@@ -37,7 +37,9 @@ export default function FormAlbum(props: TProps) {
 			headerRight: () => {
 				return <Button onPress={() => save()} title={I18n.t("save")} />;
 			},
+			
 		});
+		
 	}, [items]);
 
 	const save = () => {
