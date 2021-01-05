@@ -83,6 +83,7 @@ exports[`list item  with a photo 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               undefined,
             ]
@@ -97,6 +98,7 @@ exports[`list item  with a photo 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#555555",
@@ -236,6 +238,7 @@ exports[`list item of a calendar with date 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               undefined,
             ]
@@ -250,6 +253,7 @@ exports[`list item of a calendar with date 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#555555",
@@ -265,6 +269,7 @@ exports[`list item of a calendar with date 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#777777",
@@ -392,6 +397,7 @@ exports[`list item of a calendar with date and time 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               undefined,
             ]
@@ -406,6 +412,7 @@ exports[`list item of a calendar with date and time 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#555555",
@@ -421,6 +428,7 @@ exports[`list item of a calendar with date and time 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#777777",
@@ -526,6 +534,7 @@ exports[`show balance 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               undefined,
             ]
@@ -540,6 +549,7 @@ exports[`show balance 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#555555",

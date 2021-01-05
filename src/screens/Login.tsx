@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { StyleSheet, View, TextInput, SafeAreaView } from "react-native";
 import firebase from "../lib/firebase";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Ionicons } from "@expo/vector-icons";
+import * as Progress from "expo-progress";
 import { Text, Button } from "../components/sComponent";
-import Loader from "../components/Loader";
 import I18n from "../lib/i18n";
+import { Input } from "react-native-elements";
 
 interface TProps {
 	navigation: any;
@@ -16,16 +16,18 @@ export default function LoginScreen(props: TProps) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
+	const [emailValid, setEmailValid] = useState(false);
+	const [passwordComplexity, setPasswordComplexity] = useState(false);
+	const [secureEntry, setSecureEntry] = useState(true);
 
 	const handleLogin = () => {
-		console.log("Logging In Begin");
-
 		setLoading(true);
 		firebase
 			.auth()
 			.signInWithEmailAndPassword(email, password)
 			.then((auth: firebase.auth.UserCredential) => {
-				//saveAuth(auth);
+				// onAuthStateChanged will fire in Setup.tsx when the login happens
+				// onAuthStateChanged handless the updating of Auth state
 				console.log("Logging In Done:", auth);
 				props.navigation.popToTop();
 			})
@@ -43,93 +45,148 @@ export default function LoginScreen(props: TProps) {
 			});
 	};
 
+	const handleEmail = (email) => {
+		setErrorMessage("");
+		setEmail(email);
+
+		let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if (re.test(email)) {
+			setEmailValid(true);
+		} else {
+			setEmailValid(false);
+		}
+	};
+
+	const handlePassword = (pass) => {
+		setErrorMessage("");
+		setPassword(pass);
+
+		if (pass.length > 5) {
+			setPasswordComplexity(true);
+		} else {
+			setPasswordComplexity(false);
+		}
+	};
+
+	const toggleSecureEntry = () => {
+		setSecureEntry(!secureEntry);
+	};
+
 	return (
 		<SafeAreaView style={styles.container}>
-			<Loader modalVisible={loading} animationType="fade" />
-			<Text style={styles.errorMessage}>{errorMessage}</Text>
-			<View style={styles.SectionStyle}>
-				<Ionicons name="ios-mail" size={25} color="grey" style={styles.ImageStyle} />
-				<TextInput
-					style={styles.inputField}
-					placeholder={I18n.t("email")}
-					onChangeText={(text) => {
-						setErrorMessage("");
-						setEmail(text);
-					}}
-					value={email}
-					autoCapitalize="none"
-					testID="login.email"
-					keyboardType="email-address"
-					autoFocus={true}
-					underlineColorAndroid="transparent"
-				/>
+			{loading && <Progress.Bar isIndeterminate color="blue" />}
 
-				<Ionicons name="md-checkmark" size={25} color="grey" style={styles.ImageStyle} />
+			<View style={styles.fieldsContainer}>
+				<Text style={styles.errorMessage}>{errorMessage}</Text>
+				<View style={styles.sectionStyle}>
+					<Input
+						placeholder={I18n.t("email")}
+						onChangeText={(text) => {
+							handleEmail(text);
+						}}
+						value={email}
+						containerStyle={styles.containerStyle}
+						inputContainerStyle={styles.containerInput}
+						autoCapitalize="none"
+						testID="login.email"
+						keyboardType="email-address"
+						autoFocus={true}
+						leftIcon={{
+							type: "ionicon",
+							name: "ios-mail",
+							color: emailValid === true ? "#007aff" : "grey",
+						}}
+					/>
+				</View>
+
+				<View style={styles.sectionStyle}>
+					<Input
+						placeholder={I18n.t("password")}
+						onChangeText={(text) => {
+							handlePassword(text);
+						}}
+						value={password}
+						autoCapitalize="none"
+						secureTextEntry={secureEntry}
+						containerStyle={styles.containerStyle}
+						inputContainerStyle={styles.containerInput}
+						testID="login.password"
+						leftIcon={{
+							type: "ionicon",
+							name: "lock-closed",
+							color: passwordComplexity === true ? "#007aff" : "grey",
+						}}
+						rightIcon={{
+							type: "ionicon",
+							name: "ios-eye-off",
+							color: "grey",
+							onPress: toggleSecureEntry,
+						}}
+					/>
+				</View>
 			</View>
 
-			<View style={styles.SectionStyle}>
-				<Ionicons name="lock-closed" size={25} color="grey" style={styles.ImageStyle} />
-				<TextInput
-					style={styles.inputField}
-					placeholder={I18n.t("password")}
-					onChangeText={(text) => {
-						setErrorMessage("");
-						setPassword(text);
-					}}
-					value={password}
-					autoCapitalize="none"
-					secureTextEntry={true}
-					testID="login.password"
-					underlineColorAndroid="transparent"
-				/>
-				<Ionicons name="ios-eye-off" size={25} color="grey" style={styles.ImageStyle} />
-			</View>
+			<Button
+				title={I18n.t("login")}
+				style={styles.loginButton}
+				onPress={() => handleLogin()}
+				testID="login.loginButton"
+			/>
+			<Button
+				title={I18n.t("signUp")}
+				onPress={() => props.navigation.navigate("signup")}
+				testID="login.signupButton"
+			/>
 
 			<View>
 				<TouchableOpacity onPress={() => props.navigation.navigate("forgetpassword")}>
 					<Text style={styles.textAction}>{I18n.t("forgetPassword")}?</Text>
 				</TouchableOpacity>
 			</View>
-
-			<Button title={I18n.t("login")} onPress={() => handleLogin()} testID="login.loginButton" />
-			<Button
-				title={I18n.t("signUp")}
-				onPress={() => props.navigation.navigate("signup")}
-				testID="login.signupButton"
-			/>
 		</SafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
-	ImageStyle: {
-		padding: 5,
-		paddingHorizontal: 15,
+	container: {
+		backgroundColor: "#f2f2f2",
+		padding: 10,
 	},
-	SectionStyle: {
+	containerInput: {
+		borderBottomWidth: 0,
+	},
+	containerStyle: {
+		backgroundColor: "#ffffff",
+		borderColor: "#d2d2d2",
+		borderRadius: 10,
+		borderWidth: 1,
+		height: 45,
+		marginVertical: 8,
+	},
+	errorMessage: {
+		color: "red",
+		paddingTop: 10,
+		textAlign: "center",
+	},
+	fieldsContainer: {
+		paddingHorizontal: 15,
+		paddingTop: 15,
+	},
+	loginButton: {
+		backgroundColor: "#007aff",
+		color: "white",
+	},
+	sectionStyle: {
 		alignItems: "center",
-		borderBottomWidth: 2,
 		borderColor: "#000",
 		borderRadius: 5,
-		flexDirection: "row",
 		height: 40,
 		justifyContent: "center",
 		margin: 10,
 	},
-
-	container: {
-		backgroundColor: "#f2f2f2",
-		flex: 1,
-		padding: 10,
-	},
-	errorMessage: { color: "red", paddingTop: 10, textAlign: "center" },
-	inputField: {
-		flex: 1,
-	},
-
 	textAction: {
 		color: "#111111",
 		fontSize: 16,
-		marginLeft: 30,
+		textAlign: "center",
 	},
 });

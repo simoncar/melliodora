@@ -123,12 +123,12 @@ export default function EditUserProfile(props: TProps) {
 			<ScrollView>
 				{profilePic()}
 				<View style={styles.titleContainer}>
-					<Text style={styles.nameText}>{I18n.t("email")}: </Text>
-					<Text style={styles.nameText}>{email}: </Text>
+					<Text style={styles.inputField}>{I18n.t("email")}: </Text>
+					<Text style={styles.inputField}>{email}: </Text>
 				</View>
 				<View style={styles.titleContainerRow}>
 					<View style={styles.rowFlex}>
-						<Text style={styles.nameText}>{I18n.t("name")}:</Text>
+						<Text style={styles.inputField}>{I18n.t("name")}:</Text>
 						<Input
 							style={styles.sectionContentText}
 							onChangeText={(text) => setDisplayName(text)}
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
 		top: 115,
 		width: 30,
 	},
-	nameText: {
+	inputField: {
 		color: "#777777",
 		fontSize: 10,
 		fontWeight: "600",

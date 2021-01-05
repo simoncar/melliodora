@@ -68,6 +68,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -82,6 +83,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -145,6 +147,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -159,6 +162,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -222,6 +226,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -236,6 +241,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -299,6 +305,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -313,6 +320,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -376,6 +384,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -390,6 +399,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -453,6 +463,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -467,6 +478,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -529,6 +541,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -543,6 +556,7 @@ exports[`show language selector 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -659,6 +673,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -673,6 +688,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -762,6 +778,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -776,6 +793,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -865,6 +883,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -879,6 +898,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -968,6 +988,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -982,6 +1003,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -1071,6 +1093,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -1085,6 +1108,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -1174,6 +1198,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -1188,6 +1213,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -1276,6 +1302,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]
@@ -1290,6 +1317,7 @@ exports[`show language selector with no default language 1`] = `
                 Array [
                   Object {
                     "fontFamily": "SegoeUI",
+                    "fontSize": 17,
                   },
                   undefined,
                 ]

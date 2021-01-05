@@ -255,6 +255,7 @@ exports[`show story no calendar no image 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#222",
@@ -274,6 +275,7 @@ exports[`show story no calendar no image 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#222",
@@ -319,6 +321,7 @@ exports[`show story no calendar no image 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "grey",
@@ -565,6 +568,7 @@ exports[`show story on screen 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#222",
@@ -584,6 +588,7 @@ exports[`show story on screen 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#222",
@@ -601,6 +606,7 @@ exports[`show story on screen 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#222",
@@ -646,6 +652,7 @@ exports[`show story on screen 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "grey",
@@ -983,6 +990,7 @@ exports[`show story with URL in content to test linking 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#222",
@@ -1002,6 +1010,7 @@ exports[`show story with URL in content to test linking 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#222",
@@ -1019,6 +1028,7 @@ exports[`show story with URL in content to test linking 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#222",
@@ -1208,6 +1218,7 @@ exports[`show story with URL in content to test linking 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "grey",
@@ -1483,6 +1494,7 @@ exports[`show story without chat 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#222",
@@ -1502,6 +1514,7 @@ exports[`show story without chat 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#222",
@@ -1519,6 +1532,7 @@ exports[`show story without chat 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#222",
@@ -1564,6 +1578,7 @@ exports[`show story without chat 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "grey",

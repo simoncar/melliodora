@@ -6,6 +6,7 @@ exports[`no access to camera 1`] = `
     Array [
       Object {
         "fontFamily": "SegoeUI",
+        "fontSize": 17,
       },
       undefined,
     ]
@@ -80,6 +81,7 @@ exports[`show camera screen 1`] = `
           Array [
             Object {
               "fontFamily": "SegoeUI",
+              "fontSize": 17,
             },
             Object {
               "alignItems": "center",

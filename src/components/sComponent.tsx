@@ -17,8 +17,8 @@ export function Button(props) {
 
 	return (
 		<View style={styles.buttonView}>
-			<TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity={0.5} onPress={rest.onPress}>
-				<Text>{rest.title}</Text>
+			<TouchableOpacity style={[styles.submitButtonStyle, style]} activeOpacity={0.5} onPress={rest.onPress}>
+				<Text style={[styles.defaultStyle, style]}>{rest.title}</Text>
 			</TouchableOpacity>
 		</View>
 	);
@@ -32,7 +32,6 @@ export function ShortList(props) {
 		return (
 			<View>
 				{features.map((el) => {
-
 					return props.renderItem(navigation, el);
 				})}
 			</View>
@@ -43,7 +42,16 @@ export function ShortList(props) {
 }
 
 const styles = StyleSheet.create({
-	SubmitButtonStyle: {
+	buttonView: {
+		alignItems: "center",
+		flexDirection: "column",
+		marginTop: 12,
+	},
+	defaultStyle: {
+		fontFamily: "SegoeUI",
+		fontSize: 17,
+	},
+	submitButtonStyle: {
 		alignItems: "center",
 		backgroundColor: "#fff",
 		borderRadius: 25,
@@ -56,13 +64,5 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.8,
 		shadowRadius: 1,
 		width: 250,
-	},
-	buttonView: {
-		alignItems: "center",
-		flexDirection: "column",
-		marginTop: 12,
-	},
-	defaultStyle: {
-		fontFamily: "SegoeUI",
 	},
 });
