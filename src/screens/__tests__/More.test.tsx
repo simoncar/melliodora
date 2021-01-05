@@ -30,7 +30,7 @@ const route = {
 	},
 };
 
-test("show album select screen", () => {
+test("show more screen", () => {
 	const navigation = {
 		navigate: jest.fn(),
 		setOptions: jest.fn(),

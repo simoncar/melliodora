@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`show album select screen 1`] = `
+exports[`show calendar screen 1`] = `
 <View
   onLayout={[Function]}
   style={
@@ -104,9 +104,9 @@ exports[`show album select screen 1`] = `
               "Sep 2020",
               "Oct 2020",
               "Nov 2020",
-              "2020-12-03T00:00:00.000Z",
-              "2021-01-03T00:00:00.000Z",
-              "2021-02-03T00:00:00.000Z",
+              "2020-12-04T00:00:00.000Z",
+              "2021-01-04T00:00:00.000Z",
+              "2021-02-04T00:00:00.000Z",
               "Mar 2021",
               "Apr 2021",
               "May 2021",
@@ -260,7 +260,7 @@ exports[`show album select screen 1`] = `
                     accessibilityRole="adjustable"
                     accessible={true}
                     onAccessibilityAction={[Function]}
-                    testID="undefined_1609632000000"
+                    testID="undefined_1609718400000"
                   >
                     <View
                       style={
@@ -293,7 +293,7 @@ exports[`show album select screen 1`] = `
                               "margin": 10,
                             }
                           }
-                          testID="HEADER_MONTH_NAME-undefined_1609632000000"
+                          testID="HEADER_MONTH_NAME-undefined_1609718400000"
                         >
                           January 2021
                         </Text>
@@ -308,7 +308,7 @@ exports[`show album select screen 1`] = `
                           "marginTop": 7,
                         }
                       }
-                      testID="native.calendar.DAY_NAMES-undefined_1609632000000"
+                      testID="native.calendar.DAY_NAMES-undefined_1609718400000"
                     >
                       <Text
                         accessibilityLabel=""
@@ -947,7 +947,7 @@ exports[`show album select screen 1`] = `
                         }
                       >
                         <View
-                          accessibilityLabel="today Sunday 3 January 2021 selected You have no entries for this day "
+                          accessibilityLabel=" Sunday 3 January 2021 "
                           accessibilityRole="button"
                           accessible={true}
                           focusable={true}
@@ -961,8 +961,6 @@ exports[`show album select screen 1`] = `
                           style={
                             Object {
                               "alignItems": "center",
-                              "backgroundColor": "#111111",
-                              "borderRadius": 16,
                               "height": 32,
                               "opacity": 1,
                               "width": 32,
@@ -981,9 +979,6 @@ exports[`show album select screen 1`] = `
                                   "fontSize": 16,
                                   "fontWeight": "300",
                                   "marginTop": 6,
-                                },
-                                Object {
-                                  "color": "white",
                                 },
                               ]
                             }
@@ -1015,7 +1010,7 @@ exports[`show album select screen 1`] = `
                         }
                       >
                         <View
-                          accessibilityLabel=" Monday 4 January 2021 "
+                          accessibilityLabel="today Monday 4 January 2021 selected You have no entries for this day "
                           accessibilityRole="button"
                           accessible={true}
                           focusable={true}
@@ -1029,6 +1024,8 @@ exports[`show album select screen 1`] = `
                           style={
                             Object {
                               "alignItems": "center",
+                              "backgroundColor": "#111111",
+                              "borderRadius": 16,
                               "height": 32,
                               "opacity": 1,
                               "width": 32,
@@ -1047,6 +1044,9 @@ exports[`show album select screen 1`] = `
                                   "fontSize": 16,
                                   "fontWeight": "300",
                                   "marginTop": 6,
+                                },
+                                Object {
+                                  "color": "white",
                                 },
                               ]
                             }
@@ -3251,7 +3251,7 @@ exports[`show album select screen 1`] = `
                     accessibilityRole="adjustable"
                     accessible={true}
                     onAccessibilityAction={[Function]}
-                    testID="undefined_1612310400000"
+                    testID="undefined_1612396800000"
                   >
                     <View
                       style={
@@ -3284,7 +3284,7 @@ exports[`show album select screen 1`] = `
                               "margin": 10,
                             }
                           }
-                          testID="HEADER_MONTH_NAME-undefined_1612310400000"
+                          testID="HEADER_MONTH_NAME-undefined_1612396800000"
                         >
                           February 2021
                         </Text>
@@ -3299,7 +3299,7 @@ exports[`show album select screen 1`] = `
                           "marginTop": 7,
                         }
                       }
-                      testID="native.calendar.DAY_NAMES-undefined_1612310400000"
+                      testID="native.calendar.DAY_NAMES-undefined_1612396800000"
                     >
                       <Text
                         accessibilityLabel=""
