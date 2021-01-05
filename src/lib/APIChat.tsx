@@ -4,6 +4,7 @@ import * as ImageManipulator from "expo-image-manipulator";
 import _ from "lodash";
 import uuid from "uuid";
 import { MessageEntity, UserEntity } from "../lib/interfaces";
+import { avatar } from "../components/Imgix";
 
 export function getMessages(domain: string, language: string, chatroom: string, callback) {
 	const unsubscribe = firebase
@@ -38,7 +39,7 @@ export function getMessage(messageObj: any, id: string, language: string): Messa
 			user: {
 				_id: messageObj.user._id,
 				name: messageObj.user.name,
-				avatar: messageObj.user.avatar,
+				avatar: avatar(messageObj.user.avatar),
 			},
 		},
 	];
