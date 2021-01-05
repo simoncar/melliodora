@@ -39,7 +39,6 @@ export default function Setup() {
 			LogBox.ignoreLogs(["You should try avoid call the same state-setter multiple times at one execution line"]);
 		}
 		async function loadFonts() {
-			console.log(" ---- load fonts ----");
 			await Font.loadAsync({
 				SegoeUI: require("../resources/segoe-ui.ttf"),
 			});
@@ -71,7 +70,6 @@ export default function Setup() {
 
 		loadFonts()
 			.then((ret) => {
-				console.log("done fonts:", ret);
 				return loadLanguage();
 			})
 			.then((ret) => {
@@ -79,13 +77,9 @@ export default function Setup() {
 			})
 
 			.then((ret) => {
-				console.log("firebase initialized");
-
 				firebase.auth().onAuthStateChanged((user) => {
 					let objAuth = {};
 					if (user === null) {
-						console.log("auth state changed 1 - not logged in - no UID");
-
 						objAuth = {
 							uid: "",
 							displayName: "",
@@ -94,7 +88,6 @@ export default function Setup() {
 						};
 						setGLogin(false);
 					} else {
-						console.log("auth state changed 2:", user.uid);
 						objAuth = {
 							uid: user.uid,
 							displayName: user.displayName === null ? "" : user.displayName,
@@ -116,7 +109,6 @@ export default function Setup() {
 	}, []);
 
 	useEffect(() => {
-		console.log("domain set useEffect", domain, gUid);
 		isDomainAdminServer(gUid, domain).then((xxx) => {
 			setAdmin(xxx);
 		});

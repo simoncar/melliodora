@@ -1,8 +1,5 @@
-import React, { useState } from "react";
 import firebase from "../lib/firebase";
-
-import { useAuth } from "../lib/globalState";
-import { AuthUser } from "../lib/interfaces";
+import { UserEntity } from "../lib/interfaces";
 
 interface IAuth {
 	uid: string;
@@ -36,7 +33,7 @@ export function Login(email: string, password: string) {
 		});
 }
 
-export function UpdateUser(user: AuthUser, setGDisplayName: any, setGPhotoURL: any) {
+export function UpdateUser(user: UserEntity, setGDisplayName: any, setGPhotoURL: any) {
 	//are you updating yourself?
 	var loggedInUser = firebase.auth().currentUser;
 
@@ -62,5 +59,4 @@ export function UpdateUser(user: AuthUser, setGDisplayName: any, setGPhotoURL: a
 		}
 	}
 
-	console.log("update:", user.uid, loggedInUser.uid);
 }

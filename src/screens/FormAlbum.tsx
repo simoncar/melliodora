@@ -1,56 +1,57 @@
-import React, { useState, useEffect } from 'react'
-import * as MediaLibrary from 'expo-media-library';
-import * as Linking from 'expo-linking';
-import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import ImageLibraryGrid from '../components/ImageLibraryGrid';
-import { useCameraRoll } from '../lib/useCameraRoll';
+import React, { useState, useEffect } from "react";
+import * as MediaLibrary from "expo-media-library";
+import * as Linking from "expo-linking";
+import { StyleSheet, View, Text, TouchableOpacity, Button } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import ImageLibraryGrid from "../components/ImageLibraryGrid";
+import { useCameraRoll } from "../lib/useCameraRoll";
 import { saveSelectedImages, storageSend } from "../lib/APIAlbum";
 import I18n from "../lib/i18n";
+import { DomainObj } from "../lib/globalState";
 
 interface TProps {
-	storyKey: string,
-	route: any,
-	navigation: any,
-	album: string
+	storyKey: string;
+	route: any;
+	navigation: any;
+	album: string;
 }
 
 export default function FormAlbum(props: TProps) {
 	const [items, setItems] = useState<MediaLibrary.Asset[]>([]);
-
+	const domain = DomainObj();
 	const { storyKey, album, key } = props.route.params;
 	const navigation = props.navigation;
 
-	let filter = ""
+	let filter = "";
 
 	if (key === "RECENT") {
-		filter = key
+		filter = key;
 	} else {
-		filter = album
+		filter = album;
 	}
 	const camRoll = useCameraRoll(filter);
 
 	useEffect(() => {
 		navigation.setOptions({
 			headerTitle: I18n.t("photoChoose"),
-			headerRight: () => { return <Button onPress={() => save()} title={I18n.t("save")} /> },
+			headerRight: () => {
+				return <Button onPress={() => save()} title={I18n.t("save")} />;
+			},
 		});
-	}, [items])
+	}, [items]);
 
 	const save = () => {
-		console.log("SAVE:", storyKey)
-		saveSelectedImages(items, storyKey)
-			.then(() => {
-				console.log("SAVE COMPLETE to LOCAL and FIREBASE")
-				storageSend(storyKey)
-				navigation.pop();
-				navigation.pop();
-			})
-	}
+		console.log("SAVE:", storyKey);
+		saveSelectedImages(items, storyKey, domain).then(() => {
+			storageSend(storyKey, domain);
+			navigation.pop();
+			navigation.pop();
+		});
+	};
 
 	const handleSelected = async (selectedItems: MediaLibrary.Asset[]) => {
 		setItems(selectedItems);
-	}
+	};
 
 	const noItems = camRoll.images.length === 0 && !camRoll.isRefreshing;
 
@@ -61,15 +62,15 @@ export default function FormAlbum(props: TProps) {
 			{noItems ? (
 				<NoItemsMessage handleRefresh={camRoll.doRefresh} />
 			) : (
-					<ImageLibraryGrid
-						images={camRoll.images}
-						onSelectedChange={handleSelected}
-						refreshing={camRoll.isRefreshing}
-						loadingMore={camRoll.isLoadingMore}
-						onRefresh={camRoll.doRefresh}
-						onEndReached={camRoll.loadMore}
-					/>
-				)}
+				<ImageLibraryGrid
+					images={camRoll.images}
+					onSelectedChange={handleSelected}
+					refreshing={camRoll.isRefreshing}
+					loadingMore={camRoll.isLoadingMore}
+					onRefresh={camRoll.doRefresh}
+					onEndReached={camRoll.loadMore}
+				/>
+			)}
 		</View>
 	);
 }
@@ -98,9 +99,9 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	messageContainer: {
-		alignItems: 'center',
+		alignItems: "center",
 		flex: 1,
-		justifyContent: 'center',
+		justifyContent: "center",
 	},
 	messageText: {
 		fontSize: 15,
@@ -110,8 +111,7 @@ const styles = StyleSheet.create({
 		paddingTop: 20,
 	},
 	secondaryText: {
-		color: '#555',
+		color: "#555",
 		fontSize: 12,
 	},
-
 });
