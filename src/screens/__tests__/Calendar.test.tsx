@@ -22,7 +22,7 @@ const route = {
 	},
 };
 
-test("show album select screen", () => {
+test("show calendar screen", () => {
 	const navigation = { navigate: jest.fn() };
 
 	const { toJSON} = render(<Calendar navigation={navigation} route={route} />);

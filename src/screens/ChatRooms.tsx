@@ -14,8 +14,8 @@ interface TProps {
 }
 
 export default function ChatRooms(props: TProps) {
-	const [refreshDomain, setDomain, domain, domainIsUpdated] = useDomain();
-	const [, setGUid, uid] = useUid();
+	const [, , domain] = useDomain();
+	const [, , uid] = useUid();
 	const [, , displayName] = useDisplayName();
 	const [, , language] = useLanguage();
 	const [, , photoURL] = usePhotoURL();
@@ -38,22 +38,16 @@ export default function ChatRooms(props: TProps) {
 					const item = doc.data();
 
 					if (item.visible == false) return;
-					if (
-						(item.type == "private" && item.members.indexOf(uid + "") > -1) ||
-						["users", "public"].indexOf(item.type) > -1
-					) {
-						userChatroomsArr.push({
-							...item,
-							chatroom: doc.id,
-						});
-					}
+
+					userChatroomsArr.push({
+						...item,
+						chatroom: doc.id,
+					});
 				});
-				console.log("Chatrooms SUBSCRIBE");
 				setUserChatrooms(userChatroomsArr);
 			});
 
 		return () => {
-			console.log("Chatrooms UNSUBSCRIBE");
 			unsubscribe();
 		};
 	}, []);
