@@ -104,9 +104,9 @@ exports[`show calendar screen 1`] = `
               "Sep 2020",
               "Oct 2020",
               "Nov 2020",
-              "2020-12-04T00:00:00.000Z",
-              "2021-01-04T00:00:00.000Z",
-              "2021-02-04T00:00:00.000Z",
+              "2020-12-05T00:00:00.000Z",
+              "2021-01-05T00:00:00.000Z",
+              "2021-02-05T00:00:00.000Z",
               "Mar 2021",
               "Apr 2021",
               "May 2021",
@@ -260,7 +260,7 @@ exports[`show calendar screen 1`] = `
                     accessibilityRole="adjustable"
                     accessible={true}
                     onAccessibilityAction={[Function]}
-                    testID="undefined_1609718400000"
+                    testID="undefined_1609804800000"
                   >
                     <View
                       style={
@@ -293,7 +293,7 @@ exports[`show calendar screen 1`] = `
                               "margin": 10,
                             }
                           }
-                          testID="HEADER_MONTH_NAME-undefined_1609718400000"
+                          testID="HEADER_MONTH_NAME-undefined_1609804800000"
                         >
                           January 2021
                         </Text>
@@ -308,7 +308,7 @@ exports[`show calendar screen 1`] = `
                           "marginTop": 7,
                         }
                       }
-                      testID="native.calendar.DAY_NAMES-undefined_1609718400000"
+                      testID="native.calendar.DAY_NAMES-undefined_1609804800000"
                     >
                       <Text
                         accessibilityLabel=""
@@ -1010,7 +1010,7 @@ exports[`show calendar screen 1`] = `
                         }
                       >
                         <View
-                          accessibilityLabel="today Monday 4 January 2021 selected You have no entries for this day "
+                          accessibilityLabel=" Monday 4 January 2021 "
                           accessibilityRole="button"
                           accessible={true}
                           focusable={true}
@@ -1024,8 +1024,6 @@ exports[`show calendar screen 1`] = `
                           style={
                             Object {
                               "alignItems": "center",
-                              "backgroundColor": "#111111",
-                              "borderRadius": 16,
                               "height": 32,
                               "opacity": 1,
                               "width": 32,
@@ -1044,9 +1042,6 @@ exports[`show calendar screen 1`] = `
                                   "fontSize": 16,
                                   "fontWeight": "300",
                                   "marginTop": 6,
-                                },
-                                Object {
-                                  "color": "white",
                                 },
                               ]
                             }
@@ -1078,7 +1073,7 @@ exports[`show calendar screen 1`] = `
                         }
                       >
                         <View
-                          accessibilityLabel=" Tuesday 5 January 2021 "
+                          accessibilityLabel="today Tuesday 5 January 2021 selected You have no entries for this day "
                           accessibilityRole="button"
                           accessible={true}
                           focusable={true}
@@ -1092,6 +1087,8 @@ exports[`show calendar screen 1`] = `
                           style={
                             Object {
                               "alignItems": "center",
+                              "backgroundColor": "#111111",
+                              "borderRadius": 16,
                               "height": 32,
                               "opacity": 1,
                               "width": 32,
@@ -1110,6 +1107,9 @@ exports[`show calendar screen 1`] = `
                                   "fontSize": 16,
                                   "fontWeight": "300",
                                   "marginTop": 6,
+                                },
+                                Object {
+                                  "color": "white",
                                 },
                               ]
                             }
@@ -3251,7 +3251,7 @@ exports[`show calendar screen 1`] = `
                     accessibilityRole="adjustable"
                     accessible={true}
                     onAccessibilityAction={[Function]}
-                    testID="undefined_1612396800000"
+                    testID="undefined_1612483200000"
                   >
                     <View
                       style={
@@ -3284,7 +3284,7 @@ exports[`show calendar screen 1`] = `
                               "margin": 10,
                             }
                           }
-                          testID="HEADER_MONTH_NAME-undefined_1612396800000"
+                          testID="HEADER_MONTH_NAME-undefined_1612483200000"
                         >
                           February 2021
                         </Text>
@@ -3299,7 +3299,7 @@ exports[`show calendar screen 1`] = `
                           "marginTop": 7,
                         }
                       }
-                      testID="native.calendar.DAY_NAMES-undefined_1612396800000"
+                      testID="native.calendar.DAY_NAMES-undefined_1612483200000"
                     >
                       <Text
                         accessibilityLabel=""
