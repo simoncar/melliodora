@@ -20,11 +20,10 @@ import {
 	usePhotoURL,
 	useAdmin,
 } from "./lib/globalState";
-import * as Localization from "expo-localization";
 
 export default function Setup() {
 	const [loading, setLoading] = useState(true);
-	const [domain, domainSetter, domainIsUpdated] = useDomainP();
+	const [domain, setDomain, domainIsUpdated] = useDomainP();
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 	const [, setGAuth, gAuth] = useAuth();
 	const [, setGLogin, gLogin] = useLogin();
@@ -67,7 +66,7 @@ export default function Setup() {
 
 		async function initDomain() {
 			const domain = Constants.manifest.extra.domain;
-			if (domain != "") await domainSetter(domain);
+			if (domain != "") await setDomain(domain);
 			return domain;
 		}
 
