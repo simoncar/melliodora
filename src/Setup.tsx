@@ -51,10 +51,8 @@ export default function Setup() {
 
 		async function initLang(inLang) {
 			var lang = inLang;
-			console.log("Localization:", Localization.locale);
 			if (lang === "") {
 				lang = "zh";
-
 				await setLanguage(lang);
 			}
 
@@ -64,19 +62,26 @@ export default function Setup() {
 				I18nManager.forceRTL(false);
 			}
 			I18n.locale = lang;
-
 			return lang;
 		}
 
+		async function initDomain() {
+			const domain = Constants.manifest.extra.domain;
+			if (domain != "") await domainSetter(domain);
+			return domain;
+		}
+
 		loadFonts()
-			.then((ret) => {
+			.then(() => {
 				return loadLanguage();
 			})
 			.then((ret) => {
 				return initLang(ret);
 			})
-
-			.then((ret) => {
+			.then(() => {
+				return initDomain();
+			})
+			.then(() => {
 				firebase.auth().onAuthStateChanged((user) => {
 					let objAuth = {};
 					if (user === null) {

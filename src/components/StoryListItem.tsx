@@ -124,7 +124,11 @@ class ListItem extends Component<TProps> {
 						)}
 					</TouchableOpacity>
 					<View style={styles.cardMiniList}>
-						<ImageList feature={_key} edit={false} miniRoll={true} domain={this.props.domain} />
+						<ImageList
+							feature={_key}
+							edit={false}
+							miniRoll={true}
+							domain={this.props.domain} />
 					</View>
 				</View>
 			</View>

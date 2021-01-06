@@ -9,7 +9,7 @@
 			"fallbackToCacheTimeout": 5000
 		},
 		"extra": {
-			"instance": "",
+			"domain": "",
 			"googlePlay": "https://play.google.com/store/apps/details?id=com.softmowertrain.parent.mycommunity",
 			"appleAppStore": "https://apps.apple.com/us/app/id1479940273",
 			"sentryDSN": "https://f9cb9202827e4dbb8097c8e98f024d68@o85126.ingest.sentry.io/5564952"
