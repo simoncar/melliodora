@@ -1,6 +1,6 @@
 // @refresh reset
 
-import React, { Component, useEffect, useState, useCallback } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { View, TouchableOpacity, Linking, Modal, StyleSheet } from "react-native";
 import { GiftedChat, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";

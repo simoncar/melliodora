@@ -1,8 +1,7 @@
-import React, { useEffect, useReducer } from "react";
+import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SettingsListItem } from "./SettingsListItem";
-import Constants from "expo-constants";
 import I18n from "../lib/i18n";
 import _ from "lodash";
 import Image from "../components/Imgix";

@@ -3,7 +3,6 @@ import { StyleSheet, View } from "react-native";
 import firebase from "../lib/firebase";
 import { AntDesign } from "@expo/vector-icons";
 import ChatroomItem from "../components/ChatRoomItem";
-import _ from "lodash";
 import { ShortList } from "../components/sComponent";
 import { SettingsListItem } from "../components/SettingsListItem";
 import { useDomain, useUid, useDisplayName, useLanguage, usePhotoURL } from "../lib/globalState";
