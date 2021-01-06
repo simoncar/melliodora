@@ -3,6 +3,7 @@ import { TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
 import { WebView } from "react-native-webview";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
+import Constants from "expo-constants";
 
 interface TProps {
 	navigation: any;
@@ -19,7 +20,11 @@ export default function WebPortal(props: TProps) {
 
 	useEffect(() => {
 		if (props.route.params === undefined) {
-			setUrl("https://www.smartcookies.io");
+			if (Constants.manifest.extra.domain === "sais_edu_sg") {
+				setUrl("https://mystamford.edu.sg/login/login.aspx?kr=iSAMS:ParentPP");
+			} else {
+				setUrl("https://www.smartcookies.io");
+			}
 		} else {
 			setUrl(props.route.params.url);
 		}
