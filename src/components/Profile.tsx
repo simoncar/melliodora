@@ -20,9 +20,6 @@ export default function Profile(props: IProps) {
 	const [domain, setDomain, isUpdatedDomain] = useDomainP();
 	const [, setGPhotoURL, gPhotoURL] = usePhotoURL();
 
-	if (Constants.manifest.extra.domain === "sais_edu_sg") {
-		return <View />;
-	}
 	if (login === true) {
 		const user = {
 			displayName: displayName,

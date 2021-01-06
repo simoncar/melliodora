@@ -35,9 +35,7 @@ export default function Settings(props: TProps) {
 		<View style={styles.container}>
 			<ScrollView>
 				<View style={styles.card}>
-					{Constants.manifest.extra.domain != "sais_edu_sg" && (
-						<Profile auth={props.auth} navigation={props.navigation} />
-					)}
+					<Profile auth={props.auth} navigation={props.navigation} />
 				</View>
 
 				{separator(i)}
