@@ -81,16 +81,38 @@ export default function Setup() {
 				return initDomain();
 			})
 			.then(() => {
+				var user = firebase.auth().currentUser;
+
+				console.log("user:", user);
 				firebase.auth().onAuthStateChanged((user) => {
+					console.log("onAuthStateChanged:", user);
+
 					let objAuth = {};
 					if (user === null) {
-						objAuth = {
-							uid: "",
-							displayName: "",
-							email: "",
-							photoURL: "",
-						};
-						setGLogin(false);
+						// user has not logged in, so create an anonymous account and log them in
+						firebase
+							.auth()
+							.signInAnonymously()
+							.then(() => {
+								objAuth = {
+									uid: "",
+									displayName: "",
+									email: "",
+									photoURL: "",
+								};
+								setGLogin(false);
+
+								setGAuth(JSON.stringify(objAuth));
+								setGEmail(objAuth.email);
+								setGDisplayName(objAuth.displayName);
+								setGPhotoURL(objAuth.photoURL);
+								setGUid(objAuth.uid);
+
+								return setLoading(false);
+							})
+							.catch((error) => {
+								console.log("login anon error:", error.message);
+							});
 					} else {
 						objAuth = {
 							uid: user.uid,
@@ -99,15 +121,15 @@ export default function Setup() {
 							photoURL: user.photoURL === null ? "" : user.photoURL,
 						};
 						setGLogin(true);
+
+						setGAuth(JSON.stringify(objAuth));
+						setGEmail(objAuth.email);
+						setGDisplayName(objAuth.displayName);
+						setGPhotoURL(objAuth.photoURL);
+						setGUid(objAuth.uid);
+
+						return setLoading(false);
 					}
-
-					setGAuth(JSON.stringify(objAuth));
-					setGEmail(objAuth.email);
-					setGDisplayName(objAuth.displayName);
-					setGPhotoURL(objAuth.photoURL);
-					setGUid(objAuth.uid);
-
-					return setLoading(false);
 				});
 			});
 	}, []);
