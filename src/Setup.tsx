@@ -51,7 +51,7 @@ export default function Setup() {
 		async function initLang(inLang) {
 			var lang = inLang;
 			if (lang === "") {
-				lang = "zh";
+				lang = "en";
 				await setLanguage(lang);
 			}
 
