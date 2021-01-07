@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TextInput, SafeAreaView } from "react-native";
+import { StyleSheet, View, SafeAreaView } from "react-native";
 import firebase from "../lib/firebase";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Progress from "expo-progress";
