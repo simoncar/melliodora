@@ -27,8 +27,7 @@ export function getCalendarItems(domain: string, language: string, callback: any
 
 	var today = new Date();
 	var rangeStart = today.setDate(-30);
-	console.log("rangeStart:", rangeStart);
-	var i = 0;
+
 	const unsubscribe = firebase
 		.firestore()
 		.collection(domain)
@@ -60,7 +59,6 @@ export function getCalendarItems(domain: string, language: string, callback: any
 			});
 
 			snapshot.forEach((doc) => {
-				i++;
 				strtime = doc.data().date_start;
 				strtime = strtime.substring(0, 10);
 
@@ -78,7 +76,6 @@ export function getCalendarItems(domain: string, language: string, callback: any
 				var event = { ...{ _key: doc.id }, ...doc.data(), ...trans };
 				items2[strtime].push(event);
 			});
-			console.log("about to fire calendar callback:", i);
 
 			callback(items2);
 		});

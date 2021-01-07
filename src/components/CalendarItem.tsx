@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Text } from "./sComponent";
 import Image from "../components/Imgix";
 import { formatTime } from "../lib/global";
-import _ from "lodash";
 import { StoryEntity } from "../lib/interfaces";
 
 interface TProps {

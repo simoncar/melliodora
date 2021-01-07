@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { View } from "react-native";
 import { Agenda } from "react-native-calendars";
 import CalendarItem from "../components/CalendarItem";
 import { useDomain, useLanguage } from "../lib/globalState";
@@ -19,7 +19,6 @@ export default function Calendar(props: TProps) {
 
 	const setCalendarItems = (items) => {
 		setItems(items);
-		console.log("set items done");
 	};
 
 	useEffect(() => {
@@ -43,7 +42,6 @@ export default function Calendar(props: TProps) {
 
 	return (
 		<View style={{ height: "100%" }}>
-			{loading && <Progress.Bar isIndeterminate color="blue" />}
 			<Agenda
 				renderEmptyData={() => {
 					return null;
