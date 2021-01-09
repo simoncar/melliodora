@@ -7,6 +7,7 @@ import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
 import { useDomain, useLanguage, useLogin, useAdmin, useUid } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
+import { getCalendarToday } from "../lib/APICalendar";
 import { Ionicons } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
 
@@ -35,6 +36,11 @@ export default function Home(props: TProps) {
 		setLoading(false);
 	};
 
+	const calendarRead = (calendarItems) => {
+		setCalendarItems(calendarItems);
+		setLoading(false);
+	};
+
 	useEffect(() => {
 		props.navigation.setParams({
 			title: domain,
@@ -44,7 +50,8 @@ export default function Home(props: TProps) {
 			demo.setupDemoData();
 		}
 
-		const unsubscribe = getStories(domain, language, storyRead);
+		const unsubscribeStory = getStories(domain, language, storyRead);
+		const unsubscribeCalendar = getCalendarToday(domain, language, calendarRead);
 
 		// loadCalendar();
 
@@ -74,8 +81,8 @@ export default function Home(props: TProps) {
 		// });
 
 		return () => {
-			console.log("Stories UNSUBSCRIBE");
-			unsubscribe;
+			unsubscribeStory;
+			unsubscribeCalendar;
 		};
 	}, []);
 
@@ -86,118 +93,17 @@ export default function Home(props: TProps) {
 		};
 	}, [domain, language]);
 
-	// loadCalendar() {
-	// 	const todayDate = moment().format("YYYY-MM-DD");
-
-	// 	var calendarItems = [];
-
-	// 	firebase
-	// 		.firestore()
-	// 		.collection(global.domain)
-	// 		.doc("calendar")
-	// 		.collection("calendarItems")
-	// 		.where("date_start", "==", todayDate)
-	// 		.get()
-	// 		.then((snapshot) => {
-	// 			snapshot.forEach((doc) => {
-	// 				var trans = {
-	// 					visible: true,
-	// 					source: "calendar",
-	// 					summaryMyLanguage: getLanguageString(
-	// 						this.language,
-	// 						doc.data(),
-	// 						"summary"
-	// 					),
-	// 					summary: doc.data().summary,
-	// 					summaryEN: doc.data().summary,
-	// 					date_start: doc.data().date_start,
-	// 					color: "red",
-	// 					showIconChat: false,
-	// 					descriptionMyLanguage: getLanguageString(
-	// 						this.language,
-	// 						doc.data(),
-	// 						"description"
-	// 					),
-	// 					number: doc.data().number,
-	// 				};
-	// 				calendarItems.push({
-	// 					...{ _key: doc.id },
-	// 					...doc.data(),
-	// 					...trans,
-	// 				});
-	// 			});
-	// 			if (calendarItems.length > 0) {
-	// 				this.setState({
-	// 					calendarItems,
-	// 					loading: false,
-	// 				});
-	// 			}
-	// 			this.setState({
-	// 				loading: false,
-	// 			});
-	// 		});
-	// }
-
-	// onFeatureUpdate = (querySnapshot) => {
-	// 	var featureItems = [];
-
-	// 	querySnapshot.forEach((doc) => {
-	// 		var trans = {
-	// 			source: "feature",
-	// 			summaryMyLanguage: getLanguageString(
-	// 				this.language,
-	// 				doc.data(),
-	// 				"summary"
-	// 			),
-	// 			descriptionMyLanguage: getLanguageString(
-	// 				this.language,
-	// 				doc.data(),
-	// 				"description"
-	// 			),
-	// 		};
-
-	// 		if (!doc.data().visible == false) {
-	// 			featureItems.push({
-	// 				...{ _key: doc.id },
-	// 				...doc.data(),
-	// 				...trans,
-	// 			});
-	// 		}
-	// 	});
-
-	// 	if (featureItems.length > 0) {
-	// 		this._storeData(JSON.stringify(featureItems));
-	// 		this.setState({
-	// 			featureItems,
-	// 		});
-	// 	}
-	// };
-
 	const handleOpenWithLinking = (sURL) => {
 		Linking.openURL(sURL);
 	};
 
 	const keyExtractor = (item) => item._key;
 
-	// setupUser = () => {
-	// 	const { communityJoined } = this.props.auth.userInfo;
-	// 	if (
-	// 		Array.isArray(communityJoined) &&
-	// 		communityJoined.indexOf(global.domain) < 0
-	// 	) {
-	// 		const userInfo = {
-	// 			...this.props.auth.userInfo,
-	// 			communityJoined: [...communityJoined, global.domain],
-	// 		};
-	// 		this.props.dispatch(setUserInfo(userInfo, true));
-	// 	}
-	// };
-
 	const renderItem = (navigation, item) => {
 		return (
 			<ListItem
 				key={item._key}
-				navigation={props.navigation}
+				navigation={navigation}
 				story={item}
 				card={true}
 				language={language}
@@ -207,11 +113,11 @@ export default function Home(props: TProps) {
 		);
 	};
 
-	const renderItemNoCard = (item) => {
+	const renderItemNoCard = (navigation, item) => {
 		return (
 			<ListItem
 				key={item._key}
-				navigation={props.navigation}
+				navigation={navigation}
 				story={item}
 				card={false}
 				language={language}
@@ -228,7 +134,6 @@ export default function Home(props: TProps) {
 					<ShortList
 						navigation={props.navigation}
 						data={calendarItems}
-						key
 						Extractor={keyExtractor}
 						renderItem={renderItemNoCard}
 					/>

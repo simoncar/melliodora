@@ -6,11 +6,11 @@ import _ from "lodash";
 
 interface IProps {
 	source: {};
-	imageProps: any;
 	style: any;
-	htn: number;
-	auto: boolean;
-	testID: string;
+	imageProps?: any;
+	htn?: number;
+	auto?: boolean;
+	testID?: string;
 }
 
 export default function Image(props: IProps) {

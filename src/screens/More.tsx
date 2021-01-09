@@ -35,9 +35,7 @@ export default function Settings(props: TProps) {
 		<View style={styles.container}>
 			<ScrollView>
 				<View style={styles.card}>
-					{Constants.manifest.extra.instance != "sais_edu_sg" && (
-						<Profile auth={props.auth} navigation={props.navigation} />
-					)}
+					<Profile auth={props.auth} navigation={props.navigation} />
 				</View>
 
 				{separator(i)}
@@ -62,7 +60,7 @@ export default function Settings(props: TProps) {
 						}}
 					/>
 
-					{Constants.manifest.extra.instance === "" && (
+					{Constants.manifest.extra.domain === "" && (
 						<SettingsListItem
 							lastItem={true}
 							hasNavArrow={false}

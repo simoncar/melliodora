@@ -46,6 +46,7 @@ exports[`display individual chatroom list item 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               undefined,
             ]
@@ -60,6 +61,7 @@ exports[`display individual chatroom list item 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               Object {
                 "color": "#777777",
@@ -76,6 +78,7 @@ exports[`display individual chatroom list item 1`] = `
             Array [
               Object {
                 "fontFamily": "SegoeUI",
+                "fontSize": 17,
               },
               undefined,
             ]

@@ -3,6 +3,7 @@ import { render } from "@testing-library/react-native";
 import Calendar from "../Calendar";
 
 jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
+
 jest.mock("../../lib/firebase");
 jest.mock("../../lib/APICalendar", () => ({
 	getCalendarItems: () => jest.fn(),
@@ -25,7 +26,7 @@ const route = {
 test("show calendar screen", () => {
 	const navigation = { navigate: jest.fn() };
 
-	const { toJSON} = render(<Calendar navigation={navigation} route={route} />);
+	const { toJSON } = render(<Calendar navigation={navigation} route={route} />);
 
 	expect(toJSON()).toMatchSnapshot();
 });

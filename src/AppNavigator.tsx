@@ -209,7 +209,7 @@ function Tabs() {
 				activeTintColor: "black",
 				inactiveTintColor: "gray",
 			}}>
-			{Constants.manifest.extra.instance != "sais_edu_sg" && (
+			{Constants.manifest.extra.domain != "sais_edu_sg" && (
 				<Tab.Screen name="chatRooms" component={StackChatNavigator} options={{ title: I18n.t("chat") }} />
 			)}
 			<Tab.Screen name="homeNav" component={StackHomeNavigator} options={{ title: I18n.t("home") }} />

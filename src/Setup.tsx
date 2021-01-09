@@ -20,11 +20,10 @@ import {
 	usePhotoURL,
 	useAdmin,
 } from "./lib/globalState";
-import * as Localization from "expo-localization";
 
 export default function Setup() {
 	const [loading, setLoading] = useState(true);
-	const [domain, domainSetter, domainIsUpdated] = useDomainP();
+	const [domain, setDomain, domainIsUpdated] = useDomainP();
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 	const [, setGAuth, gAuth] = useAuth();
 	const [, setGLogin, gLogin] = useLogin();
@@ -39,7 +38,6 @@ export default function Setup() {
 			LogBox.ignoreLogs(["You should try avoid call the same state-setter multiple times at one execution line"]);
 		}
 		async function loadFonts() {
-			console.log(" ---- load fonts ----");
 			await Font.loadAsync({
 				SegoeUI: require("../resources/segoe-ui.ttf"),
 			});
@@ -52,10 +50,8 @@ export default function Setup() {
 
 		async function initLang(inLang) {
 			var lang = inLang;
-			console.log("Localization:", Localization.locale);
 			if (lang === "") {
-				lang = "zh";
-
+				lang = "en";
 				await setLanguage(lang);
 			}
 
@@ -65,36 +61,59 @@ export default function Setup() {
 				I18nManager.forceRTL(false);
 			}
 			I18n.locale = lang;
-
 			return lang;
 		}
 
+		async function initDomain() {
+			const domain = Constants.manifest.extra.domain;
+			if (domain != "") await setDomain(domain);
+			return domain;
+		}
+
 		loadFonts()
-			.then((ret) => {
-				console.log("done fonts:", ret);
+			.then(() => {
 				return loadLanguage();
 			})
 			.then((ret) => {
 				return initLang(ret);
 			})
+			.then(() => {
+				return initDomain();
+			})
+			.then(() => {
+				var user = firebase.auth().currentUser;
 
-			.then((ret) => {
-				console.log("firebase initialized");
-
+				console.log("user:", user);
 				firebase.auth().onAuthStateChanged((user) => {
+					console.log("onAuthStateChanged:", user);
+
 					let objAuth = {};
 					if (user === null) {
-						console.log("auth state changed 1 - not logged in - no UID");
+						// user has not logged in, so create an anonymous account and log them in
+						firebase
+							.auth()
+							.signInAnonymously()
+							.then(() => {
+								objAuth = {
+									uid: "",
+									displayName: "",
+									email: "",
+									photoURL: "",
+								};
+								setGLogin(false);
 
-						objAuth = {
-							uid: "",
-							displayName: "",
-							email: "",
-							photoURL: "",
-						};
-						setGLogin(false);
+								setGAuth(JSON.stringify(objAuth));
+								setGEmail(objAuth.email);
+								setGDisplayName(objAuth.displayName);
+								setGPhotoURL(objAuth.photoURL);
+								setGUid(objAuth.uid);
+
+								return setLoading(false);
+							})
+							.catch((error) => {
+								console.log("login anon error:", error.message);
+							});
 					} else {
-						console.log("auth state changed 2:", user.uid);
 						objAuth = {
 							uid: user.uid,
 							displayName: user.displayName === null ? "" : user.displayName,
@@ -102,21 +121,20 @@ export default function Setup() {
 							photoURL: user.photoURL === null ? "" : user.photoURL,
 						};
 						setGLogin(true);
+
+						setGAuth(JSON.stringify(objAuth));
+						setGEmail(objAuth.email);
+						setGDisplayName(objAuth.displayName);
+						setGPhotoURL(objAuth.photoURL);
+						setGUid(objAuth.uid);
+
+						return setLoading(false);
 					}
-
-					setGAuth(JSON.stringify(objAuth));
-					setGEmail(objAuth.email);
-					setGDisplayName(objAuth.displayName);
-					setGPhotoURL(objAuth.photoURL);
-					setGUid(objAuth.uid);
-
-					return setLoading(false);
 				});
 			});
 	}, []);
 
 	useEffect(() => {
-		console.log("domain set useEffect", domain, gUid);
 		isDomainAdminServer(gUid, domain).then((xxx) => {
 			setAdmin(xxx);
 		});
