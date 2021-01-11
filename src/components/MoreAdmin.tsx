@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import Image from "../components/Imgix";
-import { StoryEntity } from "../lib/interfaces";
 import { SettingsListItem } from "./SettingsListItem";
 import { getStories } from "../lib/APIStory";
 import { useDomain, AuthObj } from "../lib/globalState";
+import * as Progress from "expo-progress";
 
 interface TProps {
 	navigation: any;
@@ -28,7 +28,7 @@ export default function MoreAdmin(props: TProps) {
 		return () => {
 			unsubscribeStory;
 		};
-	});
+	}, [domain, auth.language]);
 
 	const renderItem = (item: any) => {
 		const uri = item.photo1;
@@ -51,11 +51,7 @@ export default function MoreAdmin(props: TProps) {
 	};
 
 	if (loading) {
-		return (
-			<View>
-				<Text>Loading</Text>
-			</View>
-		);
+		return <View>{loading && <Progress.Bar isIndeterminate color="blue" />}</View>;
 	} else if (featureItems === undefined || featureItems.length == 0) {
 		return (
 			<View>

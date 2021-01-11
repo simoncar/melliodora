@@ -62,7 +62,7 @@ export default function Settings(props: TProps) {
 						}}
 					/>
 
-					{Constants.manifest.extra.domain === "" && (
+					{Constants.manifest.extra.domain === "" && domain != "" && (
 						<SettingsListItem
 							lastItem={true}
 							hasNavArrow={false}
@@ -72,7 +72,7 @@ export default function Settings(props: TProps) {
 						/>
 					)}
 				</View>
-				{Constants.manifest.extra.domain === "" && (
+				{Constants.manifest.extra.domain === "" && domain != "" && (
 					<View style={styles.card}>
 						<SettingsListItem
 							icon={<MaterialIcons name="admin-panel-settings" style={styles.imageStyleIconAdmin} />}
