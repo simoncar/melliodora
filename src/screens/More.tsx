@@ -6,7 +6,8 @@ import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
 import { SettingsListItem, Separator } from "../components/SettingsListItem";
 import Profile from "../components/Profile";
-import { useDomainP, useDomainNameP, useLanguage, useLogin } from "../lib/globalState";
+import { useDomainP, useDomainNameP, AuthObj, useAdmin } from "../lib/globalState";
+import MoreAdmin from "../components/MoreAdmin";
 
 interface TProps {
 	navigation: any;
@@ -14,10 +15,11 @@ interface TProps {
 }
 
 export default function Settings(props: TProps) {
-	const [domain, domainSetter, domainIsUpdated] = useDomainP();
-	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
-	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
-	const [, setGLogin, gLogin] = useLogin();
+	const [domain, domainSetter] = useDomainP();
+	const [domainName, domainNameSetter] = useDomainNameP();
+	const [admin] = useAdmin();
+
+	const auth = AuthObj();
 
 	const changeDomain = () => {
 		domainNameSetter("");
@@ -43,10 +45,10 @@ export default function Settings(props: TProps) {
 					<SettingsListItem
 						icon={<FontAwesome name="language" style={styles.imageStyleIcon} />}
 						title={"Language"}
-						titleInfo={language}
+						titleInfo={auth.language}
 						onPress={() =>
 							props.navigation.navigate("selectLanguage", {
-								language: language,
+								language: auth.language,
 							})
 						}
 					/>
@@ -69,11 +71,19 @@ export default function Settings(props: TProps) {
 							onPress={() => changeDomain()}
 						/>
 					)}
-
-
-					
-
 				</View>
+				{Constants.manifest.extra.domain === "" && (
+					<View style={styles.card}>
+						<SettingsListItem
+							icon={<MaterialIcons name="admin-panel-settings" style={styles.imageStyleIconAdmin} />}
+							title={"Admin"}
+							subTitle="You are an Administrator"
+							hasNavArrow={false}
+						/>
+
+						<MoreAdmin navigation={props.navigation} />
+					</View>
+				)}
 			</ScrollView>
 		</View>
 	);
@@ -93,6 +103,13 @@ const styles = StyleSheet.create({
 	imageStyleIcon: {
 		alignSelf: "center",
 		color: "#999999",
+		fontSize: 25,
+		marginLeft: 15,
+		width: 30,
+	},
+	imageStyleIconAdmin: {
+		alignSelf: "center",
+		color: "green",
 		fontSize: 25,
 		marginLeft: 15,
 		width: 30,

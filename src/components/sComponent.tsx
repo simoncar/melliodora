@@ -37,7 +37,7 @@ export function ShortList(props) {
 			</View>
 		);
 	} else {
-		return <Text></Text>;
+		return null;
 	}
 }
 

@@ -5,10 +5,11 @@ import ListItem from "../components/StoryListItem";
 import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
-import { useDomain, useLanguage, useLogin, useAdmin, useUid } from "../lib/globalState";
+import { useDomain, useAdmin, AuthObj } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 import { getCalendarToday } from "../lib/APICalendar";
 import { Ionicons } from "@expo/vector-icons";
+import * as Progress from "expo-progress";
 import I18n from "../lib/i18n";
 
 const versionCheck = new VersionCheck();
@@ -23,13 +24,11 @@ export default function Home(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [featureItems, setFeatureItems] = useState([]);
 	const [calendarItems, setCalendarItems] = useState([]);
-	const [balanceItems, setBalanceItems] = useState([]);
-	const [appUpdateMessage, setAppUpdateMessage] = useState("none");
-	const [refreshDomain, setDomain, domain, domainIsUpdated] = useDomain();
-	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
-	const [, setGLogin, gLogin] = useLogin();
-	const [admin, setAdmin] = useAdmin();
-	const [, setGUid, gUid] = useUid();
+	const [, , domain] = useDomain();
+
+	const [admin, ] = useAdmin();
+
+	const auth = AuthObj();
 
 	const storyRead = (stories) => {
 		setFeatureItems(stories);
@@ -50,8 +49,8 @@ export default function Home(props: TProps) {
 			demo.setupDemoData();
 		}
 
-		const unsubscribeStory = getStories(domain, language, storyRead);
-		const unsubscribeCalendar = getCalendarToday(domain, language, calendarRead);
+		const unsubscribeStory = getStories(domain, auth.language, storyRead);
+		const unsubscribeCalendar = getCalendarToday(domain, auth.language, calendarRead);
 
 		// loadCalendar();
 
@@ -87,11 +86,11 @@ export default function Home(props: TProps) {
 	}, []);
 
 	useEffect(() => {
-		const unsubscribe = getStories(domain, language, storyRead);
+		const unsubscribe = getStories(domain, auth.language, storyRead);
 		return () => {
 			unsubscribe;
 		};
-	}, [domain, language]);
+	}, [domain, auth.language]);
 
 	const handleOpenWithLinking = (sURL) => {
 		Linking.openURL(sURL);
@@ -100,17 +99,18 @@ export default function Home(props: TProps) {
 	const keyExtractor = (item) => item._key;
 
 	const renderItem = (navigation, item) => {
-		return (
-			<ListItem
-				key={item._key}
-				navigation={navigation}
-				story={item}
-				card={true}
-				language={language}
-				domain={domain}
-				admin={admin}
-			/>
-		);
+		if (item.visible === true)
+			return (
+				<ListItem
+					key={item._key}
+					navigation={navigation}
+					story={item}
+					card={true}
+					language={auth.language}
+					domain={domain}
+					admin={admin}
+				/>
+			);
 	};
 
 	const renderItemNoCard = (navigation, item) => {
@@ -120,7 +120,7 @@ export default function Home(props: TProps) {
 				navigation={navigation}
 				story={item}
 				card={false}
-				language={language}
+				language={auth.language}
 				domain={domain}
 				admin={admin}
 			/>
@@ -145,7 +145,7 @@ export default function Home(props: TProps) {
 	const addNew = () => {
 		if (admin) {
 			return (
-				<View style={styles.card}>
+				<View style={styles.cardAddNew}>
 					<TouchableOpacity
 						key="rightSideEdit"
 						onPress={() => {
@@ -184,6 +184,8 @@ export default function Home(props: TProps) {
 
 	return (
 		<View style={styles.container}>
+			{loading && <Progress.Bar isIndeterminate color="blue" />}
+
 			<ScrollView>
 				{addNew()}
 				<View style={styles.newsContentLine}>
@@ -210,10 +212,10 @@ export default function Home(props: TProps) {
 					<View style={styles.userDiagnostics}>
 						<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
 						<Text style={styles.version}>{Constants.manifest.version}</Text>
-						<Text style={styles.user}>{global.name}</Text>
-						<Text style={styles.user}>{global.email}</Text>
-						<Text style={styles.user}>{global.uid}</Text>
-						<Text style={styles.user}>{language}</Text>
+						<Text style={styles.user}>{auth.displayName}</Text>
+						<Text style={styles.user}>{auth.email}</Text>
+						<Text style={styles.user}>{auth.uid}</Text>
+						<Text style={styles.user}>{auth.language}</Text>
 					</View>
 				</View>
 			</ScrollView>
@@ -230,10 +232,18 @@ const styles = StyleSheet.create({
 		paddingLeft: 5,
 		width: "97%",
 	},
+	cardAddNew: {
+		alignSelf: "center",
+		backgroundColor: "#fff",
+		borderRadius: 15,
+		marginBottom: 12,
+		marginTop: 10,
+		paddingLeft: 5,
+		width: "97%",
+	},
 	container: {
 		backgroundColor: "#EFEFF4",
 		flex: 1,
-		marginTop: 10,
 	},
 
 	cookiesLogoView: {
