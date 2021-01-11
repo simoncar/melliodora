@@ -99,6 +99,7 @@ export default function Setup() {
 									displayName: "",
 									email: "",
 									photoURL: "",
+									login: false,
 								};
 								setGLogin(false);
 

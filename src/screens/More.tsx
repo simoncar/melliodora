@@ -35,7 +35,7 @@ export default function Settings(props: TProps) {
 		<View style={styles.container}>
 			<ScrollView>
 				<View style={styles.card}>
-					<Profile auth={props.auth} navigation={props.navigation} />
+					<Profile navigation={props.navigation} />
 				</View>
 
 				{separator(i)}
@@ -69,6 +69,10 @@ export default function Settings(props: TProps) {
 							onPress={() => changeDomain()}
 						/>
 					)}
+
+
+					
+
 				</View>
 			</ScrollView>
 		</View>

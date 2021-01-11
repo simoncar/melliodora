@@ -44,62 +44,144 @@ exports[`show more screen 1`] = `
             <View
               style={
                 Object {
+                  "alignItems": "center",
+                  "borderBottomColor": "#CED0CE",
                   "flexDirection": "row",
-                  "justifyContent": "space-between",
+                  "paddingVertical": 8,
                 }
               }
             >
+              <Text />
               <View
                 style={
                   Object {
-                    "backgroundColor": "#ffffff80",
-                    "paddingBottom": 15,
-                    "paddingHorizontal": 15,
-                    "paddingTop": 15,
+                    "alignItems": "center",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingHorizontal": 8,
                   }
                 }
               >
-                <Text
-                  style={
-                    Object {
-                      "fontSize": 18,
-                      "fontWeight": "600",
+                <View>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "SegoeUI",
+                          "fontSize": 17,
+                        },
+                        undefined,
+                      ]
                     }
-                  }
-                >
-                  Some Name
-                </Text>
-                <Text
-                  style={
-                    Object {
-                      "color": "#808080",
-                      "fontSize": 14,
+                  >
+                    Sign In
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "SegoeUI",
+                          "fontSize": 17,
+                        },
+                        undefined,
+                      ]
                     }
-                  }
-                >
-                  someeamil@simon.io
-                </Text>
+                  >
+                    
+                  </Text>
+                </View>
               </View>
-              <View>
-                <Image
-                  source={
-                    Object {
-                      "uri": "https://somephoto.jpg/?auto=enhance&fit=clip&w=180",
-                    }
+              <View
+                style={
+                  Object {
+                    "marginHorizontal": 8,
                   }
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "borderColor": "lightgray",
-                      "borderRadius": 30,
-                      "height": 60,
-                      "justifyContent": "center",
-                      "marginRight": 5,
-                      "marginTop": 5,
-                      "width": 60,
-                    }
+                }
+              >
+                <Text />
+              </View>
+            </View>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "borderBottomColor": "#CED0CE",
+                  "flexDirection": "row",
+                  "paddingVertical": 8,
+                }
+              }
+            >
+              <Text />
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingHorizontal": 8,
                   }
-                />
+                }
+              >
+                <View>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "SegoeUI",
+                          "fontSize": 17,
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    Create Account
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "SegoeUI",
+                          "fontSize": 17,
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "marginHorizontal": 8,
+                  }
+                }
+              >
+                <Text />
               </View>
             </View>
           </View>

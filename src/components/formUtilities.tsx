@@ -1,5 +1,3 @@
-
-
 import React, { Component } from "react";
 import { View, Text, TouchableOpacity, Switch, StyleSheet } from "react-native";
 import { Input } from "react-native-elements";

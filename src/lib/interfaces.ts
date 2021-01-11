@@ -63,4 +63,5 @@ export interface StoryEntity {
 export interface StoryState extends StoryEntity {
 	cameraIcon: string;
 	edit: boolean;
+	domain:string
 }

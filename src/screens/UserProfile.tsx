@@ -19,10 +19,7 @@ interface IProps {
 
 export default function UserProfile(props: IProps) {
 	const [user, setUser] = useState({});
-	const [, , gDisplayName] = useDisplayName();
-	const [, , gEmail] = useEmail();
 
-	console.log("UserProfileDisplay:", props.route.params.user);
 	if (user !== props.route.params.user) setUser(props.route.params.user);
 
 	const edit = () => {

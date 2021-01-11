@@ -19,11 +19,8 @@ import { StoryEntity, StoryState } from "../lib/interfaces";
 import Image from "../components/Imgix";
 
 interface TProps {
-	auth: any;
-	community: any;
 	navigation: any;
 	route: any;
-	domain: string;
 }
 
 export default class Form extends Component<TProps, StoryState> {
@@ -33,7 +30,7 @@ export default class Form extends Component<TProps, StoryState> {
 		var story: StoryEntity;
 
 		if (this.props.route.params.story != undefined) {
-			console.log("story defined", this.props.route.params.story);
+			console.log("story defined", this.props);
 			story = this.props.route.params.story;
 		} else {
 			story = {
@@ -130,7 +127,7 @@ export default class Form extends Component<TProps, StoryState> {
 	};
 
 	save() {
-		SaveFeature(this.state);
+		SaveFeature(this.state.domain, this.state);
 
 		if (this.props.route.params.edit) {
 			const refreshFunction = this.props.route.params.refreshFunction;
@@ -169,7 +166,11 @@ export default class Form extends Component<TProps, StoryState> {
 									text: I18n.t("delete"),
 									onPress: () => {
 										console.log("Delete feature:", _key);
-										DeleteFeature(_key, this.deleteHandler(this.props.navigation));
+										DeleteFeature(
+											this.state.domain,
+											_key,
+											this.deleteHandler(this.props.navigation)
+										);
 									},
 								},
 							],
