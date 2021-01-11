@@ -14,6 +14,7 @@ jest.mock("../../lib/globalState", () => ({
 	useLanguage: () => ["en", jest.fn(), "en"],
 	useLogin: () => [true, jest.fn(), true],
 	useLoginP: () => [true, jest.fn(), true],
+	useAdmin: () => [true, jest.fn(), true],
 	useUidP: () => ["123456df34gf738g", jest.fn(), "123456df34gf738g"],
 	useDisplayNameP: () => ["Some Name", jest.fn(), "Some Name"],
 	useEmailP: () => ["someeamil@simon.io", jest.fn(), "someeamil@simon.io"],
@@ -24,7 +25,13 @@ jest.mock("../../lib/globalState", () => ({
 		`{"uid":"4lGCJyOuXfbG1ig7EHJOM6LPoji2","displayName":"Simon 888","email":"simoncar@gmail.com","photoURL":"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/smartcommunity%2Fprofile%2F064e98b6-8d3e-4764-8740-acae99f78f89?alt=media&token=ccf2ca18-dd82-49df-95ce-c2f6edadd40b"}`,
 	],
 	AuthObj: () =>
-		`{"uid":"4lGCJyOuXfbG1ig7EHJOM6LPoji2","displayName":"Simon 888","email":"simoncar@gmail.com","photoURL":"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/smartcommunity%2Fprofile%2F064e98b6-8d3e-4764-8740-acae99f78f89?alt=media&token=ccf2ca18-dd82-49df-95ce-c2f6edadd40b"}`,
+		`{
+		"uid":"4lGCJyOuXfbG1ig7EHJOM6LPoji2",
+		"displayName":"Simon 888",
+		"email":"simoncar@gmail.com",
+		"photoURL":"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/smartcommunity%2Fprofile%2F064e98b6-8d3e-4764-8740-acae99f78f89?alt=media&token=ccf2ca18-dd82-49df-95ce-c2f6edadd40b",
+		"language":"en",
+	}`,
 }));
 
 const route = {

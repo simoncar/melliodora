@@ -265,7 +265,7 @@ exports[`show more screen 1`] = `
                     ]
                   }
                 >
-                  en
+                  
                 </Text>
               </View>
             </View>
