@@ -40,7 +40,6 @@ function StackHomeNavigator() {
 				options={({ navigation, route }) => ({
 					headerTitle: headerTitle(route),
 					headerLeft: () => headerLeftLanguageSelector(navigation),
-					headerRight: () => headerRightSearch(navigation, "searchCalendarHome"),
 				})}
 			/>
 
@@ -83,14 +82,7 @@ const StackCalendar = createStackNavigator();
 function StackCalendarNavigator() {
 	return (
 		<StackCalendar.Navigator>
-			<StackCalendar.Screen
-				name="home"
-				component={Calendar}
-				options={({ navigation, route }) => ({
-					headerTitle: I18n.t("calendar"),
-					headerRight: () => headerRightSearch(navigation, "searchCalendar"),
-				})}
-			/>
+			<StackCalendar.Screen name="home" component={Calendar} />
 			<StackCalendar.Screen
 				name="storyCalendar"
 				component={Story}
@@ -261,19 +253,6 @@ function headerLeftLanguageSelector(navigation) {
 	);
 }
 
-function headerRightSearch(navigation, searchPage) {
-	return (
-		<TouchableOpacity
-			onPress={() => {
-				navigation.push(searchPage);
-			}}>
-			<View style={styles.rightView}>
-				<Ionicons name="md-search" style={styles.rightIcon} />
-			</View>
-		</TouchableOpacity>
-	);
-}
-
 function headerTitle(route) {
 	if (route.params == undefined) {
 		return "";
@@ -290,13 +269,5 @@ const styles = StyleSheet.create({
 	},
 	leftView: {
 		marginLeft: 10,
-	},
-	rightIcon: {
-		color: "#48484A",
-		fontSize: 25,
-		marginRight: 10,
-	},
-	rightView: {
-		marginRight: 10,
 	},
 });

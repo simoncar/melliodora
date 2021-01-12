@@ -35,7 +35,8 @@ export function getCalendarItems(domain: string, language: string, callback: any
 		.collection("calendarItems")
 		.where("timestamp", ">=", new Date(rangeStart))
 		.onSnapshot(function (snapshot) {
-			var items2 = {};
+			var fullItems = {};
+			var searchItems = [];
 			var newItems = {};
 			var trans = {};
 			var strtime = 0;
@@ -46,10 +47,10 @@ export function getCalendarItems(domain: string, language: string, callback: any
 				newItems[strtime2] = [];
 			}
 
-			items2 = newItems;
+			fullItems = newItems;
 			const todayDay = new moment().format("MMMM Do");
 
-			items2[todayDate].push({
+			fullItems[todayDate].push({
 				_key: "todayKey",
 				summary: I18n.t("today") + " " + todayDay,
 				summaryMyLanguage: I18n.t("today") + " " + todayDay,
@@ -62,8 +63,8 @@ export function getCalendarItems(domain: string, language: string, callback: any
 				strtime = doc.data().date_start;
 				strtime = strtime.substring(0, 10);
 
-				if (!items2[strtime]) {
-					items2[strtime] = [];
+				if (!fullItems[strtime]) {
+					fullItems[strtime] = [];
 				}
 
 				trans = {
@@ -74,10 +75,10 @@ export function getCalendarItems(domain: string, language: string, callback: any
 				};
 
 				var event = { ...{ _key: doc.id }, ...doc.data(), ...trans };
-				items2[strtime].push(event);
+				fullItems[strtime].push(event);
+				searchItems.push(event)
 			});
-
-			callback(items2);
+			callback(fullItems, searchItems);
 		});
 
 	return () => unsubscribe();

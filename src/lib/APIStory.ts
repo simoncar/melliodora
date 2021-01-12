@@ -29,6 +29,9 @@ export function getStory(story: any, id: string, language: string): StoryEntity 
 	var trans = {};
 	var returnStory: StoryEntity;
 
+	console.log("language get story:",language);
+	
+
 	if (story.translated == true) {
 		trans = {
 			source: "feature",
