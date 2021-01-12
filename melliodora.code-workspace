@@ -19,7 +19,6 @@
 			"titleBar.border": "#430101"
 		},
 		"peacock.affectTabActiveBorder": true,
-		"peacock.affectActivityBar": false,
-		"editor.formatOnSave": true
+		"peacock.affectActivityBar": false
 	}
 }

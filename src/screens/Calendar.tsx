@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Agenda } from "react-native-calendars";
 import CalendarItem from "../components/CalendarItem";
-import { useDomain, useLanguage } from "../lib/globalState";
+import { useDomain, AuthObj } from "../lib/globalState";
 import { getCalendarItems } from "../lib/APICalendar";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -13,19 +13,13 @@ interface TProps {
 
 export default function Calendar(props: TProps) {
 	const [fullItems, setFullItems] = useState({});
-	const [searchItems, setSearchItems] = useState({});
 	const [loading, setLoading] = useState(true);
 	const [, , domain] = useDomain();
-	const [, , language] = useLanguage();
+	const auth = AuthObj();
 
 	const setCalendarItems = (fullItems, searchItems) => {
 		setFullItems(fullItems);
-		setSearchItems(searchItems);
 
-		console.log("Search Items:", searchItems);
-	};
-
-	useEffect(() => {
 		props.navigation.setOptions({
 			// eslint-disable-next-line react/display-name
 			headerRight: () => {
@@ -34,6 +28,8 @@ export default function Calendar(props: TProps) {
 						onPress={() => {
 							props.navigation.push("searchCalendar", {
 								data: searchItems,
+								domain: domain,
+								language: auth.language,
 							});
 						}}>
 						<View style={styles.rightView}>
@@ -43,12 +39,15 @@ export default function Calendar(props: TProps) {
 				);
 			},
 		});
+	};
 
-		setLoading(false);
-	}, []);
+	// useEffect(() => {
+
+	// 	setLoading(false);
+	// }, []);
 
 	useEffect(() => {
-		const unsubscribe = getCalendarItems(domain, language, setCalendarItems);
+		const unsubscribe = getCalendarItems(domain, auth.language, setCalendarItems);
 
 		return () => {
 			unsubscribe;
@@ -56,7 +55,11 @@ export default function Calendar(props: TProps) {
 	}, []);
 
 	const renderItem = (item) => {
-		return <CalendarItem navigation={props.navigation} story={item} domain={domain} language={language} />;
+		return <CalendarItem
+			navigation={props.navigation}
+			story={item}
+			domain={domain}
+			language={auth.language} />;
 	};
 
 	const date = new Date();

@@ -26,7 +26,7 @@ export default function Home(props: TProps) {
 	const [calendarItems, setCalendarItems] = useState([]);
 	const [, , domain] = useDomain();
 
-	const [admin, ] = useAdmin();
+	const [admin] = useAdmin();
 
 	const auth = AuthObj();
 
@@ -116,7 +116,7 @@ export default function Home(props: TProps) {
 	const renderItemNoCard = (navigation, item) => {
 		return (
 			<ListItem
-				key={item._key}
+				key={item.key}
 				navigation={navigation}
 				story={item}
 				card={false}

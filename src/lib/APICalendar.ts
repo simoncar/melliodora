@@ -25,8 +25,8 @@ export function getCalendarItems(domain: string, language: string, callback: any
 		return date.toISOString().split("T")[0];
 	};
 
-	var today = new Date();
-	var rangeStart = today.setDate(-30);
+	const today = new Date();
+	const rangeStart = today.setDate(-30);
 
 	const unsubscribe = firebase
 		.firestore()
@@ -35,11 +35,11 @@ export function getCalendarItems(domain: string, language: string, callback: any
 		.collection("calendarItems")
 		.where("timestamp", ">=", new Date(rangeStart))
 		.onSnapshot(function (snapshot) {
-			var fullItems = {};
-			var searchItems = [];
-			var newItems = {};
-			var trans = {};
-			var strtime = 0;
+			let fullItems = {};
+			const searchItems = [];
+			const newItems = {};
+			let trans = {};
+			let strtime = 0;
 
 			for (let i = -15; i < 365; i++) {
 				const time = Date.now() + i * 24 * 60 * 60 * 1000;
@@ -51,7 +51,7 @@ export function getCalendarItems(domain: string, language: string, callback: any
 			const todayDay = new moment().format("MMMM Do");
 
 			fullItems[todayDate].push({
-				_key: "todayKey",
+				key: "todayKey",
 				summary: I18n.t("today") + " " + todayDay,
 				summaryMyLanguage: I18n.t("today") + " " + todayDay,
 				icon: "md-radio-button-off",
@@ -67,16 +67,25 @@ export function getCalendarItems(domain: string, language: string, callback: any
 					fullItems[strtime] = [];
 				}
 
-				trans = {
+				const trans = {
 					source: "calendar",
 					summaryMyLanguage: doc.data().summary,
 					descriptionMyLanguage: doc.data().description,
 					color: doc.data().color,
+					visible: true,
+					summary: doc.data().summary,
+					summaryEN: doc.data().summary,
+					location: doc.data().location,
+					date_start: doc.data().date_start,
+					time_start_pretty: doc.data().time_start_pretty,
+					time_end_pretty: doc.data().time_end_pretty,
+					showIconChat: false,
+					number: doc.data().number,
 				};
 
-				var event = { ...{ _key: doc.id }, ...doc.data(), ...trans };
+				const event = { ...{ key: doc.id }, ...trans };
 				fullItems[strtime].push(event);
-				searchItems.push(event)
+				searchItems.push(event);
 			});
 			callback(fullItems, searchItems);
 		});
@@ -87,7 +96,7 @@ export function getCalendarItems(domain: string, language: string, callback: any
 export function getCalendarToday(domain: string, language: string, callback: any) {
 	const todayDate = moment().format("YYYY-MM-DD");
 
-	var calendarItems = [];
+	const calendarItems = [];
 
 	const unsubscribe = firebase
 		.firestore()
@@ -97,7 +106,7 @@ export function getCalendarToday(domain: string, language: string, callback: any
 		.where("date_start", "==", todayDate)
 		.onSnapshot(function (snapshot) {
 			snapshot.forEach((doc) => {
-				var trans = {
+				const trans = {
 					visible: true,
 					source: "calendar",
 					summaryMyLanguage: getLanguageString(language, doc.data(), "summary"),
@@ -110,7 +119,7 @@ export function getCalendarToday(domain: string, language: string, callback: any
 					number: doc.data().number,
 				};
 				calendarItems.push({
-					...{ _key: doc.id },
+					...{ key: doc.id },
 					...doc.data(),
 					...trans,
 				});
