@@ -4,7 +4,7 @@ import { getLanguageString } from "./global";
 
 type storyRead = (stories: StoryEntity[]) => void;
 
-export function getStories(domain: string, language: string, callback) {
+export function getStories(domain: string, language: string, callback: storyRead) {
 	const unsubscribe = firebase
 		.firestore()
 		.collection(domain)
