@@ -4,12 +4,12 @@ exports[`add event to calendar 1`] = `
 <phoneCalendar
   event={
     Object {
-      "key": "schoolStarts",
       "dateTimeEnd": undefined,
       "dateTimeStart": undefined,
       "date_start": "2020-08-12",
       "description": undefined,
       "descriptionMyLanguage": "2020/2021 Calendar",
+      "key": "schoolStarts",
       "location": undefined,
       "order": undefined,
       "photo1": "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2F202006%2F7a2af15c-093b-4722-af28-a313a76a6676?alt=media&token=16f5257e-ba70-4906-aa28-48b4c16cf0d5",
