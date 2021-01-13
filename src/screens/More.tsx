@@ -72,7 +72,7 @@ export default function Settings(props: TProps) {
 						/>
 					)}
 				</View>
-				{Constants.manifest.extra.domain === "" && domain != "" && admin === true && (
+				{domain != "" && admin === true && (
 					<View style={styles.card}>
 						<SettingsListItem
 							icon={<MaterialIcons name="admin-panel-settings" style={styles.imageStyleIconAdmin} />}

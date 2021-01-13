@@ -18,8 +18,6 @@ export function SaveFeature(domain: string, dict) {
 		date_start: date_start != undefined ? date_start : "",
 	};
 
-	console.log("storyDict:", storyDict);
-
 	if (_key == "") {
 		firebase.firestore().collection(domain).doc("feature").collection("features").add(storyDict);
 		// .then(() => navigation.goBack());

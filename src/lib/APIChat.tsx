@@ -118,7 +118,6 @@ export class Backend extends React.Component {
 	}
 
 	setDomain(domain) {
-		console.log("backend set domain:", domain);
 		this.domain = domain;
 	}
 

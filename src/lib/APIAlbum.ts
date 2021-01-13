@@ -37,7 +37,6 @@ async function copyToLocal(uri: string, filename: string) {
 			.catch((error) => {
 				reject(Error("copyToLocal broke:" + error));
 			});
-		console.log("copyToLocal end :", filename);
 	});
 }
 
@@ -75,10 +74,8 @@ export async function storageSend(featureID: string, domain:DomainEntity) {
 					album.push(doc.data().local);
 
 					if (doc.data().server === undefined) {
-						console.log("file not on server", doc.data().local);
 						const imageURI = FileSystem.documentDirectory + doc.data().local;
 						const p = uploadImage(featureID, imageURI, doc.data().local, doc.id, domain).then((downloadURL) => {
-							console.log("downloadURL:", downloadURL);
 							firebase
 								.firestore()
 								.collection(domain.node)
