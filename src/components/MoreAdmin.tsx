@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Image from "../components/Imgix";
 import { SettingsListItem } from "./SettingsListItem";
 import { getStories } from "../lib/APIStory";
 import { useDomain, AuthObj } from "../lib/globalState";
 import { Bar } from "expo-progress";
+import { StoryEntity } from "../lib/interfaces";
 
 interface TProps {
 	navigation: any;
@@ -12,12 +13,12 @@ interface TProps {
 
 export default function MoreAdmin(props: TProps) {
 	const [loading, setLoading] = useState(true);
-	const [featureItems, setFeatureItems] = useState([]);
+	const [featureItems, setFeatureItems] = useState<StoryEntity[]>([]);
 	const [, , domain] = useDomain();
 
 	const auth = AuthObj();
 
-	const storyRead = (stories) => {
+	const storyRead = (stories: StoryEntity[]) => {
 		setFeatureItems(stories);
 		setLoading(false);
 	};
@@ -30,12 +31,12 @@ export default function MoreAdmin(props: TProps) {
 		};
 	}, [domain, auth.language]);
 
-	const renderItem = (item: any) => {
+	const renderItem = (item: StoryEntity) => {
 		const uri = item.photo1;
 
 		return (
 			<SettingsListItem
-				key={"feature2" + item._key}
+				key={"feature2" + item.key}
 				title={item.summaryMyLanguage}
 				icon={<Image style={styles.imageIcon} source={{ uri: uri }} />}
 				onPress={() =>
@@ -53,7 +54,7 @@ export default function MoreAdmin(props: TProps) {
 	return (
 		<View>
 			{loading && <Bar isIndeterminate color="blue" />}
-			{featureItems.map((item) => {
+			{featureItems.map((item: StoryEntity) => {
 				return <View key={item.key}>{renderItem(item)}</View>;
 			})}
 		</View>

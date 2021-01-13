@@ -43,8 +43,8 @@ export interface StoryEntity {
 	key: string;
 	photo1?: string;
 	summary: string;
-	summaryMyLanguage?: string;
-	descriptionMyLanguage?: string;
+	summaryMyLanguage: string;
+	descriptionMyLanguage: string;
 	description: string;
 	visible: boolean;
 	showIconChat: boolean;
