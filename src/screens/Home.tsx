@@ -5,7 +5,7 @@ import ListItem from "../components/StoryListItem";
 import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
-import { useDomain, useAdmin, AuthObj } from "../lib/globalState";
+import { useAdmin, AuthObj, DomainObj } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 import { getCalendarToday } from "../lib/APICalendar";
 import { Ionicons } from "@expo/vector-icons";
@@ -24,11 +24,11 @@ export default function Home(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [featureItems, setFeatureItems] = useState([]);
 	const [calendarItems, setCalendarItems] = useState([]);
-	const [, , domain] = useDomain();
 
 	const [admin] = useAdmin();
 
 	const auth = AuthObj();
+	const domain = DomainObj();
 
 	const storyRead = (stories) => {
 		setFeatureItems(stories);
@@ -41,16 +41,16 @@ export default function Home(props: TProps) {
 	};
 
 	useEffect(() => {
-		props.navigation.setParams({
-			title: domain,
+		props.navigation.setOptions({
+			headerTitle: domain.name,
 		});
 
-		if (domain == "oakforest_international_edu") {
+		if (domain.node === "oakforest_international_edu") {
 			demo.setupDemoData();
 		}
 
-		const unsubscribeStory = getStories(domain, auth.language, storyRead);
-		const unsubscribeCalendar = getCalendarToday(domain, auth.language, calendarRead);
+		const unsubscribeStory = getStories(domain.node, auth.language, storyRead);
+		const unsubscribeCalendar = getCalendarToday(domain.node, auth.language, calendarRead);
 
 		// loadCalendar();
 
@@ -86,11 +86,16 @@ export default function Home(props: TProps) {
 	}, []);
 
 	useEffect(() => {
-		const unsubscribe = getStories(domain, auth.language, storyRead);
+		props.navigation.setOptions({
+			headerTitle: domain.name,
+		});
+
+		const unsubscribe = getStories(domain.node, auth.language, storyRead);
+
 		return () => {
 			unsubscribe;
 		};
-	}, [domain, auth.language]);
+	}, [domain.node, auth.language]);
 
 	const handleOpenWithLinking = (sURL) => {
 		Linking.openURL(sURL);
@@ -107,7 +112,7 @@ export default function Home(props: TProps) {
 					story={item}
 					card={true}
 					language={auth.language}
-					domain={domain}
+					domain={domain.node}
 					admin={admin}
 				/>
 			);
@@ -121,7 +126,7 @@ export default function Home(props: TProps) {
 				story={item}
 				card={false}
 				language={auth.language}
-				domain={domain}
+				domain={domain.node}
 				admin={admin}
 			/>
 		);

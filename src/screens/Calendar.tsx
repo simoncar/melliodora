@@ -5,6 +5,7 @@ import CalendarItem from "../components/CalendarItem";
 import { useDomain, AuthObj } from "../lib/globalState";
 import { getCalendarItems } from "../lib/APICalendar";
 import { Ionicons } from "@expo/vector-icons";
+import { StoryEntity } from "../lib/interfaces";
 
 interface TProps {
 	navigation: any;
@@ -17,7 +18,7 @@ export default function Calendar(props: TProps) {
 	const [, , domain] = useDomain();
 	const auth = AuthObj();
 
-	const setCalendarItems = (fullItems, searchItems) => {
+	const setCalendarItems = (fullItems: any, searchItems: StoryEntity[]) => {
 		setFullItems(fullItems);
 
 		props.navigation.setOptions({
@@ -39,12 +40,8 @@ export default function Calendar(props: TProps) {
 				);
 			},
 		});
+		setLoading(false);
 	};
-
-	// useEffect(() => {
-
-	// 	setLoading(false);
-	// }, []);
 
 	useEffect(() => {
 		const unsubscribe = getCalendarItems(domain, auth.language, setCalendarItems);
@@ -54,19 +51,15 @@ export default function Calendar(props: TProps) {
 		};
 	}, []);
 
-	const renderItem = (item) => {
-		return <CalendarItem
-			navigation={props.navigation}
-			story={item}
-			domain={domain}
-			language={auth.language} />;
+	const renderItem = (item: StoryEntity) => {
+		return <CalendarItem navigation={props.navigation} story={item} domain={domain} language={auth.language} />;
 	};
 
 	const date = new Date();
 	date.setDate(date.getDate());
 
 	return (
-		<View style={{ height: "100%" }}>
+		<View style={styles.overall}>
 			<Agenda
 				renderEmptyData={() => {
 					return null;
@@ -75,7 +68,7 @@ export default function Calendar(props: TProps) {
 				items={fullItems}
 				selected={date}
 				renderItem={renderItem}
-				rowHasChanged={(r1, r2) => {
+				rowHasChanged={(r1:any, r2:any) => {
 					return r1.summary !== r2.summary;
 				}}
 				hideKnob={false}
@@ -96,6 +89,7 @@ export default function Calendar(props: TProps) {
 }
 
 const styles = StyleSheet.create({
+	overall: { height: "100%" },
 	rightIcon: {
 		color: "#48484A",
 		fontSize: 25,

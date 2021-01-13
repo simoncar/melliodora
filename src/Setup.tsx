@@ -11,6 +11,7 @@ import { isDomainAdminServer } from "./lib/APIDomain";
 
 import {
 	useDomainP,
+	useDomainNameP,
 	useAuth,
 	useLogin,
 	useLanguage,
@@ -23,7 +24,8 @@ import {
 
 export default function Setup() {
 	const [loading, setLoading] = useState(true);
-	const [domain, setDomain, domainIsUpdated] = useDomainP();
+	const [domain, setDomain] = useDomainP();
+	const [domainName, setDomainName] = useDomainNameP();
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 	const [, setGAuth, gAuth] = useAuth();
 	const [, setGLogin, gLogin] = useLogin();
@@ -66,7 +68,11 @@ export default function Setup() {
 
 		async function initDomain() {
 			const domain = Constants.manifest.extra.domain;
-			if (domain != "") await setDomain(domain);
+			const domainName = Constants.manifest.extra.domainName;
+			if (domain != "") {
+				await setDomain(domain);
+				await setDomainName(domainName);
+			}
 			return domain;
 		}
 
@@ -83,10 +89,7 @@ export default function Setup() {
 			.then(() => {
 				var user = firebase.auth().currentUser;
 
-				console.log("user:", user);
 				firebase.auth().onAuthStateChanged((user) => {
-					console.log("onAuthStateChanged:", user);
-
 					let objAuth = {};
 					if (user === null) {
 						// user has not logged in, so create an anonymous account and log them in

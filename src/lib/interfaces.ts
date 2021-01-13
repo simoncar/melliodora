@@ -40,8 +40,8 @@ export interface DomainEntity {
 }
 
 export interface StoryEntity {
-	_key: string;
-	photo1: string;
+	key: string;
+	photo1?: string;
 	summary: string;
 	summaryMyLanguage?: string;
 	descriptionMyLanguage?: string;
@@ -53,8 +53,8 @@ export interface StoryEntity {
 	time_start_pretty: string;
 	time_end_pretty: string;
 	source?: any;
-	dateTimeStart: any;
-	dateTimeEnd: any;
+	dateTimeStart?: any;
+	dateTimeEnd?: any;
 	location?: any;
 	scroll?: boolean;
 	newState?: any;
@@ -63,5 +63,5 @@ export interface StoryEntity {
 export interface StoryState extends StoryEntity {
 	cameraIcon: string;
 	edit: boolean;
-	domain:string
+	domain: string;
 }

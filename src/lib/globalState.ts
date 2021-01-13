@@ -2,8 +2,6 @@ import { useEffect } from "react";
 import GlobalStore from "react-native-global-state-hooks";
 import { DomainEntity, AuthEntity } from "./interfaces";
 
-//const countStore = new GlobalStore(0);
-
 const domainStore = new GlobalStore("", null, "globalState_DOMAIN_NODE");
 const domainNameStore = new GlobalStore("", null, "globalState_DOMAIN_NAME");
 const domainsStore = new GlobalStore("", null, "globalState_DOMAINS");

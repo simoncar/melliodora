@@ -2,11 +2,12 @@ import firebase from "../lib/firebase";
 import moment from "moment";
 import I18n from "../lib/i18n";
 import { getLanguageString } from "../lib/global";
+import { StoryEntity } from "./interfaces";
 
 export function getCalendarItems(domain: string, language: string, callback: any) {
-	const todayDay = new moment().format("MMMM Do");
-	const todayItem = {};
-	const todayDate = moment().format("YYYY-MM-DD");
+	const todayDay = moment().format("MMMM Do");
+	const todayItem: any = {};
+	const todayDate: string = moment().format("YYYY-MM-DD");
 
 	todayItem[todayDate] = [];
 	todayItem[todayDate].push({
@@ -20,8 +21,8 @@ export function getCalendarItems(domain: string, language: string, callback: any
 	});
 	callback(todayItem);
 
-	const timeToString = (time) => {
-		const date = new Date(time);
+	const dateValToString = (dateVal: number) => {
+		const date = new Date(dateVal);
 		return date.toISOString().split("T")[0];
 	};
 
@@ -35,20 +36,20 @@ export function getCalendarItems(domain: string, language: string, callback: any
 		.collection("calendarItems")
 		.where("timestamp", ">=", new Date(rangeStart))
 		.onSnapshot(function (snapshot) {
-			let fullItems = {};
-			const searchItems = [];
-			const newItems = {};
-			let trans = {};
-			let strtime = 0;
+			let fullItems: any = {};
+			const newItems: any = {};
+			const searchItems: StoryEntity[] = [];
+
+			let dayCode = 0;
 
 			for (let i = -15; i < 365; i++) {
-				const time = Date.now() + i * 24 * 60 * 60 * 1000;
-				const strtime2 = timeToString(time);
-				newItems[strtime2] = [];
+				const dateVal = Date.now() + i * 24 * 60 * 60 * 1000;
+				const dayCode2 = dateValToString(dateVal);
+				newItems[dayCode2] = [];
 			}
 
 			fullItems = newItems;
-			const todayDay = new moment().format("MMMM Do");
+			const todayDay = moment().format("MMMM Do");
 
 			fullItems[todayDate].push({
 				key: "todayKey",
@@ -60,17 +61,17 @@ export function getCalendarItems(domain: string, language: string, callback: any
 			});
 
 			snapshot.forEach((doc) => {
-				strtime = doc.data().date_start;
-				strtime = strtime.substring(0, 10);
+				dayCode = doc.data().date_start.substring(0, 10);
 
-				if (!fullItems[strtime]) {
-					fullItems[strtime] = [];
+				if (!fullItems[dayCode]) {
+					fullItems[dayCode] = [];
 				}
 
-				const trans = {
+				const event = {
 					source: "calendar",
 					summaryMyLanguage: doc.data().summary,
 					descriptionMyLanguage: doc.data().description,
+					description: doc.data().description,
 					color: doc.data().color,
 					visible: true,
 					summary: doc.data().summary,
@@ -81,10 +82,11 @@ export function getCalendarItems(domain: string, language: string, callback: any
 					time_end_pretty: doc.data().time_end_pretty,
 					showIconChat: false,
 					number: doc.data().number,
+					key: doc.id,
+					order: 0,
 				};
 
-				const event = { ...{ key: doc.id }, ...trans };
-				fullItems[strtime].push(event);
+				fullItems[dayCode].push(event);
 				searchItems.push(event);
 			});
 			callback(fullItems, searchItems);

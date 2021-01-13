@@ -24,7 +24,7 @@ export function getStories(domain: string, language: string, callback: storyRead
 	return () => unsubscribe();
 }
 
-export function getStory(story: any, id: string, language: string): StoryEntity {
+export function getStory(story: StoryEntity, id: string, language: string): StoryEntity {
 	var trans = {};
 	var returnStory: StoryEntity;
 
