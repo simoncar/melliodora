@@ -44,7 +44,7 @@ export default function DomainSelection(props: TProps) {
 	const renderItem = (navigation, item) => {
 		const userIsAdmin = isDomainAdmin(uid, item.admins);
 		return (
-			<View key={item._key}>
+			<View key={item.key}>
 				<SettingsListItem
 					hasNavArrow={true}
 					icon={

@@ -11,7 +11,7 @@ const itemCore = {
 	"cardStyle": {
 		"borderWidth": 0,
 	},
-	"_key": "dDbhWxL1hLyFhF6uReK6",
+	"key": "dDbhWxL1hLyFhF6uReK6",
 	"date_start": null,
 	"description": "While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.",
 	"descriptionEN": "While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.",
@@ -46,7 +46,7 @@ const itemCore = {
 const itemCalendarDate = {
 	"source": "calendar",
 	"card": false,
-	"_key": "demo data 2",
+	"key": "demo data 2",
 	"color": "red",
 	"date_start": "2020-06-12",
 	"date_time_start": "20200612",
@@ -68,7 +68,7 @@ const itemCalendarDate = {
 const itemCalendarDateTime = {
 	"source": "calendar",
 	"card": false,
-	"_key": "demo data 2",
+	"key": "demo data 2",
 	"color": "red",
 	"date_start": "2020-06-12",
 	"date_time_start": "20200612",

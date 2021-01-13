@@ -85,6 +85,7 @@ export const AuthObj = () => {
 
 export const useDomainNameP = () => {
 	const [refresh, setter, state, isUpdated] = useDomainName();
+
 	useEffect(() => {
 		refresh();
 	}, []);

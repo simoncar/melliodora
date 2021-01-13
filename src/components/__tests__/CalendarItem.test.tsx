@@ -9,7 +9,7 @@ jest.mock('../../lib/firebase')
 const itemCalendarDate = {
 	"source": "calendar",
 	"card": false,
-	"_key": "demo data 2",
+	"key": "demo data 2",
 	"color": "red",
 	"date_start": "2020-06-12",
 	"date_time_start": "20200612",
@@ -30,7 +30,7 @@ const itemCalendarDate = {
 const itemCalendarDateImage = {
 	"source": "calendar",
 	"card": false,
-	"_key": "demo data 2",
+	"key": "demo data 2",
 	"color": "red",
 	"date_start": "2020-06-12",
 	"date_time_start": "20200612",
@@ -54,7 +54,7 @@ const itemCalendarDateImage = {
 const itemCalendarDateTime = {
 	"source": "calendar",
 	"card": false,
-	"_key": "demo data 2",
+	"key": "demo data 2",
 	"color": "red",
 	"date_start": "2020-06-12",
 	"date_time_start": "20200612",

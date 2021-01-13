@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { Text } from "./sComponent";
-import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import Image from "../components/Imgix";
 import Constants from "expo-constants";
 import { StoryEntity } from "../lib/interfaces";
@@ -79,7 +79,7 @@ class ListItem extends Component<TProps> {
 		const language = this.props.language;
 		const admin = this.props.admin;
 		const {
-			_key,
+			key,
 			source,
 			summaryMyLanguage,
 			location,
@@ -113,7 +113,7 @@ class ListItem extends Component<TProps> {
 							</View>
 
 							<View style={styles.headerRightIcons}>
-								{showIconChat && this.renderChat(_key, summaryMyLanguage, domain, language, admin)}
+								{showIconChat && this.renderChat(key, summaryMyLanguage, domain, language, admin)}
 							</View>
 						</View>
 
@@ -124,7 +124,7 @@ class ListItem extends Component<TProps> {
 						)}
 					</TouchableOpacity>
 					<View style={styles.cardMiniList}>
-						<ImageList feature={_key} edit={false} miniRoll={true} domain={this.props.domain} />
+						<ImageList feature={key} edit={false} miniRoll={true} domain={this.props.domain} />
 					</View>
 				</View>
 			</View>

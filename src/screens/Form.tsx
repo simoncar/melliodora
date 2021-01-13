@@ -30,13 +30,14 @@ export default class Form extends Component<TProps, StoryState> {
 		var story: StoryEntity;
 
 		if (this.props.route.params.story != undefined) {
-			console.log("story defined", this.props);
 			story = this.props.route.params.story;
 		} else {
 			story = {
-				_key: "",
+				key: "",
 				summary: "",
+				summaryMyLanguage: "",
 				description: "",
+				descriptionMyLanguage: "",
 				photo1: "",
 				visible: true,
 				showIconChat: true,
@@ -50,7 +51,7 @@ export default class Form extends Component<TProps, StoryState> {
 		}
 
 		const {
-			_key,
+			key,
 			summary,
 			description,
 			photo1,
@@ -65,13 +66,15 @@ export default class Form extends Component<TProps, StoryState> {
 		} = story;
 
 		this.state = {
-			photo1: photo1 !== undefined ? photo1 : null,
+			photo1: photo1 !== undefined ? photo1 : "",
 			summary: summary,
+			summaryMyLanguage: summary,
 			description: description,
+			descriptionMyLanguage: description,
 			visible: visible,
 			showIconChat: showIconChat,
 			order: order,
-			_key: _key,
+			key: key,
 			date_start: date_start,
 			time_start_pretty: time_start_pretty,
 			time_end_pretty: time_end_pretty,
@@ -146,7 +149,7 @@ export default class Form extends Component<TProps, StoryState> {
 	}
 
 	deleteButton() {
-		const { _key, edit } = this.state;
+		const { key, edit } = this.state;
 		if (edit) {
 			return (
 				<TouchableOpacity
@@ -165,10 +168,10 @@ export default class Form extends Component<TProps, StoryState> {
 								{
 									text: I18n.t("delete"),
 									onPress: () => {
-										console.log("Delete feature:", _key);
+										console.log("Delete feature:", key);
 										DeleteFeature(
 											this.state.domain,
-											_key,
+											key,
 											this.deleteHandler(this.props.navigation)
 										);
 									},
@@ -316,7 +319,7 @@ export default class Form extends Component<TProps, StoryState> {
 
 					{edit && (
 						<ImageList
-							feature={story._key}
+							feature={story.key}
 							refreshFunction={refreshFunction}
 							edit={true}
 							domain={this.state.domain}

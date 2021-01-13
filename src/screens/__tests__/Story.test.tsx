@@ -80,7 +80,7 @@ const itemCore = {
 			cardStyle: {
 				borderWidth: 0,
 			},
-			_key: "dDbhWxL1hLyFhF6uReK6",
+			key: "dDbhWxL1hLyFhF6uReK6",
 			date_start: "2020-11-30",
 			description:
 				"While your school may order extra books to sell during distribution, a yearbook will not be reserved in your name. To ensure that you receive a book, we encourage you to purchase before your school's order deadline.",

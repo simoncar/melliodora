@@ -36,7 +36,7 @@ jest.mock("../../lib/globalState", () => ({
 	}`,
 }));
 
-test("show more screen", () => {
+test("show moreAdmin items", () => {
 	Bar.mockImplementation(() => {
 		return null;
 	});

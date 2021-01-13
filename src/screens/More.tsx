@@ -14,9 +14,11 @@ interface TProps {
 	route: any;
 }
 
-export default function Settings(props: TProps) {
+export default function Settings(props: TProps)
+{
+
 	const [domain, domainSetter] = useDomainP();
-	const [domainName, domainNameSetter] = useDomainNameP();
+	const [, domainNameSetter] = useDomainNameP();
 	const [admin] = useAdmin();
 
 	const auth = AuthObj();

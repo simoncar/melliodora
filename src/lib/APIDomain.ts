@@ -1,7 +1,7 @@
 import firebase from "../lib/firebase";
 
 interface IDomain {
-	_key: string;
+	key: string;
 	name: string;
 	node: string;
 }
@@ -18,7 +18,7 @@ export async function getDomains() {
 			.then(function (snapshot) {
 				snapshot.forEach(function (doc) {
 					const domain = {
-						_key: doc.id,
+						key: doc.id,
 						name: doc.data().name,
 						node: doc.data().node,
 						admins: doc.data().admins,

@@ -13,7 +13,7 @@ class push extends Component {
 
 		this.state = {
 			initialText: "",
-			_key: props._key
+			key: props.key
 		};
 
 	}

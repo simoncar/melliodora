@@ -47,7 +47,7 @@ export function getStory(story: StoryEntity, id: string, language: string): Stor
 			"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680";
 	}
 
-	returnStory = { ...{ _key: id }, ...story, ...trans };
+	returnStory = { ...{ key: id }, ...story, ...trans };
 
 	return returnStory;
 }

@@ -4,12 +4,13 @@ import Settings from "../More";
 
 jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
 jest.mock("../../lib/firebase");
-jest.mock("../../lib/APICalendar", () => ({
-	getCalendarItems: () => jest.fn(),
+jest.mock("../../lib/APIStory", () => ({
+	getStories: () => jest.fn(),
 }));
 
 jest.mock("../../lib/globalState", () => ({
 	useDomainP: () => ["oakforest_international_edu", jest.fn(), "oakforest_international_edu"],
+	useDomain: () => ["oakforest_international_edu", jest.fn(), "oakforest_international_edu"],
 	useDomainNameP: () => ["Oakforest International", jest.fn(), "Oakforest International"],
 	useLanguage: () => ["en", jest.fn(), "en"],
 	useLogin: () => [true, jest.fn(), true],
