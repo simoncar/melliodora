@@ -1,18 +1,7 @@
 import firebase from "../lib/firebase";
 
 export function SaveFeature(domain: string, dict) {
-	const {
-		_key,
-		summary,
-		description,
-		order,
-		photo1,
-		showIconChat,
-		visible,
-		dateTimeStart,
-		dateTimeEnd,
-		date_start,
-	} = dict;
+	const { _key, summary, description, order, photo1, showIconChat, visible, date_start } = dict;
 
 	const storyDict = {
 		summary: summary || "Title",

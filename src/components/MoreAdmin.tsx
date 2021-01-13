@@ -4,7 +4,7 @@ import Image from "../components/Imgix";
 import { SettingsListItem } from "./SettingsListItem";
 import { getStories } from "../lib/APIStory";
 import { useDomain, AuthObj } from "../lib/globalState";
-import * as Progress from "expo-progress";
+import { Bar } from "expo-progress";
 
 interface TProps {
 	navigation: any;
@@ -50,23 +50,14 @@ export default function MoreAdmin(props: TProps) {
 		);
 	};
 
-	if (loading) {
-		return <View>{loading && <Progress.Bar isIndeterminate color="blue" />}</View>;
-	} else if (featureItems === undefined || featureItems.length == 0) {
-		return (
-			<View>
-				<Text>Empty</Text>
-			</View>
-		);
-	} else {
-		return (
-			<View>
-				{featureItems.map((item) => {
-					return <View key={item._key}>{renderItem(item)}</View>;
-				})}
-			</View>
-		);
-	}
+	return (
+		<View>
+			{loading && <Bar isIndeterminate color="blue" />}
+			{featureItems.map((item) => {
+				return <View key={item.key}>{renderItem(item)}</View>;
+			})}
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
