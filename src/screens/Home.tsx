@@ -101,13 +101,12 @@ export default function Home(props: TProps) {
 		Linking.openURL(sURL);
 	};
 
-	const keyExtractor = (item) => item._key;
 
 	const renderItem = (navigation, item) => {
 		if (item.visible === true)
 			return (
 				<ListItem
-					key={item._key}
+					key={item.key}
 					navigation={navigation}
 					story={item}
 					card={true}
@@ -139,7 +138,6 @@ export default function Home(props: TProps) {
 					<ShortList
 						navigation={props.navigation}
 						data={calendarItems}
-						Extractor={keyExtractor}
 						renderItem={renderItemNoCard}
 					/>
 				</View>
@@ -199,7 +197,6 @@ export default function Home(props: TProps) {
 					<ShortList
 						navigation={props.navigation}
 						data={featureItems}
-						keyExtractor={keyExtractor}
 						renderItem={renderItem}
 					/>
 				</View>

@@ -11,7 +11,7 @@ export function getCalendarItems(domain: string, language: string, callback: any
 
 	todayItem[todayDate] = [];
 	todayItem[todayDate].push({
-		_key: "todayKey",
+		key: "todayKey",
 		summary: I18n.t("today") + " " + todayDay,
 		summaryMyLanguage: I18n.t("today") + " " + todayDay,
 		icon: "md-radio-button-off",

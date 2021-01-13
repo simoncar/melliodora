@@ -21,7 +21,7 @@ interface TState {
 	storyKey: string;
 	albums: {
 		title: string;
-		_key: string;
+		key: string;
 	}[];
 }
 
@@ -38,13 +38,13 @@ export default class SelectAlbum extends Component<TProps, TState> {
 
 		const albums: {
 			title: string;
-			_key: string;
+			key: string;
 		}[] = [];
 
 		MediaLibrary.requestPermissionsAsync().then(() => {
 			albums.push({
 				title: "Recent",
-				_key: "RECENT",
+				key: "RECENT",
 			});
 
 			MediaLibrary.getAlbumsAsync()
@@ -53,7 +53,7 @@ export default class SelectAlbum extends Component<TProps, TState> {
 						albumsList.forEach((album) => {
 							albums.push({
 								title: album.title,
-								_key: album.id,
+								key: album.id,
 							});
 						});
 					}
@@ -67,7 +67,6 @@ export default class SelectAlbum extends Component<TProps, TState> {
 		});
 	}
 
-	keyExtractor = (item: { _key: any }) => item._key;
 
 	_renderItem = ({ item }) => (
 		<View style={styles.card}>
@@ -79,7 +78,7 @@ export default class SelectAlbum extends Component<TProps, TState> {
 					this.props.navigation.navigate("FormAlbum", {
 						storyKey: this.state.storyKey,
 						album: item.title,
-						key: item._key,
+						key: item.key,
 					});
 				}}
 				icon={<MaterialIcons name="camera" size={35} />}
@@ -91,7 +90,7 @@ export default class SelectAlbum extends Component<TProps, TState> {
 		return (
 			<SafeAreaView style={styles.adminContainer}>
 				<View style={styles.card}>
-					<FlatList data={this.state.albums} renderItem={this._renderItem} keyExtractor={this.keyExtractor} />
+					<FlatList data={this.state.albums} renderItem={this._renderItem} />
 				</View>
 			</SafeAreaView>
 		);

@@ -4,7 +4,7 @@ exports[`add event to calendar 1`] = `
 <phoneCalendar
   event={
     Object {
-      "_key": "schoolStarts",
+      "key": "schoolStarts",
       "dateTimeEnd": undefined,
       "dateTimeStart": undefined,
       "date_start": "2020-08-12",

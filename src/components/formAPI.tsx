@@ -1,7 +1,7 @@
 import firebase from "../lib/firebase";
 
 export function SaveFeature(domain: string, dict) {
-	const { _key, summary, description, order, photo1, showIconChat, visible, date_start } = dict;
+	const { key, summary, description, order, photo1, showIconChat, visible, date_start } = dict;
 
 	const storyDict = {
 		summary: summary || "Title",
@@ -9,7 +9,7 @@ export function SaveFeature(domain: string, dict) {
 		description: description || "Description",
 		descriptionEN: description || "Description",
 		order: order !== undefined ? Number(order) : 1,
-		showIconChat: showIconChat,
+		showIconChat: showIconChat !== undefined ? showIconChat : false,
 		visible: visible,
 		translated: false,
 		photo1: photo1,
@@ -18,11 +18,11 @@ export function SaveFeature(domain: string, dict) {
 		date_start: date_start != undefined ? date_start : "",
 	};
 
-	if (_key == "") {
+	if (key == "") {
 		firebase.firestore().collection(domain).doc("feature").collection("features").add(storyDict);
 		// .then(() => navigation.goBack());
 	} else {
-		const storyRef = firebase.firestore().collection(domain).doc("feature").collection("features").doc(_key);
+		const storyRef = firebase.firestore().collection(domain).doc("feature").collection("features").doc(key);
 
 		storyRef.set(storyDict, { merge: true });
 	}
@@ -30,14 +30,14 @@ export function SaveFeature(domain: string, dict) {
 	return;
 }
 
-export function DeleteFeature(domain, _key, handler) {
-	if (_key) {
+export function DeleteFeature(domain, key, handler) {
+	if (key) {
 		firebase
 			.firestore()
 			.collection(domain)
 			.doc("feature")
 			.collection("features")
-			.doc(_key)
+			.doc(key)
 			.delete()
 			.then(() => handler);
 	}

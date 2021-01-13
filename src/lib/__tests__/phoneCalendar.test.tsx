@@ -65,7 +65,7 @@ const calendars = [
 ]
 
 const itemCore = {
-	"_key": "schoolStarts",
+	"key": "schoolStarts",
 	"dateTimeEnd": undefined,
 	"dateTimeStart": undefined,
 	"date_start": "2020-08-12",

@@ -22,7 +22,6 @@ class UserSearch extends Component {
 			domain: props.route.params.domain,
 		};
 	}
-	keyExtractor = (item) => item._key;
 
 	componentDidMount() {
 		this.props.navigation.setParams({ reload: this.loadData });
@@ -145,7 +144,6 @@ class UserSearch extends Component {
 				<FlatList
 					data={this.state.data}
 					renderItem={this._renderItem.bind(this)}
-					keyExtractor={(_, idx) => "search" + idx}
 					ItemSeparatorComponent={this.renderSeparator}
 					ListHeaderComponent={this.renderHeader}
 				/>

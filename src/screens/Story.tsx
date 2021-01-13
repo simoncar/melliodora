@@ -28,7 +28,7 @@ export default class Story extends Component<TProps, StoryState> {
 		this.rightSideButtons = this.rightSideButtons.bind(this);
 
 		const {
-			_key,
+			key,
 			source,
 			summary,
 			summaryMyLanguage,
@@ -55,7 +55,7 @@ export default class Story extends Component<TProps, StoryState> {
 			visible: visible,
 			showIconChat: showIconChat,
 			order: order,
-			_key: _key,
+			key: key,
 			date_start: date_start,
 			time_start_pretty: time_start_pretty,
 			time_end_pretty: time_end_pretty,
@@ -109,7 +109,7 @@ export default class Story extends Component<TProps, StoryState> {
 		}
 
 		if (story.showIconChat) {
-			buffer.push(actionChat(position, navigation, story._key, story.summaryMyLanguage, domain, language));
+			buffer.push(actionChat(position, navigation, story.key, story.summaryMyLanguage, domain, language));
 			position++;
 		}
 
@@ -117,7 +117,7 @@ export default class Story extends Component<TProps, StoryState> {
 			buffer.push(actionSend(position, navigation, story, domain));
 			position++;
 		}
-		buffer.push(actionPhotos(position, navigation, story._key, domain));
+		buffer.push(actionPhotos(position, navigation, story.key, domain));
 		position++;
 		buffer.push(actionShare(position, story));
 		position++;
@@ -204,7 +204,7 @@ export default class Story extends Component<TProps, StoryState> {
 					{this._drawText(this.state)}
 
 					<ImageList
-						feature={this.state._key}
+						feature={this.state.key}
 						refreshFunction={this.refreshFunction}
 						edit={false}
 						domain={this.props.route.params.domain}
