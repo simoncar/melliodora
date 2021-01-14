@@ -1,6 +1,12 @@
 import I18n from "i18n-js";
 
+//NOTE: Sometimes the following is too large for batch, so do languages individually
 // i18n-translate-json AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw src/locales/ en fr,es,ja,ko,zh,da,nl,fi,de,hi,id,ga,it,lt,ms,no,pl,pt,ro,ru,sl,sv,th,vi,cy
+
+
+//i18n-translate-json AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw src/locales/ en zh,ja,fr,ko,es,id
+
+
 // https://github.com/meedan/i18n-translate-json
 
 //I18n.fallbacks = true;
