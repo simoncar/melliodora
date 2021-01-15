@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import firebase from "../lib/firebase";
 import { AntDesign } from "@expo/vector-icons";
 import ChatroomItem from "../components/ChatRoomItem";
@@ -69,32 +69,34 @@ export default function ChatRooms(props: TProps) {
 
 	return (
 		<View style={styles.container}>
-			<View>
-				<View style={styles.card}>
-					<SettingsListItem
-						hasNavArrow={true}
-						icon={<AntDesign style={styles.iconLeftPlus} name="pluscircleo" />}
-						title={"New Chat Group"}
-						onPress={() => {
-							props.navigation.navigate("ChatTitle", {
-								edit: false,
-								chatroom: "New Chatroom",
-								title: "New Chatroom",
-								domain: domain,
-							});
-						}}
-						lastItem={true}
-					/>
+			<ScrollView>
+				<View>
+					<View style={styles.card}>
+						<SettingsListItem
+							hasNavArrow={true}
+							icon={<AntDesign style={styles.iconLeftPlus} name="pluscircleo" />}
+							title={"New Chat Group"}
+							onPress={() => {
+								props.navigation.navigate("ChatTitle", {
+									edit: false,
+									chatroom: "New Chatroom",
+									title: "New Chatroom",
+									domain: domain,
+								});
+							}}
+							lastItem={true}
+						/>
+					</View>
+					<View style={styles.card}>
+						<ShortList
+							navigation={props.navigation}
+							style={styles.card}
+							data={userChatrooms}
+							renderItem={_renderItemNoCard}
+						/>
+					</View>
 				</View>
-				<View style={styles.card}>
-					<ShortList
-						navigation={props.navigation}
-						style={styles.card}
-						data={userChatrooms}
-						renderItem={_renderItemNoCard}
-					/>
-				</View>
-			</View>
+			</ScrollView>
 		</View>
 	);
 }
