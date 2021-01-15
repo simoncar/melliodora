@@ -1,7 +1,7 @@
 {
 	"expo": {
 		"name": "Polo Photos",
-		"version": "40.0.1",
+		"version": "40.0.35",
 		"icon": "./resources/genericApp/iconPolo.png",
 		"slug": "polo",
 		"description": "Photo Roll Sharing",
@@ -39,7 +39,7 @@
 			"bundleIdentifier": "photos.polo.app",
 			"googleServicesFile": "./resources/genericApp/GoogleService-Info.plist",
 			"supportsTablet": true,
-			"buildNumber": "8",
+			"buildNumber": "35",
 			"infoPlist": {
 				"NSCameraUsageDescription": "This app uses the camera to take photos for your Polo Roll."
 			}
@@ -47,7 +47,7 @@
 		"android": {
 			"package": "photos.polo.app",
 			"googleServicesFile": "./resources/genericApp/google-services.json",
-			"versionCode": 28,
+			"versionCode": 35,
 			"permissions": ["READ_CALENDAR", "WRITE_CALENDAR", "CAMERA"]
 		},
 		"web": {
