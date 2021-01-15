@@ -118,7 +118,7 @@ exports[`button Bar 1`] = `
               ]
             }
           >
-            Design
+            [missing "en.design" translation]
 Design
           </Text>
         </View>
@@ -165,7 +165,7 @@ Design
               ]
             }
           >
-            Management
+            [missing "en.management" translation]
 News
           </Text>
         </View>
@@ -212,8 +212,8 @@ News
               ]
             }
           >
-            Planning
-News
+            [missing "en.planning" translation]
+Planning
           </Text>
         </View>
         <View
