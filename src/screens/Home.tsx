@@ -90,17 +90,16 @@ export default function Home(props: TProps) {
 			headerTitle: domain.name,
 		});
 
-		const unsubscribe = getStories(domain.node, auth.language, storyRead);
+		//const unsubscribe = getStories(domain.node, auth.language, storyRead);
 
 		return () => {
-			unsubscribe;
+			//unsubscribe;
 		};
 	}, [domain.node, auth.language]);
 
 	const handleOpenWithLinking = (sURL) => {
 		Linking.openURL(sURL);
 	};
-
 
 	const renderItem = (navigation, item) => {
 		if (item.visible === true)
@@ -135,11 +134,7 @@ export default function Home(props: TProps) {
 		if (calendarItems.length > 0) {
 			return (
 				<View style={styles.card}>
-					<ShortList
-						navigation={props.navigation}
-						data={calendarItems}
-						renderItem={renderItemNoCard}
-					/>
+					<ShortList navigation={props.navigation} data={calendarItems} renderItem={renderItemNoCard} />
 				</View>
 			);
 		}
@@ -194,11 +189,7 @@ export default function Home(props: TProps) {
 				<View style={styles.newsContentLine}>
 					{renderToday()}
 
-					<ShortList
-						navigation={props.navigation}
-						data={featureItems}
-						renderItem={renderItem}
-					/>
+					<ShortList navigation={props.navigation} data={featureItems} renderItem={renderItem} />
 				</View>
 
 				<View style={styles.card}>

@@ -1,25 +1,17 @@
-import { Alert, Platform } from "react-native";
-import * as Calendar from 'expo-calendar';
+import { Alert } from "react-native";
+import * as Calendar from "expo-calendar";
 import I18n from "./i18n";
-import * as Permissions from 'expo-permissions';
+import * as Permissions from "expo-permissions";
+import { StoryEntity } from "../lib/interfaces";
 
-export const phoneCalendar = async (event) => {
+export const phoneCalendar = async (event: StoryEntity) => {
 	const { summaryMyLanguage, descriptionMyLanguage, date_start, location } = event;
 	var newEvent = {};
 
-
 	const _askForCalendarPermissions = async () => {
-		const response = await Permissions.askAsync(Permissions.CALENDAR)
-		return response.status === 'granted'
-	}
-
-	const _askForReminderPermissions = async () => {
-		if (Platform.OS === 'android') {
-			return true
-		}
-		const response = await Permissions.askAsync(Permissions.REMINDERS)
-		return response.status === 'granted'
-	}
+		const response = await Permissions.askAsync(Permissions.CALENDAR);
+		return response.status === "granted";
+	};
 
 	newEvent = {
 		title: summaryMyLanguage,
@@ -28,33 +20,29 @@ export const phoneCalendar = async (event) => {
 		startDate: new Date(date_start),
 		endDate: new Date(date_start),
 		notes: descriptionMyLanguage,
-		timeZone: "Asia/Singapore"
+		timeZone: "Asia/Singapore",
 	};
 
 	try {
+		const calendarGranted = await _askForCalendarPermissions();
 
-		const calendarGranted = await _askForCalendarPermissions()
-		const reminderGranted = await _askForReminderPermissions()
-
-		if (calendarGranted && reminderGranted) {
+		if (calendarGranted) {
 			const defaultCalendarID = await getDefaultCalendarID();
 			await Calendar.createEventAsync(defaultCalendarID.id, newEvent);
 			Alert.alert(I18n.t("saved"));
-			return "Success"
+			return "Success";
 		} else {
 			Alert.alert(I18n.t("error"), I18n.t("permissionsNoCalendar"));
-			return "Fail"
+			return "Fail";
 		}
-
 	} catch (e) {
 		Alert.alert(I18n.t("error"), e.message);
-		return "Fail"
+		return "Fail";
 	}
 };
 
 async function getDefaultCalendarID() {
-	const calendars = await Calendar.getCalendarsAsync();
-	const defaultCalendars = calendars.filter(each => each.source.name === 'Default');
+	const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+	const defaultCalendars = calendars.filter((each) => each.source.name === "Default");
 	return defaultCalendars[0];
 }
-

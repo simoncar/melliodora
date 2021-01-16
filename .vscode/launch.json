@@ -8,7 +8,8 @@
 			"name": "Attach to packager",
 			"cwd": "${workspaceFolder}",
 			"type": "reactnative",
-			"request": "attach"
+			"request": "attach",
+			"skipFiles": ["node_modules/**/*.js", "lib/**/*.js", "async_hooks.js", "inspector_async_hook.js"]
 		}
 	]
 }
