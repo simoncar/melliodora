@@ -114,8 +114,8 @@ export default class Story extends Component<TProps, StoryState> {
 		}
 
 		if (admin) {
-			buffer.push(actionSend(position, navigation, story, domain));
-			position++;
+			//buffer.push(actionSend(position, navigation, story, domain));
+			//position++;
 		}
 		buffer.push(actionPhotos(position, navigation, story.key, domain));
 		position++;
@@ -129,28 +129,28 @@ export default class Story extends Component<TProps, StoryState> {
 		return buffer;
 	}
 
-	_drawText(story: StoryEntity) {
+	drawText(story: StoryEntity) {
 		return (
 			<View style={styles.textBox}>
 				<Text selectable style={styles.eventTitle}>
-					{this.state.summaryMyLanguage}
+					{story.summaryMyLanguage}
 				</Text>
 
-				{isValue(this.state.location) && (
+				{isValue(story.location) && (
 					<Text selectable style={styles.eventText}>
-						{this.state.location}
+						{story.location}
 					</Text>
 				)}
 
-				{isValue(this.state.date_start) && (
+				{isValue(story.date_start) && (
 					<Text selectable style={styles.eventText}>
-						{formatMonth(this.state.date_start)}
+						{formatMonth(story.date_start)}
 					</Text>
 				)}
 
-				{isValue(this.state.time_start_pretty) && (
+				{isValue(story.time_start_pretty) && (
 					<Text selectable style={styles.eventTextTime}>
-						{formatTime(this.state.time_start_pretty, this.state.time_end_pretty)}
+						{formatTime(story.time_start_pretty, story.time_end_pretty)}
 					</Text>
 				)}
 
@@ -177,18 +177,18 @@ export default class Story extends Component<TProps, StoryState> {
 						{ pattern: /#(\w+)/, style: styles.url },
 					]}
 					childrenProps={{ allowFontScaling: false }}>
-					{this.state.descriptionMyLanguage}
+					{story.descriptionMyLanguage}
 				</ParsedText>
 				{this.props.route.params.language != "en" && (
 					<Text selectable style={styles.englishFallback}>
 						{"\n\n"}
-						{this.state.description}
+						{story.description}
 						{"\n\n"}
 					</Text>
 				)}
 
 				<Text selectable style={styles.eventTextAbbreviation}>
-					{getAbbreviations(this.state.summary, this.props.route.params.domain)}
+					{getAbbreviations(story.summary, this.props.route.params.domain)}
 				</Text>
 			</View>
 		);
@@ -201,7 +201,7 @@ export default class Story extends Component<TProps, StoryState> {
 				<ScrollView showsVerticalScrollIndicator={false}>
 					<Image style={styles.storyPhoto} source={{ uri: this.state.photo1 }} />
 
-					{this._drawText(this.state)}
+					{this.drawText(this.state)}
 
 					<ImageList
 						feature={this.state.key}

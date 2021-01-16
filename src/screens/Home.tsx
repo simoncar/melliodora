@@ -90,10 +90,10 @@ export default function Home(props: TProps) {
 			headerTitle: domain.name,
 		});
 
-		//const unsubscribe = getStories(domain.node, auth.language, storyRead);
+		const unsubscribe = getStories(domain.node, auth.language, storyRead);
 
 		return () => {
-			//unsubscribe;
+			unsubscribe;
 		};
 	}, [domain.node, auth.language]);
 
