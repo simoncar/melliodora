@@ -13,12 +13,24 @@ export const phoneCalendar = async (event: StoryEntity) => {
 		return response.status === "granted";
 	};
 
+	var startDate: Date;
+	var endDate: Date;
+	var allDay: boolean = true;
+	if (event.time_start_pretty != undefined) {
+		startDate = new Date(date_start + " " + event.time_start_pretty);
+		endDate = new Date(date_start + " " + event.time_end_pretty);
+		allDay = false;
+	} else {
+		startDate = new Date(date_start);
+		endDate = new Date(date_start);
+	}
+
 	newEvent = {
 		title: summaryMyLanguage,
 		location: location || "",
-		allDay: true,
-		startDate: new Date(date_start),
-		endDate: new Date(date_start),
+		allDay: allDay,
+		startDate: startDate,
+		endDate: endDate,
 		notes: descriptionMyLanguage,
 		timeZone: "Asia/Singapore",
 	};

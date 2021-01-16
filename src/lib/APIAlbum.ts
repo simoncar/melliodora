@@ -56,7 +56,7 @@ async function saveNewPhotoToFirebase(localFileName: string, storyKey: string, d
 		.add(photo);
 }
 
-export async function storageSend(featureID: string, domain:DomainEntity) {
+export async function storageSend(featureID: string, domain: DomainEntity) {
 	return new Promise((resolve, reject) => {
 		var album = [];
 		const promises = [];
@@ -75,25 +75,27 @@ export async function storageSend(featureID: string, domain:DomainEntity) {
 
 					if (doc.data().server === undefined) {
 						const imageURI = FileSystem.documentDirectory + doc.data().local;
-						const p = uploadImage(featureID, imageURI, doc.data().local, doc.id, domain).then((downloadURL) => {
-							firebase
-								.firestore()
-								.collection(domain.node)
-								.doc("feature")
-								.collection("features")
-								.doc(featureID)
-								.collection("photos")
-								.doc(doc.id)
-								.set(
-									{
-										server: downloadURL,
-									},
-									{ merge: true }
-								)
-								.then(() => {
-									console.log("Done updating storage send ");
-								});
-						});
+						const p = uploadImage(featureID, imageURI, doc.data().local, doc.id, domain).then(
+							(downloadURL) => {
+								firebase
+									.firestore()
+									.collection(domain.node)
+									.doc("feature")
+									.collection("features")
+									.doc(featureID)
+									.collection("photos")
+									.doc(doc.id)
+									.set(
+										{
+											server: downloadURL,
+										},
+										{ merge: true }
+									)
+									.then(() => {
+										console.log("Done updating storage send ");
+									});
+							}
+						);
 						promises.push(p);
 					}
 				});
@@ -109,7 +111,13 @@ export async function storageSend(featureID: string, domain:DomainEntity) {
 	});
 }
 
-const uploadImage = async (feature: string, imgURI: string, filename: string, photoDocId: string, domain:DomainEntity) => {
+const uploadImage = async (
+	feature: string,
+	imgURI: string,
+	filename: string,
+	photoDocId: string,
+	domain: DomainEntity
+) => {
 	if (!imgURI) return "";
 	console.log("commence upload....", imgURI);
 	var mime = "image/jpeg";
@@ -150,8 +158,9 @@ const uploadImage = async (feature: string, imgURI: string, filename: string, ph
 export function listenPhotos(domain: string, featureID: string, callbackRefreshFunction: any) {
 	if (!featureID) {
 		callbackRefreshFunction([]);
+		return null;
 	} else {
-		firebase
+		const unsubscribe = firebase
 			.firestore()
 			.collection(domain)
 			.doc("feature")
@@ -173,6 +182,8 @@ export function listenPhotos(domain: string, featureID: string, callbackRefreshF
 				});
 				callbackRefreshFunction(photos);
 			});
+
+		return () => unsubscribe();
 	}
 }
 

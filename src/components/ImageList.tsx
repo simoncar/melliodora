@@ -31,13 +31,12 @@ export default function ImageList(props: IProps) {
 	};
 
 	useEffect(() => {
-		if (Array.isArray(photos)) {
-			listenPhotos(props.domain, feature, refreshFunction);
-		}
+		const unsubscribe = listenPhotos(props.domain, feature, refreshFunction);
 
 		Dimensions.addEventListener("change", onChange);
 		return () => {
 			Dimensions.removeEventListener("change", onChange);
+			unsubscribe;
 		};
 	}, []);
 
