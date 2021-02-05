@@ -1,8 +1,9 @@
 {
 	"name": "Stamford",
 	"displayName": "Stamford",
+	"owner": "simoncar",
 	"expo": {
-		"version": "40.0.35",
+		"version": "40.0.38",
 		"icon": "./resources/sais_edu_sg/icon.png",
 		"slug": "myStamford",
 		"name": "Stamford",
@@ -43,13 +44,13 @@
 			"bundleIdentifier": "com.softmowertrain.parent.mystamford",
 			"googleServicesFile": "./resources/sais_edu_sg/GoogleService-Info.plist",
 			"supportsTablet": true,
-			"buildNumber": "35",
+			"buildNumber": "38",
 			"appStoreUrl": "https://apps.apple.com/us/app/id1249949678"
 		},
 		"android": {
 			"package": "com.softmowertrain.parent.mystamford",
 			"googleServicesFile": "./resources/sais_edu_sg/google-services.json",
-			"versionCode": 35,
+			"versionCode": 38,
 			"permissions": ["READ_CALENDAR", "WRITE_CALENDAR"]
 		},
 		"web": {

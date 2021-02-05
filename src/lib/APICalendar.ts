@@ -98,8 +98,6 @@ export function getCalendarItems(domain: string, language: string, callback: any
 export function getCalendarToday(domain: string, language: string, callback: any) {
 	const todayDate = moment().format("YYYY-MM-DD");
 
-	const calendarItems = [];
-
 	const unsubscribe = firebase
 		.firestore()
 		.collection(domain)
@@ -107,6 +105,8 @@ export function getCalendarToday(domain: string, language: string, callback: any
 		.collection("calendarItems")
 		.where("date_start", "==", todayDate)
 		.onSnapshot(function (snapshot) {
+			const calendarItems = [];
+
 			snapshot.forEach((doc) => {
 				const trans = {
 					visible: true,
@@ -126,6 +126,8 @@ export function getCalendarToday(domain: string, language: string, callback: any
 					...trans,
 				});
 			});
+
+
 			callback(calendarItems);
 		});
 

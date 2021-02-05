@@ -1,4 +1,4 @@
-import { Alert } from "react-native";
+import { Alert, Platform } from "react-native";
 import * as Calendar from "expo-calendar";
 import I18n from "./i18n";
 import * as Permissions from "expo-permissions";
@@ -56,7 +56,14 @@ export const phoneCalendar = async (event: StoryEntity) => {
 };
 
 async function getDefaultCalendarID() {
-	const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
-	const defaultCalendars = calendars.filter((each) => each.source.name === "Default");
-	return defaultCalendars[0];
+	//	const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+
+	if (Platform.OS === "ios") {
+		const defaultCalendars = await Calendar.getDefaultCalendarAsync();
+
+		return defaultCalendars;
+	} else {
+		// TODO: have not implemented on android yet
+		return null;
+	}
 }

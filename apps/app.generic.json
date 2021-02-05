@@ -1,6 +1,7 @@
 {
 	"expo": {
 		"name": "Polo Photos",
+		"owner": "simoncar",
 		"version": "40.0.0",
 		"icon": "./resources/genericApp/iconPolo.png",
 		"slug": "polo",
