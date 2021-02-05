@@ -73,7 +73,7 @@ There is no need to run these commands
 
 `expo build:android -t app-bundle --config apps/app.sais_edu_sg.json`
 
-`expo build:android -t app-bundle --config apps/app.sais_edu_sg.json`
+`expo build:android -t app-bundle --config apps/app.polo_photos.json`
 
 
 ## upload - iOS
