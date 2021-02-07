@@ -3,7 +3,7 @@
 	"displayName": "Stamford",
 	"owner": "simoncar",
 	"expo": {
-		"version": "40.0.38",
+		"version": "40.0.40",
 		"icon": "./resources/sais_edu_sg/icon.png",
 		"slug": "myStamford",
 		"name": "Stamford",
@@ -44,14 +44,17 @@
 			"bundleIdentifier": "com.softmowertrain.parent.mystamford",
 			"googleServicesFile": "./resources/sais_edu_sg/GoogleService-Info.plist",
 			"supportsTablet": true,
-			"buildNumber": "38",
-			"appStoreUrl": "https://apps.apple.com/us/app/id1249949678"
+			"buildNumber": "40",
+			"appStoreUrl": "https://apps.apple.com/us/app/id1249949678",
+			"infoPlist": {
+				"NSCameraUsageDescription": "This app uses the camera to add photos to your share on your notices."
+			}
 		},
 		"android": {
 			"package": "com.softmowertrain.parent.mystamford",
 			"googleServicesFile": "./resources/sais_edu_sg/google-services.json",
-			"versionCode": 38,
-			"permissions": ["READ_CALENDAR", "WRITE_CALENDAR"]
+			"versionCode": 40,
+			"permissions": ["READ_CALENDAR", "WRITE_CALENDAR", "CAMERA"]
 		},
 		"web": {
 			"config": {
