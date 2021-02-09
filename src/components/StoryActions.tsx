@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Share, TouchableHighlight } from "react-native";
+import { StyleSheet, Platform, Share, TouchableHighlight } from "react-native";
 import { Ionicons, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { formatTime, formatMonth, getLanguageString } from "../lib/global";
 import { phoneCalendar } from "../lib/phoneCalendar";
