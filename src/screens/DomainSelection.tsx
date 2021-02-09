@@ -23,11 +23,17 @@ export default function DomainSelection(props: TProps) {
 	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 
+	const domainsRead = (domainsDB) => {
+		domainsSetter(JSON.stringify(domainsDB));
+		setDomainsList(domainsDB);
+	};
+
 	useEffect(() => {
-		getDomains().then((domainsDB) => {
-			domainsSetter(JSON.stringify(domainsDB));
-			setDomainsList(domainsDB);
-		});
+		const unsubscribe = getDomains(domainsRead);
+
+		return () => {
+			unsubscribe;
+		};
 	}, []);
 
 	useEffect(() => {
@@ -44,7 +50,7 @@ export default function DomainSelection(props: TProps) {
 	const renderItem = (navigation, item) => {
 		const userIsAdmin = isDomainAdmin(uid, item.admins);
 		return (
-			<View key={item._key}>
+			<View key={item.key}>
 				<SettingsListItem
 					hasNavArrow={true}
 					icon={

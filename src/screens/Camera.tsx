@@ -54,7 +54,6 @@ export default function CameraScreen(props: TProps) {
 					onPress={() => {
 						camRef.takePictureAsync({ quality: 0 }).then((a) => {
 							saveProfilePic(a.uri).then((downloadURL) => {
-								console.log("saved profile pic here:", downloadURL);
 								setGPhotoURL(downloadURL);
 								props.navigation.pop();
 							});

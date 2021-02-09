@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { Text } from "./sComponent";
-import { Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import Image from "../components/Imgix";
 import Constants from "expo-constants";
 import { StoryEntity } from "../lib/interfaces";
@@ -12,7 +12,6 @@ const WINDOW_WIDTH = Dimensions.get("window").width;
 
 interface TProps {
 	navigation: any;
-	route: any;
 	story: StoryEntity;
 	card: boolean;
 	domain: string;
@@ -28,8 +27,6 @@ class ListItem extends Component<TProps> {
 	icon(source: string, photo1: string) {
 		if (source == "calendar") {
 			return <Ionicons name="ios-calendar" size={35} style={styles.iconCalendar} />;
-		} else if (source == "balance") {
-			return <MaterialCommunityIcons name="cash-multiple" size={35} style={styles.iconCash} />;
 		} else {
 			return <Image style={styles.iconPhoto} source={{ uri: photo1 }} />;
 		}
@@ -57,7 +54,7 @@ class ListItem extends Component<TProps> {
 	}
 
 	renderChat(chatroom: string, title: string, domain: string, language: string, admin: boolean) {
-		if (Constants.manifest.extra.instance != "sais_edu_sg") {
+		if (Constants.manifest.extra.domain != "sais_edu_sg") {
 			return (
 				<TouchableOpacity
 					onPress={() => {
@@ -82,7 +79,7 @@ class ListItem extends Component<TProps> {
 		const language = this.props.language;
 		const admin = this.props.admin;
 		const {
-			_key,
+			key,
 			source,
 			summaryMyLanguage,
 			location,
@@ -94,41 +91,41 @@ class ListItem extends Component<TProps> {
 
 		return (
 			<View style={card && [styles.card]}>
-				<TouchableOpacity
-					onPress={() => {
-						console.log("navigate to story:", this.props.domain);
-						this.props.navigation.navigate("story", {
-							story: this.props.story,
-							domain: this.props.domain,
-							language: this.props.language,
-							admin: this.props.admin,
-						});
-					}}>
-					<View style={styles.headerRow}>
-						<View style={styles.headerIcon}>{this.icon(source, photo1)}</View>
+				<View style={styles.content}>
+					<TouchableOpacity
+						onPress={() => {
+							this.props.navigation.navigate("story", {
+								story: this.props.story,
+								domain: this.props.domain,
+								language: this.props.language,
+								admin: this.props.admin,
+							});
+						}}>
+						<View style={styles.headerRow}>
+							<View style={styles.headerIcon}>{this.icon(source, photo1)}</View>
+							<View style={styles.headerTextPanel}>
+								<Text numberOfLines={2} ellipsizeMode="tail">
+									{summaryMyLanguage}
+								</Text>
+								{this.renderLocation(location)}
+								{this.renderDate(date_start)}
+								{this.renderTime(time_start_pretty, time_end_pretty)}
+							</View>
 
-						<View style={styles.headerTextPanel}>
-							<Text numberOfLines={2} ellipsizeMode="tail">
-								{summaryMyLanguage}
-							</Text>
-							{this.renderLocation(location)}
-							{this.renderDate(date_start)}
-							{this.renderTime(time_start_pretty, time_end_pretty)}
+							<View style={styles.headerRightIcons}>
+								{showIconChat && this.renderChat(key, summaryMyLanguage, domain, language, admin)}
+							</View>
 						</View>
 
-						<View style={styles.headerRightIcons}>
-							{showIconChat && this.renderChat(_key, summaryMyLanguage, domain, language, admin)}
-						</View>
+						{isURL(photo1) && (
+							<View>
+								<Image style={styles.storyPhoto} source={{ uri: photo1 }} auto={true} />
+							</View>
+						)}
+					</TouchableOpacity>
+					<View style={styles.cardMiniList}>
+						<ImageList feature={key} edit={false} miniRoll={true} domain={this.props.domain} />
 					</View>
-
-					{isURL(photo1) && (
-						<View>
-							<Image style={styles.storyPhoto} source={{ uri: photo1 }} auto={true} />
-						</View>
-					)}
-				</TouchableOpacity>
-				<View style={styles.cardMiniList}>
-					<ImageList feature={_key} edit={false} miniRoll={true} domain={this.props.domain} />
 				</View>
 			</View>
 		);
@@ -141,7 +138,6 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		borderRadius: 15,
 		marginBottom: 12,
-		padding: 10,
 		width: WINDOW_WIDTH - 15,
 	},
 	cardLocation: {
@@ -150,12 +146,14 @@ const styles = StyleSheet.create({
 	},
 	cardMiniList: {
 		alignSelf: "center",
-		padding: 10,
 		width: WINDOW_WIDTH - 15,
 	},
 	chatBubble: {
 		marginLeft: 15,
 		marginRight: 8,
+	},
+	content: {
+		padding: 10,
 	},
 	eventDate: {
 		color: "#777777",
@@ -183,12 +181,12 @@ const styles = StyleSheet.create({
 	},
 	headerTextPanel: { flex: 1, width: "100%" },
 	iconCalendar: {
+		alignItems: "center",
 		color: "#999999",
+		height: 36,
+		justifyContent: "center",
 		margin: 12,
-	},
-	iconCash: {
-		color: "#999999",
-		margin: 12,
+		width: 36,
 	},
 	iconPhoto: {
 		alignItems: "center",

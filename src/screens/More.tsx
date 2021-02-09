@@ -6,18 +6,22 @@ import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
 import { SettingsListItem, Separator } from "../components/SettingsListItem";
 import Profile from "../components/Profile";
-import { useDomainP, useDomainNameP, useLanguage, useLogin } from "../lib/globalState";
+import { useDomainP, useDomainNameP, AuthObj, useAdmin } from "../lib/globalState";
+import MoreAdmin from "../components/MoreAdmin";
 
 interface TProps {
 	navigation: any;
 	route: any;
 }
 
-export default function Settings(props: TProps) {
-	const [domain, domainSetter, domainIsUpdated] = useDomainP();
-	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
-	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
-	const [, setGLogin, gLogin] = useLogin();
+export default function Settings(props: TProps)
+{
+
+	const [domain, domainSetter] = useDomainP();
+	const [, domainNameSetter] = useDomainNameP();
+	const [admin] = useAdmin();
+
+	const auth = AuthObj();
 
 	const changeDomain = () => {
 		domainNameSetter("");
@@ -35,9 +39,7 @@ export default function Settings(props: TProps) {
 		<View style={styles.container}>
 			<ScrollView>
 				<View style={styles.card}>
-					{Constants.manifest.extra.instance != "sais_edu_sg" && (
-						<Profile auth={props.auth} navigation={props.navigation} />
-					)}
+					<Profile navigation={props.navigation} />
 				</View>
 
 				{separator(i)}
@@ -45,10 +47,10 @@ export default function Settings(props: TProps) {
 					<SettingsListItem
 						icon={<FontAwesome name="language" style={styles.imageStyleIcon} />}
 						title={"Language"}
-						titleInfo={language}
+						titleInfo={auth.language}
 						onPress={() =>
 							props.navigation.navigate("selectLanguage", {
-								language: language,
+								language: auth.language,
 							})
 						}
 					/>
@@ -62,7 +64,7 @@ export default function Settings(props: TProps) {
 						}}
 					/>
 
-					{Constants.manifest.extra.instance === "" && (
+					{Constants.manifest.extra.domain === "" && domain != "" && (
 						<SettingsListItem
 							lastItem={true}
 							hasNavArrow={false}
@@ -72,6 +74,18 @@ export default function Settings(props: TProps) {
 						/>
 					)}
 				</View>
+				{domain != "" && admin === true && (
+					<View style={styles.card}>
+						<SettingsListItem
+							icon={<MaterialIcons name="admin-panel-settings" style={styles.imageStyleIconAdmin} />}
+							title={"Admin"}
+							subTitle="You are an Administrator"
+							hasNavArrow={false}
+						/>
+
+						<MoreAdmin navigation={props.navigation} />
+					</View>
+				)}
 			</ScrollView>
 		</View>
 	);
@@ -91,6 +105,13 @@ const styles = StyleSheet.create({
 	imageStyleIcon: {
 		alignSelf: "center",
 		color: "#999999",
+		fontSize: 25,
+		marginLeft: 15,
+		width: 30,
+	},
+	imageStyleIconAdmin: {
+		alignSelf: "center",
+		color: "green",
 		fontSize: 25,
 		marginLeft: 15,
 		width: 30,

@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
@@ -7,7 +5,7 @@ import { Text } from "./sComponent";
 
 interface TProps {
 	icon: React.ReactNode;
-	onPress: () => any;
+	onPress?: () => any;
 	title: string;
 	subTitle?: string;
 	titleInfoStyle?: string;
@@ -16,13 +14,11 @@ interface TProps {
 	lastItem?: boolean;
 }
 
-
 export function Separator() {
 	return <View style={styles.separator} />;
 }
 
 export function SettingsListItem(props: TProps) {
-
 	const {
 		icon,
 		onPress,
@@ -31,36 +27,40 @@ export function SettingsListItem(props: TProps) {
 		titleInfoStyle,
 		titleInfo = "",
 		hasNavArrow = true,
-		lastItem = false
+		lastItem = false,
 	} = props;
 
 	function renderSubTitle(subTitle: string) {
 		if (subTitle != "") {
-			return <Text
-				numberOfLines={2}
-				ellipsizeMode="tail"
-				style={styles.subtitle}>
-				{subTitle}</Text>;
+			return (
+				<Text numberOfLines={2} ellipsizeMode="tail" style={styles.subtitle}>
+					{subTitle}
+				</Text>
+			);
 		} else return null;
 	}
 
-	return <TouchableOpacity onPress={onPress}>
-		<View style={lastItem ? styles.outerViewLast : styles.outerView}>
-			{icon}
-			<View style={styles.innerView}>
-				<View>
-					<Text style={titleInfoStyle}>{title || ""}</Text>
-					{renderSubTitle(subTitle)}
+	return (
+		<TouchableOpacity onPress={onPress}>
+			<View style={lastItem ? styles.outerViewLast : styles.outerView}>
+				{icon}
+				<View style={styles.innerView}>
+					<View>
+						<Text style={titleInfoStyle}>{title || ""}</Text>
+						{renderSubTitle(subTitle)}
+					</View>
+
+					<View>
+						<Text style={titleInfoStyle}>{titleInfo || ""}</Text>
+					</View>
 				</View>
 
-				<View>
-					<Text style={titleInfoStyle}>{titleInfo || ""}</Text>
+				<View style={styles.rightChevron}>
+					{hasNavArrow && <Feather name="chevron-right" size={22} color="#777777" />}
 				</View>
 			</View>
-
-			<View style={styles.rightChevron}>{hasNavArrow && <Feather name="chevron-right" size={22} color="#777777" />}</View>
-		</View>
-	</TouchableOpacity>;
+		</TouchableOpacity>
+	);
 }
 
 const styles = StyleSheet.create({
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
-		paddingHorizontal: 8
+		paddingHorizontal: 8,
 	},
 
 	outerView: {
@@ -77,24 +77,24 @@ const styles = StyleSheet.create({
 		borderBottomColor: "#CED0CE",
 		borderBottomWidth: StyleSheet.hairlineWidth,
 		flexDirection: "row",
-		paddingVertical: 8
+		paddingVertical: 8,
 	},
 	outerViewLast: {
 		alignItems: "center",
 		borderBottomColor: "#CED0CE",
 		flexDirection: "row",
-		paddingVertical: 8
+		paddingVertical: 8,
 	},
 	rightChevron: {
-		marginHorizontal: 8
+		marginHorizontal: 8,
 	},
 	separator: {
 		backgroundColor: "#CED0CE",
 		height: 1,
 		marginTop: 30,
-		width: "100%"
+		width: "100%",
 	},
 	subtitle: {
-		color: "#777777"
-	}
+		color: "#777777",
+	},
 });

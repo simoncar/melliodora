@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Share, TouchableHighlight } from "react-native";
+import { StyleSheet, Platform, Share, TouchableHighlight } from "react-native";
 import { Ionicons, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { formatTime, formatMonth, getLanguageString } from "../lib/global";
 import { phoneCalendar } from "../lib/phoneCalendar";
@@ -90,17 +90,22 @@ export function actionSend(position: number, navigation: any, story: StoryEntity
 }
 
 export function actionCalendar(position: number, story: StoryEntity) {
-	return (
-		<TouchableHighlight
-			key="rightSideCalendar"
-			style={[styles.button, { bottom: 10 + position * 60 }]}
-			testID="story.calendarIcon"
-			onPress={() => {
-				phoneCalendar(story);
-			}}>
-			<Ionicons name="ios-calendar" style={styles.icon} />
-		</TouchableHighlight>
-	);
+	if (Platform.OS === "ios") {
+		return (
+			<TouchableHighlight
+				key="rightSideCalendar"
+				style={[styles.button, { bottom: 10 + position * 60 }]}
+				testID="story.calendarIcon"
+				onPress={() => {
+					phoneCalendar(story);
+				}}>
+				<Ionicons name="ios-calendar" style={styles.icon} />
+			</TouchableHighlight>
+		);
+	} else {
+		//TODO : Getting default calendar on android
+		return null;
+	}
 }
 
 export function actionShare(position: number, story: StoryEntity) {

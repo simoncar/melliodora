@@ -20,7 +20,6 @@ export function useCameraRoll(album: string): CameraRollResult {
 
 	const loadMorePhotos = async () => {
 		setLoadingMore(true);
-		console.log("useCameraRoll:", album)
 		const promiseAlbum = await MediaLibrary.getAlbumAsync(album)
 
 		let objFilter = {}

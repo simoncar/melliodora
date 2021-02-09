@@ -20,7 +20,6 @@ const screen = Dimensions.get("screen");
 export default function ImageList(props: IProps) {
 	const [photos, setPhotos] = useState([]);
 	const [dimensions, setDimensions] = useState({ window, screen });
-	const [visible, setIsVisible] = useState(false);
 
 	const images = [];
 	const feature = props.feature;
@@ -31,12 +30,11 @@ export default function ImageList(props: IProps) {
 	};
 
 	useEffect(() => {
-		if (Array.isArray(photos)) {
-			listenPhotos(props.domain, feature, refreshFunction);
-		}
+		const unsubscribe = listenPhotos(props.domain, feature, refreshFunction);
 
 		Dimensions.addEventListener("change", onChange);
 		return () => {
+			unsubscribe;
 			Dimensions.removeEventListener("change", onChange);
 		};
 	}, []);

@@ -1,60 +1,69 @@
 import { Alert, Platform } from "react-native";
-import * as Calendar from 'expo-calendar';
+import * as Calendar from "expo-calendar";
 import I18n from "./i18n";
-import * as Permissions from 'expo-permissions';
+import * as Permissions from "expo-permissions";
+import { StoryEntity } from "../lib/interfaces";
 
-export const phoneCalendar = async (event) => {
+export const phoneCalendar = async (event: StoryEntity) => {
 	const { summaryMyLanguage, descriptionMyLanguage, date_start, location } = event;
 	var newEvent = {};
 
-
 	const _askForCalendarPermissions = async () => {
-		const response = await Permissions.askAsync(Permissions.CALENDAR)
-		return response.status === 'granted'
-	}
+		const response = await Permissions.askAsync(Permissions.CALENDAR);
+		return response.status === "granted";
+	};
 
-	const _askForReminderPermissions = async () => {
-		if (Platform.OS === 'android') {
-			return true
-		}
-		const response = await Permissions.askAsync(Permissions.REMINDERS)
-		return response.status === 'granted'
+	var startDate: Date;
+	var endDate: Date;
+	var allDay: boolean = true;
+	if (event.time_start_pretty != undefined) {
+		startDate = new Date(date_start + " " + event.time_start_pretty);
+		endDate = new Date(date_start + " " + event.time_end_pretty);
+		allDay = false;
+	} else {
+		startDate = new Date(date_start);
+		endDate = new Date(date_start);
 	}
 
 	newEvent = {
 		title: summaryMyLanguage,
 		location: location || "",
-		allDay: true,
-		startDate: new Date(date_start),
-		endDate: new Date(date_start),
+		allDay: allDay,
+		startDate: startDate,
+		endDate: endDate,
 		notes: descriptionMyLanguage,
-		timeZone: "Asia/Singapore"
+		timeZone: "Asia/Singapore",
 	};
 
+	console.log("event:", newEvent);
+
 	try {
+		const calendarGranted = await _askForCalendarPermissions();
 
-		const calendarGranted = await _askForCalendarPermissions()
-		const reminderGranted = await _askForReminderPermissions()
-
-		if (calendarGranted && reminderGranted) {
+		if (calendarGranted) {
 			const defaultCalendarID = await getDefaultCalendarID();
 			await Calendar.createEventAsync(defaultCalendarID.id, newEvent);
 			Alert.alert(I18n.t("saved"));
-			return "Success"
+			return "Success";
 		} else {
 			Alert.alert(I18n.t("error"), I18n.t("permissionsNoCalendar"));
-			return "Fail"
+			return "Fail";
 		}
-
 	} catch (e) {
 		Alert.alert(I18n.t("error"), e.message);
-		return "Fail"
+		return "Fail";
 	}
 };
 
 async function getDefaultCalendarID() {
-	const calendars = await Calendar.getCalendarsAsync();
-	const defaultCalendars = calendars.filter(each => each.source.name === 'Default');
-	return defaultCalendars[0];
-}
+	//	const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
 
+	if (Platform.OS === "ios") {
+		const defaultCalendars = await Calendar.getDefaultCalendarAsync();
+
+		return defaultCalendars;
+	} else {
+		// TODO: have not implemented on android yet
+		return null;
+	}
+}

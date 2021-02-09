@@ -3,6 +3,104 @@ import firebase from "./firebase";
 import * as ImageManipulator from "expo-image-manipulator";
 import _ from "lodash";
 import uuid from "uuid";
+import { MessageEntity, UserEntity } from "../lib/interfaces";
+import { avatar } from "../components/Imgix";
+
+export function getMessages(domain: string, language: string, chatroom: string, callback) {
+	const unsubscribe = firebase
+		.firestore()
+		.collection(domain)
+		.doc("chat")
+		.collection("chatrooms")
+		.doc(chatroom)
+		.collection("messages")
+		.orderBy("createdAt", "asc")
+		//.where("translated", "==", true)
+		.onSnapshot((snapshot) => {
+			const messages: MessageEntity[] = [];
+			snapshot.docChanges().forEach((change) => {
+				if (change.type === "added") {
+					const message: MessageEntity = getMessage(change.doc.data(), change.doc.id, language);
+					messages.push(message);
+					callback(message);
+				}
+			});
+		});
+
+	return () => unsubscribe();
+}
+
+export function getMessage(messageObj: any, id: string, language: string): MessageEntity {
+	const message = [
+		{
+			_id: messageObj._id,
+			createdAt: messageObj.createdAt,
+			text: messageObj.text,
+			user: {
+				_id: messageObj.user._id,
+				name: messageObj.user.name,
+				avatar: avatar(messageObj.user.avatar),
+			},
+		},
+	];
+
+	return message;
+}
+
+export function addMessage(
+	domain: string,
+	language: string,
+	chatroom: string,
+	messages: MessageEntity[],
+	auth: UserEntity
+) {
+	return new Promise((resolve, reject) => {
+		const promises = [];
+
+		for (let i = 0; i < messages.length; i++) {
+			// if (undefined != messages[i].image && messages[i].image.length > 0) {
+			// 	var uploadUrl = uploadImageAsync(messages[i], chatroom, messages[i].user);
+			// } else {
+			var messageDict = {
+				_id: messages[i]._id,
+				text: messages[i].text,
+				textLanguage: language,
+				chatroom: chatroom,
+				chatroomTitle: chatroom,
+				user: {
+					_id: auth.uid,
+					name: auth.displayName,
+					email: auth.email,
+					avatar: auth.photoURL,
+				},
+				createdAt: Date.now(),
+				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+				system: false,
+				//pushToken: pushToken,
+			};
+
+			const p1 = firebase
+				.firestore()
+				.collection(domain)
+				.doc("chat")
+				.collection("chatrooms")
+				.doc(chatroom)
+				.collection("messages")
+				.add(messageDict);
+
+			promises.push(p1);
+			//}
+		}
+
+		Promise.all(promises)
+			.then(() => {
+				resolve("saved to db");
+			})
+			.catch((error) => {
+				reject(Error("It broke " + error));
+			});
+	});
+}
 
 export class Backend extends React.Component {
 	messageRef = null;
@@ -20,7 +118,6 @@ export class Backend extends React.Component {
 	}
 
 	setDomain(domain) {
-		console.log("backend set domain:", domain);
 		this.domain = domain;
 	}
 
@@ -141,7 +238,7 @@ export class Backend extends React.Component {
 					timestamp: Date.now(),
 					system: false,
 					pushToken: global.pushToken,
-					uid:this.uid,
+					uid: this.uid,
 				};
 
 				this.messageRef = firebase

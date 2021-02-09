@@ -6,11 +6,11 @@ import _ from "lodash";
 
 interface IProps {
 	source: {};
-	imageProps: any;
 	style: any;
-	htn: number;
-	auto: boolean;
-	testID: string;
+	imageProps?: any;
+	htn?: number;
+	auto?: boolean;
+	testID?: string;
 }
 
 export default function Image(props: IProps) {
@@ -25,7 +25,7 @@ export default function Image(props: IProps) {
 			"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680";
 	}
 	const { width, height } = Dimensions.get("window");
-	const photo1Imgix = img(uri);
+	const photo1Imgix = convert2imgix(uri);
 
 	let objImgix = {};
 
@@ -61,13 +61,26 @@ export default function Image(props: IProps) {
 	}
 }
 
-function img(photo: string) {
+export function convert2imgix(photo: string) {
 	if (!photo) return false;
 
 	return photo.replace(
 		"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/",
 		"https://smartcookies.imgix.net/"
 	);
+}
+
+export function avatar(photo: string) {
+	if (!photo) return false;
+
+	var url = photo.replace(
+		"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/",
+		"https://smartcookies.imgix.net/"
+	);
+
+	url = url + "&auto=compress,enhance&w=400&h=400";
+
+	return url;
 }
 
 var DEFAULT_OPTIONS = Object.freeze({

@@ -40,7 +40,6 @@ function StackHomeNavigator() {
 				options={({ navigation, route }) => ({
 					headerTitle: headerTitle(route),
 					headerLeft: () => headerLeftLanguageSelector(navigation),
-					headerRight: () => headerRightSearch(navigation, "searchCalendarHome"),
 				})}
 			/>
 
@@ -83,14 +82,7 @@ const StackCalendar = createStackNavigator();
 function StackCalendarNavigator() {
 	return (
 		<StackCalendar.Navigator>
-			<StackCalendar.Screen
-				name="home"
-				component={Calendar}
-				options={({ navigation, route }) => ({
-					headerTitle: I18n.t("calendar"),
-					headerRight: () => headerRightSearch(navigation, "searchCalendar"),
-				})}
-			/>
+			<StackCalendar.Screen name="home" component={Calendar} options={{ title: I18n.t("calendar") }} />
 			<StackCalendar.Screen
 				name="storyCalendar"
 				component={Story}
@@ -134,7 +126,7 @@ const StackWeb = createStackNavigator();
 function StackWebNavigator() {
 	return (
 		<StackWeb.Navigator>
-			<StackWeb.Screen name="webPortal" component={WebPortal} options={{ url: "", title: "Portal" }} />
+			<StackWeb.Screen name="webPortal" component={WebPortal} options={{ url: "", title: "portal" }} />
 		</StackWeb.Navigator>
 	);
 }
@@ -211,7 +203,7 @@ function Tabs() {
 			}}>
 			<Tab.Screen name="homeNav" component={StackHomeNavigator} options={{ title: I18n.t("home") }} />
 			<Tab.Screen name="home" component={StackCalendarNavigator} options={{ title: I18n.t("calendar") }} />
-			{Constants.manifest.extra.instance != "sais_edu_sg" && (
+			{Constants.manifest.extra.domain != "sais_edu_sg" && (
 				<Tab.Screen name="chatRooms" component={StackChatNavigator} options={{ title: I18n.t("chat") }} />
 			)}
 			<Tab.Screen name="webportal" component={StackWebNavigator} options={{ title: I18n.t("myS") }} />
@@ -260,19 +252,6 @@ function headerLeftLanguageSelector(navigation) {
 	);
 }
 
-function headerRightSearch(navigation, searchPage) {
-	return (
-		<TouchableOpacity
-			onPress={() => {
-				navigation.push(searchPage);
-			}}>
-			<View style={styles.rightView}>
-				<Ionicons name="md-search" style={styles.rightIcon} />
-			</View>
-		</TouchableOpacity>
-	);
-}
-
 function headerTitle(route) {
 	if (route.params == undefined) {
 		return "";
@@ -289,13 +268,5 @@ const styles = StyleSheet.create({
 	},
 	leftView: {
 		marginLeft: 10,
-	},
-	rightIcon: {
-		color: "#48484A",
-		fontSize: 25,
-		marginRight: 10,
-	},
-	rightView: {
-		marginRight: 10,
 	},
 });

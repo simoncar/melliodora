@@ -1,102 +1,85 @@
 import firebase from "../lib/firebase";
-import * as FileSystem from 'expo-file-system';
-import * as MediaLibrary from 'expo-media-library';
+import * as FileSystem from "expo-file-system";
+import * as MediaLibrary from "expo-media-library";
 import uuid from "uuid";
+import { DomainEntity } from "./interfaces";
 const globalAny: any = global;
 
-export const saveSelectedImages = (items: MediaLibrary.Asset[], storyKey: string) => {
+export const saveSelectedImages = (items: MediaLibrary.Asset[], storyKey: string, domain: DomainEntity) => {
 	return new Promise((resolve, reject) => {
-		const promises = []
+		const promises = [];
 
 		for (var key in items) {
-			if (items.hasOwnProperty(key)) {
+			const filename: string = uuid.v4() + ".jpg";
 
-				const filename: string = uuid() + '.jpg'
-
-				const pCopy = copyToLocal(items[key].uri, filename)
-				promises.push(pCopy)
-				const pSave = saveNewPhotoToFirebase(filename, storyKey)
-				promises.push(pSave)
-			}
+			const pCopy = copyToLocal(items[key].uri, filename);
+			promises.push(pCopy);
+			const pSave = saveNewPhotoToFirebase(filename, storyKey, domain);
+			promises.push(pSave);
 		}
 
-		console.log("Promise All - storageSend")
 		Promise.all(promises)
 			.then(() => {
 				resolve("Saved Locally and to Firebase DB (BUT NOT to Storage yet)");
 			})
-			.catch(error => {
+			.catch((error) => {
 				reject(Error("It broke " + error));
-			})
+			});
 	});
 };
 
-
 async function copyToLocal(uri: string, filename: string) {
 	return new Promise((resolve, reject) => {
-		console.log("copyToLocal start :", filename)
 		FileSystem.copyAsync({ from: uri, to: FileSystem.documentDirectory + filename })
 			.then(() => {
-				console.log("copyToLocal [promise ] resolve : ", filename)
 				resolve("copyToLocal end");
 			})
-			.catch(error => {
-				console.log("copyToLocal [promise ] resolve : ", filename)
+			.catch((error) => {
 				reject(Error("copyToLocal broke:" + error));
-			})
-		console.log("copyToLocal end :", filename)
+			});
 	});
 }
 
-async function saveNewPhotoToFirebase(localFileName: string, storyKey: string) {
-	console.log("saveNewPhoto start 1")
+async function saveNewPhotoToFirebase(localFileName: string, storyKey: string, domain: DomainEntity) {
 	var photo = {
 		local: localFileName,
 		timestamp: firebase.firestore.Timestamp.now(),
 	};
 
-	console.log("saveNewPhoto start 2:", globalAny.domain)
-	console.log("saveNewPhoto start 2a:", storyKey)
-	console.log("saveNewPhoto start 2b:", photo)
-
 	return firebase
 		.firestore()
-		.collection(global.domain)
+		.collection(domain.node)
 		.doc("feature")
 		.collection("features")
 		.doc(storyKey)
 		.collection("photos")
-		.add(photo)
+		.add(photo);
 }
 
-export async function storageSend(featureID: string) {
+export async function storageSend(featureID: string, domain: DomainEntity) {
 	return new Promise((resolve, reject) => {
-		console.log("storage send:", featureID)
-		var album = []
-		const promises = []
+		var album = [];
+		const promises = [];
 
 		firebase
 			.firestore()
-			.collection(globalAny.domain)
+			.collection(domain.node)
 			.doc("feature")
 			.collection("features")
 			.doc(featureID)
 			.collection("photos")
 			.get()
-			.then(snapshot => {
-				snapshot.forEach(async doc => {
-					album.push(doc.data().local)
+			.then((snapshot) => {
+				snapshot.forEach(async (doc) => {
+					album.push(doc.data().local);
 
 					if (doc.data().server === undefined) {
-						console.log("file not on server", doc.data().local)
-						const imageURI = FileSystem.documentDirectory + doc.data().local
-						const p = uploadImage(featureID, imageURI, doc.data().local, doc.id)
-							.then((downloadURL) => {
-
-								console.log("downloadURL:", downloadURL)
+						const imageURI = FileSystem.documentDirectory + doc.data().local;
+						const p = uploadImage(featureID, imageURI, doc.data().local, doc.id, domain).then(
+							(downloadURL) => {
 								firebase
 									.firestore()
-									.collection(globalAny.domain)
+									.collection(domain.node)
 									.doc("feature")
 									.collection("features")
 									.doc(featureID)
@@ -104,34 +87,39 @@ export async function storageSend(featureID: string) {
 									.doc(doc.id)
 									.set(
 										{
-											server: downloadURL
-										}, { merge: true })
+											server: downloadURL,
+										},
+										{ merge: true }
+									)
 									.then(() => {
-										console.log("Done updating storage send ")
-									})
-
-							})
-						console.log("Promise Push - storageSend")
-						promises.push(p)
+										console.log("Done updating storage send ");
+									});
+							}
+						);
+						promises.push(p);
 					}
-				})
+				});
 
-				console.log("Promise All - storageSend")
 				Promise.all(promises)
 					.then(() => {
 						resolve("Stuff worked!");
 					})
-					.catch(error => {
+					.catch((error) => {
 						reject(Error("It broke " + error));
-					})
-			})
-
-	})
+					});
+			});
+	});
 }
 
-const uploadImage = async (feature: string, imgURI: string, filename: string, photoDocId: string) => {
+const uploadImage = async (
+	feature: string,
+	imgURI: string,
+	filename: string,
+	photoDocId: string,
+	domain: DomainEntity
+) => {
 	if (!imgURI) return "";
-	console.log("commence upload....", imgURI)
+	console.log("commence upload....", imgURI);
 	var mime = "image/jpeg";
 
 	const blob: any = await new Promise((resolve, reject) => {
@@ -145,38 +133,34 @@ const uploadImage = async (feature: string, imgURI: string, filename: string, ph
 		xhr.responseType = "blob";
 		xhr.open("GET", imgURI, true);
 		xhr.send(null);
-
 	});
 
 	const ref = firebase.storage().ref("album/2020/11/" + feature + "/" + filename);
 
-	const snapshot = await ref.put(blob,
-		{
-			contentType: mime,
-			cacheControl: 'max-age=11536000',
-			customMetadata: {
-				feature: feature,
-				domain: globalAny.domain,
-				uid: globalAny.uid,
-				name: globalAny.name,
-				email: globalAny.email,
-				photoDocId: photoDocId,
-			}
-		});
+	const snapshot = await ref.put(blob, {
+		contentType: mime,
+		cacheControl: "max-age=11536000",
+		customMetadata: {
+			feature: feature,
+			domain: domain.node,
+			uid: globalAny.uid,
+			name: globalAny.name,
+			email: globalAny.email,
+			photoDocId: photoDocId,
+		},
+	});
 	const downloadURL = await snapshot.ref.getDownloadURL();
 	blob.close();
-	console.log("-----")
-	console.log("XMLHttpRequest SEND:", imgURI, downloadURL)
+	console.log("XMLHttpRequest SEND:", imgURI, downloadURL);
 	return downloadURL;
 };
 
-
-export function listenPhotos(domain:string,featureID: string, callbackRefreshFunction: any) {
-
+export function listenPhotos(domain: string, featureID: string, callbackRefreshFunction: any) {
 	if (!featureID) {
-		callbackRefreshFunction([])
+		callbackRefreshFunction([]);
+		return null;
 	} else {
-		firebase
+		const unsubscribe = firebase
 			.firestore()
 			.collection(domain)
 			.doc("feature")
@@ -192,18 +176,19 @@ export function listenPhotos(domain:string,featureID: string, callbackRefreshFun
 						server: doc.data().server,
 						thumb: doc.data().thumb,
 						feature: featureID,
-					}
+					};
 
 					photos.push(photo);
 				});
-				callbackRefreshFunction(photos)
+				callbackRefreshFunction(photos);
 			});
+
+		return () => unsubscribe();
 	}
 }
 
-
-export function deleteImage(domain:string,featureID: string, photoKey: string) {
-	console.log("API delete photo", featureID, photoKey)
+export function deleteImage(domain: string, featureID: string, photoKey: string) {
+	console.log("API delete photo", featureID, photoKey);
 
 	firebase
 		.firestore()
@@ -215,7 +200,6 @@ export function deleteImage(domain:string,featureID: string, photoKey: string) {
 		.doc(photoKey)
 		.delete()
 		.then(() => {
-			console.log("photo deleted")
-		})
-
+			console.log("photo deleted");
+		});
 }

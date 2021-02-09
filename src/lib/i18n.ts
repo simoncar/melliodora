@@ -1,9 +1,12 @@
 import I18n from "i18n-js";
-import * as Localization from "expo-localization";
+
+//NOTE: Sometimes the following is too large for batch, so do languages individually
+// i18n-translate-json AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw src/locales/ en fr,es,ja,ko,zh,da,nl,fi,de,hi,id,ga,it,lt,ms,no,pl,pt,ro,ru,sl,sv,th,vi,cy
 
 
+//i18n-translate-json AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw src/locales/ en zh,ja,fr,ko,es,id
 
-// i18n-translate-json apiKey src/locales/ en fr,es,ja,ko,zh,da,nl,fi,de,hi,id,ga,it,lt,ms,no,pl,pt,ro,ru,sl,sv,th,vi,cy
+
 // https://github.com/meedan/i18n-translate-json
 
 //I18n.fallbacks = true;
@@ -34,9 +37,7 @@ I18n.translations = {
 	sv: require("../locales/sv.json"),
 	th: require("../locales/th.json"),
 	vi: require("../locales/vi.json"),
-	cy: require("../locales/cy.json")
+	cy: require("../locales/cy.json"),
 };
-
-//I18n.locale = Localization.locale;
 
 export default I18n;

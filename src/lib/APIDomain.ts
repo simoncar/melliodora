@@ -1,36 +1,34 @@
 import firebase from "../lib/firebase";
 
 interface IDomain {
-	_key: string;
+	key: string;
 	name: string;
 	node: string;
 }
 
-export async function getDomains() {
-	return new Promise((resolve, reject) => {
-		const domains: IDomain[] = [];
+type domainsRead = (domains: IDomain[]) => void;
 
-		firebase
-			.firestore()
-			.collection("domains")
-			.orderBy("name")
-			.get()
-			.then(function (snapshot) {
-				snapshot.forEach(function (doc) {
-					const domain = {
-						_key: doc.id,
-						name: doc.data().name,
-						node: doc.data().node,
-						admins: doc.data().admins,
-					};
-					domains.push(domain);
-				});
-				resolve(domains);
-			})
-			.catch((error) => {
-				reject(Error("load domains broke " + error));
+export async function getDomains(callback: domainsRead) {
+	const domains: IDomain[] = [];
+
+	const unsubscribe = firebase
+		.firestore()
+		.collection("domains")
+		.orderBy("name")
+		.onSnapshot(function (snapshot) {
+			snapshot.forEach(function (doc) {
+				const domain = {
+					key: doc.id,
+					name: doc.data().name,
+					node: doc.data().node,
+					admins: doc.data().admins,
+				};
+				domains.push(domain);
 			});
-	});
+			callback(domains);
+		});
+
+	return () => unsubscribe();
 }
 
 export function isDomainAdmin(currentUid: string, adminArray: string[]) {
@@ -50,12 +48,10 @@ export async function isDomainAdminServer(currentUid: string, domain: string) {
 			.then(function (snapshot) {
 				snapshot.forEach(function (doc) {
 					const x = isDomainAdmin(currentUid, doc.data().admins);
-					console.log("isDomainAdminServer resolve:", x);
 					resolve(x);
 				});
 			})
 			.catch((error) => {
-				console.log("isDomainAdminServer failed:", error);
 				reject(Error("isDomainAdminServer broke " + error));
 			});
 	});

@@ -8,10 +8,11 @@ import I18n from "../lib/i18n";
 import { launchProfileImagePicker } from "../lib/APIUploadImage";
 import { Text, Button } from "../components/sComponent";
 import { UpdateUser } from "../lib/APIUser";
-import { useDisplayNameP, useDomainP, usePhotoURLP, useUidP, useEmailP } from "../lib/globalState";
+import { useDisplayNameP, usePhotoURLP, useUidP, useEmailP } from "../lib/globalState";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { saveProfilePic } from "../lib/APIUploadImage";
 import firebase from "../lib/firebase";
+import { UserEntity } from "../lib/interfaces";
 
 interface TProps {
 	navigation: any;
@@ -23,21 +24,18 @@ interface TProps {
 export default function EditUserProfile(props: TProps) {
 	const { showActionSheetWithOptions } = useActionSheet();
 
-	const [errorMessage, setErrorMessage] = useState("");
 	const [displayName, setDisplayName] = useState("");
-	const [lastName, setLastName] = useState("");
 	const [photoURL, setPhotoURL] = useState("");
 	const [stateDisplayName, setGDisplayName, isUpdatedDisplayName] = useDisplayNameP();
 	const [statePhotoURL, setGPhotoURL, isUpdatedPhotoURL] = usePhotoURLP();
 	const [uid, ,] = useUidP();
 	const [email, setEmail, isUpdatedEmail] = useEmailP();
-	const [domain, setDomain, isUpdatedDomain] = useDomainP();
 
 	useEffect(() => {
 		setDisplayName(stateDisplayName);
 	}, []);
 
-	const save = async (newUser) => {
+	const save = async (newUser: UserEntity) => {
 		UpdateUser(newUser, setGDisplayName, setGPhotoURL);
 		props.navigation.popToTop();
 	};
@@ -45,16 +43,16 @@ export default function EditUserProfile(props: TProps) {
 	const pickImage = async () => {
 		let result = await launchProfileImagePicker();
 		if (!result.cancelled) {
-			console.log("save to server:", result.uri);
 			const downloadURL = await saveProfilePic(result.uri);
 
 			console.log("downloadURL:", downloadURL);
 			setGPhotoURL(downloadURL);
 			setPhotoURL(downloadURL);
-			const newUser = {
+			const newUser: UserEntity = {
 				displayName: stateDisplayName,
 				uid: uid,
 				photoURL: downloadURL,
+				email: email,
 			};
 			save(newUser);
 		}
@@ -78,12 +76,14 @@ export default function EditUserProfile(props: TProps) {
 					// Do something here depending on the button index selected
 					switch (buttonIndex) {
 						case 0:
-							console.log("navigation:", props.navigation);
-
 							props.navigation.push("CameraScreen");
 							break;
 						case 1:
 							pickImage();
+							break;
+						case 2:
+							setGPhotoURL("");
+							setPhotoURL("");
 							break;
 					}
 				}
@@ -123,16 +123,14 @@ export default function EditUserProfile(props: TProps) {
 	return (
 		<SafeAreaView style={styles.saveAreaView}>
 			<ScrollView>
-				<Text>{errorMessage}</Text>
-
 				{profilePic()}
 				<View style={styles.titleContainer}>
-					<Text style={styles.nameText}>{I18n.t("email")}: </Text>
-					<Text style={styles.nameText}>{email}: </Text>
+					<Text style={styles.inputField}>{I18n.t("email")}: </Text>
+					<Text style={styles.inputField}>{email}: </Text>
 				</View>
 				<View style={styles.titleContainerRow}>
 					<View style={styles.rowFlex}>
-						<Text style={styles.nameText}>{I18n.t("name")}:</Text>
+						<Text style={styles.inputField}>{I18n.t("name")}:</Text>
 						<Input
 							style={styles.sectionContentText}
 							onChangeText={(text) => setDisplayName(text)}
@@ -176,7 +174,7 @@ const styles = StyleSheet.create({
 		top: 115,
 		width: 30,
 	},
-	nameText: {
+	inputField: {
 		color: "#777777",
 		fontSize: 10,
 		fontWeight: "600",

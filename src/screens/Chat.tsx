@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+// @refresh reset
+
+import React, { Component, useEffect, useState } from "react";
 import { View, TouchableOpacity, Linking, Modal, StyleSheet } from "react-native";
 import { GiftedChat, Send } from "react-native-gifted-chat";
 import { MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
@@ -10,11 +12,49 @@ import CustomImage from "../components/ChatCustomImage";
 import CustomVideo from "../components/ChatCustomVideo";
 import I18n from "../lib/i18n";
 import uuid from "uuid";
-import Backend from "../lib/APIChat";
+import Backend, { getMessages, addMessage } from "../lib/APIChat";
 import * as Analytics from "expo-firebase-analytics";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
-
 import { Text } from "../components/sComponent";
+import { useDomain, useLanguage, useAuth } from "../lib/globalState";
+
+export default function Chat() {
+	const [messages, setMessages] = useState([]);
+	const [, , domain] = useDomain();
+	const [, , language] = useLanguage();
+	const [, , authString] = useAuth();
+
+	const auth = JSON.parse(authString);
+
+	const messagesLoaded = (newMessageFromServer) => {
+		setMessages((messages) => GiftedChat.append(messages, newMessageFromServer));
+		console.log("new message from server:", newMessageFromServer);
+	};
+
+	useEffect(() => {
+		const unsubscribe = getMessages(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messagesLoaded);
+
+		return () => unsubscribe;
+	}, []);
+
+	const handleSend = (messages) => {
+		addMessage(domain, language, "pWiJ5DF5YmtVq1GIjlVe", messages, auth);
+	};
+
+	return (
+		<GiftedChat
+			messages={messages}
+			onSend={handleSend}
+			user={{
+				_id: auth.uid,
+				name: auth.displayName,
+				avatar: auth.photoURL,
+			}}
+			showUserAvatar={true}
+			alwaysShowSend={true}
+		/>
+	);
+}
 
 interface TProps {
 	navigation: any;
@@ -22,8 +62,7 @@ interface TProps {
 }
 
 var localMessages = [];
-
-export default class Chat extends Component<TProps> {
+export class Chat_old extends Component<TProps> {
 	constructor(props) {
 		super(props);
 		this.state = {

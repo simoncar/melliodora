@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { I18nManager } from "react-native";
+import { I18nManager, LogBox } from "react-native";
 import App from "./App";
 import I18n from "./lib/i18n";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import Constants from "expo-constants";
 import firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
 import { isDomainAdminServer } from "./lib/APIDomain";
 
-
 import {
 	useDomainP,
+	useDomainNameP,
 	useAuth,
 	useLogin,
 	useLanguage,
@@ -20,12 +21,11 @@ import {
 	usePhotoURL,
 	useAdmin,
 } from "./lib/globalState";
-import * as Localization from "expo-localization";
-
 
 export default function Setup() {
 	const [loading, setLoading] = useState(true);
-	const [domain, domainSetter, domainIsUpdated] = useDomainP();
+	const [domain, setDomain] = useDomainP();
+	const [domainName, setDomainName] = useDomainNameP();
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
 	const [, setGAuth, gAuth] = useAuth();
 	const [, setGLogin, gLogin] = useLogin();
@@ -36,8 +36,10 @@ export default function Setup() {
 	const [, setAdmin, admin] = useAdmin();
 
 	useEffect(() => {
+		if (!Constants.isDevice) {
+			LogBox.ignoreLogs(["You should try avoid call the same state-setter multiple times at one execution line"]);
+		}
 		async function loadFonts() {
-			console.log(" ---- load fonts ----");
 			await Font.loadAsync({
 				SegoeUI: require("../resources/segoe-ui.ttf"),
 			});
@@ -50,10 +52,8 @@ export default function Setup() {
 
 		async function initLang(inLang) {
 			var lang = inLang;
-			console.log("Localization:", Localization.locale);
 			if (lang === "") {
-				lang = "zh";
-
+				lang = "en";
 				await setLanguage(lang);
 			}
 
@@ -63,36 +63,61 @@ export default function Setup() {
 				I18nManager.forceRTL(false);
 			}
 			I18n.locale = lang;
-
 			return lang;
 		}
 
+		async function initDomain() {
+			const domain = Constants.manifest.extra.domain;
+			const domainName = Constants.manifest.extra.domainName;
+			if (domain != "") {
+				await setDomain(domain);
+				await setDomainName(domainName);
+			}
+			return domain;
+		}
+
 		loadFonts()
-			.then((ret) => {
-				console.log("done fonts:", ret);
+			.then(() => {
 				return loadLanguage();
 			})
 			.then((ret) => {
 				return initLang(ret);
 			})
-
-			.then((ret) => {
-				console.log("firebase initialized");
+			.then(() => {
+				return initDomain();
+			})
+			.then(() => {
+				var user = firebase.auth().currentUser;
 
 				firebase.auth().onAuthStateChanged((user) => {
 					let objAuth = {};
 					if (user === null) {
-						console.log("auth state changed 1 - not logged in - no UID");
+						// user has not logged in, so create an anonymous account and log them in
+						firebase
+							.auth()
+							.signInAnonymously()
+							.then(() => {
+								objAuth = {
+									uid: "",
+									displayName: "",
+									email: "",
+									photoURL: "",
+									login: false,
+								};
+								setGLogin(false);
 
-						objAuth = {
-							uid: "",
-							displayName: "",
-							email: "",
-							photoURL: "",
-						};
-						setGLogin(false);
+								setGAuth(JSON.stringify(objAuth));
+								setGEmail(objAuth.email);
+								setGDisplayName(objAuth.displayName);
+								setGPhotoURL(objAuth.photoURL);
+								setGUid(objAuth.uid);
+
+								return setLoading(false);
+							})
+							.catch((error) => {
+								console.log("login anon error:", error.message);
+							});
 					} else {
-						console.log("auth state changed 2:", user.uid);
 						objAuth = {
 							uid: user.uid,
 							displayName: user.displayName === null ? "" : user.displayName,
@@ -100,23 +125,21 @@ export default function Setup() {
 							photoURL: user.photoURL === null ? "" : user.photoURL,
 						};
 						setGLogin(true);
+
+						setGAuth(JSON.stringify(objAuth));
+						setGEmail(objAuth.email);
+						setGDisplayName(objAuth.displayName);
+						setGPhotoURL(objAuth.photoURL);
+						setGUid(objAuth.uid);
+
+						return setLoading(false);
 					}
-
-					setGAuth(JSON.stringify(objAuth));
-					setGEmail(objAuth.email);
-					setGDisplayName(objAuth.displayName);
-					setGPhotoURL(objAuth.photoURL);
-					setGUid(objAuth.uid);
-
-					return setLoading(false);
 				});
 			});
 	}, []);
 
 	useEffect(() => {
-		console.log("domain set useEffect", domain, gUid);
 		isDomainAdminServer(gUid, domain).then((xxx) => {
-			console.log("X:", xxx);
 			setAdmin(xxx);
 		});
 	}, [domain, gUid]);

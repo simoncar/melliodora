@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Text } from "./sComponent";
 import Image from "../components/Imgix";
-import { formatTime } from "../lib/global";
-import _ from "lodash";
+import { formatTime, formatMonth } from "../lib/global";
 import { StoryEntity } from "../lib/interfaces";
 
 interface TProps {
@@ -11,9 +10,16 @@ interface TProps {
 	story: StoryEntity;
 	domain: string;
 	language: string;
+	showDate?: boolean;
 }
 
 export default function CalendarItem(props: TProps) {
+	const renderDate = (date) => {
+		if (undefined != date && date.length > 0) {
+			return <Text style={styles.agendaDate}>{formatMonth(date)} </Text>;
+		}
+	};
+
 	const renderTime = (start, end) => {
 		if (undefined != start && start.length > 0) {
 			return <Text style={styles.agendaDate}>{formatTime(start, end)} </Text>;
@@ -23,7 +29,6 @@ export default function CalendarItem(props: TProps) {
 	const story = props.story;
 	const language = props.language;
 	const domain = props.domain;
-
 	return (
 		<TouchableOpacity
 			style={styles.opacity}
@@ -37,7 +42,8 @@ export default function CalendarItem(props: TProps) {
 			<View style={styles.agendaItem}>
 				<View style={styles.textView}>
 					<Text style={styles.text}>{story.summary}</Text>
-					<Text style={styles.agendaLocation}>{story.location} </Text>
+					{story.location != "" && <Text style={styles.agendaLocation}>{story.location} </Text>}
+					{renderDate(story.date_start)}
 					{renderTime(story.time_start_pretty, story.time_end_pretty)}
 				</View>
 				{story.photo1 != undefined && (
@@ -74,9 +80,9 @@ const styles = StyleSheet.create({
 	},
 
 	image: {
+		borderRadius: 5,
 		height: 150,
 		width: 300,
-		borderRadius: 5,
 	},
 	imageView: {
 		alignItems: "flex-end",
@@ -101,4 +107,3 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 });
-

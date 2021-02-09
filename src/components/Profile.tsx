@@ -1,54 +1,38 @@
-import React, { useEffect, useReducer } from "react";
+import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SettingsListItem } from "./SettingsListItem";
-import Constants from "expo-constants";
 import I18n from "../lib/i18n";
-import _ from "lodash";
 import Image from "../components/Imgix";
-import { useLoginP, usePhotoURL, useDomainP, useEmailP, useDisplayNameP, useUidP } from "../lib/globalState";
+import { AuthObj, useDomainP } from "../lib/globalState";
 
 interface IProps {
 	navigation: any;
 }
 
 export default function Profile(props: IProps) {
-	const [login, ,] = useLoginP();
-	const [uid, ,] = useUidP();
-	const [displayName, ,] = useDisplayNameP();
-	const [email, setEmail, isUpdatedEmail] = useEmailP();
-	const [domain, setDomain, isUpdatedDomain] = useDomainP();
-	const [, setGPhotoURL, gPhotoURL] = usePhotoURL();
+	const [domain, ,] = useDomainP();
+	const auth = AuthObj();
 
-	if (Constants.manifest.extra.instance === "sais_edu_sg") {
-		return <View />;
-	}
-	if (login === true) {
-		const user = {
-			displayName: displayName,
-			uid: uid,
-			email: email,
-			photoURL: gPhotoURL,
-		};
-
+	if (auth.login === true && auth.email != null) {
 		return (
 			<View>
 				<TouchableOpacity
 					onPress={() => {
 						props.navigation.navigate("UserProfile", {
-							uid: uid,
-							user: user,
+							uid: auth.uid,
+							user: auth,
 							permitEdit: true,
 							domain: domain,
 						});
 					}}>
 					<View style={styles.row}>
 						<View style={styles.titleContainer}>
-							<Text style={styles.nameText}>{displayName}</Text>
-							<Text style={styles.sectionContentText}>{email}</Text>
+							<Text style={styles.nameText}>{auth.displayName}</Text>
+							<Text style={styles.sectionContentText}>{auth.email}</Text>
 						</View>
 						<View>
-							<Image style={styles.profilePhoto} source={{ uri: gPhotoURL }} auto={true} />
+							<Image style={styles.profilePhoto} source={{ uri: auth.photoURL }} auto={true} />
 						</View>
 					</View>
 				</TouchableOpacity>
@@ -77,7 +61,6 @@ export default function Profile(props: IProps) {
 }
 
 const styles = StyleSheet.create({
-	row: { flexDirection: "row", justifyContent: "space-between" },
 	imageStyleIcon: {
 		alignSelf: "center",
 		color: "#999999",
@@ -85,31 +68,32 @@ const styles = StyleSheet.create({
 		marginLeft: 15,
 		width: 30,
 	},
-
 	nameText: {
 		fontSize: 18,
 		fontWeight: "600",
 	},
 
-	sectionContentText: {
-		color: "#808080",
-		fontSize: 14,
-	},
-
-	titleContainer: {
-		backgroundColor: "#ffffff80",
-		paddingBottom: 15,
-		paddingHorizontal: 15,
-		paddingTop: 15,
-	},
 	profilePhoto: {
 		alignItems: "center",
 		borderColor: "lightgray",
 		borderRadius: 30,
 		height: 60,
 		justifyContent: "center",
-		width: 60,
 		marginRight: 5,
 		marginTop: 5,
+		width: 60,
+	},
+
+	row: { flexDirection: "row", justifyContent: "space-between" },
+
+	sectionContentText: {
+		color: "#808080",
+		fontSize: 14,
+	},
+	titleContainer: {
+		backgroundColor: "#ffffff80",
+		paddingBottom: 15,
+		paddingHorizontal: 15,
+		paddingTop: 15,
 	},
 });

@@ -47,6 +47,7 @@ exports[`show Calendar Item with Date and Image 1`] = `
           Array [
             Object {
               "fontFamily": "SegoeUI",
+              "fontSize": 17,
             },
             Object {
               "color": "#000",
@@ -66,6 +67,7 @@ exports[`show Calendar Item with Date and Image 1`] = `
           Array [
             Object {
               "fontFamily": "SegoeUI",
+              "fontSize": 17,
             },
             Object {
               "color": "gray",
@@ -76,6 +78,24 @@ exports[`show Calendar Item with Date and Image 1`] = `
         }
       >
         Music Room
+         
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "SegoeUI",
+              "fontSize": 17,
+            },
+            Object {
+              "color": "gray",
+              "fontSize": 12,
+              "marginBottom": 3,
+            },
+          ]
+        }
+      >
+        June 12th 2020
          
       </Text>
     </View>
@@ -153,6 +173,7 @@ exports[`show Calendar Item with Date and Time 1`] = `
           Array [
             Object {
               "fontFamily": "SegoeUI",
+              "fontSize": 17,
             },
             Object {
               "color": "#000",
@@ -172,6 +193,7 @@ exports[`show Calendar Item with Date and Time 1`] = `
           Array [
             Object {
               "fontFamily": "SegoeUI",
+              "fontSize": 17,
             },
             Object {
               "color": "gray",
@@ -189,6 +211,25 @@ exports[`show Calendar Item with Date and Time 1`] = `
           Array [
             Object {
               "fontFamily": "SegoeUI",
+              "fontSize": 17,
+            },
+            Object {
+              "color": "gray",
+              "fontSize": 12,
+              "marginBottom": 3,
+            },
+          ]
+        }
+      >
+        June 12th 2020
+         
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "SegoeUI",
+              "fontSize": 17,
             },
             Object {
               "color": "gray",
@@ -253,6 +294,7 @@ exports[`show Calendar Item with Date only 1`] = `
           Array [
             Object {
               "fontFamily": "SegoeUI",
+              "fontSize": 17,
             },
             Object {
               "color": "#000",
@@ -272,6 +314,7 @@ exports[`show Calendar Item with Date only 1`] = `
           Array [
             Object {
               "fontFamily": "SegoeUI",
+              "fontSize": 17,
             },
             Object {
               "color": "gray",
@@ -282,6 +325,24 @@ exports[`show Calendar Item with Date only 1`] = `
         }
       >
         Music Room
+         
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "SegoeUI",
+              "fontSize": 17,
+            },
+            Object {
+              "color": "gray",
+              "fontSize": 12,
+              "marginBottom": 3,
+            },
+          ]
+        }
+      >
+        June 12th 2020
          
       </Text>
     </View>

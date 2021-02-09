@@ -4,7 +4,7 @@ import { getLanguageString } from "./global";
 
 type storyRead = (stories: StoryEntity[]) => void;
 
-export function getStories(domain: string, language: string, callback) {
+export function getStories(domain: string, language: string, callback: storyRead) {
 	const unsubscribe = firebase
 		.firestore()
 		.collection(domain)
@@ -24,7 +24,7 @@ export function getStories(domain: string, language: string, callback) {
 	return () => unsubscribe();
 }
 
-export function getStory(story: any, id: string, language: string): StoryEntity {
+export function getStory(story: StoryEntity, id: string, language: string): StoryEntity {
 	var trans = {};
 	var returnStory: StoryEntity;
 
@@ -47,7 +47,7 @@ export function getStory(story: any, id: string, language: string): StoryEntity 
 			"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680";
 	}
 
-	returnStory = { ...{ _key: id }, ...story, ...trans };
+	returnStory = { ...{ key: id }, ...story, ...trans };
 
 	return returnStory;
 }

@@ -69,6 +69,7 @@ exports[`list domains 1`] = `
                         Array [
                           Object {
                             "fontFamily": "SegoeUI",
+                            "fontSize": 17,
                           },
                           undefined,
                         ]
@@ -83,6 +84,7 @@ exports[`list domains 1`] = `
                         Array [
                           Object {
                             "fontFamily": "SegoeUI",
+                            "fontSize": 17,
                           },
                           undefined,
                         ]
@@ -147,6 +149,7 @@ exports[`list domains 1`] = `
                         Array [
                           Object {
                             "fontFamily": "SegoeUI",
+                            "fontSize": 17,
                           },
                           undefined,
                         ]
@@ -161,6 +164,7 @@ exports[`list domains 1`] = `
                         Array [
                           Object {
                             "fontFamily": "SegoeUI",
+                            "fontSize": 17,
                           },
                           undefined,
                         ]
@@ -239,6 +243,7 @@ exports[`list domains 1`] = `
                       Array [
                         Object {
                           "fontFamily": "SegoeUI",
+                          "fontSize": 17,
                         },
                         undefined,
                       ]
@@ -253,6 +258,7 @@ exports[`list domains 1`] = `
                       Array [
                         Object {
                           "fontFamily": "SegoeUI",
+                          "fontSize": 17,
                         },
                         Object {
                           "color": "#777777",
@@ -269,6 +275,7 @@ exports[`list domains 1`] = `
                       Array [
                         Object {
                           "fontFamily": "SegoeUI",
+                          "fontSize": 17,
                         },
                         undefined,
                       ]
@@ -350,6 +357,7 @@ exports[`list domains 1`] = `
                         Array [
                           Object {
                             "fontFamily": "SegoeUI",
+                            "fontSize": 17,
                           },
                           undefined,
                         ]
@@ -364,6 +372,7 @@ exports[`list domains 1`] = `
                         Array [
                           Object {
                             "fontFamily": "SegoeUI",
+                            "fontSize": 17,
                           },
                           undefined,
                         ]
@@ -431,6 +440,7 @@ exports[`list domains 1`] = `
                         Array [
                           Object {
                             "fontFamily": "SegoeUI",
+                            "fontSize": 17,
                           },
                           undefined,
                         ]
@@ -445,6 +455,7 @@ exports[`list domains 1`] = `
                         Array [
                           Object {
                             "fontFamily": "SegoeUI",
+                            "fontSize": 17,
                           },
                           undefined,
                         ]
@@ -512,6 +523,7 @@ exports[`list domains 1`] = `
                         Array [
                           Object {
                             "fontFamily": "SegoeUI",
+                            "fontSize": 17,
                           },
                           undefined,
                         ]
@@ -526,6 +538,7 @@ exports[`list domains 1`] = `
                         Array [
                           Object {
                             "fontFamily": "SegoeUI",
+                            "fontSize": 17,
                           },
                           undefined,
                         ]

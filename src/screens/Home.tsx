@@ -5,9 +5,11 @@ import ListItem from "../components/StoryListItem";
 import { Text, ShortList } from "../components/sComponent";
 import VersionCheck from "../lib/versionCheck";
 import DemoData from "../lib/demoData";
-import { useDomain, useLanguage, useLogin, useAdmin, useUid } from "../lib/globalState";
+import { useAdmin, AuthObj, DomainObj } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
+import { getCalendarToday } from "../lib/APICalendar";
 import { Ionicons } from "@expo/vector-icons";
+import * as Progress from "expo-progress";
 import I18n from "../lib/i18n";
 
 const versionCheck = new VersionCheck();
@@ -22,29 +24,33 @@ export default function Home(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [featureItems, setFeatureItems] = useState([]);
 	const [calendarItems, setCalendarItems] = useState([]);
-	const [balanceItems, setBalanceItems] = useState([]);
-	const [appUpdateMessage, setAppUpdateMessage] = useState("none");
-	const [refreshDomain, setDomain, domain, domainIsUpdated] = useDomain();
-	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
-	const [, setGLogin, gLogin] = useLogin();
-	const [admin, setAdmin] = useAdmin();
-	const [, setGUid, gUid] = useUid();
+
+	const [admin] = useAdmin();
+
+	const auth = AuthObj();
+	const domain = DomainObj();
 
 	const storyRead = (stories) => {
 		setFeatureItems(stories);
 		setLoading(false);
 	};
 
+	const calendarRead = (calendarItems) => {
+		setCalendarItems(calendarItems);
+		setLoading(false);
+	};
+
 	useEffect(() => {
-		props.navigation.setParams({
-			title: domain,
+		props.navigation.setOptions({
+			headerTitle: domain.name,
 		});
 
-		if (domain == "oakforest_international_edu") {
+		if (domain.node === "oakforest_international_edu") {
 			demo.setupDemoData();
 		}
 
-		const unsubscribe = getStories(domain, language, storyRead);
+		const unsubscribeStory = getStories(domain.node, auth.language, storyRead);
+		const unsubscribeCalendar = getCalendarToday(domain.node, auth.language, calendarRead);
 
 		// loadCalendar();
 
@@ -74,148 +80,51 @@ export default function Home(props: TProps) {
 		// });
 
 		return () => {
-			console.log("Stories UNSUBSCRIBE");
-			unsubscribe;
+			unsubscribeStory;
+			unsubscribeCalendar;
 		};
 	}, []);
 
 	useEffect(() => {
-		const unsubscribe = getStories(domain, language, storyRead);
+		props.navigation.setOptions({
+			headerTitle: domain.name,
+		});
+
+		const unsubscribe = getStories(domain.node, auth.language, storyRead);
+
 		return () => {
 			unsubscribe;
 		};
-	}, [domain, language]);
-
-	// loadCalendar() {
-	// 	const todayDate = moment().format("YYYY-MM-DD");
-
-	// 	var calendarItems = [];
-
-	// 	firebase
-	// 		.firestore()
-	// 		.collection(global.domain)
-	// 		.doc("calendar")
-	// 		.collection("calendarItems")
-	// 		.where("date_start", "==", todayDate)
-	// 		.get()
-	// 		.then((snapshot) => {
-	// 			snapshot.forEach((doc) => {
-	// 				var trans = {
-	// 					visible: true,
-	// 					source: "calendar",
-	// 					summaryMyLanguage: getLanguageString(
-	// 						this.language,
-	// 						doc.data(),
-	// 						"summary"
-	// 					),
-	// 					summary: doc.data().summary,
-	// 					summaryEN: doc.data().summary,
-	// 					date_start: doc.data().date_start,
-	// 					color: "red",
-	// 					showIconChat: false,
-	// 					descriptionMyLanguage: getLanguageString(
-	// 						this.language,
-	// 						doc.data(),
-	// 						"description"
-	// 					),
-	// 					number: doc.data().number,
-	// 				};
-	// 				calendarItems.push({
-	// 					...{ _key: doc.id },
-	// 					...doc.data(),
-	// 					...trans,
-	// 				});
-	// 			});
-	// 			if (calendarItems.length > 0) {
-	// 				this.setState({
-	// 					calendarItems,
-	// 					loading: false,
-	// 				});
-	// 			}
-	// 			this.setState({
-	// 				loading: false,
-	// 			});
-	// 		});
-	// }
-
-	// onFeatureUpdate = (querySnapshot) => {
-	// 	var featureItems = [];
-
-	// 	querySnapshot.forEach((doc) => {
-	// 		var trans = {
-	// 			source: "feature",
-	// 			summaryMyLanguage: getLanguageString(
-	// 				this.language,
-	// 				doc.data(),
-	// 				"summary"
-	// 			),
-	// 			descriptionMyLanguage: getLanguageString(
-	// 				this.language,
-	// 				doc.data(),
-	// 				"description"
-	// 			),
-	// 		};
-
-	// 		if (!doc.data().visible == false) {
-	// 			featureItems.push({
-	// 				...{ _key: doc.id },
-	// 				...doc.data(),
-	// 				...trans,
-	// 			});
-	// 		}
-	// 	});
-
-	// 	if (featureItems.length > 0) {
-	// 		this._storeData(JSON.stringify(featureItems));
-	// 		this.setState({
-	// 			featureItems,
-	// 		});
-	// 	}
-	// };
+	}, [domain.node, auth.language]);
 
 	const handleOpenWithLinking = (sURL) => {
 		Linking.openURL(sURL);
 	};
 
-	const keyExtractor = (item) => item._key;
-
-	// setupUser = () => {
-	// 	const { communityJoined } = this.props.auth.userInfo;
-	// 	if (
-	// 		Array.isArray(communityJoined) &&
-	// 		communityJoined.indexOf(global.domain) < 0
-	// 	) {
-	// 		const userInfo = {
-	// 			...this.props.auth.userInfo,
-	// 			communityJoined: [...communityJoined, global.domain],
-	// 		};
-	// 		this.props.dispatch(setUserInfo(userInfo, true));
-	// 	}
-	// };
-
 	const renderItem = (navigation, item) => {
-		return (
-			<ListItem
-				key={item._key}
-				navigation={props.navigation}
-				story={item}
-				card={true}
-				language={language}
-				domain={domain}
-				admin={admin}
-			/>
-		);
+		if (item.visible === true)
+			return (
+				<ListItem
+					key={item.key}
+					navigation={navigation}
+					story={item}
+					card={true}
+					language={auth.language}
+					domain={domain.node}
+					admin={admin}
+				/>
+			);
 	};
 
-	const renderItemNoCard = (item) => {
+	const renderItemNoCard = (navigation, item) => {
 		return (
 			<ListItem
-				key={item._key}
-				navigation={props.navigation}
+				key={item.key}
+				navigation={navigation}
 				story={item}
 				card={false}
-				language={language}
-				domain={domain}
+				language={auth.language}
+				domain={domain.node}
 				admin={admin}
 			/>
 		);
@@ -225,13 +134,7 @@ export default function Home(props: TProps) {
 		if (calendarItems.length > 0) {
 			return (
 				<View style={styles.card}>
-					<ShortList
-						navigation={props.navigation}
-						data={calendarItems}
-						key
-						Extractor={keyExtractor}
-						renderItem={renderItemNoCard}
-					/>
+					<ShortList navigation={props.navigation} data={calendarItems} renderItem={renderItemNoCard} />
 				</View>
 			);
 		}
@@ -240,7 +143,7 @@ export default function Home(props: TProps) {
 	const addNew = () => {
 		if (admin) {
 			return (
-				<View style={styles.card}>
+				<View style={styles.cardAddNew}>
 					<TouchableOpacity
 						key="rightSideEdit"
 						onPress={() => {
@@ -279,17 +182,14 @@ export default function Home(props: TProps) {
 
 	return (
 		<View style={styles.container}>
+			{loading && <Progress.Bar isIndeterminate color="blue" />}
+
 			<ScrollView>
 				{addNew()}
 				<View style={styles.newsContentLine}>
 					{renderToday()}
 
-					<ShortList
-						navigation={props.navigation}
-						data={featureItems}
-						keyExtractor={keyExtractor}
-						renderItem={renderItem}
-					/>
+					<ShortList navigation={props.navigation} data={featureItems} renderItem={renderItem} />
 				</View>
 
 				<View style={styles.card}>
@@ -305,10 +205,10 @@ export default function Home(props: TProps) {
 					<View style={styles.userDiagnostics}>
 						<Text style={styles.version}>{Constants.manifest.revisionId}</Text>
 						<Text style={styles.version}>{Constants.manifest.version}</Text>
-						<Text style={styles.user}>{global.name}</Text>
-						<Text style={styles.user}>{global.email}</Text>
-						<Text style={styles.user}>{global.uid}</Text>
-						<Text style={styles.user}>{language}</Text>
+						<Text style={styles.user}>{auth.displayName}</Text>
+						<Text style={styles.user}>{auth.email}</Text>
+						<Text style={styles.user}>{auth.uid}</Text>
+						<Text style={styles.user}>{auth.language}</Text>
 					</View>
 				</View>
 			</ScrollView>
@@ -325,10 +225,18 @@ const styles = StyleSheet.create({
 		paddingLeft: 5,
 		width: "97%",
 	},
+	cardAddNew: {
+		alignSelf: "center",
+		backgroundColor: "#fff",
+		borderRadius: 15,
+		marginBottom: 12,
+		marginTop: 10,
+		paddingLeft: 5,
+		width: "97%",
+	},
 	container: {
 		backgroundColor: "#EFEFF4",
 		flex: 1,
-		marginTop: 10,
 	},
 
 	cookiesLogoView: {

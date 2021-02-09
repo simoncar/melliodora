@@ -43,6 +43,7 @@ exports[`show SignUp screen 1`] = `
           Array [
             Object {
               "fontFamily": "SegoeUI",
+              "fontSize": 17,
             },
             undefined,
           ]
@@ -356,8 +357,15 @@ exports[`show SignUp screen 1`] = `
               Array [
                 Object {
                   "fontFamily": "SegoeUI",
+                  "fontSize": 17,
                 },
-                undefined,
+                Array [
+                  Object {
+                    "fontFamily": "SegoeUI",
+                    "fontSize": 17,
+                  },
+                  undefined,
+                ],
               ]
             }
           >

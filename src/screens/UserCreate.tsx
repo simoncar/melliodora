@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-	TouchableOpacity,
-	StyleSheet,
-	View,
-	Image,
-	ScrollView,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, View, Image, ScrollView } from "react-native";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import uuid from "uuid";
@@ -13,11 +7,7 @@ import { Input } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import firebase from "../lib/firebase";
 import { Text, Button } from "../components/sComponent";
-import {
-	saveProfilePic,
-	launchProfileImagePicker,
-	getPermissionAsync,
-} from "../lib/APIUploadImage";
+import { saveProfilePic, launchProfileImagePicker, getPermissionAsync } from "../lib/APIUploadImage";
 import I18n from "../lib/i18n";
 
 const width = 100;
@@ -59,29 +49,20 @@ export class SignUp extends Component<TProps, TState> {
 			console.log("Create account:", this.state.email);
 			firebase
 				.auth()
-				.createUserWithEmailAndPassword(
-					this.state.email,
-					this.state.password
-				)
+				.createUserWithEmailAndPassword(this.state.email, this.state.password)
 				.then(async (userCredential) => {
 					console.log("userCredential:", userCredential);
 					let downloadURL = "";
 					if (this.state.profilePic) {
-						downloadURL = await saveProfilePic(
-							this.state.profilePic
-						);
+						downloadURL = await saveProfilePic(this.state.profilePic);
 						userCredential.user.updateProfile({
 							photoURL: downloadURL,
 							displayName: this.state.displayName,
 						});
 					}
-					const communityJoined = globalAny.domain
-						? [globalAny.domain]
-						: [];
+					const communityJoined = globalAny.domain ? [globalAny.domain] : [];
 
-					const photoURLObj = downloadURL
-						? { photoURL: downloadURL }
-						: {};
+					const photoURLObj = downloadURL ? { photoURL: downloadURL } : {};
 					const userDict = {
 						...photoURLObj,
 						email: userCredential.user.email,
@@ -91,7 +72,8 @@ export class SignUp extends Component<TProps, TState> {
 						lastName: this.state.lastName,
 					};
 
-					// create global registerd user
+					// create global registered user
+					// NOTE: leucoxylon: exports.processSignUp = functions.auth.user().onCreate((user) => {
 					firebase
 						.firestore()
 						.collection("users")
@@ -137,6 +119,7 @@ export class SignUp extends Component<TProps, TState> {
 	};
 
 	setProfilePic = ({ profilePic }) => {
+		console.log("im here :", profilePic);
 		this.setState({ profilePic: profilePic });
 	};
 
@@ -157,10 +140,7 @@ export class SignUp extends Component<TProps, TState> {
 			xhr.send(null);
 		});
 
-		const ref = firebase
-			.storage()
-			.ref("smartcommunity/profile")
-			.child(uuid.v4());
+		const ref = firebase.storage().ref("smartcommunity/profile").child(uuid.v4());
 
 		const snapshot = await ref.put(blob, {
 			contentType: mime,
@@ -181,13 +161,7 @@ export class SignUp extends Component<TProps, TState> {
 	};
 
 	_onOpenActionSheet = () => {
-		getPermissionAsync();
-		const options = [
-			I18n.t("photoTake"),
-			I18n.t("photoChoose"),
-			I18n.t("delete"),
-			I18n.t("cancel"),
-		];
+		const options = [I18n.t("photoChoose"), I18n.t("delete"), I18n.t("cancel")];
 		const destructiveButtonIndex = options.length - 2;
 		const cancelButtonIndex = options.length - 1;
 
@@ -200,13 +174,18 @@ export class SignUp extends Component<TProps, TState> {
 			(buttonIndex) => {
 				// Do something here depending on the button index selected
 				switch (buttonIndex) {
+					// case 0:
+					// 	getPermissionAsync();
+					// 	this.props.navigation.push("CameraScreen");
+					// 	break;
 					case 0:
-						this.props.navigation.push("CameraApp", {
-							onGoBack: this.setProfilePic,
-						});
-						break;
-					case 1:
+						getPermissionAsync();
 						this._pickImage();
+						break;
+
+					case 1:
+						//delete
+						this.setState({ profilePic: "" });
 						break;
 				}
 			}
@@ -216,18 +195,9 @@ export class SignUp extends Component<TProps, TState> {
 	icon(source) {
 		const width = 100;
 		if (!source) {
-			return (
-				<Ionicons
-					name="ios-person"
-					size={width * 0.85}
-					color="grey"
-					style={styles.profileIcon}
-				/>
-			);
+			return <Ionicons name="ios-person" size={width * 0.85} color="grey" style={styles.profileIcon} />;
 		} else {
-			return (
-				<Image style={styles.profileImage} source={{ uri: source }} />
-			);
+			return <Image style={styles.profileImage} source={{ uri: source }} />;
 		}
 	}
 
@@ -256,9 +226,7 @@ export class SignUp extends Component<TProps, TState> {
 					<View style={styles.passwordField}>
 						<Input
 							placeholder={I18n.t("password")}
-							onChangeText={(text) =>
-								this.setState({ password: text })
-							}
+							onChangeText={(text) => this.setState({ password: text })}
 							value={this.state.password}
 							autoCapitalize="none"
 							secureTextEntry={false}
@@ -266,19 +234,12 @@ export class SignUp extends Component<TProps, TState> {
 							containerStyle={styles.containerStyle}
 							inputContainerStyle={styles.containerInput}
 						/>
-						<Ionicons
-							name="ios-eye-off"
-							size={25}
-							color="grey"
-							style={styles.imageStyle}
-						/>
+						<Ionicons name="ios-eye-off" size={25} color="grey" style={styles.imageStyle} />
 					</View>
 
 					<Input
 						placeholder={I18n.t("firstName")}
-						onChangeText={(text) =>
-							this.setState({ firstName: text })
-						}
+						onChangeText={(text) => this.setState({ firstName: text })}
 						value={this.state.firstName}
 						containerStyle={styles.containerStyle}
 						inputContainerStyle={styles.containerInput}
@@ -287,9 +248,7 @@ export class SignUp extends Component<TProps, TState> {
 					/>
 					<Input
 						placeholder={I18n.t("lastName")}
-						onChangeText={(text) =>
-							this.setState({ lastName: text })
-						}
+						onChangeText={(text) => this.setState({ lastName: text })}
 						value={this.state.lastName}
 						containerStyle={styles.containerStyle}
 						inputContainerStyle={styles.containerInput}
@@ -297,11 +256,7 @@ export class SignUp extends Component<TProps, TState> {
 						testID="signup.lastName"
 					/>
 
-					<Button
-						title={I18n.t("signUp")}
-						onPress={this.handleSignUp}
-						testID="forgotpasswordsubmit"
-					/>
+					<Button title={I18n.t("signUp")} onPress={this.handleSignUp} testID="forgotpasswordsubmit" />
 				</ScrollView>
 			</View>
 		);

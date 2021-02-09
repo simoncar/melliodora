@@ -12,7 +12,7 @@ firebase
 	.firestore()
 	.enablePersistence()
 	.then(() => {
-		console.log("enablePersistence SUCCESS")
+		//console.log("enablePersistence SUCCESS");
 	})
 	.catch(function (err) {
 		if (err.code === "failed-precondition") {
@@ -29,5 +29,3 @@ firebase
 	});
 
 export default firebase;
-
-

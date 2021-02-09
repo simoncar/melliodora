@@ -1,7 +1,8 @@
 {
 	"expo": {
 		"name": "Polo Photos",
-		"version": "40.0.0",
+		"owner": "simoncar",
+		"version": "40.0.40",
 		"icon": "./resources/genericApp/iconPolo.png",
 		"slug": "polo",
 		"description": "Photo Roll Sharing",
@@ -9,7 +10,7 @@
 			"fallbackToCacheTimeout": 5000
 		},
 		"extra": {
-			"instance": "",
+			"domain": "",
 			"googlePlay": "https://play.google.com/store/apps/details?id=com.softmowertrain.parent.mycommunity",
 			"appleAppStore": "https://apps.apple.com/us/app/id1479940273",
 			"sentryDSN": "https://f9cb9202827e4dbb8097c8e98f024d68@o85126.ingest.sentry.io/5564952"
@@ -39,15 +40,15 @@
 			"bundleIdentifier": "photos.polo.app",
 			"googleServicesFile": "./resources/genericApp/GoogleService-Info.plist",
 			"supportsTablet": true,
-			"buildNumber": "7",
+			"buildNumber": "40",
 			"infoPlist": {
-				"NSCameraUsageDescription": "This app uses the camera to take photos for your Polo Roll."
+				"NSCameraUsageDescription": "This app uses the camera to add photos to your notices."
 			}
 		},
 		"android": {
 			"package": "photos.polo.app",
 			"googleServicesFile": "./resources/genericApp/google-services.json",
-			"versionCode": 27,
+			"versionCode": 40,
 			"permissions": ["READ_CALENDAR", "WRITE_CALENDAR", "CAMERA"]
 		},
 		"web": {

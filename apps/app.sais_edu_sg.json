@@ -1,8 +1,9 @@
 {
 	"name": "Stamford",
 	"displayName": "Stamford",
+	"owner": "simoncar",
 	"expo": {
-		"version": "40.0.5",
+		"version": "40.0.43",
 		"icon": "./resources/sais_edu_sg/icon.png",
 		"slug": "myStamford",
 		"name": "Stamford",
@@ -12,7 +13,8 @@
 		},
 		"githubUrl": "https://github.com/simoncar/melliodora",
 		"extra": {
-			"instance": "sais_edu_sg",
+			"domain": "sais_edu_sg",
+			"domainName": "Stamford American",
 			"googlePlay": "https://play.google.com/store/apps/details?id=com.softmowertrain.parent.mystamford",
 			"appleAppStore": "https://apps.apple.com/us/app/id1249949678",
 			"sentryDSN": "https://66ad14c8bc2c452b943fe68dc6b075ae@sentry.io/185405"
@@ -42,14 +44,19 @@
 			"bundleIdentifier": "com.softmowertrain.parent.mystamford",
 			"googleServicesFile": "./resources/sais_edu_sg/GoogleService-Info.plist",
 			"supportsTablet": true,
-			"buildNumber": "11",
-			"appStoreUrl": "https://apps.apple.com/us/app/id1249949678"
+			"buildNumber": "43",
+			"appStoreUrl": "https://apps.apple.com/us/app/id1249949678",
+			"infoPlist": {
+				"NSCameraUsageDescription": "This app uses the camera to add pictures to your profile photo and notices.",
+				"NSPhotoLibraryUsageDescription": "This app uses the Photo Library to add pictures to your profile photo and notices.",
+				"NSPhotoLibraryAddUsageDescription": "This app uses the camera to save pictures from your notices."
+			}
 		},
 		"android": {
 			"package": "com.softmowertrain.parent.mystamford",
 			"googleServicesFile": "./resources/sais_edu_sg/google-services.json",
-			"versionCode": 31,
-			"permissions": ["READ_CALENDAR", "WRITE_CALENDAR"]
+			"versionCode": 43,
+			"permissions": ["READ_CALENDAR", "WRITE_CALENDAR", "CAMERA"]
 		},
 		"web": {
 			"config": {

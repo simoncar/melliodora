@@ -1,15 +1,16 @@
 import React from "react";
 import { render } from "@testing-library/react-native";
-import Settings from "../More";
+import MoreAdmin from "../MoreAdmin";
+import { Bar } from "expo-progress";
 
 jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
+
 jest.mock("../../lib/firebase");
 jest.mock("../../lib/APIStory", () => ({
 	getStories: () => jest.fn(),
 }));
 
 jest.mock("../../lib/globalState", () => ({
-	useDomainP: () => ["oakforest_international_edu", jest.fn(), "oakforest_international_edu"],
 	useDomain: () => ["oakforest_international_edu", jest.fn(), "oakforest_international_edu"],
 	useDomainNameP: () => ["Oakforest International", jest.fn(), "Oakforest International"],
 	useLanguage: () => ["en", jest.fn(), "en"],
@@ -35,23 +36,16 @@ jest.mock("../../lib/globalState", () => ({
 	}`,
 }));
 
-const route = {
-	params: {
-		chatroom: "Test Chatroom",
-		title: "Test Title",
-		domain: "oakforest_international_edu",
-		language: "en",
-		storyKey: "123456df34gf738g",
-	},
-};
+test("show moreAdmin items", () => {
+	Bar.mockImplementation(() => {
+		return null;
+	});
 
-test("show more screen", () => {
 	const navigation = {
 		navigate: jest.fn(),
-		setOptions: jest.fn(),
 	};
 
-	const { toJSON } = render(<Settings navigation={navigation} route={route} />);
+	const { toJSON } = render(<MoreAdmin navigation={navigation} />);
 
 	expect(toJSON()).toMatchSnapshot();
 });
