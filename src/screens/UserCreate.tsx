@@ -119,6 +119,7 @@ export class SignUp extends Component<TProps, TState> {
 	};
 
 	setProfilePic = ({ profilePic }) => {
+		console.log("im here :", profilePic);
 		this.setState({ profilePic: profilePic });
 	};
 
@@ -160,8 +161,7 @@ export class SignUp extends Component<TProps, TState> {
 	};
 
 	_onOpenActionSheet = () => {
-		getPermissionAsync();
-		const options = [I18n.t("photoTake"), I18n.t("photoChoose"), I18n.t("delete"), I18n.t("cancel")];
+		const options = [I18n.t("photoChoose"), I18n.t("delete"), I18n.t("cancel")];
 		const destructiveButtonIndex = options.length - 2;
 		const cancelButtonIndex = options.length - 1;
 
@@ -174,13 +174,18 @@ export class SignUp extends Component<TProps, TState> {
 			(buttonIndex) => {
 				// Do something here depending on the button index selected
 				switch (buttonIndex) {
+					// case 0:
+					// 	getPermissionAsync();
+					// 	this.props.navigation.push("CameraScreen");
+					// 	break;
 					case 0:
-						this.props.navigation.push("CameraApp", {
-							onGoBack: this.setProfilePic,
-						});
-						break;
-					case 1:
+						getPermissionAsync();
 						this._pickImage();
+						break;
+
+					case 1:
+						//delete
+						this.setState({ profilePic: "" });
 						break;
 				}
 			}

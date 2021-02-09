@@ -76,12 +76,14 @@ export default function EditUserProfile(props: TProps) {
 					// Do something here depending on the button index selected
 					switch (buttonIndex) {
 						case 0:
-							console.log("navigation:", props.navigation);
-
 							props.navigation.push("CameraScreen");
 							break;
 						case 1:
 							pickImage();
+							break;
+						case 2:
+							setGPhotoURL("");
+							setPhotoURL("");
 							break;
 					}
 				}
