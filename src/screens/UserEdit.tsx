@@ -13,6 +13,7 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import { saveProfilePic } from "../lib/APIUploadImage";
 import firebase from "../lib/firebase";
 import { UserEntity } from "../lib/interfaces";
+import { Bar } from "expo-progress";
 
 interface TProps {
 	navigation: any;
@@ -23,7 +24,7 @@ interface TProps {
 
 export default function EditUserProfile(props: TProps) {
 	const { showActionSheetWithOptions } = useActionSheet();
-
+	const [loading, setLoading] = useState(false);
 	const [displayName, setDisplayName] = useState("");
 	const [photoURL, setPhotoURL] = useState("");
 	const [stateDisplayName, setGDisplayName, isUpdatedDisplayName] = useDisplayNameP();
@@ -43,6 +44,7 @@ export default function EditUserProfile(props: TProps) {
 	const pickImage = async () => {
 		let result = await launchProfileImagePicker();
 		if (!result.cancelled) {
+			setLoading(true);
 			const downloadURL = await saveProfilePic(result.uri);
 
 			console.log("downloadURL:", downloadURL);
@@ -55,12 +57,13 @@ export default function EditUserProfile(props: TProps) {
 				email: email,
 			};
 			save(newUser);
+			setLoading(false);
 		}
 	};
 
 	const openActionSheet = async () => {
 		const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
-		console.log("here:", status);
+
 		if (status === "granted") {
 			const options = [I18n.t("photoTake"), I18n.t("photoChoose"), I18n.t("delete"), I18n.t("cancel")];
 			const destructiveButtonIndex = options.length - 2;
@@ -122,6 +125,8 @@ export default function EditUserProfile(props: TProps) {
 
 	return (
 		<SafeAreaView style={styles.saveAreaView}>
+			{loading && <Bar isIndeterminate color="blue" />}
+
 			<ScrollView>
 				{profilePic()}
 				<View style={styles.titleContainer}>
