@@ -36,9 +36,8 @@ export default function Setup() {
 	const [, setAdmin, admin] = useAdmin();
 
 	useEffect(() => {
-		if (!Constants.isDevice) {
-			LogBox.ignoreLogs(["You should try avoid call the same state-setter multiple times at one execution line"]);
-		}
+		LogBox.ignoreLogs(["You should try avoid call the same state-setter multiple times at one execution line"]);
+
 		async function loadFonts() {
 			await Font.loadAsync({
 				SegoeUI: require("../resources/segoe-ui.ttf"),

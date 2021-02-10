@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Dimensions } from "react-native";
-
 import { Text } from "../components/sComponent";
 import { Ionicons } from "@expo/vector-icons";
-
-import { useDisplayName, useEmail } from "../lib/globalState";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 

@@ -14,6 +14,7 @@ export default function Profile(props: IProps) {
 	const [domain, ,] = useDomainP();
 	const auth = AuthObj();
 
+
 	if (auth.login === true && auth.email != null) {
 		return (
 			<View>
