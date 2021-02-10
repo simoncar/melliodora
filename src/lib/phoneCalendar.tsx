@@ -35,8 +35,6 @@ export const phoneCalendar = async (event: StoryEntity) => {
 		timeZone: "Asia/Singapore",
 	};
 
-	console.log("event:", newEvent);
-
 	try {
 		const calendarGranted = await _askForCalendarPermissions();
 
