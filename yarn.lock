@@ -2805,17 +2805,10 @@
     "@types/react" "*"
     "@types/react-native" "*"
 
-"@types/react-native@*":
-  version "0.63.37"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.63.37.tgz#c43df90c9d3cc082a97a49a53e989de26cb8ab45"
-  integrity sha512-xr9SZG7tQQBKT6840tAGaWEC65D2gjyxZtuZxz631UgeW1ofItuu9HMVhoyYqot2hRSa6Q4YC8FYkRVUpM53/w==
-  dependencies:
-    "@types/react" "*"
-
-"@types/react-native@~0.63.2":
-  version "0.63.43"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.63.43.tgz#0278dd540f8479b35ae5d6ef373dd9b3be4cffb1"
-  integrity sha512-zFD+rFf7xmk3ZL5laaGdWB8NLNoN36TjHc2M5PcT5gXcDk7ZJBPsiabNcPDQPSIU/om8YPwBpaFdd1IiyuIM+g==
+"@types/react-native@*", "@types/react-native@~0.63.50":
+  version "0.63.50"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.63.50.tgz#cea13fb272983ec585179807d0cb4f84db0952f6"
+  integrity sha512-jWxsHDG/AHEaOrqqcI0Cth0WdPsgyaJ1nel5pS0uCzpt2RjwtkvEUAfu39paPr4i+9oUUgbJq3vkVXaj7n8RdQ==
   dependencies:
     "@types/react" "*"
 
@@ -11614,7 +11607,7 @@ react-native-gifted-chat@^0.16.3:
     react-native-typing-animation "^0.1.7"
     uuid "3.4.0"
 
-react-native-global-state-hooks@^1.1.2:
+react-native-global-state-hooks@1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/react-native-global-state-hooks/-/react-native-global-state-hooks-1.1.2.tgz#8ec3a7c4a983e0c96f90af834d899e6623090759"
   integrity sha512-GriXP8pb4ZYhhelsOOfAGt3ZnuclXLkOSI7dBRuZG7mwy39Yv+BUs2+PRWKAvF9rS97rUGlE+BW53T4zbU6sCg==
