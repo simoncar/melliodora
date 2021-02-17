@@ -12,8 +12,8 @@ export function getCalendarItems(domain: string, language: string, callback: any
 	todayItem[todayDate] = [];
 	todayItem[todayDate].push({
 		key: "todayKey",
-		summary: I18n.t("today") + " " + todayDay,
-		summaryMyLanguage: I18n.t("today") + " " + todayDay,
+		summary: I18n.t("today") + " XXX " + todayDay,
+		summaryMyLanguage: I18n.t("today") + " YYY " + todayDay,
 		icon: "md-radio-button-off",
 		color: "yellow",
 		title: todayDay,
@@ -53,8 +53,8 @@ export function getCalendarItems(domain: string, language: string, callback: any
 
 			fullItems[todayDate].push({
 				key: "todayKey",
-				summary: I18n.t("today") + " " + todayDay,
-				summaryMyLanguage: I18n.t("today") + " " + todayDay,
+				summary: I18n.t("today") + " ZZZZ " + todayDay,
+				summaryMyLanguage: I18n.t("today") + " AAA " + todayDay,
 				icon: "md-radio-button-off",
 				color: "yellow",
 				title: todayDay,
@@ -126,7 +126,6 @@ export function getCalendarToday(domain: string, language: string, callback: any
 					...trans,
 				});
 			});
-
 
 			callback(calendarItems);
 		});
