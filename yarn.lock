@@ -11614,7 +11614,7 @@ react-native-gifted-chat@^0.16.3:
     react-native-typing-animation "^0.1.7"
     uuid "3.4.0"
 
-react-native-global-state-hooks@^1.1.2:
+react-native-global-state-hooks@1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/react-native-global-state-hooks/-/react-native-global-state-hooks-1.1.2.tgz#8ec3a7c4a983e0c96f90af834d899e6623090759"
   integrity sha512-GriXP8pb4ZYhhelsOOfAGt3ZnuclXLkOSI7dBRuZG7mwy39Yv+BUs2+PRWKAvF9rS97rUGlE+BW53T4zbU6sCg==
@@ -11677,10 +11677,10 @@ react-native-safe-area-context@3.1.9, react-native-safe-area-context@^3.1.9:
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.1.9.tgz#48864ea976b0fa57142a2cc523e1fd3314e7247e"
   integrity sha512-wmcGbdyE/vBSL5IjDPReoJUEqxkZsywZw5gPwsVUV1NBpw5eTIdnL6Y0uNKHE25Z661moxPHQz6kwAkYQyorxA==
 
-react-native-screens@~2.15.0:
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.15.0.tgz#9b97c1881c4fcdf304bf363f0013225901625f44"
-  integrity sha512-qTSQPy0WKHtlb8xt5gY0Gt6sdvfQUQAnFSqgsggW9UEvySbkHzpqOrOYNA79Ca8oXO0dCFwp6X8buIiDefa7+Q==
+react-native-screens@~2.18.1:
+  version "2.18.1"
+  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.18.1.tgz#47b9991c6f762d00d0ed3233e5283d523e859885"
+  integrity sha512-r5WZLpmx2hHjC1RgMdPq5YpSU9tEhBpUaZ5M1SUtNIONyiLqQVxabhRCINdebIk4depJiIl7yw2Q85zJyeX6fw==
 
 react-native-size-matters@^0.3.1:
   version "0.3.1"
