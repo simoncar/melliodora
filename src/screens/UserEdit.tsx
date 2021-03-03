@@ -76,7 +76,6 @@ export default function EditUserProfile(props: TProps) {
 					destructiveButtonIndex,
 				},
 				(buttonIndex) => {
-					// Do something here depending on the button index selected
 					switch (buttonIndex) {
 						case 0:
 							props.navigation.push("CameraScreen");
