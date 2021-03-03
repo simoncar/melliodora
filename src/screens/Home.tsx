@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Linking, TouchableOpacity, Image, ScrollView, StyleSheet, Dimensions } from "react-native";
+import {
+	View,
+	Linking,
+	TouchableOpacity,
+	Image,
+	ScrollView,
+	StyleSheet,
+	Dimensions,
+	TouchableHighlight,
+} from "react-native";
 import Constants from "expo-constants";
 import ListItem from "../components/StoryListItem";
 import { Text, ShortList } from "../components/sComponent";
@@ -8,7 +17,7 @@ import DemoData from "../lib/demoData";
 import { useAdmin, AuthObj, DomainObj } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 import { getCalendarToday } from "../lib/APICalendar";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 import * as Progress from "expo-progress";
 import I18n from "../lib/i18n";
 
@@ -143,39 +152,21 @@ export default function Home(props: TProps) {
 	const addNew = () => {
 		if (admin) {
 			return (
-				<View style={styles.cardAddNew}>
-					<TouchableOpacity
-						key="rightSideEdit"
-						onPress={() => {
-							props.navigation.navigate("Form", {
-								edit: false,
-								domain: domain,
-							});
-						}}>
-						<View style={styles.headerRow}>
-							<View style={styles.headerIcon}>
-								<Image
-									style={styles.iconPhoto}
-									source={{
-										uri:
-											"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2Fcat.jpg?alt=media&token=1e1364ad-2689-453f-9f99-7f2c1e12b723",
-									}}
-								/>
-							</View>
-							<View style={styles.headerTextPanel}>
-								<Text style={styles.addText}>{I18n.t("addPolo")}</Text>
-							</View>
-							<View style={styles.headerRightIcons}>
-								<Ionicons
-									testID="story.editIcon"
-									name="md-add-circle-outline"
-									style={styles.icon}
-									size={30}
-								/>
-							</View>
-						</View>
-					</TouchableOpacity>
-				</View>
+				<TouchableHighlight
+					key="rightSideShare"
+					style={styles.button}
+					testID="story.shareButton"
+					onPress={() => {
+						props.navigation.navigate("Form", {
+							edit: false,
+							domain: domain,
+						});
+					}}>
+					<View style={styles.buttonView}>
+						<Entypo testID="story.addNew" name="plus" style={styles.buttonText} />
+						<Text style={styles.buttonText}>{I18n.t("addPolo")}</Text>
+					</View>
+				</TouchableHighlight>
 			);
 		}
 	};
@@ -185,7 +176,6 @@ export default function Home(props: TProps) {
 			{loading && <Progress.Bar isIndeterminate color="blue" />}
 
 			<ScrollView>
-				{addNew()}
 				<View style={styles.newsContentLine}>
 					{renderToday()}
 
@@ -212,11 +202,36 @@ export default function Home(props: TProps) {
 					</View>
 				</View>
 			</ScrollView>
+			{addNew()}
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
+	button: {
+		alignItems: "center",
+		alignSelf: "center",
+		backgroundColor: "#25A456",
+		borderRadius: 50 / 2,
+		bottom: 30,
+		height: 40,
+		position: "absolute",
+		width: 150,
+		zIndex: 990,
+	},
+	buttonText: {
+		color: "white",
+		fontSize: 20,
+		fontWeight: "bold",
+		marginRight: 5,
+	},
+	buttonView: {
+		flex: 1,
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "center",
+	},
+
 	card: {
 		alignSelf: "center",
 		backgroundColor: "#fff",
