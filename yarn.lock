@@ -1322,10 +1322,10 @@
   dependencies:
     cross-spawn "^6.0.5"
 
-"@expo/vector-icons@^12.0.0":
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-12.0.1.tgz#a112dc51b5a1ad521621b2c0062b5225a60699f8"
-  integrity sha512-HIzNmnTtSPmsivQ2djqqttq5v7GvjsKz1ap5pbfJGxygtTymulm9j+2AdEY3JWUCBAUyjtOPorNGC9tuTSN3hw==
+"@expo/vector-icons@^12.0.0", "@expo/vector-icons@^12.0.4":
+  version "12.0.4"
+  resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-12.0.4.tgz#52061fffab83ca74af52288b5f839b090f7dabed"
+  integrity sha512-/EFbXri7jZmqj1jTY6wpauvMN0DY0Epic003d43yWqrScLlVERaxXrOR07BNuCZvVMHBAzXN4VbOzUUUTq6j8g==
   dependencies:
     lodash.frompairs "^4.0.1"
     lodash.isequal "^4.5.0"
