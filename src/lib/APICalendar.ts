@@ -13,7 +13,7 @@ export function getCalendarItems(domain: string, language: string, callback: any
 	todayItem[todayDate].push({
 		key: "todayKey",
 		summary: I18n.t("today") + todayDay,
-		summaryMyLanguage: I18n.t("today") + " YYY " + todayDay,
+		summaryMyLanguage: I18n.t("today") + todayDay,
 		icon: "md-radio-button-off",
 		color: "yellow",
 		title: todayDay,
@@ -54,7 +54,7 @@ export function getCalendarItems(domain: string, language: string, callback: any
 			fullItems[todayDate].push({
 				key: "todayKey",
 				summary: I18n.t("today") + todayDay,
-				summaryMyLanguage: I18n.t("today")  + todayDay,
+				summaryMyLanguage: I18n.t("today") + todayDay,
 				icon: "md-radio-button-off",
 				color: "yellow",
 				title: todayDay,
