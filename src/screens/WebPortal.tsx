@@ -21,7 +21,9 @@ export default function WebPortal(props: TProps) {
 	useEffect(() => {
 		if (props.route.params === undefined) {
 			if (Constants.manifest.extra.domain === "sais_edu_sg") {
-				setUrl("https://mystamford.edu.sg/login/login.aspx?kr=iSAMS:ParentPP");
+				setUrl(
+					"https://mystamford.fireflycloud.asia/login/login.aspx?prelogin=https%3a%2f%2fmystamford.fireflycloud.asia%2f"
+				);
 			} else {
 				setUrl("https://www.smartcookies.io");
 			}
