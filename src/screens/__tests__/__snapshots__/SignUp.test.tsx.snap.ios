@@ -90,7 +90,6 @@ exports[`show SignUp screen 1`] = `
             rejectResponderTermination={true}
             style={
               Object {
-                "alignSelf": "center",
                 "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
@@ -166,7 +165,6 @@ exports[`show SignUp screen 1`] = `
               secureTextEntry={false}
               style={
                 Object {
-                  "alignSelf": "center",
                   "color": "#242424",
                   "flex": 1,
                   "fontSize": 18,
@@ -229,7 +227,6 @@ exports[`show SignUp screen 1`] = `
             rejectResponderTermination={true}
             style={
               Object {
-                "alignSelf": "center",
                 "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
@@ -290,7 +287,6 @@ exports[`show SignUp screen 1`] = `
             rejectResponderTermination={true}
             style={
               Object {
-                "alignSelf": "center",
                 "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
