@@ -3,7 +3,7 @@
 	"displayName": "Stamford",
 	"owner": "simoncar",
 	"expo": {
-		"version": "40.0.43",
+		"version": "42.0.0",
 		"icon": "./resources/sais_edu_sg/icon.png",
 		"slug": "myStamford",
 		"name": "Stamford",
@@ -44,7 +44,7 @@
 			"bundleIdentifier": "com.softmowertrain.parent.mystamford",
 			"googleServicesFile": "./resources/sais_edu_sg/GoogleService-Info.plist",
 			"supportsTablet": true,
-			"buildNumber": "43",
+			"buildNumber": "45",
 			"appStoreUrl": "https://apps.apple.com/us/app/id1249949678",
 			"infoPlist": {
 				"NSCameraUsageDescription": "This app uses the camera to add pictures to your profile photo and notices.",
@@ -55,7 +55,7 @@
 		"android": {
 			"package": "com.softmowertrain.parent.mystamford",
 			"googleServicesFile": "./resources/sais_edu_sg/google-services.json",
-			"versionCode": 43,
+			"versionCode": 45,
 			"permissions": ["READ_CALENDAR", "WRITE_CALENDAR", "CAMERA"]
 		},
 		"web": {

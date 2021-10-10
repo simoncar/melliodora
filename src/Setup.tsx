@@ -26,7 +26,7 @@ export default function Setup() {
 	const [loading, setLoading] = useState(true);
 	const [domain, setDomain] = useDomainP();
 	const [domainName, setDomainName] = useDomainNameP();
-	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
+	const [language, setLanguage, languageIsUpdated] = useLanguage();
 	const [, setGAuth, gAuth] = useAuth();
 	const [, setGLogin, gLogin] = useLogin();
 	const [, setGEmail, gEmail] = useEmail();
@@ -46,7 +46,7 @@ export default function Setup() {
 		}
 
 		async function loadLanguage() {
-			return refreshLanguage();
+			return language;
 		}
 
 		async function initLang(inLang) {

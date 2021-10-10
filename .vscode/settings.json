@@ -1,4 +1,5 @@
 {
 	"editor.formatOnSave": true,
-	"react-native.packager.port": 19000
+	"react-native.packager.port": 19000,
+
 }

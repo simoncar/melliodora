@@ -16,7 +16,6 @@ interface IProps {
 export default function Image(props: IProps) {
 	const [imageHeight, setHeight] = useState(1000);
 	const [imageWidth, setWidth] = useState(1000);
-	2;
 	const SCALE = 3;
 	let uri = props.source.uri;
 

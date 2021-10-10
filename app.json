@@ -4,7 +4,7 @@
   "slug": "simoncar",
   "owner": "simoncar@gmail.com",
   "expo": {
-    "version": "39.0.0",
+    "version": "42.0.0",
     "icon": "./resources/genericApp/icons/ios/AppIcon.appiconset/Icon-App.png",
     "slug": "myCommunity",
     "owner": "simoncar",
@@ -45,7 +45,7 @@
     },
     "android": {
       "package": "com.softmowertrain.parent.mycommunity",
-      "versionCode": 22,
+      "versionCode": 23,
       "permissions": [
         "READ_CALENDAR",
         "WRITE_CALENDAR"

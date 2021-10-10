@@ -2,7 +2,7 @@
 	"expo": {
 		"name": "Polo Photos",
 		"owner": "simoncar",
-		"version": "40.0.40",
+		"version": "42.0.0",
 		"icon": "./resources/genericApp/iconPolo.png",
 		"slug": "polo",
 		"description": "Photo Roll Sharing",
@@ -40,7 +40,7 @@
 			"bundleIdentifier": "photos.polo.app",
 			"googleServicesFile": "./resources/genericApp/GoogleService-Info.plist",
 			"supportsTablet": true,
-			"buildNumber": "40",
+			"buildNumber": "42",
 			"infoPlist": {
 				"NSCameraUsageDescription": "This app uses the camera to add photos to your notices."
 			}
@@ -48,7 +48,7 @@
 		"android": {
 			"package": "photos.polo.app",
 			"googleServicesFile": "./resources/genericApp/google-services.json",
-			"versionCode": 40,
+			"versionCode": 42,
 			"permissions": ["READ_CALENDAR", "WRITE_CALENDAR", "CAMERA"]
 		},
 		"web": {

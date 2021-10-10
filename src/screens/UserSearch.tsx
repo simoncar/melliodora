@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet } from "react-native";
-import { SearchBar } from "react-native-elements";
-import { ListItem } from "react-native-elements";
+import { SearchBar, ListItem } from "react-native-elements";
 import { Text } from "../components/sComponent";
 import firebase from "../lib/firebase";
 import _ from "lodash";
