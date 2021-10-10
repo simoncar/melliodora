@@ -1,3 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`show moreAdmin items 1`] = `<View />`;
+exports[`show moreAdmin items 1`] = `
+<View>
+  <View
+    accessibilityRole="progressbar"
+    accessibilityValue={
+      Object {
+        "max": 1,
+        "min": 0,
+        "now": 0,
+      }
+    }
+    accessible={true}
+    onLayout={[Function]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "rgba(32, 137, 220, 0.4)",
+          "height": 4,
+          "overflow": "hidden",
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "#2089dc",
+          "flex": 1,
+          "transform": Array [
+            Object {
+              "translateX": -0,
+            },
+            Object {
+              "scaleX": 0.0001,
+            },
+          ],
+        }
+      }
+    />
+  </View>
+</View>
+`;

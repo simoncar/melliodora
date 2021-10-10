@@ -1,7 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react-native";
 import MoreAdmin from "../MoreAdmin";
-import { Bar } from "expo-progress";
 
 jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
 
@@ -37,9 +36,9 @@ jest.mock("../../lib/globalState", () => ({
 }));
 
 test("show moreAdmin items", () => {
-	Bar.mockImplementation(() => {
-		return null;
-	});
+	// Bar.mockImplementation(() => {
+	// 	return null;
+	// });
 
 	const navigation = {
 		navigate: jest.fn(),

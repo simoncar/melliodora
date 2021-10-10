@@ -4,7 +4,7 @@ import Image from "../components/Imgix";
 import { SettingsListItem } from "./SettingsListItem";
 import { getStories } from "../lib/APIStory";
 import { useDomain, AuthObj } from "../lib/globalState";
-import { Bar } from "expo-progress";
+import { LinearProgress } from "react-native-elements";
 import { StoryEntity } from "../lib/interfaces";
 
 interface TProps {
@@ -53,7 +53,7 @@ export default function MoreAdmin(props: TProps) {
 
 	return (
 		<View>
-			{loading && <Bar isIndeterminate color="blue" />}
+			{loading && <LinearProgress color="primary" />}
 			{featureItems.map((item: StoryEntity) => {
 				return <View key={item.key}>{renderItem(item)}</View>;
 			})}

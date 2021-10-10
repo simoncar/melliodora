@@ -18,7 +18,7 @@ import { useAdmin, AuthObj, DomainObj } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 import { getCalendarToday } from "../lib/APICalendar";
 import { Ionicons, Entypo } from "@expo/vector-icons";
-import * as Progress from "expo-progress";
+import { LinearProgress } from "react-native-elements";
 import I18n from "../lib/i18n";
 
 const versionCheck = new VersionCheck();
@@ -173,7 +173,7 @@ export default function Home(props: TProps) {
 
 	return (
 		<View style={styles.container}>
-			{loading && <Progress.Bar isIndeterminate color="blue" />}
+			{loading && <LinearProgress color="primary" />}
 
 			<ScrollView>
 				<View style={styles.newsContentLine}>

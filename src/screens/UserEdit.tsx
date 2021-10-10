@@ -13,7 +13,7 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import { saveProfilePic } from "../lib/APIUploadImage";
 import firebase from "../lib/firebase";
 import { UserEntity } from "../lib/interfaces";
-import { Bar } from "expo-progress";
+import { LinearProgress } from "react-native-elements";
 
 interface TProps {
 	navigation: any;
@@ -124,7 +124,7 @@ export default function EditUserProfile(props: TProps) {
 
 	return (
 		<SafeAreaView style={styles.saveAreaView}>
-			{loading && <Bar isIndeterminate color="blue" />}
+			{loading && <LinearProgress color="primary" />}
 
 			<ScrollView>
 				{profilePic()}

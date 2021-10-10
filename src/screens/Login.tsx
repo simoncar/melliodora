@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, View, SafeAreaView } from "react-native";
 import firebase from "../lib/firebase";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import * as Progress from "expo-progress";
+import { LinearProgress } from "react-native-elements";
 import { Text, Button } from "../components/sComponent";
 import I18n from "../lib/i18n";
 import { Input } from "react-native-elements";
@@ -49,7 +49,8 @@ export default function LoginScreen(props: TProps) {
 		setErrorMessage("");
 		setEmail(email);
 
-		let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		let re =
+			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (re.test(email)) {
 			setEmailValid(true);
 		} else {
@@ -74,7 +75,7 @@ export default function LoginScreen(props: TProps) {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			{loading && <Progress.Bar isIndeterminate color="blue" />}
+			{loading && <LinearProgress color="primary" />}
 
 			<View style={styles.fieldsContainer}>
 				<Text style={styles.errorMessage}>{errorMessage}</Text>
