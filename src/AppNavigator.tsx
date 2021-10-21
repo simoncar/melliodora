@@ -126,7 +126,7 @@ const StackWeb = createStackNavigator();
 function StackWebNavigator() {
 	return (
 		<StackWeb.Navigator>
-			<StackWeb.Screen name="webPortal" component={WebPortal} options={{ url: "", title: "portal" }} />
+			<StackWeb.Screen name="webPortal" component={WebPortal} options={{ url: "", title: I18n.t("myS") }} />
 		</StackWeb.Navigator>
 	);
 }
