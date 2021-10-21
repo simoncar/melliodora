@@ -11,7 +11,7 @@ interface IProps {
 }
 
 export default function Profile(props: IProps) {
-	const [domain, ,] = useDomainP();
+	const [domain] = useDomainP();
 	const auth = AuthObj();
 
 

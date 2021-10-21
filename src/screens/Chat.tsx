@@ -20,9 +20,9 @@ import { useDomain, useLanguage, useAuth } from "../lib/globalState";
 
 export default function Chat() {
 	const [messages, setMessages] = useState([]);
-	const [, , domain] = useDomain();
-	const [, , language] = useLanguage();
-	const [, , authString] = useAuth();
+	const [ domain] = useDomain();
+	const [ language] = useLanguage();
+	const [authString] = useAuth();
 
 	const auth = JSON.parse(authString);
 

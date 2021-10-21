@@ -25,6 +25,8 @@ export async function getDomains(callback: domainsRead) {
 				};
 				domains.push(domain);
 			});
+
+			console.log("Domains: ", domains);
 			callback(domains);
 		});
 

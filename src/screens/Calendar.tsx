@@ -15,7 +15,7 @@ interface TProps {
 export default function Calendar(props: TProps) {
 	const [fullItems, setFullItems] = useState({});
 	const [loading, setLoading] = useState(true);
-	const [, , domain] = useDomain();
+	const [domain] = useDomain();
 	const auth = AuthObj();
 
 	const setCalendarItems = (fullItems: any, searchItems: StoryEntity[]) => {
@@ -68,7 +68,7 @@ export default function Calendar(props: TProps) {
 				items={fullItems}
 				selected={date}
 				renderItem={renderItem}
-				rowHasChanged={(r1:any, r2:any) => {
+				rowHasChanged={(r1: any, r2: any) => {
 					return r1.summary !== r2.summary;
 				}}
 				hideKnob={false}

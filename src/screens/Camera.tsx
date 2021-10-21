@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 import { Camera } from "expo-camera";
-import * as Permissions from "expo-permissions";
 import { Text } from "../components/sComponent";
 import I18n from "../lib/i18n";
+import { LinearProgress } from "react-native-elements";
 import { saveProfilePic } from "../lib/APIUploadImage";
 import { usePhotoURLP } from "../lib/globalState";
 
@@ -18,10 +18,11 @@ export default function CameraScreen(props: TProps) {
 	const [hasPermission, setHasPermission] = useState(null);
 	const [type, setType] = useState(Camera.Constants.Type.front);
 	const [statePhotoURL, setGPhotoURL, isUpdatedPhotoURL] = usePhotoURLP();
+	const [saving, setSaving] = useState(false);
 
 	useEffect(() => {
 		(async () => {
-			const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+			const { status } = await Camera.requestCameraPermissionsAsync();
 			setHasPermission(status === "granted");
 		})();
 	}, []);
@@ -30,7 +31,11 @@ export default function CameraScreen(props: TProps) {
 		return <View />;
 	}
 	if (hasPermission === false) {
-		return <Text>{I18n.t("permissionsNoCamera")}</Text>;
+		return (
+			<View style={styles.buttonContainer}>
+				<Text>{I18n.t("permissionsNoCamera")}</Text>
+			</View>
+		);
 	}
 	return (
 		<View style={styles.container}>
@@ -40,6 +45,7 @@ export default function CameraScreen(props: TProps) {
 					setCamRef(ref);
 				}}
 				type={type}></Camera>
+			<View>{saving && <LinearProgress color="primary" />}</View>
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity
 					style={styles.buttonCancel}
@@ -53,8 +59,10 @@ export default function CameraScreen(props: TProps) {
 					testID="camera.takePhoto"
 					onPress={() => {
 						camRef.takePictureAsync({ quality: 0 }).then((a) => {
+							setSaving(true);
 							saveProfilePic(a.uri).then((downloadURL) => {
 								setGPhotoURL(downloadURL);
+								setSaving(false);
 								props.navigation.pop();
 							});
 						});

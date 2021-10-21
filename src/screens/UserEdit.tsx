@@ -3,7 +3,6 @@ import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from "re
 import Image from "../components/Imgix";
 import { Input } from "react-native-elements";
 import { Ionicons, Entypo } from "@expo/vector-icons";
-import * as Permissions from "expo-permissions";
 import I18n from "../lib/i18n";
 import { launchProfileImagePicker } from "../lib/APIUploadImage";
 import { Text, Button } from "../components/sComponent";
@@ -29,7 +28,7 @@ export default function EditUserProfile(props: TProps) {
 	const [photoURL, setPhotoURL] = useState("");
 	const [stateDisplayName, setGDisplayName, isUpdatedDisplayName] = useDisplayNameP();
 	const [statePhotoURL, setGPhotoURL, isUpdatedPhotoURL] = usePhotoURLP();
-	const [uid, ,] = useUidP();
+	const [uid] = useUidP();
 	const [email, setEmail, isUpdatedEmail] = useEmailP();
 
 	useEffect(() => {
@@ -62,35 +61,31 @@ export default function EditUserProfile(props: TProps) {
 	};
 
 	const openActionSheet = async () => {
-		const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
+		const options = [I18n.t("photoTake"), I18n.t("photoChoose"), I18n.t("delete"), I18n.t("cancel")];
+		const destructiveButtonIndex = options.length - 2;
+		const cancelButtonIndex = options.length - 1;
 
-		if (status === "granted") {
-			const options = [I18n.t("photoTake"), I18n.t("photoChoose"), I18n.t("delete"), I18n.t("cancel")];
-			const destructiveButtonIndex = options.length - 2;
-			const cancelButtonIndex = options.length - 1;
-
-			showActionSheetWithOptions(
-				{
-					options,
-					cancelButtonIndex,
-					destructiveButtonIndex,
-				},
-				(buttonIndex) => {
-					switch (buttonIndex) {
-						case 0:
-							props.navigation.push("CameraScreen");
-							break;
-						case 1:
-							pickImage();
-							break;
-						case 2:
-							setGPhotoURL("");
-							setPhotoURL("");
-							break;
-					}
+		showActionSheetWithOptions(
+			{
+				options,
+				cancelButtonIndex,
+				destructiveButtonIndex,
+			},
+			(buttonIndex) => {
+				switch (buttonIndex) {
+					case 0:
+						props.navigation.push("CameraScreen");
+						break;
+					case 1:
+						pickImage();
+						break;
+					case 2:
+						setGPhotoURL("");
+						setPhotoURL("");
+						break;
 				}
-			);
-		}
+			}
+		);
 	};
 
 	const profilePic = () => {

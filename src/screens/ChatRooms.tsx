@@ -13,11 +13,11 @@ interface TProps {
 }
 
 export default function ChatRooms(props: TProps) {
-	const [, , domain] = useDomain();
-	const [, , uid] = useUid();
-	const [, , displayName] = useDisplayName();
-	const [, , language] = useLanguage();
-	const [, , photoURL] = usePhotoURL();
+	const [ domain] = useDomain();
+	const [ uid] = useUid();
+	const [ displayName] = useDisplayName();
+	const [ language] = useLanguage();
+	const [ photoURL] = usePhotoURL();
 	const [userChatrooms, setUserChatrooms] = useState([]);
 
 	useEffect(() => {

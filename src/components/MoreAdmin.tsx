@@ -14,7 +14,7 @@ interface TProps {
 export default function MoreAdmin(props: TProps) {
 	const [loading, setLoading] = useState(true);
 	const [featureItems, setFeatureItems] = useState<StoryEntity[]>([]);
-	const [, , domain] = useDomain();
+	const [domain] = useDomain();
 
 	const auth = AuthObj();
 
@@ -49,7 +49,7 @@ export default function MoreAdmin(props: TProps) {
 				}
 			/>
 		);
-	};
+	;}
 
 	return (
 		<View>

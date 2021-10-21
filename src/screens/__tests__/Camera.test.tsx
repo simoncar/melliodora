@@ -1,52 +1,48 @@
-import React from 'react';
-import { render, waitFor, fireEvent } from '@testing-library/react-native';
-import * as Permissions from "expo-permissions";
-import CameraScreen from '../Camera';
+import React from "react";
+import { render, waitFor, fireEvent } from "@testing-library/react-native";
+import { Camera } from "expo-camera";
+import CameraScreen from "../Camera";
 
-jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
-jest.mock('../../lib/firebase')
-jest.mock('expo', () => ({
-	Permissions: {
-		askAsync: jest.fn(),
-	}
-}));
+jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
+jest.mock("../../lib/firebase");
+jest.mock("expo-camera", () => {
+	const originalModule = jest.requireActual("expo-camera");
 
-test('show camera screen', async () => {
-	const navigation = { navigate: jest.fn() };
-	const onGoBack = jest.fn();
-	Permissions.askAsync.mockImplementation(() => { return { status: 'granted' }; });
-
-	const { toJSON, getByTestId } = render(
-		<CameraScreen
-			navigation={navigation}
-			dispatch={onGoBack}
-		/>
-	);
-
-	await waitFor(() => getByTestId('camera.takePhoto'));
-
-	expect(toJSON()).toMatchSnapshot();
-
-	fireEvent.press(getByTestId('camera.takePhoto'));
-
+	return {
+		...originalModule,
+		Camera: {
+			...originalModule.Camera,
+			requestCameraPermissionsAsync: jest.fn(),
+		},
+	};
 });
 
-
-test('no access to camera', async () => {
+test("show camera screen", async () => {
 	const navigation = { navigate: jest.fn() };
 	const onGoBack = jest.fn();
-	Permissions.askAsync.mockImplementation(() => { return { status: 'denied' }; });
+	Camera.requestCameraPermissionsAsync.mockImplementation(() => {
+		return { status: "granted" };
+	});
 
-	const { toJSON, getByText } = render(
-		<CameraScreen
-			navigation={navigation}
-			dispatch={onGoBack}
-		/>
-	);
+	const { toJSON, getByTestId } = render(<CameraScreen navigation={navigation} route={null} />);
 
-	await waitFor(() => getByText('No access to camera'));
+	await waitFor(() => getByTestId("camera.takePhoto"));
 
 	expect(toJSON()).toMatchSnapshot();
 
+	fireEvent.press(getByTestId("camera.takePhoto"));
+});
 
+test("no access to camera", async () => {
+	const navigation = { navigate: jest.fn() };
+	const onGoBack = jest.fn();
+	Camera.requestCameraPermissionsAsync.mockImplementation(() => {
+		return { status: "denied" };
+	});
+
+	const { toJSON, getByText } = render(<CameraScreen navigation={navigation} route={null} />);
+
+	await waitFor(() => getByText("No access to camera"));
+
+	expect(toJSON()).toMatchSnapshot();
 });

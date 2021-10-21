@@ -137,11 +137,11 @@ export default function Setup() {
 			});
 	}, []);
 
-	useEffect(() => {
-		isDomainAdminServer(gUid, domain).then((xxx) => {
-			setAdmin(xxx);
-		});
-	}, [domain, gUid]);
+	// useEffect(() => {
+	// 	isDomainAdminServer(gUid, domain).then((xxx) => {
+	// 		setAdmin(xxx);
+	// 	});
+	// }, [domain, gUid]);
 
 	if (loading) {
 		return <AppLoading />;

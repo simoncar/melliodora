@@ -18,7 +18,7 @@ export default function DomainSelection(props: TProps) {
 
 	const [admin, setAdmin] = useAdmin();
 	const [NOrefresh, nodeSetter, NOstate, NOisUpdated] = useDomain();
-	const [, , uid] = useUid();
+	const [uid] = useUid();
 	const [domains, domainsSetter, domainsIsUpdated] = useDomainsP();
 	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
 	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();

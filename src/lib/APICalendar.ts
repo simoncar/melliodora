@@ -5,6 +5,9 @@ import { getLanguageString } from "../lib/global";
 import { StoryEntity } from "./interfaces";
 
 export function getCalendarItems(domain: string, language: string, callback: any) {
+	console.log("domain:", domain);
+	console.log("language:", language);
+
 	const todayDay = moment().format("MMMM Do");
 	const todayItem: any = {};
 	const todayDate: string = moment().format("YYYY-MM-DD");
@@ -12,8 +15,8 @@ export function getCalendarItems(domain: string, language: string, callback: any
 	todayItem[todayDate] = [];
 	todayItem[todayDate].push({
 		key: "todayKey",
-		summary: I18n.t("today") + todayDay,
-		summaryMyLanguage: I18n.t("today") + todayDay,
+		summary: I18n.t("today") + " " + todayDay,
+		summaryMyLanguage: I18n.t("today") + " " + todayDay,
 		icon: "md-radio-button-off",
 		color: "yellow",
 		title: todayDay,
@@ -53,8 +56,8 @@ export function getCalendarItems(domain: string, language: string, callback: any
 
 			fullItems[todayDate].push({
 				key: "todayKey",
-				summary: I18n.t("today") + todayDay,
-				summaryMyLanguage: I18n.t("today") + todayDay,
+				summary: I18n.t("today") + " " + todayDay,
+				summaryMyLanguage: I18n.t("today") + " " + todayDay,
 				icon: "md-radio-button-off",
 				color: "yellow",
 				title: todayDay,
