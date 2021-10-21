@@ -42,6 +42,8 @@ export function isDomainAdmin(currentUid: string, adminArray: string[]) {
 
 export async function isDomainAdminServer(currentUid: string, domain: string) {
 	return new Promise((resolve, reject) => {
+		console.log("isDomainAdminServer:", currentUid, domain);
+
 		firebase
 			.firestore()
 			.collection("domains")

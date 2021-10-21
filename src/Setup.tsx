@@ -27,13 +27,13 @@ export default function Setup() {
 	const [domain, setDomain] = useDomainP();
 	const [domainName, setDomainName] = useDomainNameP();
 	const [language, setLanguage, languageIsUpdated] = useLanguage();
-	const [, setGAuth, gAuth] = useAuth();
-	const [, setGLogin, gLogin] = useLogin();
-	const [, setGEmail, gEmail] = useEmail();
-	const [, setGDisplayName, gDisplayName] = useDisplayName();
-	const [, setGPhotoURL, gPhotoURL] = usePhotoURL();
-	const [, setGUid, gUid] = useUid();
-	const [, setAdmin, admin] = useAdmin();
+	const [gAuth, setGAuth] = useAuth();
+	const [gLogin, setGLogin] = useLogin();
+	const [gEmail, setGEmail] = useEmail();
+	const [gDisplayName, setGDisplayName] = useDisplayName();
+	const [gPhotoURL, setGPhotoURL] = usePhotoURL();
+	const [gUid, setGUid] = useUid();
+	const [admin, setAdmin] = useAdmin();
 
 	useEffect(() => {
 		LogBox.ignoreLogs(["You should try avoid call the same state-setter multiple times at one execution line"]);
@@ -123,8 +123,8 @@ export default function Setup() {
 							email: user.email,
 							photoURL: user.photoURL === null ? "" : user.photoURL,
 						};
-						setGLogin(true);
 
+						setGLogin(true);
 						setGAuth(JSON.stringify(objAuth));
 						setGEmail(objAuth.email);
 						setGDisplayName(objAuth.displayName);
@@ -137,11 +137,11 @@ export default function Setup() {
 			});
 	}, []);
 
-	// useEffect(() => {
-	// 	isDomainAdminServer(gUid, domain).then((xxx) => {
-	// 		setAdmin(xxx);
-	// 	});
-	// }, [domain, gUid]);
+	useEffect(() => {
+		isDomainAdminServer(gUid, domain).then((xxx) => {
+			setAdmin(xxx);
+		});
+	}, [domain, gUid]);
 
 	if (loading) {
 		return <AppLoading />;
