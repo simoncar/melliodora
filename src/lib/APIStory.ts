@@ -10,9 +10,9 @@ export function getStories(domain: string, language: string, callback: storyRead
 	// 	.doc("feature")
 	// 	.collection("features")
 	// 	.orderBy("order")
-
+	console.log("BBBBBBB");
 	const q = query(collection(domain, "feature", "features"));
-
+	console.log("CCCCC");
 	const unsubscribe = onSnapshot(q, (snapshot) => {
 		const stories: StoryEntity[] = [];
 		snapshot.forEach(function (doc) {

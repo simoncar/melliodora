@@ -18,9 +18,7 @@ const adminStore = new GlobalStore(false);
 export const useDomain = domainStore.getHook();
 export const useDomainName = domainNameStore.getHook();
 export const useDomains = domainsStore.getHook();
-
 export const useAuth = authStore.getHook();
-
 export const useEmail = emailStore.getHook();
 export const useLogin = loginStore.getHook();
 export const useUid = uidStore.getHook();
