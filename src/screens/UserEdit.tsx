@@ -54,7 +54,7 @@ export default function EditUserProfile(props: TProps) {
 				displayName: stateDisplayName,
 				uid: uid,
 				photoURL: downloadURL,
-				email: email,
+				email: email
 			};
 			save(newUser);
 			setLoading(false);
@@ -73,7 +73,7 @@ export default function EditUserProfile(props: TProps) {
 				{
 					options,
 					cancelButtonIndex,
-					destructiveButtonIndex,
+					destructiveButtonIndex
 				},
 				(buttonIndex) => {
 					switch (buttonIndex) {
@@ -100,11 +100,7 @@ export default function EditUserProfile(props: TProps) {
 					onPress={() => {
 						openActionSheet();
 					}}>
-					{statePhotoURL ? (
-						<Image style={styles.profilePhoto} source={{ uri: statePhotoURL }} />
-					) : (
-						<Ionicons name="ios-person" size={100} color="#999999" style={styles.profilePic} />
-					)}
+					{statePhotoURL ? <Image style={styles.profilePhoto} source={{ uri: statePhotoURL }} /> : <Ionicons name="ios-person" size={100} color="#999999" style={styles.profilePic} />}
 					<View style={styles.circle}>
 						<Entypo name="camera" size={17} style={styles.camera} />
 					</View>
@@ -124,8 +120,6 @@ export default function EditUserProfile(props: TProps) {
 
 	return (
 		<SafeAreaView style={styles.saveAreaView}>
-			{loading && <Bar isIndeterminate color="blue" />}
-
 			<ScrollView>
 				{profilePic()}
 				<View style={styles.titleContainer}>
@@ -135,12 +129,7 @@ export default function EditUserProfile(props: TProps) {
 				<View style={styles.titleContainerRow}>
 					<View style={styles.rowFlex}>
 						<Text style={styles.inputField}>{I18n.t("name")}:</Text>
-						<Input
-							style={styles.sectionContentText}
-							onChangeText={(text) => setDisplayName(text)}
-							placeholder={I18n.t("name")}
-							value={displayName}
-						/>
+						<Input style={styles.sectionContentText} onChangeText={(text) => setDisplayName(text)} placeholder={I18n.t("name")} value={displayName} />
 					</View>
 				</View>
 				<Button
@@ -148,7 +137,7 @@ export default function EditUserProfile(props: TProps) {
 						save({
 							displayName: displayName,
 							uid: uid,
-							photoURL: statePhotoURL,
+							photoURL: statePhotoURL
 						})
 					}
 					title={I18n.t("save")}
@@ -163,7 +152,7 @@ export default function EditUserProfile(props: TProps) {
 const styles = StyleSheet.create({
 	camera: {
 		color: "white",
-		marginBottom: 2,
+		marginBottom: 2
 	},
 	circle: {
 		alignItems: "center",
@@ -176,12 +165,12 @@ const styles = StyleSheet.create({
 		left: 115,
 		position: "absolute",
 		top: 115,
-		width: 30,
+		width: 30
 	},
 	inputField: {
 		color: "#777777",
 		fontSize: 10,
-		fontWeight: "600",
+		fontWeight: "600"
 	},
 	profilePhoto: {
 		borderColor: "grey",
@@ -189,17 +178,17 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		height: 150,
 		overflow: "hidden",
-		width: 150,
+		width: 150
 	},
 	profilePic: {
 		borderColor: "lightgray",
-		height: 200,
+		height: 200
 	},
 	profilePicContainer: {
 		alignItems: "center",
 		paddingBottom: 15,
 		paddingHorizontal: 15,
-		paddingTop: 15,
+		paddingTop: 15
 	},
 	rowFlex: { flex: 1 },
 	saveAreaView: { backgroundColor: "#fdfdfd", flex: 1 },
@@ -208,17 +197,17 @@ const styles = StyleSheet.create({
 		borderColor: "#100c08",
 		color: "#111111",
 		fontSize: 14,
-		height: 40,
+		height: 40
 	},
 	titleContainer: {
 		paddingBottom: 15,
 		paddingHorizontal: 15,
-		paddingTop: 15,
+		paddingTop: 15
 	},
 	titleContainerRow: {
 		flexDirection: "row",
 		paddingBottom: 15,
 		paddingHorizontal: 15,
-		paddingTop: 15,
-	},
+		paddingTop: 15
+	}
 });

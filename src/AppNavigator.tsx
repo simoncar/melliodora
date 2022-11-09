@@ -39,7 +39,7 @@ function StackHomeNavigator() {
 				component={Home}
 				options={({ navigation, route }) => ({
 					headerTitle: headerTitle(route),
-					headerLeft: () => headerLeftLanguageSelector(navigation),
+					headerLeft: () => headerLeftLanguageSelector(navigation)
 				})}
 			/>
 
@@ -47,32 +47,20 @@ function StackHomeNavigator() {
 				name="story"
 				component={Story}
 				options={({ route }) => ({
-					title: route.params.story.summaryMyLanguage,
+					title: route.params.story.summaryMyLanguage
 				})}
 			/>
 			<StackHome.Screen name="CameraScreen" component={CameraScreen} options={{ title: I18n.t("camera") }} />
 
 			<StackHome.Screen name="push" component={push} options={{ title: I18n.t("send") }} />
-			<StackHome.Screen
-				name="chatStory"
-				component={Chat}
-				options={({ route }) => ({ title: route.params.title })}
-			/>
+			<StackHome.Screen name="chatStory" component={Chat} options={({ route }) => ({ title: route.params.title })} />
 			<StackHome.Screen name="Form" component={Form} options={{ title: I18n.t("edit") }} />
 			<StackHome.Screen name="FormAlbum" component={FormAlbum} options={{ title: I18n.t("images") }} />
 			<StackHome.Screen name="searchCalendarHome" component={Search} options={{ title: I18n.t("search") }} />
 			<StackHome.Screen name="WebPortal" component={WebPortal} options={{ title: I18n.t("myS") }} />
-			<StackHome.Screen
-				name="selectLanguageHome"
-				component={SelectLanguage}
-				options={{ title: I18n.t("language") }}
-			/>
+			<StackHome.Screen name="selectLanguageHome" component={SelectLanguage} options={{ title: I18n.t("language") }} />
 			<StackHome.Screen name="Albums" component={SelectAlbum} options={{ title: I18n.t("albums") }} />
-			<StackHome.Screen
-				name="selectLanguageChat"
-				component={SelectLanguage}
-				options={{ title: I18n.t("language") }}
-			/>
+			<StackHome.Screen name="selectLanguageChat" component={SelectLanguage} options={{ title: I18n.t("language") }} />
 		</StackHome.Navigator>
 	);
 }
@@ -87,15 +75,11 @@ function StackCalendarNavigator() {
 				name="storyCalendar"
 				component={Story}
 				options={({ route }) => ({
-					title: route.params.story.summaryMyLanguage,
+					title: route.params.story.summaryMyLanguage
 				})}
 			/>
 			<StackCalendar.Screen name="searchCalendar" component={Search} options={{ title: I18n.t("search") }} />
-			<StackCalendar.Screen
-				name="chatCalendar"
-				component={Chat}
-				options={({ route }) => ({ title: route.params.title })}
-			/>
+			<StackCalendar.Screen name="chatCalendar" component={Chat} options={({ route }) => ({ title: route.params.title })} />
 		</StackCalendar.Navigator>
 	);
 }
@@ -106,17 +90,9 @@ function StackChatNavigator() {
 	return (
 		<StackChat.Navigator>
 			<StackChat.Screen name="chatRooms" component={ChatRooms} options={{ title: I18n.t("chat") }} />
-			<StackChat.Screen
-				name="ChatTitle"
-				component={ChatTitle}
-				options={({ route }) => ({ title: route.params.title })}
-			/>
+			<StackChat.Screen name="ChatTitle" component={ChatTitle} options={({ route }) => ({ title: route.params.title })} />
 			<StackChat.Screen name="chat" component={Chat} options={({ route }) => ({ title: route.params.title })} />
-			<StackChat.Screen
-				name="selectLanguageChat"
-				component={SelectLanguage}
-				options={{ title: I18n.t("language") }}
-			/>
+			<StackChat.Screen name="selectLanguageChat" component={SelectLanguage} options={{ title: I18n.t("language") }} />
 		</StackChat.Navigator>
 	);
 }
@@ -141,36 +117,20 @@ function StackOtherNavigator() {
 				name="storyMore"
 				component={Story}
 				options={({ route }) => ({
-					title: route.params.story.summaryMyLanguage,
+					title: route.params.story.summaryMyLanguage
 				})}
 			/>
 			<StackOther.Screen name="WebPortal" component={WebPortal} />
-			<StackOther.Screen
-				name="selectLanguage"
-				component={SelectLanguage}
-				options={{ title: I18n.t("language") }}
-			/>
+			<StackOther.Screen name="selectLanguage" component={SelectLanguage} options={{ title: I18n.t("language") }} />
 
 			<StackOther.Screen name="login" component={LoginScreen} options={{ title: I18n.t("signIn") }} />
 			<StackOther.Screen name="signup" component={SignUp} options={{ title: I18n.t("signUp") }} />
-			<StackOther.Screen
-				name="forgetpassword"
-				component={ForgotPassword}
-				options={{ title: I18n.t("forgetPassword") }}
-			/>
+			<StackOther.Screen name="forgetpassword" component={ForgotPassword} options={{ title: I18n.t("forgetPassword") }} />
 			<StackOther.Screen name="CameraScreen" component={CameraScreen} options={{ title: I18n.t("camera") }} />
 			<StackOther.Screen name="UserProfile" component={UserProfile} options={{ title: I18n.t("profile") }} />
-			<StackOther.Screen
-				name="chatPrivate"
-				component={Chat}
-				options={({ route }) => ({ title: route.params.title })}
-			/>
+			<StackOther.Screen name="chatPrivate" component={Chat} options={({ route }) => ({ title: route.params.title })} />
 			<StackOther.Screen name="UserSearch" component={UserSearch} options={{ title: I18n.t("searchUsers") }} />
-			<StackOther.Screen
-				name="EditUserProfile"
-				component={EditUserProfile}
-				options={{ title: I18n.t("profile") }}
-			/>
+			<StackOther.Screen name="EditUserProfile" component={EditUserProfile} options={{ title: I18n.t("profile") }} />
 		</StackOther.Navigator>
 	);
 }
@@ -195,17 +155,15 @@ function Tabs() {
 					} else if (route.name === "other") {
 						return <Feather name={"menu"} size={size} color={color} />;
 					}
-				},
+				}
 			})}
 			tabBarOptions={{
 				activeTintColor: "black",
-				inactiveTintColor: "gray",
+				inactiveTintColor: "gray"
 			}}>
 			<Tab.Screen name="homeNav" component={StackHomeNavigator} options={{ title: I18n.t("home") }} />
 			<Tab.Screen name="home" component={StackCalendarNavigator} options={{ title: I18n.t("calendar") }} />
-			{Constants.manifest.extra.domain != "sais_edu_sg" && (
-				<Tab.Screen name="chatRooms" component={StackChatNavigator} options={{ title: I18n.t("chat") }} />
-			)}
+			{Constants.manifest?.extra?.domain != "sais_edu_sg" && <Tab.Screen name="chatRooms" component={StackChatNavigator} options={{ title: I18n.t("chat") }} />}
 			<Tab.Screen name="webportal" component={StackWebNavigator} options={{ title: I18n.t("myS") }} />
 			<Tab.Screen name="other" component={StackOtherNavigator} options={{ title: I18n.t("more") }} />
 		</Tab.Navigator>
@@ -264,9 +222,9 @@ const styles = StyleSheet.create({
 	leftIcon: {
 		color: "#48484A",
 		fontSize: 25,
-		marginLeft: 10,
+		marginLeft: 10
 	},
 	leftView: {
-		marginLeft: 10,
-	},
+		marginLeft: 10
+	}
 });

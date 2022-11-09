@@ -1,0 +1,21 @@
+✅ The following packages were updated:
+expo-app-loading, expo-blur, expo-calendar, expo-camera, expo-constants, expo-file-system, expo-firebase-analytics, expo-firebase-core, expo-font, expo-image-manipulator, expo-image-picker, expo-linking, expo-localization, expo-media-library, expo-notifications, expo-permissions, expo-screen-orientation, expo-sqlite, expo-updates, @expo/vector-icons, react, react-dom, react-native, @react-native-async-storage/async-storage, @react-native-community/datetimepicker, react-native-gesture-handler, react-native-reanimated, react-native-safe-area-context, react-native-screens, react-native-svg, react-native-web, react-native-webview, sentry-expo, jest-expo, typescript, @babel/core, @types/react, @types/react-dom, babel-preset-expo, @types/react-native, @expo/webpack-config, expo
+
+🚨 The following packages were not updated. You should check the READMEs for those repositories to determine what version is compatible with your new set of packages:
+
+@expo/react-native-action-sheet, 
+@react-native-community/masked-view, 
+@react-navigation/bottom-tabs, @react-navigation/native, 
+@react-navigation/stack, 
+@react-navigation/web, 
+babel-runtime, 
+base-64,
+ color, 
+ expo-firestore-offline-persistence, 
+ expo-progress,
+  firebase,
+   global,
+    i18n-js,
+	 indexeddbshim, 
+	 install, jsuri,
+	  lodash, moment, prop-types, react-native-appearance, react-native-calendars, react-native-communications, react-native-elements, react-native-expo-image-cache, react-native-gifted-chat, react-native-global-state-hooks, react-native-image-viewing, react-native-nav, react-native-parsed-text, react-native-redash, react-native-timer, styled-components, @babel/runtime, @testing-library/jest-native, @testing-library/react-native, @types/i18n-js, @types/jest, @types/lodash, @types/react-native-calendars, @types/uuid, @typescript-eslint/eslint-plugin, @typescript-eslint/parser, babel-eslint, eslint, eslint-config-prettier, eslint-plugin-jest, eslint-plugin-react, eslint-plugin-react-hooks, eslint-plugin-react-native, jest-fetch-mock, metro-react-native-babel-preset

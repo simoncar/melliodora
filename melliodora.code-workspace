@@ -19,6 +19,9 @@
 			"titleBar.border": "#430101"
 		},
 		"peacock.affectTabActiveBorder": true,
-		"peacock.affectActivityBar": false
+		"peacock.affectActivityBar": false,
+		"search.exclude": {
+			"**/node_modules": false
+		}
 	}
 }

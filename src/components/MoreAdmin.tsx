@@ -4,7 +4,7 @@ import Image from "../components/Imgix";
 import { SettingsListItem } from "./SettingsListItem";
 import { getStories } from "../lib/APIStory";
 import { useDomain, AuthObj } from "../lib/globalState";
-import { Bar } from "expo-progress";
+//import { Bar } from "expo-progress";//
 import { StoryEntity } from "../lib/interfaces";
 
 interface TProps {
@@ -44,7 +44,7 @@ export default function MoreAdmin(props: TProps) {
 						story: item,
 						domain: domain,
 						language: auth.language,
-						admin: true,
+						admin: true
 					})
 				}
 			/>
@@ -53,7 +53,6 @@ export default function MoreAdmin(props: TProps) {
 
 	return (
 		<View>
-			{loading && <Bar isIndeterminate color="blue" />}
 			{featureItems.map((item: StoryEntity) => {
 				return <View key={item.key}>{renderItem(item)}</View>;
 			})}
@@ -69,6 +68,6 @@ const styles = StyleSheet.create({
 		borderWidth: 0.1,
 		height: 30,
 		marginLeft: 15,
-		width: 30,
-	},
+		width: 30
+	}
 });
