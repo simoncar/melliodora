@@ -3,6 +3,7 @@
 exports[`show Calendar Item with Date and Image 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -129,6 +130,7 @@ exports[`show Calendar Item with Date and Image 1`] = `
 exports[`show Calendar Item with Date and Time 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -250,6 +252,7 @@ exports[`show Calendar Item with Date and Time 1`] = `
 exports[`show Calendar Item with Date only 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}

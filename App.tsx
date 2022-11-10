@@ -6,16 +6,16 @@ import Constants from "expo-constants";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 
 Sentry.init({
-	dsn: Constants.manifest.extra.sentryDSN,
+	dsn: "https://f9cb9202827e4dbb8097c8e98f024d68@o85126.ingest.sentry.io/5564952",
 	enableInExpoDevelopment: false,
-	debug: false,
+	debug: false
 });
 
 if (Platform.OS === "web") {
 	//console.log("Sentry Web Disabled: ", Platform.OS);
 } else {
 	Sentry.Native.captureMessage("Polo started V" + Constants.manifest.version);
-	//console.log("Sentry Device:", Platform.OS);
+	console.log("Sentry Device:", Platform.OS, JSON.stringify(Constants.manifest?.extra));
 }
 
 export default class App extends Component {

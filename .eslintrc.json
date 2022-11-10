@@ -5,15 +5,7 @@
 		"node": true,
 		"react-native/react-native": true
 	},
-	"extends": [
-		"eslint:recommended",
-		"plugin:react/recommended",
-		"plugin:jest/recommended",
-		"prettier",
-		"prettier/@typescript-eslint",
-		"prettier/react",
-		"plugin:react-hooks/recommended"
-	],
+	"extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jest/recommended", "prettier", "prettier/@typescript-eslint", "prettier/react", "plugin:react-hooks/recommended"],
 	"globals": {
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
@@ -25,9 +17,9 @@
 		"ecmaVersion": 11,
 		"sourceType": "module"
 	},
-	"parser": "babel-eslint",
+	"parser": "@babel/eslint-parser",
 	"settings": {
-		"import/parser": "babel-eslint",
+		"import/parser": "@babel/eslint-parser",
 		"react": {
 			"version": "latest"
 		},
@@ -35,12 +27,7 @@
 			"version": 25
 		}
 	},
-	"plugins": [
-		"react",
-		"react-native",
-		"jest",
-		"@typescript-eslint"
-	],
+	"plugins": ["react", "react-native", "jest", "@typescript-eslint"],
 	"rules": {
 		"react/prop-types": 0,
 		"react-native/no-unused-styles": 2,

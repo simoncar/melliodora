@@ -3,7 +3,7 @@ import { render } from '@testing-library/react-native';
 import { Image } from 'react-native';
 import CalendarItem from '../CalendarItem';
 
-jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 jest.mock('../../lib/firebase')
 
 const itemCalendarDate = {

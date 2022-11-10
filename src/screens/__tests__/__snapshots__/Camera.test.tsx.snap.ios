@@ -26,17 +26,16 @@ exports[`show camera screen 1`] = `
   }
 >
   <ViewManagerAdapter_ExponentCamera
+    onCameraReady={[Function]}
+    onFacesDetected={[Function]}
+    onMountError={[Function]}
+    onPictureSaved={[Function]}
     proxiedProperties={
       Object {
         "autoFocus": undefined,
         "faceDetectorSettings": Object {},
         "flashMode": undefined,
         "focusDepth": 0,
-        "onBarCodeScanned": undefined,
-        "onCameraReady": [Function],
-        "onFacesDetected": [Function],
-        "onMountError": [Function],
-        "onPictureSaved": [Function],
         "type": undefined,
         "whiteBalance": undefined,
         "zoom": 0,
@@ -61,6 +60,7 @@ exports[`show camera screen 1`] = `
   >
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -97,6 +97,7 @@ exports[`show camera screen 1`] = `
     </View>
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -122,6 +123,7 @@ exports[`show camera screen 1`] = `
     />
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -145,6 +147,7 @@ exports[`show camera screen 1`] = `
     >
       <Text
         allowFontScaling={false}
+        selectable={false}
         style={
           Array [
             Object {

@@ -9,7 +9,9 @@
 			"cwd": "${workspaceFolder}",
 			"type": "reactnative",
 			"request": "attach",
-			"skipFiles": ["node_modules/**/*.js", "lib/**/*.js", "async_hooks.js", "inspector_async_hook.js"]
+			"skipFiles": ["node_modules/**/*.js", "lib/**/*.js", "async_hooks.js", "inspector_async_hook.js"],
+			"port": 19000,
+			"address": "192.168.87.39"
 		}
 	]
 }

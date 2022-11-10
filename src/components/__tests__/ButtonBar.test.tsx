@@ -3,7 +3,7 @@ import { render, fireEvent, queryByText } from "@testing-library/react-native";
 import { Image } from "react-native";
 import { ButtonBar } from "../ButtonBar";
 
-jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
+jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 jest.mock("../../lib/firebase");
 
 test("button Bar", () => {

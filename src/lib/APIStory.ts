@@ -32,19 +32,18 @@ export function getStory(story: StoryEntity, id: string, language: string): Stor
 		trans = {
 			source: "feature",
 			summaryMyLanguage: getLanguageString(language, story, "summary"),
-			descriptionMyLanguage: getLanguageString(language, story, "description"),
+			descriptionMyLanguage: getLanguageString(language, story, "description")
 		};
 	} else {
 		trans = {
 			source: "feature",
 			summaryMyLanguage: story.summary,
-			descriptionMyLanguage: story.description,
+			descriptionMyLanguage: story.description
 		};
 	}
 
 	if (story.photo1 === undefined || story.photo1 === "") {
-		story.photo1 =
-			"https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680";
+		story.photo1 = "https://firebasestorage.googleapis.com/v0/b/calendar-app-57e88.appspot.com/o/random%2FdefaultCalendar.jpg?alt=media&token=e7ba4a0a-e785-4601-bcae-5e43ce71e680";
 	}
 
 	returnStory = { ...{ key: id }, ...story, ...trans };

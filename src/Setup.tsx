@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { I18nManager, LogBox } from "react-native";
+
 import App from "./App";
 import I18n from "./lib/i18n";
 import * as Font from "expo-font";
@@ -8,19 +9,9 @@ import Constants from "expo-constants";
 import firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
 import { isDomainAdminServer } from "./lib/APIDomain";
+import "firebase/compat/auth";
 
-import {
-	useDomainP,
-	useDomainNameP,
-	useAuth,
-	useLogin,
-	useLanguage,
-	useEmail,
-	useUid,
-	useDisplayName,
-	usePhotoURL,
-	useAdmin,
-} from "./lib/globalState";
+import { useDomainP, useDomainNameP, useAuth, useLogin, useLanguage, useEmail, useUid, useDisplayName, usePhotoURL, useAdmin } from "./lib/globalState";
 
 export default function Setup() {
 	const [loading, setLoading] = useState(true);
@@ -40,7 +31,7 @@ export default function Setup() {
 
 		async function loadFonts() {
 			await Font.loadAsync({
-				SegoeUI: require("../resources/segoe-ui.ttf"),
+				SegoeUI: require("../resources/segoe-ui.ttf")
 			});
 			return "done loading fonts";
 		}
@@ -66,8 +57,8 @@ export default function Setup() {
 		}
 
 		async function initDomain() {
-			const domain = Constants.manifest.extra.domain;
-			const domainName = Constants.manifest.extra.domainName;
+			const domain = Constants.manifest?.extra?.domain;
+			const domainName = Constants.manifest?.extra?.domainName;
 			if (domain != "") {
 				await setDomain(domain);
 				await setDomainName(domainName);
@@ -86,42 +77,24 @@ export default function Setup() {
 				return initDomain();
 			})
 			.then(() => {
-				var user = firebase.auth().currentUser;
+				const auth = firebase.auth();
+				//const user = auth.currentUser;
+				console.log("HERE HERE HERE");
 
-				firebase.auth().onAuthStateChanged((user) => {
+				auth.onAuthStateChanged((user) => {
 					let objAuth = {};
-					if (user === null) {
-						// user has not logged in, so create an anonymous account and log them in
-						firebase
-							.auth()
-							.signInAnonymously()
-							.then(() => {
-								objAuth = {
-									uid: "",
-									displayName: "",
-									email: "",
-									photoURL: "",
-									login: false,
-								};
-								setGLogin(false);
-
-								setGAuth(JSON.stringify(objAuth));
-								setGEmail(objAuth.email);
-								setGDisplayName(objAuth.displayName);
-								setGPhotoURL(objAuth.photoURL);
-								setGUid(objAuth.uid);
-
-								return setLoading(false);
-							})
-							.catch((error) => {
-								console.log("login anon error:", error.message);
-							});
-					} else {
+					console.log("------- HERE HERE");
+					if (user) {
+						console.log("AAAAAAA HERE HERE");
+						// User is signed in, see docs for a list of available properties
+						// https://firebase.google.com/docs/reference/js/firebase.User
+						const uid = user.uid;
+						// ...
 						objAuth = {
 							uid: user.uid,
 							displayName: user.displayName === null ? "" : user.displayName,
 							email: user.email,
-							photoURL: user.photoURL === null ? "" : user.photoURL,
+							photoURL: user.photoURL === null ? "" : user.photoURL
 						};
 						setGLogin(true);
 
@@ -132,6 +105,37 @@ export default function Setup() {
 						setGUid(objAuth.uid);
 
 						return setLoading(false);
+					} else {
+						console.log("BBBBBB HERE HERE");
+						// User is signed out
+						// ...
+
+						if (user === null) {
+							// user has not logged in, so create an anonymous account and log them in
+							auth
+								.signInAnonymously(auth)
+								.then(() => {
+									objAuth = {
+										uid: "",
+										displayName: "",
+										email: "",
+										photoURL: "",
+										login: false
+									};
+									setGLogin(false);
+
+									setGAuth(JSON.stringify(objAuth));
+									setGEmail(objAuth.email);
+									setGDisplayName(objAuth.displayName);
+									setGPhotoURL(objAuth.photoURL);
+									setGUid(objAuth.uid);
+
+									return setLoading(false);
+								})
+								.catch((error) => {
+									console.log("login anon error:", error.message);
+								});
+						}
 					}
 				});
 			});

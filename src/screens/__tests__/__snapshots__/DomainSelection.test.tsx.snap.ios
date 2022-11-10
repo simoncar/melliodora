@@ -27,6 +27,7 @@ exports[`list domains 1`] = `
           <View>
             <View
               accessible={true}
+              collapsable={false}
               focusable={true}
               onClick={[Function]}
               onResponderGrant={[Function]}
@@ -89,9 +90,7 @@ exports[`list domains 1`] = `
                           undefined,
                         ]
                       }
-                    >
-                      
-                    </Text>
+                    />
                   </View>
                 </View>
                 <View
@@ -107,6 +106,7 @@ exports[`list domains 1`] = `
             </View>
             <View
               accessible={true}
+              collapsable={false}
               focusable={true}
               onClick={[Function]}
               onResponderGrant={[Function]}
@@ -169,9 +169,7 @@ exports[`list domains 1`] = `
                           undefined,
                         ]
                       }
-                    >
-                      
-                    </Text>
+                    />
                   </View>
                 </View>
                 <View
@@ -201,6 +199,7 @@ exports[`list domains 1`] = `
         >
           <View
             accessible={true}
+            collapsable={false}
             focusable={true}
             onClick={[Function]}
             onResponderGrant={[Function]}
@@ -280,9 +279,7 @@ exports[`list domains 1`] = `
                         undefined,
                       ]
                     }
-                  >
-                    
-                  </Text>
+                  />
                 </View>
               </View>
               <View
@@ -314,6 +311,7 @@ exports[`list domains 1`] = `
           <View>
             <View
               accessible={true}
+              collapsable={false}
               focusable={true}
               onClick={[Function]}
               onResponderGrant={[Function]}
@@ -377,9 +375,7 @@ exports[`list domains 1`] = `
                           undefined,
                         ]
                       }
-                    >
-                      
-                    </Text>
+                    />
                   </View>
                 </View>
                 <View
@@ -397,6 +393,7 @@ exports[`list domains 1`] = `
           <View>
             <View
               accessible={true}
+              collapsable={false}
               focusable={true}
               onClick={[Function]}
               onResponderGrant={[Function]}
@@ -460,9 +457,7 @@ exports[`list domains 1`] = `
                           undefined,
                         ]
                       }
-                    >
-                      
-                    </Text>
+                    />
                   </View>
                 </View>
                 <View
@@ -480,6 +475,7 @@ exports[`list domains 1`] = `
           <View>
             <View
               accessible={true}
+              collapsable={false}
               focusable={true}
               onClick={[Function]}
               onResponderGrant={[Function]}
@@ -543,9 +539,7 @@ exports[`list domains 1`] = `
                           undefined,
                         ]
                       }
-                    >
-                      
-                    </Text>
+                    />
                   </View>
                 </View>
                 <View
