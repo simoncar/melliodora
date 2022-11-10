@@ -26,12 +26,12 @@ export default class CustomActions extends React.Component {
 	}
 
 	getPermissionAsync = async () => {
-		if (Constants.platform.ios) {
-			const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
-			if (status !== "granted") {
-				alert("Sorry, we need camera roll permissions to make this work!");
-			}
-		}
+		// if (Constants.platform.ios) {
+		// 	const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+		// 	if (status !== "granted") {
+		// 		alert("Sorry, we need camera roll permissions to make this work!");
+		// 	}
+		// }
 	};
 
 	setImages(images) {

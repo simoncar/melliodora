@@ -185,7 +185,7 @@ export default function MainScreenNavigator() {
 				const currentRouteName = navigationRef.current.getCurrentRoute().name;
 
 				if (previousRouteName !== currentRouteName) {
-					Analytics.setCurrentScreen(currentRouteName);
+					//Analytics.setCurrentScreen(currentRouteName);
 				}
 				routeNameRef.current = currentRouteName;
 			}}>
