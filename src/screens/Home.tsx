@@ -9,7 +9,6 @@ import { useAdmin, AuthObj, DomainObj } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 import { getCalendarToday } from "../lib/APICalendar";
 import { Ionicons, Entypo } from "@expo/vector-icons";
-import * as Progress from "expo-progress";
 import I18n from "../lib/i18n";
 
 const versionCheck = new VersionCheck();

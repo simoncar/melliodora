@@ -13,7 +13,6 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import { saveProfilePic } from "../lib/APIUploadImage";
 import firebase from "../lib/firebase";
 import { UserEntity } from "../lib/interfaces";
-import { Bar } from "expo-progress";
 
 interface TProps {
 	navigation: any;

@@ -4,7 +4,6 @@ import Image from "../components/Imgix";
 import { SettingsListItem } from "./SettingsListItem";
 import { getStories } from "../lib/APIStory";
 import { useDomain, AuthObj } from "../lib/globalState";
-//import { Bar } from "expo-progress";//
 import { StoryEntity } from "../lib/interfaces";
 
 interface TProps {
