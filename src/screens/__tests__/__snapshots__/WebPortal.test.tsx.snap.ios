@@ -16,7 +16,13 @@ exports[`web portal 1`] = `
     }
   >
     <View
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -34,10 +40,8 @@ exports[`web portal 1`] = `
       <Text />
     </View>
     <TextInput
-      allowFontScaling={true}
       autoCapitalize="none"
       placeholderTextColor="#FFF"
-      rejectResponderTermination={true}
       selectionColor="#FFF"
       style={
         Object {
@@ -49,11 +53,16 @@ exports[`web portal 1`] = `
         }
       }
       testID="webPortal.urlField"
-      underlineColorAndroid="transparent"
       value="https://www.google.com"
     />
     <View
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -89,7 +98,7 @@ exports[`web portal 1`] = `
       injectedJavaScriptBeforeContentLoadedForMainFrameOnly={true}
       injectedJavaScriptForMainFrameOnly={true}
       javaScriptEnabled={true}
-      messagingEnabled={false}
+      messagingEnabled={true}
       onContentProcessDidTerminate={[Function]}
       onHttpError={[Function]}
       onLoadingError={[Function]}
@@ -97,7 +106,6 @@ exports[`web portal 1`] = `
       onLoadingProgress={[Function]}
       onLoadingStart={[Function]}
       onMessage={[Function]}
-      onNavigationStateChange={[Function]}
       onShouldStartLoadWithRequest={[Function]}
       source={
         Object {
@@ -117,6 +125,7 @@ exports[`web portal 1`] = `
         ]
       }
       testID="webPortal.RNCWebView"
+      textInteractionEnabled={true}
       useSharedProcessPool={true}
     />
   </View>

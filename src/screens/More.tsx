@@ -64,7 +64,7 @@ export default function Settings(props: TProps)
 						}}
 					/>
 
-					{Constants.manifest.extra.domain === "" && domain != "" && (
+					{Constants.manifest?.extra?.domain === "" && domain != "" && (
 						<SettingsListItem
 							lastItem={true}
 							hasNavArrow={false}

@@ -21,6 +21,7 @@ exports[`show SignUp screen 1`] = `
       >
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -64,6 +65,7 @@ exports[`show SignUp screen 1`] = `
         }
       >
         <View
+          collapsable={false}
           style={
             Object {
               "alignItems": "center",
@@ -79,7 +81,6 @@ exports[`show SignUp screen 1`] = `
           }
         >
           <TextInput
-            allowFontScaling={true}
             autoCapitalize="none"
             autoFocus={true}
             editable={true}
@@ -87,10 +88,8 @@ exports[`show SignUp screen 1`] = `
             onChangeText={[Function]}
             placeholder="Email"
             placeholderTextColor="#86939e"
-            rejectResponderTermination={true}
             style={
               Object {
-                "alignSelf": "center",
                 "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
@@ -141,6 +140,7 @@ exports[`show SignUp screen 1`] = `
           }
         >
           <View
+            collapsable={false}
             style={
               Object {
                 "alignItems": "center",
@@ -156,17 +156,14 @@ exports[`show SignUp screen 1`] = `
             }
           >
             <TextInput
-              allowFontScaling={true}
               autoCapitalize="none"
               editable={true}
               onChangeText={[Function]}
               placeholder="Password"
               placeholderTextColor="#86939e"
-              rejectResponderTermination={true}
               secureTextEntry={false}
               style={
                 Object {
-                  "alignSelf": "center",
                   "color": "#242424",
                   "flex": 1,
                   "fontSize": 18,
@@ -205,6 +202,7 @@ exports[`show SignUp screen 1`] = `
         }
       >
         <View
+          collapsable={false}
           style={
             Object {
               "alignItems": "center",
@@ -220,16 +218,13 @@ exports[`show SignUp screen 1`] = `
           }
         >
           <TextInput
-            allowFontScaling={true}
             autoCapitalize="words"
             editable={true}
             onChangeText={[Function]}
             placeholder="First Name"
             placeholderTextColor="#86939e"
-            rejectResponderTermination={true}
             style={
               Object {
-                "alignSelf": "center",
                 "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
@@ -266,6 +261,7 @@ exports[`show SignUp screen 1`] = `
         }
       >
         <View
+          collapsable={false}
           style={
             Object {
               "alignItems": "center",
@@ -281,16 +277,13 @@ exports[`show SignUp screen 1`] = `
           }
         >
           <TextInput
-            allowFontScaling={true}
             autoCapitalize="words"
             editable={true}
             onChangeText={[Function]}
             placeholder="Last Name"
             placeholderTextColor="#86939e"
-            rejectResponderTermination={true}
             style={
               Object {
-                "alignSelf": "center",
                 "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
@@ -323,6 +316,7 @@ exports[`show SignUp screen 1`] = `
       >
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}

@@ -54,7 +54,7 @@ class ListItem extends Component<TProps> {
 	}
 
 	renderChat(chatroom: string, title: string, domain: string, language: string, admin: boolean) {
-		if (Constants.manifest.extra.domain != "sais_edu_sg") {
+		if (Constants.manifest?.extra?.domain != "sais_edu_sg") {
 			return (
 				<TouchableOpacity
 					onPress={() => {

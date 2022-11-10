@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react-native";
 import LoginScreen from "../Login";
 
-jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
+jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 jest.mock("../../lib/firebase");
 
 test("show login screen", () => {

@@ -3,7 +3,7 @@ import { render } from '@testing-library/react-native';
 import * as Permissions from 'expo-permissions';
 import * as Calendar from 'expo-calendar';
 
-jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 
 const calendars = [
 	{

@@ -4,7 +4,7 @@ import { Image as ReactImage } from 'react-native'
 import CustomImage from '../ChatCustomImage';
 
 
-jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 jest.mock('../../lib/firebase')
 
 const item = {

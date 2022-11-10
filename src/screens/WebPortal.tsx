@@ -20,10 +20,8 @@ export default function WebPortal(props: TProps) {
 
 	useEffect(() => {
 		if (props.route.params === undefined) {
-			if (Constants.manifest.extra.domain === "sais_edu_sg") {
-				setUrl(
-					"https://mystamford.fireflycloud.asia/login/login.aspx?prelogin=https%3a%2f%2fmystamford.fireflycloud.asia%2f"
-				);
+			if (Constants.manifest?.extra?.domain === "sais_edu_sg") {
+				setUrl("https://mystamford.fireflycloud.asia/login/login.aspx?prelogin=https%3a%2f%2fmystamford.fireflycloud.asia%2f");
 			} else {
 				setUrl("https://www.smartcookies.io");
 			}
@@ -48,7 +46,7 @@ export default function WebPortal(props: TProps) {
 						<Feather style={styles.share} name="share" size={24} color="black" />
 					</TouchableOpacity>
 				);
-			},
+			}
 		});
 	}, [props.navigation, url]);
 
@@ -67,14 +65,7 @@ export default function WebPortal(props: TProps) {
 					<Ionicons style={styles.navIconLeft} name="ios-arrow-back" />
 				</TouchableOpacity>
 
-				<TextInput
-					value={url}
-					placeholderTextColor="#FFF"
-					style={styles.url}
-					autoCapitalize="none"
-					selectionColor="#FFF"
-					testID="webPortal.urlField"
-				/>
+				<TextInput value={url} placeholderTextColor="#FFF" style={styles.url} autoCapitalize="none" selectionColor="#FFF" testID="webPortal.urlField" />
 				<TouchableOpacity disabled={!canGoForward} onPress={onForward}>
 					<Ionicons style={styles.navIconRight} name="ios-arrow-forward" />
 				</TouchableOpacity>
@@ -104,14 +95,14 @@ export default function WebPortal(props: TProps) {
 const styles = StyleSheet.create({
 	flex1: { flex: 1 },
 	headerRow: {
-		flexDirection: "row",
+		flexDirection: "row"
 	},
 	navIconLeft: {
 		alignContent: "center",
 		color: "black",
 		fontSize: 20,
 		height: 30,
-		padding: 5,
+		padding: 5
 	},
 
 	navIconRight: {
@@ -119,16 +110,16 @@ const styles = StyleSheet.create({
 		color: "black",
 		fontSize: 20,
 		height: 30,
-		padding: 5,
+		padding: 5
 	},
 	share: {
-		paddingRight: 10,
+		paddingRight: 10
 	},
 	url: {
 		color: "black",
 		flex: 1,
 		fontSize: 14,
 		height: 30,
-		width: "100%",
-	},
+		width: "100%"
+	}
 });
