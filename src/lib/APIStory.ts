@@ -1,27 +1,25 @@
-import { collection, query, where, onSnapshot } from "firebase/firestore";
+import firebase from "../lib/firebase";
 import { StoryEntity } from "./interfaces";
 import { getLanguageString } from "./global";
 
 type storyRead = (stories: StoryEntity[]) => void;
 
 export function getStories(domain: string, language: string, callback: storyRead) {
-	// const unsubscribe = firebase
-	// 	.collection(domain)
-	// 	.doc("feature")
-	// 	.collection("features")
-	// 	.orderBy("order")
-	console.log("BBBBBBB");
-	const q = query(collection(domain, "feature", "features"));
-	console.log("CCCCC");
-	const unsubscribe = onSnapshot(q, (snapshot) => {
-		const stories: StoryEntity[] = [];
-		snapshot.forEach(function (doc) {
-			const story: StoryEntity = getStory(doc.data(), doc.id, language);
-			stories.push(story);
-		});
+	const unsubscribe = firebase
+		.firestore()
+		.collection(domain)
+		.doc("feature")
+		.collection("features")
+		.orderBy("order")
+		.onSnapshot((snapshot) => {
+			const stories: StoryEntity[] = [];
+			snapshot.forEach(function (doc) {
+				const story: StoryEntity = getStory(doc.data(), doc.id, language);
+				stories.push(story);
+			});
 
-		callback(stories);
-	});
+			callback(stories);
+		});
 
 	return () => unsubscribe();
 }

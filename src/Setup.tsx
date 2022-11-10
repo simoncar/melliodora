@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { I18nManager, LogBox } from "react-native";
+
 import App from "./App";
 import I18n from "./lib/i18n";
 import * as Font from "expo-font";
@@ -8,7 +9,7 @@ import Constants from "expo-constants";
 import firebase from "./lib/firebase";
 import AuthStackNavigator from "./AuthStackNavigator";
 import { isDomainAdminServer } from "./lib/APIDomain";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
+import "firebase/compat/auth";
 
 import { useDomainP, useDomainNameP, useAuth, useLogin, useLanguage, useEmail, useUid, useDisplayName, usePhotoURL, useAdmin } from "./lib/globalState";
 
@@ -76,11 +77,15 @@ export default function Setup() {
 				return initDomain();
 			})
 			.then(() => {
-				const auth = getAuth(firebase);
-				const user = auth.currentUser;
+				const auth = firebase.auth();
+				//const user = auth.currentUser;
+				console.log("HERE HERE HERE");
 
-				onAuthStateChanged(auth, (user) => {
+				auth.onAuthStateChanged((user) => {
+					let objAuth = {};
+					console.log("------- HERE HERE");
 					if (user) {
+						console.log("AAAAAAA HERE HERE");
 						// User is signed in, see docs for a list of available properties
 						// https://firebase.google.com/docs/reference/js/firebase.User
 						const uid = user.uid;
@@ -101,12 +106,14 @@ export default function Setup() {
 
 						return setLoading(false);
 					} else {
+						console.log("BBBBBB HERE HERE");
 						// User is signed out
 						// ...
-						let objAuth = {};
+
 						if (user === null) {
 							// user has not logged in, so create an anonymous account and log them in
-							signInAnonymously(auth)
+							auth
+								.signInAnonymously(auth)
 								.then(() => {
 									objAuth = {
 										uid: "",

@@ -1,22 +1,14 @@
-import "expo-firestore-offline-persistence";
-import { initializeApp } from "firebase/app";
-import "firebase/firestore";
-import "firebase/auth";
-import "firebase/storage";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+import "firebase/compat/auth";
+import "firebase/compat/storage";
 
-// Initialize Firebase
-const firebaseConfig = {
-	apiKey: "AIzaSyAbCADtQsj1lTQWD1pfaOMi-WHUGkRFTXw",
-	authDomain: "calendar-app-57e88.firebaseapp.com",
-	databaseURL: "https://calendar-app-57e88.firebaseio.com",
-	projectId: "calendar-app-57e88",
-	storageBucket: "calendar-app-57e88.appspot.com",
-	messagingSenderId: "sender-id",
-	appId: "1:991350571487:web:64e8030d8ad0c20969c46a",
-	measurementId: "G-0T769CEZVP"
-};
 
-const app = initializeApp(firebaseConfig);
+
+
+import ApiKeys from "../ApiKeys";
+
+firebase.apps.length === 0 && firebase.initializeApp(ApiKeys.FirebaseConfig);
 
 // //Firebase Firestore Persistance
 // firebase
@@ -39,4 +31,4 @@ const app = initializeApp(firebaseConfig);
 // 		}
 // 	});
 
-export default app;
+export default firebase;
