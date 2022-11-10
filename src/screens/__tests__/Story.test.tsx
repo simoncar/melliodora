@@ -5,7 +5,7 @@ import * as Calendar from "expo-calendar";
 import * as Permissions from "expo-permissions";
 
 jest.mock("../../components/ImageList");
-jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
+jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 jest.mock("../../lib/firebase");
 
 const calendars = [

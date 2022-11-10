@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-	View,
-	Linking,
-	TouchableOpacity,
-	Image,
-	ScrollView,
-	StyleSheet,
-	Dimensions,
-	TouchableHighlight,
-} from "react-native";
+import { View, Linking, TouchableOpacity, Image, ScrollView, StyleSheet, Dimensions, TouchableHighlight } from "react-native";
 import Constants from "expo-constants";
 import ListItem from "../components/StoryListItem";
 import { Text, ShortList } from "../components/sComponent";
@@ -18,7 +9,6 @@ import { useAdmin, AuthObj, DomainObj } from "../lib/globalState";
 import { getStories } from "../lib/APIStory";
 import { getCalendarToday } from "../lib/APICalendar";
 import { Ionicons, Entypo } from "@expo/vector-icons";
-import * as Progress from "expo-progress";
 import I18n from "../lib/i18n";
 
 const versionCheck = new VersionCheck();
@@ -50,8 +40,10 @@ export default function Home(props: TProps) {
 	};
 
 	useEffect(() => {
+		console.log("AAAAA" + JSON.stringify(domain));
+
 		props.navigation.setOptions({
-			headerTitle: domain.name,
+			headerTitle: domain.name
 		});
 
 		if (domain.node === "oakforest_international_edu") {
@@ -95,8 +87,10 @@ export default function Home(props: TProps) {
 	}, []);
 
 	useEffect(() => {
+		console.log("BBBB" + domain);
+
 		props.navigation.setOptions({
-			headerTitle: domain.name,
+			headerTitle: domain.name
 		});
 
 		const unsubscribe = getStories(domain.node, auth.language, storyRead);
@@ -111,32 +105,11 @@ export default function Home(props: TProps) {
 	};
 
 	const renderItem = (navigation, item) => {
-		if (item.visible === true)
-			return (
-				<ListItem
-					key={item.key}
-					navigation={navigation}
-					story={item}
-					card={true}
-					language={auth.language}
-					domain={domain.node}
-					admin={admin}
-				/>
-			);
+		if (item.visible === true) return <ListItem key={item.key} navigation={navigation} story={item} card={true} language={auth.language} domain={domain.node} admin={admin} />;
 	};
 
 	const renderItemNoCard = (navigation, item) => {
-		return (
-			<ListItem
-				key={item.key}
-				navigation={navigation}
-				story={item}
-				card={false}
-				language={auth.language}
-				domain={domain.node}
-				admin={admin}
-			/>
-		);
+		return <ListItem key={item.key} navigation={navigation} story={item} card={false} language={auth.language} domain={domain.node} admin={admin} />;
 	};
 
 	const renderToday = () => {
@@ -159,7 +132,7 @@ export default function Home(props: TProps) {
 					onPress={() => {
 						props.navigation.navigate("Form", {
 							edit: false,
-							domain: domain,
+							domain: domain
 						});
 					}}>
 					<View style={styles.buttonView}>
@@ -173,8 +146,6 @@ export default function Home(props: TProps) {
 
 	return (
 		<View style={styles.container}>
-			{loading && <Progress.Bar isIndeterminate color="blue" />}
-
 			<ScrollView>
 				<View style={styles.newsContentLine}>
 					{renderToday()}
@@ -217,19 +188,19 @@ const styles = StyleSheet.create({
 		height: 40,
 		position: "absolute",
 		width: 150,
-		zIndex: 990,
+		zIndex: 990
 	},
 	buttonText: {
 		color: "white",
 		fontSize: 20,
 		fontWeight: "bold",
-		marginRight: 5,
+		marginRight: 5
 	},
 	buttonView: {
 		flex: 1,
 		flexDirection: "row",
 		alignItems: "center",
-		justifyContent: "center",
+		justifyContent: "center"
 	},
 
 	card: {
@@ -238,7 +209,7 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		marginBottom: 12,
 		paddingLeft: 5,
-		width: "97%",
+		width: "97%"
 	},
 	cardAddNew: {
 		alignSelf: "center",
@@ -247,32 +218,32 @@ const styles = StyleSheet.create({
 		marginBottom: 12,
 		marginTop: 10,
 		paddingLeft: 5,
-		width: "97%",
+		width: "97%"
 	},
 	container: {
 		backgroundColor: "#EFEFF4",
-		flex: 1,
+		flex: 1
 	},
 
 	cookiesLogoView: {
 		alignItems: "center",
-		marginTop: 100,
+		marginTop: 100
 	},
 	headerIcon: { width: 60 },
 	headerRightIcons: {
 		flexDirection: "row-reverse",
-		marginLeft: 5,
+		marginLeft: 5
 	},
 	headerRow: {
 		alignItems: "center",
 		flexDirection: "row",
 		justifyContent: "space-between",
-		width: WINDOW_WIDTH - 35,
+		width: WINDOW_WIDTH - 35
 	},
 	headerTextPanel: { flex: 1, marginLeft: 5, width: "100%" },
 	icon: {
 		marginLeft: 15,
-		marginRight: 5,
+		marginRight: 5
 	},
 	iconPhoto: {
 		alignItems: "center",
@@ -283,17 +254,17 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		left: 6,
 		margin: 12,
-		width: 36,
+		width: 36
 	},
 	newsContentLine: {
 		backgroundColor: "#f2f2f2",
-		paddingTop: 10,
+		paddingTop: 10
 	},
 	sclogo: {
 		alignSelf: "center",
 		borderTopWidth: 1,
 		height: 40,
-		width: 40,
+		width: 40
 	},
 	user: {
 		alignSelf: "center",
@@ -302,10 +273,10 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "column",
 		fontSize: 12,
-		textAlign: "center",
+		textAlign: "center"
 	},
 	userDiagnostics: {
-		paddingBottom: 30,
+		paddingBottom: 30
 	},
 	version: {
 		alignSelf: "center",
@@ -314,6 +285,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "column",
 		fontSize: 12,
-		textAlign: "center",
-	},
+		textAlign: "center"
+	}
 });

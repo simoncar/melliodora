@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, View, SafeAreaView } from "react-native";
 import firebase from "../lib/firebase";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import * as Progress from "expo-progress";
+import { LinearProgress } from "react-native-elements";
 import { Text, Button } from "../components/sComponent";
 import I18n from "../lib/i18n";
 import { Input } from "react-native-elements";
@@ -74,7 +74,7 @@ export default function LoginScreen(props: TProps) {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			{loading && <Progress.Bar isIndeterminate color="blue" />}
+			{loading && <LinearProgress color="primary" />}
 
 			<View style={styles.fieldsContainer}>
 				<Text style={styles.errorMessage}>{errorMessage}</Text>
@@ -94,7 +94,7 @@ export default function LoginScreen(props: TProps) {
 						leftIcon={{
 							type: "ionicon",
 							name: "ios-mail",
-							color: emailValid === true ? "#007aff" : "grey",
+							color: emailValid === true ? "#007aff" : "grey"
 						}}
 					/>
 				</View>
@@ -114,29 +114,20 @@ export default function LoginScreen(props: TProps) {
 						leftIcon={{
 							type: "ionicon",
 							name: "lock-closed",
-							color: passwordComplexity === true ? "#007aff" : "grey",
+							color: passwordComplexity === true ? "#007aff" : "grey"
 						}}
 						rightIcon={{
 							type: "ionicon",
 							name: "ios-eye-off",
 							color: "grey",
-							onPress: toggleSecureEntry,
+							onPress: toggleSecureEntry
 						}}
 					/>
 				</View>
 			</View>
 
-			<Button
-				title={I18n.t("login")}
-				style={styles.loginButton}
-				onPress={() => handleLogin()}
-				testID="login.loginButton"
-			/>
-			<Button
-				title={I18n.t("signUp")}
-				onPress={() => props.navigation.navigate("signup")}
-				testID="login.signupButton"
-			/>
+			<Button title={I18n.t("login")} style={styles.loginButton} onPress={() => handleLogin()} testID="login.loginButton" />
+			<Button title={I18n.t("signUp")} onPress={() => props.navigation.navigate("signup")} testID="login.signupButton" />
 
 			<View>
 				<TouchableOpacity onPress={() => props.navigation.navigate("forgetpassword")}>
@@ -150,10 +141,10 @@ export default function LoginScreen(props: TProps) {
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "#f2f2f2",
-		padding: 10,
+		padding: 10
 	},
 	containerInput: {
-		borderBottomWidth: 0,
+		borderBottomWidth: 0
 	},
 	containerStyle: {
 		backgroundColor: "#ffffff",
@@ -161,20 +152,20 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		borderWidth: 1,
 		height: 45,
-		marginVertical: 8,
+		marginVertical: 8
 	},
 	errorMessage: {
 		color: "red",
 		paddingTop: 10,
-		textAlign: "center",
+		textAlign: "center"
 	},
 	fieldsContainer: {
 		paddingHorizontal: 15,
-		paddingTop: 15,
+		paddingTop: 15
 	},
 	loginButton: {
 		backgroundColor: "#007aff",
-		color: "white",
+		color: "white"
 	},
 	sectionStyle: {
 		alignItems: "center",
@@ -182,11 +173,11 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		height: 40,
 		justifyContent: "center",
-		margin: 10,
+		margin: 10
 	},
 	textAction: {
 		color: "#111111",
 		fontSize: 16,
-		textAlign: "center",
-	},
+		textAlign: "center"
+	}
 });

@@ -15,9 +15,18 @@ exports[`button Bar 1`] = `
 >
   <RCTScrollView
     collapsable={false}
+    handlerTag={1}
+    handlerType="NativeViewGestureHandler"
     horizontal={true}
     onGestureHandlerEvent={[Function]}
     onGestureHandlerStateChange={[Function]}
+    waitFor={
+      Array [
+        Object {
+          "current": null,
+        },
+      ]
+    }
   >
     <View>
       <View
@@ -31,6 +40,7 @@ exports[`button Bar 1`] = `
       >
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -77,6 +87,7 @@ exports[`button Bar 1`] = `
         </View>
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -124,6 +135,7 @@ Design
         </View>
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -171,6 +183,7 @@ News
         </View>
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -218,6 +231,7 @@ Planning
         </View>
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}

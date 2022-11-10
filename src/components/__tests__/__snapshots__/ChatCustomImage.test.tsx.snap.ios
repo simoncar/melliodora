@@ -10,6 +10,7 @@ exports[`show photo in chat thread 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -30,104 +31,7 @@ exports[`show photo in chat thread 1`] = `
       onRequestClose={[Function]}
       transparent={false}
       visible={false}
-    >
-      <View
-        style={Object {}}
-      >
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
-            style={
-              Object {
-                "fontSize": 20,
-                "paddingBottom": 5,
-                "paddingLeft": 10,
-                "paddingTop": 50,
-              }
-            }
-          >
-            Close
-          </Text>
-        </View>
-        <View
-          accessibilityRole="button"
-          accessibilityState={Object {}}
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-          testID="customImage.save"
-        >
-          <View
-            style={
-              Array [
-                Object {},
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "color": "#007AFF",
-                    "fontSize": 18,
-                    "margin": 8,
-                    "textAlign": "center",
-                  },
-                ]
-              }
-            >
-              Save
-            </Text>
-          </View>
-        </View>
-      </View>
-      <Image
-        source={
-          Object {
-            "uri": "https://smartcookies.imgix.net/chatimage%2FdLyDZVfkOZ2XDVk49jHF%2F202006%2F73891c7b-5960-4b7f-a7e3-b8975ee9fecc?alt=media&token=f76974de-d8d2-4b1f-a980-a83265bdcf10&auto=enhance&fit=clip&w=2250",
-          }
-        }
-        style={
-          Array [
-            Object {
-              "height": 1000,
-              "width": 333.3333333333333,
-            },
-            Object {
-              "alignItems": "center",
-              "justifyContent": "center",
-              "width": 750,
-            },
-          ]
-        }
-        testID="customImage.imageModal"
-      />
-    </Modal>
+    />
     <Image
       source={
         Object {

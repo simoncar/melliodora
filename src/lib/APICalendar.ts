@@ -12,12 +12,12 @@ export function getCalendarItems(domain: string, language: string, callback: any
 	todayItem[todayDate] = [];
 	todayItem[todayDate].push({
 		key: "todayKey",
-		summary: I18n.t("today") + todayDay,
-		summaryMyLanguage: I18n.t("today") + todayDay,
+		summary: I18n.t("today") + " " + todayDay,
+		summaryMyLanguage: I18n.t("today") + " " + todayDay,
 		icon: "md-radio-button-off",
 		color: "yellow",
 		title: todayDay,
-		marginBottom: 25,
+		marginBottom: 25
 	});
 	callback(todayItem);
 
@@ -53,11 +53,11 @@ export function getCalendarItems(domain: string, language: string, callback: any
 
 			fullItems[todayDate].push({
 				key: "todayKey",
-				summary: I18n.t("today") + todayDay,
-				summaryMyLanguage: I18n.t("today") + todayDay,
+				summary: I18n.t("today") + " " + todayDay,
+				summaryMyLanguage: I18n.t("today") + " " + todayDay,
 				icon: "md-radio-button-off",
 				color: "yellow",
-				title: todayDay,
+				title: todayDay
 			});
 
 			snapshot.forEach((doc) => {
@@ -83,7 +83,7 @@ export function getCalendarItems(domain: string, language: string, callback: any
 					showIconChat: false,
 					number: doc.data().number,
 					key: doc.id,
-					order: 0,
+					order: 0
 				};
 
 				fullItems[dayCode].push(event);
@@ -118,12 +118,12 @@ export function getCalendarToday(domain: string, language: string, callback: any
 					color: "red",
 					showIconChat: false,
 					descriptionMyLanguage: getLanguageString(language, doc.data(), "description"),
-					number: doc.data().number,
+					number: doc.data().number
 				};
 				calendarItems.push({
 					...{ key: doc.id },
 					...doc.data(),
-					...trans,
+					...trans
 				});
 			});
 

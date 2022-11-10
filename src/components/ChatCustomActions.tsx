@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, TouchableOpacity, View, ViewPropTypes, SafeAreaView } from "react-native";
+import { StyleSheet, TouchableOpacity, View, SafeAreaView } from "react-native";
 import Constants from "expo-constants";
 import { Text } from "./sComponent";
 import * as Permissions from "expo-permissions";
@@ -14,7 +14,7 @@ export default class CustomActions extends React.Component {
 		this.state = {
 			image: null,
 			modalVisiblePhoto: false,
-			modalVisibleVideo: false,
+			modalVisibleVideo: false
 		};
 		this.onActionsPress = this.onActionsPress.bind(this);
 		this.selectImagesPhoto = this.selectImagesPhoto.bind(this);
@@ -26,12 +26,12 @@ export default class CustomActions extends React.Component {
 	}
 
 	getPermissionAsync = async () => {
-		if (Constants.platform.ios) {
-			const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
-			if (status !== "granted") {
-				alert("Sorry, we need camera roll permissions to make this work!");
-			}
-		}
+		// if (Constants.platform.ios) {
+		// 	const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+		// 	if (status !== "granted") {
+		// 		alert("Sorry, we need camera roll permissions to make this work!");
+		// 	}
+		// }
 	};
 
 	setImages(images) {
@@ -59,7 +59,7 @@ export default class CustomActions extends React.Component {
 		this.context.actionSheet().showActionSheetWithOptions(
 			{
 				options,
-				cancelButtonIndex,
+				cancelButtonIndex
 			},
 			(buttonIndex) => {
 				switch (buttonIndex) {
@@ -112,7 +112,7 @@ export default class CustomActions extends React.Component {
 								return {
 									image: image.uri,
 									filename: image.filename,
-									playableDuration: 0,
+									playableDuration: 0
 								};
 							});
 
@@ -151,7 +151,7 @@ export default class CustomActions extends React.Component {
 								return {
 									image: image.uri,
 									filename: image.filename,
-									playableDuration: 1,
+									playableDuration: 1
 								};
 							});
 
@@ -191,38 +191,38 @@ const styles = StyleSheet.create({
 	ab62223e0b16711ea999f193302967c6e: { backgroundColor: "#fff" },
 	ab6224af0b16711ea999f193302967c6e: {
 		navBar: {
-			backgroundColor: "#FFF",
+			backgroundColor: "#FFF"
 		},
 		statusBar: {
-			backgroundColor: "#FFF",
-		},
+			backgroundColor: "#FFF"
+		}
 	},
 	ab6224af1b16711ea999f193302967c6e: {
-		color: "#000",
+		color: "#000"
 	},
 	ab6224af2b16711ea999f193302967c6e: {
-		color: "#000",
+		color: "#000"
 	},
 	ab6227200b16711ea999f193302967c6e: {
-		color: "#000",
+		color: "#000"
 	},
 	ab6227201b16711ea999f193302967c6e: { backgroundColor: "#fff" },
 	ab6227202b16711ea999f193302967c6e: {
 		navBar: {
-			backgroundColor: "#FFF",
+			backgroundColor: "#FFF"
 		},
 		statusBar: {
-			backgroundColor: "#FFF",
-		},
+			backgroundColor: "#FFF"
+		}
 	},
 	ab6227203b16711ea999f193302967c6e: {
-		color: "#000",
+		color: "#000"
 	},
 	ab6227204b16711ea999f193302967c6e: {
-		color: "#000",
+		color: "#000"
 	},
 	ab6229910b16711ea999f193302967c6e: {
-		color: "#000",
+		color: "#000"
 	},
 	ab622c020b16711ea999f193302967c6e: { color: "#0284FF", fontSize: 25 },
 
@@ -230,12 +230,12 @@ const styles = StyleSheet.create({
 		height: 26,
 		marginBottom: 10,
 		marginLeft: 10,
-		width: 26,
-	},
+		width: 26
+	}
 });
 
 CustomActions.contextTypes = {
-	actionSheet: PropTypes.func,
+	actionSheet: PropTypes.func
 };
 
 CustomActions.defaultProps = {
@@ -244,14 +244,12 @@ CustomActions.defaultProps = {
 	icon: null,
 	containerStyle: {},
 	wrapperStyle: {},
-	iconTextStyle: {},
+	iconTextStyle: {}
 };
 
 CustomActions.propTypes = {
 	onSend: PropTypes.func,
 	options: PropTypes.object,
 	icon: PropTypes.func,
-	containerStyle: ViewPropTypes.style,
-	wrapperStyle: ViewPropTypes.style,
-	iconTextStyle: Text.propTypes.style,
+	iconTextStyle: Text.propTypes.style
 };

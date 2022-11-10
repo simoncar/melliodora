@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
-import { SearchBar } from "react-native-elements";
+//import { SearchBar } from "react-native-elements";
 import CalendarItem from "../components/CalendarItem";
 
 interface IProps {
@@ -31,44 +31,17 @@ export default function Search(props: IProps) {
 	};
 
 	const renderItem = (item) => {
-		return (
-			<CalendarItem
-				navigation={props.navigation}
-				story={item.item}
-				domain={domain}
-				language={language}
-				showDate={true}
-			/>
-		);
+		return <CalendarItem navigation={props.navigation} story={item.item} domain={domain} language={language} showDate={true} />;
 	};
 
-	return (
-		<View style={styles.searchView}>
-			<FlatList
-				data={searchData}
-				renderItem={renderItem}
-				ListHeaderComponent={
-					<SearchBar
-						lightTheme
-						round
-						autoCorrect={false}
-						placeholder="Type Here..."
-						onChangeText={(text) => searchFilterFunction(text)}
-						value={search}
-						containerStyle={styles.searchContainer}
-						inputContainerStyle={styles.searchContainer}
-					/>
-				}
-			/>
-		</View>
-	);
+	return <View style={styles.searchView}></View>;
 }
 
 const styles = StyleSheet.create({
 	searchContainer: {
-		backgroundColor: "#fff",
+		backgroundColor: "#fff"
 	},
 	searchView: {
-		flex: 1,
-	},
+		flex: 1
+	}
 });

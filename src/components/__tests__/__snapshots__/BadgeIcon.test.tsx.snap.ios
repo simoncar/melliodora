@@ -2,6 +2,7 @@
 
 exports[`Badge icon render 1`] = `
 <View
+  collapsable={false}
   numberOfLines={1}
   style={
     Object {
@@ -27,6 +28,7 @@ exports[`Badge icon render 1`] = `
 
 exports[`Badge icon render not visible 1`] = `
 <View
+  collapsable={false}
   numberOfLines={1}
   style={
     Object {
@@ -48,6 +50,7 @@ exports[`Badge icon render not visible 1`] = `
 >
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {

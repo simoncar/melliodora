@@ -21,7 +21,7 @@ export async function getDomains(callback: domainsRead) {
 					key: doc.id,
 					name: doc.data().name,
 					node: doc.data().node,
-					admins: doc.data().admins,
+					admins: doc.data().admins
 				};
 				domains.push(domain);
 			});

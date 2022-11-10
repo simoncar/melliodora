@@ -2,7 +2,6 @@
 
 exports[`show login screen 1`] = `
 <RCTSafeAreaView
-  emulateUnlessSupported={true}
   style={
     Object {
       "backgroundColor": "#f2f2f2",
@@ -32,9 +31,7 @@ exports[`show login screen 1`] = `
           },
         ]
       }
-    >
-      
-    </Text>
+    />
     <View
       style={
         Object {
@@ -62,6 +59,7 @@ exports[`show login screen 1`] = `
         }
       >
         <View
+          collapsable={false}
           style={
             Object {
               "alignItems": "center",
@@ -110,7 +108,6 @@ exports[`show login screen 1`] = `
             </View>
           </View>
           <TextInput
-            allowFontScaling={true}
             autoCapitalize="none"
             autoFocus={true}
             editable={true}
@@ -118,10 +115,8 @@ exports[`show login screen 1`] = `
             onChangeText={[Function]}
             placeholder="Email"
             placeholderTextColor="#86939e"
-            rejectResponderTermination={true}
             style={
               Object {
-                "alignSelf": "center",
                 "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
@@ -171,6 +166,7 @@ exports[`show login screen 1`] = `
         }
       >
         <View
+          collapsable={false}
           style={
             Object {
               "alignItems": "center",
@@ -219,17 +215,14 @@ exports[`show login screen 1`] = `
             </View>
           </View>
           <TextInput
-            allowFontScaling={true}
             autoCapitalize="none"
             editable={true}
             onChangeText={[Function]}
             placeholder="Password"
             placeholderTextColor="#86939e"
-            rejectResponderTermination={true}
             secureTextEntry={true}
             style={
               Object {
-                "alignSelf": "center",
                 "color": "#242424",
                 "flex": 1,
                 "fontSize": 18,
@@ -259,6 +252,11 @@ exports[`show login screen 1`] = `
               }
             >
               <View
+                accessibilityState={
+                  Object {
+                    "disabled": false,
+                  }
+                }
                 accessible={true}
                 focusable={true}
                 onClick={[Function]}
@@ -307,6 +305,7 @@ exports[`show login screen 1`] = `
   >
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -372,6 +371,7 @@ exports[`show login screen 1`] = `
   >
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -425,14 +425,21 @@ exports[`show login screen 1`] = `
   <View>
     <RNGestureHandlerButton
       collapsable={false}
+      delayLongPress={600}
+      enabled={true}
+      exclusive={true}
+      handlerTag={1}
+      handlerType="NativeViewGestureHandler"
       onGestureEvent={[Function]}
       onGestureHandlerEvent={[Function]}
       onGestureHandlerStateChange={[Function]}
       onHandlerStateChange={[Function]}
       rippleColor={0}
+      touchSoundDisabled={false}
     >
       <View
         accessible={true}
+        collapsable={false}
         style={
           Object {
             "opacity": 1,

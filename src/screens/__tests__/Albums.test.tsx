@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react-native";
 import SelectAlbum from "../Albums";
 
-jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
+jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 jest.mock("../../lib/firebase");
 
 const route = {
