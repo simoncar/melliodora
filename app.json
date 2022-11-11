@@ -65,7 +65,6 @@
 				}
 			}
 		},
-		"androidStatusBarColor": "#2AE",
 		"androidStatusBar": {
 			"barStyle": "dark-content",
 			"backgroundColor": "#2AE"
