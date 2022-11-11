@@ -1,6 +1,6 @@
 {
 	"name": "stamford",
-	"version": "40.0.0",
+	"version": "47.0.0",
 	"private": true,
 	"devDependencies": {
 		"@babel/core": "^7.19.3",
