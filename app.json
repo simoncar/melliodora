@@ -2,7 +2,7 @@
 	"expo": {
 		"name": "Polo Photos",
 		"owner": "simoncar",
-		"version": "40.0.40",
+		"version": "47.0.0",
 		"icon": "./resources/genericApp/iconPolo.png",
 		"slug": "polo",
 		"description": "Photo Roll Sharing",

@@ -1,4 +1,4 @@
-name: Expo Deploy App 
+name: Expo Deploy App
 on:
   push:
     branches:
@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 14.x
       - uses: expo/expo-github-action@v5
         with:
           expo-version: 4.x
@@ -22,8 +22,7 @@ jobs:
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPSPECIFIC_PASSWORD }}
           EXPO_APPLE_PASSWORD: ${{ secrets.EXPO_APPLE_ID_PASSWORD }}
       - run: yarn install
-      - run: expo build:ios --config apps/app.generic.json 
+      - run: expo build:ios --config apps/app.generic.json
       - run: expo build:ios --config apps/app.sais_edu_sg.json
       - run: expo build:android -t app-bundle --config apps/app.generic.json
       - run: expo build:android -t app-bundle --config apps/app.sais_edu_sg.json
-        
