@@ -79,13 +79,10 @@ export default function Setup() {
 			.then(() => {
 				const auth = firebase.auth();
 				//const user = auth.currentUser;
-				console.log("HERE HERE HERE");
 
 				auth.onAuthStateChanged((user) => {
 					let objAuth = {};
-					console.log("------- HERE HERE");
 					if (user) {
-						console.log("AAAAAAA HERE HERE");
 						// User is signed in, see docs for a list of available properties
 						// https://firebase.google.com/docs/reference/js/firebase.User
 						const uid = user.uid;
@@ -106,7 +103,6 @@ export default function Setup() {
 
 						return setLoading(false);
 					} else {
-						console.log("BBBBBB HERE HERE");
 						// User is signed out
 						// ...
 

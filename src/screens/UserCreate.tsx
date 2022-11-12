@@ -96,15 +96,12 @@ export class SignUp extends Component<TProps, TState> {
 				//   setUserClaim({ email: this.state.email, domain: globalAny.domain })
 				// })
 				.then((result) => {
-					console.log("resultA:", result);
 					this.setState({ loading: false });
 				})
 				.then((result) => {
-					console.log("resultB:", result);
 					this.props.navigation.popToTop();
 				})
 				.catch((error) => {
-					console.log("CCC:", error);
 					this.setState({
 						errorMessage: error.message,
 						loading: false,
@@ -119,7 +116,6 @@ export class SignUp extends Component<TProps, TState> {
 	};
 
 	setProfilePic = ({ profilePic }) => {
-		console.log("im here :", profilePic);
 		this.setState({ profilePic: profilePic });
 	};
 
