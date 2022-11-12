@@ -1,6 +1,6 @@
-import * as Notifications from 'expo-notifications'
-import * as Permissions from "expo-permissions";
-import Constants from "expo-constants";
+import { Platform } from "react-native";
+import * as Notifications from "expo-notifications";
+import * as Device from "expo-device";
 import firebase from "../lib/firebase";
 import _ from "lodash";
 
@@ -11,24 +11,37 @@ class registerForPush {
 }
 
 async function registerForPushNotificationsAsync(user) {
-	// Android remote notification permissions are granted during the app
-	// install, so this will only ask on iOS
-
 	let token = "DENIED";
 
-	const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-	if (!Constants.isDevice) {
-		token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
-		//  ExponentPushToken{LQTd3QIbBBfGdHT6JluSWy}    // simon android - expo
-		//  ExponentPushToken{7vlNCrIXB7fBC2d_CDdCbA}    // simon iphone - expo
-	} else {
-		token = await Notifications.getExpoPushTokenAsync();
+	console.log("PERMISSIONS : registerForPushNotificationsAsync");
 
-		// Stop here if the user did not grant permissions
-		if (status !== "granted") {
+	if (Device.isDevice) {
+		const { status: existingStatus } = await Notifications.getPermissionsAsync();
+		let finalStatus = existingStatus;
+		if (existingStatus !== "granted") {
+			const { status } = await Notifications.requestPermissionsAsync();
+			finalStatus = status;
+		}
+		if (finalStatus !== "granted") {
+			alert("Failed to get push token for push notification!");
 			return;
 		}
+		token = (await Notifications.getExpoPushTokenAsync()).data;
+		console.log(token);
+	} else {
+		//alert("Must use physical device for Push Notifications");
+		token = "ExponentPushToken[YQNwZDOkv0QdHUlDV-T5HQ]"; // override simulator with simon's iphone
 	}
+
+	if (Platform.OS === "android") {
+		Notifications.setNotificationChannelAsync("default", {
+			name: "default",
+			importance: Notifications.AndroidImportance.MAX,
+			vibrationPattern: [0, 250, 250, 250],
+			lightColor: "#FF231F7C"
+		});
+	}
+
 	let safeToken = token.replace("[", "{");
 	safeToken = safeToken.replace("]", "}");
 
@@ -41,16 +54,10 @@ async function registerForPushNotificationsAsync(user) {
 	if (!_.isNil(global.uid)) {
 		var userDict = {
 			token,
-			safeToken,
+			safeToken
 		};
 
-		firebase
-			.firestore()
-			.collection(global.domain)
-			.doc("user")
-			.collection("usernames")
-			.doc(global.uid)
-			.set(userDict, { merge: true });
+		firebase.firestore().collection(global.domain).doc("user").collection("usernames").doc(global.uid).set(userDict, { merge: true });
 	}
 }
 

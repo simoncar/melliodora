@@ -40,8 +40,6 @@ export default function Home(props: TProps) {
 	};
 
 	useEffect(() => {
-		console.log("AAAAA" + JSON.stringify(domain));
-
 		props.navigation.setOptions({
 			headerTitle: domain.name
 		});
@@ -87,8 +85,6 @@ export default function Home(props: TProps) {
 	}, []);
 
 	useEffect(() => {
-		console.log("BBBB" + domain);
-
 		props.navigation.setOptions({
 			headerTitle: domain.name
 		});

@@ -9,6 +9,7 @@ export const phoneCalendar = async (event: StoryEntity) => {
 	var newEvent = {};
 
 	const _askForCalendarPermissions = async () => {
+		console.log("PERMISSIONS : _askForCalendarPermissions");
 		const response = await Permissions.askAsync(Permissions.CALENDAR);
 		return response.status === "granted";
 	};
@@ -32,7 +33,7 @@ export const phoneCalendar = async (event: StoryEntity) => {
 		startDate: startDate,
 		endDate: endDate,
 		notes: descriptionMyLanguage,
-		timeZone: "Asia/Singapore",
+		timeZone: "Asia/Singapore"
 	};
 
 	try {
