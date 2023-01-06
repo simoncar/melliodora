@@ -13,7 +13,6 @@ import CustomVideo from "../components/ChatCustomVideo";
 import I18n from "../lib/i18n";
 import uuid from "uuid";
 import Backend, { getMessages, addMessage } from "../lib/APIChat";
-import * as Analytics from "expo-firebase-analytics";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { Text } from "../components/sComponent";
 import { useDomain, useLanguage, useAuth } from "../lib/globalState";
@@ -109,7 +108,6 @@ export class Chat_old extends Component<TProps> {
 			headerBackTitleVisible: false,
 		});
 
-		Analytics.logEvent("Chat", { chatroom: title });
 	}
 
 	onSend(messages = []) {

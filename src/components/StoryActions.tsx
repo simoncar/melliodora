@@ -4,7 +4,6 @@ import { Ionicons, MaterialIcons, SimpleLineIcons, MaterialCommunityIcons } from
 import { formatTime, formatMonth, getLanguageString } from "../lib/global";
 import { phoneCalendar } from "../lib/phoneCalendar";
 import { StoryEntity } from "../lib/interfaces";
-import { setUserProperty } from "expo-firebase-analytics";
 
 export function actionEdit(
 	navigation: any,

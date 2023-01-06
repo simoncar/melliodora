@@ -3,7 +3,6 @@ import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import * as Analytics from "expo-firebase-analytics";
 import { MaterialIcons, Ionicons, SimpleLineIcons, Feather, FontAwesome } from "@expo/vector-icons";
 import I18n from "./lib/i18n";
 import Constants from "expo-constants";
@@ -184,9 +183,6 @@ export default function MainScreenNavigator() {
 				const previousRouteName = routeNameRef.current;
 				const currentRouteName = navigationRef.current.getCurrentRoute().name;
 
-				if (previousRouteName !== currentRouteName) {
-					//Analytics.setCurrentScreen(currentRouteName);
-				}
 				routeNameRef.current = currentRouteName;
 			}}>
 			<MainScreen.Navigator headerMode="none">

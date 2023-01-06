@@ -17,14 +17,14 @@ export default function Setup() {
 	const [loading, setLoading] = useState(true);
 	const [domain, setDomain] = useDomainP();
 	const [domainName, setDomainName] = useDomainNameP();
-	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
-	const [, setGAuth, gAuth] = useAuth();
-	const [, setGLogin, gLogin] = useLogin();
-	const [, setGEmail, gEmail] = useEmail();
-	const [, setGDisplayName, gDisplayName] = useDisplayName();
-	const [, setGPhotoURL, gPhotoURL] = usePhotoURL();
-	const [, setGUid, gUid] = useUid();
-	const [, setAdmin, admin] = useAdmin();
+	const [language, setLanguage, languageIsUpdated] = useLanguage();
+	const [gAuth, setGAuth] = useAuth();
+	const [gLogin, setGLogin] = useLogin();
+	const [gEmail, setGEmail] = useEmail();
+	const [gDisplayName, setGDisplayName] = useDisplayName();
+	const [gPhotoURL, setGPhotoURL] = usePhotoURL();
+	const [gUid, setGUid] = useUid();
+	const [admin, setAdmin] = useAdmin();
 
 	useEffect(() => {
 		LogBox.ignoreLogs(["You should try avoid call the same state-setter multiple times at one execution line"]);
@@ -34,10 +34,6 @@ export default function Setup() {
 				SegoeUI: require("../resources/segoe-ui.ttf")
 			});
 			return "done loading fonts";
-		}
-
-		async function loadLanguage() {
-			return refreshLanguage();
 		}
 
 		async function initLang(inLang) {
@@ -67,9 +63,6 @@ export default function Setup() {
 		}
 
 		loadFonts()
-			.then(() => {
-				return loadLanguage();
-			})
 			.then((ret) => {
 				return initLang(ret);
 			})

@@ -29,45 +29,30 @@ export const useLanguage = languageStore.getHook();
 export const useAdmin = adminStore.getHook();
 
 export const useDomainP = () => {
-	const [refresh, setter, state, isUpdated] = useDomain();
-	useEffect(() => {
-		refresh();
-	}, []);
+	const [state, setter, isUpdated] = useDomain();
+
 	return [state, setter, isUpdated];
 };
 
 export const DomainObj = () => {
-	const [refreshDomain, , stateDomain] = useDomain();
-	const [refreshDomainName, , stateDomainName] = useDomainName();
-	useEffect(() => {
-		refreshDomain();
-		refreshDomainName();
-	}, []);
+	const [stateDomain] = useDomain();
+	const [stateDomainName] = useDomainName();
 
 	const domain: DomainEntity = {
 		node: stateDomain,
-		name: stateDomainName,
+		name: stateDomainName
 	};
 
 	return domain;
 };
 
 export const AuthObj = () => {
-	const [refreshEmail, , stateEmail] = useEmail();
-	const [refreshLogin, , stateLogin] = useLogin();
-	const [refreshUid, , stateUid] = useUid();
-	const [refreshDisplayName, , stateDisplayName] = useDisplayName();
-	const [refreshPhotoURL, , statePhotoURL] = usePhotoURL();
-	const [refreshLanguage, , stateLanguage] = useLanguage();
-
-	useEffect(() => {
-		refreshEmail();
-		refreshLogin();
-		refreshUid();
-		refreshDisplayName();
-		refreshPhotoURL();
-		refreshLanguage();
-	}, []);
+	const [stateEmail] = useEmail();
+	const [stateLogin] = useLogin();
+	const [stateUid] = useUid();
+	const [stateDisplayName] = useDisplayName();
+	const [statePhotoURL] = usePhotoURL();
+	const [stateLanguage] = useLanguage();
 
 	const auth: AuthEntity = {
 		uid: stateUid,
@@ -75,80 +60,53 @@ export const AuthObj = () => {
 		email: stateEmail,
 		login: stateLogin,
 		language: stateLanguage,
-		photoURL: statePhotoURL,
+		photoURL: statePhotoURL
 	};
 
 	return auth;
 };
 
 export const useDomainNameP = () => {
-	const [refresh, setter, state, isUpdated] = useDomainName();
+	const [state, setter, isUpdated] = useDomainName();
 
-	useEffect(() => {
-		refresh();
-	}, []);
 	return [state, setter, isUpdated];
 };
 
 export const useDomainsP = () => {
-	const [refresh, setter, state, isUpdated] = useDomains();
-	useEffect(() => {
-		refresh();
-	}, []);
+	const [state, setter, isUpdated] = useDomains();
 	return [state, setter, isUpdated];
 };
 
 export const useAuthP = () => {
-	const [refresh, setter, state, isUpdated] = useAuth();
-	useEffect(() => {
-		refresh();
-	}, []);
+	const [state, setter, isUpdated] = useAuth();
 	return [state, setter, isUpdated];
 };
 
 export const useLoginP = () => {
-	const [refresh, setter, state, isUpdated] = useLogin();
-	useEffect(() => {
-		refresh();
-	}, []);
+	const [state, setter, isUpdated] = useLogin();
 	return [state, setter, isUpdated];
 };
 export const useEmailP = () => {
-	const [refresh, setter, state, isUpdated] = useEmail();
-	useEffect(() => {
-		refresh();
-	}, []);
+	const [state, setter, isUpdated] = useEmail();
 	return [state, setter, isUpdated];
 };
 export const useUidP = () => {
-	const [refresh, setter, state, isUpdated] = useUid();
-	useEffect(() => {
-		refresh();
-	}, []);
+	const [state, setter, isUpdated] = useUid();
 	return [state, setter, isUpdated];
 };
 
 export const useDisplayNameP = () => {
-	const [refresh, setter, state, isUpdated] = useDisplayName();
-	useEffect(() => {
-		refresh();
-	}, []);
+	const [state, setter, isUpdated] = useDisplayName();
 	return [state, setter, isUpdated];
 };
 
 export const usePhotoURLP = () => {
-	const [refresh, setter, state, isUpdated] = usePhotoURL();
-	useEffect(() => {
-		refresh();
-	}, []);
+	const [state, setter, isUpdated] = usePhotoURL();
 	return [state, setter, isUpdated];
 };
 
 export const useLanguageP = () => {
-	const [refresh, setter, state, isUpdated] = useLanguage();
-	useEffect(() => {
-		refresh();
-	}, []);
+	const [state, setter, isUpdated] = useLanguage();
 
 	return [state, setter, isUpdated];
 };
