@@ -13,11 +13,11 @@ interface TProps {
 }
 
 export default function ChatRooms(props: TProps) {
-	const [, , domain] = useDomain();
-	const [, , uid] = useUid();
-	const [, , displayName] = useDisplayName();
-	const [, , language] = useLanguage();
-	const [, , photoURL] = usePhotoURL();
+	const [domain] = useDomain();
+	const [uid] = useUid();
+	const [displayName] = useDisplayName();
+	const [language, ,] = useLanguage();
+	const [photoURL] = usePhotoURL();
 	const [userChatrooms, setUserChatrooms] = useState([]);
 
 	useEffect(() => {
@@ -40,7 +40,7 @@ export default function ChatRooms(props: TProps) {
 
 					userChatroomsArr.push({
 						...item,
-						chatroom: doc.id,
+						chatroom: doc.id
 					});
 				});
 				setUserChatrooms(userChatroomsArr);
@@ -52,19 +52,7 @@ export default function ChatRooms(props: TProps) {
 	}, []);
 
 	const _renderItemNoCard = (navigation, item) => {
-		return (
-			<ChatroomItem
-				key={item.chatroom}
-				{...item}
-				navigation={navigation}
-				card={false}
-				domain={domain}
-				uid={uid}
-				displayName={displayName}
-				language={language}
-				photoURL={photoURL}
-			/>
-		);
+		return <ChatroomItem key={item.chatroom} {...item} navigation={navigation} card={false} domain={domain} uid={uid} displayName={displayName} language={language} photoURL={photoURL} />;
 	};
 
 	return (
@@ -81,19 +69,14 @@ export default function ChatRooms(props: TProps) {
 									edit: false,
 									chatroom: "New Chatroom",
 									title: "New Chatroom",
-									domain: domain,
+									domain: domain
 								});
 							}}
 							lastItem={true}
 						/>
 					</View>
 					<View style={styles.card}>
-						<ShortList
-							navigation={props.navigation}
-							style={styles.card}
-							data={userChatrooms}
-							renderItem={_renderItemNoCard}
-						/>
+						<ShortList navigation={props.navigation} style={styles.card} data={userChatrooms} renderItem={_renderItemNoCard} />
 					</View>
 				</View>
 			</ScrollView>
@@ -108,13 +91,13 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		marginBottom: 6,
 		padding: 10,
-		width: "95%",
+		width: "95%"
 	},
 	container: { backgroundColor: "#EFEFF4", flex: 1, marginTop: 10 },
 
 	iconLeftPlus: {
 		color: "#999999",
 		fontSize: 25,
-		marginLeft: 12,
-	},
+		marginLeft: 12
+	}
 });

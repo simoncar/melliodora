@@ -19,9 +19,9 @@ import { useDomain, useLanguage, useAuth } from "../lib/globalState";
 
 export default function Chat() {
 	const [messages, setMessages] = useState([]);
-	const [, , domain] = useDomain();
-	const [, , language] = useLanguage();
-	const [, , authString] = useAuth();
+	const [domain] = useDomain();
+	const [language] = useLanguage();
+	const [authString] = useAuth();
 
 	const auth = JSON.parse(authString);
 
@@ -47,7 +47,7 @@ export default function Chat() {
 			user={{
 				_id: auth.uid,
 				name: auth.displayName,
-				avatar: auth.photoURL,
+				avatar: auth.photoURL
 			}}
 			showUserAvatar={true}
 			alwaysShowSend={true}
@@ -74,7 +74,7 @@ export class Chat_old extends Component<TProps> {
 			user: null,
 			authenticated: false,
 			modalVisible: false,
-			chatroomUsers: [],
+			chatroomUsers: []
 		};
 
 		this.onSend = this.onSend.bind(this);
@@ -99,15 +99,14 @@ export class Chat_old extends Component<TProps> {
 		Backend.loadMessages((message) => {
 			if (!localMessages.includes(message._id)) {
 				this.setState((previousState) => ({
-					messages: GiftedChat.append(previousState.messages, message),
+					messages: GiftedChat.append(previousState.messages, message)
 				}));
 			}
 		});
 
 		this.props.navigation.setOptions({
-			headerBackTitleVisible: false,
+			headerBackTitleVisible: false
 		});
-
 	}
 
 	onSend(messages = []) {
@@ -116,7 +115,7 @@ export class Chat_old extends Component<TProps> {
 		}
 
 		this.setState((previousState) => ({
-			messages: GiftedChat.append(previousState.messages, messages),
+			messages: GiftedChat.append(previousState.messages, messages)
 		}));
 
 		localMessages.push(messages[0]._id);
@@ -139,7 +138,7 @@ export class Chat_old extends Component<TProps> {
 
 	onLoadEarlier() {
 		this.setState((previousState) => ({
-			isLoadingEarlier: true,
+			isLoadingEarlier: true
 		}));
 	}
 
@@ -160,7 +159,7 @@ export class Chat_old extends Component<TProps> {
 
 		var images = [];
 		let result = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			mediaTypes: ImagePicker.MediaTypeOptions.Images
 		});
 
 		if (!result.cancelled) {
@@ -169,8 +168,8 @@ export class Chat_old extends Component<TProps> {
 				filename: result.uri,
 				user: {
 					_id: this.userInfo.uid, // `${Constants.installationId}${Constants.deviceId}`, // sent messages should have same user._id
-					name: this.userInfo.firstName,
-				},
+					name: this.userInfo.firstName
+				}
 			};
 
 			this.onSend(images);
@@ -226,7 +225,7 @@ export class Chat_old extends Component<TProps> {
 		this.props.showActionSheetWithOptions(
 			{
 				options,
-				cancelButtonIndex,
+				cancelButtonIndex
 			},
 			(buttonIndex) => {
 				switch (buttonIndex) {
@@ -239,7 +238,7 @@ export class Chat_old extends Component<TProps> {
 							chatroom: chatroom,
 							type: type,
 							edit: true,
-							onGoBack: this.refresh,
+							onGoBack: this.refresh
 						});
 						break;
 					case 2:
@@ -271,13 +270,13 @@ export class Chat_old extends Component<TProps> {
 		let userDetails = {};
 		if (this.props.route.params.uid === "") {
 			userDetails = {
-				name: "Guest",
+				name: "Guest"
 			};
 		} else {
 			userDetails = {
 				name: this.props.route.params.displayName,
 				email: "",
-				...(this.props.route.params.photoURL && { avatar: this.props.route.params.photoURL }),
+				...(this.props.route.params.photoURL && { avatar: this.props.route.params.photoURL })
 			};
 		}
 
@@ -300,7 +299,7 @@ export class Chat_old extends Component<TProps> {
 					<TouchableOpacity
 						onPress={() => {
 							this.props.navigation.navigate("selectLanguageChat", {
-								chatroom: this.props.route.params.title,
+								chatroom: this.props.route.params.title
 							});
 						}}>
 						<View style={styles.topBar}>
@@ -314,7 +313,7 @@ export class Chat_old extends Component<TProps> {
 					onSend={this.onSend}
 					user={{
 						_id: this.props.route.params.uid,
-						...userDetails,
+						...userDetails
 					}}
 					renderActions={this.renderCustomActions}
 					renderCustomView={this.renderCustomView}
@@ -346,7 +345,7 @@ export class ActionSheetContainer extends Component {
 					<Entypo name="cog" style={styles.chatHeading} />
 				</View>
 			</TouchableOpacity>
-		),
+		)
 	});
 
 	render() {
@@ -361,27 +360,27 @@ export class ActionSheetContainer extends Component {
 const styles = StyleSheet.create({
 	a221a2b50ac4611ea973dcfce83f911da: {
 		flex: 1,
-		flexDirection: "row",
+		flexDirection: "row"
 	},
 	a221a5260ac4611ea973dcfce83f911da: {
 		flex: 1,
-		fontSize: 16,
+		fontSize: 16
 	},
 	a221a5261ac4611ea973dcfce83f911da: {
 		flex: 1,
 		flexDirection: "column",
-		paddingTop: 3,
+		paddingTop: 3
 	},
 	a221a5262ac4611ea973dcfce83f911da: {
-		color: "gray",
+		color: "gray"
 	},
 	a221a5263ac4611ea973dcfce83f911da: {
-		color: "gray",
+		color: "gray"
 	},
 	a221aa080ac4611ea973dcfce83f911da: {
 		backgroundColor: "#f2f2f2",
 		flex: 1,
-		marginTop: 22,
+		marginTop: 22
 	},
 	a221aa082ac4611ea973dcfce83f911da: {
 		color: "#fff",
@@ -390,24 +389,24 @@ const styles = StyleSheet.create({
 		textShadowColor: "#000",
 		textShadowOffset: {
 			width: 1,
-			height: 0.8,
+			height: 0.8
 		},
-		textShadowRadius: 1,
+		textShadowRadius: 1
 	},
 	a221aa083ac4611ea973dcfce83f911da: {
 		backgroundColor: "#fff",
-		marginTop: 12,
+		marginTop: 12
 	},
 	a221aa084ac4611ea973dcfce83f911da: {
 		fontSize: 18,
-		padding: 12,
+		padding: 12
 	},
 	a221aa085ac4611ea973dcfce83f911da: {
-		height: "70%",
+		height: "70%"
 	},
 	cameraAction: {
 		color: "#777777",
-		fontSize: 25,
+		fontSize: 25
 	},
 
 	chatBanner: {
@@ -417,7 +416,7 @@ const styles = StyleSheet.create({
 		color: "grey",
 		fontSize: 14,
 		paddingBottom: 5,
-		paddingTop: 5,
+		paddingTop: 5
 	},
 	chatHeading: {
 		alignSelf: "center",
@@ -426,55 +425,55 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		fontSize: 25,
 		paddingBottom: 5,
-		paddingRight: 10,
+		paddingRight: 10
 	},
 	container: {
 		backgroundColor: "#EFEFF4",
 		flex: 1,
-		marginTop: 10,
+		marginTop: 10
 	},
 	footer: {
-		height: 10,
+		height: 10
 	},
 
 	footerContainer: {
 		marginBottom: 10,
 		marginLeft: 10,
 		marginRight: 10,
-		marginTop: 5,
+		marginTop: 5
 	},
 
 	footerText: {
 		color: "#000",
-		fontSize: 14,
+		fontSize: 14
 	},
 
 	photoContainer: {
 		height: 26,
 		marginBottom: 10,
 		marginLeft: 10,
-		width: 26,
+		width: 26
 	},
 	sendIcon: {
 		color: "#777777",
-		fontSize: 25,
+		fontSize: 25
 	},
 
 	sendView: {
 		marginBottom: 10,
-		marginRight: 10,
+		marginRight: 10
 	},
 	separator: {
 		backgroundColor: "#CED0CE",
-		height: 1,
+		height: 1
 	},
 	topBar: {
 		alignItems: "center",
 		backgroundColor: "white",
-		height: 30,
+		height: 30
 	},
 	url: {
 		color: "blue",
-		textDecorationLine: "underline",
-	},
+		textDecorationLine: "underline"
+	}
 });
