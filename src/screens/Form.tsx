@@ -4,7 +4,6 @@ import { Input } from "react-native-elements";
 import firebase from "../lib/firebase";
 import { Entypo } from "@expo/vector-icons";
 import I18n from "../lib/i18n";
-import _ from "lodash";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import uuid from "uuid";
@@ -46,24 +45,11 @@ export default class Form extends Component<TProps, StoryState> {
 				dateTimeEnd: "",
 				date_start: "",
 				time_start_pretty: "",
-				time_end_pretty: "",
+				time_end_pretty: ""
 			};
 		}
 
-		const {
-			key,
-			summary,
-			description,
-			photo1,
-			visible,
-			showIconChat,
-			order,
-			dateTimeStart,
-			dateTimeEnd,
-			date_start,
-			time_start_pretty,
-			time_end_pretty,
-		} = story;
+		const { key, summary, description, photo1, visible, showIconChat, order, dateTimeStart, dateTimeEnd, date_start, time_start_pretty, time_end_pretty } = story;
 
 		this.state = {
 			photo1: photo1 !== undefined ? photo1 : "",
@@ -82,7 +68,7 @@ export default class Form extends Component<TProps, StoryState> {
 			dateTimeEnd: dateTimeEnd,
 			cameraIcon: "camera",
 			edit: this.props.route.params.edit,
-			domain: this.props.route.params.domain,
+			domain: this.props.route.params.domain
 		};
 
 		this.handlerChat = this.handlerChat.bind(this);
@@ -97,7 +83,7 @@ export default class Form extends Component<TProps, StoryState> {
 		navigation.setOptions({
 			save: this.save,
 			headerRight: () => <Button onPress={() => this.save()} title={I18n.t("save")} />,
-			headerBackTitleVisible: false,
+			headerBackTitleVisible: false
 		});
 	}
 
@@ -116,7 +102,7 @@ export default class Form extends Component<TProps, StoryState> {
 		this.setState({
 			dateTimeStart: dateTimeStart,
 			dateTimeEnd: dateTimeEnd,
-			date_start: date_start,
+			date_start: date_start
 		});
 	}
 
@@ -163,19 +149,15 @@ export default class Form extends Component<TProps, StoryState> {
 								{
 									text: I18n.t("cancel"),
 									onPress: () => console.log("Cancel Pressed"),
-									style: "cancel",
+									style: "cancel"
 								},
 								{
 									text: I18n.t("delete"),
 									onPress: () => {
 										console.log("Delete feature:", key);
-										DeleteFeature(
-											this.state.domain,
-											key,
-											this.deleteHandler(this.props.navigation)
-										);
-									},
-								},
+										DeleteFeature(this.state.domain, key, this.deleteHandler(this.props.navigation));
+									}
+								}
 							],
 							{ cancelable: false }
 						);
@@ -204,7 +186,7 @@ export default class Form extends Component<TProps, StoryState> {
 		var d = new Date();
 
 		let result = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			mediaTypes: ImagePicker.MediaTypeOptions.Images
 		});
 
 		if (!result.cancelled) {
@@ -213,13 +195,9 @@ export default class Form extends Component<TProps, StoryState> {
 			var fileToUpload = "";
 			var mime = "";
 
-			const convertedImage = await new ImageManipulator.manipulateAsync(
-				result.uri,
-				[{ resize: { height: 1000 } }],
-				{
-					compress: 0,
-				}
-			);
+			const convertedImage = await new ImageManipulator.manipulateAsync(result.uri, [{ resize: { height: 1000 } }], {
+				compress: 0
+			});
 
 			fileToUpload = convertedImage.uri;
 			mime = "image/jpeg";
@@ -285,11 +263,7 @@ export default class Form extends Component<TProps, StoryState> {
 									<IconChat handler={this.handlerChat} showIconChat={this.state.showIconChat} />
 									<ShowOnHomeScreen handler={this.handlerVisible} visible={this.state.visible} />
 									<OrderOnPage handler={this.handlerOrder} order={this.state.order} />
-									<EventDateTime
-										handler={this.handleEventDateTime}
-										dateTimeStart={this.state.dateTimeStart}
-										dateTimeEnd={this.state.dateTimeEnd}
-									/>
+									<EventDateTime handler={this.handleEventDateTime} dateTimeStart={this.state.dateTimeStart} dateTimeEnd={this.state.dateTimeEnd} />
 								</View>
 							</View>
 						</View>
@@ -317,14 +291,7 @@ export default class Form extends Component<TProps, StoryState> {
 					</View>
 					<View style={styles.formButton}>{this.deleteButton()}</View>
 
-					{edit && (
-						<ImageList
-							feature={story.key}
-							refreshFunction={refreshFunction}
-							edit={true}
-							domain={this.state.domain}
-						/>
-					)}
+					{edit && <ImageList feature={story.key} refreshFunction={refreshFunction} edit={true} domain={this.state.domain} />}
 				</ScrollView>
 			</View>
 		);
@@ -344,45 +311,45 @@ const styles = StyleSheet.create({
 		shadowOffset: { height: 2, width: 2 },
 		shadowOpacity: 0.8,
 		shadowRadius: 1,
-		width: 250,
+		width: 250
 	},
 
 	cameraIcon: {
 		color: "white",
-		fontSize: 25,
+		fontSize: 25
 	},
 	container: {
 		backgroundColor: "#f2f2f2",
-		flex: 1,
+		flex: 1
 	},
 	containerStyle: {
 		backgroundColor: "#ffffff",
 		borderColor: "#d2d2d2",
 		borderRadius: 10,
 		borderWidth: 1,
-		marginVertical: 8,
+		marginVertical: 8
 	},
 	formButton: {
 		alignItems: "center",
 		flexDirection: "column",
-		marginTop: 12,
+		marginTop: 12
 	},
 	formControls: {
 		paddingLeft: 10,
 		paddingRight: 10,
-		paddingTop: 20,
+		paddingTop: 20
 	},
 
 	formLongValues: {
 		flex: 1,
 		paddingLeft: 10,
 		paddingRight: 10,
-		paddingTop: 20,
+		paddingTop: 20
 	},
 
 	formSpace: {
 		flexDirection: "row",
-		paddingTop: 20,
+		paddingTop: 20
 	},
 
 	photoButton: {
@@ -399,12 +366,12 @@ const styles = StyleSheet.create({
 		shadowColor: "#000000",
 		shadowOffset: {
 			height: 1,
-			width: 0,
+			width: 0
 		},
 		shadowOpacity: 0.8,
 		shadowRadius: 2,
 		width: 50,
-		zIndex: 990,
+		zIndex: 990
 	},
 
 	storyPhoto: {
@@ -420,6 +387,6 @@ const styles = StyleSheet.create({
 		shadowOffset: { height: 1, width: 0.5 },
 		shadowOpacity: 0.2,
 		shadowRadius: 0.5,
-		width: "98%",
-	},
+		width: "98%"
+	}
 });

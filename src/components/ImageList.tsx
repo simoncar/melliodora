@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Dimensions, Text, StyleSheet } from "react-native";
+import { View, Dimensions, StyleSheet } from "react-native";
 import AlbumImage from "./AlbumImage";
 import { listenPhotos } from "../lib/APIAlbum";
 import Image from "../components/Imgix";
@@ -58,7 +58,7 @@ export default function ImageList(props: IProps) {
 							<Image
 								key={photos[key].key}
 								source={{
-									uri: photos[key].server,
+									uri: photos[key].server
 								}}
 								style={styles.image}
 							/>
@@ -93,10 +93,10 @@ export default function ImageList(props: IProps) {
 const styles = StyleSheet.create({
 	image: {
 		height: 80,
-		width: 80,
+		width: 80
 	},
 	rollView: {
 		flex: 1,
-		flexDirection: "row",
-	},
+		flexDirection: "row"
+	}
 });
