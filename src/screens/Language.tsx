@@ -13,8 +13,6 @@ export default function SelectLanguage(props: TProps) {
 	const [language, setLanguage, languageIsUpdated] = useLanguage();
 
 	const getStyle = (pass: string) => {
-		console.log(pass, ":", language);
-
 		if (language === pass) {
 			return styles.imageStyleCheckOn;
 		} else {
