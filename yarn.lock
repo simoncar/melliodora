@@ -9457,6 +9457,11 @@ json-stable-stringify-without-jsonify@^1.0.1:
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
   integrity sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==
 
+json-storage-formatter@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/json-storage-formatter/-/json-storage-formatter-1.0.1.tgz#6af1aed3b6e3ec2b1043bfc2e5ca3e610df4f194"
+  integrity sha512-sPmLBf6O0b4k2n0NFJYSrFOo9LqFEmCcMw3iSYWZJXFJv+D9szqhoy4SfDQGDfIIxfOgagkbiLIggUVS3mUOQA==
+
 json3@^3.3.2:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/json3/-/json3-3.3.3.tgz#7fc10e375fc5ae42c4705a5cc0aa6f62be305b81"
@@ -12244,10 +12249,12 @@ react-native-gifted-chat@^0.16.3:
     react-native-typing-animation "^0.1.7"
     uuid "3.4.0"
 
-react-native-global-state-hooks@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-global-state-hooks/-/react-native-global-state-hooks-2.0.1.tgz#cf320e8ca3e2f21c3d9a2692020f9ec60ba522d7"
-  integrity sha512-O750JzFuX3cxfI6Dinv2knyN6CO/JNVEJSc7nT15fRytxVOlx7dHIZer14QpFAQlN1DK/bUAni1v+MHMqoJLVw==
+react-native-global-state-hooks@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-global-state-hooks/-/react-native-global-state-hooks-2.0.5.tgz#ef79eaacfc52679caed01cf474635eb6b6721776"
+  integrity sha512-p9yjAT1NQ60iXROrlxwNvYsr2jguVV7sRKHFWQwRxloYGfSox1eq2rtSPgPSQti4URBCvullLh4KhsC3CMgTww==
+  dependencies:
+    json-storage-formatter "^1.0.0"
 
 react-native-gradle-plugin@^0.70.3:
   version "0.70.3"

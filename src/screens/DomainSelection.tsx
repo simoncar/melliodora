@@ -21,7 +21,7 @@ export default function DomainSelection(props: TProps) {
 	const [, , uid] = useUid();
 	const [domains, domainsSetter, domainsIsUpdated] = useDomainsP();
 	const [domainName, domainNameSetter, domainNameIsUpdated] = useDomainNameP();
-	const [refreshLanguage, setLanguage, language, languageIsUpdated] = useLanguage();
+	const [language, setLanguage, languageIsUpdated] = useLanguage();
 
 	const domainsRead = (domainsDB) => {
 		domainsSetter(JSON.stringify(domainsDB));
@@ -53,12 +53,7 @@ export default function DomainSelection(props: TProps) {
 			<View key={item.key}>
 				<SettingsListItem
 					hasNavArrow={true}
-					icon={
-						<MaterialIcons
-							name="group"
-							style={userIsAdmin ? styles.imageStyleIconAdmin : styles.imageStyleIcon}
-						/>
-					}
+					icon={<MaterialIcons name="group" style={userIsAdmin ? styles.imageStyleIconAdmin : styles.imageStyleIcon} />}
 					title={item.name}
 					onPress={() => {
 						domainNameSetter(item.name);
@@ -103,7 +98,7 @@ export default function DomainSelection(props: TProps) {
 
 const styles = StyleSheet.create({
 	bottomSpace: {
-		paddingBottom: 100,
+		paddingBottom: 100
 	},
 	card: {
 		alignSelf: "center",
@@ -111,7 +106,7 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		marginBottom: 12,
 		padding: 10,
-		width: "95%",
+		width: "95%"
 	},
 	imageStyleIcon: {
 		alignSelf: "center",
@@ -119,7 +114,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		marginLeft: 15,
 		textAlign: "center",
-		width: 30,
+		width: 30
 	},
 	imageStyleIconAdmin: {
 		alignSelf: "center",
@@ -127,7 +122,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		marginLeft: 15,
 		textAlign: "center",
-		width: 30,
+		width: 30
 	},
 
 	imageStyleIconCreate: {
@@ -136,18 +131,18 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		marginLeft: 15,
 		textAlign: "center",
-		width: 30,
+		width: 30
 	},
 
 	separator: {
-		backgroundColor: "#CED0CE",
+		backgroundColor: "#CED0CE"
 	},
 
 	user: {
-		color: "red",
+		color: "red"
 	},
 	viewFlex: {
 		flex: 1,
-		marginTop: 10,
-	},
+		marginTop: 10
+	}
 });

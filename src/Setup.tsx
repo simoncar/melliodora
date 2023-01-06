@@ -36,18 +36,17 @@ export default function Setup() {
 			return "done loading fonts";
 		}
 
-		async function initLang(inLang) {
-			var lang = inLang;
-			if (lang === "") {
-				lang = "en";
-				await setLanguage(lang);
-			}
+		async function initLang() {
+			var lang = "en";
+			await setLanguage(lang);
 
 			if (lang === "ar") {
 				I18nManager.forceRTL(true);
 			} else {
 				I18nManager.forceRTL(false);
 			}
+			console.log("Language: ", lang);
+
 			I18n.locale = lang;
 			return lang;
 		}
@@ -64,7 +63,7 @@ export default function Setup() {
 
 		loadFonts()
 			.then((ret) => {
-				return initLang(ret);
+				return initLang();
 			})
 			.then(() => {
 				return initDomain();
