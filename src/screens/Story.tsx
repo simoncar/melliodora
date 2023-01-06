@@ -4,14 +4,7 @@ import ParsedText from "react-native-parsed-text";
 import { formatTime, formatMonth, getAbbreviations, isValue } from "../lib/global";
 import { Text } from "../components/sComponent";
 import ImageList from "../components/ImageList";
-import {
-	actionEdit,
-	actionPhotos,
-	actionChat,
-	actionSend,
-	actionCalendar,
-	actionShare,
-} from "../components/StoryActions";
+import { actionEdit, actionPhotos, actionChat, actionCalendar, actionShare } from "../components/StoryActions";
 import { StoryEntity, StoryState } from "../lib/interfaces";
 import Image from "../components/Imgix";
 
@@ -43,7 +36,7 @@ export default class Story extends Component<TProps, StoryState> {
 			dateTimeEnd,
 			date_start,
 			time_start_pretty,
-			time_end_pretty,
+			time_end_pretty
 		} = this.props.route.params.story;
 
 		this.state = {
@@ -64,7 +57,7 @@ export default class Story extends Component<TProps, StoryState> {
 			cameraIcon: "camera",
 			source: source,
 			location: location,
-			edit: false,
+			edit: false
 		};
 	}
 
@@ -72,7 +65,7 @@ export default class Story extends Component<TProps, StoryState> {
 		const navigation = this.props.navigation;
 
 		navigation.setOptions({
-			headerBackTitleVisible: false,
+			headerBackTitleVisible: false
 		});
 	}
 
@@ -89,7 +82,7 @@ export default class Story extends Component<TProps, StoryState> {
 	refreshFunction(newState: StoryState) {
 		this.setState({
 			summaryMyLanguage: newState.summary,
-			descriptionMyLanguage: newState.description,
+			descriptionMyLanguage: newState.description
 		});
 		this.setState(newState);
 	}
@@ -161,20 +154,20 @@ export default class Story extends Component<TProps, StoryState> {
 						{
 							pattern: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,12}\b([-a-zA-Z0-9@:%_+.~#?&/=]*[-a-zA-Z0-9@:%_+~#?&/=])*/i,
 							style: styles.url,
-							onPress: this._handleOpenWithLinking,
+							onPress: this._handleOpenWithLinking
 						},
 						{
 							type: "phone",
 							style: styles.url,
-							onPress: this._handlePhonePress,
+							onPress: this._handlePhonePress
 						},
 						{
 							type: "email",
 							style: styles.email,
-							onPress: this._handleEmailPress,
+							onPress: this._handleEmailPress
 						},
 						{ pattern: /433333332/, style: styles.url },
-						{ pattern: /#(\w+)/, style: styles.url },
+						{ pattern: /#(\w+)/, style: styles.url }
 					]}
 					childrenProps={{ allowFontScaling: false }}>
 					{story.descriptionMyLanguage}
@@ -203,12 +196,7 @@ export default class Story extends Component<TProps, StoryState> {
 
 					{this.drawText(this.state)}
 
-					<ImageList
-						feature={this.state.key}
-						refreshFunction={this.refreshFunction}
-						edit={false}
-						domain={this.props.route.params.domain}
-					/>
+					<ImageList feature={this.state.key} refreshFunction={this.refreshFunction} edit={false} domain={this.props.route.params.domain} />
 				</ScrollView>
 			</View>
 		);
@@ -218,45 +206,45 @@ export default class Story extends Component<TProps, StoryState> {
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "#fff",
-		height: "100%",
+		height: "100%"
 	},
 	email: {
 		color: "blue",
-		textDecorationLine: "underline",
+		textDecorationLine: "underline"
 	},
 	englishFallback: {
 		color: "grey",
 		fontSize: 16,
 		paddingBottom: 10,
-		paddingTop: 30,
+		paddingTop: 30
 	},
 	eventText: {
 		color: "#222",
 		fontSize: 16,
-		marginRight: 20,
+		marginRight: 20
 	},
 	eventTextAbbreviation: {
 		color: "grey",
-		fontSize: 16,
+		fontSize: 16
 	},
 	eventTextBody: {
 		color: "#222",
 		fontSize: 16,
 		marginRight: 20,
-		marginTop: 15,
+		marginTop: 15
 	},
 	eventTextTime: {
 		color: "#222",
 		fontSize: 16,
 		marginBottom: 10,
-		marginRight: 20,
+		marginRight: 20
 	},
 	eventTitle: {
 		color: "#222",
 		fontSize: 16,
 		fontWeight: "bold",
 		paddingBottom: 10,
-		paddingTop: 15,
+		paddingTop: 15
 	},
 	storyPhoto: {
 		alignSelf: "center",
@@ -272,7 +260,7 @@ const styles = StyleSheet.create({
 		shadowOffset: { height: 1, width: 0.5 },
 		shadowOpacity: 0.2,
 		shadowRadius: 0.5,
-		width: "98%",
+		width: "98%"
 	},
 	textBox: {
 		alignSelf: "center",
@@ -288,10 +276,10 @@ const styles = StyleSheet.create({
 		shadowOffset: { height: 1, width: 0.5 },
 		shadowOpacity: 0.2,
 		shadowRadius: 0.5,
-		width: "98%",
+		width: "98%"
 	},
 	url: {
 		color: "blue",
-		textDecorationLine: "underline",
-	},
+		textDecorationLine: "underline"
+	}
 });

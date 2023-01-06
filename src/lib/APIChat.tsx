@@ -39,21 +39,15 @@ export function getMessage(messageObj: any, id: string, language: string): Messa
 			user: {
 				_id: messageObj.user._id,
 				name: messageObj.user.name,
-				avatar: avatar(messageObj.user.avatar),
-			},
-		},
+				avatar: avatar(messageObj.user.avatar)
+			}
+		}
 	];
 
 	return message;
 }
 
-export function addMessage(
-	domain: string,
-	language: string,
-	chatroom: string,
-	messages: MessageEntity[],
-	auth: UserEntity
-) {
+export function addMessage(domain: string, language: string, chatroom: string, messages: MessageEntity[], auth: UserEntity) {
 	return new Promise((resolve, reject) => {
 		const promises = [];
 
@@ -61,7 +55,7 @@ export function addMessage(
 			// if (undefined != messages[i].image && messages[i].image.length > 0) {
 			// 	var uploadUrl = uploadImageAsync(messages[i], chatroom, messages[i].user);
 			// } else {
-			var messageDict = {
+			var messageDictAdd = {
 				_id: messages[i]._id,
 				text: messages[i].text,
 				textLanguage: language,
@@ -71,22 +65,15 @@ export function addMessage(
 					_id: auth.uid,
 					name: auth.displayName,
 					email: auth.email,
-					avatar: auth.photoURL,
+					avatar: auth.photoURL
 				},
 				createdAt: Date.now(),
 				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-				system: false,
+				system: false
 				//pushToken: pushToken,
 			};
 
-			const p1 = firebase
-				.firestore()
-				.collection(domain)
-				.doc("chat")
-				.collection("chatrooms")
-				.doc(chatroom)
-				.collection("messages")
-				.add(messageDict);
+			const p1 = firebase.firestore().collection(domain).doc("chat").collection("chatrooms").doc(chatroom).collection("messages").add(messageDictAdd);
 
 			promises.push(p1);
 			//}
@@ -109,7 +96,7 @@ export class Backend extends React.Component {
 		super(props);
 		this.state = {
 			chatroom: "",
-			language: "",
+			language: ""
 		};
 	}
 
@@ -153,15 +140,7 @@ export class Backend extends React.Component {
 	}
 
 	loadMessages = async (callback) => {
-		this.ref = firebase
-			.firestore()
-			.collection(this.domain)
-			.doc("chat")
-			.collection("chatrooms")
-			.doc(this.state.chatroom)
-			.collection("messages")
-			.orderBy("timestamp")
-			.where("translated", "==", true);
+		this.ref = firebase.firestore().collection(this.domain).doc("chat").collection("chatrooms").doc(this.state.chatroom).collection("messages").orderBy("timestamp").where("translated", "==", true);
 
 		this.unsubscribe = this.ref.onSnapshot((messages) => {
 			messages.docChanges().forEach((change) => {
@@ -192,13 +171,13 @@ export class Backend extends React.Component {
 						user: {
 							_id: message.user._id,
 							name: message.user.name,
-							email: message.user.email,
+							email: message.user.email
 						},
 						uid: message.uid,
 						image: message.image,
 						video: message.video,
 						system: message.system,
-						quickReplies: message.quickReplies,
+						quickReplies: message.quickReplies
 					});
 				}
 			});
@@ -238,17 +217,10 @@ export class Backend extends React.Component {
 					timestamp: Date.now(),
 					system: false,
 					pushToken: global.pushToken,
-					uid: this.uid,
+					uid: this.uid
 				};
 
-				this.messageRef = firebase
-					.firestore()
-					.collection(this.domain)
-					.doc("chat")
-					.collection("chatrooms")
-					.doc(this.state.chatroom)
-					.collection("messages")
-					.add(messageDict);
+				this.messageRef = firebase.firestore().collection(this.domain).doc("chat").collection("chatrooms").doc(this.state.chatroom).collection("messages").add(messageDict);
 			}
 		}
 	}
@@ -261,26 +233,18 @@ export class Backend extends React.Component {
 					pushToken: global.pushToken,
 					timestamp: Date.now(),
 					uid: this.uid,
-					language: this.language,
+					language: this.language
 				};
 			} else {
 				var messageDict = {
 					pushToken: global.pushToken,
 					timestamp: Date.now(),
 					uid: this.uid,
-					language: this.language,
+					language: this.language
 				};
 			}
 
-			firebase
-				.firestore()
-				.collection(this.domain)
-				.doc("chat")
-				.collection("chatrooms")
-				.doc(this.state.chatroom)
-				.collection("notifications")
-				.doc(global.safeToken)
-				.set(messageDict, { merge: true });
+			firebase.firestore().collection(this.domain).doc("chat").collection("chatrooms").doc(this.state.chatroom).collection("notifications").doc(global.safeToken).set(messageDict, { merge: true });
 		}
 	}
 
@@ -309,13 +273,9 @@ async function uploadImageAsync(message, chatroom, user) {
 	var fileToUpload = "";
 	fileType = fileType.toUpperCase();
 	if (fileType == "JPG" || fileType == "HEIC" || fileType == "PNG") {
-		const convertedImage = await new ImageManipulator.manipulateAsync(
-			message.image,
-			[{ resize: { height: 1000 } }],
-			{
-				compress: 0,
-			}
-		);
+		const convertedImage = await new ImageManipulator.manipulateAsync(message.image, [{ resize: { height: 1000 } }], {
+			compress: 0
+		});
 		fileToUpload = convertedImage.uri;
 		mime = "image/jpeg";
 	} else {
@@ -370,7 +330,7 @@ async function uploadImageAsync(message, chatroom, user) {
 			user: user,
 			timestamp: Date.now(),
 			system: false,
-			pushToken: global.pushToken,
+			pushToken: global.pushToken
 		};
 	} else {
 		var messageDict = {
@@ -381,18 +341,11 @@ async function uploadImageAsync(message, chatroom, user) {
 			user: user,
 			timestamp: Date.now(),
 			system: false,
-			pushToken: global.pushToken,
+			pushToken: global.pushToken
 		};
 	}
 
-	firebase
-		.firestore()
-		.collection(this.domain)
-		.doc("chat")
-		.collection("chatrooms")
-		.doc(chatroom)
-		.collection("messages")
-		.add(messageDict);
+	firebase.firestore().collection(this.domain).doc("chat").collection("chatrooms").doc(chatroom).collection("messages").add(messageDict);
 	return;
 }
 
